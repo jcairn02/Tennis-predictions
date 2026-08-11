@@ -1,0 +1,356 @@
+{
+  "summary": "Deep research harness — fan-out web searches, fetch sources, adversarially verify claims, synthesize a cited report.",
+  "agentCount": 108,
+  "logs": [
+    "Q: State of the art in tennis match prediction and tennis betting (focus 2015–2026,…",
+    "Decomposed into 5 angles: academic-pre-match-models, academic-in-play-point-level, open-source-tools-datasets, crypto-marketmaker-sportsbooks, market-microstructure-inefficiencies",
+    "academic-pre-match-models: 6 results",
+    "open-source-tools-datasets: 6 results",
+    "academic-in-play-point-level: 6 results",
+    "academic-in-play-point-level: 5 novel (1 filtered)",
+    "crypto-marketmaker-sportsbooks: 6 results",
+    "crypto-marketmaker-sportsbooks: 5 novel (1 filtered)",
+    "market-microstructure-inefficiencies: 6 results",
+    "market-microstructure-inefficiencies: 4 novel (2 filtered)",
+    "Fetched 26 sources → 129 claims → verifying top 25",
+    "\"In a head-to-head evaluation on ATP men's tennis, …\": 3-0 ✓",
+    "\"FiveThirtyEight-style Elo with career-to-date data…\": 3-0 ✓",
+    "\"In the first systematic benchmark of published ten…\": 3-0 ✓",
+    "\"Prediction degrades sharply outside the elite: eve…\": 3-0 ✓",
+    "\"The quantitative ordering across 14 test years (20…\": 3-0 ✓",
+    "\"The thesis builds pre-match prediction models (log…\": 3-0 ✓",
+    "\"Sipko's artificial neural network model generated …\": 3-0 ✓",
+    "\"The model predicts serve-point win probability on …\": 3-0 ✓",
+    "\"A graph neural network (MagNet spectral GCN) that …\": 3-0 ✓",
+    "\"On 1,684 matches across seven Grand Slam tournamen…\": 3-0 ✓",
+    "\"Ingram's point-based Bayesian hierarchical model, …\": 3-0 ✓",
+    "\"Pinnacle's implied probabilities remain the best o…\": 3-0 ✓",
+    "\"The authors state that a model trained entirely on…\": 3-0 ✓",
+    "\"In the paper's survey of published tennis predicti…\": 3-0 ✓",
+    "\"Ingram's point-based Bayesian hierarchical model, …\": 3-0 ✓",
+    "\"The model's architecture predicts the probability …\": 3-0 ✓",
+    "\"Tennis points exhibit positive serial dependence (…\": 3-0 ✓",
+    "\"Points are not identically distributed across the …\": 3-0 ✓",
+    "\"Although the iid assumption is formally rejected, …\": 3-0 ✓",
+    "\"Knottenbelt, Spanias & Madurska (2012) report that…\": 3-0 ✓",
+    "\"The model is a pre-match, point-level hierarchical…\": 3-0 ✓",
+    "\"Ensembling point-based Markov methods with two nov…\": 3-0 ✓",
+    "\"Point-based hierarchical Markov models for tennis …\": 2-1 ✓",
+    "\"Li et al. (Journal of Big Data, 2025) report that …\": 3-0 ✓",
+    "\"The paper's key methodological innovation is restr…\": 3-0 ✓",
+    "Verify done: 25 claims → 25 confirmed, 0 killed"
+  ],
+  "result": {
+    "question": "State of the art in tennis match prediction and tennis betting (focus 2015–2026, emphasis on recent): (1) Academic literature — pre-match prediction models (Elo variants incl. surface-blended/FiveThirtyEight-style, point-level Markov/hierarchical models, Bayesian approaches, gradient boosting/neural nets, bookmaker-aware/ensemble models), in-play/point-by-point modeling and momentum literature, benchmark comparisons (log loss/calibration/ROI vs bookmakers), key authors (Kovalchik, Klaassen & Magnus, Knottenbelt, Sipko, Ingram, Barnett, Candila/Angelini). (2) Tools, datasets, open-source landscape — Jeff Sackmann repos (tennis_atp, tennis_wta, slam point-by-point, Match Charting Project), tennis-data.co.uk historical odds, R packages (deuce, welo), notable GitHub prediction/betting repos and their reported results, commercial data providers (Sportradar/official ATP-WTA feeds, OnCourt), odds APIs (the-odds-api, BetsAPI, OpticOdds, api-tennis, Betfair historical), live/point-by-point data access options for individuals. (3) Betting market structure — market-maker sportsbooks that accept cryptocurrency and offer tennis (Pinnacle, BetOnline, Bookmaker, Cloudbet, Sportsbet.io, BC.Game, 3et, Polymarket, SX Bet, others), their tennis margins/limits/in-play offerings/API access, retirement-void rules per book (these differ and matter), tennis market microstructure (who originates lines, open-vs-close movement, in-play share of handle, challenger/ITF liquidity and integrity issues), documented inefficiencies (favorite-longshot bias, CLV benchmarks vs Pinnacle close, fatigue/scheduling angles, WTA pricing quality, retirement-risk pricing). (4) Gap analysis inputs — what existing open-source tools/commercial products do NOT cover (e.g., odds-aware training, calibration+staking, WTA, in-play for individuals, retirement handling, crypto/market-maker-only workflow). Context: the researcher is a solo bettor with an existing UFC ML betting pipeline (AutoGluon, Bayesian feature engineering, Kelly sizing, closing-line-value tracking), can ONLY bet at market-maker sportsbooks (no soft/retail books), funds via crypto. Deliverable: cited findings covering papers, tools, data sources, market structure, and concrete gaps a solo quant bettor could exploit.",
+    "summary": "On the academic pillar — the only pillar of the four-part question with surviving verified claims — the literature from Kovalchik (2016) through the 2025–26 graph-model papers is unanimous: bookmaker odds (Pinnacle or Shin-corrected consensus) are the most accurate tennis forecasters (72% accuracy / 0.55 log-loss on 2,395 ATP-2014 matches; 74.1% on 2024–25 Slams; 69.0% / 0.196 Brier on 2023–25), and no published odds-free model beats them overall — only odds-aware models (gradient boosting with odds inputs, odds-trained graph models) reach parity. The best odds-free baselines are FiveThirtyEight-style career-Elo (70% / 0.59 log-loss) and ML models roughly 2pp above Elo (ADTree 69.8%, logistic regression 69.5% vs Elo/WElo 67.5%); the point-based Markov family (Knottenbelt common-opponent, Barnett–Clarke) lags unless rebuilt as a Bayesian hierarchical serve/return model (Ingram 2019: 68.8% / 0.592) or ensembled with head-to-head and point-specific modifications (~70%, Wang & Drekic 2026). Every published profitable result is a selective-subset play, not global out-forecasting: 3.8% ROI (common-opponent model, 2011), 4.35–4.4% ROI (Sipko ANN on the least-uncertain half of 2013–14 matches at Pinnacle odds), and +3.26% Kelly ROI over 1,903 Pinnacle bets on high-intransitivity matchups (MagNet GNN, 2023–25) — the same GNN lost 5.49% betting indiscriminately. Two structural soft spots recur: all models including bookmakers lose 10–20pp of accuracy outside top-30 players, and point-level non-iid effects (momentum; server underperformance on important points) are real but small, keeping iid Markov in-play engines serviceable. Tools/datasets (Sackmann repos, R packages, odds APIs), crypto market-maker book specifics, retirement-void rules, and market microstructure produced no surviving verified claims and remain open research.",
+    "findings": [
+      {
+        "claim": "Bookmaker consensus odds are the strongest published pre-match tennis forecaster and remain unbeaten head-on. In the canonical benchmark (Kovalchik 2016, JQAS: 11 published models tested on 2,395 ATP 2014 singles matches, walkovers/retirements excluded), a Shin-corrected 7-bookmaker consensus (odds from tennis-data.co.uk) scored 72% accuracy and 0.55 log-loss — top or tied-top on every metric and strictly best on accuracy, log-loss, and discrimination; statistical models ranged 0.59–0.68 log-loss.",
+        "confidence": "high",
+        "vote": "3-0",
+        "sources": [
+          "https://vuir.vu.edu.au/34652/1/jqas-2015-0059.pdf"
+        ],
+        "evidence": "Verified verbatim against the published peer-reviewed paper: 'the BCM with 72% accuracy (the highest of all models)'; 'The BCM had the lowest log-loss of all models'; Discussion: 'no model was able to beat the bookmakers.' Verifier correction folded in: on calibration the BCM (0.98) was tied with four models, so the original 'beat every model on every metric' is softened to top-or-tied (no model beat the BCM on anything). Gap-analysis note: the benchmark excludes retirements and walkovers entirely — retirement-risk modeling is absent from the academic benchmark literature, despite per-book retirement-void rules mattering for real betting."
+      },
+      {
+        "claim": "FiveThirtyEight-style career-Elo is the best odds-free statistical model in that benchmark: K = 250/(career matches + 5)^0.4, Grand Slam matches weighted 1.1x, 1500 starting rating. It scored 70% accuracy / 0.59 log-loss / 1.03 calibration on ATP 2014 — beating all regression-based (probit/logistic on rankings or prize money), point-based IID/Markov, and Bradley–Terry alternatives, and coming within 3–7% of bookmaker accuracy measures (raw accuracy gap 2pp: 70% vs 72%).",
+        "confidence": "high",
+        "vote": "3-0",
+        "sources": [
+          "https://vuir.vu.edu.au/34652/1/jqas-2015-0059.pdf"
+        ],
+        "evidence": "Model spec verified at p.130 of the published paper ('K = 250/(m(t)+5)^0.4'; 'For Grand Slam tournaments, K is multiplied by 1.1'; start rating 1500); Table 4 row 'FiveThirtyEight 2' (career-to-date) matches all three figures and is strictly best among non-bookmaker models on accuracy and log-loss. Paper: 'the Elo model developed by FiveThirtyEight was a close competitor and performed better than all other approaches.' Minor nuance: the Low Level point model marginally exceeded it on the discrimination statistic (12 vs 11). Practical implication: this exact Elo spec is the cheap, reproducible baseline a new tennis pipeline should implement first; later work (Angelini–Candila Weighted Elo, Bunker et al.) extends rather than contradicts it."
+      },
+      {
+        "claim": "Machine learning beats Elo by ~2pp but only reaches parity with the market: on ~34,000 ATP matches with a 14-test-year expanding-window design (2007–2020), the two best of five ML models — ADTree (69.8% average accuracy) and logistic regression (69.5%) — beat both Elo and Weighted Elo (both 67.5%), while betting-odds-derived predictions averaged 70.4%; ML matched but did not beat the odds (Bunker et al. 2024).",
+        "confidence": "high",
+        "vote": "3-0; 3-0 (claims 3+4 merged)",
+        "sources": [
+          "https://journals.sagepub.com/doi/10.1177/17543371231212235"
+        ],
+        "evidence": "Peer-reviewed (Proc IMechE Part P: J Sports Engineering and Technology). Verbatim: 'Logistic Regression and ADTree achieved an average accuracy of 69.5% and 69.8%, respectively' and 'Elo and WElo, which both had an average accuracy of 67.5%'; odds column averages 70.4%. Verifier correction embedded: the source claim's quote transposed the model names — correct assignment is ADTree = 69.8%, LR = 69.5%. Two caveats: (1) the ML models included odds-derived features, so this is not an odds-free-model-vs-market comparison; (2) only 2 of 5 ML models beat Elo — ANN (67%), SVM (67.3%), and Random Forest (66.9%) did not."
+      },
+      {
+        "claim": "A 2025 dynamic graph model fit to bookmaker odds reached statistical parity with bookmakers on 1,684 Grand Slam matches across seven majors (2024–25): bookmakers predicted 74.1% of winners correctly, the model 73.5% (difference not significant, p = 0.40), and official ATP/WTA rankings 69.7% (model vs rankings significant, p = 0.0006).",
+        "confidence": "high",
+        "vote": "3-0",
+        "sources": [
+          "https://arxiv.org/html/2508.15956v1"
+        ],
+        "evidence": "Verbatim from the paper (Penn, Michael & Bhatt): 'the bookmakers predicted 1249 (74.1%) correctly, our model predicted 1237 (73.5%), and the rankings predicted 1173 (69.7%).' Seven majors = AO/RG/Wimbledon/USO 2024 + AO/RG/Wimbledon 2025, men's and women's draws. Verifier confirmed the preprint was subsequently peer-reviewed and published in Royal Society Open Science (May 2026). Caveat: the model is trained on tennis-data.co.uk odds, making the model-vs-bookmaker comparison partly circular — it demonstrates odds-replication, not independent forecasting skill."
+      },
+      {
+        "claim": "Odds-aware training is what closes the gap to the market, and the 2025 graph-paper authors make the efficiency argument explicit: in their survey table the only model to edge bookmaker accuracy (+0.14% ratio score) was a gradient-boosting model using bookmaker odds as a training input (Wilkens 2021), versus −2.78% for pure Elo and −6.94% for points-based models; they state an odds-trained model 'cannot be expected to outperform the bookmakers' and argue any published market-beating model would be adopted by bookmakers themselves.",
+        "confidence": "high",
+        "vote": "3-0; 3-0 (claims 12+13 merged)",
+        "sources": [
+          "https://arxiv.org/html/2508.15956v1",
+          "https://journals.sagepub.com/doi/10.1177/17543371231212235"
+        ],
+        "evidence": "Both passages verified verbatim in the paper's Table 1 and Discussion ('were there a model in the literature which significantly outperformed the bookmakers, it would be in the bookmakers' interest to develop a similar approach'). Cross-checked to underlying sources: Wilkens 2021 himself concluded his models were 'not able to outperform simple betting odds-implied forecasts' (+0.14% = practical parity, not outperformance), and the Elo/points-based ratios reproduce Kovalchik 2016 exactly. Caveats: survey rows are not apples-to-apples (different datasets/eras); a non-odds random forest reached −0.11% (near parity), so odds-awareness is the dominant but not sole route to parity. Strategic read for the bettor: this matches the existing UFC approach — train WITH market features for calibration, then hunt residual mispriced subsets rather than trying to out-forecast the close globally. Corroborated by Bunker et al. 2024 (ML-with-odds-features matched odds at 70.4%)."
+      },
+      {
+        "claim": "Knottenbelt, Spanias & Madurska (2012) — the canonical common-opponent hierarchical Markov model — reported 3.8% ROI against historical bookmaker odds over 2,173 ATP matches played in 2011, an early peer-reviewed benchmark of a model beating the market. Architecture: estimate each player's serve-point win probability restricted to common opponents (removing opposition-quality bias via transitivity), then propagate through Barnett/O'Malley closed-form equations to a match-win probability.",
+        "confidence": "high",
+        "vote": "3-0; 3-0; 3-0 (claims 19+20+21 merged)",
+        "sources": [
+          "https://www.sciencedirect.com/science/article/pii/S0898122112002106"
+        ],
+        "evidence": "Abstract verbatim: 'the model yields a 3.8% return on investment over 2173 ATP matches played on a variety of surfaces during 2011.' Architecture, O'Malley equations, and the common-opponent/transitivity innovation ('opponents that both players faced in the past'; eliminates the differing-average-opponent bias) all verified in full text (peer-reviewed, Computers & Mathematics with Applications). Era-decay caveat from verification: Kovalchik 2016 and Wilkens 2021 find this model class underperforms regression on 2014+ data — the 3.8% is an early-era backtest, not a live edge today; Sipko's re-implementation earned only 2.40% ROI on 2013–14."
+      },
+      {
+        "claim": "Sipko (2015, Imperial College MEng thesis) showed ML beats the Markov state of the art on ROI: logistic regression, LR-with-interactions, and an ANN built on 22 engineered features (common-opponent averaging, surface weighting, time discounting, abstract fatigue/injury features) from the commercial OnCourt database all outperformed Knottenbelt's common-opponent benchmark; the ANN earned 4.35% ROI (4.4% as reported in the conclusion) vs 2.40% for the benchmark on 6,315 ATP matches (2013–14) — roughly a 75% improvement — with Pinnacle odds used for all ROI calculations.",
+        "confidence": "medium",
+        "vote": "3-0; 3-0 (claims 5+6 merged)",
+        "sources": [
+          "https://www.doc.ic.ac.uk/teaching/distinguished-projects/2015/m.sipko.pdf"
+        ],
+        "evidence": "All figures verified in the primary PDF (Figure 7.1: 4.35 vs 2.40; conclusion: 'a return on investment of 4.4%... almost doubling the 2.4% ROI of the Common-Opponent model'). Important qualifiers verified: the test set is only the least-uncertain 50% of matches; the headline ROI is the best of three staking strategies (Strategy 3, Kelly-like — Strategies 1–2 gave the ANN 0.70%/2.07%); bets were actually placed on 3,183 of 6,315 matches; log-loss edge over the benchmark was modest (0.611–0.613 vs 0.623). Rated medium because it is a single non-peer-reviewed thesis, though deeply verified and the most-cited applied template for ML-with-uncertainty-filtering tennis pipelines."
+      },
+      {
+        "claim": "Ingram (2019, JQAS — peer-reviewed) is the best point-based model: a Bayesian hierarchical model predicting serve-point win probability on the logit scale as server skill minus returner skill plus a surface-specific skill difference and tournament-specific intercept, with serve/return skills evolving as Gaussian random walks over time (best configuration: 2-month periods, fit from 2011), estimated with NUTS Hamiltonian Monte Carlo in Stan. On ATP 2014 it scored 68.8% accuracy / 0.592 log-loss — beating the prior best point-based model (Barnett–Clarke opponent-adjusted: 66.3% / 0.641) but still slightly behind FiveThirtyEight Elo (69.5% / 0.586).",
+        "confidence": "high",
+        "vote": "3-0 (x4: claims 7+8+14+15 merged)",
+        "sources": [
+          "https://martiningram.github.io/papers/bayes_point_based.pdf",
+          "https://www.researchgate.net/publication/333810378_A_point-based_Bayesian_hierarchical_model_to_predict_the_outcome_of_tennis_matches"
+        ],
+        "evidence": "All architecture details (Equation 2, equations 9–10, Section 2.2.3) and Table 2 numbers verified verbatim against the published JQAS 15(4):313-325 text (DOI 10.1515/jqas-2018-0008). Caveats from verification: 68.8%/0.592 is the best grid configuration (mild selection optimism); Kovalchik's own implementation of the opponent-adjusted comparator scored slightly better (67%/0.63) than Ingram's re-implementation. Significance: the point-based family's weakness is classic plug-in serve-percentage estimation, not the Markov structure — proper Bayesian estimation nearly closes the gap to Elo while retaining point-level interpretability, which is what enables in-play and duration extensions."
+      },
+      {
+        "claim": "Classic point-based hierarchical Markov models (the Klaassen & Magnus / Barnett lineage) have weaker match-outcome predictive power than regression-style approaches, despite offering transparency and joint outcome-plus-duration prediction.",
+        "confidence": "medium",
+        "vote": "2-1",
+        "sources": [
+          "https://journals.sagepub.com/doi/10.1177/22150218251412670",
+          "https://vuir.vu.edu.au/34652/1/jqas-2015-0059.pdf"
+        ],
+        "evidence": "Opening sentence of Wang & Drekic (2026, Journal of Sports Analytics) verbatim: 'Point-based hierarchical Markov models for tennis provide transparency and flexibility in predicting the outcome and duration of matches, but have been shown to fall behind in predictive power compared to other methods such as regression.' Independently corroborated by Kovalchik 2016 (point-based models had the worst log-losses, up to 0.68, vs 0.59 for Elo). One verifier dissented, hence medium. Substantive qualifiers: Kovalchik found point-based models had strong discrimination, and Ingram 2019 shows Bayesian estimation closes most of the gap — the weakness lies in plug-in serve-percentage estimation rather than the Markov match structure per se."
+      },
+      {
+        "claim": "Ensembling point-based Markov methods with two novel components — an exclusively head-to-head variant and point-specific modifications — raises average match-outcome prediction accuracy to roughly 70%, which the authors state is on par with machine learning models (Wang & Drekic 2026, Journal of Sports Analytics, peer-reviewed).",
+        "confidence": "high",
+        "vote": "3-0",
+        "sources": [
+          "https://journals.sagepub.com/doi/10.1177/22150218251412670"
+        ],
+        "evidence": "Abstract verbatim (confirmed via Crossref and publisher): 'Consensus model ensembles, in particular, boost average prediction accuracies to around 70%, on par with machine learning models.' The ~70% ceiling is corroborated by Wilkens 2021's field benchmark that tennis ML accuracy tops out around 70%. Caveat: accuracy only — no log-loss, calibration, or ROI evidence was verified for these ensembles."
+      },
+      {
+        "claim": "The strongest recent profitable result is selective, not global: a MagNet spectral graph convolutional network modeling intransitive player dominance on temporal directed graphs (Clegg & Cartlidge, arXiv 2510.20454, Oct 2025) earned a statistically significant +3.26% ROI with Kelly staking over 1,903 bets at Pinnacle odds (out-of-sample 1 Jan 2023 – 8 Jun 2025) — but only when restricted to high-intransitivity matchups (validation-selected threshold). Betting indiscriminately lost −5.49% Kelly ROI, and Pinnacle remained the better overall forecaster: 69.0% accuracy / 0.196 Brier vs the GNN's 65.7% / 0.215 and the best academic baseline, Weighted Elo (Angelini et al. 2022), at 66.4% / 0.212.",
+        "confidence": "medium",
+        "vote": "3-0; 3-0 (claims 9+10 merged)",
+        "sources": [
+          "https://arxiv.org/pdf/2510.20454"
+        ],
+        "evidence": "All figures verified against the full PDF: Table 6 (threshold 2.55, Kelly, n=1,903, ROI 3.26%, Sharpe 0.61; significance p_bs = 0.005 via the Wunderlich & Memmert randomized-betting test, Bonferroni-adjusted); Table 4 (PS 0.690/0.196, WElo 0.664/0.212, model 0.657/0.215); test period and Pinnacle usage verbatim. Threshold chosen on validation, not test, so not test-set-tuned. Rated medium: single non-peer-reviewed preprint, simulated backtest against closing odds, moderate Sharpe, and profitability turns negative at extreme intransitivity above the chosen band. Strategic relevance: directly mirrors the bettor's UFC playbook — accept that the market out-forecasts you overall, then bet only the subset where a structural blind spot (here, intransitive matchups) creates mispricing."
+      },
+      {
+        "claim": "Tennis points are not iid, but nearly so: winning the previous point raises the probability the server wins the current point (positive serial dependence — a real point-level momentum effect), and servers are less likely to win 'important' (high-pressure) points than less important ones — yet deviations from iid are quantitatively small, so iid-based point-level models (the foundation of Markov-chain in-play tennis prediction) remain a good approximation in many cases (Klaassen & Magnus 2001, JASA, ~90,000 Wimbledon points 1992–95).",
+        "confidence": "high",
+        "vote": "3-0 (x3: claims 16+17+18 merged)",
+        "sources": [
+          "https://www.researchgate.net/publication/4744107_Are_Points_in_Tennis_Independent_and_Identically_Distributed_Evidence_From_a_Dynamic_Binary_Panel_Data_Model"
+        ],
+        "evidence": "All three components verified verbatim against the JASA 96(454):500-509 abstract via independent hosts (Tilburg portal, bibbase, Taylor & Francis): 'points are neither independent nor identically distributed: winning the previous point has a positive effect on winning the current point, and at important points it is more difficult for the server to win the point' followed by 'Deviations from iid are, however, small and hence the iid hypothesis will still provide a good approximation in many cases.' Dynamic binary panel model with random effects controls for player quality. Corroboration: Gauriot & Page found ~7% next-point boost (15% at 30-30/deuce); 2024–25 momentum literature agrees on existence. Caveats: 1990s grass-court data; player heterogeneity exists (some players perform better under pressure — Gonzalez-Diaz et al. 2012); must NOT be cited as a large directly exploitable in-play edge."
+      },
+      {
+        "claim": "Predictability collapses outside the elite — for bookmakers too: every model in the Kovalchik benchmark was 10–20 percentage points less accurate for matches not involving a top-30 player (bookmaker consensus: 76% on top-30 matches vs 67% otherwise); FiveThirtyEight Elo hit 75% on top-30 matches but only 59% (1-year data) to 64% (career data) on lower-ranked matches — identifying lower-ranked/lower-tier matches as the weakest area of all existing models and the segment where prices are least informed.",
+        "confidence": "high",
+        "vote": "3-0",
+        "sources": [
+          "https://vuir.vu.edu.au/34652/1/jqas-2015-0059.pdf"
+        ],
+        "evidence": "Abstract and Table 5 verified verbatim ('All models were 10–20 percentage points less accurate at predicting match outcomes among lower-ranked players'; BCM 76 vs 67; 538 Elo 75 vs 59→64; split is by the highest-ranked player in the match). Verifier note: the BCM gap is arithmetically 9pp — the 10–20pp band is the paper's own abstract phrasing. Later benchmarks do not dispute the stratified gap. Gap-analysis note: this is the clearest structural soft spot for a quant bettor, but challenger/ITF liquidity, market-maker limits, and match-integrity issues at those tiers were NOT covered by any verified claim and must be assessed before acting."
+      },
+      {
+        "claim": "Headline accuracy figures in parts of the recent literature are retrospective, not predictive: Li et al. (Journal of Big Data, 2025) report 97.5% accuracy / 97.4% F1 for a Random Forest + CatBoost soft-voting ensemble classifying Grand Slam match winners — but that figure uses in-match point-by-point statistics from 100% of the completed match (retrospective classification); with partial-match data accuracy falls to ~70–82% (71.4–74.6% at 25% of the match, 80.9–82.6% at 75%). Treat >90% 'prediction' accuracies in papers and GitHub repos as classification-with-hindsight, not pre-match forecasting.",
+        "confidence": "high",
+        "vote": "3-0",
+        "sources": [
+          "https://journalofbigdata.springeropen.com/articles/10.1186/s40537-025-01216-4"
+        ],
+        "evidence": "Verified against Springer full text: 'the soft voting classifier performing the best (accuracy: 97.5%, F1 score: 97.4%)' is the 100%-match-data column of Table 1 (Wimbledon + US Open 2017–2023; entropy-weighted momentum features, running distance, serve speed, rally counts); the paper's own title says 'mid-game'. Peer-reviewed and current. Useful as a literature-hygiene yardstick: pre-match forecasting tops out near 70% accuracy across all credible benchmarks, so any higher claim almost certainly leaks in-match or post-match information."
+      }
+    ],
+    "caveats": "Coverage: the 25 surviving claims cover ONLY pillar (1) of the four-part research question — the academic pre-match/in-play prediction literature and its benchmarks. Pillar (2) tools/datasets/odds-APIs (Jeff Sackmann repos, deuce/welo R packages, tennis-data.co.uk beyond incidental mention, OnCourt pricing, Betfair historical, live point-by-point access), pillar (3) market structure (crypto-accepting market-maker books, tennis margins/limits/in-play offerings/APIs, per-book retirement-void rules, line origination, favorite-longshot bias, CLV-vs-Pinnacle benchmarks, challenger/ITF liquidity and integrity), and pillar (4) an explicit gap analysis produced NO verified claims — only incidental touchpoints survived (OnCourt as Sipko's data source, tennis-data.co.uk as Kovalchik's odds source, Pinnacle as the evaluation book in three studies). Those sections must be researched separately before any betting decisions. Evidence quality: all ROI figures are simulated backtests against historical (mostly closing) odds with no modeling of limits, bet rejection, or line movement; the two headline profitable results rest on a non-peer-reviewed master's thesis (Sipko: best-of-three staking strategies, least-uncertain 50% of matches only, 3,183 bets actually placed) and a non-peer-reviewed arXiv preprint (Clegg & Cartlidge GNN: Sharpe 0.61, validation-selected threshold, profit vanishes at extreme intransitivity). Era sensitivity: Kovalchik, Sipko, Ingram, and Knottenbelt results are on 2011–2014 data and markets have sharpened since (Knottenbelt's model class demonstrably underperforms on 2014+ data); the freshest test windows are 2023–2025 (both graph papers). Verifier corrections embedded in the findings: Bunker accuracies are ADTree=69.8%/LR=69.5% (the claim quote transposed them); Kovalchik's bookmaker consensus was tied, not strictly best, on calibration; the +0.14% odds-aware GBM result is parity, not significant outperformance, and that survey table is not apples-to-apples across rows; Bunker's ML models included odds features, so no verified study shows an odds-free model beating the market. One finding (point-based Markov lags regression) passed only 2-1, though Kovalchik corroborates its substance and Ingram 2019 localizes the weakness to plug-in serve-percentage estimation. Klaassen & Magnus momentum/pressure effects are small and rest on 1990s grass-court Wimbledon data — do not cite them as a large exploitable in-play edge. Time-sensitivity: anything about books, margins, rules, or APIs changes quickly; no verified evidence here is later than mid-2025 test data.",
+    "openQuestions": [
+      "Tools and data landscape (unverified pillar 2): what is the current coverage/condition of Jeff Sackmann's tennis_atp/tennis_wta/slam point-by-point/Match Charting repos, tennis-data.co.uk odds archives, the deuce and welo R packages, and notable open-source betting repos with credible reported results — and what do commercial feeds (Sportradar/official ATP-WTA, OnCourt) cost and license to a solo individual?",
+      "Market structure for the crypto-only bettor (unverified pillar 3): which market-maker books (Pinnacle, BetOnline, Bookmaker, Cloudbet, Sportsbet.io, BC.Game, 3et, Polymarket, SX Bet) offer what tennis margins, limits, in-play depth, and API access — and how exactly do their retirement-void/settlement rules differ, since rule arbitrage across books materially changes EV and no academic benchmark even includes retired matches?",
+      "Do the documented selective edges persist and scale: is the intransitivity effect (+3.26% Kelly ROI, 2023–25, preprint) replicable post-publication at executable limits, and can the 10–20pp accuracy degradation in sub-top-30/challenger/ITF matches be monetized given those tiers' liquidity constraints and match-integrity (fixing) risk at market-maker books?",
+      "In-play feasibility for individuals: what point-by-point data and odds access (Betfair streams, BetsAPI, Sportradar push, courtside latency) is realistically available to a solo bettor, and does the small-but-real non-iid structure (momentum, pressure-point server underperformance) plus retirement-risk pricing leave any net in-play edge after latency disadvantage versus courtsiders?"
+    ],
+    "refuted": [],
+    "sources": [
+      {
+        "url": "https://vuir.vu.edu.au/34652/1/jqas-2015-0059.pdf",
+        "quality": "primary",
+        "angle": "academic-pre-match-models",
+        "claimCount": 5
+      },
+      {
+        "url": "https://journals.sagepub.com/doi/10.1177/17543371231212235",
+        "quality": "primary",
+        "angle": "academic-pre-match-models",
+        "claimCount": 5
+      },
+      {
+        "url": "https://www.doc.ic.ac.uk/teaching/distinguished-projects/2015/m.sipko.pdf",
+        "quality": "primary",
+        "angle": "academic-pre-match-models",
+        "claimCount": 5
+      },
+      {
+        "url": "https://martiningram.github.io/papers/bayes_point_based.pdf",
+        "quality": "primary",
+        "angle": "academic-pre-match-models",
+        "claimCount": 5
+      },
+      {
+        "url": "https://arxiv.org/pdf/2510.20454",
+        "quality": "primary",
+        "angle": "academic-pre-match-models",
+        "claimCount": 5
+      },
+      {
+        "url": "https://arxiv.org/html/2508.15956v1",
+        "quality": "primary",
+        "angle": "academic-pre-match-models",
+        "claimCount": 5
+      },
+      {
+        "url": "https://www.researchgate.net/publication/333810378_A_point-based_Bayesian_hierarchical_model_to_predict_the_outcome_of_tennis_matches",
+        "quality": "primary",
+        "angle": "academic-in-play-point-level",
+        "claimCount": 5
+      },
+      {
+        "url": "https://www.researchgate.net/publication/4744107_Are_Points_in_Tennis_Independent_and_Identically_Distributed_Evidence_From_a_Dynamic_Binary_Panel_Data_Model",
+        "quality": "primary",
+        "angle": "academic-in-play-point-level",
+        "claimCount": 5
+      },
+      {
+        "url": "https://www.sciencedirect.com/science/article/pii/S0898122112002106",
+        "quality": "primary",
+        "angle": "academic-in-play-point-level",
+        "claimCount": 5
+      },
+      {
+        "url": "https://journals.sagepub.com/doi/10.1177/22150218251412670",
+        "quality": "primary",
+        "angle": "academic-in-play-point-level",
+        "claimCount": 5
+      },
+      {
+        "url": "https://journalofbigdata.springeropen.com/articles/10.1186/s40537-025-01216-4",
+        "quality": "primary",
+        "angle": "academic-in-play-point-level",
+        "claimCount": 5
+      },
+      {
+        "url": "https://github.com/JeffSackmann/tennis_atp",
+        "quality": "primary",
+        "angle": "open-source-tools-datasets",
+        "claimCount": 5
+      },
+      {
+        "url": "http://www.tennis-data.co.uk/data.php",
+        "quality": "primary",
+        "angle": "open-source-tools-datasets",
+        "claimCount": 5
+      },
+      {
+        "url": "https://github.com/skoval/deuce",
+        "quality": "primary",
+        "angle": "open-source-tools-datasets",
+        "claimCount": 5
+      },
+      {
+        "url": "https://cran.r-project.org/package=welo",
+        "quality": "primary",
+        "angle": "open-source-tools-datasets",
+        "claimCount": 5
+      },
+      {
+        "url": "https://github.com/jacksonpc2024/ATP-Value-Betting-Algorithm",
+        "quality": "blog",
+        "angle": "open-source-tools-datasets",
+        "claimCount": 5
+      },
+      {
+        "url": "https://the-odds-api.com/sports/tennis-odds.html",
+        "quality": "primary",
+        "angle": "open-source-tools-datasets",
+        "claimCount": 5
+      },
+      {
+        "url": "https://en.help.pinnaclesports.com/en/support/solutions/articles/1000115722-how-is-retirement-or-disqualification-of-tennis-players-treated-",
+        "quality": "primary",
+        "angle": "crypto-marketmaker-sportsbooks",
+        "claimCount": 5
+      },
+      {
+        "url": "https://cloudbet.github.io/wiki/en/docs/sports/api/",
+        "quality": "primary",
+        "angle": "crypto-marketmaker-sportsbooks",
+        "claimCount": 5
+      },
+      {
+        "url": "https://odds-api.io/blog/pinnacle-api-shutdown-alternatives",
+        "quality": "blog",
+        "angle": "crypto-marketmaker-sportsbooks",
+        "claimCount": 5
+      },
+      {
+        "url": "https://blogabet.com/betting-guide/hacks/tennis-rules-player-retired",
+        "quality": "blog",
+        "angle": "crypto-marketmaker-sportsbooks",
+        "claimCount": 4
+      },
+      {
+        "url": "https://api.docs.sx.bet/",
+        "quality": "primary",
+        "angle": "crypto-marketmaker-sportsbooks",
+        "claimCount": 5
+      },
+      {
+        "url": "https://www.sportstradingnetwork.com/article/how-efficient-is-the-tennis-betting-market/",
+        "quality": "blog",
+        "angle": "market-microstructure-inefficiencies",
+        "claimCount": 5
+      },
+      {
+        "url": "https://www.sportstradingnetwork.com/article/do-pinnacle-closing-prices-in-tennis-tell-the-full-story-can-you-win-in-the-long-run-without-beating-them/",
+        "quality": "blog",
+        "angle": "market-microstructure-inefficiencies",
+        "claimCount": 5
+      },
+      {
+        "url": "https://www.pinnacle.com/betting-resources/en/predictions/tennis",
+        "quality": "blog",
+        "angle": "market-microstructure-inefficiencies",
+        "claimCount": 5
+      },
+      {
+        "url": "https://www.itia.tennis/media/bjuateer/irp-report-final.pdf",
+        "quality": "primary",
+        "angle": "market-microstructure-inefficiencies",
+        "claimCount": 5
+      }
+    ],
+    "stats": {
+      "angles": 5,
+      "sourcesFetched": 26,
+      "claimsExtracted": 129,
+      "claimsVerified": 25,
+      "confirmed": 25,
+      "killed": 0,
+      "afterSynthesis": 14,
+      "urlDupes": 0,
+      "budgetDropped": 4,
+      "agentCalls": 108
+    }
+  }
+}

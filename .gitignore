@@ -1,0 +1,15 @@
+# Raw downloaded data is reproducible via src/ingest/ — never commit it
+data/raw/
+
+# Model artifacts
+data/ml_train_output/
+
+# Python
+__pycache__/
+*.pyc
+.pytest_cache/
+.ipynb_checkpoints/
+
+# OS noise
+desktop.ini
+Thumbs.db

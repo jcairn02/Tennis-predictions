@@ -1,0 +1,97 @@
+# Sportsbook configuration — facts verified 2026-06-10 (multi-agent research run;
+# see docs/research_raw/crypto-marketmaker-books.md and retirement-void-rules.md for
+# sources + adversarial verification evidence per fact).
+#
+# verification: "verified"   = adversarially checked against the book's own current pages
+#               "reported"   = single-source/review-sourced; confirm before relying
+#               "unverified" = could not be confirmed from any primary source
+#
+# IMPORTANT province gate: set `province` before trusting `available`. Ontario flips
+# most of this table (see docs/03_market_structure.md §0).
+
+bettor:
+  province: TODO            # "ON" or other — decides the whole menu
+  currency: CAD
+  funding: crypto
+
+retirement_rule_classes:    # match-winner market; see docs/03 §2 for the EV formulas
+  void_full_match: bets refunded unless match completes
+  one_set_action: action once 1 full set completed, else void
+  ball_served_action: advancing player wins from first point (Polymarket also resolves walkover 50-50)
+
+books:
+  pinnacle:
+    role: anchor_sharp_price
+    crypto: {deposits: [BTC, LTC, USDT-ERC20, USDT-TRC20], note: converts to fiat balance; USDT max ~$125K CAD/deposit, verification: verified}
+    canada: {non_ontario: pinnacle.com intl (crypto OK), ontario: pinnacle.ca fiat-only (AGCO), verification: verified}
+    tennis_margin: ~2-3% (102-103% book)            # verification: reported (measure ourselves)
+    limits_tennis: {atp_median: ~2000-4000 USD, atp_max: ~6000, challenger: 1000-2525, itf: 150-450,
+                    note: measured live via guest API 2026-06-10; ramps toward start; re-bet allowed}
+    winners_tolerance: winners-welcome published policy  # verification: verified (book's own claim, decade-standing)
+    api: {public: closed 2025-07-23, guest_read: guest.api.arcadia.pinnacle.com (unofficial; odds + maxRiskStake),
+          bespoke: api@pinnacle.com}
+    retirement_rule: one_set_action                  # verification: verified x2
+  betonline:
+    crypto: {deposits: ~17 coins, verification: reported}
+    canada: all provinces (grey)                     # verification: reported
+    tennis_margin: ~4.8% baseline (-110class)        # verification: reported; measure
+    winners_tolerance: sharp-tolerant but documented limiting of winners  # verification: reported
+    api: none
+    retirement_rule: one_set_action                  # verification: verified x2
+  bookmaker_eu:
+    crypto: {deposits: [BTC, ETH, LTC, USDT, USDC], payout_cap: $10K x 5/week, verification: verified}
+    canada: all provinces (grey)                     # verification: reported
+    winners_tolerance: degraded market-maker reputation; limiting reports  # verification: reported
+    api: none
+    retirement_rule: void_full_match (DQ = action)   # verification: verified x2 (note internal page inconsistency)
+  bet105:
+    crypto: {deposits: [BTC, ETH, USDT, USDC], crypto_only: true, verification: reported}
+    canada: not restricted                           # verification: reported
+    tennis_margin: -105 class on US mainlines; TENNIS UNVERIFIED — measure
+    winners_tolerance: claims no limiting; shallow track record (2024 relaunch)  # verification: reported
+    api: none
+    retirement_rule: one_set_action                  # verification: reported only (own rules page dead) — CONFIRM with support
+  cloudbet:
+    crypto: {deposits: 20+ coins, verification: reported}
+    canada: {official_list: Canada not restricted, ontario: conflicting third-party claims — TEST SIGNUP, verification: reported}
+    tennis_margin: ~3.5-5.9% measured (mid-margin, NOT sharp class)  # verification: reported
+    limits_tennis: dated review ~0.02-0.06 BTC/match — VERIFY at account level
+    api: {self_serve: [Feed, Trading, Account], note: only conventional book with self-serve bet placement}
+    retirement_rule: one_set_action; live = same as prematch; Bet Builder voids on ANY retirement; PRIME bets follow underlying book rules
+      # verification: verified (cloudbet.com/en/help/rules, old zendesk URLs dead)
+  stake:
+    canada: blocked in Ontario only                  # verification: reported
+    tennis_margin: ~4-5% (2-3% slams)                # verification: reported
+    api: none
+    retirement_rule: void_full_match                 # verification: verified (indexed text)
+  sportsbet_io:
+    canada: blocked in Ontario only                  # verification: reported
+    tennis_margin: ~8% (retail class) — deprioritize # verification: reported
+    retirement_rule: void_full_match                 # verification: verified
+  bc_game:
+    status: SKIP — Anjouan license since 2024-12 (counterparty risk); tennis rules unverifiable (page bot-blocked)
+    canada: blocked in Ontario
+    retirement_rule: unverified (BetBy template suggests void_full_match)
+  polymarket:
+    type: prediction_market_clob
+    crypto: USDC on Polygon
+    canada: Ontario PERMANENTLY BANNED (OSC settlement, ≥2027-04); other provinces OK but CSA warning 2026  # verification: verified
+    fees: taker ~0.75-1% notional at evens; makers rebated 20-25%   # verification: verified
+    depth: top events liquid ($42M French Open 2026 winner market); per-match depth below slams — SAMPLE VIA API
+    api: {clob: public, python: py-clob-client}
+    retirement_rule: ball_served_action + walkover resolves 50-50 (NOT refund); rules are PER-MARKET templates — re-read each market
+      # verification: verified (Gamma API market text)
+  sx_bet:
+    type: p2p_exchange_onchain
+    crypto: USDC (SX rollup)
+    canada: Ontario restricted; rest OK              # verification: verified (ToS)
+    fees: none on singles; cost = spread             # verification: reported
+    depth: niche — sample via API before allocating
+    api: {read: public no key, betting: authenticated}
+    retirement_rule: one_set_action; totals asymmetric (overs stand if passed) — clarify  # verification: verified
+  brokers:
+    candidates: [sportmarket, asianconnect, betinasia_black]
+    note: post-Pinnacle-API route to PS3838-class prices at scale; all three accept crypto + Canadians (reported);
+      BetInAsia BLACK API = EUR 600 setup + terminated under GBP 50K/month turnover; evaluate at Phase-5 volume
+  betfair_exchange:
+    status: IMPOSSIBLE — Canadians blocked, no crypto  # verification: verified

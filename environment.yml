@@ -1,0 +1,21 @@
+name: tennis
+channels:
+  - conda-forge
+dependencies:
+  - python=3.11
+  - pandas
+  - numpy
+  - requests
+  - openpyxl        # read .xlsx from tennis-data.co.uk
+  - xlrd            # read legacy .xls (older tennis-data.co.uk years)
+  - pyarrow
+  - matplotlib
+  - scikit-learn
+  - pytest
+  - ipykernel       # register the env as a Jupyter kernel
+  - jupyter
+  - pip
+  # Model-phase additions (install when the modeling milestone starts, not before):
+  # - pip:
+  #     - autogluon==1.5            # pin to match the UFC pipeline's proven setup
+  #     - lightgbm                  # standalone GBM baseline before AutoGluon
