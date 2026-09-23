@@ -1,30 +1,18 @@
-# data/ layout
+# Data
 
-```
-raw/                          (gitignored — rebuild via src/ingest/)
-  sackmann/
-    atp/   atp_matches_YYYY.csv, atp_players.csv, atp_rankings_*.csv
-    wta/   wta_matches_YYYY.csv, wta_players.csv
-  tennis_data_couk/
-    atp/   YYYY.xlsx (results + closing odds: B365, Pinnacle PS, Max, Avg)
-    wta/   YYYY.xlsx
-processed/                    (built by future pipeline steps)
-studies/<study_name>/         (per-study outputs)
-```
+Data is the current research priority. Measure coverage against actual markets, preserving unmatched events and ambiguous identities.
 
-## Column conventions to remember
+| Location | Purpose |
+|---|---|
+| `raw/` | Downloaded source records, gitignored; preserve provenance and retrieval time |
+| `raw/public_dump/<source>/` | Byte-exact downloads of the public data dump with `_receipts.jsonl` per source (URL, time, hash, route) |
+| `dump/<branch>/<source>/` | Tabular staging of the dump as string-typed Parquet, one file per source file, gitignored; branches `matches`, `players`, `rankings`, `points`, `odds` |
+| `studies/<study_name>/` | Audit artifacts and measured data-quality results |
+| `studies/public_data_dump/` | Tracked manifest, coverage tables and download log of the dump |
+| `betting_history/` | Reserved actual bet and settlement records |
 
-- Sackmann `tourney_date` = tournament START date (YYYYMMDD int), not match date.
-  Within-tournament chronology comes from `round` order (R128→R64→…→F). The loader
-  builds a sortable round rank; matches on the same date+round keep file order.
-- Sackmann rows are winner-first (`winner_name`/`loser_name`) — like the UFC men_only
-  CSV, you MUST randomize side assignment for pairwise modeling or you leak the label.
-- tennis-data.co.uk odds columns: `PSW`/`PSL` = Pinnacle closing decimal odds for the
-  match winner/loser; `B365W/L` = Bet365; `MaxW/L`,`AvgW/L` = market max/average
-  (Oddsportal-derived); `BFEW/BFEL` = Betfair Exchange (2025+ files, undocumented in the
-  site's notes.txt).
-- **PSW/PSL are DEAD from Feb 2026** (94.5% blank in the 2026 file — OddsPortal delisted
-  Pinnacle in Jan 2026). The sharp-price reference must splice PSW→BFEW around
-  Oct 2025–Jan 2026, and the two differ (vigged book price vs commission-free exchange
-  price). See docs/02_data_and_tools.md.
-- All odds in tennis-data.co.uk are DECIMAL (unlike the UFC pipeline's American odds).
+Files over 50 MB are not in git; [LARGE_FILES.md](LARGE_FILES.md) explains how to regenerate or re-download each one.
+
+The public data dump is produced by `src/ingest/public_dump/` and described in [its report](../docs/studies/public_data_dump/README.md). Older downloader paths `raw/sackmann/` and `raw/tennis_data_couk/` are inherited experiments (June 2026 snapshots), not an approved source selection. Sackmann's `tourney_date` is tournament start, not actual match time. Winner-first rows, schedule changes, retirements, and source identities need explicit handling.
+
+[Old data notes](../docs/research/legacy-one-shot/data/README.md), including odds-column and coverage claims, are archived. Use fresh source evidence and measured audits before relying on them.

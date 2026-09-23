@@ -1,6 +1,39 @@
 # Raw downloaded data is reproducible via src/ingest/ — never commit it
 data/raw/
 
+# Tabular staging layer of the public data dump (rebuilt by src/ingest/public_dump/); the tracked
+# manifest and coverage summaries live in data/studies/public_data_dump/
+data/dump/
+
+# Large downloaded audit evidence stays local; keep scripts, receipts and summaries.
+data/studies/tennis_data_audit/polymarket/raw/
+data/studies/tennis_data_audit/polymarket/events.jsonl
+data/studies/tennis_data_audit/polymarket/markets.jsonl.gz
+data/studies/tennis_data_audit/public/raw/
+
+# Large generated audit outputs stay local; rerun the named script over the ignored inputs above.
+# Their summaries (polymarket_public_link_summary.json, table_audit.json) stay tracked.
+#   link_public_results_to_polymarket.py -> candidate links (16 MB), unmatched records (6 MB)
+#   audit_public_tables.py               -> Open Tennis Data quarantine records (1 MB)
+data/studies/tennis_data_audit/public/polymarket_public_candidate_links.json
+data/studies/tennis_data_audit/public/polymarket_public_unmatched.json
+data/studies/tennis_data_audit/public/open_tennis_quarantine_records.json
+
+# Parquet here is always a staged or derived table rebuilt by scripts, and a DuckDB file would be
+# rebuilt from Parquet. Keep hand-curated tables as CSV or YAML so they stay tracked.
+*.parquet
+*.duckdb
+*.duckdb.wal
+
+# Every file over 50 MB (50,000,000 bytes) as of 23 Sep 2026, listed by name so it stays ignored if a
+# rule above is narrowed. GitHub warns above 50 MiB and rejects files above 100 MiB.
+# How to regenerate or re-download each one: data/LARGE_FILES.md
+data/studies/tennis_data_audit/polymarket/markets.jsonl.gz
+data/dump/odds/polymarket/market_index.parquet
+data/raw/public_dump/polymarket_prices/bodies/itf.jsonl.gz
+data/raw/public_dump/polymarket_prices/bodies/challenger_125_inferred.jsonl.gz
+data/raw/public_dump/match_charting_project/charting-m-points-2020s.csv
+
 # Model artifacts
 data/ml_train_output/
 

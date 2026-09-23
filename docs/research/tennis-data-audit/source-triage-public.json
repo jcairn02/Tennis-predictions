@@ -1,0 +1,788 @@
+[
+  {
+    "id": "PUB001",
+    "recency_band": "unknown",
+    "data_dates": "Original unavailable in Sep 10 audit; decades of ATP history preserved in PUB003 through May 25, 2026 main-tour tournament dates; lower tiers June 1.",
+    "latest_data_date": null,
+    "date_basis": "unverified",
+    "scale_band": "broad",
+    "scale": "ATP main, qualifying/Challenger and Futures longitudinal results; use PUB003 measured inventory.",
+    "review_priority": "hold",
+    "model_role": "Skip unavailable original; inspect PUB003 for the same historical foundation.",
+    "evidence_refs": [
+      "public-tennis-data.md",
+      "../../../data/studies/tennis_data_audit/public/csv_audit.json"
+    ],
+    "data_sort_period": null
+  },
+  {
+    "id": "PUB002",
+    "recency_band": "unknown",
+    "data_dates": "Original unavailable in Sep 10 audit; historical WTA data preserved in PUB003 through May 25, 2026 main-tour tournament dates; qual/ITF June 2.",
+    "latest_data_date": null,
+    "date_basis": "unverified",
+    "scale_band": "broad",
+    "scale": "WTA main and qual/ITF longitudinal results; use PUB003 measured inventory.",
+    "review_priority": "hold",
+    "model_role": "Skip unavailable original; inspect PUB003 and investigate lower-tier coverage drift.",
+    "evidence_refs": [
+      "public-tennis-data.md",
+      "../../../data/studies/tennis_data_audit/public/csv_audit.json"
+    ],
+    "data_sort_period": null
+  },
+  {
+    "id": "PUB003",
+    "recency_band": "2026",
+    "data_dates": "Decades of ATP/WTA history; Sep 10 sampled main files stop at May 25, 2026 tournament dates, lower tiers June 1–2; rankings June 8; Slam points 2011–2024.",
+    "latest_data_date": "2026-06-08",
+    "date_basis": "observed_payload",
+    "scale_band": "broad",
+    "scale": "Archive lists 174 ATP + 125 WTA + 166 Slam CSVs. Measured 2025 rows: 2,944 ATP main, 2,795 WTA main, 51,150 combined lower-tier rows.",
+    "review_priority": "first",
+    "model_role": "Deep history, player IDs, rankings and serve/return stats; supplement recent results and check changing populations and noncommercial terms.",
+    "evidence_refs": [
+      "public-tennis-data.md",
+      "../../../data/studies/tennis_data_audit/public/csv_audit.json",
+      "https://github.com/Aneeshers/tennis-sackmann-archive"
+    ],
+    "data_sort_period": "2026-06-08"
+  },
+  {
+    "id": "PUB004",
+    "recency_band": "2026",
+    "data_dates": "Provider describes same static archive as PUB003: ATP/WTA through partial 2026, Slam points 2011–2024; this host's payload endpoints not independently measured.",
+    "latest_data_date": null,
+    "date_basis": "provider_documentation",
+    "scale_band": "broad",
+    "scale": "Same 465-CSV archive family as PUB003; alternate host adds no independent observations.",
+    "review_priority": "hold",
+    "model_role": "Use only as alternate hosting for PUB003; do not evaluate as a second dataset.",
+    "evidence_refs": [
+      "public-tennis-data.md",
+      "https://github.com/Aneeshers/tennis-sackmann-archive"
+    ],
+    "data_sort_period": "2026"
+  },
+  {
+    "id": "PUB005",
+    "recency_band": "2026",
+    "data_dates": "Men: May 29, 1960–May 21, 2026; women: Sep 28, 1979–May 24, 2026 in Sep 10 metadata export; chart submission times unknown.",
+    "latest_data_date": "2026-05-24",
+    "date_basis": "observed_payload",
+    "scale_band": "niche",
+    "scale": "Measured 7,566 men's + 4,080 women's chart metadata rows; selected matches, not tour-complete coverage.",
+    "review_priority": "specialist",
+    "model_role": "Detailed shot/style features after the broad result foundation; volunteer selection, malformed metadata and publication timing need handling.",
+    "evidence_refs": [
+      "public-tennis-data.md",
+      "../../../data/studies/tennis_data_audit/public/csv_audit.json"
+    ],
+    "data_sort_period": "2026-05-24"
+  },
+  {
+    "id": "PUB006",
+    "recency_band": "unknown",
+    "data_dates": "Full website match-history cutoff unverified. Explicit 2026 US Open charts were observed Sep 11; those establish the niche chart collection's recency (PUB007), not the broad results database.",
+    "latest_data_date": null,
+    "date_basis": "observed_payload",
+    "scale_band": "broad",
+    "scale": "ATP/WTA/Challenger results and splits across players/seasons; no bulk row count measured.",
+    "review_priority": "next",
+    "model_role": "Cross-check recent results and derived ratings; investigate export and historical availability before relying on current aggregates.",
+    "evidence_refs": [
+      "public-tennis-data.md",
+      "https://www.tennisabstract.com/"
+    ],
+    "data_sort_period": null
+  },
+  {
+    "id": "PUB007",
+    "recency_band": "2026",
+    "data_dates": "Homepage links 2026 US Open charts into this index (Sep 11 check); index's full earliest/latest match dates not measured.",
+    "latest_data_date": null,
+    "date_basis": "provider_documentation",
+    "scale_band": "niche",
+    "scale": "Publisher advertises over 17,000 charts on current website; selected matches, unreconciled with PUB005's 11,646 metadata rows.",
+    "review_priority": "specialist",
+    "model_role": "More recent shot annotations may exist here; selected sample and no audited bulk export.",
+    "evidence_refs": [
+      "public-tennis-data.md",
+      "https://www.tennisabstract.com/",
+      "https://www.tennisabstract.com/charting/meta.html"
+    ],
+    "data_sort_period": "2026"
+  },
+  {
+    "id": "PUB008",
+    "recency_band": "older",
+    "data_dates": "Archived Slam data 2011–2024; original unavailable in Sep 10 audit; no 2025–26 files in inspected mirror.",
+    "latest_data_date": null,
+    "date_basis": "provider_documentation",
+    "scale_band": "niche",
+    "scale": "166 Slam CSVs in PUB003; measured 2024 US Open metadata: 253 singles, 125 doubles, 30 mixed records.",
+    "review_priority": "specialist",
+    "model_role": "Historical score/point studies restricted to Slams and uneven years; acquire through PUB003.",
+    "evidence_refs": [
+      "public-tennis-data.md",
+      "../../../data/studies/tennis_data_audit/public/csv_audit.json",
+      "https://github.com/Aneeshers/tennis-sackmann-archive"
+    ],
+    "data_sort_period": "2024"
+  },
+  {
+    "id": "PUB009",
+    "recency_band": "older",
+    "data_dates": "Primarily 2012–2015 per preserved/search-indexed README; April 2015 count is historical documentation; original payload unavailable.",
+    "latest_data_date": null,
+    "date_basis": "provider_documentation",
+    "scale_band": "broad",
+    "scale": "Historical README claims approximately 74,000 match point sequences across main/qualifying/lower tiers; not a current measured count.",
+    "review_priority": "hold",
+    "model_role": "Older point-process lead; obtain a working copy only if this era and retirement-excluding parser are useful.",
+    "evidence_refs": [
+      "public-tennis-data.md",
+      "https://github.com/JeffSackmann/tennis_pointbypoint"
+    ],
+    "data_sort_period": "2015"
+  },
+  {
+    "id": "PUB010",
+    "recency_band": "2026",
+    "data_dates": "Match index scheduled times Jan 1, 2023–Aug 13, 2026; observed-state sample June 1–July 1, 2026 UTC, not a full historical point corpus.",
+    "latest_data_date": "2026-08-13",
+    "date_basis": "observed_payload",
+    "scale_band": "broad",
+    "scale": "Measured 173,571 match metadata rows, 32,678 profiles; 951,064 score states over only 5,380 sampled matches.",
+    "review_priority": "next",
+    "model_role": "Inspect wide player/tier inventory and point feasibility; public index lacks winners/final scores and tapes can truncate.",
+    "evidence_refs": [
+      "public-tennis-data.md",
+      "../../../data/studies/tennis_data_audit/public/table_audit.json"
+    ],
+    "data_sort_period": "2026-08-13"
+  },
+  {
+    "id": "PUB011",
+    "recency_band": "2026",
+    "data_dates": "Provider index Jan 1, 2023–Aug 13, 2026; live collection since Oct 12, 2025; earlier points reconstructed without capture timestamps.",
+    "latest_data_date": "2026-08-13",
+    "date_basis": "provider_documentation",
+    "scale_band": "broad",
+    "scale": "Provider claims 173,571 matches; 170,527 with any sequence; 22,031 live-observed matches / 3,184,514 states; restricted full corpus unaudited.",
+    "review_priority": "hold",
+    "model_role": "Potential multi-tier point extension; noncommercial academic eligibility and full access cannot be assumed for this project.",
+    "evidence_refs": [
+      "public-tennis-data.md",
+      "commercial-tennis-data.md",
+      "https://livetennisapi.com/data/academic"
+    ],
+    "data_sort_period": "2026-08-13"
+  },
+  {
+    "id": "PUB012",
+    "recency_band": "2026",
+    "data_dates": "Seasons 2021–2026 documented; provider says current season updated multiple times daily; latest actual match date unmeasured after blocked downloads.",
+    "latest_data_date": null,
+    "date_basis": "provider_documentation",
+    "scale_band": "broad",
+    "scale": "ATP/WTA main + Challenger seasonal CSVs; provider claims over 95% coverage; no measured rows or completeness.",
+    "review_priority": "next",
+    "model_role": "Promising recent results/stats/IDs candidate; first resolve download access and sample quality/rights before investing further.",
+    "evidence_refs": [
+      "public-tennis-data.md",
+      "https://tennisdata.app/downloads/"
+    ],
+    "data_sort_period": "2026"
+  },
+  {
+    "id": "PUB013",
+    "recency_band": "2026",
+    "data_dates": "Measured terminal-result dates Jan 5, 2020–Aug 29, 2026 in Sep 5 preview release, audited Sep 10; release date is not match recency.",
+    "latest_data_date": "2026-08-29",
+    "date_basis": "observed_payload",
+    "scale_band": "broad",
+    "scale": "26,619 terminal result rows, 1,216 referenced players, 763 tournament identities; ATP/WTA main-tour singles only.",
+    "review_priority": "next",
+    "model_role": "Accessible exact-date/provenance lead, but only 68 QFs and failed completeness gates make it unsuitable as an unchecked sole training base.",
+    "evidence_refs": [
+      "public-tennis-data.md",
+      "../../../data/studies/tennis_data_audit/public/table_audit.json",
+      "../../../data/studies/tennis_data_audit/public/open_tennis_coverage_records.json"
+    ],
+    "data_sort_period": "2026-08-29"
+  },
+  {
+    "id": "PUB014",
+    "recency_band": "2026",
+    "data_dates": "Inspected local ATP season files 2024–2026 contain match dates Dec 31, 2023–June 7, 2026; current site's latest match date unknown.",
+    "latest_data_date": "2026-06-07",
+    "date_basis": "local_snapshot",
+    "scale_band": "broad",
+    "scale": "Measured 6,643 match rows across three local ATP workbooks: 2,703 + 2,644 + 1,296; longer history advertised but unmeasured here.",
+    "review_priority": "next",
+    "model_role": "Results, set scores and bookmaker baselines; recover current downloads and reconcile names/odds validity.",
+    "evidence_refs": [
+      "public-tennis-data.md",
+      "../../../data/studies/tennis_data_audit/public/table_audit.json"
+    ],
+    "data_sort_period": "2026-06-07"
+  },
+  {
+    "id": "PUB015",
+    "recency_band": "2026",
+    "data_dates": "Inspected local WTA season files 2024–2026 contain match dates Dec 31, 2023–June 6, 2026; current site's latest match date unknown.",
+    "latest_data_date": "2026-06-06",
+    "date_basis": "local_snapshot",
+    "scale_band": "broad",
+    "scale": "Measured 6,243 match rows across three local WTA workbooks: 2,490 + 2,505 + 1,248; no ITF depth.",
+    "review_priority": "next",
+    "model_role": "Companion WTA results/odds baseline; freshness, changing bookmaker columns and identity joins need validation.",
+    "evidence_refs": [
+      "public-tennis-data.md",
+      "../../../data/studies/tennis_data_audit/public/table_audit.json"
+    ],
+    "data_sort_period": "2026-06-06"
+  },
+  {
+    "id": "PUB016",
+    "recency_band": "2025",
+    "data_dates": "2025 ATP archive page verified Sep 10; 2026 request blocked; full archive date bounds not measured.",
+    "latest_data_date": null,
+    "date_basis": "provider_documentation",
+    "scale_band": "broad",
+    "scale": "Tour + Challenger tournament archive with singles/doubles draws; no bulk row count audited.",
+    "review_priority": "next",
+    "model_role": "Official cross-check for missing cohorts and identity; a complete training extract remains acquisition work.",
+    "evidence_refs": [
+      "public-tennis-data.md"
+    ],
+    "data_sort_period": "2025"
+  },
+  {
+    "id": "PUB017",
+    "recency_band": "unknown",
+    "data_dates": "Statistics page verified Sep 10 but observed-data period and latest underlying match not recorded; Sep 11 fetch failed.",
+    "latest_data_date": null,
+    "date_basis": "unverified",
+    "scale_band": "niche",
+    "scale": "ATP serving/returning leaderboards and aggregates; no longitudinal match payload audited.",
+    "review_priority": "specialist",
+    "model_role": "Feature-definition/reference source; year-end or current aggregates cannot be backfilled as historical pre-match inputs.",
+    "evidence_refs": [
+      "public-tennis-data.md",
+      "https://www.atptour.com/stats/"
+    ],
+    "data_sort_period": null
+  },
+  {
+    "id": "PUB018",
+    "recency_band": "unknown",
+    "data_dates": "Weekly ranking endpoint identified; historical range and current ranking date unverified after blocked fetch.",
+    "latest_data_date": null,
+    "date_basis": "unverified",
+    "scale_band": "niche",
+    "scale": "ATP singles/doubles rankings; no ranking-history row count audited.",
+    "review_priority": "next",
+    "model_role": "Official ranking reference after core sources; confirm by-date archive and publication timing.",
+    "evidence_refs": [
+      "public-tennis-data.md"
+    ],
+    "data_sort_period": null
+  },
+  {
+    "id": "PUB019",
+    "recency_band": "unknown",
+    "data_dates": "Candidate URL contains 2025 but its PDF payload was not verified; actual draw dates unknown.",
+    "latest_data_date": null,
+    "date_basis": "unverified",
+    "scale_band": "niche",
+    "scale": "One candidate tournament/draw PDF; generated URL patterns do not establish whole-tour scale.",
+    "review_priority": "hold",
+    "model_role": "Resolve only for a concrete official draw gap; no verified dataset payload yet.",
+    "evidence_refs": [
+      "public-tennis-data.md",
+      "public-sources.json"
+    ],
+    "data_sort_period": null
+  },
+  {
+    "id": "PUB020",
+    "recency_band": "2025",
+    "data_dates": "Dubai 2025 draw page verified; year selector does not measure historical coverage.",
+    "latest_data_date": null,
+    "date_basis": "provider_documentation",
+    "scale_band": "niche",
+    "scale": "One inspected WTA tournament, with main/qualifying/doubles tabs; no circuit-wide match count.",
+    "review_priority": "specialist",
+    "model_role": "Authoritative draw/entry cross-check; broader extraction must be separately established.",
+    "evidence_refs": [
+      "public-tennis-data.md"
+    ],
+    "data_sort_period": "2025"
+  },
+  {
+    "id": "PUB021",
+    "recency_band": "unknown",
+    "data_dates": "Calendar-year aggregate statistics documented; actual observed season/latest match date not recorded in saved audit.",
+    "latest_data_date": null,
+    "date_basis": "unverified",
+    "scale_band": "niche",
+    "scale": "WTA annual serving/returning aggregates; no full match history audited.",
+    "review_priority": "specialist",
+    "model_role": "Statistical definitions/cross-checks; establish as-of versions before feature use.",
+    "evidence_refs": [
+      "public-tennis-data.md"
+    ],
+    "data_sort_period": null
+  },
+  {
+    "id": "PUB022",
+    "recency_band": "unknown",
+    "data_dates": "By-date filter/current ranking rows verified Sep 10; ranking effective date not recorded. Sep 11 page shows a September 2026 calendar but that alone does not date ranking rows.",
+    "latest_data_date": null,
+    "date_basis": "unverified",
+    "scale_band": "niche",
+    "scale": "50 visible current WTA ranking rows in saved audit; historical archive size unmeasured.",
+    "review_priority": "next",
+    "model_role": "Official ranking feature reference; retrieve dated snapshots before treating as historical covariates.",
+    "evidence_refs": [
+      "public-tennis-data.md",
+      "https://www.wtatennis.com/rankings/singles"
+    ],
+    "data_sort_period": null
+  },
+  {
+    "id": "PUB023",
+    "recency_band": "2026",
+    "data_dates": "Dubai February 2026 main draw; final PDF release Feb 21 is document publication, not the date every match or withdrawal became known.",
+    "latest_data_date": null,
+    "date_basis": "observed_payload",
+    "scale_band": "niche",
+    "scale": "One WTA Dubai main-draw PDF with seeds, scores, withdrawals and reasons.",
+    "review_priority": "specialist",
+    "model_role": "Inspect for richer entry/withdrawal features and label validation; retain publication versions.",
+    "evidence_refs": [
+      "public-tennis-data.md"
+    ],
+    "data_sort_period": "2026-02"
+  },
+  {
+    "id": "PUB024",
+    "recency_band": "unknown",
+    "data_dates": "Calendar endpoint verified; individual tournament range/latest completed-match date not established.",
+    "latest_data_date": null,
+    "date_basis": "unverified",
+    "scale_band": "niche",
+    "scale": "ITF women's event schedule/details; no complete individual-match history audited.",
+    "review_priority": "specialist",
+    "model_role": "Event identity/calendar context and path to draws; schedule rows do not provide match labels.",
+    "evidence_refs": [
+      "public-tennis-data.md"
+    ],
+    "data_sort_period": null
+  },
+  {
+    "id": "PUB025",
+    "recency_band": "unknown",
+    "data_dates": "Official results round-up verified, but saved evidence does not record full earliest/latest event dates.",
+    "latest_data_date": null,
+    "date_basis": "unverified",
+    "scale_band": "niche",
+    "scale": "ITF circuit-filtered finalists and scores; not all rounds or a complete match archive.",
+    "review_priority": "specialist",
+    "model_role": "Locate lower-tier tournaments and validate finals; obtain individual draws for broad model data.",
+    "evidence_refs": [
+      "public-tennis-data.md"
+    ],
+    "data_sort_period": null
+  },
+  {
+    "id": "PUB026",
+    "recency_band": "unknown",
+    "data_dates": "Live endpoint documented; historical retention and latest archived observation unknown.",
+    "latest_data_date": null,
+    "date_basis": "unverified",
+    "scale_band": "niche",
+    "scale": "ITF World Tennis Tour live scores; no retained point/match history measured.",
+    "review_priority": "hold",
+    "model_role": "Investigate only if current lower-tier scoring or future collection becomes necessary.",
+    "evidence_refs": [
+      "public-tennis-data.md"
+    ],
+    "data_sort_period": null
+  },
+  {
+    "id": "PUB027",
+    "recency_band": "unknown",
+    "data_dates": "Tournament-specific print endpoint indexed; event dates and result payload not audited.",
+    "latest_data_date": null,
+    "date_basis": "unverified",
+    "scale_band": "niche",
+    "scale": "One ITF tournament/draw endpoint identified by native tournament ID; no match count verified.",
+    "review_priority": "hold",
+    "model_role": "Potential official lower-tier draw fallback after resolving date, event class and payload.",
+    "evidence_refs": [
+      "public-tennis-data.md",
+      "public-sources.json"
+    ],
+    "data_sort_period": null
+  },
+  {
+    "id": "PUB028",
+    "recency_band": "older",
+    "data_dates": "Specific legacy page links Australian Open men's draw PDFs for 2007–2019; no 2025–26 coverage established.",
+    "latest_data_date": null,
+    "date_basis": "provider_documentation",
+    "scale_band": "niche",
+    "scale": "One Slam's men's singles draw archive over 13 listed seasons; no bulk row count.",
+    "review_priority": "specialist",
+    "model_role": "Older draw cross-check; skip when seeking fresh broad training data.",
+    "evidence_refs": [
+      "public-tennis-data.md"
+    ],
+    "data_sort_period": "2019"
+  },
+  {
+    "id": "PUB029",
+    "recency_band": "unknown",
+    "data_dates": "Dynamic official results route identified; available years/latest match dates not audited.",
+    "latest_data_date": null,
+    "date_basis": "unverified",
+    "scale_band": "niche",
+    "scale": "Roland-Garros only, potentially many event classes; full payload size unmeasured.",
+    "review_priority": "specialist",
+    "model_role": "Official Slam label/draw cross-check for a defined missing cohort.",
+    "evidence_refs": [
+      "public-tennis-data.md"
+    ],
+    "data_sort_period": null
+  },
+  {
+    "id": "PUB030",
+    "recency_band": "2025",
+    "data_dates": "2025 Wimbledon men's singles archived draw verified in saved audit; exact match-date range not measured.",
+    "latest_data_date": null,
+    "date_basis": "provider_documentation",
+    "scale_band": "niche",
+    "scale": "One men's singles Slam bracket; no full statistics corpus audited.",
+    "review_priority": "specialist",
+    "model_role": "Validate 2025 Wimbledon draw/results, especially missing rounds in derived datasets.",
+    "evidence_refs": [
+      "public-tennis-data.md"
+    ],
+    "data_sort_period": "2025"
+  },
+  {
+    "id": "PUB031",
+    "recency_band": "2025",
+    "data_dates": "2025 US Open men's singles archived final bracket; original draw versions and per-match times not established.",
+    "latest_data_date": null,
+    "date_basis": "observed_payload",
+    "scale_band": "niche",
+    "scale": "One men's singles Slam bracket with entry/special-outcome annotations.",
+    "review_priority": "specialist",
+    "model_role": "Authoritative label/draw cross-check; bracket text extraction requires reconciliation.",
+    "evidence_refs": [
+      "public-tennis-data.md"
+    ],
+    "data_sort_period": "2025"
+  },
+  {
+    "id": "PUB032",
+    "recency_band": "2025",
+    "data_dates": "2025 Davis Cup archive routes verified; individual-rubber date range not audited.",
+    "latest_data_date": null,
+    "date_basis": "provider_documentation",
+    "scale_band": "niche",
+    "scale": "Men's national-team competition, multiple groups/stages; rubber count unmeasured.",
+    "review_priority": "specialist",
+    "model_role": "Team-event supplement; distinguish tie outcomes, rubbers and line-ups.",
+    "evidence_refs": [
+      "public-tennis-data.md"
+    ],
+    "data_sort_period": "2025"
+  },
+  {
+    "id": "PUB033",
+    "recency_band": "2025",
+    "data_dates": "2025 Billie Jean King Cup archive routes verified; individual-rubber date range not audited.",
+    "latest_data_date": null,
+    "date_basis": "provider_documentation",
+    "scale_band": "niche",
+    "scale": "Women's national-team competition, multiple groups/stages; rubber count unmeasured.",
+    "review_priority": "specialist",
+    "model_role": "Team-event supplement; avoid equating tie winner with individual match winner.",
+    "evidence_refs": [
+      "public-tennis-data.md"
+    ],
+    "data_sort_period": "2025"
+  },
+  {
+    "id": "PUB034",
+    "recency_band": "2026",
+    "data_dates": "2026 United Cup results verified in Sep 10 audit; exact earliest/latest individual-match dates not recorded.",
+    "latest_data_date": null,
+    "date_basis": "observed_payload",
+    "scale_band": "niche",
+    "scale": "One team event/season with singles, mixed doubles, tie scores, courts and durations; no total measured.",
+    "review_priority": "specialist",
+    "model_role": "Context/labels for this event; mixed-doubles team identity and scoring need separate handling.",
+    "evidence_refs": [
+      "public-tennis-data.md"
+    ],
+    "data_sort_period": "2026"
+  },
+  {
+    "id": "PUB035",
+    "recency_band": "2025",
+    "data_dates": "Individual matches Sep 19–21, 2025 in inspected event results.",
+    "latest_data_date": "2025-09-21",
+    "date_basis": "observed_payload",
+    "scale_band": "niche",
+    "scale": "12 Laver Cup singles/doubles matches with scores and durations.",
+    "review_priority": "specialist",
+    "model_role": "Small event-specific supplement with day-weighted team points and match tiebreaks.",
+    "evidence_refs": [
+      "public-tennis-data.md"
+    ],
+    "data_sort_period": "2025-09-21"
+  },
+  {
+    "id": "PUB036",
+    "recency_band": "unknown",
+    "data_dates": "Match-history start/latest dates unmeasured. ATP/WTA rankings dated Aug 31, 2026 observed Sep 11; ranking freshness does not establish the advertised match corpus cutoff.",
+    "latest_data_date": null,
+    "date_basis": "observed_payload",
+    "scale_band": "broad",
+    "scale": "Sep 10 site claims 4,426,928 results, 219,717 players, 130,885 tournaments across tours/lower tiers/juniors; no bulk payload audited.",
+    "review_priority": "next",
+    "model_role": "Large identity/lower-tier results lead; verify export, relevant population and stats depth before large acquisition.",
+    "evidence_refs": [
+      "public-tennis-data.md",
+      "https://www.coretennis.net/"
+    ],
+    "data_sort_period": null
+  },
+  {
+    "id": "PUB037",
+    "recency_band": "2026",
+    "data_dates": "Inspected player's season history 2014–2026; latest displayed singles match July 16, 2026 in Sep 11 check; site-wide cutoff unknown.",
+    "latest_data_date": "2026-07-16",
+    "date_basis": "observed_payload",
+    "scale_band": "niche",
+    "scale": "Specific player's history/results/odds and injury periods audited as a page; whole-site match count unmeasured.",
+    "review_priority": "specialist",
+    "model_role": "Identity/injury cross-check for individual cases; infer neither complete medical records nor historical disclosure times.",
+    "evidence_refs": [
+      "public-tennis-data.md",
+      "https://www.tennisexplorer.com/player/davidovich-fokina/"
+    ],
+    "data_sort_period": "2026-07-16"
+  },
+  {
+    "id": "PUB038",
+    "recency_band": "unknown",
+    "data_dates": "Lead only; match-history start/latest dates not verified.",
+    "latest_data_date": null,
+    "date_basis": "unverified",
+    "scale_band": "unknown",
+    "scale": "ATP/WTA/Challenger/ITF breadth is a lead; neither actual population coverage nor row count measured.",
+    "review_priority": "hold",
+    "model_role": "Defer behind stronger accessible broad candidates until a representative payload is checked.",
+    "evidence_refs": [
+      "public-tennis-data.md"
+    ],
+    "data_sort_period": null
+  },
+  {
+    "id": "PUB039",
+    "recency_band": "2026",
+    "data_dates": "Season ratings back to 1991 documented; inspected table's latest tournament date Aug 23, 2026; page updated Aug 31, a distinct publication date.",
+    "latest_data_date": "2026-08-23",
+    "date_basis": "observed_payload",
+    "scale_band": "niche",
+    "scale": "ATP tour event-season surface-speed proxies, not individual match outcomes or physical court measurements; full-history count unmeasured.",
+    "review_priority": "specialist",
+    "model_role": "Potential contextual feature; use prior available ratings to avoid including later tournament outcomes.",
+    "evidence_refs": [
+      "public-tennis-data.md",
+      "https://www.tennisabstract.com/reports/atp_surface_speed.html"
+    ],
+    "data_sort_period": "2026-08-23"
+  },
+  {
+    "id": "PUB040",
+    "recency_band": "2026",
+    "data_dates": "2026 United Cup final-day match notes; underlying facts span earlier careers; exact as-of publication time not established.",
+    "latest_data_date": null,
+    "date_basis": "provider_documentation",
+    "scale_band": "niche",
+    "scale": "One official notes document with head-to-head and historical context.",
+    "review_priority": "specialist",
+    "model_role": "Unstructured context supplement; preserve release timing before using pre-match information.",
+    "evidence_refs": [
+      "public-tennis-data.md"
+    ],
+    "data_sort_period": "2026"
+  },
+  {
+    "id": "PUB041",
+    "recency_band": "2025",
+    "data_dates": "2025 Challenger statistical summary; November 17, 2025 is document update date, not a verified individual-match cutoff.",
+    "latest_data_date": null,
+    "date_basis": "provider_documentation",
+    "scale_band": "niche",
+    "scale": "One Challenger media guide with aggregate historical/statistical summaries.",
+    "review_priority": "specialist",
+    "model_role": "Coverage/statistical cross-check; not a substitute for individual match rows.",
+    "evidence_refs": [
+      "public-tennis-data.md"
+    ],
+    "data_sort_period": "2025"
+  },
+  {
+    "id": "PUB042",
+    "recency_band": "2026",
+    "data_dates": "Sanction announcements include Sep 3, 2026 in Sep 11 check; underlying incidents/effective suspension dates differ and full history start is unmeasured.",
+    "latest_data_date": null,
+    "date_basis": "observed_payload",
+    "scale_band": "niche",
+    "scale": "Official disciplinary/eligibility announcements, not a general match dataset; count unmeasured.",
+    "review_priority": "specialist",
+    "model_role": "Eligibility context only after separating announcement, effective and incident dates.",
+    "evidence_refs": [
+      "public-tennis-data.md",
+      "https://www.itia.tennis/news/sanctions/"
+    ],
+    "data_sort_period": "2026"
+  },
+  {
+    "id": "PUB043",
+    "recency_band": "2026",
+    "data_dates": "Provider documents ERA5 1940–present, ERA5-Land 1950–present, IFS 2017–present; ongoing availability claimed, no weather payload/date cutoff audited.",
+    "latest_data_date": null,
+    "date_basis": "provider_documentation",
+    "scale_band": "niche",
+    "scale": "Global hourly weather/reanalysis; huge geotemporal corpus but zero tennis match labels.",
+    "review_priority": "specialist",
+    "model_role": "Optional weather features after event/time/venue joins; retrospective reanalysis differs from pre-match forecasts.",
+    "evidence_refs": [
+      "public-tennis-data.md",
+      "https://open-meteo.com/en/docs/historical-weather-api"
+    ],
+    "data_sort_period": "2026"
+  },
+  {
+    "id": "PUB044",
+    "recency_band": "support",
+    "data_dates": "2026 technical booklet edition; no independent historical match/point dataset date.",
+    "latest_data_date": null,
+    "date_basis": "not_applicable",
+    "scale_band": "support",
+    "scale": "Equipment approval and court-measurement reference; not match-level physical pace observations.",
+    "review_priority": "support",
+    "model_role": "Consult to interpret court/ball terminology if those features are studied.",
+    "evidence_refs": [
+      "public-tennis-data.md"
+    ],
+    "data_sort_period": null
+  },
+  {
+    "id": "PUB045",
+    "recency_band": "older",
+    "data_dates": "Provider documents charted match dates 1960–2024; August 4, 2025 is page publication, not newer match data.",
+    "latest_data_date": null,
+    "date_basis": "provider_documentation",
+    "scale_band": "niche",
+    "scale": "Eight ATP/WTA Grand Slam shot datasets derived from selected MCP matches; count unmeasured.",
+    "review_priority": "specialist",
+    "model_role": "Teaching-friendly shot subset; prefer PUB005/PUB007 for upstream breadth and provenance.",
+    "evidence_refs": [
+      "public-tennis-data.md",
+      "https://data.scorenetwork.org/tennis/tennis-shot-level-data.html"
+    ],
+    "data_sort_period": "2024"
+  },
+  {
+    "id": "PUB046",
+    "recency_band": "unknown",
+    "data_dates": "Match-video years are not established by inspected author documentation; March 2026 is paper publication, not dataset observation recency.",
+    "latest_data_date": null,
+    "date_basis": "unverified",
+    "scale_band": "niche",
+    "scale": "Author paper reports 202 broadcast matches, 471.9 hours and 40,523 rally clips; not a broad longitudinal results corpus.",
+    "review_priority": "specialist",
+    "model_role": "Video/shot extraction research only if justified later; defer for general tabular model foundation.",
+    "evidence_refs": [
+      "public-tennis-data.md",
+      "https://arxiv.org/html/2603.13397v1",
+      "https://github.com/LZYAndy/TennisExpert"
+    ],
+    "data_sort_period": null
+  },
+  {
+    "id": "PUB047",
+    "recency_band": "support",
+    "data_dates": "Schema/dictionary reference; no independent dated observations.",
+    "latest_data_date": null,
+    "date_basis": "not_applicable",
+    "scale_band": "support",
+    "scale": "Sackmann column definitions, not additional match rows.",
+    "review_priority": "support",
+    "model_role": "Read alongside PUB003; explains tournament-date semantics and feature fields.",
+    "evidence_refs": [
+      "public-tennis-data.md"
+    ],
+    "data_sort_period": null
+  },
+  {
+    "id": "PUB048",
+    "recency_band": "support",
+    "data_dates": "Manifest released Sep 5, 2026; PUB013's actual latest result is Aug 29, 2026.",
+    "latest_data_date": null,
+    "date_basis": "not_applicable",
+    "scale_band": "support",
+    "scale": "One release manifest with checksums/counts and preview failure reasons; same dataset as PUB013.",
+    "review_priority": "support",
+    "model_role": "Review with PUB013 to understand known missing cohorts; no independent data to inspect.",
+    "evidence_refs": [
+      "public-tennis-data.md",
+      "../../../data/studies/tennis_data_audit/public/table_audit.json"
+    ],
+    "data_sort_period": null
+  },
+  {
+    "id": "PUB049",
+    "recency_band": "2026",
+    "data_dates": "Historical ATP archive documented from 1968; Sep 10 samples: ATP main Aug 30, WTA Aug 24, Challenger Sep 1, qualifying Aug 28; ATP ongoing recorded date Sep 9, 2026 (tournament-week semantics).",
+    "latest_data_date": "2026-09-09",
+    "date_basis": "observed_payload",
+    "scale_band": "broad",
+    "scale": "Measured 2026 season files: 2,132 ATP + 1,968 WTA + 5,389 Challenger + 1,105 qualifying rows; ongoing files 124/124/165 rows may overlap seasons.",
+    "review_priority": "first",
+    "model_role": "Best first current public match/stat candidate; inspect identity keys, WTA gaps, overlapping files and conflicting rights notices.",
+    "evidence_refs": [
+      "public-tennis-data.md",
+      "../../../data/studies/tennis_data_audit/public/tml_audit.json",
+      "https://github.com/Tennismylife/TML-Database"
+    ],
+    "data_sort_period": "2026-09-09"
+  },
+  {
+    "id": "PUB050",
+    "recency_band": "unknown",
+    "data_dates": "Historical ATP reconstruction documents 1968–2025; 2026 filename exists but old GitHub copy's actual endpoint not measured; publisher moved current distribution to PUB049.",
+    "latest_data_date": null,
+    "date_basis": "provider_documentation",
+    "scale_band": "broad",
+    "scale": "Decades of ATP seasonal results and official player IDs; repository total rows unmeasured.",
+    "review_priority": "hold",
+    "model_role": "Use for provenance/older history only; inspect PUB049 for current distribution and avoid duplicate evaluation.",
+    "evidence_refs": [
+      "public-tennis-data.md",
+      "https://github.com/Tennismylife/TML-Database"
+    ],
+    "data_sort_period": null
+  }
+]

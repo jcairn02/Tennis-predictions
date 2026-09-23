@@ -1,0 +1,33 @@
+{
+  "method": "Exact normalized full player-name pair; event startTime UTC calendar date vs sporting result date, tolerance at most one day; unique results only. Candidates, not certified joins.",
+  "warning": "Tag false positives, future dates, non-main-tour populations, dataset gaps, and aliases remain in unmatched denominator. This is not overall Polymarket coverage.",
+  "results_release": "data-v3-20260905T083014Z",
+  "counts": {
+    "all_tagged_events_in_sport_window": 33329,
+    "parsed_full_name_pair_candidates": 30072,
+    "no_exact_name_date_candidate": 27612,
+    "unique_full_name_date_candidates": 2460,
+    "exact_calendar_date": 2340,
+    "same_pair_elsewhere_but_no_date_candidate": 1296,
+    "one_day_calendar_tolerance": 120,
+    "excluded_non_startTime_date_basis": 543,
+    "excluded_doubles_or_question_title": 2712,
+    "excluded_title_not_two_part_vs": 2
+  },
+  "candidate_tours": {
+    "wta": 1176,
+    "atp": 1284
+  },
+  "candidate_status": {
+    "completed": 2391,
+    "retired": 49,
+    "walkover": 20
+  },
+  "candidate_market_contracts": 25255,
+  "distinct_result_matches": 2459,
+  "result_rows_in_requested_window": 2995,
+  "candidate_date_range": [
+    "2025-09-15",
+    "2026-08-29"
+  ]
+}

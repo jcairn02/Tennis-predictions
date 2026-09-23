@@ -1,0 +1,975 @@
+<title>Tennis Data Terrain</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,600;12..96,700&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+:root{
+  --bg:#f4f6f1; --surface:#ffffff; --surface-2:#edf0e8; --ink:#16201b; --ink-2:#4a5650; --muted:#78827c;
+  --hair:#dde2d8; --line:#c3cbbe; --accent:#1c5cab; --accent-ink:#ffffff; --accent-soft:#e2ecfa;
+  --s1:#2a78d6; --s2:#eb6834; --s3:#1baf7a; --gray-mark:#b9c0b8;
+  --ord0:#e6e9e2; --ord1:#86b6ef; --ord2:#3987e5; --ord3:#184f95; --ord1-ink:#0b1e3a; --ord3-ink:#ffffff;
+  --warn:#fab219; --crit:#d03b3b; --good:#0ca30c; --grid:#e3e6de;
+  --shadow:0 1px 2px rgba(22,32,27,.06), 0 8px 24px -12px rgba(22,32,27,.18);
+  --font-display:"Bricolage Grotesque", "Avenir Next", "Segoe UI", system-ui, sans-serif;
+  --font-body:"IBM Plex Sans", "Segoe UI", system-ui, -apple-system, sans-serif;
+  --font-mono:"IBM Plex Mono", "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+  color-scheme:light;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#121513; --surface:#1a1e1b; --surface-2:#222724; --ink:#eef1ec; --ink-2:#b8c0b9; --muted:#8a938c;
+    --hair:#2a302c; --line:#3c443e; --accent:#5a9df0; --accent-ink:#0f1a2b; --accent-soft:#1c2a3f;
+    --s1:#3987e5; --s2:#d95926; --s3:#199e70; --gray-mark:#4a524c;
+    --ord0:#262b28; --ord1:#184f95; --ord2:#2a78d6; --ord3:#86b6ef; --ord1-ink:#ffffff; --ord3-ink:#0b1e3a; --grid:#2c312e;
+    --shadow:0 1px 2px rgba(0,0,0,.4), 0 8px 24px -12px rgba(0,0,0,.6);
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#121513; --surface:#1a1e1b; --surface-2:#222724; --ink:#eef1ec; --ink-2:#b8c0b9; --muted:#8a938c;
+  --hair:#2a302c; --line:#3c443e; --accent:#5a9df0; --accent-ink:#0f1a2b; --accent-soft:#1c2a3f;
+  --s1:#3987e5; --s2:#d95926; --s3:#199e70; --gray-mark:#4a524c;
+  --ord0:#262b28; --ord1:#184f95; --ord2:#2a78d6; --ord3:#86b6ef; --ord1-ink:#ffffff; --ord3-ink:#0b1e3a; --grid:#2c312e;
+  --shadow:0 1px 2px rgba(0,0,0,.4), 0 8px 24px -12px rgba(0,0,0,.6);
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html,body{background:var(--bg)}
+body{margin:0;color:var(--ink);font:400 16px/1.55 var(--font-body);-webkit-font-smoothing:antialiased}
+a{color:var(--accent);text-decoration-thickness:1px;text-underline-offset:2px}
+h1,h2,h3,h4{font-family:var(--font-display);text-wrap:balance;margin:0;line-height:1.12;letter-spacing:-.01em}
+h1{font-size:clamp(34px,5.4vw,58px);font-weight:700}
+h2{font-size:clamp(24px,3.2vw,34px);font-weight:600}
+h3{font-size:19px;font-weight:600;margin-top:28px}
+p{margin:0 0 14px}
+.wrap{max-width:1080px;margin:0 auto;padding-inline:20px;padding-block:8px 96px}
+.prose{max-width:68ch}
+.prose.wide{max-width:80ch}
+.eyebrow{font:500 12px/1 var(--font-mono);letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:10px}
+.lede{font-size:19px;line-height:1.5;color:var(--ink-2);max-width:62ch}
+small,.small{font-size:13px;color:var(--ink-2)}
+code,.mono{font-family:var(--font-mono);font-size:.92em}
+hr{border:0;border-top:1px solid var(--hair);margin:40px 0}
+section{margin-top:72px;scroll-margin-top:72px}
+.sec-head{display:grid;grid-template-columns:auto 1fr;gap:16px 20px;align-items:baseline;margin-bottom:18px;padding-top:20px;border-top:2px solid var(--ink)}
+.sec-num{font:600 13px/1 var(--font-mono);color:var(--muted);letter-spacing:.08em;padding-top:6px}
+.sec-head h2{grid-column:2}
+.sec-head .sub{grid-column:2;color:var(--ink-2);max-width:68ch;margin:0}
+/* top nav */
+.nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(8px);border-bottom:1px solid var(--hair);margin-inline:-20px;padding-inline:20px}
+.nav ul{list-style:none;margin:0;padding:0;display:flex;gap:2px 18px;flex-wrap:wrap;font:500 12.5px/1 var(--font-mono);overflow-x:auto}
+.nav li a{display:inline-block;padding:12px 0;color:var(--ink-2);text-decoration:none;white-space:nowrap}
+.nav li a:hover,.nav li a:focus-visible{color:var(--accent)}
+/* evidence legend chips */
+.legend{display:flex;flex-wrap:wrap;gap:8px 14px;align-items:center;margin:14px 0 4px}
+.ev{display:inline-flex;align-items:center;gap:7px;font:500 12px/1 var(--font-mono);color:var(--ink-2);padding:5px 10px 5px 8px;border:1px solid var(--hair);border-radius:999px;background:var(--surface)}
+.g{display:inline-block;width:11px;height:11px;border-radius:50%;flex:0 0 auto}
+.g-m{background:var(--accent);border:1.5px solid var(--accent)}
+.g-c{background:linear-gradient(90deg,var(--accent) 50%,transparent 50%);border:1.5px solid var(--accent)}
+.g-i{background:transparent;border:1.5px dashed var(--ink-2)}
+/* figures */
+figure{margin:22px 0 0}
+.fig{background:var(--surface);border:1px solid var(--hair);border-radius:10px;padding:18px 18px 14px;box-shadow:var(--shadow)}
+.fig .fig-title{font:600 15px/1.3 var(--font-body);margin:0 0 2px;display:flex;flex-wrap:wrap;gap:8px 12px;align-items:baseline}
+.fig .fig-title .ev{margin-left:auto}
+.fig .fig-sub{font-size:13px;color:var(--ink-2);margin:0 0 12px}
+figcaption{font-size:13.5px;color:var(--ink-2);margin-top:12px;max-width:80ch;line-height:1.5}
+.scroller{overflow-x:auto;-webkit-overflow-scrolling:touch}
+svg.diagram{display:block;width:100%;max-width:100%;height:auto;font-family:var(--font-body)}
+svg.diagram text{fill:var(--ink)}
+svg.diagram .t2{fill:var(--ink-2)}
+svg.diagram .tm{fill:var(--muted)}
+svg.diagram .mono{font-family:var(--font-mono)}
+svg.diagram .box{fill:var(--surface);stroke:var(--line);stroke-width:1}
+svg.diagram .box-soft{fill:var(--surface-2);stroke:var(--hair);stroke-width:1}
+svg.diagram .box-accent{fill:var(--accent-soft);stroke:var(--accent);stroke-width:1.2}
+svg.diagram .edge{stroke:var(--ink-2);stroke-width:1.3;fill:none}
+svg.diagram .edge-soft{stroke:var(--line);stroke-width:1.1;fill:none;stroke-dasharray:4 3}
+svg.diagram .edge-accent{stroke:var(--accent);stroke-width:1.6;fill:none}
+/* tables */
+table{border-collapse:collapse;width:100%;font-size:13.5px}
+th,td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--hair);vertical-align:top}
+th{font:600 11.5px/1.3 var(--font-mono);letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+td.num,th.num{text-align:right;font-variant-numeric:tabular-nums;font-family:var(--font-mono);font-size:12.5px;white-space:nowrap}
+tbody tr:hover td{background:var(--surface-2)}
+/* callouts */
+.note{border-left:3px solid var(--accent);background:var(--accent-soft);padding:12px 16px;border-radius:0 8px 8px 0;margin:18px 0;font-size:14.5px}
+.note.warn{border-left-color:var(--warn);background:color-mix(in srgb,var(--warn) 12%,var(--surface))}
+.note strong{font-weight:600}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px}
+.grid3{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px}
+.tile{background:var(--surface);border:1px solid var(--hair);border-radius:10px;padding:14px 16px}
+.tile .k{font:500 11.5px/1.3 var(--font-mono);letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
+.tile .v{font:600 30px/1.05 var(--font-display);letter-spacing:-.01em}
+.tile .d{font-size:13px;color:var(--ink-2);margin-top:6px}
+/* chart chrome */
+.chart{position:relative}
+.chart svg{display:block;width:100%;height:auto;max-width:100%}
+.chart .axis-t{font:400 11.5px var(--font-mono);fill:var(--muted)}
+.chart .lbl{font:500 12.5px var(--font-body);fill:var(--ink)}
+.chart .lbl2{font:400 12px var(--font-body);fill:var(--ink-2)}
+.chart .val{font:500 11.5px var(--font-mono);fill:var(--ink-2)}
+.chart .gridline{stroke:var(--grid);stroke-width:1}
+.chart .baseline{stroke:var(--line);stroke-width:1}
+.chart .bar{fill:var(--s1)}
+.chart .bar2{fill:var(--s2)}
+.chart .bar-gray{fill:var(--gray-mark)}
+.chart .hit{fill:transparent}
+.chart .hit:hover+.bar,.chart g:hover .bar{filter:brightness(1.12)}
+.controls{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:0 0 12px}
+.seg{display:inline-flex;border:1px solid var(--line);border-radius:8px;overflow:hidden}
+.seg button{appearance:none;border:0;background:var(--surface);color:var(--ink-2);font:500 12.5px/1 var(--font-mono);padding:8px 12px;cursor:pointer}
+.seg button[aria-pressed="true"]{background:var(--accent);color:var(--accent-ink)}
+.seg button:focus-visible{outline:2px solid var(--accent);outline-offset:-2px}
+.legend-row{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:12.5px;color:var(--ink-2);margin:6px 0 0}
+.legend-row .sw{display:inline-block;width:12px;height:12px;border-radius:3px;vertical-align:-2px;margin-right:6px}
+.tip{position:absolute;z-index:30;pointer-events:none;background:var(--ink);color:var(--bg);font:400 12.5px/1.4 var(--font-body);padding:8px 10px;border-radius:6px;max-width:300px;box-shadow:var(--shadow);opacity:0;transition:opacity .08s}
+.tip b{font-weight:600;display:block;font-size:13px}
+.tip .r{display:block}
+details.table{margin-top:10px}
+details.table summary{cursor:pointer;font:500 12.5px var(--font-mono);color:var(--accent)}
+details.table>div{margin-top:8px;overflow-x:auto}
+/* heatmap */
+.heat{display:grid;gap:3px;font-size:12px}
+.heat .hcell{min-height:52px;border-radius:5px;padding:6px 8px;display:flex;flex-direction:column;justify-content:space-between;cursor:default}
+.heat .hcell:hover,.heat .hcell:focus-visible{outline:2px solid var(--ink);outline-offset:1px}
+.heat .hcell .c1{font:500 12px/1.2 var(--font-mono)}
+.heat .hcell .c2{font:400 11px/1.25 var(--font-body);opacity:.9}
+.heat .o0{background:var(--ord0);color:var(--ink-2)}
+.heat .o1{background:var(--ord1);color:var(--ord1-ink)}
+.heat .o2{background:var(--ord2);color:#ffffff}
+.heat .o3{background:var(--ord3);color:var(--ord3-ink)}
+.heat .hrow{display:contents}
+.heat .hlab{display:flex;align-items:center;font:500 12.5px/1.25 var(--font-body);padding:4px 8px 4px 0;color:var(--ink)}
+.heat .hcol{font:600 11px/1.3 var(--font-mono);letter-spacing:.05em;text-transform:uppercase;color:var(--muted);padding:0 4px 6px;align-self:end}
+.attn td:nth-child(2){min-width:280px}
+.attn td:nth-child(3){min-width:200px}
+.attn td:nth-child(4){min-width:240px}
+code{overflow-wrap:anywhere}
+.chart{overflow-x:auto}
+.chart svg{min-width:640px}
+@media (max-width:700px){
+  .scroller,.chart{position:relative}
+  .scroller::after,.chart::after{content:"scroll →";position:absolute;right:0;top:0;font:500 11px var(--font-mono);color:var(--muted);background:var(--surface);padding:2px 6px;border-radius:4px;pointer-events:none}
+}
+/* source matrix */
+.matrix td.c{text-align:center;font-size:16px;line-height:1}
+.matrix td.c span{display:inline-block;width:14px;height:14px;border-radius:50%}
+.matrix .m{background:var(--accent);border:1.5px solid var(--accent)}
+.matrix .h{background:linear-gradient(90deg,var(--accent) 50%,transparent 50%);border:1.5px solid var(--accent)}
+.matrix .n{background:transparent;border:1.5px dashed var(--line)}
+.matrix tfoot td{font-weight:600;border-top:2px solid var(--ink);border-bottom:0}
+.matrix th.rot{writing-mode:initial}
+/* questions */
+.qlist{counter-reset:q;list-style:none;padding:0;margin:0;display:grid;gap:12px}
+.qlist li{background:var(--surface);border:1px solid var(--hair);border-radius:10px;padding:14px 16px 14px 54px;position:relative}
+.qlist li::before{counter-increment:q;content:"Q" counter(q);position:absolute;left:14px;top:14px;font:600 12px/1 var(--font-mono);color:var(--accent);letter-spacing:.06em;background:var(--accent-soft);padding:5px 6px;border-radius:5px}
+.qlist li b{font-weight:600}
+.qlist li .why{display:block;font-size:13.5px;color:var(--ink-2);margin-top:6px}
+.srcs{font-size:13.5px}
+.srcs li{margin:0 0 8px}
+@media (max-width:640px){
+  .sec-head{grid-template-columns:1fr}
+  .sec-head h2,.sec-head .sub{grid-column:1}
+  .fig{padding:12px 12px 10px}
+  h3{font-size:17px}
+}
+@media (prefers-reduced-motion: reduce){ .tip{transition:none} }
+</style>
+
+<div class="wrap">
+<nav class="nav" aria-label="Sections">
+  <ul>
+    <li><a href="#s1">1 · Who runs what</a></li>
+    <li><a href="#s2">2 · The ladder</a></li>
+    <li><a href="#s3">3 · Where the money is</a></li>
+    <li><a href="#s4">4 · Thick vs sparse data</a></li>
+    <li><a href="#s5">5 · Sources by tier</a></li>
+    <li><a href="#s6">6 · Two tours, one schema?</a></li>
+    <li><a href="#s7">7 · The season</a></li>
+    <li><a href="#s8">8 · Questions to sit with</a></li>
+    <li><a href="#s9">9 · Sources &amp; method</a></li>
+  </ul>
+</nav>
+
+<header style="padding-top:48px">
+  <div class="eyebrow">Tennis-predictions · data domain · orientation page · 22 Sep 2026</div>
+  <h1>Tennis Data Terrain</h1>
+  <p class="lede" style="margin-top:16px">Tennis has no league table and no kickoff weekend. It is a year-round circuit of some sixteen hundred professional tournaments, run by three organisations, on which a player can be in a $50,000 event in a Serbian spa town one week and a Grand Slam the next. This page maps that circuit against the two things the project needs to know before choosing where to start: where the betting money actually sits, and where usable data is thick or thin.</p>
+  <div class="legend" aria-label="Evidence legend">
+    <span class="ev"><i class="g g-m"></i>Measured here: computed from files saved in this repository, with dates</span>
+    <span class="ev"><i class="g g-c"></i>Published claim: a publisher, provider or press figure, with URL and access date</span>
+    <span class="ev"><i class="g g-i"></i>Inferred: a classification or rule of thumb made for this page, stated where used</span>
+  </div>
+  <p class="small" style="margin-top:10px;max-width:80ch">Every number carries one of these marks. Numbers marked <em>measured</em> come from the 10 September 2026 Polymarket census, the 2025 Sackmann archive files and the tennis-data.co.uk workbooks already stored in this repository. The measurement script and its JSON output are listed in section 9.</p>
+</header>
+<section id="s1">
+  <div class="sec-head"><div class="sec-num">01</div><h2>Who runs what</h2>
+  <p class="sub">Three organisations, four privately owned tournaments, and one shared currency: ranking points. The data rights sit with different partners for each, which is why no single vendor covers the whole sport.</p></div>
+  <div class="prose">
+    <p>The <b>ITF</b> is the world federation: it writes the rules, runs the national-team competitions and the Olympic event, and operates the entry-level professional circuit. The <b>ATP</b> (men) and <b>WTA</b> (women) are separate player-and-tournament associations that run the weekly tours. The four <b>Grand Slams</b> belong to national federations and sit above all of it; they are the only events where both tours, juniors, doubles and wheelchair play the same fortnight on the same grounds.</p>
+    <p>What ties the whole structure together is that every level awards points on the <em>same</em> ranking list, so the same player identity runs from an ITF qualifying round to a Slam final. That is the good news for a model. The bad news is that the official data for each layer is licensed to a different partner.</p>
+  </div>
+  <figure>
+    <div class="fig">
+      <div class="fig-title">Governance and data rights, as recorded in the source register <span class="ev"><i class="g g-c"></i>published claims · register entries dated 10–11 Sep 2026</span></div>
+      <div class="scroller">
+      <svg class="diagram" viewBox="0 0 1000 600" role="img" aria-label="Organisation chart: ATP men's tour on the left, ITF world federation in the centre, WTA women's tour on the right; the four Grand Slams above them award ranking points to both tours; the ITF World Tennis Tour feeds players up into Challenger and WTA 125 and then the main tours; each body has a different official data partner." style="min-width:720px">
+        <defs>
+          <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="currentColor"/></marker>
+        </defs>
+        <!-- Grand Slams band -->
+        <rect x="250" y="18" width="500" height="78" rx="8" class="box-accent"/>
+        <text x="500" y="44" text-anchor="middle" font-size="15" font-weight="600">The four Grand Slams</text>
+        <text x="500" y="63" text-anchor="middle" font-size="12" class="t2">Australian Open (Tennis Australia) · Roland-Garros (FFT) · Wimbledon (AELTC) · US Open (USTA)</text>
+        <text x="500" y="81" text-anchor="middle" font-size="11.5" class="tm">Owned by national federations · coordinated with the ITF · both tours play the same fortnight</text>
+        <!-- governing bodies -->
+        <rect x="30" y="150" width="270" height="70" rx="8" class="box"/>
+        <text x="165" y="176" text-anchor="middle" font-size="15" font-weight="600">ATP</text>
+        <text x="165" y="195" text-anchor="middle" font-size="12" class="t2">Men's professional tour</text>
+        <text x="165" y="211" text-anchor="middle" font-size="11.5" class="tm">runs its own weekly calendar and ranking</text>
+        <rect x="365" y="150" width="270" height="70" rx="8" class="box"/>
+        <text x="500" y="176" text-anchor="middle" font-size="15" font-weight="600">ITF</text>
+        <text x="500" y="195" text-anchor="middle" font-size="12" class="t2">World governing body</text>
+        <text x="500" y="211" text-anchor="middle" font-size="11.5" class="tm">rules · team events · Olympics · entry-level circuit</text>
+        <rect x="700" y="150" width="270" height="70" rx="8" class="box"/>
+        <text x="835" y="176" text-anchor="middle" font-size="15" font-weight="600">WTA</text>
+        <text x="835" y="195" text-anchor="middle" font-size="12" class="t2">Women's professional tour</text>
+        <text x="835" y="211" text-anchor="middle" font-size="11.5" class="tm">runs its own weekly calendar and ranking</text>
+        <!-- slam -> tours: ranking points -->
+        <path d="M250 60 L165 60 L165 148" class="edge-accent" marker-end="url(#arr)" style="color:var(--accent)"/>
+        <text x="155" y="104" text-anchor="end" font-size="11" class="mono t2">2000 ATP pts</text>
+        <text x="155" y="119" text-anchor="end" font-size="11" class="mono t2">to the winner</text>
+        <path d="M750 60 L835 60 L835 148" class="edge-accent" marker-end="url(#arr)" style="color:var(--accent)"/>
+        <text x="845" y="104" font-size="11" class="mono t2">2000 WTA pts</text>
+        <text x="845" y="119" font-size="11" class="mono t2">to the winner</text>
+        <path d="M500 96 L500 148" class="edge-soft"/>
+        <text x="510" y="126" font-size="11" class="tm">Grand Slam Board</text>
+        <!-- tour tiers -->
+        <rect x="30" y="262" width="270" height="62" rx="8" class="box-soft"/>
+        <text x="165" y="285" text-anchor="middle" font-size="13" font-weight="600">Main tour</text>
+        <text x="165" y="303" text-anchor="middle" font-size="12" class="t2">Masters 1000 · ATP 500 · ATP 250 · ATP Finals</text>
+        <text x="165" y="318" text-anchor="middle" font-size="11" class="tm">United Cup co-owned with the WTA</text>
+        <rect x="30" y="352" width="270" height="52" rx="8" class="box-soft"/>
+        <text x="165" y="374" text-anchor="middle" font-size="13" font-weight="600">ATP Challenger Tour</text>
+        <text x="165" y="392" text-anchor="middle" font-size="12" class="t2">Challenger 175 · 125 · 100 · 75 · 50</text>
+        <rect x="700" y="262" width="270" height="62" rx="8" class="box-soft"/>
+        <text x="835" y="285" text-anchor="middle" font-size="13" font-weight="600">Main tour</text>
+        <text x="835" y="303" text-anchor="middle" font-size="12" class="t2">WTA 1000 · WTA 500 · WTA 250 · WTA Finals</text>
+        <text x="835" y="318" text-anchor="middle" font-size="11" class="tm">United Cup co-owned with the ATP</text>
+        <rect x="700" y="352" width="270" height="52" rx="8" class="box-soft"/>
+        <text x="835" y="374" text-anchor="middle" font-size="13" font-weight="600">WTA 125</text>
+        <text x="835" y="392" text-anchor="middle" font-size="12" class="t2">the women's second tier (one level, not five)</text>
+        <rect x="365" y="262" width="270" height="62" rx="8" class="box-soft"/>
+        <text x="500" y="285" text-anchor="middle" font-size="13" font-weight="600">Team competitions</text>
+        <text x="500" y="303" text-anchor="middle" font-size="12" class="t2">Davis Cup (men) · Billie Jean King Cup (women)</text>
+        <text x="500" y="318" text-anchor="middle" font-size="11" class="tm">Olympic tennis · no ranking points for team ties</text>
+        <rect x="365" y="352" width="270" height="52" rx="8" class="box-soft"/>
+        <text x="500" y="374" text-anchor="middle" font-size="13" font-weight="600">ITF World Tennis Tour</text>
+        <text x="500" y="392" text-anchor="middle" font-size="12" class="t2">men M15 · M25 — women W15 to W100</text>
+        <!-- vertical structure lines -->
+        <path d="M165 220 L165 262" class="edge"/>
+        <path d="M165 324 L165 352" class="edge"/>
+        <path d="M835 220 L835 262" class="edge"/>
+        <path d="M835 324 L835 352" class="edge"/>
+        <path d="M500 220 L500 262" class="edge"/>
+        <path d="M500 324 L500 352" class="edge"/>
+        <!-- pathway arrows from ITF WTT to Challenger / WTA125 -->
+        <path d="M365 384 L302 384" class="edge" marker-end="url(#arr)" style="color:var(--ink-2)"/>
+        <text x="333" y="376" text-anchor="middle" font-size="10.5" class="mono tm">player pathway</text>
+        <path d="M635 384 L698 384" class="edge" marker-end="url(#arr)" style="color:var(--ink-2)"/>
+        <text x="667" y="376" text-anchor="middle" font-size="10.5" class="mono tm">player pathway</text>
+        <!-- data rights band -->
+        <line x1="30" y1="440" x2="970" y2="440" class="edge-soft"/>
+        <text x="30" y="432" font-size="11" class="mono tm" letter-spacing=".08em">OFFICIAL DATA PARTNER (WHO SELLS THE FEED)</text>
+        <rect x="30" y="452" width="270" height="70" rx="8" class="box"/>
+        <text x="45" y="473" font-size="12.5" font-weight="600">TDI → Sportradar (2024 →)</text>
+        <text x="45" y="491" font-size="11.5" class="t2">ATP + Challenger scores, stats, tracking</text>
+        <text x="45" y="508" font-size="11.5" class="t2">separately: Polymarket–ATP partnership, Aug 2026</text>
+        <rect x="365" y="452" width="270" height="70" rx="8" class="box"/>
+        <text x="380" y="473" font-size="12.5" font-weight="600">Infront (2025 →) · LSports</text>
+        <text x="380" y="491" font-size="11.5" class="t2">ITF World Tennis Tour + team events</text>
+        <text x="380" y="508" font-size="11.5" class="t2">Sportradar removed ITF coverage in 2025</text>
+        <rect x="700" y="452" width="270" height="70" rx="8" class="box"/>
+        <text x="715" y="473" font-size="12.5" font-weight="600">Stats Perform</text>
+        <text x="715" y="491" font-size="11.5" class="t2">WTA official data and streaming</text>
+        <text x="715" y="508" font-size="11.5" class="t2">separate contract from the ATP feed</text>
+        <text x="500" y="552" text-anchor="middle" font-size="11.5" class="t2">Grand Slams license separately: Sportradar / IMG Arena (Wimbledon, Roland-Garros, US Open) · Infront (Australian Open)</text>
+        <text x="500" y="572" text-anchor="middle" font-size="11.5" class="tm">Outside the ranking system: promoter exhibitions (Six Kings Slam, UTS, “Battle of the Sexes”) and Laver Cup (ATP-sanctioned, no points)</text>
+      </svg>
+      </div>
+    </div>
+    <figcaption>Read top-down for prestige and bottom-up for the player pipeline. The horizontal band at the bottom is the part a data buyer feels: four rights chains, none of which covers the whole circuit. Rights holders are as recorded in the register's commercial report; they establish who can sell a feed, not what history any of them will actually deliver.</figcaption>
+  </figure>
+</section>
+<section id="s2">
+  <div class="sec-head"><div class="sec-num">02</div><h2>The ladder</h2>
+  <p class="sub">Seven rungs, one ranking. The top five rungs hold about one match in ten; the bottom two hold nine in ten, and one of those two takes a fifth of the money while the other takes almost none.</p></div>
+  <div class="prose">
+    <p>Each rung is named by the ranking points its winner receives: a Slam pays 2000, a Masters 1000 pays 1000, and so on down to an ITF M15 event whose champion earns a handful. The number of tournaments grows three- to five-fold each time you step down, and so does the number of matches. Match counts below are physical rows in the 2025 Sackmann files stored in this repository (main draws only; qualifying, doubles and team ties are listed separately in the table).</p>
+  </div>
+  <figure>
+    <div class="fig">
+      <div class="fig-title">The competitive ladder, with 2025 measured volumes of play and Polymarket money per listed event <span class="ev"><i class="g g-m"></i>measured · Sackmann 2025 files, Gamma census 10 Sep 2026</span></div>
+      <div class="scroller">
+      <svg class="diagram" viewBox="0 0 1000 640" role="img" aria-label="Pyramid of seven tiers from Grand Slams at the top to ITF World Tennis Tour at the bottom, annotated with 2025 tournament and match counts for men on the left and women on the right, and Polymarket median lifetime volume per listed match inside each band." style="min-width:760px">
+        <text x="240" y="30" text-anchor="end" font-size="11.5" class="mono tm">ATP · MEN · 2025</text>
+        <text x="760" y="30" font-size="11.5" class="mono tm">WTA · WOMEN · 2025</text>
+        <text x="500" y="30" text-anchor="middle" font-size="11.5" class="mono tm">TIER · POINTS · POLYMARKET MEDIAN</text>
+        <!-- bands: y = 46 + i*76, h=66; half-widths 80,110,140,170,200,230,260 -->
+        <g>
+          <path d="M420 46 L580 46 L610 112 L390 112 Z" class="box-accent"/>
+          <text x="500" y="70" text-anchor="middle" font-size="13" font-weight="600">Grand Slams</text>
+          <text x="500" y="87" text-anchor="middle" font-size="11.5" class="t2">2000 pts · 4 events</text>
+          <text x="500" y="103" text-anchor="middle" font-size="11.5" class="mono">$298K / listed event</text>
+          <text x="240" y="84" text-anchor="end" font-size="12.5">4 events · 508 matches</text>
+          <text x="760" y="84" font-size="12.5">4 events · 508 matches</text>
+        </g>
+        <g>
+          <path d="M390 122 L610 122 L640 188 L360 188 Z" class="box"/>
+          <text x="500" y="146" text-anchor="middle" font-size="13" font-weight="600">Tour Finals</text>
+          <text x="500" y="163" text-anchor="middle" font-size="11.5" class="t2">up to 1500 pts · top 8 only</text>
+          <text x="500" y="179" text-anchor="middle" font-size="11.5" class="mono">$263K / listed event</text>
+          <text x="240" y="160" text-anchor="end" font-size="12.5">2 events · 30 matches</text>
+          <text x="240" y="176" text-anchor="end" font-size="11" class="tm">ATP Finals + Next Gen Finals</text>
+          <text x="760" y="160" font-size="12.5">1 event · 15 matches</text>
+        </g>
+        <g>
+          <path d="M360 198 L640 198 L670 264 L330 264 Z" class="box"/>
+          <text x="500" y="222" text-anchor="middle" font-size="13" font-weight="600">Masters 1000 / WTA 1000</text>
+          <text x="500" y="239" text-anchor="middle" font-size="11.5" class="t2">1000 pts · 9 men's, 10 women's</text>
+          <text x="500" y="255" text-anchor="middle" font-size="11.5" class="mono">$210K / listed event</text>
+          <text x="240" y="236" text-anchor="end" font-size="12.5">9 events · 775 matches</text>
+          <text x="760" y="236" font-size="12.5">10 events · 830 matches</text>
+        </g>
+        <g>
+          <path d="M330 274 L670 274 L700 340 L300 340 Z" class="box"/>
+          <text x="500" y="298" text-anchor="middle" font-size="13" font-weight="600">ATP 500 / WTA 500</text>
+          <text x="500" y="315" text-anchor="middle" font-size="11.5" class="t2">500 pts</text>
+          <text x="500" y="331" text-anchor="middle" font-size="11.5" class="mono">$223K / listed event</text>
+          <text x="240" y="306" text-anchor="end" font-size="12.5">16 events*</text>
+          <text x="240" y="322" text-anchor="end" font-size="10.5" class="tm">*one label "A": 48 events · 1,379 matches</text>
+          <text x="760" y="312" font-size="12.5">16 events · 474 matches</text>
+        </g>
+        <g>
+          <path d="M300 350 L700 350 L730 416 L270 416 Z" class="box"/>
+          <text x="500" y="374" text-anchor="middle" font-size="13" font-weight="600">ATP 250 / WTA 250</text>
+          <text x="500" y="391" text-anchor="middle" font-size="11.5" class="t2">250 pts</text>
+          <text x="500" y="407" text-anchor="middle" font-size="11.5" class="mono">$164K / listed event</text>
+          <text x="240" y="388" text-anchor="end" font-size="12.5">≈32 events*</text>
+          <text x="760" y="388" font-size="12.5">23 events · 703 matches</text>
+        </g>
+        <g>
+          <path d="M270 426 L730 426 L760 492 L240 492 Z" class="box-soft"/>
+          <text x="500" y="450" text-anchor="middle" font-size="13" font-weight="600">Challenger / WTA 125</text>
+          <text x="500" y="467" text-anchor="middle" font-size="11.5" class="t2">50–175 pts (five Challenger levels) · 125 pts (one WTA level)</text>
+          <text x="500" y="483" text-anchor="middle" font-size="11.5" class="mono">$67K / listed event</text>
+          <text x="230" y="452" text-anchor="end" font-size="12.5">217 events · 5,836 matches</text>
+          <text x="230" y="468" text-anchor="end" font-size="11" class="tm">plus 4,501 qualifying rows</text>
+          <text x="770" y="452" font-size="12.5">52 events · 1,404 matches</text>
+          <text x="770" y="468" font-size="11" class="tm">plus 882 qualifying rows</text>
+        </g>
+        <g>
+          <path d="M240 502 L760 502 L790 568 L210 568 Z" class="box-soft"/>
+          <text x="500" y="526" text-anchor="middle" font-size="13" font-weight="600">ITF World Tennis Tour</text>
+          <text x="500" y="543" text-anchor="middle" font-size="11.5" class="t2">M15 · M25 · W15 · W35 · W50 · W75 · W100 · single-digit to double-digit points</text>
+          <text x="500" y="559" text-anchor="middle" font-size="11.5" class="mono">$1.9K / listed event</text>
+          <text x="200" y="527" text-anchor="end" font-size="12.5">595 events · 17,906 matches</text>
+          <text x="200" y="543" text-anchor="end" font-size="11" class="tm">M15 375 · M25 220</text>
+          <text x="800" y="521" font-size="12.5">588 events · 17,974 matches</text>
+          <text x="800" y="537" font-size="11" class="tm">W15 294 · W35 160 · W50 51</text>
+          <text x="800" y="551" font-size="11" class="tm">W75 60 · W100 23</text>
+        </g>
+        <text x="500" y="598" text-anchor="middle" font-size="12" class="t2">Below the ladder: juniors, college, national leagues, UTR Pro Tennis Tour. Not counted here; some appear on Polymarket (Slam juniors did).</text>
+        <text x="500" y="622" text-anchor="middle" font-size="11" class="tm">Polymarket figure = median lifetime volume per listed main-draw event record in each tier, 10 Sep 2025 – 10 Sep 2026, USD. A record is not a physical match (section 3).</text>
+      </svg>
+      </div>
+      <details class="table"><summary>Table view · 2025 match rows by tier, tour and draw stage</summary><div>
+      <table>
+        <thead><tr><th>Tier</th><th>Tour</th><th class="num">Tournaments</th><th class="num">Main-draw matches</th><th class="num">Qualifying matches</th><th>Sackmann level code</th></tr></thead>
+        <tbody>
+          <tr><td>Grand Slam</td><td>ATP</td><td class="num">4</td><td class="num">508</td><td class="num">448</td><td class="mono">G</td></tr>
+          <tr><td>Grand Slam</td><td>WTA</td><td class="num">4</td><td class="num">508</td><td class="num">448</td><td class="mono">G</td></tr>
+          <tr><td>Tour Finals</td><td>ATP</td><td class="num">2</td><td class="num">30</td><td class="num">–</td><td class="mono">F</td></tr>
+          <tr><td>Tour Finals</td><td>WTA</td><td class="num">1</td><td class="num">15</td><td class="num">–</td><td class="mono">F</td></tr>
+          <tr><td>Masters 1000</td><td>ATP</td><td class="num">9</td><td class="num">775</td><td class="num">274</td><td class="mono">M</td></tr>
+          <tr><td>WTA 1000</td><td>WTA</td><td class="num">10</td><td class="num">830</td><td class="num">287</td><td class="mono">PM</td></tr>
+          <tr><td>ATP 500 + 250 (one label)</td><td>ATP</td><td class="num">48</td><td class="num">1,379</td><td class="num">570</td><td class="mono">A</td></tr>
+          <tr><td>WTA 500</td><td>WTA</td><td class="num">16</td><td class="num">474</td><td class="num">261</td><td class="mono">P</td></tr>
+          <tr><td>WTA 250</td><td>WTA</td><td class="num">23</td><td class="num">703</td><td class="num">359</td><td class="mono">I</td></tr>
+          <tr><td>Challenger</td><td>ATP</td><td class="num">217</td><td class="num">5,836</td><td class="num">4,501</td><td class="mono">C</td></tr>
+          <tr><td>WTA 125</td><td>WTA</td><td class="num">52</td><td class="num">1,404</td><td class="num">882</td><td class="mono">C</td></tr>
+          <tr><td>ITF M15 / M25</td><td>ATP</td><td class="num">375 / 220</td><td class="num">11,278 / 6,628</td><td class="num">not in file</td><td class="mono">15 / 25</td></tr>
+          <tr><td>ITF W15 / W35 / W50 / W75 / W100</td><td>WTA</td><td class="num">294 / 160 / 51 / 60 / 23</td><td class="num">8,930 / 4,941 / 1,625 / 1,815 / 663</td><td class="num">not in file</td><td class="mono">15 … 100</td></tr>
+          <tr><td>Team events (Davis Cup, United Cup, BJK Cup)</td><td>both</td><td class="num">78 ties / 2</td><td class="num">252 / 50</td><td class="num">–</td><td class="mono">D</td></tr>
+        </tbody>
+      </table>
+      <p class="small" style="margin-top:8px">Rows are physical CSV rows in the 2025 files of the Sackmann archival mirror (PUB003), read on 22 Sep 2026. They are inventory counts, not proof of tour completeness; the register notes the 2025 WTA main file also carries 215 rows with legacy labels (<code>50+H</code>, <code>35+H</code>) that are not shown. Doubles files stop in 2020 and are absent.</p>
+      </div></details>
+    </div>
+    <figcaption>Two things to notice before the money section. First, the ladder is not symmetric: the men have five Challenger levels where the women have one WTA 125 level, and the men's second tier is four times bigger. Second, the Slam figure needed a repair before it could be read: Polymarket files Australian Open qualifying and junior matches under the same "Australian Open" league as the main draw, and until they were separated by date and contract count (section 9) the Slam median looked lower than the 500s'. Labels on a venue are not a tier taxonomy.</figcaption>
+  </figure>
+  <h3>Attention by rung: what is actually published</h3>
+  <div class="prose">
+    <p>Audience numbers are as top-heavy as the money, and so is their availability. The four Slams and the two tour finals publish audience figures every year; below the 1000s, nobody publishes anything, which is itself the finding. Follower counts are the one attention measure that exists for every rung, so they carry the comparison. The right-hand columns add the two betting-side facts the industry itself publishes by tier.</p>
+  </div>
+  <figure>
+    <div class="fig">
+      <div class="fig-title">Published attention and betting signals by rung <span class="ev"><i class="g g-c"></i>published claims and snapshots · accessed 22 Sep 2026</span></div>
+      <div class="scroller">
+      <table class="attn" style="min-width:820px">
+        <thead><tr><th>Rung</th><th>Best published audience figure</th><th>Flagship Instagram accounts, followers (22 Sep 2026)</th><th>Betting-industry facts by tier</th></tr></thead>
+        <tbody>
+          <tr><td><b>Grand Slams</b></td><td>Australian Open 2026: 2.2 bn cumulative reach, 781 m hours viewed (Tennis Australia). Wimbledon 2026: 138.5 m unique digital audience (AELTC). Finals on a single national broadcaster peak at 3–6 m (ESPN, BBC, France TV, Nine).</td><td>@wimbledon 8.3 m · @rolandgarros 5.1 m · @australianopen 4.3 m · @usopen 4.2 m</td><td>A third-party Betfair trading guide describes Slam quarter-finals as £2–15 m matched per match (unaudited). ITIA integrity alerts 2025: 1 of 68.</td></tr>
+          <tr><td><b>Tour Finals</b></td><td>ATP Finals 2025 final: 7.0 m average, Italy only (ATP). WTA Finals 2024: 78 m cumulative global audience (WTA).</td><td>Tour accounts: @atptour 3.7 m · @wta 2.0 m</td><td>ATP claims a projected 1 bn+ global audience for the 2025 season; WTA claimed 1.1 bn cumulative for 2024. Both are publisher totals for the whole tour.</td></tr>
+          <tr><td><b>1000s</b></td><td>Rome 2026 men's final: 4.57 m average, Italy only (Sky/TV8). Rome women's final: 0.40 m. Indian Wells 2026: "record", growth only, no absolute (Tennis Channel).</td><td>Tournament accounts vary; not collected.</td><td>Trading guide: 1000-level round-of-16 "£200 K+" matched. ITIA alerts 2025: 0 at this level.</td></tr>
+          <tr><td><b>500s and 250s</b></td><td>No broadcast audience published or found. Vienna (ATP 500) reports a 2025 attendance record of 82,000.</td><td>—</td><td>Trading guide: early rounds of 250s "too thin to trade". ITIA alerts 2025: 1 (WTA 250).</td></tr>
+          <tr><td><b>Challenger / WTA 125</b></td><td>None published. ATP moved 35 "showcase" Challengers to Tennis Channel in 2025 without disclosing audiences.</td><td>@atpchallengertour: count not retrievable</td><td>ITIA alerts 2025: 28 Challenger and 1 WTA 125 of 68 (43%), up from 13% in 2023. A Challenger set market "might match £15 K" (trading guide).</td></tr>
+          <tr><td><b>ITF World Tennis Tour</b></td><td>None published; no broadcast audience exists to report.</td><td>@itftennis 0.39 m</td><td>H2 Gambling Capital: ITF is 17% of global tennis wagering and 43% of the matches operators price. ITIA alerts 2025: 37 of 68 (54%).</td></tr>
+          <tr><td><b>Team events</b></td><td>Davis Cup final 2025: 6.2 m average, Italy only. Laver Cup 2025: attendance 81,500, no audience figure.</td><td>@lavercup 0.71 m · @daviscup 0.54 m · @unitedcuptennis 0.23 m · @billiejeankingcup 0.11 m</td><td>No tier-level betting statistic published.</td></tr>
+          <tr><td><b>Players, for scale</b></td><td>The largest account in tennis is a player, not an event.</td><td>Djokovic 16.7 m · Alcaraz 8.9 m · Sinner 5.7 m · Sabalenka 5.7 m · Gauff 2.5 m · Świątek 2.4 m</td><td>Attention follows names more than tiers; a Slam draw is where the names are concentrated.</td></tr>
+        </tbody>
+      </table>
+      </div>
+      <p class="small" style="margin-top:10px">Follower counts are observed snapshots of the profile pages, rounded as displayed. From Wimbledon to the ITF account is a twentyfold step; from the ITF account to the Billie Jean King Cup account another threefold. "Audience" figures mix cumulative reach, unique viewers and single-broadcast averages; the row text says which. Sources with URLs, claim dates and access dates are in section 9.</p>
+    </div>
+    <figcaption>Two betting-side facts deserve a second look. H2 Gambling Capital's finding that ITF matches are 43% of what operators price but 17% of what is wagered is the bookmaker-world version of the Polymarket chart in section 3 (48% of listings, 3% of volume). And the integrity picture has moved: ITIA alerts were 80% ITF in 2023 and are now split between ITF and Challenger, the same second tier that carries a fifth of Polymarket's money.</figcaption>
+  </figure>
+</section>
+<section id="s3">
+  <div class="sec-head"><div class="sec-num">03</div><h2>Where the money is</h2>
+  <p class="sub">Measured on the one venue this project has actually censused: Polymarket, 10 Sep 2025 to 10 Sep 2026. Each listed match or question carries a lifetime-volume field; summed by tier, it shows where the crowd puts its dollars.</p></div>
+  <div class="prose">
+    <p>Almost half of all listed tennis events on Polymarket were ITF matches. Three percent of the money was. The chart below sums the platform's own lifetime-volume field across every event in the census window, after sorting each event into a tier. Sorting is the one inferred step: Slams, 1000s and the named main-tour events are recognised by name; anything in the ATP or WTA product series that carries only a city name (Busan, Augsburg, Targu Mures) is assumed to be Challenger or WTA 125 level. Section 9 lists the rule and the names it caught.</p>
+  </div>
+  <div class="grid3" style="margin-top:18px">
+    <div class="tile"><div class="k">Lifetime volume in window</div><div class="v">$3.11B</div><div class="d">33,320 event records · 406,190 contracts · 1,837 events lack the volume field</div></div>
+    <div class="tile"><div class="k">Main draws, Slams to 250s, incl. finals</div><div class="v">64%</div><div class="d">of volume on 5,242 event records (16% of listings)</div></div>
+    <div class="tile"><div class="k">ITF World Tennis Tour</div><div class="v">3.1%</div><div class="d">of volume on 15,871 event records (48% of listings) · median $1.9K per listed event</div></div>
+  </div>
+  <figure>
+    <div class="fig">
+      <div class="fig-title">Polymarket tennis volume by tier <span class="ev"><i class="g g-m"></i>measured · Gamma census, tier assignment inferred</span></div>
+      <p class="fig-sub">Choose the measure. Share answers "where is the money"; per-event median answers "how much does one listed event attract"; listings answers "how many things are there to price". An event record is Polymarket's wrapper for a match or question; one physical match can have several.</p>
+      <div class="controls" role="group" aria-label="Measure">
+        <div class="seg">
+          <button type="button" id="vol-share" aria-pressed="true">Share of volume</button>
+          <button type="button" id="vol-median" aria-pressed="false">Median $ per listed event (log)</button>
+          <button type="button" id="vol-events" aria-pressed="false">Event records</button>
+        </div>
+      </div>
+      <div class="chart" id="chart-volume"></div>
+      <details class="table"><summary>Table view · all measures by tier</summary><div id="table-volume"></div></details>
+    </div>
+    <figcaption>Order is the ladder, not the value, so the eye can compare rungs. The Challenger row is the surprise: one dollar in five, on a tier no bookmaker-odds file in the register covers. The ITF row is the opposite surprise: a vast catalogue that the market barely touches, at a median of under two thousand dollars a match.</figcaption>
+  </figure>
+
+  <div class="note warn" style="margin-top:22px"><strong>Three reasons not to over-read the tier shares.</strong> (1) Polymarket's tennis book grew roughly a hundredfold across the window, so tiers that play early (Australian Open in January) are understated relative to tiers that play in summer. (2) The volume field is missing on nearly half of the March 2026 records (725 of 1,507), which is when Indian Wells and Miami are played; those two Masters 1000s show almost no volume here for that reason, not because nobody bet. (3) Lifetime volume is the platform's own reported figure per event; it is not a count of fills inside the window and it may double-count maker and taker sides. Shares are comparable across tiers; absolute dollars are indicative.</div>
+
+  <figure>
+    <div class="fig">
+      <div class="fig-title">The platform ramp: monthly volume by tier group <span class="ev"><i class="g g-m"></i>measured · by sporting month</span></div>
+      <p class="fig-sub">Stacked by month of play. The window opens with a few hundred main-tour listings a month and closes with six thousand listings a month across every tier, ITF included from May 2026.</p>
+      <div class="chart" id="chart-monthly"></div>
+      <div class="legend-row" id="legend-monthly"></div>
+      <details class="table"><summary>Table view · monthly volume and listings</summary><div id="table-monthly"></div></details>
+    </div>
+    <figcaption>The first and last months are partial, and March shows the missing-field gap rather than a real dip. Any comparison of tiers across the whole window inherits this ramp; a comparison within one summer month does not.</figcaption>
+  </figure>
+
+  <figure>
+    <div class="fig">
+      <div class="fig-title">Men's versus women's events, same tier <span class="ev"><i class="g g-m"></i>measured · ATP and WTA product series</span></div>
+      <p class="fig-sub">Lifetime volume per tier, split by tour. ITF events carry no tour label in the census and are omitted.</p>
+      <div class="chart" id="chart-tour"></div>
+      <div class="legend-row"><span><span class="sw" style="background:var(--s1)"></span>ATP (men)</span><span><span class="sw" style="background:var(--s2)"></span>WTA (women)</span></div>
+      <details class="table"><summary>Table view · volume by tier and tour</summary><div id="table-tour"></div></details>
+    </div>
+    <figcaption>The men's side carries about twice the money at the Slams and three and a half times as much in the second tier, but the 500s are nearly level. The second-tier gap is mostly a listings gap: the men's bucket holds 5,122 records to the women's 1,171, and per listed event the women's side is actually higher ($120K to $99K on average). Whether the remaining gaps are about the players, the formats (men play best-of-five at Slams) or the audience is a question this page leaves open.</figcaption>
+  </figure>
+</section>
+<section id="s4">
+  <div class="sec-head"><div class="sec-num">04</div><h2>Where data is thick, and where it is thin</h2>
+  <p class="sub">Seven kinds of data a match model might want, across the rungs of the ladder. Colour is evidence strength in this repository's audit, not a quality score.</p></div>
+  <div class="prose">
+    <p>"Data" in tennis is not one thing. A result row (who won, set scores) exists somewhere for most professional matches of this decade, but no single inspected file holds them all, and the freshest public archive stops in mid-2026. Serve-and-return statistics exist for the main tours since 1991 but only reached the ITF level in 2025. Bookmaker odds exist as one row per match, of unstated vintage, for the main tours only; the register is explicit that these are not timestamped, executable prices. Point-by-point tapes exist as samples and paid products. Polymarket listings exist everywhere, but the money does not. The grid below puts those seven layers against the ladder, using what the register measured, what it only found documented, and what it did not find at all.</p>
+  </div>
+  <figure>
+    <div class="fig">
+      <div class="fig-title">Evidence grid: data layer × tier <span class="ev"><i class="g g-m"></i>measured where dark · <i class="g g-c" style="margin-left:4px"></i>claimed where pale</span></div>
+      <p class="fig-sub">Hover or focus a cell for the sources behind it. Darkest: measured and near-complete. Mid: measured but partial, sampled or shallow. Pale: documented or claimed by a provider, no payload inspected. Grey: nothing found in the register.</p>
+      <div class="scroller"><div class="heat" id="heat" style="min-width:860px"></div></div>
+      <div class="legend-row" style="margin-top:10px">
+        <span><span class="sw" style="background:var(--ord3)"></span>measured, thick</span>
+        <span><span class="sw" style="background:var(--ord2)"></span>measured, thin or sampled</span>
+        <span><span class="sw" style="background:var(--ord1)"></span>claimed or documented only</span>
+        <span><span class="sw" style="background:var(--ord0);border:1px solid var(--line)"></span>nothing found</span>
+      </div>
+      <details class="table"><summary>Table view · every cell with its evidence note</summary><div id="table-heat"></div></details>
+    </div>
+    <figcaption>Two vertical patterns stand out. The odds column goes grey below the 250s: no file in the register carries measured bookmaker prices for Challenger, WTA 125 or ITF matches, which means a model there has no independent market baseline to be judged against. The stats column stays dark all the way down for 2025 but is shallow at the bottom: ITF match statistics appear in the 2025 files and are absent from the 2024 files, so "history" there is one season long.</figcaption>
+  </figure>
+  <figure>
+    <div class="fig">
+      <div class="fig-title">How far back each layer reaches <span class="ev"><i class="g g-c"></i>start years as documented; end points as inspected</span></div>
+      <p class="fig-sub">Each bar runs from the first documented year to the last inspected date. A long bar is not a complete bar; the register's caveats on gaps apply.</p>
+      <div class="chart" id="chart-depth"></div>
+      <details class="table"><summary>Table view · start and end of each layer</summary><div id="table-depth"></div></details>
+    </div>
+    <figcaption>Depth is lopsided in the same direction as money: the layers that reach back decades are all main-tour layers. Everything below the main tour, and everything on Polymarket, is a 2023–2026 phenomenon in the record.</figcaption>
+  </figure>
+</section>
+<section id="s5">
+  <div class="sec-head"><div class="sec-num">05</div><h2>Which sources reach which rung</h2>
+  <p class="sub">The register's shortlist, laid against the ladder. A filled dot means the audit inspected an actual payload for that rung; a half dot means the provider documents coverage that nobody here has opened; a dashed ring means the source does not reach that rung at all.</p></div>
+  <div class="prose">
+    <p>"Credible" in the register is not a score. It is the distinction between a payload someone downloaded and measured, and a coverage claim on a vendor page. The count that matters for choosing a starting point is the first kind: how many independently measured sources can be cross-checked against each other at a given rung. Note the families that overlap: Open Tennis Data reuses the Sackmann lineage among others, and TennisData.app's lineage is unverified, so three dots in one column are not always three witnesses.</p>
+  </div>
+  <figure>
+    <div class="fig">
+      <div class="fig-title">Source × rung, from the source register of 11 Sep 2026 <span class="ev"><i class="g g-m"></i>filled = payload measured · <i class="g g-c" style="margin-left:4px"></i>half = documented only · <i class="g g-i" style="margin-left:4px"></i>per-rung placement read from register text</span></div>
+      <p class="fig-sub">Hover a dot for the note behind it. Rows are grouped as the register groups them: public results and statistics, commercial feeds, then odds and market venues. The register records what was inspected per source, not per rung; placing a dot on a rung is this page's reading of that text.</p>
+      <div class="scroller"><div id="matrix"></div></div>
+    </div>
+    <figcaption>Read the last two rows first. At the Slams, nine measured sources can be triangulated; at the Challenger level, three; at ITF, two, and one of those is Polymarket itself. Below the main tour, the picture is mostly half dots: providers say they cover it, and the project has not yet opened a file to check. That is a statement about the audit's progress as much as about the sport.</figcaption>
+  </figure>
+</section>
+<section id="s6">
+  <div class="sec-head"><div class="sec-num">06</div><h2>Two tours, one schema?</h2>
+  <p class="sub">The men's and women's data arrive in the same shape. The populations, formats and money behind the shape do not. Both facts are measured; what to do about them is the open question.</p></div>
+  <div class="prose">
+    <p>Whether a model should be built per organisation or across the sport is, in data terms, a question about what is shared. The middle column below is what the files literally have in common. The outer columns are where the tours diverge, from rules of play to the size of the second tier to the money the market puts on each side.</p>
+  </div>
+  <figure>
+    <div class="fig">
+      <div class="fig-title">What ATP and WTA data share, and where they differ <span class="ev"><i class="g g-m"></i>measured unless marked</span></div>
+      <div class="scroller">
+      <svg class="diagram" viewBox="0 0 1000 560" role="img" aria-label="Three-column diagram: ATP-specific facts on the left, shared data structure in the centre spine, WTA-specific facts on the right, with matched rows for format, second tier, file layout, level codes, market money, statistics history and data rights." style="min-width:800px">
+        <rect x="350" y="16" width="300" height="530" rx="12" class="box-accent"/>
+        <text x="500" y="44" text-anchor="middle" font-size="14" font-weight="600">Shared by both tours</text>
+        <text x="175" y="44" text-anchor="middle" font-size="14" font-weight="600">ATP · men</text>
+        <text x="825" y="44" text-anchor="middle" font-size="14" font-weight="600">WTA · women</text>
+        <!-- row guides -->
+        <g class="t2" font-size="11">
+          <!-- Row 1: schema -->
+          <line x1="30" y1="66" x2="970" y2="66" class="edge-soft"/>
+          <text x="500" y="88" text-anchor="middle" font-size="12.5" font-weight="600" style="fill:var(--ink)">Identical 49-column match schema</text>
+          <text x="500" y="105" text-anchor="middle">Sackmann ATP + WTA: same headers, same ID scheme</text>
+          <text x="500" y="121" text-anchor="middle">tennis-data: same columns, minus four set columns</text>
+          <text x="500" y="137" text-anchor="middle">Polymarket: same twelve contract types</text>
+          <text x="175" y="96" text-anchor="middle">Set columns W4 L4 W5 L5 exist</text>
+          <text x="825" y="96" text-anchor="middle">No fourth or fifth set columns</text>
+          <!-- Row 2: format -->
+          <line x1="30" y1="154" x2="970" y2="154" class="edge-soft"/>
+          <text x="500" y="173" text-anchor="middle" font-size="12.5" font-weight="600" style="fill:var(--ink)">Same scoring, surfaces and calendar blocks</text>
+          <text x="500" y="189" text-anchor="middle">hard → clay → grass → hard → indoor</text>
+          <text x="500" y="204" text-anchor="middle">four Slams + six combined 1000s · published calendars</text>
+          <text x="175" y="176" text-anchor="middle" style="fill:var(--ink)">Best-of-five sets at Slams</text>
+          <text x="175" y="193" text-anchor="middle">best-of-three elsewhere · published rule</text>
+          <text x="825" y="176" text-anchor="middle" style="fill:var(--ink)">Best-of-three everywhere</text>
+          <text x="825" y="193" text-anchor="middle">totals &amp; handicap labels differ · published rule</text>
+          <!-- Row 3: second tier -->
+          <line x1="30" y1="212" x2="970" y2="212" class="edge-soft"/>
+          <text x="500" y="234" text-anchor="middle" font-size="12.5" font-weight="600" style="fill:var(--ink)">One ranking ladder each, same point shape</text>
+          <text x="500" y="251" text-anchor="middle">2000 · 1000 · 500 · 250 at the top for both</text>
+          <text x="175" y="234" text-anchor="middle" style="fill:var(--ink)">Five Challenger levels</text>
+          <text x="175" y="251" text-anchor="middle">217 events · 5,836 main-draw matches in 2025</text>
+          <text x="825" y="234" text-anchor="middle" style="fill:var(--ink)">One WTA 125 level</text>
+          <text x="825" y="251" text-anchor="middle">52 events · 1,404 main-draw matches in 2025</text>
+          <!-- Row 4: file layout / codes -->
+          <line x1="30" y1="270" x2="970" y2="270" class="edge-soft"/>
+          <text x="500" y="292" text-anchor="middle" font-size="12.5" font-weight="600" style="fill:var(--ink)">Tier is a label in a column, not a file</text>
+          <text x="500" y="309" text-anchor="middle">tourney_level in both; no draw sizes or round counts</text>
+          <text x="175" y="288" text-anchor="middle" class="mono" style="fill:var(--ink)">G · M · A · C · 25 · 15</text>
+          <text x="175" y="304" text-anchor="middle">A merges 500s and 250s</text>
+          <text x="175" y="319" text-anchor="middle">three files: main · qual + Challenger · Futures</text>
+          <text x="825" y="288" text-anchor="middle" class="mono" style="fill:var(--ink)">G · PM · P · I · C · 100…15</text>
+          <text x="825" y="304" text-anchor="middle">two files: main, and one mixing</text>
+          <text x="825" y="319" text-anchor="middle">ITF events with tour qualifying</text>
+          <!-- Row 5: money -->
+          <line x1="30" y1="328" x2="970" y2="328" class="edge-soft"/>
+          <text x="500" y="350" text-anchor="middle" font-size="12.5" font-weight="600" style="fill:var(--ink)">Same venue, same contract wording</text>
+          <text x="500" y="367" text-anchor="middle">identical Polymarket rules and settlement text</text>
+          <text x="175" y="350" text-anchor="middle" class="mono" style="fill:var(--ink)">$491M Slams · $322M 1000s</text>
+          <text x="175" y="367" text-anchor="middle" class="mono">$176M 500s · $250M 250s · $506M Chall.</text>
+          <text x="825" y="350" text-anchor="middle" class="mono" style="fill:var(--ink)">$223M Slams · $212M 1000s</text>
+          <text x="825" y="367" text-anchor="middle" class="mono">$153M 500s · $152M 250s · $141M 125+</text>
+          <!-- Row 6: stats history -->
+          <line x1="30" y1="386" x2="970" y2="386" class="edge-soft"/>
+          <text x="500" y="408" text-anchor="middle" font-size="12.5" font-weight="600" style="fill:var(--ink)">Serve/return stats at tour level since 1991</text>
+          <text x="500" y="425" text-anchor="middle">99–100% of 2025 main-draw rows, both sides</text>
+          <text x="175" y="408" text-anchor="middle" style="fill:var(--ink)">Futures stats: none in 2024, 97% in 2025</text>
+          <text x="175" y="425" text-anchor="middle">history below Challenger is one season old</text>
+          <text x="825" y="408" text-anchor="middle" style="fill:var(--ink)">Lower-tier stats: 7% in 2024, 98% in 2025</text>
+          <text x="825" y="425" text-anchor="middle">lower-tier rows fell 43% between the files</text>
+          <!-- Row 7: rights -->
+          <line x1="30" y1="444" x2="970" y2="444" class="edge-soft"/>
+          <text x="500" y="466" text-anchor="middle" font-size="12.5" font-weight="600" style="fill:var(--ink)">Same public sources, same licences</text>
+          <text x="500" y="483" text-anchor="middle">Sackmann CC BY-NC-SA · tennis-data unverified</text>
+          <text x="175" y="466" text-anchor="middle" style="fill:var(--ink)">Official feed: TDI / Sportradar</text>
+          <text x="175" y="483" text-anchor="middle">Polymarket streaming deal, Aug 2026 · published</text>
+          <text x="825" y="466" text-anchor="middle" style="fill:var(--ink)">Official feed: Stats Perform</text>
+          <text x="825" y="483" text-anchor="middle">separate contract and history claims · published</text>
+          <line x1="30" y1="502" x2="970" y2="502" class="edge-soft"/>
+          <text x="500" y="526" text-anchor="middle" font-size="12" style="fill:var(--ink-2)">The players never meet across the spine except in mixed doubles and the United Cup's mixed rubber.</text>
+        </g>
+      </svg>
+      </div>
+    </div>
+    <figcaption>Everything in the centre column means one pipeline can load both tours without special cases. Everything in the outer columns is something a model would have to either learn from a feature or be told by its design: a fifth set changes what "match total 20.5 games" means, and a second tier four times larger changes how much history a Challenger player carries into a main-tour debut.</figcaption>
+  </figure>
+  <h3>Who plays where</h3>
+  <div class="prose"><p>Schema is one question; population is another. The same 2025 files show how far each player pool reaches down the ladder within a tour, and that it never reaches across the tours.</p></div>
+  <figure>
+    <div class="fig">
+      <div class="fig-title">Player overlap between rungs, 2025 <span class="ev"><i class="g g-m"></i>measured · Sackmann 2025 files, by player ID within a tour</span></div>
+      <div class="grid3">
+        <div class="tile"><div class="k">Main-tour men who also played a Challenger main draw</div><div class="v">86%</div><div class="d">252 of the 293 men with a 2025 tour-level row (Slam, 1000, 500/250 or Finals) also have a Challenger main-draw row that year.</div></div>
+        <div class="tile"><div class="k">Challenger men who also played ITF</div><div class="v">76%</div><div class="d">1,110 of 1,466 Challenger main-draw players also appear in the 2025 Futures files. Only 72 main-tour men (25%) do.</div></div>
+        <div class="tile"><div class="k">Main-tour women who also played WTA 125 · ITF</div><div class="v">76% · 68%</div><div class="d">254 and 227 of the 336 women with a 2025 tour-level row. Of 562 WTA 125 players, 485 (86%) also played ITF.</div></div>
+        <div class="tile"><div class="k">Players in both tours' main draws</div><div class="v">0</div><div class="d">No name appears in both the ATP and WTA 2025 main-draw files; the tours only meet in mixed doubles and the United Cup's mixed rubber, neither of which is in these files.</div></div>
+      </div>
+      <p class="small" style="margin-top:10px">A player counts once per file. ATP and WTA IDs are separate numbering systems, so the cross-tour check compares names. Lower-tier appearances by main-tour players are concentrated early in careers and in comebacks; the files do not say which.</p>
+    </div>
+    <figcaption>Within a tour the rungs are one population seen at different ages; a main-tour man's Challenger history is usually there to be used. Across the spine there is nothing to share but the schema.</figcaption>
+  </figure>
+</section>
+<section id="s7">
+  <div class="sec-head"><div class="sec-num">07</div><h2>The season</h2>
+  <p class="sub">Eleven months, four surfaces blocks, four peaks. Where a tier sits in the year decides when its data arrives and, in this window, how big the market was when it played.</p></div>
+  <div class="prose">
+    <p>The calendar is the same every year: hard courts in Australia and the Americas until March, clay in Europe through Roland-Garros in early June, a five-week grass season ending at Wimbledon, North American hard courts to the US Open in September, then Asia and European indoor events until the tour finals in November. The bottom strip shows how many tennis events Polymarket listed in each month of the census window, and how much money they attracted. The ramp is the platform's, not the sport's.</p>
+  </div>
+  <figure>
+    <div class="fig">
+      <div class="fig-title">Calendar shape and the Polymarket window <span class="ev"><i class="g g-c"></i>calendar: published · <i class="g g-m" style="margin-left:4px"></i>listings and volume: measured by sporting month</span></div>
+      <div class="chart" id="chart-calendar"></div>
+      <div class="legend-row"><span><span class="sw" style="background:var(--s1)"></span>hard court</span><span><span class="sw" style="background:var(--s2)"></span>clay</span><span><span class="sw" style="background:var(--s3)"></span>grass</span><span><span class="sw" style="background:var(--gray-mark)"></span>off-season</span></div>
+      <details class="table"><summary>Table view · events listed and volume by month</summary><div id="table-calendar"></div></details>
+    </div>
+    <figcaption>Slams are the peaks and the surfaces are the blocks between them; a clay model and a grass model see different tennis. In the census window the platform listed 391 events in September 2025 and 6,698 in July 2026, so anything that happens in the northern winter (the Australian Open, the South American clay swing) is measured on a much smaller market than the summer events. December is the only month without ranking tennis.</figcaption>
+  </figure>
+</section>
+<section id="s8">
+  <div class="sec-head"><div class="sec-num">08</div><h2>Questions to sit with</h2>
+  <p class="sub">This page does not pick a starting point. It does try to make the trade-offs visible enough that the choice is yours to make on evidence. These are the questions the figures above keep raising.</p></div>
+  <ol class="qlist">
+    <li><b>Where is data thick <em>and</em> the market thick?</b><span class="why">Sections 3 and 4 overlap on exactly one band: the main tours from the 250s up, where seven to nine measured sources, decades of statistics, one row of bookmaker odds per match and 64% of Polymarket's money coincide. Everything below has either the money without the odds baseline (Challengers) or the listings without the money (ITF).</span></li>
+    <li><b>What would a Challenger model be judged against?</b><span class="why">One dollar in five sits on Challengers and WTA 125s, yet no file in the register carries measured bookmaker prices below the 250s, and the integrity agency's alerts are migrating to that tier. A model there has no independent price to beat and a different risk profile to price in. Is that an opportunity, a warning, or both?</span></li>
+    <li><b>Is a tier the right unit at all?</b><span class="why">Sackmann's level "A" merges 500s and 250s; Polymarket's "ATP" series merges Challengers and qualifying; a Slam's first round is a very different match from its final. Sections 2 and 3 suggest that draw stage and player rank may separate populations more cleanly than tournament tier does.</span></li>
+    <li><b>Does the model need to know the tour, or only see it?</b><span class="why">Section 6: one schema, same contract types, same surfaces, but a fifth set at men's Slams, a second tier four times larger, and roughly twice the money on the men's side. Six in seven main-tour men also played a Challenger main draw in 2025, and no player appears in both tours. Which of those differences must be designed in, and which can be left to a feature such as best-of or tour flag?</span></li>
+    <li><b>How much history does the target actually need?</b><span class="why">Main-tour statistics go back to 1991; Challenger to 2008; ITF to 2025. If a season of statistics is enough, the lower tiers are open. If a decade is needed, only the main tours qualify, and the WTA lower-tier file's 43% row drop between 2024 and 2025 is a reminder that even recent history shifts under you.</span></li>
+    <li><b>Which comparisons survive the platform ramp?</b><span class="why">Polymarket's monthly listings grew from a few hundred to several thousand across the window, and March's volume fields are largely missing. Any tier that played early looks smaller than it is. Shares within a summer month are safe; whole-window rankings are not, and the Australian Open is the clearest casualty.</span></li>
+    <li><b>Do outrights belong in the same scope as matches?</b><span class="why">Four percent of the money, on twenty-six tournament-winner markets that traded for months before the first ball, with the three largest single markets in the census being futures rather than matches. They need a draw-and-bracket model, not a match model. Is that a second product or a distraction?</span></li>
+    <li><b>Which rung does the register let you start on tomorrow?</b><span class="why">Section 5 counts measured sources: nine at the Slams, seven at the 1000s and 500/250s, three at the Challengers, two at ITF. The half dots are not absences, they are files nobody has opened yet. Choosing a rung also chooses how much of the audit is still ahead of you.</span></li>
+  </ol>
+  <h3>Three scopes the evidence would support opening with</h3>
+  <div class="prose"><p>Not recommendations. Each is a boundary the figures above can defend, with what it buys and what it costs in data terms.</p></div>
+  <div class="grid3">
+    <div class="tile"><div class="k">Narrow · four Slams, both tours</div><div class="v">27%</div><div class="d">of Polymarket volume (singles plus outrights) on 1,016 main-draw matches a year (Sackmann 2025 rows). Nine measured sources, point-by-point archives to 2011, odds since 2001, but only eight weeks of play, best-of-five on one side only, and the deepest, sharpest market in the sport.</div></div>
+    <div class="tile"><div class="k">Middle · main tours, 250s and up, singles</div><div class="v">64%</div><div class="d">of volume on about 5,200 main-draw matches a year (72% if the 2,600 qualifying matches are included). Five of the seven layers in section 4 are measured here (point-by-point and Polymarket price history are documented only), and the tennis-data.co.uk odds rows cover it end to end. The cost is scale: about 115 tournaments, ten of them combined, across all surfaces and eleven months.</div></div>
+    <div class="tile"><div class="k">Wide · add Challengers and WTA 125</div><div class="v">85%</div><div class="d">of all measured volume, on about 12,500 main-draw matches a year (18,000 with qualifying). Results and 2025 statistics are as complete as the main tour's, but odds baselines vanish, history thins, tier labels become inference, and the integrity profile changes. This is where the register's half dots start.</div></div>
+  </div>
+</section>
+<section id="s9">
+  <div class="sec-head"><div class="sec-num">09</div><h2>Sources and method</h2>
+  <p class="sub">Where every number came from, what was inferred, and how to reproduce the measured parts.</p></div>
+  <h3>Measured in this repository (22 Sep 2026)</h3>
+  <ul class="srcs">
+    <li><b>Polymarket volume by tier.</b> Events from <code>data/studies/tennis_data_audit/polymarket/events.jsonl</code> (Gamma snapshot 10 Sep 2026, sporting-date window 10 Sep 2025 to 10 Sep 2026, nine football records removed; 33,320 events, 406,190 contracts). Volume is the event's <code>volume</code> field, summed by tier. 1,837 events have no volume field and contribute zero; the census report explains why missing is not zero. Script: <code>src/eda/tennis_data_audit/measure_tier_terrain.py</code>, output <code>data/studies/tennis_data_audit/tier_terrain/tier_measurements.json</code>. Run with an explicitly named interpreter (the project's <code>tennis</code> environment does not exist on this machine).</li>
+    <li><b>Tier assignment rule (inferred, then cross-checked).</b> Slams, tour finals and every named Masters 1000, WTA 1000, ATP/WTA 500 and 250 event of the 2025–26 calendars are matched by their Polymarket league name through an alias list (Cincinnati Open, Internazionali BNL d'Italia, Mubadala Citi DC Open, and so on); the tour comes from the product series or slug prefix, so a shared name such as "China Open" is a WTA 1000 on one side and an ATP 500 on the other. Names containing "Qualification" go to a qualifying bucket, "Juniors" to juniors. Polymarket's two Australian Open leagues also contain qualifying (records dated before the 18 January main draw) and junior matches (nine-contract events from 24 January, girls' matches included under the men's label); those are moved to the qualifying and juniors buckets, which is why the Slam bucket holds 1,005 main-draw records rather than the 1,356 the raw labels give. Any remaining ATP- or WTA-series event with only a place name is assumed to be Challenger or WTA 125 level. <b>Cross-check</b> of that bucket against tournament names in the Sackmann 2025–26 files: 47% of its volume ($303M) carries a name the archive knows only as a Challenger or WTA 125 (Busan CH, Augsburg CH, Abidjan 2 CH, Kigali 2 CH, Birmingham 125, Austin 125, Paris 125, Madrid 125); 39% ($250M) carries a town name that hosts events at more than one level (Antalya, Astana, Bastad, Bogota); 6% ($39M) carries names the archive knows only at ITF level (Roehampton, Kingston, Sion, Quebec City), all July–September 2026 events after the archive's June cutoff, trading at Challenger-scale volumes; 8% ($54M) matched nothing (Vancouver, Philadelphia, Saint-Malo, Plovdiv). Numbered town names (Oeiras 3, Kigali 2: 979 records, $89M) are kept in this bucket because every ITF listing on Polymarket sits in a separate ITF product with itf- slugs, and their median volume is $61K against $1.9K for ITF listings. Eight sponsor-named events whose 2026 tier could not be confirmed (Estoril Open, Athens Open, The Memphis Classic, Ostrava Open, Merida Open Akron, Palermo, Upper Austria Ladies Linz, European Open) carry $66M, or 2.1% of volume, inside the 500 and 250 buckets. Series-less legacy records use the title prefix before the colon.</li>
+    <li><b>Schema and player overlap.</b> All five 2025 Sackmann match files have the same 49 columns with identical headers (checked 22 Sep 2026). Player overlap counts a player once per file by Sackmann ID within a tour (ATP: levels G, M, A, F versus level C versus Futures; WTA: G, PM, P, I, F versus level C versus ITF levels) and compares names across tours.</li>
+    <li><b>Match counts, statistics depth, rankings by tier.</b> 2025 files of the Sackmann archival mirror (PUB003) in <code>data/studies/tennis_data_audit/public/raw/</code>: <code>atp_matches_2025.csv</code>, <code>atp_matches_qual_chall_2025.csv</code>, <code>atp_matches_futures_2025.csv</code>, <code>wta_matches_2025.csv</code>, <code>wta_matches_qual_itf_2025.csv</code>. A row "has statistics" when <code>w_svpt</code> is present; the 2024 comparison figures are from the register's public-data audit.</li>
+    <li><b>Bookmaker odds coverage.</b> Local tennis-data.co.uk workbooks <code>data/raw/tennis_data_couk/{atp,wta}/{2025,2026}.xlsx</code>, grouped by the Series (ATP) or Tier (WTA) column; a row has an odds value when <code>B365W</code>, <code>PSW</code> or <code>AvgW</code> is non-empty. The 2026 files stop at 6–7 June 2026 and are the inherited snapshots the register describes as stale.</li>
+    <li><b>Polymarket price history.</b> Three sampled moneylines from the register's market-history audit (Korea Open Sept 2025, Wimbledon and US Open 2026); raw responses in <code>data/studies/tennis_data_audit/market_history/</code>.</li>
+    <li><b>Source × rung matrix.</b> Dots are transcribed from the <a href="source-register.md">source register</a> entries and the three audit reports; filled where the register records an inspected payload for that population, half where it records provider documentation only.</li>
+  </ul>
+  <h3>Published claims and snapshots (accessed 22 Sep 2026)</h3>
+  <ul class="srcs">
+    <li><b>Calendar and points.</b> ATP 2026 calendar PDF (<a href="https://www.atptour.com/-/media/files/calendar-pdfs/2025/2026-atp-tour-calendar-december-2025.pdf">atptour.com</a>, Dec 2025): 4 Slams at 128 draws, 9 Masters 1000 (seven at 96, two at 56), 16 ATP 500, 29 ATP 250. ATP Challenger 2026–27 calendar PDF (as of 12 Jul 2026): standard 32-draw, purses $63,000–$300,000, points 175/125/100/75/50. WTA 2026 calendar release (<a href="https://www.wtatennis.com/news/4377748/wta-announces-2026-tour-calendar">wtatennis.com</a>, 9 Oct 2025): 10 WTA 1000, 17 WTA 500, 22 WTA 250. WTA 125 count (69, tentative) and ITF event counts ("approximately 550" men's, "approximately 500" women's) and ITF winner points (M15 15 · M25 25 ATP; W15 15 · W35 35 · W50 50 · W75 75 · W100 100 WTA) from Wikipedia season pages citing the ITF, used as a fallback. Prize money to winners: AO 2026 A$4.15m, Roland-Garros €2.8m, Wimbledon £3.6m, US Open $5.5m (ATP news, 2026); Indian Wells 2026 $1,151,380; Dubai ATP 500 $619,160; Brisbane ATP 250 $114,060; Challenger 125 Québec $33,650; ITF M25 $4,612 and M15 $2,160 (2025); W15 $2,352 to W100 $15,239 (2024).</li>
+    <li><b>Audience.</b> Australian Open 2026: 2.2 bn cumulative global reach, 781 m hours, attendance 1,368,043 (<a href="https://ausopen.com/articles/news/australian-open-delivers-record-722-million-economic-benefits">Tennis Australia</a>, 24 Jun 2026); Nine men's final average 3.448 m (<a href="https://www.nineforbrands.com.au/media-release/game-set-match-nines-ao-2026-serves-up-record-audience-growth/">Nine for Brands</a>, 2 Feb 2026). Roland-Garros 2026: 46 m unique viewers on France Télévisions, men's final average 4.1 m, peak 6.3 m (<a href="https://fr.themedialeader.com/roland-garros-2026-46-millions-de-francais-devant-france-televisions/">The Media Leader FR</a>, 9 Jun 2026); attendance 727,500 (<a href="https://www.sporteco.com/roland-garros-publie-les-chiffres-de-ledition-2026/">FFT via SPORTéco</a>, 15 Jun 2026). Wimbledon 2026: attendance 550,151, unique digital audience 138.5 m (<a href="http://tennisnow.com/2026-wimbledon-sets-attendance-and-digital-records/">AELTC via Tennis Now</a>, 28 Jul 2026); ESPN tournament average 853,000, men's final 2.4 m average and 3.39 m peak (same source); BBC men's final peak 6.24 m (<a href="https://tennishead.net/wimbledon-release-tv-viewing-figures-from-the-2026-finals-and-it-shows-how-badly-carlos-alcaraz-is-missed/">Tennishead</a>, 28 Jul 2026). US Open 2026: ESPN tournament average 1.17 m, men's final 3.23 m average and 4.0 m peak (<a href="https://www.sportsmediawatch.com/2026/09/us-open-ratings-espn-shelton-zverev-viewership-sabalenka-rybakina/">Sports Media Watch</a>, 18 Sep 2026). ATP Finals 2025 final 7.0 m in Italy (<a href="https://www.atptour.com/en/news/nitto-atp-finals-2025-final-italian-tv-record">ATP</a>, 17 Nov 2025). WTA Finals 2024: 78 m global audience (<a href="https://www.wtatennis.com/news/4213973/wta-smashes-record-with-11-billion-global-audience">WTA</a>, 11 Feb 2025). Rome 2026 men's final 4.567 m average in Italy (<a href="https://www.sportface.it/tennis/internazionali-italia-2026-ascolti-record-sinner-ruud/2819715">Sportface</a> and <a href="https://www.oasport.it/2026/05/sinner-ruud-da-grandi-ascolti-e-non-solo-gli-internazionali-ditalia-attirano-in-tv/">OA Sport</a>, 18 May 2026); women's final 395,000 (OA Sport). ATP season 2025: projected audience over 1 bn, 5.55 m attendance, 13.1 m social following (<a href="https://www.atptour.com/en/news/atp-builds-on-record-year-2026">ATP</a>, 8 Jan 2026). WTA 2024 season: 1.1 bn cumulative audience (WTA, 11 Feb 2025). No published audience was found for ATP 500, ATP 250, Challenger or ITF events; Vienna 2025 attendance 82,000 (<a href="https://www.erstebank-open.com/en/news/storys/neuer-zuschauerrekord-bei-erste-bank-open">Erste Bank Open</a>, Oct 2025). Davis Cup final 2025: 6.2 m average in Italy (<a href="https://en.ilsole24ore.com/art/tennis-stops-italy-booms-davis-ratings-and-challenges-public-service-AHyd6ivD">Il Sole 24 Ore</a>, 24 Nov 2025). Laver Cup 2025 attendance 81,500 (<a href="https://lavercup.com/news/2025/09/16/innovation-immerses-fans-and-players-in-magic-of-laver-cup">Laver Cup</a>, 16 Sep 2025). Combined events (both tours, same fortnight): the four Slams plus Indian Wells, Miami, Madrid, Rome, the Canadian Open (split across Toronto and Montreal) and Cincinnati, from the ATP and WTA 2026 calendars above.</li>
+    <li><b>Social media.</b> Instagram follower counts observed on the profile pages on 22 Sep 2026, rounded as displayed: @wimbledon 8.3 m, @rolandgarros 5.1 m, @australianopen 4.3 m, @usopen 4.2 m, @atptour 3.7 m, @wta 2.0 m, @lavercup 712 k, @daviscup 544 k, @itftennis 393 k (from the page title), @unitedcuptennis 233 k, @billiejeankingcup 114 k; @atpchallengertour could not be retrieved. Players: @djokernole 16.7 m, @carlitosalcarazz 8.9 m, @janniksin 5.7 m, @arynasabalenka 5.7 m, @cocogauff 2.5 m, @iga.swiatek 2.4 m.</li>
+    <li><b>Betting industry.</b> H2 Gambling Capital for IBIA, <a href="https://h2gc.com/site/assets/News%20Stories/IBIA-Report-2024_FINAL-TEXT_SINGLE_AW.pdf">Sports Betting Integrity Report 2024</a>: tennis gross gambling revenue $4.4 bn (2024e) of $94 bn for all sports; in-play about 90% of tennis turnover; ITF 17% of global tennis wagering and 43% of matches offered; tennis share of gross win Italy 17.9%, Spain 14.4%, Australia 11.1%, Great Britain 5.6%. ITIA annual reviews <a href="https://www.itia.tennis/media/fohfcuoy/itia_annualreview2025_final.pdf">2025</a>, 2024 and 2023: match alerts 68 / 95 / 101; 2025 by category ITF 37, Challenger 28, WTA 125 1, WTA 250 1, Grand Slam 1; 2023 ITF 81, Challenger 13, tour 7. IBIA 2025 report: 74 tennis alerts of 300 (<a href="https://ibia.bet/media/documents/IBIA_REPORT2025_FINAL.pdf">ibia.bet</a>). Betfair per-match matched ranges are from a third-party trading guide (<a href="https://betfairsquare.com/sports/tennis">BetfairSquare</a>, updated May 2026) and are unaudited; the Challenger set-market figure is from a second guide (<a href="https://traderline.com/education/betfair-tennis-trading-strategy">Traderline</a>). Polymarket–ATP partnership release (<a href="https://www.prnewswire.com/news-releases/polymarket-secures-exclusive-atp-tour-streaming-rights-for-prediction-markets-302841534.html">PR Newswire</a>, 3 Aug 2026): approximately 20,000 matches per ATP season, no volume figures. Kalshi US Open partnership (31 Aug 2026): tennis volume "up 25×", base undisclosed.</li>
+    <li><b>Governance and rights.</b> As recorded in the register's commercial report: TDI/Sportradar ATP distribution from 2024; Sportradar removal of ITF World Tennis Tour coverage in 2025; Infront ITF rights 2025–2029 and Australian Open rights (Sep 2025); Sportradar/IMG Arena Wimbledon, Roland-Garros and US Open rights; Stats Perform WTA.</li>
+  </ul>
+  <h3>Known weaknesses of this page</h3>
+  <ul class="srcs">
+    <li>Tier assignment is name-based inference; expect a few errors at the 250-versus-Challenger boundary and inside the WTA 125-versus-ITF boundary. The ITF, Slam and 1000 rows are robust.</li>
+    <li>Lifetime volume is a platform-reported field; it is not a count of fills in the window, it may double-count maker and taker sides, and it is missing on nearly half of the March 2026 records.</li>
+    <li>Audience figures mix reach, unique viewers and single-broadcast averages from different countries; they are illustrative of order of magnitude, not comparable across events.</li>
+    <li>Match counts are physical rows in one archive's 2025 files, not audited tour completeness; the register documents duplicate keys, malformed rows and level-label oddities in the same files.</li>
+  </ul>
+</section>
+<div class="tip" id="tip" role="status" aria-live="polite"></div>
+<script>
+/* ---------- measured data (tier_measurements.json, 22 Sep 2026) ---------- */
+const TIERS = [
+ {k:'slam',  name:'Grand Slam singles (main draw)',            vol:714652574, ev:1005,  pos:1005,  nf:0,   med:298162, atp:491160747, wta:223491827, atpEv:511,  wtaEv:494},
+ {k:'out',   name:'Tournament-winner futures (mostly Slams)',  vol:128302276, ev:26,    pos:24,    nf:2,   med:79700,  atp:90109116,  wta:37720547,  atpEv:10,   wtaEv:8},
+ {k:'slamq', name:'Grand Slam qualifying',                     vol:77413395,  ev:832,   pos:832,   nf:0,   med:46625,  atp:48321460,  wta:29091935,  atpEv:415,  wtaEv:417},
+ {k:'jun',   name:'Grand Slam juniors',                        vol:1765280,   ev:680,   pos:524,   nf:156, med:322,    atp:1209138,   wta:556142,    atpEv:378,  wtaEv:302},
+ {k:'fin',   name:'Tour Finals (ATP / WTA / Next Gen)',        vol:26609867,  ev:51,    pos:51,    nf:0,   med:262876, atp:22809870,  wta:3799996,   atpEv:36,   wtaEv:15},
+ {k:'m1000', name:'Masters 1000 / WTA 1000 (main draw)',       vol:534029153, ev:1660,  pos:1445,  nf:215, med:209644, atp:321680020, wta:212349133, atpEv:790,  wtaEv:870},
+ {k:'t500',  name:'ATP 500 / WTA 500 (main draw)',             vol:329373568, ev:1001,  pos:1000,  nf:1,   med:222669, atp:175910970, wta:153462598, atpEv:537,  wtaEv:464},
+ {k:'t250',  name:'ATP 250 / WTA 250 (main draw)',             vol:402248102, ev:1525,  pos:1515,  nf:9,   med:164145, atp:250321096, wta:151927006, atpEv:829,  wtaEv:696},
+ {k:'mtq',   name:'Main-tour qualifying (1000 / 500 / 250)',   vol:146314041, ev:1659,  pos:1623,  nf:36,  med:51119,  atp:81158133,  wta:65155908,  atpEv:809,  wtaEv:850},
+ {k:'chal',  name:'Challenger / WTA 125 (inferred from names)',vol:646867457, ev:6293,  pos:5815,  nf:475, med:67220,  atp:506079692, wta:140787765, atpEv:5122, wtaEv:1171},
+ {k:'itf',   name:'ITF World Tennis Tour',                     vol:96891486,  ev:15871, pos:15059, nf:803, med:1871,   atp:9815658,   wta:8617585,   atpEv:1679, wtaEv:1073},
+ {k:'dbl',   name:'Doubles (all tiers)',                       vol:5411178,   ev:2540,  pos:2481,  nf:58,  med:412,    atp:2834068,   wta:2468736,   atpEv:1827, wtaEv:707},
+ {k:'team',  name:'Team events & exhibitions',                 vol:3949854,   ev:19,    pos:19,    nf:0,   med:2974,   atp:214186,    wta:0,         atpEv:1,    wtaEv:0},
+ {k:'oth',   name:'Props, exact-score wrappers & other',       vol:610556,    ev:158,   pos:76,    nf:82,  med:314,    atp:8641,      wta:0,         atpEv:127,  wtaEv:0},
+];
+const TOTAL_VOL = 3114438787;
+const MONTHLY = [
+ {m:'2025-09',main:3326134,  chal:0,        itf:0,       oth:88198,  ev:391, wv:380},
+ {m:'2025-10',main:43289293, chal:1273670,  itf:0,       oth:607538, ev:789, wv:787},
+ {m:'2025-11',main:34986218, chal:0,        itf:0,       oth:71387,  ev:127, wv:127},
+ {m:'2025-12',main:3451998,  chal:0,        itf:0,       oth:3436955,ev:22,  wv:22},
+ {m:'2026-01',main:113445443,chal:0,        itf:0,       oth:0,      ev:996, wv:996},
+ {m:'2026-02',main:186678332,chal:16893921, itf:0,       oth:0,      ev:1186,wv:1186},
+ {m:'2026-03',main:49352588, chal:26581179, itf:0,       oth:0,      ev:1507,wv:782},
+ {m:'2026-04',main:267810271,chal:114255169,itf:0,       oth:0,      ev:1598,wv:1598},
+ {m:'2026-05',main:335205433,chal:75147733, itf:3755171, oth:790050, ev:3790,wv:3777},
+ {m:'2026-06',main:359335752,chal:85038030, itf:16813910,oth:909826, ev:5907,wv:5889},
+ {m:'2026-07',main:436108113,chal:148993242,itf:34404820,oth:1846247,ev:6698,wv:6612},
+ {m:'2026-08',main:378707118,chal:114845081,itf:32548616,oth:1092464,ev:6514,wv:6048},
+ {m:'2026-09',main:149011563,chal:63839434, itf:9368969, oth:1128924,ev:3795,wv:3279},
+];
+/* heat grid: [level 0-3, line1, line2, note] */
+const HEAT_COLS = ['Results & scores','Serve / return stats','Point-by-point','Bookmaker odds rows','Polymarket listings','Polymarket price history','Player IDs & rankings'];
+const HEAT = [
+ ['Grand Slams',[[3,'508 + 508 rows','Sackmann · TML · tennis-data','2025 main-draw rows measured in the Sackmann mirror (508 ATP, 508 WTA); also in Tennis My Life season files and tennis-data.co.uk workbooks. Official 2025 Wimbledon and US Open men\'s draw PDFs verified.'],[3,'99–100% of rows','since 1991','w_svpt present on 99% (ATP) and 100% (WTA) of 2025 Slam rows; match minutes on 75%. Tour-level statistics documented from 1991.'],[2,'2011–2024 archive','no 2025–26 files','Sackmann Slam point-by-point: 166 CSVs in the mirror, 2024 US Open metadata measured; nothing for 2025–26. Match Charting Project adds selected matches; Live Tennis API states are a June 2026 sample.'],[3,'99.6–100% B365 / Avg','Pinnacle 97% → 0%; Betfair column 25% → 97–100% in 2026','tennis-data.co.uk 2025: Bet365 and average odds on 99.6–100% of the 508 Slam rows per tour; Pinnacle 97–98% in 2025, 0% in the June 2026 snapshot, while the Betfair Exchange columns go from 25% of rows to 97–100%. Schema drift between columns, not a vanishing baseline. The Odds API documents Slam history from 2020 (claim).'],[3,'1,005 events · $715M','plus 832 qualifying, 26 outrights','Gamma census after separating Australian Open qualifying and juniors by date and contract count; every remaining main-draw event has positive lifetime volume.'],[2,'2 moneylines sampled','minute prices returned','Legacy CLOB endpoint returned 2,535 minute-spaced prices for a Wimbledon 2026 moneyline and 2,649 for a US Open 2026 one. A sample, not an archive audit.'],[3,'100% ranked','Sackmann IDs','Winner and loser rank on every 2025 Slam row; stable numeric player IDs.']]],
+ ['Tour Finals',[[3,'45 rows','ATP 30 · WTA 15','2025 rows: ATP Finals and Next Gen Finals 30, WTA Finals 15; tennis-data carries 15 rows each.'],[3,'100%','since 1991','All 45 rows carry serve statistics and minutes.'],[1,'documented only','Live Tennis API index','No Finals point file inspected; provider index claims tour-wide coverage from 2023.'],[3,'100% B365','Pinnacle 87–93%','tennis-data 2025: Bet365 100%; Pinnacle 93% (ATP), 87% (WTA).'],[3,'51 events · $27M','median $263K','Group and knockout markets for ATP Finals, Next Gen and WTA Finals.'],[1,'not sampled','endpoint documented','Same public endpoints; no Finals series retrieved.'],[3,'100% ranked','','']]],
+ ['Masters 1000 / WTA 1000',[[3,'775 + 830 rows','9 + 10 events','2025 rows in Sackmann (M 775, PM 830); identical counts in tennis-data.'],[3,'99–100%','since 1991','w_svpt on 100% of ATP and 99% of WTA rows; minutes 99–100%.'],[1,'documented only','Live Tennis API · MCP','Index claims coverage from 2023; charting project has selected matches; nothing tier-specific measured.'],[3,'99–100% B365','Pinnacle 95–99% → 0%; Betfair column 18–19% → 78–81%','tennis-data 2025: Bet365 99%, Pinnacle 95% (ATP) / 99% (WTA), average odds 100%, Betfair Exchange columns 18–19%; 2026 snapshot: Pinnacle 0%, Betfair 78–81%. The Odds API documents 1000s with 2021–2026 start dates (claim).'],[3,'1,660 events · $534M','March fields missing','215 events lack a volume field, concentrated in March (Indian Wells, Miami).'],[1,'not sampled','',''],[3,'100% ranked','','']]],
+ ['ATP 500 / WTA 500',[[3,'ATP inside "A" · WTA 474','16 + 16 events','Sackmann labels ATP 500s and 250s together as A (1,379 rows, 48 events); WTA P level 474 rows. tennis-data: ATP500 512 rows, WTA500 474.'],[3,'100%','since 1991','w_svpt on 100% of A and P rows.'],[1,'documented only','',''],[3,'99–100% B365','Pinnacle 93–97% → 0–21%; Betfair column 24–28% → 98–100%','tennis-data 2025: ATP500 Bet365 99% / Pinnacle 93%; WTA500 100% / 97%; Betfair Exchange columns 24–28%, rising to 98–100% in the 2026 snapshot. The Odds API lists 500s among its 44 keys (claim).'],[3,'1,001 events · $329M','median $223K','Highest per-match median of any rung.'],[2,'1 moneyline sampled','Korea Open, Sept 2025','Legacy CLOB returned 1,669 minute-spaced prices for a WTA 500 moneyline in the first week of the window.'],[3,'100% ranked','','']]],
+ ['ATP 250 / WTA 250',[[3,'ATP inside "A" · WTA 703','≈32 + 23 events','WTA I level 703 rows, 23 events; ATP 250s share the A label. tennis-data: ATP250 834 rows, WTA250 678.'],[3,'98–100%','since 1991','w_svpt on 100% of ATP A rows, 98% of WTA I rows; WTA minutes 95%.'],[1,'documented only','',''],[3,'100% B365','Pinnacle 88–98% → 19–22%; Betfair column 28–32% → 99%','tennis-data 2025: ATP250 Bet365 100% / Pinnacle 98%; WTA250 100% / 88%; Betfair Exchange columns 28–32%, 99% in the 2026 snapshot. The Odds API does not claim 250s.'],[3,'1,525 events · $402M','','9 events have no volume field.'],[1,'not sampled','',''],[3,'100% ranked','','']]],
+ ['Challenger',[[3,'10,337 rows','217 events · 4,501 rows are qualifying','Sackmann qual_chall 2025: level C 10,337 rows, of which 4,501 are qualifying rounds (5,836 main draw); Tennis My Life 2026 Challenger file 5,389 rows through 1 Sep; ATP results archive lists Challenger draws (not bulk audited).'],[3,'100%','since 2008','w_svpt on 100% of 2025 C rows; upstream README says Challenger statistics from 2008.'],[1,'documented only','Live Tennis API · Sportradar','Index claims Challenger coverage; Sportradar documents tier-specific point depth; nothing measured.'],[1,'no measured file','web pages · Betfair archive','tennis-data.co.uk has no Challenger rows; The Odds API does not claim Challengers; OddsPortal and BetExplorer show pages with sometimes-blank odds; Betfair documents all Exchange markets since 2016. None inspected.'],[3,'≈6,300 events · $647M','tier inferred from names','ATP- and WTA-series events with bare city names, WTA 125 included; 475 have no volume field. Section 9 reports the name cross-check against the Sackmann files.'],[1,'not sampled','',''],[3,'99% ranked','','']]],
+ ['WTA 125',[[3,'2,286 rows','52 events · 882 rows are qualifying','Sackmann wta_qual_itf 2025: level C 2,286 rows, of which 882 are qualifying rounds (1,404 main draw).'],[3,'99%','history unverified','w_svpt on 99% of 2025 rows; first year with statistics not established for this level.'],[1,'documented only','',''],[1,'no measured file','','Same position as Challenger.'],[3,'inside Challenger / 125 bucket','WTA-series bare names $141M','Not separable from Challengers without a tournament map.'],[1,'not sampled','',''],[3,'99% ranked','','']]],
+ ['ITF World Tennis Tour',[[3,'35,880 rows','1,183 events','Sackmann 2025: ATP Futures 17,906 rows (595 events); WTA lower-tier ITF levels 17,974 rows (588 events). ITF official round-up lists finals only.'],[2,'95–98% in 2025','0% in 2024','w_svpt on 95–98% of 2025 rows (lowest W75 at 95%), but ATP Futures 2024 has no statistics in any of 18,423 rows and WTA lower-tier 2024 lacks them in 35,487 of 38,281. One season of history.'],[1,'documented only','Live Tennis API index','The Live Tennis API index claims ITF coverage from 2023; nothing ITF-specific inspected.'],[0,'nothing measured','web pages only','No register file carries ITF bookmaker odds; OddsPortal and BetExplorer pages exist; Betfair coverage of ITF not established.'],[3,'15,871 events · $97M','from May 2026 only','ITF series appears from 13 May 2026; median $1.9K per event; 803 events have no volume field.'],[1,'not sampled','PR&R order-book pack advertised','Poly Research & Robotics advertises 629 ITF matches of one-second Polymarket order books for 2–21 June 2026 ($20 pack); not inspected. Public price endpoints not sampled for ITF.'],[2,'83–99% of winners ranked','65–99% of losers','Winner rank present on 83% of W15 rows and 93–99% elsewhere; loser rank on only 65% of W15, 82% of M15 and 86% of M25 rows. Only 6,304 of 32,678 Live Tennis API players map to a Sackmann ID.']]],
+ ['Qualifying (all tiers)',[[3,'≈2,650 rows','all main-tour tiers','Sackmann 2025: Slam Q 448 + 448, 1000 Q 274 + 287, 500/250 Q 570 + 620; Tennis My Life ATP qualifying file 1,105 rows (2026).'],[3,'99–100%','since 2011','Tour qualifying statistics documented from 2011.'],[1,'documented only','',''],[0,'nothing measured','','tennis-data.co.uk has no qualifying rows; no qualifying odds file inspected.'],[3,'2,491 events · $224M','Slam + main-tour Q','832 Slam qualifying (Australian Open qualifying separated by date) and 1,659 other qualifying event records.'],[1,'not sampled','',''],[3,'99–100% ranked','','']]],
+ ['Doubles',[[2,'ATP files end 2020','official pages only','Sackmann doubles files stop in 2020; Tennis My Life and official sites list doubles draws; no current bulk doubles rows measured.'],[0,'none','','No doubles statistics file in the register.'],[0,'none','',''],[1,'web pages only','','OddsPortal and BetExplorer list doubles; nothing measured.'],[2,'2,540 events · $5.4M','median $412','ATP doubles series 1,817 and WTA doubles 701 events; four identities per contract.'],[1,'not sampled','',''],[2,'pairs, not players','','Four component IDs needed per match; Sackmann IDs exist for players, not pairs.']]],
+ ['Team events',[[2,'302 rows','no stats','Sackmann 2025 level D: 252 ATP rows (78 ties), 50 WTA rows; United Cup results verified on the official site; Davis Cup and BJK Cup pages verified, rubber counts not audited.'],[0,'0% of rows','','Serve statistics absent on every D-level row in 2025.'],[0,'none','',''],[1,'documented only','','Betfair and bookmakers list team ties; nothing measured.'],[2,'19 events · $3.9M','with exhibitions','Davis Cup ties, Laver Cup and exhibitions; one Davis Cup semifinal market is a register reference example.'],[1,'not sampled','',''],[3,'95–100% ranked','','']]],
+ ['Exhibitions',[[0,'not in files','','Six Kings Slam, Battle of the Sexes and Garden Cup are absent from results files; formats differ.'],[0,'none','',''],[0,'none','',''],[1,'listed by books','',''],[2,'$3.9M incl. team','Battle of the Sexes $3.4M','Six Kings Slam events about $0.45M; special-format rules noted in the census.'],[1,'not sampled','',''],[1,'players are ranked','','Participants have IDs; the event has no ranking status.']]],
+];
+/* depth: start year, end year (decimal), kind m=measured c=claimed */
+const DEPTH = [
+ {n:'Results, ATP main tour (Sackmann)', s:1968, e:2026.4, k:'m', note:'Files from 1968; inspected 2026 main files stop at 25 May 2026 tournament dates.'},
+ {n:'Serve/return stats, tour level (Sackmann)', s:1991, e:2026.4, k:'m', note:'Upstream README: strongest from 1991; measured 99–100% in 2025.'},
+ {n:'Serve/return stats, Challenger', s:2008, e:2026.4, k:'m', note:'Documented from 2008; measured 100% in 2025.'},
+ {n:'Serve/return stats, tour qualifying', s:2011, e:2026.4, k:'m', note:'Documented from 2011; measured 100% in 2025.'},
+ {n:'Serve/return stats, ITF', s:2025, e:2026.4, k:'m', note:'None in 2024 files; 97–98% in 2025 files.'},
+ {n:'Bookmaker odds rows, ATP (tennis-data.co.uk)', s:2001, e:2026.4, k:'m', note:'Odds from 2001 (provider); local snapshot ends 7 Jun 2026.'},
+ {n:'Bookmaker odds rows, WTA (tennis-data.co.uk)', s:2007, e:2026.4, k:'m', note:'From 2007 (provider); local snapshot ends 6 Jun 2026.'},
+ {n:'Betfair Exchange odds columns (same workbooks)', s:2025, e:2026.4, k:'m', note:'BFEW/BFEL present on 18–32% of 2025 rows and 78–100% of 2026 rows across every main-tour tier; earlier seasons not measured here.'},
+ {n:'Betfair Exchange history (all tennis markets)', s:2016, e:2026.7, k:'c', note:'Hub says 2016, specification says May 2015; no tennis file purchased or audited.'},
+ {n:'The Odds API, Grand Slams', s:2020.6, e:2026.7, k:'c', note:'ATP/WTA US Open history from 28 Aug 2020; latest retained observation unspecified.'},
+ {n:'The Odds API, 500 / 1000 keys', s:2021, e:2026.7, k:'c', note:'Competition starts range 2021–2026; 250s, Challenger and ITF not claimed.'},
+ {n:'Sackmann Slam point-by-point', s:2011, e:2024.7, k:'m', note:'166 CSVs 2011–2024 in the mirror; nothing for 2025–26.'},
+ {n:'Live Tennis API match index (all tiers)', s:2023, e:2026.6, k:'m', note:'173,571 index rows measured; no winners or final scores in the public index.'},
+ {n:'Live Tennis API observed score states', s:2025.8, e:2026.6, k:'c', note:'Provider says live capture since Oct 2025 (academic page) or Mar 2026 (commercial page); a June 2026 sample was measured.'},
+ {n:'Polymarket tennis markets (census window)', s:2025.7, e:2026.7, k:'m', note:'33,320 events with sporting dates 10 Sep 2025 – 10 Sep 2026; older records exist (a 2024 French Open outright was seen).'},
+ {n:'OnCourt database (claimed)', s:1990, e:2026.7, k:'c', note:'ATP 1990+, WTA 1997+, Challenger 1998+, qualifying 2000+; latest delivered date unverified.'},
+];
+const MCOLS = ['Grand Slams','Tour Finals','1000s','500 / 250','Challenger / 125','ITF','Qualifying','Doubles','Team / exhib.'];
+const MATRIX = [
+ {g:'Public results and statistics', rows:[
+  {n:'Tennis My Life current downloads', p:'Inspect first', c:'mhmmmnmnn', note:'2026 season CSVs measured: ATP main 2,132, WTA 1,968, Challenger 5,389, ATP qualifying 1,105 rows. No ITF or doubles files; the November finals postdate the inspected files.'},
+  {n:'Sackmann archival mirror', p:'Inspect first', c:'mmmmmmmhm', note:'2025 rows measured at every level from Slams to ITF W15; doubles files end 2020; team rows carry no statistics.'},
+  {n:'tennis-data.co.uk (results + odds)', p:'Inspect first', c:'mmmmnnnnn', note:'Main-tour singles only: 2,644 ATP and 2,505 WTA rows in 2025 with bookmaker odds; nothing below the 250s.'},
+  {n:'Open Tennis Data v3', p:'Next candidate', c:'mmmmnnnnn', note:'26,619 main-tour singles rows 2020–2026 with known round gaps (68 quarter-finals); derivative of other collections.'},
+  {n:'TennisData.app', p:'Next candidate', c:'hhhhhnnnn', note:'Documents ATP/WTA main + Challenger seasons 2021–2026; downloads blocked in the audit.'},
+  {n:'CoreTennis', p:'Next candidate', c:'hhhhhhhhh', note:'Claims 4.4 m results including lower tiers and juniors; no payload audited.'},
+  {n:'Official ATP / WTA / ITF / Slam sites', p:'Next candidate', c:'mhmhhhhhm', note:'Draw PDFs for 2025 Wimbledon and US Open, a WTA Dubai draw and United Cup results were verified; the rest is browsable, not bulk.'},
+ ]},
+ {g:'Commercial feeds', rows:[
+  {n:'OnCourt desktop / database', p:'Inspect first', c:'hhhhhhhhh', note:'Claims 1.6 m+ matches across tours, lower tiers, qualifying, doubles and team play; nothing delivered or audited.'},
+  {n:'Live Tennis API (public sample + products)', p:'Next candidate', c:'hhhhhhhhn', note:'Index of 173,571 matches 2023–2026 across ATP/WTA/Challenger/ITF measured, but without winners; states sampled for June 2026 only.'},
+  {n:'Sportradar Tennis v3', p:'Inspect first', c:'hhhhhnhhh', note:'Documents ATP, WTA, Challenger, Slams, team and UTR; ITF World Tennis Tour removed in 2025.'},
+  {n:'Stats Perform WTA', p:'Next candidate', c:'nhhhhnhhn', note:'Official WTA feed; archive depth and licence unverified; WTA 125 coverage assumed, not documented.'},
+  {n:'Infront / LSports (ITF and Australian Open rights)', p:'Reference', c:'hnnnnhhhh', note:'ITF data rights from 2025 and Australian Open rights; no research archive or price established.'},
+ ]},
+ {g:'Odds and market venues', rows:[
+  {n:'Polymarket Gamma catalogue', p:'Next candidate', c:'mmmmmmmmm', note:'33,320 event records censused at every rung including doubles, juniors, team ties and exhibitions.'},
+  {n:'Polymarket price history (CLOB / v2)', p:'Next candidate', c:'mhhmhhhhh', note:'Minute-level series retrieved for one WTA 500, one Wimbledon and one US Open moneyline; endpoints documented for all tokens.'},
+  {n:'The Odds API', p:'Inspect first', c:'hhhhnnnnn', note:'44 tournament keys: Slams, 1000s and 500s, mainly moneyline; 250s, Challengers and ITF not claimed.'},
+  {n:'Betfair Historical Data', p:'Inspect first', c:'hhhhhhhhh', note:'All Exchange tennis markets since 2016 documented; tennis catalogue and any file unaudited.'},
+  {n:'Match Charting Project', p:'Specialist use', c:'mmmmnnnnn', note:'11,646 charted matches, volunteer-selected, mostly main tour; shot-level detail.'},
+  {n:'Sackmann Slam point-by-point', p:'Specialist use', c:'mnnnnnnnn', note:'Slams only, 2011–2024.'},
+ ]},
+];
+/* calendar structure (published calendars) */
+const CAL_BLOCKS = [ {s:0.0,e:2.95,k:'hard',l:'Hard · Oceania & Americas'},{s:2.95,e:5.25,k:'clay',l:'Clay · Europe'},{s:5.25,e:6.45,k:'grass',l:'Grass'},{s:6.45,e:8.4,k:'hard',l:'Hard · North America'},{s:8.4,e:10.75,k:'hard',l:'Hard · Asia & indoor Europe'},{s:10.75,e:12,k:'off',l:'Off-season'} ];
+const CAL_MARKS = [ {x:0.55,n:'Australian Open',t:'slam'},{x:2.2,n:'Indian Wells',t:'1000'},{x:2.75,n:'Miami',t:'1000'},{x:3.2,n:'Monte-Carlo',t:'1000m'},{x:3.75,n:'Madrid',t:'1000'},{x:4.3,n:'Rome',t:'1000'},{x:4.85,n:'Roland-Garros',t:'slam'},{x:6.0,n:'Wimbledon',t:'slam'},{x:7.1,n:'Canada',t:'1000'},{x:7.5,n:'Cincinnati',t:'1000'},{x:8.05,n:'US Open',t:'slam'},{x:9.1,n:'Beijing',t:'1000w'},{x:9.3,n:'Shanghai',t:'1000m'},{x:9.5,n:'Wuhan',t:'1000w'},{x:10.05,n:'Paris',t:'1000m'},{x:10.5,n:'Tour Finals',t:'fin'},{x:1.3,n:'Doha · Dubai',t:'1000w'} ];
+</script>
+<script>
+(function(){
+const $ = (s, r) => (r||document).querySelector(s);
+const NS = 'http://www.w3.org/2000/svg';
+const el = (tag, attrs, parent) => { const e = document.createElementNS(NS, tag); for (const k in attrs) e.setAttribute(k, attrs[k]); if (parent) parent.appendChild(e); return e; };
+const txt = (parent, x, y, s, cls, anchor) => { const t = el('text', {x, y, class: cls || 'lbl', 'text-anchor': anchor || 'start'}, parent); t.textContent = s; return t; };
+const fmtM = v => v >= 1e9 ? '$' + (v/1e9).toFixed(2) + 'B' : v >= 1e6 ? '$' + (v/1e6).toFixed(v >= 1e8 ? 0 : 1) + 'M' : v >= 1e3 ? '$' + (v/1e3).toFixed(v >= 1e5 ? 0 : 1) + 'K' : '$' + Math.round(v);
+const fmtN = v => v.toLocaleString('en-US');
+const pct = v => (v*100).toFixed(v < 0.01 ? 2 : 1) + '%';
+const tip = $('#tip');
+function showTip(evt, lines) { tip.textContent = ''; lines.forEach((l, i) => { const s = document.createElement(i === 0 ? 'b' : 'span'); s.className = i === 0 ? '' : 'r'; s.textContent = l; tip.appendChild(s); }); tip.style.opacity = '1'; moveTip(evt); }
+function moveTip(evt) { const p = tip.parentElement.getBoundingClientRect(); let x = evt.clientX - p.left + 14, y = evt.clientY - p.top + 14; if (x + 300 > p.width) x = Math.max(8, x - 320); tip.style.left = x + 'px'; tip.style.top = y + 'px'; }
+function hideTip() { tip.style.opacity = '0'; }
+function bind(node, lines) { node.addEventListener('pointerenter', e => showTip(e, lines)); node.addEventListener('pointermove', moveTip); node.addEventListener('pointerleave', hideTip); node.addEventListener('focus', e => { const r = node.getBoundingClientRect(); showTip({clientX: r.left + r.width/2, clientY: r.top + r.height/2}, lines); }); node.addEventListener('blur', hideTip); }
+function table(container, head, rows) { const c = typeof container === 'string' ? $(container) : container; c.textContent = ''; const t = document.createElement('table'); const th = document.createElement('thead'); const tr = document.createElement('tr'); head.forEach((h, i) => { const c2 = document.createElement('th'); c2.textContent = h; if (i > 0 && rows.length && typeof rows[0][i] === 'number') c2.className = 'num'; tr.appendChild(c2); }); th.appendChild(tr); t.appendChild(th); const tb = document.createElement('tbody'); rows.forEach(r => { const tr2 = document.createElement('tr'); r.forEach((v, i) => { const td = document.createElement('td'); if (typeof v === 'number') { td.className = 'num'; td.textContent = fmtN(v); } else td.textContent = v; tr2.appendChild(td); }); tb.appendChild(tr2); }); t.appendChild(tb); c.appendChild(t); }
+
+/* ---- volume by tier ---- */
+const MODES = {
+  share: {label: 'Share of lifetime volume', val: t => t.vol/TOTAL_VOL, fmt: v => pct(v), max: 0.25, ticks: [0, .05, .1, .15, .2, .25], tfmt: v => (v*100).toFixed(0) + '%'},
+  median: {label: 'Median lifetime volume per event with a volume field (log scale)', val: t => t.med, fmt: v => fmtM(v), log: true, min: 100, max: 1e6, ticks: [100, 1e3, 1e4, 1e5, 1e6], tfmt: v => fmtM(v)},
+  events: {label: 'Event records in the census window', val: t => t.ev, fmt: v => fmtN(v), max: 16000, ticks: [0, 4000, 8000, 12000, 16000], tfmt: v => fmtN(v)},
+};
+function renderVolume(mode) {
+  const M = MODES[mode], W = 1000, L = 330, R = 80, rowH = 30, top = 34, H = top + TIERS.length*rowH + 30;
+  const host = $('#chart-volume'); host.textContent = '';
+  const svg = el('svg', {viewBox: `0 0 ${W} ${H}`, role: 'img', 'aria-label': M.label + ' by tier'}, host);
+  const sx = v => M.log ? L + (Math.log10(Math.max(v, M.min)) - Math.log10(M.min)) / (Math.log10(M.max) - Math.log10(M.min)) * (W - L - R) : L + v / M.max * (W - L - R);
+  M.ticks.forEach(t => { const x = sx(t); el('line', {x1: x, y1: top - 6, x2: x, y2: H - 26, class: 'gridline'}, svg); txt(svg, x, H - 10, M.tfmt(t), 'axis-t', 'middle'); });
+  txt(svg, L, 16, M.label, 'lbl2');
+  TIERS.forEach((t, i) => {
+    const y = top + i*rowH, v = M.val(t), g = el('g', {tabindex: 0}, svg);
+    const hit = el('rect', {x: 0, y: y - 2, width: W, height: rowH - 4, class: 'hit'}, g);
+    txt(g, L - 12, y + 16, t.name, 'lbl', 'end');
+    const inferred = t.k === 'chal';
+    const w = Math.max(0, sx(v) - L);
+    el('rect', {x: L, y: y + 3, width: w, height: 18, rx: 0, class: inferred ? 'bar' : 'bar', 'stroke': inferred ? 'var(--ink)' : 'none', 'stroke-dasharray': inferred ? '4 3' : 'none', 'stroke-width': inferred ? 1.2 : 0, 'fill-opacity': inferred ? 0.85 : 1}, g);
+    txt(g, L + w + 8, y + 16, M.fmt(v) + (inferred ? '  (inferred tier)' : ''), 'val');
+    bind(g, [t.name, 'Share of volume: ' + pct(t.vol/TOTAL_VOL) + ' (' + fmtM(t.vol) + ')', 'Event records: ' + fmtN(t.ev) + ' · with positive volume: ' + fmtN(t.pos) + ' · no volume field: ' + fmtN(t.nf), 'Median per listed event (records with the field): ' + fmtM(t.med), 'ATP ' + fmtM(t.atp) + ' on ' + fmtN(t.atpEv) + ' records · WTA ' + fmtM(t.wta) + ' on ' + fmtN(t.wtaEv) + (t.k === 'itf' ? ' (most ITF records carry no tour label)' : '')]);
+  });
+  el('line', {x1: L, y1: top - 6, x2: L, y2: H - 26, class: 'baseline'}, svg);
+  ['vol-share', 'vol-median', 'vol-events'].forEach(id => $('#' + id).setAttribute('aria-pressed', String(id === 'vol-' + mode)));
+}
+['share', 'median', 'events'].forEach(m => $('#vol-' + m).addEventListener('click', () => renderVolume(m)));
+renderVolume('share');
+table('#table-volume', ['Tier', 'Volume (USD)', 'Share', 'Event records', 'Positive volume', 'Median per listed event (USD)', 'ATP volume', 'ATP records', 'WTA volume', 'WTA records'], TIERS.map(t => [t.name, Math.round(t.vol), pct(t.vol/TOTAL_VOL), t.ev, t.pos, Math.round(t.med), Math.round(t.atp), t.atpEv, Math.round(t.wta), t.wtaEv]));
+
+/* ---- monthly stacked ---- */
+(function(){
+  const W = 1000, H = 300, L = 70, R = 20, top = 30, bottom = 44, plotH = H - top - bottom, max = 650e6;
+  const host = $('#chart-monthly'); const svg = el('svg', {viewBox: `0 0 ${W} ${H}`, role: 'img', 'aria-label': 'Monthly Polymarket tennis volume, stacked by tier group'}, host);
+  const keys = [['main', 'Main tour (Slams to 250s, qualifying, finals, outrights)', 'var(--s1)'], ['chal', 'Challenger / WTA 125', 'var(--s2)'], ['itf', 'ITF', 'var(--s3)'], ['oth', 'Doubles, team, props', 'var(--gray-mark)']];
+  const sy = v => top + plotH - v / max * plotH;
+  [0, 200e6, 400e6, 600e6].forEach(t => { el('line', {x1: L, y1: sy(t), x2: W - R, y2: sy(t), class: 'gridline'}, svg); txt(svg, L - 8, sy(t) + 4, t ? '$' + (t/1e6) + 'M' : '0', 'axis-t', 'end'); });
+  const bw = (W - L - R) / MONTHLY.length, barW = Math.min(44, bw - 14);
+  MONTHLY.forEach((m, i) => {
+    const x = L + i*bw + (bw - barW)/2; let acc = 0; const g = el('g', {tabindex: 0}, svg);
+    el('rect', {x: L + i*bw, y: top, width: bw, height: plotH, class: 'hit'}, g);
+    keys.forEach(([k, , col]) => { const v = m[k]; if (!v) return; const y1 = sy(acc + v), y0 = sy(acc); el('rect', {x, y: y1, width: barW, height: Math.max(0, y0 - y1 - 2), fill: col}, g); acc += v; });
+    txt(g, x + barW/2, sy(acc) - 6, fmtN(m.ev), 'val', 'middle');
+    txt(g, x + barW/2, H - 24, m.m.slice(2, 4) + '·' + m.m.slice(5), 'axis-t', 'middle');
+    if (m.m === '2026-03') txt(g, x + barW/2, H - 8, 'fields missing', 'axis-t', 'middle');
+    if (i === 0 || i === MONTHLY.length - 1) txt(g, x + barW/2, H - 8, 'partial', 'axis-t', 'middle');
+    bind(g, [m.m + ' (sporting month)', 'Main tour: ' + fmtM(m.main), 'Challenger / 125: ' + fmtM(m.chal), 'ITF: ' + fmtM(m.itf), 'Other: ' + fmtM(m.oth), 'Events listed: ' + fmtN(m.ev) + ' · with a volume field: ' + fmtN(m.wv)]);
+  });
+  txt(svg, L, 16, 'Lifetime volume by sporting month; number above each bar = event records listed', 'lbl2');
+  const lg = $('#legend-monthly'); keys.forEach(([, label, col]) => { const s = document.createElement('span'); const sw = document.createElement('span'); sw.className = 'sw'; sw.style.background = col; s.appendChild(sw); s.appendChild(document.createTextNode(label)); lg.appendChild(s); });
+  table('#table-monthly', ['Month', 'Main tour', 'Challenger / 125', 'ITF', 'Other', 'Events listed', 'With volume field'], MONTHLY.map(m => [m.m, Math.round(m.main), Math.round(m.chal), Math.round(m.itf), Math.round(m.oth), m.ev, m.wv]));
+})();
+
+/* ---- ATP vs WTA paired bars ---- */
+(function(){
+  const rows = TIERS.filter(t => ['slam', 'out', 'slamq', 'fin', 'm1000', 't500', 't250', 'mtq', 'chal', 'dbl'].includes(t.k));
+  const W = 1000, L = 330, R = 80, rowH = 44, top = 30, H = top + rows.length*rowH + 30, max = 520e6;
+  const host = $('#chart-tour'); const svg = el('svg', {viewBox: `0 0 ${W} ${H}`, role: 'img', 'aria-label': 'Polymarket volume by tier for ATP and WTA'}, host);
+  const sx = v => L + v / max * (W - L - R);
+  [0, 100e6, 200e6, 300e6, 400e6, 500e6].forEach(t => { el('line', {x1: sx(t), y1: top - 6, x2: sx(t), y2: H - 26, class: 'gridline'}, svg); txt(svg, sx(t), H - 10, t ? '$' + (t/1e6) + 'M' : '0', 'axis-t', 'middle'); });
+  txt(svg, L, 16, 'Lifetime volume, USD', 'lbl2');
+  rows.forEach((t, i) => {
+    const y = top + i*rowH, g = el('g', {tabindex: 0}, svg);
+    el('rect', {x: 0, y, width: W, height: rowH - 2, class: 'hit'}, g);
+    txt(g, L - 12, y + 24, t.name, 'lbl', 'end');
+    el('rect', {x: L, y: y + 4, width: Math.max(0, sx(t.atp) - L), height: 15, class: 'bar'}, g);
+    el('rect', {x: L, y: y + 23, width: Math.max(0, sx(t.wta) - L), height: 15, class: 'bar2'}, g);
+    txt(g, sx(t.atp) + 6, y + 16, fmtM(t.atp), 'val'); txt(g, sx(t.wta) + 6, y + 35, fmtM(t.wta), 'val');
+    bind(g, [t.name, 'ATP: ' + fmtM(t.atp) + ' on ' + fmtN(t.atpEv) + ' listed events (' + fmtM(t.atpEv ? t.atp/t.atpEv : 0) + ' each on average)', 'WTA: ' + fmtM(t.wta) + ' on ' + fmtN(t.wtaEv) + ' listed events (' + fmtM(t.wtaEv ? t.wta/t.wtaEv : 0) + ' each on average)', 'Ratio ATP/WTA, total: ' + (t.wta ? (t.atp/t.wta).toFixed(2) : 'n/a')]);
+  });
+  el('line', {x1: L, y1: top - 6, x2: L, y2: H - 26, class: 'baseline'}, svg);
+  table('#table-tour', ['Tier', 'ATP volume', 'ATP listed events', 'ATP per event (mean)', 'WTA volume', 'WTA listed events', 'WTA per event (mean)', 'ATP / WTA total'], rows.map(t => [t.name, Math.round(t.atp), t.atpEv, Math.round(t.atpEv ? t.atp/t.atpEv : 0), Math.round(t.wta), t.wtaEv, Math.round(t.wtaEv ? t.wta/t.wtaEv : 0), t.wta ? (t.atp/t.wta).toFixed(2) : 'n/a']));
+})();
+
+/* ---- heat grid ---- */
+(function(){
+  const host = $('#heat'); host.style.gridTemplateColumns = '190px repeat(' + HEAT_COLS.length + ', minmax(96px, 1fr))';
+  const hdr = document.createElement('div'); hdr.className = 'hcol'; host.appendChild(hdr);
+  HEAT_COLS.forEach(c => { const d = document.createElement('div'); d.className = 'hcol'; d.textContent = c; host.appendChild(d); });
+  const LV = ['nothing found', 'claimed or documented only', 'measured, thin or sampled', 'measured, thick'];
+  const trows = [];
+  HEAT.forEach(([name, cells]) => {
+    const lab = document.createElement('div'); lab.className = 'hlab'; lab.textContent = name; host.appendChild(lab);
+    cells.forEach((c, j) => { const d = document.createElement('div'); d.className = 'hcell o' + c[0]; d.tabIndex = 0; const a = document.createElement('span'); a.className = 'c1'; a.textContent = c[1]; const b = document.createElement('span'); b.className = 'c2'; b.textContent = c[2]; d.appendChild(a); d.appendChild(b); host.appendChild(d); bind(d, [name + ' · ' + HEAT_COLS[j], LV[c[0]], c[3] || c[1] + (c[2] ? ' · ' + c[2] : '')]); trows.push([name, HEAT_COLS[j], LV[c[0]], c[1] + (c[2] ? ' · ' + c[2] : ''), c[3] || '']); });
+  });
+  table('#table-heat', ['Tier', 'Layer', 'Evidence', 'Summary', 'Note'], trows);
+})();
+
+/* ---- depth timeline ---- */
+(function(){
+  const W = 1000, L = 330, R = 30, rowH = 26, top = 30, H = top + DEPTH.length*rowH + 34, y0 = 1965, y1 = 2027;
+  const host = $('#chart-depth'); const svg = el('svg', {viewBox: `0 0 ${W} ${H}`, role: 'img', 'aria-label': 'Timeline of the first documented year and last inspected date for each data layer'}, host);
+  const sx = y => L + (y - y0) / (y1 - y0) * (W - L - R);
+  for (let y = 1970; y <= 2025; y += 5) { el('line', {x1: sx(y), y1: top - 6, x2: sx(y), y2: H - 26, class: 'gridline'}, svg); txt(svg, sx(y), H - 10, String(y), 'axis-t', 'middle'); }
+  txt(svg, L, 16, 'Solid: payload measured in the audit · outlined: provider documentation only', 'lbl2');
+  DEPTH.forEach((d, i) => {
+    const y = top + i*rowH, g = el('g', {tabindex: 0}, svg);
+    el('rect', {x: 0, y: y - 2, width: W, height: rowH - 2, class: 'hit'}, g);
+    txt(g, L - 12, y + 14, d.n, 'lbl', 'end');
+    el('rect', {x: sx(d.s), y: y + 3, width: Math.max(2, sx(d.e) - sx(d.s)), height: 14, fill: d.k === 'm' ? 'var(--s1)' : 'var(--ord1)', stroke: d.k === 'm' ? 'none' : 'var(--ink-2)', 'stroke-dasharray': d.k === 'm' ? 'none' : '3 3', 'fill-opacity': d.k === 'm' ? 1 : 0.55}, g);
+    txt(g, sx(d.s) - 6, y + 14, String(Math.floor(d.s)), 'val', 'end');
+    bind(g, [d.n, 'From ' + Math.floor(d.s) + (d.e >= 2026.6 ? ' to the present (as documented)' : ' to ' + Math.floor(d.e)), d.note]);
+  });
+  table('#table-depth', ['Layer', 'Start year', 'End (inspected or documented)', 'Evidence', 'Note'], DEPTH.map(d => [d.n, String(Math.floor(d.s)), d.e >= 2026.6 ? 'present (documented)' : String(d.e.toFixed(1)), d.k === 'm' ? 'measured' : 'claimed', d.note]));
+})();
+
+/* ---- source × rung matrix ---- */
+(function(){
+  const host = $('#matrix'); const t = document.createElement('table'); t.className = 'matrix'; t.style.minWidth = '900px';
+  const th = document.createElement('thead'); const tr = document.createElement('tr'); ['Source', 'Register priority'].concat(MCOLS).forEach(h => { const c = document.createElement('th'); c.textContent = h; if (MCOLS.includes(h)) c.style.textAlign = 'center'; tr.appendChild(c); }); th.appendChild(tr); t.appendChild(th);
+  const tb = document.createElement('tbody'); const cm = MCOLS.map(() => 0), ch = MCOLS.map(() => 0);
+  const NAMES = {m: 'payload inspected in the audit', h: 'documented or claimed by the provider, not inspected', n: 'not covered or not established'};
+  MATRIX.forEach(grp => {
+    const gr = document.createElement('tr'); const gd = document.createElement('td'); gd.colSpan = 2 + MCOLS.length; gd.style.cssText = 'font:600 11.5px/1.3 var(--font-mono);letter-spacing:.06em;text-transform:uppercase;color:var(--muted);background:var(--surface-2)'; gd.textContent = grp.g; gr.appendChild(gd); tb.appendChild(gr);
+    grp.rows.forEach(r => { const tr2 = document.createElement('tr'); const n = document.createElement('td'); n.textContent = r.n; tr2.appendChild(n); const p = document.createElement('td'); p.textContent = r.p; p.style.cssText = 'font:500 12px var(--font-mono);color:var(--ink-2);white-space:nowrap'; tr2.appendChild(p);
+      r.c.split('').forEach((ch2, j) => { const td = document.createElement('td'); td.className = 'c'; const s = document.createElement('span'); s.className = ch2; s.tabIndex = 0; td.appendChild(s); tr2.appendChild(td); if (ch2 === 'm') cm[j]++; if (ch2 === 'h') ch[j]++; bind(s, [r.n + ' · ' + MCOLS[j], NAMES[ch2], r.note]); });
+      tb.appendChild(tr2); });
+  });
+  t.appendChild(tb);
+  const tf = document.createElement('tfoot');
+  [['Measured sources per rung', cm], ['Documented-only sources per rung', ch]].forEach(([label, arr]) => { const tr3 = document.createElement('tr'); const td = document.createElement('td'); td.colSpan = 2; td.textContent = label; tr3.appendChild(td); arr.forEach(v => { const c = document.createElement('td'); c.className = 'num'; c.style.textAlign = 'center'; c.textContent = String(v); tr3.appendChild(c); }); tf.appendChild(tr3); });
+  t.appendChild(tf); host.appendChild(t);
+})();
+
+/* ---- calendar strip + census months ---- */
+(function(){
+  const W = 1000, L = 40, R = 20, H = 370, host = $('#chart-calendar');
+  const svg = el('svg', {viewBox: `0 0 ${W} ${H}`, role: 'img', 'aria-label': 'Calendar strip from September 2025 to September 2026 with surface blocks and Slam and 1000-level markers, above monthly Polymarket listings and volume'}, host);
+  const conv = x => ((x - 8) % 12 + 12) % 12;
+  const sx = a => L + a / 13 * (W - L - R);
+  const COL = {hard: 'var(--s1)', clay: 'var(--s2)', grass: 'var(--s3)', off: 'var(--gray-mark)'};
+  const y0 = 100, bh = 24;
+  const SHORT = {hard: 'Hard', clay: 'Clay', grass: 'Grass', off: 'Off-season'};
+  const blocks = [{k: 'hard', a: 0, c: 0.4}];
+  CAL_BLOCKS.forEach(b => { const a = conv(b.s), c = conv(b.e); if (c <= a) { blocks.push({...b, a, c: 12}); blocks.push({...b, a: 0, c}); } else blocks.push({...b, a, c}); });
+  blocks.push({k: 'hard', a: 12, c: 13});
+  blocks.forEach(b => { const w = sx(b.c) - sx(b.a) - 2; el('rect', {x: sx(b.a), y: y0, width: Math.max(0, w), height: bh, fill: COL[b.k], rx: 3, 'fill-opacity': b.k === 'off' ? 0.7 : 0.9}, svg); if (w > SHORT[b.k].length * 7.5 + 12) { const t = txt(svg, sx(b.a) + w/2 + 1, y0 + 16, SHORT[b.k], 'val', 'middle'); t.setAttribute('fill', '#ffffff'); t.setAttribute('font-weight', '500'); } });
+  const months = ['Sep 25', 'Oct', 'Nov', 'Dec', 'Jan 26', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep'];
+  months.forEach((m, i) => txt(svg, sx(i + 0.5), y0 + bh + 16, m, 'axis-t', 'middle'));
+  const ROWS = {'Beijing': 0, 'Shanghai': 1, 'Wuhan': 2, 'Paris': 0, 'Tour Finals': 1, 'Doha · Dubai': 0, 'Australian Open': 1, 'Indian Wells': 2, 'Miami': 1, 'Monte-Carlo': 0, 'Madrid': 1, 'Rome': 0, 'Roland-Garros': 1, 'Wimbledon': 1, 'Canada': 0, 'Cincinnati': 2, 'US Open': 1};
+  CAL_MARKS.forEach(mk => { let a = conv(mk.x); if (a < 0.33) a += 12; if (a > 12.4) return; const x = sx(a); const slam = mk.t === 'slam'; const row = ROWS[mk.n] || 0;
+    el('circle', {cx: x, cy: y0 - 12, r: slam ? 7 : 4, fill: slam ? 'var(--accent)' : 'var(--surface)', stroke: slam ? 'var(--surface)' : 'var(--ink-2)', 'stroke-width': slam ? 2 : 1.4}, svg);
+    const t = txt(svg, x, y0 - 26 - row*14, mk.n + (mk.t === '1000m' ? ' ♂' : mk.t === '1000w' ? ' ♀' : ''), slam ? 'lbl' : 'axis-t', 'middle'); if (slam) t.setAttribute('font-weight', '600'); });
+  txt(svg, L, 14, 'Slams (filled) and 1000-level events (hollow) placed on the season from published calendars; ♂ ♀ mark single-tour 1000s', 'lbl2');
+  const top2 = 178, plotH = 140, max = 650e6, sy = v => top2 + plotH - v / max * plotH;
+  [0, 300e6, 600e6].forEach(t => { el('line', {x1: L, y1: sy(t), x2: W - R, y2: sy(t), class: 'gridline'}, svg); txt(svg, L - 4, sy(t) + 4, t ? '$' + (t/1e6) + 'M' : '0', 'axis-t', 'end'); });
+  MONTHLY.forEach((m, i) => { const tot = m.main + m.chal + m.itf + m.oth, x = sx(i) + 10, w = sx(i + 1) - sx(i) - 20, g = el('g', {tabindex: 0}, svg);
+    el('rect', {x: sx(i), y: top2, width: sx(i + 1) - sx(i), height: plotH, class: 'hit'}, g);
+    el('rect', {x, y: sy(tot), width: w, height: Math.max(0, sy(0) - sy(tot)), class: 'bar'}, g);
+    txt(g, x + w/2, sy(tot) - 5, fmtN(m.ev), 'val', 'middle');
+    bind(g, [m.m + ': ' + fmtN(m.ev) + ' events listed', 'Volume ' + fmtM(tot) + ' (main tour ' + fmtM(m.main) + ', Challenger/125 ' + fmtM(m.chal) + ', ITF ' + fmtM(m.itf) + ')', m.wv < m.ev * 0.9 ? 'Only ' + fmtN(m.wv) + ' events carry a volume field' : fmtN(m.wv) + ' events carry a volume field']); });
+  txt(svg, L, top2 - 10, 'Polymarket: lifetime volume per sporting month (bar) and event records listed (number)', 'lbl2');
+  txt(svg, sx(6.5), H - 6, 'Mar 2026: volume field missing on 725 of 1,507 records', 'axis-t', 'middle');
+  table('#table-calendar', ['Month', 'Events listed', 'Volume (USD)', 'Main tour', 'Challenger / 125', 'ITF'], MONTHLY.map(m => [m.m, m.ev, Math.round(m.main + m.chal + m.itf + m.oth), Math.round(m.main), Math.round(m.chal), Math.round(m.itf)]));
+})();
+})();
+</script>
+</div>

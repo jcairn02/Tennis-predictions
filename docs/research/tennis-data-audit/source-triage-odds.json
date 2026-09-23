@@ -1,0 +1,792 @@
+[
+  {
+    "id": "poly_gamma",
+    "recency_band": "2026",
+    "data_dates": "Observed sporting-date catalog: 2025-09-15 to 2026-09-10 within the audited window; snapshot retrieved 2026-09-10. Scheduled dates, not price timestamps; older and future records also exist.",
+    "latest_data_date": "2026-09-10",
+    "date_basis": "observed_payload",
+    "scale_band": "broad",
+    "scale": "33,320 tennis event records / 406,190 distinct contracts in the selected year; includes ITF, Challenger, qualifying and doubles. These are not unique physical matches.",
+    "review_priority": "next",
+    "model_role": "Define the target market population and join sporting history; metadata supplies neither player performance features nor historical executable prices.",
+    "evidence_refs": [
+      "polymarket-census.md",
+      "../../../data/studies/tennis_data_audit/polymarket/audited-summary.json"
+    ],
+    "data_sort_period": "2026-09-10"
+  },
+  {
+    "id": "poly_clob_history",
+    "recency_band": "2026",
+    "data_dates": "Three sampled tennis moneylines: 2025-09-19 to 2025-09-20, 2026-06-29 to 2026-07-01, and 2026-09-02 to 2026-09-04 UTC; these are returned price times, not continuous archive coverage.",
+    "latest_data_date": null,
+    "date_basis": "observed_payload",
+    "scale_band": "broad",
+    "scale": "Token-addressable tennis price API; only 3 moneylines / 6,853 chart observations measured. Full tennis token count and archive completeness unknown.",
+    "review_priority": "next",
+    "model_role": "Accessible Polymarket probability benchmark after matching contracts; sampled old minute history is useful, but gaps and lack of depth limit execution tests.",
+    "evidence_refs": [
+      "market-history-and-odds.md",
+      "../../../data/studies/tennis_data_audit/market_history/summary.json"
+    ],
+    "data_sort_period": "2026-09"
+  },
+  {
+    "id": "poly_v2_history",
+    "recency_band": "2026",
+    "data_dates": "Returned tennis observations sampled in September 2025, June/July 2026 and September 2026; latest sampled price 2026-09-04 UTC. Fine-resolution older queries were empty.",
+    "latest_data_date": null,
+    "date_basis": "observed_payload",
+    "scale_band": "broad",
+    "scale": "Token-addressable tennis price API; 3 sampled moneylines. Recent 60-second query returned 2,431 observations, older auto queries only 2 and 4; no archive-wide count.",
+    "review_priority": "next",
+    "model_role": "Alternative market probability history; compare actual timestamps with legacy responses before choosing resolution or inferring missing coverage.",
+    "evidence_refs": [
+      "market-history-and-odds.md",
+      "../../../data/studies/tennis_data_audit/market_history/summary.json"
+    ],
+    "data_sort_period": "2026-09"
+  },
+  {
+    "id": "poly_data_trades",
+    "recency_band": "unknown",
+    "data_dates": "Tennis trade-history earliest/latest timestamps not audited; current endpoint documentation is not proof of a retained year.",
+    "latest_data_date": null,
+    "date_basis": "unverified",
+    "scale_band": "unknown",
+    "scale": "Market/user trade endpoint with 10,000 legacy offset/limit bounds; no tennis trade count or exhaustive extraction established.",
+    "review_priority": "specialist",
+    "model_role": "Trade-price and activity evidence after contract alignment; bounded pagination and unmeasured retention weaken it as a first general-model data lead.",
+    "evidence_refs": [
+      "market-history-and-odds.md",
+      "https://docs.polymarket.com/api-reference/core/get-trades-for-a-user-or-markets"
+    ],
+    "data_sort_period": null
+  },
+  {
+    "id": "poly_private_trades",
+    "recency_band": "unknown",
+    "data_dates": "Depends on the authorized account's actual trade dates; no account history sampled.",
+    "latest_data_date": null,
+    "date_basis": "unverified",
+    "scale_band": "niche",
+    "scale": "One authenticated user's trades; no rows inspected and no public all-trader archive.",
+    "review_priority": "hold",
+    "model_role": "Personal execution/accounting evidence, with selection bias; low priority for building broad sporting predictions.",
+    "evidence_refs": [
+      "market-history-and-odds.md",
+      "https://docs.polymarket.com/api-reference/trade/get-trades"
+    ],
+    "data_sort_period": null
+  },
+  {
+    "id": "poly_contracts",
+    "recency_band": "support",
+    "data_dates": "Current contract registry; historical address versions must be recovered separately. No standalone tennis observations.",
+    "latest_data_date": null,
+    "date_basis": "not_applicable",
+    "scale_band": "support",
+    "scale": "Blockchain contract identities and reconstruction infrastructure, not a tennis dataset.",
+    "review_priority": "support",
+    "model_role": "Reference for interpreting fills and settlement across contract migrations.",
+    "evidence_refs": [
+      "market-history-and-odds.md",
+      "https://docs.polymarket.com/resources/contracts"
+    ],
+    "data_sort_period": null
+  },
+  {
+    "id": "goldsky",
+    "recency_band": "unknown",
+    "data_dates": "Polymarket historical backfill/live datasets documented; earliest/latest tennis fill dates unverified. 2026-04-28 is a migration date, not a sampled tennis date.",
+    "latest_data_date": null,
+    "date_basis": "unverified",
+    "scale_band": "unknown",
+    "scale": "Platform-wide order-filled/order-matched datasets and block-range backfill; tennis subset and fill count unmeasured.",
+    "review_priority": "specialist",
+    "model_role": "Potential scalable matched-trade reconstruction after tennis token joins; requires contract-version and duplicate-fill accounting, and provides no resting books.",
+    "evidence_refs": [
+      "market-history-and-odds.md",
+      "https://docs.goldsky.com/chains/polymarket"
+    ],
+    "data_sort_period": null
+  },
+  {
+    "id": "dune",
+    "recency_band": "unknown",
+    "data_dates": "Earliest/latest tennis trades unknown; documented daily refresh does not establish tennis historical coverage.",
+    "latest_data_date": null,
+    "date_basis": "unverified",
+    "scale_band": "unknown",
+    "scale": "Platform-wide curated trades and metadata with hourly/daily prices; no tennis row counts audited.",
+    "review_priority": "specialist",
+    "model_role": "Trade-derived market history and activity checks; forward-filled prices are not executable order books or sporting features.",
+    "evidence_refs": [
+      "market-history-and-odds.md",
+      "https://docs.dune.com/data-catalog/curated/prediction-markets/polymarket/overview"
+    ],
+    "data_sort_period": null
+  },
+  {
+    "id": "allium",
+    "recency_band": "unknown",
+    "data_dates": "Polymarket trade/book schema documented; tennis archive start, endpoint and book cadence unverified.",
+    "latest_data_date": null,
+    "date_basis": "unverified",
+    "scale_band": "unknown",
+    "scale": "Commercial platform-wide trade, metadata and separate order-book tables; no tennis population/count audited.",
+    "review_priority": "specialist",
+    "model_role": "Potential market-history/depth source if a representative tennis sample confirms horizon and capture quality; not a sporting training backbone.",
+    "evidence_refs": [
+      "market-history-and-odds.md",
+      "https://docs.allium.so/historical-data/predictions/schemas"
+    ],
+    "data_sort_period": null
+  },
+  {
+    "id": "paradigm",
+    "recency_band": "support",
+    "data_dates": "December 2025 methodology publication, not a tennis data-period endpoint.",
+    "latest_data_date": null,
+    "date_basis": "not_applicable",
+    "scale_band": "support",
+    "scale": "Fill-accounting research and aggregate dashboard; no standalone tennis price/depth dataset established.",
+    "review_priority": "support",
+    "model_role": "Reference to prevent maker/taker double counting when reconstructing market volume.",
+    "evidence_refs": [
+      "market-history-and-odds.md",
+      "https://www.paradigm.xyz/2025/12/polymarket-volume-is-being-double-counted"
+    ],
+    "data_sort_period": null
+  },
+  {
+    "id": "pmxt",
+    "recency_band": "unknown",
+    "data_dates": "Platform-wide v2 archive documented from 2026-04-13 19:00 UTC; v1 separate. Actual tennis membership and earliest/latest tennis observation remain unaudited.",
+    "latest_data_date": null,
+    "date_basis": "unverified",
+    "scale_band": "unknown",
+    "scale": "Public platform-wide tick events in hourly Parquet files; no measured tennis market count. Maintainer says v1 missed roughly half of live markets.",
+    "review_priority": "next",
+    "model_role": "Accessible candidate for target-venue depth research after a tennis file sample; count initialized books and gaps before treating the archive as execution evidence.",
+    "evidence_refs": [
+      "market-history-and-odds.md",
+      "https://archive.pmxt.dev/docs/v2-data-overview",
+      "https://archive.pmxt.dev/Polymarket/v2"
+    ],
+    "data_sort_period": null
+  },
+  {
+    "id": "dome",
+    "recency_band": "unknown",
+    "data_dates": "Generic order-book history documented from 2025-10-14; tennis start/latest unverified. 2026 acquisition/support dates are service dates.",
+    "latest_data_date": null,
+    "date_basis": "unverified",
+    "scale_band": "unknown",
+    "scale": "Market-addressable historical depth API with up to 200 snapshots/page; no tennis population or retained snapshot count audited.",
+    "review_priority": "hold",
+    "model_role": "Potential depth archive, but service continuity and conflicting example dates need resolution before investing in it.",
+    "evidence_refs": [
+      "market-history-and-odds.md",
+      "https://docs.domeapi.io/api-reference/endpoint/get-orderbook-history"
+    ],
+    "data_sort_period": null
+  },
+  {
+    "id": "polymarketdata",
+    "recency_band": "unknown",
+    "data_dates": "Vendor claims all-market price/L2 history since August 2025; first/latest actual tennis timestamp unverified.",
+    "latest_data_date": null,
+    "date_basis": "unverified",
+    "scale_band": "unknown",
+    "scale": "Claims all-market minute prices, metrics and full depth; no audited tennis rows or completeness rate.",
+    "review_priority": "specialist",
+    "model_role": "Candidate for a longer target-venue depth window; seek sample evidence before assuming all-market marketing establishes complete tennis history.",
+    "evidence_refs": [
+      "market-history-and-odds.md",
+      "https://www.polymarketdata.co/"
+    ],
+    "data_sort_period": null
+  },
+  {
+    "id": "telonex",
+    "recency_band": "unknown",
+    "data_dates": "Platform offering: off-chain data from 2025-10-11, on-chain from November 2022; earliest/latest tennis observations not audited.",
+    "latest_data_date": null,
+    "date_basis": "unverified",
+    "scale_band": "unknown",
+    "scale": "Platform-wide daily Parquet of trades/quotes and 5/25/full-depth books; no tennis market counts verified.",
+    "review_priority": "specialist",
+    "model_role": "Potential scalable depth/trade source; documented off-chain start misses the beginning of the original September 2025 study window.",
+    "evidence_refs": [
+      "market-history-and-odds.md",
+      "https://telonex.io/data/polymarket"
+    ],
+    "data_sort_period": null
+  },
+  {
+    "id": "prr_tennis",
+    "recency_band": "2026",
+    "data_dates": "Tennis pack explicitly advertised for 2026-06-02 through 2026-06-21; provider claim, no pack payload inspected.",
+    "latest_data_date": "2026-06-21",
+    "date_basis": "provider_documentation",
+    "scale_band": "niche",
+    "scale": "Claims 932 matches over 20 days: 629 ITF, 192 ATP, 111 WTA; 8.9 GB of one-second full-depth snapshots. Large byte volume, short tennis sample.",
+    "review_priority": "specialist",
+    "model_role": "Focused order-book mechanics sample; complete-capture selection and a short date window limit general predictive training value.",
+    "evidence_refs": [
+      "market-history-and-odds.md",
+      "https://www.polyresearchrobotics.com/data/tennis-order-books?tier=tennis-full-932"
+    ],
+    "data_sort_period": "2026-06-21"
+  },
+  {
+    "id": "resolved_markets",
+    "recency_band": "unknown",
+    "data_dates": "Sports history offered, but tennis inception and latest observation unspecified; unlimited lookback is an entitlement claim.",
+    "latest_data_date": null,
+    "date_basis": "unverified",
+    "scale_band": "unknown",
+    "scale": "Claims full-depth sports snapshots; neither tennis inclusion count nor retained tennis horizon measured.",
+    "review_priority": "hold",
+    "model_role": "Defer behind archives with clearer coverage until tennis sample, history dates and retention rights are established.",
+    "evidence_refs": [
+      "market-history-and-odds.md",
+      "https://resolvedmarkets.com/pricing"
+    ],
+    "data_sort_period": null
+  },
+  {
+    "id": "rocklabs",
+    "recency_band": "unknown",
+    "data_dates": "Platform claims on-chain 2020-present; tick start conflicts between January and February 2026. Tennis date range unverified.",
+    "latest_data_date": null,
+    "date_basis": "unverified",
+    "scale_band": "unknown",
+    "scale": "Research-access platform-wide tick JSONL and metadata indexes; no inspected tennis sample/count.",
+    "review_priority": "hold",
+    "model_role": "Potential research archive but access and contradictory tick starts add work before usefulness can be assessed.",
+    "evidence_refs": [
+      "market-history-and-odds.md",
+      "https://github.com/rocklabs-io/polymarket-dataset"
+    ],
+    "data_sort_period": null
+  },
+  {
+    "id": "polyorderbooks",
+    "recency_band": "unknown",
+    "data_dates": "Published sample/archive is crypto; no tennis data dates established.",
+    "latest_data_date": null,
+    "date_basis": "unverified",
+    "scale_band": "niche",
+    "scale": "One-second crypto-contract L2 sample/archive; no demonstrated tennis population.",
+    "review_priority": "hold",
+    "model_role": "Exclude from the tennis-data shortlist; potential schema example only.",
+    "evidence_refs": [
+      "market-history-and-odds.md",
+      "https://polyorderbooks.com/polymarket-data-download"
+    ],
+    "data_sort_period": null
+  },
+  {
+    "id": "depthfeed",
+    "recency_band": "unknown",
+    "data_dates": "Crypto price-contract archive; no tennis observation dates established.",
+    "latest_data_date": null,
+    "date_basis": "unverified",
+    "scale_band": "niche",
+    "scale": "Seven crypto assets with 5-minute to 24-hour contracts; no demonstrated tennis coverage.",
+    "review_priority": "hold",
+    "model_role": "Exclude from the general tennis-model data shortlist.",
+    "evidence_refs": [
+      "market-history-and-odds.md",
+      "https://polymarketpricedata.com/historical-data"
+    ],
+    "data_sort_period": null
+  },
+  {
+    "id": "protodex_sample",
+    "recency_band": "unknown",
+    "data_dates": "Generic archive claims March-June 2026 / 92 days; tennis-specific earliest/latest dates not verified.",
+    "latest_data_date": null,
+    "date_basis": "unverified",
+    "scale_band": "niche",
+    "scale": "Claims 22,410 all-topic markets and 15-minute prices across 92 days; tennis share unknown, roughly 94% of book rows described as placeholders.",
+    "review_priority": "hold",
+    "model_role": "Short window and placeholder books make it a weak lead for broad tennis modelling or execution history.",
+    "evidence_refs": [
+      "market-history-and-odds.md",
+      "https://github.com/LuciferForge/polymarket-historical-data"
+    ],
+    "data_sort_period": null
+  },
+  {
+    "id": "betfair_history",
+    "recency_band": "unknown",
+    "data_dates": "Official hub documents tennis and all Exchange markets since 2016; generic specification says May 2015 (Australia/NZ October 2016). Latest retained tennis date not audited.",
+    "latest_data_date": null,
+    "date_basis": "provider_documentation",
+    "scale_band": "broad",
+    "scale": "Multiyear tennis exchange history across market types; BASIC minute prices, ADVANCED seconds, PRO full ladder. Tennis fixture/file counts need the catalogue.",
+    "review_priority": "first",
+    "model_role": "Strong historical price benchmark and later depth/in-play research lead; establish selected tennis dates and settlement mapping before purchase or training.",
+    "evidence_refs": [
+      "market-history-and-odds.md",
+      "https://historicdata.betfair.com/files/Betfair-Historical-Data-Feed-Specification.pdf",
+      "https://betfair-datascientists.github.io/modelling/dataSources/"
+    ],
+    "data_sort_period": null
+  },
+  {
+    "id": "the_odds_api",
+    "recency_band": "2026",
+    "data_dates": "Tennis-specific history table: ATP/WTA US Opens start 2020-08-28; other competitions start 2021-2026, including WTA Monterrey 2026-08-23. Latest retained observation unspecified; starts are not endpoints.",
+    "latest_data_date": null,
+    "date_basis": "provider_documentation",
+    "scale_band": "broad",
+    "scale": "44 listed ATP/WTA tournament keys: Grand Slams and 500/1000 events; mainly moneyline, multi-book snapshots. Counts/history vary by competition and bookmaker; lower tours not established.",
+    "review_priority": "first",
+    "model_role": "Well-documented market probability benchmark for main-tour models; many non-Slam histories start only in 2024-2026, so inspect competition-specific availability.",
+    "evidence_refs": [
+      "market-history-and-odds.md",
+      "https://the-odds-api.com/sports/tennis-odds.html",
+      "https://the-odds-api.com/historical-odds-data/"
+    ],
+    "data_sort_period": "2026"
+  },
+  {
+    "id": "tennis_data_odds",
+    "recency_band": "2026",
+    "data_dates": "Provider: ATP odds 2001+, WTA 2007+, 2026 files listed. Saved snapshots reach ATP 2026-06-07 / WTA 2026-06-06 by match date; Pinnacle columns stop 2026-01-13 / 2026-01-14. No intraday odds time.",
+    "latest_data_date": "2026-06-07",
+    "date_basis": "local_snapshot",
+    "scale_band": "broad",
+    "scale": "Long ATP/WTA main-tour match-row archive; 12,886 rows measured across six 2024-2026 season files, including 2,544 in saved 2026 files. Not complete lower-tour/doubles history.",
+    "review_priority": "first",
+    "model_role": "Lowest-friction odds/results baseline for a general main-tour model; refresh stale files and inspect missing/invalid book odds, especially Pinnacle, before using market probabilities.",
+    "evidence_refs": [
+      "public-tennis-data.md",
+      "market-history-and-odds.md",
+      "../../../data/studies/tennis_data_audit/public/table_audit.json",
+      "https://www.tennis-data.co.uk/alldata.php"
+    ],
+    "data_sort_period": "2026-06-07"
+  },
+  {
+    "id": "opticodds",
+    "recency_band": "unknown",
+    "data_dates": "Tennis supported; endpoint documents rolling two-month pre-match odds while marketing claims years through settlement. Exact tennis beginning/latest retained timestamp unverified.",
+    "latest_data_date": null,
+    "date_basis": "unverified",
+    "scale_band": "broad",
+    "scale": "Commercial multi-book tennis fixture/odds histories and permissioned time series; tennis archive count and long-lookback scope unmeasured.",
+    "review_priority": "next",
+    "model_role": "Potential broader market benchmark source; resolve which licensed endpoint supplies the desired tennis history before treating marketing coverage as data.",
+    "evidence_refs": [
+      "market-history-and-odds.md",
+      "https://developer.opticodds.com/reference/get_fixtures-odds-historical",
+      "https://opticodds.com/historical-odds"
+    ],
+    "data_sort_period": null
+  },
+  {
+    "id": "oddsjam",
+    "recency_band": "unknown",
+    "data_dates": "Same OpticOdds history lead; no separate OddsJam raw tennis archive dates established.",
+    "latest_data_date": null,
+    "date_basis": "unverified",
+    "scale_band": "broad",
+    "scale": "Related commercial multi-book odds offering; no independently measured tennis population and no evidence of a separate archive purchase through retail membership.",
+    "review_priority": "hold",
+    "model_role": "Duplicate vendor-family lead; inspect OpticOdds once rather than spend a second shortlist slot here.",
+    "evidence_refs": [
+      "market-history-and-odds.md",
+      "https://opticodds.com/historical-odds"
+    ],
+    "data_sort_period": null
+  },
+  {
+    "id": "txodds",
+    "recency_band": "unknown",
+    "data_dates": "Provider claims decades of history overall; earliest/latest tennis odds dates unverified. Football's 25-year marketing is not tennis coverage.",
+    "latest_data_date": null,
+    "date_basis": "unverified",
+    "scale_band": "broad",
+    "scale": "Commercial historical odds product claims 5 million+ fixtures across sports, including ATP/WTA/Slams; tennis count, book roster and fields unknown.",
+    "review_priority": "next",
+    "model_role": "Credible large archive lead if simpler benchmarks lack coverage; request tennis-specific dates and sample rather than infer them from all-sport totals.",
+    "evidence_refs": [
+      "market-history-and-odds.md",
+      "https://txodds.net/our-products/"
+    ],
+    "data_sort_period": null
+  },
+  {
+    "id": "bettingiscool",
+    "recency_band": "unknown",
+    "data_dates": "Overall pre-match history 2021+, live/specials March 2026+ claimed; dynamic tennis-specific row and endpoint dates unverified.",
+    "latest_data_date": null,
+    "date_basis": "unverified",
+    "scale_band": "broad",
+    "scale": "Commercial multi-sport Pinnacle-derived changes/open-close/settlement history; tennis fixture counts and continuous coverage unknown.",
+    "review_priority": "next",
+    "model_role": "Potential bookmaker benchmark but confirm tennis and feed continuity; provider-derived de-vigged odds are estimates, not match-truth labels.",
+    "evidence_refs": [
+      "market-history-and-odds.md",
+      "https://api.bettingiscool.com/"
+    ],
+    "data_sort_period": null
+  },
+  {
+    "id": "pinnacle",
+    "recency_band": "support",
+    "data_dates": "Public API closure on 2025-07-23 is an access-policy date; live snapshot/delta documentation establishes no historical tennis archive period.",
+    "latest_data_date": null,
+    "date_basis": "not_applicable",
+    "scale_band": "support",
+    "scale": "Bespoke data-access/API application route; no standalone historical tennis payload or count established.",
+    "review_priority": "support",
+    "model_role": "Direct entitlement lead if negotiated bookmaker data becomes necessary; a cursor does not provide arbitrary historical observations.",
+    "evidence_refs": [
+      "market-history-and-odds.md",
+      "https://github.com/pinnacleapi/pinnacleapi-documentation"
+    ],
+    "data_sort_period": null
+  },
+  {
+    "id": "oddspapi",
+    "recency_band": "unknown",
+    "data_dates": "Per-book odds retained since ingestion; tennis sport ID documented but absolute tennis start/latest timestamp unknown.",
+    "latest_data_date": null,
+    "date_basis": "unverified",
+    "scale_band": "broad",
+    "scale": "Multi-book per-fixture tennis history API; v4 maximum 3 books/request, no audited tennis fixture or history-row count.",
+    "review_priority": "next",
+    "model_role": "Low-cost sample route for a market benchmark if per-tennis coverage is adequate; establish history dates and rights before ranking alongside measured sources.",
+    "evidence_refs": [
+      "market-history-and-odds.md",
+      "https://oddspapi.io/blog/historical-odds-csv-excel-backtesting/"
+    ],
+    "data_sort_period": null
+  },
+  {
+    "id": "betsapi_odds",
+    "recency_band": "unknown",
+    "data_dates": "General event archive since September 2016; Polymarket added 2026-01-13. Neither is proof of tennis odds start or continuous retained price history.",
+    "latest_data_date": null,
+    "date_basis": "unverified",
+    "scale_band": "broad",
+    "scale": "Multi-source event/odds API with 1-3 main markets and timestamped changes; tennis coverage varies by upstream and has no audited price count.",
+    "review_priority": "next",
+    "model_role": "Potential broad join/odds supplement; check book-specific coverage and reversed match flags because source enums overstate demonstrated availability.",
+    "evidence_refs": [
+      "market-history-and-odds.md",
+      "https://betsapi.com/docs/events/odds.html"
+    ],
+    "data_sort_period": null
+  },
+  {
+    "id": "oddsportal",
+    "recency_band": "unknown",
+    "data_dates": "Historical tennis competition pages observed, but earliest/latest retained odds-observation dates not established; match dates do not timestamp quoted odds.",
+    "latest_data_date": null,
+    "date_basis": "unverified",
+    "scale_band": "broad",
+    "scale": "Broad tennis competition/match web archive with bookmaker displays; no licensed bulk tennis row count established.",
+    "review_priority": "specialist",
+    "model_role": "Useful manual spot-check source; extraction constraints and unclear odds vintage make it less efficient than downloadable training/benchmark files.",
+    "evidence_refs": [
+      "market-history-and-odds.md",
+      "https://www.oddsportal.com/tennis/"
+    ],
+    "data_sort_period": null
+  },
+  {
+    "id": "betexplorer",
+    "recency_band": "unknown",
+    "data_dates": "Results archive includes 1996, but that does not establish 1996 odds; exact earliest/latest tennis odds-observation dates unknown.",
+    "latest_data_date": null,
+    "date_basis": "unverified",
+    "scale_band": "broad",
+    "scale": "ATP/WTA, Challenger, ITF and singles/doubles web pages; odds fields can be blank and no bulk tennis count is audited.",
+    "review_priority": "specialist",
+    "model_role": "Broad manual coverage cross-check with results and displayed odds; bulk rights and price timestamps need work before use as training evidence.",
+    "evidence_refs": [
+      "market-history-and-odds.md",
+      "https://www.betexplorer.com/tennis/"
+    ],
+    "data_sort_period": null
+  },
+  {
+    "id": "matchbook",
+    "recency_band": "support",
+    "data_dates": "Current event/price endpoint; event-start filters do not establish a historical price-observation window.",
+    "latest_data_date": null,
+    "date_basis": "not_applicable",
+    "scale_band": "support",
+    "scale": "Exchange API infrastructure with current price depth; no downloadable historical tennis population/count established.",
+    "review_priority": "support",
+    "model_role": "Possible future collection/integration reference; defer as a historical general-model source until an actual archive is identified.",
+    "evidence_refs": [
+      "market-history-and-odds.md",
+      "https://developers.matchbook.com/reference/get-events"
+    ],
+    "data_sort_period": null
+  },
+  {
+    "id": "smarkets",
+    "recency_band": "unknown",
+    "data_dates": "Price-history capability mentioned by provider; tennis start/latest date and retained resolution unverified.",
+    "latest_data_date": null,
+    "date_basis": "unverified",
+    "scale_band": "unknown",
+    "scale": "Exchange API with books/history claims; no measured tennis fixture count or bulk archive size.",
+    "review_priority": "hold",
+    "model_role": "Unresolved archive lead; documented Betfair history is a more concrete first exchange benchmark investigation.",
+    "evidence_refs": [
+      "market-history-and-odds.md",
+      "https://help.smarkets.com/hc/en-gb/articles/34720906181021-Smarkets-API-Documentation-Resources"
+    ],
+    "data_sort_period": null
+  },
+  {
+    "id": "betdaq",
+    "recency_band": "support",
+    "data_dates": "Current prices/selection changes and withdrawal history documented; no historical tennis odds-period established.",
+    "latest_data_date": null,
+    "date_basis": "not_applicable",
+    "scale_band": "support",
+    "scale": "Exchange API infrastructure, not an established downloadable historical tennis dataset.",
+    "review_priority": "support",
+    "model_role": "Integration reference only until actual price-history access is evidenced; withdrawal history is a different record type.",
+    "evidence_refs": [
+      "market-history-and-odds.md",
+      "https://api.betdaq.com/v2.0/docs/WhatWebMethodsAreAvailable.aspx"
+    ],
+    "data_sort_period": null
+  },
+  {
+    "id": "betfair_rules",
+    "recency_band": "support",
+    "data_dates": "Rules current when audited 2026-09-10; historical rule-version applicability not established by access date.",
+    "latest_data_date": null,
+    "date_basis": "not_applicable",
+    "scale_band": "support",
+    "scale": "Settlement-rule reference, not match/performance/odds observations.",
+    "review_priority": "support",
+    "model_role": "Required interpretation when comparing Betfair outcomes with sporting labels or other venues, especially retirements.",
+    "evidence_refs": [
+      "market-history-and-odds.md",
+      "https://support.betfair.com/app/answers/detail/exchange-tennis-rules/"
+    ],
+    "data_sort_period": null
+  },
+  {
+    "id": "pinnacle_rules",
+    "recency_band": "support",
+    "data_dates": "Rules current when audited 2026-09-10; not a historical rule-version dataset.",
+    "latest_data_date": null,
+    "date_basis": "not_applicable",
+    "scale_band": "support",
+    "scale": "Tennis settlement-rule reference; no standalone modelling dataset.",
+    "review_priority": "support",
+    "model_role": "Interpret bookmaker retirements/period outcomes before comparing them with match winners or Polymarket payouts.",
+    "evidence_refs": [
+      "market-history-and-odds.md",
+      "https://www.pinnacle.com/en/future/betting-rules/"
+    ],
+    "data_sort_period": null
+  },
+  {
+    "id": "poly_tennis_rules",
+    "recency_band": "support",
+    "data_dates": "Selected 2026 market rules, including July/August revisions and a September 4 match; these are contract examples, not price-date coverage.",
+    "latest_data_date": null,
+    "date_basis": "not_applicable",
+    "scale_band": "support",
+    "scale": "Selected moneyline/exact-score/completion rule examples; no independent broad training dataset.",
+    "review_priority": "support",
+    "model_role": "Define the actual prediction/payoff target and prevent treating a 50/50 payout as a sportsbook refund.",
+    "evidence_refs": [
+      "market-history-and-odds.md",
+      "https://polymarket.com/sports/atp/atp-medvede-rinderk-2026-09-04"
+    ],
+    "data_sort_period": null
+  },
+  {
+    "id": "poly_early_tennis_rules",
+    "recency_band": "support",
+    "data_dates": "One September 27, 2025 contract-rule example; historical rule-change date/population not inferred.",
+    "latest_data_date": null,
+    "date_basis": "not_applicable",
+    "scale_band": "support",
+    "scale": "One Kudermetova-Kenin walkover-rule counterexample.",
+    "review_priority": "support",
+    "model_role": "Evidence that applying a single current settlement rule to every historical tennis market would mislabel outcomes.",
+    "evidence_refs": [
+      "market-history-and-odds.md",
+      "https://polymarket.com/event/wta-kudermetova-vs-kenin-2025-09-27"
+    ],
+    "data_sort_period": null
+  },
+  {
+    "id": "POLY01",
+    "recency_band": "support",
+    "data_dates": "Sport/tag/series metadata observed 2026-09-10; access and series-creation dates do not date tennis match or quote history.",
+    "latest_data_date": null,
+    "date_basis": "not_applicable",
+    "scale_band": "support",
+    "scale": "Current sporting taxonomy/series endpoint; the resulting broad event census is classified under poly_gamma.",
+    "review_priority": "support",
+    "model_role": "Discovery and target-population alignment metadata; not an additional independent tennis dataset.",
+    "evidence_refs": [
+      "polymarket-census.md",
+      "https://gamma-api.polymarket.com/sports"
+    ],
+    "data_sort_period": null
+  },
+  {
+    "id": "POLY02",
+    "recency_band": "support",
+    "data_dates": "Tag metadata observed 2026-09-10, not a match-data recency endpoint.",
+    "latest_data_date": null,
+    "date_basis": "not_applicable",
+    "scale_band": "support",
+    "scale": "One tennis discovery tag (864), with nine confirmed football false positives in its event universe.",
+    "review_priority": "support",
+    "model_role": "Discovery filter requiring semantic cleanup; do not count it as a second dataset alongside the Gamma census.",
+    "evidence_refs": [
+      "polymarket-census.md",
+      "https://gamma-api.polymarket.com/tags/slug/tennis"
+    ],
+    "data_sort_period": null
+  },
+  {
+    "id": "POLY03",
+    "recency_band": "support",
+    "data_dates": "Current pagination documentation, not a historical tennis dataset date range.",
+    "latest_data_date": null,
+    "date_basis": "not_applicable",
+    "scale_band": "support",
+    "scale": "Keyset pagination API reference; 100-row pages observed during census, not 100-match dataset scope.",
+    "review_priority": "support",
+    "model_role": "Reproducible catalog traversal reference; actual census data lives under poly_gamma.",
+    "evidence_refs": [
+      "polymarket-census.md",
+      "https://docs.polymarket.com/api-reference/events/list-events-keyset-pagination"
+    ],
+    "data_sort_period": null
+  },
+  {
+    "id": "POLY04",
+    "recency_band": "support",
+    "data_dates": "Current market-data model documentation; no tennis observation period.",
+    "latest_data_date": null,
+    "date_basis": "not_applicable",
+    "scale_band": "support",
+    "scale": "Event/market/token schema reference, not a standalone dataset.",
+    "review_priority": "support",
+    "model_role": "Correct contract joins and counting units; metadata and current snapshot fields are not historical executable quotes.",
+    "evidence_refs": [
+      "polymarket-census.md",
+      "https://docs.polymarket.com/market-data/overview"
+    ],
+    "data_sort_period": null
+  },
+  {
+    "id": "POLY05",
+    "recency_band": "support",
+    "data_dates": "2026-2027 Challenger calendar, version dated 2026-06-18; prospective scheduled tournaments, not completed match history.",
+    "latest_data_date": null,
+    "date_basis": "not_applicable",
+    "scale_band": "support",
+    "scale": "One versioned ATP Challenger calendar PDF; tournament schedule/tier reference.",
+    "review_priority": "support",
+    "model_role": "Identify Challenger tournaments hidden under ATP market series; does not replace match results or actual start timestamps.",
+    "evidence_refs": [
+      "polymarket-census.md",
+      "https://www.atptour.com/-/media/files/calendar-pdfs/2026/2026-27-atp-challenger-calendar-as-of-18-jun-2026.pdf"
+    ],
+    "data_sort_period": null
+  },
+  {
+    "id": "POLY06",
+    "recency_band": "support",
+    "data_dates": "One 2026 Montreux edition reference; no broad historical match-data endpoint audited here.",
+    "latest_data_date": null,
+    "date_basis": "not_applicable",
+    "scale_band": "support",
+    "scale": "One WTA 125 tournament edition/tier/draw-size reference.",
+    "review_priority": "support",
+    "model_role": "Tier alignment example showing WTA series does not imply main-tour 250+ coverage.",
+    "evidence_refs": [
+      "polymarket-census.md",
+      "https://www.wtatennis.com/tournaments/1112/montreux-125/2026"
+    ],
+    "data_sort_period": null
+  },
+  {
+    "id": "POLY07",
+    "recency_band": "support",
+    "data_dates": "September 27, 2025 contract-rule example; duplicates poly_early_tennis_rules, not a separate archive.",
+    "latest_data_date": null,
+    "date_basis": "not_applicable",
+    "scale_band": "support",
+    "scale": "One Kudermetova-Kenin walkover settlement example.",
+    "review_priority": "support",
+    "model_role": "Historical payout-rule counterexample for target construction, not general sporting training data.",
+    "evidence_refs": [
+      "polymarket-census.md",
+      "https://polymarket.com/event/wta-kudermetova-vs-kenin-2025-09-27"
+    ],
+    "data_sort_period": null
+  },
+  {
+    "id": "POLY08",
+    "recency_band": "support",
+    "data_dates": "One 2025 Davis Cup semifinal market example; no price timestamp/history range audited for this entry.",
+    "latest_data_date": null,
+    "date_basis": "not_applicable",
+    "scale_band": "support",
+    "scale": "One Spain-Germany team-tie contract example, distinct from a player match.",
+    "review_priority": "support",
+    "model_role": "Target taxonomy example: team outcomes require lineups/rubbers and tie format, not only singles match rows.",
+    "evidence_refs": [
+      "polymarket-census.md",
+      "https://polymarket.com/event/davis-cup-semi-finals-spain-vs-germany"
+    ],
+    "data_sort_period": null
+  },
+  {
+    "id": "POLY09",
+    "recency_band": "support",
+    "data_dates": "Historical exhibition contract example; exact sporting/price period not needed or asserted for this reference.",
+    "latest_data_date": null,
+    "date_basis": "not_applicable",
+    "scale_band": "support",
+    "scale": "One Sabalenka-Kyrgios special-format exhibition contract.",
+    "review_priority": "support",
+    "model_role": "Mark format exceptions before pooling with standard tour training data.",
+    "evidence_refs": [
+      "polymarket-census.md",
+      "https://polymarket.com/event/battle-of-the-sexes-aryna-sabalenka-vs-nick-kyrgios"
+    ],
+    "data_sort_period": null
+  },
+  {
+    "id": "POLY10",
+    "recency_band": "support",
+    "data_dates": "2026 Wimbledon conduct-contract example, not a match-results or quote-history endpoint.",
+    "latest_data_date": null,
+    "date_basis": "not_applicable",
+    "scale_band": "support",
+    "scale": "One racket-break conduct market requiring non-score evidence.",
+    "review_priority": "support",
+    "model_role": "Separate conduct predictions from general sporting performance labels; broad match CSVs cannot supply this target.",
+    "evidence_refs": [
+      "polymarket-census.md",
+      "https://polymarket.com/event/wimbledon-2026-any-player-to-break-a-racket-20260620155754557"
+    ],
+    "data_sort_period": null
+  }
+]

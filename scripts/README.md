@@ -1,8 +1,3 @@
-# scripts/ — notebooks only
+# Notebooks
 
-Pipeline notebooks live here (mirroring UFC-Predictions' master_script.ipynb pattern).
-No .py files in this folder — production code goes in src/, scratch in src/eda/.
-
-Planned (per docs/roadmap.md):
-- `master_script.ipynb` — end-to-end: refresh data → build features → predict upcoming →
-  EV gate → stakes. Created in Phase 4 (operations), not before there is a model worth running.
+Reserved home for notebooks, following the UFC filing convention. Python modules belong in `src/`; study scripts in `src/eda/`. No operational notebook or delivery milestone has been chosen. The [former notebook suggestion](../docs/research/legacy-one-shot/scripts/README.md) is archived.

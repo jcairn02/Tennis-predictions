@@ -1,0 +1,62 @@
+{
+  "retrieved_at_utc": "2026-09-10T21:31:04.3055622Z",
+  "source_url": "https://www.goalserve.com/en/sport-data-feeds/tennis-api/sample/34",
+  "evidence_type": "downloaded_vendor_documentation_sample_not_live_or_authenticated_api",
+  "sample_dates": [
+    "26.02.2019",
+    "27.02.2019"
+  ],
+  "tournament_blocks": 6,
+  "match_rows": 142,
+  "unique_match_ids": 141,
+  "player_or_team_rows": 284,
+  "singles_rows_missing_id": 19,
+  "doubles_rows_missing_component_id": 12,
+  "duplicate_match_ids": [
+    {
+      "id": "40237712",
+      "count": 2,
+      "rows": [
+        {
+          "date": "26.02.2019",
+          "time": "12:42",
+          "status": "Fin.",
+          "players": [
+            "J. Rojer, H. Tecau",
+            "J. Melzer, N. Zimonjic"
+          ]
+        },
+        {
+          "date": "27.02.2019",
+          "time": "16:00",
+          "status": "16:00",
+          "players": [
+            "J. Rojer, H. Tecau",
+            "N. Basilashvili, M. Ebden"
+          ]
+        }
+      ]
+    }
+  ],
+  "finished_rows_without_exactly_one_winner": [
+    {
+      "id": "40237710",
+      "date": "26.02.2019",
+      "players": [
+        "B. Coric",
+        "M. Kukushkin"
+      ],
+      "winners": [
+        "False",
+        "False"
+      ]
+    }
+  ],
+  "limitations": [
+    "Public static 2019 example; findings cannot establish current production error rates.",
+    "No point-by-point event tape is present in this scores example.",
+    "Date/time attributes are present without timezone suffix; website FAQ separately says UTC.",
+    "Counts refer to sample rows, not distinct matches in an actual historical archive."
+  ],
+  "sample_sha256": "691a94a65a09217544d843d0ed5d34c568be7b7a961e55873ded5b67991adb0a"
+}

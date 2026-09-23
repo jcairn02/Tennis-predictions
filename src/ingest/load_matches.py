@@ -14,13 +14,13 @@ BR is placed after SF since 3rd-place matches happen at the end of an event.
 Unknown round codes raise — no silent ordering guesses.
 
 Score-code taxonomy (verified against all 59 ATP files, 2026-06-10 — see
-docs/02_data_and_tools.md): normalize score.strip() before matching. Walkovers are
+docs/research/legacy-one-shot/docs/02_data_and_tools.md; unapproved research): normalize score.strip() before matching. Walkovers are
 'W/O' (plus 10 legacy rows with a leading space) and 6 Davis Cup rows spell out
 'Walkover'; retirements are '... RET' (the score prefix tells whether a set was
 completed); defaults appear as 'DEF', 'Def.', or 'Default'; also 'ABD', 'UNK',
 'Played and unfinished/abandoned', and a few NaN. NOTE: minutes is 0.0 (not blank)
 on most W/O rows — minutes-notnull is NOT a valid played-match filter. Label-policy
-filtering belongs in the feature/training layer (Phase 2), not here: this loader
+filtering is left to callers in this inherited experiment: this loader
 returns everything.
 """
 

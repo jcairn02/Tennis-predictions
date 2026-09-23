@@ -1,0 +1,650 @@
+[
+  {
+    "id": "sportradar_tennis_v3",
+    "recency_band": "unknown",
+    "data_dates": "Rolling current season plus two adjacent editions; player history from 2007 claimed. Example completed match: 2026-07-12; full archive endpoints unverified.",
+    "latest_data_date": null,
+    "date_basis": "provider_documentation",
+    "scale_band": "broad",
+    "scale": "ATP/WTA/Challenger/Slams/team/UTR; count unknown; point depth varies by tier; ITF WTT removed in 2025.",
+    "review_priority": "first",
+    "model_role": "Strong documented commercial match/ID/statistics candidate; inspect delivered season matrix and sample, retention and training rights.",
+    "evidence_refs": [
+      "commercial-tennis-data.md",
+      "https://developer.sportradar.com/tennis/reference/overview",
+      "https://developer.sportradar.com/tennis/docs/tennis-ig-historical-data",
+      "https://developer.sportradar.com/tennis/docs/tennis-ig-data-coverage-tiers"
+    ],
+    "data_sort_period": null
+  },
+  {
+    "id": "tdi_sportradar_rights",
+    "recency_band": "support",
+    "data_dates": "ATP distribution rights from 2024; announcement and rights term are not dataset coverage dates.",
+    "latest_data_date": null,
+    "date_basis": "not_applicable",
+    "scale_band": "support",
+    "scale": "ATP/Challenger rights record; no separate dataset or row count.",
+    "review_priority": "support",
+    "model_role": "Rights context for Sportradar; do not count as another training corpus.",
+    "evidence_refs": [
+      "commercial-tennis-data.md",
+      "https://www.atptour.com/en/news/sportradar-atp-partnership-december-2023"
+    ],
+    "data_sort_period": null
+  },
+  {
+    "id": "polymarket_atp_rights",
+    "recency_band": "support",
+    "data_dates": "Partnership announced 2026-08-03; no research archive dates established.",
+    "latest_data_date": null,
+    "date_basis": "not_applicable",
+    "scale_band": "support",
+    "scale": "ATP/Challenger partnership; rights counts are not observed markets or training rows.",
+    "review_priority": "support",
+    "model_role": "Market/settlement context only; no research data license or downloadable dataset.",
+    "evidence_refs": [
+      "commercial-tennis-data.md",
+      "https://www.prnewswire.com/news-releases/polymarket-secures-exclusive-atp-tour-streaming-rights-for-prediction-markets-302841534.html"
+    ],
+    "data_sort_period": null
+  },
+  {
+    "id": "statsperform_wta",
+    "recency_band": "unknown",
+    "data_dates": "Live WTA service documented; earliest retained season and latest historical match unverified.",
+    "latest_data_date": null,
+    "date_basis": "unverified",
+    "scale_band": "broad",
+    "scale": "Tour-wide WTA feed claimed; match count and historical depth unknown; qualifying explicit for video.",
+    "review_priority": "next",
+    "model_role": "Official WTA enrichment lead; establish archived match coverage, payload and permitted model use.",
+    "evidence_refs": [
+      "commercial-tennis-data.md",
+      "https://www.statsperform.com/products/official-wta-data-streaming/"
+    ],
+    "data_sort_period": null
+  },
+  {
+    "id": "statsperform_history",
+    "recency_band": "unknown",
+    "data_dates": "Tennis archive from 2021 claimed; latest data date unspecified. 2026-07-28 is page publication, not archive end.",
+    "latest_data_date": null,
+    "date_basis": "provider_documentation",
+    "scale_band": "unknown",
+    "scale": "Tennis archive advertised; tour-by-season matrix and tennis row counts unpublished.",
+    "review_priority": "next",
+    "model_role": "Potential historical statistics source; require a tennis-specific export matrix and permission for training, retained history and betting use.",
+    "evidence_refs": [
+      "commercial-tennis-data.md",
+      "https://developers.statsperform.com/historical-sports-data-for-pricing-models"
+    ],
+    "data_sort_period": null
+  },
+  {
+    "id": "statsperform_ma21",
+    "recency_band": "unknown",
+    "data_dates": "Point-indexed historical prediction queries documented; competition and date coverage unverified.",
+    "latest_data_date": null,
+    "date_basis": "unverified",
+    "scale_band": "unknown",
+    "scale": "Prediction-feed fixtures; number of matches and tour coverage unverified.",
+    "review_priority": "specialist",
+    "model_role": "Possible external prediction benchmark/temporal metadata; vendor predictions are not raw training observations.",
+    "evidence_refs": [
+      "commercial-tennis-data.md",
+      "https://developers.statsperform.com/feed-ma21-tennis-predictions"
+    ],
+    "data_sort_period": null
+  },
+  {
+    "id": "infront_itf",
+    "recency_band": "support",
+    "data_dates": "ITF rights begin 2025; original 2025–2029 agreement does not establish archive dates.",
+    "latest_data_date": null,
+    "date_basis": "not_applicable",
+    "scale_band": "support",
+    "scale": "ITF World Tennis Tour rights lead; no audited archive size.",
+    "review_priority": "support",
+    "model_role": "Official lower-tier access route; historical payload and researcher access remain unknown.",
+    "evidence_refs": [
+      "commercial-tennis-data.md",
+      "https://www.itftennis.com/en/news-and-media/articles/infront-to-become-itf-official-data-partner/"
+    ],
+    "data_sort_period": null
+  },
+  {
+    "id": "infront_tennis_australia",
+    "recency_band": "support",
+    "data_dates": "2025-09-15 rights announcement; retrospective data dates not established.",
+    "latest_data_date": null,
+    "date_basis": "not_applicable",
+    "scale_band": "support",
+    "scale": "Australian Open/qualifying/TA event rights; no separate dataset size.",
+    "review_priority": "support",
+    "model_role": "Rights route for Australian events; not evidence of a downloadable historical corpus.",
+    "evidence_refs": [
+      "commercial-tennis-data.md",
+      "https://www.infront.sport/news/sports-betting/infront-bettor-expands-tennis-portfolio-through-exclusive-australian-open-video-and-data-rights-partnership"
+    ],
+    "data_sort_period": null
+  },
+  {
+    "id": "sportradar_grand_slams",
+    "recency_band": "support",
+    "data_dates": "Wimbledon renewal in 2026; contract/news dates do not date historical data.",
+    "latest_data_date": null,
+    "date_basis": "not_applicable",
+    "scale_band": "support",
+    "scale": "Wimbledon/Roland-Garros/US Open rights portfolio; no uniform archive count.",
+    "review_priority": "support",
+    "model_role": "Per-event licensing context for Sportradar; avoid double-counting its feed.",
+    "evidence_refs": [
+      "commercial-tennis-data.md",
+      "https://investors.sportradar.com/news-releases/news-release-details/sportradar-nets-official-wimbledon-tennis-data-and-av-betting"
+    ],
+    "data_sort_period": null
+  },
+  {
+    "id": "sportradar_utr",
+    "recency_band": "support",
+    "data_dates": "PTT rights from January 2025; historical archive start/end unverified.",
+    "latest_data_date": null,
+    "date_basis": "not_applicable",
+    "scale_band": "support",
+    "scale": "Provider claims 20,000+ PTT matches/year under rights deal; no verified history.",
+    "review_priority": "support",
+    "model_role": "Possible lower-tier player-history access route; PTT coverage is distinct from ITF.",
+    "evidence_refs": [
+      "commercial-tennis-data.md",
+      "https://sportradar.com/content-hub/news/utr-sports-selects-sportradar-in-long-term-wide-ranging-partnership/"
+    ],
+    "data_sort_period": null
+  },
+  {
+    "id": "lsports_tennis",
+    "recency_band": "unknown",
+    "data_dates": "Live/annual coverage advertised; historical start, archive endpoint and retention unverified.",
+    "latest_data_date": null,
+    "date_basis": "unverified",
+    "scale_band": "broad",
+    "scale": "Provider claims 130,000 fixtures/year and 2,000 tournaments across ATP/WTA/ITF; not an audited archive count.",
+    "review_priority": "next",
+    "model_role": "Broad lower-tier feed candidate; inspect retained match/stat/point coverage before considering acquisition.",
+    "evidence_refs": [
+      "commercial-tennis-data.md",
+      "https://www.lsports.eu/lsports-to-become-itfs-official-data-distributor/"
+    ],
+    "data_sort_period": null
+  },
+  {
+    "id": "enetpulse",
+    "recency_band": "unknown",
+    "data_dates": "Undated package guide; earliest retained season and latest historical match unspecified.",
+    "latest_data_date": null,
+    "date_basis": "unverified",
+    "scale_band": "broad",
+    "scale": "Provider claims 400+ Basic/Live tournaments, 100+ Premium; richer stats/points mainly ATP/WTA/Slams.",
+    "review_priority": "next",
+    "model_role": "Alternative broad statistics source; resolve tour-specific history and point completeness.",
+    "evidence_refs": [
+      "commercial-tennis-data.md",
+      "https://enetpulse.com/tennis-data/",
+      "https://enetpulse.com/wp-content/uploads/Tennis-Packages.pdf"
+    ],
+    "data_sort_period": null
+  },
+  {
+    "id": "goalserve",
+    "recency_band": "unknown",
+    "data_dates": "Downloaded documentation example: 2019-02-26–2019-02-27; production archive dates unknown.",
+    "latest_data_date": null,
+    "date_basis": "observed_payload",
+    "scale_band": "broad",
+    "scale": "Broad ATP/WTA/Challenger/ITF/juniors/team feed claimed; observed example has 142 rows across 6 tournament blocks.",
+    "review_priority": "hold",
+    "model_role": "Archive breadth is untested and example has identity/missing-value defects; inspect only if stronger candidates leave gaps.",
+    "evidence_refs": [
+      "commercial-tennis-data.md",
+      "https://www.goalserve.com/en/sport-data-feeds/tennis-api/sample/34",
+      "../../../data/studies/tennis_data_audit/commercial/goalserve-sample-audit.json"
+    ],
+    "data_sort_period": null
+  },
+  {
+    "id": "api_tennis",
+    "recency_band": "unknown",
+    "data_dates": "Date-range fixtures documented; historical start and latest retained match unspecified.",
+    "latest_data_date": null,
+    "date_basis": "unverified",
+    "scale_band": "broad",
+    "scale": "Singles/doubles, tours and lower tiers claimed; full historical count unknown.",
+    "review_priority": "next",
+    "model_role": "Accessible API alternative for results/stats/IDs; verify bulk history and representative sample before choosing.",
+    "evidence_refs": [
+      "commercial-tennis-data.md",
+      "https://api-tennis.com/documentation"
+    ],
+    "data_sort_period": null
+  },
+  {
+    "id": "livetennisapi_history",
+    "recency_band": "2026",
+    "data_dates": "2013–2022 reconstructed points; January 2023–July 2026 newer archive claimed. Observed timestamp layer begins March 2026 on commercial page; conflicts with academic page.",
+    "latest_data_date": null,
+    "date_basis": "provider_documentation",
+    "scale_band": "broad",
+    "scale": "Provider claims 97,901 earlier matches/14.34m point rows plus 160,000+ newer matches/23m+ states, ATP/WTA/Challenger/ITF/doubles.",
+    "review_priority": "next",
+    "model_role": "Promising point-history supplement; separate reconstruction from observation and resolve sample/provenance/retention issues before training.",
+    "evidence_refs": [
+      "commercial-tennis-data.md",
+      "https://livetennisapi.com/historical-tennis-data-api",
+      "public-tennis-data.md"
+    ],
+    "data_sort_period": "2026-07"
+  },
+  {
+    "id": "livetennisapi_academic",
+    "recency_band": "2026",
+    "data_dates": "Provider's full index: 2023-01-01–2026-08-13; observed points claimed from 2025-10-12, conflicting with commercial page.",
+    "latest_data_date": "2026-08-13",
+    "date_basis": "provider_documentation",
+    "scale_band": "broad",
+    "scale": "Provider claims 173,571 ATP/WTA/Challenger/ITF match records and 170,527 with sequences. Public index has the same 173,571 metadata rows; public point tapes cover a smaller sample.",
+    "review_priority": "hold",
+    "model_role": "Defer restricted academic access unless eligible; use PUB010 for the public sample and the historical commercial product to investigate intended-use rights.",
+    "evidence_refs": [
+      "commercial-tennis-data.md",
+      "https://livetennisapi.com/data/academic",
+      "public-tennis-data.md"
+    ],
+    "data_sort_period": "2026-08-13"
+  },
+  {
+    "id": "betsapi",
+    "recency_band": "unknown",
+    "data_dates": "Tennis event/history endpoints documented; earliest reliable date and latest archived event unverified.",
+    "latest_data_date": null,
+    "date_basis": "unverified",
+    "scale_band": "unknown",
+    "scale": "Tennis event feed; tour-by-year coverage and event totals unverified.",
+    "review_priority": "hold",
+    "model_role": "Potential inexpensive result/identity source, but assess history first; separate bookmaker products are different entitlements.",
+    "evidence_refs": [
+      "commercial-tennis-data.md",
+      "https://betsapi.com/mm/pricing_table"
+    ],
+    "data_sort_period": null
+  },
+  {
+    "id": "sportdevs",
+    "recency_band": "unknown",
+    "data_dates": "Seasons endpoint exists; earliest retained year and latest historical data not established.",
+    "latest_data_date": null,
+    "date_basis": "unverified",
+    "scale_band": "unknown",
+    "scale": "Tennis leagues/seasons and doubles examples; corpus count and breadth unknown.",
+    "review_priority": "hold",
+    "model_role": "Defer until archive matrix and consistent production sample exist; API schema alone does not show training scale.",
+    "evidence_refs": [
+      "commercial-tennis-data.md",
+      "https://www.postman.com/sportdevs-8904928/sportdevs-api/documentation/gzwmkab/tennis-api"
+    ],
+    "data_sort_period": null
+  },
+  {
+    "id": "statscore",
+    "recency_band": "unknown",
+    "data_dates": "Historical season range and latest retained match unspecified.",
+    "latest_data_date": null,
+    "date_basis": "unverified",
+    "scale_band": "broad",
+    "scale": "ATP/WTA/Challenger/ITF/Slams claimed; count and tier-specific history unknown.",
+    "review_priority": "next",
+    "model_role": "Broad scores/rankings/serve-statistics alternative; inspect export history and depth against core candidates.",
+    "evidence_refs": [
+      "commercial-tennis-data.md",
+      "https://www.statscore.com/landing-page-tennisapi/"
+    ],
+    "data_sort_period": null
+  },
+  {
+    "id": "broadage",
+    "recency_band": "unknown",
+    "data_dates": "Full active season promised; calendar endpoint and access to previous seasons not established.",
+    "latest_data_date": null,
+    "date_basis": "provider_documentation",
+    "scale_band": "unknown",
+    "scale": "Tennis supported; tournament scope, detailed fields and historical row count unknown.",
+    "review_priority": "hold",
+    "model_role": "Active-season feed is insufficient evidence of a general training archive.",
+    "evidence_refs": [
+      "commercial-tennis-data.md",
+      "https://www.broadage.com/support/api"
+    ],
+    "data_sort_period": null
+  },
+  {
+    "id": "dsg",
+    "recency_band": "unknown",
+    "data_dates": "Historical product advertised; tennis-specific earliest and latest seasons unknown.",
+    "latest_data_date": null,
+    "date_basis": "unverified",
+    "scale_band": "broad",
+    "scale": "Provider homepage lists 768 tennis competitions; singles/doubles/mixed/team/wheelchair/soft tennis; archived row count unknown.",
+    "review_priority": "next",
+    "model_role": "Broad structured-data candidate; filter disciplines and verify tennis-specific history rather than general decades-of-data claims.",
+    "evidence_refs": [
+      "commercial-tennis-data.md",
+      "https://dsg-api.com/doc/tennis/get_disciplines/923/"
+    ],
+    "data_sort_period": null
+  },
+  {
+    "id": "tennis_api_com",
+    "recency_band": "unknown",
+    "data_dates": "History claimed in indexed provider text; actual start and endpoint unverified.",
+    "latest_data_date": null,
+    "date_basis": "unverified",
+    "scale_band": "broad",
+    "scale": "ATP/WTA/Challenger/ITF claimed; no observed corpus count or payload.",
+    "review_priority": "hold",
+    "model_role": "Unresolved distinct vendor; stronger candidates have more testable documentation and access routes.",
+    "evidence_refs": [
+      "commercial-tennis-data.md",
+      "https://tennis-api.com/api-coverage/"
+    ],
+    "data_sort_period": null
+  },
+  {
+    "id": "oncourt",
+    "recency_band": "unknown",
+    "data_dates": "ATP results from 1990; WTA 1997; Challenger 1998; qualifying 2000; ITF/doubles start varies. Daily updates claimed; exact latest match unverified.",
+    "latest_data_date": null,
+    "date_basis": "provider_documentation",
+    "scale_band": "broad",
+    "scale": "Provider claims 1.6m+ matches across men's/women's tours, lower tiers, qualifying, doubles and team play.",
+    "review_priority": "first",
+    "model_role": "High-priority commercial backbone candidate: deep results history and Access/export route; inspect current sample, field dates and usage rights.",
+    "evidence_refs": [
+      "commercial-tennis-data.md",
+      "https://www.oncourt.info/index.html"
+    ],
+    "data_sort_period": null
+  },
+  {
+    "id": "oncourt_mysql",
+    "recency_band": "unknown",
+    "data_dates": "Same OnCourt archive: ATP 1990+, WTA 1997+, lower tiers vary; update service claimed, latest delivered data unverified.",
+    "latest_data_date": null,
+    "date_basis": "provider_documentation",
+    "scale_band": "broad",
+    "scale": "Full OnCourt database distribution claimed; same 1.6m+ corpus as desktop, not an additional independent dataset.",
+    "review_priority": "first",
+    "model_role": "Alternative acquisition route for OnCourt: MySQL dump/updater; compare with desktop export and verify present delivery and permitted use.",
+    "evidence_refs": [
+      "commercial-tennis-data.md",
+      "https://www.oncourt.info/tennis_provider.html",
+      "https://www.oncourt.info/index.html"
+    ],
+    "data_sort_period": null
+  },
+  {
+    "id": "tennisstats",
+    "recency_band": "unknown",
+    "data_dates": "Past seasons offered; earliest year and latest included match unspecified.",
+    "latest_data_date": null,
+    "date_basis": "unverified",
+    "scale_band": "unknown",
+    "scale": "Singles/doubles with per-player CSV downloads; full corpus and whole-database export unknown.",
+    "review_priority": "next",
+    "model_role": "Concrete CSV route merits a short check; establish tour/season breadth before treating it as a backbone.",
+    "evidence_refs": [
+      "commercial-tennis-data.md",
+      "https://tennisstats.com/premium"
+    ],
+    "data_sort_period": null
+  },
+  {
+    "id": "tennisinsight",
+    "recency_band": "unknown",
+    "data_dates": "Historical player results available; precise archive start and latest data date unverified.",
+    "latest_data_date": null,
+    "date_basis": "unverified",
+    "scale_band": "broad",
+    "scale": "ATP/WTA/Challenger/ITF web coverage claimed; historical row count unknown.",
+    "review_priority": "hold",
+    "model_role": "Useful manual validation frontend; no verified bulk export, and community tips are distinct from observed results.",
+    "evidence_refs": [
+      "commercial-tennis-data.md",
+      "https://tennisinsight.com/about-us/"
+    ],
+    "data_sort_period": null
+  },
+  {
+    "id": "uts",
+    "recency_band": "older",
+    "data_dates": "Advertised Docker database snapshot through season 2021; frontend latest coverage and snapshot's earliest date unverified.",
+    "latest_data_date": null,
+    "date_basis": "provider_documentation",
+    "scale_band": "broad",
+    "scale": "Longitudinal ATP/Sackmann-derived statistics; excludes promised WTA/qualifying/Challenger/Futures coverage; row count unknown.",
+    "review_priority": "support",
+    "model_role": "Derived metrics/reference implementation; use primary Sackmann data first and avoid treating this as independent match evidence.",
+    "evidence_refs": [
+      "commercial-tennis-data.md",
+      "https://www.ultimatetennisstatistics.com/about",
+      "https://hub.docker.com/r/mcekovic/uts-database"
+    ],
+    "data_sort_period": "2021"
+  },
+  {
+    "id": "tennisdb",
+    "recency_band": "unknown",
+    "data_dates": "Sackmann-derived history; frontend's retained earliest/latest match dates not verified.",
+    "latest_data_date": null,
+    "date_basis": "unverified",
+    "scale_band": "broad",
+    "scale": "ATP/WTA history frontend; underlying counts unknown and overlap with Sackmann expected.",
+    "review_priority": "support",
+    "model_role": "Discovery/validation frontend; does not add an independently collected training corpus.",
+    "evidence_refs": [
+      "commercial-tennis-data.md",
+      "https://tennis-db.com/terms"
+    ],
+    "data_sort_period": null
+  },
+  {
+    "id": "tdi_platform",
+    "recency_band": "unknown",
+    "data_dates": "Historical archive and sandbox advertised; earliest year and latest retained match unpublished.",
+    "latest_data_date": null,
+    "date_basis": "unverified",
+    "scale_band": "unknown",
+    "scale": "Umpire/performance/tracking streams; tour, court, year and row-count matrix absent.",
+    "review_priority": "specialist",
+    "model_role": "Potential rich official features; establish corpus and independent-research access before spending time on integration.",
+    "evidence_refs": [
+      "commercial-tennis-data.md",
+      "https://www.tennisdata.com/tennis-data-platform"
+    ],
+    "data_sort_period": null
+  },
+  {
+    "id": "tennis_iq",
+    "recency_band": "unknown",
+    "data_dates": "August 2025 access expansion and June 2024 wearables announcement; these do not date the retained data.",
+    "latest_data_date": null,
+    "date_basis": "unverified",
+    "scale_band": "niche",
+    "scale": "ATP/Challenger player-coach platform; scouting/video/wearables, with raw corpus unspecified.",
+    "review_priority": "specialist",
+    "model_role": "Restricted performance enrichment; independent-model export and retention access unverified.",
+    "evidence_refs": [
+      "commercial-tennis-data.md",
+      "https://www.atptour.com/-/media/sites/atp-tour/press/press-releases/atp-tennis-iq-august-2025-release.pdf"
+    ],
+    "data_sort_period": null
+  },
+  {
+    "id": "tennisviz",
+    "recency_band": "unknown",
+    "data_dates": "Tracking archive earliest/latest dates not published in inspected evidence.",
+    "latest_data_date": null,
+    "date_basis": "unverified",
+    "scale_band": "niche",
+    "scale": "Selected professional tracking partnerships; shot/tactical metrics, with match/court counts unknown.",
+    "review_priority": "specialist",
+    "model_role": "Targeted shot-quality enrichment after a broad results/statistics backbone; need court coverage and model-version history.",
+    "evidence_refs": [
+      "commercial-tennis-data.md",
+      "https://tennisviz.com/"
+    ],
+    "data_sort_period": null
+  },
+  {
+    "id": "hawkeye",
+    "recency_band": "unknown",
+    "data_dates": "Tracking capability documented; retained tournament/court/year dates unknown.",
+    "latest_data_date": null,
+    "date_basis": "unverified",
+    "scale_band": "niche",
+    "scale": "Installed-court ball/player/racket/skeletal capture; no verified licensable archive count.",
+    "review_priority": "specialist",
+    "model_role": "Tracking research lead; technology specifications alone do not establish available general training data.",
+    "evidence_refs": [
+      "commercial-tennis-data.md",
+      "https://www.hawkeyeinnovations.com/news/4211958/the-future-of-data-tracking-in-sport"
+    ],
+    "data_sort_period": null
+  },
+  {
+    "id": "goldenset",
+    "recency_band": "unknown",
+    "data_dates": "Historical trajectory archive claimed; earliest/latest matches unknown. 2017 acquisition is not data coverage.",
+    "latest_data_date": null,
+    "date_basis": "unverified",
+    "scale_band": "niche",
+    "scale": "Provider claims tens of thousands of matches with trajectory/tactical analysis; selected-player service, current size unverified.",
+    "review_priority": "specialist",
+    "model_role": "Rich but selective private archive; corpus access and betting/model rights not established.",
+    "evidence_refs": [
+      "commercial-tennis-data.md",
+      "https://goldensetanalytics.com/why-use-analytics/"
+    ],
+    "data_sort_period": null
+  },
+  {
+    "id": "tennisanalytics_vs",
+    "recency_band": "unknown",
+    "data_dates": "A 2019 demonstration report is available; full professional archive dates unknown.",
+    "latest_data_date": null,
+    "date_basis": "provider_documentation",
+    "scale_band": "niche",
+    "scale": "Video-linked coaching/match analysis; single professional report demonstrates fields, full count unknown.",
+    "review_priority": "specialist",
+    "model_role": "Possible manually enriched features; no demonstrated broad raw archive or wholesale entitlement.",
+    "evidence_refs": [
+      "commercial-tennis-data.md",
+      "https://www.vssports.us/tennis/"
+    ],
+    "data_sort_period": null
+  },
+  {
+    "id": "tennisprofiler",
+    "recency_band": "unknown",
+    "data_dates": "Manual profile/charting archive dates unpublished.",
+    "latest_data_date": null,
+    "date_basis": "unverified",
+    "scale_band": "niche",
+    "scale": "Selected ATP/WTA/ITF coaching profiles; total players/matches unknown.",
+    "review_priority": "specialist",
+    "model_role": "Expert player-profile enrichment; defer while building general match-history coverage.",
+    "evidence_refs": [
+      "commercial-tennis-data.md",
+      "https://www.tennisprofiler.com/information"
+    ],
+    "data_sort_period": null
+  },
+  {
+    "id": "gsm",
+    "recency_band": "unknown",
+    "data_dates": "Customer video-analysis service; retained data dates unspecified.",
+    "latest_data_date": null,
+    "date_basis": "unverified",
+    "scale_band": "niche",
+    "scale": "Amateur/transition/academy analysis; no proven tour-wide archive or match count.",
+    "review_priority": "specialist",
+    "model_role": "Player-development analysis, with limited demonstrated relevance to a general professional match model.",
+    "evidence_refs": [
+      "commercial-tennis-data.md",
+      "https://gsmtennis.pro/"
+    ],
+    "data_sort_period": null
+  },
+  {
+    "id": "tennistv",
+    "recency_band": "unknown",
+    "data_dates": "Selected ATP video classics from 1990; exact newest retained replay and full year-by-event coverage unverified.",
+    "latest_data_date": null,
+    "date_basis": "provider_documentation",
+    "scale_band": "niche",
+    "scale": "ATP broadcast/replay archive with selected classics; not a comprehensive structured match dataset.",
+    "review_priority": "specialist",
+    "model_role": "Manual charting/video-validation resource; viewing access does not establish extraction/training rights.",
+    "evidence_refs": [
+      "commercial-tennis-data.md",
+      "https://support.tennistv.com/hc/en-us/articles/21873145583004-What-is-Tennis-TV-Premium"
+    ],
+    "data_sort_period": null
+  },
+  {
+    "id": "dtb_archive",
+    "recency_band": "unknown",
+    "data_dates": "Ranking/LK archive available behind membership; 2025 paywall change is not earliest/latest data date.",
+    "latest_data_date": null,
+    "date_basis": "unverified",
+    "scale_band": "niche",
+    "scale": "German domestic rankings and match portraits; corpus size and date extent unknown.",
+    "review_priority": "specialist",
+    "model_role": "Geographic enrichment for emerging players; broad international-model coverage remains unproven.",
+    "evidence_refs": [
+      "commercial-tennis-data.md",
+      "https://www.tennis.de/news/spielen/2025/mybigpoint-wird-zu-tennis-de---eingeschraenkte-nutzung-ab-mitte-.html"
+    ],
+    "data_sort_period": null
+  },
+  {
+    "id": "courtshark",
+    "recency_band": "unknown",
+    "data_dates": "History since 1991 claimed; exact latest included match unspecified; live monitoring claim does not date archive end.",
+    "latest_data_date": null,
+    "date_basis": "provider_documentation",
+    "scale_band": "broad",
+    "scale": "Provider claims 280,000+ ATP/WTA/Challenger matches; analytics UI, no audited raw corpus.",
+    "review_priority": "hold",
+    "model_role": "Could validate derived analytics; no verified raw export or independent collection, so deprioritize for training acquisition.",
+    "evidence_refs": [
+      "commercial-tennis-data.md",
+      "https://courtshark.ai/"
+    ],
+    "data_sort_period": null
+  },
+  {
+    "id": "sportmonks_negative",
+    "recency_band": "support",
+    "data_dates": "No confirmed tennis dataset in inspected product documentation; no data dates.",
+    "latest_data_date": null,
+    "date_basis": "not_applicable",
+    "scale_band": "support",
+    "scale": "Negative finding; not counted as a tennis data product.",
+    "review_priority": "support",
+    "model_role": "Exclude from acquisition shortlist unless a tennis product is demonstrated.",
+    "evidence_refs": [
+      "commercial-tennis-data.md",
+      "https://www.sportmonks.com/faq/"
+    ],
+    "data_sort_period": null
+  }
+]

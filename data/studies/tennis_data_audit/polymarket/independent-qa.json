@@ -1,0 +1,467 @@
+{
+  "generated_at": "2026-09-10T21:47:20.341813+00:00",
+  "method": "Offline, independent standard-library pass over saved event/market rows and every keyset raw page. No network requests. Known football exclusions copied as an explicit scope rule, not independently exhaustive semantic labels.",
+  "reproduce": "Run src/eda/tennis_data_audit/independent_polymarket_qa.py with Python 3.11+ from any cwd. The research run selected C:/Users/zerom/miniforge3/envs/ufc-monitor/python.exe explicitly.",
+  "source_files": [
+    {
+      "file": "summary.json",
+      "sha256": "b7a6c6ae81a07d5be07d67c03662c0022bbaa7ef041d2cad557520596d0057cb"
+    },
+    {
+      "file": "audited-summary.json",
+      "sha256": "db3531efa6c4b23e57b6dae099a5ad102767d94bcb2f98938c336ab626901593"
+    },
+    {
+      "file": "events.jsonl",
+      "sha256": "8788240b915c5b9ae1a35ba725a3b978e9a76117b0c3ad5861297dd0666f37dd"
+    },
+    {
+      "file": "markets.jsonl.gz",
+      "sha256": "bdee069b174c6e8eb6ed1d503f086e11345475214929c4601d8f1c561995f522"
+    },
+    {
+      "file": "request-manifest.json",
+      "sha256": "5881d5dfcf6124a842ce64bd6e0b3749d68f2ed1f3b4a21061e68c4ece26ab69"
+    }
+  ],
+  "research_window": {
+    "start_inclusive": "2025-09-10T00:00:00+00:00",
+    "end_exclusive": "2026-09-11T00:00:00+00:00",
+    "calendar_days": 366,
+    "snapshot_finished_at": "2026-09-10T21:34:56.162121+00:00",
+    "note": "UTC dates include all of September 10 in both boundary years: 366 calendar days. First and last monthly bins are partial; the final day extends beyond snapshot time."
+  },
+  "counts": {
+    "all_events": 34197,
+    "unique_event_ids": 34197,
+    "known_football_exclusions": 9,
+    "sport_window_event_records": 33320,
+    "metadata_overlap_event_records": 33474,
+    "sport_without_overlap_events": 0,
+    "overlap_without_sport_events": 154,
+    "overlap_event_attached_contract_rows": 409313,
+    "sport_window_contract_rows": 406190,
+    "sport_unique_contract_ids": 406190,
+    "overlap_unique_attached_contract_ids": 409313,
+    "overlap_attached_contracts_closed_before_window": 25,
+    "overlap_attached_closed_contracts_missing_closed_time": 7,
+    "unique_nonmissing_game_ids": 30315,
+    "events_missing_game_id": 2834,
+    "repeated_game_id_groups": 169,
+    "sport_window_events_scheduled_after_snapshot": 5
+  },
+  "pagination": {
+    "pages": 346,
+    "raw_event_rows": 34197,
+    "maximum_attached_markets_per_raw_event": 128,
+    "sweeps": [
+      {
+        "tag_id": [
+          "864"
+        ],
+        "exclude_tag_id": [],
+        "pages": 342,
+        "rows": 34192,
+        "last_page_rows": 92,
+        "last_page_has_next_cursor": false
+      },
+      {
+        "tag_id": [
+          "100290"
+        ],
+        "exclude_tag_id": [
+          "864"
+        ],
+        "pages": 1,
+        "rows": 5,
+        "last_page_rows": 5,
+        "last_page_has_next_cursor": false
+      },
+      {
+        "tag_id": [
+          "101232"
+        ],
+        "exclude_tag_id": [
+          "864"
+        ],
+        "pages": 1,
+        "rows": 0,
+        "last_page_rows": 0,
+        "last_page_has_next_cursor": false
+      },
+      {
+        "tag_id": [
+          "102123"
+        ],
+        "exclude_tag_id": [
+          "864"
+        ],
+        "pages": 1,
+        "rows": 0,
+        "last_page_rows": 0,
+        "last_page_has_next_cursor": false
+      },
+      {
+        "tag_id": [
+          "104923"
+        ],
+        "exclude_tag_id": [
+          "864"
+        ],
+        "pages": 1,
+        "rows": 0,
+        "last_page_rows": 0,
+        "last_page_has_next_cursor": false
+      }
+    ],
+    "hash_cursor_or_order_errors": [],
+    "limitation": "Terminal cursors and stable IDs validate the saved sweeps, not recovery of deleted or untagged events, nor temporal consistency of mutable metadata across requests."
+  },
+  "date_selection_reproduction_errors": [],
+  "closed_before_window_contracts": [
+    {
+      "id": "551700",
+      "event_id": "26751",
+      "question": "Will Felix Auger-Aliassime win the 2025 Terra Wortmann Open?",
+      "startDate": "2025-06-12T16:56:43.039098Z",
+      "createdAt": "2025-06-11T23:22:15.505718Z",
+      "closedTime": "2025-06-19 14:31:08+00",
+      "closed": true
+    },
+    {
+      "id": "551701",
+      "event_id": "26751",
+      "question": "Will Francisco Cerundolo win the 2025 Terra Wortmann Open?",
+      "startDate": "2025-06-12T16:56:41.850687Z",
+      "createdAt": "2025-06-11T23:22:15.947541Z",
+      "closedTime": "2025-06-17 16:46:35+00",
+      "closed": true
+    },
+    {
+      "id": "551702",
+      "event_id": "26751",
+      "question": "Will Flavio Cobolli win the 2025 Terra Wortmann Open?",
+      "startDate": "2025-06-12T16:56:41.597713Z",
+      "createdAt": "2025-06-11T23:22:16.37575Z",
+      "closedTime": "2025-06-20 16:23:56+00",
+      "closed": true
+    },
+    {
+      "id": "551703",
+      "event_id": "26751",
+      "question": "Will Luciano Darderi win the 2025 Terra Wortmann Open?",
+      "startDate": "2025-06-12T16:56:41.344526Z",
+      "createdAt": "2025-06-11T23:22:16.799987Z",
+      "closedTime": "2025-06-16 20:05:42+00",
+      "closed": true
+    },
+    {
+      "id": "551704",
+      "event_id": "26751",
+      "question": "Will Arthur Fils win the 2025 Terra Wortmann Open?",
+      "startDate": "2025-06-12T16:56:44.575905Z",
+      "createdAt": "2025-06-11T23:22:17.217382Z",
+      "closedTime": "2025-06-16 12:47:03+00",
+      "closed": true
+    },
+    {
+      "id": "551705",
+      "event_id": "26751",
+      "question": "Will Joao Fonseca win the 2025 Terra Wortmann Open?",
+      "startDate": "2025-06-12T16:56:44.322705Z",
+      "createdAt": "2025-06-11T23:22:17.665268Z",
+      "closedTime": "2025-06-17 17:01:37+00",
+      "closed": true
+    },
+    {
+      "id": "551706",
+      "event_id": "26751",
+      "question": "Will Marcos Giron win the 2025 Terra Wortmann Open?",
+      "startDate": "2025-06-12T16:56:44.070045Z",
+      "createdAt": "2025-06-11T23:22:18.201963Z",
+      "closedTime": "2025-06-18 16:05:33+00",
+      "closed": true
+    },
+    {
+      "id": "551707",
+      "event_id": "26751",
+      "question": "Will Tallon Griekspoor win the 2025 Terra Wortmann Open?",
+      "startDate": "2025-06-12T16:56:51.658097Z",
+      "createdAt": "2025-06-11T23:22:18.708229Z",
+      "closedTime": "2025-06-16 12:52:25+00",
+      "closed": true
+    },
+    {
+      "id": "551708",
+      "event_id": "26751",
+      "question": "Will Ugo Humbert win the 2025 Terra Wortmann Open?",
+      "startDate": "2025-06-12T16:56:51.911165Z",
+      "createdAt": "2025-06-11T23:22:19.181067Z",
+      "closedTime": "2025-06-17 17:49:43+00",
+      "closed": true
+    },
+    {
+      "id": "551709",
+      "event_id": "26751",
+      "question": "Will Hubert Hurkacz win the 2025 Terra Wortmann Open?",
+      "startDate": "2025-06-12T16:56:52.238471Z",
+      "createdAt": "2025-06-11T23:22:19.634044Z",
+      "closedTime": "2025-06-16 21:20:32+00",
+      "closed": true
+    },
+    {
+      "id": "551710",
+      "event_id": "26751",
+      "question": "Will Miomir Kecmanovic win the 2025 Terra Wortmann Open?",
+      "startDate": "2025-06-12T16:56:53.236261Z",
+      "createdAt": "2025-06-11T23:22:20.054096Z",
+      "closedTime": "2025-06-16 15:01:41+00",
+      "closed": true
+    },
+    {
+      "id": "551711",
+      "event_id": "26751",
+      "question": "Will Karen Khachanov win the 2025 Terra Wortmann Open?",
+      "startDate": "2025-06-12T16:56:50.057186Z",
+      "createdAt": "2025-06-11T23:22:20.523747Z",
+      "closedTime": "2025-06-21 21:43:37+00",
+      "closed": true
+    },
+    {
+      "id": "551712",
+      "event_id": "26751",
+      "question": "Will Tomas Machac win the 2025 Terra Wortmann Open?",
+      "startDate": "2025-06-12T16:56:51.405405Z",
+      "createdAt": "2025-06-11T23:22:20.983314Z",
+      "closedTime": "2025-06-20 18:08:02+00",
+      "closed": true
+    },
+    {
+      "id": "551713",
+      "event_id": "26751",
+      "question": "Will Pedro Martinez win the 2025 Terra Wortmann Open?",
+      "startDate": "2025-06-12T16:56:51.152655Z",
+      "createdAt": "2025-06-11T23:22:21.410669Z",
+      "closedTime": "2025-06-17 14:23:30+00",
+      "closed": true
+    },
+    {
+      "id": "551714",
+      "event_id": "26751",
+      "question": "Will Daniil Medvedev win the 2025 Terra Wortmann Open?",
+      "startDate": "2025-06-12T16:56:54.772051Z",
+      "createdAt": "2025-06-11T23:22:21.827313Z",
+      "closedTime": "2025-06-22 17:59:00+00",
+      "closed": true
+    },
+    {
+      "id": "551715",
+      "event_id": "26751",
+      "question": "Will Alex Michelsen win the 2025 Terra Wortmann Open?",
+      "startDate": "2025-06-12T16:56:55.025208Z",
+      "createdAt": "2025-06-11T23:22:22.261181Z",
+      "closedTime": "2025-06-20 14:14:49+00",
+      "closed": true
+    },
+    {
+      "id": "551716",
+      "event_id": "26751",
+      "question": "Will Alexandre Muller win the 2025 Terra Wortmann Open?",
+      "startDate": "2025-06-12T16:56:54.519474Z",
+      "createdAt": "2025-06-11T23:22:22.737702Z",
+      "closedTime": "2025-06-16 18:16:08+00",
+      "closed": true
+    },
+    {
+      "id": "551717",
+      "event_id": "26751",
+      "question": "Will Andrey Rublev win the 2025 Terra Wortmann Open?",
+      "startDate": "2025-06-12T16:56:54.266895Z",
+      "createdAt": "2025-06-11T23:22:23.268871Z",
+      "closedTime": "2025-06-19 17:59:06+00",
+      "closed": true
+    },
+    {
+      "id": "551718",
+      "event_id": "26751",
+      "question": "Will Denis Shapovalov win the 2025 Terra Wortmann Open?",
+      "startDate": "2025-06-12T16:57:00.360456Z",
+      "createdAt": "2025-06-11T23:22:23.715448Z",
+      "closedTime": "2025-06-19 15:56:22+00",
+      "closed": true
+    },
+    {
+      "id": "551719",
+      "event_id": "26751",
+      "question": "Will Jannik Sinner win the 2025 Terra Wortmann Open?",
+      "startDate": "2025-06-12T16:57:01.119005Z",
+      "createdAt": "2025-06-11T23:22:24.188082Z",
+      "closedTime": "2025-06-19 22:57:24+00",
+      "closed": true
+    },
+    {
+      "id": "551720",
+      "event_id": "26751",
+      "question": "Will Lorenzo Sonego win the 2025 Terra Wortmann Open?",
+      "startDate": "2025-06-12T16:57:00.614066Z",
+      "createdAt": "2025-06-11T23:22:24.717041Z",
+      "closedTime": "2025-06-19 20:42:22+00",
+      "closed": true
+    },
+    {
+      "id": "551721",
+      "event_id": "26751",
+      "question": "Will Jan-Lennard Struff win the 2025 Terra Wortmann Open?",
+      "startDate": "2025-06-12T16:57:00.866262Z",
+      "createdAt": "2025-06-11T23:22:25.140864Z",
+      "closedTime": "2025-06-17 20:11:12+00",
+      "closed": true
+    },
+    {
+      "id": "551722",
+      "event_id": "26751",
+      "question": "Will Alejandro Tabilo win the 2025 Terra Wortmann Open?",
+      "startDate": "2025-06-12T16:57:04.243197Z",
+      "createdAt": "2025-06-11T23:22:25.697714Z",
+      "closedTime": "2025-06-16 12:47:03+00",
+      "closed": true
+    },
+    {
+      "id": "551723",
+      "event_id": "26751",
+      "question": "Will Stefanos Tsitsipas win the 2025 Terra Wortmann Open?",
+      "startDate": "2025-06-12T16:57:05.001039Z",
+      "createdAt": "2025-06-11T23:22:26.14015Z",
+      "closedTime": "2025-06-18 19:34:32+00",
+      "closed": true
+    },
+    {
+      "id": "551724",
+      "event_id": "26751",
+      "question": "Will Alexander Zverev win the 2025 Terra Wortmann Open?",
+      "startDate": "2025-06-12T16:57:04.748587Z",
+      "createdAt": "2025-06-11T23:22:26.61797Z",
+      "closedTime": "2025-06-21 19:29:07+00",
+      "closed": true
+    }
+  ],
+  "closed_without_close_time_contracts": [
+    {
+      "id": "1191285",
+      "event_id": "166222",
+      "question": "Gaston vs. Sinner: Match O/U 36.5",
+      "startDate": "2026-01-15T16:13:10.684376Z",
+      "createdAt": "2026-01-15T16:00:43.010743Z",
+      "closedTime": null,
+      "closed": true
+    },
+    {
+      "id": "1191287",
+      "event_id": "166222",
+      "question": "Gaston vs. Sinner: Total Sets O/U 2.5",
+      "startDate": "2026-01-15T16:13:08.704084Z",
+      "createdAt": "2026-01-15T16:00:43.010982Z",
+      "closedTime": null,
+      "closed": true
+    },
+    {
+      "id": "1191290",
+      "event_id": "166222",
+      "question": "Gaston vs. Sinner: Total Sets O/U 3.5",
+      "startDate": "2026-01-15T16:13:10.938112Z",
+      "createdAt": "2026-01-15T16:00:43.020599Z",
+      "closedTime": null,
+      "closed": true
+    },
+    {
+      "id": "1410554",
+      "event_id": "222187",
+      "question": "Lugano: Dominic Stephan Stricker vs Hugo Grenier",
+      "startDate": "2026-02-21T23:03:53.436372Z",
+      "createdAt": "2026-02-21T23:00:40.205341Z",
+      "closedTime": null,
+      "closed": true
+    },
+    {
+      "id": "1411020",
+      "event_id": "222187",
+      "question": "Stricker vs. Grenier: Total Sets O/U 2.5",
+      "startDate": "2026-02-22T00:11:29.799921Z",
+      "createdAt": "2026-02-22T00:00:33.253056Z",
+      "closedTime": null,
+      "closed": true
+    },
+    {
+      "id": "2262116",
+      "event_id": "482601",
+      "question": "Serna vs. Ambrogi: Set 1 Games O/U 8.5",
+      "startDate": "2026-05-14T18:12:40.254Z",
+      "createdAt": "2026-05-14T18:00:22.805677Z",
+      "closedTime": null,
+      "closed": true
+    },
+    {
+      "id": "2262121",
+      "event_id": "482601",
+      "question": "Serna vs. Ambrogi: Set 1 Games O/U 10.5",
+      "startDate": "2026-05-14T18:06:17.449Z",
+      "createdAt": "2026-05-14T18:00:23.026888Z",
+      "closedTime": null,
+      "closed": true
+    }
+  ],
+  "future_at_snapshot_event_records": [
+    {
+      "id": "910232",
+      "title": "US Open 2026: To Reach Semifinals (Women's Singles)",
+      "sport_date": "2026-09-10T23:59:00+00:00",
+      "date_basis": "endDate",
+      "url": "https://polymarket.com/event/us-open-2026-to-reach-semifinals-womens-singles-20260824175605000"
+    },
+    {
+      "id": "910171",
+      "title": "US Open 2026: To Reach Semifinals (Men's Singles)",
+      "sport_date": "2026-09-10T23:59:00+00:00",
+      "date_basis": "endDate",
+      "url": "https://polymarket.com/event/us-open-2026-to-reach-semifinals-mens-singles-20260824175605000"
+    },
+    {
+      "id": "992107",
+      "title": "US Open WTA: Aryna Sabalenka vs Jessica Pegula",
+      "sport_date": "2026-09-10T23:00:00+00:00",
+      "date_basis": "startTime",
+      "url": "https://polymarket.com/event/wta-sabalen-pegula-2026-09-10"
+    },
+    {
+      "id": "997440",
+      "title": "Barranquilla: Julia Riera vs Anna Blinkova",
+      "sport_date": "2026-09-10T23:30:00+00:00",
+      "date_basis": "startTime",
+      "url": "https://polymarket.com/event/wta-riera-blinkov-2026-09-10"
+    },
+    {
+      "id": "997439",
+      "title": "Barranquilla: Carol Young Suh Lee vs Leolia Jeanjean",
+      "sport_date": "2026-09-10T22:00:00+00:00",
+      "date_basis": "startTime",
+      "url": "https://polymarket.com/event/wta-lee-jeanjea-2026-09-10"
+    }
+  ],
+  "semantic_notes": [
+    "409313 refers to contracts attached to metadata-overlapping event wrappers; it is not a per-contract trading-overlap count. The 25 contracts already closed before the window demonstrate the distinction.",
+    "The 33320 sport-window event records and 406190 contracts are not unique physical matches, executable quotations, completed matches, or in-window transactions.",
+    "Volume fields in the snapshot report lifetime totals. Positive lifetime volume is not an in-window activity count.",
+    "Neither gameId nor exact title alone identifies every physical match; missing and reused IDs and multiple market wrappers require cross-source entity resolution.",
+    "Series labels are current provider classifications and their earliest sport date is not independently verified product launch or first trading time.",
+    "The sports date prioritizes startTime, eventDate, slug date, then endDate. Date-only and endDate fallback rows remain weaker event-time evidence; endDate often has a seven-day administrative offset.",
+    "The analyzer's substring example theme Long can match a player's name (Longo). It must not be cited as evidence of match-duration products."
+  ],
+  "long_substring_example": {
+    "theme": "Long",
+    "id": "482004",
+    "title": "ITF Maringa: Herman Hoeyeraal vs Nicolas Garcia Longo",
+    "url": "https://polymarket.com/event/itf-hoeyera-longo-2026-05-14",
+    "date": "2026-05-14T13:00:00+00:00",
+    "date_basis": "startTime"
+  }
+}

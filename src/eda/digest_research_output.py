@@ -1,5 +1,5 @@
 """Scratch: parse the multi-agent research workflow output (JSON) into per-angle
-markdown archives under docs/research_raw/.
+markdown archives under docs/research/imported/ (unapproved research).
 
 Run:  ./python.sh src/eda/digest_research_output.py <path_to_workflow_output_json>
 """
@@ -9,7 +9,7 @@ import sys
 from pathlib import Path
 
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
-OUT_DIR = PROJECT_ROOT / "docs" / "research_raw"
+OUT_DIR = PROJECT_ROOT / "docs" / "research" / "imported"
 
 
 def load_json_loosely(path: Path):
@@ -37,9 +37,9 @@ def main(src: str) -> None:
     for angle in data:
         key = angle["key"]
         lines = [f"# Research archive: {key}", "",
-                 "*Raw structured output from the 2026-06-10 multi-agent research run. "
-                 "Facts below are as-reported by research agents; entries in the "
-                 "Verifications section were independently adversarially checked.*", ""]
+                 "*Unapproved imported research. Facts and verification verdicts below "
+                 "are assertions in the input, not independently revalidated by this "
+                 "importer and not project decisions.*", ""]
 
         lines.append("## Facts")
         for f in angle.get("facts", []):

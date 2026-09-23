@@ -1,54 +1,33 @@
-# Tennis-predictions
+# Tennis predictions
 
-Tennis match outcome prediction for betting at market-maker sportsbooks (crypto-funded).
-Sister project to [UFC-Predictions](../UFC-Predictions/) — same philosophy, ported to a sport
-with far richer public data and a deeper market: temporally-valid features, calibrated
-probabilities, expected-value gating on raw odds, fractional-Kelly staking with uncertainty
-haircuts, and closing-line-value tracking.
+Research toward a tennis analytics and betting system, with data connected to the markets actually available to bet on. The current priority is historical tennis data and its coverage of Polymarket events.
 
-**Status (2026-06-10):** Phase 0 complete — research + working scaffold. See
-[docs/00_overview.md](docs/00_overview.md) for the executive summary and reading order, and
-[docs/roadmap.md](docs/roadmap.md) for what's next.
+**No implementation roadmap has been approved.** The inherited one-shot LLM output is an unapproved seed of ideas, including its architecture, timelines, source claims, model choices, venue preferences, and exclusions. It is preserved in the [historical research archive](docs/research/legacy-one-shot/INDEX.md). A future roadmap will be rebuilt separately.
 
-## Why tennis, in one paragraph
+## Organization
 
-Two-player sport (the UFC modeling experience transfers), free canonical data (every pro match
-since 1968, serve stats since 1991, free closing odds since 2001), ~60 main-tour matches a week
-(fast feedback, tight statistics), and a verified research consensus that rewards exactly the
-discipline this program already practices: the market is the best public forecaster, and the
-only published profits come from betting *selective subsets* where the market is structurally
-blind — uncertainty-gated, settlement-rule-aware, market-anchored betting. Two genuinely novel
-layers surfaced by the research: nobody records tennis opening→closing line history anymore
-(free Pinnacle closes died Feb 2026 — we capture our own from day one), and nobody prices
-per-book retirement settlement rules (4.8% of 2025 ATP matches ended in retirement; rules
-verified to differ across our books).
+The organizing sequence is **data → data science process → predictions → betting venues and available markets → the bet itself**. Market identity, timestamps, and settlement rules also constrain what data is useful at the start. This is a domain map, not a scheduled implementation plan.
 
-## Quickstart
+Start with the [documentation index](docs/00_overview.md), [pipeline boundaries](docs/pipeline.md), and [roadmap status](docs/roadmap.md). Current evidence belongs in [research](docs/research/README.md); bounded experiments belong in [studies](docs/studies/README.md).
 
-```bash
-conda env create -f environment.yml      # one-time: creates the `tennis` env
-./python.sh -m pytest                    # 16 tests (Elo + betting math)
-./python.sh src/ingest/download_sackmann.py --tour atp --start 2023 --end 2025
-./python.sh src/ingest/download_tennis_data_couk.py --tour both --start 2024 --end 2026
-./python.sh src/eda/smoke_elo_walkforward.py
-# -> 9,006 matches, walk-forward log loss 0.638 / accuracy 0.629 (post burn-in),
-#    top Elo: Sinner, Alcaraz, Djokovic — the spine works end to end.
-```
+The [tennis data and Polymarket coverage audit](docs/research/tennis-data-audit/README.md) is the current research deliverable, with a linked source register, market inventory, payload-quality checks and saved evidence. It does not approve a dataset, model or architecture. The [public data dump](docs/studies/public_data_dump/README.md) is the first acquisition run built on it: public sources from 2010 onward, staged by source under `data/dump/`, with a [proposed target structure](docs/studies/public_data_dump/structure-plan.md) for the cleaning and merge phase.
 
-## Layout
+| Location | Purpose and current status |
+|---|---|
+| `data/`, `src/ingest/` | Source data, provenance, and experimental loaders |
+| `src/eda/`, `docs/studies/`, `data/studies/` | Investigations, reports, reproducible evidence |
+| `src/ratings/`, `src/features/`, `src/models/` | Inherited experiments or reserved homes; no approved model stack |
+| `predictions/` | Reserved home for future prediction outputs |
+| `config/` | Future explicit configuration; no approved venue configuration |
+| `src/betting/`, `data/betting_history/` | Inherited betting-math experiment and reserved actual bet records |
+| `test/` | Scaffold tests; passing tests do not approve the scaffold |
+| `scripts/` | Notebooks, following the UFC convention |
+| `docs/research/legacy-one-shot/` | Archived suggestions, raw research, configuration, and paper extracts |
 
-```
-docs/            research reports 00-05 + roadmap + raw research archives (research_raw/)
-config/          books.yaml — verified per-book crypto/limits/settlement-rule facts
-src/ingest/      downloaders (live-verified) + chronological match loader
-src/ratings/     surface-blended Elo, FiveThirtyEight spec (verified vs Kovalchik 2016)
-src/betting/     EV / fractional Kelly / CLV math (decimal-odds-native)
-src/features/    (stubs — Phase 2)   src/models/  (stubs — Phase 3)
-src/eda/         scratch + study scripts
-test/            pytest suites
-data/raw/        downloaded source data (gitignored; rebuild via src/ingest/)
-scripts/         notebooks only (none yet)
-```
+The sibling [UFC project](../ufc-predictions/) is an organizational reference. Its production model choices and deployment rules are not automatically tennis decisions.
 
-`CLAUDE.md` carries the working conventions (env shim, git policy, file-placement rules,
-core principles). Read it before contributing.
+## Existing scaffold
+
+The source code is retained for inspection and possible reuse. It does not establish production readiness, chronological correctness, data completeness, or a chosen architecture. Original benchmark claims remain in the archive and were not revalidated by the documentation reorganization.
+
+The documented environment is the `tennis` Conda environment through `./python.sh`; see [working conventions](CLAUDE.md). Running code is separate from approving it.

@@ -1,0 +1,40 @@
+{
+  "generated_at": "2026-09-22T23:30:37+00:00",
+  "canonical_matches": 873362,
+  "player_match_rows": 1746724,
+  "timings_seconds": {
+    "load_and_link_sources": 5.86,
+    "build_two_row_facts_table": 2.53,
+    "career_features_vectorised": 0.27,
+    "decayed_win_rate_one_pass": 3.14,
+    "elo_one_pass_over_matches": 0.89
+  },
+  "table_sizes": {
+    "facts_two_rows_per_match": {
+      "rows": 1746724,
+      "columns": 17,
+      "parquet_MB": 17.1,
+      "in_memory_MB": 180.8
+    },
+    "pre_match_features": {
+      "rows": 1746724,
+      "columns": 8,
+      "parquet_MB": 30.3,
+      "in_memory_MB": 87.6
+    }
+  },
+  "ordering_checks": {
+    "player_rows_sharing_week_and_round_with_another_of_their_rows": 10235,
+    "of_which_round_robin": 8718,
+    "of_which_missing_player_id": 134,
+    "of_which_same_player_week_round_under_two_tournament_ids": 886,
+    "of_which_same_tournament_id": 497,
+    "first_appearance_rows_with_nonzero_history": 0,
+    "elo_favourite_won_pct": 68.3
+  },
+  "per_row_lookback": {
+    "seconds_per_row_measured_on_300_rows": 0.0138,
+    "extrapolated_hours_per_feature_column": 6.7
+  },
+  "note": "Illustrative features only. Tournament-week dates mean same-event matches are ordered by round; rows sharing a player, week and round are duplicates or round-robin matches needing per-match dates."
+}
