@@ -1,0 +1,95 @@
+{
+ "source": "tennislive",
+ "started_at": "2026-09-24T01:49:00+00:00",
+ "args": {
+  "slugs": "brandon-holt",
+  "seasons": "2023",
+  "states": "finished",
+  "doubles": false,
+  "limit": 3,
+  "max_requests": 30,
+  "min_interval": 1.5,
+  "jitter": 1.0,
+  "refresh": false,
+  "refresh_index": false,
+  "skip_index": false,
+  "skip_matches": false,
+  "stage_only": false,
+  "no_stage": false
+ },
+ "players": {
+  "brandon-holt": {
+   "slug": "brandon-holt",
+   "name": "Brandon Holt",
+   "seasons_available": [
+    "2026",
+    "2025",
+    "2024",
+    "2023",
+    "2022",
+    "2021",
+    "2020",
+    "2019",
+    "2018",
+    "2017",
+    "2016"
+   ],
+   "seasons_fetched": [
+    "2023"
+   ],
+   "pages": 1,
+   "matches_listed": 46,
+   "errors": []
+  }
+ },
+ "matches_listed": 46,
+ "matches_selected": 3,
+ "fetch_outcomes": {
+  "page:200": 3
+ },
+ "client": {
+  "impersonate": "safari",
+  "requests": 5,
+  "retried": 0,
+  "slept_seconds": 3.9,
+  "min_interval": 1.5
+ },
+ "staged": {
+  "index": {
+   "rows": 46,
+   "dest": "data/dump/points/tennislive/index.parquet",
+   "bytes": 20734
+  },
+  "matches": {
+   "rows": 46,
+   "dest": "data/dump/points/tennislive/matches.parquet",
+   "bytes": 22149
+  },
+  "games": {
+   "rows": 61,
+   "dest": "data/dump/points/tennislive/games.parquet",
+   "bytes": 8013
+  },
+  "points": {
+   "rows": 285,
+   "dest": "data/dump/points/tennislive/points.parquet",
+   "bytes": 7211
+  },
+  "statistics": {
+   "rows": 24,
+   "dest": "data/dump/points/tennislive/statistics.parquet",
+   "bytes": 5854
+  }
+ },
+ "listed_by_season_kind_state": {
+  "2023|singles|finished": 46
+ },
+ "pages_by_year_status_pbp": {
+  "2023|200|pbp": 3,
+  "2023|not fetched": 43
+ },
+ "receipts_with_errors": 0,
+ "error_examples": [],
+ "finished_at": "2026-09-24T01:49:09+00:00",
+ "seconds": 8.5
+}

@@ -1,0 +1,92 @@
+{
+ "source": "sofascore",
+ "started_at": "2026-09-24T01:42:26+00:00",
+ "args": {
+  "team_ids": "376882",
+  "since_year": null,
+  "until_year": null,
+  "statuses": null,
+  "doubles": false,
+  "with_detail": false,
+  "skip": null,
+  "limit": 8,
+  "max_requests": 300,
+  "min_interval": 1.0,
+  "jitter": 0.6,
+  "refresh": false,
+  "refresh_listings": false,
+  "stage_only": false,
+  "no_stage": false
+ },
+ "teams": {
+  "376882": {
+   "team_id": "376882",
+   "pages": 13,
+   "events_listed": 379,
+   "end": "hasNextPage false at page 12",
+   "label": "376882"
+  }
+ },
+ "errors": [],
+ "events_listed": 379,
+ "events_selected": 8,
+ "fetch_outcomes": {
+  "point-by-point:200": 8,
+  "statistics:200": 8
+ },
+ "client": {
+  "impersonate": "chrome",
+  "requests": 29,
+  "retried": 0,
+  "slept_seconds": 32.9,
+  "min_interval": 1.0
+ },
+ "staged": {
+  "events": {
+   "rows": 379,
+   "dest": "data/dump/points/sofascore/events.parquet",
+   "bytes": 69385
+  },
+  "points": {
+   "rows": 959,
+   "dest": "data/dump/points/sofascore/points.parquet",
+   "bytes": 14385
+  },
+  "statistics": {
+   "rows": 234,
+   "dest": "data/dump/points/sofascore/statistics.parquet",
+   "bytes": 11554
+  }
+ },
+ "listed_by_kind_category_year": {
+  "doubles|ITF Men|2021": 7,
+  "doubles|ITF Men|2022": 6,
+  "doubles|ITF Men|2023": 16,
+  "doubles|ITF Men|2024": 24,
+  "doubles|ITF Men|2025": 18,
+  "doubles|ITF Men|2026": 7,
+  "singles|Challenger|2024": 3,
+  "singles|Challenger|2025": 1,
+  "singles|Challenger|2026": 38,
+  "singles|ITF Men|2021": 21,
+  "singles|ITF Men|2022": 20,
+  "singles|ITF Men|2023": 72,
+  "singles|ITF Men|2024": 50,
+  "singles|ITF Men|2025": 70,
+  "singles|ITF Men|2026": 26
+ },
+ "listed_by_kind_status": {
+  "doubles|canceled": 3,
+  "doubles|finished": 75,
+  "singles|canceled": 2,
+  "singles|finished": 299
+ },
+ "selected_pbp_outcome_by_category_year": {
+  "Challenger|2026|200": 3,
+  "ITF Men|2026|200": 5
+ },
+ "receipts_with_errors": 0,
+ "error_examples": [],
+ "finished_at": "2026-09-24T01:43:04+00:00",
+ "seconds": 37.1
+}
