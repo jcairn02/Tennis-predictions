@@ -1,0 +1,845 @@
+{
+ "source": "open_tennis_data",
+ "notes": [
+  "Open Tennis Data's dates come from tennis-data.co.uk (its 'source' column cites it on every row): agreement with tennis-data is not an independent check.",
+  "Like tennis-data, its day is the UK calendar day of the match (measured: 99.8% in the Americas against 75% for the venue's day). That is the venue's day only in Europe, Africa and Asia, where date_basis is 'local'; in the Americas, Oceania and where the zone is unknown it is 'utc_date' (the UK day, within an hour of UTC; no time is given to convert)."
+ ],
+ "input": {
+  "rows_read": 26619,
+  "left_out": {
+   "unreadable_date": 0
+  },
+  "release": "data-v3-20260905T083014Z",
+  "player_slots_without_sackmann_id": 7,
+  "rows_in_scope": 26619
+ },
+ "rows_in_scope": 26619,
+ "row_status": {
+  "linked": 26581,
+  "candidates_failed_checks": 33,
+  "unlinked": 3,
+  "match_taken_by_better_row": 2
+ },
+ "linked": 26581,
+ "ambiguous": 0,
+ "unlinked": 38,
+ "passes": {
+  "sackmann_ids": {
+   "candidates": 26588,
+   "linked": 26536,
+   "ambiguous": 0,
+   "lost_to_better_row": 2,
+   "linked_identical_scores": 26346,
+   "linked_round_agrees": 26286
+  },
+  "names": {
+   "candidates": 41,
+   "linked": 41,
+   "ambiguous": 0,
+   "lost_to_better_row": 0,
+   "linked_identical_scores": 39,
+   "linked_round_agrees": 16
+  },
+  "abbreviated_names": {
+   "candidates": 2,
+   "linked": 2,
+   "ambiguous": 0,
+   "lost_to_better_row": 0,
+   "linked_identical_scores": 2,
+   "linked_round_agrees": 1
+  },
+  "one_player_anchor": {
+   "candidates": 2,
+   "linked": 2,
+   "not_unique": 0
+  }
+ },
+ "links_by_method": [
+  {
+   "link_method": "abbreviated_names",
+   "links": 2,
+   "dated": 2,
+   "score_agrees": 2,
+   "score_differs": 0,
+   "round_agrees": 1,
+   "round_differs": 1
+  },
+  {
+   "link_method": "names",
+   "links": 41,
+   "dated": 41,
+   "score_agrees": 39,
+   "score_differs": 1,
+   "round_agrees": 16,
+   "round_differs": 25
+  },
+  {
+   "link_method": "one_player_anchor",
+   "links": 2,
+   "dated": 2,
+   "score_agrees": 2,
+   "score_differs": 0,
+   "round_agrees": 2,
+   "round_differs": 0
+  },
+  {
+   "link_method": "sackmann_ids",
+   "links": 26536,
+   "dated": 26536,
+   "score_agrees": 26346,
+   "score_differs": 12,
+   "round_agrees": 26286,
+   "round_differs": 250
+  }
+ ],
+ "date_basis": {
+  "local": 15457,
+  "utc_date": 11124
+ },
+ "links_with_date": 26581,
+ "links_with_start_utc": 0,
+ "score_agrees": {
+  "True": 26389,
+  "unknown": 179,
+  "False": 13
+ },
+ "round_agrees": {
+  "True": 26305,
+  "False": 276
+ },
+ "agreement_with_tennis_data": {
+  "matches": 26394,
+  "same_day": 26391,
+  "same_day_pct": 99.99,
+  "one_day_off": 0,
+  "one_day_off_pct": 0.0,
+  "larger": 3,
+  "larger_pct": 0.01,
+  "source_minus_td_days": {
+   "0": 26391
+  },
+  "by_basis": {
+   "local": {
+    "matches": 15455,
+    "same_day": 15452,
+    "same_day_pct": 99.98,
+    "one_day_off": 0,
+    "one_day_off_pct": 0.0,
+    "larger": 3,
+    "larger_pct": 0.02,
+    "source_minus_td_days": {
+     "0": 15452
+    }
+   },
+   "utc_date": {
+    "matches": 10939,
+    "same_day": 10939,
+    "same_day_pct": 100.0,
+    "one_day_off": 0,
+    "one_day_off_pct": 0.0,
+    "larger": 0,
+    "larger_pct": 0.0,
+    "source_minus_td_days": {
+     "0": 10939
+    }
+   }
+  },
+  "by_tour": {
+   "atp": {
+    "matches": 13631,
+    "same_day": 13630,
+    "same_day_pct": 99.99,
+    "one_day_off": 0,
+    "one_day_off_pct": 0.0,
+    "larger": 1,
+    "larger_pct": 0.01,
+    "source_minus_td_days": {
+     "0": 13630
+    }
+   },
+   "wta": {
+    "matches": 12763,
+    "same_day": 12761,
+    "same_day_pct": 99.98,
+    "one_day_off": 0,
+    "one_day_off_pct": 0.0,
+    "larger": 2,
+    "larger_pct": 0.02,
+    "source_minus_td_days": {
+     "0": 12761
+    }
+   }
+  },
+  "by_region": {
+   "Americas": {
+    "matches": 7988,
+    "same_day": 7988,
+    "same_day_pct": 100.0,
+    "one_day_off": 0,
+    "one_day_off_pct": 0.0,
+    "larger": 0,
+    "larger_pct": 0.0,
+    "source_minus_td_days": {
+     "0": 7988
+    }
+   },
+   "elsewhere": {
+    "matches": 18406,
+    "same_day": 18403,
+    "same_day_pct": 99.98,
+    "one_day_off": 0,
+    "one_day_off_pct": 0.0,
+    "larger": 3,
+    "larger_pct": 0.02,
+    "source_minus_td_days": {
+     "0": 18403
+    }
+   }
+  },
+  "events_not_same_day": 3,
+  "events_with_most_disagreement": [
+   {
+    "tour": "atp",
+    "year": 2026,
+    "tournament_name": "Wimbledon",
+    "matches": 62,
+    "not_same_day": 1,
+    "median_diff": 0.0,
+    "tz": "Europe/London"
+   },
+   {
+    "tour": "wta",
+    "year": 2026,
+    "tournament_name": "Wimbledon",
+    "matches": 55,
+    "not_same_day": 1,
+    "median_diff": 0.0,
+    "tz": "Europe/London"
+   },
+   {
+    "tour": "wta",
+    "year": 2026,
+    "tournament_name": "Bad Homburg",
+    "matches": 9,
+    "not_same_day": 1,
+    "median_diff": 0.0,
+    "tz": "Europe/Berlin"
+   }
+  ],
+  "worst": [
+   {
+    "match_id": "atp|2026-540|QF|atp:100644|atp:126203",
+    "source_key": "match_61894fcc72a8610c94d893f8",
+    "tournament_name": "Wimbledon",
+    "round": "QF",
+    "tournament_date": "2026-06-29",
+    "date_local": "2026-06-20",
+    "td_date": "2026-07-08",
+    "diff": -18.0,
+    "date_basis": "local",
+    "link_method": "sackmann_ids"
+   },
+   {
+    "match_id": "wta|2026-2017|F|wta:211768|wta:214096",
+    "source_key": "match_9edce7fbb618ee074c842590",
+    "tournament_name": "Bad Homburg",
+    "round": "F",
+    "tournament_date": "2026-06-21",
+    "date_local": "2026-07-07",
+    "td_date": "2026-06-27",
+    "diff": 10.0,
+    "date_basis": "local",
+    "link_method": "sackmann_ids"
+   },
+   {
+    "match_id": "wta|2026-904|QF|wta:211768|wta:214096",
+    "source_key": "match_eca1a106e16253d7323de4eb",
+    "tournament_name": "Wimbledon",
+    "round": "QF",
+    "tournament_date": "2026-06-29",
+    "date_local": "2026-06-27",
+    "td_date": "2026-07-07",
+    "diff": -10.0,
+    "date_basis": "local",
+    "link_method": "sackmann_ids"
+   }
+  ]
+ },
+ "date_flags": {
+  "dated_links": 26581,
+  "main_draw_more_than_1_day_before_start": 28,
+  "qualifying_more_than_1_day_before_start_expected": 0,
+  "after_plausible_end": 1,
+  "round_of_16_or_later_dated_on_or_before_start": 2,
+  "plausible_end_days_by_level": {
+   "GS": 15,
+   "T1000": 14,
+   "TEAM": 14,
+   "FIN": 10,
+   "other": 9
+  },
+  "flagged_main_draw_early": [
+   {
+    "match_id": "atp|2026-540|QF|atp:100644|atp:126203",
+    "source_key": "match_61894fcc72a8610c94d893f8",
+    "tournament_name": "Wimbledon",
+    "level": "GS",
+    "round": "QF",
+    "tournament_date": "2026-06-29",
+    "date_local": "2026-06-20",
+    "days": -9.0,
+    "link_method": "sackmann_ids"
+   },
+   {
+    "match_id": "atp|2020-M024|R64|atp:105936|atp:106099",
+    "source_key": "match:atp:1064e9474ffe38a62e9c",
+    "tournament_name": "Cincinnati Masters",
+    "level": "T1000",
+    "round": "R64",
+    "tournament_date": "2020-08-24",
+    "date_local": "2020-08-22",
+    "days": -2.0,
+    "link_method": "sackmann_ids"
+   },
+   {
+    "match_id": "wta|2020-M024|R64|wta:201458|wta:202499",
+    "source_key": "match:wta:d3ef8bbf8f592ebe7fd7",
+    "tournament_name": "Cincinnati",
+    "level": "T1000",
+    "round": "R64",
+    "tournament_date": "2020-08-24",
+    "date_local": "2020-08-22",
+    "days": -2.0,
+    "link_method": "sackmann_ids"
+   },
+   {
+    "match_id": "wta|2020-M024|R64|wta:201427|wta:216083",
+    "source_key": "match:wta:68ef601cdd569383c4a5",
+    "tournament_name": "Cincinnati",
+    "level": "T1000",
+    "round": "R64",
+    "tournament_date": "2020-08-24",
+    "date_local": "2020-08-22",
+    "days": -2.0,
+    "link_method": "sackmann_ids"
+   },
+   {
+    "match_id": "atp|2020-M024|R64|atp:104918|atp:126207",
+    "source_key": "match:atp:530cd1ab925e6763c2f4",
+    "tournament_name": "Cincinnati Masters",
+    "level": "T1000",
+    "round": "R64",
+    "tournament_date": "2020-08-24",
+    "date_local": "2020-08-22",
+    "days": -2.0,
+    "link_method": "sackmann_ids"
+   },
+   {
+    "match_id": "atp|2020-M024|R64|atp:104731|atp:106378",
+    "source_key": "match:atp:66dcaf19245c99dfdacf",
+    "tournament_name": "Cincinnati Masters",
+    "level": "T1000",
+    "round": "R64",
+    "tournament_date": "2020-08-24",
+    "date_local": "2020-08-22",
+    "days": -2.0,
+    "link_method": "sackmann_ids"
+   },
+   {
+    "match_id": "wta|2020-M024|R64|wta:206289|wta:221103",
+    "source_key": "match:wta:79d026a260ef60e6a02d",
+    "tournament_name": "Cincinnati",
+    "level": "T1000",
+    "round": "R64",
+    "tournament_date": "2020-08-24",
+    "date_local": "2020-08-22",
+    "days": -2.0,
+    "link_method": "sackmann_ids"
+   },
+   {
+    "match_id": "atp|2020-M024|R64|atp:111815|atp:124187",
+    "source_key": "match:atp:1a557aa10a39c45ee850",
+    "tournament_name": "Cincinnati Masters",
+    "level": "T1000",
+    "round": "R64",
+    "tournament_date": "2020-08-24",
+    "date_local": "2020-08-22",
+    "days": -2.0,
+    "link_method": "sackmann_ids"
+   },
+   {
+    "match_id": "atp|2020-M024|R64|atp:105583|atp:105807",
+    "source_key": "match:atp:9701d1b00d47f3677bcf",
+    "tournament_name": "Cincinnati Masters",
+    "level": "T1000",
+    "round": "R64",
+    "tournament_date": "2020-08-24",
+    "date_local": "2020-08-22",
+    "days": -2.0,
+    "link_method": "sackmann_ids"
+   },
+   {
+    "match_id": "atp|2020-M024|R64|atp:126203|atp:144750",
+    "source_key": "match:atp:5200a85d95e333123665",
+    "tournament_name": "Cincinnati Masters",
+    "level": "T1000",
+    "round": "R64",
+    "tournament_date": "2020-08-24",
+    "date_local": "2020-08-22",
+    "days": -2.0,
+    "link_method": "sackmann_ids"
+   },
+   {
+    "match_id": "wta|2020-M024|R64|wta:201586|wta:211095",
+    "source_key": "match:wta:f2f21d432127841622b6",
+    "tournament_name": "Cincinnati",
+    "level": "T1000",
+    "round": "R64",
+    "tournament_date": "2020-08-24",
+    "date_local": "2020-08-22",
+    "days": -2.0,
+    "link_method": "sackmann_ids"
+   },
+   {
+    "match_id": "wta|2020-M024|R64|wta:206420|wta:214981",
+    "source_key": "match:wta:41b91573e44e53321605",
+    "tournament_name": "Cincinnati",
+    "level": "T1000",
+    "round": "R64",
+    "tournament_date": "2020-08-24",
+    "date_local": "2020-08-22",
+    "days": -2.0,
+    "link_method": "sackmann_ids"
+   },
+   {
+    "match_id": "atp|2020-M024|R64|atp:105332|atp:106432",
+    "source_key": "match:atp:9fdca05074c33100344a",
+    "tournament_name": "Cincinnati Masters",
+    "level": "T1000",
+    "round": "R64",
+    "tournament_date": "2020-08-24",
+    "date_local": "2020-08-22",
+    "days": -2.0,
+    "link_method": "sackmann_ids"
+   },
+   {
+    "match_id": "atp|2020-M024|R64|atp:105526|atp:200282",
+    "source_key": "match:atp:9088e53a8a9560073502",
+    "tournament_name": "Cincinnati Masters",
+    "level": "T1000",
+    "round": "R64",
+    "tournament_date": "2020-08-24",
+    "date_local": "2020-08-22",
+    "days": -2.0,
+    "link_method": "sackmann_ids"
+   },
+   {
+    "match_id": "wta|2020-M024|R64|wta:201540|wta:201545",
+    "source_key": "match:wta:521d3d854386a03d0085",
+    "tournament_name": "Cincinnati",
+    "level": "T1000",
+    "round": "R64",
+    "tournament_date": "2020-08-24",
+    "date_local": "2020-08-22",
+    "days": -2.0,
+    "link_method": "sackmann_ids"
+   },
+   {
+    "match_id": "atp|2020-M024|R64|atp:105932|atp:200000",
+    "source_key": "match:atp:12fc8981f9cb2e01caa7",
+    "tournament_name": "Cincinnati Masters",
+    "level": "T1000",
+    "round": "R64",
+    "tournament_date": "2020-08-24",
+    "date_local": "2020-08-22",
+    "days": -2.0,
+    "link_method": "sackmann_ids"
+   },
+   {
+    "match_id": "wta|2020-M024|R64|wta:201548|wta:206368",
+    "source_key": "match:wta:d130e675cb406c0d8f20",
+    "tournament_name": "Cincinnati",
+    "level": "T1000",
+    "round": "R64",
+    "tournament_date": "2020-08-24",
+    "date_local": "2020-08-22",
+    "days": -2.0,
+    "link_method": "sackmann_ids"
+   },
+   {
+    "match_id": "wta|2023-1020|R64|wta:215713|wta:219875",
+    "source_key": "match:wta:e3219bceaf38c98bf9ca",
+    "tournament_name": "Beijing",
+    "level": "T1000",
+    "round": "R64",
+    "tournament_date": "2023-10-02",
+    "date_local": "2023-09-30",
+    "days": -2.0,
+    "link_method": "sackmann_ids"
+   },
+   {
+    "match_id": "wta|2023-1020|R64|wta:201458|wta:202663",
+    "source_key": "match:wta:16263c16ca2d44bf2b82",
+    "tournament_name": "Beijing",
+    "level": "T1000",
+    "round": "R64",
+    "tournament_date": "2023-10-02",
+    "date_local": "2023-09-30",
+    "days": -2.0,
+    "link_method": "sackmann_ids"
+   },
+   {
+    "match_id": "atp|2020-M024|R64|atp:105575|atp:126205",
+    "source_key": "match:atp:fe5357bfc2672356f8fb",
+    "tournament_name": "Cincinnati Masters",
+    "level": "T1000",
+    "round": "R64",
+    "tournament_date": "2020-08-24",
+    "date_local": "2020-08-22",
+    "days": -2.0,
+    "link_method": "sackmann_ids"
+   },
+   {
+    "match_id": "wta|2023-1020|R64|wta:201514|wta:201549",
+    "source_key": "match:wta:159120f78b36417d32e4",
+    "tournament_name": "Beijing",
+    "level": "T1000",
+    "round": "R64",
+    "tournament_date": "2023-10-02",
+    "date_local": "2023-09-30",
+    "days": -2.0,
+    "link_method": "sackmann_ids"
+   },
+   {
+    "match_id": "wta|2023-1020|R64|wta:216146|wta:220714",
+    "source_key": "match:wta:30beca0ec87686942e43",
+    "tournament_name": "Beijing",
+    "level": "T1000",
+    "round": "R64",
+    "tournament_date": "2023-10-02",
+    "date_local": "2023-09-30",
+    "days": -2.0,
+    "link_method": "sackmann_ids"
+   },
+   {
+    "match_id": "wta|2023-1020|R64|wta:203354|wta:213583",
+    "source_key": "match:wta:ed32f000392b081f122d",
+    "tournament_name": "Beijing",
+    "level": "T1000",
+    "round": "R64",
+    "tournament_date": "2023-10-02",
+    "date_local": "2023-09-30",
+    "days": -2.0,
+    "link_method": "sackmann_ids"
+   },
+   {
+    "match_id": "wta|2023-1020|R64|wta:202499|wta:215020",
+    "source_key": "match:wta:d65dbe2583d1d8bfbff9",
+    "tournament_name": "Beijing",
+    "level": "T1000",
+    "round": "R64",
+    "tournament_date": "2023-10-02",
+    "date_local": "2023-09-30",
+    "days": -2.0,
+    "link_method": "sackmann_ids"
+   },
+   {
+    "match_id": "wta|2023-1020|R64|wta:206294|wta:210722",
+    "source_key": "match:wta:3bbb65bbb0df42c09a98",
+    "tournament_name": "Beijing",
+    "level": "T1000",
+    "round": "R64",
+    "tournament_date": "2023-10-02",
+    "date_local": "2023-09-30",
+    "days": -2.0,
+    "link_method": "sackmann_ids"
+   },
+   {
+    "match_id": "wta|2024-808|RR|wta:211148|wta:214981",
+    "source_key": "match:wta:61aad0e3b7db0059bb9c",
+    "tournament_name": "Riyadh Finals",
+    "level": "FIN",
+    "round": "RR",
+    "tournament_date": "2024-11-04",
+    "date_local": "2024-11-02",
+    "days": -2.0,
+    "link_method": "sackmann_ids"
+   },
+   {
+    "match_id": "wta|2024-808|RR|wta:214544|wta:221012",
+    "source_key": "match:wta:28324c8714d5d16f8a37",
+    "tournament_name": "Riyadh Finals",
+    "level": "FIN",
+    "round": "RR",
+    "tournament_date": "2024-11-04",
+    "date_local": "2024-11-02",
+    "days": -2.0,
+    "link_method": "sackmann_ids"
+   },
+   {
+    "match_id": "wta|2026-904|QF|wta:211768|wta:214096",
+    "source_key": "match_eca1a106e16253d7323de4eb",
+    "tournament_name": "Wimbledon",
+    "level": "GS",
+    "round": "QF",
+    "tournament_date": "2026-06-29",
+    "date_local": "2026-06-27",
+    "days": -2.0,
+    "link_method": "sackmann_ids"
+   }
+  ],
+  "flagged_after_end": [
+   {
+    "match_id": "wta|2026-2017|F|wta:211768|wta:214096",
+    "source_key": "match_9edce7fbb618ee074c842590",
+    "tournament_name": "Bad Homburg",
+    "level": "T500",
+    "round": "F",
+    "tournament_date": "2026-06-21",
+    "date_local": "2026-07-07",
+    "days": 16.0,
+    "link_method": "sackmann_ids"
+   }
+  ],
+  "examples_round_of_16_or_later_on_or_before_start": [
+   {
+    "match_id": "atp|2026-540|QF|atp:100644|atp:126203",
+    "source_key": "match_61894fcc72a8610c94d893f8",
+    "tournament_name": "Wimbledon",
+    "level": "GS",
+    "round": "QF",
+    "tournament_date": "2026-06-29",
+    "date_local": "2026-06-20",
+    "days": -9.0,
+    "link_method": "sackmann_ids"
+   },
+   {
+    "match_id": "wta|2026-904|QF|wta:211768|wta:214096",
+    "source_key": "match_eca1a106e16253d7323de4eb",
+    "tournament_name": "Wimbledon",
+    "level": "GS",
+    "round": "QF",
+    "tournament_date": "2026-06-29",
+    "date_local": "2026-06-27",
+    "days": -2.0,
+    "link_method": "sackmann_ids"
+   }
+  ],
+  "days_from_start_quantiles": {
+   "0.0": -9.0,
+   "0.01": -1.0,
+   "0.5": 2.0,
+   "0.99": 10.0,
+   "1.0": 16.0
+  }
+ },
+ "agreement_with_timed_sources_venue_day": {
+  "matches": 19085,
+  "same_day": 17584,
+  "same_day_pct": 92.14,
+  "one_day_off": 1498,
+  "one_day_off_pct": 7.85,
+  "larger": 3,
+  "larger_pct": 0.02,
+  "source_minus_td_days": {
+   "-1": 75,
+   "0": 17584,
+   "1": 1423
+  },
+  "by_tour": {
+   "atp": {
+    "matches": 11563,
+    "same_day": 10580,
+    "same_day_pct": 91.5,
+    "one_day_off": 982,
+    "one_day_off_pct": 8.49,
+    "larger": 1,
+    "larger_pct": 0.01,
+    "source_minus_td_days": {
+     "-1": 52,
+     "0": 10580,
+     "1": 930
+    }
+   },
+   "wta": {
+    "matches": 7522,
+    "same_day": 7004,
+    "same_day_pct": 93.11,
+    "one_day_off": 516,
+    "one_day_off_pct": 6.86,
+    "larger": 2,
+    "larger_pct": 0.03,
+    "source_minus_td_days": {
+     "-1": 23,
+     "0": 7004,
+     "1": 493
+    }
+   }
+  },
+  "by_region": {
+   "Americas": {
+    "matches": 5767,
+    "same_day": 4344,
+    "same_day_pct": 75.33,
+    "one_day_off": 1423,
+    "one_day_off_pct": 24.67,
+    "larger": 0,
+    "larger_pct": 0.0,
+    "source_minus_td_days": {
+     "0": 4344,
+     "1": 1423
+    }
+   },
+   "elsewhere": {
+    "matches": 13318,
+    "same_day": 13240,
+    "same_day_pct": 99.41,
+    "one_day_off": 75,
+    "one_day_off_pct": 0.56,
+    "larger": 3,
+    "larger_pct": 0.02,
+    "source_minus_td_days": {
+     "-1": 75,
+     "0": 13240
+    }
+   }
+  },
+  "events_least_agreeing": [
+   {
+    "tour": "atp",
+    "year": 2023,
+    "tournament_name": "Acapulco",
+    "matches": 27,
+    "same_day_pct": 0.0,
+    "later": 27,
+    "earlier": 0
+   },
+   {
+    "tour": "atp",
+    "year": 2024,
+    "tournament_name": "Acapulco",
+    "matches": 27,
+    "same_day_pct": 0.0,
+    "later": 27,
+    "earlier": 0
+   },
+   {
+    "tour": "atp",
+    "year": 2025,
+    "tournament_name": "Acapulco",
+    "matches": 24,
+    "same_day_pct": 0.0,
+    "later": 24,
+    "earlier": 0
+   },
+   {
+    "tour": "atp",
+    "year": 2021,
+    "tournament_name": "Los Cabos",
+    "matches": 23,
+    "same_day_pct": 0.0,
+    "later": 23,
+    "earlier": 0
+   },
+   {
+    "tour": "atp",
+    "year": 2022,
+    "tournament_name": "Los Cabos",
+    "matches": 21,
+    "same_day_pct": 0.0,
+    "later": 21,
+    "earlier": 0
+   },
+   {
+    "tour": "atp",
+    "year": 2025,
+    "tournament_name": "Los Cabos",
+    "matches": 17,
+    "same_day_pct": 0.0,
+    "later": 17,
+    "earlier": 0
+   },
+   {
+    "tour": "atp",
+    "year": 2026,
+    "tournament_name": "Los Cabos",
+    "matches": 16,
+    "same_day_pct": 0.0,
+    "later": 16,
+    "earlier": 0
+   },
+   {
+    "tour": "atp",
+    "year": 2026,
+    "tournament_name": "Acapulco",
+    "matches": 13,
+    "same_day_pct": 0.0,
+    "later": 13,
+    "earlier": 0
+   },
+   {
+    "tour": "atp",
+    "year": 2022,
+    "tournament_name": "Acapulco",
+    "matches": 26,
+    "same_day_pct": 3.8,
+    "later": 25,
+    "earlier": 0
+   },
+   {
+    "tour": "atp",
+    "year": 2023,
+    "tournament_name": "Los Cabos",
+    "matches": 22,
+    "same_day_pct": 4.5,
+    "later": 21,
+    "earlier": 0
+   },
+   {
+    "tour": "atp",
+    "year": 2024,
+    "tournament_name": "Los Cabos",
+    "matches": 23,
+    "same_day_pct": 30.4,
+    "later": 16,
+    "earlier": 0
+   },
+   {
+    "tour": "wta",
+    "year": 2024,
+    "tournament_name": "Monterrey",
+    "matches": 21,
+    "same_day_pct": 33.3,
+    "later": 14,
+    "earlier": 0
+   },
+   {
+    "tour": "wta",
+    "year": 2025,
+    "tournament_name": "Monterrey",
+    "matches": 23,
+    "same_day_pct": 34.8,
+    "later": 15,
+    "earlier": 0
+   },
+   {
+    "tour": "wta",
+    "year": 2023,
+    "tournament_name": "Merida",
+    "matches": 26,
+    "same_day_pct": 42.3,
+    "later": 15,
+    "earlier": 0
+   },
+   {
+    "tour": "wta",
+    "year": 2024,
+    "tournament_name": "Guadalajara",
+    "matches": 19,
+    "same_day_pct": 47.4,
+    "later": 10,
+    "earlier": 0
+   }
+  ]
+ }
+}

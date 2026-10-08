@@ -1,0 +1,840 @@
+{
+ "what": "result-free check of the scorer's inputs (no match result read)",
+ "hashes": {
+  "SCORER_CODE_SHA256": "6bcfc06c2aff73b2bf40fd4bac17050629fc019c84a9af94fb38f39300c04ba8",
+  "MODEL_FRAME_SHA256": "6113966fd8286cb41738eb7b52e0d6d9e2d7631c980c3aec7be6e4bbbaaab06b",
+  "FEATURE_SHA256": "fcd8d24124e0d9987bd42c0557af27770dbd0c7fa314ddaa1ae7927f1328e0e3",
+  "REGISTRY_SHA256": "217100ecf7ab2799b0ccb924c8d459cf9aa1161350e6a80ab6ba963ce4bab389",
+  "EARLY_SHA256": "22809fa7a9422a22f28953292cca0d5db894470f3218bc23d45d3cdce9729a5c",
+  "POPULATION_SHA256": "e4ab0787b531526708fa7d97ffdd97a2878b02a1b113eda62c26b59d5296ef27"
+ },
+ "feature_status": {
+  "file": "C:\\Users\\zerom\\Documents\\Tennis-predictions\\data\\studies\\serve_speed_tabpfn\\features\\speed.parquet",
+  "exists": true,
+  "ok": true,
+  "problems": [],
+  "sha256": "fcd8d24124e0d9987bd42c0557af27770dbd0c7fa314ddaa1ae7927f1328e0e3",
+  "probes": {
+   "A": true,
+   "B": true
+  },
+  "standin_panel": false
+ },
+ "registry": {
+  "spd_f": {
+   "family": "speed",
+   "kind": "diff",
+   "arm": "spd (A1)",
+   "desc": "clip((f_A - f_B) / s_f, -4, 4): posterior fast first-serve-speed state (audit C3), men; women 0; never NaN"
+  },
+  "spd_raw": {
+   "family": "speed",
+   "kind": "diff",
+   "arm": "spd_raw (A2)",
+   "desc": "clip(x_raw / 5.998, -4, 4): the registered 14-day minus 364-day statistic on the new panel, men with both sides timed in 14 days; NaN otherwise"
+  },
+  "spd_f_all": {
+   "family": "speed",
+   "kind": "diff",
+   "arm": "spd_all (A3)",
+   "desc": "spd_f with women's Slam values from the women's constants and the men's s_f; never NaN"
+  }
+ },
+ "populations": {
+  "men 2024-2026": {
+   "matches": 7068,
+   "sha256": "e4ab0787b531526708fa7d97ffdd97a2878b02a1b113eda62c26b59d5296ef27",
+   "by_season": {
+    "2024": 2674,
+    "2025": 2620,
+    "2026": 1774
+   },
+   "spd_f_nonzero": 7066,
+   "spd_f_all_nonzero": 7066,
+   "spd_raw_present": 3874,
+   "blocks": 33
+  },
+  "women 2024-2026": {
+   "matches": 6586,
+   "sha256": "56afbd0937a307ab505eabc83bb918961915d4a7c420f46a26b8d7a9c880bbc8",
+   "by_season": {
+    "2024": 2460,
+    "2025": 2485,
+    "2026": 1641
+   },
+   "spd_f_nonzero": 0,
+   "spd_f_all_nonzero": 6539,
+   "spd_raw_present": 0,
+   "blocks": 33
+  },
+  "both 2024-2026": {
+   "matches": 13654,
+   "sha256": "0a9892a84dc6571d55ea91cc7c1d496c00645066ff5ffc63274815dace24333f",
+   "by_season": {
+    "2024": 5134,
+    "2025": 5105,
+    "2026": 3415
+   },
+   "spd_f_nonzero": 7066,
+   "spd_f_all_nonzero": 13605,
+   "spd_raw_present": 3874,
+   "blocks": 33
+  },
+  "men 2025-2026": {
+   "matches": 4394,
+   "sha256": "d84158d8e473cea0ebb7a3b5b54b5bab208daf11d74fdd122231366c356b518f",
+   "by_season": {
+    "2025": 2620,
+    "2026": 1774
+   },
+   "spd_f_nonzero": 4394,
+   "spd_f_all_nonzero": 4394,
+   "spd_raw_present": 2242,
+   "blocks": 21
+  },
+  "men_recency_both 2024-2026": {
+   "matches": 5420,
+   "sha256": "7c42803e5220c5783f046123c74a640fb8eee27f475f91f35b91e754f8d39909",
+   "by_season": {
+    "2024": 2104,
+    "2025": 1934,
+    "2026": 1382
+   },
+   "spd_f_nonzero": 5420,
+   "spd_f_all_nonzero": 5420,
+   "spd_raw_present": 3874,
+   "blocks": 33
+  },
+  "men_recency_one 2024-2026": {
+   "matches": 1130,
+   "sha256": "a74fe452db824ff62665fc78b0346df3e87e8ac690f5388816fcff27f26966c9",
+   "by_season": {
+    "2024": 441,
+    "2025": 413,
+    "2026": 276
+   },
+   "spd_f_nonzero": 1130,
+   "spd_f_all_nonzero": 1130,
+   "spd_raw_present": 0,
+   "blocks": 33
+  },
+  "men_recency_neither 2024-2026": {
+   "matches": 518,
+   "sha256": "1920f23f5ff53d5574acc7967cf7eb10a009a444f22e266a32ad89457205e6ab",
+   "by_season": {
+    "2024": 129,
+    "2025": 273,
+    "2026": 116
+   },
+   "spd_f_nonzero": 516,
+   "spd_f_all_nonzero": 516,
+   "spd_raw_present": 0,
+   "blocks": 29
+  },
+  "women_no_conflict 2024-2026": {
+   "matches": 6565,
+   "sha256": "0f13ed8e2108f7338f504de9bd8ae0bd4d15429b667ba5e5b0b06b046b7dc96b",
+   "by_season": {
+    "2024": 2460,
+    "2025": 2485,
+    "2026": 1620
+   },
+   "spd_f_nonzero": 0,
+   "spd_f_all_nonzero": 6518,
+   "spd_raw_present": 0,
+   "blocks": 33
+  },
+  "men_early_all 2025-2026": {
+   "matches": 1442,
+   "sha256": "a5f294fa536f3132b09f0d2cdd88d7e060229dd21d87ec0b6e4e3fce26c7cc23",
+   "by_season": {
+    "2025": 232,
+    "2026": 1210
+   },
+   "spd_f_nonzero": 1442,
+   "spd_f_all_nonzero": 1442,
+   "spd_raw_present": 747,
+   "blocks": 12
+  },
+  "men_early_clean 2025-2026": {
+   "matches": 582,
+   "sha256": "0f15ff549747e5f3ee44fa235219964aefc9078769dc6b99b8477a9acd2b79c2",
+   "by_season": {
+    "2025": 117,
+    "2026": 465
+   },
+   "spd_f_nonzero": 582,
+   "spd_f_all_nonzero": 582,
+   "spd_raw_present": 184,
+   "blocks": 11
+  }
+ },
+ "recency_available": true,
+ "men_2024_2026_recency": {
+  "both": 5420,
+  "one": 1130,
+  "neither": 518
+ },
+ "women_id_conflict_2024_2026": 21,
+ "fits": {
+  "model": {
+   "needed": 128,
+   "present": 128,
+   "missing": []
+  },
+  "model_noodds": {
+   "needed": 44,
+   "present": 44,
+   "missing": []
+  },
+  "spd": {
+   "needed": 68,
+   "present": 68,
+   "missing": []
+  },
+  "spd_all": {
+   "needed": 44,
+   "present": 44,
+   "missing": []
+  },
+  "spd_noodds": {
+   "needed": 44,
+   "present": 44,
+   "missing": []
+  },
+  "spd_raw": {
+   "needed": 44,
+   "present": 44,
+   "missing": []
+  }
+ },
+ "forecasts": {
+  "FORECASTS_SHA256": "198015082c60d4344960cc0cdc782ce3db71edd2c85747884c6fd25c3cac6e56",
+  "fits_present": 372,
+  "fits_missing": 0
+ },
+ "reuse_checks": {
+  "repro_check.json": true,
+  "fingerprint_check.json": true
+ },
+ "stale_speed_fits": {
+  "feature_sha256": "fcd8d24124e0d9987bd42c0557af27770dbd0c7fa314ddaa1ae7927f1328e0e3",
+  "speed_fits_checked": 200,
+  "mismatches": []
+ },
+ "comparisons": [
+  {
+   "cid": "P2",
+   "base": "model",
+   "arm": "spd",
+   "seeds": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15
+   ],
+   "population": "men",
+   "seasons": [
+    2024,
+    2025,
+    2026
+   ],
+   "metric": "calibrated",
+   "block": "td",
+   "loss": "ll"
+  },
+  {
+   "cid": "S1_2024",
+   "base": "model",
+   "arm": "spd",
+   "seeds": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15
+   ],
+   "population": "men",
+   "seasons": [
+    2024
+   ],
+   "metric": "calibrated",
+   "block": "td",
+   "loss": "ll"
+  },
+  {
+   "cid": "S1_2025",
+   "base": "model",
+   "arm": "spd",
+   "seeds": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15
+   ],
+   "population": "men",
+   "seasons": [
+    2025
+   ],
+   "metric": "calibrated",
+   "block": "td",
+   "loss": "ll"
+  },
+  {
+   "cid": "S1_2026",
+   "base": "model",
+   "arm": "spd",
+   "seeds": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15
+   ],
+   "population": "men",
+   "seasons": [
+    2026
+   ],
+   "metric": "calibrated",
+   "block": "td",
+   "loss": "ll"
+  },
+  {
+   "cid": "S2",
+   "base": "model",
+   "arm": "spd",
+   "seeds": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15
+   ],
+   "population": "men",
+   "seasons": [
+    2025,
+    2026
+   ],
+   "metric": "calibrated",
+   "block": "td",
+   "loss": "ll"
+  },
+  {
+   "cid": "S3_both",
+   "base": "model",
+   "arm": "spd",
+   "seeds": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15
+   ],
+   "population": "men_recency_both",
+   "seasons": [
+    2024,
+    2025,
+    2026
+   ],
+   "metric": "calibrated",
+   "block": "td",
+   "loss": "ll"
+  },
+  {
+   "cid": "S3_one",
+   "base": "model",
+   "arm": "spd",
+   "seeds": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15
+   ],
+   "population": "men_recency_one",
+   "seasons": [
+    2024,
+    2025,
+    2026
+   ],
+   "metric": "calibrated",
+   "block": "td",
+   "loss": "ll"
+  },
+  {
+   "cid": "S3_neither",
+   "base": "model",
+   "arm": "spd",
+   "seeds": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15
+   ],
+   "population": "men_recency_neither",
+   "seasons": [
+    2024,
+    2025,
+    2026
+   ],
+   "metric": "calibrated",
+   "block": "td",
+   "loss": "ll"
+  },
+  {
+   "cid": "S4_A1_women",
+   "base": "model",
+   "arm": "spd",
+   "seeds": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15
+   ],
+   "population": "women",
+   "seasons": [
+    2024,
+    2025,
+    2026
+   ],
+   "metric": "calibrated",
+   "block": "td",
+   "loss": "ll"
+  },
+  {
+   "cid": "S4_A1_both",
+   "base": "model",
+   "arm": "spd",
+   "seeds": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15
+   ],
+   "population": "both",
+   "seasons": [
+    2024,
+    2025,
+    2026
+   ],
+   "metric": "calibrated",
+   "block": "td",
+   "loss": "ll"
+  },
+  {
+   "cid": "S4_A3_women",
+   "base": "model",
+   "arm": "spd_all",
+   "seeds": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+   ],
+   "population": "women",
+   "seasons": [
+    2024,
+    2025,
+    2026
+   ],
+   "metric": "calibrated",
+   "block": "td",
+   "loss": "ll"
+  },
+  {
+   "cid": "S4_A3_women_no_conflict",
+   "base": "model",
+   "arm": "spd_all",
+   "seeds": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+   ],
+   "population": "women_no_conflict",
+   "seasons": [
+    2024,
+    2025,
+    2026
+   ],
+   "metric": "calibrated",
+   "block": "td",
+   "loss": "ll"
+  },
+  {
+   "cid": "S5",
+   "base": "model_noodds",
+   "arm": "spd_noodds",
+   "seeds": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+   ],
+   "population": "men",
+   "seasons": [
+    2024,
+    2025,
+    2026
+   ],
+   "metric": "calibrated",
+   "block": "td",
+   "loss": "ll"
+  },
+  {
+   "cid": "S6_early_all",
+   "base": "model",
+   "arm": "spd",
+   "seeds": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15
+   ],
+   "population": "men_early_all",
+   "seasons": [
+    2025,
+    2026
+   ],
+   "metric": "calibrated",
+   "block": "early",
+   "loss": "ll"
+  },
+  {
+   "cid": "S6_early_clean",
+   "base": "model",
+   "arm": "spd",
+   "seeds": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15
+   ],
+   "population": "men_early_clean",
+   "seasons": [
+    2025,
+    2026
+   ],
+   "metric": "calibrated",
+   "block": "early",
+   "loss": "ll"
+  },
+  {
+   "cid": "S7",
+   "base": "model",
+   "arm": "spd",
+   "seeds": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15
+   ],
+   "population": "men",
+   "seasons": [
+    2024,
+    2025,
+    2026
+   ],
+   "metric": "raw",
+   "block": "td",
+   "loss": "ll"
+  },
+  {
+   "cid": "S8_A2",
+   "base": "model",
+   "arm": "spd_raw",
+   "seeds": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+   ],
+   "population": "men",
+   "seasons": [
+    2024,
+    2025,
+    2026
+   ],
+   "metric": "calibrated",
+   "block": "td",
+   "loss": "ll"
+  },
+  {
+   "cid": "S8_A3",
+   "base": "model",
+   "arm": "spd_all",
+   "seeds": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+   ],
+   "population": "men",
+   "seasons": [
+    2024,
+    2025,
+    2026
+   ],
+   "metric": "calibrated",
+   "block": "td",
+   "loss": "ll"
+  },
+  {
+   "cid": "S8_A1_vs_A2",
+   "base": "spd_raw",
+   "arm": "spd",
+   "seeds": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+   ],
+   "population": "men",
+   "seasons": [
+    2024,
+    2025,
+    2026
+   ],
+   "metric": "calibrated",
+   "block": "td",
+   "loss": "ll"
+  },
+  {
+   "cid": "S8_A3_vs_A1",
+   "base": "spd",
+   "arm": "spd_all",
+   "seeds": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+   ],
+   "population": "men",
+   "seasons": [
+    2024,
+    2025,
+    2026
+   ],
+   "metric": "calibrated",
+   "block": "td",
+   "loss": "ll"
+  },
+  {
+   "cid": "S14",
+   "base": "model",
+   "arm": "spd",
+   "seeds": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15
+   ],
+   "population": "men",
+   "seasons": [
+    2024,
+    2025,
+    2026
+   ],
+   "metric": "calibrated",
+   "block": "td",
+   "loss": "brier"
+  }
+ ],
+ "calibration_seeds": [
+  0,
+  1,
+  2,
+  3
+ ]
+}

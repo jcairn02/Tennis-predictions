@@ -1,0 +1,38 @@
+{
+  "input_and_code_hashes_unchanged": {
+    "data\\studies\\feature_alpha_audit\\repairs\\repair_features.parquet": true,
+    "data\\studies\\predictive_frontier\\frontier_features.parquet": true,
+    "data\\studies\\predictability_diagnostic\\stage1_odds.parquet": true,
+    "src\\eda\\predictive_frontier\\features.py": true,
+    "src\\eda\\predictive_frontier\\score.py": true
+  },
+  "max_artifact_bytes": 14836220,
+  "test_evidence": "tests.xml",
+  "report_evidence": "report_check.json",
+  "baseline_reproduction": [
+    {
+      "tour": "atp",
+      "route": "elo",
+      "n": 18174,
+      "max_abs_error": 3.172753515467974e-08
+    },
+    {
+      "tour": "atp",
+      "route": "pinnacle",
+      "n": 34035,
+      "max_abs_error": 2.220446049250313e-16
+    },
+    {
+      "tour": "atp",
+      "route": "average",
+      "n": 34035,
+      "max_abs_error": 3.3306690738754696e-16
+    },
+    {
+      "tour": "wta",
+      "route": "elo",
+      "n": 16675,
+      "max_abs_error": 7.772065213629276e-09
+    }
+  ]
+}

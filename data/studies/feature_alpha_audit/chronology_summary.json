@@ -1,0 +1,596 @@
+{
+  "method": "All event dates -> preceding/same calendar Monday (Sunday backwards); frozen profile constants.",
+  "interpretation": "Sensitivity, not a chronology correction. History eligibility and decay ages change together.",
+  "unresolved": [
+    "No actual match timestamps",
+    "Overlapping fortnight events",
+    "Original Elo baselines retained",
+    "Original outcome/identity/data issues retained",
+    "Original unpenalized scorer and match-iid intervals"
+  ],
+  "matches_date_changed": 26019,
+  "matches_total": 872704,
+  "profile_features": [
+    "adjperf_ace|decayed",
+    "adjperf_df|decayed",
+    "adjperf_first_in|decayed",
+    "adjperf_first_won|decayed",
+    "adjperf_second_won|decayed",
+    "adjperf_hold|decayed",
+    "adjperf_bp_saved|decayed",
+    "adjperf_bp_faced_pg|decayed",
+    "adjperf_brk|decayed",
+    "adjperf_bp_conv|decayed",
+    "adjperf_rpw_first|decayed",
+    "adjperf_rpw_second|decayed",
+    "adjdef_ace|decayed",
+    "adjdef_df|decayed",
+    "adjdef_first_in|decayed",
+    "adjdef_bp_faced_pg|decayed"
+  ],
+  "feature_deltas": [
+    {
+      "tour": "atp",
+      "column": "adjperf_ace|decayed",
+      "n": 151429,
+      "changed_above_1e_6": 140055,
+      "availability_changed": 3,
+      "mean_abs_change": 0.003404163642409773,
+      "max_abs_change": 0.5734578222036362,
+      "correlation": 0.9984214348148991
+    },
+    {
+      "tour": "wta",
+      "column": "adjperf_ace|decayed",
+      "n": 58606,
+      "changed_above_1e_6": 43059,
+      "availability_changed": 0,
+      "mean_abs_change": 0.0019152223631658328,
+      "max_abs_change": 0.2912840098142624,
+      "correlation": 0.9983972891253101
+    },
+    {
+      "tour": "atp",
+      "column": "adjperf_df|decayed",
+      "n": 151429,
+      "changed_above_1e_6": 139950,
+      "availability_changed": 3,
+      "mean_abs_change": 0.003261230818971543,
+      "max_abs_change": 0.6918745934963226,
+      "correlation": 0.9980539174390746
+    },
+    {
+      "tour": "wta",
+      "column": "adjperf_df|decayed",
+      "n": 58606,
+      "changed_above_1e_6": 43156,
+      "availability_changed": 0,
+      "mean_abs_change": 0.0018384922872447175,
+      "max_abs_change": 0.32022131979465485,
+      "correlation": 0.9983650714913211
+    },
+    {
+      "tour": "atp",
+      "column": "adjperf_first_in|decayed",
+      "n": 151429,
+      "changed_above_1e_6": 139110,
+      "availability_changed": 3,
+      "mean_abs_change": 0.003381560343693112,
+      "max_abs_change": 0.5736702680587769,
+      "correlation": 0.9983241734400697
+    },
+    {
+      "tour": "wta",
+      "column": "adjperf_first_in|decayed",
+      "n": 58606,
+      "changed_above_1e_6": 43061,
+      "availability_changed": 0,
+      "mean_abs_change": 0.0018900258592219408,
+      "max_abs_change": 0.34260130673646927,
+      "correlation": 0.9984885060929611
+    },
+    {
+      "tour": "atp",
+      "column": "adjperf_first_won|decayed",
+      "n": 151429,
+      "changed_above_1e_6": 140207,
+      "availability_changed": 3,
+      "mean_abs_change": 0.003149071718705377,
+      "max_abs_change": 0.8443880826234818,
+      "correlation": 0.9976109500380093
+    },
+    {
+      "tour": "wta",
+      "column": "adjperf_first_won|decayed",
+      "n": 58606,
+      "changed_above_1e_6": 43072,
+      "availability_changed": 0,
+      "mean_abs_change": 0.001773254848073164,
+      "max_abs_change": 0.27330490481108427,
+      "correlation": 0.9975785704635257
+    },
+    {
+      "tour": "atp",
+      "column": "adjperf_second_won|decayed",
+      "n": 151429,
+      "changed_above_1e_6": 139710,
+      "availability_changed": 3,
+      "mean_abs_change": 0.003097034365988954,
+      "max_abs_change": 0.6135419011116028,
+      "correlation": 0.9967042063141103
+    },
+    {
+      "tour": "wta",
+      "column": "adjperf_second_won|decayed",
+      "n": 58606,
+      "changed_above_1e_6": 43105,
+      "availability_changed": 0,
+      "mean_abs_change": 0.0016632134876419585,
+      "max_abs_change": 0.2783788926899433,
+      "correlation": 0.9971712435308864
+    },
+    {
+      "tour": "atp",
+      "column": "adjperf_hold|decayed",
+      "n": 151424,
+      "changed_above_1e_6": 140137,
+      "availability_changed": 3,
+      "mean_abs_change": 0.003036982093877471,
+      "max_abs_change": 0.7581220790743828,
+      "correlation": 0.9971188940552148
+    },
+    {
+      "tour": "wta",
+      "column": "adjperf_hold|decayed",
+      "n": 49269,
+      "changed_above_1e_6": 43012,
+      "availability_changed": 0,
+      "mean_abs_change": 0.002095638468782078,
+      "max_abs_change": 0.2973064184188843,
+      "correlation": 0.9965220969295867
+    },
+    {
+      "tour": "atp",
+      "column": "adjperf_bp_saved|decayed",
+      "n": 151379,
+      "changed_above_1e_6": 138940,
+      "availability_changed": 3,
+      "mean_abs_change": 0.0030460764722887623,
+      "max_abs_change": 0.5496625602245331,
+      "correlation": 0.9967376144081643
+    },
+    {
+      "tour": "wta",
+      "column": "adjperf_bp_saved|decayed",
+      "n": 58600,
+      "changed_above_1e_6": 43067,
+      "availability_changed": 0,
+      "mean_abs_change": 0.0016348149824332281,
+      "max_abs_change": 0.2464202493429184,
+      "correlation": 0.9977806931609837
+    },
+    {
+      "tour": "atp",
+      "column": "adjperf_bp_faced_pg|decayed",
+      "n": 151424,
+      "changed_above_1e_6": 139353,
+      "availability_changed": 3,
+      "mean_abs_change": 0.0031921333624996004,
+      "max_abs_change": 0.6020090878009796,
+      "correlation": 0.9973055333340235
+    },
+    {
+      "tour": "wta",
+      "column": "adjperf_bp_faced_pg|decayed",
+      "n": 49269,
+      "changed_above_1e_6": 42901,
+      "availability_changed": 0,
+      "mean_abs_change": 0.002077185688366304,
+      "max_abs_change": 0.3191978596150875,
+      "correlation": 0.996770177762099
+    },
+    {
+      "tour": "atp",
+      "column": "adjperf_brk|decayed",
+      "n": 151424,
+      "changed_above_1e_6": 105539,
+      "availability_changed": 3,
+      "mean_abs_change": 0.00029561031356566624,
+      "max_abs_change": 0.0660669393837452,
+      "correlation": 0.9961579281578701
+    },
+    {
+      "tour": "wta",
+      "column": "adjperf_brk|decayed",
+      "n": 49269,
+      "changed_above_1e_6": 22780,
+      "availability_changed": 0,
+      "mean_abs_change": 0.00028170443224390015,
+      "max_abs_change": 0.050231870263814926,
+      "correlation": 0.9964415893123814
+    },
+    {
+      "tour": "atp",
+      "column": "adjperf_bp_conv|decayed",
+      "n": 151039,
+      "changed_above_1e_6": 104313,
+      "availability_changed": 2,
+      "mean_abs_change": 0.0002687985720513548,
+      "max_abs_change": 0.047589732334017754,
+      "correlation": 0.9960436066776021
+    },
+    {
+      "tour": "wta",
+      "column": "adjperf_bp_conv|decayed",
+      "n": 58551,
+      "changed_above_1e_6": 22772,
+      "availability_changed": 0,
+      "mean_abs_change": 0.00022488782556055344,
+      "max_abs_change": 0.0327069191262126,
+      "correlation": 0.9969146032332031
+    },
+    {
+      "tour": "atp",
+      "column": "adjperf_rpw_first|decayed",
+      "n": 151429,
+      "changed_above_1e_6": 105894,
+      "availability_changed": 3,
+      "mean_abs_change": 0.0002938476000889482,
+      "max_abs_change": 0.06038686749525368,
+      "correlation": 0.9963788582197287
+    },
+    {
+      "tour": "wta",
+      "column": "adjperf_rpw_first|decayed",
+      "n": 58606,
+      "changed_above_1e_6": 22749,
+      "availability_changed": 0,
+      "mean_abs_change": 0.00023270816490739396,
+      "max_abs_change": 0.05984851252287626,
+      "correlation": 0.9970595036631499
+    },
+    {
+      "tour": "atp",
+      "column": "adjperf_rpw_second|decayed",
+      "n": 151429,
+      "changed_above_1e_6": 106208,
+      "availability_changed": 3,
+      "mean_abs_change": 0.0002878798840317762,
+      "max_abs_change": 0.058964150957763195,
+      "correlation": 0.996503407468983
+    },
+    {
+      "tour": "wta",
+      "column": "adjperf_rpw_second|decayed",
+      "n": 58606,
+      "changed_above_1e_6": 22955,
+      "availability_changed": 0,
+      "mean_abs_change": 0.00023425254394341522,
+      "max_abs_change": 0.03664368367753923,
+      "correlation": 0.9968441414566288
+    },
+    {
+      "tour": "atp",
+      "column": "adjdef_ace|decayed",
+      "n": 151429,
+      "changed_above_1e_6": 106350,
+      "availability_changed": 3,
+      "mean_abs_change": 0.00030466570931334794,
+      "max_abs_change": 0.053900874219834805,
+      "correlation": 0.9974817374283236
+    },
+    {
+      "tour": "wta",
+      "column": "adjdef_ace|decayed",
+      "n": 58606,
+      "changed_above_1e_6": 23167,
+      "availability_changed": 0,
+      "mean_abs_change": 0.00024393012340934988,
+      "max_abs_change": 0.036993879824876785,
+      "correlation": 0.9977383690687227
+    },
+    {
+      "tour": "atp",
+      "column": "adjdef_df|decayed",
+      "n": 151429,
+      "changed_above_1e_6": 106895,
+      "availability_changed": 3,
+      "mean_abs_change": 0.00027568747034974867,
+      "max_abs_change": 0.04536640830338001,
+      "correlation": 0.9962740453762341
+    },
+    {
+      "tour": "wta",
+      "column": "adjdef_df|decayed",
+      "n": 58606,
+      "changed_above_1e_6": 23003,
+      "availability_changed": 0,
+      "mean_abs_change": 0.0002277583861055839,
+      "max_abs_change": 0.040496358182281256,
+      "correlation": 0.9973160192541233
+    },
+    {
+      "tour": "atp",
+      "column": "adjdef_first_in|decayed",
+      "n": 151429,
+      "changed_above_1e_6": 107572,
+      "availability_changed": 3,
+      "mean_abs_change": 0.00027723029494005887,
+      "max_abs_change": 0.045809802948497236,
+      "correlation": 0.9962394878769829
+    },
+    {
+      "tour": "wta",
+      "column": "adjdef_first_in|decayed",
+      "n": 58606,
+      "changed_above_1e_6": 22875,
+      "availability_changed": 0,
+      "mean_abs_change": 0.0002255767545272031,
+      "max_abs_change": 0.03713081672322005,
+      "correlation": 0.997135131786058
+    },
+    {
+      "tour": "atp",
+      "column": "adjdef_bp_faced_pg|decayed",
+      "n": 151424,
+      "changed_above_1e_6": 104059,
+      "availability_changed": 3,
+      "mean_abs_change": 0.00027645487670195125,
+      "max_abs_change": 0.04504559934139252,
+      "correlation": 0.9961927821080865
+    },
+    {
+      "tour": "wta",
+      "column": "adjdef_bp_faced_pg|decayed",
+      "n": 49269,
+      "changed_above_1e_6": 22682,
+      "availability_changed": 0,
+      "mean_abs_change": 0.000260571385915794,
+      "max_abs_change": 0.03511868417263031,
+      "correlation": 0.9955968340045988
+    }
+  ],
+  "scores": [
+    {
+      "tour": "atp",
+      "variant": "original",
+      "window_start": 2013,
+      "base": "elo",
+      "n": 150985,
+      "imp": 3.968105062304771,
+      "lo": 3.551722381892218,
+      "hi": 4.384487742717324
+    },
+    {
+      "tour": "atp",
+      "variant": "original",
+      "window_start": 2013,
+      "base": "market",
+      "n": 31661,
+      "imp": 0.5088841474295669,
+      "lo": -0.054982722808029114,
+      "hi": 1.0727510176671626
+    },
+    {
+      "tour": "atp",
+      "variant": "calendar_week",
+      "window_start": 2013,
+      "base": "elo",
+      "n": 150985,
+      "imp": 3.967506766149274,
+      "lo": 3.550201510029755,
+      "hi": 4.384812022268794
+    },
+    {
+      "tour": "atp",
+      "variant": "calendar_week",
+      "window_start": 2013,
+      "base": "market",
+      "n": 31661,
+      "imp": 0.4356611648635617,
+      "lo": -0.14261839045414884,
+      "hi": 1.0139407201812722
+    },
+    {
+      "tour": "atp",
+      "variant": "original",
+      "window_start": 2019,
+      "base": "elo",
+      "n": 89176,
+      "imp": 4.765085907482717,
+      "lo": 4.19674330350825,
+      "hi": 5.333428511457184
+    },
+    {
+      "tour": "atp",
+      "variant": "original",
+      "window_start": 2019,
+      "base": "market",
+      "n": 18651,
+      "imp": 0.9320568911870614,
+      "lo": 0.2608580952572704,
+      "hi": 1.6032556871168522
+    },
+    {
+      "tour": "atp",
+      "variant": "calendar_week",
+      "window_start": 2019,
+      "base": "elo",
+      "n": 89176,
+      "imp": 4.7466243722719295,
+      "lo": 4.176791749627669,
+      "hi": 5.316456994916189
+    },
+    {
+      "tour": "atp",
+      "variant": "calendar_week",
+      "window_start": 2019,
+      "base": "market",
+      "n": 18651,
+      "imp": 0.8618611966093427,
+      "lo": 0.18384339252897552,
+      "hi": 1.5398790006897096
+    },
+    {
+      "tour": "atp",
+      "variant": "original",
+      "window_start": 2022,
+      "base": "elo",
+      "n": 63585,
+      "imp": 4.5386922130734835,
+      "lo": 3.848237385610493,
+      "hi": 5.229147040536474
+    },
+    {
+      "tour": "atp",
+      "variant": "original",
+      "window_start": 2022,
+      "base": "market",
+      "n": 12344,
+      "imp": 0.9218390455873872,
+      "lo": 0.09475048792836535,
+      "hi": 1.748927603246409
+    },
+    {
+      "tour": "atp",
+      "variant": "calendar_week",
+      "window_start": 2022,
+      "base": "elo",
+      "n": 63585,
+      "imp": 4.516824781297285,
+      "lo": 3.8247373279073376,
+      "hi": 5.208912234687234
+    },
+    {
+      "tour": "atp",
+      "variant": "calendar_week",
+      "window_start": 2022,
+      "base": "market",
+      "n": 12344,
+      "imp": 0.8877985034816656,
+      "lo": 0.05602868067654297,
+      "hi": 1.719568326286788
+    },
+    {
+      "tour": "wta",
+      "variant": "original",
+      "window_start": 2013,
+      "base": "elo",
+      "n": 33912,
+      "imp": 3.5265347027756793,
+      "lo": 2.584076251498211,
+      "hi": 4.468993154053147
+    },
+    {
+      "tour": "wta",
+      "variant": "original",
+      "window_start": 2013,
+      "base": "market",
+      "n": 17304,
+      "imp": 0.017294369449522274,
+      "lo": -0.5052664394382058,
+      "hi": 0.5398551783372504
+    },
+    {
+      "tour": "wta",
+      "variant": "calendar_week",
+      "window_start": 2013,
+      "base": "elo",
+      "n": 33912,
+      "imp": 3.5070214434120173,
+      "lo": 2.560143834605829,
+      "hi": 4.453899052218206
+    },
+    {
+      "tour": "wta",
+      "variant": "calendar_week",
+      "window_start": 2013,
+      "base": "market",
+      "n": 17304,
+      "imp": 0.03409212776688585,
+      "lo": -0.4898303101041677,
+      "hi": 0.5580145656379394
+    },
+    {
+      "tour": "wta",
+      "variant": "original",
+      "window_start": 2019,
+      "base": "elo",
+      "n": 33912,
+      "imp": 3.5265347027756793,
+      "lo": 2.584076251498211,
+      "hi": 4.468993154053147
+    },
+    {
+      "tour": "wta",
+      "variant": "original",
+      "window_start": 2019,
+      "base": "market",
+      "n": 17304,
+      "imp": 0.017294369449522274,
+      "lo": -0.5052664394382058,
+      "hi": 0.5398551783372504
+    },
+    {
+      "tour": "wta",
+      "variant": "calendar_week",
+      "window_start": 2019,
+      "base": "elo",
+      "n": 33912,
+      "imp": 3.5070214434120173,
+      "lo": 2.560143834605829,
+      "hi": 4.453899052218206
+    },
+    {
+      "tour": "wta",
+      "variant": "calendar_week",
+      "window_start": 2019,
+      "base": "market",
+      "n": 17304,
+      "imp": 0.03409212776688585,
+      "lo": -0.4898303101041677,
+      "hi": 0.5580145656379394
+    },
+    {
+      "tour": "wta",
+      "variant": "original",
+      "window_start": 2022,
+      "base": "elo",
+      "n": 23531,
+      "imp": 2.9155680857696558,
+      "lo": 1.7646348679424417,
+      "hi": 4.066501303596869
+    },
+    {
+      "tour": "wta",
+      "variant": "original",
+      "window_start": 2022,
+      "base": "market",
+      "n": 11405,
+      "imp": -0.023283799481160643,
+      "lo": -0.6675653926909386,
+      "hi": 0.6209977937286173
+    },
+    {
+      "tour": "wta",
+      "variant": "calendar_week",
+      "window_start": 2022,
+      "base": "elo",
+      "n": 23531,
+      "imp": 2.8811095975548517,
+      "lo": 1.7204469381702874,
+      "hi": 4.041772256939415
+    },
+    {
+      "tour": "wta",
+      "variant": "calendar_week",
+      "window_start": 2022,
+      "base": "market",
+      "n": 11405,
+      "imp": -0.0150544350011436,
+      "lo": -0.6657105201272185,
+      "hi": 0.6356016501249313
+    }
+  ],
+  "seconds": 5.3
+}

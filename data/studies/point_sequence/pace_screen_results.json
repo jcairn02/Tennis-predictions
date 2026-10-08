@@ -1,0 +1,206 @@
+{
+ "prereg_sha256": "5ed9bf06655e1a15e85c7f6be4148c5e6cee2fdb92e0a3e564146386a8d83ed6",
+ "key": "beta = log-odds per SD of (A - B), given the benchmark as an offset; positive = the player with the higher value wins more often than the benchmark says; Wald 95% (block bootstrap as a check); gain in mLL, positive = feature better; spanning 0 = tie",
+ "results": {
+  "pressure_pace | primary|real": {
+   "sd_discovery_s": 1.362011194229126,
+   "p_model": {
+    "discovery": {
+     "matches": 2874,
+     "beta": -0.059995472817058026,
+     "lo": -0.1411079922092382,
+     "hi": 0.021117046575122145,
+     "block_lo": -0.13749380076270554,
+     "block_hi": 0.00835025043523243
+    },
+    "replication": {
+     "matches": 6721,
+     "beta": -0.007525194910766058,
+     "lo": -0.06018217264321522,
+     "hi": 0.045131782821683106,
+     "block_lo": -0.05585748096855676,
+     "block_hi": 0.043772273714302555,
+     "gain_mll_with_discovery_beta": {
+      "gain": -0.2777467982496941,
+      "lo": -0.9569244220421994,
+      "hi": 0.4014308255428112
+     }
+    }
+   },
+   "p_market": {
+    "discovery": {
+     "matches": 2874,
+     "beta": -0.054392506541486356,
+     "lo": -0.1355400315594362,
+     "hi": 0.026755018476463492,
+     "block_lo": -0.12892654658223873,
+     "block_hi": 0.020715859762598696
+    },
+    "replication": {
+     "matches": 6721,
+     "beta": -0.005224299751909847,
+     "lo": -0.05785225038951209,
+     "hi": 0.04740365088569239,
+     "block_lo": -0.0534907067365213,
+     "block_hi": 0.04849956759847656,
+     "gain_mll_with_discovery_beta": {
+      "gain": -0.24648999705582003,
+      "lo": -0.8677132902118205,
+      "hi": 0.37473329610018047
+     }
+    }
+   }
+  },
+  "pressure_pace | spec|real": {
+   "sd_discovery_s": 1.7784271240234375,
+   "p_model": {
+    "discovery": {
+     "matches": 2874,
+     "beta": -0.025949208581244734,
+     "lo": -0.10627126930788557,
+     "hi": 0.0543728521453961,
+     "block_lo": -0.08741452155146257,
+     "block_hi": 0.039172867199767016
+    },
+    "replication": {
+     "matches": 6721,
+     "beta": 0.0004976181828188937,
+     "lo": -0.0549865110011616,
+     "hi": 0.05598174736679938,
+     "block_lo": -0.05694917861949169,
+     "block_hi": 0.06249452541622679,
+     "gain_mll_with_discovery_beta": {
+      "gain": -0.06489468314288097,
+      "lo": -0.36629689423931694,
+      "hi": 0.23650752795355498
+     }
+    }
+   },
+   "p_market": {
+    "discovery": {
+     "matches": 2874,
+     "beta": -0.02067828636740389,
+     "lo": -0.10099454580076772,
+     "hi": 0.05963797306595994,
+     "block_lo": -0.08259506982929046,
+     "block_hi": 0.0395020737528226
+    },
+    "replication": {
+     "matches": 6721,
+     "beta": 0.003183825377562207,
+     "lo": -0.0522782857940699,
+     "hi": 0.05864593654919431,
+     "block_lo": -0.058302360349105346,
+     "block_hi": 0.06329724862710545,
+     "gain_mll_with_discovery_beta": {
+      "gain": -0.05195119401958677,
+      "lo": -0.29449058335897016,
+      "hi": 0.19058819531979665
+     }
+    }
+   }
+  },
+  "tempo_level | primary|real": {
+   "sd_discovery_s": 3.8755669593811035,
+   "p_model": {
+    "discovery": {
+     "matches": 2876,
+     "beta": -0.037364438988340014,
+     "lo": -0.11768705956471265,
+     "hi": 0.042958181588032614,
+     "block_lo": -0.11197147526727289,
+     "block_hi": 0.04176780606637696
+    },
+    "replication": {
+     "matches": 6729,
+     "beta": -0.025746138326274808,
+     "lo": -0.07308660452618972,
+     "hi": 0.0215943278736401,
+     "block_lo": -0.07054170164891584,
+     "block_hi": 0.018082824676190025,
+     "gain_mll_with_discovery_beta": {
+      "gain": 0.06721202639539185,
+      "lo": -0.35979584356377525,
+      "hi": 0.4942198963545589
+     }
+    }
+   },
+   "p_market": {
+    "discovery": {
+     "matches": 2876,
+     "beta": -0.0431468403502319,
+     "lo": -0.12364561575518451,
+     "hi": 0.03735193505472071,
+     "block_lo": -0.12266253496597523,
+     "block_hi": 0.031177975162353433
+    },
+    "replication": {
+     "matches": 6729,
+     "beta": -0.03309949864971084,
+     "lo": -0.08042025203225583,
+     "hi": 0.01422125473283415,
+     "block_lo": -0.07488420223289217,
+     "block_hi": 0.007052172429390186,
+     "gain_mll_with_discovery_beta": {
+      "gain": 0.1267300509981608,
+      "lo": -0.3707323690729376,
+      "hi": 0.6241924710692592
+     }
+    }
+   }
+  },
+  "tempo_level | spec|real": {
+   "sd_discovery_s": 3.7067129611968994,
+   "p_model": {
+    "discovery": {
+     "matches": 2876,
+     "beta": -0.04406798722031364,
+     "lo": -0.12457090929431147,
+     "hi": 0.03643493485368419,
+     "block_lo": -0.13740275074908131,
+     "block_hi": 0.04394456693741648
+    },
+    "replication": {
+     "matches": 6729,
+     "beta": -0.02256237342683716,
+     "lo": -0.06971549046357192,
+     "hi": 0.02459074360989761,
+     "block_lo": -0.06154057716846272,
+     "block_hi": 0.016912164016084568,
+     "gain_mll_with_discovery_beta": {
+      "gain": 0.005962200338165419,
+      "lo": -0.48052960729969524,
+      "hi": 0.4924540079760261
+     }
+    }
+   },
+   "p_market": {
+    "discovery": {
+     "matches": 2876,
+     "beta": -0.048272677178200815,
+     "lo": -0.12891080079636635,
+     "hi": 0.032365446439964723,
+     "block_lo": -0.14196946340506023,
+     "block_hi": 0.04209767399011149
+    },
+    "replication": {
+     "matches": 6729,
+     "beta": -0.025668052337391317,
+     "lo": -0.07279646704292085,
+     "hi": 0.021460362368138215,
+     "block_lo": -0.06704600709860999,
+     "block_hi": 0.01471474338310831,
+     "gain_mll_with_discovery_beta": {
+      "gain": 0.018978852506020646,
+      "lo": -0.5141696082673571,
+      "hi": 0.5521273132793985
+     }
+    }
+   }
+  }
+ },
+ "decision": {
+  "rule": "discovery interval excludes 0 against the model, and replication beta has the same sign with its interval excluding 0",
+  "pass": false
+ }
+}

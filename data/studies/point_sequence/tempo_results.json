@@ -1,0 +1,241 @@
+{
+ "prereg_sha256": "1de0c0879cbd96950ad1c00392eafdbaf99e56f2c83c69d7c6bede9bf5df06c7",
+ "deviations": [
+  "Post-hoc diagnostics added after the pre-registered results were seen (tempo_diag.py): fixed-effects convergence against an exact sparse least-squares solve, pressure pace against tempo level, log-gap pace, placebo contrasts (game points; late non-pressure points), and pressure pace on first-serve points only. They change no pre-registered number."
+ ],
+ "matches": 13747,
+ "matches_with_umpire": 11439,
+ "gaps": {
+  "own_serve_within_game": 1574395,
+  "interrupted_excluded": 84610,
+  "eligible": 1480959
+ },
+ "inputs_count": 58,
+ "fits": {
+  "primary": {
+   "iterations": 500,
+   "effect_sd": {
+    "umpire": 0.39417029929888997,
+    "event_year": 1.424996511118018,
+    "state": 1.7658659168591053,
+    "prev": 0.752184776504185,
+    "cur": 5.719179855720699
+   },
+   "cur_type_effects": [
+    -7.996153234924796,
+    2.2980540505401406,
+    -4.023933235861189,
+    8.049134319335598
+   ],
+   "prev_type_effects": [
+    0.21217342732487895,
+    -3.6052668819531495,
+    -1.4644629157864308
+   ],
+   "median_raw_gap": 32.200000047683716,
+   "median_adjusted_gap": 32.46638933976898
+  },
+  "spec": {
+   "iterations": 500,
+   "effect_sd": {
+    "umpire": 0.40932559588867995,
+    "event_year": 1.4362320139615545,
+    "state": 1.6753513492700132,
+    "prev": 0.7639237039008256
+   },
+   "cur_type_effects": null,
+   "prev_type_effects": [
+    0.2243411182968928,
+    -3.409660210306022,
+    -1.774768355648232
+   ],
+   "median_raw_gap": 32.200000047683716,
+   "median_adjusted_gap": 32.224555487763546
+  }
+ },
+ "reliability": [
+  {
+   "adjustment": "primary",
+   "population": "ge20",
+   "players": 235,
+   "player_matches": 21320,
+   "matches_per_player_median": 85.0,
+   "tempo_r": 0.9798146176,
+   "tempo_r_lo": 0.9755702226,
+   "tempo_r_hi": 0.9835178058,
+   "pace_real_r": 0.7566593172,
+   "pace_null_r": 0.0066856146,
+   "pace_delta": 0.7499737025,
+   "pace_lo": 0.6834482825,
+   "pace_hi": 0.808808076,
+   "pace_players_used": 235.0
+  },
+  {
+   "adjustment": "primary",
+   "population": "ge50",
+   "players": 91,
+   "player_matches": 11941,
+   "matches_per_player_median": 127.0,
+   "tempo_r": 0.9888027318,
+   "tempo_r_lo": 0.9841486442,
+   "tempo_r_hi": 0.9918325409,
+   "pace_real_r": 0.8496988999,
+   "pace_null_r": 0.0265876388,
+   "pace_delta": 0.8231112612,
+   "pace_lo": 0.7628160481,
+   "pace_hi": 0.8805479119,
+   "pace_players_used": 91.0
+  },
+  {
+   "adjustment": "spec",
+   "population": "ge20",
+   "players": 235,
+   "player_matches": 21320,
+   "matches_per_player_median": 85.0,
+   "tempo_r": 0.970664331,
+   "tempo_r_lo": 0.9650134908,
+   "tempo_r_hi": 0.975576982,
+   "pace_real_r": 0.624607803,
+   "pace_null_r": -0.0042243071,
+   "pace_delta": 0.6288321101,
+   "pace_lo": 0.5637831379,
+   "pace_hi": 0.6859775071,
+   "pace_players_used": 235.0
+  },
+  {
+   "adjustment": "spec",
+   "population": "ge50",
+   "players": 91,
+   "player_matches": 11941,
+   "matches_per_player_median": 127.0,
+   "tempo_r": 0.981392261,
+   "tempo_r_lo": 0.9753804373,
+   "tempo_r_hi": 0.9858725784,
+   "pace_real_r": 0.7057757132,
+   "pace_null_r": 0.022754945,
+   "pace_delta": 0.6830207682,
+   "pace_lo": 0.597703458,
+   "pace_hi": 0.760442656,
+   "pace_players_used": 91.0
+  }
+ ],
+ "means": {
+  "primary": {
+   "pressure_pace_real_s": -0.009529184202196086,
+   "pressure_pace_null_s": 0.061440410322158655,
+   "tempo_level_mean_s": 32.53119317512993
+  },
+  "spec": {
+   "pressure_pace_real_s": -0.06560460879332777,
+   "pressure_pace_null_s": 0.06161065398359605,
+   "tempo_level_mean_s": 32.449345360566234
+  }
+ },
+ "r2": {
+  "primary": {
+   "matches": 9979,
+   "of_frame_matches": 11850,
+   "regressors": 66,
+   "diff": {
+    "r2_in_sample": 0.1355137045495871,
+    "r2_cv": 0.12022699059970898
+   },
+   "side_a": {
+    "r2_in_sample": 0.07508468044675443,
+    "r2_cv": 0.06024223781185123
+   }
+  },
+  "spec": {
+   "matches": 9979,
+   "of_frame_matches": 11850,
+   "regressors": 66,
+   "diff": {
+    "r2_in_sample": 0.1015188478328104,
+    "r2_cv": 0.08575869784681456
+   },
+   "side_a": {
+    "r2_in_sample": 0.05487484086518157,
+    "r2_cv": 0.03958796163492817
+   }
+  }
+ },
+ "decision": {
+  "primary": {
+   "pressure_pace_pass": true,
+   "tempo_level_reliability_ge20": 0.9798146175624683,
+   "tempo_level_r2_diff_in_sample": 0.1355137045495871,
+   "tempo_level_new_information": false
+  },
+  "spec": {
+   "pressure_pace_pass": true,
+   "tempo_level_reliability_ge20": 0.9706643309561508,
+   "tempo_level_r2_diff_in_sample": 0.1015188478328104,
+   "tempo_level_new_information": false
+  }
+ },
+ "seconds": 211.5,
+ "post_hoc": {
+  "note": "post-hoc diagnostics, not pre-registered",
+  "convergence": {
+   "exact_lsqr_iterations": 832,
+   "exact_lsqr_stop": 2,
+   "max_abs_diff_adjusted_gap_500_vs_exact_s": 0.06202746065786968,
+   "p99_abs_diff_s": 0.0029423520605149633,
+   "median_abs_diff_s": 8.530107157866951e-05,
+   "pace_per_match_max_abs_diff_s": 4.6286775013726356e-05,
+   "tempo_per_match_max_abs_diff_s": 0.062013343771148755
+  },
+  "reliability_ge20": {
+   "tempo": {
+    "real_r": 0.9800419989160415,
+    "null_r": 0.9800419989160416,
+    "delta": -1.1102230246251565e-16,
+    "lo": -2.220446049250313e-16,
+    "hi": 2.220446049250313e-16
+   },
+   "pace_s": {
+    "real_r": 0.7545548381139093,
+    "null_r": 0.01085666629011716,
+    "delta": 0.7436981718237922,
+    "lo": 0.6820740443723052,
+    "hi": 0.795671873391436
+   },
+   "pace_log": {
+    "real_r": 0.7461708207785515,
+    "null_r": 0.00714284361739638,
+    "delta": 0.7390279771611551,
+    "lo": 0.6754201106498936,
+    "hi": 0.7930470509754146
+   },
+   "gamepoint_s": {
+    "real_r": 0.6905166772671854,
+    "null_r": 0.021106797213727498,
+    "delta": 0.6694098800534578,
+    "lo": 0.5981106447579295,
+    "hi": 0.7318510780554226
+   },
+   "late_nonpressure_s": {
+    "real_r": 0.6362045714183062,
+    "null_r": 0.014322196776415368,
+    "delta": 0.6218823746418909,
+    "lo": 0.5404827674058094,
+    "hi": 0.6883297800145259
+   },
+   "pace_first_serve_only_s": {
+    "real_r": 0.6415050049419907,
+    "null_r": 0.026104529845770875,
+    "delta": 0.6154004750962199,
+    "lo": 0.5345393635425599,
+    "hi": 0.683942885906695
+   }
+  },
+  "pace_vs_tempo": {
+   "r_player_level": 0.288050753861703,
+   "r_player_level_log_pace": 0.06310658385198746,
+   "r_cross_half": 0.261188518967406,
+   "players": 235,
+   "pace_sd_s": 0.8137711718427407,
+   "tempo_sd_s": 2.7567953571195813
+  }
+ }
+}

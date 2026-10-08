@@ -1,0 +1,3566 @@
+{
+ "reads_results": false,
+ "model": "(weighted least squares, alternating projections):\n    y_i = alpha_{tour, player, season} + gamma_{edition} + e_i\n    y_i  harmonised player-match mean of first serves in (engineer_panel0: key statistics - 0.5, AO match centre + 0.5)\n    edition = (tour, tournament_id, main draw | qualifying, basis group: point mean | ATP key statistic)\n    weight  = 1 / (tau^2 + s^2 / n), s = the within-match sd of first-serve speeds, tau^2 = the match-to-match variance\n              beyond sampling (both estimated from the first pass)\nPlayer-seasons with a single timed match carry no information on gamma and are dropped. Within each tour and season the\ngammas are identified up to a constant; each season is normalised so that its Slam main draws average 0 (weighted by\ntheir player-matches). Offsets of families are weighted means of their editions' gammas, reported as differences from\nthe tour-level Infosys point-mean family where it exists.",
+ "le2021": {
+  "info": {
+   "iterations": 23,
+   "player_matches": 10902,
+   "player_seasons": 1985,
+   "editions": 90,
+   "dispersion_phi": 0.9742,
+   "tau2": 16.766,
+   "tau": 4.095
+  },
+  "families": [
+   {
+    "tour": "atp",
+    "family": "AO",
+    "draw": "M",
+    "editions": 8,
+    "player_matches": 1418,
+    "offset_vs_slam_mean": 0.798,
+    "edition_sd": 0.876,
+    "median_se": 0.371,
+    "offset_vs_tour_pts_main": -5.012
+   },
+   {
+    "tour": "atp",
+    "family": "RG",
+    "draw": "M",
+    "editions": 8,
+    "player_matches": 1326,
+    "offset_vs_slam_mean": -0.909,
+    "edition_sd": 1.309,
+    "median_se": 0.357,
+    "offset_vs_tour_pts_main": -6.719
+   },
+   {
+    "tour": "atp",
+    "family": "USO",
+    "draw": "M",
+    "editions": 9,
+    "player_matches": 1438,
+    "offset_vs_slam_mean": -1.153,
+    "edition_sd": 1.263,
+    "median_se": 0.383,
+    "offset_vs_tour_pts_main": -6.963
+   },
+   {
+    "tour": "atp",
+    "family": "W",
+    "draw": "M",
+    "editions": 8,
+    "player_matches": 1062,
+    "offset_vs_slam_mean": 1.63,
+    "edition_sd": 0.821,
+    "median_se": 0.406,
+    "offset_vs_tour_pts_main": -4.18
+   },
+   {
+    "tour": "atp",
+    "family": "tour_ks",
+    "draw": "M",
+    "editions": 9,
+    "player_matches": 311,
+    "offset_vs_slam_mean": 6.781,
+    "edition_sd": 1.926,
+    "median_se": 0.867,
+    "offset_vs_tour_pts_main": 0.971
+   },
+   {
+    "tour": "atp",
+    "family": "tour_ks",
+    "draw": "Q",
+    "editions": 5,
+    "player_matches": 72,
+    "offset_vs_slam_mean": 4.848,
+    "edition_sd": 1.62,
+    "median_se": 1.304,
+    "offset_vs_tour_pts_main": -0.962
+   },
+   {
+    "tour": "atp",
+    "family": "tour_pts",
+    "draw": "M",
+    "editions": 5,
+    "player_matches": 177,
+    "offset_vs_slam_mean": 5.81,
+    "edition_sd": 2.312,
+    "median_se": 0.766,
+    "offset_vs_tour_pts_main": 0.0
+   },
+   {
+    "tour": "atp",
+    "family": "tour_pts",
+    "draw": "Q",
+    "editions": 5,
+    "player_matches": 39,
+    "offset_vs_slam_mean": 4.585,
+    "edition_sd": 1.862,
+    "median_se": 1.786,
+    "offset_vs_tour_pts_main": -1.225
+   },
+   {
+    "tour": "wta",
+    "family": "AO",
+    "draw": "M",
+    "editions": 8,
+    "player_matches": 1449,
+    "offset_vs_slam_mean": 0.745,
+    "edition_sd": 0.93,
+    "median_se": 0.379,
+    "offset_vs_tour_pts_main": 3.533
+   },
+   {
+    "tour": "wta",
+    "family": "RG",
+    "draw": "M",
+    "editions": 8,
+    "player_matches": 1276,
+    "offset_vs_slam_mean": -1.288,
+    "edition_sd": 1.366,
+    "median_se": 0.379,
+    "offset_vs_tour_pts_main": 1.5
+   },
+   {
+    "tour": "wta",
+    "family": "USO",
+    "draw": "M",
+    "editions": 9,
+    "player_matches": 1434,
+    "offset_vs_slam_mean": -0.81,
+    "edition_sd": 1.185,
+    "median_se": 0.402,
+    "offset_vs_tour_pts_main": 1.978
+   },
+   {
+    "tour": "wta",
+    "family": "W",
+    "draw": "M",
+    "editions": 7,
+    "player_matches": 898,
+    "offset_vs_slam_mean": 1.922,
+    "edition_sd": 0.443,
+    "median_se": 0.427,
+    "offset_vs_tour_pts_main": 4.71
+   },
+   {
+    "tour": "wta",
+    "family": "tour_pts",
+    "draw": "M",
+    "editions": 1,
+    "player_matches": 2,
+    "offset_vs_slam_mean": -2.788,
+    "edition_sd": NaN,
+    "median_se": 3.224,
+    "offset_vs_tour_pts_main": 0.0
+   }
+  ],
+  "tour_components": {},
+  "qual_minus_main": [
+   {
+    "tour": "atp",
+    "family": "tour_ks",
+    "bgroup": "ks",
+    "size": 5,
+    "mean": -3.211,
+    "median": -2.863,
+    "std": 0.933
+   },
+   {
+    "tour": "atp",
+    "family": "tour_pts",
+    "bgroup": "pts",
+    "size": 3,
+    "mean": -1.271,
+    "median": -2.004,
+    "std": 3.663
+   }
+  ],
+  "slam_editions": [
+   {
+    "tour": "atp",
+    "slam": "AO",
+    "year": 2011,
+    "bgroup": "pts",
+    "gamma": 0.074,
+    "se": 0.37,
+    "player_matches": 163
+   },
+   {
+    "tour": "atp",
+    "slam": "AO",
+    "year": 2015,
+    "bgroup": "pts",
+    "gamma": 0.798,
+    "se": 0.371,
+    "player_matches": 160
+   },
+   {
+    "tour": "atp",
+    "slam": "AO",
+    "year": 2016,
+    "bgroup": "pts",
+    "gamma": 2.355,
+    "se": 0.371,
+    "player_matches": 160
+   },
+   {
+    "tour": "atp",
+    "slam": "AO",
+    "year": 2017,
+    "bgroup": "pts",
+    "gamma": 0.301,
+    "se": 0.376,
+    "player_matches": 154
+   },
+   {
+    "tour": "atp",
+    "slam": "AO",
+    "year": 2018,
+    "bgroup": "pts",
+    "gamma": -0.348,
+    "se": 0.383,
+    "player_matches": 156
+   },
+   {
+    "tour": "atp",
+    "slam": "AO",
+    "year": 2019,
+    "bgroup": "pts",
+    "gamma": 0.716,
+    "se": 0.378,
+    "player_matches": 157
+   },
+   {
+    "tour": "atp",
+    "slam": "AO",
+    "year": 2020,
+    "bgroup": "pts",
+    "gamma": 1.684,
+    "se": 0.317,
+    "player_matches": 229
+   },
+   {
+    "tour": "atp",
+    "slam": "AO",
+    "year": 2021,
+    "bgroup": "pts",
+    "gamma": 0.525,
+    "se": 0.301,
+    "player_matches": 239
+   },
+   {
+    "tour": "atp",
+    "slam": "RG",
+    "year": 2011,
+    "bgroup": "pts",
+    "gamma": 1.232,
+    "se": 0.355,
+    "player_matches": 183
+   },
+   {
+    "tour": "atp",
+    "slam": "RG",
+    "year": 2014,
+    "bgroup": "pts",
+    "gamma": -1.058,
+    "se": 0.372,
+    "player_matches": 166
+   },
+   {
+    "tour": "atp",
+    "slam": "RG",
+    "year": 2015,
+    "bgroup": "pts",
+    "gamma": 0.036,
+    "se": 0.352,
+    "player_matches": 179
+   },
+   {
+    "tour": "atp",
+    "slam": "RG",
+    "year": 2016,
+    "bgroup": "pts",
+    "gamma": -2.372,
+    "se": 0.37,
+    "player_matches": 166
+   },
+   {
+    "tour": "atp",
+    "slam": "RG",
+    "year": 2017,
+    "bgroup": "pts",
+    "gamma": -0.121,
+    "se": 0.349,
+    "player_matches": 190
+   },
+   {
+    "tour": "atp",
+    "slam": "RG",
+    "year": 2019,
+    "bgroup": "pts",
+    "gamma": -1.587,
+    "se": 0.54,
+    "player_matches": 75
+   },
+   {
+    "tour": "atp",
+    "slam": "RG",
+    "year": 2020,
+    "bgroup": "pts",
+    "gamma": -2.684,
+    "se": 0.359,
+    "player_matches": 177
+   },
+   {
+    "tour": "atp",
+    "slam": "RG",
+    "year": 2021,
+    "bgroup": "pts",
+    "gamma": -1.317,
+    "se": 0.332,
+    "player_matches": 190
+   },
+   {
+    "tour": "atp",
+    "slam": "USO",
+    "year": 2011,
+    "bgroup": "pts",
+    "gamma": -1.779,
+    "se": 0.392,
+    "player_matches": 148
+   },
+   {
+    "tour": "atp",
+    "slam": "USO",
+    "year": 2014,
+    "bgroup": "pts",
+    "gamma": 0.572,
+    "se": 0.367,
+    "player_matches": 171
+   },
+   {
+    "tour": "atp",
+    "slam": "USO",
+    "year": 2015,
+    "bgroup": "pts",
+    "gamma": -2.641,
+    "se": 0.371,
+    "player_matches": 161
+   },
+   {
+    "tour": "atp",
+    "slam": "USO",
+    "year": 2016,
+    "bgroup": "pts",
+    "gamma": -1.191,
+    "se": 0.38,
+    "player_matches": 157
+   },
+   {
+    "tour": "atp",
+    "slam": "USO",
+    "year": 2017,
+    "bgroup": "pts",
+    "gamma": -1.829,
+    "se": 0.392,
+    "player_matches": 145
+   },
+   {
+    "tour": "atp",
+    "slam": "USO",
+    "year": 2018,
+    "bgroup": "pts",
+    "gamma": -1.602,
+    "se": 0.383,
+    "player_matches": 153
+   },
+   {
+    "tour": "atp",
+    "slam": "USO",
+    "year": 2019,
+    "bgroup": "pts",
+    "gamma": -2.674,
+    "se": 0.408,
+    "player_matches": 136
+   },
+   {
+    "tour": "atp",
+    "slam": "USO",
+    "year": 2020,
+    "bgroup": "pts",
+    "gamma": 0.751,
+    "se": 0.433,
+    "player_matches": 119
+   },
+   {
+    "tour": "atp",
+    "slam": "USO",
+    "year": 2021,
+    "bgroup": "pts",
+    "gamma": -0.386,
+    "se": 0.291,
+    "player_matches": 248
+   },
+   {
+    "tour": "atp",
+    "slam": "W",
+    "year": 2011,
+    "bgroup": "pts",
+    "gamma": 0.21,
+    "se": 0.421,
+    "player_matches": 123
+   },
+   {
+    "tour": "atp",
+    "slam": "W",
+    "year": 2014,
+    "bgroup": "pts",
+    "gamma": 0.628,
+    "se": 0.42,
+    "player_matches": 124
+   },
+   {
+    "tour": "atp",
+    "slam": "W",
+    "year": 2015,
+    "bgroup": "pts",
+    "gamma": 1.954,
+    "se": 0.384,
+    "player_matches": 149
+   },
+   {
+    "tour": "atp",
+    "slam": "W",
+    "year": 2016,
+    "bgroup": "pts",
+    "gamma": 1.672,
+    "se": 0.421,
+    "player_matches": 122
+   },
+   {
+    "tour": "atp",
+    "slam": "W",
+    "year": 2017,
+    "bgroup": "pts",
+    "gamma": 1.74,
+    "se": 0.395,
+    "player_matches": 139
+   },
+   {
+    "tour": "atp",
+    "slam": "W",
+    "year": 2018,
+    "bgroup": "pts",
+    "gamma": 2.218,
+    "se": 0.405,
+    "player_matches": 135
+   },
+   {
+    "tour": "atp",
+    "slam": "W",
+    "year": 2019,
+    "bgroup": "pts",
+    "gamma": 2.743,
+    "se": 0.406,
+    "player_matches": 135
+   },
+   {
+    "tour": "atp",
+    "slam": "W",
+    "year": 2021,
+    "bgroup": "pts",
+    "gamma": 1.633,
+    "se": 0.39,
+    "player_matches": 135
+   },
+   {
+    "tour": "wta",
+    "slam": "AO",
+    "year": 2011,
+    "bgroup": "pts",
+    "gamma": -0.031,
+    "se": 0.379,
+    "player_matches": 168
+   },
+   {
+    "tour": "wta",
+    "slam": "AO",
+    "year": 2015,
+    "bgroup": "pts",
+    "gamma": 0.188,
+    "se": 0.375,
+    "player_matches": 169
+   },
+   {
+    "tour": "wta",
+    "slam": "AO",
+    "year": 2016,
+    "bgroup": "pts",
+    "gamma": 1.516,
+    "se": 0.388,
+    "player_matches": 163
+   },
+   {
+    "tour": "wta",
+    "slam": "AO",
+    "year": 2017,
+    "bgroup": "pts",
+    "gamma": 0.46,
+    "se": 0.403,
+    "player_matches": 147
+   },
+   {
+    "tour": "wta",
+    "slam": "AO",
+    "year": 2018,
+    "bgroup": "pts",
+    "gamma": -0.494,
+    "se": 0.383,
+    "player_matches": 165
+   },
+   {
+    "tour": "wta",
+    "slam": "AO",
+    "year": 2019,
+    "bgroup": "pts",
+    "gamma": 1.863,
+    "se": 0.379,
+    "player_matches": 167
+   },
+   {
+    "tour": "wta",
+    "slam": "AO",
+    "year": 2020,
+    "bgroup": "pts",
+    "gamma": 1.94,
+    "se": 0.326,
+    "player_matches": 233
+   },
+   {
+    "tour": "wta",
+    "slam": "AO",
+    "year": 2021,
+    "bgroup": "pts",
+    "gamma": 0.239,
+    "se": 0.319,
+    "player_matches": 237
+   },
+   {
+    "tour": "wta",
+    "slam": "RG",
+    "year": 2011,
+    "bgroup": "pts",
+    "gamma": 0.582,
+    "se": 0.372,
+    "player_matches": 176
+   },
+   {
+    "tour": "wta",
+    "slam": "RG",
+    "year": 2014,
+    "bgroup": "pts",
+    "gamma": -0.071,
+    "se": 0.386,
+    "player_matches": 166
+   },
+   {
+    "tour": "wta",
+    "slam": "RG",
+    "year": 2015,
+    "bgroup": "pts",
+    "gamma": -0.582,
+    "se": 0.364,
+    "player_matches": 183
+   },
+   {
+    "tour": "wta",
+    "slam": "RG",
+    "year": 2016,
+    "bgroup": "pts",
+    "gamma": -1.268,
+    "se": 0.412,
+    "player_matches": 149
+   },
+   {
+    "tour": "wta",
+    "slam": "RG",
+    "year": 2017,
+    "bgroup": "pts",
+    "gamma": -0.901,
+    "se": 0.393,
+    "player_matches": 159
+   },
+   {
+    "tour": "wta",
+    "slam": "RG",
+    "year": 2019,
+    "bgroup": "pts",
+    "gamma": -2.245,
+    "se": 0.554,
+    "player_matches": 78
+   },
+   {
+    "tour": "wta",
+    "slam": "RG",
+    "year": 2020,
+    "bgroup": "pts",
+    "gamma": -3.35,
+    "se": 0.37,
+    "player_matches": 179
+   },
+   {
+    "tour": "wta",
+    "slam": "RG",
+    "year": 2021,
+    "bgroup": "pts",
+    "gamma": -2.799,
+    "se": 0.356,
+    "player_matches": 186
+   },
+   {
+    "tour": "wta",
+    "slam": "USO",
+    "year": 2011,
+    "bgroup": "pts",
+    "gamma": -1.744,
+    "se": 0.419,
+    "player_matches": 140
+   },
+   {
+    "tour": "wta",
+    "slam": "USO",
+    "year": 2014,
+    "bgroup": "pts",
+    "gamma": -0.93,
+    "se": 0.384,
+    "player_matches": 168
+   },
+   {
+    "tour": "wta",
+    "slam": "USO",
+    "year": 2015,
+    "bgroup": "pts",
+    "gamma": -1.175,
+    "se": 0.382,
+    "player_matches": 166
+   },
+   {
+    "tour": "wta",
+    "slam": "USO",
+    "year": 2016,
+    "bgroup": "pts",
+    "gamma": -0.391,
+    "se": 0.406,
+    "player_matches": 149
+   },
+   {
+    "tour": "wta",
+    "slam": "USO",
+    "year": 2017,
+    "bgroup": "pts",
+    "gamma": -1.442,
+    "se": 0.403,
+    "player_matches": 146
+   },
+   {
+    "tour": "wta",
+    "slam": "USO",
+    "year": 2018,
+    "bgroup": "pts",
+    "gamma": -1.388,
+    "se": 0.385,
+    "player_matches": 163
+   },
+   {
+    "tour": "wta",
+    "slam": "USO",
+    "year": 2019,
+    "bgroup": "pts",
+    "gamma": -2.539,
+    "se": 0.402,
+    "player_matches": 148
+   },
+   {
+    "tour": "wta",
+    "slam": "USO",
+    "year": 2020,
+    "bgroup": "pts",
+    "gamma": 1.22,
+    "se": 0.444,
+    "player_matches": 121
+   },
+   {
+    "tour": "wta",
+    "slam": "USO",
+    "year": 2021,
+    "bgroup": "pts",
+    "gamma": 0.675,
+    "se": 0.319,
+    "player_matches": 233
+   },
+   {
+    "tour": "wta",
+    "slam": "W",
+    "year": 2011,
+    "bgroup": "pts",
+    "gamma": 1.47,
+    "se": 0.485,
+    "player_matches": 100
+   },
+   {
+    "tour": "wta",
+    "slam": "W",
+    "year": 2014,
+    "bgroup": "pts",
+    "gamma": 1.334,
+    "se": 0.436,
+    "player_matches": 126
+   },
+   {
+    "tour": "wta",
+    "slam": "W",
+    "year": 2015,
+    "bgroup": "pts",
+    "gamma": 1.983,
+    "se": 0.417,
+    "player_matches": 136
+   },
+   {
+    "tour": "wta",
+    "slam": "W",
+    "year": 2017,
+    "bgroup": "pts",
+    "gamma": 2.089,
+    "se": 0.414,
+    "player_matches": 137
+   },
+   {
+    "tour": "wta",
+    "slam": "W",
+    "year": 2018,
+    "bgroup": "pts",
+    "gamma": 2.386,
+    "se": 0.427,
+    "player_matches": 129
+   },
+   {
+    "tour": "wta",
+    "slam": "W",
+    "year": 2019,
+    "bgroup": "pts",
+    "gamma": 1.643,
+    "se": 0.403,
+    "player_matches": 146
+   },
+   {
+    "tour": "wta",
+    "slam": "W",
+    "year": 2021,
+    "bgroup": "pts",
+    "gamma": 2.475,
+    "se": 0.433,
+    "player_matches": 124
+   }
+  ],
+  "resid_sd_by_n": [
+   {
+    "nb": "(0, 20]",
+    "size": 168,
+    "std": 5.63
+   },
+   {
+    "nb": "(20, 30]",
+    "size": 1111,
+    "std": 4.383
+   },
+   {
+    "nb": "(30, 40]",
+    "size": 2017,
+    "std": 3.888
+   },
+   {
+    "nb": "(40, 60]",
+    "size": 3954,
+    "std": 3.876
+   },
+   {
+    "nb": "(60, 80]",
+    "size": 2275,
+    "std": 3.926
+   },
+   {
+    "nb": "(80, 400]",
+    "size": 1377,
+    "std": 3.888
+   }
+  ]
+ },
+ "le2023": {
+  "info": {
+   "iterations": 37,
+   "player_matches": 20822,
+   "player_seasons": 2860,
+   "editions": 368,
+   "dispersion_phi": 0.9927,
+   "tau2": 22.295,
+   "tau": 4.722
+  },
+  "families": [
+   {
+    "tour": "atp",
+    "family": "AO",
+    "draw": "M",
+    "editions": 10,
+    "player_matches": 1918,
+    "offset_vs_slam_mean": 0.739,
+    "edition_sd": 0.841,
+    "median_se": 0.424,
+    "offset_vs_tour_pts_main": -4.93
+   },
+   {
+    "tour": "atp",
+    "family": "RG",
+    "draw": "M",
+    "editions": 10,
+    "player_matches": 1595,
+    "offset_vs_slam_mean": -0.688,
+    "edition_sd": 1.432,
+    "median_se": 0.412,
+    "offset_vs_tour_pts_main": -6.357
+   },
+   {
+    "tour": "atp",
+    "family": "USO",
+    "draw": "M",
+    "editions": 11,
+    "player_matches": 1939,
+    "offset_vs_slam_mean": -1.455,
+    "edition_sd": 1.218,
+    "median_se": 0.435,
+    "offset_vs_tour_pts_main": -7.124
+   },
+   {
+    "tour": "atp",
+    "family": "USO",
+    "draw": "Q",
+    "editions": 2,
+    "player_matches": 125,
+    "offset_vs_slam_mean": -0.796,
+    "edition_sd": 0.526,
+    "median_se": 0.708,
+    "offset_vs_tour_pts_main": -6.465
+   },
+   {
+    "tour": "atp",
+    "family": "W",
+    "draw": "M",
+    "editions": 10,
+    "player_matches": 1332,
+    "offset_vs_slam_mean": 1.878,
+    "edition_sd": 0.909,
+    "median_se": 0.458,
+    "offset_vs_tour_pts_main": -3.791
+   },
+   {
+    "tour": "atp",
+    "family": "tour_ks",
+    "draw": "M",
+    "editions": 81,
+    "player_matches": 1339,
+    "offset_vs_slam_mean": 6.331,
+    "edition_sd": 3.368,
+    "median_se": 1.625,
+    "offset_vs_tour_pts_main": 0.662
+   },
+   {
+    "tour": "atp",
+    "family": "tour_ks",
+    "draw": "Q",
+    "editions": 60,
+    "player_matches": 378,
+    "offset_vs_slam_mean": 4.322,
+    "edition_sd": 9.721,
+    "median_se": 2.563,
+    "offset_vs_tour_pts_main": -1.347
+   },
+   {
+    "tour": "atp",
+    "family": "tour_pts",
+    "draw": "M",
+    "editions": 81,
+    "player_matches": 4447,
+    "offset_vs_slam_mean": 5.669,
+    "edition_sd": 2.01,
+    "median_se": 0.777,
+    "offset_vs_tour_pts_main": 0.0
+   },
+   {
+    "tour": "atp",
+    "family": "tour_pts",
+    "draw": "Q",
+    "editions": 60,
+    "player_matches": 1123,
+    "offset_vs_slam_mean": 3.351,
+    "edition_sd": 4.155,
+    "median_se": 1.434,
+    "offset_vs_tour_pts_main": -2.318
+   },
+   {
+    "tour": "wta",
+    "family": "AO",
+    "draw": "M",
+    "editions": 10,
+    "player_matches": 1925,
+    "offset_vs_slam_mean": 0.758,
+    "edition_sd": 0.819,
+    "median_se": 0.429,
+    "offset_vs_tour_pts_main": 3.56
+   },
+   {
+    "tour": "wta",
+    "family": "RG",
+    "draw": "M",
+    "editions": 10,
+    "player_matches": 1535,
+    "offset_vs_slam_mean": -1.23,
+    "edition_sd": 1.234,
+    "median_se": 0.442,
+    "offset_vs_tour_pts_main": 1.572
+   },
+   {
+    "tour": "wta",
+    "family": "USO",
+    "draw": "M",
+    "editions": 11,
+    "player_matches": 1907,
+    "offset_vs_slam_mean": -0.964,
+    "edition_sd": 1.093,
+    "median_se": 0.438,
+    "offset_vs_tour_pts_main": 1.838
+   },
+   {
+    "tour": "wta",
+    "family": "USO",
+    "draw": "Q",
+    "editions": 2,
+    "player_matches": 98,
+    "offset_vs_slam_mean": -2.138,
+    "edition_sd": 0.854,
+    "median_se": 0.863,
+    "offset_vs_tour_pts_main": 0.664
+   },
+   {
+    "tour": "wta",
+    "family": "W",
+    "draw": "M",
+    "editions": 9,
+    "player_matches": 1159,
+    "offset_vs_slam_mean": 1.956,
+    "edition_sd": 0.389,
+    "median_se": 0.486,
+    "offset_vs_tour_pts_main": 4.758
+   },
+   {
+    "tour": "wta",
+    "family": "tour_pts",
+    "draw": "M",
+    "editions": 1,
+    "player_matches": 2,
+    "offset_vs_slam_mean": -2.802,
+    "edition_sd": NaN,
+    "median_se": 3.689,
+    "offset_vs_tour_pts_main": 0.0
+   }
+  ],
+  "tour_components": {
+   "editions": 75,
+   "events": 47,
+   "sd_edition_effects_raw": 2.066,
+   "mean_se": 0.759,
+   "var_total_net_of_noise": 3.657,
+   "var_year_specific_net": 0.902,
+   "var_event_persistent_net": 2.755,
+   "sd_event_persistent": 1.66,
+   "sd_year_specific": 0.95,
+   "by_indoor": [
+    {
+     "indoor": "False",
+     "size": 49,
+     "mean": 5.12,
+     "std": 1.726
+    },
+    {
+     "indoor": "True",
+     "size": 22,
+     "mean": 7.406,
+     "std": 1.291
+    }
+   ],
+   "by_surface": [
+    {
+     "surface": "Clay",
+     "size": 6,
+     "mean": 3.625,
+     "std": 2.875
+    },
+    {
+     "surface": "Grass",
+     "size": 8,
+     "mean": 6.282,
+     "std": 2.14
+    },
+    {
+     "surface": "Hard",
+     "size": 61,
+     "mean": 5.93,
+     "std": 1.876
+    }
+   ],
+   "slowest_events": [
+    {
+     "event": "3945",
+     "name": "San Benedetto Del Tronto CH",
+     "years": [
+      2023
+     ],
+     "mean_gamma": -0.898,
+     "sd_gamma": NaN,
+     "indoor": null,
+     "surface": "Clay"
+    },
+    {
+     "event": "7480",
+     "name": "Los Cabos",
+     "years": [
+      2023
+     ],
+     "mean_gamma": 1.775,
+     "sd_gamma": NaN,
+     "indoor": false,
+     "surface": "Hard"
+    },
+    {
+     "event": "741",
+     "name": "Eastbourne",
+     "years": [
+      2023
+     ],
+     "mean_gamma": 2.194,
+     "sd_gamma": NaN,
+     "indoor": false,
+     "surface": "Grass"
+    },
+    {
+     "event": "499",
+     "name": "Delray Beach",
+     "years": [
+      2022,
+      2023
+     ],
+     "mean_gamma": 2.485,
+     "sd_gamma": 2.291,
+     "indoor": false,
+     "surface": "Hard"
+    },
+    {
+     "event": "9164",
+     "name": "Zhuhai",
+     "years": [
+      2023
+     ],
+     "mean_gamma": 3.108,
+     "sd_gamma": NaN,
+     "indoor": false,
+     "surface": "Hard"
+    },
+    {
+     "event": "410",
+     "name": "Monte Carlo Masters",
+     "years": [
+      2022,
+      2023
+     ],
+     "mean_gamma": 3.809,
+     "sd_gamma": 0.626,
+     "indoor": false,
+     "surface": "Clay"
+    },
+    {
+     "event": "7581",
+     "name": "Chengdu",
+     "years": [
+      2023
+     ],
+     "mean_gamma": 3.992,
+     "sd_gamma": NaN,
+     "indoor": false,
+     "surface": "Hard"
+    },
+    {
+     "event": "421",
+     "name": "Canada Masters",
+     "years": [
+      2022,
+      2023
+     ],
+     "mean_gamma": 4.102,
+     "sd_gamma": 0.077,
+     "indoor": false,
+     "surface": "Hard"
+    }
+   ],
+   "fastest_events": [
+    {
+     "event": "500",
+     "name": "Halle",
+     "years": [
+      2022,
+      2023
+     ],
+     "mean_gamma": 7.844,
+     "sd_gamma": 0.082,
+     "indoor": false,
+     "surface": "Grass"
+    },
+    {
+     "event": "337",
+     "name": "Vienna",
+     "years": [
+      2021,
+      2022,
+      2023
+     ],
+     "mean_gamma": 8.203,
+     "sd_gamma": 1.185,
+     "indoor": true,
+     "surface": "Hard"
+    },
+    {
+     "event": "7696",
+     "name": "NextGen Finals",
+     "years": [
+      2022,
+      2023
+     ],
+     "mean_gamma": 8.317,
+     "sd_gamma": 1.298,
+     "indoor": true,
+     "surface": "Hard"
+    },
+    {
+     "event": "7341",
+     "name": "Brest CH",
+     "years": [
+      2022
+     ],
+     "mean_gamma": 8.569,
+     "sd_gamma": NaN,
+     "indoor": null,
+     "surface": "Hard"
+    },
+    {
+     "event": "605",
+     "name": "Tour Finals",
+     "years": [
+      2022,
+      2023
+     ],
+     "mean_gamma": 8.66,
+     "sd_gamma": 0.481,
+     "indoor": true,
+     "surface": "Hard"
+    },
+    {
+     "event": "7434",
+     "name": "Sofia",
+     "years": [
+      2022
+     ],
+     "mean_gamma": 8.715,
+     "sd_gamma": NaN,
+     "indoor": true,
+     "surface": "Hard"
+    },
+    {
+     "event": "321",
+     "name": "Stuttgart",
+     "years": [
+      2023
+     ],
+     "mean_gamma": 8.939,
+     "sd_gamma": NaN,
+     "indoor": false,
+     "surface": "Grass"
+    },
+    {
+     "event": "7485",
+     "name": "Antwerp",
+     "years": [
+      2022,
+      2023
+     ],
+     "mean_gamma": 8.948,
+     "sd_gamma": 0.642,
+     "indoor": true,
+     "surface": "Hard"
+    }
+   ]
+  },
+  "qual_minus_main": [
+   {
+    "tour": "atp",
+    "family": "USO",
+    "bgroup": "pts",
+    "size": 2,
+    "mean": 1.541,
+    "median": 1.541,
+    "std": 0.524
+   },
+   {
+    "tour": "atp",
+    "family": "tour_ks",
+    "bgroup": "ks",
+    "size": 56,
+    "mean": -3.722,
+    "median": -2.871,
+    "std": 9.982
+   },
+   {
+    "tour": "atp",
+    "family": "tour_pts",
+    "bgroup": "pts",
+    "size": 58,
+    "mean": -1.677,
+    "median": -1.265,
+    "std": 3.731
+   },
+   {
+    "tour": "wta",
+    "family": "USO",
+    "bgroup": "pts",
+    "size": 2,
+    "mean": -0.744,
+    "median": -0.744,
+    "std": 0.439
+   }
+  ],
+  "slam_editions": [
+   {
+    "tour": "atp",
+    "slam": "AO",
+    "year": 2011,
+    "bgroup": "pts",
+    "gamma": 0.081,
+    "se": 0.423,
+    "player_matches": 163
+   },
+   {
+    "tour": "atp",
+    "slam": "AO",
+    "year": 2015,
+    "bgroup": "pts",
+    "gamma": 0.797,
+    "se": 0.425,
+    "player_matches": 160
+   },
+   {
+    "tour": "atp",
+    "slam": "AO",
+    "year": 2016,
+    "bgroup": "pts",
+    "gamma": 2.349,
+    "se": 0.425,
+    "player_matches": 160
+   },
+   {
+    "tour": "atp",
+    "slam": "AO",
+    "year": 2017,
+    "bgroup": "pts",
+    "gamma": 0.306,
+    "se": 0.431,
+    "player_matches": 154
+   },
+   {
+    "tour": "atp",
+    "slam": "AO",
+    "year": 2018,
+    "bgroup": "pts",
+    "gamma": -0.346,
+    "se": 0.439,
+    "player_matches": 156
+   },
+   {
+    "tour": "atp",
+    "slam": "AO",
+    "year": 2019,
+    "bgroup": "pts",
+    "gamma": 0.716,
+    "se": 0.433,
+    "player_matches": 157
+   },
+   {
+    "tour": "atp",
+    "slam": "AO",
+    "year": 2020,
+    "bgroup": "pts",
+    "gamma": 1.686,
+    "se": 0.363,
+    "player_matches": 229
+   },
+   {
+    "tour": "atp",
+    "slam": "AO",
+    "year": 2021,
+    "bgroup": "pts",
+    "gamma": 0.526,
+    "se": 0.344,
+    "player_matches": 239
+   },
+   {
+    "tour": "atp",
+    "slam": "AO",
+    "year": 2022,
+    "bgroup": "pts",
+    "gamma": 1.277,
+    "se": 0.325,
+    "player_matches": 246
+   },
+   {
+    "tour": "atp",
+    "slam": "AO",
+    "year": 2023,
+    "bgroup": "pts",
+    "gamma": -0.122,
+    "se": 0.319,
+    "player_matches": 254
+   },
+   {
+    "tour": "atp",
+    "slam": "RG",
+    "year": 2011,
+    "bgroup": "pts",
+    "gamma": 1.23,
+    "se": 0.406,
+    "player_matches": 183
+   },
+   {
+    "tour": "atp",
+    "slam": "RG",
+    "year": 2014,
+    "bgroup": "pts",
+    "gamma": -1.059,
+    "se": 0.426,
+    "player_matches": 166
+   },
+   {
+    "tour": "atp",
+    "slam": "RG",
+    "year": 2015,
+    "bgroup": "pts",
+    "gamma": 0.038,
+    "se": 0.403,
+    "player_matches": 179
+   },
+   {
+    "tour": "atp",
+    "slam": "RG",
+    "year": 2016,
+    "bgroup": "pts",
+    "gamma": -2.372,
+    "se": 0.423,
+    "player_matches": 166
+   },
+   {
+    "tour": "atp",
+    "slam": "RG",
+    "year": 2017,
+    "bgroup": "pts",
+    "gamma": -0.116,
+    "se": 0.399,
+    "player_matches": 190
+   },
+   {
+    "tour": "atp",
+    "slam": "RG",
+    "year": 2019,
+    "bgroup": "pts",
+    "gamma": -1.577,
+    "se": 0.618,
+    "player_matches": 75
+   },
+   {
+    "tour": "atp",
+    "slam": "RG",
+    "year": 2020,
+    "bgroup": "pts",
+    "gamma": -2.685,
+    "se": 0.411,
+    "player_matches": 177
+   },
+   {
+    "tour": "atp",
+    "slam": "RG",
+    "year": 2021,
+    "bgroup": "pts",
+    "gamma": -1.312,
+    "se": 0.38,
+    "player_matches": 190
+   },
+   {
+    "tour": "atp",
+    "slam": "RG",
+    "year": 2022,
+    "bgroup": "pts",
+    "gamma": -0.603,
+    "se": 0.412,
+    "player_matches": 154
+   },
+   {
+    "tour": "atp",
+    "slam": "RG",
+    "year": 2023,
+    "bgroup": "pts",
+    "gamma": 1.717,
+    "se": 0.471,
+    "player_matches": 115
+   },
+   {
+    "tour": "atp",
+    "slam": "USO",
+    "year": 2011,
+    "bgroup": "pts",
+    "gamma": -1.779,
+    "se": 0.448,
+    "player_matches": 148
+   },
+   {
+    "tour": "atp",
+    "slam": "USO",
+    "year": 2014,
+    "bgroup": "pts",
+    "gamma": 0.571,
+    "se": 0.42,
+    "player_matches": 171
+   },
+   {
+    "tour": "atp",
+    "slam": "USO",
+    "year": 2015,
+    "bgroup": "pts",
+    "gamma": -2.644,
+    "se": 0.424,
+    "player_matches": 161
+   },
+   {
+    "tour": "atp",
+    "slam": "USO",
+    "year": 2016,
+    "bgroup": "pts",
+    "gamma": -1.17,
+    "se": 0.435,
+    "player_matches": 157
+   },
+   {
+    "tour": "atp",
+    "slam": "USO",
+    "year": 2017,
+    "bgroup": "pts",
+    "gamma": -1.831,
+    "se": 0.449,
+    "player_matches": 145
+   },
+   {
+    "tour": "atp",
+    "slam": "USO",
+    "year": 2018,
+    "bgroup": "pts",
+    "gamma": -1.601,
+    "se": 0.438,
+    "player_matches": 153
+   },
+   {
+    "tour": "atp",
+    "slam": "USO",
+    "year": 2019,
+    "bgroup": "pts",
+    "gamma": -2.678,
+    "se": 0.467,
+    "player_matches": 136
+   },
+   {
+    "tour": "atp",
+    "slam": "USO",
+    "year": 2020,
+    "bgroup": "pts",
+    "gamma": 0.748,
+    "se": 0.496,
+    "player_matches": 119
+   },
+   {
+    "tour": "atp",
+    "slam": "USO",
+    "year": 2021,
+    "bgroup": "pts",
+    "gamma": -0.387,
+    "se": 0.334,
+    "player_matches": 248
+   },
+   {
+    "tour": "atp",
+    "slam": "USO",
+    "year": 2022,
+    "bgroup": "pts",
+    "gamma": -2.324,
+    "se": 0.324,
+    "player_matches": 249
+   },
+   {
+    "tour": "atp",
+    "slam": "USO",
+    "year": 2023,
+    "bgroup": "pts",
+    "gamma": -2.321,
+    "se": 0.323,
+    "player_matches": 252
+   },
+   {
+    "tour": "atp",
+    "slam": "W",
+    "year": 2011,
+    "bgroup": "pts",
+    "gamma": 0.202,
+    "se": 0.482,
+    "player_matches": 123
+   },
+   {
+    "tour": "atp",
+    "slam": "W",
+    "year": 2014,
+    "bgroup": "pts",
+    "gamma": 0.631,
+    "se": 0.482,
+    "player_matches": 124
+   },
+   {
+    "tour": "atp",
+    "slam": "W",
+    "year": 2015,
+    "bgroup": "pts",
+    "gamma": 1.955,
+    "se": 0.44,
+    "player_matches": 149
+   },
+   {
+    "tour": "atp",
+    "slam": "W",
+    "year": 2016,
+    "bgroup": "pts",
+    "gamma": 1.653,
+    "se": 0.482,
+    "player_matches": 122
+   },
+   {
+    "tour": "atp",
+    "slam": "W",
+    "year": 2017,
+    "bgroup": "pts",
+    "gamma": 1.73,
+    "se": 0.452,
+    "player_matches": 139
+   },
+   {
+    "tour": "atp",
+    "slam": "W",
+    "year": 2018,
+    "bgroup": "pts",
+    "gamma": 2.214,
+    "se": 0.464,
+    "player_matches": 135
+   },
+   {
+    "tour": "atp",
+    "slam": "W",
+    "year": 2019,
+    "bgroup": "pts",
+    "gamma": 2.741,
+    "se": 0.466,
+    "player_matches": 135
+   },
+   {
+    "tour": "atp",
+    "slam": "W",
+    "year": 2021,
+    "bgroup": "pts",
+    "gamma": 1.627,
+    "se": 0.447,
+    "player_matches": 135
+   },
+   {
+    "tour": "atp",
+    "slam": "W",
+    "year": 2022,
+    "bgroup": "pts",
+    "gamma": 2.646,
+    "se": 0.437,
+    "player_matches": 135
+   },
+   {
+    "tour": "atp",
+    "slam": "W",
+    "year": 2023,
+    "bgroup": "pts",
+    "gamma": 3.101,
+    "se": 0.435,
+    "player_matches": 135
+   },
+   {
+    "tour": "wta",
+    "slam": "AO",
+    "year": 2011,
+    "bgroup": "pts",
+    "gamma": -0.027,
+    "se": 0.431,
+    "player_matches": 168
+   },
+   {
+    "tour": "wta",
+    "slam": "AO",
+    "year": 2015,
+    "bgroup": "pts",
+    "gamma": 0.189,
+    "se": 0.426,
+    "player_matches": 169
+   },
+   {
+    "tour": "wta",
+    "slam": "AO",
+    "year": 2016,
+    "bgroup": "pts",
+    "gamma": 1.515,
+    "se": 0.441,
+    "player_matches": 163
+   },
+   {
+    "tour": "wta",
+    "slam": "AO",
+    "year": 2017,
+    "bgroup": "pts",
+    "gamma": 0.464,
+    "se": 0.458,
+    "player_matches": 147
+   },
+   {
+    "tour": "wta",
+    "slam": "AO",
+    "year": 2018,
+    "bgroup": "pts",
+    "gamma": -0.491,
+    "se": 0.436,
+    "player_matches": 165
+   },
+   {
+    "tour": "wta",
+    "slam": "AO",
+    "year": 2019,
+    "bgroup": "pts",
+    "gamma": 1.862,
+    "se": 0.431,
+    "player_matches": 167
+   },
+   {
+    "tour": "wta",
+    "slam": "AO",
+    "year": 2020,
+    "bgroup": "pts",
+    "gamma": 1.941,
+    "se": 0.37,
+    "player_matches": 233
+   },
+   {
+    "tour": "wta",
+    "slam": "AO",
+    "year": 2021,
+    "bgroup": "pts",
+    "gamma": 0.238,
+    "se": 0.362,
+    "player_matches": 237
+   },
+   {
+    "tour": "wta",
+    "slam": "AO",
+    "year": 2022,
+    "bgroup": "pts",
+    "gamma": 0.816,
+    "se": 0.36,
+    "player_matches": 241
+   },
+   {
+    "tour": "wta",
+    "slam": "AO",
+    "year": 2023,
+    "bgroup": "pts",
+    "gamma": 0.77,
+    "se": 0.366,
+    "player_matches": 235
+   },
+   {
+    "tour": "wta",
+    "slam": "RG",
+    "year": 2011,
+    "bgroup": "pts",
+    "gamma": 0.58,
+    "se": 0.423,
+    "player_matches": 176
+   },
+   {
+    "tour": "wta",
+    "slam": "RG",
+    "year": 2014,
+    "bgroup": "pts",
+    "gamma": -0.076,
+    "se": 0.439,
+    "player_matches": 166
+   },
+   {
+    "tour": "wta",
+    "slam": "RG",
+    "year": 2015,
+    "bgroup": "pts",
+    "gamma": -0.58,
+    "se": 0.414,
+    "player_matches": 183
+   },
+   {
+    "tour": "wta",
+    "slam": "RG",
+    "year": 2016,
+    "bgroup": "pts",
+    "gamma": -1.268,
+    "se": 0.468,
+    "player_matches": 149
+   },
+   {
+    "tour": "wta",
+    "slam": "RG",
+    "year": 2017,
+    "bgroup": "pts",
+    "gamma": -0.894,
+    "se": 0.446,
+    "player_matches": 159
+   },
+   {
+    "tour": "wta",
+    "slam": "RG",
+    "year": 2019,
+    "bgroup": "pts",
+    "gamma": -2.244,
+    "se": 0.629,
+    "player_matches": 78
+   },
+   {
+    "tour": "wta",
+    "slam": "RG",
+    "year": 2020,
+    "bgroup": "pts",
+    "gamma": -3.351,
+    "se": 0.421,
+    "player_matches": 179
+   },
+   {
+    "tour": "wta",
+    "slam": "RG",
+    "year": 2021,
+    "bgroup": "pts",
+    "gamma": -2.788,
+    "se": 0.405,
+    "player_matches": 186
+   },
+   {
+    "tour": "wta",
+    "slam": "RG",
+    "year": 2022,
+    "bgroup": "pts",
+    "gamma": -1.315,
+    "se": 0.446,
+    "player_matches": 151
+   },
+   {
+    "tour": "wta",
+    "slam": "RG",
+    "year": 2023,
+    "bgroup": "pts",
+    "gamma": -0.453,
+    "se": 0.529,
+    "player_matches": 108
+   },
+   {
+    "tour": "wta",
+    "slam": "USO",
+    "year": 2011,
+    "bgroup": "pts",
+    "gamma": -1.755,
+    "se": 0.475,
+    "player_matches": 140
+   },
+   {
+    "tour": "wta",
+    "slam": "USO",
+    "year": 2014,
+    "bgroup": "pts",
+    "gamma": -0.923,
+    "se": 0.436,
+    "player_matches": 168
+   },
+   {
+    "tour": "wta",
+    "slam": "USO",
+    "year": 2015,
+    "bgroup": "pts",
+    "gamma": -1.174,
+    "se": 0.433,
+    "player_matches": 166
+   },
+   {
+    "tour": "wta",
+    "slam": "USO",
+    "year": 2016,
+    "bgroup": "pts",
+    "gamma": -0.389,
+    "se": 0.462,
+    "player_matches": 149
+   },
+   {
+    "tour": "wta",
+    "slam": "USO",
+    "year": 2017,
+    "bgroup": "pts",
+    "gamma": -1.445,
+    "se": 0.459,
+    "player_matches": 146
+   },
+   {
+    "tour": "wta",
+    "slam": "USO",
+    "year": 2018,
+    "bgroup": "pts",
+    "gamma": -1.385,
+    "se": 0.438,
+    "player_matches": 163
+   },
+   {
+    "tour": "wta",
+    "slam": "USO",
+    "year": 2019,
+    "bgroup": "pts",
+    "gamma": -2.539,
+    "se": 0.457,
+    "player_matches": 148
+   },
+   {
+    "tour": "wta",
+    "slam": "USO",
+    "year": 2020,
+    "bgroup": "pts",
+    "gamma": 1.219,
+    "se": 0.505,
+    "player_matches": 121
+   },
+   {
+    "tour": "wta",
+    "slam": "USO",
+    "year": 2021,
+    "bgroup": "pts",
+    "gamma": 0.671,
+    "se": 0.363,
+    "player_matches": 233
+   },
+   {
+    "tour": "wta",
+    "slam": "USO",
+    "year": 2022,
+    "bgroup": "pts",
+    "gamma": -1.137,
+    "se": 0.361,
+    "player_matches": 239
+   },
+   {
+    "tour": "wta",
+    "slam": "USO",
+    "year": 2023,
+    "bgroup": "pts",
+    "gamma": -1.724,
+    "se": 0.365,
+    "player_matches": 234
+   },
+   {
+    "tour": "wta",
+    "slam": "W",
+    "year": 2011,
+    "bgroup": "pts",
+    "gamma": 1.483,
+    "se": 0.551,
+    "player_matches": 100
+   },
+   {
+    "tour": "wta",
+    "slam": "W",
+    "year": 2014,
+    "bgroup": "pts",
+    "gamma": 1.33,
+    "se": 0.495,
+    "player_matches": 126
+   },
+   {
+    "tour": "wta",
+    "slam": "W",
+    "year": 2015,
+    "bgroup": "pts",
+    "gamma": 1.979,
+    "se": 0.474,
+    "player_matches": 136
+   },
+   {
+    "tour": "wta",
+    "slam": "W",
+    "year": 2017,
+    "bgroup": "pts",
+    "gamma": 2.08,
+    "se": 0.471,
+    "player_matches": 137
+   },
+   {
+    "tour": "wta",
+    "slam": "W",
+    "year": 2018,
+    "bgroup": "pts",
+    "gamma": 2.377,
+    "se": 0.486,
+    "player_matches": 129
+   },
+   {
+    "tour": "wta",
+    "slam": "W",
+    "year": 2019,
+    "bgroup": "pts",
+    "gamma": 1.643,
+    "se": 0.459,
+    "player_matches": 146
+   },
+   {
+    "tour": "wta",
+    "slam": "W",
+    "year": 2021,
+    "bgroup": "pts",
+    "gamma": 2.466,
+    "se": 0.492,
+    "player_matches": 124
+   },
+   {
+    "tour": "wta",
+    "slam": "W",
+    "year": 2022,
+    "bgroup": "pts",
+    "gamma": 2.026,
+    "se": 0.471,
+    "player_matches": 135
+   },
+   {
+    "tour": "wta",
+    "slam": "W",
+    "year": 2023,
+    "bgroup": "pts",
+    "gamma": 2.154,
+    "se": 0.488,
+    "player_matches": 126
+   }
+  ],
+  "resid_sd_by_n": [
+   {
+    "nb": "(0, 20]",
+    "size": 390,
+    "std": 6.362
+   },
+   {
+    "nb": "(20, 30]",
+    "size": 2367,
+    "std": 4.836
+   },
+   {
+    "nb": "(30, 40]",
+    "size": 4428,
+    "std": 4.736
+   },
+   {
+    "nb": "(40, 60]",
+    "size": 7802,
+    "std": 4.633
+   },
+   {
+    "nb": "(60, 80]",
+    "size": 3928,
+    "std": 4.516
+   },
+   {
+    "nb": "(80, 400]",
+    "size": 1907,
+    "std": 4.174
+   }
+  ]
+ },
+ "all_descriptive": {
+  "info": {
+   "iterations": 76,
+   "player_matches": 41243,
+   "player_seasons": 4580,
+   "editions": 728,
+   "dispersion_phi": 0.9993,
+   "tau2": 22.832,
+   "tau": 4.778
+  },
+  "families": [
+   {
+    "tour": "atp",
+    "family": "AO",
+    "draw": "M",
+    "editions": 13,
+    "player_matches": 2675,
+    "offset_vs_slam_mean": 0.494,
+    "edition_sd": 1.48,
+    "median_se": 0.368,
+    "offset_vs_tour_pts_main": -5.197
+   },
+   {
+    "tour": "atp",
+    "family": "AO",
+    "draw": "Q",
+    "editions": 2,
+    "player_matches": 417,
+    "offset_vs_slam_mean": -3.406,
+    "edition_sd": 0.026,
+    "median_se": 0.378,
+    "offset_vs_tour_pts_main": -9.097
+   },
+   {
+    "tour": "atp",
+    "family": "RG",
+    "draw": "M",
+    "editions": 13,
+    "player_matches": 2223,
+    "offset_vs_slam_mean": -0.533,
+    "edition_sd": 1.436,
+    "median_se": 0.417,
+    "offset_vs_tour_pts_main": -6.224
+   },
+   {
+    "tour": "atp",
+    "family": "RG",
+    "draw": "Q",
+    "editions": 2,
+    "player_matches": 424,
+    "offset_vs_slam_mean": -3.66,
+    "edition_sd": 2.96,
+    "median_se": 0.373,
+    "offset_vs_tour_pts_main": -9.351
+   },
+   {
+    "tour": "atp",
+    "family": "USO",
+    "draw": "M",
+    "editions": 14,
+    "player_matches": 2696,
+    "offset_vs_slam_mean": -2.034,
+    "edition_sd": 1.979,
+    "median_se": 0.428,
+    "offset_vs_tour_pts_main": -7.725
+   },
+   {
+    "tour": "atp",
+    "family": "USO",
+    "draw": "Q",
+    "editions": 5,
+    "player_matches": 498,
+    "offset_vs_slam_mean": -2.192,
+    "edition_sd": 3.385,
+    "median_se": 0.632,
+    "offset_vs_tour_pts_main": -7.883
+   },
+   {
+    "tour": "atp",
+    "family": "W",
+    "draw": "M",
+    "editions": 13,
+    "player_matches": 1971,
+    "offset_vs_slam_mean": 2.712,
+    "edition_sd": 1.853,
+    "median_se": 0.453,
+    "offset_vs_tour_pts_main": -2.979
+   },
+   {
+    "tour": "atp",
+    "family": "W",
+    "draw": "Q",
+    "editions": 2,
+    "player_matches": 437,
+    "offset_vs_slam_mean": 3.895,
+    "edition_sd": 2.098,
+    "median_se": 0.367,
+    "offset_vs_tour_pts_main": -1.796
+   },
+   {
+    "tour": "atp",
+    "family": "tour_ks",
+    "draw": "M",
+    "editions": 198,
+    "player_matches": 7222,
+    "offset_vs_slam_mean": 3.477,
+    "edition_sd": 4.072,
+    "median_se": 1.104,
+    "offset_vs_tour_pts_main": -2.214
+   },
+   {
+    "tour": "atp",
+    "family": "tour_ks",
+    "draw": "Q",
+    "editions": 151,
+    "player_matches": 2247,
+    "offset_vs_slam_mean": 2.917,
+    "edition_sd": 6.82,
+    "median_se": 1.681,
+    "offset_vs_tour_pts_main": -2.774
+   },
+   {
+    "tour": "atp",
+    "family": "tour_pts",
+    "draw": "M",
+    "editions": 137,
+    "player_matches": 7811,
+    "offset_vs_slam_mean": 5.691,
+    "edition_sd": 2.201,
+    "median_se": 0.765,
+    "offset_vs_tour_pts_main": 0.0
+   },
+   {
+    "tour": "atp",
+    "family": "tour_pts",
+    "draw": "Q",
+    "editions": 116,
+    "player_matches": 2336,
+    "offset_vs_slam_mean": 3.546,
+    "edition_sd": 3.642,
+    "median_se": 1.405,
+    "offset_vs_tour_pts_main": -2.145
+   },
+   {
+    "tour": "wta",
+    "family": "AO",
+    "draw": "M",
+    "editions": 13,
+    "player_matches": 2665,
+    "offset_vs_slam_mean": 0.467,
+    "edition_sd": 1.162,
+    "median_se": 0.375,
+    "offset_vs_tour_pts_main": 1.58
+   },
+   {
+    "tour": "wta",
+    "family": "AO",
+    "draw": "Q",
+    "editions": 2,
+    "player_matches": 376,
+    "offset_vs_slam_mean": -3.737,
+    "edition_sd": 0.714,
+    "median_se": 0.421,
+    "offset_vs_tour_pts_main": -2.624
+   },
+   {
+    "tour": "wta",
+    "family": "RG",
+    "draw": "M",
+    "editions": 13,
+    "player_matches": 2155,
+    "offset_vs_slam_mean": -1.123,
+    "edition_sd": 1.269,
+    "median_se": 0.445,
+    "offset_vs_tour_pts_main": -0.01
+   },
+   {
+    "tour": "wta",
+    "family": "RG",
+    "draw": "Q",
+    "editions": 1,
+    "player_matches": 216,
+    "offset_vs_slam_mean": -3.432,
+    "edition_sd": NaN,
+    "median_se": 0.384,
+    "offset_vs_tour_pts_main": -2.319
+   },
+   {
+    "tour": "wta",
+    "family": "USO",
+    "draw": "M",
+    "editions": 14,
+    "player_matches": 2645,
+    "offset_vs_slam_mean": -1.276,
+    "edition_sd": 1.477,
+    "median_se": 0.441,
+    "offset_vs_tour_pts_main": -0.163
+   },
+   {
+    "tour": "wta",
+    "family": "USO",
+    "draw": "Q",
+    "editions": 4,
+    "player_matches": 227,
+    "offset_vs_slam_mean": -4.829,
+    "edition_sd": 2.894,
+    "median_se": 0.822,
+    "offset_vs_tour_pts_main": -3.716
+   },
+   {
+    "tour": "wta",
+    "family": "W",
+    "draw": "M",
+    "editions": 12,
+    "player_matches": 1785,
+    "offset_vs_slam_mean": 2.549,
+    "edition_sd": 0.996,
+    "median_se": 0.486,
+    "offset_vs_tour_pts_main": 3.662
+   },
+   {
+    "tour": "wta",
+    "family": "W",
+    "draw": "Q",
+    "editions": 1,
+    "player_matches": 214,
+    "offset_vs_slam_mean": 1.01,
+    "edition_sd": NaN,
+    "median_se": 0.383,
+    "offset_vs_tour_pts_main": 2.123
+   },
+   {
+    "tour": "wta",
+    "family": "tour_pts",
+    "draw": "M",
+    "editions": 2,
+    "player_matches": 3,
+    "offset_vs_slam_mean": -1.113,
+    "edition_sd": 3.586,
+    "median_se": 4.764,
+    "offset_vs_tour_pts_main": 0.0
+   }
+  ],
+  "tour_components": {
+   "editions": 130,
+   "events": 65,
+   "sd_edition_effects_raw": 2.247,
+   "mean_se": 0.751,
+   "var_total_net_of_noise": 4.455,
+   "var_year_specific_net": 0.921,
+   "var_event_persistent_net": 3.534,
+   "sd_event_persistent": 1.88,
+   "sd_year_specific": 0.96,
+   "by_indoor": [
+    {
+     "indoor": "False",
+     "size": 92,
+     "mean": 5.269,
+     "std": 1.789
+    },
+    {
+     "indoor": "True",
+     "size": 33,
+     "mean": 7.633,
+     "std": 1.587
+    }
+   ],
+   "by_surface": [
+    {
+     "surface": "Clay",
+     "size": 20,
+     "mean": 4.244,
+     "std": 2.988
+    },
+    {
+     "surface": "Grass",
+     "size": 14,
+     "mean": 6.303,
+     "std": 2.15
+    },
+    {
+     "surface": "Hard",
+     "size": 96,
+     "mean": 6.042,
+     "std": 1.957
+    }
+   ],
+   "slowest_events": [
+    {
+     "event": "7494",
+     "name": "Barletta CH",
+     "years": [
+      2024
+     ],
+     "mean_gamma": -3.385,
+     "sd_gamma": NaN,
+     "indoor": null,
+     "surface": "Clay"
+    },
+    {
+     "event": "3945",
+     "name": "San Benedetto Del Tronto CH",
+     "years": [
+      2023
+     ],
+     "mean_gamma": -0.898,
+     "sd_gamma": NaN,
+     "indoor": null,
+     "surface": "Clay"
+    },
+    {
+     "event": "4462",
+     "name": "Bucharest",
+     "years": [
+      2025
+     ],
+     "mean_gamma": 1.467,
+     "sd_gamma": NaN,
+     "indoor": false,
+     "surface": "Clay"
+    },
+    {
+     "event": "360",
+     "name": "Marrakech",
+     "years": [
+      2025
+     ],
+     "mean_gamma": 1.648,
+     "sd_gamma": NaN,
+     "indoor": false,
+     "surface": "Clay"
+    },
+    {
+     "event": "7480",
+     "name": "Los Cabos",
+     "years": [
+      2023,
+      2024
+     ],
+     "mean_gamma": 1.907,
+     "sd_gamma": 0.187,
+     "indoor": false,
+     "surface": "Hard"
+    },
+    {
+     "event": "315",
+     "name": "Newport",
+     "years": [
+      2024
+     ],
+     "mean_gamma": 2.152,
+     "sd_gamma": NaN,
+     "indoor": false,
+     "surface": "Grass"
+    },
+    {
+     "event": "499",
+     "name": "Delray Beach",
+     "years": [
+      2022,
+      2023,
+      2024
+     ],
+     "mean_gamma": 2.968,
+     "sd_gamma": 1.822,
+     "indoor": false,
+     "surface": "Hard"
+    },
+    {
+     "event": "9164",
+     "name": "Zhuhai",
+     "years": [
+      2023
+     ],
+     "mean_gamma": 3.109,
+     "sd_gamma": NaN,
+     "indoor": false,
+     "surface": "Hard"
+    }
+   ],
+   "fastest_events": [
+    {
+     "event": "7341",
+     "name": "Brest CH",
+     "years": [
+      2022
+     ],
+     "mean_gamma": 8.568,
+     "sd_gamma": NaN,
+     "indoor": null,
+     "surface": "Hard"
+    },
+    {
+     "event": "337",
+     "name": "Vienna",
+     "years": [
+      2021,
+      2022,
+      2023,
+      2024
+     ],
+     "mean_gamma": 8.662,
+     "sd_gamma": 1.333,
+     "indoor": true,
+     "surface": "Hard"
+    },
+    {
+     "event": "7434",
+     "name": "Sofia",
+     "years": [
+      2022
+     ],
+     "mean_gamma": 8.717,
+     "sd_gamma": NaN,
+     "indoor": true,
+     "surface": "Hard"
+    },
+    {
+     "event": "7485",
+     "name": "Antwerp",
+     "years": [
+      2022,
+      2023,
+      2024
+     ],
+     "mean_gamma": 8.867,
+     "sd_gamma": 0.476,
+     "indoor": true,
+     "surface": "Hard"
+    },
+    {
+     "event": "321",
+     "name": "Stuttgart",
+     "years": [
+      2023,
+      2024
+     ],
+     "mean_gamma": 9.071,
+     "sd_gamma": 0.187,
+     "indoor": false,
+     "surface": "Grass"
+    },
+    {
+     "event": "7696",
+     "name": "Next Gen Finals",
+     "years": [
+      2022,
+      2023,
+      2024
+     ],
+     "mean_gamma": 9.231,
+     "sd_gamma": 1.833,
+     "indoor": true,
+     "surface": "Hard"
+    },
+    {
+     "event": "605",
+     "name": "Tour Finals",
+     "years": [
+      2022,
+      2023,
+      2024
+     ],
+     "mean_gamma": 9.35,
+     "sd_gamma": 1.243,
+     "indoor": true,
+     "surface": "Hard"
+    },
+    {
+     "event": "414",
+     "name": "Hamburg",
+     "years": [
+      2024
+     ],
+     "mean_gamma": 9.562,
+     "sd_gamma": NaN,
+     "indoor": false,
+     "surface": "Clay"
+    }
+   ]
+  },
+  "qual_minus_main": [
+   {
+    "tour": "atp",
+    "family": "AO",
+    "bgroup": "pts",
+    "size": 2,
+    "mean": -1.582,
+    "median": -1.582,
+    "std": 1.01
+   },
+   {
+    "tour": "atp",
+    "family": "RG",
+    "bgroup": "pts",
+    "size": 2,
+    "mean": -3.039,
+    "median": -3.039,
+    "std": 1.363
+   },
+   {
+    "tour": "atp",
+    "family": "USO",
+    "bgroup": "pts",
+    "size": 5,
+    "mean": 0.149,
+    "median": 1.088,
+    "std": 2.045
+   },
+   {
+    "tour": "atp",
+    "family": "W",
+    "bgroup": "pts",
+    "size": 2,
+    "mean": -1.651,
+    "median": -1.651,
+    "std": 0.347
+   },
+   {
+    "tour": "atp",
+    "family": "tour_ks",
+    "bgroup": "ks",
+    "size": 143,
+    "mean": -2.229,
+    "median": -1.359,
+    "std": 6.626
+   },
+   {
+    "tour": "atp",
+    "family": "tour_pts",
+    "bgroup": "pts",
+    "size": 111,
+    "mean": -1.644,
+    "median": -1.273,
+    "std": 3.133
+   },
+   {
+    "tour": "wta",
+    "family": "AO",
+    "bgroup": "pts",
+    "size": 2,
+    "mean": -2.323,
+    "median": -2.323,
+    "std": 1.567
+   },
+   {
+    "tour": "wta",
+    "family": "RG",
+    "bgroup": "pts",
+    "size": 1,
+    "mean": -3.624,
+    "median": -3.624,
+    "std": NaN
+   },
+   {
+    "tour": "wta",
+    "family": "USO",
+    "bgroup": "pts",
+    "size": 4,
+    "mean": -2.096,
+    "median": -1.492,
+    "std": 2.009
+   },
+   {
+    "tour": "wta",
+    "family": "W",
+    "bgroup": "pts",
+    "size": 1,
+    "mean": -3.747,
+    "median": -3.747,
+    "std": NaN
+   }
+  ],
+  "slam_editions": [
+   {
+    "tour": "atp",
+    "slam": "AO",
+    "year": 2011,
+    "bgroup": "pts",
+    "gamma": 0.082,
+    "se": 0.429,
+    "player_matches": 163
+   },
+   {
+    "tour": "atp",
+    "slam": "AO",
+    "year": 2015,
+    "bgroup": "pts",
+    "gamma": 0.797,
+    "se": 0.431,
+    "player_matches": 160
+   },
+   {
+    "tour": "atp",
+    "slam": "AO",
+    "year": 2016,
+    "bgroup": "pts",
+    "gamma": 2.349,
+    "se": 0.431,
+    "player_matches": 160
+   },
+   {
+    "tour": "atp",
+    "slam": "AO",
+    "year": 2017,
+    "bgroup": "pts",
+    "gamma": 0.306,
+    "se": 0.437,
+    "player_matches": 154
+   },
+   {
+    "tour": "atp",
+    "slam": "AO",
+    "year": 2018,
+    "bgroup": "pts",
+    "gamma": -0.346,
+    "se": 0.445,
+    "player_matches": 156
+   },
+   {
+    "tour": "atp",
+    "slam": "AO",
+    "year": 2019,
+    "bgroup": "pts",
+    "gamma": 0.716,
+    "se": 0.439,
+    "player_matches": 157
+   },
+   {
+    "tour": "atp",
+    "slam": "AO",
+    "year": 2020,
+    "bgroup": "pts",
+    "gamma": 1.687,
+    "se": 0.368,
+    "player_matches": 229
+   },
+   {
+    "tour": "atp",
+    "slam": "AO",
+    "year": 2021,
+    "bgroup": "pts",
+    "gamma": 0.526,
+    "se": 0.349,
+    "player_matches": 239
+   },
+   {
+    "tour": "atp",
+    "slam": "AO",
+    "year": 2022,
+    "bgroup": "pts",
+    "gamma": 1.277,
+    "se": 0.329,
+    "player_matches": 246
+   },
+   {
+    "tour": "atp",
+    "slam": "AO",
+    "year": 2023,
+    "bgroup": "pts",
+    "gamma": -0.122,
+    "se": 0.324,
+    "player_matches": 254
+   },
+   {
+    "tour": "atp",
+    "slam": "AO",
+    "year": 2024,
+    "bgroup": "pts",
+    "gamma": 3.26,
+    "se": 0.321,
+    "player_matches": 253
+   },
+   {
+    "tour": "atp",
+    "slam": "AO",
+    "year": 2025,
+    "bgroup": "pts",
+    "gamma": -1.129,
+    "se": 0.324,
+    "player_matches": 252
+   },
+   {
+    "tour": "atp",
+    "slam": "AO",
+    "year": 2026,
+    "bgroup": "pts",
+    "gamma": -2.521,
+    "se": 0.324,
+    "player_matches": 252
+   },
+   {
+    "tour": "atp",
+    "slam": "RG",
+    "year": 2011,
+    "bgroup": "pts",
+    "gamma": 1.23,
+    "se": 0.411,
+    "player_matches": 183
+   },
+   {
+    "tour": "atp",
+    "slam": "RG",
+    "year": 2014,
+    "bgroup": "pts",
+    "gamma": -1.059,
+    "se": 0.432,
+    "player_matches": 166
+   },
+   {
+    "tour": "atp",
+    "slam": "RG",
+    "year": 2015,
+    "bgroup": "pts",
+    "gamma": 0.038,
+    "se": 0.408,
+    "player_matches": 179
+   },
+   {
+    "tour": "atp",
+    "slam": "RG",
+    "year": 2016,
+    "bgroup": "pts",
+    "gamma": -2.372,
+    "se": 0.429,
+    "player_matches": 166
+   },
+   {
+    "tour": "atp",
+    "slam": "RG",
+    "year": 2017,
+    "bgroup": "pts",
+    "gamma": -0.116,
+    "se": 0.404,
+    "player_matches": 190
+   },
+   {
+    "tour": "atp",
+    "slam": "RG",
+    "year": 2019,
+    "bgroup": "pts",
+    "gamma": -1.576,
+    "se": 0.627,
+    "player_matches": 75
+   },
+   {
+    "tour": "atp",
+    "slam": "RG",
+    "year": 2020,
+    "bgroup": "pts",
+    "gamma": -2.685,
+    "se": 0.417,
+    "player_matches": 177
+   },
+   {
+    "tour": "atp",
+    "slam": "RG",
+    "year": 2021,
+    "bgroup": "pts",
+    "gamma": -1.312,
+    "se": 0.386,
+    "player_matches": 190
+   },
+   {
+    "tour": "atp",
+    "slam": "RG",
+    "year": 2022,
+    "bgroup": "pts",
+    "gamma": -0.603,
+    "se": 0.418,
+    "player_matches": 154
+   },
+   {
+    "tour": "atp",
+    "slam": "RG",
+    "year": 2023,
+    "bgroup": "pts",
+    "gamma": 1.717,
+    "se": 0.477,
+    "player_matches": 115
+   },
+   {
+    "tour": "atp",
+    "slam": "RG",
+    "year": 2024,
+    "bgroup": "pts",
+    "gamma": 1.356,
+    "se": 0.449,
+    "player_matches": 130
+   },
+   {
+    "tour": "atp",
+    "slam": "RG",
+    "year": 2025,
+    "bgroup": "pts",
+    "gamma": 0.596,
+    "se": 0.324,
+    "player_matches": 250
+   },
+   {
+    "tour": "atp",
+    "slam": "RG",
+    "year": 2026,
+    "bgroup": "pts",
+    "gamma": -1.662,
+    "se": 0.325,
+    "player_matches": 248
+   },
+   {
+    "tour": "atp",
+    "slam": "USO",
+    "year": 2011,
+    "bgroup": "pts",
+    "gamma": -1.779,
+    "se": 0.454,
+    "player_matches": 148
+   },
+   {
+    "tour": "atp",
+    "slam": "USO",
+    "year": 2014,
+    "bgroup": "pts",
+    "gamma": 0.571,
+    "se": 0.426,
+    "player_matches": 171
+   },
+   {
+    "tour": "atp",
+    "slam": "USO",
+    "year": 2015,
+    "bgroup": "pts",
+    "gamma": -2.644,
+    "se": 0.43,
+    "player_matches": 161
+   },
+   {
+    "tour": "atp",
+    "slam": "USO",
+    "year": 2016,
+    "bgroup": "pts",
+    "gamma": -1.169,
+    "se": 0.441,
+    "player_matches": 157
+   },
+   {
+    "tour": "atp",
+    "slam": "USO",
+    "year": 2017,
+    "bgroup": "pts",
+    "gamma": -1.832,
+    "se": 0.455,
+    "player_matches": 145
+   },
+   {
+    "tour": "atp",
+    "slam": "USO",
+    "year": 2018,
+    "bgroup": "pts",
+    "gamma": -1.601,
+    "se": 0.444,
+    "player_matches": 153
+   },
+   {
+    "tour": "atp",
+    "slam": "USO",
+    "year": 2019,
+    "bgroup": "pts",
+    "gamma": -2.678,
+    "se": 0.474,
+    "player_matches": 136
+   },
+   {
+    "tour": "atp",
+    "slam": "USO",
+    "year": 2020,
+    "bgroup": "pts",
+    "gamma": 0.747,
+    "se": 0.503,
+    "player_matches": 119
+   },
+   {
+    "tour": "atp",
+    "slam": "USO",
+    "year": 2021,
+    "bgroup": "pts",
+    "gamma": -0.387,
+    "se": 0.338,
+    "player_matches": 248
+   },
+   {
+    "tour": "atp",
+    "slam": "USO",
+    "year": 2022,
+    "bgroup": "pts",
+    "gamma": -2.324,
+    "se": 0.329,
+    "player_matches": 249
+   },
+   {
+    "tour": "atp",
+    "slam": "USO",
+    "year": 2023,
+    "bgroup": "pts",
+    "gamma": -2.321,
+    "se": 0.328,
+    "player_matches": 252
+   },
+   {
+    "tour": "atp",
+    "slam": "USO",
+    "year": 2024,
+    "bgroup": "pts",
+    "gamma": -4.074,
+    "se": 0.324,
+    "player_matches": 252
+   },
+   {
+    "tour": "atp",
+    "slam": "USO",
+    "year": 2025,
+    "bgroup": "pts",
+    "gamma": -6.783,
+    "se": 0.325,
+    "player_matches": 252
+   },
+   {
+    "tour": "atp",
+    "slam": "USO",
+    "year": 2026,
+    "bgroup": "pts",
+    "gamma": 0.29,
+    "se": 0.323,
+    "player_matches": 253
+   },
+   {
+    "tour": "atp",
+    "slam": "W",
+    "year": 2011,
+    "bgroup": "pts",
+    "gamma": 0.202,
+    "se": 0.489,
+    "player_matches": 123
+   },
+   {
+    "tour": "atp",
+    "slam": "W",
+    "year": 2014,
+    "bgroup": "pts",
+    "gamma": 0.631,
+    "se": 0.488,
+    "player_matches": 124
+   },
+   {
+    "tour": "atp",
+    "slam": "W",
+    "year": 2015,
+    "bgroup": "pts",
+    "gamma": 1.955,
+    "se": 0.446,
+    "player_matches": 149
+   },
+   {
+    "tour": "atp",
+    "slam": "W",
+    "year": 2016,
+    "bgroup": "pts",
+    "gamma": 1.651,
+    "se": 0.489,
+    "player_matches": 122
+   },
+   {
+    "tour": "atp",
+    "slam": "W",
+    "year": 2017,
+    "bgroup": "pts",
+    "gamma": 1.729,
+    "se": 0.459,
+    "player_matches": 139
+   },
+   {
+    "tour": "atp",
+    "slam": "W",
+    "year": 2018,
+    "bgroup": "pts",
+    "gamma": 2.214,
+    "se": 0.471,
+    "player_matches": 135
+   },
+   {
+    "tour": "atp",
+    "slam": "W",
+    "year": 2019,
+    "bgroup": "pts",
+    "gamma": 2.741,
+    "se": 0.473,
+    "player_matches": 135
+   },
+   {
+    "tour": "atp",
+    "slam": "W",
+    "year": 2021,
+    "bgroup": "pts",
+    "gamma": 1.626,
+    "se": 0.453,
+    "player_matches": 135
+   },
+   {
+    "tour": "atp",
+    "slam": "W",
+    "year": 2022,
+    "bgroup": "pts",
+    "gamma": 2.646,
+    "se": 0.443,
+    "player_matches": 135
+   },
+   {
+    "tour": "atp",
+    "slam": "W",
+    "year": 2023,
+    "bgroup": "pts",
+    "gamma": 3.101,
+    "se": 0.442,
+    "player_matches": 135
+   },
+   {
+    "tour": "atp",
+    "slam": "W",
+    "year": 2024,
+    "bgroup": "pts",
+    "gamma": 0.192,
+    "se": 0.445,
+    "player_matches": 132
+   },
+   {
+    "tour": "atp",
+    "slam": "W",
+    "year": 2025,
+    "bgroup": "pts",
+    "gamma": 7.292,
+    "se": 0.323,
+    "player_matches": 253
+   },
+   {
+    "tour": "atp",
+    "slam": "W",
+    "year": 2026,
+    "bgroup": "pts",
+    "gamma": 3.835,
+    "se": 0.32,
+    "player_matches": 254
+   },
+   {
+    "tour": "wta",
+    "slam": "AO",
+    "year": 2011,
+    "bgroup": "pts",
+    "gamma": -0.027,
+    "se": 0.437,
+    "player_matches": 168
+   },
+   {
+    "tour": "wta",
+    "slam": "AO",
+    "year": 2015,
+    "bgroup": "pts",
+    "gamma": 0.189,
+    "se": 0.432,
+    "player_matches": 169
+   },
+   {
+    "tour": "wta",
+    "slam": "AO",
+    "year": 2016,
+    "bgroup": "pts",
+    "gamma": 1.515,
+    "se": 0.447,
+    "player_matches": 163
+   },
+   {
+    "tour": "wta",
+    "slam": "AO",
+    "year": 2017,
+    "bgroup": "pts",
+    "gamma": 0.464,
+    "se": 0.464,
+    "player_matches": 147
+   },
+   {
+    "tour": "wta",
+    "slam": "AO",
+    "year": 2018,
+    "bgroup": "pts",
+    "gamma": -0.49,
+    "se": 0.442,
+    "player_matches": 165
+   },
+   {
+    "tour": "wta",
+    "slam": "AO",
+    "year": 2019,
+    "bgroup": "pts",
+    "gamma": 1.862,
+    "se": 0.437,
+    "player_matches": 167
+   },
+   {
+    "tour": "wta",
+    "slam": "AO",
+    "year": 2020,
+    "bgroup": "pts",
+    "gamma": 1.941,
+    "se": 0.375,
+    "player_matches": 233
+   },
+   {
+    "tour": "wta",
+    "slam": "AO",
+    "year": 2021,
+    "bgroup": "pts",
+    "gamma": 0.238,
+    "se": 0.367,
+    "player_matches": 237
+   },
+   {
+    "tour": "wta",
+    "slam": "AO",
+    "year": 2022,
+    "bgroup": "pts",
+    "gamma": 0.817,
+    "se": 0.365,
+    "player_matches": 241
+   },
+   {
+    "tour": "wta",
+    "slam": "AO",
+    "year": 2023,
+    "bgroup": "pts",
+    "gamma": 0.77,
+    "se": 0.371,
+    "player_matches": 235
+   },
+   {
+    "tour": "wta",
+    "slam": "AO",
+    "year": 2024,
+    "bgroup": "pts",
+    "gamma": 1.871,
+    "se": 0.361,
+    "player_matches": 246
+   },
+   {
+    "tour": "wta",
+    "slam": "AO",
+    "year": 2025,
+    "bgroup": "pts",
+    "gamma": -0.774,
+    "se": 0.346,
+    "player_matches": 251
+   },
+   {
+    "tour": "wta",
+    "slam": "AO",
+    "year": 2026,
+    "bgroup": "pts",
+    "gamma": -1.98,
+    "se": 0.356,
+    "player_matches": 243
+   },
+   {
+    "tour": "wta",
+    "slam": "RG",
+    "year": 2011,
+    "bgroup": "pts",
+    "gamma": 0.58,
+    "se": 0.428,
+    "player_matches": 176
+   },
+   {
+    "tour": "wta",
+    "slam": "RG",
+    "year": 2014,
+    "bgroup": "pts",
+    "gamma": -0.076,
+    "se": 0.445,
+    "player_matches": 166
+   },
+   {
+    "tour": "wta",
+    "slam": "RG",
+    "year": 2015,
+    "bgroup": "pts",
+    "gamma": -0.58,
+    "se": 0.419,
+    "player_matches": 183
+   },
+   {
+    "tour": "wta",
+    "slam": "RG",
+    "year": 2016,
+    "bgroup": "pts",
+    "gamma": -1.268,
+    "se": 0.474,
+    "player_matches": 149
+   },
+   {
+    "tour": "wta",
+    "slam": "RG",
+    "year": 2017,
+    "bgroup": "pts",
+    "gamma": -0.894,
+    "se": 0.452,
+    "player_matches": 159
+   },
+   {
+    "tour": "wta",
+    "slam": "RG",
+    "year": 2019,
+    "bgroup": "pts",
+    "gamma": -2.243,
+    "se": 0.638,
+    "player_matches": 78
+   },
+   {
+    "tour": "wta",
+    "slam": "RG",
+    "year": 2020,
+    "bgroup": "pts",
+    "gamma": -3.351,
+    "se": 0.427,
+    "player_matches": 179
+   },
+   {
+    "tour": "wta",
+    "slam": "RG",
+    "year": 2021,
+    "bgroup": "pts",
+    "gamma": -2.787,
+    "se": 0.41,
+    "player_matches": 186
+   },
+   {
+    "tour": "wta",
+    "slam": "RG",
+    "year": 2022,
+    "bgroup": "pts",
+    "gamma": -1.315,
+    "se": 0.452,
+    "player_matches": 151
+   },
+   {
+    "tour": "wta",
+    "slam": "RG",
+    "year": 2023,
+    "bgroup": "pts",
+    "gamma": -0.454,
+    "se": 0.536,
+    "player_matches": 108
+   },
+   {
+    "tour": "wta",
+    "slam": "RG",
+    "year": 2024,
+    "bgroup": "pts",
+    "gamma": 0.299,
+    "se": 0.52,
+    "player_matches": 116
+   },
+   {
+    "tour": "wta",
+    "slam": "RG",
+    "year": 2025,
+    "bgroup": "pts",
+    "gamma": 0.191,
+    "se": 0.343,
+    "player_matches": 253
+   },
+   {
+    "tour": "wta",
+    "slam": "RG",
+    "year": 2026,
+    "bgroup": "pts",
+    "gamma": -2.447,
+    "se": 0.349,
+    "player_matches": 251
+   },
+   {
+    "tour": "wta",
+    "slam": "USO",
+    "year": 2011,
+    "bgroup": "pts",
+    "gamma": -1.756,
+    "se": 0.481,
+    "player_matches": 140
+   },
+   {
+    "tour": "wta",
+    "slam": "USO",
+    "year": 2014,
+    "bgroup": "pts",
+    "gamma": -0.922,
+    "se": 0.442,
+    "player_matches": 168
+   },
+   {
+    "tour": "wta",
+    "slam": "USO",
+    "year": 2015,
+    "bgroup": "pts",
+    "gamma": -1.174,
+    "se": 0.439,
+    "player_matches": 166
+   },
+   {
+    "tour": "wta",
+    "slam": "USO",
+    "year": 2016,
+    "bgroup": "pts",
+    "gamma": -0.389,
+    "se": 0.468,
+    "player_matches": 149
+   },
+   {
+    "tour": "wta",
+    "slam": "USO",
+    "year": 2017,
+    "bgroup": "pts",
+    "gamma": -1.445,
+    "se": 0.465,
+    "player_matches": 146
+   },
+   {
+    "tour": "wta",
+    "slam": "USO",
+    "year": 2018,
+    "bgroup": "pts",
+    "gamma": -1.384,
+    "se": 0.444,
+    "player_matches": 163
+   },
+   {
+    "tour": "wta",
+    "slam": "USO",
+    "year": 2019,
+    "bgroup": "pts",
+    "gamma": -2.539,
+    "se": 0.463,
+    "player_matches": 148
+   },
+   {
+    "tour": "wta",
+    "slam": "USO",
+    "year": 2020,
+    "bgroup": "pts",
+    "gamma": 1.219,
+    "se": 0.512,
+    "player_matches": 121
+   },
+   {
+    "tour": "wta",
+    "slam": "USO",
+    "year": 2021,
+    "bgroup": "pts",
+    "gamma": 0.671,
+    "se": 0.368,
+    "player_matches": 233
+   },
+   {
+    "tour": "wta",
+    "slam": "USO",
+    "year": 2022,
+    "bgroup": "pts",
+    "gamma": -1.137,
+    "se": 0.366,
+    "player_matches": 239
+   },
+   {
+    "tour": "wta",
+    "slam": "USO",
+    "year": 2023,
+    "bgroup": "pts",
+    "gamma": -1.724,
+    "se": 0.37,
+    "player_matches": 234
+   },
+   {
+    "tour": "wta",
+    "slam": "USO",
+    "year": 2024,
+    "bgroup": "pts",
+    "gamma": -2.824,
+    "se": 0.367,
+    "player_matches": 241
+   },
+   {
+    "tour": "wta",
+    "slam": "USO",
+    "year": 2025,
+    "bgroup": "pts",
+    "gamma": -4.244,
+    "se": 0.349,
+    "player_matches": 247
+   },
+   {
+    "tour": "wta",
+    "slam": "USO",
+    "year": 2026,
+    "bgroup": "pts",
+    "gamma": 0.77,
+    "se": 0.348,
+    "player_matches": 250
+   },
+   {
+    "tour": "wta",
+    "slam": "W",
+    "year": 2011,
+    "bgroup": "pts",
+    "gamma": 1.484,
+    "se": 0.559,
+    "player_matches": 100
+   },
+   {
+    "tour": "wta",
+    "slam": "W",
+    "year": 2014,
+    "bgroup": "pts",
+    "gamma": 1.33,
+    "se": 0.502,
+    "player_matches": 126
+   },
+   {
+    "tour": "wta",
+    "slam": "W",
+    "year": 2015,
+    "bgroup": "pts",
+    "gamma": 1.979,
+    "se": 0.48,
+    "player_matches": 136
+   },
+   {
+    "tour": "wta",
+    "slam": "W",
+    "year": 2017,
+    "bgroup": "pts",
+    "gamma": 2.079,
+    "se": 0.477,
+    "player_matches": 137
+   },
+   {
+    "tour": "wta",
+    "slam": "W",
+    "year": 2018,
+    "bgroup": "pts",
+    "gamma": 2.376,
+    "se": 0.492,
+    "player_matches": 129
+   },
+   {
+    "tour": "wta",
+    "slam": "W",
+    "year": 2019,
+    "bgroup": "pts",
+    "gamma": 1.643,
+    "se": 0.465,
+    "player_matches": 146
+   },
+   {
+    "tour": "wta",
+    "slam": "W",
+    "year": 2021,
+    "bgroup": "pts",
+    "gamma": 2.466,
+    "se": 0.499,
+    "player_matches": 124
+   },
+   {
+    "tour": "wta",
+    "slam": "W",
+    "year": 2022,
+    "bgroup": "pts",
+    "gamma": 2.026,
+    "se": 0.477,
+    "player_matches": 135
+   },
+   {
+    "tour": "wta",
+    "slam": "W",
+    "year": 2023,
+    "bgroup": "pts",
+    "gamma": 2.154,
+    "se": 0.495,
+    "player_matches": 126
+   },
+   {
+    "tour": "wta",
+    "slam": "W",
+    "year": 2024,
+    "bgroup": "pts",
+    "gamma": 1.448,
+    "se": 0.491,
+    "player_matches": 128
+   },
+   {
+    "tour": "wta",
+    "slam": "W",
+    "year": 2025,
+    "bgroup": "pts",
+    "gamma": 4.757,
+    "se": 0.345,
+    "player_matches": 251
+   },
+   {
+    "tour": "wta",
+    "slam": "W",
+    "year": 2026,
+    "bgroup": "pts",
+    "gamma": 3.655,
+    "se": 0.35,
+    "player_matches": 247
+   }
+  ],
+  "resid_sd_by_n": [
+   {
+    "nb": "(0, 20]",
+    "size": 645,
+    "std": 6.828
+   },
+   {
+    "nb": "(20, 30]",
+    "size": 4866,
+    "std": 5.244
+   },
+   {
+    "nb": "(30, 40]",
+    "size": 9585,
+    "std": 4.84
+   },
+   {
+    "nb": "(40, 60]",
+    "size": 15860,
+    "std": 4.731
+   },
+   {
+    "nb": "(60, 80]",
+    "size": 7287,
+    "std": 4.55
+   },
+   {
+    "nb": "(80, 400]",
+    "size": 3000,
+    "std": 4.346
+   }
+  ]
+ }
+}

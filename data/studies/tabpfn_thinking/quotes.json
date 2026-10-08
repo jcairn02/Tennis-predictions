@@ -1,0 +1,66 @@
+{
+ "quoted_at": "2026-10-03T00:09:19+00:00",
+ "config": {
+  "model_path": "v3.5_default",
+  "n_estimators": 8,
+  "softmax_temperature": 0.9,
+  "random_state": 0,
+  "ignore_pretraining_limits": true,
+  "thinking_mode": true,
+  "thinking_effort": "high",
+  "thinking_metric": "log_loss",
+  "thinking_timeout_s": null,
+  "http_timeout_s": 2700.0
+ },
+ "shapes": {
+  "X_train": [
+   39918,
+   54
+  ],
+  "X_query": [
+   47638,
+   54
+  ]
+ },
+ "thinking_fit": {
+  "estimated_cost": 463704,
+  "pricing_version": "quota_v3",
+  "inputs": {
+   "train_rows": 39918,
+   "raw_columns": 54,
+   "test_rows": 0,
+   "model_version": "v3.5",
+   "operation": "thinking_fit",
+   "n_estimators": 8,
+   "thinking_effort": "high"
+  }
+ },
+ "thinking_predict_both_orientations": {
+  "estimated_cost": 185141,
+  "pricing_version": "quota_v3",
+  "inputs": {
+   "train_rows": 39918,
+   "raw_columns": 54,
+   "test_rows": 47638,
+   "model_version": "v3.5",
+   "operation": "thinking_predict",
+   "n_estimators": 8,
+   "thinking_effort": null
+  }
+ },
+ "thinking_predict_one_orientation": {
+  "estimated_cost": 124435,
+  "pricing_version": "quota_v3",
+  "inputs": {
+   "train_rows": 39918,
+   "raw_columns": 54,
+   "test_rows": 23819,
+   "model_version": "v3.5",
+   "operation": "thinking_predict",
+   "n_estimators": 8,
+   "thinking_effort": null
+  }
+ },
+ "total_quoted": 648845,
+ "note": "server quotes from row/column counts only; the UFC study (2026-09-19) was billed below its quotes"
+}

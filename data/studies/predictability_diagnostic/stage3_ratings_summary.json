@@ -1,0 +1,535 @@
+{
+  "generated_at": "2026-10-01T14:00:38+00:00",
+  "mu_years": [
+    2010,
+    2018
+  ],
+  "tune_years": [
+    2013,
+    2018
+  ],
+  "grid": {
+    "var_serve": [
+      0.005,
+      0.01,
+      0.02,
+      0.04,
+      0.08
+    ],
+    "var_return": [
+      0.0025,
+      0.005,
+      0.01
+    ],
+    "drift": [
+      5e-05,
+      0.0001,
+      0.0002,
+      0.0004
+    ],
+    "start_serve": [
+      0.0,
+      -0.1,
+      -0.2,
+      -0.3
+    ]
+  },
+  "var_floor": 1e-05,
+  "surface_means": [
+    {
+      "tour": "atp",
+      "surface": "all",
+      "share": 0.6204256911220893,
+      "mu": 0.4913554560343244,
+      "matches": 86367
+    },
+    {
+      "tour": "atp",
+      "surface": "Hard",
+      "share": 0.6282415645951289,
+      "mu": 0.5246804733535281,
+      "matches": 46260
+    },
+    {
+      "tour": "atp",
+      "surface": "Clay",
+      "share": 0.6038839781695183,
+      "mu": 0.4216749375966874,
+      "matches": 34824
+    },
+    {
+      "tour": "atp",
+      "surface": "Grass",
+      "share": 0.655462118426619,
+      "mu": 0.6431364657511982,
+      "matches": 4522
+    },
+    {
+      "tour": "atp",
+      "surface": "Carpet",
+      "share": 0.6546880749589395,
+      "mu": 0.6397107616637536,
+      "matches": 761
+    },
+    {
+      "tour": "wta",
+      "surface": "all",
+      "share": 0.5584360200160844,
+      "mu": 0.23481713055651612,
+      "matches": 31706
+    },
+    {
+      "tour": "wta",
+      "surface": "Hard",
+      "share": 0.5577465046708299,
+      "mu": 0.2320213299316147,
+      "matches": 20176
+    },
+    {
+      "tour": "wta",
+      "surface": "Clay",
+      "share": 0.5496077262750683,
+      "mu": 0.19908587637975902,
+      "matches": 8407
+    },
+    {
+      "tour": "wta",
+      "surface": "Grass",
+      "share": 0.587703794369645,
+      "mu": 0.35448103316478397,
+      "matches": 2851
+    },
+    {
+      "tour": "wta",
+      "surface": "Carpet",
+      "share": 0.5712576983763424,
+      "mu": 0.2869843755653414,
+      "matches": 272
+    }
+  ],
+  "chosen": {
+    "atp": {
+      "var_serve": 0.02,
+      "var_return": 0.005,
+      "drift": 0.0002,
+      "start_serve": -0.2,
+      "start_return": 0.0
+    },
+    "wta": {
+      "var_serve": 0.02,
+      "var_return": 0.005,
+      "drift": 0.0001,
+      "start_serve": -0.1,
+      "start_return": 0.0
+    }
+  },
+  "probe_by_round": {
+    "atp": {
+      "cuts": 4,
+      "protected_matches_checked": 1748973,
+      "protected_matches_changed": 0,
+      "later_matches_changed": 112922
+    },
+    "wta": {
+      "cuts": 4,
+      "protected_matches_checked": 1551149,
+      "protected_matches_changed": 0,
+      "later_matches_changed": 72917
+    }
+  },
+  "matches": {
+    "atp": 466115,
+    "wta": 406589
+  },
+  "rating_matches": {
+    "atp": 197673,
+    "wta": 89115
+  },
+  "tuning_detail": [
+    {
+      "tour": "atp",
+      "best": 0.6604361339373225,
+      "worst": 0.6607848146395381,
+      "on_grid_edge": {
+        "var_serve": false,
+        "var_return": false,
+        "drift": false,
+        "start_serve": false
+      },
+      "within_0_1_milli_of_best": 121,
+      "grid_points": 240,
+      "scored": [
+        {
+          "window": "2013-2018",
+          "matches": 59559,
+          "serve_points": 8754241.0,
+          "logloss": 0.6604361339373226,
+          "logloss_surface_mean": 0.6635188758986621,
+          "better_milli_per_point": 3.082741961339508
+        },
+        {
+          "window": "2019-2026",
+          "matches": 87532,
+          "serve_points": 13014125.0,
+          "logloss": 0.6614749276949348,
+          "logloss_surface_mean": 0.664123839628672,
+          "better_milli_per_point": 2.6489119337372857
+        },
+        {
+          "window": "2022-2026",
+          "matches": 62397,
+          "serve_points": 9248960.0,
+          "logloss": 0.6616424733002539,
+          "logloss_surface_mean": 0.6643663063567643,
+          "better_milli_per_point": 2.723833056510361
+        }
+      ]
+    },
+    {
+      "tour": "wta",
+      "best": 0.6833010352318317,
+      "worst": 0.6837106757829163,
+      "on_grid_edge": {
+        "var_serve": false,
+        "var_return": false,
+        "drift": false,
+        "start_serve": false
+      },
+      "within_0_1_milli_of_best": 124,
+      "grid_points": 240,
+      "scored": [
+        {
+          "window": "2013-2018",
+          "matches": 20844,
+          "serve_points": 2956904.0,
+          "logloss": 0.6833010352318317,
+          "logloss_surface_mean": 0.6856162281598348,
+          "better_milli_per_point": 2.3151929280030847
+        },
+        {
+          "window": "2019-2026",
+          "matches": 33244,
+          "serve_points": 4763005.0,
+          "logloss": 0.6831615283877273,
+          "logloss_surface_mean": 0.6855995519106317,
+          "better_milli_per_point": 2.4380235229044533
+        },
+        {
+          "window": "2022-2026",
+          "matches": 22946,
+          "serve_points": 3284537.0,
+          "logloss": 0.6831525602829379,
+          "logloss_surface_mean": 0.6856165452431934,
+          "better_milli_per_point": 2.463984960255461
+        }
+      ]
+    }
+  ],
+  "spread_2022_2026": [
+    {
+      "tour": "atp",
+      "player_matches": 113696,
+      "sd_serve": 0.17079557478427887,
+      "sd_return": 0.13881632685661316,
+      "corr_serve_return": 0.4280371730147123
+    },
+    {
+      "tour": "wta",
+      "player_matches": 42164,
+      "sd_serve": 0.15286900103092194,
+      "sd_return": 0.1199762225151062,
+      "corr_serve_return": 0.47317822701679435
+    }
+  ],
+  "highest_2026": [
+    {
+      "tour": "atp",
+      "kind": "serve",
+      "player": "atp:206173",
+      "name": "Jannik Sinner",
+      "rating": 0.8392,
+      "serve_points_rated": 37635.0,
+      "return_points_rated": 39965.0
+    },
+    {
+      "tour": "atp",
+      "kind": "serve",
+      "player": "atp:124187",
+      "name": "Reilly Opelka",
+      "rating": 0.7039,
+      "serve_points_rated": 29933.0,
+      "return_points_rated": 29042.0
+    },
+    {
+      "tour": "atp",
+      "kind": "serve",
+      "player": "atp:100644",
+      "name": "Alexander Zverev",
+      "rating": 0.6676,
+      "serve_points_rated": 66613.0,
+      "return_points_rated": 70227.0
+    },
+    {
+      "tour": "atp",
+      "kind": "serve",
+      "player": "atp:126203",
+      "name": "Taylor Fritz",
+      "rating": 0.6639,
+      "serve_points_rated": 56480.0,
+      "return_points_rated": 57396.0
+    },
+    {
+      "tour": "atp",
+      "kind": "serve",
+      "player": "atp:210097",
+      "name": "Ben Shelton",
+      "rating": 0.6516,
+      "serve_points_rated": 24230.0,
+      "return_points_rated": 24154.0
+    },
+    {
+      "tour": "atp",
+      "kind": "serve",
+      "player": "atp:209950",
+      "name": "Arthur Fils",
+      "rating": 0.6086,
+      "serve_points_rated": 20862.0,
+      "return_points_rated": 20798.0
+    },
+    {
+      "tour": "atp",
+      "kind": "serve",
+      "player": "atp:122330",
+      "name": "Alexander Bublik",
+      "rating": 0.5775,
+      "serve_points_rated": 45403.0,
+      "return_points_rated": 44617.0
+    },
+    {
+      "tour": "atp",
+      "kind": "serve",
+      "player": "atp:206909",
+      "name": "Brandon Nakashima",
+      "rating": 0.5707,
+      "serve_points_rated": 34194.0,
+      "return_points_rated": 35449.0
+    },
+    {
+      "tour": "atp",
+      "kind": "return",
+      "player": "atp:207989",
+      "name": "Carlos Alcaraz",
+      "rating": 0.6759,
+      "serve_points_rated": 33102.0,
+      "return_points_rated": 35336.0
+    },
+    {
+      "tour": "atp",
+      "kind": "return",
+      "player": "atp:206173",
+      "name": "Jannik Sinner",
+      "rating": 0.565,
+      "serve_points_rated": 37635.0,
+      "return_points_rated": 39965.0
+    },
+    {
+      "tour": "atp",
+      "kind": "return",
+      "player": "atp:200282",
+      "name": "Alex De Minaur",
+      "rating": 0.5094,
+      "serve_points_rated": 46362.0,
+      "return_points_rated": 47941.0
+    },
+    {
+      "tour": "atp",
+      "kind": "return",
+      "player": "atp:207494",
+      "name": "Dalibor Svrcina",
+      "rating": 0.4962,
+      "serve_points_rated": 21768.0,
+      "return_points_rated": 22016.0
+    },
+    {
+      "tour": "atp",
+      "kind": "return",
+      "player": "atp:202103",
+      "name": "Francisco Cerundolo",
+      "rating": 0.4939,
+      "serve_points_rated": 33398.0,
+      "return_points_rated": 33653.0
+    },
+    {
+      "tour": "atp",
+      "kind": "return",
+      "player": "atp:106421",
+      "name": "Daniil Medvedev",
+      "rating": 0.4885,
+      "serve_points_rated": 55168.0,
+      "return_points_rated": 57233.0
+    },
+    {
+      "tour": "atp",
+      "kind": "return",
+      "player": "atp:208363",
+      "name": "Mariano Navone",
+      "rating": 0.4863,
+      "serve_points_rated": 20251.0,
+      "return_points_rated": 20968.0
+    },
+    {
+      "tour": "atp",
+      "kind": "return",
+      "player": "atp:210530",
+      "name": "Learner Tien",
+      "rating": 0.4707,
+      "serve_points_rated": 14036.0,
+      "return_points_rated": 13936.0
+    },
+    {
+      "tour": "wta",
+      "kind": "serve",
+      "player": "wta:214981",
+      "name": "Elena Rybakina",
+      "rating": 0.6629,
+      "serve_points_rated": 32196.0,
+      "return_points_rated": 32752.0
+    },
+    {
+      "tour": "wta",
+      "kind": "serve",
+      "player": "wta:214544",
+      "name": "Aryna Sabalenka",
+      "rating": 0.617,
+      "serve_points_rated": 41675.0,
+      "return_points_rated": 41775.0
+    },
+    {
+      "tour": "wta",
+      "kind": "serve",
+      "player": "wta:214096",
+      "name": "Karolina Muchova",
+      "rating": 0.5614,
+      "serve_points_rated": 19721.0,
+      "return_points_rated": 20389.0
+    },
+    {
+      "tour": "wta",
+      "kind": "serve",
+      "player": "wta:211768",
+      "name": "Naomi Osaka",
+      "rating": 0.5417,
+      "serve_points_rated": 27129.0,
+      "return_points_rated": 27175.0
+    },
+    {
+      "tour": "wta",
+      "kind": "serve",
+      "player": "wta:216347",
+      "name": "Iga Swiatek",
+      "rating": 0.5303,
+      "serve_points_rated": 28564.0,
+      "return_points_rated": 29409.0
+    },
+    {
+      "tour": "wta",
+      "kind": "serve",
+      "player": "wta:202468",
+      "name": "Jessica Pegula",
+      "rating": 0.5126,
+      "serve_points_rated": 34646.0,
+      "return_points_rated": 35675.0
+    },
+    {
+      "tour": "wta",
+      "kind": "serve",
+      "player": "wta:222328",
+      "name": "Linda Noskova",
+      "rating": 0.5105,
+      "serve_points_rated": 15624.0,
+      "return_points_rated": 15453.0
+    },
+    {
+      "tour": "wta",
+      "kind": "serve",
+      "player": "wta:201619",
+      "name": "Madison Keys",
+      "rating": 0.4856,
+      "serve_points_rated": 40584.0,
+      "return_points_rated": 41943.0
+    },
+    {
+      "tour": "wta",
+      "kind": "return",
+      "player": "wta:216347",
+      "name": "Iga Swiatek",
+      "rating": 0.5061,
+      "serve_points_rated": 28564.0,
+      "return_points_rated": 29409.0
+    },
+    {
+      "tour": "wta",
+      "kind": "return",
+      "player": "wta:221103",
+      "name": "Coco Gauff",
+      "rating": 0.4899,
+      "serve_points_rated": 27714.0,
+      "return_points_rated": 28033.0
+    },
+    {
+      "tour": "wta",
+      "kind": "return",
+      "player": "wta:202468",
+      "name": "Jessica Pegula",
+      "rating": 0.4297,
+      "serve_points_rated": 34646.0,
+      "return_points_rated": 35675.0
+    },
+    {
+      "tour": "wta",
+      "kind": "return",
+      "player": "wta:202494",
+      "name": "Elina Svitolina",
+      "rating": 0.4285,
+      "serve_points_rated": 47837.0,
+      "return_points_rated": 48227.0
+    },
+    {
+      "tour": "wta",
+      "kind": "return",
+      "player": "wta:216146",
+      "name": "Marta Kostyuk",
+      "rating": 0.428,
+      "serve_points_rated": 23955.0,
+      "return_points_rated": 23932.0
+    },
+    {
+      "tour": "wta",
+      "kind": "return",
+      "player": "wta:216153",
+      "name": "Amanda Anisimova",
+      "rating": 0.4003,
+      "serve_points_rated": 21114.0,
+      "return_points_rated": 21082.0
+    },
+    {
+      "tour": "wta",
+      "kind": "return",
+      "player": "wta:259799",
+      "name": "Mirra Andreeva",
+      "rating": 0.3862,
+      "serve_points_rated": 12676.0,
+      "return_points_rated": 12790.0
+    },
+    {
+      "tour": "wta",
+      "kind": "return",
+      "player": "wta:214082",
+      "name": "Daria Kasatkina",
+      "rating": 0.3737,
+      "serve_points_rated": 39657.0,
+      "return_points_rated": 40541.0
+    }
+  ],
+  "seconds": 116.1
+}

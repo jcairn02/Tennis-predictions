@@ -1,0 +1,1683 @@
+{
+ "I-053": {
+  "hid": "I-053",
+  "module": "f20_fatigue",
+  "coverage": {
+   "atp 2014-21": {
+    "finite": 1.0,
+    "nonzero": 0.8727
+   },
+   "atp 2022-24": {
+    "finite": 1.0,
+    "nonzero": 0.7808
+   },
+   "wta 2014-21": {
+    "finite": 1.0,
+    "nonzero": 0.6866
+   },
+   "wta 2022-24": {
+    "finite": 0.9996,
+    "nonzero": 0.7757
+   }
+  },
+  "dist": {
+   "sd": 14.74034,
+   "q01_q99": [
+    -40.7675,
+    -25.4586,
+    -5.2092,
+    0.0,
+    5.7123,
+    26.2347,
+    40.7688
+   ],
+   "zero_share": 0.2242
+  },
+  "novelty_r2": 0.7664,
+  "controls": [
+   "fat_a-b",
+   "in_age",
+   "in_age_sq",
+   "in_sets_14d",
+   "fat_imputed_share_a-b",
+   "in_iosO_bp_saved",
+   "in_iosO_second_won",
+   "in_iosO_hold"
+  ],
+  "nearest_selected": [
+   "iosD_bp_saved"
+  ],
+  "nearest_r": {
+   "age": 0.768,
+   "age_sq": 0.725,
+   "sets_14d": 0.131,
+   "iosO_bp_saved": 0.212,
+   "iosO_second_won": 0.163,
+   "iosO_hold": 0.123
+  }
+ },
+ "B-LOAD": {
+  "hid": "B-LOAD",
+  "module": "f20_fatigue",
+  "coverage": {
+   "atp 2014-21": {
+    "finite": 1.0,
+    "nonzero": 1.0
+   },
+   "atp 2022-24": {
+    "finite": 1.0,
+    "nonzero": 1.0
+   },
+   "wta 2014-21": {
+    "finite": 1.0,
+    "nonzero": 1.0
+   },
+   "wta 2022-24": {
+    "finite": 1.0,
+    "nonzero": 1.0
+   }
+  },
+  "dist": {
+   "sd": 1.72906,
+   "q01_q99": [
+    -4.4747,
+    -2.9545,
+    -0.9552,
+    -0.0,
+    0.9394,
+    2.9627,
+    4.5189
+   ],
+   "zero_share": 0.0
+  },
+  "novelty_r2": 0.7661,
+  "controls": [
+   "in_sets_14d",
+   "surf_layoff_a-b",
+   "fat_imputed_share_a-b",
+   "in_adjperf_tpw_2w",
+   "in_form_brk",
+   "in_form_hold"
+  ],
+  "nearest_selected": [
+   "formdef_bp_faced_pg",
+   "form_rpw_first",
+   "form_rpw_second"
+  ],
+  "nearest_r": {
+   "sets_14d": -0.85,
+   "adjperf_tpw_2w": -0.278,
+   "form_brk": -0.23,
+   "form_hold": -0.216
+  },
+  "members": {
+   "I-052 dFat": {
+    "coverage": {
+     "atp 2014-21": {
+      "finite": 1.0,
+      "nonzero": 1.0
+     },
+     "atp 2022-24": {
+      "finite": 1.0,
+      "nonzero": 1.0
+     },
+     "wta 2014-21": {
+      "finite": 1.0,
+      "nonzero": 1.0
+     },
+     "wta 2022-24": {
+      "finite": 1.0,
+      "nonzero": 1.0
+     }
+    },
+    "dist": {
+     "sd": 1.79097,
+     "q01_q99": [
+      -4.6928,
+      -3.4411,
+      -0.6412,
+      0.0,
+      0.6734,
+      3.412,
+      4.6918
+     ],
+     "zero_share": 0.0
+    },
+    "novelty_r2": 0.8059,
+    "corr_with_x": -0.864
+   },
+   "I-051 dOff": {
+    "coverage": {
+     "atp 2014-21": {
+      "finite": 1.0,
+      "nonzero": 0.9984
+     },
+     "atp 2022-24": {
+      "finite": 1.0,
+      "nonzero": 0.9999
+     },
+     "wta 2014-21": {
+      "finite": 1.0,
+      "nonzero": 0.9982
+     },
+     "wta 2022-24": {
+      "finite": 1.0,
+      "nonzero": 0.9997
+     }
+    },
+    "dist": {
+     "sd": 1.69487,
+     "q01_q99": [
+      -4.0142,
+      -2.9172,
+      -1.0426,
+      0.0,
+      1.0448,
+      2.8976,
+      3.9928
+     ],
+     "zero_share": 0.0017
+    },
+    "novelty_r2": 0.5412,
+    "corr_with_x": -0.865
+   }
+  },
+  "member_corr": {
+   "I-052 dFat ~ I-051 dOff": 0.496
+  }
+ },
+ "B-PREV": {
+  "hid": "B-PREV",
+  "module": "f20_fatigue",
+  "coverage": {
+   "atp 2014-21": {
+    "finite": 0.9688,
+    "nonzero": 0.2968
+   },
+   "atp 2022-24": {
+    "finite": 0.9711,
+    "nonzero": 0.3072
+   },
+   "wta 2014-21": {
+    "finite": 0.9566,
+    "nonzero": 0.2702
+   },
+   "wta 2022-24": {
+    "finite": 0.9637,
+    "nonzero": 0.2804
+   }
+  },
+  "dist": {
+   "sd": 1.42398,
+   "q01_q99": [
+    -3.8746,
+    -3.8746,
+    0.0,
+    0.0,
+    0.0,
+    3.8746,
+    3.8746
+   ],
+   "zero_share": 0.706
+  },
+  "novelty_r2": 0.0676,
+  "controls": [
+   "in_sets_14d",
+   "fat_a-b",
+   "rest7_a-b",
+   "prevx_missing_a-b",
+   "in_elo_games",
+   "in_elo_overall",
+   "in_ratings_iid"
+  ],
+  "nearest_selected": [
+   "iosO_second_won"
+  ],
+  "nearest_r": {
+   "sets_14d": -0.146,
+   "elo_games": 0.111,
+   "elo_overall": 0.111,
+   "ratings_iid": 0.106
+  },
+  "members": {
+   "BOD-L1 dPrevX": {
+    "coverage": {
+     "atp 2014-21": {
+      "finite": 0.9688,
+      "nonzero": 0.288
+     },
+     "atp 2022-24": {
+      "finite": 0.9711,
+      "nonzero": 0.2976
+     },
+     "wta 2014-21": {
+      "finite": 0.9566,
+      "nonzero": 0.256
+     },
+     "wta 2022-24": {
+      "finite": 0.9637,
+      "nonzero": 0.2702
+     }
+    },
+    "dist": {
+     "sd": 0.51677,
+     "q01_q99": [
+      -1.0,
+      -1.0,
+      0.0,
+      0.0,
+      0.0,
+      1.0,
+      1.0
+     ],
+     "zero_share": 0.7181
+    },
+    "novelty_r2": 0.1204,
+    "corr_with_x": -0.712
+   },
+   "I-056 dPrevX x rest": {
+    "coverage": {
+     "atp 2014-21": {
+      "finite": 0.9688,
+      "nonzero": 0.295
+     },
+     "atp 2022-24": {
+      "finite": 0.9711,
+      "nonzero": 0.3072
+     },
+     "wta 2014-21": {
+      "finite": 0.9566,
+      "nonzero": 0.2468
+     },
+     "wta 2022-24": {
+      "finite": 0.9637,
+      "nonzero": 0.2796
+     }
+    },
+    "dist": {
+     "sd": 0.54101,
+     "q01_q99": [
+      -1.0,
+      -1.0,
+      0.0,
+      0.0,
+      0.0,
+      1.0,
+      1.0
+     ],
+     "zero_share": 0.7196
+    },
+    "novelty_r2": 0.0087,
+    "corr_with_x": -0.701
+   }
+  },
+  "member_corr": {
+   "BOD-L1 dPrevX ~ I-056 dPrevX x rest": 0.013
+  }
+ },
+ "B9a": {
+  "hid": "B9a",
+  "module": "f21_constitution",
+  "coverage": {
+   "atp 2014-21": {
+    "finite": 1.0,
+    "nonzero": 1.0
+   },
+   "atp 2022-24": {
+    "finite": 1.0,
+    "nonzero": 1.0
+   },
+   "wta 2014-21": {
+    "finite": 1.0,
+    "nonzero": 0.9994
+   },
+   "wta 2022-24": {
+    "finite": 1.0,
+    "nonzero": 0.9999
+   }
+  },
+  "dist": {
+   "sd": 2.14124,
+   "q01_q99": [
+    -6.3175,
+    -3.3482,
+    -1.0382,
+    -0.0,
+    1.0199,
+    3.291,
+    6.5064
+   ],
+   "zero_share": 0.0003
+  },
+  "novelty_r2": 0.2381,
+  "controls": [
+   "height_a-b",
+   "fat_a-b",
+   "age28_a-b",
+   "odo_x_age27_a-b",
+   "odo_a-b",
+   "in_age",
+   "height_missing_a-b",
+   "fat_imputed_share_a-b",
+   "trait_a-b",
+   "in_iosO_ace",
+   "in_prod_first_won",
+   "in_prod_hold"
+  ],
+  "nearest_selected": [
+   "form_ace",
+   "iosO_first_won",
+   "prod_bp_saved"
+  ],
+  "nearest_r": {
+   "age": 0.051,
+   "iosO_ace": -0.364,
+   "prod_first_won": 0.361,
+   "prod_hold": 0.361
+  },
+  "members": {
+   "I-024": {
+    "coverage": {
+     "atp 2014-21": {
+      "finite": 0.9978,
+      "nonzero": 0.9978
+     },
+     "atp 2022-24": {
+      "finite": 0.9992,
+      "nonzero": 0.9992
+     },
+     "wta 2014-21": {
+      "finite": 0.932,
+      "nonzero": 0.932
+     },
+     "wta 2022-24": {
+      "finite": 0.6441,
+      "nonzero": 0.6441
+     }
+    },
+    "dist": {
+     "sd": 36.82754,
+     "q01_q99": [
+      -92.977,
+      -61.0473,
+      -21.2435,
+      0.0,
+      21.44,
+      61.8587,
+      94.1886
+     ],
+     "zero_share": 0.0
+    },
+    "novelty_r2": 0.4598,
+    "corr_with_x": -0.629
+   },
+   "I-024 age": {
+    "coverage": {
+     "atp 2014-21": {
+      "finite": 0.9978,
+      "nonzero": 0.7294
+     },
+     "atp 2022-24": {
+      "finite": 0.9992,
+      "nonzero": 0.5434
+     },
+     "wta 2014-21": {
+      "finite": 0.932,
+      "nonzero": 0.4308
+     },
+     "wta 2022-24": {
+      "finite": 0.6441,
+      "nonzero": 0.4283
+     }
+    },
+    "dist": {
+     "sd": 29.32225,
+     "q01_q99": [
+      -93.3846,
+      -36.3448,
+      -2.7905,
+      0.0,
+      2.4163,
+      37.2379,
+      97.7743
+     ],
+     "zero_share": 0.4044
+    },
+    "novelty_r2": 0.2359,
+    "corr_with_x": -0.641
+   },
+   "I-061": {
+    "coverage": {
+     "atp 2014-21": {
+      "finite": 1.0,
+      "nonzero": 0.1563
+     },
+     "atp 2022-24": {
+      "finite": 1.0,
+      "nonzero": 0.1167
+     },
+     "wta 2014-21": {
+      "finite": 1.0,
+      "nonzero": 0.114
+     },
+     "wta 2022-24": {
+      "finite": 0.9996,
+      "nonzero": 0.1171
+     }
+    },
+    "dist": {
+     "sd": 0.77096,
+     "q01_q99": [
+      -2.1884,
+      -0.1616,
+      0.0,
+      0.0,
+      0.0,
+      0.1273,
+      2.0012
+     ],
+     "zero_share": 0.8657
+    },
+    "novelty_r2": 0.0451,
+    "corr_with_x": -0.389
+   },
+   "I-058": {
+    "coverage": {
+     "atp 2014-21": {
+      "finite": 1.0,
+      "nonzero": 1.0
+     },
+     "atp 2022-24": {
+      "finite": 1.0,
+      "nonzero": 1.0
+     },
+     "wta 2014-21": {
+      "finite": 1.0,
+      "nonzero": 0.9992
+     },
+     "wta 2022-24": {
+      "finite": 1.0,
+      "nonzero": 0.9999
+     }
+    },
+    "dist": {
+     "sd": 0.02047,
+     "q01_q99": [
+      -0.0534,
+      -0.0348,
+      -0.0113,
+      -0.0,
+      0.0109,
+      0.0339,
+      0.0531
+     ],
+     "zero_share": 0.0004
+    },
+    "novelty_r2": 0.0751,
+    "corr_with_x": 0.434
+   }
+  },
+  "member_corr": {
+   "I-024 ~ I-024 age": 0.433,
+   "I-024 ~ I-061": -0.013,
+   "I-024 ~ I-058": 0.064,
+   "I-024 age ~ I-061": -0.014,
+   "I-024 age ~ I-058": 0.002,
+   "I-061 ~ I-058": 0.013
+  }
+ },
+ "B9b": {
+  "hid": "B9b",
+  "module": "f22_demand",
+  "coverage": {
+   "atp 2014-21": {
+    "finite": 1.0,
+    "nonzero": 1.0
+   },
+   "atp 2022-24": {
+    "finite": 1.0,
+    "nonzero": 1.0
+   },
+   "wta 2014-21": {
+    "finite": 1.0,
+    "nonzero": 1.0
+   },
+   "wta 2022-24": {
+    "finite": 1.0,
+    "nonzero": 1.0
+   }
+  },
+  "dist": {
+   "sd": 1.68398,
+   "q01_q99": [
+    -5.2401,
+    -2.4528,
+    -0.7479,
+    0.0,
+    0.7623,
+    2.4645,
+    5.1781
+   ],
+   "zero_share": 0.0
+  },
+  "novelty_r2": 0.2766,
+  "controls": [
+   "fat_a-b",
+   "bo5_x_fat_a-b",
+   "pace_a-b",
+   "pace_missing_a-b",
+   "fat_imputed_share_a-b",
+   "in_sets_14d",
+   "in_iosD_hold",
+   "in_iosD_second_won"
+  ],
+  "nearest_selected": [
+   "iosD_bp_saved",
+   "iosD_first_won",
+   "elo_overall"
+  ],
+  "nearest_r": {
+   "sets_14d": -0.412,
+   "iosD_hold": 0.251,
+   "iosD_second_won": 0.248
+  },
+  "members": {
+   "I-063": {
+    "coverage": {
+     "atp 2014-21": {
+      "finite": 1.0,
+      "nonzero": 0.9989
+     },
+     "atp 2022-24": {
+      "finite": 1.0,
+      "nonzero": 1.0
+     },
+     "wta 2014-21": {
+      "finite": 1.0,
+      "nonzero": 0.9986
+     },
+     "wta 2022-24": {
+      "finite": 1.0,
+      "nonzero": 0.9999
+     }
+    },
+    "dist": {
+     "sd": 84.63143,
+     "q01_q99": [
+      -225.0729,
+      -157.0632,
+      -29.4305,
+      0.0,
+      30.6754,
+      157.6673,
+      225.3101
+     ],
+     "zero_share": 0.0012
+    },
+    "novelty_r2": 0.7912,
+    "corr_with_x": -0.522
+   },
+   "I-065": {
+    "coverage": {
+     "atp 2014-21": {
+      "finite": 1.0,
+      "nonzero": 0.9998
+     },
+     "atp 2022-24": {
+      "finite": 1.0,
+      "nonzero": 0.9999
+     },
+     "wta 2014-21": {
+      "finite": 1.0,
+      "nonzero": 0.797
+     },
+     "wta 2022-24": {
+      "finite": 1.0,
+      "nonzero": 1.0
+     }
+    },
+    "dist": {
+     "sd": 0.22194,
+     "q01_q99": [
+      -0.5989,
+      -0.3694,
+      -0.107,
+      0.0,
+      0.111,
+      0.3729,
+      0.6071
+     ],
+     "zero_share": 0.1058
+    },
+    "novelty_r2": 0.213,
+    "corr_with_x": 0.641
+   },
+   "I-066": {
+    "coverage": {
+     "atp 2014-21": {
+      "finite": 1.0,
+      "nonzero": 1.0
+     },
+     "atp 2022-24": {
+      "finite": 1.0,
+      "nonzero": 1.0
+     },
+     "wta 2014-21": {
+      "finite": 1.0,
+      "nonzero": 1.0
+     },
+     "wta 2022-24": {
+      "finite": 1.0,
+      "nonzero": 1.0
+     }
+    },
+    "dist": {
+     "sd": 29.55436,
+     "q01_q99": [
+      -95.2368,
+      -33.4136,
+      -4.1993,
+      -0.0,
+      3.9991,
+      33.7514,
+      100.5405
+     ],
+     "zero_share": 0.0
+    },
+    "novelty_r2": 0.046,
+    "corr_with_x": -0.542
+   }
+  },
+  "member_corr": {
+   "I-063 ~ I-065": -0.042,
+   "I-063 ~ I-066": -0.101,
+   "I-065 ~ I-066": -0.038
+  }
+ },
+ "B10": {
+  "hid": "B10",
+  "module": "f23_arrival",
+  "coverage": {
+   "atp 2014-21": {
+    "finite": 1.0,
+    "nonzero": 0.9946
+   },
+   "atp 2022-24": {
+    "finite": 1.0,
+    "nonzero": 0.9922
+   },
+   "wta 2014-21": {
+    "finite": 1.0,
+    "nonzero": 0.9868
+   },
+   "wta 2022-24": {
+    "finite": 1.0,
+    "nonzero": 0.9901
+   }
+  },
+  "dist": {
+   "sd": 2.3976,
+   "q01_q99": [
+    -8.9232,
+    -2.7708,
+    -0.7335,
+    0.0,
+    0.7253,
+    2.7686,
+    8.9102
+   ],
+   "zero_share": 0.0095
+  },
+  "novelty_r2": 0.227,
+  "controls": [
+   "wprev_a-b",
+   "decay_a-b",
+   "trav_a-b",
+   "first_a-b",
+   "title_a-b",
+   "wk_a-b",
+   "away_a-b",
+   "in_age",
+   "fat_a-b",
+   "fit21_a-b",
+   "dzabs_a-b",
+   "in_sets_14d",
+   "trav_missing_a-b",
+   "away_missing_a-b",
+   "dz_missing_a-b",
+   "in_adjperf_tpw_2w",
+   "in_form_hold",
+   "in_form_brk"
+  ],
+  "nearest_selected": [
+   "form_rpw_first",
+   "formdef_bp_faced_pg",
+   "form_first_won"
+  ],
+  "nearest_r": {
+   "age": -0.021,
+   "sets_14d": -0.415,
+   "adjperf_tpw_2w": -0.249,
+   "form_hold": -0.198,
+   "form_brk": -0.192
+  },
+  "members": {
+   "I-059": {
+    "coverage": {
+     "atp 2014-21": {
+      "finite": 1.0,
+      "nonzero": 0.8559
+     },
+     "atp 2022-24": {
+      "finite": 1.0,
+      "nonzero": 0.8525
+     },
+     "wta 2014-21": {
+      "finite": 1.0,
+      "nonzero": 0.844
+     },
+     "wta 2022-24": {
+      "finite": 1.0,
+      "nonzero": 0.848
+     }
+    },
+    "dist": {
+     "sd": 0.34654,
+     "q01_q99": [
+      -1.1157,
+      -0.3475,
+      -0.0116,
+      0.0,
+      0.0111,
+      0.3283,
+      1.1478
+     ],
+     "zero_share": 0.1503
+    },
+    "novelty_r2": 0.1631,
+    "corr_with_x": -0.73
+   },
+   "I-088": {
+    "coverage": {
+     "atp 2014-21": {
+      "finite": 1.0,
+      "nonzero": 0.027
+     },
+     "atp 2022-24": {
+      "finite": 1.0,
+      "nonzero": 0.0264
+     },
+     "wta 2014-21": {
+      "finite": 1.0,
+      "nonzero": 0.0184
+     },
+     "wta 2022-24": {
+      "finite": 1.0,
+      "nonzero": 0.0206
+     }
+    },
+    "dist": {
+     "sd": 0.15,
+     "q01_q99": [
+      -1.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "zero_share": 0.9775
+    },
+    "novelty_r2": 0.0595,
+    "corr_with_x": -0.605
+   },
+   "I-060": {
+    "coverage": {
+     "atp 2014-21": {
+      "finite": 1.0,
+      "nonzero": 0.9668
+     },
+     "atp 2022-24": {
+      "finite": 1.0,
+      "nonzero": 0.9516
+     },
+     "wta 2014-21": {
+      "finite": 1.0,
+      "nonzero": 0.93
+     },
+     "wta 2022-24": {
+      "finite": 0.9996,
+      "nonzero": 0.9459
+     }
+    },
+    "dist": {
+     "sd": 2.35502,
+     "q01_q99": [
+      -6.2261,
+      -3.905,
+      -1.2,
+      0.0,
+      1.23,
+      3.9,
+      6.1767
+     ],
+     "zero_share": 0.0523
+    },
+    "novelty_r2": 0.1953,
+    "corr_with_x": -0.499
+   },
+   "I-074": {
+    "coverage": {
+     "atp 2014-21": {
+      "finite": 0.9719,
+      "nonzero": 0.0337
+     },
+     "atp 2022-24": {
+      "finite": 0.982,
+      "nonzero": 0.029
+     },
+     "wta 2014-21": {
+      "finite": 0.9759,
+      "nonzero": 0.0294
+     },
+     "wta 2022-24": {
+      "finite": 0.9872,
+      "nonzero": 0.0219
+     }
+    },
+    "dist": {
+     "sd": 0.60941,
+     "q01_q99": [
+      -1.6303,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      1.5539
+     ],
+     "zero_share": 0.9677
+    },
+    "novelty_r2": 0.0224,
+    "corr_with_x": -0.524
+   }
+  },
+  "member_corr": {
+   "I-059 ~ I-088": 0.423,
+   "I-059 ~ I-060": 0.121,
+   "I-059 ~ I-074": 0.259,
+   "I-088 ~ I-060": 0.0,
+   "I-088 ~ I-074": 0.044,
+   "I-060 ~ I-074": 0.055
+  }
+ },
+ "B11": {
+  "hid": "B11",
+  "module": "f24_onsite",
+  "coverage": {
+   "atp 2014-21": {
+    "finite": 1.0,
+    "nonzero": 0.4944
+   },
+   "atp 2022-24": {
+    "finite": 1.0,
+    "nonzero": 0.5089
+   },
+   "wta 2014-21": {
+    "finite": 1.0,
+    "nonzero": 0.4368
+   },
+   "wta 2022-24": {
+    "finite": 1.0,
+    "nonzero": 0.4644
+   }
+  },
+  "dist": {
+   "sd": 2.38492,
+   "q01_q99": [
+    -7.7112,
+    -4.1945,
+    0.0,
+    0.0,
+    0.0,
+    4.2968,
+    7.7112
+   ],
+   "zero_share": 0.5356
+  },
+  "novelty_r2": 0.4763,
+  "controls": [
+   "in_sets_14d",
+   "nov_a-b",
+   "cold_a-b",
+   "surface_switch_missing_a-b",
+   "indoor_switch_missing_a-b",
+   "region_change_missing_a-b",
+   "in_elo_overall",
+   "in_elo_games",
+   "in_ratings_iid"
+  ],
+  "nearest_selected": [
+   "iosO_hold",
+   "iosO_second_won",
+   "iosO_bp_saved"
+  ],
+  "nearest_r": {
+   "sets_14d": 0.396,
+   "elo_overall": -0.327,
+   "elo_games": -0.31,
+   "ratings_iid": -0.285
+  },
+  "members": {
+   "I-051 On": {
+    "coverage": {
+     "atp 2014-21": {
+      "finite": 1.0,
+      "nonzero": 0.4061
+     },
+     "atp 2022-24": {
+      "finite": 1.0,
+      "nonzero": 0.4295
+     },
+     "wta 2014-21": {
+      "finite": 1.0,
+      "nonzero": 0.3393
+     },
+     "wta 2022-24": {
+      "finite": 1.0,
+      "nonzero": 0.3858
+     }
+    },
+    "dist": {
+     "sd": 0.56032,
+     "q01_q99": [
+      -1.3863,
+      -1.0986,
+      0.0,
+      0.0,
+      0.0,
+      1.0986,
+      1.3863
+     ],
+     "zero_share": 0.6287
+    },
+    "novelty_r2": 0.4974,
+    "corr_with_x": 0.851
+   },
+   "I-075": {
+    "coverage": {
+     "atp 2014-21": {
+      "finite": 1.0,
+      "nonzero": 0.2734
+     },
+     "atp 2022-24": {
+      "finite": 1.0,
+      "nonzero": 0.2513
+     },
+     "wta 2014-21": {
+      "finite": 1.0,
+      "nonzero": 0.275
+     },
+     "wta 2022-24": {
+      "finite": 1.0,
+      "nonzero": 0.2512
+     }
+    },
+    "dist": {
+     "sd": 0.78502,
+     "q01_q99": [
+      -2.7726,
+      -1.3863,
+      0.0,
+      0.0,
+      0.0,
+      1.3863,
+      2.7726
+     ],
+     "zero_share": 0.7258
+    },
+    "novelty_r2": 0.1382,
+    "corr_with_x": 0.711
+   },
+   "I-076": {
+    "coverage": {
+     "atp 2014-21": {
+      "finite": 1.0,
+      "nonzero": 0.1158
+     },
+     "atp 2022-24": {
+      "finite": 1.0,
+      "nonzero": 0.1226
+     },
+     "wta 2014-21": {
+      "finite": 1.0,
+      "nonzero": 0.109
+     },
+     "wta 2022-24": {
+      "finite": 1.0,
+      "nonzero": 0.1311
+     }
+    },
+    "dist": {
+     "sd": 0.70489,
+     "q01_q99": [
+      -3.0,
+      -1.0,
+      0.0,
+      0.0,
+      0.0,
+      1.0,
+      3.0
+     ],
+     "zero_share": 0.8877
+    },
+    "novelty_r2": 0.4279,
+    "corr_with_x": 0.816
+   }
+  },
+  "member_corr": {
+   "I-051 On ~ I-075": 0.39,
+   "I-051 On ~ I-076": 0.635,
+   "I-075 ~ I-076": 0.31
+  }
+ },
+ "B-SWITCH": {
+  "hid": "B-SWITCH",
+  "module": "f25_switch",
+  "coverage": {
+   "atp 2014-21": {
+    "finite": 1.0,
+    "nonzero": 1.0
+   },
+   "atp 2022-24": {
+    "finite": 1.0,
+    "nonzero": 1.0
+   },
+   "wta 2014-21": {
+    "finite": 1.0,
+    "nonzero": 1.0
+   },
+   "wta 2022-24": {
+    "finite": 0.9996,
+    "nonzero": 0.9996
+   }
+  },
+  "dist": [
+   {
+    "sd": 0.09269,
+    "q01_q99": [
+     -0.3115,
+     -0.1327,
+     0.0,
+     0.0,
+     0.0,
+     0.129,
+     0.3147
+    ],
+    "zero_share": 0.7592
+   },
+   {
+    "sd": 0.10833,
+    "q01_q99": [
+     -0.3332,
+     -0.0079,
+     0.0,
+     -0.0,
+     -0.0,
+     0.0084,
+     0.3696
+    ],
+    "zero_share": 0.6071
+   },
+   {
+    "sd": 3.52482,
+    "q01_q99": [
+     -12.9044,
+     -0.9918,
+     -0.0059,
+     0.0,
+     0.0064,
+     1.0193,
+     13.2062
+    ],
+    "zero_share": 0.0029
+   },
+   {
+    "sd": 0.07482,
+    "q01_q99": [
+     -0.2509,
+     -0.0942,
+     -0.0012,
+     -0.0,
+     0.001,
+     0.0918,
+     0.2529
+    ],
+    "zero_share": 0.0038
+   }
+  ],
+  "novelty_r2": [
+   0.2109,
+   0.0102,
+   0.1007,
+   0.2478
+  ],
+  "controls": [
+   "srfO_spw_a-b",
+   "srfD_spw_a-b",
+   "surf_season_a-b",
+   "surf_layoff_a-b",
+   "q_a-b",
+   "new_a-b",
+   "new_x_sty_a-b",
+   "in_age",
+   "indoor_switch_a-b",
+   "indoor_switch_missing_a-b",
+   "in_prod_hold",
+   "in_prod_first_won",
+   "in_iosO_first_won"
+  ],
+  "nearest_selected": [
+   "iosO_ace",
+   "prod_second_won",
+   "iosO_hold"
+  ],
+  "nearest_r": {
+   "age": [
+    -0.038,
+    0.0,
+    0.256,
+    0.034
+   ],
+   "prod_hold": [
+    0.315,
+    0.007,
+    -0.011,
+    -0.394
+   ],
+   "prod_first_won": [
+    0.306,
+    -0.0,
+    -0.005,
+    -0.384
+   ],
+   "iosO_first_won": [
+    -0.315,
+    -0.006,
+    0.036,
+    0.356
+   ]
+  }
+ },
+ "B-INJ": {
+  "hid": "B-INJ",
+  "module": "f26_impairment",
+  "coverage": {
+   "atp 2014-21": {
+    "finite": 1.0,
+    "nonzero": 0.9999
+   },
+   "atp 2022-24": {
+    "finite": 1.0,
+    "nonzero": 0.9999
+   },
+   "wta 2014-21": {
+    "finite": 1.0,
+    "nonzero": 0.9999
+   },
+   "wta 2022-24": {
+    "finite": 1.0,
+    "nonzero": 0.9997
+   }
+  },
+  "dist": {
+   "sd": 1.69631,
+   "q01_q99": [
+    -4.9157,
+    -2.362,
+    -0.5646,
+    -0.0,
+    0.5446,
+    2.3234,
+    4.8956
+   ],
+   "zero_share": 0.0001
+  },
+  "novelty_r2": 0.1032,
+  "controls": [
+   "U_a-b",
+   "in_age",
+   "surf_layoff_a-b",
+   "inj44_window_a-b",
+   "in_elo_overall",
+   "in_form_first_won",
+   "in_form_first_in",
+   "in_sets_14d",
+   "in_elo_games",
+   "in_ratings_iid"
+  ],
+  "nearest_selected": [
+   "iosO_hold",
+   "iosO_second_won",
+   "iosO_bp_saved"
+  ],
+  "nearest_r": {
+   "age": -0.063,
+   "elo_overall": -0.143,
+   "form_first_won": 0.034,
+   "form_first_in": 0.025,
+   "sets_14d": 0.203,
+   "elo_games": -0.144,
+   "ratings_iid": -0.126
+  },
+  "members": {
+   "I-043": {
+    "coverage": {
+     "atp 2014-21": {
+      "finite": 1.0,
+      "nonzero": 0.9999
+     },
+     "atp 2022-24": {
+      "finite": 1.0,
+      "nonzero": 0.9996
+     },
+     "wta 2014-21": {
+      "finite": 1.0,
+      "nonzero": 0.9998
+     },
+     "wta 2022-24": {
+      "finite": 0.9996,
+      "nonzero": 0.9993
+     }
+    },
+    "dist": {
+     "sd": 0.97018,
+     "q01_q99": [
+      -3.8215,
+      -0.9729,
+      -0.0007,
+      -0.0,
+      0.0007,
+      0.9039,
+      3.6856
+     ],
+     "zero_share": 0.0001
+    },
+    "novelty_r2": 0.2395,
+    "corr_with_x": -0.536
+   },
+   "I-044": {
+    "coverage": {
+     "atp 2014-21": {
+      "finite": 1.0,
+      "nonzero": 0.0139
+     },
+     "atp 2022-24": {
+      "finite": 1.0,
+      "nonzero": 0.0114
+     },
+     "wta 2014-21": {
+      "finite": 1.0,
+      "nonzero": 0.011
+     },
+     "wta 2022-24": {
+      "finite": 1.0,
+      "nonzero": 0.0116
+     }
+    },
+    "dist": {
+     "sd": 17.10997,
+     "q01_q99": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "zero_share": 0.9876
+    },
+    "novelty_r2": 0.014,
+    "corr_with_x": -0.454
+   },
+   "I-045": {
+    "coverage": {
+     "atp 2014-21": {
+      "finite": 1.0,
+      "nonzero": 0.9343
+     },
+     "atp 2022-24": {
+      "finite": 1.0,
+      "nonzero": 0.9448
+     },
+     "wta 2014-21": {
+      "finite": 1.0,
+      "nonzero": 0.867
+     },
+     "wta 2022-24": {
+      "finite": 1.0,
+      "nonzero": 0.9327
+     }
+    },
+    "dist": {
+     "sd": 0.01398,
+     "q01_q99": [
+      -0.0408,
+      -0.0222,
+      -0.0055,
+      0.0,
+      0.0057,
+      0.0225,
+      0.0412
+     ],
+     "zero_share": 0.1007
+    },
+    "novelty_r2": 0.0313,
+    "corr_with_x": -0.585
+   }
+  },
+  "member_corr": {
+   "I-043 ~ I-044": -0.018,
+   "I-043 ~ I-045": -0.002,
+   "I-044 ~ I-045": 0.003
+  }
+ },
+ "B-HOME": {
+  "hid": "B-HOME",
+  "module": "f27_home",
+  "coverage": {
+   "atp 2014-21": {
+    "finite": 1.0,
+    "nonzero": 0.1713
+   },
+   "atp 2022-24": {
+    "finite": 1.0,
+    "nonzero": 0.1758
+   },
+   "wta 2014-21": {
+    "finite": 1.0,
+    "nonzero": 0.1382
+   },
+   "wta 2022-24": {
+    "finite": 1.0,
+    "nonzero": 0.1386
+   }
+  },
+  "dist": [
+   {
+    "sd": 0.35753,
+    "q01_q99": [
+     -1.0,
+     -1.0,
+     0.0,
+     0.0,
+     0.0,
+     1.0,
+     1.0
+    ],
+    "zero_share": 0.8722
+   },
+   {
+    "sd": 0.2644,
+    "q01_q99": [
+     -1.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     1.0
+    ],
+    "zero_share": 0.9301
+   }
+  ],
+  "novelty_r2": [
+   0.0449,
+   0.1175
+  ],
+  "controls": [
+   "home_a-b",
+   "wc_a-b",
+   "home_missing_a-b",
+   "in_elo_overall",
+   "in_elo_games",
+   "in_ratings_iid"
+  ],
+  "nearest_selected": [
+   "iosD_first_won",
+   "iosO_second_won",
+   "iosO_hold"
+  ],
+  "nearest_r": {
+   "elo_overall": [
+    -0.116,
+    -0.258
+   ],
+   "elo_games": [
+    -0.109,
+    -0.248
+   ],
+   "ratings_iid": [
+    -0.096,
+    -0.23
+   ]
+  }
+ },
+ "B-STATE": {
+  "hid": "B-STATE",
+  "module": "f28_state",
+  "coverage": {
+   "atp 2014-21": {
+    "finite": 1.0,
+    "nonzero": 0.8437
+   },
+   "atp 2022-24": {
+    "finite": 1.0,
+    "nonzero": 0.8576
+   },
+   "wta 2014-21": {
+    "finite": 1.0,
+    "nonzero": 0.8156
+   },
+   "wta 2022-24": {
+    "finite": 1.0,
+    "nonzero": 0.8046
+   }
+  },
+  "dist": {
+   "sd": 1.38658,
+   "q01_q99": [
+    -4.3176,
+    -2.0664,
+    -0.5297,
+    0.0,
+    0.5494,
+    2.0739,
+    4.2341
+   ],
+   "zero_share": 0.1709
+  },
+  "novelty_r2": 0.2777,
+  "controls": [
+   "in_adjperf_tpw_2w",
+   "in_ios_points_short",
+   "fat_a-b",
+   "in_sets_14d",
+   "update_missing_a-b",
+   "pastfat_missing_a-b",
+   "in_form_brk",
+   "in_form_rpw_first",
+   "in_form_hold"
+  ],
+  "nearest_selected": [
+   "formdef_bp_faced_pg",
+   "form_rpw_second",
+   "form_second_won"
+  ],
+  "nearest_r": {
+   "adjperf_tpw_2w": 0.294,
+   "ios_points_short": 0.059,
+   "sets_14d": 0.413,
+   "form_brk": 0.257,
+   "form_rpw_first": 0.222,
+   "form_hold": 0.213
+  },
+  "members": {
+   "INFO-1": {
+    "coverage": {
+     "atp 2014-21": {
+      "finite": 1.0,
+      "nonzero": 0.3303
+     },
+     "atp 2022-24": {
+      "finite": 1.0,
+      "nonzero": 0.3017
+     },
+     "wta 2014-21": {
+      "finite": 1.0,
+      "nonzero": 0.3206
+     },
+     "wta 2022-24": {
+      "finite": 1.0,
+      "nonzero": 0.0235
+     }
+    },
+    "dist": {
+     "sd": 0.0164,
+     "q01_q99": [
+      -0.0321,
+      -0.0091,
+      0.0,
+      0.0,
+      0.0,
+      0.0091,
+      0.0331
+     ],
+     "zero_share": 0.6747
+    },
+    "novelty_r2": 0.0557,
+    "corr_with_x": 0.588
+   },
+   "BOD-C1": {
+    "coverage": {
+     "atp 2014-21": {
+      "finite": 0.8157,
+      "nonzero": 0.8153
+     },
+     "atp 2022-24": {
+      "finite": 0.8394,
+      "nonzero": 0.8393
+     },
+     "wta 2014-21": {
+      "finite": 0.7896,
+      "nonzero": 0.7888
+     },
+     "wta 2022-24": {
+      "finite": 0.8024,
+      "nonzero": 0.8023
+     }
+    },
+    "dist": {
+     "sd": 1.67251,
+     "q01_q99": [
+      -4.0288,
+      -2.9545,
+      -0.9478,
+      0.0,
+      0.9623,
+      2.9701,
+      4.0242
+     ],
+     "zero_share": 0.0008
+    },
+    "novelty_r2": 0.6686,
+    "corr_with_x": 0.723
+   }
+  },
+  "member_corr": {
+   "INFO-1 ~ BOD-C1": 0.042
+  }
+ },
+ "_extra": {
+  "rows_in_history_both": {
+   "atp 2014-21": 1.0,
+   "atp 2022-24": 1.0,
+   "wta 2014-21": 1.0,
+   "wta 2022-24": 1.0
+  },
+  "fat_imputed_share_gt_half_either": {
+   "atp 2014-21": 0.1159,
+   "atp 2022-24": 0.0661,
+   "wta 2014-21": 0.3424,
+   "wta 2022-24": 0.1084
+  },
+  "dfat3_corr_with": {
+   "tau1.5": 0.927,
+   "tau5": 0.963,
+   "fit21": 0.64,
+   "games3": 0.986,
+   "off3 (B-LOAD member)": 0.496
+  },
+  "known_both_cont": {
+   "atp 2014-21": 1.0,
+   "atp 2022-24": 1.0,
+   "wta 2014-21": 1.0,
+   "wta 2022-24": 1.0
+  },
+  "known_both_trav": {
+   "atp 2014-21": 0.9719,
+   "atp 2022-24": 0.982,
+   "wta 2014-21": 0.9759,
+   "wta 2022-24": 0.9876
+  },
+  "known_both_dz": {
+   "atp 2014-21": 0.9719,
+   "atp 2022-24": 0.982,
+   "wta 2014-21": 0.9759,
+   "wta 2022-24": 0.9876
+  },
+  "known_both_away": {
+   "atp 2014-21": 1.0,
+   "atp 2022-24": 1.0,
+   "wta 2014-21": 1.0,
+   "wta 2022-24": 1.0
+  },
+  "jetlag_trigger_either": {
+   "atp 2014-21": 0.018,
+   "atp 2022-24": 0.0137,
+   "wta 2014-21": 0.0107,
+   "wta 2022-24": 0.0065
+  },
+  "dz_proxy_vs_zone_corr": 0.885,
+  "info1_premise_check": {
+   "uncounted": {
+    "n": 22696,
+    "corr": 0.879,
+    "slope": 1.1
+   },
+   "counted": {
+    "n": 68979,
+    "corr": 0.877,
+    "slope": 1.143
+   }
+  },
+  "info1_uncounted_either": {
+   "atp 2014-21": 0.346,
+   "atp 2022-24": 0.3077,
+   "wta 2014-21": 0.372,
+   "wta 2022-24": 0.026
+  },
+  "info1_update_missing_either": {
+   "atp 2014-21": 0.0254,
+   "atp 2022-24": 0.0143,
+   "wta 2014-21": 0.0831,
+   "wta 2022-24": 0.0032
+  }
+ },
+ "_test_rows_2025_2026": {
+  "atp": 4394,
+  "wta": 4199
+ }
+}

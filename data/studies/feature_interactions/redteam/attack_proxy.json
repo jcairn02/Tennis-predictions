@@ -1,0 +1,198 @@
+{
+ "n_inputs": 58,
+ "top_abs_r": {
+  "in_sets_14d": 0.205,
+  "in_elo_games": -0.143,
+  "in_elo_overall": -0.142,
+  "in_surf_layoff_a": -0.129,
+  "in_iosO_hold": -0.124,
+  "in_ratings_iid": -0.123,
+  "in_iosO_bp_saved": -0.12,
+  "in_iosO_second_won": -0.116
+ },
+ "R2_x_on_58_2014_2021": 0.103,
+ "R2_z43_on_58_2014_2021": 0.242,
+ "R2_x_on_58_2022_2024": 0.12,
+ "R2_z43_on_58_2022_2024": 0.234,
+ "r_x_eta_model": -0.062,
+ "r_x_odds_logit": -0.066,
+ "r_x_model_adjustment": -0.044,
+ "by_season": [
+  {
+   "y": 2014,
+   "sd_x": 1.495,
+   "share_abs_gt2": 0.1125,
+   "share_near_return": 0.0993,
+   "x2_mass_near_return": 0.571,
+   "z43_sd": 0.87
+  },
+  {
+   "y": 2015,
+   "sd_x": 1.49,
+   "share_abs_gt2": 0.0943,
+   "share_near_return": 0.0941,
+   "x2_mass_near_return": 0.665,
+   "z43_sd": 0.847
+  },
+  {
+   "y": 2016,
+   "sd_x": 1.604,
+   "share_abs_gt2": 0.1241,
+   "share_near_return": 0.1053,
+   "x2_mass_near_return": 0.621,
+   "z43_sd": 0.964
+  },
+  {
+   "y": 2017,
+   "sd_x": 1.593,
+   "share_abs_gt2": 0.1163,
+   "share_near_return": 0.0963,
+   "x2_mass_near_return": 0.608,
+   "z43_sd": 0.915
+  },
+  {
+   "y": 2018,
+   "sd_x": 1.505,
+   "share_abs_gt2": 0.1086,
+   "share_near_return": 0.1033,
+   "x2_mass_near_return": 0.614,
+   "z43_sd": 0.967
+  },
+  {
+   "y": 2019,
+   "sd_x": 1.878,
+   "share_abs_gt2": 0.1366,
+   "share_near_return": 0.106,
+   "x2_mass_near_return": 0.7,
+   "z43_sd": 0.973
+  },
+  {
+   "y": 2020,
+   "sd_x": 2.293,
+   "share_abs_gt2": 0.2217,
+   "share_near_return": 0.2885,
+   "x2_mass_near_return": 0.792,
+   "z43_sd": 1.502
+  },
+  {
+   "y": 2021,
+   "sd_x": 1.849,
+   "share_abs_gt2": 0.1573,
+   "share_near_return": 0.1218,
+   "x2_mass_near_return": 0.676,
+   "z43_sd": 1.136
+  },
+  {
+   "y": 2022,
+   "sd_x": 1.845,
+   "share_abs_gt2": 0.1377,
+   "share_near_return": 0.1068,
+   "x2_mass_near_return": 0.696,
+   "z43_sd": 1.057
+  },
+  {
+   "y": 2023,
+   "sd_x": 1.762,
+   "share_abs_gt2": 0.129,
+   "share_near_return": 0.0802,
+   "x2_mass_near_return": 0.636,
+   "z43_sd": NaN
+  },
+  {
+   "y": 2024,
+   "sd_x": 1.861,
+   "share_abs_gt2": 0.1323,
+   "share_near_return": 0.0866,
+   "x2_mass_near_return": 0.673,
+   "z43_sd": NaN
+  }
+ ],
+ "rust_by_band": {
+  "100": {
+   "n": 30819,
+   "mean": 0.281,
+   "share_gt1": 0.0823
+  },
+  "20": {
+   "n": 21045,
+   "mean": 0.231,
+   "share_gt1": 0.0692
+  },
+  "250": {
+   "n": 18415,
+   "mean": 0.217,
+   "share_gt1": 0.0594
+  },
+  "50": {
+   "n": 26343,
+   "mean": 0.266,
+   "share_gt1": 0.0799
+  },
+  "other": {
+   "n": 3607,
+   "mean": 0.931,
+   "share_gt1": 0.2381
+  }
+ },
+ "rust_by_entry": {
+  "PR/SR": {
+   "n": 562,
+   "mean": 1.148,
+   "share_gt1": 0.2349
+  },
+  "other": {
+   "n": 99667,
+   "mean": 0.273,
+   "share_gt1": 0.0794
+  }
+ },
+ "rust_by_tour": {
+  "atp": {
+   "n": 49356,
+   "mean": 0.273,
+   "share_gt1": 0.0779
+  },
+  "wta": {
+   "n": 50873,
+   "mean": 0.283,
+   "share_gt1": 0.0826
+  }
+ },
+ "rust_by_level": {
+  "FIN": {
+   "n": 778,
+   "mean": 0.053,
+   "share_gt1": 0.018
+  },
+  "GS": {
+   "n": 20728,
+   "mean": 0.326,
+   "share_gt1": 0.0965
+  },
+  "T1000": {
+   "n": 22653,
+   "mean": 0.134,
+   "share_gt1": 0.0347
+  },
+  "T250": {
+   "n": 40218,
+   "mean": 0.35,
+   "share_gt1": 0.1025
+  },
+  "T500": {
+   "n": 15852,
+   "mean": 0.25,
+   "share_gt1": 0.0709
+  }
+ },
+ "abs_x_by_level": {
+  "FIN": 0.968,
+  "GS": 1.108,
+  "T1000": 0.934,
+  "T250": 0.985,
+  "T500": 0.985
+ },
+ "players_with_rust": 1546,
+ "share_rust_top10_players": 0.072,
+ "share_rust_top50_players": 0.254
+}

@@ -1,0 +1,89 @@
+{
+ "finished_at": "2026-10-08T16:45:17+00:00",
+ "wall_seconds": 338.4,
+ "reused_saved_predictions": false,
+ "receipt": {
+  "schema": "tennis-tabpfn-thinking58-v1",
+  "input_sha256": "3c0b97abba5121737c7b921944bfbf956d732953e16e48eb0cd4b2d79ade6b00",
+  "config_sha256": "ec0d49f25d72f8d21e019003796a440b4e1d6a3ded32419a0b2feaf79999b98d",
+  "model_path": "v3.5_default",
+  "status": "COMPLETE",
+  "fit_requests_dispatched": 1,
+  "prediction_requests_dispatched": 1,
+  "prediction_sha256": "e2b7ea81e1a4e8fe0df6011de8ef18b431d50e22a294f9607e48069a70bd24fc",
+  "query_rows": 53022,
+  "metadata": {
+   "task": "classification",
+   "package_version": "9.0.0",
+   "tabpfn_config": {
+    "n_estimators": 8,
+    "categorical_features_indices": [],
+    "softmax_temperature": 0.9,
+    "random_state": 0,
+    "inference_config": {
+     "TRANSFORM_DATES": false,
+     "TRANSFORM_TEXT": false
+    },
+    "ignore_pretraining_limits": true,
+    "fit_mode": "fit_preprocessors",
+    "model_path": "tabpfn-v3.5-20260909.safetensors",
+    "balance_probabilities": false
+   },
+   "test_set_num_rows": 53022,
+   "test_set_num_cols": 58,
+   "n_estimators": 2,
+   "billing_model_version": "v3.5",
+   "execution_mode": "thinking",
+   "cache_outcome": "not_requested",
+   "timings": {
+    "fit": {
+     "elapsed_s": 258.004,
+     "queue_wait_s": 0.826,
+     "train_set_transform_s": 0.813,
+     "fit_s": 256.364
+    },
+    "predict": {
+     "test_set_transform_queue_wait_s": 0.08,
+     "test_set_transform_s": 0.747,
+     "predict_queue_wait_s": 0.228,
+     "predict_s": 43.685
+    }
+   }
+  }
+ },
+ "usage_before": {
+  "daily_tokens_used": 0,
+  "daily_token_limit": 5000000,
+  "monthly_tokens_used": 2342350,
+  "monthly_token_limit": 20000000,
+  "current_usage": 2342350,
+  "usage_limit": 20000000,
+  "reset_time": "2026-11-01 00:00:00 UTC",
+  "monthly_usage": 2342350,
+  "monthly_limit": 20000000,
+  "monthly_reset_time": "2026-11-01 00:00:00 UTC",
+  "daily_usage": 0,
+  "daily_limit": 5000000,
+  "daily_reset_time": "2026-10-09 00:00:00 UTC",
+  "thinking_fit_count": 0,
+  "thinking_fit_limit": 0
+ },
+ "usage_after": {
+  "daily_tokens_used": 169141,
+  "daily_token_limit": 5000000,
+  "monthly_tokens_used": 2511491,
+  "monthly_token_limit": 20000000,
+  "current_usage": 2511491,
+  "usage_limit": 20000000,
+  "reset_time": "2026-11-01 00:00:00 UTC",
+  "monthly_usage": 2511491,
+  "monthly_limit": 20000000,
+  "monthly_reset_time": "2026-11-01 00:00:00 UTC",
+  "daily_usage": 169141,
+  "daily_limit": 5000000,
+  "daily_reset_time": "2026-10-09 00:00:00 UTC",
+  "thinking_fit_count": 0,
+  "thinking_fit_limit": 0
+ },
+ "tokens_monthly_delta": 169141
+}

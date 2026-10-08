@@ -1,0 +1,1715 @@
+{
+ "generated_at": "2026-10-02T20:39:49+00:00",
+ "settings": {
+  "late_from_set": 3,
+  "split_points": 150,
+  "seconds_per_point_range": [
+   15.0,
+   120.0
+  ],
+  "long_quantile": 0.75,
+  "replays": 3,
+  "draws": 20,
+  "n_grid_pbp": [
+   2,
+   3,
+   4,
+   5,
+   6,
+   8,
+   10,
+   12,
+   15,
+   20
+  ],
+  "n_grid_box": [
+   5,
+   10,
+   15,
+   20,
+   30,
+   40,
+   50,
+   60
+  ],
+  "pbp_k_years": [
+   2011,
+   2018
+  ],
+  "k_years": [
+   2010,
+   2018
+  ],
+  "seed": 20261003,
+  "boot": 200
+ },
+ "pbp_coverage": {
+  "atp": {
+   "player_matches": 9970,
+   "linked": 9947,
+   "with_sets": 9947,
+   "with_set3": 9947,
+   "with_points150": 8786,
+   "players_linked": 514
+  },
+  "wta": {
+   "player_matches": 9926,
+   "linked": 9758,
+   "with_sets": 3031,
+   "with_set3": 0,
+   "with_points150": 3183,
+   "players_linked": 479
+  }
+ },
+ "selection": {
+  "atp": {
+   "sets": {
+    "player_matches": 9970,
+    "matches_with_measure": 4985,
+    "winners_mean_d_real": 0.04030712608162918,
+    "winners_mean_d_luck": 0.02352032807620154,
+    "sd_d_real": 0.1482828475789228,
+    "sd_d_luck": 0.13119829718954837,
+    "effective_points_mean": 12.958919663885789
+   },
+   "set3": {
+    "player_matches": 9970,
+    "matches_with_measure": 4985,
+    "winners_mean_d_real": 0.013615751713305778,
+    "winners_mean_d_luck": 0.0012807055952340804,
+    "sd_d_real": 0.1740672201796967,
+    "sd_d_luck": 0.16226912257555035,
+    "effective_points_mean": 9.782341678518273
+   },
+   "points150": {
+    "player_matches": 8806,
+    "matches_with_measure": 4403,
+    "winners_mean_d_real": 0.06254336563357622,
+    "winners_mean_d_luck": 0.043248859589601174,
+    "sd_d_real": 0.15426289658534992,
+    "sd_d_luck": 0.1327040591524116,
+    "effective_points_mean": 12.222329182587561
+   }
+  },
+  "wta": {
+   "sets": {
+    "player_matches": 3086,
+    "matches_with_measure": 1543,
+    "winners_mean_d_real": 0.14051715089890868,
+    "winners_mean_d_luck": 0.11823482192852697,
+    "sd_d_real": 0.18458544403251925,
+    "sd_d_luck": 0.16267189711404265,
+    "effective_points_mean": 10.074675827983977
+   },
+   "points150": {
+    "player_matches": 3244,
+    "matches_with_measure": 1622,
+    "winners_mean_d_real": 0.13681967769968498,
+    "winners_mean_d_luck": 0.11185800300936766,
+    "sd_d_real": 0.21089523756852546,
+    "sd_d_luck": 0.19032467592844812,
+    "effective_points_mean": 7.403639868040967
+   }
+  }
+ },
+ "reliability_decline": {
+  "atp": {
+   "sets": {
+    "by_n": [
+     {
+      "n": 2,
+      "r": 0.0656767790252273,
+      "r_lo": -0.04065870546293851,
+      "r_hi": 0.17054121954295282,
+      "players": 342,
+      "units_per_half": 25.983347944920673,
+      "directional_only": false,
+      "luck_r_mean": 0.005401206820884209,
+      "luck_r_min": -0.025616215683429665,
+      "luck_r_max": 0.044204838004188625
+     },
+     {
+      "n": 3,
+      "r": 0.035397826688410655,
+      "r_lo": -0.07892729193456396,
+      "r_hi": 0.1488039164589574,
+      "players": 296,
+      "units_per_half": 39.215404830450076,
+      "directional_only": true,
+      "luck_r_mean": 0.02123380381523186,
+      "luck_r_min": -0.015090015857265429,
+      "luck_r_max": 0.07499813103902128
+     },
+     {
+      "n": 4,
+      "r": 0.0358306614688746,
+      "r_lo": -0.08458108751166525,
+      "r_hi": 0.15521096965790096,
+      "players": 267,
+      "units_per_half": 52.405788091208294,
+      "directional_only": true,
+      "luck_r_mean": 0.025518802137574268,
+      "luck_r_min": -0.03900571595890791,
+      "luck_r_max": 0.07751384329685597
+     },
+     {
+      "n": 5,
+      "r": 0.03608970340422824,
+      "r_lo": -0.091764936626553,
+      "r_hi": 0.1627737188366778,
+      "players": 237,
+      "units_per_half": 65.46943844405553,
+      "directional_only": true,
+      "luck_r_mean": 0.038921419968301375,
+      "luck_r_min": -0.025023886694612724,
+      "luck_r_max": 0.07506452020377904
+     },
+     {
+      "n": 6,
+      "r": 0.05559724282185581,
+      "r_lo": -0.07816841063607215,
+      "r_hi": 0.18739643624407046,
+      "players": 217,
+      "units_per_half": 78.50070259297905,
+      "directional_only": true,
+      "luck_r_mean": 0.029418120628774722,
+      "luck_r_min": -0.012518510633105426,
+      "luck_r_max": 0.05300280720346621
+     },
+     {
+      "n": 8,
+      "r": 0.06019516954604759,
+      "r_lo": -0.08683533873792915,
+      "r_hi": 0.2046592127020383,
+      "players": 180,
+      "units_per_half": 104.79709503601039,
+      "directional_only": true,
+      "luck_r_mean": 0.01972526911526892,
+      "luck_r_min": -0.019782501309267748,
+      "luck_r_max": 0.07715796490534318
+     },
+     {
+      "n": 10,
+      "r": 0.08802472209253266,
+      "r_lo": -0.07112908314147477,
+      "r_hi": 0.24280780370826602,
+      "players": 154,
+      "units_per_half": 131.1598495326804,
+      "directional_only": true,
+      "luck_r_mean": 0.015801201440297317,
+      "luck_r_min": 0.0008212610317828329,
+      "luck_r_max": 0.036233598032215784
+     },
+     {
+      "n": 12,
+      "r": 0.05993618347857531,
+      "r_lo": -0.1114305930004921,
+      "r_hi": 0.22784139231490372,
+      "players": 133,
+      "units_per_half": 157.4253174438763,
+      "directional_only": true,
+      "luck_r_mean": 0.009723764943780135,
+      "luck_r_min": -0.014943445091590152,
+      "luck_r_max": 0.046274788389924396
+     },
+     {
+      "n": 15,
+      "r": 0.03583477468713655,
+      "r_lo": -0.15599037587597914,
+      "r_hi": 0.22505517417461637,
+      "players": 106,
+      "units_per_half": 197.12252320349575,
+      "directional_only": true,
+      "luck_r_mean": 0.015622439012236589,
+      "luck_r_min": -0.03786514188157378,
+      "luck_r_max": 0.0636495941123794
+     },
+     {
+      "n": 20,
+      "r": 0.028948567857783315,
+      "r_lo": -0.204092859460111,
+      "r_hi": 0.2588849917549046,
+      "players": 72,
+      "units_per_half": 261.8076001487094,
+      "directional_only": true,
+      "luck_r_mean": 0.04353296432520324,
+      "luck_r_min": 0.010918811374012665,
+      "luck_r_max": 0.08157167563084626
+     }
+    ],
+    "sb_real": {
+     "k": 167.80904460493034,
+     "no_signal": false,
+     "basis": "30+ players (directional)",
+     "n_values": 10
+    },
+    "sb_luck": [
+     {
+      "k": 268.15793185936974,
+      "no_signal": false,
+      "basis": "30+ players (directional)",
+      "n_values": 10
+     },
+     {
+      "k": 170.74230754627453,
+      "no_signal": false,
+      "basis": "30+ players (directional)",
+      "n_values": 10
+     },
+     {
+      "k": null,
+      "no_signal": true,
+      "basis": "30+ players (directional)",
+      "n_values": 10
+     }
+    ]
+   },
+   "set3": {
+    "by_n": [
+     {
+      "n": 2,
+      "r": 0.057647981834715,
+      "r_lo": -0.048702057536290685,
+      "r_hi": 0.16270553848798375,
+      "players": 342,
+      "units_per_half": 19.546684685124873,
+      "directional_only": false,
+      "luck_r_mean": 0.012924410882989098,
+      "luck_r_min": -0.024327140959389225,
+      "luck_r_max": 0.03599142313977184
+     },
+     {
+      "n": 3,
+      "r": 0.03525106840338479,
+      "r_lo": -0.07907331650595821,
+      "r_hi": 0.1486602253474125,
+      "players": 296,
+      "units_per_half": 29.348394561222943,
+      "directional_only": true,
+      "luck_r_mean": 0.02146669594717558,
+      "luck_r_min": -0.02294791903421215,
+      "luck_r_max": 0.04549474565675692
+     },
+     {
+      "n": 4,
+      "r": 0.024807211033383007,
+      "r_lo": -0.09552520036858074,
+      "r_hi": 0.1444250375765217,
+      "players": 267,
+      "units_per_half": 39.264529935770504,
+      "directional_only": true,
+      "luck_r_mean": 0.026402797558074634,
+      "luck_r_min": -0.0034774490127792664,
+      "luck_r_max": 0.05413070054660254
+     },
+     {
+      "n": 5,
+      "r": 0.03660262241409146,
+      "r_lo": -0.09125564006592751,
+      "r_hi": 0.16327366659131262,
+      "players": 237,
+      "units_per_half": 49.105110271105914,
+      "directional_only": true,
+      "luck_r_mean": 0.027236820743971806,
+      "luck_r_min": 0.008551877996907698,
+      "luck_r_max": 0.039562642215141344
+     },
+     {
+      "n": 6,
+      "r": 0.030986161980597816,
+      "r_lo": -0.10262419320463444,
+      "r_hi": 0.16349824352138465,
+      "players": 217,
+      "units_per_half": 58.90101754799581,
+      "directional_only": true,
+      "luck_r_mean": 0.02573313631231275,
+      "luck_r_min": 0.011226798022474702,
+      "luck_r_max": 0.04446066298509662
+     },
+     {
+      "n": 8,
+      "r": 0.06202203666878213,
+      "r_lo": -0.08501516263909063,
+      "r_hi": 0.20641546096625035,
+      "players": 180,
+      "units_per_half": 78.5589275476559,
+      "directional_only": true,
+      "luck_r_mean": 0.02335234945630477,
+      "luck_r_min": 0.005340425660198811,
+      "luck_r_max": 0.05696840526599619
+     },
+     {
+      "n": 10,
+      "r": 0.08810974375211614,
+      "r_lo": -0.07104382991029994,
+      "r_hi": 0.24288843657305742,
+      "players": 154,
+      "units_per_half": 98.284333076604,
+      "directional_only": true,
+      "luck_r_mean": 0.011834912076201564,
+      "luck_r_min": -0.03391619713094949,
+      "luck_r_max": 0.0467215442331296
+     },
+     {
+      "n": 12,
+      "r": 0.12610927144567546,
+      "r_lo": -0.045088527537767244,
+      "r_hi": 0.29011115010080324,
+      "players": 133,
+      "units_per_half": 117.94545238384595,
+      "directional_only": true,
+      "luck_r_mean": 0.00909123948736149,
+      "luck_r_min": -0.013880105398435528,
+      "luck_r_max": 0.029310772834261943
+     },
+     {
+      "n": 15,
+      "r": 0.07102593285952706,
+      "r_lo": -0.12137742002851327,
+      "r_hi": 0.2582853023559356,
+      "players": 106,
+      "units_per_half": 147.92555646990905,
+      "directional_only": true,
+      "luck_r_mean": -0.03447464884059832,
+      "luck_r_min": -0.11275141151148724,
+      "luck_r_max": 0.017243728081325228
+     },
+     {
+      "n": 20,
+      "r": 0.07512616158103394,
+      "r_lo": -0.1593194010801706,
+      "r_hi": 0.3015504333234476,
+      "players": 72,
+      "units_per_half": 196.540340606378,
+      "directional_only": true,
+      "luck_r_mean": 0.0182490190378292,
+      "luck_r_min": -0.04116957996866857,
+      "luck_r_max": 0.0747905044107921
+     }
+    ],
+    "sb_real": {
+     "k": 130.73991872613925,
+     "no_signal": false,
+     "basis": "30+ players (directional)",
+     "n_values": 10
+    },
+    "sb_luck": [
+     {
+      "k": 273.0015692801141,
+      "no_signal": false,
+      "basis": "30+ players (directional)",
+      "n_values": 10
+     },
+     {
+      "k": 303.16110184549774,
+      "no_signal": false,
+      "basis": "30+ players (directional)",
+      "n_values": 10
+     },
+     {
+      "k": null,
+      "no_signal": true,
+      "basis": "30+ players (directional)",
+      "n_values": 10
+     }
+    ]
+   },
+   "points150": {
+    "by_n": [
+     {
+      "n": 2,
+      "r": 0.05020852622083434,
+      "r_lo": -0.0590768799256869,
+      "r_hi": 0.15830467444679028,
+      "players": 324,
+      "units_per_half": 24.665204147030913,
+      "directional_only": false,
+      "luck_r_mean": 0.02696643201390222,
+      "luck_r_min": 0.005015956498611969,
+      "luck_r_max": 0.04653992058711475
+     },
+     {
+      "n": 3,
+      "r": 0.022647034969542065,
+      "r_lo": -0.09399459902507515,
+      "r_hi": 0.1386753565535562,
+      "players": 284,
+      "units_per_half": 36.87959406015855,
+      "directional_only": true,
+      "luck_r_mean": 0.03709557354702955,
+      "luck_r_min": -0.0010774663010203044,
+      "luck_r_max": 0.06403875299331357
+     },
+     {
+      "n": 4,
+      "r": 0.02289451549351037,
+      "r_lo": -0.09974999216302602,
+      "r_hi": 0.1448537684680998,
+      "players": 257,
+      "units_per_half": 49.48127456441526,
+      "directional_only": true,
+      "luck_r_mean": 0.028776706875745493,
+      "luck_r_min": -0.011661095163245552,
+      "luck_r_max": 0.07187880789997927
+     },
+     {
+      "n": 5,
+      "r": 0.0016948573808727558,
+      "r_lo": -0.12941909925946013,
+      "r_hi": 0.13275056759633008,
+      "players": 224,
+      "units_per_half": 61.80459707211868,
+      "directional_only": true,
+      "luck_r_mean": 0.00834764952439261,
+      "luck_r_min": -0.05522313833957839,
+      "luck_r_max": 0.047386616672935214
+     },
+     {
+      "n": 6,
+      "r": 0.02523210653532553,
+      "r_lo": -0.11391020115138129,
+      "r_hi": 0.16340359641565072,
+      "players": 200,
+      "units_per_half": 74.01985905443996,
+      "directional_only": true,
+      "luck_r_mean": 0.006643024368560148,
+      "luck_r_min": -0.04918498161068173,
+      "luck_r_max": 0.05645762898405443
+     },
+     {
+      "n": 8,
+      "r": 0.03456249115791392,
+      "r_lo": -0.11746475407162711,
+      "r_hi": 0.1850068437737777,
+      "players": 168,
+      "units_per_half": 99.00095636408894,
+      "directional_only": true,
+      "luck_r_mean": 0.038009987348058334,
+      "luck_r_min": -0.022880929461285563,
+      "luck_r_max": 0.10875646158999683
+     },
+     {
+      "n": 10,
+      "r": 0.07751443772124005,
+      "r_lo": -0.08894039476396674,
+      "r_hi": 0.23975723725097936,
+      "players": 141,
+      "units_per_half": 123.93196902930488,
+      "directional_only": true,
+      "luck_r_mean": 0.04671341974021828,
+      "luck_r_min": -0.03346038041480032,
+      "luck_r_max": 0.11228146136276644
+     },
+     {
+      "n": 12,
+      "r": 0.09944352203696755,
+      "r_lo": -0.08202345786329393,
+      "r_hi": 0.27452832731359406,
+      "players": 119,
+      "units_per_half": 149.3272007974598,
+      "directional_only": true,
+      "luck_r_mean": 0.05607673012857617,
+      "luck_r_min": 0.03369763503375753,
+      "luck_r_max": 0.09477622808424008
+     },
+     {
+      "n": 15,
+      "r": 0.10975399035633501,
+      "r_lo": -0.09277705373571621,
+      "r_hi": 0.3035637431442922,
+      "players": 96,
+      "units_per_half": 185.69837596937992,
+      "directional_only": true,
+      "luck_r_mean": 0.049417087615203636,
+      "luck_r_min": 0.006831817693042128,
+      "luck_r_max": 0.12175545392251168
+     },
+     {
+      "n": 20,
+      "r": 0.15428424609364175,
+      "r_lo": -0.1014838387731062,
+      "r_hi": 0.39092109148498355,
+      "players": 61,
+      "units_per_half": 246.92193142793766,
+      "directional_only": true,
+      "luck_r_mean": 0.06988999802314687,
+      "luck_r_min": -0.008357742115541666,
+      "luck_r_max": 0.15602502059240192
+     }
+    ],
+    "sb_real": {
+     "k": 134.0778146184456,
+     "no_signal": false,
+     "basis": "30+ players (directional)",
+     "n_values": 10
+    },
+    "sb_luck": [
+     {
+      "k": 135.83403257205538,
+      "no_signal": false,
+      "basis": "30+ players (directional)",
+      "n_values": 10
+     },
+     {
+      "k": 125.21857462417913,
+      "no_signal": false,
+      "basis": "30+ players (directional)",
+      "n_values": 10
+     },
+     {
+      "k": null,
+      "no_signal": true,
+      "basis": "30+ players (directional)",
+      "n_values": 10
+     }
+    ]
+   }
+  },
+  "wta": {
+   "sets": {
+    "by_n": [
+     {
+      "n": 2,
+      "r": 0.039231072212589105,
+      "r_lo": -0.1000570760211557,
+      "r_hi": 0.17701112230708155,
+      "players": 200,
+      "units_per_half": 20.164139623963173,
+      "directional_only": true,
+      "luck_r_mean": 0.01891564243134836,
+      "luck_r_min": -0.005346815118724371,
+      "luck_r_max": 0.04712354871087322
+     },
+     {
+      "n": 3,
+      "r": 0.04573451485643863,
+      "r_lo": -0.10641491422043435,
+      "r_hi": 0.19579123327835632,
+      "players": 168,
+      "units_per_half": 30.226939703519527,
+      "directional_only": true,
+      "luck_r_mean": -0.006878764083874654,
+      "luck_r_min": -0.01886612642889265,
+      "luck_r_max": -4.3617767514465746e-05
+     },
+     {
+      "n": 4,
+      "r": 0.09837005220521387,
+      "r_lo": -0.0698866226706169,
+      "r_hi": 0.2611844458021397,
+      "players": 138,
+      "units_per_half": 40.31093587253384,
+      "directional_only": true,
+      "luck_r_mean": 0.010612949293880805,
+      "luck_r_min": -0.003836115300296751,
+      "luck_r_max": 0.036547048540849766
+     },
+     {
+      "n": 5,
+      "r": 0.17448163426251048,
+      "r_lo": -0.0064855235920517834,
+      "r_hi": 0.34438250062618875,
+      "players": 118,
+      "units_per_half": 50.59064126307405,
+      "directional_only": true,
+      "luck_r_mean": -0.013307327485519833,
+      "luck_r_min": -0.01819680871526732,
+      "luck_r_max": -0.0100055854604717
+     },
+     {
+      "n": 6,
+      "r": 0.19042608474866962,
+      "r_lo": -0.007262285790305617,
+      "r_hi": 0.37378956031241406,
+      "players": 99,
+      "units_per_half": 60.48371199152696,
+      "directional_only": true,
+      "luck_r_mean": 0.003245920997051568,
+      "luck_r_min": -0.01742743263449098,
+      "luck_r_max": 0.03536557792580351
+     },
+     {
+      "n": 8,
+      "r": 0.18696750858230093,
+      "r_lo": -0.050216861818250455,
+      "r_hi": 0.40418836481657083,
+      "players": 70,
+      "units_per_half": 80.36569227997877,
+      "directional_only": true,
+      "luck_r_mean": -0.02931825911866776,
+      "luck_r_min": -0.09551931112451702,
+      "luck_r_max": 0.01188487600195999
+     },
+     {
+      "n": 10,
+      "r": 0.14379917250202587,
+      "r_lo": -0.14954822474831675,
+      "r_hi": 0.4138797732442445,
+      "players": 47,
+      "units_per_half": 100.86571185729011,
+      "directional_only": true,
+      "luck_r_mean": 0.02388629376741246,
+      "luck_r_min": -0.0395448836942761,
+      "luck_r_max": 0.0746382368211967
+     }
+    ],
+    "sb_real": {
+     "k": 35.223504391900676,
+     "no_signal": false,
+     "basis": "30+ players (directional)",
+     "n_values": 7
+    },
+    "sb_luck": [
+     {
+      "k": null,
+      "no_signal": true,
+      "basis": "30+ players (directional)",
+      "n_values": 8
+     },
+     {
+      "k": 704.1728237958156,
+      "no_signal": false,
+      "basis": "30+ players (directional)",
+      "n_values": 8
+     },
+     {
+      "k": null,
+      "no_signal": true,
+      "basis": "30+ players (directional)",
+      "n_values": 8
+     }
+    ]
+   },
+   "points150": {
+    "by_n": [
+     {
+      "n": 2,
+      "r": 0.01641471003822219,
+      "r_lo": -0.11891997112005669,
+      "r_hi": 0.15115060379253148,
+      "players": 211,
+      "units_per_half": 14.838319767658074,
+      "directional_only": true,
+      "luck_r_mean": 0.03366354790648222,
+      "luck_r_min": 0.017248392087574938,
+      "luck_r_max": 0.054116801743220075
+     },
+     {
+      "n": 3,
+      "r": 0.026249407191201668,
+      "r_lo": -0.12300347302035633,
+      "r_hi": 0.17434110014940032,
+      "players": 174,
+      "units_per_half": 22.224674231431713,
+      "directional_only": true,
+      "luck_r_mean": 0.020764457594593045,
+      "luck_r_min": 0.012331938931826913,
+      "luck_r_max": 0.027886851450107258
+     },
+     {
+      "n": 4,
+      "r": 0.02136615246544777,
+      "r_lo": -0.14157657116894856,
+      "r_hi": 0.1831816534196641,
+      "players": 146,
+      "units_per_half": 29.549902558325595,
+      "directional_only": true,
+      "luck_r_mean": 0.023804051880045377,
+      "luck_r_min": -0.0055732978047264205,
+      "luck_r_max": 0.06375122435271262
+     },
+     {
+      "n": 5,
+      "r": 0.05075123269643268,
+      "r_lo": -0.12891637245672036,
+      "r_hi": 0.2271928155498379,
+      "players": 121,
+      "units_per_half": 37.23352896319206,
+      "directional_only": true,
+      "luck_r_mean": -0.002717416807446605,
+      "luck_r_min": -0.020390925421268743,
+      "luck_r_max": 0.029938021990920445
+     },
+     {
+      "n": 6,
+      "r": 0.050840616856829134,
+      "r_lo": -0.1422138762852432,
+      "r_hi": 0.24016895978795616,
+      "players": 105,
+      "units_per_half": 44.54934481488053,
+      "directional_only": true,
+      "luck_r_mean": 0.0004635881099829692,
+      "luck_r_min": -0.025030302197362464,
+      "luck_r_max": 0.015361005252397216
+     },
+     {
+      "n": 8,
+      "r": 0.06011619952843237,
+      "r_lo": -0.17397952179649906,
+      "r_hi": 0.28778085486666455,
+      "players": 72,
+      "units_per_half": 59.82842493568786,
+      "directional_only": true,
+      "luck_r_mean": 0.043711037176299254,
+      "luck_r_min": 0.001465842189415613,
+      "luck_r_max": 0.08902051301517117
+     },
+     {
+      "n": 10,
+      "r": 0.004436193234185938,
+      "r_lo": -0.271484188152018,
+      "r_hi": 0.2796827379291896,
+      "players": 51,
+      "units_per_half": 74.65851302328075,
+      "directional_only": true,
+      "luck_r_mean": 0.029944473628096782,
+      "luck_r_min": -0.10306130876263468,
+      "luck_r_max": 0.14540884662301096
+     },
+     {
+      "n": 12,
+      "r": 0.029175844384011534,
+      "r_lo": -0.32280812518614427,
+      "r_hi": 0.37407004554864143,
+      "players": 32,
+      "units_per_half": 88.86956620374444,
+      "directional_only": true,
+      "luck_r_mean": -0.016705250773296525,
+      "luck_r_min": -0.14341089123594294,
+      "luck_r_max": 0.058699707856614616
+     }
+    ],
+    "sb_real": {
+     "k": 169.37023215014165,
+     "no_signal": false,
+     "basis": "30+ players (directional)",
+     "n_values": 8
+    },
+    "sb_luck": [
+     {
+      "k": 95.86584195205558,
+      "no_signal": false,
+      "basis": "30+ players (directional)",
+      "n_values": 8
+     },
+     {
+      "k": null,
+      "no_signal": true,
+      "basis": "30+ players (directional)",
+      "n_values": 8
+     },
+     {
+      "k": 550.7783079419626,
+      "no_signal": false,
+      "basis": "30+ players (directional)",
+      "n_values": 8
+     }
+    ]
+   }
+  }
+ },
+ "K_decline": {
+  "atp": {
+   "season": {
+    "K": 943.9455745762689,
+    "K_lo": 351.4206950772963,
+    "K_hi": Infinity,
+    "mean": 0.00010624634957488922,
+    "chance_var_per_unit": 0.2818020363816998,
+    "true_var": 0.00029853631816452865,
+    "window": "season",
+    "player_windows": 1319,
+    "player_matches": 5946,
+    "units_per_match": 12.807337126229912
+   },
+   "career": {
+    "K": 668.942521665276,
+    "K_lo": 413.13477730470663,
+    "K_hi": 1785.4045401373028,
+    "mean": 0.00010624634957489053,
+    "chance_var_per_unit": 0.280300820142333,
+    "true_var": 0.00041902078439347485,
+    "window": "career",
+    "player_windows": 358,
+    "player_matches": 5946,
+    "units_per_match": 12.807337126229912
+   },
+   "luck": [
+    {
+     "season": {
+      "K": 930.5231453668505,
+      "K_lo": 460.84650856614286,
+      "K_hi": Infinity,
+      "mean": -4.3942143160350904e-05,
+      "chance_var_per_unit": 0.22266432054445232,
+      "true_var": 0.0002392893950603119,
+      "window": "season",
+      "player_windows": 1319,
+      "player_matches": 5946,
+      "units_per_match": 13.606175641875906
+     },
+     "career": {
+      "K": 951.4115957195457,
+      "K_lo": 521.7169641410643,
+      "K_hi": 2723.676975679464,
+      "mean": -4.394214316035148e-05,
+      "chance_var_per_unit": 0.22275846504479968,
+      "true_var": 0.00023413469632596717,
+      "window": "career",
+      "player_windows": 358,
+      "player_matches": 5946,
+      "units_per_match": 13.606175641875906
+     }
+    },
+    {
+     "season": {
+      "K": 1162.3081804191936,
+      "K_lo": 482.5055159431395,
+      "K_hi": Infinity,
+      "mean": -1.9263100865960602e-05,
+      "chance_var_per_unit": 0.2423549604618696,
+      "true_var": 0.00020851179105911723,
+      "window": "season",
+      "player_windows": 1319,
+      "player_matches": 5946,
+      "units_per_match": 13.57123077096216
+     },
+     "career": {
+      "K": 1086.7890267649123,
+      "K_lo": 611.7636842249583,
+      "K_hi": 5213.830740213027,
+      "mean": -1.926310086596113e-05,
+      "chance_var_per_unit": 0.24218365237583553,
+      "true_var": 0.00022284329930782716,
+      "window": "career",
+      "player_windows": 358,
+      "player_matches": 5946,
+      "units_per_match": 13.57123077096216
+     }
+    },
+    {
+     "season": {
+      "K": Infinity,
+      "K_lo": 1415.1384414080874,
+      "K_hi": Infinity,
+      "mean": 6.835101811898099e-05,
+      "chance_var_per_unit": 0.22531326114364583,
+      "true_var": -8.90175972980339e-05,
+      "window": "season",
+      "player_windows": 1319,
+      "player_matches": 5946,
+      "units_per_match": 13.450096501174917
+     },
+     "career": {
+      "K": Infinity,
+      "K_lo": 2471.689757423613,
+      "K_hi": Infinity,
+      "mean": 6.835101811898072e-05,
+      "chance_var_per_unit": 0.22477570955544118,
+      "true_var": -4.936872611724135e-05,
+      "window": "career",
+      "player_windows": 358,
+      "player_matches": 5946,
+      "units_per_match": 13.450096501174917
+     }
+    }
+   ]
+  },
+  "wta": {
+   "season": {
+    "K": Infinity,
+    "K_lo": 158.42426517186925,
+    "K_hi": Infinity,
+    "mean": 0.0005943336123914349,
+    "chance_var_per_unit": 0.34893472513355367,
+    "true_var": -0.0002195373036468418,
+    "window": "season",
+    "player_windows": 814,
+    "player_matches": 1751,
+    "units_per_match": 10.090731208868787
+   },
+   "career": {
+    "K": 808.4876940367596,
+    "K_lo": 281.3141717169565,
+    "K_hi": Infinity,
+    "mean": 0.0005943336123914358,
+    "chance_var_per_unit": 0.34247980526480787,
+    "true_var": 0.00042360546461111165,
+    "window": "career",
+    "player_windows": 259,
+    "player_matches": 1751,
+    "units_per_match": 10.090731208868787
+   },
+   "luck": [
+    {
+     "season": {
+      "K": Infinity,
+      "K_lo": Infinity,
+      "K_hi": Infinity,
+      "mean": 0.00017287781055620678,
+      "chance_var_per_unit": 0.2894197901358749,
+      "true_var": -0.0016283060840943228,
+      "window": "season",
+      "player_windows": 843,
+      "player_matches": 1867,
+      "units_per_match": 10.339730386196251
+     },
+     "career": {
+      "K": Infinity,
+      "K_lo": 1321.221838566311,
+      "K_hi": Infinity,
+      "mean": 0.00017287781055620822,
+      "chance_var_per_unit": 0.27645639689904183,
+      "true_var": -0.00037525424474174146,
+      "window": "career",
+      "player_windows": 271,
+      "player_matches": 1867,
+      "units_per_match": 10.339730386196251
+     }
+    },
+    {
+     "season": {
+      "K": Infinity,
+      "K_lo": 241.9069224752965,
+      "K_hi": Infinity,
+      "mean": -0.00015834074783697575,
+      "chance_var_per_unit": 0.2922174083603516,
+      "true_var": -0.00022708400943255953,
+      "window": "season",
+      "player_windows": 836,
+      "player_matches": 1847,
+      "units_per_match": 10.358653324332966
+     },
+     "career": {
+      "K": 468.19175361765997,
+      "K_lo": 219.73550163098895,
+      "K_hi": Infinity,
+      "mean": -0.0001583407478369767,
+      "chance_var_per_unit": 0.2836408189138868,
+      "true_var": 0.0006058219025051791,
+      "window": "career",
+      "player_windows": 269,
+      "player_matches": 1847,
+      "units_per_match": 10.358653324332966
+     }
+    },
+    {
+     "season": {
+      "K": Infinity,
+      "K_lo": 1286.5656019119413,
+      "K_hi": Infinity,
+      "mean": 0.00014592212327994568,
+      "chance_var_per_unit": 0.27246544940895756,
+      "true_var": -0.0011363729916236782,
+      "window": "season",
+      "player_windows": 849,
+      "player_matches": 1842,
+      "units_per_match": 10.519776748483316
+     },
+     "career": {
+      "K": Infinity,
+      "K_lo": 2532.5855759426854,
+      "K_hi": Infinity,
+      "mean": 0.00014592212327994638,
+      "chance_var_per_unit": 0.26552966692904517,
+      "true_var": -0.00047926358591862005,
+      "window": "career",
+      "player_windows": 270,
+      "player_matches": 1842,
+      "units_per_match": 10.519776748483316
+     }
+    }
+   ]
+  }
+ },
+ "grinder_rows": {
+  "atp": {
+   "box_rows_with_minutes": 381650,
+   "entering": 381516,
+   "matches_with_implausible_minutes": 66,
+   "matches_with_minutes": 190825
+  },
+  "wta": {
+   "box_rows_with_minutes": 137408,
+   "entering": 137274,
+   "matches_with_implausible_minutes": 57,
+   "matches_with_minutes": 68704
+  }
+ },
+ "reliability_grinder": {
+  "atp": {
+   "by_n": [
+    {
+     "n": 5,
+     "r": 0.07899779213459687,
+     "r_lo": 0.03507835672952901,
+     "r_hi": 0.12261267990573974,
+     "players": 1981,
+     "draws": 20,
+     "directional_only": false,
+     "luck_r_mean": 0.040685008942931776,
+     "luck_r_min": 0.03468569952403727,
+     "luck_r_max": 0.04668431836182628
+    },
+    {
+     "n": 10,
+     "r": 0.099649869469669,
+     "r_lo": 0.056547431972537095,
+     "r_hi": 0.14238154716124776,
+     "players": 2045,
+     "draws": 20,
+     "directional_only": false,
+     "luck_r_mean": 0.05050860913704368,
+     "luck_r_min": 0.04721350894296561,
+     "luck_r_max": 0.05380370933112174
+    },
+    {
+     "n": 15,
+     "r": 0.11569107022978722,
+     "r_lo": 0.07054954757554757,
+     "r_hi": 0.1603597022386533,
+     "players": 1855,
+     "draws": 20,
+     "directional_only": false,
+     "luck_r_mean": 0.04812092169340948,
+     "luck_r_min": 0.04759057074214506,
+     "luck_r_max": 0.04865127264467389
+    },
+    {
+     "n": 20,
+     "r": 0.10603572396838394,
+     "r_lo": 0.05853549849477009,
+     "r_hi": 0.15305689814119633,
+     "players": 1682,
+     "draws": 20,
+     "directional_only": false,
+     "luck_r_mean": 0.041335711920074306,
+     "luck_r_min": 0.04058825830578045,
+     "luck_r_max": 0.04208316553436815
+    },
+    {
+     "n": 30,
+     "r": 0.12463650430227782,
+     "r_lo": 0.07258877336127381,
+     "r_hi": 0.17600722981971784,
+     "players": 1393,
+     "draws": 20,
+     "directional_only": false,
+     "luck_r_mean": 0.06047151168046302,
+     "luck_r_min": 0.04451396908709725,
+     "luck_r_max": 0.07642905427382879
+    },
+    {
+     "n": 40,
+     "r": 0.16801030018333452,
+     "r_lo": 0.11196792540179991,
+     "r_hi": 0.22298730875930986,
+     "players": 1178,
+     "draws": 20,
+     "directional_only": false,
+     "luck_r_mean": 0.06950426761824148,
+     "luck_r_min": 0.05045608207550478,
+     "luck_r_max": 0.08855245316097818
+    },
+    {
+     "n": 50,
+     "r": 0.17677430405711664,
+     "r_lo": 0.11674620239247704,
+     "r_hi": 0.23551553566801414,
+     "players": 1023,
+     "draws": 20,
+     "directional_only": false,
+     "luck_r_mean": 0.07535291963425036,
+     "luck_r_min": 0.0571620404093051,
+     "luck_r_max": 0.09354379885919563
+    },
+    {
+     "n": 60,
+     "r": 0.20984113302572246,
+     "r_lo": 0.1461045380721593,
+     "r_hi": 0.27184284419369775,
+     "players": 889,
+     "draws": 20,
+     "directional_only": false,
+     "luck_r_mean": 0.08565779452788612,
+     "luck_r_min": 0.06993878232139844,
+     "luck_r_max": 0.1013768067343738
+    }
+   ],
+   "sb_real": {
+    "k": 188.1122475182077,
+    "no_signal": false,
+    "basis": "300+ players",
+    "n_values": 8
+   },
+   "sb_luck": [
+    {
+     "k": 425.0958318427255,
+     "no_signal": false,
+     "basis": "300+ players",
+     "n_values": 8
+    },
+    {
+     "k": 623.1452665276174,
+     "no_signal": false,
+     "basis": "300+ players",
+     "n_values": 8
+    }
+   ]
+  },
+  "wta": {
+   "by_n": [
+    {
+     "n": 5,
+     "r": 0.08903913598374501,
+     "r_lo": 0.034838005226326255,
+     "r_hi": 0.14271801545917298,
+     "players": 1300,
+     "draws": 20,
+     "directional_only": false,
+     "luck_r_mean": 0.05071987984172148,
+     "luck_r_min": 0.03734298299181288,
+     "luck_r_max": 0.06409677669163008
+    },
+    {
+     "n": 10,
+     "r": 0.12804002823724497,
+     "r_lo": 0.07259589259073264,
+     "r_hi": 0.18269522783703446,
+     "players": 1227,
+     "draws": 20,
+     "directional_only": false,
+     "luck_r_mean": 0.058800768372913786,
+     "luck_r_min": 0.04344819954485583,
+     "luck_r_max": 0.07415333720097174
+    },
+    {
+     "n": 15,
+     "r": 0.1431004586787826,
+     "r_lo": 0.08268013812867364,
+     "r_hi": 0.20247263106744434,
+     "players": 1028,
+     "draws": 20,
+     "directional_only": false,
+     "luck_r_mean": 0.05786707608601412,
+     "luck_r_min": 0.03229330183763078,
+     "luck_r_max": 0.08344085033439747
+    },
+    {
+     "n": 20,
+     "r": 0.19542625166209301,
+     "r_lo": 0.13114149706016415,
+     "r_hi": 0.25807441369313966,
+     "players": 883,
+     "draws": 20,
+     "directional_only": false,
+     "luck_r_mean": 0.07357745159410436,
+     "luck_r_min": 0.04893058753514883,
+     "luck_r_max": 0.09822431565305989
+    },
+    {
+     "n": 30,
+     "r": 0.2750677805684227,
+     "r_lo": 0.20204380337760017,
+     "r_hi": 0.3450502173678333,
+     "players": 643,
+     "draws": 20,
+     "directional_only": false,
+     "luck_r_mean": 0.08691949348897414,
+     "luck_r_min": 0.06239273849677094,
+     "luck_r_max": 0.11144624848117735
+    },
+    {
+     "n": 40,
+     "r": 0.26678066256017435,
+     "r_lo": 0.17934491143873213,
+     "r_hi": 0.35003480027673967,
+     "players": 456,
+     "draws": 20,
+     "directional_only": false,
+     "luck_r_mean": 0.11150742090073365,
+     "luck_r_min": 0.08097436615522359,
+     "luck_r_max": 0.14204047564624372
+    },
+    {
+     "n": 50,
+     "r": 0.2733718281216123,
+     "r_lo": 0.17365934863517715,
+     "r_hi": 0.36753610906829737,
+     "players": 351,
+     "draws": 20,
+     "directional_only": false,
+     "luck_r_mean": 0.0932735645666786,
+     "luck_r_min": 0.07054430464240116,
+     "luck_r_max": 0.11600282449095604
+    },
+    {
+     "n": 60,
+     "r": 0.27671633726137285,
+     "r_lo": 0.16743590883484477,
+     "r_hi": 0.3792794565629141,
+     "players": 293,
+     "draws": 20,
+     "directional_only": true,
+     "luck_r_mean": 0.10463894061809755,
+     "luck_r_min": 0.09238364256666445,
+     "luck_r_max": 0.11689423866953064
+    }
+   ],
+   "sb_real": {
+    "k": 90.36496310701196,
+    "no_signal": false,
+    "basis": "300+ players",
+    "n_values": 7
+   },
+   "sb_luck": [
+    {
+     "k": 223.45378472304984,
+     "no_signal": false,
+     "basis": "300+ players",
+     "n_values": 7
+    },
+    {
+     "k": 447.9767365278975,
+     "no_signal": false,
+     "basis": "300+ players",
+     "n_values": 7
+    }
+   ]
+  }
+ },
+ "K_grinder": {
+  "real": {
+   "season": {
+    "atp": {
+     "K": Infinity,
+     "K_lo": Infinity,
+     "K_hi": Infinity,
+     "mean": -0.002844467171738867,
+     "chance_var_per_point": 0.5189073108621721,
+     "true_var": -6.68807724310483e-05,
+     "window": "season",
+     "player_windows": 5591,
+     "player_matches": 163642,
+     "long_share": 0.2431894012539568
+    },
+    "wta": {
+     "K": Infinity,
+     "K_lo": 16465.20695782169,
+     "K_hi": Infinity,
+     "mean": -0.0022239444716630435,
+     "chance_var_per_point": 0.540713881932216,
+     "true_var": -3.074076603348294e-05,
+     "window": "season",
+     "player_windows": 1048,
+     "player_matches": 25298,
+     "long_share": 0.24152106885919836
+    }
+   },
+   "career": {
+    "atp": {
+     "K": 14690.242118887309,
+     "K_lo": 8523.148777036313,
+     "K_hi": 30853.988831846593,
+     "mean": -0.001967135141512627,
+     "chance_var_per_point": 0.5194150350650992,
+     "true_var": 3.53578267030252e-05,
+     "window": "career",
+     "player_windows": 1766,
+     "player_matches": 163642,
+     "long_share": 0.2431894012539568
+    },
+    "wta": {
+     "K": 10097.707866205226,
+     "K_lo": 5087.093605753771,
+     "K_hi": Infinity,
+     "mean": -0.0016612668846326343,
+     "chance_var_per_point": 0.5461987849740396,
+     "true_var": 5.409136332830988e-05,
+     "window": "career",
+     "player_windows": 541,
+     "player_matches": 25298,
+     "long_share": 0.24152106885919836
+    }
+   }
+  },
+  "luck": [
+   {
+    "season": {
+     "atp": {
+      "K": Infinity,
+      "K_lo": Infinity,
+      "K_hi": Infinity,
+      "mean": -0.0013874598035561918,
+      "chance_var_per_point": 0.6009436810602934,
+      "true_var": -0.00017500521567755163,
+      "window": "season",
+      "player_windows": 6181,
+      "player_matches": 163642,
+      "long_share": 0.24826144877232006
+     },
+     "wta": {
+      "K": Infinity,
+      "K_lo": Infinity,
+      "K_hi": Infinity,
+      "mean": -0.0015192358566518166,
+      "chance_var_per_point": 0.6152088238859235,
+      "true_var": -0.00022505009677684698,
+      "window": "season",
+      "player_windows": 1114,
+      "player_matches": 25298,
+      "long_share": 0.24982212032571746
+     }
+    },
+    "career": {
+     "atp": {
+      "K": Infinity,
+      "K_lo": Infinity,
+      "K_hi": Infinity,
+      "mean": -0.0006982929677918706,
+      "chance_var_per_point": 0.6012996234248047,
+      "true_var": -2.576416128501399e-05,
+      "window": "career",
+      "player_windows": 2064,
+      "player_matches": 163642,
+      "long_share": 0.24826144877232006
+     },
+     "wta": {
+      "K": Infinity,
+      "K_lo": 129162.28367576795,
+      "K_hi": Infinity,
+      "mean": -0.001071645310675767,
+      "chance_var_per_point": 0.6174276172247353,
+      "true_var": -5.375885822784301e-05,
+      "window": "career",
+      "player_windows": 575,
+      "player_matches": 25298,
+      "long_share": 0.24982212032571746
+     }
+    }
+   },
+   {
+    "season": {
+     "atp": {
+      "K": Infinity,
+      "K_lo": Infinity,
+      "K_hi": Infinity,
+      "mean": -0.001239197447408948,
+      "chance_var_per_point": 0.5984063374127127,
+      "true_var": -0.00017329799323429878,
+      "window": "season",
+      "player_windows": 6222,
+      "player_matches": 163642,
+      "long_share": 0.2457559795162611
+     },
+     "wta": {
+      "K": Infinity,
+      "K_lo": Infinity,
+      "K_hi": Infinity,
+      "mean": -0.0009744723711899076,
+      "chance_var_per_point": 0.6204648642403447,
+      "true_var": -0.0002594979632147863,
+      "window": "season",
+      "player_windows": 1120,
+      "player_matches": 25298,
+      "long_share": 0.24254881808838644
+     }
+    },
+    "career": {
+     "atp": {
+      "K": Infinity,
+      "K_lo": Infinity,
+      "K_hi": Infinity,
+      "mean": -0.0006564675750383339,
+      "chance_var_per_point": 0.5983938920308745,
+      "true_var": -2.4372537193218138e-05,
+      "window": "career",
+      "player_windows": 2093,
+      "player_matches": 163642,
+      "long_share": 0.2457559795162611
+     },
+     "wta": {
+      "K": Infinity,
+      "K_lo": Infinity,
+      "K_hi": Infinity,
+      "mean": -0.000974698093893367,
+      "chance_var_per_point": 0.6225753186739116,
+      "true_var": -0.00010054192094827997,
+      "window": "career",
+      "player_windows": 581,
+      "player_matches": 25298,
+      "long_share": 0.24254881808838644
+     }
+    }
+   }
+  ],
+  "replay_lines_points_per_set": [
+   {
+    "atp": 69.0,
+    "wta": 69.0
+   },
+   {
+    "atp": 69.33333333333333,
+    "wta": 69.0
+   }
+  ]
+ },
+ "long_line_minutes_per_set": {
+  "atp": 46.0,
+  "atp_matches": 81821,
+  "wta": 46.5,
+  "wta_matches": 12649
+ },
+ "K_used": {
+  "decline": {
+   "atp": 943.9455745762689,
+   "wta": 808.4876940367596
+  },
+  "grinder": {
+   "atp": 14690.242118887309,
+   "wta": 10097.707866205226
+  },
+  "source": {
+   "decline atp": "season",
+   "grinder atp": "career",
+   "decline wta": "career",
+   "grinder wta": "career"
+  },
+  "fallback": {}
+ },
+ "coverage": {
+  "late_decline|career": {
+   "atp": {
+    "evaluation_matches": 155130,
+    "exists": 49792,
+    "nonzero": 49792,
+    "sd": 0.010128123106889021
+   },
+   "wta": {
+    "evaluation_matches": 34645,
+    "exists": 15636,
+    "nonzero": 15636,
+    "sd": 0.009291944045459166
+   }
+  },
+  "late_decline_x_bo5|single": {
+   "atp": {
+    "evaluation_matches": 155130,
+    "exists": 49792,
+    "nonzero": 6123,
+    "sd": 0.004134978594349442
+   },
+   "wta": {
+    "evaluation_matches": 34645,
+    "exists": 0,
+    "nonzero": 0,
+    "sd": null
+   }
+  },
+  "late_decline_x_long|single": {
+   "atp": {
+    "evaluation_matches": 155130,
+    "exists": 49792,
+    "nonzero": 49792,
+    "sd": 0.006392707365334266
+   },
+   "wta": {
+    "evaluation_matches": 34645,
+    "exists": 15636,
+    "nonzero": 15636,
+    "sd": 0.00578173505139261
+   }
+  },
+  "sets_14d_x_decline|single": {
+   "atp": {
+    "evaluation_matches": 155130,
+    "exists": 49792,
+    "nonzero": 48218,
+    "sd": 0.021216325044405147
+   },
+   "wta": {
+    "evaluation_matches": 34645,
+    "exists": 15596,
+    "nonzero": 14771,
+    "sd": 0.018298475510855856
+   }
+  },
+  "minutes_14d_x_decline|single": {
+   "atp": {
+    "evaluation_matches": 155130,
+    "exists": 42444,
+    "nonzero": 40880,
+    "sd": 0.055757064449200346
+   },
+   "wta": {
+    "evaluation_matches": 34645,
+    "exists": 13294,
+    "nonzero": 12470,
+    "sd": 0.049744947630536135
+   }
+  },
+  "grinder|career": {
+   "atp": {
+    "evaluation_matches": 155130,
+    "exists": 151212,
+    "nonzero": 150638,
+    "sd": 0.004195136949019483
+   },
+   "wta": {
+    "evaluation_matches": 34645,
+    "exists": 33950,
+    "nonzero": 33894,
+    "sd": 0.005321498062659565
+   }
+  },
+  "grinder|52 weeks": {
+   "atp": {
+    "evaluation_matches": 155130,
+    "exists": 148476,
+    "nonzero": 147134,
+    "sd": 0.002226828384406958
+   },
+   "wta": {
+    "evaluation_matches": 34645,
+    "exists": 33327,
+    "nonzero": 33159,
+    "sd": 0.0030003175297230677
+   }
+  },
+  "grinder_x_bo5|single": {
+   "atp": {
+    "evaluation_matches": 155130,
+    "exists": 151212,
+    "nonzero": 7160,
+    "sd": 0.0013975657161266308
+   },
+   "wta": {
+    "evaluation_matches": 34645,
+    "exists": 0,
+    "nonzero": 0,
+    "sd": null
+   }
+  }
+ },
+ "checks": {
+  "load_vs_stage4": {
+   "sets_14d|single": {
+    "same_missing": true,
+    "largest_difference": 1.077856497389007e-07
+   },
+   "minutes_14d|single": {
+    "same_missing": true,
+    "largest_difference": 2.3820699279752944e-07
+   }
+  }
+ },
+ "strength_correlation": {
+  "atp": {
+   "decline_players": 154,
+   "decline_real": 0.20694961806856224,
+   "decline_luck": [
+    0.05948636868661917,
+    0.2766931470231428,
+    0.17293446379575994
+   ],
+   "grinder_players": 1023,
+   "grinder_real": -0.3138423731201851,
+   "grinder_luck": [
+    -0.29527736978452507,
+    -0.2912113911890784
+   ]
+  },
+  "wta": {
+   "decline_players": 47,
+   "decline_real": 0.28647582928262477,
+   "decline_luck": [
+    0.11911068795235255,
+    0.40065975016857036,
+    0.27911274834142885
+   ],
+   "grinder_players": 351,
+   "grinder_real": -0.37599464423431395,
+   "grinder_luck": [
+    -0.3349257374744228,
+    -0.37914154892354557
+   ]
+  }
+ },
+ "players": {
+  "atp": {
+   "with_decline": 514,
+   "with_grinder": 7416,
+   "decline_reliability_median_20plus": 0.3469061390499464,
+   "grinder_reliability_median_100plus": 0.3437953587410105
+  },
+  "wta": {
+   "with_decline": 363,
+   "with_grinder": 4046,
+   "decline_reliability_median_20plus": 0.23560634880309414,
+   "grinder_reliability_median_100plus": 0.39519697325884584
+  }
+ },
+ "probe": {
+  "cuts": 4,
+  "protected_checked": 100580,
+  "later_checked": 49720,
+  "columns": 8,
+  "atol": 1e-09,
+  "protected_changed": 0,
+  "later_changed": 48061,
+  "control_protected_changed": 86,
+  "largest_protected_difference": 3.469446951953614e-18,
+  "changed_by_column": {},
+  "cut_matches": [
+   {
+    "match_id": "wta|2024-1090|R16|wta:210886|wta:221237",
+    "tournament": "Makarska 125",
+    "date": "2024-06-03",
+    "round_order": 14
+   },
+   {
+    "match_id": "atp|2024-9162|Q1|atp:106137|atp:202147",
+    "tournament": "Pau CH",
+    "date": "2024-02-19",
+    "round_order": 1
+   },
+   {
+    "match_id": "atp|2024-1536|R128|atp:104792|atp:209260",
+    "tournament": "Madrid Masters",
+    "date": "2024-04-22",
+    "round_order": 11
+   },
+   {
+    "match_id": "wta|2024-540|R128|wta:211337|wta:213908",
+    "tournament": "Wimbledon",
+    "date": "2024-07-01",
+    "round_order": 11
+   }
+  ],
+  "pbp_records_after_cuts": [
+   952,
+   952,
+   952,
+   952
+  ]
+ },
+ "timings": {
+  "load_s": 18.6,
+  "pbp_replays_s": 19.7,
+  "pbp_s": 21.3,
+  "grinder_s": 38.4,
+  "features_s": 15.3,
+  "probe_s": 11.8,
+  "total_s": 115.8
+ },
+ "columns": {
+  "late_decline|career": "Late-match decline (Grand Slam point by point), career",
+  "late_decline_x_bo5|single": "Late-match decline x best of five",
+  "late_decline_x_long|single": "Late-match decline x expected match length (closeness)",
+  "grinder|career": "Grinder: points won above expectation in long minus short matches, career",
+  "grinder|52 weeks": "Grinder: points won above expectation in long minus short matches, last 52 weeks",
+  "grinder_x_bo5|single": "Grinder (career) x best of five",
+  "sets_14d_x_decline|single": "Sets over the last 14 days x late-match decline",
+  "minutes_14d_x_decline|single": "Minutes over the last 14 days x late-match decline"
+ }
+}

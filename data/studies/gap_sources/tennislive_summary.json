@@ -1,0 +1,7509 @@
+{
+ "definitions": {
+  "checked": "check rows of sample_matches.csv processed",
+  "page_found": "a TennisLive match page answered HTTP 200 for the match",
+  "with_points": "the page lists at least one point state",
+  "complete": "games per set equal the final score's (verify_scrape.completeness: exact, a retirement's unfinished game listed, or a match tiebreak as one game)",
+  "only_set_closing_missing": "short, and every missing game is the one that closed its set",
+  "other_shortfall": "short in some other way (or longer than the score)",
+  "all_points_complete": "complete, and no listed game lacks its points",
+  "games_with_points_share": "games listed with their points / games in the final score, per record (share_games_with_points_90: records at 90% or more, over all checked)",
+  "with_statistics": "the page carries the match statistics block (8 match-level rows on every page seen)",
+  "box_score_check": "the statistics block as a box score (aces, double faults, serve points, first serves in, first- and second-serve points won, break points faced and saved; both players) against the reference row's box score; 'players_swapped': the two players' values are exactly exchanged",
+  "winner_agrees": "the page's winner is the reference winner",
+  "score_agrees_with_reference": "the page's final score has the reference score's games per set"
+ },
+ "by_gap": {
+  "atp_points_2025": {
+   "checked": 36,
+   "page_found": 36,
+   "with_points": 36,
+   "complete": 2,
+   "only_set_closing_missing": 31,
+   "other_shortfall": 3,
+   "no_points_on_page": 0,
+   "all_points_complete": 1,
+   "with_statistics": 36,
+   "not_found": 0,
+   "not_fetched": 0,
+   "page_not_200": 0,
+   "share_page_found": [
+    1.0,
+    [
+     0.904,
+     1.0
+    ]
+   ],
+   "share_with_points": [
+    1.0,
+    [
+     0.904,
+     1.0
+    ]
+   ],
+   "share_complete": [
+    0.056,
+    [
+     0.015,
+     0.181
+    ]
+   ],
+   "share_all_points_complete": [
+    0.028,
+    [
+     0.005,
+     0.142
+    ]
+   ],
+   "share_with_statistics": [
+    1.0,
+    [
+     0.904,
+     1.0
+    ]
+   ],
+   "of_pages_with_points": [
+    1.0,
+    [
+     0.904,
+     1.0
+    ]
+   ],
+   "of_point_records_complete": [
+    0.056,
+    [
+     0.015,
+     0.181
+    ]
+   ],
+   "games_with_points_share": {
+    "records": 36,
+    "median": 0.877,
+    "at_least_90pct": 10,
+    "at_least_75pct": 36,
+    "below_50pct": 0,
+    "zero": 0
+   },
+   "share_games_with_points_90": [
+    0.278,
+    [
+     0.158,
+     0.44
+    ]
+   ],
+   "found_via": {
+    "name1 listing (slug: plain-name)": 31,
+    "name2 listing (slug: plain-name)": 4,
+    "name1 listing (slug: seen in another listing)": 1
+   },
+   "box_score_check": {
+    "matches_compared": 36,
+    "all_fields_equal": 34,
+    "players_swapped": 2,
+    "fields_compared": 576,
+    "fields_equal": 546,
+    "max_abs_diff": 32
+   },
+   "winner_agrees": {
+    "compared": 36,
+    "agree": 36
+   },
+   "score_agrees_with_reference": {
+    "compared": 36,
+    "agree": 36
+   },
+   "weighted_to_gap": {
+    "page_found": 1.0,
+    "with_points": 1.0,
+    "complete": 0.055,
+    "only_set_closing_missing": 0.861,
+    "games_with_points_90": 0.276,
+    "with_statistics": 1.0,
+    "gap_matches_represented": 3778
+   },
+   "editions": {
+    "editions": 9,
+    "page_found": {
+     "all": 9,
+     "some": 0,
+     "none": 0
+    },
+    "with_points": {
+     "all": 9,
+     "some": 0,
+     "none": 0
+    },
+    "complete": {
+     "all": 0,
+     "some": 2,
+     "none": 7
+    }
+   }
+  },
+  "challenger_points_2025": {
+   "checked": 32,
+   "page_found": 32,
+   "with_points": 32,
+   "complete": 1,
+   "only_set_closing_missing": 28,
+   "other_shortfall": 3,
+   "no_points_on_page": 0,
+   "all_points_complete": 0,
+   "with_statistics": 32,
+   "not_found": 0,
+   "not_fetched": 0,
+   "page_not_200": 0,
+   "share_page_found": [
+    1.0,
+    [
+     0.893,
+     1.0
+    ]
+   ],
+   "share_with_points": [
+    1.0,
+    [
+     0.893,
+     1.0
+    ]
+   ],
+   "share_complete": [
+    0.031,
+    [
+     0.006,
+     0.157
+    ]
+   ],
+   "share_all_points_complete": [
+    0.0,
+    [
+     0.0,
+     0.107
+    ]
+   ],
+   "share_with_statistics": [
+    1.0,
+    [
+     0.893,
+     1.0
+    ]
+   ],
+   "of_pages_with_points": [
+    1.0,
+    [
+     0.893,
+     1.0
+    ]
+   ],
+   "of_point_records_complete": [
+    0.031,
+    [
+     0.006,
+     0.157
+    ]
+   ],
+   "games_with_points_share": {
+    "records": 32,
+    "median": 0.873,
+    "at_least_90pct": 4,
+    "at_least_75pct": 30,
+    "below_50pct": 1,
+    "zero": 0
+   },
+   "share_games_with_points_90": [
+    0.125,
+    [
+     0.05,
+     0.281
+    ]
+   ],
+   "found_via": {
+    "name1 listing (slug: plain-name)": 27,
+    "name2 listing (slug: seen in another listing)": 2,
+    "name2 listing (slug: plain-name)": 3
+   },
+   "box_score_check": {
+    "matches_compared": 31,
+    "all_fields_equal": 31,
+    "players_swapped": 0,
+    "fields_compared": 492,
+    "fields_equal": 492,
+    "max_abs_diff": 0
+   },
+   "winner_agrees": {
+    "compared": 31,
+    "agree": 31
+   },
+   "score_agrees_with_reference": {
+    "compared": 32,
+    "agree": 32
+   },
+   "weighted_to_gap": {
+    "page_found": 1.0,
+    "with_points": 1.0,
+    "complete": 0.027,
+    "only_set_closing_missing": 0.884,
+    "games_with_points_90": 0.122,
+    "with_statistics": 1.0,
+    "gap_matches_represented": 14438
+   },
+   "editions": {
+    "editions": 8,
+    "page_found": {
+     "all": 8,
+     "some": 0,
+     "none": 0
+    },
+    "with_points": {
+     "all": 8,
+     "some": 0,
+     "none": 0
+    },
+    "complete": {
+     "all": 0,
+     "some": 1,
+     "none": 7
+    }
+   }
+  },
+  "itf_detail": {
+   "checked": 84,
+   "page_found": 81,
+   "with_points": 80,
+   "complete": 3,
+   "only_set_closing_missing": 66,
+   "other_shortfall": 11,
+   "no_points_on_page": 1,
+   "all_points_complete": 1,
+   "with_statistics": 81,
+   "not_found": 0,
+   "not_fetched": 0,
+   "page_not_200": 3,
+   "share_page_found": [
+    0.964,
+    [
+     0.9,
+     0.988
+    ]
+   ],
+   "share_with_points": [
+    0.952,
+    [
+     0.884,
+     0.981
+    ]
+   ],
+   "share_complete": [
+    0.036,
+    [
+     0.012,
+     0.1
+    ]
+   ],
+   "share_all_points_complete": [
+    0.012,
+    [
+     0.002,
+     0.064
+    ]
+   ],
+   "share_with_statistics": [
+    0.964,
+    [
+     0.9,
+     0.988
+    ]
+   ],
+   "of_pages_with_points": [
+    0.988,
+    [
+     0.933,
+     0.998
+    ]
+   ],
+   "of_point_records_complete": [
+    0.037,
+    [
+     0.013,
+     0.105
+    ]
+   ],
+   "games_with_points_share": {
+    "records": 81,
+    "median": 0.929,
+    "at_least_90pct": 51,
+    "at_least_75pct": 67,
+    "below_50pct": 10,
+    "zero": 1
+   },
+   "share_games_with_points_90": [
+    0.607,
+    [
+     0.5,
+     0.705
+    ]
+   ],
+   "found_via": {
+    "name1 listing (slug: plain-name)": 74,
+    "name2 listing (slug: plain-name)": 7,
+    "name2 listing (slug: plain-name; names matched loosely)": 2,
+    "name1 listing (slug: searched)": 1
+   },
+   "box_score_check": {
+    "matches_compared": 0,
+    "all_fields_equal": 0,
+    "players_swapped": 0,
+    "fields_compared": 0,
+    "fields_equal": 0,
+    "max_abs_diff": null
+   },
+   "winner_agrees": {
+    "compared": 78,
+    "agree": 78
+   },
+   "score_agrees_with_reference": {
+    "compared": 81,
+    "agree": 81
+   },
+   "weighted_to_gap": {
+    "page_found": 0.961,
+    "with_points": 0.948,
+    "complete": 0.028,
+    "only_set_closing_missing": 0.81,
+    "games_with_points_90": 0.645,
+    "with_statistics": 0.961,
+    "gap_matches_represented": 201946
+   },
+   "editions": {
+    "editions": 28,
+    "page_found": {
+     "all": 27,
+     "some": 0,
+     "none": 1
+    },
+    "with_points": {
+     "all": 26,
+     "some": 1,
+     "none": 1
+    },
+    "complete": {
+     "all": 0,
+     "some": 3,
+     "none": 25
+    }
+   }
+  },
+  "slam_points_ao_rg": {
+   "checked": 42,
+   "page_found": 42,
+   "with_points": 42,
+   "complete": 2,
+   "only_set_closing_missing": 34,
+   "other_shortfall": 6,
+   "no_points_on_page": 0,
+   "all_points_complete": 0,
+   "with_statistics": 42,
+   "not_found": 0,
+   "not_fetched": 0,
+   "page_not_200": 0,
+   "share_page_found": [
+    1.0,
+    [
+     0.916,
+     1.0
+    ]
+   ],
+   "share_with_points": [
+    1.0,
+    [
+     0.916,
+     1.0
+    ]
+   ],
+   "share_complete": [
+    0.048,
+    [
+     0.013,
+     0.158
+    ]
+   ],
+   "share_all_points_complete": [
+    0.0,
+    [
+     0.0,
+     0.084
+    ]
+   ],
+   "share_with_statistics": [
+    1.0,
+    [
+     0.916,
+     1.0
+    ]
+   ],
+   "of_pages_with_points": [
+    1.0,
+    [
+     0.916,
+     1.0
+    ]
+   ],
+   "of_point_records_complete": [
+    0.048,
+    [
+     0.013,
+     0.158
+    ]
+   ],
+   "games_with_points_share": {
+    "records": 42,
+    "median": 0.887,
+    "at_least_90pct": 19,
+    "at_least_75pct": 36,
+    "below_50pct": 4,
+    "zero": 0
+   },
+   "share_games_with_points_90": [
+    0.452,
+    [
+     0.312,
+     0.601
+    ]
+   ],
+   "found_via": {
+    "name1 listing (slug: plain-name)": 33,
+    "name2 listing (slug: seen in another listing)": 1,
+    "name1 listing (slug: seen in another listing)": 4,
+    "name2 listing (slug: plain-name)": 4
+   },
+   "box_score_check": {
+    "matches_compared": 42,
+    "all_fields_equal": 29,
+    "players_swapped": 0,
+    "fields_compared": 672,
+    "fields_equal": 626,
+    "max_abs_diff": 6
+   },
+   "winner_agrees": {
+    "compared": 42,
+    "agree": 42
+   },
+   "score_agrees_with_reference": {
+    "compared": 42,
+    "agree": 42
+   },
+   "weighted_to_gap": {
+    "page_found": 1.0,
+    "with_points": 1.0,
+    "complete": 0.051,
+    "only_set_closing_missing": 0.857,
+    "games_with_points_90": 0.556,
+    "with_statistics": 1.0,
+    "gap_matches_represented": 1631
+   },
+   "editions": {
+    "editions": 22,
+    "page_found": {
+     "all": 22,
+     "some": 0,
+     "none": 0
+    },
+    "with_points": {
+     "all": 22,
+     "some": 0,
+     "none": 0
+    },
+    "complete": {
+     "all": 0,
+     "some": 2,
+     "none": 20
+    }
+   }
+  },
+  "wta_2018_points": {
+   "checked": 32,
+   "page_found": 32,
+   "with_points": 32,
+   "complete": 0,
+   "only_set_closing_missing": 32,
+   "other_shortfall": 0,
+   "no_points_on_page": 0,
+   "all_points_complete": 0,
+   "with_statistics": 32,
+   "not_found": 0,
+   "not_fetched": 0,
+   "page_not_200": 0,
+   "share_page_found": [
+    1.0,
+    [
+     0.893,
+     1.0
+    ]
+   ],
+   "share_with_points": [
+    1.0,
+    [
+     0.893,
+     1.0
+    ]
+   ],
+   "share_complete": [
+    0.0,
+    [
+     0.0,
+     0.107
+    ]
+   ],
+   "share_all_points_complete": [
+    0.0,
+    [
+     0.0,
+     0.107
+    ]
+   ],
+   "share_with_statistics": [
+    1.0,
+    [
+     0.893,
+     1.0
+    ]
+   ],
+   "of_pages_with_points": [
+    1.0,
+    [
+     0.893,
+     1.0
+    ]
+   ],
+   "of_point_records_complete": [
+    0.0,
+    [
+     0.0,
+     0.107
+    ]
+   ],
+   "games_with_points_share": {
+    "records": 32,
+    "median": 0.885,
+    "at_least_90pct": 8,
+    "at_least_75pct": 32,
+    "below_50pct": 0,
+    "zero": 0
+   },
+   "share_games_with_points_90": [
+    0.25,
+    [
+     0.133,
+     0.421
+    ]
+   ],
+   "found_via": {
+    "name1 listing (slug: plain-name)": 26,
+    "name2 listing (slug: plain-name)": 3,
+    "name1 listing (slug: seen in another listing)": 1,
+    "name2 listing (slug: seen in another listing)": 1,
+    "name1 listing (slug: searched)": 1
+   },
+   "box_score_check": {
+    "matches_compared": 32,
+    "all_fields_equal": 32,
+    "players_swapped": 0,
+    "fields_compared": 512,
+    "fields_equal": 512,
+    "max_abs_diff": 0
+   },
+   "winner_agrees": {
+    "compared": 30,
+    "agree": 30
+   },
+   "score_agrees_with_reference": {
+    "compared": 32,
+    "agree": 32
+   },
+   "weighted_to_gap": {
+    "page_found": 1.0,
+    "with_points": 1.0,
+    "complete": 0.0,
+    "only_set_closing_missing": 1.0,
+    "games_with_points_90": 0.25,
+    "with_statistics": 1.0,
+    "gap_matches_represented": 3491
+   },
+   "editions": {
+    "editions": 8,
+    "page_found": {
+     "all": 8,
+     "some": 0,
+     "none": 0
+    },
+    "with_points": {
+     "all": 8,
+     "some": 0,
+     "none": 0
+    },
+    "complete": {
+     "all": 0,
+     "some": 0,
+     "none": 8
+    }
+   }
+  }
+ },
+ "by_stratum": {
+  "atp_points_2025|2025": {
+   "checked": 24,
+   "page_found": 24,
+   "with_points": 24,
+   "complete": 2,
+   "only_set_closing_missing": 21,
+   "other_shortfall": 1,
+   "no_points_on_page": 0,
+   "all_points_complete": 1,
+   "with_statistics": 24,
+   "not_found": 0,
+   "not_fetched": 0,
+   "page_not_200": 0,
+   "share_page_found": [
+    1.0,
+    [
+     0.862,
+     1.0
+    ]
+   ],
+   "share_with_points": [
+    1.0,
+    [
+     0.862,
+     1.0
+    ]
+   ],
+   "share_complete": [
+    0.083,
+    [
+     0.023,
+     0.258
+    ]
+   ],
+   "share_all_points_complete": [
+    0.042,
+    [
+     0.007,
+     0.202
+    ]
+   ],
+   "share_with_statistics": [
+    1.0,
+    [
+     0.862,
+     1.0
+    ]
+   ],
+   "of_pages_with_points": [
+    1.0,
+    [
+     0.862,
+     1.0
+    ]
+   ],
+   "of_point_records_complete": [
+    0.083,
+    [
+     0.023,
+     0.258
+    ]
+   ],
+   "games_with_points_share": {
+    "records": 24,
+    "median": 0.883,
+    "at_least_90pct": 8,
+    "at_least_75pct": 24,
+    "below_50pct": 0,
+    "zero": 0
+   },
+   "share_games_with_points_90": [
+    0.333,
+    [
+     0.18,
+     0.533
+    ]
+   ],
+   "found_via": {
+    "name1 listing (slug: plain-name)": 22,
+    "name2 listing (slug: plain-name)": 2
+   },
+   "box_score_check": {
+    "matches_compared": 24,
+    "all_fields_equal": 22,
+    "players_swapped": 2,
+    "fields_compared": 384,
+    "fields_equal": 354,
+    "max_abs_diff": 32
+   },
+   "winner_agrees": {
+    "compared": 24,
+    "agree": 24
+   },
+   "score_agrees_with_reference": {
+    "compared": 24,
+    "agree": 24
+   }
+  },
+  "atp_points_2025|2026": {
+   "checked": 12,
+   "page_found": 12,
+   "with_points": 12,
+   "complete": 0,
+   "only_set_closing_missing": 10,
+   "other_shortfall": 2,
+   "no_points_on_page": 0,
+   "all_points_complete": 0,
+   "with_statistics": 12,
+   "not_found": 0,
+   "not_fetched": 0,
+   "page_not_200": 0,
+   "share_page_found": [
+    1.0,
+    [
+     0.757,
+     1.0
+    ]
+   ],
+   "share_with_points": [
+    1.0,
+    [
+     0.757,
+     1.0
+    ]
+   ],
+   "share_complete": [
+    0.0,
+    [
+     0.0,
+     0.243
+    ]
+   ],
+   "share_all_points_complete": [
+    0.0,
+    [
+     0.0,
+     0.243
+    ]
+   ],
+   "share_with_statistics": [
+    1.0,
+    [
+     0.757,
+     1.0
+    ]
+   ],
+   "of_pages_with_points": [
+    1.0,
+    [
+     0.757,
+     1.0
+    ]
+   ],
+   "of_point_records_complete": [
+    0.0,
+    [
+     0.0,
+     0.243
+    ]
+   ],
+   "games_with_points_share": {
+    "records": 12,
+    "median": 0.857,
+    "at_least_90pct": 2,
+    "at_least_75pct": 12,
+    "below_50pct": 0,
+    "zero": 0
+   },
+   "share_games_with_points_90": [
+    0.167,
+    [
+     0.047,
+     0.448
+    ]
+   ],
+   "found_via": {
+    "name1 listing (slug: plain-name)": 9,
+    "name1 listing (slug: seen in another listing)": 1,
+    "name2 listing (slug: plain-name)": 2
+   },
+   "box_score_check": {
+    "matches_compared": 12,
+    "all_fields_equal": 12,
+    "players_swapped": 0,
+    "fields_compared": 192,
+    "fields_equal": 192,
+    "max_abs_diff": 0
+   },
+   "winner_agrees": {
+    "compared": 12,
+    "agree": 12
+   },
+   "score_agrees_with_reference": {
+    "compared": 12,
+    "agree": 12
+   }
+  },
+  "challenger_points_2025|2025": {
+   "checked": 20,
+   "page_found": 20,
+   "with_points": 20,
+   "complete": 0,
+   "only_set_closing_missing": 19,
+   "other_shortfall": 1,
+   "no_points_on_page": 0,
+   "all_points_complete": 0,
+   "with_statistics": 20,
+   "not_found": 0,
+   "not_fetched": 0,
+   "page_not_200": 0,
+   "share_page_found": [
+    1.0,
+    [
+     0.839,
+     1.0
+    ]
+   ],
+   "share_with_points": [
+    1.0,
+    [
+     0.839,
+     1.0
+    ]
+   ],
+   "share_complete": [
+    0.0,
+    [
+     -0.0,
+     0.161
+    ]
+   ],
+   "share_all_points_complete": [
+    0.0,
+    [
+     -0.0,
+     0.161
+    ]
+   ],
+   "share_with_statistics": [
+    1.0,
+    [
+     0.839,
+     1.0
+    ]
+   ],
+   "of_pages_with_points": [
+    1.0,
+    [
+     0.839,
+     1.0
+    ]
+   ],
+   "of_point_records_complete": [
+    0.0,
+    [
+     -0.0,
+     0.161
+    ]
+   ],
+   "games_with_points_share": {
+    "records": 20,
+    "median": 0.875,
+    "at_least_90pct": 2,
+    "at_least_75pct": 19,
+    "below_50pct": 0,
+    "zero": 0
+   },
+   "share_games_with_points_90": [
+    0.1,
+    [
+     0.028,
+     0.301
+    ]
+   ],
+   "found_via": {
+    "name1 listing (slug: plain-name)": 16,
+    "name2 listing (slug: seen in another listing)": 2,
+    "name2 listing (slug: plain-name)": 2
+   },
+   "box_score_check": {
+    "matches_compared": 19,
+    "all_fields_equal": 19,
+    "players_swapped": 0,
+    "fields_compared": 304,
+    "fields_equal": 304,
+    "max_abs_diff": 0
+   },
+   "winner_agrees": {
+    "compared": 20,
+    "agree": 20
+   },
+   "score_agrees_with_reference": {
+    "compared": 20,
+    "agree": 20
+   }
+  },
+  "challenger_points_2025|2026": {
+   "checked": 12,
+   "page_found": 12,
+   "with_points": 12,
+   "complete": 1,
+   "only_set_closing_missing": 9,
+   "other_shortfall": 2,
+   "no_points_on_page": 0,
+   "all_points_complete": 0,
+   "with_statistics": 12,
+   "not_found": 0,
+   "not_fetched": 0,
+   "page_not_200": 0,
+   "share_page_found": [
+    1.0,
+    [
+     0.757,
+     1.0
+    ]
+   ],
+   "share_with_points": [
+    1.0,
+    [
+     0.757,
+     1.0
+    ]
+   ],
+   "share_complete": [
+    0.083,
+    [
+     0.015,
+     0.354
+    ]
+   ],
+   "share_all_points_complete": [
+    0.0,
+    [
+     0.0,
+     0.243
+    ]
+   ],
+   "share_with_statistics": [
+    1.0,
+    [
+     0.757,
+     1.0
+    ]
+   ],
+   "of_pages_with_points": [
+    1.0,
+    [
+     0.757,
+     1.0
+    ]
+   ],
+   "of_point_records_complete": [
+    0.083,
+    [
+     0.015,
+     0.354
+    ]
+   ],
+   "games_with_points_share": {
+    "records": 12,
+    "median": 0.861,
+    "at_least_90pct": 2,
+    "at_least_75pct": 11,
+    "below_50pct": 1,
+    "zero": 0
+   },
+   "share_games_with_points_90": [
+    0.167,
+    [
+     0.047,
+     0.448
+    ]
+   ],
+   "found_via": {
+    "name1 listing (slug: plain-name)": 11,
+    "name2 listing (slug: plain-name)": 1
+   },
+   "box_score_check": {
+    "matches_compared": 12,
+    "all_fields_equal": 12,
+    "players_swapped": 0,
+    "fields_compared": 188,
+    "fields_equal": 188,
+    "max_abs_diff": 0
+   },
+   "winner_agrees": {
+    "compared": 11,
+    "agree": 11
+   },
+   "score_agrees_with_reference": {
+    "compared": 12,
+    "agree": 12
+   }
+  },
+  "itf_detail|M|2018": {
+   "checked": 6,
+   "page_found": 6,
+   "with_points": 6,
+   "complete": 0,
+   "only_set_closing_missing": 5,
+   "other_shortfall": 1,
+   "no_points_on_page": 0,
+   "all_points_complete": 0,
+   "with_statistics": 6,
+   "not_found": 0,
+   "not_fetched": 0,
+   "page_not_200": 0,
+   "share_page_found": [
+    1.0,
+    [
+     0.61,
+     1.0
+    ]
+   ],
+   "share_with_points": [
+    1.0,
+    [
+     0.61,
+     1.0
+    ]
+   ],
+   "share_complete": [
+    0.0,
+    [
+     0.0,
+     0.39
+    ]
+   ],
+   "share_all_points_complete": [
+    0.0,
+    [
+     0.0,
+     0.39
+    ]
+   ],
+   "share_with_statistics": [
+    1.0,
+    [
+     0.61,
+     1.0
+    ]
+   ],
+   "of_pages_with_points": [
+    1.0,
+    [
+     0.61,
+     1.0
+    ]
+   ],
+   "of_point_records_complete": [
+    0.0,
+    [
+     0.0,
+     0.39
+    ]
+   ],
+   "games_with_points_share": {
+    "records": 6,
+    "median": 0.931,
+    "at_least_90pct": 4,
+    "at_least_75pct": 5,
+    "below_50pct": 1,
+    "zero": 0
+   },
+   "share_games_with_points_90": [
+    0.667,
+    [
+     0.3,
+     0.903
+    ]
+   ],
+   "found_via": {
+    "name1 listing (slug: plain-name)": 5,
+    "name2 listing (slug: plain-name)": 1
+   },
+   "box_score_check": {
+    "matches_compared": 0,
+    "all_fields_equal": 0,
+    "players_swapped": 0,
+    "fields_compared": 0,
+    "fields_equal": 0,
+    "max_abs_diff": null
+   },
+   "winner_agrees": {
+    "compared": 6,
+    "agree": 6
+   },
+   "score_agrees_with_reference": {
+    "compared": 6,
+    "agree": 6
+   }
+  },
+  "itf_detail|M|2019": {
+   "checked": 6,
+   "page_found": 6,
+   "with_points": 6,
+   "complete": 0,
+   "only_set_closing_missing": 6,
+   "other_shortfall": 0,
+   "no_points_on_page": 0,
+   "all_points_complete": 0,
+   "with_statistics": 6,
+   "not_found": 0,
+   "not_fetched": 0,
+   "page_not_200": 0,
+   "share_page_found": [
+    1.0,
+    [
+     0.61,
+     1.0
+    ]
+   ],
+   "share_with_points": [
+    1.0,
+    [
+     0.61,
+     1.0
+    ]
+   ],
+   "share_complete": [
+    0.0,
+    [
+     0.0,
+     0.39
+    ]
+   ],
+   "share_all_points_complete": [
+    0.0,
+    [
+     0.0,
+     0.39
+    ]
+   ],
+   "share_with_statistics": [
+    1.0,
+    [
+     0.61,
+     1.0
+    ]
+   ],
+   "of_pages_with_points": [
+    1.0,
+    [
+     0.61,
+     1.0
+    ]
+   ],
+   "of_point_records_complete": [
+    0.0,
+    [
+     0.0,
+     0.39
+    ]
+   ],
+   "games_with_points_share": {
+    "records": 6,
+    "median": 0.933,
+    "at_least_90pct": 5,
+    "at_least_75pct": 6,
+    "below_50pct": 0,
+    "zero": 0
+   },
+   "share_games_with_points_90": [
+    0.833,
+    [
+     0.436,
+     0.97
+    ]
+   ],
+   "found_via": {
+    "name1 listing (slug: plain-name)": 6
+   },
+   "box_score_check": {
+    "matches_compared": 0,
+    "all_fields_equal": 0,
+    "players_swapped": 0,
+    "fields_compared": 0,
+    "fields_equal": 0,
+    "max_abs_diff": null
+   },
+   "winner_agrees": {
+    "compared": 6,
+    "agree": 6
+   },
+   "score_agrees_with_reference": {
+    "compared": 6,
+    "agree": 6
+   }
+  },
+  "itf_detail|M|2020": {
+   "checked": 6,
+   "page_found": 6,
+   "with_points": 6,
+   "complete": 0,
+   "only_set_closing_missing": 3,
+   "other_shortfall": 3,
+   "no_points_on_page": 0,
+   "all_points_complete": 0,
+   "with_statistics": 6,
+   "not_found": 0,
+   "not_fetched": 0,
+   "page_not_200": 0,
+   "share_page_found": [
+    1.0,
+    [
+     0.61,
+     1.0
+    ]
+   ],
+   "share_with_points": [
+    1.0,
+    [
+     0.61,
+     1.0
+    ]
+   ],
+   "share_complete": [
+    0.0,
+    [
+     0.0,
+     0.39
+    ]
+   ],
+   "share_all_points_complete": [
+    0.0,
+    [
+     0.0,
+     0.39
+    ]
+   ],
+   "share_with_statistics": [
+    1.0,
+    [
+     0.61,
+     1.0
+    ]
+   ],
+   "of_pages_with_points": [
+    1.0,
+    [
+     0.61,
+     1.0
+    ]
+   ],
+   "of_point_records_complete": [
+    0.0,
+    [
+     0.0,
+     0.39
+    ]
+   ],
+   "games_with_points_share": {
+    "records": 6,
+    "median": 0.764,
+    "at_least_90pct": 3,
+    "at_least_75pct": 3,
+    "below_50pct": 1,
+    "zero": 0
+   },
+   "share_games_with_points_90": [
+    0.5,
+    [
+     0.188,
+     0.812
+    ]
+   ],
+   "found_via": {
+    "name1 listing (slug: plain-name)": 5,
+    "name2 listing (slug: plain-name)": 1
+   },
+   "box_score_check": {
+    "matches_compared": 0,
+    "all_fields_equal": 0,
+    "players_swapped": 0,
+    "fields_compared": 0,
+    "fields_equal": 0,
+    "max_abs_diff": null
+   },
+   "winner_agrees": {
+    "compared": 6,
+    "agree": 6
+   },
+   "score_agrees_with_reference": {
+    "compared": 6,
+    "agree": 6
+   }
+  },
+  "itf_detail|M|2021": {
+   "checked": 6,
+   "page_found": 6,
+   "with_points": 6,
+   "complete": 0,
+   "only_set_closing_missing": 6,
+   "other_shortfall": 0,
+   "no_points_on_page": 0,
+   "all_points_complete": 0,
+   "with_statistics": 6,
+   "not_found": 0,
+   "not_fetched": 0,
+   "page_not_200": 0,
+   "share_page_found": [
+    1.0,
+    [
+     0.61,
+     1.0
+    ]
+   ],
+   "share_with_points": [
+    1.0,
+    [
+     0.61,
+     1.0
+    ]
+   ],
+   "share_complete": [
+    0.0,
+    [
+     0.0,
+     0.39
+    ]
+   ],
+   "share_all_points_complete": [
+    0.0,
+    [
+     0.0,
+     0.39
+    ]
+   ],
+   "share_with_statistics": [
+    1.0,
+    [
+     0.61,
+     1.0
+    ]
+   ],
+   "of_pages_with_points": [
+    1.0,
+    [
+     0.61,
+     1.0
+    ]
+   ],
+   "of_point_records_complete": [
+    0.0,
+    [
+     0.0,
+     0.39
+    ]
+   ],
+   "games_with_points_share": {
+    "records": 6,
+    "median": 0.933,
+    "at_least_90pct": 6,
+    "at_least_75pct": 6,
+    "below_50pct": 0,
+    "zero": 0
+   },
+   "share_games_with_points_90": [
+    1.0,
+    [
+     0.61,
+     1.0
+    ]
+   ],
+   "found_via": {
+    "name1 listing (slug: plain-name)": 3,
+    "name2 listing (slug: plain-name; names matched loosely)": 2,
+    "name2 listing (slug: plain-name)": 1
+   },
+   "box_score_check": {
+    "matches_compared": 0,
+    "all_fields_equal": 0,
+    "players_swapped": 0,
+    "fields_compared": 0,
+    "fields_equal": 0,
+    "max_abs_diff": null
+   },
+   "winner_agrees": {
+    "compared": 6,
+    "agree": 6
+   },
+   "score_agrees_with_reference": {
+    "compared": 6,
+    "agree": 6
+   }
+  },
+  "itf_detail|M|2022": {
+   "checked": 6,
+   "page_found": 6,
+   "with_points": 5,
+   "complete": 0,
+   "only_set_closing_missing": 5,
+   "other_shortfall": 0,
+   "no_points_on_page": 1,
+   "all_points_complete": 0,
+   "with_statistics": 6,
+   "not_found": 0,
+   "not_fetched": 0,
+   "page_not_200": 0,
+   "share_page_found": [
+    1.0,
+    [
+     0.61,
+     1.0
+    ]
+   ],
+   "share_with_points": [
+    0.833,
+    [
+     0.436,
+     0.97
+    ]
+   ],
+   "share_complete": [
+    0.0,
+    [
+     0.0,
+     0.39
+    ]
+   ],
+   "share_all_points_complete": [
+    0.0,
+    [
+     0.0,
+     0.39
+    ]
+   ],
+   "share_with_statistics": [
+    1.0,
+    [
+     0.61,
+     1.0
+    ]
+   ],
+   "of_pages_with_points": [
+    0.833,
+    [
+     0.436,
+     0.97
+    ]
+   ],
+   "of_point_records_complete": [
+    0.0,
+    [
+     -0.0,
+     0.434
+    ]
+   ],
+   "games_with_points_share": {
+    "records": 6,
+    "median": 0.903,
+    "at_least_90pct": 3,
+    "at_least_75pct": 5,
+    "below_50pct": 1,
+    "zero": 1
+   },
+   "share_games_with_points_90": [
+    0.5,
+    [
+     0.188,
+     0.812
+    ]
+   ],
+   "found_via": {
+    "name2 listing (slug: plain-name)": 2,
+    "name1 listing (slug: plain-name)": 3,
+    "name1 listing (slug: searched)": 1
+   },
+   "box_score_check": {
+    "matches_compared": 0,
+    "all_fields_equal": 0,
+    "players_swapped": 0,
+    "fields_compared": 0,
+    "fields_equal": 0,
+    "max_abs_diff": null
+   },
+   "winner_agrees": {
+    "compared": 6,
+    "agree": 6
+   },
+   "score_agrees_with_reference": {
+    "compared": 6,
+    "agree": 6
+   }
+  },
+  "itf_detail|M|2023": {
+   "checked": 6,
+   "page_found": 6,
+   "with_points": 6,
+   "complete": 0,
+   "only_set_closing_missing": 6,
+   "other_shortfall": 0,
+   "no_points_on_page": 0,
+   "all_points_complete": 0,
+   "with_statistics": 6,
+   "not_found": 0,
+   "not_fetched": 0,
+   "page_not_200": 0,
+   "share_page_found": [
+    1.0,
+    [
+     0.61,
+     1.0
+    ]
+   ],
+   "share_with_points": [
+    1.0,
+    [
+     0.61,
+     1.0
+    ]
+   ],
+   "share_complete": [
+    0.0,
+    [
+     0.0,
+     0.39
+    ]
+   ],
+   "share_all_points_complete": [
+    0.0,
+    [
+     0.0,
+     0.39
+    ]
+   ],
+   "share_with_statistics": [
+    1.0,
+    [
+     0.61,
+     1.0
+    ]
+   ],
+   "of_pages_with_points": [
+    1.0,
+    [
+     0.61,
+     1.0
+    ]
+   ],
+   "of_point_records_complete": [
+    0.0,
+    [
+     0.0,
+     0.39
+    ]
+   ],
+   "games_with_points_share": {
+    "records": 6,
+    "median": 0.947,
+    "at_least_90pct": 5,
+    "at_least_75pct": 6,
+    "below_50pct": 0,
+    "zero": 0
+   },
+   "share_games_with_points_90": [
+    0.833,
+    [
+     0.436,
+     0.97
+    ]
+   ],
+   "found_via": {
+    "name1 listing (slug: plain-name)": 6
+   },
+   "box_score_check": {
+    "matches_compared": 0,
+    "all_fields_equal": 0,
+    "players_swapped": 0,
+    "fields_compared": 0,
+    "fields_equal": 0,
+    "max_abs_diff": null
+   },
+   "winner_agrees": {
+    "compared": 6,
+    "agree": 6
+   },
+   "score_agrees_with_reference": {
+    "compared": 6,
+    "agree": 6
+   }
+  },
+  "itf_detail|M|2024": {
+   "checked": 6,
+   "page_found": 6,
+   "with_points": 6,
+   "complete": 0,
+   "only_set_closing_missing": 5,
+   "other_shortfall": 1,
+   "no_points_on_page": 0,
+   "all_points_complete": 0,
+   "with_statistics": 6,
+   "not_found": 0,
+   "not_fetched": 0,
+   "page_not_200": 0,
+   "share_page_found": [
+    1.0,
+    [
+     0.61,
+     1.0
+    ]
+   ],
+   "share_with_points": [
+    1.0,
+    [
+     0.61,
+     1.0
+    ]
+   ],
+   "share_complete": [
+    0.0,
+    [
+     0.0,
+     0.39
+    ]
+   ],
+   "share_all_points_complete": [
+    0.0,
+    [
+     0.0,
+     0.39
+    ]
+   ],
+   "share_with_statistics": [
+    1.0,
+    [
+     0.61,
+     1.0
+    ]
+   ],
+   "of_pages_with_points": [
+    1.0,
+    [
+     0.61,
+     1.0
+    ]
+   ],
+   "of_point_records_complete": [
+    0.0,
+    [
+     0.0,
+     0.39
+    ]
+   ],
+   "games_with_points_share": {
+    "records": 6,
+    "median": 0.933,
+    "at_least_90pct": 5,
+    "at_least_75pct": 6,
+    "below_50pct": 0,
+    "zero": 0
+   },
+   "share_games_with_points_90": [
+    0.833,
+    [
+     0.436,
+     0.97
+    ]
+   ],
+   "found_via": {
+    "name1 listing (slug: plain-name)": 5,
+    "name2 listing (slug: plain-name)": 1
+   },
+   "box_score_check": {
+    "matches_compared": 0,
+    "all_fields_equal": 0,
+    "players_swapped": 0,
+    "fields_compared": 0,
+    "fields_equal": 0,
+    "max_abs_diff": null
+   },
+   "winner_agrees": {
+    "compared": 6,
+    "agree": 6
+   },
+   "score_agrees_with_reference": {
+    "compared": 6,
+    "agree": 6
+   }
+  },
+  "itf_detail|W|2018": {
+   "checked": 6,
+   "page_found": 3,
+   "with_points": 3,
+   "complete": 0,
+   "only_set_closing_missing": 3,
+   "other_shortfall": 0,
+   "no_points_on_page": 0,
+   "all_points_complete": 0,
+   "with_statistics": 3,
+   "not_found": 0,
+   "not_fetched": 0,
+   "page_not_200": 3,
+   "share_page_found": [
+    0.5,
+    [
+     0.188,
+     0.812
+    ]
+   ],
+   "share_with_points": [
+    0.5,
+    [
+     0.188,
+     0.812
+    ]
+   ],
+   "share_complete": [
+    0.0,
+    [
+     0.0,
+     0.39
+    ]
+   ],
+   "share_all_points_complete": [
+    0.0,
+    [
+     0.0,
+     0.39
+    ]
+   ],
+   "share_with_statistics": [
+    0.5,
+    [
+     0.188,
+     0.812
+    ]
+   ],
+   "of_pages_with_points": [
+    1.0,
+    [
+     0.438,
+     1.0
+    ]
+   ],
+   "of_point_records_complete": [
+    0.0,
+    [
+     0.0,
+     0.562
+    ]
+   ],
+   "games_with_points_share": {
+    "records": 3,
+    "median": 0.864,
+    "at_least_90pct": 0,
+    "at_least_75pct": 3,
+    "below_50pct": 0,
+    "zero": 0
+   },
+   "share_games_with_points_90": [
+    0.0,
+    [
+     0.0,
+     0.39
+    ]
+   ],
+   "found_via": {
+    "name1 listing (slug: plain-name)": 6
+   },
+   "box_score_check": {
+    "matches_compared": 0,
+    "all_fields_equal": 0,
+    "players_swapped": 0,
+    "fields_compared": 0,
+    "fields_equal": 0,
+    "max_abs_diff": null
+   },
+   "winner_agrees": {
+    "compared": 3,
+    "agree": 3
+   },
+   "score_agrees_with_reference": {
+    "compared": 3,
+    "agree": 3
+   }
+  },
+  "itf_detail|W|2019": {
+   "checked": 6,
+   "page_found": 6,
+   "with_points": 6,
+   "complete": 0,
+   "only_set_closing_missing": 3,
+   "other_shortfall": 3,
+   "no_points_on_page": 0,
+   "all_points_complete": 0,
+   "with_statistics": 6,
+   "not_found": 0,
+   "not_fetched": 0,
+   "page_not_200": 0,
+   "share_page_found": [
+    1.0,
+    [
+     0.61,
+     1.0
+    ]
+   ],
+   "share_with_points": [
+    1.0,
+    [
+     0.61,
+     1.0
+    ]
+   ],
+   "share_complete": [
+    0.0,
+    [
+     0.0,
+     0.39
+    ]
+   ],
+   "share_all_points_complete": [
+    0.0,
+    [
+     0.0,
+     0.39
+    ]
+   ],
+   "share_with_statistics": [
+    1.0,
+    [
+     0.61,
+     1.0
+    ]
+   ],
+   "of_pages_with_points": [
+    1.0,
+    [
+     0.61,
+     1.0
+    ]
+   ],
+   "of_point_records_complete": [
+    0.0,
+    [
+     0.0,
+     0.39
+    ]
+   ],
+   "games_with_points_share": {
+    "records": 6,
+    "median": 0.534,
+    "at_least_90pct": 2,
+    "at_least_75pct": 3,
+    "below_50pct": 3,
+    "zero": 0
+   },
+   "share_games_with_points_90": [
+    0.333,
+    [
+     0.097,
+     0.7
+    ]
+   ],
+   "found_via": {
+    "name1 listing (slug: plain-name)": 6
+   },
+   "box_score_check": {
+    "matches_compared": 0,
+    "all_fields_equal": 0,
+    "players_swapped": 0,
+    "fields_compared": 0,
+    "fields_equal": 0,
+    "max_abs_diff": null
+   },
+   "winner_agrees": {
+    "compared": 6,
+    "agree": 6
+   },
+   "score_agrees_with_reference": {
+    "compared": 6,
+    "agree": 6
+   }
+  },
+  "itf_detail|W|2020": {
+   "checked": 6,
+   "page_found": 6,
+   "with_points": 6,
+   "complete": 1,
+   "only_set_closing_missing": 4,
+   "other_shortfall": 1,
+   "no_points_on_page": 0,
+   "all_points_complete": 0,
+   "with_statistics": 6,
+   "not_found": 0,
+   "not_fetched": 0,
+   "page_not_200": 0,
+   "share_page_found": [
+    1.0,
+    [
+     0.61,
+     1.0
+    ]
+   ],
+   "share_with_points": [
+    1.0,
+    [
+     0.61,
+     1.0
+    ]
+   ],
+   "share_complete": [
+    0.167,
+    [
+     0.03,
+     0.564
+    ]
+   ],
+   "share_all_points_complete": [
+    0.0,
+    [
+     0.0,
+     0.39
+    ]
+   ],
+   "share_with_statistics": [
+    1.0,
+    [
+     0.61,
+     1.0
+    ]
+   ],
+   "of_pages_with_points": [
+    1.0,
+    [
+     0.61,
+     1.0
+    ]
+   ],
+   "of_point_records_complete": [
+    0.167,
+    [
+     0.03,
+     0.564
+    ]
+   ],
+   "games_with_points_share": {
+    "records": 6,
+    "median": 0.468,
+    "at_least_90pct": 0,
+    "at_least_75pct": 0,
+    "below_50pct": 4,
+    "zero": 0
+   },
+   "share_games_with_points_90": [
+    0.0,
+    [
+     0.0,
+     0.39
+    ]
+   ],
+   "found_via": {
+    "name1 listing (slug: plain-name)": 6
+   },
+   "box_score_check": {
+    "matches_compared": 0,
+    "all_fields_equal": 0,
+    "players_swapped": 0,
+    "fields_compared": 0,
+    "fields_equal": 0,
+    "max_abs_diff": null
+   },
+   "winner_agrees": {
+    "compared": 5,
+    "agree": 5
+   },
+   "score_agrees_with_reference": {
+    "compared": 6,
+    "agree": 6
+   }
+  },
+  "itf_detail|W|2021": {
+   "checked": 6,
+   "page_found": 6,
+   "with_points": 6,
+   "complete": 1,
+   "only_set_closing_missing": 4,
+   "other_shortfall": 1,
+   "no_points_on_page": 0,
+   "all_points_complete": 1,
+   "with_statistics": 6,
+   "not_found": 0,
+   "not_fetched": 0,
+   "page_not_200": 0,
+   "share_page_found": [
+    1.0,
+    [
+     0.61,
+     1.0
+    ]
+   ],
+   "share_with_points": [
+    1.0,
+    [
+     0.61,
+     1.0
+    ]
+   ],
+   "share_complete": [
+    0.167,
+    [
+     0.03,
+     0.564
+    ]
+   ],
+   "share_all_points_complete": [
+    0.167,
+    [
+     0.03,
+     0.564
+    ]
+   ],
+   "share_with_statistics": [
+    1.0,
+    [
+     0.61,
+     1.0
+    ]
+   ],
+   "of_pages_with_points": [
+    1.0,
+    [
+     0.61,
+     1.0
+    ]
+   ],
+   "of_point_records_complete": [
+    0.167,
+    [
+     0.03,
+     0.564
+    ]
+   ],
+   "games_with_points_share": {
+    "records": 6,
+    "median": 0.935,
+    "at_least_90pct": 4,
+    "at_least_75pct": 6,
+    "below_50pct": 0,
+    "zero": 0
+   },
+   "share_games_with_points_90": [
+    0.667,
+    [
+     0.3,
+     0.903
+    ]
+   ],
+   "found_via": {
+    "name1 listing (slug: plain-name)": 6
+   },
+   "box_score_check": {
+    "matches_compared": 0,
+    "all_fields_equal": 0,
+    "players_swapped": 0,
+    "fields_compared": 0,
+    "fields_equal": 0,
+    "max_abs_diff": null
+   },
+   "winner_agrees": {
+    "compared": 5,
+    "agree": 5
+   },
+   "score_agrees_with_reference": {
+    "compared": 6,
+    "agree": 6
+   }
+  },
+  "itf_detail|W|2022": {
+   "checked": 6,
+   "page_found": 6,
+   "with_points": 6,
+   "complete": 0,
+   "only_set_closing_missing": 6,
+   "other_shortfall": 0,
+   "no_points_on_page": 0,
+   "all_points_complete": 0,
+   "with_statistics": 6,
+   "not_found": 0,
+   "not_fetched": 0,
+   "page_not_200": 0,
+   "share_page_found": [
+    1.0,
+    [
+     0.61,
+     1.0
+    ]
+   ],
+   "share_with_points": [
+    1.0,
+    [
+     0.61,
+     1.0
+    ]
+   ],
+   "share_complete": [
+    0.0,
+    [
+     0.0,
+     0.39
+    ]
+   ],
+   "share_all_points_complete": [
+    0.0,
+    [
+     0.0,
+     0.39
+    ]
+   ],
+   "share_with_statistics": [
+    1.0,
+    [
+     0.61,
+     1.0
+    ]
+   ],
+   "of_pages_with_points": [
+    1.0,
+    [
+     0.61,
+     1.0
+    ]
+   ],
+   "of_point_records_complete": [
+    0.0,
+    [
+     0.0,
+     0.39
+    ]
+   ],
+   "games_with_points_share": {
+    "records": 6,
+    "median": 0.94,
+    "at_least_90pct": 5,
+    "at_least_75pct": 6,
+    "below_50pct": 0,
+    "zero": 0
+   },
+   "share_games_with_points_90": [
+    0.833,
+    [
+     0.436,
+     0.97
+    ]
+   ],
+   "found_via": {
+    "name1 listing (slug: plain-name)": 6
+   },
+   "box_score_check": {
+    "matches_compared": 0,
+    "all_fields_equal": 0,
+    "players_swapped": 0,
+    "fields_compared": 0,
+    "fields_equal": 0,
+    "max_abs_diff": null
+   },
+   "winner_agrees": {
+    "compared": 6,
+    "agree": 6
+   },
+   "score_agrees_with_reference": {
+    "compared": 6,
+    "agree": 6
+   }
+  },
+  "itf_detail|W|2023": {
+   "checked": 6,
+   "page_found": 6,
+   "with_points": 6,
+   "complete": 1,
+   "only_set_closing_missing": 5,
+   "other_shortfall": 0,
+   "no_points_on_page": 0,
+   "all_points_complete": 0,
+   "with_statistics": 6,
+   "not_found": 0,
+   "not_fetched": 0,
+   "page_not_200": 0,
+   "share_page_found": [
+    1.0,
+    [
+     0.61,
+     1.0
+    ]
+   ],
+   "share_with_points": [
+    1.0,
+    [
+     0.61,
+     1.0
+    ]
+   ],
+   "share_complete": [
+    0.167,
+    [
+     0.03,
+     0.564
+    ]
+   ],
+   "share_all_points_complete": [
+    0.0,
+    [
+     0.0,
+     0.39
+    ]
+   ],
+   "share_with_statistics": [
+    1.0,
+    [
+     0.61,
+     1.0
+    ]
+   ],
+   "of_pages_with_points": [
+    1.0,
+    [
+     0.61,
+     1.0
+    ]
+   ],
+   "of_point_records_complete": [
+    0.167,
+    [
+     0.03,
+     0.564
+    ]
+   ],
+   "games_with_points_share": {
+    "records": 6,
+    "median": 0.928,
+    "at_least_90pct": 5,
+    "at_least_75pct": 6,
+    "below_50pct": 0,
+    "zero": 0
+   },
+   "share_games_with_points_90": [
+    0.833,
+    [
+     0.436,
+     0.97
+    ]
+   ],
+   "found_via": {
+    "name2 listing (slug: plain-name)": 1,
+    "name1 listing (slug: plain-name)": 5
+   },
+   "box_score_check": {
+    "matches_compared": 0,
+    "all_fields_equal": 0,
+    "players_swapped": 0,
+    "fields_compared": 0,
+    "fields_equal": 0,
+    "max_abs_diff": null
+   },
+   "winner_agrees": {
+    "compared": 6,
+    "agree": 6
+   },
+   "score_agrees_with_reference": {
+    "compared": 6,
+    "agree": 6
+   }
+  },
+  "itf_detail|W|2024": {
+   "checked": 6,
+   "page_found": 6,
+   "with_points": 6,
+   "complete": 0,
+   "only_set_closing_missing": 5,
+   "other_shortfall": 1,
+   "no_points_on_page": 0,
+   "all_points_complete": 0,
+   "with_statistics": 6,
+   "not_found": 0,
+   "not_fetched": 0,
+   "page_not_200": 0,
+   "share_page_found": [
+    1.0,
+    [
+     0.61,
+     1.0
+    ]
+   ],
+   "share_with_points": [
+    1.0,
+    [
+     0.61,
+     1.0
+    ]
+   ],
+   "share_complete": [
+    0.0,
+    [
+     0.0,
+     0.39
+    ]
+   ],
+   "share_all_points_complete": [
+    0.0,
+    [
+     0.0,
+     0.39
+    ]
+   ],
+   "share_with_statistics": [
+    1.0,
+    [
+     0.61,
+     1.0
+    ]
+   ],
+   "of_pages_with_points": [
+    1.0,
+    [
+     0.61,
+     1.0
+    ]
+   ],
+   "of_point_records_complete": [
+    0.0,
+    [
+     0.0,
+     0.39
+    ]
+   ],
+   "games_with_points_share": {
+    "records": 6,
+    "median": 0.939,
+    "at_least_90pct": 4,
+    "at_least_75pct": 6,
+    "below_50pct": 0,
+    "zero": 0
+   },
+   "share_games_with_points_90": [
+    0.667,
+    [
+     0.3,
+     0.903
+    ]
+   ],
+   "found_via": {
+    "name1 listing (slug: plain-name)": 6
+   },
+   "box_score_check": {
+    "matches_compared": 0,
+    "all_fields_equal": 0,
+    "players_swapped": 0,
+    "fields_compared": 0,
+    "fields_equal": 0,
+    "max_abs_diff": null
+   },
+   "winner_agrees": {
+    "compared": 5,
+    "agree": 5
+   },
+   "score_agrees_with_reference": {
+    "compared": 6,
+    "agree": 6
+   }
+  },
+  "slam_points_ao_rg|M|Australian Open|2022": {
+   "checked": 2,
+   "page_found": 2,
+   "with_points": 2,
+   "complete": 0,
+   "only_set_closing_missing": 2,
+   "other_shortfall": 0,
+   "no_points_on_page": 0,
+   "all_points_complete": 0,
+   "with_statistics": 2,
+   "not_found": 0,
+   "not_fetched": 0,
+   "page_not_200": 0,
+   "share_page_found": [
+    1.0,
+    [
+     0.342,
+     1.0
+    ]
+   ],
+   "share_with_points": [
+    1.0,
+    [
+     0.342,
+     1.0
+    ]
+   ],
+   "share_complete": [
+    0.0,
+    [
+     0.0,
+     0.658
+    ]
+   ],
+   "share_all_points_complete": [
+    0.0,
+    [
+     0.0,
+     0.658
+    ]
+   ],
+   "share_with_statistics": [
+    1.0,
+    [
+     0.342,
+     1.0
+    ]
+   ],
+   "of_pages_with_points": [
+    1.0,
+    [
+     0.342,
+     1.0
+    ]
+   ],
+   "of_point_records_complete": [
+    0.0,
+    [
+     0.0,
+     0.658
+    ]
+   ],
+   "games_with_points_share": {
+    "records": 2,
+    "median": 0.922,
+    "at_least_90pct": 2,
+    "at_least_75pct": 2,
+    "below_50pct": 0,
+    "zero": 0
+   },
+   "share_games_with_points_90": [
+    1.0,
+    [
+     0.342,
+     1.0
+    ]
+   ],
+   "found_via": {
+    "name1 listing (slug: plain-name)": 2
+   },
+   "box_score_check": {
+    "matches_compared": 2,
+    "all_fields_equal": 2,
+    "players_swapped": 0,
+    "fields_compared": 32,
+    "fields_equal": 32,
+    "max_abs_diff": 0
+   },
+   "winner_agrees": {
+    "compared": 2,
+    "agree": 2
+   },
+   "score_agrees_with_reference": {
+    "compared": 2,
+    "agree": 2
+   }
+  },
+  "slam_points_ao_rg|M|Australian Open|2023": {
+   "checked": 2,
+   "page_found": 2,
+   "with_points": 2,
+   "complete": 0,
+   "only_set_closing_missing": 2,
+   "other_shortfall": 0,
+   "no_points_on_page": 0,
+   "all_points_complete": 0,
+   "with_statistics": 2,
+   "not_found": 0,
+   "not_fetched": 0,
+   "page_not_200": 0,
+   "share_page_found": [
+    1.0,
+    [
+     0.342,
+     1.0
+    ]
+   ],
+   "share_with_points": [
+    1.0,
+    [
+     0.342,
+     1.0
+    ]
+   ],
+   "share_complete": [
+    0.0,
+    [
+     0.0,
+     0.658
+    ]
+   ],
+   "share_all_points_complete": [
+    0.0,
+    [
+     0.0,
+     0.658
+    ]
+   ],
+   "share_with_statistics": [
+    1.0,
+    [
+     0.342,
+     1.0
+    ]
+   ],
+   "of_pages_with_points": [
+    1.0,
+    [
+     0.342,
+     1.0
+    ]
+   ],
+   "of_point_records_complete": [
+    0.0,
+    [
+     0.0,
+     0.658
+    ]
+   ],
+   "games_with_points_share": {
+    "records": 2,
+    "median": 0.795,
+    "at_least_90pct": 0,
+    "at_least_75pct": 2,
+    "below_50pct": 0,
+    "zero": 0
+   },
+   "share_games_with_points_90": [
+    0.0,
+    [
+     0.0,
+     0.658
+    ]
+   ],
+   "found_via": {
+    "name2 listing (slug: seen in another listing)": 1,
+    "name1 listing (slug: plain-name)": 1
+   },
+   "box_score_check": {
+    "matches_compared": 2,
+    "all_fields_equal": 2,
+    "players_swapped": 0,
+    "fields_compared": 32,
+    "fields_equal": 32,
+    "max_abs_diff": 0
+   },
+   "winner_agrees": {
+    "compared": 2,
+    "agree": 2
+   },
+   "score_agrees_with_reference": {
+    "compared": 2,
+    "agree": 2
+   }
+  },
+  "slam_points_ao_rg|M|Australian Open|2024": {
+   "checked": 2,
+   "page_found": 2,
+   "with_points": 2,
+   "complete": 0,
+   "only_set_closing_missing": 1,
+   "other_shortfall": 1,
+   "no_points_on_page": 0,
+   "all_points_complete": 0,
+   "with_statistics": 2,
+   "not_found": 0,
+   "not_fetched": 0,
+   "page_not_200": 0,
+   "share_page_found": [
+    1.0,
+    [
+     0.342,
+     1.0
+    ]
+   ],
+   "share_with_points": [
+    1.0,
+    [
+     0.342,
+     1.0
+    ]
+   ],
+   "share_complete": [
+    0.0,
+    [
+     0.0,
+     0.658
+    ]
+   ],
+   "share_all_points_complete": [
+    0.0,
+    [
+     0.0,
+     0.658
+    ]
+   ],
+   "share_with_statistics": [
+    1.0,
+    [
+     0.342,
+     1.0
+    ]
+   ],
+   "of_pages_with_points": [
+    1.0,
+    [
+     0.342,
+     1.0
+    ]
+   ],
+   "of_point_records_complete": [
+    0.0,
+    [
+     0.0,
+     0.658
+    ]
+   ],
+   "games_with_points_share": {
+    "records": 2,
+    "median": 0.453,
+    "at_least_90pct": 0,
+    "at_least_75pct": 0,
+    "below_50pct": 2,
+    "zero": 0
+   },
+   "share_games_with_points_90": [
+    0.0,
+    [
+     0.0,
+     0.658
+    ]
+   ],
+   "found_via": {
+    "name1 listing (slug: plain-name)": 2
+   },
+   "box_score_check": {
+    "matches_compared": 2,
+    "all_fields_equal": 2,
+    "players_swapped": 0,
+    "fields_compared": 32,
+    "fields_equal": 32,
+    "max_abs_diff": 0
+   },
+   "winner_agrees": {
+    "compared": 2,
+    "agree": 2
+   },
+   "score_agrees_with_reference": {
+    "compared": 2,
+    "agree": 2
+   }
+  },
+  "slam_points_ao_rg|M|Australian Open|2025": {
+   "checked": 2,
+   "page_found": 2,
+   "with_points": 2,
+   "complete": 1,
+   "only_set_closing_missing": 1,
+   "other_shortfall": 0,
+   "no_points_on_page": 0,
+   "all_points_complete": 0,
+   "with_statistics": 2,
+   "not_found": 0,
+   "not_fetched": 0,
+   "page_not_200": 0,
+   "share_page_found": [
+    1.0,
+    [
+     0.342,
+     1.0
+    ]
+   ],
+   "share_with_points": [
+    1.0,
+    [
+     0.342,
+     1.0
+    ]
+   ],
+   "share_complete": [
+    0.5,
+    [
+     0.095,
+     0.905
+    ]
+   ],
+   "share_all_points_complete": [
+    0.0,
+    [
+     0.0,
+     0.658
+    ]
+   ],
+   "share_with_statistics": [
+    1.0,
+    [
+     0.342,
+     1.0
+    ]
+   ],
+   "of_pages_with_points": [
+    1.0,
+    [
+     0.342,
+     1.0
+    ]
+   ],
+   "of_point_records_complete": [
+    0.5,
+    [
+     0.095,
+     0.905
+    ]
+   ],
+   "games_with_points_share": {
+    "records": 2,
+    "median": 0.897,
+    "at_least_90pct": 1,
+    "at_least_75pct": 2,
+    "below_50pct": 0,
+    "zero": 0
+   },
+   "share_games_with_points_90": [
+    0.5,
+    [
+     0.095,
+     0.905
+    ]
+   ],
+   "found_via": {
+    "name1 listing (slug: plain-name)": 2
+   },
+   "box_score_check": {
+    "matches_compared": 2,
+    "all_fields_equal": 2,
+    "players_swapped": 0,
+    "fields_compared": 32,
+    "fields_equal": 32,
+    "max_abs_diff": 0
+   },
+   "winner_agrees": {
+    "compared": 2,
+    "agree": 2
+   },
+   "score_agrees_with_reference": {
+    "compared": 2,
+    "agree": 2
+   }
+  },
+  "slam_points_ao_rg|M|Australian Open|2026": {
+   "checked": 2,
+   "page_found": 2,
+   "with_points": 2,
+   "complete": 0,
+   "only_set_closing_missing": 1,
+   "other_shortfall": 1,
+   "no_points_on_page": 0,
+   "all_points_complete": 0,
+   "with_statistics": 2,
+   "not_found": 0,
+   "not_fetched": 0,
+   "page_not_200": 0,
+   "share_page_found": [
+    1.0,
+    [
+     0.342,
+     1.0
+    ]
+   ],
+   "share_with_points": [
+    1.0,
+    [
+     0.342,
+     1.0
+    ]
+   ],
+   "share_complete": [
+    0.0,
+    [
+     0.0,
+     0.658
+    ]
+   ],
+   "share_all_points_complete": [
+    0.0,
+    [
+     0.0,
+     0.658
+    ]
+   ],
+   "share_with_statistics": [
+    1.0,
+    [
+     0.342,
+     1.0
+    ]
+   ],
+   "of_pages_with_points": [
+    1.0,
+    [
+     0.342,
+     1.0
+    ]
+   ],
+   "of_point_records_complete": [
+    0.0,
+    [
+     0.0,
+     0.658
+    ]
+   ],
+   "games_with_points_share": {
+    "records": 2,
+    "median": 0.782,
+    "at_least_90pct": 0,
+    "at_least_75pct": 1,
+    "below_50pct": 0,
+    "zero": 0
+   },
+   "share_games_with_points_90": [
+    0.0,
+    [
+     0.0,
+     0.658
+    ]
+   ],
+   "found_via": {
+    "name1 listing (slug: seen in another listing)": 2
+   },
+   "box_score_check": {
+    "matches_compared": 2,
+    "all_fields_equal": 2,
+    "players_swapped": 0,
+    "fields_compared": 32,
+    "fields_equal": 32,
+    "max_abs_diff": 0
+   },
+   "winner_agrees": {
+    "compared": 2,
+    "agree": 2
+   },
+   "score_agrees_with_reference": {
+    "compared": 2,
+    "agree": 2
+   }
+  },
+  "slam_points_ao_rg|M|Roland Garros|2022": {
+   "checked": 2,
+   "page_found": 2,
+   "with_points": 2,
+   "complete": 0,
+   "only_set_closing_missing": 2,
+   "other_shortfall": 0,
+   "no_points_on_page": 0,
+   "all_points_complete": 0,
+   "with_statistics": 2,
+   "not_found": 0,
+   "not_fetched": 0,
+   "page_not_200": 0,
+   "share_page_found": [
+    1.0,
+    [
+     0.342,
+     1.0
+    ]
+   ],
+   "share_with_points": [
+    1.0,
+    [
+     0.342,
+     1.0
+    ]
+   ],
+   "share_complete": [
+    0.0,
+    [
+     0.0,
+     0.658
+    ]
+   ],
+   "share_all_points_complete": [
+    0.0,
+    [
+     0.0,
+     0.658
+    ]
+   ],
+   "share_with_statistics": [
+    1.0,
+    [
+     0.342,
+     1.0
+    ]
+   ],
+   "of_pages_with_points": [
+    1.0,
+    [
+     0.342,
+     1.0
+    ]
+   ],
+   "of_point_records_complete": [
+    0.0,
+    [
+     0.0,
+     0.658
+    ]
+   ],
+   "games_with_points_share": {
+    "records": 2,
+    "median": 0.899,
+    "at_least_90pct": 1,
+    "at_least_75pct": 2,
+    "below_50pct": 0,
+    "zero": 0
+   },
+   "share_games_with_points_90": [
+    0.5,
+    [
+     0.095,
+     0.905
+    ]
+   ],
+   "found_via": {
+    "name2 listing (slug: plain-name)": 1,
+    "name1 listing (slug: plain-name)": 1
+   },
+   "box_score_check": {
+    "matches_compared": 2,
+    "all_fields_equal": 1,
+    "players_swapped": 0,
+    "fields_compared": 32,
+    "fields_equal": 29,
+    "max_abs_diff": 1
+   },
+   "winner_agrees": {
+    "compared": 2,
+    "agree": 2
+   },
+   "score_agrees_with_reference": {
+    "compared": 2,
+    "agree": 2
+   }
+  },
+  "slam_points_ao_rg|M|Roland Garros|2023": {
+   "checked": 2,
+   "page_found": 2,
+   "with_points": 2,
+   "complete": 0,
+   "only_set_closing_missing": 2,
+   "other_shortfall": 0,
+   "no_points_on_page": 0,
+   "all_points_complete": 0,
+   "with_statistics": 2,
+   "not_found": 0,
+   "not_fetched": 0,
+   "page_not_200": 0,
+   "share_page_found": [
+    1.0,
+    [
+     0.342,
+     1.0
+    ]
+   ],
+   "share_with_points": [
+    1.0,
+    [
+     0.342,
+     1.0
+    ]
+   ],
+   "share_complete": [
+    0.0,
+    [
+     0.0,
+     0.658
+    ]
+   ],
+   "share_all_points_complete": [
+    0.0,
+    [
+     0.0,
+     0.658
+    ]
+   ],
+   "share_with_statistics": [
+    1.0,
+    [
+     0.342,
+     1.0
+    ]
+   ],
+   "of_pages_with_points": [
+    1.0,
+    [
+     0.342,
+     1.0
+    ]
+   ],
+   "of_point_records_complete": [
+    0.0,
+    [
+     0.0,
+     0.658
+    ]
+   ],
+   "games_with_points_share": {
+    "records": 2,
+    "median": 0.926,
+    "at_least_90pct": 2,
+    "at_least_75pct": 2,
+    "below_50pct": 0,
+    "zero": 0
+   },
+   "share_games_with_points_90": [
+    1.0,
+    [
+     0.342,
+     1.0
+    ]
+   ],
+   "found_via": {
+    "name1 listing (slug: plain-name)": 2
+   },
+   "box_score_check": {
+    "matches_compared": 2,
+    "all_fields_equal": 2,
+    "players_swapped": 0,
+    "fields_compared": 32,
+    "fields_equal": 32,
+    "max_abs_diff": 0
+   },
+   "winner_agrees": {
+    "compared": 2,
+    "agree": 2
+   },
+   "score_agrees_with_reference": {
+    "compared": 2,
+    "agree": 2
+   }
+  },
+  "slam_points_ao_rg|M|Roland Garros|2024": {
+   "checked": 2,
+   "page_found": 2,
+   "with_points": 2,
+   "complete": 0,
+   "only_set_closing_missing": 1,
+   "other_shortfall": 1,
+   "no_points_on_page": 0,
+   "all_points_complete": 0,
+   "with_statistics": 2,
+   "not_found": 0,
+   "not_fetched": 0,
+   "page_not_200": 0,
+   "share_page_found": [
+    1.0,
+    [
+     0.342,
+     1.0
+    ]
+   ],
+   "share_with_points": [
+    1.0,
+    [
+     0.342,
+     1.0
+    ]
+   ],
+   "share_complete": [
+    0.0,
+    [
+     0.0,
+     0.658
+    ]
+   ],
+   "share_all_points_complete": [
+    0.0,
+    [
+     0.0,
+     0.658
+    ]
+   ],
+   "share_with_statistics": [
+    1.0,
+    [
+     0.342,
+     1.0
+    ]
+   ],
+   "of_pages_with_points": [
+    1.0,
+    [
+     0.342,
+     1.0
+    ]
+   ],
+   "of_point_records_complete": [
+    0.0,
+    [
+     0.0,
+     0.658
+    ]
+   ],
+   "games_with_points_share": {
+    "records": 2,
+    "median": 0.905,
+    "at_least_90pct": 1,
+    "at_least_75pct": 2,
+    "below_50pct": 0,
+    "zero": 0
+   },
+   "share_games_with_points_90": [
+    0.5,
+    [
+     0.095,
+     0.905
+    ]
+   ],
+   "found_via": {
+    "name1 listing (slug: seen in another listing)": 1,
+    "name1 listing (slug: plain-name)": 1
+   },
+   "box_score_check": {
+    "matches_compared": 2,
+    "all_fields_equal": 1,
+    "players_swapped": 0,
+    "fields_compared": 32,
+    "fields_equal": 31,
+    "max_abs_diff": 1
+   },
+   "winner_agrees": {
+    "compared": 2,
+    "agree": 2
+   },
+   "score_agrees_with_reference": {
+    "compared": 2,
+    "agree": 2
+   }
+  },
+  "slam_points_ao_rg|M|Roland Garros|2025": {
+   "checked": 2,
+   "page_found": 2,
+   "with_points": 2,
+   "complete": 0,
+   "only_set_closing_missing": 1,
+   "other_shortfall": 1,
+   "no_points_on_page": 0,
+   "all_points_complete": 0,
+   "with_statistics": 2,
+   "not_found": 0,
+   "not_fetched": 0,
+   "page_not_200": 0,
+   "share_page_found": [
+    1.0,
+    [
+     0.342,
+     1.0
+    ]
+   ],
+   "share_with_points": [
+    1.0,
+    [
+     0.342,
+     1.0
+    ]
+   ],
+   "share_complete": [
+    0.0,
+    [
+     0.0,
+     0.658
+    ]
+   ],
+   "share_all_points_complete": [
+    0.0,
+    [
+     0.0,
+     0.658
+    ]
+   ],
+   "share_with_statistics": [
+    1.0,
+    [
+     0.342,
+     1.0
+    ]
+   ],
+   "of_pages_with_points": [
+    1.0,
+    [
+     0.342,
+     1.0
+    ]
+   ],
+   "of_point_records_complete": [
+    0.0,
+    [
+     0.0,
+     0.658
+    ]
+   ],
+   "games_with_points_share": {
+    "records": 2,
+    "median": 0.88,
+    "at_least_90pct": 1,
+    "at_least_75pct": 2,
+    "below_50pct": 0,
+    "zero": 0
+   },
+   "share_games_with_points_90": [
+    0.5,
+    [
+     0.095,
+     0.905
+    ]
+   ],
+   "found_via": {
+    "name1 listing (slug: plain-name)": 2
+   },
+   "box_score_check": {
+    "matches_compared": 2,
+    "all_fields_equal": 1,
+    "players_swapped": 0,
+    "fields_compared": 32,
+    "fields_equal": 26,
+    "max_abs_diff": 6
+   },
+   "winner_agrees": {
+    "compared": 2,
+    "agree": 2
+   },
+   "score_agrees_with_reference": {
+    "compared": 2,
+    "agree": 2
+   }
+  },
+  "slam_points_ao_rg|M|Roland Garros|2026": {
+   "checked": 2,
+   "page_found": 2,
+   "with_points": 2,
+   "complete": 0,
+   "only_set_closing_missing": 2,
+   "other_shortfall": 0,
+   "no_points_on_page": 0,
+   "all_points_complete": 0,
+   "with_statistics": 2,
+   "not_found": 0,
+   "not_fetched": 0,
+   "page_not_200": 0,
+   "share_page_found": [
+    1.0,
+    [
+     0.342,
+     1.0
+    ]
+   ],
+   "share_with_points": [
+    1.0,
+    [
+     0.342,
+     1.0
+    ]
+   ],
+   "share_complete": [
+    0.0,
+    [
+     0.0,
+     0.658
+    ]
+   ],
+   "share_all_points_complete": [
+    0.0,
+    [
+     0.0,
+     0.658
+    ]
+   ],
+   "share_with_statistics": [
+    1.0,
+    [
+     0.342,
+     1.0
+    ]
+   ],
+   "of_pages_with_points": [
+    1.0,
+    [
+     0.342,
+     1.0
+    ]
+   ],
+   "of_point_records_complete": [
+    0.0,
+    [
+     0.0,
+     0.658
+    ]
+   ],
+   "games_with_points_share": {
+    "records": 2,
+    "median": 0.883,
+    "at_least_90pct": 1,
+    "at_least_75pct": 2,
+    "below_50pct": 0,
+    "zero": 0
+   },
+   "share_games_with_points_90": [
+    0.5,
+    [
+     0.095,
+     0.905
+    ]
+   ],
+   "found_via": {
+    "name1 listing (slug: plain-name)": 2
+   },
+   "box_score_check": {
+    "matches_compared": 2,
+    "all_fields_equal": 0,
+    "players_swapped": 0,
+    "fields_compared": 32,
+    "fields_equal": 26,
+    "max_abs_diff": 4
+   },
+   "winner_agrees": {
+    "compared": 2,
+    "agree": 2
+   },
+   "score_agrees_with_reference": {
+    "compared": 2,
+    "agree": 2
+   }
+  },
+  "slam_points_ao_rg|M|US Open|2026": {
+   "checked": 1,
+   "page_found": 1,
+   "with_points": 1,
+   "complete": 0,
+   "only_set_closing_missing": 1,
+   "other_shortfall": 0,
+   "no_points_on_page": 0,
+   "all_points_complete": 0,
+   "with_statistics": 1,
+   "not_found": 0,
+   "not_fetched": 0,
+   "page_not_200": 0,
+   "share_page_found": [
+    1.0,
+    [
+     0.207,
+     1.0
+    ]
+   ],
+   "share_with_points": [
+    1.0,
+    [
+     0.207,
+     1.0
+    ]
+   ],
+   "share_complete": [
+    0.0,
+    [
+     0.0,
+     0.793
+    ]
+   ],
+   "share_all_points_complete": [
+    0.0,
+    [
+     0.0,
+     0.793
+    ]
+   ],
+   "share_with_statistics": [
+    1.0,
+    [
+     0.207,
+     1.0
+    ]
+   ],
+   "of_pages_with_points": [
+    1.0,
+    [
+     0.207,
+     1.0
+    ]
+   ],
+   "of_point_records_complete": [
+    0.0,
+    [
+     0.0,
+     0.793
+    ]
+   ],
+   "games_with_points_share": {
+    "records": 1,
+    "median": 0.889,
+    "at_least_90pct": 0,
+    "at_least_75pct": 1,
+    "below_50pct": 0,
+    "zero": 0
+   },
+   "share_games_with_points_90": [
+    0.0,
+    [
+     0.0,
+     0.793
+    ]
+   ],
+   "found_via": {
+    "name1 listing (slug: plain-name)": 1
+   },
+   "box_score_check": {
+    "matches_compared": 1,
+    "all_fields_equal": 1,
+    "players_swapped": 0,
+    "fields_compared": 16,
+    "fields_equal": 16,
+    "max_abs_diff": 0
+   },
+   "winner_agrees": {
+    "compared": 1,
+    "agree": 1
+   },
+   "score_agrees_with_reference": {
+    "compared": 1,
+    "agree": 1
+   }
+  },
+  "slam_points_ao_rg|M|Wimbledon|2026": {
+   "checked": 2,
+   "page_found": 2,
+   "with_points": 2,
+   "complete": 0,
+   "only_set_closing_missing": 1,
+   "other_shortfall": 1,
+   "no_points_on_page": 0,
+   "all_points_complete": 0,
+   "with_statistics": 2,
+   "not_found": 0,
+   "not_fetched": 0,
+   "page_not_200": 0,
+   "share_page_found": [
+    1.0,
+    [
+     0.342,
+     1.0
+    ]
+   ],
+   "share_with_points": [
+    1.0,
+    [
+     0.342,
+     1.0
+    ]
+   ],
+   "share_complete": [
+    0.0,
+    [
+     0.0,
+     0.658
+    ]
+   ],
+   "share_all_points_complete": [
+    0.0,
+    [
+     0.0,
+     0.658
+    ]
+   ],
+   "share_with_statistics": [
+    1.0,
+    [
+     0.342,
+     1.0
+    ]
+   ],
+   "of_pages_with_points": [
+    1.0,
+    [
+     0.342,
+     1.0
+    ]
+   ],
+   "of_point_records_complete": [
+    0.0,
+    [
+     0.0,
+     0.658
+    ]
+   ],
+   "games_with_points_share": {
+    "records": 2,
+    "median": 0.782,
+    "at_least_90pct": 0,
+    "at_least_75pct": 2,
+    "below_50pct": 0,
+    "zero": 0
+   },
+   "share_games_with_points_90": [
+    0.0,
+    [
+     0.0,
+     0.658
+    ]
+   ],
+   "found_via": {
+    "name1 listing (slug: plain-name)": 2
+   },
+   "box_score_check": {
+    "matches_compared": 2,
+    "all_fields_equal": 0,
+    "players_swapped": 0,
+    "fields_compared": 32,
+    "fields_equal": 25,
+    "max_abs_diff": 2
+   },
+   "winner_agrees": {
+    "compared": 2,
+    "agree": 2
+   },
+   "score_agrees_with_reference": {
+    "compared": 2,
+    "agree": 2
+   }
+  },
+  "slam_points_ao_rg|W|Australian Open|2022": {
+   "checked": 2,
+   "page_found": 2,
+   "with_points": 2,
+   "complete": 0,
+   "only_set_closing_missing": 2,
+   "other_shortfall": 0,
+   "no_points_on_page": 0,
+   "all_points_complete": 0,
+   "with_statistics": 2,
+   "not_found": 0,
+   "not_fetched": 0,
+   "page_not_200": 0,
+   "share_page_found": [
+    1.0,
+    [
+     0.342,
+     1.0
+    ]
+   ],
+   "share_with_points": [
+    1.0,
+    [
+     0.342,
+     1.0
+    ]
+   ],
+   "share_complete": [
+    0.0,
+    [
+     0.0,
+     0.658
+    ]
+   ],
+   "share_all_points_complete": [
+    0.0,
+    [
+     0.0,
+     0.658
+    ]
+   ],
+   "share_with_statistics": [
+    1.0,
+    [
+     0.342,
+     1.0
+    ]
+   ],
+   "of_pages_with_points": [
+    1.0,
+    [
+     0.342,
+     1.0
+    ]
+   ],
+   "of_point_records_complete": [
+    0.0,
+    [
+     0.0,
+     0.658
+    ]
+   ],
+   "games_with_points_share": {
+    "records": 2,
+    "median": 0.946,
+    "at_least_90pct": 2,
+    "at_least_75pct": 2,
+    "below_50pct": 0,
+    "zero": 0
+   },
+   "share_games_with_points_90": [
+    1.0,
+    [
+     0.342,
+     1.0
+    ]
+   ],
+   "found_via": {
+    "name1 listing (slug: plain-name)": 2
+   },
+   "box_score_check": {
+    "matches_compared": 2,
+    "all_fields_equal": 2,
+    "players_swapped": 0,
+    "fields_compared": 32,
+    "fields_equal": 32,
+    "max_abs_diff": 0
+   },
+   "winner_agrees": {
+    "compared": 2,
+    "agree": 2
+   },
+   "score_agrees_with_reference": {
+    "compared": 2,
+    "agree": 2
+   }
+  },
+  "slam_points_ao_rg|W|Australian Open|2023": {
+   "checked": 2,
+   "page_found": 2,
+   "with_points": 2,
+   "complete": 0,
+   "only_set_closing_missing": 1,
+   "other_shortfall": 1,
+   "no_points_on_page": 0,
+   "all_points_complete": 0,
+   "with_statistics": 2,
+   "not_found": 0,
+   "not_fetched": 0,
+   "page_not_200": 0,
+   "share_page_found": [
+    1.0,
+    [
+     0.342,
+     1.0
+    ]
+   ],
+   "share_with_points": [
+    1.0,
+    [
+     0.342,
+     1.0
+    ]
+   ],
+   "share_complete": [
+    0.0,
+    [
+     0.0,
+     0.658
+    ]
+   ],
+   "share_all_points_complete": [
+    0.0,
+    [
+     0.0,
+     0.658
+    ]
+   ],
+   "share_with_statistics": [
+    1.0,
+    [
+     0.342,
+     1.0
+    ]
+   ],
+   "of_pages_with_points": [
+    1.0,
+    [
+     0.342,
+     1.0
+    ]
+   ],
+   "of_point_records_complete": [
+    0.0,
+    [
+     0.0,
+     0.658
+    ]
+   ],
+   "games_with_points_share": {
+    "records": 2,
+    "median": 0.783,
+    "at_least_90pct": 0,
+    "at_least_75pct": 1,
+    "below_50pct": 0,
+    "zero": 0
+   },
+   "share_games_with_points_90": [
+    0.0,
+    [
+     0.0,
+     0.658
+    ]
+   ],
+   "found_via": {
+    "name1 listing (slug: plain-name)": 2
+   },
+   "box_score_check": {
+    "matches_compared": 2,
+    "all_fields_equal": 2,
+    "players_swapped": 0,
+    "fields_compared": 32,
+    "fields_equal": 32,
+    "max_abs_diff": 0
+   },
+   "winner_agrees": {
+    "compared": 2,
+    "agree": 2
+   },
+   "score_agrees_with_reference": {
+    "compared": 2,
+    "agree": 2
+   }
+  },
+  "slam_points_ao_rg|W|Australian Open|2024": {
+   "checked": 2,
+   "page_found": 2,
+   "with_points": 2,
+   "complete": 0,
+   "only_set_closing_missing": 2,
+   "other_shortfall": 0,
+   "no_points_on_page": 0,
+   "all_points_complete": 0,
+   "with_statistics": 2,
+   "not_found": 0,
+   "not_fetched": 0,
+   "page_not_200": 0,
+   "share_page_found": [
+    1.0,
+    [
+     0.342,
+     1.0
+    ]
+   ],
+   "share_with_points": [
+    1.0,
+    [
+     0.342,
+     1.0
+    ]
+   ],
+   "share_complete": [
+    0.0,
+    [
+     0.0,
+     0.658
+    ]
+   ],
+   "share_all_points_complete": [
+    0.0,
+    [
+     0.0,
+     0.658
+    ]
+   ],
+   "share_with_statistics": [
+    1.0,
+    [
+     0.342,
+     1.0
+    ]
+   ],
+   "of_pages_with_points": [
+    1.0,
+    [
+     0.342,
+     1.0
+    ]
+   ],
+   "of_point_records_complete": [
+    0.0,
+    [
+     0.0,
+     0.658
+    ]
+   ],
+   "games_with_points_share": {
+    "records": 2,
+    "median": 0.371,
+    "at_least_90pct": 0,
+    "at_least_75pct": 0,
+    "below_50pct": 2,
+    "zero": 0
+   },
+   "share_games_with_points_90": [
+    0.0,
+    [
+     0.0,
+     0.658
+    ]
+   ],
+   "found_via": {
+    "name1 listing (slug: plain-name)": 2
+   },
+   "box_score_check": {
+    "matches_compared": 2,
+    "all_fields_equal": 2,
+    "players_swapped": 0,
+    "fields_compared": 32,
+    "fields_equal": 32,
+    "max_abs_diff": 0
+   },
+   "winner_agrees": {
+    "compared": 2,
+    "agree": 2
+   },
+   "score_agrees_with_reference": {
+    "compared": 2,
+    "agree": 2
+   }
+  },
+  "slam_points_ao_rg|W|Australian Open|2025": {
+   "checked": 2,
+   "page_found": 2,
+   "with_points": 2,
+   "complete": 1,
+   "only_set_closing_missing": 1,
+   "other_shortfall": 0,
+   "no_points_on_page": 0,
+   "all_points_complete": 0,
+   "with_statistics": 2,
+   "not_found": 0,
+   "not_fetched": 0,
+   "page_not_200": 0,
+   "share_page_found": [
+    1.0,
+    [
+     0.342,
+     1.0
+    ]
+   ],
+   "share_with_points": [
+    1.0,
+    [
+     0.342,
+     1.0
+    ]
+   ],
+   "share_complete": [
+    0.5,
+    [
+     0.095,
+     0.905
+    ]
+   ],
+   "share_all_points_complete": [
+    0.0,
+    [
+     0.0,
+     0.658
+    ]
+   ],
+   "share_with_statistics": [
+    1.0,
+    [
+     0.342,
+     1.0
+    ]
+   ],
+   "of_pages_with_points": [
+    1.0,
+    [
+     0.342,
+     1.0
+    ]
+   ],
+   "of_point_records_complete": [
+    0.5,
+    [
+     0.095,
+     0.905
+    ]
+   ],
+   "games_with_points_share": {
+    "records": 2,
+    "median": 0.906,
+    "at_least_90pct": 1,
+    "at_least_75pct": 2,
+    "below_50pct": 0,
+    "zero": 0
+   },
+   "share_games_with_points_90": [
+    0.5,
+    [
+     0.095,
+     0.905
+    ]
+   ],
+   "found_via": {
+    "name2 listing (slug: plain-name)": 2
+   },
+   "box_score_check": {
+    "matches_compared": 2,
+    "all_fields_equal": 1,
+    "players_swapped": 0,
+    "fields_compared": 32,
+    "fields_equal": 29,
+    "max_abs_diff": 2
+   },
+   "winner_agrees": {
+    "compared": 2,
+    "agree": 2
+   },
+   "score_agrees_with_reference": {
+    "compared": 2,
+    "agree": 2
+   }
+  },
+  "slam_points_ao_rg|W|Roland Garros|2022": {
+   "checked": 2,
+   "page_found": 2,
+   "with_points": 2,
+   "complete": 0,
+   "only_set_closing_missing": 2,
+   "other_shortfall": 0,
+   "no_points_on_page": 0,
+   "all_points_complete": 0,
+   "with_statistics": 2,
+   "not_found": 0,
+   "not_fetched": 0,
+   "page_not_200": 0,
+   "share_page_found": [
+    1.0,
+    [
+     0.342,
+     1.0
+    ]
+   ],
+   "share_with_points": [
+    1.0,
+    [
+     0.342,
+     1.0
+    ]
+   ],
+   "share_complete": [
+    0.0,
+    [
+     0.0,
+     0.658
+    ]
+   ],
+   "share_all_points_complete": [
+    0.0,
+    [
+     0.0,
+     0.658
+    ]
+   ],
+   "share_with_statistics": [
+    1.0,
+    [
+     0.342,
+     1.0
+    ]
+   ],
+   "of_pages_with_points": [
+    1.0,
+    [
+     0.342,
+     1.0
+    ]
+   ],
+   "of_point_records_complete": [
+    0.0,
+    [
+     0.0,
+     0.658
+    ]
+   ],
+   "games_with_points_share": {
+    "records": 2,
+    "median": 0.904,
+    "at_least_90pct": 1,
+    "at_least_75pct": 2,
+    "below_50pct": 0,
+    "zero": 0
+   },
+   "share_games_with_points_90": [
+    0.5,
+    [
+     0.095,
+     0.905
+    ]
+   ],
+   "found_via": {
+    "name1 listing (slug: plain-name)": 1,
+    "name1 listing (slug: seen in another listing)": 1
+   },
+   "box_score_check": {
+    "matches_compared": 2,
+    "all_fields_equal": 0,
+    "players_swapped": 0,
+    "fields_compared": 32,
+    "fields_equal": 25,
+    "max_abs_diff": 2
+   },
+   "winner_agrees": {
+    "compared": 2,
+    "agree": 2
+   },
+   "score_agrees_with_reference": {
+    "compared": 2,
+    "agree": 2
+   }
+  },
+  "slam_points_ao_rg|W|Roland Garros|2023": {
+   "checked": 2,
+   "page_found": 2,
+   "with_points": 2,
+   "complete": 0,
+   "only_set_closing_missing": 2,
+   "other_shortfall": 0,
+   "no_points_on_page": 0,
+   "all_points_complete": 0,
+   "with_statistics": 2,
+   "not_found": 0,
+   "not_fetched": 0,
+   "page_not_200": 0,
+   "share_page_found": [
+    1.0,
+    [
+     0.342,
+     1.0
+    ]
+   ],
+   "share_with_points": [
+    1.0,
+    [
+     0.342,
+     1.0
+    ]
+   ],
+   "share_complete": [
+    0.0,
+    [
+     0.0,
+     0.658
+    ]
+   ],
+   "share_all_points_complete": [
+    0.0,
+    [
+     0.0,
+     0.658
+    ]
+   ],
+   "share_with_statistics": [
+    1.0,
+    [
+     0.342,
+     1.0
+    ]
+   ],
+   "of_pages_with_points": [
+    1.0,
+    [
+     0.342,
+     1.0
+    ]
+   ],
+   "of_point_records_complete": [
+    0.0,
+    [
+     0.0,
+     0.658
+    ]
+   ],
+   "games_with_points_share": {
+    "records": 2,
+    "median": 0.938,
+    "at_least_90pct": 2,
+    "at_least_75pct": 2,
+    "below_50pct": 0,
+    "zero": 0
+   },
+   "share_games_with_points_90": [
+    1.0,
+    [
+     0.342,
+     1.0
+    ]
+   ],
+   "found_via": {
+    "name2 listing (slug: plain-name)": 1,
+    "name1 listing (slug: plain-name)": 1
+   },
+   "box_score_check": {
+    "matches_compared": 2,
+    "all_fields_equal": 2,
+    "players_swapped": 0,
+    "fields_compared": 32,
+    "fields_equal": 32,
+    "max_abs_diff": 0
+   },
+   "winner_agrees": {
+    "compared": 2,
+    "agree": 2
+   },
+   "score_agrees_with_reference": {
+    "compared": 2,
+    "agree": 2
+   }
+  },
+  "slam_points_ao_rg|W|Roland Garros|2024": {
+   "checked": 2,
+   "page_found": 2,
+   "with_points": 2,
+   "complete": 0,
+   "only_set_closing_missing": 2,
+   "other_shortfall": 0,
+   "no_points_on_page": 0,
+   "all_points_complete": 0,
+   "with_statistics": 2,
+   "not_found": 0,
+   "not_fetched": 0,
+   "page_not_200": 0,
+   "share_page_found": [
+    1.0,
+    [
+     0.342,
+     1.0
+    ]
+   ],
+   "share_with_points": [
+    1.0,
+    [
+     0.342,
+     1.0
+    ]
+   ],
+   "share_complete": [
+    0.0,
+    [
+     0.0,
+     0.658
+    ]
+   ],
+   "share_all_points_complete": [
+    0.0,
+    [
+     0.0,
+     0.658
+    ]
+   ],
+   "share_with_statistics": [
+    1.0,
+    [
+     0.342,
+     1.0
+    ]
+   ],
+   "of_pages_with_points": [
+    1.0,
+    [
+     0.342,
+     1.0
+    ]
+   ],
+   "of_point_records_complete": [
+    0.0,
+    [
+     0.0,
+     0.658
+    ]
+   ],
+   "games_with_points_share": {
+    "records": 2,
+    "median": 0.954,
+    "at_least_90pct": 2,
+    "at_least_75pct": 2,
+    "below_50pct": 0,
+    "zero": 0
+   },
+   "share_games_with_points_90": [
+    1.0,
+    [
+     0.342,
+     1.0
+    ]
+   ],
+   "found_via": {
+    "name1 listing (slug: plain-name)": 2
+   },
+   "box_score_check": {
+    "matches_compared": 2,
+    "all_fields_equal": 2,
+    "players_swapped": 0,
+    "fields_compared": 32,
+    "fields_equal": 32,
+    "max_abs_diff": 0
+   },
+   "winner_agrees": {
+    "compared": 2,
+    "agree": 2
+   },
+   "score_agrees_with_reference": {
+    "compared": 2,
+    "agree": 2
+   }
+  },
+  "slam_points_ao_rg|W|Roland Garros|2025": {
+   "checked": 2,
+   "page_found": 2,
+   "with_points": 2,
+   "complete": 0,
+   "only_set_closing_missing": 2,
+   "other_shortfall": 0,
+   "no_points_on_page": 0,
+   "all_points_complete": 0,
+   "with_statistics": 2,
+   "not_found": 0,
+   "not_fetched": 0,
+   "page_not_200": 0,
+   "share_page_found": [
+    1.0,
+    [
+     0.342,
+     1.0
+    ]
+   ],
+   "share_with_points": [
+    1.0,
+    [
+     0.342,
+     1.0
+    ]
+   ],
+   "share_complete": [
+    0.0,
+    [
+     0.0,
+     0.658
+    ]
+   ],
+   "share_all_points_complete": [
+    0.0,
+    [
+     0.0,
+     0.658
+    ]
+   ],
+   "share_with_statistics": [
+    1.0,
+    [
+     0.342,
+     1.0
+    ]
+   ],
+   "of_pages_with_points": [
+    1.0,
+    [
+     0.342,
+     1.0
+    ]
+   ],
+   "of_point_records_complete": [
+    0.0,
+    [
+     0.0,
+     0.658
+    ]
+   ],
+   "games_with_points_share": {
+    "records": 2,
+    "median": 0.873,
+    "at_least_90pct": 0,
+    "at_least_75pct": 2,
+    "below_50pct": 0,
+    "zero": 0
+   },
+   "share_games_with_points_90": [
+    0.0,
+    [
+     0.0,
+     0.658
+    ]
+   ],
+   "found_via": {
+    "name1 listing (slug: plain-name)": 2
+   },
+   "box_score_check": {
+    "matches_compared": 2,
+    "all_fields_equal": 0,
+    "players_swapped": 0,
+    "fields_compared": 32,
+    "fields_equal": 22,
+    "max_abs_diff": 5
+   },
+   "winner_agrees": {
+    "compared": 2,
+    "agree": 2
+   },
+   "score_agrees_with_reference": {
+    "compared": 2,
+    "agree": 2
+   }
+  },
+  "slam_points_ao_rg|W|Roland Garros|2026": {
+   "checked": 2,
+   "page_found": 2,
+   "with_points": 2,
+   "complete": 0,
+   "only_set_closing_missing": 2,
+   "other_shortfall": 0,
+   "no_points_on_page": 0,
+   "all_points_complete": 0,
+   "with_statistics": 2,
+   "not_found": 0,
+   "not_fetched": 0,
+   "page_not_200": 0,
+   "share_page_found": [
+    1.0,
+    [
+     0.342,
+     1.0
+    ]
+   ],
+   "share_with_points": [
+    1.0,
+    [
+     0.342,
+     1.0
+    ]
+   ],
+   "share_complete": [
+    0.0,
+    [
+     0.0,
+     0.658
+    ]
+   ],
+   "share_all_points_complete": [
+    0.0,
+    [
+     0.0,
+     0.658
+    ]
+   ],
+   "share_with_statistics": [
+    1.0,
+    [
+     0.342,
+     1.0
+    ]
+   ],
+   "of_pages_with_points": [
+    1.0,
+    [
+     0.342,
+     1.0
+    ]
+   ],
+   "of_point_records_complete": [
+    0.0,
+    [
+     0.0,
+     0.658
+    ]
+   ],
+   "games_with_points_share": {
+    "records": 2,
+    "median": 0.925,
+    "at_least_90pct": 2,
+    "at_least_75pct": 2,
+    "below_50pct": 0,
+    "zero": 0
+   },
+   "share_games_with_points_90": [
+    1.0,
+    [
+     0.342,
+     1.0
+    ]
+   ],
+   "found_via": {
+    "name1 listing (slug: plain-name)": 2
+   },
+   "box_score_check": {
+    "matches_compared": 2,
+    "all_fields_equal": 1,
+    "players_swapped": 0,
+    "fields_compared": 32,
+    "fields_equal": 29,
+    "max_abs_diff": 1
+   },
+   "winner_agrees": {
+    "compared": 2,
+    "agree": 2
+   },
+   "score_agrees_with_reference": {
+    "compared": 2,
+    "agree": 2
+   }
+  },
+  "slam_points_ao_rg|W|US Open|2024": {
+   "checked": 1,
+   "page_found": 1,
+   "with_points": 1,
+   "complete": 0,
+   "only_set_closing_missing": 1,
+   "other_shortfall": 0,
+   "no_points_on_page": 0,
+   "all_points_complete": 0,
+   "with_statistics": 1,
+   "not_found": 0,
+   "not_fetched": 0,
+   "page_not_200": 0,
+   "share_page_found": [
+    1.0,
+    [
+     0.207,
+     1.0
+    ]
+   ],
+   "share_with_points": [
+    1.0,
+    [
+     0.207,
+     1.0
+    ]
+   ],
+   "share_complete": [
+    0.0,
+    [
+     0.0,
+     0.793
+    ]
+   ],
+   "share_all_points_complete": [
+    0.0,
+    [
+     0.0,
+     0.793
+    ]
+   ],
+   "share_with_statistics": [
+    1.0,
+    [
+     0.207,
+     1.0
+    ]
+   ],
+   "of_pages_with_points": [
+    1.0,
+    [
+     0.207,
+     1.0
+    ]
+   ],
+   "of_point_records_complete": [
+    0.0,
+    [
+     0.0,
+     0.793
+    ]
+   ],
+   "games_with_points_share": {
+    "records": 1,
+    "median": 0.875,
+    "at_least_90pct": 0,
+    "at_least_75pct": 1,
+    "below_50pct": 0,
+    "zero": 0
+   },
+   "share_games_with_points_90": [
+    0.0,
+    [
+     0.0,
+     0.793
+    ]
+   ],
+   "found_via": {
+    "name1 listing (slug: plain-name)": 1
+   },
+   "box_score_check": {
+    "matches_compared": 1,
+    "all_fields_equal": 1,
+    "players_swapped": 0,
+    "fields_compared": 16,
+    "fields_equal": 16,
+    "max_abs_diff": 0
+   },
+   "winner_agrees": {
+    "compared": 1,
+    "agree": 1
+   },
+   "score_agrees_with_reference": {
+    "compared": 1,
+    "agree": 1
+   }
+  },
+  "wta_2018_points|2018": {
+   "checked": 32,
+   "page_found": 32,
+   "with_points": 32,
+   "complete": 0,
+   "only_set_closing_missing": 32,
+   "other_shortfall": 0,
+   "no_points_on_page": 0,
+   "all_points_complete": 0,
+   "with_statistics": 32,
+   "not_found": 0,
+   "not_fetched": 0,
+   "page_not_200": 0,
+   "share_page_found": [
+    1.0,
+    [
+     0.893,
+     1.0
+    ]
+   ],
+   "share_with_points": [
+    1.0,
+    [
+     0.893,
+     1.0
+    ]
+   ],
+   "share_complete": [
+    0.0,
+    [
+     0.0,
+     0.107
+    ]
+   ],
+   "share_all_points_complete": [
+    0.0,
+    [
+     0.0,
+     0.107
+    ]
+   ],
+   "share_with_statistics": [
+    1.0,
+    [
+     0.893,
+     1.0
+    ]
+   ],
+   "of_pages_with_points": [
+    1.0,
+    [
+     0.893,
+     1.0
+    ]
+   ],
+   "of_point_records_complete": [
+    0.0,
+    [
+     0.0,
+     0.107
+    ]
+   ],
+   "games_with_points_share": {
+    "records": 32,
+    "median": 0.885,
+    "at_least_90pct": 8,
+    "at_least_75pct": 32,
+    "below_50pct": 0,
+    "zero": 0
+   },
+   "share_games_with_points_90": [
+    0.25,
+    [
+     0.133,
+     0.421
+    ]
+   ],
+   "found_via": {
+    "name1 listing (slug: plain-name)": 26,
+    "name2 listing (slug: plain-name)": 3,
+    "name1 listing (slug: seen in another listing)": 1,
+    "name2 listing (slug: seen in another listing)": 1,
+    "name1 listing (slug: searched)": 1
+   },
+   "box_score_check": {
+    "matches_compared": 32,
+    "all_fields_equal": 32,
+    "players_swapped": 0,
+    "fields_compared": 512,
+    "fields_equal": 512,
+    "max_abs_diff": 0
+   },
+   "winner_agrees": {
+    "compared": 30,
+    "agree": 30
+   },
+   "score_agrees_with_reference": {
+    "compared": 32,
+    "agree": 32
+   }
+  }
+ },
+ "itf_by_tour_period": {
+  "M|2018": {
+   "checked": 6,
+   "page_found": 6,
+   "with_points": 6,
+   "complete": 0,
+   "only_set_closing_missing": 5,
+   "other_shortfall": 1,
+   "no_points_on_page": 0,
+   "all_points_complete": 0,
+   "with_statistics": 6,
+   "not_found": 0,
+   "not_fetched": 0,
+   "page_not_200": 0,
+   "share_page_found": [
+    1.0,
+    [
+     0.61,
+     1.0
+    ]
+   ],
+   "share_with_points": [
+    1.0,
+    [
+     0.61,
+     1.0
+    ]
+   ],
+   "share_complete": [
+    0.0,
+    [
+     0.0,
+     0.39
+    ]
+   ],
+   "share_all_points_complete": [
+    0.0,
+    [
+     0.0,
+     0.39
+    ]
+   ],
+   "share_with_statistics": [
+    1.0,
+    [
+     0.61,
+     1.0
+    ]
+   ],
+   "of_pages_with_points": [
+    1.0,
+    [
+     0.61,
+     1.0
+    ]
+   ],
+   "of_point_records_complete": [
+    0.0,
+    [
+     0.0,
+     0.39
+    ]
+   ],
+   "games_with_points_share": {
+    "records": 6,
+    "median": 0.931,
+    "at_least_90pct": 4,
+    "at_least_75pct": 5,
+    "below_50pct": 1,
+    "zero": 0
+   },
+   "share_games_with_points_90": [
+    0.667,
+    [
+     0.3,
+     0.903
+    ]
+   ],
+   "found_via": {
+    "name1 listing (slug: plain-name)": 5,
+    "name2 listing (slug: plain-name)": 1
+   },
+   "box_score_check": {
+    "matches_compared": 0,
+    "all_fields_equal": 0,
+    "players_swapped": 0,
+    "fields_compared": 0,
+    "fields_equal": 0,
+    "max_abs_diff": null
+   },
+   "winner_agrees": {
+    "compared": 6,
+    "agree": 6
+   },
+   "score_agrees_with_reference": {
+    "compared": 6,
+    "agree": 6
+   },
+   "weighted_to_gap": {
+    "page_found": 1.0,
+    "with_points": 1.0,
+    "complete": 0.0,
+    "only_set_closing_missing": 0.833,
+    "games_with_points_90": 0.667,
+    "with_statistics": 1.0,
+    "gap_matches_represented": 16226
+   },
+   "editions": {
+    "editions": 2,
+    "page_found": {
+     "all": 2,
+     "some": 0,
+     "none": 0
+    },
+    "with_points": {
+     "all": 2,
+     "some": 0,
+     "none": 0
+    },
+    "complete": {
+     "all": 0,
+     "some": 0,
+     "none": 2
+    }
+   }
+  },
+  "M|2019-21": {
+   "checked": 18,
+   "page_found": 18,
+   "with_points": 18,
+   "complete": 0,
+   "only_set_closing_missing": 15,
+   "other_shortfall": 3,
+   "no_points_on_page": 0,
+   "all_points_complete": 0,
+   "with_statistics": 18,
+   "not_found": 0,
+   "not_fetched": 0,
+   "page_not_200": 0,
+   "share_page_found": [
+    1.0,
+    [
+     0.824,
+     1.0
+    ]
+   ],
+   "share_with_points": [
+    1.0,
+    [
+     0.824,
+     1.0
+    ]
+   ],
+   "share_complete": [
+    0.0,
+    [
+     0.0,
+     0.176
+    ]
+   ],
+   "share_all_points_complete": [
+    0.0,
+    [
+     0.0,
+     0.176
+    ]
+   ],
+   "share_with_statistics": [
+    1.0,
+    [
+     0.824,
+     1.0
+    ]
+   ],
+   "of_pages_with_points": [
+    1.0,
+    [
+     0.824,
+     1.0
+    ]
+   ],
+   "of_point_records_complete": [
+    0.0,
+    [
+     0.0,
+     0.176
+    ]
+   ],
+   "games_with_points_share": {
+    "records": 18,
+    "median": 0.929,
+    "at_least_90pct": 14,
+    "at_least_75pct": 15,
+    "below_50pct": 1,
+    "zero": 0
+   },
+   "share_games_with_points_90": [
+    0.778,
+    [
+     0.548,
+     0.91
+    ]
+   ],
+   "found_via": {
+    "name1 listing (slug: plain-name)": 14,
+    "name2 listing (slug: plain-name)": 2,
+    "name2 listing (slug: plain-name; names matched loosely)": 2
+   },
+   "box_score_check": {
+    "matches_compared": 0,
+    "all_fields_equal": 0,
+    "players_swapped": 0,
+    "fields_compared": 0,
+    "fields_equal": 0,
+    "max_abs_diff": null
+   },
+   "winner_agrees": {
+    "compared": 18,
+    "agree": 18
+   },
+   "score_agrees_with_reference": {
+    "compared": 18,
+    "agree": 18
+   },
+   "weighted_to_gap": {
+    "page_found": 1.0,
+    "with_points": 1.0,
+    "complete": 0.0,
+    "only_set_closing_missing": 0.933,
+    "games_with_points_90": 0.85,
+    "with_statistics": 1.0,
+    "gap_matches_represented": 32111
+   },
+   "editions": {
+    "editions": 6,
+    "page_found": {
+     "all": 6,
+     "some": 0,
+     "none": 0
+    },
+    "with_points": {
+     "all": 6,
+     "some": 0,
+     "none": 0
+    },
+    "complete": {
+     "all": 0,
+     "some": 0,
+     "none": 6
+    }
+   }
+  },
+  "M|2022-23": {
+   "checked": 12,
+   "page_found": 12,
+   "with_points": 11,
+   "complete": 0,
+   "only_set_closing_missing": 11,
+   "other_shortfall": 0,
+   "no_points_on_page": 1,
+   "all_points_complete": 0,
+   "with_statistics": 12,
+   "not_found": 0,
+   "not_fetched": 0,
+   "page_not_200": 0,
+   "share_page_found": [
+    1.0,
+    [
+     0.757,
+     1.0
+    ]
+   ],
+   "share_with_points": [
+    0.917,
+    [
+     0.646,
+     0.985
+    ]
+   ],
+   "share_complete": [
+    0.0,
+    [
+     0.0,
+     0.243
+    ]
+   ],
+   "share_all_points_complete": [
+    0.0,
+    [
+     0.0,
+     0.243
+    ]
+   ],
+   "share_with_statistics": [
+    1.0,
+    [
+     0.757,
+     1.0
+    ]
+   ],
+   "of_pages_with_points": [
+    0.917,
+    [
+     0.646,
+     0.985
+    ]
+   ],
+   "of_point_records_complete": [
+    0.0,
+    [
+     0.0,
+     0.259
+    ]
+   ],
+   "games_with_points_share": {
+    "records": 12,
+    "median": 0.937,
+    "at_least_90pct": 8,
+    "at_least_75pct": 11,
+    "below_50pct": 1,
+    "zero": 1
+   },
+   "share_games_with_points_90": [
+    0.667,
+    [
+     0.391,
+     0.862
+    ]
+   ],
+   "found_via": {
+    "name2 listing (slug: plain-name)": 2,
+    "name1 listing (slug: plain-name)": 9,
+    "name1 listing (slug: searched)": 1
+   },
+   "box_score_check": {
+    "matches_compared": 0,
+    "all_fields_equal": 0,
+    "players_swapped": 0,
+    "fields_compared": 0,
+    "fields_equal": 0,
+    "max_abs_diff": null
+   },
+   "winner_agrees": {
+    "compared": 12,
+    "agree": 12
+   },
+   "score_agrees_with_reference": {
+    "compared": 12,
+    "agree": 12
+   },
+   "weighted_to_gap": {
+    "page_found": 1.0,
+    "with_points": 0.92,
+    "complete": 0.0,
+    "only_set_closing_missing": 0.92,
+    "games_with_points_90": 0.674,
+    "with_statistics": 1.0,
+    "gap_matches_represented": 33794
+   },
+   "editions": {
+    "editions": 4,
+    "page_found": {
+     "all": 4,
+     "some": 0,
+     "none": 0
+    },
+    "with_points": {
+     "all": 3,
+     "some": 1,
+     "none": 0
+    },
+    "complete": {
+     "all": 0,
+     "some": 0,
+     "none": 4
+    }
+   }
+  },
+  "M|2024": {
+   "checked": 6,
+   "page_found": 6,
+   "with_points": 6,
+   "complete": 0,
+   "only_set_closing_missing": 5,
+   "other_shortfall": 1,
+   "no_points_on_page": 0,
+   "all_points_complete": 0,
+   "with_statistics": 6,
+   "not_found": 0,
+   "not_fetched": 0,
+   "page_not_200": 0,
+   "share_page_found": [
+    1.0,
+    [
+     0.61,
+     1.0
+    ]
+   ],
+   "share_with_points": [
+    1.0,
+    [
+     0.61,
+     1.0
+    ]
+   ],
+   "share_complete": [
+    0.0,
+    [
+     0.0,
+     0.39
+    ]
+   ],
+   "share_all_points_complete": [
+    0.0,
+    [
+     0.0,
+     0.39
+    ]
+   ],
+   "share_with_statistics": [
+    1.0,
+    [
+     0.61,
+     1.0
+    ]
+   ],
+   "of_pages_with_points": [
+    1.0,
+    [
+     0.61,
+     1.0
+    ]
+   ],
+   "of_point_records_complete": [
+    0.0,
+    [
+     0.0,
+     0.39
+    ]
+   ],
+   "games_with_points_share": {
+    "records": 6,
+    "median": 0.933,
+    "at_least_90pct": 5,
+    "at_least_75pct": 6,
+    "below_50pct": 0,
+    "zero": 0
+   },
+   "share_games_with_points_90": [
+    0.833,
+    [
+     0.436,
+     0.97
+    ]
+   ],
+   "found_via": {
+    "name1 listing (slug: plain-name)": 5,
+    "name2 listing (slug: plain-name)": 1
+   },
+   "box_score_check": {
+    "matches_compared": 0,
+    "all_fields_equal": 0,
+    "players_swapped": 0,
+    "fields_compared": 0,
+    "fields_equal": 0,
+    "max_abs_diff": null
+   },
+   "winner_agrees": {
+    "compared": 6,
+    "agree": 6
+   },
+   "score_agrees_with_reference": {
+    "compared": 6,
+    "agree": 6
+   },
+   "weighted_to_gap": {
+    "page_found": 1.0,
+    "with_points": 1.0,
+    "complete": 0.0,
+    "only_set_closing_missing": 0.833,
+    "games_with_points_90": 0.833,
+    "with_statistics": 1.0,
+    "gap_matches_represented": 18481
+   },
+   "editions": {
+    "editions": 2,
+    "page_found": {
+     "all": 2,
+     "some": 0,
+     "none": 0
+    },
+    "with_points": {
+     "all": 2,
+     "some": 0,
+     "none": 0
+    },
+    "complete": {
+     "all": 0,
+     "some": 0,
+     "none": 2
+    }
+   }
+  },
+  "W|2018": {
+   "checked": 6,
+   "page_found": 3,
+   "with_points": 3,
+   "complete": 0,
+   "only_set_closing_missing": 3,
+   "other_shortfall": 0,
+   "no_points_on_page": 0,
+   "all_points_complete": 0,
+   "with_statistics": 3,
+   "not_found": 0,
+   "not_fetched": 0,
+   "page_not_200": 3,
+   "share_page_found": [
+    0.5,
+    [
+     0.188,
+     0.812
+    ]
+   ],
+   "share_with_points": [
+    0.5,
+    [
+     0.188,
+     0.812
+    ]
+   ],
+   "share_complete": [
+    0.0,
+    [
+     0.0,
+     0.39
+    ]
+   ],
+   "share_all_points_complete": [
+    0.0,
+    [
+     0.0,
+     0.39
+    ]
+   ],
+   "share_with_statistics": [
+    0.5,
+    [
+     0.188,
+     0.812
+    ]
+   ],
+   "of_pages_with_points": [
+    1.0,
+    [
+     0.438,
+     1.0
+    ]
+   ],
+   "of_point_records_complete": [
+    0.0,
+    [
+     0.0,
+     0.562
+    ]
+   ],
+   "games_with_points_share": {
+    "records": 3,
+    "median": 0.864,
+    "at_least_90pct": 0,
+    "at_least_75pct": 3,
+    "below_50pct": 0,
+    "zero": 0
+   },
+   "share_games_with_points_90": [
+    0.0,
+    [
+     0.0,
+     0.39
+    ]
+   ],
+   "found_via": {
+    "name1 listing (slug: plain-name)": 6
+   },
+   "box_score_check": {
+    "matches_compared": 0,
+    "all_fields_equal": 0,
+    "players_swapped": 0,
+    "fields_compared": 0,
+    "fields_equal": 0,
+    "max_abs_diff": null
+   },
+   "winner_agrees": {
+    "compared": 3,
+    "agree": 3
+   },
+   "score_agrees_with_reference": {
+    "compared": 3,
+    "agree": 3
+   },
+   "weighted_to_gap": {
+    "page_found": 0.5,
+    "with_points": 0.5,
+    "complete": 0.0,
+    "only_set_closing_missing": 0.5,
+    "games_with_points_90": 0.0,
+    "with_statistics": 0.5,
+    "gap_matches_represented": 15771
+   },
+   "editions": {
+    "editions": 2,
+    "page_found": {
+     "all": 1,
+     "some": 0,
+     "none": 1
+    },
+    "with_points": {
+     "all": 1,
+     "some": 0,
+     "none": 1
+    },
+    "complete": {
+     "all": 0,
+     "some": 0,
+     "none": 2
+    }
+   }
+  },
+  "W|2019-21": {
+   "checked": 18,
+   "page_found": 18,
+   "with_points": 18,
+   "complete": 2,
+   "only_set_closing_missing": 11,
+   "other_shortfall": 5,
+   "no_points_on_page": 0,
+   "all_points_complete": 1,
+   "with_statistics": 18,
+   "not_found": 0,
+   "not_fetched": 0,
+   "page_not_200": 0,
+   "share_page_found": [
+    1.0,
+    [
+     0.824,
+     1.0
+    ]
+   ],
+   "share_with_points": [
+    1.0,
+    [
+     0.824,
+     1.0
+    ]
+   ],
+   "share_complete": [
+    0.111,
+    [
+     0.031,
+     0.328
+    ]
+   ],
+   "share_all_points_complete": [
+    0.056,
+    [
+     0.01,
+     0.258
+    ]
+   ],
+   "share_with_statistics": [
+    1.0,
+    [
+     0.824,
+     1.0
+    ]
+   ],
+   "of_pages_with_points": [
+    1.0,
+    [
+     0.824,
+     1.0
+    ]
+   ],
+   "of_point_records_complete": [
+    0.111,
+    [
+     0.031,
+     0.328
+    ]
+   ],
+   "games_with_points_share": {
+    "records": 18,
+    "median": 0.657,
+    "at_least_90pct": 6,
+    "at_least_75pct": 9,
+    "below_50pct": 7,
+    "zero": 0
+   },
+   "share_games_with_points_90": [
+    0.333,
+    [
+     0.163,
+     0.563
+    ]
+   ],
+   "found_via": {
+    "name1 listing (slug: plain-name)": 18
+   },
+   "box_score_check": {
+    "matches_compared": 0,
+    "all_fields_equal": 0,
+    "players_swapped": 0,
+    "fields_compared": 0,
+    "fields_equal": 0,
+    "max_abs_diff": null
+   },
+   "winner_agrees": {
+    "compared": 16,
+    "agree": 16
+   },
+   "score_agrees_with_reference": {
+    "compared": 18,
+    "agree": 18
+   },
+   "weighted_to_gap": {
+    "page_found": 1.0,
+    "with_points": 1.0,
+    "complete": 0.081,
+    "only_set_closing_missing": 0.581,
+    "games_with_points_90": 0.402,
+    "with_statistics": 1.0,
+    "gap_matches_represented": 32886
+   },
+   "editions": {
+    "editions": 6,
+    "page_found": {
+     "all": 6,
+     "some": 0,
+     "none": 0
+    },
+    "with_points": {
+     "all": 6,
+     "some": 0,
+     "none": 0
+    },
+    "complete": {
+     "all": 0,
+     "some": 2,
+     "none": 4
+    }
+   }
+  },
+  "W|2022-23": {
+   "checked": 12,
+   "page_found": 12,
+   "with_points": 12,
+   "complete": 1,
+   "only_set_closing_missing": 11,
+   "other_shortfall": 0,
+   "no_points_on_page": 0,
+   "all_points_complete": 0,
+   "with_statistics": 12,
+   "not_found": 0,
+   "not_fetched": 0,
+   "page_not_200": 0,
+   "share_page_found": [
+    1.0,
+    [
+     0.757,
+     1.0
+    ]
+   ],
+   "share_with_points": [
+    1.0,
+    [
+     0.757,
+     1.0
+    ]
+   ],
+   "share_complete": [
+    0.083,
+    [
+     0.015,
+     0.354
+    ]
+   ],
+   "share_all_points_complete": [
+    0.0,
+    [
+     0.0,
+     0.243
+    ]
+   ],
+   "share_with_statistics": [
+    1.0,
+    [
+     0.757,
+     1.0
+    ]
+   ],
+   "of_pages_with_points": [
+    1.0,
+    [
+     0.757,
+     1.0
+    ]
+   ],
+   "of_point_records_complete": [
+    0.083,
+    [
+     0.015,
+     0.354
+    ]
+   ],
+   "games_with_points_share": {
+    "records": 12,
+    "median": 0.935,
+    "at_least_90pct": 10,
+    "at_least_75pct": 12,
+    "below_50pct": 0,
+    "zero": 0
+   },
+   "share_games_with_points_90": [
+    0.833,
+    [
+     0.552,
+     0.953
+    ]
+   ],
+   "found_via": {
+    "name1 listing (slug: plain-name)": 11,
+    "name2 listing (slug: plain-name)": 1
+   },
+   "box_score_check": {
+    "matches_compared": 0,
+    "all_fields_equal": 0,
+    "players_swapped": 0,
+    "fields_compared": 0,
+    "fields_equal": 0,
+    "max_abs_diff": null
+   },
+   "winner_agrees": {
+    "compared": 12,
+    "agree": 12
+   },
+   "score_agrees_with_reference": {
+    "compared": 12,
+    "agree": 12
+   },
+   "weighted_to_gap": {
+    "page_found": 1.0,
+    "with_points": 1.0,
+    "complete": 0.086,
+    "only_set_closing_missing": 0.914,
+    "games_with_points_90": 0.833,
+    "with_statistics": 1.0,
+    "gap_matches_represented": 34151
+   },
+   "editions": {
+    "editions": 4,
+    "page_found": {
+     "all": 4,
+     "some": 0,
+     "none": 0
+    },
+    "with_points": {
+     "all": 4,
+     "some": 0,
+     "none": 0
+    },
+    "complete": {
+     "all": 0,
+     "some": 1,
+     "none": 3
+    }
+   }
+  },
+  "W|2024": {
+   "checked": 6,
+   "page_found": 6,
+   "with_points": 6,
+   "complete": 0,
+   "only_set_closing_missing": 5,
+   "other_shortfall": 1,
+   "no_points_on_page": 0,
+   "all_points_complete": 0,
+   "with_statistics": 6,
+   "not_found": 0,
+   "not_fetched": 0,
+   "page_not_200": 0,
+   "share_page_found": [
+    1.0,
+    [
+     0.61,
+     1.0
+    ]
+   ],
+   "share_with_points": [
+    1.0,
+    [
+     0.61,
+     1.0
+    ]
+   ],
+   "share_complete": [
+    0.0,
+    [
+     0.0,
+     0.39
+    ]
+   ],
+   "share_all_points_complete": [
+    0.0,
+    [
+     0.0,
+     0.39
+    ]
+   ],
+   "share_with_statistics": [
+    1.0,
+    [
+     0.61,
+     1.0
+    ]
+   ],
+   "of_pages_with_points": [
+    1.0,
+    [
+     0.61,
+     1.0
+    ]
+   ],
+   "of_point_records_complete": [
+    0.0,
+    [
+     0.0,
+     0.39
+    ]
+   ],
+   "games_with_points_share": {
+    "records": 6,
+    "median": 0.939,
+    "at_least_90pct": 4,
+    "at_least_75pct": 6,
+    "below_50pct": 0,
+    "zero": 0
+   },
+   "share_games_with_points_90": [
+    0.667,
+    [
+     0.3,
+     0.903
+    ]
+   ],
+   "found_via": {
+    "name1 listing (slug: plain-name)": 6
+   },
+   "box_score_check": {
+    "matches_compared": 0,
+    "all_fields_equal": 0,
+    "players_swapped": 0,
+    "fields_compared": 0,
+    "fields_equal": 0,
+    "max_abs_diff": null
+   },
+   "winner_agrees": {
+    "compared": 5,
+    "agree": 5
+   },
+   "score_agrees_with_reference": {
+    "compared": 6,
+    "agree": 6
+   },
+   "weighted_to_gap": {
+    "page_found": 1.0,
+    "with_points": 1.0,
+    "complete": 0.0,
+    "only_set_closing_missing": 0.833,
+    "games_with_points_90": 0.667,
+    "with_statistics": 1.0,
+    "gap_matches_represented": 18526
+   },
+   "editions": {
+    "editions": 2,
+    "page_found": {
+     "all": 2,
+     "some": 0,
+     "none": 0
+    },
+    "with_points": {
+     "all": 2,
+     "some": 0,
+     "none": 0
+    },
+    "complete": {
+     "all": 0,
+     "some": 0,
+     "none": 2
+    }
+   }
+  },
+  "M|all": {
+   "checked": 42,
+   "page_found": 42,
+   "with_points": 41,
+   "complete": 0,
+   "only_set_closing_missing": 36,
+   "other_shortfall": 5,
+   "no_points_on_page": 1,
+   "all_points_complete": 0,
+   "with_statistics": 42,
+   "not_found": 0,
+   "not_fetched": 0,
+   "page_not_200": 0,
+   "share_page_found": [
+    1.0,
+    [
+     0.916,
+     1.0
+    ]
+   ],
+   "share_with_points": [
+    0.976,
+    [
+     0.877,
+     0.996
+    ]
+   ],
+   "share_complete": [
+    0.0,
+    [
+     0.0,
+     0.084
+    ]
+   ],
+   "share_all_points_complete": [
+    0.0,
+    [
+     0.0,
+     0.084
+    ]
+   ],
+   "share_with_statistics": [
+    1.0,
+    [
+     0.916,
+     1.0
+    ]
+   ],
+   "of_pages_with_points": [
+    0.976,
+    [
+     0.877,
+     0.996
+    ]
+   ],
+   "of_point_records_complete": [
+    0.0,
+    [
+     0.0,
+     0.086
+    ]
+   ],
+   "games_with_points_share": {
+    "records": 42,
+    "median": 0.933,
+    "at_least_90pct": 31,
+    "at_least_75pct": 37,
+    "below_50pct": 3,
+    "zero": 1
+   },
+   "share_games_with_points_90": [
+    0.738,
+    [
+     0.589,
+     0.847
+    ]
+   ],
+   "found_via": {
+    "name1 listing (slug: plain-name)": 33,
+    "name2 listing (slug: plain-name)": 6,
+    "name2 listing (slug: plain-name; names matched loosely)": 2,
+    "name1 listing (slug: searched)": 1
+   },
+   "box_score_check": {
+    "matches_compared": 0,
+    "all_fields_equal": 0,
+    "players_swapped": 0,
+    "fields_compared": 0,
+    "fields_equal": 0,
+    "max_abs_diff": null
+   },
+   "winner_agrees": {
+    "compared": 42,
+    "agree": 42
+   },
+   "score_agrees_with_reference": {
+    "compared": 42,
+    "agree": 42
+   },
+   "weighted_to_gap": {
+    "page_found": 1.0,
+    "with_points": 0.973,
+    "complete": 0.0,
+    "only_set_closing_missing": 0.894,
+    "games_with_points_90": 0.758,
+    "with_statistics": 1.0,
+    "gap_matches_represented": 100612
+   },
+   "editions": {
+    "editions": 14,
+    "page_found": {
+     "all": 14,
+     "some": 0,
+     "none": 0
+    },
+    "with_points": {
+     "all": 13,
+     "some": 1,
+     "none": 0
+    },
+    "complete": {
+     "all": 0,
+     "some": 0,
+     "none": 14
+    }
+   }
+  },
+  "W|all": {
+   "checked": 42,
+   "page_found": 39,
+   "with_points": 39,
+   "complete": 3,
+   "only_set_closing_missing": 30,
+   "other_shortfall": 6,
+   "no_points_on_page": 0,
+   "all_points_complete": 1,
+   "with_statistics": 39,
+   "not_found": 0,
+   "not_fetched": 0,
+   "page_not_200": 3,
+   "share_page_found": [
+    0.929,
+    [
+     0.81,
+     0.975
+    ]
+   ],
+   "share_with_points": [
+    0.929,
+    [
+     0.81,
+     0.975
+    ]
+   ],
+   "share_complete": [
+    0.071,
+    [
+     0.025,
+     0.19
+    ]
+   ],
+   "share_all_points_complete": [
+    0.024,
+    [
+     0.004,
+     0.123
+    ]
+   ],
+   "share_with_statistics": [
+    0.929,
+    [
+     0.81,
+     0.975
+    ]
+   ],
+   "of_pages_with_points": [
+    1.0,
+    [
+     0.91,
+     1.0
+    ]
+   ],
+   "of_point_records_complete": [
+    0.077,
+    [
+     0.027,
+     0.203
+    ]
+   ],
+   "games_with_points_share": {
+    "records": 39,
+    "median": 0.9,
+    "at_least_90pct": 20,
+    "at_least_75pct": 30,
+    "below_50pct": 7,
+    "zero": 0
+   },
+   "share_games_with_points_90": [
+    0.476,
+    [
+     0.334,
+     0.623
+    ]
+   ],
+   "found_via": {
+    "name1 listing (slug: plain-name)": 41,
+    "name2 listing (slug: plain-name)": 1
+   },
+   "box_score_check": {
+    "matches_compared": 0,
+    "all_fields_equal": 0,
+    "players_swapped": 0,
+    "fields_compared": 0,
+    "fields_equal": 0,
+    "max_abs_diff": null
+   },
+   "winner_agrees": {
+    "compared": 36,
+    "agree": 36
+   },
+   "score_agrees_with_reference": {
+    "compared": 39,
+    "agree": 39
+   },
+   "weighted_to_gap": {
+    "page_found": 0.922,
+    "with_points": 0.922,
+    "complete": 0.055,
+    "only_set_closing_missing": 0.727,
+    "games_with_points_90": 0.533,
+    "with_statistics": 0.922,
+    "gap_matches_represented": 101334
+   },
+   "editions": {
+    "editions": 14,
+    "page_found": {
+     "all": 13,
+     "some": 0,
+     "none": 1
+    },
+    "with_points": {
+     "all": 13,
+     "some": 0,
+     "none": 1
+    },
+    "complete": {
+     "all": 0,
+     "some": 3,
+     "none": 11
+    }
+   }
+  }
+ },
+ "itf_by_tour_year": {
+  "M|2018": {
+   "checked": 6,
+   "page_found": 6,
+   "with_points": 6,
+   "complete": 0,
+   "only_set_closing_missing": 5,
+   "other_shortfall": 1,
+   "no_points_on_page": 0,
+   "all_points_complete": 0,
+   "with_statistics": 6,
+   "not_found": 0,
+   "not_fetched": 0,
+   "page_not_200": 0,
+   "share_page_found": [
+    1.0,
+    [
+     0.61,
+     1.0
+    ]
+   ],
+   "share_with_points": [
+    1.0,
+    [
+     0.61,
+     1.0
+    ]
+   ],
+   "share_complete": [
+    0.0,
+    [
+     0.0,
+     0.39
+    ]
+   ],
+   "share_all_points_complete": [
+    0.0,
+    [
+     0.0,
+     0.39
+    ]
+   ],
+   "share_with_statistics": [
+    1.0,
+    [
+     0.61,
+     1.0
+    ]
+   ],
+   "of_pages_with_points": [
+    1.0,
+    [
+     0.61,
+     1.0
+    ]
+   ],
+   "of_point_records_complete": [
+    0.0,
+    [
+     0.0,
+     0.39
+    ]
+   ],
+   "games_with_points_share": {
+    "records": 6,
+    "median": 0.931,
+    "at_least_90pct": 4,
+    "at_least_75pct": 5,
+    "below_50pct": 1,
+    "zero": 0
+   },
+   "share_games_with_points_90": [
+    0.667,
+    [
+     0.3,
+     0.903
+    ]
+   ],
+   "found_via": {
+    "name1 listing (slug: plain-name)": 5,
+    "name2 listing (slug: plain-name)": 1
+   },
+   "box_score_check": {
+    "matches_compared": 0,
+    "all_fields_equal": 0,
+    "players_swapped": 0,
+    "fields_compared": 0,
+    "fields_equal": 0,
+    "max_abs_diff": null
+   },
+   "winner_agrees": {
+    "compared": 6,
+    "agree": 6
+   },
+   "score_agrees_with_reference": {
+    "compared": 6,
+    "agree": 6
+   }
+  },
+  "M|2019": {
+   "checked": 6,
+   "page_found": 6,
+   "with_points": 6,
+   "complete": 0,
+   "only_set_closing_missing": 6,
+   "other_shortfall": 0,
+   "no_points_on_page": 0,
+   "all_points_complete": 0,
+   "with_statistics": 6,
+   "not_found": 0,
+   "not_fetched": 0,
+   "page_not_200": 0,
+   "share_page_found": [
+    1.0,
+    [
+     0.61,
+     1.0
+    ]
+   ],
+   "share_with_points": [
+    1.0,
+    [
+     0.61,
+     1.0
+    ]
+   ],
+   "share_complete": [
+    0.0,
+    [
+     0.0,
+     0.39
+    ]
+   ],
+   "share_all_points_complete": [
+    0.0,
+    [
+     0.0,
+     0.39
+    ]
+   ],
+   "share_with_statistics": [
+    1.0,
+    [
+     0.61,
+     1.0
+    ]
+   ],
+   "of_pages_with_points": [
+    1.0,
+    [
+     0.61,
+     1.0
+    ]
+   ],
+   "of_point_records_complete": [
+    0.0,
+    [
+     0.0,
+     0.39
+    ]
+   ],
+   "games_with_points_share": {
+    "records": 6,
+    "median": 0.933,
+    "at_least_90pct": 5,
+    "at_least_75pct": 6,
+    "below_50pct": 0,
+    "zero": 0
+   },
+   "share_games_with_points_90": [
+    0.833,
+    [
+     0.436,
+     0.97
+    ]
+   ],
+   "found_via": {
+    "name1 listing (slug: plain-name)": 6
+   },
+   "box_score_check": {
+    "matches_compared": 0,
+    "all_fields_equal": 0,
+    "players_swapped": 0,
+    "fields_compared": 0,
+    "fields_equal": 0,
+    "max_abs_diff": null
+   },
+   "winner_agrees": {
+    "compared": 6,
+    "agree": 6
+   },
+   "score_agrees_with_reference": {
+    "compared": 6,
+    "agree": 6
+   }
+  },
+  "M|2020": {
+   "checked": 6,
+   "page_found": 6,
+   "with_points": 6,
+   "complete": 0,
+   "only_set_closing_missing": 3,
+   "other_shortfall": 3,
+   "no_points_on_page": 0,
+   "all_points_complete": 0,
+   "with_statistics": 6,
+   "not_found": 0,
+   "not_fetched": 0,
+   "page_not_200": 0,
+   "share_page_found": [
+    1.0,
+    [
+     0.61,
+     1.0
+    ]
+   ],
+   "share_with_points": [
+    1.0,
+    [
+     0.61,
+     1.0
+    ]
+   ],
+   "share_complete": [
+    0.0,
+    [
+     0.0,
+     0.39
+    ]
+   ],
+   "share_all_points_complete": [
+    0.0,
+    [
+     0.0,
+     0.39
+    ]
+   ],
+   "share_with_statistics": [
+    1.0,
+    [
+     0.61,
+     1.0
+    ]
+   ],
+   "of_pages_with_points": [
+    1.0,
+    [
+     0.61,
+     1.0
+    ]
+   ],
+   "of_point_records_complete": [
+    0.0,
+    [
+     0.0,
+     0.39
+    ]
+   ],
+   "games_with_points_share": {
+    "records": 6,
+    "median": 0.764,
+    "at_least_90pct": 3,
+    "at_least_75pct": 3,
+    "below_50pct": 1,
+    "zero": 0
+   },
+   "share_games_with_points_90": [
+    0.5,
+    [
+     0.188,
+     0.812
+    ]
+   ],
+   "found_via": {
+    "name1 listing (slug: plain-name)": 5,
+    "name2 listing (slug: plain-name)": 1
+   },
+   "box_score_check": {
+    "matches_compared": 0,
+    "all_fields_equal": 0,
+    "players_swapped": 0,
+    "fields_compared": 0,
+    "fields_equal": 0,
+    "max_abs_diff": null
+   },
+   "winner_agrees": {
+    "compared": 6,
+    "agree": 6
+   },
+   "score_agrees_with_reference": {
+    "compared": 6,
+    "agree": 6
+   }
+  },
+  "M|2021": {
+   "checked": 6,
+   "page_found": 6,
+   "with_points": 6,
+   "complete": 0,
+   "only_set_closing_missing": 6,
+   "other_shortfall": 0,
+   "no_points_on_page": 0,
+   "all_points_complete": 0,
+   "with_statistics": 6,
+   "not_found": 0,
+   "not_fetched": 0,
+   "page_not_200": 0,
+   "share_page_found": [
+    1.0,
+    [
+     0.61,
+     1.0
+    ]
+   ],
+   "share_with_points": [
+    1.0,
+    [
+     0.61,
+     1.0
+    ]
+   ],
+   "share_complete": [
+    0.0,
+    [
+     0.0,
+     0.39
+    ]
+   ],
+   "share_all_points_complete": [
+    0.0,
+    [
+     0.0,
+     0.39
+    ]
+   ],
+   "share_with_statistics": [
+    1.0,
+    [
+     0.61,
+     1.0
+    ]
+   ],
+   "of_pages_with_points": [
+    1.0,
+    [
+     0.61,
+     1.0
+    ]
+   ],
+   "of_point_records_complete": [
+    0.0,
+    [
+     0.0,
+     0.39
+    ]
+   ],
+   "games_with_points_share": {
+    "records": 6,
+    "median": 0.933,
+    "at_least_90pct": 6,
+    "at_least_75pct": 6,
+    "below_50pct": 0,
+    "zero": 0
+   },
+   "share_games_with_points_90": [
+    1.0,
+    [
+     0.61,
+     1.0
+    ]
+   ],
+   "found_via": {
+    "name1 listing (slug: plain-name)": 3,
+    "name2 listing (slug: plain-name; names matched loosely)": 2,
+    "name2 listing (slug: plain-name)": 1
+   },
+   "box_score_check": {
+    "matches_compared": 0,
+    "all_fields_equal": 0,
+    "players_swapped": 0,
+    "fields_compared": 0,
+    "fields_equal": 0,
+    "max_abs_diff": null
+   },
+   "winner_agrees": {
+    "compared": 6,
+    "agree": 6
+   },
+   "score_agrees_with_reference": {
+    "compared": 6,
+    "agree": 6
+   }
+  },
+  "M|2022": {
+   "checked": 6,
+   "page_found": 6,
+   "with_points": 5,
+   "complete": 0,
+   "only_set_closing_missing": 5,
+   "other_shortfall": 0,
+   "no_points_on_page": 1,
+   "all_points_complete": 0,
+   "with_statistics": 6,
+   "not_found": 0,
+   "not_fetched": 0,
+   "page_not_200": 0,
+   "share_page_found": [
+    1.0,
+    [
+     0.61,
+     1.0
+    ]
+   ],
+   "share_with_points": [
+    0.833,
+    [
+     0.436,
+     0.97
+    ]
+   ],
+   "share_complete": [
+    0.0,
+    [
+     0.0,
+     0.39
+    ]
+   ],
+   "share_all_points_complete": [
+    0.0,
+    [
+     0.0,
+     0.39
+    ]
+   ],
+   "share_with_statistics": [
+    1.0,
+    [
+     0.61,
+     1.0
+    ]
+   ],
+   "of_pages_with_points": [
+    0.833,
+    [
+     0.436,
+     0.97
+    ]
+   ],
+   "of_point_records_complete": [
+    0.0,
+    [
+     -0.0,
+     0.434
+    ]
+   ],
+   "games_with_points_share": {
+    "records": 6,
+    "median": 0.903,
+    "at_least_90pct": 3,
+    "at_least_75pct": 5,
+    "below_50pct": 1,
+    "zero": 1
+   },
+   "share_games_with_points_90": [
+    0.5,
+    [
+     0.188,
+     0.812
+    ]
+   ],
+   "found_via": {
+    "name2 listing (slug: plain-name)": 2,
+    "name1 listing (slug: plain-name)": 3,
+    "name1 listing (slug: searched)": 1
+   },
+   "box_score_check": {
+    "matches_compared": 0,
+    "all_fields_equal": 0,
+    "players_swapped": 0,
+    "fields_compared": 0,
+    "fields_equal": 0,
+    "max_abs_diff": null
+   },
+   "winner_agrees": {
+    "compared": 6,
+    "agree": 6
+   },
+   "score_agrees_with_reference": {
+    "compared": 6,
+    "agree": 6
+   }
+  },
+  "M|2023": {
+   "checked": 6,
+   "page_found": 6,
+   "with_points": 6,
+   "complete": 0,
+   "only_set_closing_missing": 6,
+   "other_shortfall": 0,
+   "no_points_on_page": 0,
+   "all_points_complete": 0,
+   "with_statistics": 6,
+   "not_found": 0,
+   "not_fetched": 0,
+   "page_not_200": 0,
+   "share_page_found": [
+    1.0,
+    [
+     0.61,
+     1.0
+    ]
+   ],
+   "share_with_points": [
+    1.0,
+    [
+     0.61,
+     1.0
+    ]
+   ],
+   "share_complete": [
+    0.0,
+    [
+     0.0,
+     0.39
+    ]
+   ],
+   "share_all_points_complete": [
+    0.0,
+    [
+     0.0,
+     0.39
+    ]
+   ],
+   "share_with_statistics": [
+    1.0,
+    [
+     0.61,
+     1.0
+    ]
+   ],
+   "of_pages_with_points": [
+    1.0,
+    [
+     0.61,
+     1.0
+    ]
+   ],
+   "of_point_records_complete": [
+    0.0,
+    [
+     0.0,
+     0.39
+    ]
+   ],
+   "games_with_points_share": {
+    "records": 6,
+    "median": 0.947,
+    "at_least_90pct": 5,
+    "at_least_75pct": 6,
+    "below_50pct": 0,
+    "zero": 0
+   },
+   "share_games_with_points_90": [
+    0.833,
+    [
+     0.436,
+     0.97
+    ]
+   ],
+   "found_via": {
+    "name1 listing (slug: plain-name)": 6
+   },
+   "box_score_check": {
+    "matches_compared": 0,
+    "all_fields_equal": 0,
+    "players_swapped": 0,
+    "fields_compared": 0,
+    "fields_equal": 0,
+    "max_abs_diff": null
+   },
+   "winner_agrees": {
+    "compared": 6,
+    "agree": 6
+   },
+   "score_agrees_with_reference": {
+    "compared": 6,
+    "agree": 6
+   }
+  },
+  "M|2024": {
+   "checked": 6,
+   "page_found": 6,
+   "with_points": 6,
+   "complete": 0,
+   "only_set_closing_missing": 5,
+   "other_shortfall": 1,
+   "no_points_on_page": 0,
+   "all_points_complete": 0,
+   "with_statistics": 6,
+   "not_found": 0,
+   "not_fetched": 0,
+   "page_not_200": 0,
+   "share_page_found": [
+    1.0,
+    [
+     0.61,
+     1.0
+    ]
+   ],
+   "share_with_points": [
+    1.0,
+    [
+     0.61,
+     1.0
+    ]
+   ],
+   "share_complete": [
+    0.0,
+    [
+     0.0,
+     0.39
+    ]
+   ],
+   "share_all_points_complete": [
+    0.0,
+    [
+     0.0,
+     0.39
+    ]
+   ],
+   "share_with_statistics": [
+    1.0,
+    [
+     0.61,
+     1.0
+    ]
+   ],
+   "of_pages_with_points": [
+    1.0,
+    [
+     0.61,
+     1.0
+    ]
+   ],
+   "of_point_records_complete": [
+    0.0,
+    [
+     0.0,
+     0.39
+    ]
+   ],
+   "games_with_points_share": {
+    "records": 6,
+    "median": 0.933,
+    "at_least_90pct": 5,
+    "at_least_75pct": 6,
+    "below_50pct": 0,
+    "zero": 0
+   },
+   "share_games_with_points_90": [
+    0.833,
+    [
+     0.436,
+     0.97
+    ]
+   ],
+   "found_via": {
+    "name1 listing (slug: plain-name)": 5,
+    "name2 listing (slug: plain-name)": 1
+   },
+   "box_score_check": {
+    "matches_compared": 0,
+    "all_fields_equal": 0,
+    "players_swapped": 0,
+    "fields_compared": 0,
+    "fields_equal": 0,
+    "max_abs_diff": null
+   },
+   "winner_agrees": {
+    "compared": 6,
+    "agree": 6
+   },
+   "score_agrees_with_reference": {
+    "compared": 6,
+    "agree": 6
+   }
+  },
+  "W|2018": {
+   "checked": 6,
+   "page_found": 3,
+   "with_points": 3,
+   "complete": 0,
+   "only_set_closing_missing": 3,
+   "other_shortfall": 0,
+   "no_points_on_page": 0,
+   "all_points_complete": 0,
+   "with_statistics": 3,
+   "not_found": 0,
+   "not_fetched": 0,
+   "page_not_200": 3,
+   "share_page_found": [
+    0.5,
+    [
+     0.188,
+     0.812
+    ]
+   ],
+   "share_with_points": [
+    0.5,
+    [
+     0.188,
+     0.812
+    ]
+   ],
+   "share_complete": [
+    0.0,
+    [
+     0.0,
+     0.39
+    ]
+   ],
+   "share_all_points_complete": [
+    0.0,
+    [
+     0.0,
+     0.39
+    ]
+   ],
+   "share_with_statistics": [
+    0.5,
+    [
+     0.188,
+     0.812
+    ]
+   ],
+   "of_pages_with_points": [
+    1.0,
+    [
+     0.438,
+     1.0
+    ]
+   ],
+   "of_point_records_complete": [
+    0.0,
+    [
+     0.0,
+     0.562
+    ]
+   ],
+   "games_with_points_share": {
+    "records": 3,
+    "median": 0.864,
+    "at_least_90pct": 0,
+    "at_least_75pct": 3,
+    "below_50pct": 0,
+    "zero": 0
+   },
+   "share_games_with_points_90": [
+    0.0,
+    [
+     0.0,
+     0.39
+    ]
+   ],
+   "found_via": {
+    "name1 listing (slug: plain-name)": 6
+   },
+   "box_score_check": {
+    "matches_compared": 0,
+    "all_fields_equal": 0,
+    "players_swapped": 0,
+    "fields_compared": 0,
+    "fields_equal": 0,
+    "max_abs_diff": null
+   },
+   "winner_agrees": {
+    "compared": 3,
+    "agree": 3
+   },
+   "score_agrees_with_reference": {
+    "compared": 3,
+    "agree": 3
+   }
+  },
+  "W|2019": {
+   "checked": 6,
+   "page_found": 6,
+   "with_points": 6,
+   "complete": 0,
+   "only_set_closing_missing": 3,
+   "other_shortfall": 3,
+   "no_points_on_page": 0,
+   "all_points_complete": 0,
+   "with_statistics": 6,
+   "not_found": 0,
+   "not_fetched": 0,
+   "page_not_200": 0,
+   "share_page_found": [
+    1.0,
+    [
+     0.61,
+     1.0
+    ]
+   ],
+   "share_with_points": [
+    1.0,
+    [
+     0.61,
+     1.0
+    ]
+   ],
+   "share_complete": [
+    0.0,
+    [
+     0.0,
+     0.39
+    ]
+   ],
+   "share_all_points_complete": [
+    0.0,
+    [
+     0.0,
+     0.39
+    ]
+   ],
+   "share_with_statistics": [
+    1.0,
+    [
+     0.61,
+     1.0
+    ]
+   ],
+   "of_pages_with_points": [
+    1.0,
+    [
+     0.61,
+     1.0
+    ]
+   ],
+   "of_point_records_complete": [
+    0.0,
+    [
+     0.0,
+     0.39
+    ]
+   ],
+   "games_with_points_share": {
+    "records": 6,
+    "median": 0.534,
+    "at_least_90pct": 2,
+    "at_least_75pct": 3,
+    "below_50pct": 3,
+    "zero": 0
+   },
+   "share_games_with_points_90": [
+    0.333,
+    [
+     0.097,
+     0.7
+    ]
+   ],
+   "found_via": {
+    "name1 listing (slug: plain-name)": 6
+   },
+   "box_score_check": {
+    "matches_compared": 0,
+    "all_fields_equal": 0,
+    "players_swapped": 0,
+    "fields_compared": 0,
+    "fields_equal": 0,
+    "max_abs_diff": null
+   },
+   "winner_agrees": {
+    "compared": 6,
+    "agree": 6
+   },
+   "score_agrees_with_reference": {
+    "compared": 6,
+    "agree": 6
+   }
+  },
+  "W|2020": {
+   "checked": 6,
+   "page_found": 6,
+   "with_points": 6,
+   "complete": 1,
+   "only_set_closing_missing": 4,
+   "other_shortfall": 1,
+   "no_points_on_page": 0,
+   "all_points_complete": 0,
+   "with_statistics": 6,
+   "not_found": 0,
+   "not_fetched": 0,
+   "page_not_200": 0,
+   "share_page_found": [
+    1.0,
+    [
+     0.61,
+     1.0
+    ]
+   ],
+   "share_with_points": [
+    1.0,
+    [
+     0.61,
+     1.0
+    ]
+   ],
+   "share_complete": [
+    0.167,
+    [
+     0.03,
+     0.564
+    ]
+   ],
+   "share_all_points_complete": [
+    0.0,
+    [
+     0.0,
+     0.39
+    ]
+   ],
+   "share_with_statistics": [
+    1.0,
+    [
+     0.61,
+     1.0
+    ]
+   ],
+   "of_pages_with_points": [
+    1.0,
+    [
+     0.61,
+     1.0
+    ]
+   ],
+   "of_point_records_complete": [
+    0.167,
+    [
+     0.03,
+     0.564
+    ]
+   ],
+   "games_with_points_share": {
+    "records": 6,
+    "median": 0.468,
+    "at_least_90pct": 0,
+    "at_least_75pct": 0,
+    "below_50pct": 4,
+    "zero": 0
+   },
+   "share_games_with_points_90": [
+    0.0,
+    [
+     0.0,
+     0.39
+    ]
+   ],
+   "found_via": {
+    "name1 listing (slug: plain-name)": 6
+   },
+   "box_score_check": {
+    "matches_compared": 0,
+    "all_fields_equal": 0,
+    "players_swapped": 0,
+    "fields_compared": 0,
+    "fields_equal": 0,
+    "max_abs_diff": null
+   },
+   "winner_agrees": {
+    "compared": 5,
+    "agree": 5
+   },
+   "score_agrees_with_reference": {
+    "compared": 6,
+    "agree": 6
+   }
+  },
+  "W|2021": {
+   "checked": 6,
+   "page_found": 6,
+   "with_points": 6,
+   "complete": 1,
+   "only_set_closing_missing": 4,
+   "other_shortfall": 1,
+   "no_points_on_page": 0,
+   "all_points_complete": 1,
+   "with_statistics": 6,
+   "not_found": 0,
+   "not_fetched": 0,
+   "page_not_200": 0,
+   "share_page_found": [
+    1.0,
+    [
+     0.61,
+     1.0
+    ]
+   ],
+   "share_with_points": [
+    1.0,
+    [
+     0.61,
+     1.0
+    ]
+   ],
+   "share_complete": [
+    0.167,
+    [
+     0.03,
+     0.564
+    ]
+   ],
+   "share_all_points_complete": [
+    0.167,
+    [
+     0.03,
+     0.564
+    ]
+   ],
+   "share_with_statistics": [
+    1.0,
+    [
+     0.61,
+     1.0
+    ]
+   ],
+   "of_pages_with_points": [
+    1.0,
+    [
+     0.61,
+     1.0
+    ]
+   ],
+   "of_point_records_complete": [
+    0.167,
+    [
+     0.03,
+     0.564
+    ]
+   ],
+   "games_with_points_share": {
+    "records": 6,
+    "median": 0.935,
+    "at_least_90pct": 4,
+    "at_least_75pct": 6,
+    "below_50pct": 0,
+    "zero": 0
+   },
+   "share_games_with_points_90": [
+    0.667,
+    [
+     0.3,
+     0.903
+    ]
+   ],
+   "found_via": {
+    "name1 listing (slug: plain-name)": 6
+   },
+   "box_score_check": {
+    "matches_compared": 0,
+    "all_fields_equal": 0,
+    "players_swapped": 0,
+    "fields_compared": 0,
+    "fields_equal": 0,
+    "max_abs_diff": null
+   },
+   "winner_agrees": {
+    "compared": 5,
+    "agree": 5
+   },
+   "score_agrees_with_reference": {
+    "compared": 6,
+    "agree": 6
+   }
+  },
+  "W|2022": {
+   "checked": 6,
+   "page_found": 6,
+   "with_points": 6,
+   "complete": 0,
+   "only_set_closing_missing": 6,
+   "other_shortfall": 0,
+   "no_points_on_page": 0,
+   "all_points_complete": 0,
+   "with_statistics": 6,
+   "not_found": 0,
+   "not_fetched": 0,
+   "page_not_200": 0,
+   "share_page_found": [
+    1.0,
+    [
+     0.61,
+     1.0
+    ]
+   ],
+   "share_with_points": [
+    1.0,
+    [
+     0.61,
+     1.0
+    ]
+   ],
+   "share_complete": [
+    0.0,
+    [
+     0.0,
+     0.39
+    ]
+   ],
+   "share_all_points_complete": [
+    0.0,
+    [
+     0.0,
+     0.39
+    ]
+   ],
+   "share_with_statistics": [
+    1.0,
+    [
+     0.61,
+     1.0
+    ]
+   ],
+   "of_pages_with_points": [
+    1.0,
+    [
+     0.61,
+     1.0
+    ]
+   ],
+   "of_point_records_complete": [
+    0.0,
+    [
+     0.0,
+     0.39
+    ]
+   ],
+   "games_with_points_share": {
+    "records": 6,
+    "median": 0.94,
+    "at_least_90pct": 5,
+    "at_least_75pct": 6,
+    "below_50pct": 0,
+    "zero": 0
+   },
+   "share_games_with_points_90": [
+    0.833,
+    [
+     0.436,
+     0.97
+    ]
+   ],
+   "found_via": {
+    "name1 listing (slug: plain-name)": 6
+   },
+   "box_score_check": {
+    "matches_compared": 0,
+    "all_fields_equal": 0,
+    "players_swapped": 0,
+    "fields_compared": 0,
+    "fields_equal": 0,
+    "max_abs_diff": null
+   },
+   "winner_agrees": {
+    "compared": 6,
+    "agree": 6
+   },
+   "score_agrees_with_reference": {
+    "compared": 6,
+    "agree": 6
+   }
+  },
+  "W|2023": {
+   "checked": 6,
+   "page_found": 6,
+   "with_points": 6,
+   "complete": 1,
+   "only_set_closing_missing": 5,
+   "other_shortfall": 0,
+   "no_points_on_page": 0,
+   "all_points_complete": 0,
+   "with_statistics": 6,
+   "not_found": 0,
+   "not_fetched": 0,
+   "page_not_200": 0,
+   "share_page_found": [
+    1.0,
+    [
+     0.61,
+     1.0
+    ]
+   ],
+   "share_with_points": [
+    1.0,
+    [
+     0.61,
+     1.0
+    ]
+   ],
+   "share_complete": [
+    0.167,
+    [
+     0.03,
+     0.564
+    ]
+   ],
+   "share_all_points_complete": [
+    0.0,
+    [
+     0.0,
+     0.39
+    ]
+   ],
+   "share_with_statistics": [
+    1.0,
+    [
+     0.61,
+     1.0
+    ]
+   ],
+   "of_pages_with_points": [
+    1.0,
+    [
+     0.61,
+     1.0
+    ]
+   ],
+   "of_point_records_complete": [
+    0.167,
+    [
+     0.03,
+     0.564
+    ]
+   ],
+   "games_with_points_share": {
+    "records": 6,
+    "median": 0.928,
+    "at_least_90pct": 5,
+    "at_least_75pct": 6,
+    "below_50pct": 0,
+    "zero": 0
+   },
+   "share_games_with_points_90": [
+    0.833,
+    [
+     0.436,
+     0.97
+    ]
+   ],
+   "found_via": {
+    "name2 listing (slug: plain-name)": 1,
+    "name1 listing (slug: plain-name)": 5
+   },
+   "box_score_check": {
+    "matches_compared": 0,
+    "all_fields_equal": 0,
+    "players_swapped": 0,
+    "fields_compared": 0,
+    "fields_equal": 0,
+    "max_abs_diff": null
+   },
+   "winner_agrees": {
+    "compared": 6,
+    "agree": 6
+   },
+   "score_agrees_with_reference": {
+    "compared": 6,
+    "agree": 6
+   }
+  },
+  "W|2024": {
+   "checked": 6,
+   "page_found": 6,
+   "with_points": 6,
+   "complete": 0,
+   "only_set_closing_missing": 5,
+   "other_shortfall": 1,
+   "no_points_on_page": 0,
+   "all_points_complete": 0,
+   "with_statistics": 6,
+   "not_found": 0,
+   "not_fetched": 0,
+   "page_not_200": 0,
+   "share_page_found": [
+    1.0,
+    [
+     0.61,
+     1.0
+    ]
+   ],
+   "share_with_points": [
+    1.0,
+    [
+     0.61,
+     1.0
+    ]
+   ],
+   "share_complete": [
+    0.0,
+    [
+     0.0,
+     0.39
+    ]
+   ],
+   "share_all_points_complete": [
+    0.0,
+    [
+     0.0,
+     0.39
+    ]
+   ],
+   "share_with_statistics": [
+    1.0,
+    [
+     0.61,
+     1.0
+    ]
+   ],
+   "of_pages_with_points": [
+    1.0,
+    [
+     0.61,
+     1.0
+    ]
+   ],
+   "of_point_records_complete": [
+    0.0,
+    [
+     0.0,
+     0.39
+    ]
+   ],
+   "games_with_points_share": {
+    "records": 6,
+    "median": 0.939,
+    "at_least_90pct": 4,
+    "at_least_75pct": 6,
+    "below_50pct": 0,
+    "zero": 0
+   },
+   "share_games_with_points_90": [
+    0.667,
+    [
+     0.3,
+     0.903
+    ]
+   ],
+   "found_via": {
+    "name1 listing (slug: plain-name)": 6
+   },
+   "box_score_check": {
+    "matches_compared": 0,
+    "all_fields_equal": 0,
+    "players_swapped": 0,
+    "fields_compared": 0,
+    "fields_equal": 0,
+    "max_abs_diff": null
+   },
+   "winner_agrees": {
+    "compared": 5,
+    "agree": 5
+   },
+   "score_agrees_with_reference": {
+    "compared": 6,
+    "agree": 6
+   }
+  }
+ },
+ "all": {
+  "checked": 226,
+  "page_found": 223,
+  "with_points": 222,
+  "complete": 8,
+  "only_set_closing_missing": 191,
+  "other_shortfall": 23,
+  "no_points_on_page": 1,
+  "all_points_complete": 2,
+  "with_statistics": 223,
+  "not_found": 0,
+  "not_fetched": 0,
+  "page_not_200": 3,
+  "share_page_found": [
+   0.987,
+   [
+    0.962,
+    0.995
+   ]
+  ],
+  "share_with_points": [
+   0.982,
+   [
+    0.955,
+    0.993
+   ]
+  ],
+  "share_complete": [
+   0.035,
+   [
+    0.018,
+    0.068
+   ]
+  ],
+  "share_all_points_complete": [
+   0.009,
+   [
+    0.002,
+    0.032
+   ]
+  ],
+  "share_with_statistics": [
+   0.987,
+   [
+    0.962,
+    0.995
+   ]
+  ],
+  "of_pages_with_points": [
+   0.996,
+   [
+    0.975,
+    0.999
+   ]
+  ],
+  "of_point_records_complete": [
+   0.036,
+   [
+    0.018,
+    0.069
+   ]
+  ],
+  "games_with_points_share": {
+   "records": 223,
+   "median": 0.885,
+   "at_least_90pct": 92,
+   "at_least_75pct": 201,
+   "below_50pct": 15,
+   "zero": 1
+  },
+  "share_games_with_points_90": [
+   0.407,
+   [
+    0.345,
+    0.472
+   ]
+  ],
+  "found_via": {
+   "name1 listing (slug: plain-name)": 191,
+   "name2 listing (slug: plain-name)": 21,
+   "name1 listing (slug: seen in another listing)": 6,
+   "name2 listing (slug: seen in another listing)": 4,
+   "name2 listing (slug: plain-name; names matched loosely)": 2,
+   "name1 listing (slug: searched)": 2
+  },
+  "box_score_check": {
+   "matches_compared": 141,
+   "all_fields_equal": 126,
+   "players_swapped": 2,
+   "fields_compared": 2252,
+   "fields_equal": 2176,
+   "max_abs_diff": 32
+  },
+  "winner_agrees": {
+   "compared": 217,
+   "agree": 217
+  },
+  "score_agrees_with_reference": {
+   "compared": 223,
+   "agree": 223
+  }
+ },
+ "notes_on_intervals": "Wilson 95% intervals treat the checked matches as independent draws. They are not: matches come in clusters of 2-4 per drawn edition, and coverage tends to be shared by a tournament's matches, so the intervals are too narrow; 'editions' shows how the outcome falls by edition. 'weighted_to_gap' weights each stratum by its number of gap matches (sample_editions.csv), which the raw shares do not.",
+ "requests": {
+  "total": 449,
+  "budget": 1000,
+  "by_kind_status": {
+   "listing|200": 210,
+   "listing|403": 1,
+   "listing|404": 4,
+   "match page|200": 223,
+   "page|200": 4,
+   "script|200": 2,
+   "search|200": 5
+  },
+  "refusals": [
+   {
+    "at": "2026-09-29T17:43:52+00:00",
+    "url": "https://www.tennislive.net/api/player-matches?tour=atp&slug=nicolae-frunza&discipline=singles&year=2018&surface=all&offset=0",
+    "status": 403,
+    "note": null
+   }
+  ],
+  "first_at": "2026-09-29T17:41:25+00:00",
+  "last_at": "2026-09-29T18:20:55+00:00"
+ },
+ "exploration": "The ledger's first six requests (29 Sep 2026, 17:41-17:45 UTC) were made by hand before the probe ran: a player page (/atp/nicolae-frunza/), the site scripts /Frontend/assets/js/shell.js and app.js (to read how the search box calls /api/search), one /api/player-matches call that reused the token of a page fetched in an earlier Python session and was refused with HTTP 403 (no Cloudflare challenge; the adapter always reads the token from a page fetched in the same session), then the player page and the same API call in one session, which answered 200. The 403 is counted as a session-token error, not a block.",
+ "runs": [
+  {
+   "started_at": "2026-09-29T17:51:59+00:00",
+   "finished_at": "2026-09-29T17:52:22+00:00",
+   "seconds": 23.8,
+   "stopped": null,
+   "client": {
+    "impersonate": "safari",
+    "requests": 10,
+    "retried": 0,
+    "slept_seconds": 12.9,
+    "min_interval": 2.0,
+    "jitter": 1.0,
+    "by_kind": {
+     "page": 1,
+     "listing": 4,
+     "match page": 5
+    },
+    "lane_requests_before_run": 6,
+    "lane_requests_after_run": 16,
+    "lane_budget": 1000
+   },
+   "args": {
+    "gaps": null,
+    "limit": 5,
+    "min_interval": 2.0,
+    "jitter": 1.0,
+    "offline": false
+   },
+   "matches_processed": 5
+  },
+  {
+   "started_at": "2026-09-29T17:53:31+00:00",
+   "finished_at": "2026-09-29T18:16:11+00:00",
+   "seconds": 1360.2,
+   "stopped": null,
+   "client": {
+    "impersonate": "safari",
+    "requests": 431,
+    "retried": 0,
+    "slept_seconds": 1047.1,
+    "min_interval": 2.0,
+    "jitter": 1.0,
+    "by_kind": {
+     "page": 1,
+     "listing": 209,
+     "match page": 216,
+     "search": 5
+    },
+    "lane_requests_before_run": 16,
+    "lane_requests_after_run": 447,
+    "lane_budget": 1000
+   },
+   "args": {
+    "gaps": null,
+    "limit": null,
+    "min_interval": 2.0,
+    "jitter": 1.0,
+    "offline": false
+   },
+   "matches_processed": 226
+  },
+  {
+   "started_at": "2026-09-29T18:20:40+00:00",
+   "finished_at": "2026-09-29T18:21:06+00:00",
+   "seconds": 25.6,
+   "stopped": null,
+   "client": {
+    "impersonate": "safari",
+    "requests": 2,
+    "retried": 0,
+    "slept_seconds": 2.3,
+    "min_interval": 2.0,
+    "jitter": 1.0,
+    "by_kind": {
+     "match page": 2
+    },
+    "lane_requests_before_run": 447,
+    "lane_requests_after_run": 449,
+    "lane_budget": 1000
+   },
+   "args": {
+    "gaps": null,
+    "limit": null,
+    "min_interval": 2.0,
+    "jitter": 1.0,
+    "offline": false
+   },
+   "matches_processed": 226
+  }
+ ],
+ "this_run": {
+  "started_at": "2026-09-29T18:29:28+00:00",
+  "finished_at": "2026-09-29T18:29:43+00:00",
+  "seconds": 14.7,
+  "stopped": null,
+  "client": "offline",
+  "args": {
+   "gaps": null,
+   "limit": null,
+   "min_interval": 2.0,
+   "jitter": 1.0,
+   "offline": true
+  },
+  "matches_processed": 226
+ },
+ "generated_at": "2026-09-29T18:29:43+00:00"
+}

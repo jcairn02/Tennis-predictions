@@ -1,0 +1,206 @@
+{
+ "p_exactly_0.5": 103,
+ "p_exactly_0.5_by_split": {
+  "test": 37,
+  "train": 66
+ },
+ "p_exactly_0.5_share_by_season": {
+  "atp": {
+   "2013": 0.0,
+   "2014": 0.0012,
+   "2015": 0.0015,
+   "2016": 0.0031,
+   "2017": 0.0004,
+   "2018": NaN,
+   "2019": 0.0008,
+   "2020": 0.0024,
+   "2021": 0.0008,
+   "2022": 0.0,
+   "2023": 0.0011,
+   "2024": 0.0015,
+   "2025": 0.0027,
+   "2026": 0.0006
+  },
+  "wta": {
+   "2013": 0.0021,
+   "2014": 0.0024,
+   "2015": 0.0008,
+   "2016": 0.0016,
+   "2017": 0.002,
+   "2018": 0.0029,
+   "2019": 0.0024,
+   "2020": 0.0029,
+   "2021": 0.0022,
+   "2022": 0.0034,
+   "2023": 0.0016,
+   "2024": 0.0004,
+   "2025": 0.0024,
+   "2026": 0.0018
+  }
+ },
+ "p_exactly_0.5_odds_values": {
+  "1.89": 42,
+  "1.9": 25,
+  "1.88": 24,
+  "1.91": 7,
+  "1.87": 4,
+  "1.92": 1
+ },
+ "same_odds_pair_ge4_in_one_event": [
+  {
+   "tour": "atp",
+   "season": 2020,
+   "tournament_id": "2020-M024",
+   "pair": "2.36/1.59",
+   "n": 4
+  },
+  {
+   "tour": "atp",
+   "season": 2022,
+   "tournament_id": "2022-580",
+   "pair": "2.53/1.52",
+   "n": 4
+  },
+  {
+   "tour": "wta",
+   "season": 2015,
+   "tournament_id": "2015-W-P700-GBR-1A-2015",
+   "pair": "2.16/1.67",
+   "n": 4
+  },
+  {
+   "tour": "wta",
+   "season": 2019,
+   "tournament_id": "2019-M009",
+   "pair": "2.19/1.68",
+   "n": 4
+  }
+ ],
+ "p_lt_0.02_or_gt_0.98": 0,
+ "p_lt_0.05_or_gt_0.95": 251,
+ "p_quantiles": {
+  "0.0": 0.0283,
+  "0.001": 0.04458,
+  "0.01": 0.07914,
+  "0.5": 0.49868,
+  "0.99": 0.92168,
+  "0.999": 0.95518,
+  "1.0": 0.97575
+ },
+ "max_avg_odds_quantiles": {
+  "0.5": 2.78,
+  "0.99": 15.096399999999994,
+  "0.999": 23.39584000000017,
+  "1.0": 40.64
+ },
+ "avg_odds_ge_20": 195,
+ "extreme_rows": [
+  {
+   "match_id": "atp|2014-451|R32|atp:104918|atp:110476",
+   "tabpfn_split": "train",
+   "tournament_name": "Doha",
+   "round": "R32",
+   "name_a": "Mousa Shanan Zayed",
+   "name_b": "Andy Murray",
+   "rank_a": 2129.0,
+   "rank_b": 4.0,
+   "a_won": false,
+   "avg_a": 34.46,
+   "avg_b": 1.01,
+   "ps_a": 76.0,
+   "ps_b": 1.01,
+   "b365_a": 51.0,
+   "b365_b": NaN,
+   "p_mkt": 0.028,
+   "p_elo": 0.001
+  },
+  {
+   "match_id": "atp|2023-560|R128|atp:105226|atp:106421",
+   "tabpfn_split": "test",
+   "tournament_name": "Us Open",
+   "round": "R128",
+   "name_a": "Attila Balazs",
+   "name_b": "Daniil Medvedev",
+   "rank_a": NaN,
+   "rank_b": 3.0,
+   "a_won": false,
+   "avg_a": 34.68,
+   "avg_b": 1.01,
+   "ps_a": 64.19,
+   "ps_b": 1.01,
+   "b365_a": 67.0,
+   "b365_b": NaN,
+   "p_mkt": 0.028,
+   "p_elo": 0.037
+  },
+  {
+   "match_id": "atp|2025-520|R32|atp:106000|atp:207989",
+   "tabpfn_split": "test",
+   "tournament_name": "Roland Garros",
+   "round": "R32",
+   "name_a": "Carlos Alcaraz",
+   "name_b": "Damir Dzumhur",
+   "rank_a": 2.0,
+   "rank_b": 69.0,
+   "a_won": true,
+   "avg_a": 1.01,
+   "avg_b": 33.42,
+   "ps_a": NaN,
+   "ps_b": 90.33,
+   "b365_a": 1.01,
+   "b365_b": 34.0,
+   "p_mkt": 0.971,
+   "p_elo": 0.948
+  },
+  {
+   "match_id": "atp|2026-580|R32|atp:206173|atp:208118",
+   "tabpfn_split": "test",
+   "tournament_name": "Australian Open",
+   "round": "R32",
+   "name_a": "Eliot Spizzirri",
+   "name_b": "Jannik Sinner",
+   "rank_a": 85.0,
+   "rank_b": 2.0,
+   "a_won": false,
+   "avg_a": 33.15,
+   "avg_b": 1.01,
+   "ps_a": NaN,
+   "ps_b": NaN,
+   "b365_a": 41.0,
+   "b365_b": NaN,
+   "p_mkt": 0.03,
+   "p_elo": 0.054
+  },
+  {
+   "match_id": "atp|2026-520|R128|atp:202127|atp:206173",
+   "tabpfn_split": "test",
+   "tournament_name": "Roland Garros",
+   "round": "R128",
+   "name_a": "Jannik Sinner",
+   "name_b": "Clement Tabur",
+   "rank_a": 1.0,
+   "rank_b": 171.0,
+   "a_won": true,
+   "avg_a": 1.01,
+   "avg_b": 40.64,
+   "ps_a": NaN,
+   "ps_b": NaN,
+   "b365_a": NaN,
+   "b365_b": 67.0,
+   "p_mkt": 0.976,
+   "p_elo": 0.983
+  }
+ ],
+ "extreme_rows_upsets": 0,
+ "frame_overround_quantiles": {
+  "0.0": 1.0001,
+  "0.001": 1.0301,
+  "0.01": 1.0427,
+  "0.5": 1.0572,
+  "0.99": 1.0669,
+  "0.999": 1.0703,
+  "1.0": 1.1629
+ },
+ "frame_overround_lt_1.02": 16,
+ "frame_overround_gt_1.10": 2
+}

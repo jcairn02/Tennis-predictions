@@ -1,6 +1,6 @@
 # Public data dump coverage tables
 
-Generated 2026-09-22T22:35:29+00:00 by src/ingest/public_dump/build_manifest.py from the staged Parquet files. Dates are the verbatim min/max of the named column (tournament-week dates for Sackmann/TML, match dates for tennis-data.co.uk, scheduled UTC for the Live Tennis API index); row counts are physical rows.
+Generated 2026-10-05T20:39:18+00:00 by src/ingest/public_dump/build_manifest.py from the staged Parquet files. Dates are the verbatim min/max of the named column (tournament-week dates for Sackmann/TML, match dates for tennis-data.co.uk, scheduled UTC for the Live Tennis API index); row counts are physical rows.
 
 ## By branch and source
 
@@ -10,15 +10,26 @@ Generated 2026-09-22T22:35:29+00:00 by src/ingest/public_dump/build_manifest.py 
 | matches | open_tennis_data | 10 | 110,262 | 3.7 | 2020-01-05 | 2026-08-29 |  |
 | matches | sackmann_archive | 96 | 882,094 | 28.7 | 20091228 | 20260602 |  |
 | matches | tennis_my_life | 104 | 304,076 | 14.8 | 20000103 | 20260921 |  |
-| odds | polymarket | 86 | 62,720,194 | 253.6 | 2024-01-28T00:00:00+00:00 | 2027-12-31T23:59:00+00:00 |  |
-| odds | tennis_data_couk | 229 | 106,996 | 7.0 | 2000-01-03 | 2029-07-20 | wayback=229 |
+| odds | polymarket | 106 | 107,278,324 | 1201.8 | 2024-01-28T00:00:00+00:00 | 2027-12-31T23:59:00+00:00 |  |
+| odds | tennis_data_couk | 234 | 110,511 | 7.2 | 2000-01-03 | 2026-09-29 | wayback=51, live=183 |
 | players | live_tennis_api_zenodo | 1 | 32,678 | 0.6 |  |  |  |
 | players | open_tennis_data | 1 | 1,216 | 0.0 |  |  |  |
 | players | sackmann_archive | 2 | 137,483 | 2.3 |  |  |  |
 | players | tennis_my_life | 1 | 12,903 | 0.5 |  |  |  |
+| points | ausopen | 4 | 300,389 | 3.9 | 2019-01-08 | 2026-02-01 |  |
 | points | live_tennis_api_zenodo | 1 | 951,064 | 11.7 | 2026-06-01 12:09:27.301627 | 2026-07-01 03:32:34.811345 |  |
 | points | match_charting_project | 38 | 4,537,499 | 48.2 | 19600529 | 20260909 |  |
 | points | sackmann_archive | 166 | 2,328,041 | 35.6 | 2011 | 2024 |  |
+| points | sirgenkii_infotennis | 6 | 239,526 | 2.7 |  |  |  |
+| points | slam_ball_tracking | 25 | 5,476,981 | 118.0 |  |  |  |
+| points | sofascore | 3 | 550,989 | 4.6 |  |  |  |
+| points | sofascore_editions | 3 | 696,063 | 5.3 |  |  |  |
+| points | sofascore_tournaments | 3 | 397,192 | 3.1 |  |  |  |
+| points | tdi | 9 | 1,368,299 | 24.2 | 00075570 | 99678417 |  |
+| points | tennislive | 5 | 488,915 | 4.0 |  |  |  |
+| points | usopen | 8 | 3,113,143 | 37.7 |  |  |  |
+| points | wimbledon | 5 | 4,655,774 | 51.5 |  |  |  |
+| points | wta | 56 | 36,640,278 | 468.7 | 2016-01-03 | 2026-12-14 |  |
 | rankings | sackmann_archive | 6 | 2,537,744 | 14.5 | 20100101 | 20260608 |  |
 | rankings | tennis_my_life | 1 | 2,298 | 0.0 |  |  |  |
 
@@ -122,57 +133,57 @@ Generated 2026-09-22T22:35:29+00:00 by src/ingest/public_dump/build_manifest.py 
 
 | Value | Rows |
 |---|---:|
-| itf | 20,593,357 |
-| challenger_125_inferred | 14,630,051 |
-| doubles | 8,157,407 |
-| tour_1000 | 4,068,897 |
-| slam_main | 3,937,653 |
-| tour_250 | 3,621,051 |
-| tour_500 | 2,422,151 |
-| tour_qualifying | 2,012,016 |
-| slam_juniors | 1,550,613 |
-| slam_qualifying | 1,390,669 |
-| tour_finals | 222,032 |
-| team_exhibition | 63,068 |
-| ITF World Tennis Tour | 17,930 |
-| None | 11,766 |
-| Challenger / WTA 125 (inferred from bare names) | 7,021 |
-| Doubles (all tiers) | 2,794 |
+| challenger_125_inferred | 28,947,519 |
+| itf | 27,675,427 |
+| tour_1000 | 9,917,105 |
+| doubles | 9,039,988 |
+| slam_main | 8,178,783 |
+| tour_250 | 8,008,219 |
+| tour_500 | 6,111,913 |
+| tour_qualifying | 4,628,764 |
+| slam_qualifying | 2,498,604 |
+| slam_juniors | 1,558,033 |
+| tour_finals | 382,982 |
+| team_exhibition | 116,976 |
+| ITF World Tennis Tour | 20,594 |
+| None | 11,609 |
+| Challenger / WTA 125 (inferred from bare names) | 7,628 |
+| Doubles (all tiers) | 3,076 |
 | other | 1,833 |
-| Main-tour qualifying (1000/500/250) | 1,699 |
-| Masters 1000 / WTA 1000 (main draw) | 1,660 |
-| ATP 250 / WTA 250 (main draw) | 1,538 |
+| Main-tour qualifying (1000/500/250) | 1,791 |
+| Masters 1000 / WTA 1000 (main draw) | 1,742 |
+| ATP 250 / WTA 250 (main draw) | 1,609 |
 | outrights | 1,154 |
-| ATP 500 / WTA 500 (main draw) | 1,017 |
+| ATP 500 / WTA 500 (main draw) | 1,091 |
 | Grand Slam singles (main draw) | 1,007 |
 | Grand Slam qualifying | 832 |
 | Grand Slam juniors | 692 |
 | Props, exact-score wrappers & other | 159 |
+| Team events & exhibitions | 67 |
 | Tour Finals (ATP/WTA/Next Gen) | 51 |
-| Team events & exhibitions | 50 |
 | Tournament-winner futures (mostly Slams) | 26 |
 
 ### odds/tennis_data_couk
 
 | Value | Rows |
 |---|---:|
-| Grand Slam | 21,336 |
+| Grand Slam | 22,098 |
 | International | 19,747 |
-| ATP250 | 17,861 |
+| ATP250 | 19,074 |
 | Premier | 10,432 |
-| Masters 1000 | 9,458 |
-| ATP500 | 6,705 |
-| WTA250 | 4,697 |
-| WTA1000 | 3,616 |
+| Masters 1000 | 10,215 |
+| ATP500 | 7,140 |
+| WTA250 | 4,759 |
+| WTA1000 | 3,806 |
 | Masters | 3,418 |
-| WTA500 | 2,624 |
+| WTA500 | 2,705 |
 | International Gold | 2,537 |
 | Tier 3 | 1,115 |
 | Tier 1 | 1,065 |
 | Tier 2 | 895 |
 | Tier 4 | 774 |
 | Tour Championships | 360 |
-| Masters Cup | 330 |
+| Masters Cup | 345 |
 | WTA251 | 1 |
 | WTA252 | 1 |
 | WTA253 | 1 |
@@ -196,6 +207,30 @@ Generated 2026-09-22T22:35:29+00:00 by src/ingest/public_dump/build_manifest.py 
 | WTA271 | 1 |
 | WTA272 | 1 |
 | WTA273 | 1 |
+
+### points/tdi
+
+| Value | Rows |
+|---|---:|
+| challenger | 4,534 |
+| tour | 1,024 |
+| unknown | 538 |
+
+### points/wta
+
+| Value | Rows |
+|---|---:|
+| WTA 125 | 228 |
+| WTA 250 | 154 |
+| International | 126 |
+| WTA 500 | 90 |
+| WTA 1000 | 54 |
+| Premier | 45 |
+| Grand Slam | 40 |
+| 125K | 40 |
+| Premier 5 | 20 |
+| Premier Mandatory | 16 |
+| Finals | 15 |
 
 ## Every staged file
 
@@ -412,8 +447,8 @@ Generated 2026-09-22T22:35:29+00:00 by src/ingest/public_dump/build_manifest.py 
 | data/dump/matches/tennis_my_life/wta_main/2024_wta.parquet | 2,658 | tourney_date | 20231229 | 20241115 | 0/0 |  |
 | data/dump/matches/tennis_my_life/wta_main/2025_wta.parquet | 2,622 | tourney_date | 20241230 | 20251114 | 0/0 |  |
 | data/dump/matches/tennis_my_life/wta_main/2026_wta.parquet | 2,153 | tourney_date | 20260104 | 20260921 | 0/0 |  |
-| data/dump/odds/polymarket/event_index.parquet | 37,680 | sport_date | 2024-01-28T00:00:00+00:00 | 2027-12-31T23:59:00+00:00 | 0/0 |  |
-| data/dump/odds/polymarket/market_index.parquet | 464,266 | gameStartTime | 2024-07-12 14:30:00+00 | 2026-09-24 13:00:00+00 | 0/0 |  |
+| data/dump/odds/polymarket/event_index.parquet | 41,593 | sport_date | 2024-01-28T00:00:00+00:00 | 2027-12-31T23:59:00+00:00 | 0/0 |  |
+| data/dump/odds/polymarket/market_index.parquet | 523,609 | gameStartTime | 2024-07-12 14:30:00+00 | 2026-10-07 09:00:00+00 | 0/0 |  |
 | data/dump/odds/polymarket/price_history/challenger_125_inferred/2025-10.parquet | 105,958 | sport_date | 2025-10-11T09:00:00+00:00 | 2025-10-19T13:00:00+00:00 | 0/0 |  |
 | data/dump/odds/polymarket/price_history/challenger_125_inferred/2026-02.parquet | 910,411 | sport_date | 2026-02-13T12:30:00+00:00 | 2026-02-28T16:05:00+00:00 | 0/0 |  |
 | data/dump/odds/polymarket/price_history/challenger_125_inferred/2026-03.parquet | 1,827,838 | sport_date | 2026-03-01T09:45:00+00:00 | 2026-03-31T22:15:00+00:00 | 0/0 |  |
@@ -422,17 +457,20 @@ Generated 2026-09-22T22:35:29+00:00 by src/ingest/public_dump/build_manifest.py 
 | data/dump/odds/polymarket/price_history/challenger_125_inferred/2026-06.parquet | 2,006,949 | sport_date | 2026-06-01T08:00:00+00:00 | 2026-06-30T23:40:00+00:00 | 0/0 |  |
 | data/dump/odds/polymarket/price_history/challenger_125_inferred/2026-07.parquet | 2,064,726 | sport_date | 2026-07-01T01:10:00+00:00 | 2026-07-31T23:40:00+00:00 | 0/0 |  |
 | data/dump/odds/polymarket/price_history/challenger_125_inferred/2026-08.parquet | 1,564,900 | sport_date | 2026-08-01T08:00:00+00:00 | 2026-08-31T15:35:00+00:00 | 0/0 |  |
-| data/dump/odds/polymarket/price_history/challenger_125_inferred/2026-09.parquet | 2,265,431 | sport_date | 2026-09-01T03:00:00+00:00 | 2026-09-22T22:15:00+00:00 | 0/0 |  |
+| data/dump/odds/polymarket/price_history/challenger_125_inferred/2026-09.parquet | 2,979,571 | sport_date | 2026-09-01T03:00:00+00:00 | 2026-09-30T21:35:00+00:00 | 0/0 |  |
+| data/dump/odds/polymarket/price_history/challenger_125_inferred/2026-10.parquet | 309,957 | sport_date | 2026-10-01T03:05:00+00:00 | 2026-10-05T19:10:00+00:00 | 0/0 |  |
 | data/dump/odds/polymarket/price_history/doubles/2026-05.parquet | 1,102,928 | sport_date | 2026-05-13T18:00:00+00:00 | 2026-05-31T12:00:00+00:00 | 0/0 |  |
 | data/dump/odds/polymarket/price_history/doubles/2026-06.parquet | 1,913,834 | sport_date | 2026-06-01T09:00:00+00:00 | 2026-06-30T15:00:00+00:00 | 0/0 |  |
 | data/dump/odds/polymarket/price_history/doubles/2026-07.parquet | 2,199,515 | sport_date | 2026-07-01T10:00:00+00:00 | 2026-07-31T22:30:00+00:00 | 0/0 |  |
 | data/dump/odds/polymarket/price_history/doubles/2026-08.parquet | 1,275,136 | sport_date | 2026-08-01T00:00:00+00:00 | 2026-08-29T21:00:00+00:00 | 0/0 |  |
-| data/dump/odds/polymarket/price_history/doubles/2026-09.parquet | 1,629,284 | sport_date | 2026-09-01T04:00:00+00:00 | 2026-09-22T17:00:00+00:00 | 0/0 |  |
+| data/dump/odds/polymarket/price_history/doubles/2026-09.parquet | 2,140,150 | sport_date | 2026-09-01T04:00:00+00:00 | 2026-09-30T17:30:00+00:00 | 0/0 |  |
+| data/dump/odds/polymarket/price_history/doubles/2026-10.parquet | 192,250 | sport_date | 2026-10-01T01:00:00+00:00 | 2026-10-05T13:30:00+00:00 | 0/0 |  |
 | data/dump/odds/polymarket/price_history/itf/2026-05.parquet | 2,347,764 | sport_date | 2026-05-13T18:36:54+00:00 | 2026-05-31T17:00:00+00:00 | 0/0 |  |
 | data/dump/odds/polymarket/price_history/itf/2026-06.parquet | 3,264,684 | sport_date | 2026-06-01T17:00:00+00:00 | 2026-06-30T23:15:00+00:00 | 0/0 |  |
 | data/dump/odds/polymarket/price_history/itf/2026-07.parquet | 3,955,476 | sport_date | 2026-07-01T01:00:00+00:00 | 2026-07-31T19:00:00+00:00 | 0/0 |  |
 | data/dump/odds/polymarket/price_history/itf/2026-08.parquet | 4,513,507 | sport_date | 2026-08-01T01:00:00+00:00 | 2026-08-31T18:00:00+00:00 | 0/0 |  |
-| data/dump/odds/polymarket/price_history/itf/2026-09.parquet | 6,273,096 | sport_date | 2026-09-01T00:00:00+00:00 | 2026-09-22T20:30:00+00:00 | 0/0 |  |
+| data/dump/odds/polymarket/price_history/itf/2026-09.parquet | 8,598,653 | sport_date | 2026-09-01T00:00:00+00:00 | 2026-09-30T20:00:00+00:00 | 0/0 |  |
+| data/dump/odds/polymarket/price_history/itf/2026-10.parquet | 1,597,913 | sport_date | 2026-10-01T00:00:00+00:00 | 2026-10-05T20:00:00+00:00 | 0/0 |  |
 | data/dump/odds/polymarket/price_history/slam_juniors/2026-01.parquet | 315,067 | sport_date | 2026-01-24T00:00:00+00:00 | 2026-01-31T02:30:00+00:00 | 0/0 |  |
 | data/dump/odds/polymarket/price_history/slam_juniors/2026-02.parquet | 3,070 | sport_date | 2026-02-01T00:00:00+00:00 | 2026-02-01T00:00:00+00:00 | 0/0 |  |
 | data/dump/odds/polymarket/price_history/slam_juniors/2026-05.parquet | 97,047 | sport_date | 2026-05-31T09:00:00+00:00 | 2026-05-31T17:20:00+00:00 | 0/0 |  |
@@ -452,7 +490,7 @@ Generated 2026-09-22T22:35:29+00:00 by src/ingest/public_dump/build_manifest.py 
 | data/dump/odds/polymarket/price_history/slam_qualifying/2026-08.parquet | 455,117 | sport_date | 2026-08-24T15:00:00+00:00 | 2026-08-28T17:45:00+00:00 | 0/0 |  |
 | data/dump/odds/polymarket/price_history/team_exhibition/2025-09.parquet | 1,130 | sport_date | 2025-09-21T00:00:00+00:00 | 2025-09-21T00:00:00+00:00 | 0/0 |  |
 | data/dump/odds/polymarket/price_history/team_exhibition/2025-10.parquet | 2,154 | sport_date | 2025-10-18T18:00:00+00:00 | 2025-10-18T18:00:00+00:00 | 0/0 |  |
-| data/dump/odds/polymarket/price_history/team_exhibition/2026-09.parquet | 59,615 | sport_date | 2026-09-02T02:00:00+00:00 | 2026-09-20T17:20:00+00:00 | 0/0 |  |
+| data/dump/odds/polymarket/price_history/team_exhibition/2026-09.parquet | 76,109 | sport_date | 2026-09-02T02:00:00+00:00 | 2026-09-27T16:45:00+00:00 | 0/0 |  |
 | data/dump/odds/polymarket/price_history/tour_1000/2025-09.parquet | 292,776 | sport_date | 2025-09-23T00:00:00+00:00 | 2025-09-30T00:00:00+00:00 | 0/0 |  |
 | data/dump/odds/polymarket/price_history/tour_1000/2025-10.parquet | 426,838 | sport_date | 2025-10-01T00:00:00+00:00 | 2025-10-31T19:30:00+00:00 | 0/0 |  |
 | data/dump/odds/polymarket/price_history/tour_1000/2025-11.parquet | 3,441 | sport_date | 2025-11-01T13:30:00+00:00 | 2025-11-02T14:00:00+00:00 | 0/0 |  |
@@ -461,6 +499,8 @@ Generated 2026-09-22T22:35:29+00:00 by src/ingest/public_dump/build_manifest.py 
 | data/dump/odds/polymarket/price_history/tour_1000/2026-04.parquet | 628,468 | sport_date | 2026-04-05T11:40:00+00:00 | 2026-04-30T20:00:00+00:00 | 0/0 |  |
 | data/dump/odds/polymarket/price_history/tour_1000/2026-05.parquet | 491,600 | sport_date | 2026-05-01T14:10:00+00:00 | 2026-05-17T15:25:00+00:00 | 0/0 |  |
 | data/dump/odds/polymarket/price_history/tour_1000/2026-08.parquet | 942,861 | sport_date | 2026-08-02T15:05:00+00:00 | 2026-08-23T23:10:00+00:00 | 0/0 |  |
+| data/dump/odds/polymarket/price_history/tour_1000/2026-09.parquet | 35,211 | sport_date | 2026-09-30T03:00:00+00:00 | 2026-09-30T13:15:00+00:00 | 0/0 |  |
+| data/dump/odds/polymarket/price_history/tour_1000/2026-10.parquet | 186,059 | sport_date | 2026-10-01T03:05:00+00:00 | 2026-10-05T14:05:00+00:00 | 0/0 |  |
 | data/dump/odds/polymarket/price_history/tour_250/2025-09.parquet | 93,025 | sport_date | 2025-09-18T00:00:00+00:00 | 2025-09-23T00:00:00+00:00 | 0/0 |  |
 | data/dump/odds/polymarket/price_history/tour_250/2025-10.parquet | 491,778 | sport_date | 2025-10-13T02:30:00+00:00 | 2025-10-31T15:00:00+00:00 | 0/0 |  |
 | data/dump/odds/polymarket/price_history/tour_250/2025-11.parquet | 133,415 | sport_date | 2025-11-01T06:00:00+00:00 | 2025-11-08T15:30:00+00:00 | 0/0 |  |
@@ -472,7 +512,7 @@ Generated 2026-09-22T22:35:29+00:00 by src/ingest/public_dump/build_manifest.py 
 | data/dump/odds/polymarket/price_history/tour_250/2026-06.parquet | 474,136 | sport_date | 2026-06-08T09:00:00+00:00 | 2026-06-28T10:00:00+00:00 | 0/0 |  |
 | data/dump/odds/polymarket/price_history/tour_250/2026-07.parquet | 781,147 | sport_date | 2026-07-13T08:30:00+00:00 | 2026-07-31T23:30:00+00:00 | 0/0 |  |
 | data/dump/odds/polymarket/price_history/tour_250/2026-08.parquet | 89,188 | sport_date | 2026-08-01T01:00:00+00:00 | 2026-08-29T20:10:27+00:00 | 0/0 |  |
-| data/dump/odds/polymarket/price_history/tour_250/2026-09.parquet | 32,760 | sport_date | 2026-09-21T03:05:00+00:00 | 2026-09-22T13:45:00+00:00 | 0/0 |  |
+| data/dump/odds/polymarket/price_history/tour_250/2026-09.parquet | 196,393 | sport_date | 2026-09-21T03:05:00+00:00 | 2026-09-29T11:35:00+00:00 | 0/0 |  |
 | data/dump/odds/polymarket/price_history/tour_500/2025-09.parquet | 219,007 | sport_date | 2025-09-19T03:00:00+00:00 | 2025-09-30T00:00:00+00:00 | 0/0 |  |
 | data/dump/odds/polymarket/price_history/tour_500/2025-10.parquet | 299,791 | sport_date | 2025-10-01T00:00:00+00:00 | 2025-10-26T14:30:00+00:00 | 0/0 |  |
 | data/dump/odds/polymarket/price_history/tour_500/2026-01.parquet | 173,473 | sport_date | 2026-01-04T01:05:00+00:00 | 2026-01-17T02:15:00+00:00 | 0/0 |  |
@@ -483,7 +523,8 @@ Generated 2026-09-22T22:35:29+00:00 by src/ingest/public_dump/build_manifest.py 
 | data/dump/odds/polymarket/price_history/tour_500/2026-06.parquet | 345,683 | sport_date | 2026-06-08T13:30:00+00:00 | 2026-06-27T09:05:00+00:00 | 0/0 |  |
 | data/dump/odds/polymarket/price_history/tour_500/2026-07.parquet | 122,205 | sport_date | 2026-07-27T14:00:00+00:00 | 2026-07-31T22:55:00+00:00 | 0/0 |  |
 | data/dump/odds/polymarket/price_history/tour_500/2026-08.parquet | 63,670 | sport_date | 2026-08-01T01:00:00+00:00 | 2026-08-29T23:30:00+00:00 | 0/0 |  |
-| data/dump/odds/polymarket/price_history/tour_500/2026-09.parquet | 50,750 | sport_date | 2026-09-21T03:05:00+00:00 | 2026-09-22T09:20:00+00:00 | 0/0 |  |
+| data/dump/odds/polymarket/price_history/tour_500/2026-09.parquet | 104,623 | sport_date | 2026-09-21T03:05:00+00:00 | 2026-09-30T11:05:00+00:00 | 0/0 |  |
+| data/dump/odds/polymarket/price_history/tour_500/2026-10.parquet | 140,023 | sport_date | 2026-10-01T01:00:00+00:00 | 2026-10-05T11:15:00+00:00 | 0/0 |  |
 | data/dump/odds/polymarket/price_history/tour_finals/2025-11.parquet | 164,416 | sport_date | 2025-11-01T15:10:00+00:00 | 2025-11-16T17:10:00+00:00 | 0/0 |  |
 | data/dump/odds/polymarket/price_history/tour_finals/2025-12.parquet | 57,262 | sport_date | 2025-12-17T11:10:00+00:00 | 2025-12-21T17:10:00+00:00 | 0/0 |  |
 | data/dump/odds/polymarket/price_history/tour_qualifying/2025-09.parquet | 83,019 | sport_date | 2025-09-21T00:00:00+00:00 | 2025-09-30T00:00:00+00:00 | 0/0 |  |
@@ -497,41 +538,57 @@ Generated 2026-09-22T22:35:29+00:00 by src/ingest/public_dump/build_manifest.py 
 | data/dump/odds/polymarket/price_history/tour_qualifying/2026-06.parquet | 156,297 | sport_date | 2026-06-06T10:20:00+00:00 | 2026-06-21T15:15:00+00:00 | 0/0 |  |
 | data/dump/odds/polymarket/price_history/tour_qualifying/2026-07.parquet | 179,294 | sport_date | 2026-07-11T08:00:00+00:00 | 2026-07-27T02:45:00+00:00 | 0/0 |  |
 | data/dump/odds/polymarket/price_history/tour_qualifying/2026-08.parquet | 157,827 | sport_date | 2026-08-01T14:30:00+00:00 | 2026-08-24T00:30:00+00:00 | 0/0 |  |
-| data/dump/odds/polymarket/price_history/tour_qualifying/2026-09.parquet | 41,807 | sport_date | 2026-09-19T02:05:00+00:00 | 2026-09-22T10:35:00+00:00 | 0/0 |  |
+| data/dump/odds/polymarket/price_history/tour_qualifying/2026-09.parquet | 112,183 | sport_date | 2026-09-19T02:05:00+00:00 | 2026-09-29T07:55:00+00:00 | 0/0 |  |
+| data/dump/odds/polymarket/price_history/tour_qualifying/2026-10.parquet | 32,571 | sport_date | 2026-10-05T04:05:00+00:00 | 2026-10-05T13:00:00+00:00 | 0/0 |  |
+| data/dump/odds/polymarket/trades/challenger_125_inferred.parquet | 13,286,319 |  |  |  | 0/0 |  |
+| data/dump/odds/polymarket/trades/doubles.parquet | 174,954 |  |  |  | 0/0 |  |
+| data/dump/odds/polymarket/trades/itf.parquet | 3,116,090 |  |  |  | 0/0 |  |
+| data/dump/odds/polymarket/trades/slam_juniors.parquet | 7,420 |  |  |  | 0/0 |  |
+| data/dump/odds/polymarket/trades/slam_main.parquet | 4,241,130 |  |  |  | 0/0 |  |
+| data/dump/odds/polymarket/trades/slam_qualifying.parquet | 1,107,935 |  |  |  | 0/0 |  |
+| data/dump/odds/polymarket/trades/team_exhibition.parquet | 37,152 |  |  |  | 0/0 |  |
+| data/dump/odds/polymarket/trades/tour_1000.parquet | 5,625,599 |  |  |  | 0/0 |  |
+| data/dump/odds/polymarket/trades/tour_250.parquet | 4,222,387 |  |  |  | 0/0 |  |
+| data/dump/odds/polymarket/trades/tour_500.parquet | 3,494,674 |  |  |  | 0/0 |  |
+| data/dump/odds/polymarket/trades/tour_finals.parquet | 160,950 |  |  |  | 0/0 |  |
+| data/dump/odds/polymarket/trades/tour_qualifying.parquet | 2,512,291 |  |  |  | 0/0 |  |
+| data/dump/odds/polymarket/trades/wallets.parquet | 159,050 |  |  |  | 0/0 |  |
 | data/dump/odds/tennis_data_couk/atp/atp250/2009.parquet | 1,275 | Date | 2009-01-04 | 2009-11-01 | 21/0 | wayback |
-| data/dump/odds/tennis_data_couk/atp/atp250/2010.parquet | 1,192 | Date | 2010-01-04 | 2010-10-31 | 450/0 | wayback |
-| data/dump/odds/tennis_data_couk/atp/atp250/2011.parquet | 1,188 | Date | 2011-01-02 | 2011-10-30 | 5/0 | wayback |
-| data/dump/odds/tennis_data_couk/atp/atp250/2012.parquet | 1,160 | Date | 2012-01-01 | 2012-10-21 | 2/0 | wayback |
-| data/dump/odds/tennis_data_couk/atp/atp250/2013.parquet | 1,152 | Date | 2012-12-31 | 2013-10-20 | 2/0 | wayback |
-| data/dump/odds/tennis_data_couk/atp/atp250/2014.parquet | 1,121 | Date | 2013-12-30 | 2014-10-19 | 0/0 | wayback |
-| data/dump/odds/tennis_data_couk/atp/atp250/2015.parquet | 1,062 | Date | 2015-01-05 | 2015-10-25 | 0/0 | wayback |
-| data/dump/odds/tennis_data_couk/atp/atp250/2016.parquet | 1,054 | Date | 2016-01-04 | 2016-10-23 | 2/0 | wayback |
-| data/dump/odds/tennis_data_couk/atp/atp250/2017.parquet | 1,108 | Date | 2017-01-01 | 2017-10-22 | 2/0 | wayback |
-| data/dump/odds/tennis_data_couk/atp/atp250/2019.parquet | 1,085 | Date | 2018-12-31 | 2019-10-20 | 1/0 | wayback |
-| data/dump/odds/tennis_data_couk/atp/atp250/2020.parquet | 521 | Date | 2020-01-06 | 2020-11-14 | 0/0 | wayback |
-| data/dump/odds/tennis_data_couk/atp/atp250/2021.parquet | 1,160 | Date | 2021-01-07 | 2021-11-13 | 0/0 | wayback |
-| data/dump/odds/tennis_data_couk/atp/atp250/2022.parquet | 1,189 | Date | 2022-01-03 | 2022-10-23 | 2/0 | wayback |
-| data/dump/odds/tennis_data_couk/atp/atp250/2023.parquet | 1,081 | Date | 2023-01-01 | 2023-11-11 | 3/0 | wayback |
-| data/dump/odds/tennis_data_couk/atp/atp250/2024.parquet | 1,081 | Date | 2023-12-31 | 2024-11-09 | 4/0 | wayback |
-| data/dump/odds/tennis_data_couk/atp/atp250/2025.parquet | 834 | Date | 2024-12-29 | 2025-11-08 | 598/0 | wayback |
-| data/dump/odds/tennis_data_couk/atp/atp250/2026.parquet | 598 | Date | 2026-01-04 | 2026-08-02 | 8/0 | wayback |
+| data/dump/odds/tennis_data_couk/atp/atp250/2010.parquet | 1,192 | Date | 2010-01-04 | 2010-10-31 | 450/0 | live |
+| data/dump/odds/tennis_data_couk/atp/atp250/2011.parquet | 1,188 | Date | 2011-01-02 | 2011-10-30 | 5/0 | live |
+| data/dump/odds/tennis_data_couk/atp/atp250/2012.parquet | 1,160 | Date | 2012-01-01 | 2012-10-21 | 2/0 | live |
+| data/dump/odds/tennis_data_couk/atp/atp250/2013.parquet | 1,152 | Date | 2012-12-31 | 2013-10-20 | 2/0 | live |
+| data/dump/odds/tennis_data_couk/atp/atp250/2014.parquet | 1,121 | Date | 2013-12-30 | 2014-10-19 | 0/0 | live |
+| data/dump/odds/tennis_data_couk/atp/atp250/2015.parquet | 1,062 | Date | 2015-01-05 | 2015-10-25 | 0/0 | live |
+| data/dump/odds/tennis_data_couk/atp/atp250/2016.parquet | 1,054 | Date | 2016-01-04 | 2016-10-23 | 2/0 | live |
+| data/dump/odds/tennis_data_couk/atp/atp250/2017.parquet | 1,108 | Date | 2017-01-01 | 2017-10-22 | 2/0 | live |
+| data/dump/odds/tennis_data_couk/atp/atp250/2018.parquet | 1,112 | Date | 2017-12-31 | 2018-10-21 | 1/0 | live |
+| data/dump/odds/tennis_data_couk/atp/atp250/2019.parquet | 1,085 | Date | 2018-12-31 | 2019-10-20 | 1/0 | live |
+| data/dump/odds/tennis_data_couk/atp/atp250/2020.parquet | 521 | Date | 2020-01-06 | 2020-11-14 | 0/0 | live |
+| data/dump/odds/tennis_data_couk/atp/atp250/2021.parquet | 1,160 | Date | 2021-01-07 | 2021-11-13 | 0/0 | live |
+| data/dump/odds/tennis_data_couk/atp/atp250/2022.parquet | 1,189 | Date | 2022-01-03 | 2022-10-23 | 2/0 | live |
+| data/dump/odds/tennis_data_couk/atp/atp250/2023.parquet | 1,081 | Date | 2023-01-01 | 2023-11-11 | 3/0 | live |
+| data/dump/odds/tennis_data_couk/atp/atp250/2024.parquet | 1,081 | Date | 2023-12-31 | 2024-11-09 | 4/0 | live |
+| data/dump/odds/tennis_data_couk/atp/atp250/2025.parquet | 834 | Date | 2024-12-29 | 2025-11-08 | 598/0 | live |
+| data/dump/odds/tennis_data_couk/atp/atp250/2026.parquet | 699 | Date | 2026-01-04 | 2026-09-29 | 8/0 | live |
 | data/dump/odds/tennis_data_couk/atp/atp500/2009.parquet | 366 | Date | 2009-02-09 | 2009-11-08 | 0/0 | wayback |
-| data/dump/odds/tennis_data_couk/atp/atp500/2010.parquet | 397 | Date | 2010-02-08 | 2010-11-07 | 125/0 | wayback |
-| data/dump/odds/tennis_data_couk/atp/atp500/2011.parquet | 397 | Date | 2011-02-07 | 2011-11-06 | 1/0 | wayback |
-| data/dump/odds/tennis_data_couk/atp/atp500/2012.parquet | 365 | Date | 2012-02-13 | 2012-10-28 | 0/0 | wayback |
-| data/dump/odds/tennis_data_couk/atp/atp500/2013.parquet | 389 | Date | 2012-10-01 | 2013-10-27 | 0/0 | wayback |
-| data/dump/odds/tennis_data_couk/atp/atp500/2014.parquet | 389 | Date | 2014-02-10 | 2014-10-26 | 0/0 | wayback |
-| data/dump/odds/tennis_data_couk/atp/atp500/2015.parquet | 478 | Date | 2015-02-09 | 2015-11-01 | 0/0 | wayback |
-| data/dump/odds/tennis_data_couk/atp/atp500/2016.parquet | 482 | Date | 2016-02-08 | 2016-10-30 | 0/0 | wayback |
-| data/dump/odds/tennis_data_couk/atp/atp500/2017.parquet | 435 | Date | 2017-02-13 | 2017-10-29 | 0/0 | wayback |
-| data/dump/odds/tennis_data_couk/atp/atp500/2019.parquet | 435 | Date | 2019-02-11 | 2019-10-27 | 0/0 | wayback |
-| data/dump/odds/tennis_data_couk/atp/atp500/2020.parquet | 186 | Date | 2020-02-10 | 2020-11-01 | 0/0 | wayback |
-| data/dump/odds/tennis_data_couk/atp/atp500/2021.parquet | 294 | Date | 2021-03-01 | 2021-10-31 | 0/0 | wayback |
-| data/dump/odds/tennis_data_couk/atp/atp500/2022.parquet | 400 | Date | 2022-02-07 | 2022-10-30 | 1/0 | wayback |
-| data/dump/odds/tennis_data_couk/atp/atp500/2023.parquet | 404 | Date | 2023-02-13 | 2023-10-29 | 1/0 | wayback |
-| data/dump/odds/tennis_data_couk/atp/atp500/2024.parquet | 404 | Date | 2024-02-12 | 2024-10-27 | 0/0 | wayback |
-| data/dump/odds/tennis_data_couk/atp/atp500/2025.parquet | 512 | Date | 2025-02-03 | 2025-10-26 | 389/0 | wayback |
-| data/dump/odds/tennis_data_couk/atp/atp500/2026.parquet | 372 | Date | 2026-02-09 | 2026-08-03 | 1/0 | wayback |
+| data/dump/odds/tennis_data_couk/atp/atp500/2010.parquet | 397 | Date | 2010-02-08 | 2010-11-07 | 125/0 | live |
+| data/dump/odds/tennis_data_couk/atp/atp500/2011.parquet | 397 | Date | 2011-02-07 | 2011-11-06 | 1/0 | live |
+| data/dump/odds/tennis_data_couk/atp/atp500/2012.parquet | 365 | Date | 2012-02-13 | 2012-10-28 | 0/0 | live |
+| data/dump/odds/tennis_data_couk/atp/atp500/2013.parquet | 389 | Date | 2013-02-11 | 2013-10-27 | 0/0 | live |
+| data/dump/odds/tennis_data_couk/atp/atp500/2014.parquet | 389 | Date | 2014-02-10 | 2014-10-26 | 0/0 | live |
+| data/dump/odds/tennis_data_couk/atp/atp500/2015.parquet | 478 | Date | 2015-02-09 | 2015-11-01 | 0/0 | live |
+| data/dump/odds/tennis_data_couk/atp/atp500/2016.parquet | 482 | Date | 2016-02-08 | 2016-10-30 | 0/0 | live |
+| data/dump/odds/tennis_data_couk/atp/atp500/2017.parquet | 435 | Date | 2017-02-13 | 2017-10-29 | 0/0 | live |
+| data/dump/odds/tennis_data_couk/atp/atp500/2018.parquet | 435 | Date | 2018-02-12 | 2018-10-28 | 0/0 | live |
+| data/dump/odds/tennis_data_couk/atp/atp500/2019.parquet | 435 | Date | 2019-02-11 | 2019-10-27 | 0/0 | live |
+| data/dump/odds/tennis_data_couk/atp/atp500/2020.parquet | 186 | Date | 2020-02-10 | 2020-11-01 | 0/0 | live |
+| data/dump/odds/tennis_data_couk/atp/atp500/2021.parquet | 294 | Date | 2021-03-01 | 2021-10-31 | 0/0 | live |
+| data/dump/odds/tennis_data_couk/atp/atp500/2022.parquet | 400 | Date | 2022-02-07 | 2022-10-30 | 1/0 | live |
+| data/dump/odds/tennis_data_couk/atp/atp500/2023.parquet | 404 | Date | 2023-02-13 | 2023-10-29 | 1/0 | live |
+| data/dump/odds/tennis_data_couk/atp/atp500/2024.parquet | 404 | Date | 2024-02-12 | 2024-10-27 | 0/0 | live |
+| data/dump/odds/tennis_data_couk/atp/atp500/2025.parquet | 512 | Date | 2025-02-03 | 2025-10-26 | 389/0 | live |
+| data/dump/odds/tennis_data_couk/atp/atp500/2026.parquet | 372 | Date | 2026-02-09 | 2026-08-03 | 1/0 | live |
 | data/dump/odds/tennis_data_couk/atp/grand_slam/2000.parquet | 508 | Date | 2000-01-17 | 2000-08-28 | 0/0 | wayback |
 | data/dump/odds/tennis_data_couk/atp/grand_slam/2001.parquet | 508 | Date | 2001-01-15 | 2001-08-27 | 0/0 | wayback |
 | data/dump/odds/tennis_data_couk/atp/grand_slam/2003.parquet | 508 | Date | 2003-01-13 | 2003-09-07 | 389/0 | wayback |
@@ -539,22 +596,23 @@ Generated 2026-09-22T22:35:29+00:00 by src/ingest/public_dump/build_manifest.py 
 | data/dump/odds/tennis_data_couk/atp/grand_slam/2007.parquet | 508 | Date | 2007-01-15 | 2007-09-09 | 1/0 | wayback |
 | data/dump/odds/tennis_data_couk/atp/grand_slam/2008.parquet | 508 | Date | 2008-01-14 | 2008-09-08 | 7/0 | wayback |
 | data/dump/odds/tennis_data_couk/atp/grand_slam/2009.parquet | 508 | Date | 2009-01-19 | 2009-09-14 | 2/0 | wayback |
-| data/dump/odds/tennis_data_couk/atp/grand_slam/2010.parquet | 508 | Date | 2010-01-18 | 2010-09-12 | 127/0 | wayback |
-| data/dump/odds/tennis_data_couk/atp/grand_slam/2011.parquet | 508 | Date | 2011-01-17 | 2011-09-12 | 0/0 | wayback |
-| data/dump/odds/tennis_data_couk/atp/grand_slam/2012.parquet | 508 | Date | 2012-01-16 | 2012-09-10 | 0/0 | wayback |
-| data/dump/odds/tennis_data_couk/atp/grand_slam/2013.parquet | 508 | Date | 2013-01-14 | 2013-09-09 | 0/0 | wayback |
-| data/dump/odds/tennis_data_couk/atp/grand_slam/2014.parquet | 508 | Date | 2014-01-13 | 2014-09-08 | 1/0 | wayback |
-| data/dump/odds/tennis_data_couk/atp/grand_slam/2015.parquet | 508 | Date | 2015-01-19 | 2015-09-13 | 0/0 | wayback |
-| data/dump/odds/tennis_data_couk/atp/grand_slam/2016.parquet | 508 | Date | 2016-01-18 | 2016-09-11 | 0/0 | wayback |
-| data/dump/odds/tennis_data_couk/atp/grand_slam/2017.parquet | 508 | Date | 2017-01-16 | 2017-09-10 | 0/0 | wayback |
-| data/dump/odds/tennis_data_couk/atp/grand_slam/2019.parquet | 508 | Date | 2019-01-14 | 2019-09-08 | 0/0 | wayback |
-| data/dump/odds/tennis_data_couk/atp/grand_slam/2020.parquet | 381 | Date | 2020-01-20 | 2020-10-11 | 0/0 | wayback |
-| data/dump/odds/tennis_data_couk/atp/grand_slam/2021.parquet | 508 | Date | 2021-02-08 | 2021-09-12 | 1/0 | wayback |
-| data/dump/odds/tennis_data_couk/atp/grand_slam/2022.parquet | 508 | Date | 2022-01-17 | 2022-09-11 | 1/0 | wayback |
-| data/dump/odds/tennis_data_couk/atp/grand_slam/2023.parquet | 508 | Date | 2023-01-16 | 2023-09-10 | 0/0 | wayback |
-| data/dump/odds/tennis_data_couk/atp/grand_slam/2024.parquet | 508 | Date | 2024-01-14 | 2024-09-08 | 0/0 | wayback |
-| data/dump/odds/tennis_data_couk/atp/grand_slam/2025.parquet | 508 | Date | 2025-01-12 | 2025-09-07 | 381/0 | wayback |
-| data/dump/odds/tennis_data_couk/atp/grand_slam/2026.parquet | 381 | Date | 2026-01-18 | 2026-07-12 | 0/0 | wayback |
+| data/dump/odds/tennis_data_couk/atp/grand_slam/2010.parquet | 508 | Date | 2010-01-18 | 2010-09-12 | 127/0 | live |
+| data/dump/odds/tennis_data_couk/atp/grand_slam/2011.parquet | 508 | Date | 2011-01-17 | 2011-09-12 | 0/0 | live |
+| data/dump/odds/tennis_data_couk/atp/grand_slam/2012.parquet | 508 | Date | 2012-01-16 | 2012-09-10 | 0/0 | live |
+| data/dump/odds/tennis_data_couk/atp/grand_slam/2013.parquet | 508 | Date | 2013-01-14 | 2013-09-09 | 0/0 | live |
+| data/dump/odds/tennis_data_couk/atp/grand_slam/2014.parquet | 508 | Date | 2014-01-13 | 2014-09-08 | 1/0 | live |
+| data/dump/odds/tennis_data_couk/atp/grand_slam/2015.parquet | 508 | Date | 2015-01-19 | 2015-09-13 | 0/0 | live |
+| data/dump/odds/tennis_data_couk/atp/grand_slam/2016.parquet | 508 | Date | 2016-01-18 | 2016-09-11 | 0/0 | live |
+| data/dump/odds/tennis_data_couk/atp/grand_slam/2017.parquet | 508 | Date | 2017-01-16 | 2017-09-10 | 0/0 | live |
+| data/dump/odds/tennis_data_couk/atp/grand_slam/2018.parquet | 508 | Date | 2018-01-15 | 2018-09-09 | 0/0 | live |
+| data/dump/odds/tennis_data_couk/atp/grand_slam/2019.parquet | 508 | Date | 2019-01-14 | 2019-09-08 | 0/0 | live |
+| data/dump/odds/tennis_data_couk/atp/grand_slam/2020.parquet | 381 | Date | 2020-01-20 | 2020-10-11 | 0/0 | live |
+| data/dump/odds/tennis_data_couk/atp/grand_slam/2021.parquet | 508 | Date | 2021-02-08 | 2021-09-12 | 1/0 | live |
+| data/dump/odds/tennis_data_couk/atp/grand_slam/2022.parquet | 508 | Date | 2022-01-17 | 2022-09-11 | 1/0 | live |
+| data/dump/odds/tennis_data_couk/atp/grand_slam/2023.parquet | 508 | Date | 2023-01-16 | 2023-09-10 | 0/0 | live |
+| data/dump/odds/tennis_data_couk/atp/grand_slam/2024.parquet | 508 | Date | 2024-01-14 | 2024-09-08 | 0/0 | live |
+| data/dump/odds/tennis_data_couk/atp/grand_slam/2025.parquet | 508 | Date | 2025-01-12 | 2025-09-07 | 381/0 | live |
+| data/dump/odds/tennis_data_couk/atp/grand_slam/2026.parquet | 508 | Date | 2026-01-18 | 2026-09-13 | 0/0 | live |
 | data/dump/odds/tennis_data_couk/atp/international/2000.parquet | 1,404 | Date | 2000-01-03 | 2000-11-20 | 0/0 | wayback |
 | data/dump/odds/tennis_data_couk/atp/international/2001.parquet | 1,412 | Date | 2001-01-01 | 2001-10-22 | 1/0 | wayback |
 | data/dump/odds/tennis_data_couk/atp/international/2003.parquet | 1,373 | Date | 2002-12-30 | 2003-10-26 | 843/0 | wayback |
@@ -574,22 +632,23 @@ Generated 2026-09-22T22:35:29+00:00 by src/ingest/public_dump/build_manifest.py 
 | data/dump/odds/tennis_data_couk/atp/masters/2007.parquet | 559 | Date | 2007-03-09 | 2007-11-04 | 2/0 | wayback |
 | data/dump/odds/tennis_data_couk/atp/masters/2008.parquet | 559 | Date | 2008-03-13 | 2008-11-02 | 9/0 | wayback |
 | data/dump/odds/tennis_data_couk/atp/masters_1000/2009.parquet | 567 | Date | 2009-03-12 | 2009-11-15 | 4/0 | wayback |
-| data/dump/odds/tennis_data_couk/atp/masters_1000/2010.parquet | 567 | Date | 2010-03-11 | 2010-11-14 | 246/0 | wayback |
-| data/dump/odds/tennis_data_couk/atp/masters_1000/2011.parquet | 567 | Date | 2011-03-10 | 2011-11-13 | 2/0 | wayback |
-| data/dump/odds/tennis_data_couk/atp/masters_1000/2012.parquet | 559 | Date | 2012-03-08 | 2012-11-04 | 0/0 | wayback |
-| data/dump/odds/tennis_data_couk/atp/masters_1000/2013.parquet | 567 | Date | 2013-03-07 | 2013-11-03 | 0/0 | wayback |
-| data/dump/odds/tennis_data_couk/atp/masters_1000/2014.parquet | 567 | Date | 2014-03-06 | 2014-11-02 | 0/0 | wayback |
-| data/dump/odds/tennis_data_couk/atp/masters_1000/2015.parquet | 567 | Date | 2015-03-12 | 2015-11-08 | 2/0 | wayback |
-| data/dump/odds/tennis_data_couk/atp/masters_1000/2016.parquet | 567 | Date | 2016-03-10 | 2016-11-06 | 0/0 | wayback |
-| data/dump/odds/tennis_data_couk/atp/masters_1000/2017.parquet | 567 | Date | 2017-01-02 | 2017-11-05 | 1/0 | wayback |
-| data/dump/odds/tennis_data_couk/atp/masters_1000/2019.parquet | 567 | Date | 2019-03-07 | 2019-11-03 | 0/0 | wayback |
-| data/dump/odds/tennis_data_couk/atp/masters_1000/2020.parquet | 164 | Date | 2020-08-22 | 2020-11-08 | 0/0 | wayback |
-| data/dump/odds/tennis_data_couk/atp/masters_1000/2021.parquet | 512 | Date | 2021-03-24 | 2021-11-07 | 0/0 | wayback |
-| data/dump/odds/tennis_data_couk/atp/masters_1000/2022.parquet | 520 | Date | 2022-03-10 | 2022-11-06 | 0/0 | wayback |
-| data/dump/odds/tennis_data_couk/atp/masters_1000/2023.parquet | 695 | Date | 2023-03-08 | 2023-11-05 | 1/0 | wayback |
-| data/dump/odds/tennis_data_couk/atp/masters_1000/2024.parquet | 695 | Date | 2024-03-06 | 2024-11-03 | 1/0 | wayback |
-| data/dump/odds/tennis_data_couk/atp/masters_1000/2025.parquet | 775 | Date | 2025-03-05 | 2025-11-02 | 625/0 | wayback |
-| data/dump/odds/tennis_data_couk/atp/masters_1000/2026.parquet | 435 | Date | 2026-03-04 | 2026-05-17 | 95/0 | wayback |
+| data/dump/odds/tennis_data_couk/atp/masters_1000/2010.parquet | 567 | Date | 2010-03-11 | 2010-11-14 | 246/0 | live |
+| data/dump/odds/tennis_data_couk/atp/masters_1000/2011.parquet | 567 | Date | 2011-03-10 | 2011-11-13 | 2/0 | live |
+| data/dump/odds/tennis_data_couk/atp/masters_1000/2012.parquet | 559 | Date | 2012-03-08 | 2012-11-04 | 0/0 | live |
+| data/dump/odds/tennis_data_couk/atp/masters_1000/2013.parquet | 567 | Date | 2013-03-07 | 2013-11-03 | 0/0 | live |
+| data/dump/odds/tennis_data_couk/atp/masters_1000/2014.parquet | 567 | Date | 2014-03-06 | 2014-11-02 | 0/0 | live |
+| data/dump/odds/tennis_data_couk/atp/masters_1000/2015.parquet | 567 | Date | 2015-03-12 | 2015-11-08 | 2/0 | live |
+| data/dump/odds/tennis_data_couk/atp/masters_1000/2016.parquet | 567 | Date | 2016-03-10 | 2016-11-06 | 0/0 | live |
+| data/dump/odds/tennis_data_couk/atp/masters_1000/2017.parquet | 567 | Date | 2017-01-02 | 2017-11-05 | 1/0 | live |
+| data/dump/odds/tennis_data_couk/atp/masters_1000/2018.parquet | 567 | Date | 2018-03-08 | 2018-11-04 | 0/0 | live |
+| data/dump/odds/tennis_data_couk/atp/masters_1000/2019.parquet | 567 | Date | 2019-03-07 | 2019-11-03 | 0/0 | live |
+| data/dump/odds/tennis_data_couk/atp/masters_1000/2020.parquet | 164 | Date | 2020-08-22 | 2020-11-08 | 0/0 | live |
+| data/dump/odds/tennis_data_couk/atp/masters_1000/2021.parquet | 512 | Date | 2021-03-24 | 2021-11-07 | 0/0 | live |
+| data/dump/odds/tennis_data_couk/atp/masters_1000/2022.parquet | 520 | Date | 2022-03-10 | 2022-11-06 | 0/0 | live |
+| data/dump/odds/tennis_data_couk/atp/masters_1000/2023.parquet | 695 | Date | 2023-03-08 | 2023-11-05 | 1/0 | live |
+| data/dump/odds/tennis_data_couk/atp/masters_1000/2024.parquet | 695 | Date | 2024-03-06 | 2024-11-03 | 1/0 | live |
+| data/dump/odds/tennis_data_couk/atp/masters_1000/2025.parquet | 775 | Date | 2025-03-05 | 2025-11-02 | 625/0 | live |
+| data/dump/odds/tennis_data_couk/atp/masters_1000/2026.parquet | 625 | Date | 2026-03-04 | 2026-08-23 | 95/0 | live |
 | data/dump/odds/tennis_data_couk/atp/masters_cup/2000.parquet | 15 | Date | 2000-11-27 | 2000-11-27 | 0/0 | wayback |
 | data/dump/odds/tennis_data_couk/atp/masters_cup/2001.parquet | 15 | Date | 2001-11-12 | 2001-11-12 | 0/0 | wayback |
 | data/dump/odds/tennis_data_couk/atp/masters_cup/2003.parquet | 15 | Date | 2003-11-10 | 2003-11-17 | 15/0 | wayback |
@@ -597,66 +656,67 @@ Generated 2026-09-22T22:35:29+00:00 by src/ingest/public_dump/build_manifest.py 
 | data/dump/odds/tennis_data_couk/atp/masters_cup/2007.parquet | 15 | Date | 2007-11-11 | 2007-11-18 | 0/0 | wayback |
 | data/dump/odds/tennis_data_couk/atp/masters_cup/2008.parquet | 15 | Date | 2008-11-09 | 2008-11-16 | 1/0 | wayback |
 | data/dump/odds/tennis_data_couk/atp/masters_cup/2009.parquet | 15 | Date | 2009-11-22 | 2009-11-29 | 0/0 | wayback |
-| data/dump/odds/tennis_data_couk/atp/masters_cup/2010.parquet | 15 | Date | 2010-11-21 | 2010-11-28 | 0/0 | wayback |
-| data/dump/odds/tennis_data_couk/atp/masters_cup/2011.parquet | 15 | Date | 2011-11-20 | 2011-11-27 | 0/0 | wayback |
-| data/dump/odds/tennis_data_couk/atp/masters_cup/2012.parquet | 15 | Date | 2012-11-05 | 2012-11-12 | 0/0 | wayback |
-| data/dump/odds/tennis_data_couk/atp/masters_cup/2013.parquet | 15 | Date | 2013-11-04 | 2013-11-11 | 0/0 | wayback |
-| data/dump/odds/tennis_data_couk/atp/masters_cup/2014.parquet | 15 | Date | 2014-11-09 | 2014-11-16 | 0/0 | wayback |
-| data/dump/odds/tennis_data_couk/atp/masters_cup/2015.parquet | 15 | Date | 2015-11-15 | 2015-11-22 | 0/0 | wayback |
-| data/dump/odds/tennis_data_couk/atp/masters_cup/2016.parquet | 15 | Date | 2016-11-13 | 2016-11-20 | 0/0 | wayback |
-| data/dump/odds/tennis_data_couk/atp/masters_cup/2017.parquet | 15 | Date | 2017-11-12 | 2017-11-19 | 0/0 | wayback |
-| data/dump/odds/tennis_data_couk/atp/masters_cup/2019.parquet | 15 | Date | 2019-11-10 | 2019-11-17 | 0/0 | wayback |
-| data/dump/odds/tennis_data_couk/atp/masters_cup/2020.parquet | 15 | Date | 2020-11-15 | 2020-11-22 | 0/0 | wayback |
-| data/dump/odds/tennis_data_couk/atp/masters_cup/2021.parquet | 15 | Date | 2021-11-14 | 2021-11-21 | 0/0 | wayback |
-| data/dump/odds/tennis_data_couk/atp/masters_cup/2022.parquet | 15 | Date | 2022-11-13 | 2022-11-20 | 0/0 | wayback |
-| data/dump/odds/tennis_data_couk/atp/masters_cup/2023.parquet | 15 | Date | 2023-11-12 | 2023-11-19 | 0/0 | wayback |
-| data/dump/odds/tennis_data_couk/atp/masters_cup/2024.parquet | 15 | Date | 2024-11-10 | 2024-11-17 | 0/0 | wayback |
-| data/dump/odds/tennis_data_couk/atp/masters_cup/2025.parquet | 15 | Date | 2025-11-09 | 2025-11-16 | 0/0 | wayback |
+| data/dump/odds/tennis_data_couk/atp/masters_cup/2010.parquet | 15 | Date | 2010-11-21 | 2010-11-28 | 0/0 | live |
+| data/dump/odds/tennis_data_couk/atp/masters_cup/2011.parquet | 15 | Date | 2011-11-20 | 2011-11-27 | 0/0 | live |
+| data/dump/odds/tennis_data_couk/atp/masters_cup/2012.parquet | 15 | Date | 2012-11-05 | 2012-11-12 | 0/0 | live |
+| data/dump/odds/tennis_data_couk/atp/masters_cup/2013.parquet | 15 | Date | 2013-11-04 | 2013-11-11 | 0/0 | live |
+| data/dump/odds/tennis_data_couk/atp/masters_cup/2014.parquet | 15 | Date | 2014-11-09 | 2014-11-16 | 0/0 | live |
+| data/dump/odds/tennis_data_couk/atp/masters_cup/2015.parquet | 15 | Date | 2015-11-15 | 2015-11-22 | 0/0 | live |
+| data/dump/odds/tennis_data_couk/atp/masters_cup/2016.parquet | 15 | Date | 2016-11-13 | 2016-11-20 | 0/0 | live |
+| data/dump/odds/tennis_data_couk/atp/masters_cup/2017.parquet | 15 | Date | 2017-11-12 | 2017-11-19 | 0/0 | live |
+| data/dump/odds/tennis_data_couk/atp/masters_cup/2018.parquet | 15 | Date | 2018-11-11 | 2018-11-18 | 0/0 | live |
+| data/dump/odds/tennis_data_couk/atp/masters_cup/2019.parquet | 15 | Date | 2019-11-10 | 2019-11-17 | 0/0 | live |
+| data/dump/odds/tennis_data_couk/atp/masters_cup/2020.parquet | 15 | Date | 2020-11-15 | 2020-11-22 | 0/0 | live |
+| data/dump/odds/tennis_data_couk/atp/masters_cup/2021.parquet | 15 | Date | 2021-11-14 | 2021-11-21 | 0/0 | live |
+| data/dump/odds/tennis_data_couk/atp/masters_cup/2022.parquet | 15 | Date | 2022-11-13 | 2022-11-20 | 0/0 | live |
+| data/dump/odds/tennis_data_couk/atp/masters_cup/2023.parquet | 15 | Date | 2023-11-12 | 2023-11-19 | 0/0 | live |
+| data/dump/odds/tennis_data_couk/atp/masters_cup/2024.parquet | 15 | Date | 2024-11-10 | 2024-11-17 | 0/0 | live |
+| data/dump/odds/tennis_data_couk/atp/masters_cup/2025.parquet | 15 | Date | 2025-11-09 | 2025-11-16 | 0/0 | live |
 | data/dump/odds/tennis_data_couk/wta/grand_slam/2007.parquet | 508 | Date | 2007-01-15 | 2007-09-09 | 3/0 | wayback |
 | data/dump/odds/tennis_data_couk/wta/grand_slam/2008.parquet | 508 | Date | 2008-01-14 | 2008-09-07 | 5/0 | wayback |
 | data/dump/odds/tennis_data_couk/wta/grand_slam/2009.parquet | 508 | Date | 2009-01-19 | 2009-09-14 | 0/0 | wayback |
-| data/dump/odds/tennis_data_couk/wta/grand_slam/2010.parquet | 508 | Date | 2010-01-18 | 2010-09-12 | 127/0 | wayback |
-| data/dump/odds/tennis_data_couk/wta/grand_slam/2011.parquet | 508 | Date | 2011-01-17 | 2011-09-11 | 0/0 | wayback |
-| data/dump/odds/tennis_data_couk/wta/grand_slam/2012.parquet | 508 | Date | 2012-01-16 | 2012-09-09 | 0/0 | wayback |
-| data/dump/odds/tennis_data_couk/wta/grand_slam/2013.parquet | 508 | Date | 2013-01-14 | 2013-09-08 | 0/0 | wayback |
-| data/dump/odds/tennis_data_couk/wta/grand_slam/2014.parquet | 508 | Date | 2014-01-13 | 2014-09-07 | 0/0 | wayback |
-| data/dump/odds/tennis_data_couk/wta/grand_slam/2015.parquet | 508 | Date | 2015-01-19 | 2015-09-12 | 0/0 | wayback |
-| data/dump/odds/tennis_data_couk/wta/grand_slam/2016.parquet | 508 | Date | 2016-01-18 | 2016-09-10 | 0/0 | wayback |
-| data/dump/odds/tennis_data_couk/wta/grand_slam/2017.parquet | 508 | Date | 2017-01-16 | 2017-09-09 | 1/0 | wayback |
-| data/dump/odds/tennis_data_couk/wta/grand_slam/2018.parquet | 508 | Date | 2018-01-15 | 2018-09-08 | 0/0 | wayback |
-| data/dump/odds/tennis_data_couk/wta/grand_slam/2019.parquet | 508 | Date | 2019-01-14 | 2019-09-07 | 0/0 | wayback |
-| data/dump/odds/tennis_data_couk/wta/grand_slam/2020.parquet | 381 | Date | 2020-01-20 | 2020-10-10 | 0/0 | wayback |
-| data/dump/odds/tennis_data_couk/wta/grand_slam/2021.parquet | 508 | Date | 2021-02-08 | 2021-09-11 | 2/0 | wayback |
-| data/dump/odds/tennis_data_couk/wta/grand_slam/2022.parquet | 508 | Date | 2022-01-17 | 2022-09-10 | 1/0 | wayback |
-| data/dump/odds/tennis_data_couk/wta/grand_slam/2023.parquet | 508 | Date | 2023-01-16 | 2023-09-09 | 0/0 | wayback |
-| data/dump/odds/tennis_data_couk/wta/grand_slam/2024.parquet | 508 | Date | 2024-01-14 | 2024-09-07 | 0/0 | wayback |
-| data/dump/odds/tennis_data_couk/wta/grand_slam/2025.parquet | 508 | Date | 2025-01-12 | 2025-09-06 | 382/0 | wayback |
-| data/dump/odds/tennis_data_couk/wta/grand_slam/2026.parquet | 381 | Date | 2026-01-18 | 2026-07-11 | 9/0 | wayback |
+| data/dump/odds/tennis_data_couk/wta/grand_slam/2010.parquet | 508 | Date | 2010-01-18 | 2010-09-12 | 127/0 | live |
+| data/dump/odds/tennis_data_couk/wta/grand_slam/2011.parquet | 508 | Date | 2011-01-17 | 2011-09-11 | 0/0 | live |
+| data/dump/odds/tennis_data_couk/wta/grand_slam/2012.parquet | 508 | Date | 2012-01-16 | 2012-09-09 | 0/0 | live |
+| data/dump/odds/tennis_data_couk/wta/grand_slam/2013.parquet | 508 | Date | 2013-01-14 | 2013-09-08 | 0/0 | live |
+| data/dump/odds/tennis_data_couk/wta/grand_slam/2014.parquet | 508 | Date | 2014-01-13 | 2014-09-07 | 0/0 | live |
+| data/dump/odds/tennis_data_couk/wta/grand_slam/2015.parquet | 508 | Date | 2015-01-19 | 2015-09-12 | 0/0 | live |
+| data/dump/odds/tennis_data_couk/wta/grand_slam/2016.parquet | 508 | Date | 2016-01-18 | 2016-09-10 | 0/0 | live |
+| data/dump/odds/tennis_data_couk/wta/grand_slam/2017.parquet | 508 | Date | 2017-01-16 | 2017-09-09 | 1/0 | live |
+| data/dump/odds/tennis_data_couk/wta/grand_slam/2018.parquet | 508 | Date | 2018-01-15 | 2018-09-08 | 0/0 | live |
+| data/dump/odds/tennis_data_couk/wta/grand_slam/2019.parquet | 508 | Date | 2019-01-14 | 2019-09-07 | 0/0 | live |
+| data/dump/odds/tennis_data_couk/wta/grand_slam/2020.parquet | 381 | Date | 2020-01-20 | 2020-10-10 | 0/0 | live |
+| data/dump/odds/tennis_data_couk/wta/grand_slam/2021.parquet | 508 | Date | 2021-02-08 | 2021-09-11 | 2/0 | live |
+| data/dump/odds/tennis_data_couk/wta/grand_slam/2022.parquet | 508 | Date | 2022-01-17 | 2022-09-10 | 1/0 | live |
+| data/dump/odds/tennis_data_couk/wta/grand_slam/2023.parquet | 508 | Date | 2023-01-16 | 2023-09-09 | 0/0 | live |
+| data/dump/odds/tennis_data_couk/wta/grand_slam/2024.parquet | 508 | Date | 2024-01-14 | 2024-09-07 | 0/0 | live |
+| data/dump/odds/tennis_data_couk/wta/grand_slam/2025.parquet | 508 | Date | 2025-01-12 | 2025-09-06 | 382/0 | live |
+| data/dump/odds/tennis_data_couk/wta/grand_slam/2026.parquet | 508 | Date | 2026-01-18 | 2026-09-12 | 9/0 | live |
 | data/dump/odds/tennis_data_couk/wta/international/2009.parquet | 969 | Date | 2009-01-04 | 2009-11-08 | 25/0 | wayback |
-| data/dump/odds/tennis_data_couk/wta/international/2010.parquet | 1,053 | Date | 2010-01-03 | 2010-11-07 | 375/0 | wayback |
-| data/dump/odds/tennis_data_couk/wta/international/2011.parquet | 1,047 | Date | 2011-01-02 | 2011-11-06 | 6/0 | wayback |
-| data/dump/odds/tennis_data_couk/wta/international/2012.parquet | 996 | Date | 2012-01-01 | 2012-11-04 | 0/0 | wayback |
-| data/dump/odds/tennis_data_couk/wta/international/2013.parquet | 1,024 | Date | 2012-12-30 | 2013-11-03 | 3/0 | wayback |
-| data/dump/odds/tennis_data_couk/wta/international/2014.parquet | 1,058 | Date | 2013-12-29 | 2014-11-02 | 2/0 | wayback |
-| data/dump/odds/tennis_data_couk/wta/international/2015.parquet | 992 | Date | 2015-01-04 | 2015-10-25 | 1/0 | wayback |
-| data/dump/odds/tennis_data_couk/wta/international/2016.parquet | 1,050 | Date | 2016-01-03 | 2016-10-22 | 4/0 | wayback |
-| data/dump/odds/tennis_data_couk/wta/international/2017.parquet | 1,019 | Date | 2017-01-01 | 2017-10-21 | 1/0 | wayback |
-| data/dump/odds/tennis_data_couk/wta/international/2018.parquet | 988 | Date | 2017-12-31 | 2018-10-20 | 0/0 | wayback |
-| data/dump/odds/tennis_data_couk/wta/international/2019.parquet | 1,013 | Date | 2018-12-30 | 2019-10-20 | 0/0 | wayback |
-| data/dump/odds/tennis_data_couk/wta/international/2020.parquet | 422 | Date | 2020-01-05 | 2020-10-25 | 1/0 | wayback |
+| data/dump/odds/tennis_data_couk/wta/international/2010.parquet | 1,053 | Date | 2010-01-03 | 2010-11-07 | 375/0 | live |
+| data/dump/odds/tennis_data_couk/wta/international/2011.parquet | 1,047 | Date | 2011-01-02 | 2011-11-06 | 6/0 | live |
+| data/dump/odds/tennis_data_couk/wta/international/2012.parquet | 996 | Date | 2012-01-01 | 2012-11-04 | 0/0 | live |
+| data/dump/odds/tennis_data_couk/wta/international/2013.parquet | 1,024 | Date | 2012-12-30 | 2013-11-03 | 3/0 | live |
+| data/dump/odds/tennis_data_couk/wta/international/2014.parquet | 1,058 | Date | 2013-12-29 | 2014-11-02 | 2/0 | live |
+| data/dump/odds/tennis_data_couk/wta/international/2015.parquet | 992 | Date | 2015-01-04 | 2015-10-25 | 1/0 | live |
+| data/dump/odds/tennis_data_couk/wta/international/2016.parquet | 1,050 | Date | 2016-01-03 | 2016-10-22 | 4/0 | live |
+| data/dump/odds/tennis_data_couk/wta/international/2017.parquet | 1,019 | Date | 2017-01-01 | 2017-10-21 | 1/0 | live |
+| data/dump/odds/tennis_data_couk/wta/international/2018.parquet | 988 | Date | 2017-12-31 | 2018-10-20 | 0/0 | live |
+| data/dump/odds/tennis_data_couk/wta/international/2019.parquet | 1,013 | Date | 2018-12-30 | 2019-10-20 | 0/0 | live |
+| data/dump/odds/tennis_data_couk/wta/international/2020.parquet | 422 | Date | 2020-01-05 | 2020-10-25 | 1/0 | live |
 | data/dump/odds/tennis_data_couk/wta/premier/2009.parquet | 941 | Date | 2009-01-11 | 2009-10-25 | 14/0 | wayback |
-| data/dump/odds/tennis_data_couk/wta/premier/2010.parquet | 872 | Date | 2010-01-10 | 2010-10-10 | 361/0 | wayback |
-| data/dump/odds/tennis_data_couk/wta/premier/2011.parquet | 898 | Date | 2011-01-09 | 2011-10-09 | 1/0 | wayback |
-| data/dump/odds/tennis_data_couk/wta/premier/2012.parquet | 888 | Date | 2012-01-08 | 2012-10-07 | 1/0 | wayback |
-| data/dump/odds/tennis_data_couk/wta/premier/2013.parquet | 895 | Date | 2013-01-06 | 2013-10-06 | 2/0 | wayback |
-| data/dump/odds/tennis_data_couk/wta/premier/2014.parquet | 895 | Date | 2013-12-29 | 2014-10-05 | 2/0 | wayback |
-| data/dump/odds/tennis_data_couk/wta/premier/2015.parquet | 991 | Date | 2015-01-04 | 2015-10-24 | 3/0 | wayback |
-| data/dump/odds/tennis_data_couk/wta/premier/2016.parquet | 934 | Date | 2016-01-03 | 2016-10-22 | 1/0 | wayback |
-| data/dump/odds/tennis_data_couk/wta/premier/2017.parquet | 943 | Date | 2017-01-01 | 2017-10-21 | 1/0 | wayback |
-| data/dump/odds/tennis_data_couk/wta/premier/2018.parquet | 943 | Date | 2017-12-31 | 2018-10-20 | 1/0 | wayback |
-| data/dump/odds/tennis_data_couk/wta/premier/2019.parquet | 921 | Date | 2018-12-31 | 2019-10-20 | 1/0 | wayback |
-| data/dump/odds/tennis_data_couk/wta/premier/2020.parquet | 252 | Date | 2020-01-06 | 2020-09-21 | 0/0 | wayback |
-| data/dump/odds/tennis_data_couk/wta/premier/2023.parquet | 59 | Date | 2023-09-30 | 2023-10-08 | 0/0 | wayback |
+| data/dump/odds/tennis_data_couk/wta/premier/2010.parquet | 872 | Date | 2010-01-10 | 2010-10-10 | 361/0 | live |
+| data/dump/odds/tennis_data_couk/wta/premier/2011.parquet | 898 | Date | 2011-01-09 | 2011-10-09 | 1/0 | live |
+| data/dump/odds/tennis_data_couk/wta/premier/2012.parquet | 888 | Date | 2012-01-08 | 2012-10-07 | 1/0 | live |
+| data/dump/odds/tennis_data_couk/wta/premier/2013.parquet | 895 | Date | 2013-01-06 | 2013-10-06 | 2/0 | live |
+| data/dump/odds/tennis_data_couk/wta/premier/2014.parquet | 895 | Date | 2013-12-29 | 2014-10-05 | 2/0 | live |
+| data/dump/odds/tennis_data_couk/wta/premier/2015.parquet | 991 | Date | 2015-01-04 | 2015-10-24 | 3/0 | live |
+| data/dump/odds/tennis_data_couk/wta/premier/2016.parquet | 934 | Date | 2016-01-03 | 2016-10-22 | 1/0 | live |
+| data/dump/odds/tennis_data_couk/wta/premier/2017.parquet | 943 | Date | 2017-01-01 | 2017-10-21 | 1/0 | live |
+| data/dump/odds/tennis_data_couk/wta/premier/2018.parquet | 943 | Date | 2017-12-31 | 2018-10-20 | 1/0 | live |
+| data/dump/odds/tennis_data_couk/wta/premier/2019.parquet | 921 | Date | 2018-12-31 | 2019-10-20 | 1/0 | live |
+| data/dump/odds/tennis_data_couk/wta/premier/2020.parquet | 252 | Date | 2020-01-06 | 2020-09-21 | 0/0 | live |
+| data/dump/odds/tennis_data_couk/wta/premier/2023.parquet | 59 | Date | 2023-09-30 | 2023-10-08 | 0/0 | live |
 | data/dump/odds/tennis_data_couk/wta/tier_1/2007.parquet | 546 | Date | 2007-01-30 | 2007-10-21 | 20/0 | wayback |
 | data/dump/odds/tennis_data_couk/wta/tier_1/2008.parquet | 519 | Date | 2008-02-18 | 2008-10-12 | 7/0 | wayback |
 | data/dump/odds/tennis_data_couk/wta/tier_2/2007.parquet | 461 | Date | 2007-01-07 | 2007-10-28 | 8/0 | wayback |
@@ -668,70 +728,74 @@ Generated 2026-09-22T22:35:29+00:00 by src/ingest/public_dump/build_manifest.py 
 | data/dump/odds/tennis_data_couk/wta/tour_championships/2007.parquet | 15 | Date | 2007-11-06 | 2007-11-11 | 0/0 | wayback |
 | data/dump/odds/tennis_data_couk/wta/tour_championships/2008.parquet | 15 | Date | 2008-11-04 | 2008-11-09 | 1/0 | wayback |
 | data/dump/odds/tennis_data_couk/wta/tour_championships/2009.parquet | 15 | Date | 2009-10-27 | 2009-11-01 | 0/0 | wayback |
-| data/dump/odds/tennis_data_couk/wta/tour_championships/2010.parquet | 15 | Date | 2010-10-26 | 2010-10-31 | 0/0 | wayback |
-| data/dump/odds/tennis_data_couk/wta/tour_championships/2011.parquet | 15 | Date | 2011-10-25 | 2011-10-30 | 0/0 | wayback |
-| data/dump/odds/tennis_data_couk/wta/tour_championships/2012.parquet | 15 | Date | 2012-10-23 | 2012-10-28 | 0/0 | wayback |
-| data/dump/odds/tennis_data_couk/wta/tour_championships/2013.parquet | 15 | Date | 2013-10-22 | 2013-10-27 | 0/0 | wayback |
-| data/dump/odds/tennis_data_couk/wta/tour_championships/2014.parquet | 15 | Date | 2014-10-20 | 2014-10-26 | 0/0 | wayback |
-| data/dump/odds/tennis_data_couk/wta/tour_championships/2015.parquet | 30 | Date | 2015-10-25 | 2015-11-08 | 0/0 | wayback |
-| data/dump/odds/tennis_data_couk/wta/tour_championships/2016.parquet | 30 | Date | 2016-10-23 | 2016-11-06 | 0/0 | wayback |
-| data/dump/odds/tennis_data_couk/wta/tour_championships/2017.parquet | 30 | Date | 2017-10-22 | 2017-11-05 | 0/0 | wayback |
-| data/dump/odds/tennis_data_couk/wta/tour_championships/2018.parquet | 30 | Date | 2018-10-21 | 2018-11-04 | 0/0 | wayback |
-| data/dump/odds/tennis_data_couk/wta/tour_championships/2019.parquet | 30 | Date | 2019-10-22 | 2019-11-03 | 0/0 | wayback |
-| data/dump/odds/tennis_data_couk/wta/tour_championships/2021.parquet | 15 | Date | 2021-11-10 | 2021-11-18 | 0/0 | wayback |
-| data/dump/odds/tennis_data_couk/wta/tour_championships/2022.parquet | 15 | Date | 2022-10-31 | 2022-11-08 | 0/0 | wayback |
-| data/dump/odds/tennis_data_couk/wta/tour_championships/2023.parquet | 30 | Date | 2023-10-24 | 2023-11-06 | 0/0 | wayback |
-| data/dump/odds/tennis_data_couk/wta/tour_championships/2024.parquet | 15 | Date | 2024-11-02 | 2024-11-09 | 0/0 | wayback |
-| data/dump/odds/tennis_data_couk/wta/tour_championships/2025.parquet | 15 | Date | 2025-11-01 | 2025-11-08 | 0/0 | wayback |
-| data/dump/odds/tennis_data_couk/wta/wta1000/2021.parquet | 418 | Date | 2021-03-23 | 2021-10-17 | 0/0 | wayback |
-| data/dump/odds/tennis_data_couk/wta/wta1000/2022.parquet | 528 | Date | 2022-02-20 | 2022-10-24 | 0/0 | wayback |
-| data/dump/odds/tennis_data_couk/wta/wta1000/2023.parquet | 600 | Date | 2023-02-19 | 2023-09-24 | 1/0 | wayback |
-| data/dump/odds/tennis_data_couk/wta/wta1000/2024.parquet | 750 | Date | 2024-02-11 | 2024-10-13 | 1/0 | wayback |
-| data/dump/odds/tennis_data_couk/wta/wta1000/2025.parquet | 830 | Date | 2025-02-09 | 2025-10-12 | 680/0 | wayback |
-| data/dump/odds/tennis_data_couk/wta/wta1000/2026.parquet | 490 | Date | 2026-02-08 | 2026-05-16 | 95/0 | wayback |
-| data/dump/odds/tennis_data_couk/wta/wta250/2021.parquet | 899 | Date | 2021-02-13 | 2021-11-12 | 2/0 | wayback |
-| data/dump/odds/tennis_data_couk/wta/wta250/2022.parquet | 926 | Date | 2022-01-04 | 2022-10-17 | 3/0 | wayback |
-| data/dump/odds/tennis_data_couk/wta/wta250/2023.parquet | 930 | Date | 2023-01-02 | 2023-10-22 | 3/0 | wayback |
-| data/dump/odds/tennis_data_couk/wta/wta250/2024.parquet | 743 | Date | 2023-12-31 | 2024-11-04 | 1/0 | wayback |
-| data/dump/odds/tennis_data_couk/wta/wta250/2025.parquet | 678 | Date | 2024-12-29 | 2025-11-02 | 462/0 | wayback |
-| data/dump/odds/tennis_data_couk/wta/wta250/2026.parquet | 521 | Date | 2026-01-04 | 2029-07-20 | 5/0 | wayback |
-| data/dump/odds/tennis_data_couk/wta/wta251/2021.parquet | 1 | Date | 2021-07-06 | 2021-07-06 | 0/0 | wayback |
-| data/dump/odds/tennis_data_couk/wta/wta252/2021.parquet | 1 | Date | 2021-07-06 | 2021-07-06 | 0/0 | wayback |
-| data/dump/odds/tennis_data_couk/wta/wta253/2021.parquet | 1 | Date | 2021-07-07 | 2021-07-07 | 0/0 | wayback |
-| data/dump/odds/tennis_data_couk/wta/wta254/2021.parquet | 1 | Date | 2021-07-07 | 2021-07-07 | 0/0 | wayback |
-| data/dump/odds/tennis_data_couk/wta/wta255/2021.parquet | 1 | Date | 2021-07-07 | 2021-07-07 | 0/0 | wayback |
-| data/dump/odds/tennis_data_couk/wta/wta256/2021.parquet | 1 | Date | 2021-07-07 | 2021-07-07 | 0/0 | wayback |
-| data/dump/odds/tennis_data_couk/wta/wta257/2021.parquet | 1 | Date | 2021-07-07 | 2021-07-07 | 0/0 | wayback |
-| data/dump/odds/tennis_data_couk/wta/wta258/2021.parquet | 1 | Date | 2021-07-07 | 2021-07-07 | 0/0 | wayback |
-| data/dump/odds/tennis_data_couk/wta/wta259/2021.parquet | 1 | Date | 2021-07-07 | 2021-07-07 | 0/0 | wayback |
-| data/dump/odds/tennis_data_couk/wta/wta260/2021.parquet | 1 | Date | 2021-07-07 | 2021-07-07 | 0/0 | wayback |
-| data/dump/odds/tennis_data_couk/wta/wta261/2021.parquet | 1 | Date | 2021-07-07 | 2021-07-07 | 0/0 | wayback |
-| data/dump/odds/tennis_data_couk/wta/wta262/2021.parquet | 1 | Date | 2021-07-08 | 2021-07-08 | 0/0 | wayback |
-| data/dump/odds/tennis_data_couk/wta/wta263/2021.parquet | 1 | Date | 2021-07-08 | 2021-07-08 | 0/0 | wayback |
-| data/dump/odds/tennis_data_couk/wta/wta264/2021.parquet | 1 | Date | 2021-07-08 | 2021-07-08 | 0/0 | wayback |
-| data/dump/odds/tennis_data_couk/wta/wta265/2021.parquet | 1 | Date | 2021-07-08 | 2021-07-08 | 0/0 | wayback |
-| data/dump/odds/tennis_data_couk/wta/wta266/2021.parquet | 1 | Date | 2021-07-08 | 2021-07-08 | 0/0 | wayback |
-| data/dump/odds/tennis_data_couk/wta/wta267/2021.parquet | 1 | Date | 2021-07-08 | 2021-07-08 | 0/0 | wayback |
-| data/dump/odds/tennis_data_couk/wta/wta268/2021.parquet | 1 | Date | 2021-07-08 | 2021-07-08 | 0/0 | wayback |
-| data/dump/odds/tennis_data_couk/wta/wta269/2021.parquet | 1 | Date | 2021-07-08 | 2021-07-08 | 0/0 | wayback |
-| data/dump/odds/tennis_data_couk/wta/wta270/2021.parquet | 1 | Date | 2021-07-09 | 2021-07-09 | 0/0 | wayback |
-| data/dump/odds/tennis_data_couk/wta/wta271/2021.parquet | 1 | Date | 2021-07-09 | 2021-07-09 | 0/0 | wayback |
-| data/dump/odds/tennis_data_couk/wta/wta272/2021.parquet | 1 | Date | 2021-07-09 | 2021-07-09 | 0/0 | wayback |
-| data/dump/odds/tennis_data_couk/wta/wta273/2021.parquet | 1 | Date | 2021-07-09 | 2021-07-09 | 0/0 | wayback |
-| data/dump/odds/tennis_data_couk/wta/wta274/2021.parquet | 1 | Date | 2021-07-10 | 2021-07-10 | 0/0 | wayback |
-| data/dump/odds/tennis_data_couk/wta/wta275/2021.parquet | 1 | Date | 2021-07-10 | 2021-07-10 | 0/0 | wayback |
-| data/dump/odds/tennis_data_couk/wta/wta276/2021.parquet | 1 | Date | 2021-07-11 | 2021-07-11 | 0/0 | wayback |
-| data/dump/odds/tennis_data_couk/wta/wta500/2021.parquet | 581 | Date | 2021-01-06 | 2021-10-24 | 2/0 | wayback |
-| data/dump/odds/tennis_data_couk/wta/wta500/2022.parquet | 392 | Date | 2022-01-03 | 2022-10-09 | 0/0 | wayback |
-| data/dump/odds/tennis_data_couk/wta/wta500/2023.parquet | 364 | Date | 2023-01-01 | 2023-10-15 | 0/0 | wayback |
-| data/dump/odds/tennis_data_couk/wta/wta500/2024.parquet | 474 | Date | 2023-12-31 | 2024-10-27 | 1/0 | wayback |
-| data/dump/odds/tennis_data_couk/wta/wta500/2025.parquet | 474 | Date | 2024-12-29 | 2025-10-26 | 343/0 | wayback |
-| data/dump/odds/tennis_data_couk/wta/wta500/2026.parquet | 339 | Date | 2026-01-04 | 2026-08-03 | 6/0 | wayback |
+| data/dump/odds/tennis_data_couk/wta/tour_championships/2010.parquet | 15 | Date | 2010-10-26 | 2010-10-31 | 0/0 | live |
+| data/dump/odds/tennis_data_couk/wta/tour_championships/2011.parquet | 15 | Date | 2011-10-25 | 2011-10-30 | 0/0 | live |
+| data/dump/odds/tennis_data_couk/wta/tour_championships/2012.parquet | 15 | Date | 2012-10-23 | 2012-10-28 | 0/0 | live |
+| data/dump/odds/tennis_data_couk/wta/tour_championships/2013.parquet | 15 | Date | 2013-10-22 | 2013-10-27 | 0/0 | live |
+| data/dump/odds/tennis_data_couk/wta/tour_championships/2014.parquet | 15 | Date | 2014-10-20 | 2014-10-26 | 0/0 | live |
+| data/dump/odds/tennis_data_couk/wta/tour_championships/2015.parquet | 30 | Date | 2015-10-25 | 2015-11-08 | 0/0 | live |
+| data/dump/odds/tennis_data_couk/wta/tour_championships/2016.parquet | 30 | Date | 2016-10-23 | 2016-11-06 | 0/0 | live |
+| data/dump/odds/tennis_data_couk/wta/tour_championships/2017.parquet | 30 | Date | 2017-10-22 | 2017-11-05 | 0/0 | live |
+| data/dump/odds/tennis_data_couk/wta/tour_championships/2018.parquet | 30 | Date | 2018-10-21 | 2018-11-04 | 0/0 | live |
+| data/dump/odds/tennis_data_couk/wta/tour_championships/2019.parquet | 30 | Date | 2019-10-22 | 2019-11-03 | 0/0 | live |
+| data/dump/odds/tennis_data_couk/wta/tour_championships/2021.parquet | 15 | Date | 2021-11-10 | 2021-11-18 | 0/0 | live |
+| data/dump/odds/tennis_data_couk/wta/tour_championships/2022.parquet | 15 | Date | 2022-10-31 | 2022-11-08 | 0/0 | live |
+| data/dump/odds/tennis_data_couk/wta/tour_championships/2023.parquet | 30 | Date | 2023-10-24 | 2023-11-06 | 0/0 | live |
+| data/dump/odds/tennis_data_couk/wta/tour_championships/2024.parquet | 15 | Date | 2024-11-02 | 2024-11-09 | 0/0 | live |
+| data/dump/odds/tennis_data_couk/wta/tour_championships/2025.parquet | 15 | Date | 2025-11-01 | 2025-11-08 | 0/0 | live |
+| data/dump/odds/tennis_data_couk/wta/wta1000/2021.parquet | 418 | Date | 2021-03-23 | 2021-10-17 | 0/0 | live |
+| data/dump/odds/tennis_data_couk/wta/wta1000/2022.parquet | 528 | Date | 2022-02-20 | 2022-10-24 | 0/0 | live |
+| data/dump/odds/tennis_data_couk/wta/wta1000/2023.parquet | 600 | Date | 2023-02-19 | 2023-09-24 | 1/0 | live |
+| data/dump/odds/tennis_data_couk/wta/wta1000/2024.parquet | 750 | Date | 2024-02-11 | 2024-10-13 | 1/0 | live |
+| data/dump/odds/tennis_data_couk/wta/wta1000/2025.parquet | 830 | Date | 2025-02-09 | 2025-10-12 | 680/0 | live |
+| data/dump/odds/tennis_data_couk/wta/wta1000/2026.parquet | 680 | Date | 2026-02-08 | 2026-08-24 | 95/0 | live |
+| data/dump/odds/tennis_data_couk/wta/wta250/2021.parquet | 899 | Date | 2021-02-13 | 2021-11-12 | 2/0 | live |
+| data/dump/odds/tennis_data_couk/wta/wta250/2022.parquet | 926 | Date | 2022-01-04 | 2022-10-17 | 3/0 | live |
+| data/dump/odds/tennis_data_couk/wta/wta250/2023.parquet | 930 | Date | 2023-01-02 | 2023-10-22 | 3/0 | live |
+| data/dump/odds/tennis_data_couk/wta/wta250/2024.parquet | 743 | Date | 2023-12-31 | 2024-11-04 | 1/0 | live |
+| data/dump/odds/tennis_data_couk/wta/wta250/2025.parquet | 678 | Date | 2024-12-29 | 2025-11-02 | 462/0 | live |
+| data/dump/odds/tennis_data_couk/wta/wta250/2026.parquet | 583 | Date | 2026-01-04 | 2026-09-27 | 5/0 | live |
+| data/dump/odds/tennis_data_couk/wta/wta251/2021.parquet | 1 | Date | 2021-07-06 | 2021-07-06 | 0/0 | live |
+| data/dump/odds/tennis_data_couk/wta/wta252/2021.parquet | 1 | Date | 2021-07-06 | 2021-07-06 | 0/0 | live |
+| data/dump/odds/tennis_data_couk/wta/wta253/2021.parquet | 1 | Date | 2021-07-07 | 2021-07-07 | 0/0 | live |
+| data/dump/odds/tennis_data_couk/wta/wta254/2021.parquet | 1 | Date | 2021-07-07 | 2021-07-07 | 0/0 | live |
+| data/dump/odds/tennis_data_couk/wta/wta255/2021.parquet | 1 | Date | 2021-07-07 | 2021-07-07 | 0/0 | live |
+| data/dump/odds/tennis_data_couk/wta/wta256/2021.parquet | 1 | Date | 2021-07-07 | 2021-07-07 | 0/0 | live |
+| data/dump/odds/tennis_data_couk/wta/wta257/2021.parquet | 1 | Date | 2021-07-07 | 2021-07-07 | 0/0 | live |
+| data/dump/odds/tennis_data_couk/wta/wta258/2021.parquet | 1 | Date | 2021-07-07 | 2021-07-07 | 0/0 | live |
+| data/dump/odds/tennis_data_couk/wta/wta259/2021.parquet | 1 | Date | 2021-07-07 | 2021-07-07 | 0/0 | live |
+| data/dump/odds/tennis_data_couk/wta/wta260/2021.parquet | 1 | Date | 2021-07-07 | 2021-07-07 | 0/0 | live |
+| data/dump/odds/tennis_data_couk/wta/wta261/2021.parquet | 1 | Date | 2021-07-07 | 2021-07-07 | 0/0 | live |
+| data/dump/odds/tennis_data_couk/wta/wta262/2021.parquet | 1 | Date | 2021-07-08 | 2021-07-08 | 0/0 | live |
+| data/dump/odds/tennis_data_couk/wta/wta263/2021.parquet | 1 | Date | 2021-07-08 | 2021-07-08 | 0/0 | live |
+| data/dump/odds/tennis_data_couk/wta/wta264/2021.parquet | 1 | Date | 2021-07-08 | 2021-07-08 | 0/0 | live |
+| data/dump/odds/tennis_data_couk/wta/wta265/2021.parquet | 1 | Date | 2021-07-08 | 2021-07-08 | 0/0 | live |
+| data/dump/odds/tennis_data_couk/wta/wta266/2021.parquet | 1 | Date | 2021-07-08 | 2021-07-08 | 0/0 | live |
+| data/dump/odds/tennis_data_couk/wta/wta267/2021.parquet | 1 | Date | 2021-07-08 | 2021-07-08 | 0/0 | live |
+| data/dump/odds/tennis_data_couk/wta/wta268/2021.parquet | 1 | Date | 2021-07-08 | 2021-07-08 | 0/0 | live |
+| data/dump/odds/tennis_data_couk/wta/wta269/2021.parquet | 1 | Date | 2021-07-08 | 2021-07-08 | 0/0 | live |
+| data/dump/odds/tennis_data_couk/wta/wta270/2021.parquet | 1 | Date | 2021-07-09 | 2021-07-09 | 0/0 | live |
+| data/dump/odds/tennis_data_couk/wta/wta271/2021.parquet | 1 | Date | 2021-07-09 | 2021-07-09 | 0/0 | live |
+| data/dump/odds/tennis_data_couk/wta/wta272/2021.parquet | 1 | Date | 2021-07-09 | 2021-07-09 | 0/0 | live |
+| data/dump/odds/tennis_data_couk/wta/wta273/2021.parquet | 1 | Date | 2021-07-09 | 2021-07-09 | 0/0 | live |
+| data/dump/odds/tennis_data_couk/wta/wta274/2021.parquet | 1 | Date | 2021-07-10 | 2021-07-10 | 0/0 | live |
+| data/dump/odds/tennis_data_couk/wta/wta275/2021.parquet | 1 | Date | 2021-07-10 | 2021-07-10 | 0/0 | live |
+| data/dump/odds/tennis_data_couk/wta/wta276/2021.parquet | 1 | Date | 2021-07-11 | 2021-07-11 | 0/0 | live |
+| data/dump/odds/tennis_data_couk/wta/wta500/2021.parquet | 581 | Date | 2021-01-06 | 2021-10-24 | 2/0 | live |
+| data/dump/odds/tennis_data_couk/wta/wta500/2022.parquet | 392 | Date | 2022-01-03 | 2022-10-09 | 0/0 | live |
+| data/dump/odds/tennis_data_couk/wta/wta500/2023.parquet | 364 | Date | 2023-01-01 | 2023-10-15 | 0/0 | live |
+| data/dump/odds/tennis_data_couk/wta/wta500/2024.parquet | 474 | Date | 2023-12-31 | 2024-10-27 | 1/0 | live |
+| data/dump/odds/tennis_data_couk/wta/wta500/2025.parquet | 474 | Date | 2024-12-29 | 2025-10-26 | 343/0 | live |
+| data/dump/odds/tennis_data_couk/wta/wta500/2026.parquet | 420 | Date | 2026-01-04 | 2026-09-27 | 7/0 | live |
 | data/dump/players/live_tennis_api_zenodo/players.parquet | 32,678 |  |  |  | 0/0 |  |
 | data/dump/players/open_tennis_data/players.parquet | 1,216 |  |  |  | 0/0 |  |
 | data/dump/players/sackmann_archive/atp/atp_players.parquet | 66,912 |  |  |  | 0/0 |  |
 | data/dump/players/sackmann_archive/wta/wta_players.parquet | 70,571 |  |  |  | 0/0 |  |
 | data/dump/players/tennis_my_life/ATP_Database.parquet | 12,903 |  |  |  | 0/0 |  |
+| data/dump/points/ausopen/archived_draws.parquet | 2,387 | date | 2019-01-08 | 2026-01-30 | 0/0 |  |
+| data/dump/points/ausopen/matches.parquet | 703 | date | 2020-02-02 | 2026-02-01 | 0/0 |  |
+| data/dump/points/ausopen/points.parquet | 108,667 |  |  |  | 0/0 |  |
+| data/dump/points/ausopen/set_statistics.parquet | 188,632 |  |  |  | 0/0 |  |
 | data/dump/points/live_tennis_api_zenodo/points_sample_2026-06.parquet | 951,064 | timestamp_utc | 2026-06-01 12:09:27.301627 | 2026-07-01 03:32:34.811345 | 0/0 |  |
 | data/dump/points/match_charting_project/metadata/charting-m-matches.parquet | 7,566 | Date | 19600529 | 20260521 | 2/0 |  |
 | data/dump/points/match_charting_project/metadata/charting-w-matches.parquet | 4,264 | Date | 19790928 | 20260909 | 9/0 |  |
@@ -937,6 +1001,129 @@ Generated 2026-09-22T22:35:29+00:00 by src/ingest/public_dump/build_manifest.py 
 | data/dump/points/sackmann_archive/slam_pointbypoint/2024-usopen-points.parquet | 45,289 | match_id[:4] | 2024 | 2024 | 0/0 |  |
 | data/dump/points/sackmann_archive/slam_pointbypoint/2024-wimbledon-matches.parquet | 252 | match_id[:4] | 2024 | 2024 | 0/0 |  |
 | data/dump/points/sackmann_archive/slam_pointbypoint/2024-wimbledon-points.parquet | 48,155 | match_id[:4] | 2024 | 2024 | 0/0 |  |
+| data/dump/points/sirgenkii_infotennis/atp_calendars.parquet | 23 |  |  |  | 0/0 |  |
+| data/dump/points/sirgenkii_infotennis/atp_court_vision.parquet | 6,992 |  |  |  | 0/0 |  |
+| data/dump/points/sirgenkii_infotennis/atp_key_stats.parquet | 6,264 |  |  |  | 0/0 |  |
+| data/dump/points/sirgenkii_infotennis/atp_rally_analysis.parquet | 136,928 |  |  |  | 0/0 |  |
+| data/dump/points/sirgenkii_infotennis/atp_results.parquet | 1,343 |  |  |  | 0/0 |  |
+| data/dump/points/sirgenkii_infotennis/atp_stroke_analysis.parquet | 87,976 |  |  |  | 0/0 |  |
+| data/dump/points/slam_ball_tracking/json_matches.parquet | 1,225 |  |  |  | 0/0 |  |
+| data/dump/points/slam_ball_tracking/json_points/AO_2022.parquet | 63,610 |  |  |  | 0/0 |  |
+| data/dump/points/slam_ball_tracking/json_points/AO_2023.parquet | 63,115 |  |  |  | 0/0 |  |
+| data/dump/points/slam_ball_tracking/json_points/AO_2024.parquet | 66,960 |  |  |  | 0/0 |  |
+| data/dump/points/slam_ball_tracking/json_points/RG_2022.parquet | 55,949 |  |  |  | 0/0 |  |
+| data/dump/points/slam_ball_tracking/json_points/RG_2023.parquet | 28,299 |  |  |  | 0/0 |  |
+| data/dump/points/slam_ball_tracking/json_points/RG_2024.parquet | 29,801 |  |  |  | 0/0 |  |
+| data/dump/points/slam_ball_tracking/matches.parquet | 2,027 |  |  |  | 0/0 |  |
+| data/dump/points/slam_ball_tracking/points/AO_2020.parquet | 62,025 |  |  |  | 0/0 |  |
+| data/dump/points/slam_ball_tracking/points/AO_2021.parquet | 60,711 |  |  |  | 0/0 |  |
+| data/dump/points/slam_ball_tracking/points/AO_2022.parquet | 63,610 |  |  |  | 0/0 |  |
+| data/dump/points/slam_ball_tracking/points/AO_2023.parquet | 63,115 |  |  |  | 0/0 |  |
+| data/dump/points/slam_ball_tracking/points/AO_2024.parquet | 66,960 |  |  |  | 0/0 |  |
+| data/dump/points/slam_ball_tracking/points/RG_2019.parquet | 19,984 |  |  |  | 0/0 |  |
+| data/dump/points/slam_ball_tracking/points/RG_2020.parquet | 22,421 |  |  |  | 0/0 |  |
+| data/dump/points/slam_ball_tracking/points/RG_2021.parquet | 30,711 |  |  |  | 0/0 |  |
+| data/dump/points/slam_ball_tracking/points/RG_2022.parquet | 55,949 |  |  |  | 0/0 |  |
+| data/dump/points/slam_ball_tracking/points/RG_2023.parquet | 28,299 |  |  |  | 0/0 |  |
+| data/dump/points/slam_ball_tracking/points/RG_2024.parquet | 29,801 |  |  |  | 0/0 |  |
+| data/dump/points/slam_ball_tracking/shots/AO_2022.parquet | 993,488 |  |  |  | 0/0 |  |
+| data/dump/points/slam_ball_tracking/shots/AO_2023.parquet | 1,199,901 |  |  |  | 0/0 |  |
+| data/dump/points/slam_ball_tracking/shots/AO_2024.parquet | 1,266,400 |  |  |  | 0/0 |  |
+| data/dump/points/slam_ball_tracking/shots/RG_2022.parquet | 547,818 |  |  |  | 0/0 |  |
+| data/dump/points/slam_ball_tracking/shots/RG_2023.parquet | 389,446 |  |  |  | 0/0 |  |
+| data/dump/points/slam_ball_tracking/shots/RG_2024.parquet | 265,356 |  |  |  | 0/0 |  |
+| data/dump/points/sofascore/events.parquet | 5,849 |  |  |  | 0/0 |  |
+| data/dump/points/sofascore/points.parquet | 368,534 |  |  |  | 0/0 |  |
+| data/dump/points/sofascore/statistics.parquet | 176,606 |  |  |  | 0/0 |  |
+| data/dump/points/sofascore_editions/events.parquet | 4,995 |  |  |  | 0/0 |  |
+| data/dump/points/sofascore_editions/points.parquet | 464,721 |  |  |  | 0/0 |  |
+| data/dump/points/sofascore_editions/statistics.parquet | 226,347 |  |  |  | 0/0 |  |
+| data/dump/points/sofascore_tournaments/events.parquet | 5,555 |  |  |  | 0/0 |  |
+| data/dump/points/sofascore_tournaments/points.parquet | 250,664 |  |  |  | 0/0 |  |
+| data/dump/points/sofascore_tournaments/statistics.parquet | 140,973 |  |  |  | 0/0 |  |
+| data/dump/points/tdi/filter_players.parquet | 2,725 |  |  |  | 0/0 |  |
+| data/dump/points/tdi/filter_tournaments.parquet | 94 |  |  |  | 0/0 |  |
+| data/dump/points/tdi/listing_cards.parquet | 11,984 | match_id[:8] | 00075570 | 99678417 | 0/0 |  |
+| data/dump/points/tdi/listing_pages.parquet | 203 |  |  |  | 0/0 |  |
+| data/dump/points/tdi/match_ids.parquet | 5,462 | match_id[:8] | 00075570 | 99678417 | 0/0 |  |
+| data/dump/points/tdi/matches.parquet | 6,096 | match_id[:8] | 00075570 | 99678417 | 0/0 |  |
+| data/dump/points/tdi/players.parquet | 1,504 |  |  |  | 0/0 |  |
+| data/dump/points/tdi/points.parquet | 831,206 | match_id[:8] | 00075570 | 99678417 | 0/0 |  |
+| data/dump/points/tdi/statistics.parquet | 509,025 | match_id[:8] | 00075570 | 99678417 | 0/0 |  |
+| data/dump/points/tennislive/games.parquet | 76,366 |  |  |  | 0/0 |  |
+| data/dump/points/tennislive/index.parquet | 4,293 |  |  |  | 0/0 |  |
+| data/dump/points/tennislive/matches.parquet | 4,250 |  |  |  | 0/0 |  |
+| data/dump/points/tennislive/points.parquet | 372,281 |  |  |  | 0/0 |  |
+| data/dump/points/tennislive/statistics.parquet | 31,725 |  |  |  | 0/0 |  |
+| data/dump/points/usopen/distance.parquet | 11,468 |  |  |  | 0/0 |  |
+| data/dump/points/usopen/keymoments.parquet | 6,367 |  |  |  | 0/0 |  |
+| data/dump/points/usopen/limbtracking.parquet | 22,491 |  |  |  | 0/0 |  |
+| data/dump/points/usopen/livel2w.parquet | 102,100 |  |  |  | 0/0 |  |
+| data/dump/points/usopen/matches.parquet | 3,020 |  |  |  | 0/0 |  |
+| data/dump/points/usopen/points.parquet | 412,037 |  |  |  | 0/0 |  |
+| data/dump/points/usopen/prematch_l2w.parquet | 4,104 |  |  |  | 0/0 |  |
+| data/dump/points/usopen/statistics.parquet | 2,551,556 |  |  |  | 0/0 |  |
+| data/dump/points/wimbledon/livel2w.parquet | 96,083 |  |  |  | 0/0 |  |
+| data/dump/points/wimbledon/matches.parquet | 4,228 |  |  |  | 0/0 |  |
+| data/dump/points/wimbledon/points.parquet | 718,385 |  |  |  | 0/0 |  |
+| data/dump/points/wimbledon/statistics.parquet | 3,783,754 |  |  |  | 0/0 |  |
+| data/dump/points/wimbledon/tz.parquet | 53,324 |  |  |  | 0/0 |  |
+| data/dump/points/wta/advanced/2019.parquet | 0 |  |  |  | 0/0 |  |
+| data/dump/points/wta/advanced/2020.parquet | 0 |  |  |  | 0/0 |  |
+| data/dump/points/wta/advanced/2021.parquet | 405,770 |  |  |  | 0/0 |  |
+| data/dump/points/wta/advanced/2022.parquet | 1,376,802 |  |  |  | 0/0 |  |
+| data/dump/points/wta/advanced/2023.parquet | 1,524,594 |  |  |  | 0/0 |  |
+| data/dump/points/wta/advanced/2024.parquet | 1,596,826 |  |  |  | 0/0 |  |
+| data/dump/points/wta/advanced/2025.parquet | 2,131,498 |  |  |  | 0/0 |  |
+| data/dump/points/wta/advanced/2026.parquet | 1,988,250 |  |  |  | 0/0 |  |
+| data/dump/points/wta/advanced.parquet | 29,814 |  |  |  | 0/0 |  |
+| data/dump/points/wta/editions.parquet | 828 | start_date | 2016-01-03 | 2026-12-14 | 0/0 |  |
+| data/dump/points/wta/events/2019.parquet | 492,001 |  |  |  | 0/0 |  |
+| data/dump/points/wta/events/2020.parquet | 378,796 |  |  |  | 0/0 |  |
+| data/dump/points/wta/events/2021.parquet | 887,605 |  |  |  | 0/0 |  |
+| data/dump/points/wta/events/2022.parquet | 976,708 |  |  |  | 0/0 |  |
+| data/dump/points/wta/events/2023.parquet | 1,088,157 |  |  |  | 0/0 |  |
+| data/dump/points/wta/events/2024.parquet | 1,133,702 |  |  |  | 0/0 |  |
+| data/dump/points/wta/events/2025.parquet | 1,315,287 |  |  |  | 0/0 |  |
+| data/dump/points/wta/events/2026.parquet | 1,197,456 |  |  |  | 0/0 |  |
+| data/dump/points/wta/events.parquet | 48,967 |  |  |  | 0/0 |  |
+| data/dump/points/wta/matches/2019.parquet | 3,394 |  |  |  | 0/0 |  |
+| data/dump/points/wta/matches/2020.parquet | 1,796 |  |  |  | 0/0 |  |
+| data/dump/points/wta/matches/2021.parquet | 4,325 |  |  |  | 0/0 |  |
+| data/dump/points/wta/matches/2022.parquet | 4,749 |  |  |  | 0/0 |  |
+| data/dump/points/wta/matches/2023.parquet | 5,244 |  |  |  | 0/0 |  |
+| data/dump/points/wta/matches/2024.parquet | 6,118 |  |  |  | 0/0 |  |
+| data/dump/points/wta/matches/2025.parquet | 7,627 |  |  |  | 0/0 |  |
+| data/dump/points/wta/matches/2026.parquet | 7,111 |  |  |  | 0/0 |  |
+| data/dump/points/wta/matches.parquet | 5,574 |  |  |  | 0/0 |  |
+| data/dump/points/wta/momentum/2019.parquet | 0 |  |  |  | 0/0 |  |
+| data/dump/points/wta/momentum/2020.parquet | 0 |  |  |  | 0/0 |  |
+| data/dump/points/wta/momentum/2021.parquet | 0 |  |  |  | 0/0 |  |
+| data/dump/points/wta/momentum/2022.parquet | 0 |  |  |  | 0/0 |  |
+| data/dump/points/wta/momentum/2023.parquet | 0 |  |  |  | 0/0 |  |
+| data/dump/points/wta/momentum/2024.parquet | 0 |  |  |  | 0/0 |  |
+| data/dump/points/wta/momentum/2025.parquet | 9,250,552 |  |  |  | 0/0 |  |
+| data/dump/points/wta/momentum/2026.parquet | 7,647,163 |  |  |  | 0/0 |  |
+| data/dump/points/wta/momentum.parquet | 39,083 |  |  |  | 0/0 |  |
+| data/dump/points/wta/points/2019.parquet | 0 |  |  |  | 0/0 |  |
+| data/dump/points/wta/points/2020.parquet | 0 |  |  |  | 0/0 |  |
+| data/dump/points/wta/points/2021.parquet | 0 |  |  |  | 0/0 |  |
+| data/dump/points/wta/points/2022.parquet | 476,448 |  |  |  | 0/0 |  |
+| data/dump/points/wta/points/2023.parquet | 697,806 |  |  |  | 0/0 |  |
+| data/dump/points/wta/points/2024.parquet | 725,036 |  |  |  | 0/0 |  |
+| data/dump/points/wta/points/2025.parquet | 424,877 |  |  |  | 0/0 |  |
+| data/dump/points/wta/points/2026.parquet | 470,700 |  |  |  | 0/0 |  |
+| data/dump/points/wta/points.parquet | 16,256 |  |  |  | 0/0 |  |
+| data/dump/points/wta/stats/2019.parquet | 11,323 |  |  |  | 0/0 |  |
+| data/dump/points/wta/stats/2020.parquet | 5,976 |  |  |  | 0/0 |  |
+| data/dump/points/wta/stats/2021.parquet | 14,256 |  |  |  | 0/0 |  |
+| data/dump/points/wta/stats/2022.parquet | 15,584 |  |  |  | 0/0 |  |
+| data/dump/points/wta/stats/2023.parquet | 17,272 |  |  |  | 0/0 |  |
+| data/dump/points/wta/stats/2024.parquet | 18,690 |  |  |  | 0/0 |  |
+| data/dump/points/wta/stats/2025.parquet | 22,259 |  |  |  | 0/0 |  |
+| data/dump/points/wta/stats/2026.parquet | 20,438 |  |  |  | 0/0 |  |
+| data/dump/points/wta/stats.parquet | 412 |  |  |  | 0/0 |  |
+| data/dump/points/wta/todo.parquet | 147,148 |  |  |  | 0/0 |  |
 | data/dump/rankings/sackmann_archive/atp/atp_rankings_10s.parquet | 915,618 | ranking_date | 20100104 | 20191230 | 0/0 |  |
 | data/dump/rankings/sackmann_archive/atp/atp_rankings_20s.parquet | 516,461 | ranking_date | 20200106 | 20251229 | 0/0 |  |
 | data/dump/rankings/sackmann_archive/atp/atp_rankings_current.parquet | 36,468 | ranking_date | 20260105 | 20260608 | 0/0 |  |

@@ -1,0 +1,2154 @@
+{
+  "generated_at": "2026-10-03T01:44:58+00:00",
+  "design": {
+    "systems": {
+      "glicko2": "Glicko-2, a tournament date as the rating period",
+      "glicko1": "Glicko-2's weekly pass with the volatility fixed at sigma0 (Glicko-1)",
+      "glicko2m": "Glicko-2 match by match: each round a rating period, drift by elapsed time",
+      "glicko1m": "the match-by-match pass with the volatility fixed (Glicko-1)",
+      "trueskill": "two-player TrueSkill, no draws, beta = 1, per-match drift tau, per-year drift gamma",
+      "glicko_cs": "correlated surface skills, Glicko's (Kalman) update match by match; RD0 and the weekly drift sigma as Glicko's; surfaces correlated rho (prior and drift); no blend",
+      "trueskill_cs": "correlated surface skills with TrueSkill's update; sigma0, gamma per year, rho",
+      "ttt": "TrueSkill Through Time, causal: weekly batches, one backward-forward EP sweep over the trailing window (weeks) after each week; TrueSkill round by round within the week"
+    },
+    "period_days": 7.0,
+    "updates": [
+      "completed",
+      "retired"
+    ],
+    "tuning_years": [
+      2013,
+      2018
+    ],
+    "newcomer": "mean 0 (1500 for Glicko), deviation RD0 / 173.7178 (Glicko) or sigma0 (TrueSkill)",
+    "surface": "one rating per player and surface (hard, clay, grass, carpet), the same constants; means blended (1 - w) overall + w surface, the uncertainty on the variance scale",
+    "tuning": "constants on the overall forecast's log loss, then w with the constants fixed (Stage 1's order)",
+    "widening": "a best value on a grid edge (not a natural bound) adds one value past it, geometrically; up to 3 rounds"
+  },
+  "grids": {
+    "glicko2": {
+      "rd0": [
+        350.0,
+        450.0,
+        550.0,
+        700.0,
+        900.0
+      ],
+      "sigma0": [
+        0.04,
+        0.055,
+        0.07,
+        0.085,
+        0.1
+      ],
+      "tau": [
+        0.2,
+        0.6,
+        1.0
+      ]
+    },
+    "glicko1": {
+      "rd0": [
+        350.0,
+        450.0,
+        550.0,
+        700.0,
+        900.0
+      ],
+      "sigma0": [
+        0.04,
+        0.055,
+        0.07,
+        0.085,
+        0.1
+      ]
+    },
+    "glicko2m": {
+      "rd0": [
+        400.0,
+        500.0,
+        600.0,
+        700.0,
+        800.0
+      ],
+      "sigma0": [
+        0.05,
+        0.06,
+        0.07,
+        0.08,
+        0.09
+      ],
+      "tau": [
+        0.2,
+        0.6,
+        1.0
+      ]
+    },
+    "glicko1m": {
+      "rd0": [
+        400.0,
+        500.0,
+        600.0,
+        700.0,
+        800.0
+      ],
+      "sigma0": [
+        0.05,
+        0.06,
+        0.07,
+        0.08,
+        0.09
+      ]
+    },
+    "trueskill": {
+      "sigma0": [
+        1.5,
+        2.0,
+        2.5,
+        3.0,
+        3.5
+      ],
+      "tau": [
+        0.0,
+        0.005,
+        0.01,
+        0.02
+      ],
+      "gamma": [
+        0.3,
+        0.4,
+        0.5,
+        0.6,
+        0.7
+      ]
+    },
+    "glicko_cs": {
+      "rd0": [
+        500.0,
+        600.0,
+        700.0
+      ],
+      "sigma0": [
+        0.06,
+        0.07,
+        0.08
+      ],
+      "rho": [
+        0.97,
+        0.98,
+        0.985,
+        0.99,
+        0.995
+      ]
+    },
+    "trueskill_cs": {
+      "sigma0": [
+        1.5,
+        2.0,
+        2.5
+      ],
+      "gamma": [
+        0.4,
+        0.5,
+        0.6
+      ],
+      "rho": [
+        0.97,
+        0.98,
+        0.985,
+        0.99,
+        0.995
+      ]
+    },
+    "ttt": {
+      "sigma0": [
+        1.5,
+        2.0,
+        2.5
+      ],
+      "gamma": [
+        0.3,
+        0.4,
+        0.5
+      ],
+      "window": [
+        26.0,
+        52.0
+      ]
+    }
+  },
+  "widening": {
+    "rounds": {
+      "glicko2": {
+        "atp": [],
+        "wta": []
+      },
+      "glicko1": {
+        "atp": [],
+        "wta": []
+      },
+      "glicko2m": {
+        "atp": [],
+        "wta": []
+      },
+      "glicko1m": {
+        "atp": [],
+        "wta": []
+      },
+      "trueskill": {
+        "atp": [],
+        "wta": []
+      },
+      "glicko_cs": {
+        "atp": [],
+        "wta": [
+          {
+            "round": 1,
+            "added": {
+              "rd0": 816.666667,
+              "sigma0": 0.091429,
+              "rho": 0.9975
+            }
+          }
+        ]
+      },
+      "trueskill_cs": {
+        "atp": [],
+        "wta": [
+          {
+            "round": 1,
+            "added": {
+              "sigma0": 3.125
+            }
+          }
+        ]
+      },
+      "ttt": {
+        "atp": [
+          {
+            "round": 1,
+            "added": {
+              "sigma0": 1.125,
+              "gamma": 0.625,
+              "window": 104.0
+            }
+          },
+          {
+            "round": 2,
+            "added": {
+              "sigma0": 0.84375,
+              "window": 208.0
+            }
+          },
+          {
+            "round": 3,
+            "added": {
+              "window": 416.0
+            }
+          }
+        ],
+        "wta": [
+          {
+            "round": 1,
+            "added": {
+              "gamma": 0.625,
+              "window": 104.0
+            }
+          },
+          {
+            "round": 2,
+            "added": {
+              "sigma0": 1.125,
+              "window": 208.0
+            }
+          }
+        ]
+      }
+    },
+    "values_added": {
+      "glicko_cs|rd0|wta": [
+        816.666667
+      ],
+      "glicko_cs|sigma0|wta": [
+        0.091429
+      ],
+      "glicko_cs|rho|wta": [
+        0.9975
+      ],
+      "trueskill_cs|sigma0|wta": [
+        3.125
+      ],
+      "ttt|sigma0|atp": [
+        1.125,
+        0.84375
+      ],
+      "ttt|gamma|atp": [
+        0.625
+      ],
+      "ttt|window|atp": [
+        104.0,
+        208.0,
+        416.0
+      ],
+      "ttt|gamma|wta": [
+        0.625
+      ],
+      "ttt|window|wta": [
+        104.0,
+        208.0
+      ],
+      "ttt|sigma0|wta": [
+        1.125
+      ]
+    }
+  },
+  "settings_by_round": {
+    "glicko2|atp": {
+      "grid": 75,
+      "widened 1": 25,
+      "widened 2": 25
+    },
+    "glicko2|wta": {
+      "grid": 75,
+      "widened 1": 25
+    },
+    "glicko1|atp": {
+      "grid": 25
+    },
+    "glicko1|wta": {
+      "grid": 25
+    },
+    "glicko2m|atp": {
+      "grid": 75,
+      "widened 1": 25
+    },
+    "glicko2m|wta": {
+      "grid": 75,
+      "widened 1": 25
+    },
+    "glicko1m|atp": {
+      "grid": 25
+    },
+    "glicko1m|wta": {
+      "grid": 25
+    },
+    "trueskill|atp": {
+      "grid": 100
+    },
+    "trueskill|wta": {
+      "grid": 100,
+      "widened 1": 25
+    },
+    "glicko_cs|atp": {
+      "grid": 45
+    },
+    "glicko_cs|wta": {
+      "widened 1": 51,
+      "grid": 45
+    },
+    "trueskill_cs|atp": {
+      "grid": 45
+    },
+    "trueskill_cs|wta": {
+      "grid": 45,
+      "widened 1": 15
+    },
+    "ttt|atp": {
+      "widened 2": 32,
+      "widened 1": 30,
+      "widened 3": 20,
+      "grid": 18
+    },
+    "ttt|wta": {
+      "widened 2": 28,
+      "grid": 18,
+      "widened 1": 18
+    }
+  },
+  "chosen": {
+    "glicko2|atp": {
+      "rd0": 700.0,
+      "sigma0": 0.07,
+      "tau": 1.666667,
+      "w": 0.25
+    },
+    "glicko2|wta": {
+      "rd0": 700.0,
+      "sigma0": 0.07,
+      "tau": 1.0,
+      "w": 0.2
+    },
+    "glicko1|atp": {
+      "rd0": 700.0,
+      "sigma0": 0.07,
+      "w": 0.25
+    },
+    "glicko1|wta": {
+      "rd0": 700.0,
+      "sigma0": 0.07,
+      "w": 0.2
+    },
+    "glicko2m|atp": {
+      "rd0": 600.0,
+      "sigma0": 0.07,
+      "tau": 1.0,
+      "w": 0.3
+    },
+    "glicko2m|wta": {
+      "rd0": 700.0,
+      "sigma0": 0.07,
+      "tau": 1.0,
+      "w": 0.2
+    },
+    "glicko1m|atp": {
+      "rd0": 600.0,
+      "sigma0": 0.07,
+      "w": 0.3
+    },
+    "glicko1m|wta": {
+      "rd0": 700.0,
+      "sigma0": 0.07,
+      "w": 0.2
+    },
+    "trueskill|atp": {
+      "sigma0": 2.0,
+      "tau": 0.01,
+      "gamma": 0.4,
+      "w": 0.3
+    },
+    "trueskill|wta": {
+      "sigma0": 3.0,
+      "tau": 0.02,
+      "gamma": 0.4,
+      "w": 0.25
+    },
+    "glicko_cs|atp": {
+      "rd0": 600.0,
+      "sigma0": 0.07,
+      "rho": 0.99,
+      "w": 0.0
+    },
+    "glicko_cs|wta": {
+      "rd0": 700.0,
+      "sigma0": 0.08,
+      "rho": 0.995,
+      "w": 0.0
+    },
+    "trueskill_cs|atp": {
+      "sigma0": 2.0,
+      "gamma": 0.5,
+      "rho": 0.98,
+      "w": 0.0
+    },
+    "trueskill_cs|wta": {
+      "sigma0": 2.5,
+      "gamma": 0.5,
+      "rho": 0.99,
+      "w": 0.0
+    },
+    "ttt|atp": {
+      "sigma0": 1.125,
+      "gamma": 0.4,
+      "window": 416.0,
+      "w": 0.35
+    },
+    "ttt|wta": {
+      "sigma0": 1.5,
+      "gamma": 0.5,
+      "window": 104.0,
+      "w": 0.3
+    }
+  },
+  "edges": {
+    "glicko2|atp": {
+      "rd0": {
+        "value": 700.0,
+        "lowest_tried": false,
+        "highest_tried": false,
+        "natural_bound": false
+      },
+      "sigma0": {
+        "value": 0.07,
+        "lowest_tried": false,
+        "highest_tried": false,
+        "natural_bound": false
+      },
+      "tau": {
+        "value": 1.666667,
+        "lowest_tried": false,
+        "highest_tried": false,
+        "natural_bound": false
+      }
+    },
+    "glicko2|wta": {
+      "rd0": {
+        "value": 700.0,
+        "lowest_tried": false,
+        "highest_tried": false,
+        "natural_bound": false
+      },
+      "sigma0": {
+        "value": 0.07,
+        "lowest_tried": false,
+        "highest_tried": false,
+        "natural_bound": false
+      },
+      "tau": {
+        "value": 1.0,
+        "lowest_tried": false,
+        "highest_tried": false,
+        "natural_bound": false
+      }
+    },
+    "glicko1|atp": {
+      "rd0": {
+        "value": 700.0,
+        "lowest_tried": false,
+        "highest_tried": false,
+        "natural_bound": false
+      },
+      "sigma0": {
+        "value": 0.07,
+        "lowest_tried": false,
+        "highest_tried": false,
+        "natural_bound": false
+      }
+    },
+    "glicko1|wta": {
+      "rd0": {
+        "value": 700.0,
+        "lowest_tried": false,
+        "highest_tried": false,
+        "natural_bound": false
+      },
+      "sigma0": {
+        "value": 0.07,
+        "lowest_tried": false,
+        "highest_tried": false,
+        "natural_bound": false
+      }
+    },
+    "glicko2m|atp": {
+      "rd0": {
+        "value": 600.0,
+        "lowest_tried": false,
+        "highest_tried": false,
+        "natural_bound": false
+      },
+      "sigma0": {
+        "value": 0.07,
+        "lowest_tried": false,
+        "highest_tried": false,
+        "natural_bound": false
+      },
+      "tau": {
+        "value": 1.0,
+        "lowest_tried": false,
+        "highest_tried": false,
+        "natural_bound": false
+      }
+    },
+    "glicko2m|wta": {
+      "rd0": {
+        "value": 700.0,
+        "lowest_tried": false,
+        "highest_tried": false,
+        "natural_bound": false
+      },
+      "sigma0": {
+        "value": 0.07,
+        "lowest_tried": false,
+        "highest_tried": false,
+        "natural_bound": false
+      },
+      "tau": {
+        "value": 1.0,
+        "lowest_tried": false,
+        "highest_tried": false,
+        "natural_bound": false
+      }
+    },
+    "glicko1m|atp": {
+      "rd0": {
+        "value": 600.0,
+        "lowest_tried": false,
+        "highest_tried": false,
+        "natural_bound": false
+      },
+      "sigma0": {
+        "value": 0.07,
+        "lowest_tried": false,
+        "highest_tried": false,
+        "natural_bound": false
+      }
+    },
+    "glicko1m|wta": {
+      "rd0": {
+        "value": 700.0,
+        "lowest_tried": false,
+        "highest_tried": false,
+        "natural_bound": false
+      },
+      "sigma0": {
+        "value": 0.07,
+        "lowest_tried": false,
+        "highest_tried": false,
+        "natural_bound": false
+      }
+    },
+    "trueskill|atp": {
+      "sigma0": {
+        "value": 2.0,
+        "lowest_tried": false,
+        "highest_tried": false,
+        "natural_bound": false
+      },
+      "tau": {
+        "value": 0.01,
+        "lowest_tried": false,
+        "highest_tried": false,
+        "natural_bound": false
+      },
+      "gamma": {
+        "value": 0.4,
+        "lowest_tried": false,
+        "highest_tried": false,
+        "natural_bound": false
+      }
+    },
+    "trueskill|wta": {
+      "sigma0": {
+        "value": 3.0,
+        "lowest_tried": false,
+        "highest_tried": false,
+        "natural_bound": false
+      },
+      "tau": {
+        "value": 0.02,
+        "lowest_tried": false,
+        "highest_tried": false,
+        "natural_bound": false
+      },
+      "gamma": {
+        "value": 0.4,
+        "lowest_tried": false,
+        "highest_tried": false,
+        "natural_bound": false
+      }
+    },
+    "glicko_cs|atp": {
+      "rd0": {
+        "value": 600.0,
+        "lowest_tried": false,
+        "highest_tried": false,
+        "natural_bound": false
+      },
+      "sigma0": {
+        "value": 0.07,
+        "lowest_tried": false,
+        "highest_tried": false,
+        "natural_bound": false
+      },
+      "rho": {
+        "value": 0.99,
+        "lowest_tried": false,
+        "highest_tried": false,
+        "natural_bound": false
+      }
+    },
+    "glicko_cs|wta": {
+      "rd0": {
+        "value": 700.0,
+        "lowest_tried": false,
+        "highest_tried": false,
+        "natural_bound": false
+      },
+      "sigma0": {
+        "value": 0.08,
+        "lowest_tried": false,
+        "highest_tried": false,
+        "natural_bound": false
+      },
+      "rho": {
+        "value": 0.995,
+        "lowest_tried": false,
+        "highest_tried": false,
+        "natural_bound": false
+      }
+    },
+    "trueskill_cs|atp": {
+      "sigma0": {
+        "value": 2.0,
+        "lowest_tried": false,
+        "highest_tried": false,
+        "natural_bound": false
+      },
+      "gamma": {
+        "value": 0.5,
+        "lowest_tried": false,
+        "highest_tried": false,
+        "natural_bound": false
+      },
+      "rho": {
+        "value": 0.98,
+        "lowest_tried": false,
+        "highest_tried": false,
+        "natural_bound": false
+      }
+    },
+    "trueskill_cs|wta": {
+      "sigma0": {
+        "value": 2.5,
+        "lowest_tried": false,
+        "highest_tried": false,
+        "natural_bound": false
+      },
+      "gamma": {
+        "value": 0.5,
+        "lowest_tried": false,
+        "highest_tried": false,
+        "natural_bound": false
+      },
+      "rho": {
+        "value": 0.99,
+        "lowest_tried": false,
+        "highest_tried": false,
+        "natural_bound": false
+      }
+    },
+    "ttt|atp": {
+      "sigma0": {
+        "value": 1.125,
+        "lowest_tried": false,
+        "highest_tried": false,
+        "natural_bound": false
+      },
+      "gamma": {
+        "value": 0.4,
+        "lowest_tried": false,
+        "highest_tried": false,
+        "natural_bound": false
+      },
+      "window": {
+        "value": 416.0,
+        "lowest_tried": false,
+        "highest_tried": true,
+        "natural_bound": false
+      }
+    },
+    "ttt|wta": {
+      "sigma0": {
+        "value": 1.5,
+        "lowest_tried": false,
+        "highest_tried": false,
+        "natural_bound": false
+      },
+      "gamma": {
+        "value": 0.5,
+        "lowest_tried": false,
+        "highest_tried": false,
+        "natural_bound": false
+      },
+      "window": {
+        "value": 104.0,
+        "lowest_tried": false,
+        "highest_tried": false,
+        "natural_bound": false
+      }
+    }
+  },
+  "flatness": {
+    "glicko2|atp": {
+      "best": 0.5951076384149139,
+      "worst": 0.7620522863620727,
+      "settings": 125,
+      "within_0_1_milli": 4,
+      "within_0_5_milli": 18,
+      "within_1_milli": 30,
+      "best_by_value": {
+        "rd0": {
+          "350.0": 2.1051,
+          "450.0": 0.808,
+          "550.0": 0.109,
+          "700.0": 0.0,
+          "900.0": 1.0338
+        },
+        "sigma0": {
+          "0.04": 2.0376,
+          "0.055": 0.2704,
+          "0.07": 0.0,
+          "0.085": 0.5121,
+          "0.1": 1.5417
+        },
+        "tau": {
+          "0.2": 0.0511,
+          "0.6": 0.0441,
+          "1.0": 0.031,
+          "1.666667": 0.0,
+          "2.777779": 0.2704
+        }
+      }
+    },
+    "glicko2|wta": {
+      "best": 0.6027548369312964,
+      "worst": 0.6097066994827899,
+      "settings": 100,
+      "within_0_1_milli": 4,
+      "within_0_5_milli": 12,
+      "within_1_milli": 12,
+      "best_by_value": {
+        "rd0": {
+          "350.0": 3.8284,
+          "450.0": 2.2039,
+          "550.0": 1.0487,
+          "700.0": 0.0,
+          "900.0": 1.4722
+        },
+        "sigma0": {
+          "0.04": 2.2613,
+          "0.055": 0.4742,
+          "0.07": 0.0,
+          "0.085": 0.2879,
+          "0.1": 1.0617
+        },
+        "tau": {
+          "0.2": 0.0007,
+          "0.6": 0.0004,
+          "1.0": 0.0,
+          "1.666667": 0.0021
+        }
+      }
+    },
+    "glicko1|atp": {
+      "best": 0.5951595829845778,
+      "worst": 0.5996342064677116,
+      "settings": 25,
+      "within_0_1_milli": 1,
+      "within_0_5_milli": 4,
+      "within_1_milli": 7,
+      "best_by_value": {
+        "rd0": {
+          "350.0": 2.1232,
+          "450.0": 0.8212,
+          "550.0": 0.1167,
+          "700.0": 0.0,
+          "900.0": 1.0232
+        },
+        "sigma0": {
+          "0.04": 2.0559,
+          "0.055": 0.3144,
+          "0.07": 0.0,
+          "0.085": 0.542,
+          "0.1": 1.6211
+        }
+      }
+    },
+    "glicko1|wta": {
+      "best": 0.6027556390261133,
+      "worst": 0.6097067234810707,
+      "settings": 25,
+      "within_0_1_milli": 1,
+      "within_0_5_milli": 3,
+      "within_1_milli": 3,
+      "best_by_value": {
+        "rd0": {
+          "350.0": 3.8434,
+          "450.0": 2.2035,
+          "550.0": 1.0483,
+          "700.0": 0.0,
+          "900.0": 1.4719
+        },
+        "sigma0": {
+          "0.04": 2.2698,
+          "0.055": 0.4769,
+          "0.07": 0.0,
+          "0.085": 0.2916,
+          "0.1": 1.0762
+        }
+      }
+    },
+    "glicko2m|atp": {
+      "best": 0.5902792633945424,
+      "worst": 0.5990129363168235,
+      "settings": 100,
+      "within_0_1_milli": 3,
+      "within_0_5_milli": 26,
+      "within_1_milli": 53,
+      "best_by_value": {
+        "rd0": {
+          "400.0": 1.0893,
+          "500.0": 0.2914,
+          "600.0": 0.0,
+          "700.0": 0.1013,
+          "800.0": 0.5102
+        },
+        "sigma0": {
+          "0.05": 1.1717,
+          "0.06": 0.3051,
+          "0.07": 0.0,
+          "0.08": 0.1005,
+          "0.09": 0.4768
+        },
+        "tau": {
+          "0.2": 0.0137,
+          "0.6": 0.0089,
+          "1.0": 0.0,
+          "1.666667": 0.3255
+        }
+      }
+    },
+    "glicko2m|wta": {
+      "best": 0.600894714565404,
+      "worst": 0.6042161337347591,
+      "settings": 100,
+      "within_0_1_milli": 6,
+      "within_0_5_milli": 34,
+      "within_1_milli": 59,
+      "best_by_value": {
+        "rd0": {
+          "400.0": 1.6234,
+          "500.0": 0.667,
+          "600.0": 0.1269,
+          "700.0": 0.0,
+          "800.0": 0.195
+        },
+        "sigma0": {
+          "0.05": 1.1933,
+          "0.06": 0.3257,
+          "0.07": 0.0,
+          "0.08": 0.0595,
+          "0.09": 0.3899
+        },
+        "tau": {
+          "0.2": 0.0046,
+          "0.6": 0.0026,
+          "1.0": 0.0,
+          "1.666667": 0.2238
+        }
+      }
+    },
+    "glicko1m|atp": {
+      "best": 0.5902935659445508,
+      "worst": 0.592721035400578,
+      "settings": 25,
+      "within_0_1_milli": 2,
+      "within_0_5_milli": 9,
+      "within_1_milli": 15,
+      "best_by_value": {
+        "rd0": {
+          "400.0": 1.0888,
+          "500.0": 0.2907,
+          "600.0": 0.0,
+          "700.0": 0.106,
+          "800.0": 0.5002
+        },
+        "sigma0": {
+          "0.05": 1.2084,
+          "0.06": 0.3097,
+          "0.07": 0.0,
+          "0.08": 0.0901,
+          "0.09": 0.4623
+        }
+      }
+    },
+    "glicko1m|wta": {
+      "best": 0.6008995485657207,
+      "worst": 0.6039647781862139,
+      "settings": 25,
+      "within_0_1_milli": 2,
+      "within_0_5_milli": 10,
+      "within_1_milli": 16,
+      "best_by_value": {
+        "rd0": {
+          "400.0": 1.6298,
+          "500.0": 0.6671,
+          "600.0": 0.126,
+          "700.0": 0.0,
+          "800.0": 0.1906
+        },
+        "sigma0": {
+          "0.05": 1.2038,
+          "0.06": 0.3301,
+          "0.07": 0.0,
+          "0.08": 0.0547,
+          "0.09": 0.3848
+        }
+      }
+    },
+    "trueskill|atp": {
+      "best": 0.5919289168912389,
+      "worst": 0.5962355061736945,
+      "settings": 100,
+      "within_0_1_milli": 7,
+      "within_0_5_milli": 16,
+      "within_1_milli": 41,
+      "best_by_value": {
+        "sigma0": {
+          "1.5": 0.7088,
+          "2.0": 0.0,
+          "2.5": 0.1028,
+          "3.0": 0.716,
+          "3.5": 1.6228
+        },
+        "tau": {
+          "0.0": 0.0046,
+          "0.005": 0.0029,
+          "0.01": 0.0,
+          "0.02": 0.0188
+        },
+        "gamma": {
+          "0.3": 0.7476,
+          "0.4": 0.0,
+          "0.5": 0.0103,
+          "0.6": 0.7285,
+          "0.7": 1.9024
+        }
+      }
+    },
+    "trueskill|wta": {
+      "best": 0.601187936279028,
+      "worst": 0.6054790421200354,
+      "settings": 125,
+      "within_0_1_milli": 10,
+      "within_0_5_milli": 27,
+      "within_1_milli": 51,
+      "best_by_value": {
+        "sigma0": {
+          "1.5": 2.0844,
+          "2.0": 0.7424,
+          "2.5": 0.0587,
+          "3.0": 0.0,
+          "3.5": 0.368
+        },
+        "tau": {
+          "0.0": 0.0177,
+          "0.005": 0.0143,
+          "0.01": 0.0059,
+          "0.02": 0.0,
+          "0.04": 0.2602
+        },
+        "gamma": {
+          "0.3": 0.3161,
+          "0.4": 0.0,
+          "0.5": 0.0352,
+          "0.6": 0.7832,
+          "0.7": 1.9994
+        }
+      }
+    },
+    "glicko_cs|atp": {
+      "best": 0.5861975244918667,
+      "worst": 0.5878117846843547,
+      "settings": 45,
+      "within_0_1_milli": 5,
+      "within_0_5_milli": 22,
+      "within_1_milli": 37,
+      "best_by_value": {
+        "rd0": {
+          "500.0": 0.299,
+          "600.0": 0.0,
+          "700.0": 0.0773
+        },
+        "sigma0": {
+          "0.06": 0.3842,
+          "0.07": 0.0,
+          "0.08": 0.0308
+        },
+        "rho": {
+          "0.97": 0.5656,
+          "0.98": 0.206,
+          "0.985": 0.0492,
+          "0.99": 0.0,
+          "0.995": 0.2381
+        }
+      }
+    },
+    "glicko_cs|wta": {
+      "best": 0.5972669358277368,
+      "worst": 0.6008208885971312,
+      "settings": 96,
+      "within_0_1_milli": 2,
+      "within_0_5_milli": 20,
+      "within_1_milli": 51,
+      "best_by_value": {
+        "rd0": {
+          "500.0": 0.6757,
+          "600.0": 0.1627,
+          "700.0": 0.0,
+          "816.666667": 0.1423
+        },
+        "sigma0": {
+          "0.06": 0.4188,
+          "0.07": 0.0114,
+          "0.08": 0.0,
+          "0.091429": 0.3322
+        },
+        "rho": {
+          "0.97": 1.343,
+          "0.98": 0.7155,
+          "0.985": 0.4016,
+          "0.99": 0.1431,
+          "0.995": 0.0,
+          "0.9975": 0.3954
+        }
+      }
+    },
+    "trueskill_cs|atp": {
+      "best": 0.587790186035155,
+      "worst": 0.5906841890074016,
+      "settings": 45,
+      "within_0_1_milli": 4,
+      "within_0_5_milli": 15,
+      "within_1_milli": 27,
+      "best_by_value": {
+        "sigma0": {
+          "1.5": 0.725,
+          "2.0": 0.0,
+          "2.5": 0.0839
+        },
+        "gamma": {
+          "0.4": 0.106,
+          "0.5": 0.0,
+          "0.6": 0.6497
+        },
+        "rho": {
+          "0.97": 0.081,
+          "0.98": 0.0,
+          "0.985": 0.0792,
+          "0.99": 0.1821,
+          "0.995": 0.7943
+        }
+      }
+    },
+    "trueskill_cs|wta": {
+      "best": 0.5975787349122669,
+      "worst": 0.6016557963161102,
+      "settings": 60,
+      "within_0_1_milli": 4,
+      "within_0_5_milli": 12,
+      "within_1_milli": 30,
+      "best_by_value": {
+        "sigma0": {
+          "1.5": 2.0529,
+          "2.0": 0.6466,
+          "2.5": 0.0,
+          "3.125": 0.0194
+        },
+        "gamma": {
+          "0.4": 0.1276,
+          "0.5": 0.0,
+          "0.6": 0.6034
+        },
+        "rho": {
+          "0.97": 0.756,
+          "0.98": 0.2568,
+          "0.985": 0.0585,
+          "0.99": 0.0,
+          "0.995": 0.0635
+        }
+      }
+    },
+    "ttt|atp": {
+      "best": 0.5879568482880426,
+      "worst": 0.5946632229743136,
+      "settings": 100,
+      "within_0_1_milli": 2,
+      "within_0_5_milli": 13,
+      "within_1_milli": 23,
+      "best_by_value": {
+        "sigma0": {
+          "0.84375": 0.2086,
+          "1.125": 0.0,
+          "1.5": 0.1173,
+          "2.0": 0.4996,
+          "2.5": 0.9084
+        },
+        "gamma": {
+          "0.3": 1.2512,
+          "0.4": 0.0,
+          "0.5": 0.0207,
+          "0.625": 1.0621
+        },
+        "window": {
+          "26.0": 2.2556,
+          "52.0": 1.3415,
+          "104.0": 0.5441,
+          "208.0": 0.1175,
+          "416.0": 0.0
+        }
+      }
+    },
+    "ttt|wta": {
+      "best": 0.6000013451435205,
+      "worst": 0.6037450073366882,
+      "settings": 64,
+      "within_0_1_milli": 5,
+      "within_0_5_milli": 25,
+      "within_1_milli": 36,
+      "best_by_value": {
+        "sigma0": {
+          "1.125": 0.1413,
+          "1.5": 0.0,
+          "2.0": 0.0731,
+          "2.5": 0.2649
+        },
+        "gamma": {
+          "0.3": 1.3796,
+          "0.4": 0.075,
+          "0.5": 0.0,
+          "0.625": 0.8758
+        },
+        "window": {
+          "26.0": 0.318,
+          "52.0": 0.1098,
+          "104.0": 0.0,
+          "208.0": 0.0314
+        }
+      }
+    }
+  },
+  "surface_weight": {
+    "glicko2|atp": {
+      "w": 0.25,
+      "blend": true,
+      "log_loss_w0": 0.5951076384149139,
+      "log_loss_best": 0.5928228265397714
+    },
+    "glicko2|wta": {
+      "w": 0.2,
+      "blend": true,
+      "log_loss_w0": 0.6027548369312964,
+      "log_loss_best": 0.6012702672458288
+    },
+    "glicko1|atp": {
+      "w": 0.25,
+      "blend": true,
+      "log_loss_w0": 0.5951595829845778,
+      "log_loss_best": 0.592872025334717
+    },
+    "glicko1|wta": {
+      "w": 0.2,
+      "blend": true,
+      "log_loss_w0": 0.6027556390261133,
+      "log_loss_best": 0.6012685213248161
+    },
+    "glicko2m|atp": {
+      "w": 0.3,
+      "blend": true,
+      "log_loss_w0": 0.5902792633945424,
+      "log_loss_best": 0.5869582220308701
+    },
+    "glicko2m|wta": {
+      "w": 0.2,
+      "blend": true,
+      "log_loss_w0": 0.600894714565404,
+      "log_loss_best": 0.5986054363720971
+    },
+    "glicko1m|atp": {
+      "w": 0.3,
+      "blend": true,
+      "log_loss_w0": 0.5902935659445508,
+      "log_loss_best": 0.5869654136154772
+    },
+    "glicko1m|wta": {
+      "w": 0.2,
+      "blend": true,
+      "log_loss_w0": 0.6008995485657207,
+      "log_loss_best": 0.5986019961889842
+    },
+    "trueskill|atp": {
+      "w": 0.3,
+      "blend": true,
+      "log_loss_w0": 0.5919289168912389,
+      "log_loss_best": 0.588451878149336
+    },
+    "trueskill|wta": {
+      "w": 0.25,
+      "blend": true,
+      "log_loss_w0": 0.601187936279028,
+      "log_loss_best": 0.5984197236937452
+    },
+    "glicko_cs|atp": {
+      "w": 0.0,
+      "blend": false,
+      "log_loss_w0": 0.5861975244918667,
+      "log_loss_best": 0.5861975244918667
+    },
+    "glicko_cs|wta": {
+      "w": 0.0,
+      "blend": false,
+      "log_loss_w0": 0.5972669358277368,
+      "log_loss_best": 0.5972669358277368
+    },
+    "trueskill_cs|atp": {
+      "w": 0.0,
+      "blend": false,
+      "log_loss_w0": 0.587790186035155,
+      "log_loss_best": 0.587790186035155
+    },
+    "trueskill_cs|wta": {
+      "w": 0.0,
+      "blend": false,
+      "log_loss_w0": 0.5975787349122669,
+      "log_loss_best": 0.5975787349122669
+    },
+    "ttt|atp": {
+      "w": 0.35,
+      "blend": true,
+      "log_loss_w0": 0.5879568482880426,
+      "log_loss_best": 0.5842146954112851
+    },
+    "ttt|wta": {
+      "w": 0.3,
+      "blend": true,
+      "log_loss_w0": 0.6000013451435205,
+      "log_loss_best": 0.5965935023722472
+    }
+  },
+  "shared_code": {
+    "code_sha256": {
+      "src/eda/predictability_diagnostic/common.py": "6fa433773dfbd5f4b9070b6fa22da8408a455489e8d6acdfb92c86a1d23b88cd",
+      "src/eda/predictability_diagnostic/stage1_baselines.py": "4ce00d8abd372f5ccc9f95e6d8d245c029712c1bfe452dc73b356ddca87edb76",
+      "src/eda/predictability_diagnostic/stage4_rundown.py": "d70cc965e8adc5be2e3292fcf5d62f67df7c702f683c18d4242fc93067d2d2cb",
+      "src/eda/ufc_ideas/common.py": "ca06a88240aaca2817a62ea29927c0037f90d2ddfc1342b2ee23b9a406d6c8c1",
+      "src/eda/ufc_ideas/stageA_rundown.py": "a1061714f227720f5bbc4d01a71697dfb9a9efa8450ace8cdeeb9c0bb884d4bf",
+      "src/eda/feature_alpha_audit/elo_retest.py": "606b74cd4b58610af38f3d3a6d1694dba5c7677018b8e01d7b28445f3e6cddf0",
+      "src/eda/feature_alpha_audit/profile_retest.py": "717572f1b54912de06a626ab8ca87f38f714698ca58fd09e0ef02422acc57c83"
+    },
+    "input_tables": {
+      "data/studies/predictability_diagnostic/stage0_matches.parquet": {
+        "bytes": 26426965,
+        "modified": "2026-09-30T17:30:51+00:00"
+      },
+      "data/studies/predictability_diagnostic/stage0_match_players.parquet": {
+        "bytes": 62258289,
+        "modified": "2026-09-30T17:30:53+00:00"
+      },
+      "data/studies/predictability_diagnostic/stage1_baselines.parquet": {
+        "bytes": 74635669,
+        "modified": "2026-09-30T21:18:13+00:00"
+      },
+      "data/studies/predictability_diagnostic/stage1_odds.parquet": {
+        "bytes": 3310519,
+        "modified": "2026-09-30T21:25:41+00:00"
+      },
+      "data/studies/predictability_diagnostic/stage4_features.parquet": {
+        "bytes": 196959142,
+        "modified": "2026-10-02T02:15:25+00:00"
+      },
+      "data/studies/ufc_ideas/stageB_adj_features.parquet": {
+        "bytes": 129380976,
+        "modified": "2026-10-02T21:03:29+00:00"
+      },
+      "data/studies/ufc_ideas/stageB_ios_features.parquet": {
+        "bytes": 32727990,
+        "modified": "2026-10-02T21:42:47+00:00"
+      },
+      "data/studies/ufc_ideas/stageD_profile_features.parquet": {
+        "bytes": 110514550,
+        "modified": "2026-10-02T22:22:53+00:00"
+      }
+    }
+  },
+  "checks": {
+    "glicko2|atp": {
+      "tuning_pass_vs_full_prefix_max_abs": 0.0,
+      "rows": 262437
+    },
+    "glicko2|wta": {
+      "tuning_pass_vs_full_prefix_max_abs": 0.0,
+      "rows": 188569
+    },
+    "glicko1|atp": {
+      "tuning_pass_vs_full_prefix_max_abs": 0.0,
+      "rows": 262437
+    },
+    "glicko1|wta": {
+      "tuning_pass_vs_full_prefix_max_abs": 0.0,
+      "rows": 188569
+    },
+    "glicko2m|atp": {
+      "tuning_pass_vs_full_prefix_max_abs": 0.0,
+      "rows": 262437
+    },
+    "glicko2m|wta": {
+      "tuning_pass_vs_full_prefix_max_abs": 0.0,
+      "rows": 188569
+    },
+    "glicko1m|atp": {
+      "tuning_pass_vs_full_prefix_max_abs": 0.0,
+      "rows": 262437
+    },
+    "glicko1m|wta": {
+      "tuning_pass_vs_full_prefix_max_abs": 0.0,
+      "rows": 188569
+    },
+    "trueskill|atp": {
+      "tuning_pass_vs_full_prefix_max_abs": 0.0,
+      "rows": 262437
+    },
+    "trueskill|wta": {
+      "tuning_pass_vs_full_prefix_max_abs": 0.0,
+      "rows": 188569
+    },
+    "glicko_cs|atp": {
+      "tuning_pass_vs_full_prefix_max_abs": 0.0,
+      "rows": 262437
+    },
+    "glicko_cs|wta": {
+      "tuning_pass_vs_full_prefix_max_abs": 0.0,
+      "rows": 188569
+    },
+    "trueskill_cs|atp": {
+      "tuning_pass_vs_full_prefix_max_abs": 0.0,
+      "rows": 262437
+    },
+    "trueskill_cs|wta": {
+      "tuning_pass_vs_full_prefix_max_abs": 0.0,
+      "rows": 188569
+    },
+    "ttt|atp": {
+      "tuning_pass_vs_full_prefix_max_abs": 0.0,
+      "rows": 262437
+    },
+    "ttt|wta": {
+      "tuning_pass_vs_full_prefix_max_abs": 0.0,
+      "rows": 188569
+    }
+  },
+  "probes": [
+    {
+      "system": "glicko2",
+      "tour": "atp",
+      "leaky": false,
+      "cuts": 6,
+      "protected_matches_checked": 325563,
+      "protected_matches_changed": 0,
+      "later_matches_changed": 169721,
+      "slice_matches": 83305,
+      "slice_from": "2024-01-01",
+      "seconds": 8.5
+    },
+    {
+      "system": "glicko2",
+      "tour": "wta",
+      "leaky": false,
+      "cuts": 6,
+      "protected_matches_checked": 296813,
+      "protected_matches_changed": 0,
+      "later_matches_changed": 154984,
+      "slice_matches": 75896,
+      "slice_from": "2024-01-01",
+      "seconds": 7.6
+    },
+    {
+      "system": "glicko1",
+      "tour": "atp",
+      "leaky": false,
+      "cuts": 6,
+      "protected_matches_checked": 325563,
+      "protected_matches_changed": 0,
+      "later_matches_changed": 169721,
+      "slice_matches": 83305,
+      "slice_from": "2024-01-01",
+      "seconds": 4.3
+    },
+    {
+      "system": "glicko1",
+      "tour": "wta",
+      "leaky": false,
+      "cuts": 6,
+      "protected_matches_checked": 296813,
+      "protected_matches_changed": 0,
+      "later_matches_changed": 154985,
+      "slice_matches": 75896,
+      "slice_from": "2024-01-01",
+      "seconds": 4.0
+    },
+    {
+      "system": "glicko2m",
+      "tour": "atp",
+      "leaky": false,
+      "cuts": 6,
+      "protected_matches_checked": 325563,
+      "protected_matches_changed": 0,
+      "later_matches_changed": 169974,
+      "slice_matches": 83305,
+      "slice_from": "2024-01-01",
+      "seconds": 6.8
+    },
+    {
+      "system": "glicko2m",
+      "tour": "wta",
+      "leaky": false,
+      "cuts": 6,
+      "protected_matches_checked": 296813,
+      "protected_matches_changed": 0,
+      "later_matches_changed": 155125,
+      "slice_matches": 75896,
+      "slice_from": "2024-01-01",
+      "seconds": 6.2
+    },
+    {
+      "system": "glicko1m",
+      "tour": "atp",
+      "leaky": false,
+      "cuts": 6,
+      "protected_matches_checked": 325563,
+      "protected_matches_changed": 0,
+      "later_matches_changed": 169974,
+      "slice_matches": 83305,
+      "slice_from": "2024-01-01",
+      "seconds": 4.7
+    },
+    {
+      "system": "glicko1m",
+      "tour": "wta",
+      "leaky": false,
+      "cuts": 6,
+      "protected_matches_checked": 296813,
+      "protected_matches_changed": 0,
+      "later_matches_changed": 155125,
+      "slice_matches": 75896,
+      "slice_from": "2024-01-01",
+      "seconds": 4.2
+    },
+    {
+      "system": "trueskill",
+      "tour": "atp",
+      "leaky": false,
+      "cuts": 6,
+      "protected_matches_checked": 325563,
+      "protected_matches_changed": 0,
+      "later_matches_changed": 169974,
+      "slice_matches": 83305,
+      "slice_from": "2024-01-01",
+      "seconds": 3.8
+    },
+    {
+      "system": "trueskill",
+      "tour": "wta",
+      "leaky": false,
+      "cuts": 6,
+      "protected_matches_checked": 296813,
+      "protected_matches_changed": 0,
+      "later_matches_changed": 155126,
+      "slice_matches": 75896,
+      "slice_from": "2024-01-01",
+      "seconds": 3.5
+    },
+    {
+      "system": "glicko_cs",
+      "tour": "atp",
+      "leaky": false,
+      "cuts": 6,
+      "protected_matches_checked": 325563,
+      "protected_matches_changed": 0,
+      "later_matches_changed": 169972,
+      "slice_matches": 83305,
+      "slice_from": "2024-01-01",
+      "seconds": 13.9
+    },
+    {
+      "system": "glicko_cs",
+      "tour": "wta",
+      "leaky": false,
+      "cuts": 6,
+      "protected_matches_checked": 296813,
+      "protected_matches_changed": 0,
+      "later_matches_changed": 155124,
+      "slice_matches": 75896,
+      "slice_from": "2024-01-01",
+      "seconds": 12.4
+    },
+    {
+      "system": "trueskill_cs",
+      "tour": "atp",
+      "leaky": false,
+      "cuts": 6,
+      "protected_matches_checked": 325563,
+      "protected_matches_changed": 0,
+      "later_matches_changed": 169974,
+      "slice_matches": 83305,
+      "slice_from": "2024-01-01",
+      "seconds": 14.0
+    },
+    {
+      "system": "trueskill_cs",
+      "tour": "wta",
+      "leaky": false,
+      "cuts": 6,
+      "protected_matches_checked": 296813,
+      "protected_matches_changed": 0,
+      "later_matches_changed": 155126,
+      "slice_matches": 75896,
+      "slice_from": "2024-01-01",
+      "seconds": 13.1
+    },
+    {
+      "system": "ttt",
+      "tour": "atp",
+      "leaky": false,
+      "cuts": 6,
+      "protected_matches_checked": 325563,
+      "protected_matches_changed": 0,
+      "later_matches_changed": 172535,
+      "slice_matches": 83305,
+      "slice_from": "2024-01-01",
+      "seconds": 517.8
+    },
+    {
+      "system": "ttt",
+      "tour": "wta",
+      "leaky": false,
+      "cuts": 6,
+      "protected_matches_checked": 296813,
+      "protected_matches_changed": 0,
+      "later_matches_changed": 157281,
+      "slice_matches": 75896,
+      "slice_from": "2024-01-01",
+      "seconds": 346.6
+    },
+    {
+      "system": "glicko2m",
+      "tour": "atp",
+      "leaky": true,
+      "cuts": 6,
+      "protected_matches_checked": 325563,
+      "protected_matches_changed": 114,
+      "later_matches_changed": 173443,
+      "slice_matches": 83305,
+      "slice_from": "2024-01-01",
+      "seconds": 9.0
+    },
+    {
+      "system": "glicko2m",
+      "tour": "wta",
+      "leaky": true,
+      "cuts": 6,
+      "protected_matches_checked": 296813,
+      "protected_matches_changed": 209,
+      "later_matches_changed": 158125,
+      "slice_matches": 75896,
+      "slice_from": "2024-01-01",
+      "seconds": 7.7
+    },
+    {
+      "system": "trueskill",
+      "tour": "atp",
+      "leaky": true,
+      "cuts": 6,
+      "protected_matches_checked": 325563,
+      "protected_matches_changed": 114,
+      "later_matches_changed": 173449,
+      "slice_matches": 83305,
+      "slice_from": "2024-01-01",
+      "seconds": 4.7
+    },
+    {
+      "system": "trueskill",
+      "tour": "wta",
+      "leaky": true,
+      "cuts": 6,
+      "protected_matches_checked": 296813,
+      "protected_matches_changed": 209,
+      "later_matches_changed": 158125,
+      "slice_matches": 75896,
+      "slice_from": "2024-01-01",
+      "seconds": 4.3
+    },
+    {
+      "system": "glicko_cs",
+      "tour": "atp",
+      "leaky": true,
+      "cuts": 6,
+      "protected_matches_checked": 325563,
+      "protected_matches_changed": 114,
+      "later_matches_changed": 173424,
+      "slice_matches": 83305,
+      "slice_from": "2024-01-01",
+      "seconds": 14.1
+    },
+    {
+      "system": "glicko_cs",
+      "tour": "wta",
+      "leaky": true,
+      "cuts": 6,
+      "protected_matches_checked": 296813,
+      "protected_matches_changed": 209,
+      "later_matches_changed": 158115,
+      "slice_matches": 75896,
+      "slice_from": "2024-01-01",
+      "seconds": 13.8
+    }
+  ],
+  "top10_end": {
+    "glicko2m": {
+      "atp": [
+        {
+          "rank": 1,
+          "player_id": "atp:206173",
+          "name": "Jannik Sinner",
+          "mu": 7.5277,
+          "rated_matches_before": 553
+        },
+        {
+          "rank": 2,
+          "player_id": "atp:207989",
+          "name": "Carlos Alcaraz",
+          "mu": 7.0542,
+          "rated_matches_before": 467
+        },
+        {
+          "rank": 3,
+          "player_id": "atp:100644",
+          "name": "Alexander Zverev",
+          "mu": 6.0243,
+          "rated_matches_before": 920
+        },
+        {
+          "rank": 4,
+          "player_id": "atp:104925",
+          "name": "Novak Djokovic",
+          "mu": 5.8403,
+          "rated_matches_before": 1065
+        },
+        {
+          "rank": 5,
+          "player_id": "atp:209950",
+          "name": "Arthur Fils",
+          "mu": 5.6166,
+          "rated_matches_before": 332
+        },
+        {
+          "rank": 6,
+          "player_id": "atp:210097",
+          "name": "Ben Shelton",
+          "mu": 5.3352,
+          "rated_matches_before": 312
+        },
+        {
+          "rank": 7,
+          "player_id": "atp:126203",
+          "name": "Taylor Fritz",
+          "mu": 5.2971,
+          "rated_matches_before": 756
+        },
+        {
+          "rank": 8,
+          "player_id": "atp:126205",
+          "name": "Tommy Paul",
+          "mu": 5.1422,
+          "rated_matches_before": 718
+        },
+        {
+          "rank": 9,
+          "player_id": "atp:126207",
+          "name": "Frances Tiafoe",
+          "mu": 5.1036,
+          "rated_matches_before": 716
+        },
+        {
+          "rank": 10,
+          "player_id": "atp:207518",
+          "name": "Lorenzo Musetti",
+          "mu": 5.0302,
+          "rated_matches_before": 479
+        }
+      ],
+      "wta": [
+        {
+          "rank": 1,
+          "player_id": "wta:214544",
+          "name": "Aryna Sabalenka",
+          "mu": 6.8093,
+          "rated_matches_before": 715
+        },
+        {
+          "rank": 2,
+          "player_id": "wta:214981",
+          "name": "Elena Rybakina",
+          "mu": 6.6964,
+          "rated_matches_before": 588
+        },
+        {
+          "rank": 3,
+          "player_id": "wta:221103",
+          "name": "Coco Gauff",
+          "mu": 6.5679,
+          "rated_matches_before": 442
+        },
+        {
+          "rank": 4,
+          "player_id": "wta:202468",
+          "name": "Jessica Pegula",
+          "mu": 6.432,
+          "rated_matches_before": 762
+        },
+        {
+          "rank": 5,
+          "player_id": "wta:216347",
+          "name": "Iga Swiatek",
+          "mu": 6.4308,
+          "rated_matches_before": 542
+        },
+        {
+          "rank": 6,
+          "player_id": "wta:214096",
+          "name": "Karolina Muchova",
+          "mu": 6.2448,
+          "rated_matches_before": 475
+        },
+        {
+          "rank": 7,
+          "player_id": "wta:202494",
+          "name": "Elina Svitolina",
+          "mu": 6.18,
+          "rated_matches_before": 846
+        },
+        {
+          "rank": 8,
+          "player_id": "wta:216146",
+          "name": "Marta Kostyuk",
+          "mu": 6.1336,
+          "rated_matches_before": 433
+        },
+        {
+          "rank": 9,
+          "player_id": "wta:259799",
+          "name": "Mirra Andreeva",
+          "mu": 5.9463,
+          "rated_matches_before": 256
+        },
+        {
+          "rank": 10,
+          "player_id": "wta:211768",
+          "name": "Naomi Osaka",
+          "mu": 5.9255,
+          "rated_matches_before": 510
+        }
+      ]
+    },
+    "trueskill": {
+      "atp": [
+        {
+          "rank": 1,
+          "player_id": "atp:206173",
+          "name": "Jannik Sinner",
+          "mu": 5.7083,
+          "rated_matches_before": 553
+        },
+        {
+          "rank": 2,
+          "player_id": "atp:207989",
+          "name": "Carlos Alcaraz",
+          "mu": 5.3788,
+          "rated_matches_before": 467
+        },
+        {
+          "rank": 3,
+          "player_id": "atp:100644",
+          "name": "Alexander Zverev",
+          "mu": 4.517,
+          "rated_matches_before": 920
+        },
+        {
+          "rank": 4,
+          "player_id": "atp:104925",
+          "name": "Novak Djokovic",
+          "mu": 4.3635,
+          "rated_matches_before": 1065
+        },
+        {
+          "rank": 5,
+          "player_id": "atp:209950",
+          "name": "Arthur Fils",
+          "mu": 4.1637,
+          "rated_matches_before": 332
+        },
+        {
+          "rank": 6,
+          "player_id": "atp:126203",
+          "name": "Taylor Fritz",
+          "mu": 3.9225,
+          "rated_matches_before": 756
+        },
+        {
+          "rank": 7,
+          "player_id": "atp:210097",
+          "name": "Ben Shelton",
+          "mu": 3.9126,
+          "rated_matches_before": 312
+        },
+        {
+          "rank": 8,
+          "player_id": "atp:126205",
+          "name": "Tommy Paul",
+          "mu": 3.7928,
+          "rated_matches_before": 718
+        },
+        {
+          "rank": 9,
+          "player_id": "atp:126207",
+          "name": "Frances Tiafoe",
+          "mu": 3.7382,
+          "rated_matches_before": 716
+        },
+        {
+          "rank": 10,
+          "player_id": "atp:207518",
+          "name": "Lorenzo Musetti",
+          "mu": 3.7053,
+          "rated_matches_before": 479
+        }
+      ],
+      "wta": [
+        {
+          "rank": 1,
+          "player_id": "wta:214544",
+          "name": "Aryna Sabalenka",
+          "mu": 5.3526,
+          "rated_matches_before": 715
+        },
+        {
+          "rank": 2,
+          "player_id": "wta:214981",
+          "name": "Elena Rybakina",
+          "mu": 5.2603,
+          "rated_matches_before": 588
+        },
+        {
+          "rank": 3,
+          "player_id": "wta:221103",
+          "name": "Coco Gauff",
+          "mu": 5.1787,
+          "rated_matches_before": 442
+        },
+        {
+          "rank": 4,
+          "player_id": "wta:202468",
+          "name": "Jessica Pegula",
+          "mu": 5.0707,
+          "rated_matches_before": 762
+        },
+        {
+          "rank": 5,
+          "player_id": "wta:216347",
+          "name": "Iga Swiatek",
+          "mu": 5.059,
+          "rated_matches_before": 542
+        },
+        {
+          "rank": 6,
+          "player_id": "wta:214096",
+          "name": "Karolina Muchova",
+          "mu": 4.8906,
+          "rated_matches_before": 475
+        },
+        {
+          "rank": 7,
+          "player_id": "wta:202494",
+          "name": "Elina Svitolina",
+          "mu": 4.8176,
+          "rated_matches_before": 846
+        },
+        {
+          "rank": 8,
+          "player_id": "wta:216146",
+          "name": "Marta Kostyuk",
+          "mu": 4.808,
+          "rated_matches_before": 433
+        },
+        {
+          "rank": 9,
+          "player_id": "wta:259799",
+          "name": "Mirra Andreeva",
+          "mu": 4.654,
+          "rated_matches_before": 256
+        },
+        {
+          "rank": 10,
+          "player_id": "wta:211768",
+          "name": "Naomi Osaka",
+          "mu": 4.6475,
+          "rated_matches_before": 510
+        }
+      ]
+    },
+    "glicko_cs": {
+      "atp": [
+        {
+          "rank": 1,
+          "player_id": "atp:206173",
+          "name": "Jannik Sinner",
+          "mu": 7.2988,
+          "rated_matches_before": 553
+        },
+        {
+          "rank": 2,
+          "player_id": "atp:207989",
+          "name": "Carlos Alcaraz",
+          "mu": 7.0402,
+          "rated_matches_before": 467
+        },
+        {
+          "rank": 3,
+          "player_id": "atp:100644",
+          "name": "Alexander Zverev",
+          "mu": 6.072,
+          "rated_matches_before": 920
+        },
+        {
+          "rank": 4,
+          "player_id": "atp:104925",
+          "name": "Novak Djokovic",
+          "mu": 5.8376,
+          "rated_matches_before": 1065
+        },
+        {
+          "rank": 5,
+          "player_id": "atp:209950",
+          "name": "Arthur Fils",
+          "mu": 5.6983,
+          "rated_matches_before": 332
+        },
+        {
+          "rank": 6,
+          "player_id": "atp:210097",
+          "name": "Ben Shelton",
+          "mu": 5.6392,
+          "rated_matches_before": 312
+        },
+        {
+          "rank": 7,
+          "player_id": "atp:126203",
+          "name": "Taylor Fritz",
+          "mu": 5.4151,
+          "rated_matches_before": 756
+        },
+        {
+          "rank": 8,
+          "player_id": "atp:134770",
+          "name": "Casper Ruud",
+          "mu": 5.3072,
+          "rated_matches_before": 706
+        },
+        {
+          "rank": 9,
+          "player_id": "atp:126207",
+          "name": "Frances Tiafoe",
+          "mu": 5.2606,
+          "rated_matches_before": 716
+        },
+        {
+          "rank": 10,
+          "player_id": "atp:126205",
+          "name": "Tommy Paul",
+          "mu": 5.2031,
+          "rated_matches_before": 718
+        }
+      ],
+      "wta": [
+        {
+          "rank": 1,
+          "player_id": "wta:214544",
+          "name": "Aryna Sabalenka",
+          "mu": 7.2924,
+          "rated_matches_before": 715
+        },
+        {
+          "rank": 2,
+          "player_id": "wta:214981",
+          "name": "Elena Rybakina",
+          "mu": 7.1397,
+          "rated_matches_before": 588
+        },
+        {
+          "rank": 3,
+          "player_id": "wta:221103",
+          "name": "Coco Gauff",
+          "mu": 6.9796,
+          "rated_matches_before": 442
+        },
+        {
+          "rank": 4,
+          "player_id": "wta:202468",
+          "name": "Jessica Pegula",
+          "mu": 6.9381,
+          "rated_matches_before": 762
+        },
+        {
+          "rank": 5,
+          "player_id": "wta:216347",
+          "name": "Iga Swiatek",
+          "mu": 6.7685,
+          "rated_matches_before": 542
+        },
+        {
+          "rank": 6,
+          "player_id": "wta:214096",
+          "name": "Karolina Muchova",
+          "mu": 6.7451,
+          "rated_matches_before": 475
+        },
+        {
+          "rank": 7,
+          "player_id": "wta:202494",
+          "name": "Elina Svitolina",
+          "mu": 6.6462,
+          "rated_matches_before": 846
+        },
+        {
+          "rank": 8,
+          "player_id": "wta:211768",
+          "name": "Naomi Osaka",
+          "mu": 6.5241,
+          "rated_matches_before": 510
+        },
+        {
+          "rank": 9,
+          "player_id": "wta:216146",
+          "name": "Marta Kostyuk",
+          "mu": 6.494,
+          "rated_matches_before": 433
+        },
+        {
+          "rank": 10,
+          "player_id": "wta:222328",
+          "name": "Linda Noskova",
+          "mu": 6.3332,
+          "rated_matches_before": 334
+        }
+      ]
+    }
+  },
+  "top10_rule": "at least 30 rated matches before the player's last match of the last season",
+  "full_pass_seconds": {
+    "glicko2|atp": 7.54,
+    "glicko2|wta": 6.26,
+    "glicko1|atp": 3.8,
+    "glicko1|wta": 3.23,
+    "glicko2m|atp": 5.98,
+    "glicko2m|wta": 5.72,
+    "glicko1m|atp": 4.4,
+    "glicko1m|wta": 4.15,
+    "trueskill|atp": 3.73,
+    "trueskill|wta": 3.51,
+    "glicko_cs|atp": 14.34,
+    "glicko_cs|wta": 12.17,
+    "trueskill_cs|atp": 13.89,
+    "trueskill_cs|wta": 12.18,
+    "ttt|atp": 1115.09,
+    "ttt|wta": 287.44
+  },
+  "timings": {
+    "grids_seconds": 3224.9,
+    "grid_settings_read_back": true,
+    "grid_pass_seconds_total": 16784.6,
+    "surface_weights_seconds": 412.4,
+    "full_passes_and_probes_seconds": 1126.4
+  },
+  "workers": 5,
+  "table_rows": 872704,
+  "seconds": 4772.6
+}

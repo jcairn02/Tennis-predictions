@@ -1,0 +1,481 @@
+{
+  "generated_at": "2026-09-30T21:18:48+00:00",
+  "tuning_years": [
+    2013,
+    2018
+  ],
+  "grid": {
+    "k0": [
+      150,
+      200,
+      250,
+      300,
+      400,
+      500,
+      600,
+      800,
+      1200
+    ],
+    "offset": [
+      0.5,
+      1,
+      2,
+      5,
+      10
+    ],
+    "shape": [
+      0.3,
+      0.4,
+      0.5,
+      0.6,
+      0.7,
+      0.8
+    ]
+  },
+  "surface_weights": [
+    0.0,
+    0.05,
+    0.1,
+    0.15,
+    0.2,
+    0.25,
+    0.3,
+    0.35,
+    0.4,
+    0.45,
+    0.5,
+    0.55,
+    0.6,
+    0.65,
+    0.7,
+    0.75,
+    0.8,
+    0.85,
+    0.9,
+    0.95,
+    1.0
+  ],
+  "default_k": {
+    "k0": 250.0,
+    "offset": 5.0,
+    "shape": 0.4
+  },
+  "start_rating": 1500.0,
+  "surfaces": [
+    "Hard",
+    "Clay",
+    "Grass",
+    "Carpet"
+  ],
+  "updates": {
+    "ret": [
+      "completed",
+      "retired"
+    ],
+    "noret": [
+      "completed"
+    ]
+  },
+  "rule_names": {
+    "ret": "retirements counted",
+    "noret": "retirements skipped"
+  },
+  "chosen": [
+    {
+      "tour": "atp",
+      "rule": "ret",
+      "k0": 600.0,
+      "offset": 2.0,
+      "shape": 0.6,
+      "w": 0.3
+    },
+    {
+      "tour": "atp",
+      "rule": "noret",
+      "k0": 1200.0,
+      "offset": 10.0,
+      "shape": 0.7,
+      "w": 0.3
+    },
+    {
+      "tour": "wta",
+      "rule": "ret",
+      "k0": 600.0,
+      "offset": 1.0,
+      "shape": 0.6,
+      "w": 0.25
+    },
+    {
+      "tour": "wta",
+      "rule": "noret",
+      "k0": 600.0,
+      "offset": 1.0,
+      "shape": 0.6,
+      "w": 0.25
+    }
+  ],
+  "tuning_detail": [
+    {
+      "tour": "atp",
+      "rule": "ret",
+      "k_at_matches": {
+        "0": 395.9,
+        "5": 186.7,
+        "10": 135.1,
+        "25": 83.0,
+        "50": 56.0,
+        "100": 37.4,
+        "250": 21.7,
+        "500": 14.4,
+        "1000": 9.5
+      },
+      "best_inside_grid": {
+        "k0": 600.0,
+        "offset": 2.0,
+        "shape": 0.6,
+        "log_loss": 0.5904377121649436
+      },
+      "best": 0.5904377121649436,
+      "default_538": 0.5925549321022162,
+      "worst": 0.7664852370353831,
+      "within_1_milli_of_best": 15,
+      "grid_points": 270,
+      "on_grid_edge": {
+        "k0": false,
+        "offset": false,
+        "shape": false
+      },
+      "surface_w0": 0.5904377121649436,
+      "surface_best": 0.5868635407190822,
+      "matches": 64208
+    },
+    {
+      "tour": "atp",
+      "rule": "noret",
+      "k_at_matches": {
+        "0": 239.4,
+        "5": 180.3,
+        "10": 147.4,
+        "25": 99.6,
+        "50": 68.3,
+        "100": 44.7,
+        "250": 24.5,
+        "500": 15.3,
+        "1000": 9.5
+      },
+      "best_inside_grid": {
+        "k0": 600.0,
+        "offset": 2.0,
+        "shape": 0.6,
+        "log_loss": 0.5919324312010169
+      },
+      "best": 0.5919231676273166,
+      "default_538": 0.5936755631348642,
+      "worst": 0.771228059124546,
+      "within_1_milli_of_best": 17,
+      "grid_points": 270,
+      "on_grid_edge": {
+        "k0": true,
+        "offset": true,
+        "shape": false
+      },
+      "surface_w0": 0.5919231676273166,
+      "surface_best": 0.5881745027515267,
+      "matches": 64208
+    },
+    {
+      "tour": "wta",
+      "rule": "ret",
+      "k_at_matches": {
+        "0": 600.0,
+        "5": 204.8,
+        "10": 142.3,
+        "25": 85.0,
+        "50": 56.7,
+        "100": 37.6,
+        "250": 21.8,
+        "500": 14.4,
+        "1000": 9.5
+      },
+      "best_inside_grid": {
+        "k0": 600.0,
+        "offset": 1.0,
+        "shape": 0.6,
+        "log_loss": 0.6019104124025063
+      },
+      "best": 0.6019104124025063,
+      "default_538": 0.6039996228450227,
+      "worst": 0.7715586344496026,
+      "within_1_milli_of_best": 20,
+      "grid_points": 270,
+      "on_grid_edge": {
+        "k0": false,
+        "offset": false,
+        "shape": false
+      },
+      "surface_w0": 0.6019104124025063,
+      "surface_best": 0.5991206495509608,
+      "matches": 25676
+    },
+    {
+      "tour": "wta",
+      "rule": "noret",
+      "k_at_matches": {
+        "0": 600.0,
+        "5": 204.8,
+        "10": 142.3,
+        "25": 85.0,
+        "50": 56.7,
+        "100": 37.6,
+        "250": 21.8,
+        "500": 14.4,
+        "1000": 9.5
+      },
+      "best_inside_grid": {
+        "k0": 600.0,
+        "offset": 1.0,
+        "shape": 0.6,
+        "log_loss": 0.6030350790344072
+      },
+      "best": 0.6030350790344072,
+      "default_538": 0.6048646404209521,
+      "worst": 0.7787094835031672,
+      "within_1_milli_of_best": 17,
+      "grid_points": 270,
+      "on_grid_edge": {
+        "k0": false,
+        "offset": false,
+        "shape": false
+      },
+      "surface_w0": 0.6030350790344072,
+      "surface_best": 0.6002090360018447,
+      "matches": 25676
+    }
+  ],
+  "default_k_at_matches": {
+    "0": 131.3,
+    "5": 99.5,
+    "10": 84.6,
+    "25": 64.1,
+    "50": 50.3,
+    "100": 38.9,
+    "250": 27.2,
+    "500": 20.7,
+    "1000": 15.7
+  },
+  "unranked": {
+    "atp": {
+      "evaluation_matches": 155130,
+      "player_rows_unranked": 5508,
+      "matches_with_an_unranked_player": 5261,
+      "matches_with_both_unranked": 247,
+      "points_missing_with_a_rank": 29
+    },
+    "wta": {
+      "evaluation_matches": 60321,
+      "player_rows_unranked": 1114,
+      "matches_with_an_unranked_player": 1074,
+      "matches_with_both_unranked": 40,
+      "points_missing_with_a_rank": 16
+    }
+  },
+  "unranked_rank_by_tour_season": [
+    {
+      "tour": "atp",
+      "season": 2010,
+      "rank": 1801.0
+    },
+    {
+      "tour": "atp",
+      "season": 2011,
+      "rank": 1801.0
+    },
+    {
+      "tour": "atp",
+      "season": 2012,
+      "rank": 1955.0
+    },
+    {
+      "tour": "atp",
+      "season": 2013,
+      "rank": 1977.0
+    },
+    {
+      "tour": "atp",
+      "season": 2014,
+      "rank": 2183.0
+    },
+    {
+      "tour": "atp",
+      "season": 2015,
+      "rank": 2251.0
+    },
+    {
+      "tour": "atp",
+      "season": 2016,
+      "rank": 2268.0
+    },
+    {
+      "tour": "atp",
+      "season": 2017,
+      "rank": 2268.0
+    },
+    {
+      "tour": "atp",
+      "season": 2018,
+      "rank": 2268.0
+    },
+    {
+      "tour": "atp",
+      "season": 2019,
+      "rank": 2268.0
+    },
+    {
+      "tour": "atp",
+      "season": 2020,
+      "rank": 2268.0
+    },
+    {
+      "tour": "atp",
+      "season": 2021,
+      "rank": 2268.0
+    },
+    {
+      "tour": "atp",
+      "season": 2022,
+      "rank": 2268.0
+    },
+    {
+      "tour": "atp",
+      "season": 2023,
+      "rank": 2268.0
+    },
+    {
+      "tour": "atp",
+      "season": 2024,
+      "rank": 2268.0
+    },
+    {
+      "tour": "atp",
+      "season": 2025,
+      "rank": 2268.0
+    },
+    {
+      "tour": "atp",
+      "season": 2026,
+      "rank": 2268.0
+    },
+    {
+      "tour": "wta",
+      "season": 2010,
+      "rank": 1128.0
+    },
+    {
+      "tour": "wta",
+      "season": 2011,
+      "rank": 1128.0
+    },
+    {
+      "tour": "wta",
+      "season": 2012,
+      "rank": 1245.0
+    },
+    {
+      "tour": "wta",
+      "season": 2013,
+      "rank": 1245.0
+    },
+    {
+      "tour": "wta",
+      "season": 2014,
+      "rank": 1245.0
+    },
+    {
+      "tour": "wta",
+      "season": 2015,
+      "rank": 1277.0
+    },
+    {
+      "tour": "wta",
+      "season": 2016,
+      "rank": 1282.0
+    },
+    {
+      "tour": "wta",
+      "season": 2017,
+      "rank": 1296.0
+    },
+    {
+      "tour": "wta",
+      "season": 2018,
+      "rank": 1296.0
+    },
+    {
+      "tour": "wta",
+      "season": 2019,
+      "rank": 1296.0
+    },
+    {
+      "tour": "wta",
+      "season": 2020,
+      "rank": 1296.0
+    },
+    {
+      "tour": "wta",
+      "season": 2021,
+      "rank": 1343.0
+    },
+    {
+      "tour": "wta",
+      "season": 2022,
+      "rank": 1568.0
+    },
+    {
+      "tour": "wta",
+      "season": 2023,
+      "rank": 1596.0
+    },
+    {
+      "tour": "wta",
+      "season": 2024,
+      "rank": 1596.0
+    },
+    {
+      "tour": "wta",
+      "season": 2025,
+      "rank": 1596.0
+    },
+    {
+      "tour": "wta",
+      "season": 2026,
+      "rank": 1596.0
+    }
+  ],
+  "probe_by_round": {
+    "atp_ret": {
+      "cuts": 6,
+      "protected_matches_checked": 2576649,
+      "protected_matches_changed": 0,
+      "later_matches_changed": 215447
+    },
+    "atp_noret": {
+      "cuts": 6,
+      "protected_matches_checked": 2576649,
+      "protected_matches_changed": 0,
+      "later_matches_changed": 215318
+    },
+    "wta_ret": {
+      "cuts": 6,
+      "protected_matches_checked": 2247325,
+      "protected_matches_changed": 0,
+      "later_matches_changed": 187308
+    },
+    "wta_noret": {
+      "cuts": 6,
+      "protected_matches_checked": 2247325,
+      "protected_matches_changed": 0,
+      "later_matches_changed": 187215
+    }
+  },
+  "seconds": 326.8
+}

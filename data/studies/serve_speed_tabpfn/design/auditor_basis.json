@@ -1,0 +1,260 @@
+{
+ "reads_results": false,
+ "t1_tails_ks_first_asof": [
+  {
+   "year": 2019,
+   "bases": "both_pts",
+   "matches": 227,
+   "mse": 37.76551,
+   "share_abs_resid_gt_25": 0.00441,
+   "mse_without_gt_25": 28.3467
+  },
+  {
+   "year": 2020,
+   "bases": "both_pts",
+   "matches": 222,
+   "mse": 37.97071,
+   "share_abs_resid_gt_25": 0.0045,
+   "mse_without_gt_25": 35.18657
+  },
+  {
+   "year": 2021,
+   "bases": "both_ks",
+   "matches": 264,
+   "mse": 79.74839,
+   "share_abs_resid_gt_25": 0.01894,
+   "mse_without_gt_25": 44.93254
+  },
+  {
+   "year": 2021,
+   "bases": "both_pts",
+   "matches": 358,
+   "mse": 36.96804,
+   "share_abs_resid_gt_25": 0.00279,
+   "mse_without_gt_25": 35.02733
+  },
+  {
+   "year": 2022,
+   "bases": "both_ks",
+   "matches": 1411,
+   "mse": 70.0076,
+   "share_abs_resid_gt_25": 0.01843,
+   "mse_without_gt_25": 45.69947
+  },
+  {
+   "year": 2022,
+   "bases": "both_pts",
+   "matches": 386,
+   "mse": 50.23394,
+   "share_abs_resid_gt_25": 0.01036,
+   "mse_without_gt_25": 35.22696
+  },
+  {
+   "year": 2023,
+   "bases": "both_ks",
+   "matches": 1731,
+   "mse": 188.83208,
+   "share_abs_resid_gt_25": 0.04622,
+   "mse_without_gt_25": 67.99986
+  },
+  {
+   "year": 2023,
+   "bases": "both_pts",
+   "matches": 392,
+   "mse": 38.25623,
+   "share_abs_resid_gt_25": 0.00255,
+   "mse_without_gt_25": 36.11621
+  }
+ ],
+ "t1_robust_2023": {
+  "huber10_frozen_minus_asof": {
+   "est": 1.06018,
+   "lo": 0.48709,
+   "hi": 1.56631
+  },
+  "mse_trimmed_frozen_minus_asof": {
+   "est": 2.45273,
+   "lo": 0.91991,
+   "hi": 3.8256
+  },
+  "matches": 2129,
+  "matches_trimmed": 2046,
+  "key": "positive = as-of better (lower loss); km/h^2; 95% four-week-block bootstrap"
+ },
+ "common_target_point_means_2021_23": {
+  "matches": 1136,
+  "mse_ks_history": 41.92016,
+  "mse_pm_history": 36.06101,
+  "ks_minus_pm": {
+   "est": 5.85915,
+   "lo": 0.25287,
+   "hi": 14.47478
+  },
+  "corr_df_ks_vs_pm": 0.93416,
+  "key": "positive ks_minus_pm = the point-mean history forecasts the point-mean target better"
+ },
+ "values_ks_vs_pm_first": [
+  {
+   "season": 2022,
+   "slam": false,
+   "matches": 2102,
+   "sd_ks_first": 2.14627,
+   "sd_pm_first": 2.07017,
+   "corr": 0.93035,
+   "share_diff_gt_1sd": 0.02569
+  },
+  {
+   "season": 2022,
+   "slam": true,
+   "matches": 504,
+   "sd_ks_first": 2.16803,
+   "sd_pm_first": 2.06628,
+   "corr": 0.92645,
+   "share_diff_gt_1sd": 0.01587
+  },
+  {
+   "season": 2023,
+   "slam": false,
+   "matches": 2169,
+   "sd_ks_first": 2.28313,
+   "sd_pm_first": 2.18839,
+   "corr": 0.92004,
+   "share_diff_gt_1sd": 0.04242
+  },
+  {
+   "season": 2023,
+   "slam": true,
+   "matches": 507,
+   "sd_ks_first": 2.30638,
+   "sd_pm_first": 2.08608,
+   "corr": 0.91684,
+   "share_diff_gt_1sd": 0.0217
+  },
+  {
+   "season": 2024,
+   "slam": false,
+   "matches": 2172,
+   "sd_ks_first": 2.58905,
+   "sd_pm_first": 2.50007,
+   "corr": 0.91123,
+   "share_diff_gt_1sd": 0.0419
+  },
+  {
+   "season": 2024,
+   "slam": true,
+   "matches": 504,
+   "sd_ks_first": 2.35738,
+   "sd_pm_first": 2.29484,
+   "corr": 0.95803,
+   "share_diff_gt_1sd": 0.01587
+  },
+  {
+   "season": 2025,
+   "slam": false,
+   "matches": 2115,
+   "sd_ks_first": 2.25867,
+   "sd_pm_first": 2.24907,
+   "corr": 0.98418,
+   "share_diff_gt_1sd": 0.0052
+  },
+  {
+   "season": 2025,
+   "slam": true,
+   "matches": 505,
+   "sd_ks_first": 2.34346,
+   "sd_pm_first": 2.35602,
+   "corr": 0.9952,
+   "share_diff_gt_1sd": 0.00198
+  },
+  {
+   "season": 2026,
+   "slam": false,
+   "matches": 1397,
+   "sd_ks_first": 2.70721,
+   "sd_pm_first": 2.71128,
+   "corr": 0.99977,
+   "share_diff_gt_1sd": 0.0
+  },
+  {
+   "season": 2026,
+   "slam": true,
+   "matches": 377,
+   "sd_ks_first": 2.64488,
+   "sd_pm_first": 2.6438,
+   "corr": 0.99976,
+   "share_diff_gt_1sd": 0.0
+  }
+ ],
+ "history_basis_mix": [
+  {
+   "panel": "ks",
+   "non_slam_sides_28d_history_mix": {
+    "2022": {
+     "ks_only": 0.546,
+     "mixed": 0.106,
+     "none": 0.23,
+     "pts_only": 0.118
+    },
+    "2023": {
+     "ks_only": 0.596,
+     "mixed": 0.101,
+     "none": 0.228,
+     "pts_only": 0.075
+    },
+    "2024": {
+     "ks_only": 0.69,
+     "mixed": 0.117,
+     "none": 0.133,
+     "pts_only": 0.06
+    },
+    "2025": {
+     "ks_only": 0.523,
+     "mixed": 0.12,
+     "none": 0.189,
+     "pts_only": 0.168
+    },
+    "2026": {
+     "ks_only": 0.547,
+     "mixed": 0.149,
+     "none": 0.135,
+     "pts_only": 0.17
+    }
+   }
+  },
+  {
+   "panel": "pm",
+   "non_slam_sides_28d_history_mix": {
+    "2022": {
+     "ks_only": 0.041,
+     "mixed": 0.218,
+     "none": 0.23,
+     "pts_only": 0.51
+    },
+    "2023": {
+     "ks_only": 0.03,
+     "mixed": 0.254,
+     "none": 0.228,
+     "pts_only": 0.488
+    },
+    "2024": {
+     "ks_only": 0.029,
+     "mixed": 0.373,
+     "none": 0.133,
+     "pts_only": 0.465
+    },
+    "2025": {
+     "ks_only": 0.349,
+     "mixed": 0.187,
+     "none": 0.189,
+     "pts_only": 0.275
+    },
+    "2026": {
+     "ks_only": 0.547,
+     "mixed": 0.149,
+     "none": 0.135,
+     "pts_only": 0.17
+    }
+   }
+  }
+ ]
+}

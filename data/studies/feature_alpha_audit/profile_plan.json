@@ -1,0 +1,165 @@
+{
+  "scope": "ATP selected-historical-sample diagnostic, no untouched holdout",
+  "ridge_grid_mean_loss": [
+    0.0,
+    0.0001,
+    0.001,
+    0.01,
+    0.1
+  ],
+  "default_lambda_before_300_validation_rows": 0.01,
+  "validation": "latest two calendar seasons strictly before each target season; train before each validation season",
+  "scaling": "training-only uncentered RMS, no intercept; penalty excludes market slope",
+  "cluster_intervals": "paired match-weighted mean, cluster robust SE with G/(G-1), Student t 95%",
+  "main_sample": "same matches with both average and Pinnacle odds and all profile/conditioning features",
+  "models": {
+    "profile_unpenalized": {
+      "cols": [
+        "adjperf_ace|decayed",
+        "adjperf_df|decayed",
+        "adjperf_first_in|decayed",
+        "adjperf_first_won|decayed",
+        "adjperf_second_won|decayed",
+        "adjperf_hold|decayed",
+        "adjperf_bp_saved|decayed",
+        "adjperf_bp_faced_pg|decayed",
+        "adjperf_brk|decayed",
+        "adjperf_bp_conv|decayed",
+        "adjperf_rpw_first|decayed",
+        "adjperf_rpw_second|decayed",
+        "adjdef_ace|decayed",
+        "adjdef_df|decayed",
+        "adjdef_first_in|decayed",
+        "adjdef_bp_faced_pg|decayed"
+      ],
+      "ridge_selected": false,
+      "market_offset_fixed": false
+    },
+    "profile_ridge": {
+      "cols": [
+        "adjperf_ace|decayed",
+        "adjperf_df|decayed",
+        "adjperf_first_in|decayed",
+        "adjperf_first_won|decayed",
+        "adjperf_second_won|decayed",
+        "adjperf_hold|decayed",
+        "adjperf_bp_saved|decayed",
+        "adjperf_bp_faced_pg|decayed",
+        "adjperf_brk|decayed",
+        "adjperf_bp_conv|decayed",
+        "adjperf_rpw_first|decayed",
+        "adjperf_rpw_second|decayed",
+        "adjdef_ace|decayed",
+        "adjdef_df|decayed",
+        "adjdef_first_in|decayed",
+        "adjdef_bp_faced_pg|decayed"
+      ],
+      "ridge_selected": true,
+      "market_offset_fixed": false
+    },
+    "profile_fixed_market": {
+      "cols": [
+        "adjperf_ace|decayed",
+        "adjperf_df|decayed",
+        "adjperf_first_in|decayed",
+        "adjperf_first_won|decayed",
+        "adjperf_second_won|decayed",
+        "adjperf_hold|decayed",
+        "adjperf_bp_saved|decayed",
+        "adjperf_bp_faced_pg|decayed",
+        "adjperf_brk|decayed",
+        "adjperf_bp_conv|decayed",
+        "adjperf_rpw_first|decayed",
+        "adjperf_rpw_second|decayed",
+        "adjdef_ace|decayed",
+        "adjdef_df|decayed",
+        "adjdef_first_in|decayed",
+        "adjdef_bp_faced_pg|decayed"
+      ],
+      "ridge_selected": true,
+      "market_offset_fixed": true
+    },
+    "profile_drop_style": {
+      "cols": [
+        "adjperf_first_won|decayed",
+        "adjperf_second_won|decayed",
+        "adjperf_hold|decayed",
+        "adjperf_bp_saved|decayed",
+        "adjperf_bp_faced_pg|decayed",
+        "adjperf_brk|decayed",
+        "adjperf_bp_conv|decayed",
+        "adjperf_rpw_first|decayed",
+        "adjperf_rpw_second|decayed",
+        "adjdef_bp_faced_pg|decayed"
+      ],
+      "ridge_selected": true,
+      "market_offset_fixed": false
+    },
+    "profile_drop_break_games": {
+      "cols": [
+        "adjperf_ace|decayed",
+        "adjperf_df|decayed",
+        "adjperf_first_in|decayed",
+        "adjperf_first_won|decayed",
+        "adjperf_second_won|decayed",
+        "adjperf_rpw_first|decayed",
+        "adjperf_rpw_second|decayed",
+        "adjdef_ace|decayed",
+        "adjdef_df|decayed",
+        "adjdef_first_in|decayed"
+      ],
+      "ridge_selected": true,
+      "market_offset_fixed": false
+    },
+    "profile_drop_adjdef": {
+      "cols": [
+        "adjperf_ace|decayed",
+        "adjperf_df|decayed",
+        "adjperf_first_in|decayed",
+        "adjperf_first_won|decayed",
+        "adjperf_second_won|decayed",
+        "adjperf_hold|decayed",
+        "adjperf_bp_saved|decayed",
+        "adjperf_bp_faced_pg|decayed",
+        "adjperf_brk|decayed",
+        "adjperf_bp_conv|decayed",
+        "adjperf_rpw_first|decayed",
+        "adjperf_rpw_second|decayed"
+      ],
+      "ridge_selected": true,
+      "market_offset_fixed": false
+    },
+    "ratings_load": {
+      "cols": [
+        "rating_matchup|single",
+        "sets_14d|single"
+      ],
+      "ridge_selected": true,
+      "market_offset_fixed": false
+    },
+    "profile_ratings_load": {
+      "cols": [
+        "adjperf_ace|decayed",
+        "adjperf_df|decayed",
+        "adjperf_first_in|decayed",
+        "adjperf_first_won|decayed",
+        "adjperf_second_won|decayed",
+        "adjperf_hold|decayed",
+        "adjperf_bp_saved|decayed",
+        "adjperf_bp_faced_pg|decayed",
+        "adjperf_brk|decayed",
+        "adjperf_bp_conv|decayed",
+        "adjperf_rpw_first|decayed",
+        "adjperf_rpw_second|decayed",
+        "adjdef_ace|decayed",
+        "adjdef_df|decayed",
+        "adjdef_first_in|decayed",
+        "adjdef_bp_faced_pg|decayed",
+        "rating_matchup|single",
+        "sets_14d|single"
+      ],
+      "ridge_selected": true,
+      "market_offset_fixed": false
+    }
+  }
+}

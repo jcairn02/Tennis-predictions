@@ -6,7 +6,10 @@ Gamma. Price history: for every selected market the FIRST outcome token's minute
 come from the public legacy CLOB endpoint
 https://clob.polymarket.com/prices-history?market=<token>&startTs=<s>&endTs=<e>&fidelity=1.
 On 22 Sep 2026 that endpoint answered bounded windows of up to 14 days and returned an empty history
-for 21-day or unbounded requests, so each market's life is split into <= 13-day chunks.
+for 21-day or unbounded requests, so each market's life is split into <= 13-day chunks. A chunk fetched
+before its market closed (its request was capped at the time it ran, so its end falls short of the end the
+market's current dates give) is fetched again; the latest receipt of a request decides which body is used.
+The market index keeps one row per market, the latest (see polymarket_catalog.py --revisit).
 
 Tournament-type buckets reuse the name-based classifier of the tier-terrain study
 (src/eda/tennis_data_audit/measure_tier_terrain.py). They are inferred labels and are stored next to
@@ -57,6 +60,7 @@ CLASSIFIER = C.PROJECT_ROOT / "src" / "eda" / "tennis_data_audit" / "measure_tie
 CLOB_URL = "https://clob.polymarket.com/prices-history"
 MAX_WINDOW = 13 * 86400
 MARGIN = 3600
+STALE_SLACK = 600  # seconds; a stored chunk ending earlier than this before its current end is fetched again
 
 BUCKET_SLUGS = {
     "Grand Slam singles (main draw)": "slam_main",
@@ -143,18 +147,30 @@ def load_events(classify, now: int | None = None) -> dict[str, dict]:
 
 
 def iter_markets(events: dict | None = None):
-    """Census markets, then extension markets. Extension market window flags follow their event."""
+    """Census markets, then extension markets, one row per market id. A market the extension holds again (a
+    revisit after it settled: polymarket_catalog.py --revisit) is yielded only as its last row. Extension
+    market window flags follow their event."""
+    _, ext_markets = extension_paths()
+    last: dict[str, int] = {}
+    if ext_markets.exists():
+        with gzip.open(ext_markets, "rt", encoding="utf-8") as handle:
+            for number, line in enumerate(handle):
+                if line.strip():
+                    last[str(json.loads(line)["id"])] = number
     with gzip.open(MARKETS_FILE, "rt", encoding="utf-8") as handle:
         for line in handle:
             market = json.loads(line)
+            if str(market.get("id")) in last:
+                continue
             market.setdefault("catalog", "census")
             yield market
-    _, ext_markets = extension_paths()
     if ext_markets.exists():
         with gzip.open(ext_markets, "rt", encoding="utf-8") as handle:
-            for line in handle:
+            for number, line in enumerate(handle):
                 if line.strip():
                     market = json.loads(line)
+                    if last.get(str(market.get("id"))) != number:
+                        continue
                     if market.get("in_sport_window") is None and events is not None:
                         market["in_sport_window"] = bool((events.get(market["event_id"]) or {}).get("in_sport_window"))
                     yield market
@@ -291,6 +307,14 @@ def names_with_bodies(bodies_dir: Path | None = None) -> set[str]:
     return names
 
 
+def ended_early(previous: dict, end: int) -> bool:
+    """A stored chunk fetched before its market closed: its request ended (capped at the time it ran) more than
+    STALE_SLACK before the end the market's current dates give the same chunk. Receipts without an end never
+    count as early."""
+    stored_end = previous.get("end")
+    return stored_end is not None and int(stored_end) < end - STALE_SLACK
+
+
 def select_jobs(events, markets, buckets, market_types, limit, receipts, refresh, now, stored: set[str] | None = None):
     jobs, markets_per_bucket, skipped = [], Counter(), Counter()
     selected_markets = 0
@@ -319,13 +343,16 @@ def select_jobs(events, markets, buckets, market_types, limit, receipts, refresh
         for index, (start, end) in enumerate(chunks):
             name = f"{market['id']}/{index}"
             previous = receipts.get(name)
-            if previous and not previous.get("error") and not refresh and (stored is None or name in stored):
+            have = previous and not previous.get("error") and (stored is None or name in stored)
+            early = bool(have) and ended_early(previous, end)
+            if have and not refresh and not early:
                 skipped["already fetched"] += 1
                 continue
             jobs.append({"name": name, "market_id": market["id"], "condition_id": market.get("conditionId"),
                          "token_id": tokens[0], "outcome": (market.get("outcomes") or [None])[0],
                          "event_id": event["id"], "event_slug": event["slug"], "bucket": event["_bucket_slug"],
-                         "sport_date": event.get("sport_date"), "start": start, "end": end, "chunks": len(chunks)})
+                         "sport_date": event.get("sport_date"), "start": start, "end": end, "chunks": len(chunks),
+                         "refetch": early})
         if limit and selected_markets >= limit:
             break
     order = {slug: i for i, slug in enumerate(buckets)}
@@ -429,14 +456,17 @@ def run_fetch(jobs: list[dict], workers: int, rps: float, receipts: C.Receipts) 
 # --------------------------------------------------------------------------------------
 def build_index(events: dict, out_dir: Path) -> list[dict]:
     """Slim event and market index tables from the census, with the inferred bucket attached."""
-    event_header = ["id", "slug", "title", "url", "sport_date", "date_basis", "in_sport_window",
+    event_header = ["id", "slug", "title", "url", "sport_date", "date_basis", "start_time", "event_date", "end_date",
+                    "in_sport_window",
                     "metadata_trading_overlap", "createdAt", "startDate", "closedTime_derived", "closed", "volume",
                     "market_count", "series_slugs", "league", "sport", "tags", "gameId", "is_cfb", "bucket",
                     "bucket_slug", "bucket_tour", "bucket_detail", "bucket_confidence", "catalog", "catalog_retrieved_at"]
 
     def event_row(e):
         league = (e.get("eventMetadata") or {}).get("league")
+        dates = e.get("dates") or {}        # every date the event carries, not only the one sport_date was read from
         return [e.get("id"), e.get("slug"), e.get("title"), e.get("url"), e.get("sport_date"), e.get("date_basis"),
+                dates.get("startTime"), dates.get("eventDate"), dates.get("endDate"),
                 e.get("in_sport_window"), e.get("metadata_trading_overlap"), e.get("createdAt"), e.get("startDate"),
                 e.get("closedTime_derived"), e.get("closed"), e.get("volume"), e.get("market_count"),
                 ",".join(s.get("slug", "") for s in e.get("series") or []), league,
@@ -598,10 +628,12 @@ def run(args) -> dict:
         stored = names_with_bodies()
         jobs, per_bucket, skipped = select_jobs(events, iter_markets(events), buckets, market_types, args.limit,
                                                 receipts, args.refresh, now, stored)
+        refetch = sum(bool(j.get("refetch")) for j in jobs)
         C.log(f"[{SOURCE}] buckets {buckets}: {sum(per_bucket.values())} markets selected "
-              f"({dict(per_bucket)}); {len(jobs)} requests to make; skipped {dict(skipped)}")
+              f"({dict(per_bucket)}); {len(jobs)} requests to make ({refetch} again: stored history ended before "
+              f"the market); skipped {dict(skipped)}")
         summary.update(markets_selected=sum(per_bucket.values()), markets_per_bucket=dict(per_bucket),
-                       requests_planned=len(jobs), skipped=dict(skipped))
+                       requests_planned=len(jobs), requests_refetch=refetch, skipped=dict(skipped))
         if jobs:
             summary["fetch"] = run_fetch(jobs, args.workers, args.rps, receipts)
     if not args.no_rebuild:

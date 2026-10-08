@@ -1,0 +1,30 @@
+{
+ "records_from_2024": 121138,
+ "with_stats": 120414,
+ "with_speed": 1012,
+ "with_speed_linked_to_stage0": 964,
+ "with_speed_by_year": {
+  "2024": 17,
+  "2025": 602,
+  "2026": 393
+ },
+ "agreement_with_held": [
+  {
+   "spd1_src": "infosys",
+   "matches": 14,
+   "mean_diff_kmh": -6.459,
+   "sd_diff_kmh": 20.512,
+   "median_player_err_kmh": 0.581,
+   "p90_player_err_kmh": 13.615
+  },
+  {
+   "spd1_src": "slamtracker",
+   "matches": 182,
+   "mean_diff_kmh": -0.175,
+   "sd_diff_kmh": 2.637,
+   "median_player_err_kmh": 0.271,
+   "p90_player_err_kmh": 0.614
+  }
+ ],
+ "note": "positive diff = Flashscore faster; the crawl reached matches through head-to-head pages, so its counts are a lower bound on what Flashscore serves"
+}

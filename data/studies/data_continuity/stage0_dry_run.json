@@ -1,0 +1,156 @@
+{
+ "generated_at": "2026-10-06T23:20:44+00:00",
+ "build_seconds": {
+  "baseline": 126.5,
+  "overrides": 150.1
+ },
+ "live_tables_unchanged": true,
+ "live_sha256": {
+  "stage0_matches.parquet": "271d2561f31d0c8cc407e5fb9b73d572115173e329e272c337f8daddda4662af",
+  "stage0_match_players.parquet": "f84ec8410140740e929fef2b57b44f28f8ddef2b6b6983c43345d213ee9a6e28"
+ },
+ "overrides": 731,
+ "override_matches_in_stage0": 731,
+ "same_match_ids": true,
+ "matches_changed": 251,
+ "match_columns_changed": {
+  "box_status": 247,
+  "sv_gms_incl_tb": 4,
+  "score": 2,
+  "minutes": 2,
+  "has_box": 1
+ },
+ "player_rows_changed": 735,
+ "player_columns_changed": {
+  "sv_gms": 541,
+  "hold_n": 541,
+  "brk_d": 541,
+  "hold_d": 541,
+  "bp_faced_pg_d": 541,
+  "second_won_d": 442,
+  "first_won_d": 441,
+  "first_in": 441,
+  "first_in_n": 441,
+  "second_won": 410,
+  "second_won_n": 410,
+  "first_won_n": 406,
+  "first_won": 406,
+  "tpw_n": 252,
+  "tpw_d": 250,
+  "rpw_n": 219,
+  "first_in_d": 183,
+  "ace_d": 183,
+  "rpw_d": 183,
+  "svpt": 183,
+  "df_d": 183,
+  "spw_d": 183,
+  "spw_n": 97,
+  "ace": 61,
+  "ace_n": 61
+ },
+ "changed_outside_overrides": [],
+ "changed_outside_overrides_count": 0,
+ "stage0_equals_feed_after_overrides": {
+  "ace": 1.0,
+  "df": 1.0,
+  "svpt": 1.0,
+  "first_in": 1.0,
+  "first_won": 1.0,
+  "second_won": 1.0,
+  "sv_gms": 1.0,
+  "bp_saved": 1.0,
+  "bp_faced": 1.0
+ },
+ "first_in_pct_baseline": {
+  "US Open|atp|main": 58.56,
+  "US Open|atp|Q": 58.9,
+  "US Open|wta|main": 59.36,
+  "Wimbledon|atp|main": 67.74,
+  "Wimbledon|atp|Q": 70.91,
+  "Wimbledon|wta|main": 62.93
+ },
+ "first_in_pct_overrides": {
+  "US Open|atp|main": 58.56,
+  "US Open|atp|Q": 58.1,
+  "US Open|wta|main": 59.36,
+  "Wimbledon|atp|main": 63.76,
+  "Wimbledon|atp|Q": 61.6,
+  "Wimbledon|wta|main": 61.79
+ },
+ "box_status_after": {
+  "full": 731
+ },
+ "box_status_before": {
+  "full": 484,
+  "no_svgms": 246,
+  "failed_check": 1
+ },
+ "scores_after": [
+  {
+   "match_id": "atp|2026-540|R16|atp:104925|atp:126128",
+   "score": "7-6(6) 6-3 3-6 6-3",
+   "status": "completed",
+   "minutes": 206.0
+  },
+  {
+   "match_id": "atp|2026-540|R16|atp:100644|atp:208103",
+   "score": "6-4 7-5 3-6 7-6(6)",
+   "status": "completed",
+   "minutes": 202.0
+  }
+ ],
+ "code_drift_baseline_vs_live": {
+  "live_matches": 872704,
+  "baseline_matches": 872704,
+  "only_in_live": 42,
+  "only_in_baseline": 42,
+  "matches_changed": 8040,
+  "match_columns_changed": {
+   "format": 7650,
+   "nonstandard_format": 7650,
+   "player_b_id": 154,
+   "player_a_id": 151,
+   "minutes": 137,
+   "box_status": 44,
+   "has_box": 36
+  },
+  "player_rows_changed": 15503,
+  "player_columns_changed": {
+   "games_won_d": 15300,
+   "tb_won_d": 15300,
+   "games_won_n": 15252,
+   "tb_won_n": 7650,
+   "opponent_id": 201,
+   "sv_gms": 88,
+   "hold_n": 88,
+   "brk_d": 88,
+   "hold_d": 88,
+   "bp_faced_pg_d": 88,
+   "bp_saved": 72,
+   "first_won": 72,
+   "second_won": 72,
+   "df": 72,
+   "svpt": 72
+  },
+  "changed_by_year": {
+   "2010": 2,
+   "2011": 34,
+   "2012": 2,
+   "2013": 7,
+   "2014": 8,
+   "2015": 11,
+   "2016": 16,
+   "2017": 12,
+   "2018": 22,
+   "2019": 68,
+   "2020": 612,
+   "2021": 1542,
+   "2022": 1908,
+   "2023": 1581,
+   "2024": 1905,
+   "2025": 70,
+   "2026": 240
+  }
+ },
+ "pass": true
+}

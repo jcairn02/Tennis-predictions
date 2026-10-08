@@ -1,0 +1,26 @@
+{
+ "seconds": {
+  "atp": 1344.0,
+  "wta": 424.9
+ },
+ "constants": {
+  "atp": {
+   "sigma0": 1.125,
+   "gamma": 0.4,
+   "window_days": 2336.5,
+   "w_blend": 0.35,
+   "sigma_o": 0.25,
+   "gamma_o": 0.1
+  },
+  "wta": {
+   "sigma0": 1.5,
+   "gamma": 0.5,
+   "window_days": 602.0,
+   "w_blend": 0.3,
+   "sigma_o": 0.25,
+   "gamma_o": 0.1
+  }
+ },
+ "rows": 872704,
+ "note": "the first run of features.py (6 Oct 2026) saved ttt_offset.parquet, then stopped in the scoring step (a read-only array); its pass timings are copied here from features.log"
+}

@@ -1,0 +1,20 @@
+{
+ "spd_f": {
+  "family": "speed",
+  "kind": "diff",
+  "arm": "spd (A1)",
+  "desc": "clip((f_A - f_B) / s_f, -4, 4): posterior fast first-serve-speed state (audit C3), men; women 0; never NaN"
+ },
+ "spd_raw": {
+  "family": "speed",
+  "kind": "diff",
+  "arm": "spd_raw (A2)",
+  "desc": "clip(x_raw / 5.998, -4, 4): the registered 14-day minus 364-day statistic on the new panel, men with both sides timed in 14 days; NaN otherwise"
+ },
+ "spd_f_all": {
+  "family": "speed",
+  "kind": "diff",
+  "arm": "spd_all (A3)",
+  "desc": "spd_f with women's Slam values from the women's constants and the men's s_f; never NaN"
+ }
+}

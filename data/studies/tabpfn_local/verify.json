@@ -1,0 +1,56 @@
+{
+ "checked_at": "2026-10-06T11:34:52-0700",
+ "offline": false,
+ "versions": {
+  "python": "3.11.17",
+  "torch": "2.11.0+cu128",
+  "torch_cuda": "12.8",
+  "tabpfn": "9.1.0",
+  "numpy": "2.4.6",
+  "pandas": "2.3.3",
+  "scikit-learn": "1.9.1"
+ },
+ "gpu": {
+  "device": "NVIDIA GeForce RTX 5090",
+  "capability": [
+   12,
+   0
+  ],
+  "arch_list": [
+   "sm_75",
+   "sm_80",
+   "sm_86",
+   "sm_90",
+   "sm_100",
+   "sm_120"
+  ],
+  "total_memory_gb": 31.8,
+  "bf16_matmul_rel_gap": 0.003692851634696126
+ },
+ "checkpoint": {
+  "path": "C:\\Users\\zerom\\AppData\\Roaming\\tabpfn\\tabpfn-v3.5-20260909.safetensors",
+  "bytes": 876027932,
+  "sha256": "ece4d67eadfea42eb0e610df5189bea60cb7f31073d81e9c7a019b76eacf0be3",
+  "downloaded_this_run": false
+ },
+ "toy_fit": {
+  "train_rows": 284,
+  "test_rows": 285,
+  "features": 30,
+  "accuracy": 0.9649122807017544,
+  "log_loss": 0.10718769580125809,
+  "fit_predict_seconds": 12.81,
+  "peak_vram_gb": 1.48,
+  "weights_device": [
+   "cuda:0"
+  ]
+ },
+ "tall_fit": {
+  "train_rows": 30000,
+  "test_rows": 10000,
+  "features": 50,
+  "accuracy": 0.9954,
+  "fit_predict_seconds": 6.72,
+  "peak_vram_gb": 7.5
+ }
+}

@@ -1,0 +1,110 @@
+{
+  "status": "passed",
+  "comparison_rows_verified": 16,
+  "training_rows": 13952,
+  "test_rows": 1712,
+  "pinnacle_rows": 70,
+  "features": 36,
+  "fit_request_receipts": 1,
+  "prediction_request_receipts": 1,
+  "requested_estimators": 8,
+  "returned_prediction_estimators": 2,
+  "scores": [
+    {
+      "subset": "all_2026",
+      "model": "tabpfn",
+      "n": 1712,
+      "independently_recomputed_log_loss": 0.6078248770449743
+    },
+    {
+      "subset": "all_2026",
+      "model": "logistic_combined_fixed",
+      "n": 1712,
+      "independently_recomputed_log_loss": 0.6098527825768647
+    },
+    {
+      "subset": "all_2026",
+      "model": "logistic_strong_fixed",
+      "n": 1712,
+      "independently_recomputed_log_loss": 0.617108230874193
+    },
+    {
+      "subset": "all_2026",
+      "model": "logistic_combined_annual",
+      "n": 1712,
+      "independently_recomputed_log_loss": 0.6103285204768247
+    },
+    {
+      "subset": "average_closing",
+      "model": "tabpfn",
+      "n": 1712,
+      "independently_recomputed_log_loss": 0.6078248770449743
+    },
+    {
+      "subset": "average_closing",
+      "model": "logistic_combined_fixed",
+      "n": 1712,
+      "independently_recomputed_log_loss": 0.6098527825768647
+    },
+    {
+      "subset": "average_closing",
+      "model": "logistic_strong_fixed",
+      "n": 1712,
+      "independently_recomputed_log_loss": 0.617108230874193
+    },
+    {
+      "subset": "average_closing",
+      "model": "logistic_combined_annual",
+      "n": 1712,
+      "independently_recomputed_log_loss": 0.6103285204768247
+    },
+    {
+      "subset": "average_closing",
+      "model": "p_avg_a",
+      "n": 1712,
+      "independently_recomputed_log_loss": 0.5947898699341593
+    },
+    {
+      "subset": "average_closing",
+      "model": "average_calibrated",
+      "n": 1712,
+      "independently_recomputed_log_loss": 0.5944520857531627
+    },
+    {
+      "subset": "pinnacle_closing",
+      "model": "tabpfn",
+      "n": 70,
+      "independently_recomputed_log_loss": 0.6272818806957582
+    },
+    {
+      "subset": "pinnacle_closing",
+      "model": "logistic_combined_fixed",
+      "n": 70,
+      "independently_recomputed_log_loss": 0.6267804029395639
+    },
+    {
+      "subset": "pinnacle_closing",
+      "model": "logistic_strong_fixed",
+      "n": 70,
+      "independently_recomputed_log_loss": 0.6436473619864573
+    },
+    {
+      "subset": "pinnacle_closing",
+      "model": "logistic_combined_annual",
+      "n": 70,
+      "independently_recomputed_log_loss": 0.6283149236892338
+    },
+    {
+      "subset": "pinnacle_closing",
+      "model": "p_ps_a",
+      "n": 70,
+      "independently_recomputed_log_loss": 0.6081375524235267
+    },
+    {
+      "subset": "pinnacle_closing",
+      "model": "pinnacle_calibrated",
+      "n": 70,
+      "independently_recomputed_log_loss": 0.6066971066429648
+    }
+  ]
+}

@@ -48,7 +48,7 @@ Tier names used in the tables:
   - Australian Open: 3 match-centre files and 2 results files.
   - Roland-Garros: 1 match page.
   - atptour.com: 6 match-statistics files.
-  - The files are saved in the scratchpad next to this report (`uso_*.json`, `wim_*.json`, `ao_*.json`, `rg_QM025.html`).
+  - The files were saved in the session scratchpad (`uso_*.json`, `wim_*.json`, `ao_*.json`, `rg_QM025.html`) and deleted with it on 25 Sep 2026, at the owner's request.
 - **I did not decode anything that was encrypted or encoded.**
 - **PDF text was extracted with a copy of `pypdf` installed only into `scratchpad/pylibs`.** It was run through the project's `./python.sh` interpreter. The project's conda environment was not changed.
 

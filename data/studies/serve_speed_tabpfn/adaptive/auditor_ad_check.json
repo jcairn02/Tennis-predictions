@@ -1,0 +1,111 @@
+{
+ "reads_results": false,
+ "release_definitions_use_rows": {
+  "rows": 42900,
+  "A_eq_lf_plus_1": true,
+  "D_tour_eq_lf_plus_2": true,
+  "D_slam_eq_B": true,
+  "E_tour_eq_B": true,
+  "E_slam_eq_lf_plus_2": true,
+  "B_weekday_rule": true,
+  "all_rows_D_E_ge_A": true
+ },
+ "late_mode_agreement": {
+  "A": {
+   "matches": 7070,
+   "late_a_equal": 1.0,
+   "late_b_equal": 1.0,
+   "mode_equal": 1.0,
+   "share_L_mine": 0.0,
+   "share_L_build": 0.0
+  },
+  "B": {
+   "matches": 7070,
+   "late_a_equal": 1.0,
+   "late_b_equal": 1.0,
+   "mode_equal": 1.0,
+   "share_L_mine": 0.46562942008486563,
+   "share_L_build": 0.46562942008486563
+  },
+  "D": {
+   "matches": 7070,
+   "late_a_equal": 1.0,
+   "late_b_equal": 1.0,
+   "mode_equal": 1.0,
+   "share_L_mine": 0.12984441301272984,
+   "share_L_build": 0.12984441301272984
+  },
+  "E": {
+   "matches": 7070,
+   "late_a_equal": 1.0,
+   "late_b_equal": 1.0,
+   "mode_equal": 1.0,
+   "share_L_mine": 0.34243281471004244,
+   "share_L_build": 0.34243281471004244
+  }
+ },
+ "applier": {
+  "matches_formula_max_diff": 0.0,
+  "T_rows_ignore_col_L": true,
+  "L_rows_ignore_col_T": true,
+  "women_ignore_both_columns": true,
+  "women_s_wta_equal_in_T_and_L": {
+   "2024": true,
+   "2025": true,
+   "2026": true
+  }
+ },
+ "date_command": {
+  "ran": true,
+  "rows": 7,
+  "a_won_requested": false,
+  "reads": [
+   [
+    "edictions\\data\\studies\\serve_speed_tabpfn\\frame_keys.parquet",
+    [
+     "match_id",
+     "tour",
+     "season",
+     "obs"
+    ]
+   ],
+   [
+    "ons\\data\\studies\\serve_speed_tabpfn\\adaptive\\columns.parquet",
+    [
+     "match_id",
+     "spd_T_B",
+     "spd_L_B",
+     "mode_B"
+    ]
+   ],
+   [
+    "s\\data\\studies\\surface_rating_race\\model\\model_frame.parquet",
+    [
+     "match_id",
+     "season"
+    ]
+   ]
+  ],
+  "modes": {
+   "T": 4,
+   "L": 3
+  }
+ },
+ "values": {
+  "B_mode_T_matches": 3778,
+  "B_mode_T_corr_spd_T_B_vs_spd_f": 0.8149199096739278,
+  "B_mode_T_share_abs_diff_gt_0.5": 0.16781365802011647,
+  "B_mode_T_share_with_a_grace_row_missing": 0.2366331392271043,
+  "sd_men_2024_26": {
+   "spd_f": 1.1060784643971124,
+   "spd_T_B": 0.7430455659235268,
+   "spd_B_M1": 1.0917557339171602,
+   "spd_L_B": 1.0917557339171602,
+   "spd_L_D": 1.197491680718008,
+   "spd_L_E": 1.1483415146549139,
+   "spd_T_D": 0.896720020013854,
+   "spd_T_E": 0.8210770057935326
+  },
+  "corr_spd_L_D_vs_spd_B_M1": 0.9006038494165903
+ }
+}

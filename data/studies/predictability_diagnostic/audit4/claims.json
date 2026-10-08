@@ -1,0 +1,538 @@
+{
+ "generated_at": "2026-10-02T15:59:42+00:00",
+ "hashes": {
+  "candidates_md_now": "504c729a356cdb5f1ee06c01081ce3ee4f065714f5aac4028f7be7b8d7290b0a",
+  "candidates_csv_now": "14cbbd0467fc7c435f40d5e7c752c61de956491115d3412213fd7f2831a45d6d",
+  "features_summary": {
+   "file": "docs/studies/predictability_diagnostic/candidates.md",
+   "sha256": "504c729a356cdb5f1ee06c01081ce3ee4f065714f5aac4028f7be7b8d7290b0a",
+   "candidate_table": "data/studies/predictability_diagnostic/stage4_candidates.csv",
+   "candidate_table_sha256": "14cbbd0467fc7c435f40d5e7c752c61de956491115d3412213fd7f2831a45d6d"
+  },
+  "results": {
+   "file": "docs/studies/predictability_diagnostic/candidates.md",
+   "sha256": "504c729a356cdb5f1ee06c01081ce3ee4f065714f5aac4028f7be7b8d7290b0a",
+   "candidate_table": "data/studies/predictability_diagnostic/stage4_candidates.csv",
+   "candidate_table_sha256": "14cbbd0467fc7c435f40d5e7c752c61de956491115d3412213fd7f2831a45d6d"
+  },
+  "stage4_md_quotes_plan_hash": true,
+  "stage4_md_quotes_table_hash": true,
+  "all_agree": true,
+  "modified_utc": {
+   "candidates.md": "2026-10-01T23:47:45+00:00",
+   "stage4_candidates.csv": "2026-10-01T22:56:48+00:00",
+   "stage4_features.parquet": "2026-10-02T02:15:25+00:00",
+   "stage4_results.json": "2026-10-02T02:31:57+00:00"
+  },
+  "generated_utc": {
+   "stage4_features_summary.json": "2026-10-02T02:19:08+00:00",
+   "stage4_results.json": "2026-10-02T02:31:56+00:00"
+  },
+  "plan_status_line": "**Status: written 1 Oct 2026; awaits the owner's approval.** The owner edits and approves this list before Stage 4 computes anything. Nothing here was compared with who won: the only numbers computed for this plan are coverage counts (on how many matches each feature would exist) and the number of comparisons the plan makes. A study plan, not a decision. The Brief and the stage table are in the [README](README.md)."
+ },
+ "small_groups": {
+  "alone": {
+   "groups": 170,
+   "by_kind": {
+    "level": 170
+   },
+   "by_group_name": {
+    "FIN": 166,
+    "CHQ": 4
+   },
+   "directional_flag_agrees": true
+  },
+  "elo": {
+   "groups": 170,
+   "by_kind": {
+    "level": 170
+   },
+   "by_group_name": {
+    "FIN": 166,
+    "CHQ": 4
+   },
+   "directional_flag_agrees": true
+  },
+  "market": {
+   "groups": 313,
+   "by_kind": {
+    "level": 312,
+    "season": 1
+   },
+   "by_group_name": {
+    "FIN": 312,
+    "season 2020": 1
+   },
+   "directional_flag_agrees": true
+  }
+ },
+ "findings_needing_a_small_era": [],
+ "small_eras_of_rows_above_the_line": [],
+ "claims": [
+  {
+   "claim": "4: ratings through the iid model by era (men)",
+   "groups": {
+    "2013-16": 39988,
+    "2017-19": 35762,
+    "2020-21": 14493,
+    "2022-26": 64887
+   },
+   "smallest": 14493,
+   "under_300": 0
+  },
+  {
+   "claim": "4: ratings through the iid model by era (women)",
+   "groups": {
+    "2017-19": 4479,
+    "2020-21": 6168,
+    "2022-26": 23998
+   },
+   "smallest": 4479,
+   "under_300": 0
+  },
+  {
+   "claim": "4: points matchup 52 weeks by era (men)",
+   "groups": {
+    "2013-16": 37738,
+    "2017-19": 34529,
+    "2020-21": 13836,
+    "2022-26": 63017
+   },
+   "smallest": 13836,
+   "under_300": 0
+  },
+  {
+   "claim": "4: serve point from its parts 52 weeks, 2013-16 (men)",
+   "groups": {
+    "2013-16": 37738
+   },
+   "smallest": 37738,
+   "under_300": 0
+  },
+  {
+   "claim": "4: age by era (men)",
+   "groups": {
+    "2013-16": 39976,
+    "2017-19": 35750,
+    "2020-21": 14487,
+    "2022-26": 64409
+   },
+   "smallest": 14487,
+   "under_300": 0
+  },
+  {
+   "claim": "4: ratings through the iid model at the Grand Slams",
+   "groups": {
+    "GS": 6951
+   },
+   "smallest": 6951,
+   "under_300": 0
+  },
+  {
+   "claim": "4: ratings through the iid model at the Grand Slams (women)",
+   "groups": {
+    "GS": 3921
+   },
+   "smallest": 3921,
+   "under_300": 0
+  },
+  {
+   "claim": "4: the Tour Finals (men, full coverage)",
+   "groups": {
+    "FIN": 315
+   },
+   "smallest": 315,
+   "under_300": 0
+  },
+  {
+   "claim": "4: the Tour Finals (women)",
+   "groups": {
+    "FIN": 285
+   },
+   "smallest": 285,
+   "under_300": 1
+  },
+  {
+   "claim": "6: the ranking season by season (men)",
+   "groups": {
+    "season 2013": 9054,
+    "season 2014": 8986,
+    "season 2015": 9517,
+    "season 2016": 12431,
+    "season 2017": 11732,
+    "season 2018": 12488,
+    "season 2019": 11542,
+    "season 2020": 4531,
+    "season 2021": 9962,
+    "season 2022": 12621,
+    "season 2023": 13335,
+    "season 2024": 13869,
+    "season 2025": 14191,
+    "season 2026": 10871
+   },
+   "smallest": 4531,
+   "under_300": 0
+  },
+  {
+   "claim": "6: the ranking season by season (women)",
+   "groups": {
+    "season 2013": 4193,
+    "season 2014": 4014,
+    "season 2015": 4278,
+    "season 2016": 4364,
+    "season 2017": 4404,
+    "season 2018": 4423,
+    "season 2019": 4479,
+    "season 2020": 1930,
+    "season 2021": 4238,
+    "season 2022": 4572,
+    "season 2023": 4846,
+    "season 2024": 5133,
+    "season 2025": 5774,
+    "season 2026": 3673
+   },
+   "smallest": 1930,
+   "under_300": 0
+  },
+  {
+   "claim": "6: ranking, points, gap in 2022-2026",
+   "groups": {
+    "2022-2026": 64887
+   },
+   "smallest": 64887,
+   "under_300": 0
+  },
+  {
+   "claim": "3: the market table, 2022-2026 (women's ranking)",
+   "groups": {
+    "2022-2026": 11467
+   },
+   "smallest": 11467,
+   "under_300": 0
+  },
+  {
+   "claim": "3: the market table, 2022-2026 (men's sets over 7 days)",
+   "groups": {
+    "2022-2026": 12352
+   },
+   "smallest": 12352,
+   "under_300": 0
+  },
+  {
+   "claim": "3: the market table, 2022-2026 (women's first matches on a surface)",
+   "groups": {
+    "2022-2026": 11467
+   },
+   "smallest": 11467,
+   "under_300": 0
+  },
+  {
+   "claim": "3: the market table, 2022-2026 (women's days since)",
+   "groups": {
+    "2022-2026": 11424
+   },
+   "smallest": 11424,
+   "under_300": 0
+  },
+  {
+   "claim": "limitations: the leaders in 2019-2026",
+   "groups": {
+    "2019-2026": 90922
+   },
+   "smallest": 90922,
+   "under_300": 0
+  }
+ ],
+ "tour_finals": {
+  "atp": {
+   "max": 315,
+   "rows_under_300": 8,
+   "rows": 154
+  },
+  "wta": {
+   "max": 285,
+   "rows_under_300": 158,
+   "rows": 158
+  }
+ },
+ "second_minimum": [
+  {
+   "tour": "atp",
+   "id": "entry_pr",
+   "form": "single",
+   "score": "alone",
+   "reading": "possible",
+   "rank_given_elo": 71,
+   "seasons_left_out": [
+    2016,
+    2017
+   ],
+   "matches_left_out": 22108
+  },
+  {
+   "tour": "atp",
+   "id": "entry_ll",
+   "form": "single",
+   "score": "alone",
+   "reading": "no sign",
+   "rank_given_elo": 109,
+   "seasons_left_out": [
+    2014
+   ],
+   "matches_left_out": 7158
+  },
+  {
+   "tour": "wta",
+   "id": "minutes_14d",
+   "form": "single",
+   "score": "alone",
+   "reading": "finding",
+   "rank_given_elo": 5,
+   "seasons_left_out": [
+    2013,
+    2014,
+    2015,
+    2016
+   ],
+   "matches_left_out": 3635
+  },
+  {
+   "tour": "wta",
+   "id": "minutes_7d",
+   "form": "single",
+   "score": "alone",
+   "reading": "finding",
+   "rank_given_elo": 29,
+   "seasons_left_out": [
+    2013,
+    2014,
+    2015,
+    2016
+   ],
+   "matches_left_out": 5754
+  },
+  {
+   "tour": "wta",
+   "id": "entry_ll",
+   "form": "single",
+   "score": "alone",
+   "reading": "no sign",
+   "rank_given_elo": 140,
+   "seasons_left_out": [
+    2014,
+    2015,
+    2016,
+    2017
+   ],
+   "matches_left_out": 9538
+  },
+  {
+   "tour": "wta",
+   "id": "entry_pr",
+   "form": "single",
+   "score": "alone",
+   "reading": "not scored",
+   "rank_given_elo": null,
+   "seasons_left_out": [
+    2015,
+    2021,
+    2022,
+    2023,
+    2024,
+    2025
+   ],
+   "matches_left_out": 12610
+  },
+  {
+   "tour": "atp",
+   "id": "entry_pr",
+   "form": "single",
+   "score": "elo",
+   "reading": "possible",
+   "rank_given_elo": 71,
+   "seasons_left_out": [
+    2016,
+    2017
+   ],
+   "matches_left_out": 22108
+  },
+  {
+   "tour": "atp",
+   "id": "entry_ll",
+   "form": "single",
+   "score": "elo",
+   "reading": "no sign",
+   "rank_given_elo": 109,
+   "seasons_left_out": [
+    2014
+   ],
+   "matches_left_out": 7158
+  },
+  {
+   "tour": "wta",
+   "id": "minutes_14d",
+   "form": "single",
+   "score": "elo",
+   "reading": "finding",
+   "rank_given_elo": 5,
+   "seasons_left_out": [
+    2013,
+    2014,
+    2015,
+    2016
+   ],
+   "matches_left_out": 3635
+  },
+  {
+   "tour": "wta",
+   "id": "minutes_7d",
+   "form": "single",
+   "score": "elo",
+   "reading": "finding",
+   "rank_given_elo": 29,
+   "seasons_left_out": [
+    2013,
+    2014,
+    2015,
+    2016
+   ],
+   "matches_left_out": 5754
+  },
+  {
+   "tour": "wta",
+   "id": "entry_ll",
+   "form": "single",
+   "score": "elo",
+   "reading": "no sign",
+   "rank_given_elo": 140,
+   "seasons_left_out": [
+    2014,
+    2015,
+    2016,
+    2017
+   ],
+   "matches_left_out": 9538
+  },
+  {
+   "tour": "wta",
+   "id": "entry_pr",
+   "form": "single",
+   "score": "elo",
+   "reading": "not scored",
+   "rank_given_elo": null,
+   "seasons_left_out": [
+    2015,
+    2021,
+    2022,
+    2023,
+    2024,
+    2025
+   ],
+   "matches_left_out": 12610
+  },
+  {
+   "tour": "atp",
+   "id": "entry_pr",
+   "form": "single",
+   "score": "market",
+   "reading": "possible",
+   "rank_given_elo": 71,
+   "seasons_left_out": [
+    2016,
+    2017,
+    2019,
+    2020,
+    2021,
+    2022
+   ],
+   "matches_left_out": 11138
+  },
+  {
+   "tour": "atp",
+   "id": "entry_ll",
+   "form": "single",
+   "score": "market",
+   "reading": "no sign",
+   "rank_given_elo": 109,
+   "seasons_left_out": [
+    2014,
+    2015,
+    2016,
+    2017
+   ],
+   "matches_left_out": 10349
+  },
+  {
+   "tour": "atp",
+   "id": "entry_wc",
+   "form": "single",
+   "score": "market",
+   "reading": "worse",
+   "rank_given_elo": 120,
+   "seasons_left_out": [
+    2014
+   ],
+   "matches_left_out": 2560
+  },
+  {
+   "tour": "wta",
+   "id": "minutes_14d",
+   "form": "single",
+   "score": "market",
+   "reading": "finding",
+   "rank_given_elo": 5,
+   "seasons_left_out": [
+    2015,
+    2016
+   ],
+   "matches_left_out": 2022
+  },
+  {
+   "tour": "wta",
+   "id": "minutes_7d",
+   "form": "single",
+   "score": "market",
+   "reading": "finding",
+   "rank_given_elo": 29,
+   "seasons_left_out": [
+    2013,
+    2014,
+    2015,
+    2016
+   ],
+   "matches_left_out": 2970
+  },
+  {
+   "tour": "wta",
+   "id": "entry_ll",
+   "form": "single",
+   "score": "market",
+   "reading": "no sign",
+   "rank_given_elo": 140,
+   "seasons_left_out": [
+    2014,
+    2015,
+    2016,
+    2017
+   ],
+   "matches_left_out": 8807
+  },
+  {
+   "tour": "wta",
+   "id": "entry_pr",
+   "form": "single",
+   "score": "market",
+   "reading": "not scored",
+   "rank_given_elo": null,
+   "seasons_left_out": [
+    2015,
+    2021,
+    2022,
+    2023,
+    2024,
+    2025
+   ],
+   "matches_left_out": 7567
+  }
+ ]
+}

@@ -593,7 +593,7 @@ These are not executed. Each one except the first requires the owner to sign up,
 
 ## 7. Scratch files created by this research
 
-All in the session scratchpad; none deleted:
+All were kept in the session scratchpad and deleted with it on 25 Sep 2026, at the owner's request; none are in the repository:
 - **Downloaded pages:** `rapid_tennisapi1.html`, `fluis.lacasse_api_tennisapi1.html`, `fluis.lacasse_api_allsportsapi2.html`, `jjrm365-kIFr3Nx_odV_api_tennis-api-atp-wta-itf.html`, `apidojo_api_sofascore*.html`, `sportcontentapi_api_tennis-live-data*.html`, `cantagalloedoardo_api_ultimate-tennis1.html`, `tipsters_sofasport.html`, `allsports_tennis_doc.html`, `apitennis_doc.html`, `lta_hist.html`, `lta_acad.html`, `lta_terms.html`
 - **Derived text:** `rt1.txt`, `ms.txt`
 - **Parsers:** `rapid_extract.py`, `routes.py`, `peek.py`, `ms_pbp.py`, `docpbp.py`, `strip.py`

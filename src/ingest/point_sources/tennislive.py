@@ -71,10 +71,11 @@ MATCH_COLUMNS = ["url", "players_slug", "tournament_slug", "tour", "page_status"
                  "player1_sets_won", "player2_id", "player2_name", "player2_url", "player2_seed", "player2_ranking",
                  "player2_ranking_date", "player2_sets_won", "set_winners", "winner_id", "doubles",
                  "tournament_id", "tournament_name", "tournament_url", "tournament_country", "surface", "surface_code",
-                 "stage", "stage_code", "start_times", "reference_timestamp", "reference_utc", "date_shown", "round_shown",
+                 "stage", "stage_code", "start_times", "reference_timestamp", "reference_utc", "date_shown",
+                 "start_shown", "round_shown",
                  "surface_shown", "tour_shown", "format_shown", "pbp_available", "pbp_unavailable_notice", "sets_listed",
-                 "games_listed", "points_listed", "first_server_index", "stats_available", "stats_rows",
-                 "listed_for_slugs"]
+                 "games_listed", "games_without_points", "points_listed", "first_server_index", "stats_available",
+                 "stats_rows", "listed_for_slugs"]
 GAME_COLUMNS = ["url", "set", "game", "before", "after", "server_index", "server_name", "outcome", "winner_index",
                 "label", "states", "markers", "points_listed", "tiebreak"]
 POINT_COLUMNS = ["url", "set", "game", "point", "state", "player1_point", "player2_point", "markers", "tiebreak",
@@ -161,7 +162,9 @@ def parse_match_page(html: str) -> dict:
     summary = rt.get("matchDetailInitialSummary") or {}
     table = rt.get("matchDetailTableMatch") or {}
     group = rt.get("matchDetailTableGroup") or {}
-    soup = BeautifulSoup(html, "html.parser")
+    # only the <main> element holds the records; skipping the header, scripts and footer halves the parse time
+    start, end = html.find("<main"), html.rfind("</main>")
+    soup = BeautifulSoup(html[start:end + 7] if 0 <= start < end else html, "html.parser")
     i18n = rt.get("i18n") or {}
     unavailable_text = i18n.get("match_progress_unavailable") or "Complete game and point progress is not available"
     stats_unavailable_text = i18n.get("match_statistics_unavailable") or "Statistics are not available"
@@ -196,10 +199,12 @@ def parse_match_page(html: str) -> dict:
         "start_times": ";".join(str(x) for x in group.get("startTimes") or []),
         "reference_timestamp": rt.get("matchDetailReferenceTimestamp"),
         "reference_utc": _utc(rt.get("matchDetailReferenceTimestamp")),
-        "date_shown": shown.get("Date"), "round_shown": shown.get("Round"), "surface_shown": shown.get("Surface"),
+        "date_shown": shown.get("Date"), "start_shown": shown.get("Start"),      # the sidebar's start (often blank)
+        "round_shown": shown.get("Round"), "surface_shown": shown.get("Surface"),
         "tour_shown": shown.get("Tour"), "format_shown": shown.get("Format"),
         "pbp_available": bool(played), "pbp_unavailable_notice": unavailable_text.rstrip(".") in main_text,
         "sets_listed": len({g["set"] for g in played}), "games_listed": len(played),
+        "games_without_points": sum(1 for g in played if not g["points"]),
         "points_listed": sum(len(g["points"]) for g in played), "first_server_index": first_server,
         "stats_available": bool(statistics), "stats_rows": len(statistics),
         "stats_unavailable_notice": stats_unavailable_text.rstrip(".") in main_text,
@@ -238,8 +243,11 @@ def parse_progress(root) -> list[dict]:
             game = parse_game_block(block)
             if game is None:
                 continue
-            if game["outcome"] is None and not game["points"]:
-                game["game"] = 0  # the set's start marker: who serves first
+            # A block whose games score does not move and that lists no points is the set's start marker (who
+            # serves first). A block whose score moves is a game even when its points are missing, which the
+            # site does for some opening games of a set: it is kept, with no points, so that games stay countable.
+            if game["outcome"] is None and not game["points"] and game["before"] == game["after"]:
+                game["game"] = 0
             else:
                 game_no += 1
                 game["game"] = game_no

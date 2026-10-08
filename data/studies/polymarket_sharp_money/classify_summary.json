@@ -1,0 +1,177 @@
+{
+ "features": [
+  "log_markets",
+  "log_stake_per_market",
+  "taker_share",
+  "mean_q",
+  "pre_share",
+  "sweep_share",
+  "e_hist",
+  "se_hist",
+  "eb_mean"
+ ],
+ "model": {
+  "loss": "squared_error",
+  "learning_rate": 0.05,
+  "max_iter": 300,
+  "max_leaf_nodes": 15,
+  "min_samples_leaf": 2000,
+  "l2_regularization": 1.0,
+  "random_state": 0
+ },
+ "folds": {
+  "0": {
+   "priors": {
+    "1 market": {
+     "wallets": 37873,
+     "prior_mean": -0.01547493409445257,
+     "p_edge_gt_0": 0.039592481730934506
+    },
+    "2-4 markets": {
+     "wallets": 26360,
+     "prior_mean": -0.011963360835901684,
+     "p_edge_gt_0": 0.15842108843346878
+    },
+    "5-19 markets": {
+     "wallets": 20902,
+     "prior_mean": -0.01268384922032587,
+     "p_edge_gt_0": 0.20542679439686962
+    },
+    "20-99 markets": {
+     "wallets": 9702,
+     "prior_mean": -0.013334684057322962,
+     "p_edge_gt_0": 0.10051650921734726
+    },
+    "100+ markets": {
+     "wallets": 2848,
+     "prior_mean": -0.005067032566359185,
+     "p_edge_gt_0": 0.4476714687839451
+    }
+   },
+   "iterations": 10
+  },
+  "1": {
+   "priors": {
+    "1 market": {
+     "wallets": 38543,
+     "prior_mean": -0.016320143395146734,
+     "p_edge_gt_0": 0.03010306816552229
+    },
+    "2-4 markets": {
+     "wallets": 26599,
+     "prior_mean": -0.012457311224568942,
+     "p_edge_gt_0": 0.12139483013891485
+    },
+    "5-19 markets": {
+     "wallets": 21312,
+     "prior_mean": -0.013229134934828976,
+     "p_edge_gt_0": 0.1835497014870085
+    },
+    "20-99 markets": {
+     "wallets": 9834,
+     "prior_mean": -0.015378437342917245,
+     "p_edge_gt_0": 0.11265946076897111
+    },
+    "100+ markets": {
+     "wallets": 2930,
+     "prior_mean": -0.006143484932798218,
+     "p_edge_gt_0": 0.407243526713757
+    }
+   },
+   "iterations": 37
+  },
+  "2": {
+   "priors": {
+    "1 market": {
+     "wallets": 37321,
+     "prior_mean": -0.01814366302411285,
+     "p_edge_gt_0": 0.03354053756584763
+    },
+    "2-4 markets": {
+     "wallets": 26612,
+     "prior_mean": -0.012610240302838492,
+     "p_edge_gt_0": 0.13331397748985258
+    },
+    "5-19 markets": {
+     "wallets": 21127,
+     "prior_mean": -0.011287106957579979,
+     "p_edge_gt_0": 0.19434163096525695
+    },
+    "20-99 markets": {
+     "wallets": 9851,
+     "prior_mean": -0.013423566584761133,
+     "p_edge_gt_0": 0.09129847774016296
+    },
+    "100+ markets": {
+     "wallets": 2935,
+     "prior_mean": -0.004820271109238025,
+     "p_edge_gt_0": 0.4283915936128871
+    }
+   },
+   "iterations": 10
+  },
+  "3": {
+   "priors": {
+    "1 market": {
+     "wallets": 37179,
+     "prior_mean": -0.02116203366935869,
+     "p_edge_gt_0": 0.040200029091986486
+    },
+    "2-4 markets": {
+     "wallets": 26545,
+     "prior_mean": -0.015402052218626113,
+     "p_edge_gt_0": 0.09012327203754758
+    },
+    "5-19 markets": {
+     "wallets": 21304,
+     "prior_mean": -0.013992367696700175,
+     "p_edge_gt_0": 0.1657224289389091
+    },
+    "20-99 markets": {
+     "wallets": 9849,
+     "prior_mean": -0.014708935674872362,
+     "p_edge_gt_0": 0.0931525044196265
+    },
+    "100+ markets": {
+     "wallets": 2950,
+     "prior_mean": -0.006157644689668704,
+     "p_edge_gt_0": 0.45071797571314814
+    }
+   },
+   "iterations": 23
+  },
+  "4": {
+   "priors": {
+    "1 market": {
+     "wallets": 38444,
+     "prior_mean": -0.019749669779383833,
+     "p_edge_gt_0": 0.03238038133994133
+    },
+    "2-4 markets": {
+     "wallets": 26989,
+     "prior_mean": -0.013491900998383665,
+     "p_edge_gt_0": 0.13573851709265994
+    },
+    "5-19 markets": {
+     "wallets": 21310,
+     "prior_mean": -0.013561633798095423,
+     "p_edge_gt_0": 0.1679590294571995
+    },
+    "20-99 markets": {
+     "wallets": 9923,
+     "prior_mean": -0.015253307026164169,
+     "p_edge_gt_0": 0.08704999718366777
+    },
+    "100+ markets": {
+     "wallets": 2920,
+     "prior_mean": -0.006418963556107091,
+     "p_edge_gt_0": 0.424250888513671
+    }
+   },
+   "iterations": 24
+  }
+ },
+ "rows": 1799004,
+ "rows_no_track_record": 47308,
+ "stake_share_no_track_record": 0.010372864320771178
+}

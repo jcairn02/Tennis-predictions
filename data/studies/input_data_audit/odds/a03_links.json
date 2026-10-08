@@ -1,0 +1,97 @@
+{
+ "link_counts": {
+  "name_pair": 61347,
+  "one_player_anchor": 2373,
+  "winner_swapped": 17
+ },
+ "same_set_scores_false": 255,
+ "round_agrees": {
+  "yes": 63716,
+  "no": 21
+ },
+ "rank_agrees_a_false": 388,
+ "rank_agrees_b_false": 402,
+ "rank_mismatch_both": 66,
+ "days_from_monday_quantiles": {
+  "0.0": -3.0,
+  "0.001": -2.0,
+  "0.01": -1.0,
+  "0.5": 2.0,
+  "0.99": 9.639999999999418,
+  "0.999": 13.0,
+  "1.0": 14.0
+ },
+ "days_from_monday_lt_-1": 138,
+ "days_from_monday_gt_15": 0,
+ "td_redated_rows_in_frame": 62,
+ "td_comment_counts": {
+  "Completed": 61831,
+  "Retired": 1901,
+  "Walkover": 1,
+  "Sched": 1,
+  "Rrtired": 1
+ },
+ "status_vs_td_comment": {
+  "Completed": {
+   "completed": 61823,
+   "retired": 8
+  },
+  "Retired": {
+   "completed": 12,
+   "retired": 1889
+  },
+  "Rrtired": {
+   "completed": 0,
+   "retired": 1
+  },
+  "Sched": {
+   "completed": 1,
+   "retired": 0
+  },
+  "Walkover": {
+   "completed": 0,
+   "retired": 1
+  }
+ },
+ "calibration_by_link": {
+  "name_pair": {
+   "n": 61347.0,
+   "logloss": 0.5849,
+   "logloss_expected": 0.598,
+   "z_logloss": -8.5256,
+   "brier": 0.2008,
+   "fav_win_rate": 0.6838,
+   "mean_p_fav": 0.677,
+   "z_fav": 3.7452,
+   "mean_p_winner": 0.5931,
+   "cal_intercept": -0.0003,
+   "cal_slope": 1.0943
+  },
+  "one_player_anchor": {
+   "n": 2373.0,
+   "logloss": 0.6046,
+   "logloss_expected": 0.6123,
+   "z_logloss": -1.051,
+   "brier": 0.2092,
+   "fav_win_rate": 0.6713,
+   "mean_p_fav": 0.6618,
+   "z_fav": 1.0083,
+   "mean_p_winner": 0.5784,
+   "cal_intercept": -0.0437,
+   "cal_slope": 1.0625
+  },
+  "winner_swapped": {
+   "n": 17.0,
+   "logloss": 0.7359,
+   "logloss_expected": 0.6396,
+   "z_logloss": 1.2836,
+   "brier": 0.2707,
+   "fav_win_rate": 0.4706,
+   "mean_p_fav": 0.6418,
+   "z_fav": -1.4913,
+   "mean_p_winner": 0.5052,
+   "cal_intercept": NaN,
+   "cal_slope": NaN
+  }
+ }
+}

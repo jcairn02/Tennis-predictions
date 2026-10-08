@@ -1,0 +1,380 @@
+{
+ "built_at": "2026-10-07T15:11:47+00:00",
+ "reads_results": false,
+ "on_disk_unused_matches": {
+  "infosys_keystats": 1133,
+  "ausopen_stats": 483,
+  "flashscore": 392,
+  "held": 8
+ },
+ "mantd": {
+  "source": "github.com/msolonskyi/ManTennisData atp/matches_2021-2026.csv, tournaments.csv",
+  "folder": "C:\\Users\\zerom\\AppData\\Local\\Temp\\claude\\c--Users-zerom-Documents-Tennis-predictions\\5ba10243-f5e7-4f10-aeaf-73edfb9332c0\\scratchpad\\laneB\\mantd",
+  "rows_timed_both": 10055,
+  "linked": 9837,
+  "by_series": {
+   "1000": 4185,
+   "atp": 4972,
+   "ch": 898
+  },
+  "stage0_matches_timed": 9812,
+  "added_beyond_on_disk": 3615
+ },
+ "men_2025_26_frame_matches": 4925,
+ "men_2025_26_with_feature": {
+  "S0_held": 454,
+  "S1_on_disk": 622,
+  "S1b_mantd": 2390,
+  "S2_atp_files": 3592,
+  "S3_slams": 3772,
+  "S4_wta": 3772
+ },
+ "men_2025_26_power_beta_0.09": {
+  "S0_held": 0.136,
+  "S1_on_disk": 0.17,
+  "S1b_mantd": 0.506,
+  "S2_atp_files": 0.678,
+  "S3_slams": 0.699,
+  "S4_wta": 0.699
+ },
+ "power_note": "two-sided 5% Wald test, SE = 1/sqrt(n * 0.19 * 1.06) as speed_prereg.md section 8; beta 0.09 is the 2022-24 replication estimate (probably inflated)",
+ "validation_vs_speed_build": [
+  {
+   "tour": "atp",
+   "window": "2015-21",
+   "slam": false,
+   "frame": 11240,
+   "x_present": 172,
+   "frame_matches": 11240,
+   "x_raw": 172
+  },
+  {
+   "tour": "atp",
+   "window": "2015-21",
+   "slam": true,
+   "frame": 2906,
+   "x_present": 760,
+   "frame_matches": 2906,
+   "x_raw": 760
+  },
+  {
+   "tour": "atp",
+   "window": "2022-24",
+   "slam": false,
+   "frame": 6443,
+   "x_present": 2758,
+   "frame_matches": 6443,
+   "x_raw": 2758
+  },
+  {
+   "tour": "atp",
+   "window": "2022-24",
+   "slam": true,
+   "frame": 1515,
+   "x_present": 776,
+   "frame_matches": 1515,
+   "x_raw": 776
+  },
+  {
+   "tour": "wta",
+   "window": "2015-21",
+   "slam": false,
+   "frame": 12305,
+   "x_present": 152,
+   "frame_matches": 12305,
+   "x_raw": 152
+  },
+  {
+   "tour": "wta",
+   "window": "2015-21",
+   "slam": true,
+   "frame": 3416,
+   "x_present": 840,
+   "frame_matches": 3416,
+   "x_raw": 840
+  },
+  {
+   "tour": "wta",
+   "window": "2022-24",
+   "slam": false,
+   "frame": 5753,
+   "x_present": 52,
+   "frame_matches": 5753,
+   "x_raw": 52
+  },
+  {
+   "tour": "wta",
+   "window": "2022-24",
+   "slam": true,
+   "frame": 1515,
+   "x_present": 503,
+   "frame_matches": 1515,
+   "x_raw": 503
+  }
+ ],
+ "polymarket_window_frame_with_feature": [
+  {
+   "tour": "atp",
+   "slam": false,
+   "frame": 2135,
+   "S0_held": 11,
+   "S1_on_disk": 21,
+   "S1b_mantd": 1212,
+   "S2_atp_files": 1627,
+   "S3_slams": 1641,
+   "S4_wta": 1641
+  },
+  {
+   "tour": "atp",
+   "slam": true,
+   "frame": 505,
+   "S0_held": 126,
+   "S1_on_disk": 191,
+   "S1b_mantd": 254,
+   "S2_atp_files": 343,
+   "S3_slams": 403,
+   "S4_wta": 403
+  },
+  {
+   "tour": "wta",
+   "slam": false,
+   "frame": 1998,
+   "S0_held": 5,
+   "S1_on_disk": 24,
+   "S1b_mantd": 24,
+   "S2_atp_files": 24,
+   "S3_slams": 31,
+   "S4_wta": 1425
+  },
+  {
+   "tour": "wta",
+   "slam": true,
+   "frame": 507,
+   "S0_held": 125,
+   "S1_on_disk": 188,
+   "S1b_mantd": 188,
+   "S2_atp_files": 188,
+   "S3_slams": 251,
+   "S4_wta": 350
+  }
+ ],
+ "polymarket_in_window_tiers": [
+  {
+   "bucket": "Challenger / WTA 125 (inferred from bare names)",
+   "bucket_tour": "ATP",
+   "events": 6121,
+   "volume_usd": 625740022.547532,
+   "volume_share": 0.18
+  },
+  {
+   "bucket": "Grand Slam singles (main draw)",
+   "bucket_tour": "ATP",
+   "events": 514,
+   "volume_usd": 501848420.9114157,
+   "volume_share": 0.1443
+  },
+  {
+   "bucket": "Masters 1000 / WTA 1000 (main draw)",
+   "bucket_tour": "ATP",
+   "events": 790,
+   "volume_usd": 321680020.056346,
+   "volume_share": 0.0925
+  },
+  {
+   "bucket": "ATP 250 / WTA 250 (main draw)",
+   "bucket_tour": "ATP",
+   "events": 884,
+   "volume_usd": 270223072.463072,
+   "volume_share": 0.0777
+  },
+  {
+   "bucket": "Masters 1000 / WTA 1000 (main draw)",
+   "bucket_tour": "WTA",
+   "events": 952,
+   "volume_usd": 240729801.70407793,
+   "volume_share": 0.0692
+  },
+  {
+   "bucket": "Grand Slam singles (main draw)",
+   "bucket_tour": "WTA",
+   "events": 496,
+   "volume_usd": 229191512.8847009,
+   "volume_share": 0.0659
+  },
+  {
+   "bucket": "Challenger / WTA 125 (inferred from bare names)",
+   "bucket_tour": "WTA",
+   "events": 1537,
+   "volume_usd": 212110234.65776998,
+   "volume_share": 0.061
+  },
+  {
+   "bucket": "ATP 500 / WTA 500 (main draw)",
+   "bucket_tour": "ATP",
+   "events": 598,
+   "volume_usd": 207404599.16968796,
+   "volume_share": 0.0597
+  },
+  {
+   "bucket": "ATP 500 / WTA 500 (main draw)",
+   "bucket_tour": "WTA",
+   "events": 493,
+   "volume_usd": 164836102.04595098,
+   "volume_share": 0.0474
+  },
+  {
+   "bucket": "ATP 250 / WTA 250 (main draw)",
+   "bucket_tour": "WTA",
+   "events": 725,
+   "volume_usd": 161514993.968251,
+   "volume_share": 0.0465
+  },
+  {
+   "bucket": "ITF World Tennis Tour",
+   "bucket_tour": "?",
+   "events": 17929,
+   "volume_usd": 105563853.397557,
+   "volume_share": 0.0304
+  },
+  {
+   "bucket": "Main-tour qualifying (1000/500/250)",
+   "bucket_tour": "ATP",
+   "events": 881,
+   "volume_usd": 96143772.610067,
+   "volume_share": 0.0277
+  },
+  {
+   "bucket": "Tournament-winner futures (mostly Slams)",
+   "bucket_tour": "ATP",
+   "events": 10,
+   "volume_usd": 90109115.896296,
+   "volume_share": 0.0259
+  },
+  {
+   "bucket": "Main-tour qualifying (1000/500/250)",
+   "bucket_tour": "WTA",
+   "events": 910,
+   "volume_usd": 72633076.880879,
+   "volume_share": 0.0209
+  },
+  {
+   "bucket": "Grand Slam qualifying",
+   "bucket_tour": "ATP",
+   "events": 415,
+   "volume_usd": 48321460.11926299,
+   "volume_share": 0.0139
+  },
+  {
+   "bucket": "Tournament-winner futures (mostly Slams)",
+   "bucket_tour": "WTA",
+   "events": 8,
+   "volume_usd": 37720547.206621,
+   "volume_share": 0.0108
+  },
+  {
+   "bucket": "Grand Slam qualifying",
+   "bucket_tour": "WTA",
+   "events": 417,
+   "volume_usd": 29091934.97055,
+   "volume_share": 0.0084
+  },
+  {
+   "bucket": "Tour Finals (ATP/WTA/Next Gen)",
+   "bucket_tour": "ATP",
+   "events": 36,
+   "volume_usd": 22809870.207945,
+   "volume_share": 0.0066
+  },
+  {
+   "bucket": "ITF World Tennis Tour",
+   "bucket_tour": "ATP",
+   "events": 1679,
+   "volume_usd": 9815657.699972,
+   "volume_share": 0.0028
+  },
+  {
+   "bucket": "ITF World Tennis Tour",
+   "bucket_tour": "WTA",
+   "events": 1073,
+   "volume_usd": 8617584.728263,
+   "volume_share": 0.0025
+  },
+  {
+   "bucket": "Team events & exhibitions",
+   "bucket_tour": "?",
+   "events": 55,
+   "volume_usd": 4868402.910494,
+   "volume_share": 0.0014
+  },
+  {
+   "bucket": "Tour Finals (ATP/WTA/Next Gen)",
+   "bucket_tour": "WTA",
+   "events": 15,
+   "volume_usd": 3799996.448048,
+   "volume_share": 0.0011
+  },
+  {
+   "bucket": "Doubles (all tiers)",
+   "bucket_tour": "ATP",
+   "events": 2171,
+   "volume_usd": 3426209.9707770003,
+   "volume_share": 0.001
+  },
+  {
+   "bucket": "Doubles (all tiers)",
+   "bucket_tour": "WTA",
+   "events": 911,
+   "volume_usd": 3090623.890734,
+   "volume_share": 0.0009
+  },
+  {
+   "bucket": "Team events & exhibitions",
+   "bucket_tour": "ATP",
+   "events": 13,
+   "volume_usd": 2528826.191063,
+   "volume_share": 0.0007
+  },
+  {
+   "bucket": "Grand Slam juniors",
+   "bucket_tour": "ATP",
+   "events": 384,
+   "volume_usd": 1211524.322351,
+   "volume_share": 0.0003
+  },
+  {
+   "bucket": "Props, exact-score wrappers & other",
+   "bucket_tour": "?",
+   "events": 31,
+   "volume_usd": 601914.711951,
+   "volume_share": 0.0002
+  },
+  {
+   "bucket": "Grand Slam juniors",
+   "bucket_tour": "WTA",
+   "events": 308,
+   "volume_usd": 558589.050802,
+   "volume_share": 0.0002
+  },
+  {
+   "bucket": "Tournament-winner futures (mostly Slams)",
+   "bucket_tour": "?",
+   "events": 8,
+   "volume_usd": 472613.1501749999,
+   "volume_share": 0.0001
+  },
+  {
+   "bucket": "Doubles (all tiers)",
+   "bucket_tour": "?",
+   "events": 6,
+   "volume_usd": 108373.991406,
+   "volume_share": 0.0
+  },
+  {
+   "bucket": "Props, exact-score wrappers & other",
+   "bucket_tour": "ATP",
+   "events": 128,
+   "volume_usd": 13946.720599,
+   "volume_share": 0.0
+  }
+ ]
+}

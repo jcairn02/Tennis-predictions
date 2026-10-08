@@ -1,0 +1,88 @@
+{
+ "tour": "wta",
+ "stat": "second_won",
+ "constants": {
+  "h": 104.0,
+  "kappa": 10.0,
+  "tau": 1
+ },
+ "seconds": {
+  "ios_time": 17.4,
+  "pooled": 28.8,
+  "kappa_s_1e9": 305.2
+ },
+ "pooled_vs_ios_time": {
+  "O": {
+   "max_abs": 2.7755575615628914e-16,
+   "rows": 813178,
+   "nan_mismatch": 0
+  },
+  "D": {
+   "max_abs": 2.7755575615628914e-16,
+   "rows": 813178,
+   "nan_mismatch": 0
+  }
+ },
+ "kappa1e9_vs_ios_time": {
+  "O": {
+   "max_abs": 1.8226539888477333e-08,
+   "rows": 813178,
+   "nan_mismatch": 0
+  },
+  "D": {
+   "max_abs": 1.3521572958530292e-08,
+   "rows": 813178,
+   "nan_mismatch": 0
+  }
+ },
+ "solver": {
+  "ios_time": {
+   "snapshots": 5860,
+   "observations": 177965,
+   "pairs": 132220,
+   "players": 16073,
+   "iterations_mean": 10.444709897610922,
+   "iterations_max": 15,
+   "not_converged": 0,
+   "rows_with_incremental_gap": 410911
+  },
+  "pooled": {
+   "snapshots": 5860,
+   "observations": 177965,
+   "triples": 148642,
+   "players": 16073,
+   "iterations_mean": 10.444709897610922,
+   "iterations_max": 15,
+   "not_converged": 0,
+   "rows_with_incremental_gap": 410911
+  },
+  "kappa_s_1e9": {
+   "snapshots": 5860,
+   "observations": 177965,
+   "triples": 148642,
+   "players": 16073,
+   "iterations_mean": 10.613139931740614,
+   "iterations_max": 15,
+   "not_converged": 0,
+   "rows_with_incremental_gap": 410911
+  }
+ },
+ "pool_vs_stored": {
+  "matches": 72683,
+  "O": {
+   "max_abs": 3.885780586188048e-16,
+   "rows": 72683,
+   "nan_mismatch": 0
+  },
+  "D": {
+   "max_abs": 3.3306690738754696e-16,
+   "rows": 72683,
+   "nan_mismatch": 0
+  },
+  "prod": {
+   "max_abs": 1.1102230246251565e-16,
+   "rows": 72683,
+   "nan_mismatch": 0
+  }
+ }
+}

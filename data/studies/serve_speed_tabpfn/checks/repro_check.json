@@ -1,0 +1,71 @@
+{
+ "what": "reproduction fits against the rating race's stored forecasts (tolerance 1e-6)",
+ "tolerance": 1e-06,
+ "passed": true,
+ "rows": [
+  {
+   "job": {
+    "arm": "model",
+    "season": 2024,
+    "seed": 0,
+    "kind": "repro"
+   },
+   "new": "C:\\Users\\zerom\\Documents\\Tennis-predictions\\data\\studies\\serve_speed_tabpfn\\local\\repro\\model__2024__seed0.npz",
+   "stored": "C:\\Users\\zerom\\Documents\\Tennis-predictions\\data\\studies\\surface_rating_race\\local\\model__2024__seed0.npz",
+   "blocks": {
+    "td": {
+     "present": true,
+     "same_ids": true,
+     "max_abs_diff": 0.0
+    }
+   },
+   "passed": true
+  },
+  {
+   "job": {
+    "arm": "model",
+    "season": 2026,
+    "seed": 2,
+    "kind": "repro"
+   },
+   "new": "C:\\Users\\zerom\\Documents\\Tennis-predictions\\data\\studies\\serve_speed_tabpfn\\local\\repro\\model__2026__seed2.npz",
+   "stored": "C:\\Users\\zerom\\Documents\\Tennis-predictions\\data\\studies\\surface_rating_race\\local\\model__2026__seed2.npz",
+   "blocks": {
+    "td": {
+     "present": true,
+     "same_ids": true,
+     "max_abs_diff": 0.0
+    },
+    "early": {
+     "present": true,
+     "same_ids": true,
+     "max_abs_diff": 0.0
+    },
+    "late": {
+     "present": true,
+     "same_ids": true,
+     "max_abs_diff": 0.0
+    }
+   },
+   "passed": true
+  },
+  {
+   "job": {
+    "arm": "model_noodds",
+    "season": 2025,
+    "seed": 1,
+    "kind": "repro"
+   },
+   "new": "C:\\Users\\zerom\\Documents\\Tennis-predictions\\data\\studies\\serve_speed_tabpfn\\local\\repro\\model_noodds__2025__seed1.npz",
+   "stored": "C:\\Users\\zerom\\Documents\\Tennis-predictions\\data\\studies\\surface_rating_race\\local\\model_noodds__2025__seed1.npz",
+   "blocks": {
+    "td": {
+     "present": true,
+     "same_ids": true,
+     "max_abs_diff": 0.0
+    }
+   },
+   "passed": true
+  }
+ ]
+}

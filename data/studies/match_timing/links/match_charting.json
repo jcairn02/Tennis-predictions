@@ -1,0 +1,857 @@
+{
+ "source": "match_charting",
+ "notes": [
+  "Date is the charter's match date (read as the local day). 'Time' is free text; where it reads as a clock time (24-hour times before 09:00 left out as am/pm-ambiguous) and the event's zone is known, it is taken as local wall-clock time and given as start_utc. Unverified.",
+  "No scores in the metadata: links are confirmed by round only."
+ ],
+ "input": {
+  "rows_read": 11830,
+  "left_out": {
+   "unreadable_date": 10,
+   "before_december_2009": 2382
+  },
+  "short_rows_read_from_match_id": 11,
+  "time_field_filled": 4535,
+  "time_field_read_as_clock": 4427,
+  "rows_in_scope": 9438,
+  "linked_with_start_utc_from_time_field": 4176
+ },
+ "rows_in_scope": 9438,
+ "row_status": {
+  "linked": 9164,
+  "candidates_failed_checks": 175,
+  "unlinked": 93,
+  "match_taken_by_better_row": 6
+ },
+ "linked": 9164,
+ "ambiguous": 0,
+ "unlinked": 274,
+ "passes": {
+  "names": {
+   "candidates": 9176,
+   "linked": 9155,
+   "ambiguous": 0,
+   "lost_to_better_row": 6,
+   "linked_identical_scores": 0,
+   "linked_round_agrees": 9154
+  },
+  "abbreviated_names": {
+   "candidates": 7,
+   "linked": 7,
+   "ambiguous": 0,
+   "lost_to_better_row": 0,
+   "linked_identical_scores": 0,
+   "linked_round_agrees": 7
+  },
+  "one_player_anchor": {
+   "candidates": 2,
+   "linked": 2,
+   "not_unique": 0
+  }
+ },
+ "links_by_method": [
+  {
+   "link_method": "abbreviated_names",
+   "links": 7,
+   "dated": 7,
+   "score_agrees": 0,
+   "score_differs": 0,
+   "round_agrees": 7,
+   "round_differs": 0
+  },
+  {
+   "link_method": "names",
+   "links": 9155,
+   "dated": 9155,
+   "score_agrees": 0,
+   "score_differs": 0,
+   "round_agrees": 9154,
+   "round_differs": 0
+  },
+  {
+   "link_method": "one_player_anchor",
+   "links": 2,
+   "dated": 2,
+   "score_agrees": 0,
+   "score_differs": 0,
+   "round_agrees": 2,
+   "round_differs": 0
+  }
+ ],
+ "date_basis": {
+  "local": 9164
+ },
+ "links_with_date": 9164,
+ "links_with_start_utc": 4176,
+ "score_agrees": {
+  "unknown": 9164
+ },
+ "round_agrees": {
+  "True": 9163,
+  "unknown": 1
+ },
+ "agreement_with_tennis_data": {
+  "matches": 7778,
+  "same_day": 6775,
+  "same_day_pct": 87.1,
+  "one_day_off": 930,
+  "one_day_off_pct": 11.96,
+  "larger": 73,
+  "larger_pct": 0.94,
+  "source_minus_td_days": {
+   "-3": 9,
+   "-2": 27,
+   "-1": 786,
+   "0": 6775,
+   "1": 144,
+   "2": 15
+  },
+  "by_basis": {
+   "local": {
+    "matches": 7778,
+    "same_day": 6775,
+    "same_day_pct": 87.1,
+    "one_day_off": 930,
+    "one_day_off_pct": 11.96,
+    "larger": 73,
+    "larger_pct": 0.94,
+    "source_minus_td_days": {
+     "-3": 9,
+     "-2": 27,
+     "-1": 786,
+     "0": 6775,
+     "1": 144,
+     "2": 15
+    }
+   }
+  },
+  "by_tour": {
+   "atp": {
+    "matches": 4545,
+    "same_day": 4023,
+    "same_day_pct": 88.51,
+    "one_day_off": 473,
+    "one_day_off_pct": 10.41,
+    "larger": 49,
+    "larger_pct": 1.08,
+    "source_minus_td_days": {
+     "-3": 6,
+     "-2": 20,
+     "-1": 383,
+     "0": 4023,
+     "1": 90,
+     "2": 9
+    }
+   },
+   "wta": {
+    "matches": 3233,
+    "same_day": 2752,
+    "same_day_pct": 85.12,
+    "one_day_off": 457,
+    "one_day_off_pct": 14.14,
+    "larger": 24,
+    "larger_pct": 0.74,
+    "source_minus_td_days": {
+     "-3": 3,
+     "-2": 7,
+     "-1": 403,
+     "0": 2752,
+     "1": 54,
+     "2": 6
+    }
+   }
+  },
+  "by_region": {
+   "Americas": {
+    "matches": 2409,
+    "same_day": 1728,
+    "same_day_pct": 71.73,
+    "one_day_off": 658,
+    "one_day_off_pct": 27.31,
+    "larger": 23,
+    "larger_pct": 0.95,
+    "source_minus_td_days": {
+     "-3": 3,
+     "-2": 8,
+     "-1": 611,
+     "0": 1728,
+     "1": 47,
+     "2": 3
+    }
+   },
+   "elsewhere": {
+    "matches": 5340,
+    "same_day": 5026,
+    "same_day_pct": 94.12,
+    "one_day_off": 267,
+    "one_day_off_pct": 5.0,
+    "larger": 47,
+    "larger_pct": 0.88,
+    "source_minus_td_days": {
+     "-3": 5,
+     "-2": 18,
+     "-1": 171,
+     "0": 5026,
+     "1": 96,
+     "2": 12
+    }
+   },
+   "zone unknown": {
+    "matches": 29,
+    "same_day": 21,
+    "same_day_pct": 72.41,
+    "one_day_off": 5,
+    "one_day_off_pct": 17.24,
+    "larger": 3,
+    "larger_pct": 10.34,
+    "source_minus_td_days": {
+     "-3": 1,
+     "-2": 1,
+     "-1": 4,
+     "0": 21,
+     "1": 1
+    }
+   }
+  },
+  "start_as_uk_calendar_day_vs_td": {
+   "matches": 3859,
+   "same_day": 3667,
+   "same_day_pct": 95.02,
+   "one_day_off": 171,
+   "one_day_off_pct": 4.43,
+   "larger": 21,
+   "larger_pct": 0.54,
+   "source_minus_td_days": {
+    "-3": 2,
+    "-2": 6,
+    "-1": 69,
+    "0": 3667,
+    "1": 102,
+    "2": 7
+   }
+  },
+  "events_not_same_day": 418,
+  "events_with_most_disagreement": [
+   {
+    "tour": "wta",
+    "year": 2024,
+    "tournament_name": "Us Open",
+    "matches": 44,
+    "not_same_day": 13,
+    "median_diff": 0.0,
+    "tz": "America/New_York"
+   },
+   {
+    "tour": "wta",
+    "year": 2025,
+    "tournament_name": "Indian Wells",
+    "matches": 35,
+    "not_same_day": 13,
+    "median_diff": 0.0,
+    "tz": "America/Los_Angeles"
+   },
+   {
+    "tour": "wta",
+    "year": 2022,
+    "tournament_name": "Us Open",
+    "matches": 34,
+    "not_same_day": 12,
+    "median_diff": 0.0,
+    "tz": "America/New_York"
+   },
+   {
+    "tour": "atp",
+    "year": 2023,
+    "tournament_name": "Us Open",
+    "matches": 41,
+    "not_same_day": 11,
+    "median_diff": 0.0,
+    "tz": "America/New_York"
+   },
+   {
+    "tour": "atp",
+    "year": 2023,
+    "tournament_name": "Indian Wells Masters",
+    "matches": 30,
+    "not_same_day": 11,
+    "median_diff": 0.0,
+    "tz": "America/Los_Angeles"
+   },
+   {
+    "tour": "atp",
+    "year": 2024,
+    "tournament_name": "Us Open",
+    "matches": 49,
+    "not_same_day": 10,
+    "median_diff": 0.0,
+    "tz": "America/New_York"
+   },
+   {
+    "tour": "atp",
+    "year": 2024,
+    "tournament_name": "Indian Wells Masters",
+    "matches": 42,
+    "not_same_day": 10,
+    "median_diff": 0.0,
+    "tz": "America/Los_Angeles"
+   },
+   {
+    "tour": "wta",
+    "year": 2021,
+    "tournament_name": "Us Open",
+    "matches": 32,
+    "not_same_day": 10,
+    "median_diff": 0.0,
+    "tz": "America/New_York"
+   },
+   {
+    "tour": "wta",
+    "year": 2020,
+    "tournament_name": "Us Open",
+    "matches": 22,
+    "not_same_day": 10,
+    "median_diff": 0.0,
+    "tz": "America/New_York"
+   },
+   {
+    "tour": "wta",
+    "year": 2025,
+    "tournament_name": "Us Open",
+    "matches": 37,
+    "not_same_day": 9,
+    "median_diff": 0.0,
+    "tz": "America/New_York"
+   },
+   {
+    "tour": "atp",
+    "year": 2025,
+    "tournament_name": "Indian Wells Masters",
+    "matches": 32,
+    "not_same_day": 9,
+    "median_diff": 0.0,
+    "tz": "America/Los_Angeles"
+   },
+   {
+    "tour": "wta",
+    "year": 2024,
+    "tournament_name": "Australian Open",
+    "matches": 30,
+    "not_same_day": 9,
+    "median_diff": 0.0,
+    "tz": "Australia/Melbourne"
+   },
+   {
+    "tour": "atp",
+    "year": 2025,
+    "tournament_name": "Us Open",
+    "matches": 27,
+    "not_same_day": 9,
+    "median_diff": 0.0,
+    "tz": "America/New_York"
+   },
+   {
+    "tour": "wta",
+    "year": 2023,
+    "tournament_name": "Indian Wells",
+    "matches": 22,
+    "not_same_day": 9,
+    "median_diff": 0.0,
+    "tz": "America/Los_Angeles"
+   },
+   {
+    "tour": "wta",
+    "year": 2025,
+    "tournament_name": "Montreal",
+    "matches": 19,
+    "not_same_day": 9,
+    "median_diff": 0.0,
+    "tz": "America/Toronto"
+   }
+  ],
+  "worst": [
+   {
+    "match_id": "atp|2022-520|R64|atp:105077|atp:207989",
+    "source_key": "20220603-M-Roland_Garros-R64-Carlos_Alcaraz-Albert_Ramos",
+    "tournament_name": "Roland Garros",
+    "round": "R64",
+    "tournament_date": "2022-05-23",
+    "date_local": "2022-06-03",
+    "td_date": "2022-05-25",
+    "diff": 9.0,
+    "date_basis": "local",
+    "link_method": "names"
+   },
+   {
+    "match_id": "atp|2023-410|QF|atp:105526|atp:126094",
+    "source_key": "20230423-M-Monte_Carlo_Masters-QF-Andrey_Rublev-Jan_Lennard_Struff",
+    "tournament_name": "Monte Carlo Masters",
+    "round": "QF",
+    "tournament_date": "2023-04-10",
+    "date_local": "2023-04-23",
+    "td_date": "2023-04-14",
+    "diff": 9.0,
+    "date_basis": "local",
+    "link_method": "names"
+   },
+   {
+    "match_id": "atp|2010-560|QF|atp:103819|atp:104417",
+    "source_key": "20100901-M-US_Open-QF-Robin_Soderling-Roger_Federer",
+    "tournament_name": "US Open",
+    "round": "QF",
+    "tournament_date": "2010-08-30",
+    "date_local": "2010-09-01",
+    "td_date": "2010-09-09",
+    "diff": -8.0,
+    "date_basis": "local",
+    "link_method": "names"
+   },
+   {
+    "match_id": "atp|2010-560|SF|atp:103819|atp:104925",
+    "source_key": "20100903-M-US_Open-SF-Novak_Djokovic-Roger_Federer",
+    "tournament_name": "US Open",
+    "round": "SF",
+    "tournament_date": "2010-08-30",
+    "date_local": "2010-09-03",
+    "td_date": "2010-09-11",
+    "diff": -8.0,
+    "date_basis": "local",
+    "link_method": "names"
+   },
+   {
+    "match_id": "atp|2012-5014|F|atp:104918|atp:104925",
+    "source_key": "20121008-M-Shanghai_Masters-F-Novak_Djokovic-Andy_Murray",
+    "tournament_name": "Shanghai Masters",
+    "round": "F",
+    "tournament_date": "2012-10-07",
+    "date_local": "2012-10-08",
+    "td_date": "2012-10-14",
+    "diff": -6.0,
+    "date_basis": "local",
+    "link_method": "names"
+   },
+   {
+    "match_id": "atp|2021-540|QF|atp:103819|atp:128034",
+    "source_key": "20210701-M-Wimbledon-QF-Hubert_Hurkacz-Roger_Federer",
+    "tournament_name": "Wimbledon",
+    "round": "QF",
+    "tournament_date": "2021-06-28",
+    "date_local": "2021-07-01",
+    "td_date": "2021-07-07",
+    "diff": -6.0,
+    "date_basis": "local",
+    "link_method": "names"
+   },
+   {
+    "match_id": "atp|2022-807|R32|atp:105173|atp:126203",
+    "source_key": "20220228-M-Acapulco-R32-Taylor_Fritz-Adrian_Mannarino",
+    "tournament_name": "Acapulco",
+    "round": "R32",
+    "tournament_date": "2022-02-21",
+    "date_local": "2022-02-28",
+    "td_date": "2022-02-22",
+    "diff": 6.0,
+    "date_basis": "local",
+    "link_method": "names"
+   },
+   {
+    "match_id": "wta|2014-W-PM-USA-2A-2014|R32|wta:201496|wta:201585",
+    "source_key": "20140317-W-Miami-R32-Caroline_Wozniacki-Sloane_Stephens",
+    "tournament_name": "Miami",
+    "round": "R32",
+    "tournament_date": "2014-03-17",
+    "date_local": "2014-03-17",
+    "td_date": "2014-03-23",
+    "diff": -6.0,
+    "date_basis": "local",
+    "link_method": "names"
+   },
+   {
+    "match_id": "atp|2010-605|RR|atp:104053|atp:104925",
+    "source_key": "20101121-M-Tour_Finals-RR-Novak_Djokovic-Andy_Roddick",
+    "tournament_name": "Tour Finals",
+    "round": "RR",
+    "tournament_date": "2010-11-21",
+    "date_local": "2010-11-21",
+    "td_date": "2010-11-26",
+    "diff": -5.0,
+    "date_basis": "local",
+    "link_method": "names"
+   },
+   {
+    "match_id": "atp|2013-605|RR|atp:104755|atp:104925",
+    "source_key": "20131104-M-Tour_Finals-RR-Richard_Gasquet-Novak_Djokovic",
+    "tournament_name": "Tour Finals",
+    "round": "RR",
+    "tournament_date": "2013-11-04",
+    "date_local": "2013-11-04",
+    "td_date": "2013-11-09",
+    "diff": -5.0,
+    "date_basis": "local",
+    "link_method": "names"
+   },
+   {
+    "match_id": "wta|2018-580|R32|wta:201444|wta:201474",
+    "source_key": "20180115-W-Australian_Open-R32-Su_Wei_Hsieh-Agnieszka_Radwanska",
+    "tournament_name": "Australian Open",
+    "round": "R32",
+    "tournament_date": "2018-01-15",
+    "date_local": "2018-01-15",
+    "td_date": "2018-01-20",
+    "diff": -5.0,
+    "date_basis": "local",
+    "link_method": "names"
+   },
+   {
+    "match_id": "atp|2013-404|R32|atp:104755|atp:105668",
+    "source_key": "20130307-M-Indian_Wells_Masters-R32-Richard_Gasquet-Jerzy_Janowicz",
+    "tournament_name": "Indian Wells Masters",
+    "round": "R32",
+    "tournament_date": "2013-03-07",
+    "date_local": "2013-03-07",
+    "td_date": "2013-03-11",
+    "diff": -4.0,
+    "date_basis": "local",
+    "link_method": "names"
+   },
+   {
+    "match_id": "atp|2013-421|QF|atp:104755|atp:104925",
+    "source_key": "20130813-M-Canada_Masters-QF-Novak_Djokovic-Richard_Gasquet",
+    "tournament_name": "Canada Masters",
+    "round": "QF",
+    "tournament_date": "2013-08-05",
+    "date_local": "2013-08-13",
+    "td_date": "2013-08-09",
+    "diff": 4.0,
+    "date_basis": "local",
+    "link_method": "names"
+   },
+   {
+    "match_id": "atp|2016-M007|QF|atp:105683|atp:106401",
+    "source_key": "20160328-M-Miami_Masters-QF-Milos_Raonic-Nick_Kyrgios",
+    "tournament_name": "Miami Masters",
+    "round": "QF",
+    "tournament_date": "2016-03-21",
+    "date_local": "2016-03-28",
+    "td_date": "2016-04-01",
+    "diff": -4.0,
+    "date_basis": "local",
+    "link_method": "names"
+   },
+   {
+    "match_id": "atp|2021-403|R64|atp:105870|atp:111575",
+    "source_key": "20210322-M-Miami_Masters-R64-Karen_Khachanov-Yannick_Hanfmann",
+    "tournament_name": "Miami Masters",
+    "round": "R64",
+    "tournament_date": "2021-03-22",
+    "date_local": "2021-03-22",
+    "td_date": "2021-03-26",
+    "diff": -4.0,
+    "date_basis": "local",
+    "link_method": "names"
+   },
+   {
+    "match_id": "atp|2022-6242|R32|atp:105902|atp:202195",
+    "source_key": "20220827-M-Winston_Salem-R32-James_Duckworth-Maxime_Cressy",
+    "tournament_name": "Winston-Salem",
+    "round": "R32",
+    "tournament_date": "2022-08-22",
+    "date_local": "2022-08-27",
+    "td_date": "2022-08-23",
+    "diff": 4.0,
+    "date_basis": "local",
+    "link_method": "names"
+   },
+   {
+    "match_id": "wta|2012-W-INT-LUX-1A-2012|QF|wta:201492|wta:201584",
+    "source_key": "20121023-W-Luxembourg-QF-Andrea_Petkovic-Ksenia_Pervak",
+    "tournament_name": "Luxembourg",
+    "round": "QF",
+    "tournament_date": "2012-10-15",
+    "date_local": "2012-10-23",
+    "td_date": "2012-10-19",
+    "diff": 4.0,
+    "date_basis": "local",
+    "link_method": "names"
+   },
+   {
+    "match_id": "wta|2014-W-CHA-BUL-1A-2014|RR|wta:201427|wta:202469",
+    "source_key": "20141027-W-Sofia-RR-Alize_Cornet-Garbine_Muguruza",
+    "tournament_name": "Tournament of Champions",
+    "round": "RR",
+    "tournament_date": "2014-10-27",
+    "date_local": "2014-10-27",
+    "td_date": "2014-10-31",
+    "diff": -4.0,
+    "date_basis": "local",
+    "link_method": "names"
+   },
+   {
+    "match_id": "wta|2014-W-WT-SIN-1A-2014|RR|wta:201496|wta:201520",
+    "source_key": "20141020-W-Singapore-RR-Caroline_Wozniacki-Petra_Kvitova",
+    "tournament_name": "WTA Finals",
+    "round": "RR",
+    "tournament_date": "2014-10-20",
+    "date_local": "2014-10-20",
+    "td_date": "2014-10-24",
+    "diff": -4.0,
+    "date_basis": "local",
+    "link_method": "names"
+   },
+   {
+    "match_id": "wta|2019-M014|R32|wta:214082|wta:215035",
+    "source_key": "20191019-W-Moscow-R32-Dayana_Yastremska-Daria_Kasatkina",
+    "tournament_name": "Moscow",
+    "round": "R32",
+    "tournament_date": "2019-10-14",
+    "date_local": "2019-10-19",
+    "td_date": "2019-10-15",
+    "diff": 4.0,
+    "date_basis": "local",
+    "link_method": "names"
+   }
+  ]
+ },
+ "date_flags": {
+  "dated_links": 9164,
+  "main_draw_more_than_1_day_before_start": 0,
+  "qualifying_more_than_1_day_before_start_expected": 86,
+  "after_plausible_end": 0,
+  "round_of_16_or_later_dated_on_or_before_start": 0,
+  "plausible_end_days_by_level": {
+   "GS": 15,
+   "T1000": 14,
+   "TEAM": 14,
+   "FIN": 10,
+   "other": 9
+  },
+  "flagged_main_draw_early": [],
+  "flagged_after_end": [],
+  "examples_round_of_16_or_later_on_or_before_start": [],
+  "days_from_start_quantiles": {
+   "0.0": -7.0,
+   "0.01": -1.0,
+   "0.5": 3.0,
+   "0.99": 12.0,
+   "1.0": 14.0
+  }
+ },
+ "agreement_with_timed_sources_venue_day": {
+  "matches": 4244,
+  "same_day": 4010,
+  "same_day_pct": 94.49,
+  "one_day_off": 220,
+  "one_day_off_pct": 5.18,
+  "larger": 14,
+  "larger_pct": 0.33,
+  "source_minus_td_days": {
+   "-2": 2,
+   "-1": 97,
+   "0": 4010,
+   "1": 123,
+   "2": 5
+  },
+  "by_tour": {
+   "atp": {
+    "matches": 2814,
+    "same_day": 2650,
+    "same_day_pct": 94.17,
+    "one_day_off": 151,
+    "one_day_off_pct": 5.37,
+    "larger": 13,
+    "larger_pct": 0.46,
+    "source_minus_td_days": {
+     "-2": 2,
+     "-1": 44,
+     "0": 2650,
+     "1": 107,
+     "2": 5
+    }
+   },
+   "wta": {
+    "matches": 1430,
+    "same_day": 1360,
+    "same_day_pct": 95.1,
+    "one_day_off": 69,
+    "one_day_off_pct": 4.83,
+    "larger": 1,
+    "larger_pct": 0.07,
+    "source_minus_td_days": {
+     "-1": 53,
+     "0": 1360,
+     "1": 16
+    }
+   }
+  },
+  "by_region": {
+   "Americas": {
+    "matches": 1350,
+    "same_day": 1234,
+    "same_day_pct": 91.41,
+    "one_day_off": 111,
+    "one_day_off_pct": 8.22,
+    "larger": 5,
+    "larger_pct": 0.37,
+    "source_minus_td_days": {
+     "-2": 1,
+     "-1": 13,
+     "0": 1234,
+     "1": 98,
+     "2": 2
+    }
+   },
+   "elsewhere": {
+    "matches": 2894,
+    "same_day": 2776,
+    "same_day_pct": 95.92,
+    "one_day_off": 109,
+    "one_day_off_pct": 3.77,
+    "larger": 9,
+    "larger_pct": 0.31,
+    "source_minus_td_days": {
+     "-2": 1,
+     "-1": 84,
+     "0": 2776,
+     "1": 25,
+     "2": 3
+    }
+   }
+  },
+  "events_least_agreeing": [
+   {
+    "tour": "atp",
+    "year": 2021,
+    "tournament_name": "Eastbourne",
+    "matches": 1,
+    "same_day_pct": 0.0,
+    "later": 1,
+    "earlier": 0
+   },
+   {
+    "tour": "atp",
+    "year": 2022,
+    "tournament_name": "Lyon",
+    "matches": 1,
+    "same_day_pct": 0.0,
+    "later": 1,
+    "earlier": 0
+   },
+   {
+    "tour": "atp",
+    "year": 2022,
+    "tournament_name": "Verona CH",
+    "matches": 1,
+    "same_day_pct": 0.0,
+    "later": 0,
+    "earlier": 1
+   },
+   {
+    "tour": "atp",
+    "year": 2024,
+    "tournament_name": "Delray Beach",
+    "matches": 1,
+    "same_day_pct": 0.0,
+    "later": 1,
+    "earlier": 0
+   },
+   {
+    "tour": "atp",
+    "year": 2024,
+    "tournament_name": "Sydney CH",
+    "matches": 1,
+    "same_day_pct": 0.0,
+    "later": 1,
+    "earlier": 0
+   },
+   {
+    "tour": "atp",
+    "year": 2024,
+    "tournament_name": "Yokohama CH",
+    "matches": 1,
+    "same_day_pct": 0.0,
+    "later": 0,
+    "earlier": 1
+   },
+   {
+    "tour": "atp",
+    "year": 2025,
+    "tournament_name": "Oeiras 3 CH",
+    "matches": 1,
+    "same_day_pct": 0.0,
+    "later": 1,
+    "earlier": 0
+   },
+   {
+    "tour": "atp",
+    "year": 2026,
+    "tournament_name": "Canberra CH",
+    "matches": 1,
+    "same_day_pct": 0.0,
+    "later": 0,
+    "earlier": 1
+   },
+   {
+    "tour": "atp",
+    "year": 2026,
+    "tournament_name": "Sao Paulo CH",
+    "matches": 1,
+    "same_day_pct": 0.0,
+    "later": 0,
+    "earlier": 1
+   },
+   {
+    "tour": "wta",
+    "year": 2023,
+    "tournament_name": "Osaka",
+    "matches": 1,
+    "same_day_pct": 0.0,
+    "later": 0,
+    "earlier": 1
+   },
+   {
+    "tour": "wta",
+    "year": 2024,
+    "tournament_name": "Brisbane",
+    "matches": 1,
+    "same_day_pct": 0.0,
+    "later": 0,
+    "earlier": 1
+   },
+   {
+    "tour": "wta",
+    "year": 2024,
+    "tournament_name": "Seoul",
+    "matches": 3,
+    "same_day_pct": 33.3,
+    "later": 0,
+    "earlier": 2
+   },
+   {
+    "tour": "atp",
+    "year": 2022,
+    "tournament_name": "Acapulco",
+    "matches": 9,
+    "same_day_pct": 44.4,
+    "later": 5,
+    "earlier": 0
+   },
+   {
+    "tour": "atp",
+    "year": 2021,
+    "tournament_name": "Tenerife CH",
+    "matches": 2,
+    "same_day_pct": 50.0,
+    "later": 0,
+    "earlier": 1
+   },
+   {
+    "tour": "atp",
+    "year": 2021,
+    "tournament_name": "Villena CH",
+    "matches": 2,
+    "same_day_pct": 50.0,
+    "later": 1,
+    "earlier": 0
+   }
+  ]
+ }
+}

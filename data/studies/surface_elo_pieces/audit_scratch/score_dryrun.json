@@ -1,0 +1,57 @@
+{
+ "missing_seed_job": {
+  "arms": [
+   "base",
+   "elo_only",
+   "literal",
+   "primary",
+   "switch_only"
+  ],
+  "seasons": [
+   2022,
+   2023,
+   2024,
+   2025,
+   2026
+  ],
+  "rows_2024": 5141,
+  "p_primary_nan_in_2024": 5141,
+  "p_primary_s0_present_in_2024": 5141,
+  "pooled_primary_vs_base_matches": 18678,
+  "all_confirm_matches": 23819
+ },
+ "symmetrised_vs_market_raw_corr": 0.9993039513773562,
+ "market_recalibration_matches_independent_fit": true,
+ "pilot": {
+  "arms": [
+   "base",
+   "literal",
+   "primary"
+  ],
+  "seed_columns": [
+   [
+    "base",
+    0
+   ],
+   [
+    "base",
+    1
+   ],
+   [
+    "literal",
+    0
+   ],
+   [
+    "primary",
+    0
+   ]
+  ],
+  "p_base_is_mean_of": [
+   "p_base_s0",
+   "p_base_s1"
+  ],
+  "p_primary_is_mean_of": [
+   "p_primary_s0"
+  ]
+ }
+}

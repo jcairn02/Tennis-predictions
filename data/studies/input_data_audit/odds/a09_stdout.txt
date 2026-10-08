@@ -1,0 +1,80 @@
+frame rows with overround < 1.02 or > 1.10: 18 {'test': 7, 'train': 11}
+                                      match_id tabpfn_split tournament_name round       td_winner         td_loser  a_won  avg_a  avg_b   max_a  max_b   ps_a   ps_b  b365_a  b365_b    ovr  p_mkt   p_ps  p_b365  p_max  p_elo
+5012      atp|2013-352|F|atp:103970|atp:104925        train   Paris Masters     F     Djokovic N.        Ferrer D.   True   1.18   6.50    1.15   5.42   1.17   6.00    1.12    6.00  1.001  0.846  0.837   0.843  0.825  0.797
+5110    atp|2014-451|R32|atp:104918|atp:110476        train            Doha   R32       Murray A.       Zayed M.S.  False  34.46   1.01  101.00   1.01  76.00   1.01   51.00     NaN  1.019  0.028  0.013     NaN  0.010  0.001
+7647    atp|2014-311|R64|atp:103852|atp:105583        train    Queen's Club   R64        Lopez F.       Lajovic D.  False   6.16   1.18    5.16   1.15   6.16   1.15    5.00    1.16  1.010  0.161  0.157   0.188  0.182  0.110
+11797   atp|2015-425|R64|atp:104932|atp:105311        train       Barcelona   R64        Sousa J.   De Schepper K.   True   1.37   2.63    1.37   2.65    NaN    NaN     NaN     NaN  1.110  0.657    NaN     NaN  0.659  0.630
+17895  wta|2016-1052|R32|wta:201611|wta:201648        train      Birmingham   R32    Gavrilova D.        Broady N.  False   2.18   1.42    3.00   1.52   2.71   1.52    2.75    1.40  1.163  0.394  0.359   0.337  0.336  0.366
+24143  atp|2017-6242|R64|atp:105238|atp:106329        train   Winston-Salem   R64     Monteiro T.    Dolgopolov O.   True   2.03   1.90    2.95   3.20   2.09   1.79    2.00    1.72  1.019  0.483  0.461   0.462  0.520  0.246
+28538  wta|2019-1003|R32|wta:201615|wta:202418        train            Doha   R32     Tsurenko L.  Arruabarrena L.   True   1.26   4.54    1.41   7.17   1.26   4.30     NaN     NaN  1.014  0.783  0.773     NaN  0.836  0.817
+28627  wta|2019-1097|R32|wta:201516|wta:202600        train        Budapest   R32       Rodina E.        Tomova V.  False   3.38   1.42    6.10   1.52    NaN    NaN     NaN     NaN  1.000  0.296    NaN     NaN  0.199  0.421
+29366   wta|2019-894|R32|wta:201603|wta:206292        train          Bogota   R32       Sharma A.        Rogers S.   True   2.63   1.58    2.48   1.65   2.48   1.60    2.20    1.61  1.013  0.375  0.392   0.423  0.400  0.410
+32082  wta|2019-1056|R32|wta:210722|wta:215992        train           Osaka   R32      Mertens E.       Osuigwe W.  False   7.89   1.12   13.36   1.21    NaN    NaN     NaN     NaN  1.020  0.124    NaN     NaN  0.083  0.164
+35127  atp|2020-7434|R32|atp:105932|atp:144817        train           Sofia   R32    Huesler M.A.  Basilashvili N.  False   1.70   2.42    1.63   2.23    NaN    NaN    1.70    2.05  1.001  0.587    NaN   0.547  0.578  0.698
+47609  wta|2023-2012|R32|wta:201329|wta:214544         test          Berlin   R32    Sabalenka A.     Zvonareva V.   True   1.08  11.40    1.97  19.55   1.07  11.65    1.04   13.00  1.014  0.913  0.916   0.926  0.908  0.793
+48840  atp|2023-560|R128|atp:105226|atp:106421         test         Us Open  R128     Medvedev D.        Balazs A.  False  34.68   1.01   67.00   1.01  64.19   1.01   67.00     NaN  1.019  0.028  0.015     NaN  0.015  0.037
+58996  wta|2025-2040|R32|wta:206374|wta:220548         test       Cleveland   R32         Wang Y.       Stearns P.  False   1.54   2.71    3.40   2.90   1.44   2.90    1.44    2.75  1.018  0.638  0.668   0.656  0.460  0.616
+61980  wta|2026-1051|R16|wta:220309|wta:220367         test       Stuttgart   R16  Fernandez L.A.        Sonmez Z.   True   1.43   3.27    1.83   4.00    NaN    NaN    1.80    2.00  1.005  0.696    NaN   0.526  0.686  0.611
+62103  wta|2026-1038|R32|wta:211768|wta:211843         test          Madrid   R32        Osaka N.      Kalinina A.  False  28.44   1.02   51.00   1.03    NaN    NaN   51.00     NaN  1.016  0.035    NaN     NaN  0.020  0.387
+62519  atp|2026-520|R128|atp:202127|atp:206173         test   Roland Garros  R128       Sinner J.         Tabur C.   True   1.01  40.64    1.01  67.00    NaN    NaN     NaN   67.00  1.015  0.976    NaN     NaN  0.985  0.983
+63491    atp|2026-316|SF|atp:209226|atp:209260         test          Bastad    SF      Darderi L.       Vallejo D.  False   2.85   1.50    3.00   3.00    NaN    NaN    3.00    1.40  1.018  0.345    NaN   0.318  0.500  0.360
+their |p_mkt - median(PS, B365)|: [0.007, 0.015, 0.012, nan, 0.046, 0.022, 0.009, nan, 0.032, nan, 0.041, 0.007, 0.013, 0.025, 0.169, nan, nan, 0.027]
+
+unlinked tennis-data rows that are eligible matches without odds: 26 | distinct matches 26
+      td_date                               td_tournament    td_round           td_winner            td_loser  AvgW  AvgL                                              match_id tournament_date  days_td_minus_monday
+0  2016-02-06                                Ecuador Open  Semifinals  Estrella Burgos V.    Ramos-Vinolas A.  2.52  1.52                atp|2016-7161|SF|atp:103607|atp:105077      2016-02-01                     5
+1  2017-02-12                                Ecuador Open   The Final  Estrella Burgos V.          Lorenzi P.  2.53  1.51                 atp|2017-7161|F|atp:103607|atp:103893      2017-02-06                     6
+2  2022-05-17                                 Geneva Open   1st Round        O Connell C.    Ramos-Vinolas A.  2.28  1.62                atp|2022-322|R32|atp:105077|atp:106331      2022-05-16                     1
+3  2022-07-27                               Generali Open   2nd Round    Ramos-Vinolas A.      Varillas J. P.  1.71  2.12                atp|2022-319|R16|atp:105077|atp:122669      2022-07-25                     2
+4  2022-09-21                              San Diego Open   1st Round        O Connell C.           Kubler J.  2.10  1.72               atp|2022-9569|R32|atp:106186|atp:106331      2022-09-19                     2
+5  2022-09-27                                  Korea Open   1st Round         Tseng C. H.        O Connell C.  2.36  1.57               atp|2022-4140|R32|atp:106331|atp:202358      2022-09-26                     1
+6  2023-05-21                                   Lyon Open   1st Round      Varillas J. P.    Ramos-Vinolas A.  1.78  2.01               atp|2023-7694|R32|atp:105077|atp:122669      2023-05-22                    -1
+7  2023-05-23                                   Lyon Open   2nd Round        Cerundolo F.      Varillas J. P.  1.36  3.09               atp|2023-7694|R16|atp:122669|atp:202103      2023-05-22                     1
+8  2025-02-25                  Dubai Tennis Championships   1st Round        O Connell C.         Dimitrov G.  2.94  1.39                atp|2025-495|R32|atp:105777|atp:106331      2025-02-24                     1
+9  2016-08-15  Western & Southern Financial Group Masters   1st Round         Anderson K.       Dolgopolov O.  1.55  2.42               atp|2016-M024|R64|atp:104731|atp:105238      2016-08-15                     0
+10 2017-03-24                          Sony Ericsson Open   1st Round           Jaziri M.       Dolgopolov O.  2.06  1.74              atp|2017-M007|R128|atp:104291|atp:105238      2017-03-20                     4
+11 2017-01-02                          Sony Ericsson Open   The Final          Federer R.            Nadal R.  1.70  2.16                 atp|2017-M007|F|atp:103819|atp:104745      2017-03-20                   -77
+12 2023-10-04                            Shanghai Masters   1st Round       Kecmanovic M.               Bu Y.  1.25  3.93              atp|2023-5014|R128|atp:200175|atp:207352      2023-10-02                     2
+13 2013-01-14                             Australian Open   1st Round         Makarova E.  Larcherde Brito M.  1.15  5.25  wta|2013-W-SL-AUS-1A-2013|R128|wta:201505|wta:201547      2013-01-14                     0
+14 2015-07-23                              Gastein Ladies   2nd Round      Schmiedlova A.             Mitu A.  1.26  3.72  wta|2015-W-INT-AUT-1A-2015|R16|wta:202671|wta:203533      2015-07-20                     3
+15 2018-01-04                               Ladies Trophy   The Final          Kvitova P.       Mladenovic K.  1.36  3.16                 wta|2018-1086|F|wta:201520|wta:201540      2018-01-29                   -25
+16 2013-02-13                            Qatar Total Open   2nd Round          Kvitova P.         Makarova E.  1.96  1.79   wta|2013-W-PR-QAT-1A-2013|R32|wta:201505|wta:201520      2013-02-11                     2
+17 2018-01-08                        Sydney International   1st Round          Kvitova P.     Lucic-Baroni M.  1.27  3.75               wta|2018-M001|R32|wta:200002|wta:201520      2018-01-08                     0
+18 2024-05-20                                Morocco Open   1st Round        Avanesyan E.           Osorio M.  2.29  1.61               wta|2024-1005|R32|wta:215785|wta:220589      2024-05-20                     0
+19 2026-06-09                  Queen's Club Championships   1st Round            Maria T.          Sakkari M.  1.83  1.92                wta|2026-806|R64|wta:206289|wta:220309      2026-08-02                   -54
+20 2026-06-09                  Queen's Club Championships   1st Round            Maria T.          Sakkari M.  1.83  1.92                wta|2026-806|R32|wta:206289|wta:221103      2026-08-02                   -54
+21 2026-06-09                  Queen's Club Championships   1st Round            Maria T.          Sakkari M.  1.83  1.92               wta|2026-1017|R64|wta:206289|wta:215872      2026-08-13                   -65
+22 2026-06-09                  Queen's Club Championships   1st Round            Maria T.          Sakkari M.  1.83  1.92               wta|2026-1017|R32|wta:206289|wta:216347      2026-08-13                   -65
+23 2026-06-09                  Queen's Club Championships   1st Round            Maria T.          Sakkari M.  1.83  1.92               wta|2026-905|R128|wta:206289|wta:221905      2026-08-30                   -82
+24 2026-06-09                  Queen's Club Championships   1st Round            Maria T.          Sakkari M.  1.83  1.92                wta|2026-905|R64|wta:206289|wta:263857      2026-08-30                   -82
+25 2026-06-09                  Queen's Club Championships   1st Round            Maria T.          Sakkari M.  1.83  1.92               wta|2026-1152|R32|wta:206289|wta:222258      2026-09-21                  -104
+
+ {
+ "atp2018": {
+  "rows_with_p": 2634,
+  "reversed_vs_refs": 0,
+  "dev_gt_0.15": 0,
+  "links": {
+   "name_pair": 2567,
+   "one_player_anchor": 67
+  },
+  "logloss": 0.5921,
+  "fav_win_rate": 0.6807,
+  "mean_p_fav": 0.67
+ },
+ "from_2026-08-03": {
+  "rows_with_p": 870,
+  "reversed_vs_refs": 0,
+  "dev_gt_0.15": 0,
+  "links": {
+   "name_pair": 846,
+   "one_player_anchor": 24
+  },
+  "logloss": 0.5782,
+  "fav_win_rate": 0.6908,
+  "mean_p_fav": 0.6695
+ }
+}
+Empty DataFrame
+Columns: [match_id, td_tournament, td_round, td_winner, td_loser, a_won, avg_a, avg_b, max_a, max_b, ps_a, ps_b, b365_a, b365_b, p_avg_a, p_ps, p_b365]
+Index: []

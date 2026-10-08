@@ -17,6 +17,8 @@ dependencies:
   - pip
   - pip:
       - curl_cffi      # browser-fingerprint HTTP client for src/ingest/point_sources (SofaScore, TennisLive)
+      - playwright     # drives a Chrome tab over CDP for src/ingest/point_sources/browser.py (no browser download needed)
+      - pycryptodome   # AES for the AO/RG Infosys match-centre files (src/ingest/point_sources/infosys_slams.py)
   # Model-phase additions (install when the modeling milestone starts, not before):
   # - pip:
   #     - autogluon==1.5            # pin to match the UFC pipeline's proven setup

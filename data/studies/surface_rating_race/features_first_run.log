@@ -1,0 +1,8 @@
+[ 1346.6s] ttt_offset.parquet: 872,704 matches; seconds {'atp': 1344.0, 'wta': 424.9}
+Traceback (most recent call last):
+  File "C:\Users\zerom\Documents\Tennis-predictions\src\eda\surface_rating_race\features.py", line 126, in <module>
+    sys.exit(main())
+             ^^^^^^
+  File "C:\Users\zerom\Documents\Tennis-predictions\src\eda\surface_rating_race\features.py", line 97, in main
+    k &= np.isfinite(df[["p_elo", "p_elo_off", "p_ttt_blend", "p_ttt_off"]].to_numpy()).all(axis=1)
+ValueError: output array is read-only

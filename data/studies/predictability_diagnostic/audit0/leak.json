@@ -1,0 +1,167 @@
+{
+ "slice": "player rows of 2024 tournament weeks",
+ "rows": 148206,
+ "helper_vs_rule_row_by_row": {
+  "rows_checked": 4782,
+  "round_robin_rows": 886,
+  "rows_of_players_with_two_events_in_a_week": 896,
+  "rows_differing": 0
+ },
+ "results": {
+  "real helper": {
+   "probe_20_cuts": {
+    "cuts": 20,
+    "changed_before_cut": 0,
+    "changed_at_cut": 0
+   },
+   "probe_200_cuts": {
+    "cuts": 200,
+    "changed_before_cut": 0,
+    "changed_at_cut": 0
+   },
+   "tests": {
+    "exit_code": 0,
+    "failed": [],
+    "passed": 11
+   }
+  },
+  "includes the match itself and its round": {
+   "rows_where_the_leaky_value_differs_from_the_helper": 74224,
+   "probe_20_cuts": {
+    "cuts": 20,
+    "changed_before_cut": 0,
+    "changed_at_cut": 40
+   },
+   "probe_200_cuts": {
+    "cuts": 200,
+    "changed_before_cut": 0,
+    "changed_at_cut": 400
+   },
+   "tests": {
+    "exit_code": 1,
+    "failed": [
+     "test_asof_counts_only_earlier_events_and_earlier_rounds",
+     "test_asof_never_counts_the_match_itself",
+     "test_asof_matches_the_definition",
+     "test_leak_probe_passes_the_asof_helper",
+     "test_built_asof_never_uses_the_match_itself_or_later"
+    ],
+    "passed": 6
+   }
+  },
+  "other matches of the same round (round robins)": {
+   "rows_where_the_leaky_value_differs_from_the_helper": 290,
+   "probe_20_cuts": {
+    "cuts": 20,
+    "changed_before_cut": 0,
+    "changed_at_cut": 0
+   },
+   "probe_200_cuts": {
+    "cuts": 200,
+    "changed_before_cut": 0,
+    "changed_at_cut": 0
+   },
+   "tests": {
+    "exit_code": 1,
+    "failed": [
+     "test_asof_counts_only_earlier_events_and_earlier_rounds",
+     "test_asof_matches_the_definition",
+     "test_leak_probe_passes_the_asof_helper",
+     "test_built_asof_never_uses_the_match_itself_or_later"
+    ],
+    "passed": 7
+   }
+  },
+  "other events of the same week": {
+   "rows_where_the_leaky_value_differs_from_the_helper": 371,
+   "probe_20_cuts": {
+    "cuts": 20,
+    "changed_before_cut": 108,
+    "changed_at_cut": 1
+   },
+   "probe_200_cuts": {
+    "cuts": 200,
+    "changed_before_cut": 962,
+    "changed_at_cut": 0
+   },
+   "tests": {
+    "exit_code": 1,
+    "failed": [
+     "test_asof_counts_only_earlier_events_and_earlier_rounds",
+     "test_asof_never_counts_the_match_itself",
+     "test_built_asof_never_uses_the_match_itself_or_later"
+    ],
+    "passed": 8
+   }
+  },
+  "running total over the order (simultaneous matches earlier in the order)": {
+   "rows_where_the_leaky_value_differs_from_the_helper": 328,
+   "probe_20_cuts": {
+    "cuts": 20,
+    "changed_before_cut": 0,
+    "changed_at_cut": 0
+   },
+   "probe_200_cuts": {
+    "cuts": 200,
+    "changed_before_cut": 0,
+    "changed_at_cut": 0
+   },
+   "tests": {
+    "exit_code": 1,
+    "failed": [
+     "test_asof_counts_only_earlier_events_and_earlier_rounds",
+     "test_asof_matches_the_definition"
+    ],
+    "passed": 9
+   }
+  },
+  "the player's next match": {
+   "rows_where_the_leaky_value_differs_from_the_helper": 71206,
+   "probe_20_cuts": {
+    "cuts": 20,
+    "changed_before_cut": 75538,
+    "changed_at_cut": 37
+   },
+   "probe_200_cuts": {
+    "cuts": 200,
+    "changed_before_cut": 771782,
+    "changed_at_cut": 372
+   },
+   "tests": {
+    "exit_code": 1,
+    "failed": [
+     "test_asof_counts_only_earlier_events_and_earlier_rounds",
+     "test_asof_never_counts_the_match_itself",
+     "test_asof_matches_the_definition",
+     "test_leak_probe_passes_the_asof_helper",
+     "test_built_asof_never_uses_the_match_itself_or_later"
+    ],
+    "passed": 6
+   }
+  },
+  "the whole period's total": {
+   "rows_where_the_leaky_value_differs_from_the_helper": 132822,
+   "probe_20_cuts": {
+    "cuts": 20,
+    "changed_before_cut": 1399858,
+    "changed_at_cut": 40
+   },
+   "probe_200_cuts": {
+    "cuts": 200,
+    "changed_before_cut": 13857828,
+    "changed_at_cut": 400
+   },
+   "tests": {
+    "exit_code": 1,
+    "failed": [
+     "test_asof_counts_only_earlier_events_and_earlier_rounds",
+     "test_asof_never_counts_the_match_itself",
+     "test_asof_matches_the_definition",
+     "test_leak_probe_passes_the_asof_helper",
+     "test_built_asof_never_uses_the_match_itself_or_later"
+    ],
+    "passed": 6
+   }
+  }
+ }
+}

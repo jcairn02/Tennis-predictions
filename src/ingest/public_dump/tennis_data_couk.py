@@ -3,11 +3,19 @@ WTA (2007+) main-tour results with set scores and closing bookmaker odds. Primar
 the odds branch.
 
 Acquisition routes, tried in order and recorded per file in the receipts:
-  1. live     https://www.tennis-data.co.uk/<year>[w]/<year>.xls|xlsx  (on 22 Sep 2026 every workbook
-              path returned a Sedo/IONOS domain-parking page with HTTP 404 while the index pages still
-              listed the files; the route stays first so a repaired site is used automatically)
-  2. wayback  newest HTTP 200 capture in the Internet Archive (CDX lookup, ``id_`` raw download)
+  1. live     the workbook link on the provider's listing page, data.php. The relaunched site (seen
+              5 Oct 2026) serves workbooks under an unannounced directory, e.g.
+              /hrjk-85HytOjkhth76j_ygh4jf7/2026w/2026.xlsx, answers 404 on the old
+              /<year>[w]/<year>.xls|xlsx paths and redirects alldata.php and alldataw.php to data.php.
+              A season the listing does not link is tried at its old path. (On 22 Sep 2026 every
+              workbook path returned a Sedo/IONOS domain-parking page with HTTP 404.)
+  2. wayback  newest HTTP 200 capture of the old path in the Internet Archive (CDX lookup, ``id_``
+              raw download)
   3. local    the inherited June 2026 workbooks under data/raw/tennis_data_couk/ (2024-2026 only)
+
+A refresh that replaces a workbook with different bytes keeps the replaced file and its receipt under
+data/raw/public_dump/tennis_data_couk/superseded/<tour>/: data/raw is not under version control, and
+earlier studies were built on those bytes.
 
 Staging partitions each season by the verbatim tournament-type column ("Series" for ATP, "Tier" for
 WTA): data/dump/odds/tennis_data_couk/<tour>/<series_slug>/<year>.parquet.
@@ -19,9 +27,11 @@ from __future__ import annotations
 
 import argparse
 import datetime as dt
+import re
 import sys
 import time
 from pathlib import Path
+from urllib.parse import urljoin, urlparse
 
 if not __package__:
     sys.path.insert(0, str(Path(__file__).resolve().parents[3]))
@@ -33,7 +43,10 @@ SITE = "https://www.tennis-data.co.uk"
 FIRST_YEAR = {"atp": 2000, "wta": 2007}
 LEGACY_ROOT = C.PROJECT_ROOT / "data" / "raw" / "tennis_data_couk"
 CDX_URL = "http://web.archive.org/cdx/search/cdx"
-INDEX_PAGES = {"alldata.php": "alldata.php.html", "alldataw.php": "alldataw.php.html", "notes.txt": "notes.txt"}
+LISTING_PAGE = "data.php"
+INDEX_PAGES = {LISTING_PAGE: "data.php.html", "notes.txt": "notes.txt"}
+# a season link: any directory prefix, then <year>[w]/<year>.xls|xlsx, e.g. hrjk-.../2026w/2026.xlsx
+WORKBOOK_LINK = re.compile(r"""href\s*=\s*["']?([^"'\s>]*?(\d{4})(w?)/\2\.xlsx?)(?=["'\s>])""", re.IGNORECASE)
 ALL_ROUTES = ("live", "wayback", "local")
 
 
@@ -45,8 +58,26 @@ def segment(tour: str, year: int) -> str:
     return f"{year}w" if tour == "wta" else str(year)
 
 
-def live_url(tour: str, year: int) -> str:
+def legacy_url(tour: str, year: int) -> str:
+    """The pre-relaunch path: what the Internet Archive holds captures of."""
     return f"{SITE}/{segment(tour, year)}/{year}.{ext_for(year)}"
+
+
+def listed_urls(html: str, base: str) -> dict[tuple[str, int], str]:
+    """(tour, year) -> absolute URL of every season workbook the listing page links."""
+    links: dict[tuple[str, int], str] = {}
+    for match in WORKBOOK_LINK.finditer(html):
+        links.setdefault(("wta" if match.group(3) else "atp", int(match.group(2))), urljoin(base, match.group(1)))
+    return links
+
+
+def read_listing(receipts: C.Receipts) -> dict[tuple[str, int], str]:
+    """Workbook links from this run's copy of the listing page; empty when that fetch failed."""
+    receipt = receipts.get(f"docs/{LISTING_PAGE}")
+    if not receipt or receipt.get("error"):
+        return {}
+    html = (C.PROJECT_ROOT / receipt["dest"]).read_text(encoding="utf-8", errors="replace")
+    return listed_urls(html, receipt.get("final_url") or receipt["url"])
 
 
 def wayback_url(timestamp: str, original: str) -> str:
@@ -84,13 +115,38 @@ def wayback_captures(original_url: str, sess=None, retries: int = 4) -> list[dic
     raise RuntimeError(f"CDX lookup failed after {retries + 1} attempts: {last_error}")
 
 
-def acquire(tour: str, year: int, receipts: C.Receipts, refresh: bool, routes=ALL_ROUTES) -> dict:
+def acquire(tour: str, year: int, receipts: C.Receipts, refresh: bool, routes=ALL_ROUTES,
+            listing: dict | None = None) -> dict:
     name = f"{tour}/{year}"
-    dest = C.raw_path(SOURCE, tour, f"{year}.{ext_for(year)}")
+    url = (listing or {}).get((tour, year)) or legacy_url(tour, year)
+    dest = C.raw_path(SOURCE, tour, f"{year}{Path(urlparse(url).path).suffix.lower()}")
     previous = receipts.get(name)
     if dest.exists() and previous and not previous.get("error") and not refresh:
         return {**previous, "skipped": True}
-    url = live_url(tour, year)
+    old = dest.read_bytes() if dest.exists() else None
+    receipt = fetch_routes(name, tour, year, url, dest, receipts, routes)
+    return keep_superseded(old if receipt.get("dest") == C.rel(dest) else None, previous, receipt)
+
+
+def keep_superseded(old: bytes | None, previous: dict | None, receipt: dict) -> dict:
+    """Keep the bytes a download replaced, beside their receipt, when the new file differs."""
+    if old is None or receipt.get("error") or receipt.get("sha256") == C.sha256_bytes(old):
+        return receipt
+    old_sha = C.sha256_bytes(old)
+    previous = previous if previous and previous.get("sha256") == old_sha else {}
+    stamp = previous.get("wayback_timestamp") or re.sub(r"\D", "", previous.get("retrieved_at", ""))[:14] or "unknown"
+    dest = C.PROJECT_ROOT / receipt["dest"]
+    kept = C.raw_path(SOURCE, "superseded", dest.parent.name,
+                      f"{dest.stem}.{previous.get('route', 'unknown')}-{stamp}.{old_sha[:12]}{dest.suffix}")
+    kept.parent.mkdir(parents=True, exist_ok=True)
+    kept.write_bytes(old)
+    C.write_meta(kept, {"sha256": old_sha, "bytes": len(old), "receipt": previous or None, "replaced_by": receipt})
+    C.log(f"[{SOURCE}] {receipt['name']} changed; kept the replaced file as {C.rel(kept)}")
+    return {**receipt, "superseded": C.rel(kept)}
+
+
+def fetch_routes(name: str, tour: str, year: int, url: str, dest: Path, receipts: C.Receipts, routes) -> dict:
+    original = legacy_url(tour, year)
     attempts = []
     if "live" in routes:
         receipt = C.download(url, dest, receipts, name=name, refresh=True, validator=C.workbook_magic,
@@ -100,15 +156,15 @@ def acquire(tour: str, year: int, receipts: C.Receipts, refresh: bool, routes=AL
         attempts.append(f"live: {receipt['error']}")
     if "wayback" in routes:
         try:
-            captures = wayback_captures(url)
+            captures = wayback_captures(original)
         except Exception as err:  # CDX outage should not stop the local fallback
             captures = []
             attempts.append(f"wayback lookup: {type(err).__name__}: {err}")
         for capture in captures[:3]:
-            receipt = C.download(wayback_url(capture["timestamp"], url), dest, receipts, name=name, refresh=True,
-                                 validator=C.workbook_magic,
+            receipt = C.download(wayback_url(capture["timestamp"], original), dest, receipts, name=name,
+                                 refresh=True, validator=C.workbook_magic,
                                  extra={"route": "wayback", "wayback_timestamp": capture["timestamp"],
-                                        "wayback_digest": capture["digest"], "original_url": url,
+                                        "wayback_digest": capture["digest"], "original_url": original,
                                         "wayback_captures_200": len(captures)})
             if not receipt.get("error"):
                 return receipt
@@ -167,6 +223,9 @@ def run(args) -> dict:
     for page, filename in INDEX_PAGES.items():
         C.download(f"{SITE}/{page}", C.raw_path(SOURCE, "docs", filename), receipts, name=f"docs/{page}",
                    refresh=True, validator=C.not_html if page.endswith(".txt") else None)
+    listing = read_listing(receipts)
+    C.log(f"[{SOURCE}] {len(listing)} workbook links on {LISTING_PAGE}"
+          + ("" if listing else "; trying the old /<year>[w]/ paths"))
     staged, skipped = [], []
     for tour in ("atp", "wta"):
         first = max(args.start_year, FIRST_YEAR[tour])
@@ -174,7 +233,7 @@ def run(args) -> dict:
             skipped.append({"path": f"{tour}/{args.start_year}-{FIRST_YEAR[tour] - 1}",
                             "reason": f"provider publishes {tour.upper()} files from {FIRST_YEAR[tour]}"})
         for year in C.years(first, args.end_year):
-            receipt = acquire(tour, year, receipts, args.refresh, routes)
+            receipt = acquire(tour, year, receipts, args.refresh, routes, listing)
             if receipt.get("error"):
                 C.log(f"[{SOURCE}] FAIL {tour} {year}: {receipt['error']}")
                 continue

@@ -1,0 +1,1448 @@
+# The data map: the master list of what data/ holds.
+#
+# One entry per dataset: what it is, the finest level of detail it reaches, the years and
+# tournament levels it covers, where it sits in the pipeline, where it came from, and whether it
+# is on disk, downloading now, or only assumed. The visual map, data/data_map.html, is built from
+# this file together with the coverage measured from the files themselves:
+#
+#     ./python.sh src/eda/data_map/build.py                  # measure (about a minute) and rebuild
+#     ./python.sh src/eda/data_map/build.py --no-measure     # rebuild the page from the last measurement
+#
+# Keep it current. When a download starts or finishes, or a batch is approved, change `status`
+# here (and in `measured_as` where a dataset has several parts), then rebuild. New data gets a new
+# entry; the build lists any folder under data/raw/ or data/dump/ that no entry claims.
+#
+# Status words:  on_disk      downloaded and on disk
+#                downloading  a Claude Code session is running its download right now
+#                assumed      not downloaded; counted as held on the owner's instruction
+# Grain words (finest first): shot, point, stats, result. Also: market (prices and odds) and
+# reference (indexes, player tables, captures that support other datasets).
+# `how` names the method the data was obtained by (see `methods`). `universe` lists what exists outside
+# data/ (measured where possible) so the map can set what we hold against what could be had.
+
+as_of: 2026-10-08
+
+statuses:
+  on_disk: Downloaded and on disk.
+  downloading: >-
+    A Claude Code session is running this download now. Counted as held once it finishes; until then the
+    map counts only what is on disk. A download that is waiting for approval does not count (owner, 25 Sep 2026).
+  assumed: >-
+    Not downloaded yet, but counted as held on the owner's instruction. None at present: the WTA batches B2-B9,
+    assumed on 25 Sep 2026, were all downloaded by 2 Oct 2026.
+
+methods:
+  - {id: github, name: GitHub download, explain: "Files fetched from a public GitHub repository at a pinned commit and checked against its hashes."}
+  - {id: hugging_face, name: Hugging Face download, explain: "A public Hugging Face dataset at a pinned commit, fetched in byte ranges and hash-checked."}
+  - {id: kaggle, name: Kaggle download, explain: "A public Kaggle dataset, fetched through Kaggle's anonymous download link."}
+  - {id: zenodo, name: Zenodo download, explain: "A research data deposit, checksum-verified."}
+  - {id: site_files, name: Publisher's own files, explain: "The data files a publisher offers on its site, fetched from its file list."}
+  - {id: wayback, name: Internet Archive, explain: "Copies the Wayback Machine kept of files or feeds the live site no longer serves."}
+  - {id: api_scrape, name: Scraped from a public JSON feed, explain: "The JSON a site's own pages load (draws, scores, point histories, odds), asked one document at a time about 2 seconds apart, every answer kept with a receipt."}
+  - {id: page_scrape, name: Scraped from web pages, explain: "Public pages read one at a time and the data parsed out of them."}
+  - {id: browser_scrape, name: Scraped inside a Chrome tab, explain: "SofaScore refuses plain programs, so its requests ran inside a real Chrome window the owner opened."}
+  - {id: decrypted, name: Encrypted files the project decrypts, explain: "Files a site serves encrypted and its own page decrypts; kept as served and decrypted when staged (owner's decisions of 7 and 8 Oct 2026)."}
+  - {id: encrypted, name: Encrypted files kept encrypted, explain: "Downloaded as served and not decrypted, on the owner's instruction; unreadable until decrypted."}
+  - {id: public_api, name: A market's public API, explain: "Polymarket's own public APIs for listings, prices and trades, with no account."}
+  - {id: archive_reads, name: Read from a public archive, explain: "Only the tennis rows of a public archive's hourly files, read over HTTP range requests."}
+  - {id: sample_reads, name: Sampled reads (research), explain: "Bounded reads to measure what a source holds; samples, not a collection."}
+  - {id: project, name: The project's own records, explain: "Bookkeeping the project writes itself."}
+
+grains:
+  - id: shot
+    name: Shot by shot
+    short: Every stroke of every rally.
+    explain: >-
+      Each shot in each point: the serve and where it went, then every return and rally shot (forehand
+      or backhand, direction, depth), and how the point ended. It comes from volunteers charting video
+      (the Match Charting Project) or from Hawk-Eye cameras tracking the ball (Court Vision).
+    example: "Serve wide, forehand return crosscourt, backhand down the line, forehand winner: 4f2b3f1*"
+  - id: point
+    name: Point by point
+    short: Every point in order, with who won it.
+    explain: >-
+      The score after every point, who served, and who won the point. The richer feeds add whether it
+      was a first or second serve, how the point ended (ace, double fault, winner, error), serve speed,
+      rally length and a clock time.
+    example: "Game 3: 15-0, 30-0, 30-15, 40-15, game (server holds; ace on the last point)"
+  - id: stats
+    name: Game-level stats and totals
+    short: Match or set totals.
+    explain: >-
+      A box score: aces, double faults, first serves in, points won on first and second serve, break
+      points faced and saved, service games. It says how a match went in total, not in what order.
+    example: "Aces 12 v 4; double faults 3 v 5; first serves in 64% v 58%; break points saved 4/5 v 2/6"
+  - id: result
+    name: Result and score
+    short: Who won, and the score.
+    explain: >-
+      The winner, the loser and the set scores. Every match in the map has at least this, apart from the
+      matches marked missing.
+    example: "Sinner d. Alcaraz 6-4 3-6 7-6(5)"
+
+levels:
+  - {code: GS, name: Grand Slams, short: "main draw of the 4 majors", explain: "The four majors: Australian Open, Roland Garros, Wimbledon, US Open. 127 singles matches per tour at each."}
+  - {code: GSQ, name: Slam qualifying, short: "the week before each Slam", explain: "Three rounds the week before a Slam that decide the last 16 places in the draw. 112 matches per tour at each."}
+  - {code: FIN, name: Tour Finals, short: "season finales", explain: "Season-ending events for the top eight: ATP Finals, WTA Finals, plus the Next Gen ATP Finals and the WTA Elite Trophy."}
+  - {code: T1000, name: 1000s, short: "Masters 1000 / WTA 1000", explain: "The biggest events after the Slams (Indian Wells, Miami, Madrid, Rome, Canada, Cincinnati, Shanghai, Paris ...). Before 2021 the WTA called them Premier Mandatory and Premier 5."}
+  - {code: T500, name: 500s, short: "ATP 500 / WTA 500", explain: "The middle tier of the main tours (WTA Premier before 2021)."}
+  - {code: T250, name: 250s, short: "ATP 250 / WTA 250", explain: "The entry tier of the main tours (WTA International before 2021)."}
+  - {code: TEAM, name: Team events, short: "Davis Cup, BJK Cup, United Cup, Olympics", explain: "Davis Cup, Billie Jean King Cup, ATP Cup, United Cup, Laver Cup and the Olympics."}
+  - {code: TQ, name: Tour qualifying, short: "at the 1000s, 500s and 250s", explain: "Qualifying rounds at the 1000, 500 and 250 events."}
+  - {code: CH, name: Challenger / WTA 125, short: "second tier, main draw", explain: "The second tier, where most players ranked about 80-300 play. Since 2019 men's Challenger main draws have up to 48 players, so qualifying shrank."}
+  - {code: CHQ, name: Challenger qualifying, short: "and WTA 125 qualifying", explain: "Qualifying rounds at Challenger and WTA 125 events."}
+  - {code: ITF, name: ITF World Tour, short: "entry level, main draw", explain: "The entry level of pro tennis (men's M15/M25, women's W15-W100): about 17,000 singles matches a year per tour."}
+  - {code: ITFQ, name: ITF qualifying, short: "entry level, qualifying", no_source: [M], explain: "Qualifying at ITF events. No source lists men's ITF qualifying; the women's is listed by Sackmann for 2019-2024."}
+
+pipeline:
+  - stage: raw
+    path: data/raw/
+    what: >-
+      Every file exactly as downloaded, never edited, with a receipt for each fetch (_receipts.jsonl:
+      URL, time, status, bytes, SHA-256). Gitignored. LARGE_FILES.md says how to get the big files back.
+    made_by: src/ingest/ (one adapter per source)
+  - stage: staged
+    path: data/dump/
+    what: >-
+      The raw files as tables: Parquet, every column kept as a string, plus provenance columns, in one
+      branch per kind of data (matches, points, players, rankings, odds). Rebuilt from raw by the same
+      adapters. Gitignored.
+    made_by: src/ingest/ (the same adapters, with --stage-only)
+  - stage: evidence
+    path: data/studies/
+    what: >-
+      One folder per study: small tracked files that say what the data holds and how it was checked (manifests,
+      run summaries, coverage tables, check results), beside the studies' own outputs (features, model fits),
+      which make up most of its size and are mostly gitignored. The write-ups are in docs/studies/.
+    made_by: src/eda/<study>/
+  - stage: merged
+    path: null
+    what: >-
+      Not built yet. One cleaned database joining the sources (players, tournaments, matches, points,
+      odds, markets), as proposed in docs/studies/public_data_dump/structure-plan.md.
+    made_by: null
+  - stage: predictions and bets
+    path: predictions/, data/betting_history/
+    what: Reserved homes for forecasts and for actual bets and their settlement. Empty.
+    made_by: null
+
+datasets:
+
+  # ---------------------------------------------------------------- results and totals
+  - id: tennis_my_life
+    name: Tennis My Life
+    provider: Tennis My Life (tennismylife.org), a public site that rebuilds Sackmann's format from official results
+    what: >-
+      Season files of ATP main-tour, Challenger (main draw), ATP qualifying and WTA main-tour singles,
+      with serve and return totals, plus files for tournaments in progress, an ATP player table and a
+      ranking snapshot. The freshest result source: to the week of 21 Sep 2026.
+    grain: stats
+    tours: [men, women]
+    levels: [GS, GSQ, FIN, T1000, T500, T250, TEAM, TQ, CH]
+    years: 2000-2026 (to 21 Sep 2026)
+    status: on_disk
+    how: site_files
+    measured_as: [tml]
+    raw: [data/raw/public_dump/tennis_my_life/]
+    staged: [data/dump/matches/tennis_my_life/, data/dump/players/tennis_my_life/, data/dump/rankings/tennis_my_life/]
+    adapter: src/ingest/public_dump/tennis_my_life.py
+    evidence: data/studies/public_data_dump/
+    report: docs/studies/public_data_dump/README.md
+    rights: MIT on the site, noncommercial in its repository (they conflict; both recorded by data_continuity/canary.py)
+    backup: >-
+      The publisher revises files in place (a 2024 score on 5 Oct 2026), and its GitHub copy stopped in January
+      2026. From 6 Oct 2026 the adapter keeps every replaced file under superseded/ with its receipts, holds a
+      damaged or shrunken download under held/ instead of making it current, and logs accepted revisions in
+      _changes.jsonl (docs/decisions/2026-10-06-tml-file-versions.md). No copy outside this PC.
+    notes: >-
+      Uses the ATP's own ids (tournament 2023-339, player S0AG), which is what joins it to Infosys.
+      Files Winston-Salem 2026 as a Masters event and some 2024 Challenger rows under 2007 dates. Measured
+      against Sackmann and the official feeds (docs/studies/data_continuity/): women's aces and double faults of
+      Dec 2024 - Feb 2026 are wrong in most rows; Wimbledon 2026 men's first serves in run six points above the
+      official feed; no women's qualifying, WTA 125, ITF or Challenger qualifying files.
+
+  - id: sackmann_archive
+    name: Jeff Sackmann's tennis_atp and tennis_wta
+    provider: Jeff Sackmann (Tennis Abstract), via an archival GitHub mirror at commit 8373358
+    what: >-
+      The standard open results database: every ATP and WTA singles match from the main tours down to
+      ITF (Futures), qualifying included, with serve and return totals where they exist, plus player
+      tables and weekly rankings. Stops at the end of May 2026.
+    grain: stats
+    tours: [men, women]
+    levels: [GS, GSQ, FIN, T1000, T500, T250, TEAM, TQ, CH, CHQ, ITF, ITFQ]
+    years: 1968-2026 (2010+ staged; to 1-2 Jun 2026)
+    status: on_disk
+    how: github
+    measured_as: [sackmann]
+    raw: [data/raw/public_dump/sackmann_archive/atp/, data/raw/public_dump/sackmann_archive/wta/]
+    staged: [data/dump/matches/sackmann_archive/, data/dump/players/sackmann_archive/, data/dump/rankings/sackmann_archive/]
+    adapter: src/ingest/public_dump/sackmann_archive.py
+    evidence: data/studies/public_data_dump/
+    report: docs/studies/public_data_dump/README.md
+    rights: CC BY-NC-SA 4.0
+    notes: >-
+      Sackmann's own repositories answer 404 since September 2026; this is a mirror. ITF matches carry
+      no serve statistics before 2025. Women's ITF qualifying is listed for 2019-2024 only, and
+      women's Slam qualifying is short in 2018-2020.
+
+  - id: api_tennis
+    name: api-tennis fixtures (Hugging Face handoff)
+    provider: api-tennis.com, as scraped by the atlas-polybot pipeline and published on Hugging Face
+    what: >-
+      Men's ATP, Challenger and ITF fixtures of 2021-2024 with exact dates, start times, results and
+      status (retired, walkover, cancelled). Adds Davis Cup group ties and some Challenger qualifying
+      matches the other result files lack.
+    grain: result
+    tours: [men]
+    levels: [T1000, T500, T250, TEAM, TQ, CH, CHQ, ITF]
+    years: 2021-2024
+    status: on_disk
+    how: hugging_face
+    measured_as: [api_tennis]
+    raw: [data/raw/public_dump/atp_pipeline_handoff/api_tennis/]
+    staged: null
+    adapter: src/ingest/public_dump/atp_pipeline_handoff.py
+    evidence: data/studies/atp_pipeline_handoff/
+    report: docs/studies/atp_pipeline_handoff/README.md
+    decision: docs/decisions/2026-09-25-atp-pipeline-handoff.md
+    rights: No licence stated
+    notes: Not staged. A few doubles matches are filed as singles; the map leaves them out.
+
+  - id: flashscore
+    name: Flashscore match pages (Hugging Face handoff)
+    provider: Flashscore, as scraped by the atlas-polybot pipeline
+    what: >-
+      566,853 distinct matches with real start times, set durations and, for about a fifth, per-set
+      statistics: ATP and Challenger singles 1990 to April 2025, plus a head-to-head crawl reaching ITF,
+      WTA and junior matches to 17 April 2026.
+    grain: stats
+    tours: [men, women]
+    levels: [GS, T1000, T500, T250, CH, ITF]
+    years: 1990-April 2026
+    status: on_disk
+    how: hugging_face
+    measured_as: []
+    raw: [data/raw/public_dump/atp_pipeline_handoff/flashscore_full/, data/raw/public_dump/atp_pipeline_handoff/flashscore_gql_stats/, data/raw/public_dump/atp_pipeline_handoff/flashscore_daily/, data/raw/public_dump/atp_pipeline_handoff/flashscore_data/, data/raw/public_dump/atp_pipeline_handoff/flashscore_bruteforce/]
+    staged: null
+    adapter: src/ingest/public_dump/atp_pipeline_handoff.py
+    evidence: data/studies/atp_pipeline_handoff/
+    report: docs/studies/atp_pipeline_handoff/README.md
+    decision: docs/decisions/2026-09-25-atp-pipeline-handoff.md
+    rights: No licence stated; Flashscore's terms forbid extraction
+    notes: >-
+      Not linked into the map's match counts: 127 GB of JSON is not read here. Its matches overlap the
+      result files; its statistics would raise the stats share of Challenger and ITF matches somewhat.
+
+  - id: atp_scraped_enriched
+    name: ATP-site results with per-set statistics (Hugging Face handoff)
+    provider: atptour.com, as scraped by the atlas-polybot pipeline
+    what: >-
+      ATP results with per-set statistics, return rating, both players' season-to-date statistics at
+      match time, prize money and draw sizes: main tour 1991-2024, qualifying and Challenger 2009-2024.
+    grain: stats
+    tours: [men]
+    levels: [GS, FIN, T1000, T500, T250, TEAM, TQ, CH, CHQ]
+    years: 1991-2024
+    status: on_disk
+    how: hugging_face
+    measured_as: []
+    raw: [data/raw/public_dump/atp_pipeline_handoff/atp_scraped_enriched/, data/raw/public_dump/atp_pipeline_handoff/atp_scraped/]
+    staged: null
+    adapter: src/ingest/public_dump/atp_pipeline_handoff.py
+    evidence: data/studies/atp_pipeline_handoff/
+    report: docs/studies/atp_pipeline_handoff/README.md
+    decision: docs/decisions/2026-09-25-atp-pipeline-handoff.md
+    rights: No licence stated
+    notes: Not linked into the map's counts; the same matches already carry totals from Tennis My Life and Sackmann.
+
+  - id: open_tennis_data
+    name: Open Tennis Data
+    provider: Open Tennis Data release data-v3-20260905T083014Z (GitHub)
+    what: >-
+      Completed main-tour results 2020 to 29 Aug 2026 with exact match dates, plus fixtures, players,
+      tournaments and provenance. Built from tennis-data.co.uk and Sackmann.
+    grain: result
+    tours: [men, women]
+    levels: [GS, FIN, T1000, T500, T250]
+    years: 2020-2026 (to 29 Aug)
+    status: on_disk
+    how: github
+    measured_as: []
+    raw: [data/raw/public_dump/open_tennis_data/]
+    staged: [data/dump/matches/open_tennis_data/, data/dump/players/open_tennis_data/]
+    adapter: src/ingest/public_dump/open_tennis_data.py
+    evidence: data/studies/public_data_dump/
+    report: docs/studies/public_data_dump/README.md
+    rights: See the release's own notes
+    notes: A derivative of sources already held, so it adds exact dates, not matches.
+
+  - id: wta_site_records
+    name: WTA website match records (Kaggle copy)
+    provider: >-
+      Kaggle dataset bwandowando/womens-tennis-association-matches-1975-present (version 29, 24 Sep 2026), built from
+      wtatennis.com player by player
+    what: >-
+      Every women's singles result the WTA website lists, 1975 to early September 2026, with scores and rounds:
+      the WTA tours, WTA 125, ITF and qualifying, and their tournaments with start dates and levels. The only file
+      on disk with women's ITF qualifying of 2025-26 and women's ITF results after June 2026.
+    grain: result
+    tours: [women]
+    levels: [GS, GSQ, FIN, T1000, T500, T250, TQ, CH, CHQ, ITF, ITFQ]
+    years: 1975 - early September 2026
+    status: on_disk
+    how: kaggle
+    measured_as: [wta_site]
+    raw: [data/raw/gap_sources/bwandowando/]
+    staged: null
+    adapter: src/eda/gap_sources/wta_site_kaggle.py
+    evidence: data/studies/gap_sources/wta_site_kaggle.json
+    report: docs/research/gap-sources/README.md
+    decision: docs/decisions/2026-10-08-scraping-approved.md
+    rights: Labelled Apache 2.0 on Kaggle; the records are the WTA's
+    notes: >-
+      Each match appears once per player, and 12% of the ITF rows again under a second pseudo id; the map keeps one
+      per tournament, draw, round and pair, and leaves out byes, walkovers and unplayed matches. The same records
+      can be refreshed from the WTA API's player-matches endpoint.
+
+  - id: live_tennis_api
+    name: Live Tennis API public sample
+    provider: Live Tennis API, Zenodo record 22048731 v1.0.0
+    what: >-
+      A match index of 2023 to 13 Aug 2026 (schedule only, no winners), players with a partial
+      Sackmann id crosswalk, and 951,064 timestamped score states for 5,380 matches of June 2026 at
+      every level, ITF included.
+    grain: point
+    tours: [men, women]
+    levels: [GS, T1000, T500, T250, TQ, CH, CHQ, ITF, ITFQ]
+    years: June 2026 (points); 2023-2026 (index)
+    status: on_disk
+    how: zenodo
+    measured_as: [lta_sample]
+    raw: [data/raw/public_dump/live_tennis_api_zenodo/]
+    staged: [data/dump/matches/live_tennis_api_zenodo/, data/dump/players/live_tennis_api_zenodo/, data/dump/points/live_tennis_api_zenodo/]
+    adapter: src/ingest/public_dump/live_tennis_api_zenodo.py
+    evidence: data/studies/public_data_dump/
+    report: docs/studies/public_data_dump/README.md
+    rights: CC BY-NC 4.0
+    notes: The only point data for ITF matches outside the ten careers. The full archive is paid.
+
+  # ---------------------------------------------------------------- point by point
+  - id: slam_pbp_archive
+    name: Sackmann's Grand Slam point-by-point
+    provider: Jeff Sackmann's tennis_slam_pointbypoint (IBM and Infosys feeds), via the archival mirror
+    what: >-
+      Every point of Grand Slam main-draw singles, with server, winner, aces, double faults, serve
+      number, serve speed and rally counts: Wimbledon and the US Open to 2024, the Australian Open and
+      Roland Garros to 2021. Doubles and mixed for some years.
+    grain: point
+    tours: [men, women]
+    levels: [GS]
+    years: 2011-2024
+    status: on_disk
+    how: github
+    measured_as: [slam_pbp]
+    raw: [data/raw/public_dump/sackmann_archive/slam_pointbypoint/]
+    staged: [data/dump/points/sackmann_archive/]
+    adapter: src/ingest/public_dump/sackmann_archive.py
+    evidence: data/studies/public_data_dump/
+    report: docs/studies/public_data_dump/README.md
+    rights: CC BY-NC-SA 4.0
+    notes: No clock times. The 2018 US Open holds 178 of 254 matches.
+
+  - id: wimbledon_feeds
+    name: Wimbledon scoring feeds (IBM SlamTracker)
+    provider: AELTC's public scoring JSON (2025.wimbledon.com archive host; www for 2026)
+    what: >-
+      All 4,228 matches of the six events of 2019 and 2021-2026 (men's and women's singles, qualifying
+      and doubles): every point with clock time, serve number, speed and a sentence naming the stroke
+      and outcome, plus match statistics, likelihood-to-win after each point (2025-26) and TennisViz
+      metrics (2024-25).
+    grain: point
+    tours: [men, women]
+    levels: [GS, GSQ]
+    years: 2019, 2021-2026
+    status: on_disk
+    how: api_scrape
+    measured_as: [wimbledon]
+    raw: [data/raw/point_sources/wimbledon/]
+    staged: [data/dump/points/wimbledon/]
+    adapter: src/ingest/point_sources/wimbledon.py (engine slamtracker.py)
+    evidence: data/studies/official_point_feeds/
+    report: docs/studies/official_point_feeds/README.md
+    decision: docs/decisions/2026-09-24-official-point-feeds.md
+    rights: AELTC allows personal, non-commercial extracts; the archive host's robots.txt disallows robots
+    backup: The archive host could be retired at any time; the raw folder is then the only copy of 2019-2025.
+
+  - id: usopen_feeds
+    name: US Open scoring feeds (IBM SlamTracker)
+    provider: USTA's public scoring JSON (usopen.org)
+    what: >-
+      All 3,020 matches of the six events of 2022-2026, 2,445 with every point (clock time, stroke and
+      outcome sentence, serve speed, placement), plus match statistics, distance run, likelihood-to-win
+      (2025-26), pre-match likelihood, and 2026 serve limb tracking and key moments.
+    grain: point
+    tours: [men, women]
+    levels: [GS, GSQ]
+    years: 2022-2026
+    status: on_disk
+    how: api_scrape
+    measured_as: [usopen]
+    raw: [data/raw/point_sources/usopen/]
+    staged: [data/dump/points/usopen/]
+    adapter: src/ingest/point_sources/usopen.py (engine slamtracker.py)
+    evidence: data/studies/official_point_feeds/
+    report: docs/studies/official_point_feeds/README.md
+    decision: docs/decisions/2026-09-24-official-point-feeds.md
+    rights: USTA's terms forbid scraping; collected under the owner's decision
+    backup: The raw folder would be the only copy if the site drops older years; back it up outside the working tree.
+    notes: Qualifying before 2025 had full data only on courts with cameras (about 40%). The 2026 draw clock runs 5 hours early.
+
+  - id: ausopen_match_centre
+    name: Australian Open match centre
+    provider: Tennis Australia's scores API (prod-scores-api.ausopen.com) and Wayback captures
+    what: >-
+      All 604 matches of the six 2026 events, 600 with every point (clock time, outcome, stroke side),
+      with per-set statistics; plus 47 main-event matches of 2020-2025 from Wayback captures and the
+      archived draws of 2019-2025.
+    grain: point
+    tours: [men, women]
+    levels: [GS, GSQ]
+    years: 2026 (2020-2025 captures)
+    status: on_disk
+    how: api_scrape
+    measured_as: [ausopen, ausopen_wayback, slam_draws]
+    raw: [data/raw/point_sources/ausopen/]
+    staged: [data/dump/points/ausopen/]
+    adapter: src/ingest/point_sources/ausopen.py
+    evidence: data/studies/official_point_feeds/
+    report: docs/studies/official_point_feeds/README.md
+    decision: docs/decisions/2026-09-24-official-point-feeds.md
+    rights: Tennis Australia forbids automated collection; collected under the owner's decision
+    backup: The API serves only the current edition; the raw folder is the only copy once 2027 starts.
+
+  - id: wta_api
+    name: WTA official API
+    provider: api.wtatennis.com (public JSON, no login)
+    what: >-
+      Match lists of every WTA 1000, 500, 250, 125 and Finals edition (and the Slams from 2024), and per
+      match the chair umpire's point log (server, first or second serve, aces, double faults, a millisecond
+      clock time), the box score, advanced statistics, point-by-point and win probability. Collected in
+      batches B1-B9, all finished by 2 Oct 2026.
+    grain: point
+    tours: [women]
+    levels: [GS, GSQ, FIN, T1000, T500, T250, TQ, CH, CHQ]
+    years: 2019-2026 (point log from 1 Apr 2019)
+    status: on_disk
+    how: api_scrape
+    measured_as:
+      - {id: wta_lists, status: on_disk}
+      - {id: wta_events, status: on_disk}
+      - {id: wta_box, status: on_disk}
+    raw: [data/raw/point_sources/wta/]
+    staged: [data/dump/points/wta/]
+    adapter: src/ingest/point_sources/wta.py
+    evidence: data/studies/official_point_feeds/
+    report: docs/studies/official_point_feeds/README.md#wta-official-api
+    decision: docs/decisions/2026-09-24-official-point-feeds.md
+    rights: wtatennis.com forbids automated access; collected under the owner's decision
+    backup: The raw folder is the only copy (about 1 GB once B1 ends); copy it outside the working tree.
+    notes: >-
+      Slams hold no WTA point data in this API, and the United Cup's lists are empty. The 2018 point log
+      is empty, so WTA point data starts in 2019. Raw documents are gzipped per match and endpoint, with
+      run logs in _logs/; the seeded coverage sample of 241 matches came first. Staged as one Parquet file
+      per table and year, plus the to-do list todo.parquet (every match and endpoint with its state);
+      run summaries, coverage, checks and the to-do list are in data/studies/official_point_feeds/.
+    batches:
+      - {id: B1, what: "Point log (umpire's events), 2020-2026, every draw", status: on_disk, requests: 33000, hours: 23, note: "33,480 logs; 18 empty"}
+      - {id: B2, what: Point log 2019, status: on_disk, requests: 4600, hours: 3.3, note: "2,306 logs; the 1,088 before 1 April 2019 are served empty, and 15 editions' lists answer 404"}
+      - {id: B3, what: Box scores 2019-2026, status: on_disk, requests: 37700, hours: 27}
+      - {id: B4, what: Advanced statistics 2025-2026, status: on_disk, requests: 11200, hours: 8}
+      - {id: B5, what: Win probability 2026, status: on_disk, requests: 5100, hours: 3.7}
+      - {id: B6, what: Win probability 2025 (momentum only), status: on_disk, requests: 6000, hours: 4.3}
+      - {id: B7, what: Advanced statistics 2021-2024, status: on_disk, requests: 20200, hours: 14, note: "19,518 documents"}
+      - {id: B8, what: Point-by-point from April 2022, status: on_disk, requests: 25500, hours: 18, note: "none served October 2025 - March 2026"}
+      - {id: B9, what: Slam box scores 2024-2026, status: on_disk, requests: 3600, hours: 2.6, note: "3,020 documents"}
+
+  - id: tdi
+    name: TDI Tennis Results
+    provider: Tennis Data Innovations, the ATP's data company (results.tennisdata.com)
+    what: >-
+      All 5,462 ATP Tour (non-Slam) and Challenger matches the site's rolling listing has shown since the
+      sweep of 25 Sep 2026 (completed 23 June - 29 September 2026, topped up weekly), singles and doubles,
+      main draw and qualifying, and 634 older matches (May 2025 - April 2026) whose ids the Wayback Machine
+      kept: 6,096 matches, 831,206 points. Every point has
+      its UTC time, winner, server, score and serve events (faults, lets, aces); singles points also say
+      how they ended, the rally length, the last shot and who was at the net (tour level throughout,
+      Challengers from February 2026; doubles never). Match and set statistics with TennisViz ratings,
+      and each player's ATP id.
+    grain: point
+    tours: [men]
+    levels: [T1000, T500, T250, TQ, CH, CHQ]
+    years: June-September 2026, and 634 matches of May 2025 - April 2026
+    status: on_disk
+    how: page_scrape
+    measured_as:
+      - {id: tdi, status: on_disk}
+      - {id: tdi_listing, status: on_disk}
+    raw: [data/raw/point_sources/tdi/]
+    staged: [data/dump/points/tdi/]
+    adapter: src/ingest/point_sources/tdi.py
+    evidence: data/studies/official_point_feeds/
+    report: docs/studies/official_point_feeds/README.md
+    decision: docs/decisions/2026-09-25-tdi-tennis-results.md
+    rights: TDI's terms forbid scraping and model training; collected under the owner's decision
+    notes: >-
+      The only public point data for ATP matches after 2024, and only for the listing's window (about 92
+      days by the day a match ended): the site does not list older matches, though their pages still serve
+      every point. Forward capture: --recent 10 weekly (last run 29 Sep 2026). The raw pages are the only
+      copy of the matches that have left the window.
+
+  - id: infosys
+    name: ATP Infosys Stats Centre (Hugging Face handoff)
+    provider: ATP / Infosys match centre files, decrypted by a third party and published on Hugging Face
+    what: >-
+      37,835 ATP tour, Challenger and qualifying matches of 2021-2024; about 70% carry every point
+      (3.6 million points). Tour-level points say how they ended (winner, forced or unforced error, ace,
+      double fault) with serve speed and direction; Challenger points mark only aces and double faults.
+      Also per-set key statistics and stroke summaries.
+    grain: point
+    tours: [men]
+    levels: [GS, FIN, T1000, T500, T250, TEAM, TQ, CH, CHQ]
+    years: 2021-2024
+    status: on_disk
+    how: hugging_face
+    measured_as: [infosys]
+    raw: [data/raw/public_dump/atp_pipeline_handoff/infosys_deep/, data/raw/public_dump/atp_pipeline_handoff/infosys_full/]
+    staged: null
+    adapter: src/ingest/public_dump/atp_pipeline_handoff.py
+    evidence: data/studies/atp_pipeline_handoff/
+    report: docs/studies/atp_pipeline_handoff/README.md
+    decision: docs/decisions/2026-09-25-atp-pipeline-handoff.md
+    rights: No licence; the data was decrypted from Infosys feeds by others
+    backup: >-
+      The whole Hugging Face dump (16.8 GB gzipped; 150.5 GB unpacked) could be withdrawn at any time. A zip
+      of the whole folder, covering every "Hugging Face handoff" entry, is in cold storage at
+      gs://tennis-predictions-archive/public_dump/tennis_atp_pipeline_handoff_raw_2026-09-25.zip
+      (Coldline, uploaded 25 Sep 2026, 16.7 GB, SHA-256
+      bc7d1b49977d4c58f3f3cfe5f49f0f166370d64e2077e3b6593e7b9eb30e6c9f). README.txt beside it explains
+      restoring.
+    notes: >-
+      Not staged. Some records carry dates weeks off, so the map joins it by ATP ids first. The dump was
+      downloaded in six chunks from a pinned commit; files over 1 MB are gzipped on arrival and every file
+      is hash-checked. The plan, status and how to resume are in data/studies/atp_pipeline_handoff/.
+
+  - id: sirgenkii_infotennis
+    name: SirGenkii infotennis (ATP Stats Centre, January-April 2025)
+    provider: >-
+      ATP / Infosys Stats Centre match files, decrypted by a third party and published as MySQL dumps on
+      GitHub (SirGenkii/infotennis, commit ec1b188)
+    what: >-
+      1,286 played ATP singles matches of 23 events, from the United Cup and Brisbane (27 Dec 2024) to the
+      first days of Monte-Carlo 2025, qualifying and the Australian Open included. 922 carry every point with how it
+      ended (winner, forced or unforced error, ace, double fault), the serve number and at some events the
+      serve speed. Also per-set key statistics, stroke summaries and Court Vision ball tracking (8 matches).
+    grain: point
+    tours: [men]
+    levels: [GS, GSQ, T1000, T500, T250, TEAM, TQ]
+    years: 2025 (27 Dec 2024 - 7 Apr 2025)
+    status: on_disk
+    how: github
+    measured_as: [sirgenkii]
+    raw: [data/raw/public_dump/sirgenkii_infotennis/]
+    staged: [data/dump/points/sirgenkii_infotennis/]
+    adapter: src/ingest/public_dump/sirgenkii_infotennis.py
+    evidence: data/studies/gap_downloads/
+    report: docs/studies/gap_downloads/README.md
+    rights: Code MIT; the data has no licence and was decrypted from Infosys feeds by others
+    notes: >-
+      The Infosys copy's kind of data carried on past 2024. The six dumps are hash-checked against the pinned
+      git tree and staged table by table; the map joins them by ATP tournament and player ids first and
+      leaves out the United Cup doubles rubbers and unplayed matches. It gives 715 matches of the ATP
+      tour-level gap (atp_points_2025) every point with its outcome.
+
+  - id: sofascore
+    name: SofaScore point-by-point (ten careers)
+    provider: SofaScore's public API, read by the project's adapter
+    what: >-
+      Every singles event of ten randomly drawn Challenger-level players' careers (2012-2026): the
+      score after each point, the server, ace and double-fault codes, and full box scores.
+    grain: point
+    tours: [men]
+    levels: [T250, TQ, CH, CHQ, ITF, ITFQ, TEAM]
+    years: 2012-2026
+    status: on_disk
+    how: browser_scrape
+    measured_as: [sofascore]
+    raw: [data/raw/point_sources/sofascore/]
+    staged: [data/dump/points/sofascore/]
+    adapter: src/ingest/point_sources/sofascore.py
+    evidence: data/studies/point_shot_sources/
+    report: docs/studies/point_shot_sources/README.md
+    rights: SofaScore's terms forbid automated extraction; collected on the owner's decision of 23 Sep 2026
+    notes: The adapter could collect other players (--team-ids); only these ten careers are held.
+
+  - id: sofascore_editions
+    name: SofaScore point-by-point (ATP tour level 2025-26, by tournament)
+    provider: SofaScore's public API, listed one tournament edition at a time by the project's adapter
+    what: >-
+      The SofaScore record of each ATP tour-level singles match of 2025 to June 2026 that the map lacked
+      point data for (the gap atp_points_2025, 3,778 matches in 112 editions, frozen on 29 Sep 2026): 3,777
+      have every point listed (3,753 complete to the final score) and 3,777 a box score. Each record has the
+      score after every point, the server, and ace and double-fault codes; the box scores are set by set.
+    grain: point
+    tours: [men]
+    levels: [FIN, T1000, T500, T250, TQ]
+    years: 2025-2026 (to June 2026)
+    status: on_disk
+    how: browser_scrape
+    measured_as: [sofascore_editions]
+    raw: [data/raw/point_sources/sofascore_editions/]
+    staged: [data/dump/points/sofascore_editions/]
+    adapter: src/ingest/point_sources/sofascore_editions.py
+    evidence: data/studies/gap_downloads/
+    report: docs/studies/gap_downloads/README.md
+    rights: SofaScore's terms forbid automated extraction; collected on the owner's decision of 23 Sep 2026
+    notes: >-
+      Downloaded on 30 Sep 2026, 15:10-18:01 UTC, inside a Chrome tab (the plain client was refused from 29 Sep):
+      7,867 requests, no challenge. Every link was checked against Tennis My Life's result: 3,768 have the same
+      winner and set scores, none a different winner. Staged with every other event of the 112 tournaments
+      (4,995). Per match: data/studies/gap_downloads/sofascore_atp_points_2025_matches.csv.
+
+  - id: sofascore_tournaments
+    name: SofaScore point-by-point (Australian Open and Roland Garros 2022-26, by tournament)
+    provider: SofaScore's public API, listed one Slam season at a time by the project's adapter
+    what: >-
+      SofaScore records of the Slam main-draw singles matches of 2022-2026 that the map lacked point data for
+      on 25 Sep 2026 (the gap slam_points_ao_rg, 1,636 matches; 1,631 at the Australian Open and Roland
+      Garros): every played one, 1,632 matches, 1,595 of them complete. Each record has the score after
+      every point, the server, ace and double-fault codes, and set-by-set serve and return statistics (full
+      box scores for 1,629). Also the listings of the gap's 23 seasons (5,555 events, qualifying included).
+    grain: point
+    tours: [men, women]
+    levels: [GS]
+    years: 2022-2026
+    status: on_disk
+    how: browser_scrape
+    measured_as: [sofascore_tournaments]
+    raw: [data/raw/point_sources/sofascore_tournaments/]
+    staged: [data/dump/points/sofascore_tournaments/]
+    adapter: src/ingest/point_sources/sofascore_tournaments.py
+    evidence: data/studies/ao_rg_points/
+    report: docs/studies/ao_rg_points/README.md
+    decision: docs/decisions/2026-09-29-ao-rg-points.md
+    rights: SofaScore's terms forbid automated extraction; collected on the owner's decision of 23 Sep 2026
+    notes: >-
+      Collected on 30 Sep 2026 through a Chrome window (browser mode), SofaScore still refusing the plain
+      client, in two runs (04:19-05:15 and 14:26-14:55 UTC; the first stopped when the hourly token's renewal
+      wanted a click); 20 seasons and 38 match records are the gap probe's answers of 29 Sep, copied byte for
+      byte. Set scores agree with the official result in all 1,631 matches that have one. Per match:
+      data/studies/ao_rg_points/sofascore_check.csv.
+
+  - id: tennislive
+    name: TennisLive.net point-by-point (ten careers)
+    provider: TennisLive.net match pages, read by the project's adapter
+    what: >-
+      The same ten careers from a second site: the score after each point with the server and
+      break-point markers, and match statistics. Usually missing the game that closed each set.
+    grain: point
+    tours: [men]
+    levels: [T250, TQ, CH, CHQ, ITF, ITFQ]
+    years: 2012-2026
+    status: on_disk
+    how: page_scrape
+    measured_as: [tennislive]
+    raw: [data/raw/point_sources/tennislive/]
+    staged: [data/dump/points/tennislive/]
+    adapter: src/ingest/point_sources/tennislive.py
+    evidence: data/studies/point_shot_sources/
+    report: docs/studies/point_shot_sources/README.md
+    rights: Bulk use needs the operator's permission; collected on the owner's decision of 23 Sep 2026
+
+  - id: marcosjn2
+    name: SofaScore point sequences, ATP and WTA tour level (Kaggle copy)
+    provider: Kaggle dataset marcosjn2 (a SofaScore scrape, version of 29 Aug 2025), downloaded for the gap-sources check
+    what: >-
+      48,479 ATP and WTA tour-level singles matches of 2015 to 28 June 2025 (Slams, 1000s, 500s, 250s and
+      their qualifying, some WTA 125), each with the winner of every point in order, game by game, and the
+      server. No serve or outcome codes, no clock times.
+    grain: point
+    tours: [men, women]
+    levels: [GS, GSQ, FIN, T1000, T500, T250, TEAM, TQ, CH]
+    years: 2015 - June 2025
+    status: on_disk
+    how: kaggle
+    measured_as: [marcosjn2]
+    raw: [data/raw/gap_sources/marcosjn2/]
+    staged: null
+    adapter: src/eda/gap_sources/fetch_marcosjn2.py
+    evidence: data/studies/gap_sources/
+    report: docs/research/gap-sources/README.md
+    decision: docs/decisions/2026-10-08-scraping-approved.md
+    rights: Labelled MIT on Kaggle; SofaScore-derived, so the label is not credible
+    notes: >-
+      Not staged; the map reads its JSON lines. It appends one extra point to 99.5% of tie-breaks, credited to the
+      tie-break's winner: drop it before using the points. A subset of what SofaScore itself serves.
+
+  # ---------------------------------------------------------------- shot by shot
+  - id: match_charting_project
+    name: Match Charting Project
+    provider: Jeff Sackmann's volunteer charting project (GitHub, commit 1813a13, "thru 18 sep 2026")
+    what: >-
+      Volunteers chart every shot of selected matches from video: serve direction, each stroke's type,
+      direction and depth, and how the point ended. About 7,300 charts since 2018, mostly big matches of
+      top players, with per-match statistics derived from them. Women's charts to 9 Sep 2026, men's to
+      21 May 2026.
+    grain: shot
+    tours: [men, women]
+    levels: [GS, GSQ, FIN, T1000, T500, T250, TEAM, TQ, CH, ITF]
+    years: 1959-2026 (points staged from 2010)
+    status: on_disk
+    how: github
+    measured_as: [mcp]
+    raw: [data/raw/public_dump/match_charting_project/]
+    staged: [data/dump/points/match_charting_project/]
+    adapter: src/ingest/public_dump/match_charting.py
+    evidence: data/studies/public_data_dump/
+    report: docs/studies/public_data_dump/README.md
+    rights: CC BY-NC-SA 4.0
+
+  - id: tennis_abstract_charts
+    name: Tennis Abstract website-only charts (Hugging Face handoff)
+    provider: tennisabstract.com chart pages, scraped by the atlas-polybot pipeline
+    what: >-
+      Men's charts published on the Tennis Abstract website but kept out of the Match Charting export:
+      the full shot-by-shot point log of 2,147 website-only charts up to 2024 (about 960 since 2018).
+    grain: shot
+    tours: [men]
+    levels: [GS, T1000, T500, T250, CH, ITF]
+    years: 1959-2024
+    status: on_disk
+    how: hugging_face
+    measured_as: [ta_charts]
+    raw: [data/raw/public_dump/atp_pipeline_handoff/mcp/]
+    staged: null
+    adapter: src/ingest/public_dump/atp_pipeline_handoff.py
+    evidence: data/studies/granular_data_leads/
+    report: docs/studies/atp_pipeline_handoff/README.md
+    decision: docs/decisions/2026-09-25-atp-pipeline-handoff.md
+    rights: CC BY-NC-SA on the site, but withheld from the export by design
+    notes: Point logs are HTML prose, not yet parsed into shot codes.
+
+  - id: court_vision
+    name: Hawk-Eye Court Vision tracking (Hugging Face handoff)
+    provider: ATP / Infosys Court Vision files, decrypted by a third party and published on Hugging Face
+    what: >-
+      Ball tracking for 4,570 ATP tour-level matches (14 in 2018, then 2021-2024): for every shot of
+      every point, where the ball was hit, crossed the net and bounced, with speeds, spin type and
+      net clearance.
+    grain: shot
+    tours: [men]
+    levels: [FIN, T1000, T500, T250, TQ]
+    years: 2018, 2021-2024
+    status: on_disk
+    how: hugging_face
+    measured_as: [court_vision]
+    raw: [data/raw/public_dump/atp_pipeline_handoff/court_vision/]
+    staged: null
+    adapter: src/ingest/public_dump/atp_pipeline_handoff.py
+    evidence: data/studies/atp_pipeline_handoff/
+    report: docs/studies/atp_pipeline_handoff/README.md
+    decision: docs/decisions/2026-09-25-atp-pipeline-handoff.md
+    rights: No licence; the data was decrypted from Infosys feeds by others
+    notes: No Slams. Placed on the map through the Infosys record of the same match.
+
+  - id: slam_ball_tracking
+    name: Hawk-Eye Court Vision at the Australian Open and Roland Garros (GitHub copy)
+    provider: >-
+      The two Slams' Court Vision match files, scraped by a third party and published on GitHub
+      (hawkilol/tennisSlamBallTracking, commit f97a9b3)
+    what: >-
+      2,027 singles matches of the Australian Open 2020-2024 and Roland Garros 2019-2024, men and women:
+      every point with server and winner, serve number, speed and type, rally length, how the point
+      ended and where the serve, return and last shot went. For 2022-2024 (1,225 matches) also the full
+      Court Vision file: the ball's hit, peak, net and bounce positions for every stroke of every rally
+      (4.7 million positions; 918 matches tracked on at least 90% of points).
+    grain: shot
+    tours: [men, women]
+    levels: [GS]
+    years: 2019-2024 (every stroke 2022-2024)
+    status: on_disk
+    how: github
+    measured_as: [slam_ball_tracking]
+    raw: [data/raw/public_dump/slam_ball_tracking/]
+    staged: [data/dump/points/slam_ball_tracking/]
+    adapter: src/ingest/public_dump/slam_ball_tracking.py
+    evidence: data/studies/ao_rg_points/
+    report: docs/studies/ao_rg_points/README.md
+    decision: docs/decisions/2026-09-29-ao-rg-points.md
+    rights: GPL-3.0 on the code; the data carry no licence and were taken from the Slams' feeds by others
+    notes: >-
+      Fills 745 of the 1,636 matches of the gap slam_points_ao_rg with a complete point record, 552 of
+      them tracked stroke by stroke; nothing after 2024. The Australian Open is nearly whole; Roland
+      Garros is not: 225 of its 254 singles matches in 2022, about half in 2023-2024, and most of its
+      points lack a trajectory (no 2024 match is tracked on 90% of its points). The 2019-2021 tracking
+      files (802 matches, 1.2 GB) are not fetched: --json-years all.
+
+  - id: infosys_slams
+    name: Australian Open and Roland-Garros Infosys match centres, 2025-2026 (decrypted)
+    provider: >-
+      Tennis Australia's and the FFT's match centres, built by Infosys: the files their pages load from
+      itp-ao-sls / itp-rg-sls.infosys-platforms.com, kept as served and decrypted at staging
+    what: >-
+      AO 2025, RG 2025 and RG 2026 singles, main draw and qualifying, men and women. Every point (MatchBeats)
+      with the server, serve number, serve speed and first-serve fault speed, how it ended and the rally
+      length. RG's key statistics per set (maximum, first- and second-serve average speed, the box score), and
+      RG 2025's rally analysis (serve direction and side).
+    grain: point
+    tours: [men, women]
+    levels: [GS, GSQ]
+    years: AO 2025, RG 2025, RG 2026
+    status: on_disk
+    how: decrypted
+    measured_as: [infosys_slams]
+    raw: [data/raw/point_sources/infosys_slams/]
+    staged: [data/dump/points/infosys_slams/]
+    adapter: src/ingest/point_sources/infosys_slams.py
+    evidence: data/studies/serve_speed_acquisition/
+    report: docs/studies/serve_speed_acquisition/README.md
+    decision: docs/decisions/2026-10-07-serve-speed-acquisition.md
+    rights: >-
+      The sites' terms prohibit automated extraction. The sites encrypt the files; the project decrypts them
+      under the owner's decision of 7 Oct 2026, for these files only
+    backup: >-
+      The only copy. The Slams' hosts serve past editions' files only while they keep them: RG 2026's
+      static files are already gone, though its API still answers. No copy outside this PC.
+    notes: >-
+      1,891 files for 1,417 of the 1,434 singles match codes; 1,410 matches with points, every one with timed
+      serves (232,965 of 235,725 points carry a speed); RG key statistics for 941. The 17 codes without a file
+      are played matches the hosts do not serve. The study links the matches to Stage 0 (all but RG 2026
+      women's qualifying, which Stage 0 lacks) and measures what they add to serve speed; the map counts every
+      match with points. The AO 2025 points equal SirGenkii's copy of the same matches point for point.
+
+  - id: infosys_atp
+    name: ATP Stats Centre Infosys files, 2015 to October 2021 (encrypted, not decrypted)
+    provider: >-
+      The files atptour.com's Stats Centre pages load from itp-atp-sls.infosys-platforms.com, kept exactly as
+      served. The site encrypts them; this download does not decrypt them (the owner's instruction)
+    what: >-
+      ATP tour-level singles (250s, 500s, Masters, the ATP and Next Gen Finals, ATP Cup, Laver Cup), main draw
+      and qualifying, of events that began from 1 Jan 2015 to 17 Oct 2021, before atptour.com showed speeds.
+      Per match, where the host has them: key statistics, MatchBeats, rally analysis and Court Vision. Their
+      documented contents carry serve speed per set, per point and per tracked shot; what these copies hold
+      is unseen, since nothing is decrypted.
+    grain: point
+    tours: [men]
+    levels: [FIN, T1000, T500, T250, TEAM, TQ]
+    years: 2015 to 17 Oct 2021 (by event start)
+    status: downloading
+    how: encrypted
+    measured_as: []
+    raw: [data/raw/point_sources/infosys_atp/]
+    staged: null
+    adapter: src/ingest/point_sources/infosys_atp.py
+    evidence: data/studies/serve_speed_acquisition/
+    report: docs/studies/serve_speed_acquisition/README.md
+    decision: docs/decisions/2026-10-08-scraping-approved.md
+    rights: >-
+      atptour.com's terms forbid systematic retrieval; collected under the owner's decision of 8 Oct 2026.
+      The files stay encrypted until the owner says otherwise ("DO NOT DECRYPT IT"; the decision's
+      "Clarified" section)
+    backup: >-
+      The only copy. The host rewrites its files (the 2018 ATP Finals final's key statistics were rewritten on
+      6 Oct 2026) and may drop them. No copy outside this PC.
+    notes: >-
+      Download running on 8 Oct 2026, year by year: 2020, 2019 ... 2015, then 2021. The host holds far less
+      than planned for the early years: 2020's files start at Vienna (late October), and 2019 has only the
+      Next Gen and ATP Finals (run log, 16:35 UTC). Not staged: the files cannot be read without decryption.
+      The plan is ManTennisData's tour-level matches with their ATP codes; the 2020 ATP Cup and the
+      2017-2019 Laver Cups have no codes there and are not asked for.
+
+  - id: mantennisdata
+    name: ManTennisData (ATP Stats Centre match statistics with serve speeds)
+    provider: >-
+      The ATP Stats Centre's pages, rendered in Chrome and kept as plain CSV by a third party on GitHub
+      (msolonskyi/ManTennisData, commit 4e2d39f, updated every Sunday)
+    what: >-
+      Every ATP match of 2021-2026 (tour level, Challengers and Slams; 78,453 rows) with the box score.
+      From October 2021, the Stats Centre's per-player first-serve average, maximum and second-serve
+      average speed (km/h), next to first serves in. 10,057 matches carry both players' first-serve
+      average; the Slams carry none.
+    grain: stats
+    tours: [men]
+    levels: [GS, GSQ, FIN, T1000, T500, T250, TEAM, TQ, CH, CHQ]
+    years: 2021-2026 (speeds from October 2021); 1999-2020 not fetched (--years all)
+    status: on_disk
+    how: github
+    measured_as: []
+    raw: [data/raw/public_dump/mantennisdata/, data/raw/serve_speed_tabpfn_latency/mantennisdata/]
+    staged: [data/dump/matches/mantennisdata/]
+    adapter: src/ingest/public_dump/mantennisdata.py
+    evidence: data/studies/serve_speed_acquisition/
+    report: docs/studies/serve_speed_acquisition/README.md
+    decision: docs/decisions/2026-10-07-serve-speed-acquisition.md
+    rights: >-
+      MIT label on the repository, no data licence; the numbers are the ATP's, and atptour.com's terms
+      forbid systematic retrieval
+    notes: >-
+      Equal to the decrypted ATP key statistics on every match checked (5,847 of 2021-24 against the
+      Hugging Face handoff, 333 player-matches of 2025 against SirGenkii). Re-pull weekly with --commit
+      latest: a 2025 match's speed can arrive weeks late. No match date; the study links rows to Stage 0 by
+      names, tournament start date and round.
+
+  # ---------------------------------------------------------------- market data
+  - id: polymarket
+    name: Polymarket tennis markets and prices
+    provider: Polymarket's public Gamma and CLOB APIs
+    what: >-
+      Every tennis event and contract listed from 10 Sep 2025 to 7 Oct 2026, and minute-by-minute
+      prices of every match-winner market whose match day had passed by 5 Oct 2026 (40,292 markets,
+      69.3 million price rows), grouped by an inferred tournament level. Events captured while their
+      matches were still to be played are fetched again for their results (polymarket_catalog.py
+      --revisit), and price histories fetched before their market closed are fetched again.
+    grain: market
+    tours: [men, women]
+    levels: [GS, GSQ, FIN, T1000, T500, T250, TEAM, TQ, CH, ITF]
+    years: September 2025 - October 2026
+    status: on_disk
+    how: public_api
+    measured_as: []
+    raw: [data/raw/public_dump/polymarket_catalog/, data/raw/public_dump/polymarket_prices/]
+    staged: [data/dump/odds/polymarket/]
+    adapter: src/ingest/public_dump/polymarket_catalog.py, src/ingest/public_dump/polymarket_prices.py (every odds source at once with src/ingest/refresh_odds.py)
+    evidence: data/studies/tennis_data_audit/polymarket/
+    report: docs/research/tennis-data-audit/polymarket-census.md
+    rights: Polymarket's API terms
+    notes: >-
+      Prices are for the first outcome of each match-winner market only; set, total and handicap
+      contracts are listed but their prices were not fetched. ITF and doubles markets start in May 2026.
+
+  - id: polymarket_trades
+    name: Polymarket tennis trades, both sides, with wallets
+    provider: Polymarket's public Data API (trades endpoint, takerOnly=false)
+    what: >-
+      Every fill in the tennis match-winner markets whose match was on or before 5 Oct 2026 (40,171
+      markets requested): the taker's record and each matched maker order, with wallet address, side,
+      outcome, shares, price and time (38.1 million records; 36.0 million downloaded 25 Sep 2026, the
+      rest on 5 Oct 2026). A market fetched before it closed is fetched again on the next run.
+    grain: market
+    tours: [men, women]
+    levels: [GS, GSQ, FIN, T1000, T500, T250, TEAM, TQ, CH, ITF]
+    years: September 2025 - October 2026
+    status: on_disk
+    how: public_api
+    measured_as: []
+    raw: [data/raw/public_dump/polymarket_trades/]
+    staged: [data/dump/odds/polymarket/trades/]
+    adapter: src/ingest/public_dump/polymarket_trades.py
+    evidence: data/studies/polymarket_sharp_money/
+    report: docs/studies/polymarket_sharp_money/README.md
+    rights: Polymarket's API terms
+    notes: >-
+      The taker is the first record of each transaction (checked against takerOnly=true). Fees are not in
+      the records: fees taken in shares show as a taker BUY smaller than its makers' orders, and cash fees
+      (from 28 Apr 2026) have to be modelled; see the sharp-money study.
+
+  - id: polymarket_books_pmxt
+    name: Polymarket tennis order books, four days (PMXT archive)
+    provider: PMXT's public archive of Polymarket's CLOB WebSocket market channel (r2v2.pmxt.dev, hourly Parquet)
+    what: >-
+      Every order-book snapshot and level change of every tennis match-winner market from 31 Jul to
+      3 Aug 2026 (96 hours, 100.6 million rows): the first outcome's book, which mirrors the second, and
+      every trade print. Read over HTTP range requests on 6 Oct 2026 (32 GB read). The archive runs from
+      13 Apr to 10 Aug 2026 and holds about 75% of tennis markets, with long gaps (12-29 Jun, 10-14 Jul).
+    grain: market
+    tours: [men, women]
+    levels: [T1000, T500, T250, TQ, CH, ITF]
+    years: 31 Jul - 3 Aug 2026
+    status: on_disk
+    how: archive_reads
+    measured_as: []
+    raw: [data/raw/public_dump/pmxt_books/]
+    staged: [data/dump/odds/polymarket/books_pmxt/]
+    adapter: src/ingest/public_dump/pmxt_books.py
+    evidence: data/studies/line_sharpening/
+    report: docs/studies/line_sharpening/README.md
+    rights: >-
+      Public HTTPS without credentials; PMXT's hosted plans are for personal use and its SDK's MIT licence
+      does not by itself license the data. Kept for research only.
+    notes: >-
+      Only receipts are under raw/ (the archive's hourly files are not kept, only their tennis rows). The
+      archive sometimes lacks the rows that removed levels; the line-sharpening replay repairs them from each
+      row's best bid and ask.
+
+  - id: tennis_data_couk
+    name: tennis-data.co.uk results and closing odds
+    provider: tennis-data.co.uk workbooks, via Internet Archive captures (the live site is dead)
+    what: >-
+      Main-tour results with set scores and bookmakers' closing odds: ATP and WTA 2010 to 3 Aug 2026,
+      except ATP 2018, which no capture holds.
+    grain: market
+    tours: [men, women]
+    levels: [GS, FIN, T1000, T500, T250]
+    years: 2010-2026 (to 3 Aug; no ATP 2018)
+    status: on_disk
+    how: wayback
+    measured_as: []
+    raw: [data/raw/public_dump/tennis_data_couk/]
+    staged: [data/dump/odds/tennis_data_couk/]
+    adapter: src/ingest/public_dump/tennis_data_couk.py
+    evidence: data/studies/public_data_dump/
+    report: docs/studies/public_data_dump/README.md
+    rights: No explicit licence
+    notes: No odds exist in any public file below the main tours.
+
+  - id: oddstrader
+    name: BetOnline tennis opening and last lines (OddsTrader)
+    provider: oddstrader.com's own odds service (undocumented GraphQL, no login)
+    what: >-
+      Every ATP and WTA event OddsTrader lists from January 2024 to 6 October 2026 (31,508 events, 23,626
+      singles), and for the singles the opening line and the last line, each with its time, of BetOnline and
+      its sister brand SportsBetting.ag (identical; listed from January 2026), in the match-winner and
+      total-games markets. Of 22,854 singles played, 22,203 have BetOnline's opening and last match-winner line
+      (21,469 with a clean close) and 19,805 its total games. Tour-level events and Slams with their
+      qualifying; no Challenger or ITF. Pulled 7 Oct 2026 (UTC), 339 requests.
+    grain: market
+    tours: [men, women]
+    levels: [GS, GSQ, FIN, T1000, T500, T250, TQ]
+    years: 2024 - October 2026
+    status: on_disk
+    how: api_scrape
+    measured_as: []
+    raw: [data/raw/oddstrader/]
+    staged: [data/dump/odds/oddstrader/]
+    adapter: src/ingest/oddstrader.py
+    evidence: data/studies/betonline_lines/
+    report: docs/research/betonline-lines/README.md
+    decision: docs/decisions/2026-10-06-oddstrader-betonline-lines.md
+    rights: >-
+      OddsTrader's terms allow personal and informational use and say automated access may require written
+      permission; pulled without it on the owner's decision. Never republish: this repository is public.
+    notes: >-
+      "Opening" is the first line OddsTrader recorded. "Last" is its latest line: the close for 97% of
+      matches, but 587 are flagged uncertain (stamped over 30 minutes after the listed start, or not a
+      two-sided market). betonline_matches.parquet has one row per match with the flags. Line history is not
+      pulled.
+
+  # ---------------------------------------------------------------- reference and older copies
+  - id: atp_handoff_other
+    name: Other Hugging Face handoff files
+    provider: atlas-polybot/atp-pipeline-handoff
+    what: >-
+      Tennis Abstract player pages (553,359 player-match rows and bios), ATP player profiles, Davis Cup
+      rows from the ITF (ids only), Sackmann's ATP files before 2010, the uploader's notes and the file
+      tree, and the download logs.
+    grain: reference
+    tours: [men]
+    levels: []
+    years: 1968-2024
+    status: on_disk
+    how: hugging_face
+    measured_as: []
+    raw: [data/raw/public_dump/atp_pipeline_handoff/tennis_abstract/, data/raw/public_dump/atp_pipeline_handoff/atp_player_scrape/, data/raw/public_dump/atp_pipeline_handoff/itf_full/, data/raw/public_dump/atp_pipeline_handoff/itf_scraped/, data/raw/public_dump/atp_pipeline_handoff/tennis_atp/, data/raw/public_dump/atp_pipeline_handoff/_repo_root/, data/raw/public_dump/atp_pipeline_handoff/_tree/, data/raw/public_dump/atp_pipeline_handoff/_logs/]
+    staged: null
+    adapter: src/ingest/public_dump/atp_pipeline_handoff.py
+    evidence: data/studies/atp_pipeline_handoff/
+    report: docs/studies/atp_pipeline_handoff/README.md
+    decision: docs/decisions/2026-09-25-atp-pipeline-handoff.md
+    rights: No licence stated
+    backup: The dataset could be withdrawn; see the Infosys entry for the cloud copy.
+
+  - id: sackmann_point_strings
+    name: Sackmann's old point strings
+    provider: Two GitHub copies of Jeff Sackmann's tennis_pointbypoint (2015 and 2018 snapshots)
+    what: >-
+      Winner and server of every point for thousands of ATP, Challenger and Futures matches of 2011 to
+      January 2017. Before the map's window.
+    grain: point
+    tours: [men]
+    levels: [T250, TQ, CH, CHQ, ITF, ITFQ]
+    years: 2011-January 2017
+    status: on_disk
+    how: github
+    measured_as: []
+    raw: [data/raw/point_shot_sources/pbp_copy_2015/, data/raw/point_shot_sources/pbp_copy_2018/]
+    staged: null
+    adapter: src/eda/point_shot_sources/link_public_sources.py
+    evidence: data/studies/point_shot_sources/
+    report: docs/studies/point_shot_sources/README.md
+    rights: CC BY-NC-SA 4.0
+
+  - id: tennis_abstract_index
+    name: Tennis Abstract chart index
+    provider: tennisabstract.com/charting/meta.html
+    what: The list of all 18,262 charts on the website, used to measure what the export leaves out.
+    grain: reference
+    tours: [men, women]
+    levels: []
+    years: 1959-2026
+    status: on_disk
+    how: page_scrape
+    measured_as: []
+    raw: [data/raw/point_shot_sources/tennis_abstract/]
+    staged: null
+    adapter: src/eda/granular_data_leads/mcp_website_gap.py
+    evidence: data/studies/granular_data_leads/
+    report: docs/research/granular-data-leads/README.md
+    rights: Read once; robots.txt allows /charting/
+
+  - id: tml_revision_copies
+    name: Tennis My Life files as republished (revision copies)
+    provider: Tennis My Life's public file manifest, the same as tennis_my_life
+    what: >-
+      The Tennis My Life files that changed after the project's copy of 22 Sep 2026, saved beside it (never over
+      it) on 6 Oct 2026 to measure what the publisher changes after publication: the 2026 season files (new
+      matches only), the 2024 season file (one corrected score, new line endings) and the three
+      ongoing-tournament files, with the manifest and receipts. Also the publisher's own backup of 31 season
+      files from before its audit of 6 Sep 2026 (backup_ll_audit_20260906_044746/), the only versions older
+      than the project's copy.
+    grain: reference
+    tours: [men, women]
+    levels: []
+    years: 1968-2026 (the pre-audit backup); 2024 and 2026 (the revision copies)
+    status: on_disk
+    how: site_files
+    measured_as: []
+    raw: [data/raw/data_continuity/]
+    staged: null
+    adapter: src/eda/data_continuity/tml_revisions.py
+    evidence: data/studies/data_continuity/
+    report: docs/studies/data_continuity/README.md
+    rights: As tennis_my_life
+    notes: >-
+      Not staged and not read by Stage 0. The adapter's own copy is untouched; from 6 Oct 2026 the adapter keeps
+      replaced files itself, under data/raw/public_dump/tennis_my_life/superseded/.
+
+  - id: scheduled_downloads_log
+    name: Scheduled downloads' run log
+    provider: The project (Windows Task Scheduler running src/ingest/scheduled.py daily)
+    what: >-
+      Bookkeeping, not data: one line per daily run with each job's outcome (Tennis My Life every day, the source
+      watch on Mondays, reminders when a Grand Slam's official feed is due), the state the next run compares
+      against (files held, canary flags, reminders sent), and each job's output under logs/.
+    grain: reference
+    tours: [men, women]
+    levels: []
+    years: from 6 Oct 2026
+    status: on_disk
+    how: project
+    measured_as: []
+    raw: [data/raw/_scheduled/]
+    staged: null
+    adapter: src/ingest/scheduled.py
+    evidence: data/raw/_scheduled/runs.jsonl
+    report: docs/decisions/2026-10-06-download-cadence.md
+    rights: The project's own records
+    backup: Needs none; the downloads it records keep their own receipts.
+    notes: >-
+      The downloads themselves land in their sources' folders (data/raw/public_dump/tennis_my_life/ and so on).
+
+  - id: wayback_cdx
+    name: Wayback capture indexes of the official feeds
+    provider: Internet Archive CDX API
+    what: Lists of every archived copy of the Slam and WTA feed URLs, used to find old point data.
+    grain: reference
+    tours: [men, women]
+    levels: []
+    years: 2016-2026
+    status: on_disk
+    how: wayback
+    measured_as: []
+    raw: [data/raw/point_sources/wayback_cdx/]
+    staged: null
+    adapter: src/eda/official_point_feeds/wayback_survey.py
+    evidence: data/studies/official_point_feeds/
+    report: docs/studies/official_point_feeds/README.md#older-editions-in-the-wayback-machine-all-feeds
+    rights: Internet Archive terms
+
+  - id: gap_source_probes
+    name: Gap-source probes (29 Sep 2026)
+    provider: The gap-sources check's bounded reads of SofaScore, TennisLive, the ITF's live-data API and site, the WTA API, Tennis Abstract, Wikipedia and GitHub
+    what: >-
+      The answers behind the gap-sources research: sampled SofaScore and TennisLive match pages for each gap, the ITF's
+      own live-data API and event pages (the last 14 days, with statistics and points), WTA 2018 probes, Tennis Abstract
+      chart pages, Wikipedia's ITF event lists for July-September 2026, and research copies of the Hawk-Eye, ryurko,
+      SirGenkii and TennisNLData repositories (trees and samples).
+    grain: reference
+    tours: [men, women]
+    levels: []
+    years: 2018-2026 (samples)
+    status: on_disk
+    how: sample_reads
+    measured_as: []
+    raw: [data/raw/gap_sources/sofascore/, data/raw/gap_sources/tennislive/, data/raw/gap_sources/itf/, data/raw/gap_sources/wta/, data/raw/gap_sources/tennisabstract/, data/raw/gap_sources/wikipedia/, data/raw/gap_sources/hawkilol/, data/raw/gap_sources/ryurko/, data/raw/gap_sources/sirgenkii/, data/raw/gap_sources/ramizheman/]
+    staged: null
+    adapter: src/eda/gap_sources/sample.py
+    evidence: data/studies/gap_sources/
+    report: docs/research/gap-sources/README.md
+    rights: Read as bounded measurements; see each source's entry
+    notes: >-
+      Samples, not collections: they measured what each source holds (the universe section of the map), and are not
+      counted as data held. The Hawk-Eye and SirGenkii copies used for data are the public_dump ones.
+
+  - id: inherited_snapshots
+    name: Inherited June 2026 downloads
+    provider: The earlier one-shot scaffold's downloaders
+    what: >-
+      Sackmann ATP 2023-2025 and tennis-data.co.uk 2024-2026 files as downloaded in June 2026. Superseded
+      by the public data dump; kept for a later diff.
+    grain: result
+    tours: [men, women]
+    levels: [GS, FIN, T1000, T500, T250]
+    years: 2023-2026
+    status: on_disk
+    how: site_files
+    measured_as: []
+    raw: [data/raw/sackmann/, data/raw/tennis_data_couk/]
+    staged: null
+    adapter: src/ingest/download_sackmann.py, src/ingest/download_tennis_data_couk.py
+    evidence: null
+    report: docs/studies/public_data_dump/README.md
+    rights: As their sources
+
+in_progress:
+  checked_at: "2026-10-08 16:35 UTC"
+  rule: >-
+    Counted as downloading only if a Claude Code session is running the download now (owner, 25 Sep
+    2026); one waiting for approval does not count. Checked from the running processes and the files
+    being written.
+  scrapes:
+    - dataset: infosys_atp
+      what: >-
+        The ATP Stats Centre's encrypted match files of 2015 to October 2021 (key statistics, MatchBeats points,
+        rally analysis, Court Vision), one season at a time: 2020, 2019, 2018, 2017, 2016, 2015, then 2021
+      command: for each season, ./python.sh -m src.ingest.point_sources.infosys_atp --years <season> --max-requests 6000
+      started: "2026-10-08 15:33 UTC"
+      progress: >-
+        At 16:35 UTC: 2020 done (files for its last four events only: Vienna, Paris, Sofia and the ATP Finals);
+        2019 done (only the Next Gen and ATP Finals); 2018 under way, with no files in its first 37 events.
+        No request has failed.
+      expected_done: >-
+        Seasons without files take about 20-30 minutes, so 2015-2018 should end within a few hours of the start;
+        2021, last in the loop, holds most of the files and takes longest. Probably 9 Oct 2026
+      after: Kept encrypted on the owner's instruction ("DO NOT DECRYPT IT"), so the map counts it as locked, not held.
+  not_counted:
+    - The daily scheduled downloads (Windows task; Tennis My Life every day, a source watch on Mondays) run once a day and were not running at the check.
+    - The WTA batches B1-B9 and TDI's sweep, running on 25 Sep, have finished and are on disk.
+
+gaps:
+  - id: itf_detail
+    title: ITF matches of 2018-2024 with only a result
+    select: {tours: [M, W], levels: [ITF], years: [2018, 2019, 2020, 2021, 2022, 2023, 2024], below: stats}
+    why: >-
+      No file on disk has box scores for ITF matches before 2025, or points outside the June 2026 sample
+      and the ten careers.
+    could_come_from: >-
+      SofaScore: a box score for 82 and every point for 78 of 84 sampled matches (about 196,600 and 186,600 of the
+      gap). TennisLive: a box score for 81 of 84, points without the set-closing games. Both adapters exist; SofaScore
+      needs a by-tournament listing mode (about 420,000 requests, six days in the Chrome-tab mode).
+    lead: docs/research/gap-sources/README.md
+  - id: challenger_points_2018_2021
+    title: Challenger point by point, 2018-2021
+    select: {tours: [M], levels: [CH, CHQ], years: [2018, 2019, 2020, 2021], below: point}
+    why: The Infosys copy starts in mid-2021 and marks only aces and double faults at Challengers; nothing else on disk reaches them.
+    could_come_from: >-
+      TennisLive (points on 98% of the ten careers' Challenger matches of 2012-2021, without the set-closing games) and
+      SofaScore (33% in 2012-18, 74% in 2019-21 for the same careers).
+    lead: docs/studies/point_shot_sources/README.md
+  - id: challenger_points_2025
+    title: Challenger point by point, 2025 to June 2026
+    select: {tours: [M], levels: [CH, CHQ], years: [2025, 2026], below: point}
+    why: The Infosys copy ends with 2024, and TDI lists only its last ~92 days (from late June 2026).
+    could_come_from: >-
+      SofaScore: every point for 31 and a box score for 32 of 32 sampled matches (about 14,000). TennisLive: points
+      on 32 of 32, mostly without the set-closing games. The ATP's own Stats Centre files exist for Challengers too
+      (encrypted; decryption approved on 8 Oct 2026).
+    lead: docs/research/gap-sources/README.md
+  - id: atp_points_2018_2020
+    title: ATP tour-level and qualifying point by point, 2018-2020
+    select: {tours: [M], levels: [FIN, T1000, T500, T250, TQ], years: [2018, 2019, 2020], below: point}
+    why: >-
+      The Infosys copy starts in 2021; the SofaScore copy on disk (marcosjn2) holds most main-draw matches but little
+      qualifying.
+    could_come_from: >-
+      SofaScore itself; TennisLive for qualifying. The ATP Stats Centre files, downloading now (kept encrypted on
+      the owner's instruction), cover only the end of this span: the host has files from Vienna 2020 (late October)
+      and for the 2019 Finals, none so far for the other events of 2018-2020.
+    lead: docs/studies/serve_speed_acquisition/README.md
+  - id: itf_after_june_2026
+    title: ITF results after June 2026 (men) and after early September (women)
+    select: {tours: [M, W], levels: [ITF, ITFQ], years: [2026], missing: true}
+    why: >-
+      Sackmann's mirror stops on 1-2 June 2026; the WTA website records on disk (version of 24 Sep) reach early September
+      for women. Nothing on disk lists men's ITF results since June.
+    could_come_from: >-
+      TennisLive lists every sampled ITF event with results and statistics, qualifying included (one request lists an
+      event); the WTA API's player-matches endpoint for women; Polymarket's settled markets (on disk) name the winners of
+      about 91% of men's and 95% of women's main-draw matches; the ITF's own live-data API holds the last 14 days.
+    lead: docs/research/gap-sources/README.md
+  - id: men_itf_qualifying
+    title: Men's ITF qualifying, every year
+    select: {tours: [M], levels: [ITFQ], years: [2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025, 2026], missing: true}
+    why: No file on disk lists men's ITF qualifying, so the map cannot even count it.
+    could_come_from: >-
+      TennisLive lists it (318 matches in 8 events of July-September 2026, all with results); the ITF's live-data API
+      from now on; Polymarket names qualifying winners from 27 Jul 2026.
+    lead: docs/research/gap-sources/README.md
+  - id: wta_2018_points
+    title: WTA point by point in 2018
+    select: {tours: [W], levels: [FIN, T1000, T500, T250, TQ, CH, CHQ], years: [2018], below: point}
+    why: The WTA API's point log is empty for 2018; the SofaScore copy on disk (marcosjn2) holds most main draws but no qualifying.
+    could_come_from: >-
+      SofaScore itself (every point for 19 of 22 sampled main-draw matches) and TennisLive (points on 32 of 32,
+      qualifying included, without the set-closing games).
+    lead: docs/research/gap-sources/README.md
+  - id: women_shots
+    title: Shot-by-shot data for women's matches
+    select: {tours: [W], levels: [GS, FIN, T1000, T500, T250], years: [2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025, 2026], below: shot}
+    why: >-
+      Only volunteer charts and the Hawk-Eye copy of the Australian Open and Roland Garros (to 2024) reach women's
+      matches; the WTA serves no tracking.
+    could_come_from: >-
+      2,061 women's charts that exist only on tennisabstract.com (1,467 of them in the Hugging Face copy
+      ramizheman/TennisNLData, 594 pages to parse). About 15,000 women's matches have no public shot source at all.
+    lead: docs/research/gap-sources/README.md
+
+universe:
+  explain: >-
+    What exists outside data/: sources measured (or, where marked, inferred) to hold the map's matches at a finer level
+    than its files do. Shares are of all the matches in the rows and years named, from the gap-sources samples of 29 Sep
+    2026 unless noted. "Exists publicly" on the map adds every route except paid ones. A source marked `disjoint` holds
+    only matches the map has nothing at its level for, so its matches add to ours instead of overlapping them.
+  routes:
+    - {id: collect_now, name: "Public, not collected yet", explain: "Served publicly; collectable under the owner's decision of 8 Oct 2026; an adapter exists or nearly does."}
+    - {id: on_disk_locked, name: "On disk but encrypted", explain: "Downloaded, but kept encrypted on the owner's instruction, so unreadable for now."}
+    - {id: forward_only, name: "From now on only", explain: "Served only for recent days: it can be captured from now on, not for past matches."}
+    - {id: paid, name: "Paid or licensed", explain: "Sold by a vendor; claims not checked, nothing bought. Not counted in 'exists publicly'."}
+  sources:
+    - id: sofascore_itf
+      source: SofaScore, ITF 2018-2024
+      route: collect_now
+      select: {tours: [M, W], levels: [ITF], years: [2018, 2019, 2020, 2021, 2022, 2023, 2024]}
+      shares: {point: 0.93, stats: 0.98}
+      evidence: "84 sampled ITF matches of 2018-2024: box score 82, every point 78"
+      effort: About 420,000 requests; six days in the Chrome-tab mode
+      lead: docs/research/gap-sources/README.md
+    - id: tennislive_itf
+      source: TennisLive.net, ITF 2019-2026
+      route: collect_now
+      select: {tours: [M, W], levels: [ITF, ITFQ], years: [2019, 2020, 2021, 2022, 2023, 2024, 2025, 2026]}
+      shares: {result: 1.0, stats: 0.96, point: 0.9}
+      evidence: "81 of 84 sampled 2018-24 matches with a box score and points (set-closing games missing); every sampled event after June 2026 listed in full with results"
+      effort: About 210,000 page requests for 2018-24; one request lists an event
+      lead: docs/research/gap-sources/README.md
+    - id: sofascore_challenger
+      source: SofaScore, Challengers 2024 to June 2026
+      route: collect_now
+      select: {tours: [M], levels: [CH, CHQ], years: [2024, 2025, 2026]}
+      shares: {point: 0.97, stats: 1.0}
+      evidence: "31 of 32 sampled matches of 2025-26 with every point; 99% of the ten careers' 2024 Challenger matches"
+      effort: About 30,000 requests
+      lead: docs/research/gap-sources/README.md
+    - id: tennislive_challenger
+      source: TennisLive.net, Challengers 2018-2026
+      route: collect_now
+      select: {tours: [M], levels: [CH, CHQ], years: [2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025, 2026]}
+      shares: {point: 0.95, stats: 0.95}
+      evidence: "points on 95-99% of the ten careers' Challenger matches in every period (set-closing games usually missing); 32 of 32 sampled 2025-26 matches"
+      effort: One page per match
+      lead: docs/studies/point_shot_sources/README.md
+    - id: sofascore_tour
+      source: SofaScore, tour level 2018-2026
+      route: collect_now
+      select: {tours: [M, W], levels: [GS, FIN, T1000, T500, T250], years: [2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025, 2026]}
+      shares: {point: 0.9, stats: 0.95}
+      evidence: "inferred: 34 of 36 sampled ATP 2025 and 19 of 22 WTA 2018 main-draw matches with every point; the copy on disk (marcosjn2) is a subset"
+      effort: About 2 requests a match
+      lead: docs/research/gap-sources/README.md
+    - id: tennislive_qualifying
+      source: TennisLive.net, tour qualifying 2018-2021
+      route: collect_now
+      select: {tours: [M, W], levels: [TQ, GSQ], years: [2018, 2019, 2020, 2021]}
+      shares: {point: 0.8, stats: 0.8}
+      evidence: "inferred from thin samples: 8 of 10 of the ten careers' tour qualifying matches of 2012-18; 10 of 10 sampled WTA 2018 qualifying matches"
+      effort: One page per match
+      lead: docs/research/gap-sources/README.md
+    - id: wta_site_refresh
+      source: WTA website records, refreshed (WTA API player matches)
+      route: collect_now
+      select: {tours: [W], levels: [ITF, ITFQ], years: [2026]}
+      shares: {result: 1.0}
+      evidence: "the Kaggle copy on disk stops in early September; the same endpoint answers for later weeks (one request checked)"
+      effort: One request per player and year
+      lead: docs/research/gap-sources/README.md
+    - id: ta_charts_women
+      source: Tennis Abstract website-only charts (women)
+      route: collect_now
+      select: {tours: [W], levels: [GS, FIN, T1000, T500, T250], years: [2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025, 2026]}
+      counts_by_year: {shot: {2018: 298, 2019: 377, 2020: 137, 2021: 219, 2022: 216, 2023: 307, 2024: 193, 2025: 183, 2026: 131}}
+      disjoint: true
+      evidence: "2,061 women's website-only charts of matches no file has shots for; 1,467 in the Hugging Face copy ramizheman/TennisNLData (not on disk: the copy on disk is men's), 594 pages to parse"
+      effort: Hugging Face download plus 594 pages
+      lead: docs/research/gap-sources/README.md
+    - id: atp_statscentre_locked
+      source: ATP Stats Centre files 2015 - Oct 2021 (downloading, encrypted)
+      route: on_disk_locked
+      select: {tours: [M], levels: [FIN, T1000, T500, T250, TEAM, TQ], years: [2018, 2019, 2020, 2021]}
+      counts_from: infosys_atp
+      evidence: "counted from the files on disk: matches with a MatchBeats (point) file and with a Court Vision (shot) file, by season and level. The host has few before late 2020"
+      effort: Decryption (the owner's call); the download itself is running
+      lead: docs/studies/serve_speed_acquisition/README.md
+    - id: atp_statscentre_2025
+      source: ATP Stats Centre files 2025-2026 (tour level and Challengers)
+      route: collect_now
+      select: {tours: [M], levels: [FIN, T1000, T500, T250, TQ, CH, CHQ], years: [2025, 2026]}
+      shares: {point: 0.8}
+      evidence: "16 of 20 sampled 2025-26 matches have files (encrypted); decryption approved on 8 Oct 2026; a daily collector for the current season is being built"
+      effort: About 4 requests a match, plus decryption
+      lead: docs/research/gap-sources/README.md
+    - id: itf_live_api
+      source: The ITF's live-data API (every level, qualifying, statistics, points)
+      route: forward_only
+      select: {tours: [M, W], levels: [ITF, ITFQ], years: [2026]}
+      shares: {}
+      evidence: "the last 14 days only; older dates answer HTTP 422"
+      effort: One day list a day, plus statistics and points per match
+      lead: docs/research/gap-sources/README.md
+    - id: live_tennis_api_archive
+      source: Live Tennis API archive (paid)
+      route: paid
+      select: {tours: [M, W], levels: [CH, CHQ, ITF], years: [2023, 2024, 2025, 2026]}
+      shares: {}
+      evidence: "vendor's claim: a point sequence for 99.6% of indexed Challenger and 99.3% of ITF men's singles; its index lists 83.5% of 2025-26 Challenger matches. $49 a month"
+      effort: Purchase; storage limited by its terms
+      lead: docs/studies/point_shot_sources/README.md
+    - id: sportradar
+      source: Sportradar Tennis API (paid)
+      route: paid
+      select: {tours: [M, W], levels: [T1000, T500, T250, TQ, CH, CHQ], years: [2024, 2025, 2026]}
+      shares: {}
+      evidence: "documented: ATP and Challenger point by point from round 1, WTA 250 and 125 from the semi-finals, in a rolling window of the current season and the two adjacent ones; no betting use"
+      effort: Enterprise quote
+      lead: docs/research/granular-data-leads/README.md
+
+cell_notes:
+  - {tours: [M, W], levels: all, years: [2020], note: "The tours stopped from March to August 2020 (COVID-19)."}
+  - {tours: [M], levels: [CH], years: [2019], note: "In 2019 Challenger main draws grew to 48 players, so this row holds matches that would otherwise be qualifying."}
+  - {tours: [M], levels: [CHQ], years: [2019, 2020, 2021], note: "Little qualifying: the 48-player Challenger draws of 2019 replaced most of it, and it came back gradually."}
+  - {tours: [M], levels: [ITFQ], years: all, note: "No file on disk lists men's ITF qualifying. These few matches come from the ten-career scrapes, so the row does not show how many were played."}
+  - {tours: [W], levels: [ITFQ], years: all, note: "Women's ITF qualifying comes from Sackmann (2019-2024) and the WTA website's records (every year, to early September 2026)."}
+  - {tours: [W], levels: [GSQ], years: [2018, 2019, 2020], note: "The files hold women's Slam qualifying only in part for these years; the shortfall is counted from the draw sizes."}
+  - {tours: [M, W], levels: [FIN], years: [2026], note: "The Finals are played in November."}
+  - {tours: [W], levels: [FIN], years: [2020], note: "Cancelled (COVID-19)."}
+  - {tours: [M, W], levels: [GS], years: [2018, 2019, 2020, 2021], note: "Point data from Sackmann's Slam archive, the Slams' feeds and SofaScore copies; shot data from charts and the Hawk-Eye copy of the Australian Open and Roland Garros."}
+  - {tours: [M, W], levels: [GS], years: [2022, 2023, 2024], note: "Every Slam has point data: Wimbledon and the US Open from their feeds, the Australian Open and Roland Garros from SofaScore and the Hawk-Eye copy, which also tracks every stroke for many of their matches."}
+  - {tours: [M, W], levels: [GS], years: [2025, 2026], note: "Point data from the Slams' feeds, the decrypted Infosys files (AO 2025, RG 2025-26) and SofaScore; shot data from charts only."}
+  - {tours: [M], levels: [T1000, T500, T250, FIN, TQ], years: [2022, 2023, 2024], note: "Shot data here is Hawk-Eye ball tracking (Court Vision) plus volunteer charts."}
+  - {tours: [M, W], levels: [T1000, T500, T250, FIN], years: [2018, 2019, 2020], note: "Point data mostly from the Kaggle copy of SofaScore (marcosjn2): every point's winner, with no serve or outcome codes."}
+  - {tours: [M], levels: [T1000, T500, T250, FIN, TQ], years: [2025, 2026], note: "Point data from SofaScore (by tournament), SirGenkii's Infosys copy (January-April 2025) and TDI (from late June 2026)."}
+  - {tours: [M], levels: [CH, CHQ], years: [2026], note: "Point data from late June only (TDI's listing window)."}
+  - {tours: [M, W], levels: [ITF], years: [2026], note: "Men's results stop in early June and women's in early September; the June point data is the Live Tennis API's one-month sample."}
+  - {tours: [W], levels: [FIN, T1000, T500, T250, TQ, CH, CHQ], years: [2019], note: "The WTA's point log starts on 1 April 2019; earlier logs are served empty."}
+
+not_in_the_map:
+  - Doubles and mixed doubles (held in the Slam feeds, the WTA point log, TDI, Infosys and Sackmann to 2020).
+  - Junior, wheelchair, legends and exhibition matches.
+  - Matches before 2018.
+  - Rankings and player tables (Sackmann weekly rankings to 8 Jun 2026; TML ATP rankings of 31 Aug 2026).
+  - The IBM extras at Wimbledon and the US Open (likelihood-to-win, TennisViz, limb tracking, key moments, distance run).

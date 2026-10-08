@@ -6,13 +6,20 @@ every event whose id is above the highest id already known (census or a previous
 pages are stored with receipts; normalised rows use the same fields as the census
 (src/eda/tennis_data_audit/polymarket_census.py) so polymarket_prices can merge both catalogs.
 
+An event captured before its matches finished keeps its open markets in the catalog: no result, no close
+time. --revisit fetches again every event with a match-winner market that the staged index
+(data/dump/odds/polymarket/, built by polymarket_prices.py) still shows open, once its sporting date is
+--settle-hours past, and appends the current rows to the same files with catalog "revisit".
+polymarket_prices.py then uses the latest row of each event and market.
+
 Layout:
-    data/raw/public_dump/polymarket_catalog/pages/<run>/<offset>.json     raw pages
+    data/raw/public_dump/polymarket_catalog/pages/<run>/<offset>.json     raw pages (revisits: <run>-revisit)
     data/raw/public_dump/polymarket_catalog/events_extension.jsonl         normalised events (append-only)
     data/raw/public_dump/polymarket_catalog/markets_extension.jsonl.gz     normalised markets (append-only)
 
 Usage:
     ./python.sh -m src.ingest.public_dump.polymarket_catalog
+    ./python.sh -m src.ingest.public_dump.polymarket_catalog --revisit
 """
 from __future__ import annotations
 
@@ -22,8 +29,11 @@ import gzip
 import json
 import re
 import sys
+import time
 import urllib.parse
 from pathlib import Path
+
+import pandas as pd
 
 if not __package__:
     sys.path.insert(0, str(Path(__file__).resolve().parents[3]))
@@ -35,6 +45,9 @@ GAMMA = "https://gamma-api.polymarket.com"
 CENSUS_EVENTS = C.PROJECT_ROOT / "data" / "studies" / "tennis_data_audit" / "polymarket" / "events.jsonl"
 TENNIS_TAG = 864
 PAGE_SIZE = 100
+INDEX_DIR = C.PROJECT_ROOT / "data" / "dump" / "odds" / "polymarket"
+REVISIT_BATCH = 50   # event ids per /events request; checked with batches of 3 and 50 on 5 Oct 2026
+SETTLE_HOURS = 6.0
 MARKET_FIELDS = ("id", "question", "slug", "conditionId", "questionID", "sportsMarketType", "line", "gameStartTime",
                  "eventStartTime", "startDate", "endDate", "createdAt", "closedTime", "closed", "volume", "volumeNum",
                  "resolutionSource", "description", "umaResolutionStatus", "feesEnabled", "feeType", "feeSchedule",
@@ -68,7 +81,7 @@ def unpack(value):
     return value or []
 
 
-def normalise_event(event: dict, retrieved_at: str) -> tuple[dict, list[dict]]:
+def normalise_event(event: dict, retrieved_at: str, catalog: str = "extension") -> tuple[dict, list[dict]]:
     """Same row shape as the census, plus catalog provenance."""
     eid = str(event["id"])
     slug = event.get("slug", "")
@@ -90,13 +103,13 @@ def normalise_event(event: dict, retrieved_at: str) -> tuple[dict, list[dict]]:
            "tags": [{"id": t.get("id"), "label": t.get("label"), "slug": t.get("slug")} for t in unpack(event.get("tags"))],
            "gameId": event.get("gameId"), "seriesSlug": event.get("seriesSlug"),
            "eventMetadata": event.get("eventMetadata"), "sport": event.get("sport"),
-           "market_count": len(event.get("markets", [])), "catalog": "extension", "catalog_retrieved_at": retrieved_at}
+           "market_count": len(event.get("markets", [])), "catalog": catalog, "catalog_retrieved_at": retrieved_at}
     markets = []
     for m in event.get("markets", []):
         mr = {k: m.get(k) for k in MARKET_FIELDS}
         mr.update({"event_id": eid, "event_slug": slug, "in_sport_window": None,
                    "outcomes": unpack(m.get("outcomes")), "outcomePrices": unpack(m.get("outcomePrices")),
-                   "clobTokenIds": unpack(m.get("clobTokenIds")), "catalog": "extension",
+                   "clobTokenIds": unpack(m.get("clobTokenIds")), "catalog": catalog,
                    "catalog_retrieved_at": retrieved_at})
         markets.append(mr)
     return row, markets
@@ -175,14 +188,68 @@ def run(args) -> dict:
     return summary
 
 
+def revisit_targets(events: pd.DataFrame, markets: pd.DataFrame, now: float,
+                    settle_hours: float = SETTLE_HOURS) -> list[str]:
+    """Event ids to fetch again: an event with a match-winner market the staged index still shows open
+    (closed is not "True"), whose sporting date is at least settle_hours before now."""
+    open_ids = markets.loc[(markets.sportsMarketType == "moneyline") & markets.closed.ne("True"), "event_id"]
+    sport = pd.to_datetime(events.drop_duplicates("id", keep="last").set_index("id").sport_date, utc=True,
+                           errors="coerce").reindex(open_ids.dropna().unique())
+    due = sport <= pd.Timestamp(now, unit="s", tz="UTC") - pd.Timedelta(hours=settle_hours)
+    return sorted(str(i) for i in sport.index[due.to_numpy()])
+
+
+def revisit(args) -> dict:
+    """Fetch the current rows of events captured with open match-winner markets and append them."""
+    receipts = C.Receipts(SOURCE)
+    events = pd.read_parquet(INDEX_DIR / "event_index.parquet", columns=["id", "sport_date"])
+    markets = pd.read_parquet(INDEX_DIR / "market_index.parquet", columns=["event_id", "sportsMarketType", "closed"])
+    targets = revisit_targets(events, markets, time.time(), args.settle_hours)
+    run_id = dt.datetime.now(dt.timezone.utc).strftime("%Y%m%dT%H%M%SZ") + "-revisit"
+    C.log(f"[{SOURCE}] revisit: {len(targets)} events with open match-winner markets {args.settle_hours:g}+ hours "
+          "past their sporting date")
+    rows, market_rows = [], []
+    for batch_number, first in enumerate(range(0, len(targets), REVISIT_BATCH)):
+        batch = targets[first:first + REVISIT_BATCH]
+        url = f"{GAMMA}/events?" + urllib.parse.urlencode([("id", i) for i in batch] + [("limit", len(batch))])
+        dest = C.raw_path(SOURCE, "pages", run_id, f"{batch_number:04d}.json")
+        receipt = C.download(url, dest, receipts, name=f"pages/{run_id}/{batch_number:04d}.json", refresh=True,
+                             validator=C.not_html, extra={"run_id": run_id, "revisit_ids": len(batch)})
+        if receipt.get("error"):
+            raise RuntimeError(f"Gamma revisit batch {batch_number} failed: {receipt['error']}")
+        for event in json.loads(dest.read_text(encoding="utf-8")):
+            row, event_markets = normalise_event(event, receipt["retrieved_at"], catalog="revisit")
+            rows.append(row)
+            market_rows.extend(event_markets)
+    if rows:
+        with events_path().open("a", encoding="utf-8") as handle:
+            for row in rows:
+                handle.write(json.dumps(row, ensure_ascii=False) + "\n")
+        with gzip.open(markets_path(), "at", encoding="utf-8") as handle:
+            for row in market_rows:
+                handle.write(json.dumps(row, ensure_ascii=False) + "\n")
+    moneylines = [m for m in market_rows if m.get("sportsMarketType") == "moneyline"]
+    summary = {"source": SOURCE, "run_id": run_id, "mode": "revisit", "targets": len(targets),
+               "events_returned": len(rows), "markets_written": len(market_rows),
+               "moneylines_now_closed": sum(bool(m.get("closed")) for m in moneylines),
+               "moneylines_still_open": sum(not m.get("closed") for m in moneylines)}
+    C.log(f"[{SOURCE}] {json.dumps(summary)}")
+    return summary
+
+
 def add_arguments(parser: argparse.ArgumentParser) -> None:
     parser.add_argument("--max-pages", type=int, default=400, help="safety cap on Gamma pages per run")
+    parser.add_argument("--revisit", action="store_true",
+                        help="fetch again the events whose match-winner markets the staged index shows open")
+    parser.add_argument("--settle-hours", type=float, default=SETTLE_HOURS,
+                        help="revisit only events at least this many hours past their sporting date")
 
 
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     add_arguments(parser)
-    run(parser.parse_args())
+    args = parser.parse_args()
+    revisit(args) if args.revisit else run(args)
     return 0
 
 

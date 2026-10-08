@@ -19,25 +19,55 @@ data/studies/tennis_data_audit/public/polymarket_public_candidate_links.json
 data/studies/tennis_data_audit/public/polymarket_public_unmatched.json
 data/studies/tennis_data_audit/public/open_tennis_quarantine_records.json
 
+# The data map's cache of slow-source summaries (rebuilt by src/eda/data_map/measure.py --refresh)
+data/studies/data_map/_cache/
+
 # Parquet here is always a staged or derived table rebuilt by scripts, and a DuckDB file would be
 # rebuilt from Parquet. Keep hand-curated tables as CSV or YAML so they stay tracked.
 *.parquet
 *.duckdb
 *.duckdb.wal
 
-# Every file over 50 MB (50,000,000 bytes) as of 23 Sep 2026, listed by name so it stays ignored if a
-# rule above is narrowed. GitHub warns above 50 MiB and rejects files above 100 MiB.
-# How to regenerate or re-download each one: data/LARGE_FILES.md
+# Every file over 50 MB (50,000,000 bytes) in data/, listed by name, or by folder where a folder holds
+# many, so it stays ignored if a rule above is narrowed. GitHub warns above 50 MiB and rejects files
+# above 100 MiB. How to regenerate or re-download each one: data/LARGE_FILES.md. Its last section has
+# the check (and the fix) for large files git would pick up. Last checked 25 Sep 2026: 94 files, all
+# ignored, none tracked.
 data/studies/tennis_data_audit/polymarket/markets.jsonl.gz
 data/dump/odds/polymarket/market_index.parquet
+data/dump/odds/polymarket/trades/
 data/raw/public_dump/polymarket_prices/bodies/itf.jsonl.gz
 data/raw/public_dump/polymarket_prices/bodies/challenger_125_inferred.jsonl.gz
+data/raw/public_dump/polymarket_trades/
 data/raw/public_dump/match_charting_project/charting-m-points-2020s.csv
+data/raw/public_dump/atp_pipeline_handoff/
+data/studies/polymarket_sharp_money/*.parquet
+data/studies/predictability_diagnostic/stage0_match_players.parquet
+data/studies/predictability_diagnostic/stage4_features.parquet
+data/studies/line_sharpening/prices.parquet
+data/studies/line_sharpening/takers.parquet
+data/studies/feature_interactions/round1/_panel_aug.parquet
+data/studies/feature_interactions/round1/_history_feats_2010_2024.parquet
+data/studies/feature_universe/store.parquet
+data/studies/match_timing/undated_matches.csv
+
+# Archives and backup bundles anywhere in data/ are never committed, whatever their size. Backups go to
+# cold storage (gs://tennis-predictions-archive; see data/LARGE_FILES.md).
+data/backups/
+# The copies a coordinated Stage 0 rebuild keeps of what it replaced (src/eda/data_continuity/rebuild_stage0.py);
+# each rebuild's rebuild.json and id_map.csv stay tracked.
+data/studies/data_continuity/rebuilds/*/replaced/
+data/**/*.zip
+data/**/*.7z
+data/**/*.tar
+data/**/*.tar.gz
+data/**/*.tgz
 
 # Model artifacts
 data/ml_train_output/
 
 # Python
+data/studies/data_continuity/pytest_tmp/
 __pycache__/
 *.pyc
 .pytest_cache/
@@ -46,3 +76,6 @@ __pycache__/
 # OS noise
 desktop.ini
 Thumbs.db
+
+# Large files appended by the fix command in data/LARGE_FILES.md ("Keeping this list current"). Move
+# each into the list of files over 50 MB above, and describe it in data/LARGE_FILES.md.

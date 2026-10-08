@@ -62,7 +62,7 @@ def main() -> int:
         handle.write(json.dumps(entry, ensure_ascii=False, default=str) + "\n")
     if not args.no_manifest:
         build_manifest.main()
-    failed = {k: v for k, v in summaries.items() if v.get("fatal") or v.get("errors")}
+    failed = {k: v for k, v in summaries.items() if v.get("fatal") or v.get("errors") or v.get("held")}
     for key, summary in summaries.items():
         C.log(f"[{key}] staged_files={summary.get('staged_files')} rows={summary.get('staged_rows')} "
               f"errors={len(summary.get('errors') or [])} fatal={summary.get('fatal')}")

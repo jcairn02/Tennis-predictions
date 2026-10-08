@@ -1,0 +1,604 @@
+column,group,kind,partner,hid,store_flag,feature_id,name,family,status,timing_class,feature_ids,near_miss_tier,seen_2025_2026,priority,aliases,cov_2013_2021,cov_2022_2024,cov_2025_2026
+m__odds_logit,m,diff,,,,U-001,"closing price, average of books (odds_logit)",market,in_model,safe by construction,U-001; U-003,none,yes,high,,1.0,1.0,1.0
+m__ratings_iid,m,diff,,,,U-016,iid serve/return matchup (ratings_iid),ratings,in_model,safe by construction,U-016,none,yes,high,,1.0,1.0,1.0
+m__elo_games,m,diff,,,,U-015,games-weighted Elo,ratings,in_model,safe by construction,U-015,none,yes,medium,,1.0,1.0,1.0
+m__adjperf_tpw_2w,m,diff,,,,U-124,two-week total points won (adjperf_tpw_2w),two-week profile,in_model,safe by construction,U-097; U-124,none,yes,high,ad__adjperf_tpw_decayed; ad__adjdef_tpw_decayed,0.993987674733203,0.998555103113096,0.9947631793320144
+m__ios_points_short,m,diff,,,,U-087,short-memory IOS points matchup,long-memory profile,in_model,leak-proof clock + probe passed,U-087,none,yes,high,,1.0,1.0,1.0
+m__points_52w,m,diff,,,,U-088,52-week points matchup,long-memory profile,in_model,safe by construction,U-088,none,yes,medium,,0.9896287389147752,0.9959280178641796,0.994064936576283
+m__sets_14d,m,diff,,,,U-128,sets in the last 14 days,load and schedule,in_model,safe by construction,U-128,none,yes,high,,0.9998246405130518,0.9977013004071982,1.0
+m__age,m,diff,,,,U-163,age,player background,in_model,safe by construction,U-163,none,yes,high,,1.0,0.9998029686063312,0.986966135226347
+m__age_sq,m,diff,,,,U-164,age squared,player background,in_model,safe by construction,U-164,none,yes,medium,,1.0,0.9998029686063312,0.986966135226347
+m__form_ace,m,diff,,,,U-108,two-week form: aces,two-week profile,in_model,safe by construction,U-097; U-108,none,yes,high,ad__adjperf_ace_decayed,0.993987674733203,0.998555103113096,0.9947631793320144
+m__form_df,m,diff,,,,U-109,two-week form: double faults,two-week profile,in_model,safe by construction,U-097; U-109,none,yes,high,ad__adjperf_df_decayed,0.993987674733203,0.998555103113096,0.9947631793320144
+m__form_first_in,m,diff,,,,U-110,two-week form: first serves in,two-week profile,in_model,safe by construction,U-097; U-110,none,yes,high,ad__adjperf_first_in_decayed,0.993987674733203,0.998555103113096,0.9947631793320144
+m__form_first_won,m,diff,,,,U-111,two-week form: first-serve points won,two-week profile,in_model,safe by construction,U-097; U-111,none,yes,high,ad__adjperf_first_won_decayed; ad__adjdef_rpw_first_decayed,0.993987674733203,0.998555103113096,0.9947631793320144
+m__form_second_won,m,diff,,,,U-112,two-week form: second-serve points won,two-week profile,in_model,safe by construction,U-097; U-112,none,yes,high,ad__adjperf_second_won_decayed; ad__adjdef_rpw_second_decayed,0.993987674733203,0.998555103113096,0.9947631793320144
+m__form_hold,m,diff,,,,U-113,two-week form: service games held,two-week profile,in_model,safe by construction,U-097; U-113,none,yes,high,ad__adjperf_hold_decayed; ad__adjdef_brk_decayed,0.8661005060373766,0.9984894259818732,0.9947631793320144
+m__form_bp_saved,m,diff,,,,U-114,two-week form: break points saved,two-week profile,in_model,safe by construction,U-097; U-114,none,yes,high,ad__adjperf_bp_saved_decayed; ad__adjdef_bp_conv_decayed,0.9939626233779248,0.998555103113096,0.9947631793320144
+m__form_bp_faced_pg,m,diff,,,,U-115,two-week form: break points faced per service game,two-week profile,in_model,safe by construction,U-097; U-115,none,yes,high,ad__adjperf_bp_faced_pg_decayed,0.8661005060373766,0.9984894259818732,0.9947631793320144
+m__form_brk,m,diff,,,,U-116,two-week form: return games won (K3 160),two-week profile,in_model,safe by construction,U-097; U-116,none,yes,high,ad__adjdef_hold_decayed; ad__adjperf_brk_decayed,0.8661005060373766,0.9984894259818732,0.9947631793320144
+m__form_bp_conv,m,diff,,,,U-117,two-week form: break points converted (K3 160),two-week profile,in_model,safe by construction,U-097; U-117,none,yes,high,ad__adjdef_bp_saved_decayed; ad__adjperf_bp_conv_decayed,0.9938874693120898,0.9984894259818732,0.9946468055393926
+m__form_rpw_first,m,diff,,,,U-118,two-week form: return points won on the first serve (K3 160),two-week profile,in_model,safe by construction,U-097; U-118,none,yes,high,ad__adjdef_first_won_decayed; ad__adjperf_rpw_first_decayed,0.993987674733203,0.998555103113096,0.9947631793320144
+m__form_rpw_second,m,diff,,,,U-119,two-week form: return points won on the second serve (K3 160),two-week profile,in_model,safe by construction,U-097; U-119,none,yes,high,ad__adjdef_second_won_decayed; ad__adjperf_rpw_second_decayed,0.993987674733203,0.998555103113096,0.9947631793320144
+m__formdef_ace,m,diff,,,,U-120,two-week defence: aces conceded below the opponent's norm,two-week profile,in_model,safe by construction,U-097; U-120,none,yes,high,ad__adjdef_ace_decayed,0.993987674733203,0.998555103113096,0.9947631793320144
+m__formdef_df,m,diff,,,,U-121,two-week defence: double faults induced,two-week profile,in_model,safe by construction,U-097; U-121,none,yes,high,ad__adjdef_df_decayed,0.993987674733203,0.998555103113096,0.9947631793320144
+m__formdef_first_in,m,diff,,,,U-122,two-week defence: first serves in induced,two-week profile,in_model,safe by construction,U-097; U-122,none,yes,high,ad__adjdef_first_in_decayed,0.993987674733203,0.998555103113096,0.9947631793320144
+m__formdef_bp_faced_pg,m,diff,,,,U-123,two-week defence: break points forced per game,two-week profile,in_model,safe by construction,U-097; U-123,none,yes,high,ad__adjdef_bp_faced_pg_decayed,0.8661005060373766,0.9984894259818732,0.9947631793320144
+m__iosO_ace,m,diff,,,,U-048,surface IOS offence: ace,long-memory profile,in_model,leak-proof clock + probe passed,U-048,none,yes,high,,1.0,1.0,1.0
+m__iosD_ace,m,diff,,,,U-049,surface IOS defence: ace,long-memory profile,in_model,leak-proof clock + probe passed,U-049,none,yes,high,,1.0,1.0,1.0
+m__iosO_df,m,diff,,,,U-051,surface IOS offence: df,long-memory profile,in_model,leak-proof clock + probe passed,U-051,none,yes,high,,1.0,1.0,1.0
+m__iosD_df,m,diff,,,,U-052,surface IOS defence: df,long-memory profile,in_model,leak-proof clock + probe passed,U-052,none,yes,high,,1.0,1.0,1.0
+m__iosO_first_in,m,diff,,,,U-054,surface IOS offence: first_in,long-memory profile,in_model,leak-proof clock + probe passed,U-054,none,yes,high,,1.0,1.0,1.0
+m__iosD_first_in,m,diff,,,,U-055,surface IOS defence: first_in,long-memory profile,in_model,leak-proof clock + probe passed,U-055,none,yes,high,,1.0,1.0,1.0
+m__iosO_first_won,m,diff,,,,U-057,surface IOS offence: first_won,long-memory profile,in_model,leak-proof clock + probe passed,U-057,none,yes,high,,1.0,1.0,1.0
+m__iosD_first_won,m,diff,,,,U-058,surface IOS defence: first_won,long-memory profile,in_model,leak-proof clock + probe passed,U-058,none,yes,high,,1.0,1.0,1.0
+m__iosO_second_won,m,diff,,,,U-060,surface IOS offence: second_won,long-memory profile,in_model,leak-proof clock + probe passed,U-060,none,yes,high,,1.0,1.0,1.0
+m__iosD_second_won,m,diff,,,,U-061,surface IOS defence: second_won,long-memory profile,in_model,leak-proof clock + probe passed,U-061,none,yes,high,,1.0,1.0,1.0
+m__iosO_hold,m,diff,,,,U-063,surface IOS offence: hold,long-memory profile,in_model,leak-proof clock + probe passed,U-063,none,yes,high,,1.0,1.0,1.0
+m__iosD_hold,m,diff,,,,U-064,surface IOS defence: hold,long-memory profile,in_model,leak-proof clock + probe passed,U-064,none,yes,high,,1.0,1.0,1.0
+m__iosO_bp_saved,m,diff,,,,U-066,surface IOS offence: bp_saved,long-memory profile,in_model,leak-proof clock + probe passed,U-066,none,yes,high,,1.0,1.0,1.0
+m__iosD_bp_saved,m,diff,,,,U-067,surface IOS defence: bp_saved,long-memory profile,in_model,leak-proof clock + probe passed,U-067,none,yes,high,,1.0,1.0,1.0
+m__prod_ace,m,diff,,,,U-050,surface IOS matchup product: ace,long-memory profile,in_model,leak-proof clock + probe passed,U-050,none,yes,high,,1.0,1.0,1.0
+m__prod_df,m,diff,,,,U-053,surface IOS matchup product: df,long-memory profile,in_model,leak-proof clock + probe passed,U-053,none,yes,high,,1.0,1.0,1.0
+m__prod_first_in,m,diff,,,,U-056,surface IOS matchup product: first_in,long-memory profile,in_model,leak-proof clock + probe passed,U-056,none,yes,high,,1.0,1.0,1.0
+m__prod_first_won,m,diff,,,,U-059,surface IOS matchup product: first_won,long-memory profile,in_model,leak-proof clock + probe passed,U-059,none,yes,high,,1.0,1.0,1.0
+m__prod_second_won,m,diff,,,,U-062,surface IOS matchup product: second_won,long-memory profile,in_model,leak-proof clock + probe passed,U-062,none,yes,high,,1.0,1.0,1.0
+m__prod_hold,m,diff,,,,U-065,surface IOS matchup product: hold,long-memory profile,in_model,leak-proof clock + probe passed,U-065,none,yes,high,,1.0,1.0,1.0
+m__prod_bp_saved,m,diff,,,,U-068,surface IOS matchup product: bp_saved,long-memory profile,in_model,leak-proof clock + probe passed,U-068,none,yes,high,,1.0,1.0,1.0
+m__tour,m,context,,,,U-181,tour,context,in_model,safe by construction,U-181,none,yes,high,ctx__tour,1.0,1.0,1.0
+m__surface,m,context,,,,U-182,surface,context,in_model,safe by construction,U-182,none,yes,high,ctx__surface,1.0,1.0,1.0
+m__level,m,context,,,,U-183,level,context,in_model,safe by construction,U-183,none,yes,high,ctx__level,1.0,1.0,1.0
+m__indoor,m,context,,,,U-184,indoor (the model's flag),context,in_model,safe by construction,U-184,none,yes,high,ctx__indoor,0.4842677488852147,0.5226586102719033,0.5113464447806354
+m__best_of,m,context,,,,U-186,best of,context,in_model,safe by construction,U-186,none,yes,high,ctx__best_of,1.0,1.0,1.0
+m__round,m,context,,,,U-187,round,context,in_model,safe by construction,U-187,none,yes,high,ctx__round,1.0,1.0,1.0
+m__elo_overall,m,diff,,,,U-013,overall Elo,ratings,in_model,safe by construction,U-013,none,yes,high,,1.0,1.0,1.0
+m__elo_surf_offset,m,diff,,,,U-014,surface offset Elo,ratings,in_model,safe by construction,U-014,none,yes,high,,1.0,1.0,1.0
+m__surf_season_a,m,pair,m__surf_season_b,,,U-129,surface matches this season (pair),load and schedule,in_model,safe by construction,U-129,none,yes,high,,1.0,1.0,1.0
+m__surf_season_b,m,pair,m__surf_season_a,,,U-129,surface matches this season (pair),load and schedule,in_model,safe by construction,U-129,none,yes,high,,1.0,1.0,1.0
+m__surf_layoff_a,m,pair,m__surf_layoff_b,,,U-130,days since the last match on this surface (pair),load and schedule,in_model,safe by construction,U-130,none,yes,high,,1.0,1.0,1.0
+m__surf_layoff_b,m,pair,m__surf_layoff_a,,,U-130,days since the last match on this surface (pair),load and schedule,in_model,safe by construction,U-130,none,yes,high,,1.0,1.0,1.0
+alt__elo_logit,alt,diff,,,,U-024,"surface Elo blend (elo_logit, replaced)",ratings,built_not_in_model,safe by construction,U-024,none,yes,low,,1.0,1.0,1.0
+alt__surface_first,alt,diff,,,,U-131,"first matches on the surface (surface_first, replaced)",load and schedule,built_not_in_model,safe by construction,U-131,none,yes,low,,1.0,1.0,1.0
+alt__elo_surface,alt,diff,,,,U-025,surface-only Elo,ratings,built_not_in_model,safe by construction,U-025,none,yes,low,kn__KN-ELOSURF,1.0,1.0,1.0
+alt__iosO_cur_spw,alt,diff,,,,U-070,pooled IOS (all surfaces): spw,long-memory profile,built_not_in_model,leak-proof clock + probe passed,U-070,none,no,low,,1.0,1.0,1.0
+alt__iosD_cur_spw,alt,diff,,,,U-070,pooled IOS (all surfaces): spw,long-memory profile,built_not_in_model,leak-proof clock + probe passed,U-070,none,no,low,,1.0,1.0,1.0
+alt__prod_cur_spw,alt,diff,,,,U-070,pooled IOS (all surfaces): spw,long-memory profile,built_not_in_model,leak-proof clock + probe passed,U-070,none,no,low,,1.0,1.0,1.0
+alt__sdevO_spw,alt,diff,,,,U-078,surface deviations: spw,long-memory profile,built_not_in_model,leak-proof clock + probe passed,U-078,none,yes,low,kn__KN-SDEV__x0,1.0,1.0,1.0
+alt__sdevD_spw,alt,diff,,,,U-078,surface deviations: spw,long-memory profile,built_not_in_model,leak-proof clock + probe passed,U-078,none,yes,low,kn__KN-SDEV__x1,1.0,1.0,1.0
+alt__iosO_cur_ace,alt,diff,,,,U-071,pooled IOS (all surfaces): ace,long-memory profile,built_not_in_model,leak-proof clock + probe passed,U-071,none,yes,low,,1.0,1.0,1.0
+alt__iosD_cur_ace,alt,diff,,,,U-071,pooled IOS (all surfaces): ace,long-memory profile,built_not_in_model,leak-proof clock + probe passed,U-071,none,yes,low,,1.0,1.0,1.0
+alt__prod_cur_ace,alt,diff,,,,U-071,pooled IOS (all surfaces): ace,long-memory profile,built_not_in_model,leak-proof clock + probe passed,U-071,none,yes,low,,1.0,1.0,1.0
+alt__sdevO_ace,alt,diff,,,,U-079,surface deviations: ace,long-memory profile,built_not_in_model,leak-proof clock + probe passed,U-079,none,yes,low,kn__KN-SDEV__x6,1.0,1.0,1.0
+alt__sdevD_ace,alt,diff,,,,U-079,surface deviations: ace,long-memory profile,built_not_in_model,leak-proof clock + probe passed,U-079,none,yes,low,kn__KN-SDEV__x7,1.0,1.0,1.0
+alt__iosO_cur_df,alt,diff,,,,U-072,pooled IOS (all surfaces): df,long-memory profile,built_not_in_model,leak-proof clock + probe passed,U-072,none,yes,low,,1.0,1.0,1.0
+alt__iosD_cur_df,alt,diff,,,,U-072,pooled IOS (all surfaces): df,long-memory profile,built_not_in_model,leak-proof clock + probe passed,U-072,none,yes,low,,1.0,1.0,1.0
+alt__prod_cur_df,alt,diff,,,,U-072,pooled IOS (all surfaces): df,long-memory profile,built_not_in_model,leak-proof clock + probe passed,U-072,none,yes,low,,1.0,1.0,1.0
+alt__sdevO_df,alt,diff,,,,U-080,surface deviations: df,long-memory profile,built_not_in_model,leak-proof clock + probe passed,U-080,none,yes,low,,1.0,1.0,1.0
+alt__sdevD_df,alt,diff,,,,U-080,surface deviations: df,long-memory profile,built_not_in_model,leak-proof clock + probe passed,U-080,none,yes,low,,1.0,1.0,1.0
+alt__iosO_cur_first_in,alt,diff,,,,U-073,pooled IOS (all surfaces): first_in,long-memory profile,built_not_in_model,leak-proof clock + probe passed,U-073,none,yes,low,,1.0,1.0,1.0
+alt__iosD_cur_first_in,alt,diff,,,,U-073,pooled IOS (all surfaces): first_in,long-memory profile,built_not_in_model,leak-proof clock + probe passed,U-073,none,yes,low,,1.0,1.0,1.0
+alt__prod_cur_first_in,alt,diff,,,,U-073,pooled IOS (all surfaces): first_in,long-memory profile,built_not_in_model,leak-proof clock + probe passed,U-073,none,yes,low,,1.0,1.0,1.0
+alt__sdevO_first_in,alt,diff,,,,U-081,surface deviations: first_in,long-memory profile,built_not_in_model,leak-proof clock + probe passed,U-081,none,yes,low,,1.0,1.0,1.0
+alt__sdevD_first_in,alt,diff,,,,U-081,surface deviations: first_in,long-memory profile,built_not_in_model,leak-proof clock + probe passed,U-081,none,yes,low,,1.0,1.0,1.0
+alt__iosO_cur_first_won,alt,diff,,,,U-074,pooled IOS (all surfaces): first_won,long-memory profile,built_not_in_model,leak-proof clock + probe passed,U-074,none,yes,low,,1.0,1.0,1.0
+alt__iosD_cur_first_won,alt,diff,,,,U-074,pooled IOS (all surfaces): first_won,long-memory profile,built_not_in_model,leak-proof clock + probe passed,U-074,none,yes,low,,1.0,1.0,1.0
+alt__prod_cur_first_won,alt,diff,,,,U-074,pooled IOS (all surfaces): first_won,long-memory profile,built_not_in_model,leak-proof clock + probe passed,U-074,none,yes,low,,1.0,1.0,1.0
+alt__sdevO_first_won,alt,diff,,,,U-082,surface deviations: first_won,long-memory profile,built_not_in_model,leak-proof clock + probe passed,U-082,none,yes,low,kn__KN-SDEV__x4,1.0,1.0,1.0
+alt__sdevD_first_won,alt,diff,,,,U-082,surface deviations: first_won,long-memory profile,built_not_in_model,leak-proof clock + probe passed,U-082,none,yes,low,kn__KN-SDEV__x5,1.0,1.0,1.0
+alt__iosO_cur_second_won,alt,diff,,,,U-075,pooled IOS (all surfaces): second_won,long-memory profile,built_not_in_model,leak-proof clock + probe passed,U-075,none,yes,low,,1.0,1.0,1.0
+alt__iosD_cur_second_won,alt,diff,,,,U-075,pooled IOS (all surfaces): second_won,long-memory profile,built_not_in_model,leak-proof clock + probe passed,U-075,none,yes,low,,1.0,1.0,1.0
+alt__prod_cur_second_won,alt,diff,,,,U-075,pooled IOS (all surfaces): second_won,long-memory profile,built_not_in_model,leak-proof clock + probe passed,U-075,none,yes,low,,1.0,1.0,1.0
+alt__sdevO_second_won,alt,diff,,,,U-083,surface deviations: second_won,long-memory profile,built_not_in_model,leak-proof clock + probe passed,U-083,none,yes,low,,1.0,1.0,1.0
+alt__sdevD_second_won,alt,diff,,,,U-083,surface deviations: second_won,long-memory profile,built_not_in_model,leak-proof clock + probe passed,U-083,none,yes,low,,1.0,1.0,1.0
+alt__iosO_cur_hold,alt,diff,,,,U-076,pooled IOS (all surfaces): hold,long-memory profile,built_not_in_model,leak-proof clock + probe passed,U-076,none,yes,low,,1.0,1.0,1.0
+alt__iosD_cur_hold,alt,diff,,,,U-076,pooled IOS (all surfaces): hold,long-memory profile,built_not_in_model,leak-proof clock + probe passed,U-076,none,yes,low,,1.0,1.0,1.0
+alt__prod_cur_hold,alt,diff,,,,U-076,pooled IOS (all surfaces): hold,long-memory profile,built_not_in_model,leak-proof clock + probe passed,U-076,none,yes,low,,1.0,1.0,1.0
+alt__sdevO_hold,alt,diff,,,,U-084,surface deviations: hold,long-memory profile,built_not_in_model,leak-proof clock + probe passed,U-084,none,yes,low,kn__KN-SDEV__x2,1.0,1.0,1.0
+alt__sdevD_hold,alt,diff,,,,U-084,surface deviations: hold,long-memory profile,built_not_in_model,leak-proof clock + probe passed,U-084,none,yes,low,kn__KN-SDEV__x3,1.0,1.0,1.0
+alt__iosO_cur_bp_saved,alt,diff,,,,U-077,pooled IOS (all surfaces): bp_saved,long-memory profile,built_not_in_model,leak-proof clock + probe passed,U-077,none,yes,low,,1.0,1.0,1.0
+alt__iosD_cur_bp_saved,alt,diff,,,,U-077,pooled IOS (all surfaces): bp_saved,long-memory profile,built_not_in_model,leak-proof clock + probe passed,U-077,none,yes,low,,1.0,1.0,1.0
+alt__prod_cur_bp_saved,alt,diff,,,,U-077,pooled IOS (all surfaces): bp_saved,long-memory profile,built_not_in_model,leak-proof clock + probe passed,U-077,none,yes,low,,1.0,1.0,1.0
+alt__sdevO_bp_saved,alt,diff,,,,U-085,surface deviations: bp_saved,long-memory profile,built_not_in_model,leak-proof clock + probe passed,U-085,none,yes,low,,1.0,1.0,1.0
+alt__sdevD_bp_saved,alt,diff,,,,U-085,surface deviations: bp_saved,long-memory profile,built_not_in_model,leak-proof clock + probe passed,U-085,none,yes,low,,1.0,1.0,1.0
+alt__ttt_logit,alt,diff,,,,U-036,decided TrueSkill Through Time (leak-proof),ratings,built_not_in_model,leak-proof clock + probe passed,U-036,A,yes,medium,kn__KN-TTTLOGIT,1.0,1.0,1.0
+alt__ttt_overall,alt,diff,,,,U-037,"offset TTT, overall part",ratings,built_not_in_model,leak-proof clock + probe passed,U-037,none,yes,medium,,1.0,1.0,1.0
+alt__ttt_surf_offset,alt,diff,,,,U-038,"offset TTT, surface part",ratings,built_not_in_model,leak-proof clock + probe passed,U-038,none,yes,low,kn__KN-TTTOFF,1.0,1.0,1.0
+pp__ios_srfO_spw_a,pp,pair,pp__ios_srfO_spw_b,,,U-069,surface IOS on serve points won (O and D),long-memory profile,built_not_in_model,leak-proof clock + probe passed,U-069,D,no,medium,,1.0,1.0,1.0
+pp__ios_srfO_spw_b,pp,pair,pp__ios_srfO_spw_a,,,U-069,surface IOS on serve points won (O and D),long-memory profile,built_not_in_model,leak-proof clock + probe passed,U-069,D,no,medium,,1.0,1.0,1.0
+pp__ios_srfO_ace_a,pp,pair,pp__ios_srfO_ace_b,,,U-048,surface IOS offence: ace,long-memory profile,in_model,leak-proof clock + probe passed,U-048,none,yes,high,,1.0,1.0,1.0
+pp__ios_srfO_ace_b,pp,pair,pp__ios_srfO_ace_a,,,U-048,surface IOS offence: ace,long-memory profile,in_model,leak-proof clock + probe passed,U-048,none,yes,high,,1.0,1.0,1.0
+pp__ios_srfO_df_a,pp,pair,pp__ios_srfO_df_b,,,U-051,surface IOS offence: df,long-memory profile,in_model,leak-proof clock + probe passed,U-051,none,yes,high,,1.0,1.0,1.0
+pp__ios_srfO_df_b,pp,pair,pp__ios_srfO_df_a,,,U-051,surface IOS offence: df,long-memory profile,in_model,leak-proof clock + probe passed,U-051,none,yes,high,,1.0,1.0,1.0
+pp__ios_srfO_first_in_a,pp,pair,pp__ios_srfO_first_in_b,,,U-054,surface IOS offence: first_in,long-memory profile,in_model,leak-proof clock + probe passed,U-054,none,yes,high,,1.0,1.0,1.0
+pp__ios_srfO_first_in_b,pp,pair,pp__ios_srfO_first_in_a,,,U-054,surface IOS offence: first_in,long-memory profile,in_model,leak-proof clock + probe passed,U-054,none,yes,high,,1.0,1.0,1.0
+pp__ios_srfO_first_won_a,pp,pair,pp__ios_srfO_first_won_b,,,U-057,surface IOS offence: first_won,long-memory profile,in_model,leak-proof clock + probe passed,U-057,none,yes,high,,1.0,1.0,1.0
+pp__ios_srfO_first_won_b,pp,pair,pp__ios_srfO_first_won_a,,,U-057,surface IOS offence: first_won,long-memory profile,in_model,leak-proof clock + probe passed,U-057,none,yes,high,,1.0,1.0,1.0
+pp__ios_srfO_second_won_a,pp,pair,pp__ios_srfO_second_won_b,,,U-060,surface IOS offence: second_won,long-memory profile,in_model,leak-proof clock + probe passed,U-060,none,yes,high,,1.0,1.0,1.0
+pp__ios_srfO_second_won_b,pp,pair,pp__ios_srfO_second_won_a,,,U-060,surface IOS offence: second_won,long-memory profile,in_model,leak-proof clock + probe passed,U-060,none,yes,high,,1.0,1.0,1.0
+pp__ios_srfO_hold_a,pp,pair,pp__ios_srfO_hold_b,,,U-063,surface IOS offence: hold,long-memory profile,in_model,leak-proof clock + probe passed,U-063,none,yes,high,,1.0,1.0,1.0
+pp__ios_srfO_hold_b,pp,pair,pp__ios_srfO_hold_a,,,U-063,surface IOS offence: hold,long-memory profile,in_model,leak-proof clock + probe passed,U-063,none,yes,high,,1.0,1.0,1.0
+pp__ios_srfO_bp_saved_a,pp,pair,pp__ios_srfO_bp_saved_b,,,U-066,surface IOS offence: bp_saved,long-memory profile,in_model,leak-proof clock + probe passed,U-066,none,yes,high,,1.0,1.0,1.0
+pp__ios_srfO_bp_saved_b,pp,pair,pp__ios_srfO_bp_saved_a,,,U-066,surface IOS offence: bp_saved,long-memory profile,in_model,leak-proof clock + probe passed,U-066,none,yes,high,,1.0,1.0,1.0
+pp__ios_srfD_spw_a,pp,pair,pp__ios_srfD_spw_b,,,U-069,surface IOS on serve points won (O and D),long-memory profile,built_not_in_model,leak-proof clock + probe passed,U-069,D,no,medium,,1.0,1.0,1.0
+pp__ios_srfD_spw_b,pp,pair,pp__ios_srfD_spw_a,,,U-069,surface IOS on serve points won (O and D),long-memory profile,built_not_in_model,leak-proof clock + probe passed,U-069,D,no,medium,,1.0,1.0,1.0
+pp__ios_srfD_ace_a,pp,pair,pp__ios_srfD_ace_b,,,U-049,surface IOS defence: ace,long-memory profile,in_model,leak-proof clock + probe passed,U-049,none,yes,high,,1.0,1.0,1.0
+pp__ios_srfD_ace_b,pp,pair,pp__ios_srfD_ace_a,,,U-049,surface IOS defence: ace,long-memory profile,in_model,leak-proof clock + probe passed,U-049,none,yes,high,,1.0,1.0,1.0
+pp__ios_srfD_df_a,pp,pair,pp__ios_srfD_df_b,,,U-052,surface IOS defence: df,long-memory profile,in_model,leak-proof clock + probe passed,U-052,none,yes,high,,1.0,1.0,1.0
+pp__ios_srfD_df_b,pp,pair,pp__ios_srfD_df_a,,,U-052,surface IOS defence: df,long-memory profile,in_model,leak-proof clock + probe passed,U-052,none,yes,high,,1.0,1.0,1.0
+pp__ios_srfD_first_in_a,pp,pair,pp__ios_srfD_first_in_b,,,U-055,surface IOS defence: first_in,long-memory profile,in_model,leak-proof clock + probe passed,U-055,none,yes,high,,1.0,1.0,1.0
+pp__ios_srfD_first_in_b,pp,pair,pp__ios_srfD_first_in_a,,,U-055,surface IOS defence: first_in,long-memory profile,in_model,leak-proof clock + probe passed,U-055,none,yes,high,,1.0,1.0,1.0
+pp__ios_srfD_first_won_a,pp,pair,pp__ios_srfD_first_won_b,,,U-058,surface IOS defence: first_won,long-memory profile,in_model,leak-proof clock + probe passed,U-058,none,yes,high,,1.0,1.0,1.0
+pp__ios_srfD_first_won_b,pp,pair,pp__ios_srfD_first_won_a,,,U-058,surface IOS defence: first_won,long-memory profile,in_model,leak-proof clock + probe passed,U-058,none,yes,high,,1.0,1.0,1.0
+pp__ios_srfD_second_won_a,pp,pair,pp__ios_srfD_second_won_b,,,U-061,surface IOS defence: second_won,long-memory profile,in_model,leak-proof clock + probe passed,U-061,none,yes,high,,1.0,1.0,1.0
+pp__ios_srfD_second_won_b,pp,pair,pp__ios_srfD_second_won_a,,,U-061,surface IOS defence: second_won,long-memory profile,in_model,leak-proof clock + probe passed,U-061,none,yes,high,,1.0,1.0,1.0
+pp__ios_srfD_hold_a,pp,pair,pp__ios_srfD_hold_b,,,U-064,surface IOS defence: hold,long-memory profile,in_model,leak-proof clock + probe passed,U-064,none,yes,high,,1.0,1.0,1.0
+pp__ios_srfD_hold_b,pp,pair,pp__ios_srfD_hold_a,,,U-064,surface IOS defence: hold,long-memory profile,in_model,leak-proof clock + probe passed,U-064,none,yes,high,,1.0,1.0,1.0
+pp__ios_srfD_bp_saved_a,pp,pair,pp__ios_srfD_bp_saved_b,,,U-067,surface IOS defence: bp_saved,long-memory profile,in_model,leak-proof clock + probe passed,U-067,none,yes,high,,1.0,1.0,1.0
+pp__ios_srfD_bp_saved_b,pp,pair,pp__ios_srfD_bp_saved_a,,,U-067,surface IOS defence: bp_saved,long-memory profile,in_model,leak-proof clock + probe passed,U-067,none,yes,high,,1.0,1.0,1.0
+pp__ios_curO_spw_a,pp,pair,pp__ios_curO_spw_b,,,U-070,pooled IOS (all surfaces): spw,long-memory profile,built_not_in_model,leak-proof clock + probe passed,U-070,none,no,low,,1.0,1.0,1.0
+pp__ios_curO_spw_b,pp,pair,pp__ios_curO_spw_a,,,U-070,pooled IOS (all surfaces): spw,long-memory profile,built_not_in_model,leak-proof clock + probe passed,U-070,none,no,low,,1.0,1.0,1.0
+pp__ios_curO_ace_a,pp,pair,pp__ios_curO_ace_b,,,U-071,pooled IOS (all surfaces): ace,long-memory profile,built_not_in_model,leak-proof clock + probe passed,U-071,none,yes,low,,1.0,1.0,1.0
+pp__ios_curO_ace_b,pp,pair,pp__ios_curO_ace_a,,,U-071,pooled IOS (all surfaces): ace,long-memory profile,built_not_in_model,leak-proof clock + probe passed,U-071,none,yes,low,,1.0,1.0,1.0
+pp__ios_curO_df_a,pp,pair,pp__ios_curO_df_b,,,U-072,pooled IOS (all surfaces): df,long-memory profile,built_not_in_model,leak-proof clock + probe passed,U-072,none,yes,low,,1.0,1.0,1.0
+pp__ios_curO_df_b,pp,pair,pp__ios_curO_df_a,,,U-072,pooled IOS (all surfaces): df,long-memory profile,built_not_in_model,leak-proof clock + probe passed,U-072,none,yes,low,,1.0,1.0,1.0
+pp__ios_curO_first_in_a,pp,pair,pp__ios_curO_first_in_b,,,U-073,pooled IOS (all surfaces): first_in,long-memory profile,built_not_in_model,leak-proof clock + probe passed,U-073,none,yes,low,,1.0,1.0,1.0
+pp__ios_curO_first_in_b,pp,pair,pp__ios_curO_first_in_a,,,U-073,pooled IOS (all surfaces): first_in,long-memory profile,built_not_in_model,leak-proof clock + probe passed,U-073,none,yes,low,,1.0,1.0,1.0
+pp__ios_curO_first_won_a,pp,pair,pp__ios_curO_first_won_b,,,U-074,pooled IOS (all surfaces): first_won,long-memory profile,built_not_in_model,leak-proof clock + probe passed,U-074,none,yes,low,,1.0,1.0,1.0
+pp__ios_curO_first_won_b,pp,pair,pp__ios_curO_first_won_a,,,U-074,pooled IOS (all surfaces): first_won,long-memory profile,built_not_in_model,leak-proof clock + probe passed,U-074,none,yes,low,,1.0,1.0,1.0
+pp__ios_curO_second_won_a,pp,pair,pp__ios_curO_second_won_b,,,U-075,pooled IOS (all surfaces): second_won,long-memory profile,built_not_in_model,leak-proof clock + probe passed,U-075,none,yes,low,,1.0,1.0,1.0
+pp__ios_curO_second_won_b,pp,pair,pp__ios_curO_second_won_a,,,U-075,pooled IOS (all surfaces): second_won,long-memory profile,built_not_in_model,leak-proof clock + probe passed,U-075,none,yes,low,,1.0,1.0,1.0
+pp__ios_curO_hold_a,pp,pair,pp__ios_curO_hold_b,,,U-076,pooled IOS (all surfaces): hold,long-memory profile,built_not_in_model,leak-proof clock + probe passed,U-076,none,yes,low,,1.0,1.0,1.0
+pp__ios_curO_hold_b,pp,pair,pp__ios_curO_hold_a,,,U-076,pooled IOS (all surfaces): hold,long-memory profile,built_not_in_model,leak-proof clock + probe passed,U-076,none,yes,low,,1.0,1.0,1.0
+pp__ios_curO_bp_saved_a,pp,pair,pp__ios_curO_bp_saved_b,,,U-077,pooled IOS (all surfaces): bp_saved,long-memory profile,built_not_in_model,leak-proof clock + probe passed,U-077,none,yes,low,,1.0,1.0,1.0
+pp__ios_curO_bp_saved_b,pp,pair,pp__ios_curO_bp_saved_a,,,U-077,pooled IOS (all surfaces): bp_saved,long-memory profile,built_not_in_model,leak-proof clock + probe passed,U-077,none,yes,low,,1.0,1.0,1.0
+pp__ios_curD_spw_a,pp,pair,pp__ios_curD_spw_b,,,U-070,pooled IOS (all surfaces): spw,long-memory profile,built_not_in_model,leak-proof clock + probe passed,U-070,none,no,low,,1.0,1.0,1.0
+pp__ios_curD_spw_b,pp,pair,pp__ios_curD_spw_a,,,U-070,pooled IOS (all surfaces): spw,long-memory profile,built_not_in_model,leak-proof clock + probe passed,U-070,none,no,low,,1.0,1.0,1.0
+pp__ios_curD_ace_a,pp,pair,pp__ios_curD_ace_b,,,U-071,pooled IOS (all surfaces): ace,long-memory profile,built_not_in_model,leak-proof clock + probe passed,U-071,none,yes,low,,1.0,1.0,1.0
+pp__ios_curD_ace_b,pp,pair,pp__ios_curD_ace_a,,,U-071,pooled IOS (all surfaces): ace,long-memory profile,built_not_in_model,leak-proof clock + probe passed,U-071,none,yes,low,,1.0,1.0,1.0
+pp__ios_curD_df_a,pp,pair,pp__ios_curD_df_b,,,U-072,pooled IOS (all surfaces): df,long-memory profile,built_not_in_model,leak-proof clock + probe passed,U-072,none,yes,low,,1.0,1.0,1.0
+pp__ios_curD_df_b,pp,pair,pp__ios_curD_df_a,,,U-072,pooled IOS (all surfaces): df,long-memory profile,built_not_in_model,leak-proof clock + probe passed,U-072,none,yes,low,,1.0,1.0,1.0
+pp__ios_curD_first_in_a,pp,pair,pp__ios_curD_first_in_b,,,U-073,pooled IOS (all surfaces): first_in,long-memory profile,built_not_in_model,leak-proof clock + probe passed,U-073,none,yes,low,,1.0,1.0,1.0
+pp__ios_curD_first_in_b,pp,pair,pp__ios_curD_first_in_a,,,U-073,pooled IOS (all surfaces): first_in,long-memory profile,built_not_in_model,leak-proof clock + probe passed,U-073,none,yes,low,,1.0,1.0,1.0
+pp__ios_curD_first_won_a,pp,pair,pp__ios_curD_first_won_b,,,U-074,pooled IOS (all surfaces): first_won,long-memory profile,built_not_in_model,leak-proof clock + probe passed,U-074,none,yes,low,,1.0,1.0,1.0
+pp__ios_curD_first_won_b,pp,pair,pp__ios_curD_first_won_a,,,U-074,pooled IOS (all surfaces): first_won,long-memory profile,built_not_in_model,leak-proof clock + probe passed,U-074,none,yes,low,,1.0,1.0,1.0
+pp__ios_curD_second_won_a,pp,pair,pp__ios_curD_second_won_b,,,U-075,pooled IOS (all surfaces): second_won,long-memory profile,built_not_in_model,leak-proof clock + probe passed,U-075,none,yes,low,,1.0,1.0,1.0
+pp__ios_curD_second_won_b,pp,pair,pp__ios_curD_second_won_a,,,U-075,pooled IOS (all surfaces): second_won,long-memory profile,built_not_in_model,leak-proof clock + probe passed,U-075,none,yes,low,,1.0,1.0,1.0
+pp__ios_curD_hold_a,pp,pair,pp__ios_curD_hold_b,,,U-076,pooled IOS (all surfaces): hold,long-memory profile,built_not_in_model,leak-proof clock + probe passed,U-076,none,yes,low,,1.0,1.0,1.0
+pp__ios_curD_hold_b,pp,pair,pp__ios_curD_hold_a,,,U-076,pooled IOS (all surfaces): hold,long-memory profile,built_not_in_model,leak-proof clock + probe passed,U-076,none,yes,low,,1.0,1.0,1.0
+pp__ios_curD_bp_saved_a,pp,pair,pp__ios_curD_bp_saved_b,,,U-077,pooled IOS (all surfaces): bp_saved,long-memory profile,built_not_in_model,leak-proof clock + probe passed,U-077,none,yes,low,,1.0,1.0,1.0
+pp__ios_curD_bp_saved_b,pp,pair,pp__ios_curD_bp_saved_a,,,U-077,pooled IOS (all surfaces): bp_saved,long-memory profile,built_not_in_model,leak-proof clock + probe passed,U-077,none,yes,low,,1.0,1.0,1.0
+pp__ios_srfE_spw_a,pp,pair,pp__ios_srfE_spw_b,,,U-078,surface deviations: spw,long-memory profile,built_not_in_model,leak-proof clock + probe passed,U-078,none,yes,low,,1.0,1.0,1.0
+pp__ios_srfE_spw_b,pp,pair,pp__ios_srfE_spw_a,,,U-078,surface deviations: spw,long-memory profile,built_not_in_model,leak-proof clock + probe passed,U-078,none,yes,low,,1.0,1.0,1.0
+pp__ios_srfE_ace_a,pp,pair,pp__ios_srfE_ace_b,,,U-079,surface deviations: ace,long-memory profile,built_not_in_model,leak-proof clock + probe passed,U-079,none,yes,low,,1.0,1.0,1.0
+pp__ios_srfE_ace_b,pp,pair,pp__ios_srfE_ace_a,,,U-079,surface deviations: ace,long-memory profile,built_not_in_model,leak-proof clock + probe passed,U-079,none,yes,low,,1.0,1.0,1.0
+pp__ios_srfE_df_a,pp,pair,pp__ios_srfE_df_b,,,U-080,surface deviations: df,long-memory profile,built_not_in_model,leak-proof clock + probe passed,U-080,none,yes,low,,1.0,1.0,1.0
+pp__ios_srfE_df_b,pp,pair,pp__ios_srfE_df_a,,,U-080,surface deviations: df,long-memory profile,built_not_in_model,leak-proof clock + probe passed,U-080,none,yes,low,,1.0,1.0,1.0
+pp__ios_srfE_first_in_a,pp,pair,pp__ios_srfE_first_in_b,,,U-081,surface deviations: first_in,long-memory profile,built_not_in_model,leak-proof clock + probe passed,U-081,none,yes,low,,1.0,1.0,1.0
+pp__ios_srfE_first_in_b,pp,pair,pp__ios_srfE_first_in_a,,,U-081,surface deviations: first_in,long-memory profile,built_not_in_model,leak-proof clock + probe passed,U-081,none,yes,low,,1.0,1.0,1.0
+pp__ios_srfE_first_won_a,pp,pair,pp__ios_srfE_first_won_b,,,U-082,surface deviations: first_won,long-memory profile,built_not_in_model,leak-proof clock + probe passed,U-082,none,yes,low,,1.0,1.0,1.0
+pp__ios_srfE_first_won_b,pp,pair,pp__ios_srfE_first_won_a,,,U-082,surface deviations: first_won,long-memory profile,built_not_in_model,leak-proof clock + probe passed,U-082,none,yes,low,,1.0,1.0,1.0
+pp__ios_srfE_second_won_a,pp,pair,pp__ios_srfE_second_won_b,,,U-083,surface deviations: second_won,long-memory profile,built_not_in_model,leak-proof clock + probe passed,U-083,none,yes,low,,1.0,1.0,1.0
+pp__ios_srfE_second_won_b,pp,pair,pp__ios_srfE_second_won_a,,,U-083,surface deviations: second_won,long-memory profile,built_not_in_model,leak-proof clock + probe passed,U-083,none,yes,low,,1.0,1.0,1.0
+pp__ios_srfE_hold_a,pp,pair,pp__ios_srfE_hold_b,,,U-084,surface deviations: hold,long-memory profile,built_not_in_model,leak-proof clock + probe passed,U-084,none,yes,low,,1.0,1.0,1.0
+pp__ios_srfE_hold_b,pp,pair,pp__ios_srfE_hold_a,,,U-084,surface deviations: hold,long-memory profile,built_not_in_model,leak-proof clock + probe passed,U-084,none,yes,low,,1.0,1.0,1.0
+pp__ios_srfE_bp_saved_a,pp,pair,pp__ios_srfE_bp_saved_b,,,U-085,surface deviations: bp_saved,long-memory profile,built_not_in_model,leak-proof clock + probe passed,U-085,none,yes,low,,1.0,1.0,1.0
+pp__ios_srfE_bp_saved_b,pp,pair,pp__ios_srfE_bp_saved_a,,,U-085,surface deviations: bp_saved,long-memory profile,built_not_in_model,leak-proof clock + probe passed,U-085,none,yes,low,,1.0,1.0,1.0
+pp__ios_srfF_spw_a,pp,pair,pp__ios_srfF_spw_b,,,U-078,surface deviations: spw,long-memory profile,built_not_in_model,leak-proof clock + probe passed,U-078,none,yes,low,,1.0,1.0,1.0
+pp__ios_srfF_spw_b,pp,pair,pp__ios_srfF_spw_a,,,U-078,surface deviations: spw,long-memory profile,built_not_in_model,leak-proof clock + probe passed,U-078,none,yes,low,,1.0,1.0,1.0
+pp__ios_srfF_ace_a,pp,pair,pp__ios_srfF_ace_b,,,U-079,surface deviations: ace,long-memory profile,built_not_in_model,leak-proof clock + probe passed,U-079,none,yes,low,,1.0,1.0,1.0
+pp__ios_srfF_ace_b,pp,pair,pp__ios_srfF_ace_a,,,U-079,surface deviations: ace,long-memory profile,built_not_in_model,leak-proof clock + probe passed,U-079,none,yes,low,,1.0,1.0,1.0
+pp__ios_srfF_df_a,pp,pair,pp__ios_srfF_df_b,,,U-080,surface deviations: df,long-memory profile,built_not_in_model,leak-proof clock + probe passed,U-080,none,yes,low,,1.0,1.0,1.0
+pp__ios_srfF_df_b,pp,pair,pp__ios_srfF_df_a,,,U-080,surface deviations: df,long-memory profile,built_not_in_model,leak-proof clock + probe passed,U-080,none,yes,low,,1.0,1.0,1.0
+pp__ios_srfF_first_in_a,pp,pair,pp__ios_srfF_first_in_b,,,U-081,surface deviations: first_in,long-memory profile,built_not_in_model,leak-proof clock + probe passed,U-081,none,yes,low,,1.0,1.0,1.0
+pp__ios_srfF_first_in_b,pp,pair,pp__ios_srfF_first_in_a,,,U-081,surface deviations: first_in,long-memory profile,built_not_in_model,leak-proof clock + probe passed,U-081,none,yes,low,,1.0,1.0,1.0
+pp__ios_srfF_first_won_a,pp,pair,pp__ios_srfF_first_won_b,,,U-082,surface deviations: first_won,long-memory profile,built_not_in_model,leak-proof clock + probe passed,U-082,none,yes,low,,1.0,1.0,1.0
+pp__ios_srfF_first_won_b,pp,pair,pp__ios_srfF_first_won_a,,,U-082,surface deviations: first_won,long-memory profile,built_not_in_model,leak-proof clock + probe passed,U-082,none,yes,low,,1.0,1.0,1.0
+pp__ios_srfF_second_won_a,pp,pair,pp__ios_srfF_second_won_b,,,U-083,surface deviations: second_won,long-memory profile,built_not_in_model,leak-proof clock + probe passed,U-083,none,yes,low,,1.0,1.0,1.0
+pp__ios_srfF_second_won_b,pp,pair,pp__ios_srfF_second_won_a,,,U-083,surface deviations: second_won,long-memory profile,built_not_in_model,leak-proof clock + probe passed,U-083,none,yes,low,,1.0,1.0,1.0
+pp__ios_srfF_hold_a,pp,pair,pp__ios_srfF_hold_b,,,U-084,surface deviations: hold,long-memory profile,built_not_in_model,leak-proof clock + probe passed,U-084,none,yes,low,,1.0,1.0,1.0
+pp__ios_srfF_hold_b,pp,pair,pp__ios_srfF_hold_a,,,U-084,surface deviations: hold,long-memory profile,built_not_in_model,leak-proof clock + probe passed,U-084,none,yes,low,,1.0,1.0,1.0
+pp__ios_srfF_bp_saved_a,pp,pair,pp__ios_srfF_bp_saved_b,,,U-085,surface deviations: bp_saved,long-memory profile,built_not_in_model,leak-proof clock + probe passed,U-085,none,yes,low,,1.0,1.0,1.0
+pp__ios_srfF_bp_saved_b,pp,pair,pp__ios_srfF_bp_saved_a,,,U-085,surface deviations: bp_saved,long-memory profile,built_not_in_model,leak-proof clock + probe passed,U-085,none,yes,low,,1.0,1.0,1.0
+pp__elo_R_a,pp,pair,pp__elo_R_b,,,U-013,overall Elo,ratings,in_model,safe by construction,U-013,none,yes,high,,1.0,1.0,1.0
+pp__elo_R_b,pp,pair,pp__elo_R_a,,,U-013,overall Elo,ratings,in_model,safe by construction,U-013,none,yes,high,,1.0,1.0,1.0
+pp__elo_D_a,pp,pair,pp__elo_D_b,,,U-014,surface offset Elo,ratings,in_model,safe by construction,U-014,none,yes,high,,1.0,1.0,1.0
+pp__elo_D_b,pp,pair,pp__elo_D_a,,,U-014,surface offset Elo,ratings,in_model,safe by construction,U-014,none,yes,high,,1.0,1.0,1.0
+pp__elo_N_a,pp,pair,pp__elo_N_b,,,U-022,rated matches (Elo N),ratings,built_not_in_model,safe by construction,U-022; U-039,none,yes,medium,pp__ttt_n_a,1.0,1.0,1.0
+pp__elo_N_b,pp,pair,pp__elo_N_a,,,U-022,rated matches (Elo N),ratings,built_not_in_model,safe by construction,U-022; U-039,none,yes,medium,pp__ttt_n_b,1.0,1.0,1.0
+pp__elo_NS_a,pp,pair,pp__elo_NS_b,,,U-023,career surface matches (Elo NS),ratings,built_not_in_model,safe by construction,U-023; U-039,none,yes,low,pp__ttt_ns_a,1.0,1.0,1.0
+pp__elo_NS_b,pp,pair,pp__elo_NS_a,,,U-023,career surface matches (Elo NS),ratings,built_not_in_model,safe by construction,U-023; U-039,none,yes,low,pp__ttt_ns_b,1.0,1.0,1.0
+pp__surf_season_n_a,pp,pair,pp__surf_season_n_b,,,U-129,surface matches this season (pair),load and schedule,in_model,safe by construction,U-129,none,yes,high,,1.0,1.0,1.0
+pp__surf_season_n_b,pp,pair,pp__surf_season_n_a,,,U-129,surface matches this season (pair),load and schedule,in_model,safe by construction,U-129,none,yes,high,,1.0,1.0,1.0
+pp__surf_days_since_a,pp,pair,pp__surf_days_since_b,,,U-130,days since the last match on this surface (pair),load and schedule,in_model,safe by construction,U-130,none,yes,high,,0.9992484593416504,0.9994745829502168,0.9959269172582336
+pp__surf_days_since_b,pp,pair,pp__surf_days_since_a,,,U-130,days since the last match on this surface (pair),load and schedule,in_model,safe by construction,U-130,none,yes,high,,0.9991983566310936,0.9992118744253252,0.995228674502502
+pp__surf_prev_n_a,pp,pair,pp__surf_prev_n_b,,,U-107,last season's surface form,long-memory profile,built_not_in_model,safe by construction,U-107,none,yes,low,,1.0,1.0,1.0
+pp__surf_prev_n_b,pp,pair,pp__surf_prev_n_a,,,U-107,last season's surface form,long-memory profile,built_not_in_model,safe by construction,U-107,none,yes,low,,1.0,1.0,1.0
+pp__surf_prev_res_a,pp,pair,pp__surf_prev_res_b,,,U-107,last season's surface form,long-memory profile,built_not_in_model,safe by construction,U-107,none,yes,low,,1.0,1.0,1.0
+pp__surf_prev_res_b,pp,pair,pp__surf_prev_res_a,,,U-107,last season's surface form,long-memory profile,built_not_in_model,safe by construction,U-107,none,yes,low,,1.0,1.0,1.0
+pp__s3_serve_a,pp,pair,pp__s3_serve_b,,,U-017,"Stage 3 serve and return ratings, per player",ratings,built_not_in_model,safe by construction,U-017,none,yes,medium,,1.0,1.0,1.0
+pp__s3_serve_b,pp,pair,pp__s3_serve_a,,,U-017,"Stage 3 serve and return ratings, per player",ratings,built_not_in_model,safe by construction,U-017,none,yes,medium,,1.0,1.0,1.0
+pp__s3_return_a,pp,pair,pp__s3_return_b,,,U-017,"Stage 3 serve and return ratings, per player",ratings,built_not_in_model,safe by construction,U-017,none,yes,medium,,1.0,1.0,1.0
+pp__s3_return_b,pp,pair,pp__s3_return_a,,,U-017,"Stage 3 serve and return ratings, per player",ratings,built_not_in_model,safe by construction,U-017,none,yes,medium,,1.0,1.0,1.0
+pp__s3_sd_serve_a,pp,pair,pp__s3_sd_serve_b,,,U-018,Stage 3 rating uncertainty,ratings,built_not_in_model,safe by construction,U-018,none,yes,medium,,1.0,1.0,1.0
+pp__s3_sd_serve_b,pp,pair,pp__s3_sd_serve_a,,,U-018,Stage 3 rating uncertainty,ratings,built_not_in_model,safe by construction,U-018,none,yes,medium,,1.0,1.0,1.0
+pp__s3_sd_return_a,pp,pair,pp__s3_sd_return_b,,,U-018,Stage 3 rating uncertainty,ratings,built_not_in_model,safe by construction,U-018,none,yes,medium,,1.0,1.0,1.0
+pp__s3_sd_return_b,pp,pair,pp__s3_sd_return_a,,,U-018,Stage 3 rating uncertainty,ratings,built_not_in_model,safe by construction,U-018,none,yes,medium,,1.0,1.0,1.0
+pp__s3_serve_pts_a,pp,pair,pp__s3_serve_pts_b,,,U-019,Stage 3 evidence (rated points),ratings,built_not_in_model,safe by construction,U-019,D,no,low,pp__s3_return_pts_a,1.0,1.0,1.0
+pp__s3_serve_pts_b,pp,pair,pp__s3_serve_pts_a,,,U-019,Stage 3 evidence (rated points),ratings,built_not_in_model,safe by construction,U-019,D,no,low,pp__s3_return_pts_b,1.0,1.0,1.0
+pp__s3_p_serve_a,pp,pair,pp__s3_p_serve_b,,,U-020,iid serve-point probability vs this opponent,ratings,built_not_in_model,safe by construction,U-020,none,yes,low,,1.0,1.0,1.0
+pp__s3_p_serve_b,pp,pair,pp__s3_p_serve_a,,,U-020,iid serve-point probability vs this opponent,ratings,built_not_in_model,safe by construction,U-020,none,yes,low,,1.0,1.0,1.0
+pp__ttt_mu_a,pp,pair,pp__ttt_mu_b,,,U-037,"offset TTT, overall part",ratings,built_not_in_model,leak-proof clock + probe passed,U-037,none,yes,medium,,1.0,1.0,1.0
+pp__ttt_mu_b,pp,pair,pp__ttt_mu_a,,,U-037,"offset TTT, overall part",ratings,built_not_in_model,leak-proof clock + probe passed,U-037,none,yes,medium,,1.0,1.0,1.0
+pp__ttt_s2_a,pp,pair,pp__ttt_s2_b,,,U-037,"offset TTT, overall part",ratings,built_not_in_model,leak-proof clock + probe passed,U-037,none,yes,medium,,1.0,1.0,1.0
+pp__ttt_s2_b,pp,pair,pp__ttt_s2_a,,,U-037,"offset TTT, overall part",ratings,built_not_in_model,leak-proof clock + probe passed,U-037,none,yes,medium,,1.0,1.0,1.0
+pp__ttt_off_a,pp,pair,pp__ttt_off_b,,,U-038,"offset TTT, surface part",ratings,built_not_in_model,leak-proof clock + probe passed,U-038,none,yes,low,,1.0,1.0,1.0
+pp__ttt_off_b,pp,pair,pp__ttt_off_a,,,U-038,"offset TTT, surface part",ratings,built_not_in_model,leak-proof clock + probe passed,U-038,none,yes,low,,1.0,1.0,1.0
+pp__ttt_so2_a,pp,pair,pp__ttt_so2_b,,,U-038,"offset TTT, surface part",ratings,built_not_in_model,leak-proof clock + probe passed,U-038,none,yes,low,,1.0,1.0,1.0
+pp__ttt_so2_b,pp,pair,pp__ttt_so2_a,,,U-038,"offset TTT, surface part",ratings,built_not_in_model,leak-proof clock + probe passed,U-038,none,yes,low,,1.0,1.0,1.0
+pp__form_ace_a,pp,pair,pp__form_ace_b,,,U-108,two-week form: aces,two-week profile,in_model,safe by construction,U-108,none,yes,high,,0.9969938373666016,0.999277551556548,0.996392412428721
+pp__form_ace_b,pp,pair,pp__form_ace_a,,,U-108,two-week form: aces,two-week profile,in_model,safe by construction,U-108,none,yes,high,,0.9969938373666016,0.999277551556548,0.9960432910508552
+pp__form_df_a,pp,pair,pp__form_df_b,,,U-109,two-week form: double faults,two-week profile,in_model,safe by construction,U-109,none,yes,high,,0.9969938373666016,0.999277551556548,0.996392412428721
+pp__form_df_b,pp,pair,pp__form_df_a,,,U-109,two-week form: double faults,two-week profile,in_model,safe by construction,U-109,none,yes,high,,0.9969938373666016,0.999277551556548,0.9960432910508552
+pp__form_first_in_a,pp,pair,pp__form_first_in_b,,,U-110,two-week form: first serves in,two-week profile,in_model,safe by construction,U-110,none,yes,high,,0.9969938373666016,0.999277551556548,0.996392412428721
+pp__form_first_in_b,pp,pair,pp__form_first_in_a,,,U-110,two-week form: first serves in,two-week profile,in_model,safe by construction,U-110,none,yes,high,,0.9969938373666016,0.999277551556548,0.9960432910508552
+pp__form_first_won_a,pp,pair,pp__form_first_won_b,,,U-111,two-week form: first-serve points won,two-week profile,in_model,safe by construction,U-111,none,yes,high,,0.9969938373666016,0.999277551556548,0.996392412428721
+pp__form_first_won_b,pp,pair,pp__form_first_won_a,,,U-111,two-week form: first-serve points won,two-week profile,in_model,safe by construction,U-111,none,yes,high,,0.9969938373666016,0.999277551556548,0.9960432910508552
+pp__form_second_won_a,pp,pair,pp__form_second_won_b,,,U-112,two-week form: second-serve points won,two-week profile,in_model,safe by construction,U-112,none,yes,high,,0.9969938373666016,0.999277551556548,0.996392412428721
+pp__form_second_won_b,pp,pair,pp__form_second_won_a,,,U-112,two-week form: second-serve points won,two-week profile,in_model,safe by construction,U-112,none,yes,high,,0.9969938373666016,0.999277551556548,0.9960432910508552
+pp__form_hold_a,pp,pair,pp__form_hold_b,,,U-113,two-week form: service games held,two-week profile,in_model,safe by construction,U-113,none,yes,high,,0.8746680695425623,0.999277551556548,0.996392412428721
+pp__form_hold_b,pp,pair,pp__form_hold_a,,,U-113,two-week form: service games held,two-week profile,in_model,safe by construction,U-113,none,yes,high,,0.874417555989779,0.9992118744253252,0.9960432910508552
+pp__form_bp_saved_a,pp,pair,pp__form_bp_saved_b,,,U-114,two-week form: break points saved,two-week profile,in_model,safe by construction,U-114,none,yes,high,,0.9969938373666016,0.999277551556548,0.996392412428721
+pp__form_bp_saved_b,pp,pair,pp__form_bp_saved_a,,,U-114,two-week form: break points saved,two-week profile,in_model,safe by construction,U-114,none,yes,high,,0.9969687860113232,0.999277551556548,0.9959269172582336
+pp__form_bp_faced_pg_a,pp,pair,pp__form_bp_faced_pg_b,,,U-115,two-week form: break points faced per service game,two-week profile,in_model,safe by construction,U-115,none,yes,high,,0.8746680695425623,0.999277551556548,0.996392412428721
+pp__form_bp_faced_pg_b,pp,pair,pp__form_bp_faced_pg_a,,,U-115,two-week form: break points faced per service game,two-week profile,in_model,safe by construction,U-115,none,yes,high,,0.874417555989779,0.9992118744253252,0.9960432910508552
+pp__form_brk_a,pp,pair,pp__form_brk_b,,,U-116,two-week form: return games won (K3 160),two-week profile,in_model,safe by construction,U-116,none,yes,high,,0.8746680695425623,0.999277551556548,0.996392412428721
+pp__form_brk_b,pp,pair,pp__form_brk_a,,,U-116,two-week form: return games won (K3 160),two-week profile,in_model,safe by construction,U-116,none,yes,high,,0.874417555989779,0.9992118744253252,0.9960432910508552
+pp__form_bp_conv_a,pp,pair,pp__form_bp_conv_b,,,U-117,two-week form: break points converted (K3 160),two-week profile,in_model,safe by construction,U-117,none,yes,high,,0.9969186833007666,0.9992118744253252,0.996392412428721
+pp__form_bp_conv_b,pp,pair,pp__form_bp_conv_a,,,U-117,two-week form: break points converted (K3 160),two-week profile,in_model,safe by construction,U-117,none,yes,high,,0.9969687860113232,0.999277551556548,0.9959269172582336
+pp__form_rpw_first_a,pp,pair,pp__form_rpw_first_b,,,U-118,two-week form: return points won on the first serve (K3 160),two-week profile,in_model,safe by construction,U-118,none,yes,high,,0.9969938373666016,0.999277551556548,0.996392412428721
+pp__form_rpw_first_b,pp,pair,pp__form_rpw_first_a,,,U-118,two-week form: return points won on the first serve (K3 160),two-week profile,in_model,safe by construction,U-118,none,yes,high,,0.9969938373666016,0.999277551556548,0.9960432910508552
+pp__form_rpw_second_a,pp,pair,pp__form_rpw_second_b,,,U-119,two-week form: return points won on the second serve (K3 160),two-week profile,in_model,safe by construction,U-119,none,yes,high,,0.9969938373666016,0.999277551556548,0.996392412428721
+pp__form_rpw_second_b,pp,pair,pp__form_rpw_second_a,,,U-119,two-week form: return points won on the second serve (K3 160),two-week profile,in_model,safe by construction,U-119,none,yes,high,,0.9969938373666016,0.999277551556548,0.9960432910508552
+pp__formdef_ace_a,pp,pair,pp__formdef_ace_b,,,U-120,two-week defence: aces conceded below the opponent's norm,two-week profile,in_model,safe by construction,U-120,none,yes,high,,0.9969938373666016,0.999277551556548,0.996392412428721
+pp__formdef_ace_b,pp,pair,pp__formdef_ace_a,,,U-120,two-week defence: aces conceded below the opponent's norm,two-week profile,in_model,safe by construction,U-120,none,yes,high,,0.9969938373666016,0.999277551556548,0.9960432910508552
+pp__formdef_df_a,pp,pair,pp__formdef_df_b,,,U-121,two-week defence: double faults induced,two-week profile,in_model,safe by construction,U-121,none,yes,high,,0.9969938373666016,0.999277551556548,0.996392412428721
+pp__formdef_df_b,pp,pair,pp__formdef_df_a,,,U-121,two-week defence: double faults induced,two-week profile,in_model,safe by construction,U-121,none,yes,high,,0.9969938373666016,0.999277551556548,0.9960432910508552
+pp__formdef_first_in_a,pp,pair,pp__formdef_first_in_b,,,U-122,two-week defence: first serves in induced,two-week profile,in_model,safe by construction,U-122,none,yes,high,,0.9969938373666016,0.999277551556548,0.996392412428721
+pp__formdef_first_in_b,pp,pair,pp__formdef_first_in_a,,,U-122,two-week defence: first serves in induced,two-week profile,in_model,safe by construction,U-122,none,yes,high,,0.9969938373666016,0.999277551556548,0.9960432910508552
+pp__formdef_bp_faced_pg_a,pp,pair,pp__formdef_bp_faced_pg_b,,,U-123,two-week defence: break points forced per game,two-week profile,in_model,safe by construction,U-123,none,yes,high,,0.8746680695425623,0.999277551556548,0.996392412428721
+pp__formdef_bp_faced_pg_b,pp,pair,pp__formdef_bp_faced_pg_a,,,U-123,two-week defence: break points forced per game,two-week profile,in_model,safe by construction,U-123,none,yes,high,,0.874417555989779,0.9992118744253252,0.9960432910508552
+pp__adjperf_tpw_2w_a,pp,pair,pp__adjperf_tpw_2w_b,,,U-124,two-week total points won (adjperf_tpw_2w),two-week profile,in_model,safe by construction,U-124; U-126,none,yes,high,fp__f07_evidence_age__f07_form_rebuilt_a,0.9969938373666016,0.999277551556548,0.996392412428721
+pp__adjperf_tpw_2w_b,pp,pair,pp__adjperf_tpw_2w_a,,,U-124,two-week total points won (adjperf_tpw_2w),two-week profile,in_model,safe by construction,U-124; U-126,none,yes,high,fp__f07_evidence_age__f07_form_rebuilt_b,0.9969938373666016,0.999277551556548,0.9960432910508552
+pp__sets_14d_a,pp,pair,pp__sets_14d_b,,,U-128,sets in the last 14 days,load and schedule,in_model,safe by construction,U-128,none,yes,high,,0.9999498972894434,0.9988834887692104,1.0
+pp__sets_14d_b,pp,pair,pp__sets_14d_a,,,U-128,sets in the last 14 days,load and schedule,in_model,safe by construction,U-128,none,yes,high,,0.9998747432236084,0.9988178116379876,1.0
+pp__age_pl_a,pp,pair,pp__age_pl_b,,,U-163,age,player background,in_model,safe by construction,U-163,none,yes,high,pp__age_a,1.0,0.9998686457375542,0.9899918538345164
+pp__age_pl_b,pp,pair,pp__age_pl_a,,,U-163,age,player background,in_model,safe by construction,U-163,none,yes,high,pp__age_b,1.0,0.999934322868777,0.9892936110787852
+pp__rank_a,pp,pair,pp__rank_b,,,U-171,ranking,player background,built_not_in_model,safe by construction,U-171; U-173,none,yes,medium,fp__f16_repute__rkf_a; fp__f17_info__rkf_a,0.9983215591963526,0.9979640089320898,0.9986035144885372
+pp__rank_b,pp,pair,pp__rank_a,,,U-171,ranking,player background,built_not_in_model,safe by construction,U-171; U-173,none,yes,medium,fp__f16_repute__rkf_b; fp__f17_info__rkf_b,0.9981461997094044,0.9986864573755418,0.9986035144885372
+pp__rank_points_a,pp,pair,pp__rank_points_b,,,U-172,ranking points,player background,built_not_in_model,safe by construction,U-172,none,yes,low,,0.9983215591963526,0.9979640089320898,0.9987198882811592
+pp__rank_points_b,pp,pair,pp__rank_points_a,,,U-172,ranking points,player background,built_not_in_model,safe by construction,U-172,none,yes,low,,0.9981461997094044,0.9986864573755418,0.9986035144885372
+pp__seed_a,pp,pair,pp__seed_b,,,U-175,seed,player background,built_not_in_model,safe by construction,U-175,none,no,low,,0.358084072348314,0.3573492709838434,0.3579657861049691
+pp__seed_b,pp,pair,pp__seed_a,,,U-175,seed,player background,built_not_in_model,safe by construction,U-175,none,no,low,,0.3606894132972594,0.353342965979246,0.3563365530082625
+pp__height_a,pp,pair,pp__height_b,,,U-165,height,player background,built_not_in_model,safe by construction,U-165,none,yes,low,fp__f04_second_serve__height_a; fp__f07_evidence_age__height_a,0.9823888972393406,0.9017470116905294,0.8054230187361806
+pp__height_b,pp,pair,pp__height_a,,,U-165,height,player background,built_not_in_model,safe by construction,U-165,none,yes,low,fp__f04_second_serve__height_b; fp__f07_evidence_age__height_b,0.9826394107921238,0.9037173256272166,0.8060048876992901
+pp__hand_left_a,pp,pair,pp__hand_left_b,,,U-166,left-handed,player background,built_not_in_model,safe by construction,U-166,none,yes,low,,1.0,1.0,0.9874316303968348
+pp__hand_left_b,pp,pair,pp__hand_left_a,,,U-166,left-handed,player background,built_not_in_model,safe by construction,U-166,none,yes,low,,1.0,1.0,0.988129873152566
+pp__entry_Q_a,pp,pair,pp__entry_Q_b,,,U-176,entry type,player background,built_not_in_model,safe by construction,U-176,none,yes,low,,1.0,1.0,1.0
+pp__entry_Q_b,pp,pair,pp__entry_Q_a,,,U-176,entry type,player background,built_not_in_model,safe by construction,U-176,none,yes,low,,1.0,1.0,1.0
+pp__entry_WC_a,pp,pair,pp__entry_WC_b,,,U-176,entry type,player background,built_not_in_model,safe by construction,U-176,none,yes,low,,1.0,1.0,1.0
+pp__entry_WC_b,pp,pair,pp__entry_WC_a,,,U-176,entry type,player background,built_not_in_model,safe by construction,U-176,none,yes,low,,1.0,1.0,1.0
+pp__entry_LL_a,pp,pair,pp__entry_LL_b,,,U-176,entry type,player background,built_not_in_model,safe by construction,U-176,none,yes,low,,1.0,1.0,1.0
+pp__entry_LL_b,pp,pair,pp__entry_LL_a,,,U-176,entry type,player background,built_not_in_model,safe by construction,U-176,none,yes,low,,1.0,1.0,1.0
+pp__entry_PR_a,pp,pair,pp__entry_PR_b,,,U-176,entry type,player background,built_not_in_model,safe by construction,U-176,none,yes,low,,1.0,1.0,1.0
+pp__entry_PR_b,pp,pair,pp__entry_PR_a,,,U-176,entry type,player background,built_not_in_model,safe by construction,U-176,none,yes,low,,1.0,1.0,1.0
+pp__entry_SR_a,pp,pair,pp__entry_SR_b,,,U-176,entry type,player background,built_not_in_model,safe by construction,U-176,none,yes,low,,1.0,1.0,1.0
+pp__entry_SR_b,pp,pair,pp__entry_SR_a,,,U-176,entry type,player background,built_not_in_model,safe by construction,U-176,none,yes,low,,1.0,1.0,1.0
+pp__entry_ALT_a,pp,pair,pp__entry_ALT_b,,,U-176,entry type,player background,built_not_in_model,safe by construction,U-176,none,yes,low,,1.0,1.0,1.0
+pp__entry_ALT_b,pp,pair,pp__entry_ALT_a,,,U-176,entry type,player background,built_not_in_model,safe by construction,U-176,none,yes,low,,1.0,1.0,1.0
+pp__seeded_a,pp,pair,pp__seeded_b,,,U-175,seed,player background,built_not_in_model,safe by construction,U-175,none,no,low,,1.0,1.0,1.0
+pp__seeded_b,pp,pair,pp__seeded_a,,,U-175,seed,player background,built_not_in_model,safe by construction,U-175,none,no,low,,1.0,1.0,1.0
+pp__rest_days_a,pp,pair,pp__rest_days_b,,,U-132,days since the last match (any level),load and schedule,built_not_in_model,safe by construction,U-132,A,yes,high,fp__f10_price_slopes__rest_a; fp__f13_uncertainty__rest_a; fp__f17_info__rest_a; fp__f20_fatigue__bd_rest_a,0.9999498972894434,0.999934322868777,0.9966251600139648
+pp__rest_days_b,pp,pair,pp__rest_days_a,,,U-132,days since the last match (any level),load and schedule,built_not_in_model,safe by construction,U-132,A,yes,high,fp__f10_price_slopes__rest_b; fp__f13_uncertainty__rest_b; fp__f17_info__rest_b; fp__f20_fatigue__bd_rest_b,0.9999749486447216,1.0,0.9960432910508552
+mk__ps_minus_avg,mk,diff,,,market_internal,U-002,Pinnacle minus average (C-1),market,market_internal,safe by construction,U-002; U-003,A,yes,low,,0.9955909614710156,0.9958623407329568,0.5881531479110904
+mk__max_minus_avg,mk,diff,,,market_internal,U-004,best price minus average,market,market_internal,safe by construction,U-004,C,no,low,,0.9999749486447216,0.999934322868777,1.0
+mk__b365_minus_avg,mk,diff,,,market_internal,U-005,Bet365 minus average,market,market_internal,safe by construction,U-005,none,no,low,,0.9965178616163134,0.9980953631945356,0.9935994414057954
+mk__overround_avg,mk,context,,,market_internal,U-006,overround of the average close,market,market_internal,safe by construction,U-006,none,no,low,,1.0,1.0,1.0
+mk__dispersion,mk,context,,,market_internal,U-007,cross-book dispersion,market,market_internal,safe by construction,U-007,C,no,low,,0.9999749486447216,0.999934322868777,1.0
+fi__B-LEVER__s0,fi,context,,B-LEVER,,U-234,pair serve dominance (spw sums),level sums,built_not_in_model,leak-proof clock + probe passed,U-234; U-259,none,no,medium,fi__B-LEVER__f02_kappa_pair,1.0,1.0,1.0
+fi__B-LEVER__s1,fi,context,,B-LEVER,,U-259,B-LEVER (block): price leverage by match structure,feature-interactions study,built_not_in_model,leak-proof clock + probe passed,U-259,none,no,low,,1.0,1.0,1.0
+fi__B-LEVER__s2,fi,context,,B-LEVER,,U-259,B-LEVER (block): price leverage by match structure,feature-interactions study,built_not_in_model,leak-proof clock + probe passed,U-259,none,no,low,,1.0,1.0,1.0
+fi__I-008__x,fi,diff,,I-008,,U-235,I-008 (block): composed serve-point profile,feature-interactions study,built_not_in_model,leak-proof clock + probe passed,U-235,D,no,low,,1.0,1.0,1.0
+fi__I-008__f03_z_spw,fi,diff,,I-008,,U-235,I-008 (block): composed serve-point profile,feature-interactions study,built_not_in_model,leak-proof clock + probe passed,U-235,D,no,low,,1.0,1.0,1.0
+fi__B2__x,fi,diff,,B2,,U-240,B2 (block): free points and ace curvature,feature-interactions study,built_not_in_model,leak-proof clock + probe passed,U-240,none,no,low,,1.0,1.0,1.0
+fi__B2__f03_e_ace,fi,diff,,B2,,U-242,I-013: ace probability gap,feature-interactions study,built_not_in_model,leak-proof clock + probe passed,U-242,none,no,low,,1.0,1.0,1.0
+fi__B2__f03_shield,fi,diff,,B2,,U-241,I-012: free-point shield,feature-interactions study,built_not_in_model,leak-proof clock + probe passed,U-241,none,no,low,,1.0,1.0,1.0
+ds__I_008_z_C1,ds,diff,,I-008,,U-236,I-008 z_C1: three-component composition (sensitivity),feature-interactions study,built_not_in_model,leak-proof clock + probe passed,U-236,D,no,low,,1.0,1.0,1.0
+ds__I_008_damped,ds,diff,,I-008,,U-237,I-008 damped: damped composition (sensitivity),feature-interactions study,built_not_in_model,leak-proof clock + probe passed,U-237,D,no,low,,1.0,1.0,1.0
+ds__I_008_link_corrected,ds,diff,,I-008,,U-238,I-008 link-corrected: link-corrected composition (MEC-L1),feature-interactions study,built_not_in_model,leak-proof clock + probe passed,U-238,D,no,low,,1.0,1.0,1.0
+ds__I_008_z_C1___z_spw__two_sided,ds,diff,,I-008,,U-239,I-008 z_C1 - z_spw: component minus points composition (MAT-K1),feature-interactions study,built_not_in_model,leak-proof clock + probe passed,U-239,none,no,low,,1.0,1.0,1.0
+fi__B3__x0,fi,diff,,B3,,U-244,I-016: risky second servers vs second-serve attackers,feature-interactions study,built_not_in_model,leak-proof clock + probe passed,U-243; U-244,C,no,low,fi__B3__f04_risky_second,1.0,1.0,1.0
+fi__B3__x1,fi,diff,,B3,,U-245,I-022: kick second serve vs a short returner,feature-interactions study,built_not_in_model,leak-proof clock + probe passed,U-243; U-245,C,no,low,fi__B3__f04_kick_short,0.9665313893481636,0.8296991987389991,0.690212964040498
+fp__f07_evidence_age__f07_s0_a,fp,pair,fp__f07_evidence_age__f07_s0_b,B7,,U-126,form evidence and shrinkage,two-week profile,built_not_in_model,safe by construction,U-126,D,no,low,,1.0,1.0,1.0
+fp__f07_evidence_age__f07_s0_b,fp,pair,fp__f07_evidence_age__f07_s0_a,B7,,U-126,form evidence and shrinkage,two-week profile,built_not_in_model,safe by construction,U-126,D,no,low,,1.0,1.0,1.0
+fp__f07_evidence_age__f07_ell_a,fp,pair,fp__f07_evidence_age__f07_ell_b,B7,,U-125,52-week level of the points form,two-week profile,built_not_in_model,safe by construction,U-125,C,no,medium,fp__f13_uncertainty__l52_a,0.9941880855754296,0.9973072376198608,0.9958105434656116
+fp__f07_evidence_age__f07_ell_b,fp,pair,fp__f07_evidence_age__f07_ell_a,B7,,U-125,52-week level of the points form,two-week profile,built_not_in_model,safe by construction,U-125,C,no,medium,fp__f13_uncertainty__l52_b,0.9940878801543164,0.9981610403257586,0.9955777958803678
+fi__B7__x,fi,diff,,B7,,U-246,B7 (block): evidence and staleness weighting,feature-interactions study,built_not_in_model,leak-proof clock + probe passed,U-246,D,no,low,,1.0,1.0,1.0
+fi__B7__f07_height_prior,fi,diff,,B7,,U-247,I-023: height as the serve prior for thin histories,feature-interactions study,built_not_in_model,leak-proof clock + probe passed,U-247,D,no,low,,0.9665313893481636,0.8296991987389991,0.690212964040498
+fi__B7__f07_reanchor,fi,diff,,B7,,U-248,I-031: re-anchored two-week form,feature-interactions study,built_not_in_model,leak-proof clock + probe passed,U-248,D,no,low,,0.9885014279272508,0.9954682779456192,0.9937158151984172
+fi__B7__f07_ios_x_rbar,fi,diff,,B7,,U-249,I-032: IOS weighted by its evidence,feature-interactions study,built_not_in_model,leak-proof clock + probe passed,U-249,D,no,low,,1.0,1.0,1.0
+fi__B7__f07_stale_E,fi,diff,,B7,,U-250,"I-048 E: stale surface profile, serve",feature-interactions study,built_not_in_model,leak-proof clock + probe passed,U-250,D,no,low,,1.0,1.0,1.0
+fi__B7__f07_stale_F,fi,diff,,B7,,U-251,"I-048 F: stale surface profile, return",feature-interactions study,built_not_in_model,leak-proof clock + probe passed,U-251,D,no,low,,1.0,1.0,1.0
+fi__B-AGE__x,fi,diff,,B-AGE,,U-252,B-AGE (block): age-dependent trust in recent form (I-070),feature-interactions study,built_not_in_model,leak-proof clock + probe passed,U-252,C,no,low,fi__B-AGE__f07_age_trust_form,0.993987674733203,0.9984237488506502,0.9855696497148844
+fp__f08_clutch__f08_bigpt_a,fp,diff,,B-CLUTCH,,U-205,big-point return skill (Slam point files),shot and point level,built_not_in_model,safe by construction,U-205,none,yes,low,fp__f08_clutch__f08_bigpt_b,0.8629440352723082,0.8536713516353606,0.7386244617712091
+fp__f08_clutch__f08_res_a,fp,pair,fp__f08_clutch__f08_res_b,B-CLUTCH,,U-206,resilience excess,shot and point level,built_not_in_model,leak-proof clock + probe passed,U-206,none,no,exclude,,0.8212084773786262,0.98712728228031,0.9832421738624462
+fp__f08_clutch__f08_res_b,fp,pair,fp__f08_clutch__f08_res_a,B-CLUTCH,,U-206,resilience excess,shot and point level,built_not_in_model,leak-proof clock + probe passed,U-206,none,no,exclude,,0.8196803447066486,0.9866675423617496,0.9828930524845804
+fp__f08_clutch__f08_resn_a,fp,pair,fp__f08_clutch__f08_resn_b,B-CLUTCH,,U-206,resilience excess,shot and point level,built_not_in_model,leak-proof clock + probe passed,U-206,none,no,exclude,,1.0,1.0,1.0
+fp__f08_clutch__f08_resn_b,fp,pair,fp__f08_clutch__f08_resn_a,B-CLUTCH,,U-206,resilience excess,shot and point level,built_not_in_model,leak-proof clock + probe passed,U-206,none,no,exclude,,1.0,1.0,1.0
+fi__B-CLUTCH__x,fi,diff,,B-CLUTCH,,U-253,B-CLUTCH (block): big-point return x break-point scarcity (I-026),feature-interactions study,built_not_in_model,leak-proof clock + probe passed,U-253,D,no,low,fi__B-CLUTCH__f08_bigpoint_x_scarcity,0.8629440352723082,0.8536713516353606,0.7386244617712091
+fp__f09_venue__f09_G_a,fp,pair,fp__f09_venue__f09_G_b,B-VENUE,,U-193,indoor serve and return deviations,context,built_not_in_model,leak-proof clock + probe passed,U-193,none,no,exclude,,1.0,1.0,1.0
+fp__f09_venue__f09_G_b,fp,pair,fp__f09_venue__f09_G_a,B-VENUE,,U-193,indoor serve and return deviations,context,built_not_in_model,leak-proof clock + probe passed,U-193,none,no,exclude,,1.0,1.0,1.0
+fp__f09_venue__f09_H_a,fp,pair,fp__f09_venue__f09_H_b,B-VENUE,,U-193,indoor serve and return deviations,context,built_not_in_model,leak-proof clock + probe passed,U-193,none,no,exclude,,1.0,1.0,1.0
+fp__f09_venue__f09_H_b,fp,pair,fp__f09_venue__f09_H_a,B-VENUE,,U-193,indoor serve and return deviations,context,built_not_in_model,leak-proof clock + probe passed,U-193,none,no,exclude,,1.0,1.0,1.0
+fp__f09_venue__f09_ve,fp,context,,B-VENUE,,U-192,venue pace (leak-proof),context,built_not_in_model,leak-proof clock + probe passed,U-192,A,no,high,,1.0,1.0,1.0
+fp__f09_venue__f09_indoor,fp,context,,B-VENUE,,U-185,"indoor, both tours (tennis-data Court)",context,built_not_in_model,safe by construction,U-185,none,no,medium,,1.0,1.0,1.0
+fi__B-VENUE__x,fi,diff,,B-VENUE,,U-254,B-VENUE (block): venue pace x ace offence (I-072),feature-interactions study,built_not_in_model,leak-proof clock + probe passed,U-254,A,no,medium,fi__B-VENUE__f09_venue_pace_x_ace,1.0,1.0,1.0
+fp__f10_price_slopes__bd_fat_a,fp,pair,fp__f10_price_slopes__bd_fat_b,I-036,,U-139,fatigue kernel (tau 3 days),load and schedule,built_not_in_model,leak-proof clock + probe passed,U-139,none,no,medium,fp__f13_uncertainty__bd_fat_a; fp__f16_repute__bd_fat_a; fp__f20_fatigue__bd_fat_a; fp__f21_constitution__bd9a_fat_a; fp__f22_demand__bd9b_fat_a; fp__f23_arrival__bd10_fat_a; fp__f28_state__bdst_fat_a,1.0,1.0,1.0
+fp__f10_price_slopes__bd_fat_b,fp,pair,fp__f10_price_slopes__bd_fat_a,I-036,,U-139,fatigue kernel (tau 3 days),load and schedule,built_not_in_model,leak-proof clock + probe passed,U-139,none,no,medium,fp__f13_uncertainty__bd_fat_b; fp__f16_repute__bd_fat_b; fp__f20_fatigue__bd_fat_b; fp__f21_constitution__bd9a_fat_b; fp__f22_demand__bd9b_fat_b; fp__f23_arrival__bd10_fat_b; fp__f28_state__bdst_fat_b,1.0,1.0,1.0
+fp__f10_price_slopes__bd_fatimp_a,fp,pair,fp__f10_price_slopes__bd_fatimp_b,I-036,,U-140,imputed-load share,load and schedule,built_not_in_model,safe by construction,U-140,none,no,low,fp__f13_uncertainty__bd_fatimp_a; fp__f16_repute__bd_fatimp_a; fp__f20_fatigue__bd_fatimp_a; fp__f21_constitution__bd9a_imp_a; fp__f22_demand__bd9b_imp_a,1.0,1.0,1.0
+fp__f10_price_slopes__bd_fatimp_b,fp,pair,fp__f10_price_slopes__bd_fatimp_a,I-036,,U-140,imputed-load share,load and schedule,built_not_in_model,safe by construction,U-140,none,no,low,fp__f13_uncertainty__bd_fatimp_b; fp__f16_repute__bd_fatimp_b; fp__f20_fatigue__bd_fatimp_b; fp__f21_constitution__bd9a_imp_b; fp__f22_demand__bd9b_imp_b,1.0,1.0,1.0
+fp__f10_price_slopes__bd_off_a,fp,pair,fp__f10_price_slopes__bd_off_b,I-036,,U-141,off-site load,load and schedule,built_not_in_model,leak-proof clock + probe passed,U-141,none,no,low,fp__f13_uncertainty__bd_off_a; fp__f16_repute__bd_off_a; fp__f20_fatigue__bd_off_a,1.0,1.0,1.0
+fp__f10_price_slopes__bd_off_b,fp,pair,fp__f10_price_slopes__bd_off_a,I-036,,U-141,off-site load,load and schedule,built_not_in_model,leak-proof clock + probe passed,U-141,none,no,low,fp__f13_uncertainty__bd_off_b; fp__f16_repute__bd_off_b; fp__f20_fatigue__bd_off_b,1.0,1.0,1.0
+fi__I-036__s,fi,context,,I-036,,U-255,"I-036 (block): obscurity x price, reversed",feature-interactions study,built_not_in_model,safe by construction,U-255,C,no,low,fi__I-036__obscurity,1.0,1.0,1.0
+fi__I-049__s,fi,context,,I-049,,U-257,I-049 (block): early surface season x price,feature-interactions study,built_not_in_model,safe by construction,U-257,none,no,low,fi__I-049__early_surface,1.0,1.0,1.0
+fi__B-FLB__s,fi,context,,B-FLB,,U-258,B-FLB (block): favourite-longshot slopes (Lahvicka),feature-interactions study,built_not_in_model,safe by construction,U-258,D,no,low,,1.0,1.0,1.0
+fi__B-FLB__m_LIT-1_MAT-L1_L,fi,context,,B-FLB,,U-258,B-FLB (block): favourite-longshot slopes (Lahvicka),feature-interactions study,built_not_in_model,safe by construction,U-258,D,no,low,,1.0,1.0,1.0
+fi__B-FLB__m_LIT-1_HP,fi,context,,B-FLB,,U-258,B-FLB (block): favourite-longshot slopes (Lahvicka),feature-interactions study,built_not_in_model,safe by construction,U-258,D,no,low,,1.0,1.0,1.0
+fi__I-042__x,fi,diff,,I-042,base-dependent: reads the current best's 2014-2024 forecast; recompute with a new model's own,U-260,I-042 (block): retirement hazard x price,feature-interactions study,built_not_in_model,leak-proof clock + probe passed,U-260,none,no,low,,0.8740417856606042,1.0,0.0
+fi__I-042__hz_a,fi,pair,fi__I-042__hz_b,I-042,,U-178,in-match retirement hazard,player background,built_not_in_model,leak-proof clock + probe passed,U-178,none,no,low,fp__f11_retirement__hz_a,1.0,1.0,1.0
+fi__I-042__hz_b,fi,pair,fi__I-042__hz_a,I-042,,U-178,in-match retirement hazard,player background,built_not_in_model,leak-proof clock + probe passed,U-178,none,no,low,fp__f11_retirement__hz_b,1.0,1.0,1.0
+fp__f12_salience__salL_a,fp,pair,fp__f12_salience__salL_b,I-082,,U-261,I-082 (block): form earned where nobody watches,feature-interactions study,built_not_in_model,safe by construction,U-261,none,no,low,fp__f17_info__salL_a,1.0,1.0,1.0
+fp__f12_salience__salL_b,fp,pair,fp__f12_salience__salL_a,I-082,,U-261,I-082 (block): form earned where nobody watches,feature-interactions study,built_not_in_model,safe by construction,U-261,none,no,low,fp__f17_info__salL_b,1.0,1.0,1.0
+fp__f12_salience__salH_a,fp,pair,fp__f12_salience__salH_b,I-082,,U-261,I-082 (block): form earned where nobody watches,feature-interactions study,built_not_in_model,safe by construction,U-261,none,no,low,,1.0,1.0,1.0
+fp__f12_salience__salH_b,fp,pair,fp__f12_salience__salH_a,I-082,,U-261,I-082 (block): form earned where nobody watches,feature-interactions study,built_not_in_model,safe by construction,U-261,none,no,low,,1.0,1.0,1.0
+fp__f12_salience__hasL_a,fp,pair,fp__f12_salience__hasL_b,I-082,,U-261,I-082 (block): form earned where nobody watches,feature-interactions study,built_not_in_model,safe by construction,U-261,none,no,low,,1.0,1.0,1.0
+fp__f12_salience__hasL_b,fp,pair,fp__f12_salience__hasL_a,I-082,,U-261,I-082 (block): form earned where nobody watches,feature-interactions study,built_not_in_model,safe by construction,U-261,none,no,low,,1.0,1.0,1.0
+fi__I-082__x,fi,diff,,I-082,,U-261,I-082 (block): form earned where nobody watches,feature-interactions study,built_not_in_model,safe by construction,U-261,none,no,low,fi__I-082__sal_low,1.0,1.0,1.0
+fp__f13_uncertainty__shr_a,fp,pair,fp__f13_uncertainty__shr_b,B6,,U-126,form evidence and shrinkage,two-week profile,built_not_in_model,safe by construction,U-126,D,no,low,,1.0,1.0,1.0
+fp__f13_uncertainty__shr_b,fp,pair,fp__f13_uncertainty__shr_a,B6,,U-126,form evidence and shrinkage,two-week profile,built_not_in_model,safe by construction,U-126,D,no,low,,1.0,1.0,1.0
+fi__B6__s,fi,context,,B6,,U-262,B6 (block): transient uncertainty flattens the price,feature-interactions study,built_not_in_model,leak-proof clock + probe passed,U-262,C,no,low,,1.0,1.0,0.9973234027696962
+fi__B6__flux_pair,fi,context,,B6,,U-263,I-033: form flux,feature-interactions study,built_not_in_model,leak-proof clock + probe passed,U-263,C,no,medium,fi__B6__m_I-033,0.993987674733203,0.998555103113096,0.9947631793320144
+fi__B6__age_dist_pair,fi,context,,B6,,U-264,BOD-L2: career-stage distance,feature-interactions study,built_not_in_model,safe by construction,U-264,C,no,low,fi__B6__m_BOD-L2,1.0,0.9998029686063312,0.988013499359944
+fi__B6__rest_axis,fi,context,,B6,,U-265,U_rest: rest axis (I-054 + BOD-C2),feature-interactions study,built_not_in_model,leak-proof clock + probe passed,U-265,C,no,low,,0.9999248459341652,0.999934322868777,0.9949959269172582
+fi__B6__m_U_rest_I-054_BOD-C2,fi,context,,B6,,U-265,U_rest: rest axis (I-054 + BOD-C2),feature-interactions study,built_not_in_model,leak-proof clock + probe passed,U-265,C,no,low,,0.9999248459341652,0.999934322868777,0.9949959269172582
+fp__f14_anchor__fame_a,fp,pair,fp__f14_anchor__fame_b,B-ANCHOR,,U-177,fame,player background,built_not_in_model,safe by construction,U-177,D,no,low,fp__f16_repute__fame_a,1.0,1.0,1.0
+fp__f14_anchor__fame_b,fp,pair,fp__f14_anchor__fame_a,B-ANCHOR,,U-177,fame,player background,built_not_in_model,safe by construction,U-177,D,no,low,fp__f16_repute__fame_b,1.0,1.0,1.0
+fi__B-ANCHOR__x,fi,diff,,B-ANCHOR,base-dependent: reads the current best's 2014-2024 forecast; recompute with a new model's own; market_internal,U-266,"B-ANCHOR (block): artefacts of the average close, reversed",feature-interactions study,built_not_in_model,safe by construction,U-266,C,no,low,,0.9993987674733203,0.9998029686063312,0.9996508786221344
+fi__B-ANCHOR__m_I-037,fi,diff,,B-ANCHOR,base-dependent: reads the current best's 2014-2024 forecast; recompute with a new model's own; market_internal,U-266,"B-ANCHOR (block): artefacts of the average close, reversed",feature-interactions study,built_not_in_model,safe by construction,U-266,C,no,low,,0.8734656044892029,0.9998029686063312,0.0
+fi__B-ANCHOR__m_I-038,fi,diff,,B-ANCHOR,market_internal,U-266,"B-ANCHOR (block): artefacts of the average close, reversed",feature-interactions study,built_not_in_model,safe by construction,U-266,C,no,low,,0.9993987674733203,0.9998029686063312,0.9996508786221344
+fi__B-RECAL__x0,fi,diff,,B-RECAL,base-dependent: reads the current best's 2014-2024 forecast; recompute with a new model's own,U-267,B-RECAL (block): recalibrating the current best,feature-interactions study,built_not_in_model,safe by construction,U-267,none,no,exclude,fi__B-RECAL__m_I-040,0.8740417856606042,1.0,0.0
+fi__B-RECAL__x1,fi,diff,,B-RECAL,base-dependent: reads the current best's 2014-2024 forecast; recompute with a new model's own,U-267,B-RECAL (block): recalibrating the current best,feature-interactions study,built_not_in_model,safe by construction,U-267,none,no,exclude,fi__B-RECAL__m_I-041,0.8740417856606042,1.0,0.0
+fp__f16_repute__unr_a,fp,pair,fp__f16_repute__unr_b,B-REPUTE,,U-173,filled rank and unranked flag,player background,built_not_in_model,safe by construction,U-173,none,no,low,fp__f17_info__unr_a,1.0,1.0,1.0
+fp__f16_repute__unr_b,fp,pair,fp__f16_repute__unr_a,B-REPUTE,,U-173,filled rank and unranked flag,player background,built_not_in_model,safe by construction,U-173,none,no,low,fp__f17_info__unr_b,1.0,1.0,1.0
+fp__f16_repute__peak_a,fp,pair,fp__f16_repute__peak_b,B-REPUTE,,U-045,career-peak Elo and the fall from it,ratings,built_not_in_model,safe by construction,U-045,D,no,low,,1.0,1.0,1.0
+fp__f16_repute__peak_b,fp,pair,fp__f16_repute__peak_a,B-REPUTE,,U-045,career-peak Elo and the fall from it,ratings,built_not_in_model,safe by construction,U-045,D,no,low,,1.0,1.0,1.0
+fi__B-REPUTE__x,fi,diff,,B-REPUTE,base-dependent: reads the current best's 2014-2024 forecast; recompute with a new model's own,U-268,B-REPUTE (block): reputation lags the state,feature-interactions study,built_not_in_model,safe by construction,U-268,D,no,low,,1.0,1.0,1.0
+fi__B-REPUTE__rank_vs_elo_x_age,fi,diff,,B-REPUTE,,U-269,I-071: rank anchoring x career trajectory,feature-interactions study,built_not_in_model,safe by construction,U-269,D,no,low,fi__B-REPUTE__m_I-071,1.0,0.9998029686063312,0.988013499359944
+fi__B-REPUTE__fame_x_fall,fi,diff,,B-REPUTE,,U-270,I-083: fallen-star premium,feature-interactions study,built_not_in_model,safe by construction,U-270,D,no,low,fi__B-REPUTE__m_I-083,1.0,1.0,1.0
+fi__B-REPUTE__m_I-055,fi,diff,,B-REPUTE,base-dependent: reads the current best's 2014-2024 forecast; recompute with a new model's own,U-271,I-055: the favourite's hidden fatigue,feature-interactions study,built_not_in_model,leak-proof clock + probe passed,U-271,D,no,low,,0.8740417856606042,1.0,0.0
+fi__LIT-2__x,fi,diff,,LIT-2,base-dependent: reads the current best's 2014-2024 forecast; recompute with a new model's own,U-272,LIT-2 (block): fame asymmetry x lopsidedness,feature-interactions study,built_not_in_model,safe by construction,U-272,none,no,low,,0.8740417856606042,1.0,0.0
+fp__f17_info__qform_a,fp,pair,fp__f17_info__qform_b,B-INFO,,U-276,INFO-2: fresh qualifier's qualifying form,feature-interactions study,built_not_in_model,safe by construction,U-276,none,no,low,,1.0,1.0,1.0
+fp__f17_info__qform_b,fp,pair,fp__f17_info__qform_a,B-INFO,,U-276,INFO-2: fresh qualifier's qualifying form,feature-interactions study,built_not_in_model,safe by construction,U-276,none,no,low,,1.0,1.0,1.0
+fp__f17_info__qn_a,fp,pair,fp__f17_info__qn_b,B-INFO,,U-276,INFO-2: fresh qualifier's qualifying form,feature-interactions study,built_not_in_model,safe by construction,U-276,none,no,low,,1.0,1.0,1.0
+fp__f17_info__qn_b,fp,pair,fp__f17_info__qn_a,B-INFO,,U-276,INFO-2: fresh qualifier's qualifying form,feature-interactions study,built_not_in_model,safe by construction,U-276,none,no,low,,1.0,1.0,1.0
+fp__f17_info__bd11_on_n_a,fp,pair,fp__f17_info__bd11_on_n_b,B-INFO,,U-138,matches already played at this event,load and schedule,built_not_in_model,safe by construction,U-138,A,no,high,fp__f24_onsite__bd11_on_n_a,1.0,1.0,1.0
+fp__f17_info__bd11_on_n_b,fp,pair,fp__f17_info__bd11_on_n_a,B-INFO,,U-138,matches already played at this event,load and schedule,built_not_in_model,safe by construction,U-138,A,no,high,fp__f24_onsite__bd11_on_n_b,1.0,1.0,1.0
+fp__f17_info__bd11_nov_a,fp,pair,fp__f17_info__bd11_nov_b,B-INFO,,U-153,novelty of conditions,load and schedule,built_not_in_model,safe by construction,U-153,none,no,low,fp__f24_onsite__bd11_nov_a,1.0,1.0,1.0
+fp__f17_info__bd11_nov_b,fp,pair,fp__f17_info__bd11_nov_a,B-INFO,,U-153,novelty of conditions,load and schedule,built_not_in_model,safe by construction,U-153,none,no,low,fp__f24_onsite__bd11_nov_b,1.0,1.0,1.0
+fp__f17_info__bd11_cold_a,fp,pair,fp__f17_info__bd11_cold_b,B-INFO,,U-154,cold start,load and schedule,built_not_in_model,safe by construction,U-154,C,no,low,fp__f24_onsite__bd11_cold_a,1.0,1.0,1.0
+fp__f17_info__bd11_cold_b,fp,pair,fp__f17_info__bd11_cold_a,B-INFO,,U-154,cold start,load and schedule,built_not_in_model,safe by construction,U-154,C,no,low,fp__f24_onsite__bd11_cold_b,1.0,1.0,1.0
+fp__f17_info__bd11_sw_missing_a,fp,pair,fp__f17_info__bd11_sw_missing_b,B-INFO,,U-153,novelty of conditions,load and schedule,built_not_in_model,safe by construction,U-153,none,no,low,fp__f24_onsite__bd11_sw_missing_a,1.0,1.0,1.0
+fp__f17_info__bd11_sw_missing_b,fp,pair,fp__f17_info__bd11_sw_missing_a,B-INFO,,U-153,novelty of conditions,load and schedule,built_not_in_model,safe by construction,U-153,none,no,low,fp__f24_onsite__bd11_sw_missing_b,1.0,1.0,1.0
+fp__f17_info__bd11_isw_missing_a,fp,pair,fp__f17_info__bd11_isw_missing_b,B-INFO,,U-153,novelty of conditions,load and schedule,built_not_in_model,safe by construction,U-153,none,no,low,fp__f24_onsite__bd11_isw_missing_a,1.0,1.0,1.0
+fp__f17_info__bd11_isw_missing_b,fp,pair,fp__f17_info__bd11_isw_missing_a,B-INFO,,U-153,novelty of conditions,load and schedule,built_not_in_model,safe by construction,U-153,none,no,low,fp__f24_onsite__bd11_isw_missing_b,1.0,1.0,1.0
+fp__f17_info__bd11_cc_missing_a,fp,pair,fp__f17_info__bd11_cc_missing_b,B-INFO,,U-153,novelty of conditions,load and schedule,built_not_in_model,safe by construction,U-153,none,no,low,fp__f24_onsite__bd11_cc_missing_a,1.0,1.0,1.0
+fp__f17_info__bd11_cc_missing_b,fp,pair,fp__f17_info__bd11_cc_missing_a,B-INFO,,U-153,novelty of conditions,load and schedule,built_not_in_model,safe by construction,U-153,none,no,low,fp__f24_onsite__bd11_cc_missing_b,1.0,1.0,1.0
+fp__f17_info__crowd_n,fp,context,,B-INFO,,U-194,attention and crowding,context,built_not_in_model,safe by construction,U-194,none,no,low,,1.0,1.0,1.0
+fi__B-INFO__x,fi,diff,,B-INFO,,U-273,B-INFO (block): where the market knows less,feature-interactions study,built_not_in_model,safe by construction,U-273,none,no,low,,1.0,1.0,1.0
+fi__B-INFO__d1_x_negA,fi,diff,,B-INFO,,U-274,I-080: points view minus results view x low attention,feature-interactions study,built_not_in_model,safe by construction,U-274,none,no,low,fi__B-INFO__m_I-080,1.0,1.0,1.0
+fi__B-INFO__info2_qform,fi,diff,,B-INFO,,U-276,INFO-2: fresh qualifier's qualifying form,feature-interactions study,built_not_in_model,safe by construction,U-276,none,no,low,fi__B-INFO__m_INFO-2,1.0,1.0,1.0
+fi__B-INFO__info2_flag,fi,context,,B-INFO,,U-276,INFO-2: fresh qualifier's qualifying form,feature-interactions study,built_not_in_model,safe by construction,U-276,none,no,low,,1.0,1.0,1.0
+fi__B-INFO__m_C-2,fi,diff,,B-INFO,,U-275,C-2: fit-free Elo forecast minus price x the better player's obscurity,feature-interactions study,built_not_in_model,safe by construction,U-275,none,no,low,,1.0,1.0,1.0
+fp__f18_overreact__luck_a,fp,pair,fp__f18_overreact__luck_b,B-OVERREACT,,U-278,I-025: conversion luck,feature-interactions study,built_not_in_model,leak-proof clock + probe passed,U-278,B,no,medium,,1.0,1.0,1.0
+fp__f18_overreact__luck_b,fp,pair,fp__f18_overreact__luck_a,B-OVERREACT,,U-278,I-025: conversion luck,feature-interactions study,built_not_in_model,leak-proof clock + probe passed,U-278,B,no,medium,,1.0,1.0,1.0
+fp__f18_overreact__sur_a,fp,pair,fp__f18_overreact__sur_b,B-OVERREACT,,U-280,I-086: flattering last-round narrative,feature-interactions study,built_not_in_model,safe by construction,U-280,B,no,medium,,0.9993236134074852,0.9988178116379876,0.9994181310368904
+fp__f18_overreact__sur_b,fp,pair,fp__f18_overreact__sur_a,B-OVERREACT,,U-280,I-086: flattering last-round narrative,feature-interactions study,built_not_in_model,safe by construction,U-280,B,no,medium,,0.9992484593416504,0.999146197294102,0.9997672524147562
+fp__f18_overreact__h2hn_a,fp,context,,B-OVERREACT,,U-180,head to head,player background,built_not_in_model,safe by construction,U-180,none,yes,low,fp__f18_overreact__h2hn_b,1.0,1.0,1.0
+fp__f18_overreact__h2hw_a,fp,pair,fp__f18_overreact__h2hw_b,B-OVERREACT,,U-180,head to head,player background,built_not_in_model,safe by construction,U-180,none,yes,low,,1.0,1.0,1.0
+fp__f18_overreact__h2hw_b,fp,pair,fp__f18_overreact__h2hw_a,B-OVERREACT,,U-180,head to head,player background,built_not_in_model,safe by construction,U-180,none,yes,low,,1.0,1.0,1.0
+fp__f18_overreact__h2hres_a,fp,diff,,B-OVERREACT,,U-180,head to head,player background,built_not_in_model,safe by construction,U-180,none,yes,low,fp__f18_overreact__h2hres_b,1.0,1.0,1.0
+fi__B-OVERREACT__x,fi,diff,,B-OVERREACT,,U-277,B-OVERREACT (block): the price over-reacts to salient results,feature-interactions study,built_not_in_model,leak-proof clock + probe passed,U-277,B,no,medium,,1.0,1.0,1.0
+fi__B-OVERREACT__luck_13w,fi,diff,,B-OVERREACT,,U-278,I-025: conversion luck,feature-interactions study,built_not_in_model,leak-proof clock + probe passed,U-278,B,no,medium,fi__B-OVERREACT__m_I-025,1.0,1.0,1.0
+fi__B-OVERREACT__surprise_late,fi,diff,,B-OVERREACT,,U-280,I-086: flattering last-round narrative,feature-interactions study,built_not_in_model,safe by construction,U-280,B,no,medium,fi__B-OVERREACT__m_I-086,0.99984969186833,0.9997372914751084,0.999883626207378
+fi__B-OVERREACT__h2h_raw_n3,fi,diff,,B-OVERREACT,,U-281,I-091: raw head to head (3+ meetings),feature-interactions study,built_not_in_model,safe by construction,U-281,B,no,medium,fi__B-OVERREACT__m_I-091,1.0,1.0,1.0
+fi__B-OVERREACT__m_I-085,fi,diff,,B-OVERREACT,,U-279,I-085: drifting favourite,feature-interactions study,built_not_in_model,safe by construction,U-279,B,no,medium,,1.0,1.0,1.0
+fp__f19_motiv__post_a,fp,pair,fp__f19_motiv__post_b,B-MOTIV,,U-162,post-Slam letdown,load and schedule,built_not_in_model,safe by construction,U-162,B,no,medium,,1.0,1.0,1.0
+fp__f19_motiv__post_b,fp,pair,fp__f19_motiv__post_a,B-MOTIV,,U-162,post-Slam letdown,load and schedule,built_not_in_model,safe by construction,U-162,B,no,medium,,1.0,1.0,1.0
+fp__f19_motiv__nslam_days,fp,context,,B-MOTIV,,U-191,Slam proximity,context,built_not_in_model,safe by construction,U-191,B,no,medium,,1.0,1.0,0.9344815547538694
+fi__B-MOTIV__x,fi,diff,,B-MOTIV,,U-282,B-MOTIV (block): calendar effort,feature-interactions study,built_not_in_model,safe by construction,U-282,B,no,medium,,1.0,1.0,1.0
+fi__B-MOTIV__elite_pre_slam,fi,diff,,B-MOTIV,,U-283,I-089: top-20 at a 250/500 the week before a Slam,feature-interactions study,built_not_in_model,safe by construction,U-283,B,no,medium,fi__B-MOTIV__m_I-089_I-090,1.0,1.0,1.0
+fi__B-MOTIV__post_slam,fi,diff,,B-MOTIV,,U-284,I-090: post-Slam letdown,feature-interactions study,built_not_in_model,safe by construction,U-284,B,no,medium,fi__B-MOTIV__m_I-089_post,1.0,1.0,1.0
+fi__I-053__x,fi,diff,,I-053,,U-285,I-053 (block): age x recovery debt,feature-interactions study,built_not_in_model,leak-proof clock + probe passed,U-285,C,no,low,fi__I-053__bd_fat3_x_age26,1.0,0.9998029686063312,0.988013499359944
+fi__B-LOAD__x,fi,diff,,B-LOAD,,U-286,B-LOAD (block): fitness-fatigue load,feature-interactions study,built_not_in_model,leak-proof clock + probe passed,U-286,none,no,low,,1.0,1.0,1.0
+fi__B-LOAD__bd_fat3,fi,diff,,B-LOAD,,U-287,I-052: fatigue kernel difference,feature-interactions study,built_not_in_model,leak-proof clock + probe passed,U-287,none,no,low,,1.0,1.0,1.0
+fi__B-LOAD__bd_off3,fi,diff,,B-LOAD,,U-288,I-051 Off: off-site load difference,feature-interactions study,built_not_in_model,leak-proof clock + probe passed,U-288,none,no,low,,1.0,1.0,1.0
+fp__f20_fatigue__bd_prevx_a,fp,pair,fp__f20_fatigue__bd_prevx_b,B-PREV,,U-142,previous on-site match's extra sets,load and schedule,built_not_in_model,safe by construction,U-142,none,no,low,,0.9814118943834862,0.9823328517010376,0.9824275573140928
+fp__f20_fatigue__bd_prevx_b,fp,pair,fp__f20_fatigue__bd_prevx_a,B-PREV,,U-142,previous on-site match's extra sets,load and schedule,built_not_in_model,safe by construction,U-142,none,no,low,,0.9808858159226416,0.9848285826875082,0.983358547655068
+fi__B-PREV__x,fi,diff,,B-PREV,,U-289,B-PREV (block): scare in the previous round,feature-interactions study,built_not_in_model,safe by construction,U-289,none,no,low,,0.9631995590961472,0.9675554971758834,0.9663679739322704
+fi__B-PREV__bd_prevx,fi,diff,,B-PREV,,U-290,BOD-L1: previous on-site match's extra sets,feature-interactions study,built_not_in_model,safe by construction,U-290,none,no,low,,0.9631995590961472,0.9675554971758834,0.9663679739322704
+fi__B-PREV__bd_prevx_x_rest,fi,diff,,B-PREV,,U-291,I-056: extra sets x short rest,feature-interactions study,built_not_in_model,safe by construction,U-291,none,no,low,,0.9631995590961472,0.9675554971758834,0.9663679739322704
+fp__f21_constitution__bd9a_odo_a,fp,pair,fp__f21_constitution__bd9a_odo_b,B9a,,U-144,season odometer,load and schedule,built_not_in_model,leak-proof clock + probe passed,U-144,C,no,medium,,1.0,1.0,1.0
+fp__f21_constitution__bd9a_odo_b,fp,pair,fp__f21_constitution__bd9a_odo_a,B9a,,U-144,season odometer,load and schedule,built_not_in_model,leak-proof clock + probe passed,U-144,C,no,medium,,1.0,1.0,1.0
+fp__f21_constitution__bd9a_trait_a,fp,pair,fp__f21_constitution__bd9a_trait_b,B9a,,U-145,recovery trait,load and schedule,built_not_in_model,safe by construction,U-145,C,no,low,,1.0,1.0,1.0
+fp__f21_constitution__bd9a_trait_b,fp,pair,fp__f21_constitution__bd9a_trait_a,B9a,,U-145,recovery trait,load and schedule,built_not_in_model,safe by construction,U-145,C,no,low,,1.0,1.0,1.0
+fi__B9a__x,fi,diff,,B9a,,U-292,B9a (block): constitution x own load,feature-interactions study,built_not_in_model,leak-proof clock + probe passed,U-292,C,no,low,,1.0,1.0,1.0
+fi__B9a__bd9a_I024,fi,diff,,B9a,,U-293,I-024 h x Fat: height x fatigue,feature-interactions study,built_not_in_model,leak-proof clock + probe passed,U-293,C,no,low,,0.9665313893481636,0.8296991987389991,0.690212964040498
+fi__B9a__bd9a_I024_age,fi,diff,,B9a,,U-294,I-024 h x age: height x age past 28,feature-interactions study,built_not_in_model,safe by construction,U-294,C,no,low,,0.9665313893481636,0.8296991987389991,0.6889328523216571
+fi__B9a__bd9a_I058,fi,diff,,B9a,,U-295,I-058: recovery trait x fatigue,feature-interactions study,built_not_in_model,leak-proof clock + probe passed,U-295,C,no,low,,1.0,1.0,1.0
+fi__B9a__bd9a_I061,fi,diff,,B9a,,U-296,"I-061: season odometer x age, autumn",feature-interactions study,built_not_in_model,leak-proof clock + probe passed,U-296,C,no,medium,,1.0,0.9998029686063312,0.988013499359944
+fp__f22_demand__bd9b_pace_a,fp,pair,fp__f22_demand__bd9b_pace_b,B9b,,U-146,pace and minutes per point,load and schedule,built_not_in_model,leak-proof clock + probe passed,U-146,none,no,low,,0.8351620822686507,0.9992118744253252,0.996508786221343
+fp__f22_demand__bd9b_pace_b,fp,pair,fp__f22_demand__bd9b_pace_a,B9b,,U-146,pace and minutes per point,load and schedule,built_not_in_model,leak-proof clock + probe passed,U-146,none,no,low,,0.8341600280575179,0.999277551556548,0.9960432910508552
+fp__f22_demand__bd9b_mpp_a,fp,context,,B9b,,U-146,pace and minutes per point,load and schedule,built_not_in_model,leak-proof clock + probe passed,U-146,none,no,low,fp__f22_demand__bd9b_mpp_b,1.0,1.0,1.0
+fi__B9b__x,fi,diff,,B9b,,U-297,B9b (block): match demand x fatigue,feature-interactions study,built_not_in_model,leak-proof clock + probe passed,U-297,none,no,low,,1.0,1.0,1.0
+fi__B9b__bd9b_fat_composed,fi,diff,,B9b,,U-298,I-063: fatigue composed through the point model,feature-interactions study,built_not_in_model,leak-proof clock + probe passed,U-298,none,no,low,,1.0,1.0,1.0
+fi__B9b__bd9b_pace_x_oppfat,fi,diff,,B9b,,U-299,I-065: the opponent who exploits fatigue,feature-interactions study,built_not_in_model,leak-proof clock + probe passed,U-299,none,no,low,,1.0,1.0,1.0
+fi__B9b__bd9b_emin_x_dfat,fi,diff,,B9b,,U-300,I-066: expected minutes x load difference,feature-interactions study,built_not_in_model,leak-proof clock + probe passed,U-300,none,no,low,,1.0,1.0,1.0
+fp__f23_arrival__bd10_run_a,fp,pair,fp__f23_arrival__bd10_run_b,B10,,U-147,deep run at the previous event,load and schedule,built_not_in_model,safe by construction,U-147,none,no,low,,1.0,1.0,1.0
+fp__f23_arrival__bd10_run_b,fp,pair,fp__f23_arrival__bd10_run_a,B10,,U-147,deep run at the previous event,load and schedule,built_not_in_model,safe by construction,U-147,none,no,low,,1.0,1.0,1.0
+fp__f23_arrival__bd10_trav_a,fp,pair,fp__f23_arrival__bd10_trav_b,B10,,U-148,travel between regions,load and schedule,built_not_in_model,safe by construction,U-148,none,no,low,,0.9855704193596874,0.9915276500722447,0.9778889794018388
+fp__f23_arrival__bd10_trav_b,fp,pair,fp__f23_arrival__bd10_trav_a,B10,,U-148,travel between regions,load and schedule,built_not_in_model,safe by construction,U-148,none,no,low,,0.9846184678591112,0.992053067122028,0.9777726056092167
+fp__f23_arrival__bd10_wprev_a,fp,pair,fp__f23_arrival__bd10_wprev_b,B10,,U-147,deep run at the previous event,load and schedule,built_not_in_model,safe by construction,U-147,none,no,low,,1.0,1.0,1.0
+fp__f23_arrival__bd10_wprev_b,fp,pair,fp__f23_arrival__bd10_wprev_a,B10,,U-147,deep run at the previous event,load and schedule,built_not_in_model,safe by construction,U-147,none,no,low,,1.0,1.0,1.0
+fp__f23_arrival__bd10_first_a,fp,pair,fp__f23_arrival__bd10_first_b,B10,,U-149,title last week and first match here,load and schedule,built_not_in_model,safe by construction,U-149,none,no,low,,1.0,1.0,1.0
+fp__f23_arrival__bd10_first_b,fp,pair,fp__f23_arrival__bd10_first_a,B10,,U-149,title last week and first match here,load and schedule,built_not_in_model,safe by construction,U-149,none,no,low,,1.0,1.0,1.0
+fp__f23_arrival__bd10_decay_a,fp,pair,fp__f23_arrival__bd10_decay_b,B10,,U-147,deep run at the previous event,load and schedule,built_not_in_model,safe by construction,U-147,none,no,low,,1.0,1.0,1.0
+fp__f23_arrival__bd10_decay_b,fp,pair,fp__f23_arrival__bd10_decay_a,B10,,U-147,deep run at the previous event,load and schedule,built_not_in_model,safe by construction,U-147,none,no,low,,1.0,1.0,1.0
+fp__f23_arrival__bd10_title_a,fp,pair,fp__f23_arrival__bd10_title_b,B10,,U-149,title last week and first match here,load and schedule,built_not_in_model,safe by construction,U-149,none,no,low,,1.0,1.0,1.0
+fp__f23_arrival__bd10_title_b,fp,pair,fp__f23_arrival__bd10_title_a,B10,,U-149,title last week and first match here,load and schedule,built_not_in_model,safe by construction,U-149,none,no,low,,1.0,1.0,1.0
+fp__f23_arrival__bd10_t88_a,fp,pair,fp__f23_arrival__bd10_t88_b,B10,,U-149,title last week and first match here,load and schedule,built_not_in_model,safe by construction,U-149,none,no,low,,1.0,1.0,1.0
+fp__f23_arrival__bd10_t88_b,fp,pair,fp__f23_arrival__bd10_t88_a,B10,,U-149,title last week and first match here,load and schedule,built_not_in_model,safe by construction,U-149,none,no,low,,1.0,1.0,1.0
+fp__f23_arrival__bd10_wk_a,fp,pair,fp__f23_arrival__bd10_wk_b,B10,,U-150,consecutive weeks played and weeks away,load and schedule,built_not_in_model,safe by construction,U-150,none,no,low,,1.0,1.0,1.0
+fp__f23_arrival__bd10_wk_b,fp,pair,fp__f23_arrival__bd10_wk_a,B10,,U-150,consecutive weeks played and weeks away,load and schedule,built_not_in_model,safe by construction,U-150,none,no,low,,1.0,1.0,1.0
+fp__f23_arrival__bd10_away_a,fp,pair,fp__f23_arrival__bd10_away_b,B10,,U-150,consecutive weeks played and weeks away,load and schedule,built_not_in_model,safe by construction,U-150,none,no,low,,1.0,1.0,0.9996508786221344
+fp__f23_arrival__bd10_away_b,fp,pair,fp__f23_arrival__bd10_away_a,B10,,U-150,consecutive weeks played and weeks away,load and schedule,built_not_in_model,safe by construction,U-150,none,no,low,,1.0,1.0,0.9997672524147562
+fp__f23_arrival__bd10_jl0_a,fp,pair,fp__f23_arrival__bd10_jl0_b,B10,,U-151,jet lag,load and schedule,built_not_in_model,safe by construction,U-151,none,no,low,,0.9855704193596874,0.9915276500722447,0.9778889794018388
+fp__f23_arrival__bd10_jl0_b,fp,pair,fp__f23_arrival__bd10_jl0_a,B10,,U-151,jet lag,load and schedule,built_not_in_model,safe by construction,U-151,none,no,low,,0.9846184678591112,0.992053067122028,0.9777726056092167
+fp__f23_arrival__bd10_dzabs_a,fp,pair,fp__f23_arrival__bd10_dzabs_b,B10,,U-151,jet lag,load and schedule,built_not_in_model,safe by construction,U-151,none,no,low,,0.9855704193596874,0.9915276500722447,0.9778889794018388
+fp__f23_arrival__bd10_dzabs_b,fp,pair,fp__f23_arrival__bd10_dzabs_a,B10,,U-151,jet lag,load and schedule,built_not_in_model,safe by construction,U-151,none,no,low,,0.9846184678591112,0.992053067122028,0.9777726056092167
+fp__f23_arrival__bd10_fit_a,fp,pair,fp__f23_arrival__bd10_fit_b,B10,,U-152,fitness kernel (21 days),load and schedule,built_not_in_model,leak-proof clock + probe passed,U-152,none,no,low,,1.0,1.0,1.0
+fp__f23_arrival__bd10_fit_b,fp,pair,fp__f23_arrival__bd10_fit_a,B10,,U-152,fitness kernel (21 days),load and schedule,built_not_in_model,leak-proof clock + probe passed,U-152,none,no,low,,1.0,1.0,1.0
+fi__B10__x,fi,diff,,B10,,U-301,B10 (block): arrival debt,feature-interactions study,built_not_in_model,safe by construction,U-301,none,no,low,,1.0,1.0,1.0
+fi__B10__bd10_I059,fi,diff,,B10,,U-302,I-059: deep run x short gap x travel,feature-interactions study,built_not_in_model,safe by construction,U-302,none,no,low,,1.0,1.0,1.0
+fi__B10__bd10_I088,fi,diff,,B10,,U-303,I-088: title last week x first match here,feature-interactions study,built_not_in_model,safe by construction,U-303,none,no,low,,1.0,1.0,1.0
+fi__B10__bd10_I060,fi,diff,,B10,,U-304,I-060: consecutive weeks away x age,feature-interactions study,built_not_in_model,safe by construction,U-304,none,no,low,,1.0,0.9998029686063312,0.9875480041894564
+fi__B10__bd10_I074,fi,diff,,B10,,U-305,I-074: jet lag,feature-interactions study,built_not_in_model,safe by construction,U-305,none,no,low,,0.9717921739566112,0.9845001970313936,0.954963342255324
+fi__B11__x,fi,diff,,B11,,U-306,B11 (block): on-site rhythm,feature-interactions study,built_not_in_model,safe by construction,U-306,C,no,low,,1.0,1.0,1.0
+fi__B11__bd11_on,fi,diff,,B11,,U-307,I-051 On: matches already played here,feature-interactions study,built_not_in_model,safe by construction,U-307,A,no,high,ds__B11_member_On,1.0,1.0,1.0
+fi__B11__bd11_on_x_nov,fi,diff,,B11,,U-308,I-075: acclimatisation x novelty,feature-interactions study,built_not_in_model,safe by construction,U-308,none,no,low,,1.0,1.0,1.0
+fi__B11__bd11_rhythm_vs_cold,fi,diff,,B11,,U-309,I-076: event rhythm vs a cold start,feature-interactions study,built_not_in_model,safe by construction,U-309,C,no,low,,1.0,1.0,1.0
+ds__B11_member_I_075,ds,diff,,B11,,U-308,I-075: acclimatisation x novelty,feature-interactions study,built_not_in_model,safe by construction,U-308,none,no,low,,1.0,1.0,1.0
+ds__B11_member_I_076,ds,diff,,B11,,U-309,I-076: event rhythm vs a cold start,feature-interactions study,built_not_in_model,safe by construction,U-309,C,no,low,,1.0,1.0,1.0
+fp__f25_switch__bdsw_in_a,fp,pair,fp__f25_switch__bdsw_in_b,B-SWITCH,,U-155,indoor-switch state,load and schedule,built_not_in_model,safe by construction,U-155,none,no,low,,1.0,1.0,1.0
+fp__f25_switch__bdsw_in_b,fp,pair,fp__f25_switch__bdsw_in_a,B-SWITCH,,U-155,indoor-switch state,load and schedule,built_not_in_model,safe by construction,U-155,none,no,low,,1.0,1.0,1.0
+fi__B-SWITCH__x0,fi,diff,,B-SWITCH,,U-311,I-046: early surface season x return-heaviness,feature-interactions study,built_not_in_model,leak-proof clock + probe passed,U-310; U-311,none,no,low,fi__B-SWITCH__bdsw_early_shape,1.0,1.0,1.0
+fi__B-SWITCH__x1,fi,diff,,B-SWITCH,,U-312,"I-047 style: surface newness x serve style, signed by surface",feature-interactions study,built_not_in_model,leak-proof clock + probe passed,U-310; U-312,none,no,low,fi__B-SWITCH__bdsw_new_sty_sgn,1.0,1.0,1.0
+fi__B-SWITCH__x2,fi,diff,,B-SWITCH,,U-313,I-047 age: surface newness x age,feature-interactions study,built_not_in_model,safe by construction,U-310; U-313,none,no,low,fi__B-SWITCH__bdsw_new_age,1.0,0.9998029686063312,0.988013499359944
+fi__B-SWITCH__x3,fi,diff,,B-SWITCH,,U-314,I-050: indoor switch x serve style,feature-interactions study,built_not_in_model,leak-proof clock + probe passed,U-310; U-314,none,no,low,fi__B-SWITCH__bdsw_in_sty,1.0,1.0,1.0
+fp__f26_impairment__bdinj_U_a,fp,pair,fp__f26_impairment__bdinj_U_b,B-INJ,,U-133,break length beyond the field's norm,load and schedule,built_not_in_model,leak-proof clock + probe passed,U-133,A,yes,high,,1.0,1.0,1.0
+fp__f26_impairment__bdinj_U_b,fp,pair,fp__f26_impairment__bdinj_U_a,B-INJ,,U-133,break length beyond the field's norm,load and schedule,built_not_in_model,leak-proof clock + probe passed,U-133,A,yes,high,,1.0,1.0,1.0
+fp__f26_impairment__bdinj_rust0_a,fp,pair,fp__f26_impairment__bdinj_rust0_b,B-INJ,,U-135,rust after a break (I-043's own-player state),load and schedule,built_not_in_model,leak-proof clock + probe passed,U-135,A,yes,medium,,1.0,1.0,1.0
+fp__f26_impairment__bdinj_rust0_b,fp,pair,fp__f26_impairment__bdinj_rust0_a,B-INJ,,U-135,rust after a break (I-043's own-player state),load and schedule,built_not_in_model,leak-proof clock + probe passed,U-135,A,yes,medium,,1.0,1.0,1.0
+fp__f26_impairment__bdinj_rinj_a,fp,pair,fp__f26_impairment__bdinj_rinj_b,B-INJ,,U-136,returning from injury flags,load and schedule,built_not_in_model,safe by construction,U-136,none,yes,low,,1.0,1.0,1.0
+fp__f26_impairment__bdinj_rinj_b,fp,pair,fp__f26_impairment__bdinj_rinj_a,B-INJ,,U-136,returning from injury flags,load and schedule,built_not_in_model,safe by construction,U-136,none,yes,low,,1.0,1.0,1.0
+fp__f26_impairment__bdinj_inj_a,fp,pair,fp__f26_impairment__bdinj_inj_b,B-INJ,,U-136,returning from injury flags,load and schedule,built_not_in_model,safe by construction,U-136,none,yes,low,,1.0,1.0,1.0
+fp__f26_impairment__bdinj_inj_b,fp,pair,fp__f26_impairment__bdinj_inj_a,B-INJ,,U-136,returning from injury flags,load and schedule,built_not_in_model,safe by construction,U-136,none,yes,low,,1.0,1.0,1.0
+fp__f26_impairment__bdinj_win_a,fp,pair,fp__f26_impairment__bdinj_win_b,B-INJ,,U-136,returning from injury flags,load and schedule,built_not_in_model,safe by construction,U-136,none,yes,low,,1.0,1.0,1.0
+fp__f26_impairment__bdinj_win_b,fp,pair,fp__f26_impairment__bdinj_win_a,B-INJ,,U-136,returning from injury flags,load and schedule,built_not_in_model,safe by construction,U-136,none,yes,low,,1.0,1.0,1.0
+fp__f26_impairment__bdinj_elo_ret_a,fp,pair,fp__f26_impairment__bdinj_elo_ret_b,B-INJ,,U-046,Elo at the return from a break,ratings,built_not_in_model,safe by construction,U-046,none,yes,low,,0.9983466105516308,0.9996716143438854,0.9933666938205516
+fp__f26_impairment__bdinj_elo_ret_b,fp,pair,fp__f26_impairment__bdinj_elo_ret_a,B-INJ,,U-046,Elo at the return from a break,ratings,built_not_in_model,safe by construction,U-046,none,yes,low,,0.998446815972744,0.9998029686063312,0.993017572442686
+fp__f26_impairment__bdinj_dec_a,fp,pair,fp__f26_impairment__bdinj_dec_b,B-INJ,,U-137,within-event serve decay,load and schedule,built_not_in_model,safe by construction,U-137,C,yes,low,,1.0,1.0,1.0
+fp__f26_impairment__bdinj_dec_b,fp,pair,fp__f26_impairment__bdinj_dec_a,B-INJ,,U-137,within-event serve decay,load and schedule,built_not_in_model,safe by construction,U-137,C,yes,low,,1.0,1.0,1.0
+fi__B-INJ__x,fi,diff,,B-INJ,,U-315,B-INJ (block): rust after a break (registered: hidden impairment),feature-interactions study,built_not_in_model,leak-proof clock + probe passed,U-315,A,yes,medium,,1.0,1.0,1.0
+fi__B-INJ__bdinj_I043,fi,diff,,B-INJ,,U-316,I-043: rust,feature-interactions study,built_not_in_model,leak-proof clock + probe passed,U-316,A,yes,medium,,1.0,0.9998029686063312,0.988013499359944
+fi__B-INJ__bdinj_I044,fi,diff,,B-INJ,,U-317,I-044: returning from injury x reputation,feature-interactions study,built_not_in_model,safe by construction,U-317,none,yes,low,,1.0,1.0,1.0
+fi__B-INJ__bdinj_I045,fi,diff,,B-INJ,,U-318,I-045: within-event serve decay,feature-interactions study,built_not_in_model,safe by construction,U-318,C,yes,low,,1.0,1.0,1.0
+fi__B-HOME__x0,fi,diff,,B-HOME,,U-320,I-078: home at a 250/500,feature-interactions study,built_not_in_model,safe by construction,U-319; U-320,none,no,low,fi__B-HOME__bdh_home_x_small,1.0,1.0,0.9994181310368904
+fi__B-HOME__x1,fi,diff,,B-HOME,,U-321,I-079: home wild card,feature-interactions study,built_not_in_model,safe by construction,U-319; U-321,none,no,low,fi__B-HOME__bdh_home_x_wc,1.0,1.0,0.9994181310368904
+fp__f28_state__bdst_info1_a,fp,pair,fp__f28_state__bdst_info1_b,B-STATE,,U-323,INFO-1: the uncounted own-match IOS update,feature-interactions study,built_not_in_model,leak-proof clock + probe passed,U-323,none,no,exclude,,1.0,1.0,1.0
+fp__f28_state__bdst_info1_b,fp,pair,fp__f28_state__bdst_info1_a,B-STATE,,U-323,INFO-1: the uncounted own-match IOS update,feature-interactions study,built_not_in_model,leak-proof clock + probe passed,U-323,none,no,exclude,,1.0,1.0,1.0
+fp__f28_state__bdst_info1_miss_a,fp,pair,fp__f28_state__bdst_info1_miss_b,B-STATE,,U-323,INFO-1: the uncounted own-match IOS update,feature-interactions study,built_not_in_model,leak-proof clock + probe passed,U-323,none,no,exclude,,1.0,1.0,1.0
+fp__f28_state__bdst_info1_miss_b,fp,pair,fp__f28_state__bdst_info1_miss_a,B-STATE,,U-323,INFO-1: the uncounted own-match IOS update,feature-interactions study,built_not_in_model,leak-proof clock + probe passed,U-323,none,no,exclude,,1.0,1.0,1.0
+fp__f28_state__bdst_info1_n_a,fp,pair,fp__f28_state__bdst_info1_n_b,B-STATE,,U-323,INFO-1: the uncounted own-match IOS update,feature-interactions study,built_not_in_model,leak-proof clock + probe passed,U-323,none,no,exclude,,1.0,1.0,1.0
+fp__f28_state__bdst_info1_n_b,fp,pair,fp__f28_state__bdst_info1_n_a,B-STATE,,U-323,INFO-1: the uncounted own-match IOS update,feature-interactions study,built_not_in_model,leak-proof clock + probe passed,U-323,none,no,exclude,,1.0,1.0,1.0
+fp__f28_state__bdst_pastfat_a,fp,pair,fp__f28_state__bdst_pastfat_b,B-STATE,,U-143,past fatigue (14 days),load and schedule,built_not_in_model,safe by construction,U-143,C,no,medium,,0.883711608798036,0.896230132667805,0.8838589549633422
+fp__f28_state__bdst_pastfat_b,fp,pair,fp__f28_state__bdst_pastfat_a,B-STATE,,U-143,past fatigue (14 days),load and schedule,built_not_in_model,safe by construction,U-143,C,no,medium,,0.8834360438899744,0.8974779981610403,0.882927964622367
+fi__B-STATE__x,fi,diff,,B-STATE,,U-322,B-STATE (block): past fatigue (BOD-C1),feature-interactions study,built_not_in_model,leak-proof clock + probe passed,U-322,C,no,medium,fi__B-STATE__bdst_pastfat,0.802745628538504,0.8217522658610272,0.8020481787501454
+ds__B_STATE_INFO_1__descriptive,ds,diff,,B-STATE,,U-323,INFO-1: the uncounted own-match IOS update,feature-interactions study,built_not_in_model,leak-proof clock + probe passed,U-323,none,no,exclude,,1.0,1.0,1.0
+fp__f26_impairment__ret_n_a,fp,pair,fp__f26_impairment__ret_n_b,B-INJ,,U-134,matches since the return from a break,load and schedule,built_not_in_model,leak-proof clock + probe passed,U-134,A,yes,high,,0.9983466105516308,0.9996716143438854,0.9933666938205516
+fp__f26_impairment__ret_n_b,fp,pair,fp__f26_impairment__ret_n_a,B-INJ,,U-134,matches since the return from a break,load and schedule,built_not_in_model,leak-proof clock + probe passed,U-134,A,yes,high,,0.998446815972744,0.9998029686063312,0.993017572442686
+fp__f26_impairment__ret_gap_a,fp,pair,fp__f26_impairment__ret_gap_b,B-INJ,,U-133,break length beyond the field's norm,load and schedule,built_not_in_model,leak-proof clock + probe passed,U-133,A,yes,high,,0.9983466105516308,0.9996716143438854,0.9933666938205516
+fp__f26_impairment__ret_gap_b,fp,pair,fp__f26_impairment__ret_gap_a,B-INJ,,U-133,break length beyond the field's norm,load and schedule,built_not_in_model,leak-proof clock + probe passed,U-133,A,yes,high,,0.998446815972744,0.9998029686063312,0.993017572442686
+rt__glicko2m_mu_a,rt,pair,rt__glicko2m_mu_b,,,U-032,"Glicko-2 match by match (mu, RD, volatility)",ratings,built_not_in_model,safe by construction,U-032,none,yes,low,,1.0,1.0,1.0
+rt__glicko2m_mu_b,rt,pair,rt__glicko2m_mu_a,,,U-032,"Glicko-2 match by match (mu, RD, volatility)",ratings,built_not_in_model,safe by construction,U-032,none,yes,low,,1.0,1.0,1.0
+rt__glicko2m_u_a,rt,pair,rt__glicko2m_u_b,,,U-032,"Glicko-2 match by match (mu, RD, volatility)",ratings,built_not_in_model,safe by construction,U-032,none,yes,low,,1.0,1.0,1.0
+rt__glicko2m_u_b,rt,pair,rt__glicko2m_u_a,,,U-032,"Glicko-2 match by match (mu, RD, volatility)",ratings,built_not_in_model,safe by construction,U-032,none,yes,low,,1.0,1.0,1.0
+rt__glicko2m_vol_a,rt,pair,rt__glicko2m_vol_b,,,U-032,"Glicko-2 match by match (mu, RD, volatility)",ratings,built_not_in_model,safe by construction,U-032,none,yes,low,,1.0,1.0,1.0
+rt__glicko2m_vol_b,rt,pair,rt__glicko2m_vol_a,,,U-032,"Glicko-2 match by match (mu, RD, volatility)",ratings,built_not_in_model,safe by construction,U-032,none,yes,low,,1.0,1.0,1.0
+rt__trueskill_mu_a,rt,pair,rt__trueskill_mu_b,,,U-034,TrueSkill,ratings,built_not_in_model,safe by construction,U-034,none,yes,low,,1.0,1.0,1.0
+rt__trueskill_mu_b,rt,pair,rt__trueskill_mu_a,,,U-034,TrueSkill,ratings,built_not_in_model,safe by construction,U-034,none,yes,low,,1.0,1.0,1.0
+rt__trueskill_u_a,rt,pair,rt__trueskill_u_b,,,U-034,TrueSkill,ratings,built_not_in_model,safe by construction,U-034,none,yes,low,,1.0,1.0,1.0
+rt__trueskill_u_b,rt,pair,rt__trueskill_u_a,,,U-034,TrueSkill,ratings,built_not_in_model,safe by construction,U-034,none,yes,low,,1.0,1.0,1.0
+rt__glicko_cs_mu_a,rt,pair,rt__glicko_cs_mu_b,,,U-035,correlated-surface Glicko and TrueSkill,ratings,built_not_in_model,safe by construction,U-035,none,yes,low,,1.0,1.0,1.0
+rt__glicko_cs_mu_b,rt,pair,rt__glicko_cs_mu_a,,,U-035,correlated-surface Glicko and TrueSkill,ratings,built_not_in_model,safe by construction,U-035,none,yes,low,,1.0,1.0,1.0
+rt__glicko_cs_u_a,rt,pair,rt__glicko_cs_u_b,,,U-035,correlated-surface Glicko and TrueSkill,ratings,built_not_in_model,safe by construction,U-035,none,yes,low,,1.0,1.0,1.0
+rt__glicko_cs_u_b,rt,pair,rt__glicko_cs_u_a,,,U-035,correlated-surface Glicko and TrueSkill,ratings,built_not_in_model,safe by construction,U-035,none,yes,low,,1.0,1.0,1.0
+rt__glicko2m_logit,rt,diff,,,,U-031,Glicko-1,ratings,built_not_in_model,safe by construction,U-031; U-032,none,yes,low,rt__glicko1m_logit,1.0,1.0,1.0
+rt__trueskill_logit,rt,diff,,,,U-034,TrueSkill,ratings,built_not_in_model,safe by construction,U-034,none,yes,low,,1.0,1.0,1.0
+rt__glicko_cs_logit,rt,diff,,,,U-035,correlated-surface Glicko and TrueSkill,ratings,built_not_in_model,safe by construction,U-035,none,yes,low,,1.0,1.0,1.0
+rt__trueskill_cs_logit,rt,diff,,,,U-035,correlated-surface Glicko and TrueSkill,ratings,built_not_in_model,safe by construction,U-035,none,yes,low,,1.0,1.0,1.0
+ad__adjperf_spw_52w,ad,diff,,,,U-095,"adjperf / adjdef, 52 weeks",long-memory profile,built_not_in_model,safe by construction,U-095,none,yes,low,ad__adjdef_rpw_52w,0.9896287389147752,0.9959280178641796,0.994064936576283
+ad__adjperf_spw_decayed,ad,diff,,,,U-097,adjperf decayed forms not in the model,long-memory profile,built_not_in_model,safe by construction,U-097,none,yes,medium,ad__adjdef_rpw_decayed,0.993987674733203,0.998555103113096,0.9947631793320144
+ad__adjdef_spw_52w,ad,diff,,,,U-095,"adjperf / adjdef, 52 weeks",long-memory profile,built_not_in_model,safe by construction,U-095,none,yes,low,ad__adjperf_rpw_52w,0.9896287389147752,0.9959280178641796,0.994064936576283
+ad__adjdef_spw_decayed,ad,diff,,,,U-097,adjperf decayed forms not in the model,long-memory profile,built_not_in_model,safe by construction,U-097,none,yes,medium,ad__adjperf_rpw_decayed,0.993987674733203,0.998555103113096,0.9947631793320144
+ad__adjperf_first_won_52w,ad,diff,,,,U-095,"adjperf / adjdef, 52 weeks",long-memory profile,built_not_in_model,safe by construction,U-095,none,yes,low,ad__adjdef_rpw_first_52w,0.9896287389147752,0.9959280178641796,0.994064936576283
+ad__adjdef_first_won_52w,ad,diff,,,,U-095,"adjperf / adjdef, 52 weeks",long-memory profile,built_not_in_model,safe by construction,U-095,none,yes,low,ad__adjperf_rpw_first_52w,0.9896287389147752,0.9959280178641796,0.994064936576283
+ad__adjperf_second_won_52w,ad,diff,,,,U-095,"adjperf / adjdef, 52 weeks",long-memory profile,built_not_in_model,safe by construction,U-095,none,yes,low,ad__adjdef_rpw_second_52w,0.9896287389147752,0.9959280178641796,0.994064936576283
+ad__adjdef_second_won_52w,ad,diff,,,,U-095,"adjperf / adjdef, 52 weeks",long-memory profile,built_not_in_model,safe by construction,U-095,none,yes,low,ad__adjperf_rpw_second_52w,0.9896287389147752,0.9959280178641796,0.994064936576283
+ad__adjperf_ace_52w,ad,diff,,,,U-095,"adjperf / adjdef, 52 weeks",long-memory profile,built_not_in_model,safe by construction,U-095,none,yes,low,,0.9896287389147752,0.9959280178641796,0.994064936576283
+ad__adjdef_ace_52w,ad,diff,,,,U-095,"adjperf / adjdef, 52 weeks",long-memory profile,built_not_in_model,safe by construction,U-095,none,yes,low,,0.9896287389147752,0.9959280178641796,0.994064936576283
+ad__adjperf_df_52w,ad,diff,,,,U-095,"adjperf / adjdef, 52 weeks",long-memory profile,built_not_in_model,safe by construction,U-095,none,yes,low,,0.9896287389147752,0.9959280178641796,0.994064936576283
+ad__adjdef_df_52w,ad,diff,,,,U-095,"adjperf / adjdef, 52 weeks",long-memory profile,built_not_in_model,safe by construction,U-095,none,yes,low,,0.9896287389147752,0.9959280178641796,0.994064936576283
+ad__adjperf_first_in_52w,ad,diff,,,,U-095,"adjperf / adjdef, 52 weeks",long-memory profile,built_not_in_model,safe by construction,U-095,none,yes,low,,0.9896287389147752,0.9959280178641796,0.994064936576283
+ad__adjdef_first_in_52w,ad,diff,,,,U-095,"adjperf / adjdef, 52 weeks",long-memory profile,built_not_in_model,safe by construction,U-095,none,yes,low,,0.9896287389147752,0.9959280178641796,0.994064936576283
+ad__adjperf_hold_52w,ad,diff,,,,U-095,"adjperf / adjdef, 52 weeks",long-memory profile,built_not_in_model,safe by construction,U-095,none,yes,low,ad__adjdef_brk_52w,0.8638959867728844,0.995796663601734,0.994064936576283
+ad__adjdef_hold_52w,ad,diff,,,,U-095,"adjperf / adjdef, 52 weeks",long-memory profile,built_not_in_model,safe by construction,U-095,none,yes,low,ad__adjperf_brk_52w,0.8638959867728844,0.995796663601734,0.994064936576283
+ad__adjperf_bp_saved_52w,ad,diff,,,,U-095,"adjperf / adjdef, 52 weeks",long-memory profile,built_not_in_model,safe by construction,U-095,none,yes,low,ad__adjdef_bp_conv_52w,0.9895535848489404,0.9959280178641796,0.994064936576283
+ad__adjdef_bp_saved_52w,ad,diff,,,,U-095,"adjperf / adjdef, 52 weeks",long-memory profile,built_not_in_model,safe by construction,U-095,none,yes,low,ad__adjperf_bp_conv_52w,0.989378225361992,0.9958623407329568,0.9938321889910392
+ad__adjperf_bp_faced_pg_52w,ad,diff,,,,U-095,"adjperf / adjdef, 52 weeks",long-memory profile,built_not_in_model,safe by construction,U-095,none,yes,low,,0.8638959867728844,0.995796663601734,0.994064936576283
+ad__adjdef_bp_faced_pg_52w,ad,diff,,,,U-095,"adjperf / adjdef, 52 weeks",long-memory profile,built_not_in_model,safe by construction,U-095,none,yes,low,,0.8638959867728844,0.995796663601734,0.994064936576283
+ad__adjperf_tpw_52w,ad,diff,,,,U-095,"adjperf / adjdef, 52 weeks",long-memory profile,built_not_in_model,safe by construction,U-095,none,yes,low,ad__adjdef_tpw_52w,0.9896287389147752,0.9959280178641796,0.994064936576283
+sl__spd1_career_a,sl,pair,sl__spd1_career_b,,,U-198,serve speed (first and second; level and change),shot and point level,built_not_in_model,safe by construction,U-198,none,yes,medium,,0.8822085274813367,0.9684092998817811,0.9642732456650762
+sl__spd1_career_b,sl,pair,sl__spd1_career_a,,,U-198,serve speed (first and second; level and change),shot and point level,built_not_in_model,safe by construction,U-198,none,yes,medium,,0.8840122250613758,0.969197425456456,0.9672989642732456
+sl__spd1_dec2_a,sl,pair,sl__spd1_dec2_b,,,U-198,serve speed (first and second; level and change),shot and point level,built_not_in_model,safe by construction,U-198,none,yes,medium,,0.8775990781101257,0.967161434388546,0.9640404980798324
+sl__spd1_dec2_b,sl,pair,sl__spd1_dec2_a,,,U-198,serve speed (first and second; level and change),shot and point level,built_not_in_model,safe by construction,U-198,none,yes,medium,,0.8793777243348865,0.968474977013004,0.9664843477248924
+sl__spd1_w52_a,sl,pair,sl__spd1_w52_b,,,U-198,serve speed (first and second; level and change),shot and point level,built_not_in_model,safe by construction,U-198,none,yes,medium,,0.6919184327872138,0.9439774070668592,0.9356452926800884
+sl__spd1_w52_b,sl,pair,sl__spd1_w52_a,,,U-198,serve speed (first and second; level and change),shot and point level,built_not_in_model,safe by construction,U-198,none,yes,medium,,0.6943985169597675,0.9488375147773546,0.9378563947399046
+sl__spd2_career_a,sl,pair,sl__spd2_career_b,,,U-198,serve speed (first and second; level and change),shot and point level,built_not_in_model,safe by construction,U-198,none,yes,medium,,0.8821333734155018,0.9680152370944436,0.9642732456650762
+sl__spd2_career_b,sl,pair,sl__spd2_career_a,,,U-198,serve speed (first and second; level and change),shot and point level,built_not_in_model,safe by construction,U-198,none,yes,medium,,0.8839621223508192,0.968540654144227,0.9666007215175144
+sl__spd2_dec2_a,sl,pair,sl__spd2_dec2_b,,,U-198,serve speed (first and second; level and change),shot and point level,built_not_in_model,safe by construction,U-198,none,yes,medium,,0.8775239240442908,0.9668330487324314,0.9639241242872104
+sl__spd2_dec2_b,sl,pair,sl__spd2_dec2_a,,,U-198,serve speed (first and second; level and change),shot and point level,built_not_in_model,safe by construction,U-198,none,yes,medium,,0.879252467558495,0.967752528569552,0.9659024787617828
+sl__spd2_w52_a,sl,pair,sl__spd2_w52_b,,,U-198,serve speed (first and second; level and change),shot and point level,built_not_in_model,safe by construction,U-198,none,yes,medium,,0.6919184327872138,0.94286089583607,0.9356452926800884
+sl__spd2_w52_b,sl,pair,sl__spd2_w52_a,,,U-198,serve speed (first and second; level and change),shot and point level,built_not_in_model,safe by construction,U-198,none,yes,medium,,0.6943985169597675,0.9478523578090108,0.9378563947399046
+sl__spd1_change_dec2_w52_a,sl,pair,sl__spd1_change_dec2_w52_b,,,U-198,serve speed (first and second; level and change),shot and point level,built_not_in_model,safe by construction,U-198,none,yes,medium,,0.6919184327872138,0.9439774070668592,0.9356452926800884
+sl__spd1_change_dec2_w52_b,sl,pair,sl__spd1_change_dec2_w52_a,,,U-198,serve speed (first and second; level and change),shot and point level,built_not_in_model,safe by construction,U-198,none,yes,medium,,0.6943985169597675,0.9488375147773546,0.9378563947399046
+lv__iosO_ace,lv,context,,,,U-217,level sum: surface IOS offence of ace,level sums,built_not_in_model,leak-proof clock + probe passed,U-216; U-217,C,no,low,,1.0,1.0,1.0
+lv__iosO_df,lv,context,,,,U-218,level sum: surface IOS offence of df,level sums,built_not_in_model,leak-proof clock + probe passed,U-216; U-218,C,no,low,,1.0,1.0,1.0
+lv__iosO_first_in,lv,context,,,,U-219,level sum: surface IOS offence of first_in,level sums,built_not_in_model,leak-proof clock + probe passed,U-216; U-219,C,no,low,,1.0,1.0,1.0
+lv__iosO_first_won,lv,context,,,,U-220,level sum: surface IOS offence of first_won,level sums,built_not_in_model,leak-proof clock + probe passed,U-216; U-220,C,no,low,,1.0,1.0,1.0
+lv__iosO_second_won,lv,context,,,,U-221,level sum: surface IOS offence of second_won,level sums,built_not_in_model,leak-proof clock + probe passed,U-216; U-221,C,no,low,,1.0,1.0,1.0
+lv__iosO_hold,lv,context,,,,U-222,level sum: surface IOS offence of hold,level sums,built_not_in_model,leak-proof clock + probe passed,U-216; U-222,C,no,low,,1.0,1.0,1.0
+lv__iosO_bp_saved,lv,context,,,,U-223,level sum: surface IOS offence of bp_saved,level sums,built_not_in_model,leak-proof clock + probe passed,U-216; U-223,C,no,low,,1.0,1.0,1.0
+lv__iosD_ace,lv,context,,,,U-224,level sum: surface IOS defence of ace,level sums,built_not_in_model,leak-proof clock + probe passed,U-216; U-224,C,no,low,,1.0,1.0,1.0
+lv__iosD_df,lv,context,,,,U-225,level sum: surface IOS defence of df,level sums,built_not_in_model,leak-proof clock + probe passed,U-216; U-225,C,no,low,,1.0,1.0,1.0
+lv__iosD_first_in,lv,context,,,,U-226,level sum: surface IOS defence of first_in,level sums,built_not_in_model,leak-proof clock + probe passed,U-216; U-226,C,no,low,,1.0,1.0,1.0
+lv__iosD_first_won,lv,context,,,,U-227,level sum: surface IOS defence of first_won,level sums,built_not_in_model,leak-proof clock + probe passed,U-216; U-227,C,no,low,,1.0,1.0,1.0
+lv__iosD_second_won,lv,context,,,,U-228,level sum: surface IOS defence of second_won,level sums,built_not_in_model,leak-proof clock + probe passed,U-216; U-228,C,no,low,,1.0,1.0,1.0
+lv__iosD_hold,lv,context,,,,U-229,level sum: surface IOS defence of hold,level sums,built_not_in_model,leak-proof clock + probe passed,U-216; U-229,C,no,low,,1.0,1.0,1.0
+lv__iosD_bp_saved,lv,context,,,,U-230,level sum: surface IOS defence of bp_saved,level sums,built_not_in_model,leak-proof clock + probe passed,U-216; U-230,C,no,low,,1.0,1.0,1.0
+lv__elo,lv,context,,,,U-231,pair strength: overall Elo sum,level sums,built_not_in_model,safe by construction,U-216; U-231; U-256,A,yes,low,fi__I-084__s,1.0,1.0,1.0
+lv__age,lv,context,,,,U-232,pair age sum,level sums,built_not_in_model,safe by construction,U-216; U-232,C,no,low,,1.0,0.9998029686063312,0.986966135226347
+lv__sets14,lv,context,,,,U-233,pair load sum,level sums,built_not_in_model,safe by construction,U-216; U-233,C,no,low,,0.9998246405130518,0.9977013004071982,1.0
+kn__KN-SNET,kn,diff,,KN-SNET,,U-086,surface IOS net shift (dnet_spw),long-memory profile,built_not_in_model,leak-proof clock + probe passed,U-086,none,yes,exclude,,1.0,1.0,1.0
+kn__KN-SURFCAREER,kn,diff,,KN-SURFCAREER,,U-023,career surface matches (Elo NS),ratings,built_not_in_model,safe by construction,U-023,none,yes,low,,1.0,1.0,1.0
+ctx__draw_size,ctx,context,,,,U-188,draw size,context,built_not_in_model,safe by construction,U-188,none,no,low,,1.0,1.0,1.0
+ctx__week,ctx,context,,,,U-189,week of the year,context,built_not_in_model,safe by construction,U-189,none,no,low,,1.0,1.0,1.0
+ctx__month,ctx,context,,,,U-190,month,context,built_not_in_model,safe by construction,U-190,none,no,low,,1.0,1.0,1.0

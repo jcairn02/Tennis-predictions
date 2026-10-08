@@ -1,0 +1,1073 @@
+{
+ "source": "api_tennis",
+ "notes": [
+  "event_date/event_time read as Europe/Berlin wall-clock (api-tennis.com's documented default; the handoff's fetcher settings are not published) - see tz_checks.",
+  "Cancelled fixtures, doubles, team ties and identical duplicate rows are left out.",
+  "Qualifying rounds are labelled from the end (Final = last qualifying round)."
+ ],
+ "input": {
+  "files": [
+   "fixtures_2021.csv.gz",
+   "fixtures_2022.csv.gz",
+   "fixtures_2023.csv.gz",
+   "fixtures_2024.csv.gz"
+  ],
+  "rows_read": 136946,
+  "left_out": {
+   "doubles_team_ties_or_malformed_type": 18747,
+   "unreadable_date": 0,
+   "duplicate_event_key_identical_copy": 4982,
+   "doubles_names_in_singles": 1,
+   "cancelled": 1385
+  },
+  "status_kept": {
+   "Finished": 106958,
+   "Retired": 4170,
+   "Walk Over": 470,
+   "(blank)": 174,
+   "Set 1": 28,
+   "Awarded": 18,
+   "1": 5,
+   "Set 2": 4,
+   "Abandoned": 1,
+   "Interrupted": 1,
+   "42": 1,
+   "Set 3": 1
+  },
+  "rows_without_time": 0,
+  "times_in_repeated_dst_hour_read_as_summer_time": 15,
+  "rows_in_scope": 111831,
+  "player_keys_learned": 3984
+ },
+ "rows_in_scope": 111831,
+ "row_status": {
+  "linked": 108269,
+  "unlinked": 3356,
+  "match_taken_by_better_row": 97,
+  "candidates_failed_checks": 91,
+  "ambiguous": 18
+ },
+ "linked": 108269,
+ "ambiguous": 18,
+ "unlinked": 3544,
+ "passes": {
+  "names": {
+   "candidates": 104947,
+   "linked": 104415,
+   "ambiguous": 18,
+   "lost_to_better_row": 97,
+   "linked_identical_scores": 98159,
+   "linked_round_agrees": 102490
+  },
+  "one_player_anchor": {
+   "candidates": 3087,
+   "linked": 3087,
+   "not_unique": 0
+  },
+  "learned_player_keys": {
+   "candidates": 770,
+   "linked": 767,
+   "ambiguous": 0,
+   "lost_to_better_row": 0,
+   "linked_identical_scores": 681,
+   "linked_round_agrees": 737
+  }
+ },
+ "links_by_method": [
+  {
+   "link_method": "learned_player_keys",
+   "links": 767,
+   "dated": 767,
+   "score_agrees": 681,
+   "score_differs": 14,
+   "round_agrees": 737,
+   "round_differs": 22
+  },
+  {
+   "link_method": "names",
+   "links": 104415,
+   "dated": 104415,
+   "score_agrees": 98159,
+   "score_differs": 1410,
+   "round_agrees": 102490,
+   "round_differs": 845
+  },
+  {
+   "link_method": "one_player_anchor",
+   "links": 3087,
+   "dated": 3087,
+   "score_agrees": 3087,
+   "score_differs": 0,
+   "round_agrees": 3069,
+   "round_differs": 0
+  }
+ ],
+ "date_basis": {
+  "utc_date": 61371,
+  "local": 46898
+ },
+ "links_with_date": 108269,
+ "links_with_start_utc": 108269,
+ "score_agrees": {
+  "True": 101927,
+  "unknown": 4918,
+  "False": 1424
+ },
+ "round_agrees": {
+  "True": 106296,
+  "unknown": 1106,
+  "False": 867
+ },
+ "agreement_with_tennis_data": {
+  "matches": 9486,
+  "same_day": 8680,
+  "same_day_pct": 91.5,
+  "one_day_off": 806,
+  "one_day_off_pct": 8.5,
+  "larger": 0,
+  "larger_pct": 0.0,
+  "source_minus_td_days": {
+   "-1": 776,
+   "0": 8680,
+   "1": 30
+  },
+  "by_basis": {
+   "local": {
+    "matches": 9486,
+    "same_day": 8680,
+    "same_day_pct": 91.5,
+    "one_day_off": 806,
+    "one_day_off_pct": 8.5,
+    "larger": 0,
+    "larger_pct": 0.0,
+    "source_minus_td_days": {
+     "-1": 776,
+     "0": 8680,
+     "1": 30
+    }
+   }
+  },
+  "by_tour": {
+   "atp": {
+    "matches": 9486,
+    "same_day": 8680,
+    "same_day_pct": 91.5,
+    "one_day_off": 806,
+    "one_day_off_pct": 8.5,
+    "larger": 0,
+    "larger_pct": 0.0,
+    "source_minus_td_days": {
+     "-1": 776,
+     "0": 8680,
+     "1": 30
+    }
+   }
+  },
+  "by_region": {
+   "Americas": {
+    "matches": 2929,
+    "same_day": 2153,
+    "same_day_pct": 73.51,
+    "one_day_off": 776,
+    "one_day_off_pct": 26.49,
+    "larger": 0,
+    "larger_pct": 0.0,
+    "source_minus_td_days": {
+     "-1": 776,
+     "0": 2153
+    }
+   },
+   "elsewhere": {
+    "matches": 6557,
+    "same_day": 6527,
+    "same_day_pct": 99.54,
+    "one_day_off": 30,
+    "one_day_off_pct": 0.46,
+    "larger": 0,
+    "larger_pct": 0.0,
+    "source_minus_td_days": {
+     "0": 6527,
+     "1": 30
+    }
+   }
+  },
+  "start_as_uk_calendar_day_vs_td": {
+   "matches": 9486,
+   "same_day": 9485,
+   "same_day_pct": 99.99,
+   "one_day_off": 1,
+   "one_day_off_pct": 0.01,
+   "larger": 0,
+   "larger_pct": 0.0,
+   "source_minus_td_days": {
+    "0": 9485,
+    "1": 1
+   }
+  },
+  "events_not_same_day": 69,
+  "events_with_most_disagreement": [
+   {
+    "tour": "atp",
+    "year": 2022,
+    "tournament_name": "Indian Wells Masters",
+    "matches": 95,
+    "not_same_day": 33,
+    "median_diff": 0.0,
+    "tz": "America/Los_Angeles"
+   },
+   {
+    "tour": "atp",
+    "year": 2024,
+    "tournament_name": "Acapulco",
+    "matches": 31,
+    "not_same_day": 31,
+    "median_diff": -1.0,
+    "tz": "America/Mexico_City"
+   },
+   {
+    "tour": "atp",
+    "year": 2023,
+    "tournament_name": "Acapulco",
+    "matches": 31,
+    "not_same_day": 30,
+    "median_diff": -1.0,
+    "tz": "America/Mexico_City"
+   },
+   {
+    "tour": "atp",
+    "year": 2022,
+    "tournament_name": "Acapulco",
+    "matches": 30,
+    "not_same_day": 28,
+    "median_diff": -1.0,
+    "tz": "America/Mexico_City"
+   },
+   {
+    "tour": "atp",
+    "year": 2021,
+    "tournament_name": "Los Cabos",
+    "matches": 27,
+    "not_same_day": 27,
+    "median_diff": -1.0,
+    "tz": "America/Mazatlan"
+   },
+   {
+    "tour": "atp",
+    "year": 2022,
+    "tournament_name": "Los Cabos",
+    "matches": 27,
+    "not_same_day": 27,
+    "median_diff": -1.0,
+    "tz": "America/Mazatlan"
+   },
+   {
+    "tour": "atp",
+    "year": 2023,
+    "tournament_name": "Indian Wells Masters",
+    "matches": 95,
+    "not_same_day": 26,
+    "median_diff": 0.0,
+    "tz": "America/Los_Angeles"
+   },
+   {
+    "tour": "atp",
+    "year": 2024,
+    "tournament_name": "Indian Wells Masters",
+    "matches": 95,
+    "not_same_day": 26,
+    "median_diff": 0.0,
+    "tz": "America/Los_Angeles"
+   },
+   {
+    "tour": "atp",
+    "year": 2023,
+    "tournament_name": "Los Cabos",
+    "matches": 27,
+    "not_same_day": 25,
+    "median_diff": -1.0,
+    "tz": "America/Mazatlan"
+   },
+   {
+    "tour": "atp",
+    "year": 2022,
+    "tournament_name": "Us Open",
+    "matches": 127,
+    "not_same_day": 22,
+    "median_diff": 0.0,
+    "tz": "America/New_York"
+   },
+   {
+    "tour": "atp",
+    "year": 2024,
+    "tournament_name": "Us Open",
+    "matches": 127,
+    "not_same_day": 21,
+    "median_diff": 0.0,
+    "tz": "America/New_York"
+   },
+   {
+    "tour": "atp",
+    "year": 2023,
+    "tournament_name": "Us Open",
+    "matches": 127,
+    "not_same_day": 20,
+    "median_diff": 0.0,
+    "tz": "America/New_York"
+   },
+   {
+    "tour": "atp",
+    "year": 2021,
+    "tournament_name": "Us Open",
+    "matches": 126,
+    "not_same_day": 20,
+    "median_diff": 0.0,
+    "tz": "America/New_York"
+   },
+   {
+    "tour": "atp",
+    "year": 2021,
+    "tournament_name": "Winston-Salem",
+    "matches": 47,
+    "not_same_day": 20,
+    "median_diff": 0.0,
+    "tz": "America/New_York"
+   },
+   {
+    "tour": "atp",
+    "year": 2022,
+    "tournament_name": "Winston-Salem",
+    "matches": 47,
+    "not_same_day": 19,
+    "median_diff": 0.0,
+    "tz": "America/New_York"
+   }
+  ],
+  "worst": [
+   {
+    "match_id": "atp|2021-418|QF|atp:105453|atp:144750",
+    "source_key": "14699",
+    "tournament_name": "Washington",
+    "round": "QF",
+    "tournament_date": "2021-08-02",
+    "date_local": "2021-08-06",
+    "td_date": "2021-08-07",
+    "diff": -1.0,
+    "date_basis": "local",
+    "link_method": "names"
+   },
+   {
+    "match_id": "atp|2021-418|QF|atp:106045|atp:111456",
+    "source_key": "14700",
+    "tournament_name": "Washington",
+    "round": "QF",
+    "tournament_date": "2021-08-02",
+    "date_local": "2021-08-06",
+    "td_date": "2021-08-07",
+    "diff": -1.0,
+    "date_basis": "local",
+    "link_method": "names"
+   },
+   {
+    "match_id": "atp|2021-418|R16|atp:104745|atp:144750",
+    "source_key": "14695",
+    "tournament_name": "Washington",
+    "round": "R16",
+    "tournament_date": "2021-08-02",
+    "date_local": "2021-08-05",
+    "td_date": "2021-08-06",
+    "diff": -1.0,
+    "date_basis": "local",
+    "link_method": "names"
+   },
+   {
+    "match_id": "atp|2021-418|R16|atp:111456|atp:125802",
+    "source_key": "14696",
+    "tournament_name": "Washington",
+    "round": "R16",
+    "tournament_date": "2021-08-02",
+    "date_local": "2021-08-05",
+    "td_date": "2021-08-06",
+    "diff": -1.0,
+    "date_basis": "local",
+    "link_method": "names"
+   },
+   {
+    "match_id": "atp|2021-418|R32|atp:104745|atp:106058",
+    "source_key": "14688",
+    "tournament_name": "Washington",
+    "round": "R32",
+    "tournament_date": "2021-08-02",
+    "date_local": "2021-08-04",
+    "td_date": "2021-08-05",
+    "diff": -1.0,
+    "date_basis": "local",
+    "link_method": "names"
+   },
+   {
+    "match_id": "atp|2021-418|R32|atp:105575|atp:200175",
+    "source_key": "14675",
+    "tournament_name": "Washington",
+    "round": "R32",
+    "tournament_date": "2021-08-02",
+    "date_local": "2021-08-03",
+    "td_date": "2021-08-04",
+    "diff": -1.0,
+    "date_basis": "local",
+    "link_method": "names"
+   },
+   {
+    "match_id": "atp|2021-418|R32|atp:126207|atp:202385",
+    "source_key": "14677",
+    "tournament_name": "Washington",
+    "round": "R32",
+    "tournament_date": "2021-08-02",
+    "date_local": "2021-08-03",
+    "td_date": "2021-08-04",
+    "diff": -1.0,
+    "date_basis": "local",
+    "link_method": "names"
+   },
+   {
+    "match_id": "atp|2021-418|R64|atp:105023|atp:105453",
+    "source_key": "14663",
+    "tournament_name": "Washington",
+    "round": "R64",
+    "tournament_date": "2021-08-02",
+    "date_local": "2021-08-02",
+    "td_date": "2021-08-03",
+    "diff": -1.0,
+    "date_basis": "local",
+    "link_method": "names"
+   },
+   {
+    "match_id": "atp|2021-418|R64|atp:105577|atp:105877",
+    "source_key": "14664",
+    "tournament_name": "Washington",
+    "round": "R64",
+    "tournament_date": "2021-08-02",
+    "date_local": "2021-08-02",
+    "td_date": "2021-08-03",
+    "diff": -1.0,
+    "date_basis": "local",
+    "link_method": "names"
+   },
+   {
+    "match_id": "atp|2021-418|R64|atp:106058|atp:106415",
+    "source_key": "14665",
+    "tournament_name": "Washington",
+    "round": "R64",
+    "tournament_date": "2021-08-02",
+    "date_local": "2021-08-02",
+    "td_date": "2021-08-03",
+    "diff": -1.0,
+    "date_basis": "local",
+    "link_method": "names"
+   },
+   {
+    "match_id": "atp|2021-418|R64|atp:106401|atp:111456",
+    "source_key": "14676",
+    "tournament_name": "Washington",
+    "round": "R64",
+    "tournament_date": "2021-08-02",
+    "date_local": "2021-08-03",
+    "td_date": "2021-08-04",
+    "diff": -1.0,
+    "date_basis": "local",
+    "link_method": "names"
+   },
+   {
+    "match_id": "atp|2021-421|QF|atp:104545|atp:104792",
+    "source_key": "11698184",
+    "tournament_name": "Canada Masters",
+    "round": "QF",
+    "tournament_date": "2021-08-09",
+    "date_local": "2021-08-13",
+    "td_date": "2021-08-14",
+    "diff": -1.0,
+    "date_basis": "local",
+    "link_method": "names"
+   },
+   {
+    "match_id": "atp|2021-421|QF|atp:106421|atp:128034",
+    "source_key": "11698183",
+    "tournament_name": "Canada Masters",
+    "round": "QF",
+    "tournament_date": "2021-08-09",
+    "date_local": "2021-08-13",
+    "td_date": "2021-08-14",
+    "diff": -1.0,
+    "date_basis": "local",
+    "link_method": "names"
+   },
+   {
+    "match_id": "atp|2021-421|R16|atp:105902|atp:106421",
+    "source_key": "11698179",
+    "tournament_name": "Canada Masters",
+    "round": "R16",
+    "tournament_date": "2021-08-09",
+    "date_local": "2021-08-12",
+    "td_date": "2021-08-13",
+    "diff": -1.0,
+    "date_basis": "local",
+    "link_method": "names"
+   },
+   {
+    "match_id": "atp|2021-421|R16|atp:105932|atp:128034",
+    "source_key": "11698180",
+    "tournament_name": "Canada Masters",
+    "round": "R16",
+    "tournament_date": "2021-08-09",
+    "date_local": "2021-08-12",
+    "td_date": "2021-08-13",
+    "diff": -1.0,
+    "date_basis": "local",
+    "link_method": "names"
+   },
+   {
+    "match_id": "atp|2021-421|R32|atp:104792|atp:105357",
+    "source_key": "11698172",
+    "tournament_name": "Canada Masters",
+    "round": "R32",
+    "tournament_date": "2021-08-09",
+    "date_local": "2021-08-11",
+    "td_date": "2021-08-12",
+    "diff": -1.0,
+    "date_basis": "local",
+    "link_method": "names"
+   },
+   {
+    "match_id": "atp|2021-421|R32|atp:105777|atp:124187",
+    "source_key": "11698160",
+    "tournament_name": "Canada Masters",
+    "round": "R32",
+    "tournament_date": "2021-08-09",
+    "date_local": "2021-08-10",
+    "td_date": "2021-08-11",
+    "diff": -1.0,
+    "date_basis": "local",
+    "link_method": "names"
+   },
+   {
+    "match_id": "atp|2021-421|R32|atp:126207|atp:133430",
+    "source_key": "11698171",
+    "tournament_name": "Canada Masters",
+    "round": "R32",
+    "tournament_date": "2021-08-09",
+    "date_local": "2021-08-11",
+    "td_date": "2021-08-12",
+    "diff": -1.0,
+    "date_basis": "local",
+    "link_method": "names"
+   },
+   {
+    "match_id": "atp|2021-421|R32|atp:126774|atp:200005",
+    "source_key": "11698159",
+    "tournament_name": "Canada Masters",
+    "round": "R32",
+    "tournament_date": "2021-08-09",
+    "date_local": "2021-08-10",
+    "td_date": "2021-08-11",
+    "diff": -1.0,
+    "date_basis": "local",
+    "link_method": "names"
+   },
+   {
+    "match_id": "atp|2021-421|R64|atp:105577|atp:126205",
+    "source_key": "11698148",
+    "tournament_name": "Canada Masters",
+    "round": "R64",
+    "tournament_date": "2021-08-09",
+    "date_local": "2021-08-09",
+    "td_date": "2021-08-10",
+    "diff": -1.0,
+    "date_basis": "local",
+    "link_method": "names"
+   }
+  ]
+ },
+ "date_flags": {
+  "dated_links": 108269,
+  "main_draw_more_than_1_day_before_start": 37,
+  "qualifying_more_than_1_day_before_start_expected": 2875,
+  "after_plausible_end": 0,
+  "round_of_16_or_later_dated_on_or_before_start": 0,
+  "plausible_end_days_by_level": {
+   "GS": 15,
+   "T1000": 14,
+   "TEAM": 14,
+   "FIN": 10,
+   "other": 9
+  },
+  "flagged_main_draw_early": [
+   {
+    "match_id": "atp|2023-9900|RR|atp:105777|atp:126774",
+    "source_key": "11838980",
+    "tournament_name": "United Cup",
+    "level": "TEAM",
+    "round": "RR",
+    "tournament_date": "2023-01-02",
+    "date_local": "2022-12-29",
+    "days": -4.0,
+    "link_method": "names"
+   },
+   {
+    "match_id": "atp|2023-9900|RR|atp:200335|atp:207518",
+    "source_key": "11838979",
+    "tournament_name": "United Cup",
+    "level": "TEAM",
+    "round": "RR",
+    "tournament_date": "2023-01-02",
+    "date_local": "2022-12-29",
+    "days": -4.0,
+    "link_method": "names"
+   },
+   {
+    "match_id": "atp|2023-9900|RR|atp:111815|atp:200282",
+    "source_key": "11838981",
+    "tournament_name": "United Cup",
+    "level": "TEAM",
+    "round": "RR",
+    "tournament_date": "2023-01-02",
+    "date_local": "2022-12-29",
+    "days": -4.0,
+    "link_method": "names"
+   },
+   {
+    "match_id": "atp|2023-9900|RR|atp:126203|atp:208103",
+    "source_key": "11838978",
+    "tournament_name": "United Cup",
+    "level": "TEAM",
+    "round": "RR",
+    "tournament_date": "2023-01-02",
+    "date_local": "2022-12-29",
+    "days": -4.0,
+    "link_method": "names"
+   },
+   {
+    "match_id": "atp|2023-9900|RR|atp:126239|atp:202103",
+    "source_key": "11838983",
+    "tournament_name": "United Cup",
+    "level": "TEAM",
+    "round": "RR",
+    "tournament_date": "2023-01-02",
+    "date_local": "2022-12-29",
+    "days": -4.0,
+    "link_method": "names"
+   },
+   {
+    "match_id": "atp|2023-9900|RR|atp:144817|atp:207608",
+    "source_key": "11838982",
+    "tournament_name": "United Cup",
+    "level": "TEAM",
+    "round": "RR",
+    "tournament_date": "2023-01-02",
+    "date_local": "2022-12-29",
+    "days": -4.0,
+    "link_method": "names"
+   },
+   {
+    "match_id": "atp|2023-9900|RR|atp:126207|atp:207830",
+    "source_key": "11838985",
+    "tournament_name": "United Cup",
+    "level": "TEAM",
+    "round": "RR",
+    "tournament_date": "2023-01-02",
+    "date_local": "2022-12-30",
+    "days": -3.0,
+    "link_method": "names"
+   },
+   {
+    "match_id": "atp|2024-9900|RR|atp:111815|atp:200282",
+    "source_key": "11918030",
+    "tournament_name": "United Cup",
+    "level": "TEAM",
+    "round": "RR",
+    "tournament_date": "2024-01-01",
+    "date_local": "2023-12-29",
+    "days": -3.0,
+    "link_method": "names"
+   },
+   {
+    "match_id": "atp|2024-9900|RR|atp:200221|atp:205734",
+    "source_key": "11918029",
+    "tournament_name": "United Cup",
+    "level": "TEAM",
+    "round": "RR",
+    "tournament_date": "2024-01-01",
+    "date_local": "2023-12-29",
+    "days": -3.0,
+    "link_method": "names"
+   },
+   {
+    "match_id": "atp|2022-8888|RR|atp:105643|atp:106223",
+    "source_key": "11756823",
+    "tournament_name": "Atp Cup",
+    "level": "TEAM",
+    "round": "RR",
+    "tournament_date": "2022-01-03",
+    "date_local": "2021-12-31",
+    "days": -3.0,
+    "link_method": "names"
+   },
+   {
+    "match_id": "atp|2023-9900|RR|atp:106220|atp:133018",
+    "source_key": "11838986",
+    "tournament_name": "United Cup",
+    "level": "TEAM",
+    "round": "RR",
+    "tournament_date": "2023-01-02",
+    "date_local": "2022-12-30",
+    "days": -3.0,
+    "link_method": "names"
+   },
+   {
+    "match_id": "atp|2023-9900|RR|atp:106329|atp:126610",
+    "source_key": "11838984",
+    "tournament_name": "United Cup",
+    "level": "TEAM",
+    "round": "RR",
+    "tournament_date": "2023-01-02",
+    "date_local": "2022-12-30",
+    "days": -3.0,
+    "link_method": "names"
+   },
+   {
+    "match_id": "atp|2022-8888|RR|atp:105807|atp:126214",
+    "source_key": "11756822",
+    "tournament_name": "Atp Cup",
+    "level": "TEAM",
+    "round": "RR",
+    "tournament_date": "2022-01-03",
+    "date_local": "2021-12-31",
+    "days": -3.0,
+    "link_method": "names"
+   },
+   {
+    "match_id": "atp|2023-9900|RR|atp:104527|atp:122330",
+    "source_key": "11838987",
+    "tournament_name": "United Cup",
+    "level": "TEAM",
+    "round": "RR",
+    "tournament_date": "2023-01-02",
+    "date_local": "2022-12-30",
+    "days": -3.0,
+    "link_method": "names"
+   },
+   {
+    "match_id": "atp|2023-9900|RR|atp:105554|atp:106186",
+    "source_key": "11838988",
+    "tournament_name": "United Cup",
+    "level": "TEAM",
+    "round": "RR",
+    "tournament_date": "2023-01-02",
+    "date_local": "2022-12-30",
+    "days": -3.0,
+    "link_method": "names"
+   },
+   {
+    "match_id": "atp|2023-9900|RR|atp:100644|atp:208103",
+    "source_key": "11838990",
+    "tournament_name": "United Cup",
+    "level": "TEAM",
+    "round": "RR",
+    "tournament_date": "2023-01-02",
+    "date_local": "2022-12-30",
+    "days": -3.0,
+    "link_method": "names"
+   },
+   {
+    "match_id": "atp|2022-8888|RR|atp:105932|atp:106043",
+    "source_key": "11756824",
+    "tournament_name": "Atp Cup",
+    "level": "TEAM",
+    "round": "RR",
+    "tournament_date": "2022-01-03",
+    "date_local": "2022-01-01",
+    "days": -2.0,
+    "link_method": "names"
+   },
+   {
+    "match_id": "atp|2022-8888|RR|atp:104545|atp:111790",
+    "source_key": "11756830",
+    "tournament_name": "Atp Cup",
+    "level": "TEAM",
+    "round": "RR",
+    "tournament_date": "2022-01-03",
+    "date_local": "2022-01-01",
+    "days": -2.0,
+    "link_method": "names"
+   },
+   {
+    "match_id": "atp|2022-8888|RR|atp:128034|atp:209362",
+    "source_key": "11756828",
+    "tournament_name": "Atp Cup",
+    "level": "TEAM",
+    "round": "RR",
+    "tournament_date": "2022-01-03",
+    "date_local": "2022-01-01",
+    "days": -2.0,
+    "link_method": "names"
+   },
+   {
+    "match_id": "atp|2022-8888|RR|atp:111794|atp:133018",
+    "source_key": "11756826",
+    "tournament_name": "Atp Cup",
+    "level": "TEAM",
+    "round": "RR",
+    "tournament_date": "2022-01-03",
+    "date_local": "2022-01-01",
+    "days": -2.0,
+    "link_method": "names"
+   },
+   {
+    "match_id": "atp|2023-9900|RR|atp:106432|atp:202103",
+    "source_key": "11838995",
+    "tournament_name": "United Cup",
+    "level": "TEAM",
+    "round": "RR",
+    "tournament_date": "2023-01-02",
+    "date_local": "2022-12-31",
+    "days": -2.0,
+    "link_method": "names"
+   },
+   {
+    "match_id": "atp|2023-9900|RR|atp:104745|atp:111815",
+    "source_key": "11838993",
+    "tournament_name": "United Cup",
+    "level": "TEAM",
+    "round": "RR",
+    "tournament_date": "2023-01-02",
+    "date_local": "2022-12-31",
+    "days": -2.0,
+    "link_method": "names"
+   },
+   {
+    "match_id": "atp|2022-8888|RR|atp:105583|atp:134770",
+    "source_key": "11756829",
+    "tournament_name": "Atp Cup",
+    "level": "TEAM",
+    "round": "RR",
+    "tournament_date": "2022-01-03",
+    "date_local": "2022-01-01",
+    "days": -2.0,
+    "link_method": "names"
+   },
+   {
+    "match_id": "atp|2022-8888|RR|atp:105138|atp:106426",
+    "source_key": "11756825",
+    "tournament_name": "Atp Cup",
+    "level": "TEAM",
+    "round": "RR",
+    "tournament_date": "2022-01-03",
+    "date_local": "2022-01-01",
+    "days": -2.0,
+    "link_method": "names"
+   },
+   {
+    "match_id": "atp|2022-8888|RR|atp:126128|atp:126239",
+    "source_key": "11756831",
+    "tournament_name": "Atp Cup",
+    "level": "TEAM",
+    "round": "RR",
+    "tournament_date": "2022-01-03",
+    "date_local": "2022-01-01",
+    "days": -2.0,
+    "link_method": "names"
+   },
+   {
+    "match_id": "atp|2022-8888|RR|atp:105936|atp:126340",
+    "source_key": "11756827",
+    "tournament_name": "Atp Cup",
+    "level": "TEAM",
+    "round": "RR",
+    "tournament_date": "2022-01-03",
+    "date_local": "2022-01-01",
+    "days": -2.0,
+    "link_method": "names"
+   },
+   {
+    "match_id": "atp|2023-9900|RR|atp:126340|atp:200335",
+    "source_key": "11838991",
+    "tournament_name": "United Cup",
+    "level": "TEAM",
+    "round": "RR",
+    "tournament_date": "2023-01-02",
+    "date_local": "2022-12-31",
+    "days": -2.0,
+    "link_method": "names"
+   },
+   {
+    "match_id": "atp|2023-9900|RR|atp:105676|atp:105777",
+    "source_key": "11838992",
+    "tournament_name": "United Cup",
+    "level": "TEAM",
+    "round": "RR",
+    "tournament_date": "2023-01-02",
+    "date_local": "2022-12-31",
+    "days": -2.0,
+    "link_method": "names"
+   },
+   {
+    "match_id": "atp|2023-9900|RR|atp:207415|atp:207608",
+    "source_key": "11838994",
+    "tournament_name": "United Cup",
+    "level": "TEAM",
+    "round": "RR",
+    "tournament_date": "2023-01-02",
+    "date_local": "2022-12-31",
+    "days": -2.0,
+    "link_method": "names"
+   },
+   {
+    "match_id": "atp|2024-9900|RR|atp:111190|atp:208103",
+    "source_key": "11918084",
+    "tournament_name": "United Cup",
+    "level": "TEAM",
+    "round": "RR",
+    "tournament_date": "2024-01-01",
+    "date_local": "2023-12-30",
+    "days": -2.0,
+    "link_method": "names"
+   },
+   {
+    "match_id": "atp|2024-9900|RR|atp:134770|atp:134868",
+    "source_key": "11918083",
+    "tournament_name": "United Cup",
+    "level": "TEAM",
+    "round": "RR",
+    "tournament_date": "2024-01-01",
+    "date_local": "2023-12-30",
+    "days": -2.0,
+    "link_method": "names"
+   },
+   {
+    "match_id": "atp|2024-9900|RR|atp:100644|atp:132283",
+    "source_key": "11918085",
+    "tournament_name": "United Cup",
+    "level": "TEAM",
+    "round": "RR",
+    "tournament_date": "2024-01-01",
+    "date_local": "2023-12-30",
+    "days": -2.0,
+    "link_method": "names"
+   },
+   {
+    "match_id": "atp|2024-9900|RR|atp:128034|atp:205734",
+    "source_key": "11918086",
+    "tournament_name": "United Cup",
+    "level": "TEAM",
+    "round": "RR",
+    "tournament_date": "2024-01-01",
+    "date_local": "2023-12-30",
+    "days": -2.0,
+    "link_method": "names"
+   },
+   {
+    "match_id": "atp|2024-96|R64|atp:104925|atp:105051",
+    "source_key": "11969533",
+    "tournament_name": "Paris Olympics",
+    "level": "TEAM",
+    "round": "R64",
+    "tournament_date": "2024-07-29",
+    "date_local": "2024-07-27",
+    "days": -2.0,
+    "link_method": "names"
+   },
+   {
+    "match_id": "atp|2024-96|R64|atp:122330|atp:126203",
+    "source_key": "11969529",
+    "tournament_name": "Paris Olympics",
+    "level": "TEAM",
+    "round": "R64",
+    "tournament_date": "2024-07-29",
+    "date_local": "2024-07-27",
+    "days": -2.0,
+    "link_method": "names"
+   },
+   {
+    "match_id": "atp|2024-96|R64|atp:106421|atp:208014",
+    "source_key": "11969538",
+    "tournament_name": "Paris Olympics",
+    "level": "TEAM",
+    "round": "R64",
+    "tournament_date": "2024-07-29",
+    "date_local": "2024-07-27",
+    "days": -2.0,
+    "link_method": "names"
+   },
+   {
+    "match_id": "atp|2024-96|R64|atp:200273|atp:207989",
+    "source_key": "11969620",
+    "tournament_name": "Paris Olympics",
+    "level": "TEAM",
+    "round": "R64",
+    "tournament_date": "2024-07-29",
+    "date_local": "2024-07-27",
+    "days": -2.0,
+    "link_method": "names"
+   }
+  ],
+  "flagged_after_end": [],
+  "examples_round_of_16_or_later_on_or_before_start": [],
+  "days_from_start_quantiles": {
+   "0.0": -7.0,
+   "0.01": -5.0,
+   "0.5": 2.0,
+   "0.99": 6.0,
+   "1.0": 13.0
+  }
+ },
+ "agreement_with_timed_sources_venue_day": {
+  "matches": 26141,
+  "same_day": 26141,
+  "same_day_pct": 100.0,
+  "one_day_off": 0,
+  "one_day_off_pct": 0.0,
+  "larger": 0,
+  "larger_pct": 0.0,
+  "source_minus_td_days": {
+   "0": 26141
+  },
+  "by_tour": {
+   "atp": {
+    "matches": 26141,
+    "same_day": 26141,
+    "same_day_pct": 100.0,
+    "one_day_off": 0,
+    "one_day_off_pct": 0.0,
+    "larger": 0,
+    "larger_pct": 0.0,
+    "source_minus_td_days": {
+     "0": 26141
+    }
+   }
+  },
+  "by_region": {
+   "Americas": {
+    "matches": 7904,
+    "same_day": 7904,
+    "same_day_pct": 100.0,
+    "one_day_off": 0,
+    "one_day_off_pct": 0.0,
+    "larger": 0,
+    "larger_pct": 0.0,
+    "source_minus_td_days": {
+     "0": 7904
+    }
+   },
+   "elsewhere": {
+    "matches": 18237,
+    "same_day": 18237,
+    "same_day_pct": 100.0,
+    "one_day_off": 0,
+    "one_day_off_pct": 0.0,
+    "larger": 0,
+    "larger_pct": 0.0,
+    "source_minus_td_days": {
+     "0": 18237
+    }
+   }
+  },
+  "events_least_agreeing": []
+ }
+}

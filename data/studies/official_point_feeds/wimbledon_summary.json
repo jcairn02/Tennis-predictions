@@ -1,0 +1,172 @@
+{
+ "source": "wimbledon",
+ "site": "wimbledon",
+ "started_at": "2026-09-25T01:49:58+00:00",
+ "args": {
+  "years": null,
+  "events": null,
+  "feeds": null,
+  "matches": null,
+  "limit": null,
+  "order": "new-first",
+  "max_requests": null,
+  "min_interval": 2.0,
+  "jitter": 1.0,
+  "streak": 5,
+  "refresh": false,
+  "listings_only": false,
+  "skip_listings": false,
+  "stage_only": true,
+  "stage_years": null,
+  "stage_all": false,
+  "no_stage": false
+ },
+ "decision": "docs/decisions/2026-09-24-official-point-feeds.md",
+ "hosts": {
+  "2019": "https://2025.wimbledon.com",
+  "2021": "https://2025.wimbledon.com",
+  "2022": "https://2025.wimbledon.com",
+  "2023": "https://2025.wimbledon.com",
+  "2024": "https://2025.wimbledon.com",
+  "2025": "https://2025.wimbledon.com",
+  "2026": "https://www.wimbledon.com"
+ },
+ "events": [
+  "MS",
+  "LS",
+  "QS",
+  "RS",
+  "MD",
+  "LD"
+ ],
+ "feeds": [
+  "history",
+  "stats",
+  "livel2w",
+  "tz"
+ ],
+ "matches_selected": 4228,
+ "plan": [
+  "2026 MS: 127 matches",
+  "2026 LS: 127 matches",
+  "2026 QS: 112 matches",
+  "2026 RS: 112 matches",
+  "2026 MD: 63 matches",
+  "2026 LD: 63 matches",
+  "2025 MS: 127 matches",
+  "2025 LS: 127 matches",
+  "2025 QS: 112 matches",
+  "2025 RS: 112 matches",
+  "2025 MD: 63 matches",
+  "2025 LD: 63 matches",
+  "2024 QS: 112 matches",
+  "2024 RS: 112 matches",
+  "2024 MD: 63 matches",
+  "2024 LD: 63 matches",
+  "2023 QS: 112 matches",
+  "2023 RS: 112 matches",
+  "2022 QS: 112 matches",
+  "2022 RS: 112 matches",
+  "2021 QS: 112 matches",
+  "2021 RS: 112 matches",
+  "2019 QS: 112 matches",
+  "2019 RS: 112 matches",
+  "2024 MS: 127 matches (held)",
+  "2024 LS: 127 matches (held)",
+  "2023 MS: 127 matches (held)",
+  "2023 LS: 127 matches (held)",
+  "2023 MD: 63 matches (held)",
+  "2023 LD: 63 matches (held)",
+  "2022 MS: 127 matches (held)",
+  "2022 LS: 127 matches (held)",
+  "2022 MD: 63 matches (held)",
+  "2022 LD: 63 matches (held)",
+  "2021 MS: 127 matches (held)",
+  "2021 LS: 127 matches (held)",
+  "2021 MD: 63 matches (held)",
+  "2021 LD: 63 matches (held)",
+  "2019 MS: 127 matches (held)",
+  "2019 LS: 127 matches (held)",
+  "2019 MD: 63 matches (held)",
+  "2019 LD: 63 matches (held)"
+ ],
+ "fetch_outcomes": {},
+ "abandoned": [],
+ "staged": {
+  "points": {
+   "rows": 718385,
+   "dest": "data/dump/points/wimbledon/points.parquet",
+   "bytes": 32127914
+  },
+  "statistics": {
+   "rows": 3783754,
+   "dest": "data/dump/points/wimbledon/statistics.parquet",
+   "bytes": 15040032
+  },
+  "livel2w": {
+   "rows": 96083,
+   "dest": "data/dump/points/wimbledon/livel2w.parquet",
+   "bytes": 3671876
+  },
+  "tz": {
+   "rows": 53324,
+   "dest": "data/dump/points/wimbledon/tz.parquet",
+   "bytes": 239165
+  },
+  "matches": {
+   "rows": 4228,
+   "dest": "data/dump/points/wimbledon/matches.parquet",
+   "bytes": 393686
+  },
+  "unreadable": {}
+ },
+ "receipts_with_errors": 2,
+ "error_examples": [
+  {
+   "name": "stats/2019/4301",
+   "error": "response is not JSON: 0 bytes, starting b''"
+  },
+  {
+   "name": "stats/2019/4305",
+   "error": "response is not JSON: 0 bytes, starting b''"
+  }
+ ],
+ "receipts_by_feed_outcome": {
+  "days|2026|ok": 19,
+  "draws|2019|ok": 6,
+  "draws|2021|ok": 6,
+  "draws|2022|ok": 6,
+  "draws|2023|ok": 6,
+  "draws|2024|ok": 6,
+  "draws|2025|ok": 6,
+  "draws|2026|ok": 4,
+  "history|2019|absent": 2,
+  "history|2019|ok": 602,
+  "history|2021|ok": 604,
+  "history|2022|absent": 2,
+  "history|2022|ok": 602,
+  "history|2023|absent": 1,
+  "history|2023|ok": 603,
+  "history|2024|ok": 604,
+  "history|2025|ok": 604,
+  "history|2026|ok": 604,
+  "livel2w|2025|absent": 7,
+  "livel2w|2025|ok": 255,
+  "livel2w|2026|absent": 8,
+  "livel2w|2026|ok": 254,
+  "stats|2019|error": 2,
+  "stats|2019|ok": 602,
+  "stats|2021|ok": 604,
+  "stats|2022|ok": 604,
+  "stats|2023|ok": 604,
+  "stats|2024|ok": 604,
+  "stats|2025|ok": 604,
+  "stats|2026|ok": 604,
+  "tz|2024|absent": 6,
+  "tz|2024|ok": 254,
+  "tz|2025|absent": 7,
+  "tz|2025|ok": 254
+ },
+ "finished_at": "2026-09-25T01:50:42+00:00",
+ "seconds": 44.4
+}

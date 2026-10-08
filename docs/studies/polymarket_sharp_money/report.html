@@ -1,0 +1,526 @@
+<title>How Beatable Is Polymarket Tennis?</title>
+<meta name="description" content="Who gets better prices than Polymarket's final pre-match price in tennis, by how much, and at which level of play, from every bet placed before 27,968 matches.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Saira+Condensed:wght@600;700&family=Source+Sans+3:ital,wght@0,400;0,600;0,700;1,400&display=swap">
+<style>
+:root {
+  color-scheme: light;
+  --ground: #eef2f5;
+  --surface: #ffffff;
+  --ink: #0f1b27;
+  --ink-2: #435363;
+  --muted: #5b6977;
+  --rule: #d8e0e7;
+  --rule-strong: #b7c3cd;
+  --accent: #1c5cab;
+  --accent-soft: #e2ecf8;
+  --g-win: #1c5cab;
+  --g-unsure: #d3d2cb;
+  --g-unsure-mark: #7d828a;
+  --g-lose: #a1302b;
+  --tip-bg: #0f1b27;
+  --tip-ink: #f4f7fa;
+  --shadow: 0 1px 2px rgba(15, 27, 39, .05), 0 6px 20px rgba(15, 27, 39, .05);
+  --display: "Saira Condensed", "Arial Narrow", "Roboto Condensed", sans-serif;
+  --body: "Source Sans 3", "Source Sans Pro", system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+    --ground: #0b1116;
+    --surface: #121a21;
+    --ink: #edf2f6;
+    --ink-2: #b4c1cc;
+    --muted: #93a1ad;
+    --rule: #23303b;
+    --rule-strong: #364552;
+    --accent: #6da7ec;
+    --accent-soft: #15273a;
+    --g-win: #9ec5f4;
+    --g-unsure: #3d4146;
+    --g-unsure-mark: #8b949e;
+    --g-lose: #f7aba5;
+    --tip-bg: #edf2f6;
+    --tip-ink: #0f1b27;
+    --shadow: none;
+  }
+}
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --ground: #0b1116;
+  --surface: #121a21;
+  --ink: #edf2f6;
+  --ink-2: #b4c1cc;
+  --muted: #93a1ad;
+  --rule: #23303b;
+  --rule-strong: #364552;
+  --accent: #6da7ec;
+  --accent-soft: #15273a;
+  --g-win: #9ec5f4;
+  --g-unsure: #3d4146;
+  --g-unsure-mark: #8b949e;
+  --g-lose: #f7aba5;
+  --tip-bg: #edf2f6;
+  --tip-ink: #0f1b27;
+  --shadow: none;
+}
+
+* { box-sizing: border-box; }
+body {
+  background: var(--ground);
+  color: var(--ink);
+  font-family: var(--body);
+  font-size: 17px;
+  line-height: 1.55;
+  padding-inline: 20px;
+  padding-block: 0 64px;
+}
+.page { max-width: 1060px; margin: 0 auto; }
+.prose { max-width: 68ch; }
+p { margin: 0 0 .9em; }
+a { color: var(--accent); text-underline-offset: 2px; }
+a:focus-visible, summary:focus-visible, [tabindex]:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 3px; }
+h1, h2, h3 { font-family: var(--display); font-weight: 700; line-height: 1.08; text-wrap: balance; margin: 0; }
+h1 { font-size: clamp(2.1rem, 5.4vw, 3.4rem); letter-spacing: .005em; }
+h2 { font-size: clamp(1.55rem, 3.2vw, 2.15rem); letter-spacing: .01em; }
+h3 { font-size: 1.28rem; letter-spacing: .015em; margin-bottom: .35rem; }
+td { font-variant-numeric: tabular-nums; }
+strong { font-weight: 700; }
+
+.masthead { padding-block: 44px 28px; border-bottom: 1px solid var(--rule-strong); position: relative; }
+.masthead::after { content: ""; position: absolute; left: 50%; bottom: -1px; width: 2px; height: 10px; background: var(--rule-strong); }
+.eyebrow { font-size: .8rem; letter-spacing: .09em; text-transform: uppercase; color: var(--muted); font-weight: 600; margin-bottom: 14px; }
+.lede { font-size: 1.16rem; color: var(--ink-2); max-width: 64ch; margin-top: 16px; }
+
+.figures { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; margin-block: 28px 18px; }
+.figure { background: var(--surface); border: 1px solid var(--rule); border-radius: 10px; padding: 16px 18px 14px; box-shadow: var(--shadow); }
+.figure .label { font-size: .92rem; color: var(--ink-2); line-height: 1.3; }
+.figure .value { font-size: 2.35rem; font-weight: 700; line-height: 1.05; margin-block: 6px; letter-spacing: -.01em; }
+.figure .note { font-size: .82rem; color: var(--muted); line-height: 1.35; }
+.verdict { font-size: 1.08rem; max-width: 72ch; }
+
+section { padding-top: 46px; }
+.sec-head { display: flex; align-items: center; gap: 14px; margin-bottom: 14px; }
+.letter { flex: none; width: 2.1rem; height: 2.1rem; display: grid; place-items: center; border-radius: 6px; background: var(--ink); color: var(--surface); font-family: var(--display); font-weight: 700; font-size: 1.3rem; }
+.sec-kicker { font-size: .78rem; letter-spacing: .09em; text-transform: uppercase; color: var(--muted); font-weight: 600; }
+
+.panel { background: var(--surface); border: 1px solid var(--rule); border-radius: 12px; padding: 20px 22px; margin-block: 18px; box-shadow: var(--shadow); }
+.panel-head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 6px 18px; margin-bottom: 12px; }
+.panel-head p { margin: 0; color: var(--muted); font-size: .9rem; }
+.legend { display: flex; flex-wrap: wrap; gap: 6px 18px; margin: 4px 0 14px; padding: 0; list-style: none; font-size: .88rem; color: var(--ink-2); }
+.legend li { display: inline-flex; align-items: center; gap: 7px; }
+.sw { width: 12px; height: 12px; border-radius: 3px; flex: none; display: inline-block; }
+.mk { width: 11px; height: 11px; border-radius: 50%; display: inline-block; flex: none; }
+.mk.hollow { background: var(--surface) !important; border: 2px solid var(--g-win); }
+
+/* groups */
+.groups { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; margin: 6px 0 4px; }
+.gcard { border-top: 4px solid var(--rule); padding-top: 10px; }
+.gcard h3 { font-family: var(--body); font-size: 1.02rem; font-weight: 700; letter-spacing: 0; margin: 0 0 4px; }
+.gcard p { font-size: .9rem; color: var(--ink-2); margin: 0 0 8px; }
+.gcard .big { font-size: 1.9rem; font-weight: 700; line-height: 1.1; }
+.gcard .sub { font-size: .82rem; color: var(--muted); }
+
+/* dot-and-range charts (HTML, so text keeps its size at any width) */
+.dot-row, .dot-head { display: grid; grid-template-columns: minmax(8rem, 14rem) minmax(0, 1fr) 7.2rem; gap: 12px; align-items: center; }
+.dot-row { min-height: 48px; border-radius: 4px; padding-block: 3px; }
+.dot-row:hover, .dot-row:focus-visible { background: var(--accent-soft); }
+.dot-row .lab { font-size: .92rem; color: var(--ink-2); line-height: 1.2; }
+.dot-row .lab small { display: block; font-size: .76rem; color: var(--muted); }
+.dot-row.total .lab { font-weight: 700; color: var(--ink); }
+.dot-row .val { font-size: .85rem; text-align: right; font-variant-numeric: tabular-nums; color: var(--ink); line-height: 1.25; }
+.dot-row .val span { color: var(--muted); }
+.dtrack { position: relative; height: 26px; }
+.dtrack .gline { position: absolute; top: 0; bottom: 0; width: 1px; background: var(--rule); }
+.dtrack .zline { position: absolute; top: -4px; bottom: -4px; width: 1px; background: var(--ink-2); }
+.dtrack .whisk { position: absolute; height: 2px; border-radius: 1px; transform: translateY(-50%); }
+.dtrack .pt { position: absolute; width: 11px; height: 11px; border-radius: 50%; transform: translate(-50%, -50%); box-shadow: 0 0 0 2px var(--surface); }
+.dtrack .pt.hollow { background: var(--surface) !important; border: 2px solid currentColor; }
+.axis { position: relative; height: 24px; }
+.axis span { position: absolute; transform: translateX(-50%); font-size: .75rem; color: var(--muted); font-variant-numeric: tabular-nums; top: 4px; white-space: nowrap; }
+.axis .gl { position: absolute; top: 0; height: 4px; width: 1px; background: var(--rule-strong); }
+.dcap { font-size: .78rem; color: var(--muted); text-align: center; margin-top: 2px; }
+
+/* stacked money bars */
+.bar-row { display: grid; grid-template-columns: minmax(8rem, 14rem) minmax(0, 1fr) 7.2rem; gap: 12px; align-items: center; }
+.bars { display: grid; gap: 10px; }
+.bar-row .lab { font-size: .92rem; color: var(--ink-2); line-height: 1.2; }
+.bar-row .lab small { display: block; font-size: .76rem; color: var(--muted); }
+.bar-row.total .lab { font-weight: 700; color: var(--ink); }
+.bar { display: flex; gap: 2px; height: 22px; min-width: 0; }
+.seg { height: 100%; min-width: 2px; display: flex; align-items: center; justify-content: center; font-size: .75rem; font-weight: 600; overflow: hidden; white-space: nowrap; }
+.seg:first-child { border-radius: 4px 0 0 4px; }
+.seg:last-child { border-radius: 0 4px 4px 0; }
+.seg:hover, .seg:focus-visible { filter: brightness(1.1); }
+.seg.win { color: #ffffff; }
+.seg.lose { color: #ffffff; }
+.seg.unsure { color: var(--ink-2); }
+:root[data-theme="dark"] .seg.win, :root[data-theme="dark"] .seg.lose { color: #0f1b27; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .seg.win, :root:not([data-theme="light"]) .seg.lose { color: #0f1b27; } }
+.bar-row .val { font-size: .85rem; text-align: right; font-variant-numeric: tabular-nums; line-height: 1.25; }
+
+details.twin { margin-top: 14px; border-top: 1px solid var(--rule); padding-top: 10px; }
+details.twin summary { cursor: pointer; color: var(--accent); font-size: .9rem; font-weight: 600; }
+.table-wrap { overflow-x: auto; margin-top: 10px; }
+table { border-collapse: collapse; width: 100%; font-size: .88rem; }
+th, td { text-align: left; padding: 6px 10px 6px 0; border-bottom: 1px solid var(--rule); vertical-align: top; }
+th { font-size: .74rem; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); font-weight: 600; line-height: 1.3; min-width: 5.5rem; vertical-align: bottom; }
+th:first-child { min-width: 9rem; }
+td.r, th.r { text-align: right; }
+tbody tr:last-child td { border-bottom: 0; }
+td .rng { color: var(--muted); font-size: .8rem; white-space: nowrap; }
+tr.total td { font-weight: 700; }
+
+.example { background: var(--accent-soft); border-radius: 10px; padding: 14px 18px; max-width: 68ch; margin: 6px 0 16px; }
+.example p { margin: 0 0 .4em; }
+.example p:last-child { margin: 0; }
+ul.findings { padding-left: 1.2em; margin: 0 0 1em; max-width: 72ch; }
+ul.findings li { margin-bottom: .45em; }
+.method li, .caveats li { margin-bottom: .55em; }
+.method, .caveats { padding-left: 1.2em; max-width: 74ch; }
+.foot { margin-top: 48px; padding-top: 16px; border-top: 1px solid var(--rule); color: var(--muted); font-size: .85rem; }
+
+#tip { position: fixed; z-index: 20; pointer-events: none; max-width: 320px; background: var(--tip-bg); color: var(--tip-ink); border-radius: 7px; padding: 8px 11px; font-size: .82rem; line-height: 1.4; box-shadow: 0 6px 18px rgba(0,0,0,.18); }
+#tip .v { font-weight: 700; font-size: .95rem; }
+#tip .k { display: inline-block; width: 12px; height: 2px; vertical-align: middle; margin-right: 6px; }
+
+@media (max-width: 760px) {
+  body { font-size: 16px; padding-inline: 16px; }
+  .figures { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .groups { grid-template-columns: 1fr; }
+  .dot-row, .dot-head, .bar-row { grid-template-columns: minmax(0, 1fr) 7rem; }
+  .dot-row .dtrack, .dot-head .axis-wrap, .bar-row .bar { grid-column: 1 / -1; grid-row: 2; }
+  .dot-head .spacer { display: none; }
+  .panel { padding: 16px; }
+}
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } }
+</style>
+
+<div class="page">
+  <header class="masthead">
+    <p class="eyebrow">Polymarket tennis · bets placed before the match · 18 Sep 2025 – 21 Sep 2026</p>
+    <h1>How beatable is Polymarket tennis before the match?</h1>
+    <p class="lede">We looked at every bet placed before the start of 27,968 tennis matches on Polymarket, $574.4M in all, and asked one question of each account: does it consistently get a better price than the last price before the match? That last price turns out to be accurate, so an account that beats it has a real edge.</p>
+  </header>
+
+  <div class="figures" role="list">
+    <div class="figure" role="listitem">
+      <div class="label">Accounts that clearly beat the closing price</div>
+      <div class="value">4.4%</div>
+      <div class="note">831 of the 18,804 accounts that bet before 10 or more matches</div>
+    </div>
+    <div class="figure" role="listitem">
+      <div class="label">By how much, on average</div>
+      <div class="value">1.3¢</div>
+      <div class="note">per $1 bet, before fees (0.9¢ after), about $1.26 on every $100</div>
+    </div>
+    <div class="figure" role="listitem">
+      <div class="label">Accounts that clearly lose to it</div>
+      <div class="value">15%</div>
+      <div class="note">2,815 accounts; they give up 1.4¢ per $1 before fees</div>
+    </div>
+    <div class="figure" role="listitem">
+      <div class="label">Players priced at about 75¢ at the close won</div>
+      <div class="value">75.1%</div>
+      <div class="note">so beating the closing price is a real edge, not a technicality</div>
+    </div>
+  </div>
+  
+  <p class="verdict"><strong>Polymarket tennis can be beaten before the match, but narrowly and by few accounts.</strong> About 1 in 23 regular pre-match accounts clearly gets better prices than the closing price, and as a group they beat it by 1.3¢ per $1 bet, 0.9¢ after Polymarket's fees. About 1 in 7 clearly gets worse prices. Everyone else can't be told apart from luck, and on average gives up a little.</p>
+  <p class="verdict"><strong>By level of play, the winners' edge is similar everywhere, 1–2¢ per $1 before fees.</strong> It is highest at Challenger and WTA 125 events (1.8¢ before fees, 1.3¢ after) and lowest, and least certain, at the Grand Slams (0.7¢). What changes a lot is the size of the pool: $201.7M was bet before Grand Slam matches, $75.7M before Challenger and WTA 125 matches, and $7.3M before ITF matches, where the clear winners supply 32% of the money.</p>
+
+  <section id="a" aria-labelledby="a-h">
+    <div class="sec-head"><span class="letter" aria-hidden="true">A</span><div><div class="sec-kicker">The yardstick</div><h2 id="a-h">What "beating the closing price" means</h2></div></div>
+    <div class="prose">
+      <p>The closing price is the last price before the match starts. If you bought a player at 50¢ and the price closed at 52¢, you beat the close by 2¢ a share. Per dollar bet that is 4¢, because each share cost 50¢. This is what bettors call closing-line value.</p>
+      <div class="example">
+        <p><b>In dollars.</b> You bet $100 on a player at 50¢ and get 200 shares. The price closes at 50.75¢. If the closing price is the true chance of winning, those 200 shares are worth $101.50 on average. You are $1.50 ahead, or 1.5¢ per $1, which is about what the clear winners manage. In betting odds, it is like taking +100 when the fair price is about −103.</p>
+        <p><b>Fees.</b> Polymarket charges a fee when you accept a price someone else has posted. It is 5% of (1 − the price) of the amount you bet: 2.5¢ per $1 at 50¢, 1¢ at 80¢. Posting your own price is free. That fee is why the "after fees" figures on this page are smaller.</p>
+      </div>
+      <p>Beating the closing price only means something if the closing price is right. It is: across every settled match, favourites won about as often as their closing price said.</p></div>
+    <div class="panel">
+      <div class="panel-head"><h3>Is the closing price the real chance of winning?</h3><p>Every settled match, by the favourite's price at the close</p></div>
+      <div class="table-wrap"><table id="calib-table"></table></div>
+      <p class="muted" style="margin:10px 0 0;font-size:.88rem;color:var(--muted)">Strong favourites (80¢ and up) won 1.5 and 1.2 points more often than their price said; elsewhere the differences are within what luck would give. The same holds at every level of play: the favourites' average closing price and their actual win rate are within 1.0 points of each other at each level.</p>
+    </div>
+  </section>
+
+  <section id="b" aria-labelledby="b-h">
+    <div class="sec-head"><span class="letter" aria-hidden="true">B</span><div><div class="sec-kicker">Who beats it</div><h2 id="b-h">Three kinds of account</h2></div></div>
+    <div class="prose">
+      <p>Every account that bet before a match goes into one of three groups. Each account is sorted using only its bets in <i>other</i> matches, then scored on the match in question. A lucky match can't put an account in the winners' group for that same match, so the figures below are what each group really did.</p></div>
+    <div class="panel">
+      <div class="panel-head"><h3>How each group did against the closing price</h3><p>Cents gained or lost per $1 bet, on matches the account was not sorted on</p></div>
+      <div class="groups" id="group-cards"></div>
+      <ul class="legend" style="margin-top:18px"><li><span class="mk" style="background:var(--ink-2)"></span>before fees</li><li><span class="mk hollow" style="border-color:var(--ink-2)"></span>after the fees each account paid</li><li>lines show the range the true figure most likely lies in</li></ul>
+      <div id="chart-groups"></div>
+    </div>
+    <div class="prose">
+      <ul class="findings">
+        <li><b>The clear winners</b> are a few hundred accounts, and they placed 23% of the money bet before matches. They beat the close by 1.3¢ per $1 before fees and 0.9¢ after.</li>
+        <li><b>The unsure majority</b> placed 66% of the money. They gave up 0.2¢ per $1 before fees and 0.8¢ after.</li>
+        <li><b>The clear losers</b> placed 11% of the money and gave up 1.4¢ per $1 before fees, 2.5¢ after.</li>
+        <li><b>Actual results agree, with much wider ranges.</b> Win-or-lose results depend on who won each match, so they are far noisier. After fees, the clear winners made +1.9¢ per $1 (likely range −1.0¢ to +4.3¢) and the clear losers −4.9¢ (−8.6¢ to −1.2¢).</li>
+      </ul></div>
+  </section>
+
+  <section id="c" aria-labelledby="c-h">
+    <div class="sec-head"><span class="letter" aria-hidden="true">C</span><div><div class="sec-kicker">The answer by level</div><h2 id="c-h">Which levels of play can be beaten, and by how much</h2></div></div>
+    <div class="prose">
+      <p>Each row is a level of play, men's and women's events together. The top chart shows how far the clear winners beat the closing price there, before and after fees. The bottom chart shows whose money is bet before matches at that level.</p></div>
+    <div class="panel">
+      <div class="panel-head"><h3>How much the clear winners beat the closing price by</h3><p>Cents per $1 bet before the match</p></div>
+      <ul class="legend"><li><span class="mk" style="background:var(--g-win)"></span>before fees</li><li><span class="mk hollow"></span>after the fees they paid</li><li>lines show the likely range</li></ul>
+      <div id="chart-levels"></div>
+    </div>
+    <div class="panel">
+      <div class="panel-head"><h3>Whose money is bet before the match</h3><p>Share of each level's pre-match money</p></div>
+      <ul class="legend"><li><span class="sw" style="background:var(--g-win)"></span>clearly beat the close</li><li><span class="sw" style="background:var(--g-unsure)"></span>unsure</li><li><span class="sw" style="background:var(--g-lose)"></span>clearly lose to the close</li></ul>
+      <div class="bars" id="money-bars"></div>
+      <details class="twin"><summary>Show all the numbers, with ranges</summary><div class="table-wrap"><table id="level-table"></table></div></details>
+    </div>
+    <div class="prose">
+      <ul class="findings">
+        <li><b>The winners' edge is about the same at every level.</b> Before fees it is 0.7¢ at the Grand Slams and 1.2¢–1.8¢ everywhere else. The ranges overlap, and the order shifts when the closing price is taken 30 minutes earlier (section D): the Grand Slams then show 1.1¢. The safe reading is 1–2¢ per $1 at every level. Challenger and WTA 125 events come out on top in both measurements (1.8¢ and 1.6¢), with some of the narrowest ranges.</li>
+        <li><b>The lower the level, the more of the money on the other side of your bet comes from accounts that beat the close.</b> Clear winners placed 22% of pre-match money at the Grand Slams, 31% at Challenger and WTA 125 events and 32% at ITF events.</li>
+        <li><b>Where the winners took the most:</b> measured at closing prices, they took $407K from other bettors at Challenger and WTA 125 events and $394K at Masters 1000, WTA 1000 and Finals events. At ITF events, where Polymarket's markets only began in May 2026, it was $41K.</li>
+        <li><b>Men's events only</b> (table below): at ATP Challengers the clear winners beat the close by 1.6¢ per $1 (1.2¢ after fees). At the men's Grand Slams it was 0.5¢ (0.2¢ after fees, likely range −0.6¢ to +1.0¢). At men's ITF events it was 1.0¢ (0.4¢ after fees, −0.3¢ to +1.2¢), so neither of those is clearly above zero after fees.</li>
+      </ul></div>
+    <div class="panel">
+      <div class="panel-head"><h3>Men's events only</h3><p>The same measures for the ATP and ITF men's levels</p></div>
+      <div class="table-wrap"><table id="men-table"></table></div>
+    </div>
+  </section>
+
+  <section id="d" aria-labelledby="d-h">
+    <div class="sec-head"><span class="letter" aria-hidden="true">D</span><div><div class="sec-kicker">Checks</div><h2 id="d-h">How sure are these numbers?</h2></div></div>
+    <div class="prose">
+      <ul class="findings">
+        <li><b>Luck.</b> 831 accounts cleared the bar over the year, but with 18,804 accounts tested, some cleared it by luck. That is why every edge on this page is measured on matches the account wasn't sorted on. It is what the group really earned, lucky members included.</li>
+        <li><b>Real money.</b> At closing prices the clear winners were 1.3¢ ahead per $1. Their actual results after fees were +1.9¢ (likely range −1.0¢ to +4.3¢), and at Challenger and WTA 125 events +2.5¢ (+0.7¢ to +4.2¢). The closing price and the actual results point the same way.</li>
+        <li><b>Start times.</b> Polymarket's scheduled start is not always the first serve. Taking the closing price 30 minutes earlier, and counting only bets placed before then, gives the same overall answer: clear winners +1.26¢, clear losers −1.39¢. By level the figures move within their ranges (table below).</li>
+        <li><b>Fees.</b> Most fees had to be worked out from Polymarket's formula, because they are not in the trade records. The model was checked against the cash actually paid on 70 sampled bets, and it matched to within $0.0001 a share on 66.</li>
+      </ul></div>
+    <div class="panel">
+      <div class="panel-head"><h3>Closing price taken 30 minutes before the start</h3><p>Clear winners' edge before fees, both ways of measuring</p></div>
+      <div class="table-wrap"><table id="robust-table"></table></div>
+    </div>
+  </section>
+
+  <section id="e" aria-labelledby="e-h">
+    <div class="sec-head"><span class="letter" aria-hidden="true">E</span><div><div class="sec-kicker">Method and limits</div><h2 id="e-h">How this was measured</h2></div></div>
+    
+    <ul class="method">
+      <li><b>Data.</b> Every trade on Polymarket's tennis match-winner markets whose match was scheduled from 18 Sep 2025 to 21 Sep 2026: 36,037,873 records, both sides of each trade, each with its account. They come from Polymarket's public data (<code>data-api.polymarket.com/trades</code>), downloaded on 25&nbsp;Sep&nbsp;2026. 32,435 settled matches had a closing price, and 27,968 had bets before the start. Matches voided before play were left out.</li>
+      <li><b>Closing price.</b> The midpoint between the best buy and sell prices in the last minute before the scheduled start, from Polymarket's price history.</li>
+      <li><b>A bet's edge.</b> Shares × (closing price − price paid), for the player backed. Selling a player's shares counts as backing the opponent. Only bets at prices from 5¢ to 95¢ count. Both sides of every trade are included, so the edges add up to zero: what one account gains against the close, another gives up.</li>
+      <li><b>Sorting accounts.</b> Matches were split into five groups. An account's group for a match comes from its bets in the other four. "Clearly" means its average edge over at least 10 other matches is more than twice the swing that luck alone would produce (two standard errors, with each match counted once).</li>
+      <li><b>Ranges.</b> 95% ranges, from re-drawing whole matches 1,000 times.</li>
+      <li><b>Fees.</b> From 28&nbsp;Apr&nbsp;2026, 5% (3% before July) × price × (1 − price) per share, paid when accepting a posted price. Earlier fees were taken in shares, which the trade records show. Before that, no fees were charged.</li>
+      <li><b>Levels of play.</b> Taken from the tournament name. Men's and women's events are combined except in the men's table. ITF gender comes from the players' names (90% of ITF matches). Doubles, juniors and team events are in the full table but not the charts.</li>
+    </ul>
+    <h3 style="margin-top:18px">What this cannot say</h3>
+    <ul class="caveats">
+      <li><b>An account is not a person.</b> One bettor can use several accounts, and the groups describe accounts.</li>
+      <li><b>The closing price is right on average, not in every match.</b> An account can beat the close in a match it then loses; the edge shows up over many bets.</li>
+      <li><b>"Value taken" is measured at closing prices,</b> not in actual results, which are far noisier.</li>
+      <li><b>Scheduled start times.</b> A match that started early would put a few bets placed during the match into the pre-match count; section D shows this does not change the answer.</li>
+      <li><b>Match-winner markets on international Polymarket only.</b> Set, total and handicap markets, and Polymarket US, were not studied.</li>
+    </ul>
+  </section>
+
+  <p class="foot">Study: <code>docs/studies/polymarket_sharp_money/</code> · code <code>src/eda/polymarket_sharp_money/prematch.py</code> · evidence <code>data/studies/polymarket_sharp_money/prematch.json</code> · built 2026-09-25. A study, not a decision.</p>
+</div>
+<div id="tip" hidden></div>
+
+<script type="application/json" id="report-data">{"overall":{"markets":27968,"accounts":91957,"money":574407576.289962,"share":{"win":{"est":0.23484021556864368,"lo":0.22174336207702827,"hi":0.24969511435296407},"unsure":{"est":0.6579155665060219,"lo":0.6407918635142075,"hi":0.6747074361210569},"lose":{"est":0.10724421792533455,"lo":0.10053237799893706,"hi":0.11418751522588765}},"edge":{"win":{"est":0.012584989205054539,"lo":0.009669982073378016,"hi":0.015781540634257026},"unsure":{"est":-0.002160022605173537,"lo":-0.003315948401666175,"hi":-0.0011895506216348846},"lose":{"est":-0.014399984170262139,"lo":-0.01810517881678255,"hi":-0.010972319774264421}},"edge_after_fees":{"win":{"est":0.009267142783825004,"lo":0.006396574714013701,"hi":0.012398509867722004},"unsure":{"est":-0.008047621714896865,"lo":-0.009269084891621255,"hi":-0.007004025326251997},"lose":{"est":-0.024644024371298385,"lo":-0.028417600316718798,"hi":-0.02088170841576703}},"result_after_fees":{"win":{"est":0.018505843466093883,"lo":-0.009524779819051397,"hi":0.043023175750074305},"unsure":{"est":-0.007329194705168588,"lo":-0.015827441554257228,"hi":0.002274423661184927},"lose":{"est":-0.04916010930851986,"lo":-0.0859856913606934,"hi":-0.011791471942364759}},"accounts_by_verdict":{"win":831,"unsure":88311,"lose":2815},"accounts_with_verdict_possible":18804,"unsure_few_bets_share":0.12767350536765537,"winner_take_per_100":{"est":0.2955461577844062,"lo":0.22816758105767102,"hi":0.3676141706672102},"loser_give_per_100":{"est":-0.15443150404769607,"lo":-0.1957689036239322,"hi":-0.11716152373043005},"unsure_give_per_100":{"est":-0.1421112495948561,"lo":-0.21809114077536487,"hi":-0.07819218317619783}},"levels_shown":[{"key":"slams","label":"Grand Slams","types":["slam_atp","slam_wta"],"passes_rule":true,"markets":977,"accounts":27976,"money":201713581.57055882,"share":{"win":{"est":0.21803392883247857,"lo":0.18416938711921493,"hi":0.26370754759902676},"unsure":{"est":0.7037328762340439,"lo":0.6548366205559057,"hi":0.7442465255610914},"lose":{"est":0.0782331949334776,"lo":0.06559110842541795,"hi":0.09223421543828389}},"edge":{"win":{"est":0.006836160843043911,"lo":-0.0003894416357173093,"hi":0.012725516124032452},"unsure":{"est":-0.001002971941265342,"lo":-0.003216112618165577,"hi":0.001262576979152659},"lose":{"est":-0.010033924582692104,"lo":-0.02135702575442819,"hi":0.0006558624082061884}},"edge_after_fees":{"win":{"est":0.003728894910874843,"lo":-0.0033704244419161945,"hi":0.009590239127577877},"unsure":{"est":-0.0063124588500852764,"lo":-0.008654837766734657,"hi":-0.00401349026437626},"lose":{"est":-0.02012948508493743,"lo":-0.03161450246510974,"hi":-0.009519973070425314}},"result_after_fees":{"win":{"est":0.0227400676556345,"lo":-0.0581165121562505,"hi":0.09212196152784433},"unsure":{"est":-0.005505472010790124,"lo":-0.03020570723705809,"hi":0.01857787444318304},"lose":{"est":-0.08043859267709759,"lo":-0.19757233202676486,"hi":0.037735907779155406}},"accounts_by_verdict":{"win":506,"unsure":25954,"lose":1516},"accounts_with_verdict_possible":10312,"unsure_few_bets_share":0.15200226927398486,"winner_take_per_100":{"est":0.14905150067396125,"lo":-0.009312295931927589,"hi":0.28253708443812914},"loser_give_per_100":{"est":-0.07849859778255643,"lo":-0.16864116134577675,"hi":0.005007217715962006},"unsure_give_per_100":{"est":-0.07058243290087017,"lo":-0.22440909582553487,"hi":0.08996044305285891}},{"key":"k1000","label":"Masters 1000, WTA 1000 and Finals","types":["t1000_atp","t1000_wta","finals"],"passes_rule":true,"markets":1577,"accounts":38572,"money":133398188.02341735,"share":{"win":{"est":0.1920562503396871,"lo":0.18208337629029453,"hi":0.20278393820654178},"unsure":{"est":0.7002655826704027,"lo":0.685162197595921,"hi":0.7149011557916543},"lose":{"est":0.10767816698991019,"lo":0.09826507252473131,"hi":0.11770540959484505}},"edge":{"win":{"est":0.015381397620912708,"lo":0.00991462259720442,"hi":0.022092020980068322},"unsure":{"est":-0.002584366386482689,"lo":-0.00478578392846703,"hi":-0.0009373348453487493},"lose":{"est":-0.010650712673339315,"lo":-0.0151714478459967,"hi":-0.006560127194968511}},"edge_after_fees":{"win":{"est":0.012620733981763435,"lo":0.007172604524225621,"hi":0.019215023036878425},"unsure":{"est":-0.008376447844501863,"lo":-0.010609694354076544,"hi":-0.006524252037924032},"lose":{"est":-0.02048897186787419,"lo":-0.025305936671018263,"hi":-0.01617197292027833}},"result_after_fees":{"win":{"est":-0.009782075045605415,"lo":-0.05204426244818734,"hi":0.035902308450342604},"unsure":{"est":-0.00375114725121881,"lo":-0.01708458040538397,"hi":0.008890611778521535},"lose":{"est":-0.010653459877774087,"lo":-0.0678309483664851,"hi":0.04715324041451198}},"accounts_by_verdict":{"win":645,"unsure":35813,"lose":2114},"accounts_with_verdict_possible":14075,"unsure_few_bets_share":0.15218683906396907,"winner_take_per_100":{"est":0.29540935520562783,"lo":0.18559217781048623,"hi":0.4360972056960649},"loser_give_per_100":{"est":-0.11468492178013837,"lo":-0.16716743708036624,"hi":-0.07009563225905655},"unsure_give_per_100":{"est":-0.18097428334641036,"lo":-0.3373884330242672,"hi":-0.0657434030119888}},{"key":"k500","label":"500 events","types":["t500_atp","t500_wta"],"passes_rule":true,"markets":955,"accounts":27281,"money":57828920.289760165,"share":{"win":{"est":0.21890685824333686,"lo":0.2040116904123903,"hi":0.2329577690853807},"unsure":{"est":0.6463379223101724,"lo":0.6270443370485298,"hi":0.6660457036810796},"lose":{"est":0.1347552194464906,"lo":0.12243906719165087,"hi":0.15021512773165707}},"edge":{"win":{"est":0.014165013852217878,"lo":0.0037137175734781045,"hi":0.02336944550064388},"unsure":{"est":-0.0012870888484132234,"lo":-0.0034621669821953637,"hi":0.0013997612786267137},"lose":{"est":-0.017207476444442604,"lo":-0.02680544072794662,"hi":-0.008429206306445116}},"edge_after_fees":{"win":{"est":0.012000237114723365,"lo":0.0013832094951992564,"hi":0.021352839328219117},"unsure":{"est":-0.006921859665988799,"lo":-0.008933719209374573,"hi":-0.004503850614840165},"lose":{"est":-0.028541386465771645,"lo":-0.03839975170023891,"hi":-0.01915578783783422}},"result_after_fees":{"win":{"est":0.04028777612553663,"lo":-0.02679706572281347,"hi":0.09622947555915753},"unsure":{"est":-0.013709946831501087,"lo":-0.03434059453072529,"hi":0.006532918984685362},"lose":{"est":-0.04178701720968103,"lo":-0.1291196413252814,"hi":0.04384029140992202}},"accounts_by_verdict":{"win":608,"unsure":24725,"lose":1948},"accounts_with_verdict_possible":13097,"unsure_few_bets_share":0.10859203360556399,"winner_take_per_100":{"est":0.3100818679362362,"lo":0.08311994804943787,"hi":0.5129939064478864},"loser_give_per_100":{"est":-0.2318797264391181,"lo":-0.3705654369633973,"hi":-0.11151465640370412},"unsure_give_per_100":{"est":-0.08318943321119952,"lo":-0.22313990183032595,"hi":0.08959241973012114}},{"key":"k250","label":"250 events","types":["t250_atp","t250_wta"],"passes_rule":true,"markets":1487,"accounts":30497,"money":69506538.64009985,"share":{"win":{"est":0.2668639786292572,"lo":0.2578533450103156,"hi":0.2761972762442466},"unsure":{"est":0.6072641209498524,"lo":0.5923837425665937,"hi":0.6204217765338522},"lose":{"est":0.12587190042089053,"lo":0.11588230756566843,"hi":0.13827781288869062}},"edge":{"win":{"est":0.012434938523403086,"lo":0.007806109418743602,"hi":0.017605465496253674},"unsure":{"est":-0.0017264162568143093,"lo":-0.0031210378422334966,"hi":-0.00024507693386648934},"lose":{"est":-0.018135118274861584,"lo":-0.029636654546371047,"hi":-0.0077514959698558325}},"edge_after_fees":{"win":{"est":0.008783600300537767,"lo":0.004042628876041181,"hi":0.014003264047446522},"unsure":{"est":-0.007872696574596829,"lo":-0.009396868079038176,"hi":-0.006230200249012469},"lose":{"est":-0.030760864842670273,"lo":-0.04266172923092211,"hi":-0.019941996685062587}},"result_after_fees":{"win":{"est":0.03175052147561568,"lo":-0.004312182297316467,"hi":0.0664340895988966},"unsure":{"est":-0.015458201914181081,"lo":-0.033274907181914205,"hi":0.0014699997404621701},"lose":{"est":-0.04248939606834675,"lo":-0.12120920361119585,"hi":0.03939646933917712}},"accounts_by_verdict":{"win":663,"unsure":27825,"lose":2009},"accounts_with_verdict_possible":13413,"unsure_few_bets_share":0.10989850753991039,"winner_take_per_100":{"est":0.33184371683655683,"lo":0.21070020964407885,"hi":0.47473360635905765},"loser_give_per_100":{"est":-0.22827018016144496,"lo":-0.37100911030768,"hi":-0.09474693414355337},"unsure_give_per_100":{"est":-0.10483906505878761,"lo":-0.1883402709256892,"hi":-0.014997694239472063}},{"key":"qual","label":"Qualifying (Slams and tour)","types":["slam_qual","tour_qual"],"passes_rule":true,"markets":2362,"accounts":19876,"money":28222553.785126776,"share":{"win":{"est":0.2961300787913463,"lo":0.2857711000414619,"hi":0.30602537568325666},"unsure":{"est":0.5800537411765385,"lo":0.5667790747128413,"hi":0.5922966740894131},"lose":{"est":0.12381618003211517,"lo":0.1150811590177024,"hi":0.1335586848088423}},"edge":{"win":{"est":0.016948287080438117,"lo":0.012032310935901121,"hi":0.02174704504816103},"unsure":{"est":-0.004910719904003988,"lo":-0.007249268566109498,"hi":-0.002341812698698468},"lose":{"est":-0.0181640520942366,"lo":-0.03244962790584884,"hi":-0.006613576254407333}},"edge_after_fees":{"win":{"est":0.013050514846431657,"lo":0.008224360452641565,"hi":0.017797339837641497},"unsure":{"est":-0.011617265538532201,"lo":-0.014088764253353724,"hi":-0.00887490930449632},"lose":{"est":-0.027108945270724473,"lo":-0.041692109870726704,"hi":-0.01579302204306833}},"result_after_fees":{"win":{"est":0.009274605214808464,"lo":-0.031450044763321215,"hi":0.045685880164148145},"unsure":{"est":-0.0011248070220353334,"lo":-0.0195401658327242,"hi":0.017454721959531752},"lose":{"est":-0.06731791329465021,"lo":-0.12033517414384572,"hi":-0.0158996625740782}},"accounts_by_verdict":{"win":593,"unsure":17524,"lose":1759},"accounts_with_verdict_possible":11575,"unsure_few_bets_share":0.07784598034482457,"winner_take_per_100":{"est":0.5018897588508496,"lo":0.35401548050908505,"hi":0.6490506758475627},"loser_give_per_100":{"est":-0.22490035442127174,"lo":-0.4046064660411162,"hi":-0.08304177889653648},"unsure_give_per_100":{"est":-0.28484814521876056,"lo":-0.42397097170623604,"hi":-0.13734326822057447}},{"key":"challenger","label":"Challenger and WTA 125","types":["challenger","wta125"],"passes_rule":true,"markets":6563,"accounts":37164,"money":75656415.40736246,"share":{"win":{"est":0.30692942040886123,"lo":0.2957302415803455,"hi":0.3165622181165912},"unsure":{"est":0.5525861406128294,"lo":0.5406686861228456,"hi":0.5671357811284715},"lose":{"est":0.14048443897830956,"lo":0.13310485951047443,"hi":0.14760866666954095}},"edge":{"win":{"est":0.017515781040590195,"lo":0.013614385806719984,"hi":0.021866562306371677},"unsure":{"est":-0.004950961455492471,"lo":-0.007323127585565377,"hi":-0.002859075269632979},"lose":{"est":-0.01870039934442073,"lo":-0.022340357849560802,"hi":-0.015147897735320518}},"edge_after_fees":{"win":{"est":0.013325161467214769,"lo":0.00937130002353415,"hi":0.017732285271763282},"unsure":{"est":-0.012524140672776244,"lo":-0.0151185664678672,"hi":-0.010334984953758048},"lose":{"est":-0.02771552679586008,"lo":-0.0314584443364869,"hi":-0.023904893659486497}},"result_after_fees":{"win":{"est":0.024539176965127252,"lo":0.00720567128604048,"hi":0.04208857779536115},"unsure":{"est":-0.010370789845538575,"lo":-0.01942804844117745,"hi":-0.0012676519832547958},"lose":{"est":-0.06013865422022799,"lo":-0.09626402712212805,"hi":-0.02309142232285105}},"accounts_by_verdict":{"win":688,"unsure":34239,"lose":2237},"accounts_with_verdict_possible":15030,"unsure_few_bets_share":0.07839717937237953,"winner_take_per_100":{"est":0.5376108522796869,"lo":0.41524254223912194,"hi":0.66993039579119},"loser_give_per_100":{"est":-0.2627115110571294,"lo":-0.31557901850145753,"hi":-0.20903927053527163},"unsure_give_per_100":{"est":-0.2735832683013461,"lo":-0.4072570100929096,"hi":-0.15866279701479086}},{"key":"itf","label":"ITF","types":["itf_m","itf_w","itf_u"],"passes_rule":true,"markets":12492,"accounts":8618,"money":7299910.488459379,"share":{"win":{"est":0.3207498107932363,"lo":0.30328318531373977,"hi":0.33902449196952694},"unsure":{"est":0.5765052216705205,"lo":0.5558365497461433,"hi":0.5958095012368558},"lose":{"est":0.10274496753624324,"lo":0.09557660355844676,"hi":0.1112147233712099}},"edge":{"win":{"est":0.017478241787711523,"lo":0.010098269619459333,"hi":0.02610349703401411},"unsure":{"est":-0.005320799342678098,"lo":-0.01050817364345742,"hi":-0.0013577171704598461},"lose":{"est":-0.024975336451829155,"lo":-0.03596504338269269,"hi":-0.01468706971430117}},"edge_after_fees":{"win":{"est":0.011387566176235906,"lo":0.004044239060233394,"hi":0.020003044365508194},"unsure":{"est":-0.012704084732296513,"lo":-0.01775259000711521,"hi":-0.008719124153587266},"lose":{"est":-0.030704794784185804,"lo":-0.04248236417672003,"hi":-0.020085555709272642}},"result_after_fees":{"win":{"est":0.012970771606422024,"lo":-0.02326586807741438,"hi":0.051500187693780744},"unsure":{"est":-0.009693666971742312,"lo":-0.03069859356516398,"hi":0.008621476886435938},"lose":{"est":-0.05352823415188986,"lo":-0.12496325063449026,"hi":0.012927186196979757}},"accounts_by_verdict":{"win":279,"unsure":7655,"lose":684},"accounts_with_verdict_possible":4490,"unsure_few_bets_share":0.032855911854731565,"winner_take_per_100":{"est":0.5606142746406906,"lo":0.32106750026761766,"hi":0.8537385714816083},"loser_give_per_100":{"est":-0.25660901329499386,"lo":-0.3809977873841351,"hi":-0.1487927172188977},"unsure_give_per_100":{"est":-0.3067468604514996,"lo":-0.5996979534702673,"hi":-0.07737915124276908}}],"levels_hidden":[{"key":"other","label":"Doubles, juniors, team events","types":["doubles","juniors","team_exhib"],"passes_rule":true,"markets":1555,"accounts":4100,"money":781468.0851773501,"share":{"win":{"est":0.2118168956769215,"lo":0.18304104269325489,"hi":0.23657072219719932},"unsure":{"est":0.7338429693483134,"lo":0.702562341828727,"hi":0.7568922894337987},"lose":{"est":0.05434013497476512,"lo":0.034829779298015964,"hi":0.08263140236421233}},"edge":{"win":{"est":0.02195427085095896,"lo":0.012043407072493188,"hi":0.030362667705350642},"unsure":{"est":-0.003073367208732828,"lo":-0.0068282565904922154,"hi":0.0023801755732302805},"lose":{"est":-0.04750047963107476,"lo":-0.079078149386073,"hi":-0.01837621959397169}},"edge_after_fees":{"win":{"est":0.01657383788917361,"lo":0.004663527333604286,"hi":0.02573608463087823},"unsure":{"est":-0.00782549491397161,"lo":-0.011539468959146754,"hi":-0.003327246558981164},"lose":{"est":-0.053711050421010244,"lo":-0.084044333759713,"hi":-0.02550619323594591}},"result_after_fees":{"win":{"est":-0.18020164832611701,"lo":-0.42891757063731534,"hi":0.1093250412267417},"unsure":{"est":0.03456861792163284,"lo":-0.06659977589813107,"hi":0.12029397739689353},"lose":{"est":0.14108610982993564,"lo":-0.10953363774563361,"hi":0.4450218990456977}},"accounts_by_verdict":{"win":211,"unsure":3515,"lose":374},"accounts_with_verdict_possible":2345,"unsure_few_bets_share":0.11225793303913516,"winner_take_per_100":{"est":0.46502854985004527,"lo":0.24544650082084515,"hi":0.642581706809164},"loser_give_per_100":{"est":-0.25811824745186834,"lo":-0.5529160546617661,"hi":-0.07971510188578641},"unsure_give_per_100":{"est":-0.22553689183542364,"lo":-0.500117094683626,"hi":0.17267331964698684}}],"men":[{"key":"slams_m","label":"Grand Slams, men","types":["slam_atp"],"passes_rule":true,"markets":496,"accounts":23064,"money":139274303.39208964,"share":{"win":{"est":0.18758987052246445,"lo":0.1606583647743084,"hi":0.22461402661879984},"unsure":{"est":0.7368323221626921,"lo":0.6953225695230508,"hi":0.7718643815319989},"lose":{"est":0.0755778073148433,"lo":0.06080794521830466,"hi":0.09282109670581996}},"edge":{"win":{"est":0.005042605123955628,"lo":-0.0033736161731957696,"hi":0.013070904028429003},"unsure":{"est":-0.00036273102060460313,"lo":-0.0029351792241031137,"hi":0.002016731694456322},"lose":{"est":-0.008989294794185603,"lo":-0.0252097445646065,"hi":0.006474922688175876}},"edge_after_fees":{"win":{"est":0.0020542178512872673,"lo":-0.006363383595051055,"hi":0.010165027630405742},"unsure":{"est":-0.005701415656287885,"lo":-0.008563353072013901,"hi":-0.00325540845393429},"lose":{"est":-0.018775662980069566,"lo":-0.03512896637381872,"hi":-0.002724896493443322}},"result_after_fees":{"win":{"est":-0.0012937873336463864,"lo":-0.10763155518363986,"hi":0.10150912397915056},"unsure":{"est":0.004700360575859815,"lo":-0.02272121973812744,"hi":0.03256453836020889},"lose":{"est":-0.11193666705560155,"lo":-0.24948546348609588,"hi":0.02121358753666531}},"accounts_by_verdict":{"win":461,"unsure":21219,"lose":1384},"accounts_with_verdict_possible":9404,"unsure_few_bets_share":0.16826107398567292,"winner_take_per_100":{"est":0.09459416422987521,"lo":-0.06468772862358485,"hi":0.25401974539951094},"loser_give_per_100":{"est":-0.06793911898512833,"lo":-0.18584040332748378,"hi":0.05400323866703727},"unsure_give_per_100":{"est":-0.026727194023253308,"lo":-0.2113682954094712,"hi":0.15181060017920522}},{"key":"k1000_m","label":"Masters 1000 and Finals","types":["t1000_atp","finals"],"passes_rule":true,"markets":784,"accounts":30856,"money":90412513.18839082,"share":{"win":{"est":0.1934985579873605,"lo":0.18106930419571746,"hi":0.2064541735684621},"unsure":{"est":0.6990114371619333,"lo":0.6817212227040896,"hi":0.716927395181147},"lose":{"est":0.10749000485070623,"lo":0.0957414895703062,"hi":0.12031608471300534}},"edge":{"win":{"est":0.014436087436653462,"lo":0.007981828330208626,"hi":0.02279555057361798},"unsure":{"est":-0.0024380193131381123,"lo":-0.00551974031936154,"hi":-0.000225324058722738},"lose":{"est":-0.010148759495077826,"lo":-0.015551304390954902,"hi":-0.005026652541550672}},"edge_after_fees":{"win":{"est":0.01205417688553945,"lo":0.005749112331878525,"hi":0.020447932880500924},"unsure":{"est":-0.008494054077459666,"lo":-0.011296651772058361,"hi":-0.006116363958455813},"lose":{"est":-0.02056831076129608,"lo":-0.02648166199700071,"hi":-0.015208987847931964}},"result_after_fees":{"win":{"est":-0.008452738464809512,"lo":-0.06580984904543354,"hi":0.04752319275836916},"unsure":{"est":-0.002401410632303772,"lo":-0.02044137352189616,"hi":0.014082982090809062},"lose":{"est":-0.023289715635250795,"lo":-0.09167595243408135,"hi":0.046476440020641295}},"accounts_by_verdict":{"win":601,"unsure":28344,"lose":1911},"accounts_with_verdict_possible":12452,"unsure_few_bets_share":0.15067813113707593,"winner_take_per_100":{"est":0.2793362101971896,"lo":0.1513775634063285,"hi":0.46203296042622166},"loser_give_per_100":{"est":-0.10908902073545665,"lo":-0.16949668580492142,"hi":-0.05196944219797883},"unsure_give_per_100":{"est":-0.17042033839052215,"lo":-0.38239169004571966,"hi":-0.015558048037642477}},{"key":"k500_m","label":"ATP 500","types":["t500_atp"],"passes_rule":true,"markets":492,"accounts":18882,"money":33640504.55486296,"share":{"win":{"est":0.2120571456920872,"lo":0.1942406123146576,"hi":0.23204402825292766},"unsure":{"est":0.6570283671724252,"lo":0.6328533436241437,"hi":0.6844379704085947},"lose":{"est":0.13091448713548753,"lo":0.11277148790697318,"hi":0.14979644539158077}},"edge":{"win":{"est":0.01791578503009838,"lo":0.008871942373637401,"hi":0.027280187055045518},"unsure":{"est":-0.0021821360504710474,"lo":-0.004448546139232764,"hi":0.00012800640093776032},"lose":{"est":-0.018546386290045864,"lo":-0.032993268879069254,"hi":-0.006366950106242548}},"edge_after_fees":{"win":{"est":0.016276037667026674,"lo":0.007395962817275369,"hi":0.02580393222228131},"unsure":{"est":-0.0068465882213118185,"lo":-0.009012960916040981,"hi":-0.004500666035864048},"lose":{"est":-0.028700785701706817,"lo":-0.04345476979156627,"hi":-0.015672655000378958}},"result_after_fees":{"win":{"est":0.0316631390124926,"lo":-0.07194952112580981,"hi":0.11745514526981389},"unsure":{"est":-0.010015991627273894,"lo":-0.03751021260015839,"hi":0.019476620414707945},"lose":{"est":-0.0368923176601382,"lo":-0.16654466211766072,"hi":0.0875328456035889}},"accounts_by_verdict":{"win":498,"unsure":16890,"lose":1494},"accounts_with_verdict_possible":9840,"unsure_few_bets_share":0.11285929152677746,"winner_take_per_100":{"est":0.37991702363156865,"lo":0.18553924305152594,"hi":0.5997915221558981},"loser_give_per_100":{"est":-0.24279906493779913,"lo":-0.44050658560623457,"hi":-0.0791151343267447},"unsure_give_per_100":{"est":-0.1433725286189077,"lo":-0.2898912656084631,"hi":0.008460631412037015}},{"key":"k250_m","label":"ATP 250","types":["t250_atp"],"passes_rule":true,"markets":790,"accounts":23903,"money":48328007.39312753,"share":{"win":{"est":0.26516582996504234,"lo":0.2518023605489221,"hi":0.2769148282782981},"unsure":{"est":0.6043761079263519,"lo":0.5862809585742355,"hi":0.6226537150018914},"lose":{"est":0.13045806210860583,"lo":0.11750696211701561,"hi":0.14650051217723736}},"edge":{"win":{"est":0.012303773493101975,"lo":0.006784407561738022,"hi":0.018198206712918795},"unsure":{"est":-0.000981138683395532,"lo":-0.0027714328792851784,"hi":0.0010143070324537995},"lose":{"est":-0.020486506656569307,"lo":-0.03428790942419378,"hi":-0.009966607023446691}},"edge_after_fees":{"win":{"est":0.009070050325776478,"lo":0.0035929328037785837,"hi":0.015057594945278824},"unsure":{"est":-0.007157200088456274,"lo":-0.009168632025510546,"hi":-0.005065109658376765},"lose":{"est":-0.03324433388953246,"lo":-0.047792118382224115,"hi":-0.021405976037530486}},"result_after_fees":{"win":{"est":0.03834661355769975,"lo":-0.007028866230848824,"hi":0.08776590906641932},"unsure":{"est":-0.017938914468405075,"lo":-0.04117537642003934,"hi":0.005950229930469362},"lose":{"est":-0.042179054368870365,"lo":-0.14131686818346376,"hi":0.07175691760494761}},"accounts_by_verdict":{"win":601,"unsure":21554,"lose":1748},"accounts_with_verdict_possible":11616,"unsure_few_bets_share":0.11584376381940607,"winner_take_per_100":{"est":0.3262540310000273,"lo":0.18260067042722047,"hi":0.4887598895848632},"loser_give_per_100":{"est":-0.2672629957791085,"lo":-0.4460116664620283,"hi":-0.1293318938501235},"unsure_give_per_100":{"est":-0.05929767788065768,"lo":-0.168464756766462,"hi":0.06159211455601179}},{"key":"challenger_m","label":"ATP Challenger","types":["challenger"],"passes_rule":true,"markets":5313,"accounts":32783,"money":57813263.642939046,"share":{"win":{"est":0.30622012674741067,"lo":0.292428302814583,"hi":0.31607172386382054},"unsure":{"est":0.5426052880818363,"lo":0.5283962750583819,"hi":0.5611956878080397},"lose":{"est":0.15117458517075294,"lo":0.141799865332587,"hi":0.15913290504114536}},"edge":{"win":{"est":0.016301360969255996,"lo":0.012670788431349198,"hi":0.019959774053499493},"unsure":{"est":-0.0038398197727821967,"lo":-0.005864366666199332,"hi":-0.0016615486127931989},"lose":{"est":-0.01912029947267016,"lo":-0.02302539883200402,"hi":-0.01509524938088218}},"edge_after_fees":{"win":{"est":0.012451924218957418,"lo":0.008802314192656237,"hi":0.01612702986414998},"unsure":{"est":-0.011853080830738777,"lo":-0.013830263108135475,"hi":-0.009718910695038661},"lose":{"est":-0.028455850681725146,"lo":-0.03251093372873894,"hi":-0.024195090172886326}},"result_after_fees":{"win":{"est":0.028666514562403416,"lo":0.00782977938692357,"hi":0.050404149648472334},"unsure":{"est":-0.011319124590026054,"lo":-0.022631034845906544,"hi":0.0006558504190388648},"lose":{"est":-0.06264680491484688,"lo":-0.10531815258632246,"hi":-0.024574571270302933}},"accounts_by_verdict":{"win":677,"unsure":29954,"lose":2152},"accounts_with_verdict_possible":14373,"unsure_few_bets_share":0.08317028487323119,"winner_take_per_100":{"est":0.4991804822160864,"lo":0.3855592339402927,"hi":0.6102052849730338},"loser_give_per_100":{"est":-0.28905033411214776,"lo":-0.35317166819062595,"hi":-0.22647928132793452},"unsure_give_per_100":{"est":-0.20835065139928152,"lo":-0.3174510970396989,"hi":-0.09084931944723373}},{"key":"itf_m","label":"ITF men","types":["itf_m"],"passes_rule":true,"markets":6251,"accounts":5474,"money":3284771.6706487713,"share":{"win":{"est":0.29969043261534867,"lo":0.26933241279035225,"hi":0.3307590111923772},"unsure":{"est":0.6089472232215744,"lo":0.5763624640061754,"hi":0.6416957729441025},"lose":{"est":0.091362344163077,"lo":0.08186449299744195,"hi":0.10165003920610716}},"edge":{"win":{"est":0.010473484903250082,"lo":0.0032362256034935443,"hi":0.018785931705768276},"unsure":{"est":-0.0035421967973474793,"lo":-0.00765172423355599,"hi":-0.00023709041628994606},"lose":{"est":-0.010939235747064445,"lo":-0.028353533021162336,"hi":0.005985051969176276}},"edge_after_fees":{"win":{"est":0.004112316503083998,"lo":-0.0029962462829879752,"hi":0.012364338268192089},"unsure":{"est":-0.011230680366398179,"lo":-0.015310037988211971,"hi":-0.007842538459026542},"lose":{"est":-0.015607027104956825,"lo":-0.03355856734417409,"hi":0.0019228269007945669}},"result_after_fees":{"win":{"est":0.010231672224926883,"lo":-0.04857606375999208,"hi":0.07568565573244021},"unsure":{"est":-0.0037315964754019507,"lo":-0.03558310046898137,"hi":0.024596204651792238},"lose":{"est":-0.08645945827056645,"lo":-0.15885221337730923,"hi":-0.015670723850566178}},"accounts_by_verdict":{"win":209,"unsure":4743,"lose":522},"accounts_with_verdict_possible":3340,"unsure_few_bets_share":0.03724585904692187,"winner_take_per_100":{"est":0.31388032216453404,"lo":0.0939475365501811,"hi":0.5581049914880584},"loser_give_per_100":{"est":-0.09994342212043364,"lo":-0.256094395632187,"hi":0.054324274809551557},"unsure_give_per_100":{"est":-0.21570109038491012,"lo":-0.4645567743906257,"hi":-0.014513122748075365}}],"calibration":{"bins":[{"lo":0.5,"hi":0.6,"markets":10018,"price":0.5433717807945697,"won":0.5385306448392893,"won_se":0.00498065121696408},{"lo":0.6,"hi":0.7,"markets":8360,"price":0.6474005980861244,"won":0.6527511961722487,"won_se":0.00520704197529937},{"lo":0.7,"hi":0.8,"markets":6539,"price":0.7466131671509404,"won":0.7507264107661722,"won_se":0.005349624660707232},{"lo":0.8,"hi":0.9,"markets":4791,"price":0.8445890210811939,"won":0.859945731580046,"won_se":0.005013841628186214},{"lo":0.9,"hi":1.0,"markets":2727,"price":0.9348157315731572,"won":0.9464613127979464,"won_se":0.004310649614703793}],"by_level":[{"key":"slams","label":"Grand Slams","markets":988,"price":0.7286695344129556,"won":0.7388663967611336,"won_se":0.013981564229234272,"brier":0.17609150025303644},{"key":"k1000","label":"Masters 1000, WTA 1000 and Finals","markets":1607,"price":0.6821278780336031,"won":0.672682016179216,"won_se":0.01170892628403463,"brier":0.20462200575606723},{"key":"k500","label":"500 events","markets":969,"price":0.6765985552115583,"won":0.6780185758513931,"won_se":0.015017530618580468,"brier":0.2015750866873065},{"key":"k250","label":"250 events","markets":1509,"price":0.664058648111332,"won":0.6626905235255136,"won_se":0.012175000301063573,"brier":0.21298603230616303},{"key":"qual","label":"Qualifying (Slams and tour)","markets":2449,"price":0.6796514904042467,"won":0.6831359738668844,"won_se":0.009403387632597305,"brier":0.1996031377092691},{"key":"challenger","label":"Challenger and WTA 125","markets":6590,"price":0.6746528831562975,"won":0.6805766312594841,"won_se":0.005743969238592627,"brier":0.20406441468133535},{"key":"itf","label":"ITF","markets":15483,"price":0.7133216107989407,"won":0.7173028482852161,"won_se":0.003619082326663464,"brier":0.18065616442226956},{"key":"other","label":"Doubles, juniors, team events","markets":2840,"price":0.6003375000000001,"won":0.6091549295774648,"won_se":0.009157638689727179,"brier":0.22656786857394365}]},"info":{"markets_with_close":32435,"prematch_fills":5775178,"prematch_stake":574407576.2899623,"edge_sum":-5724.522114182275,"accounts":91957,"accounts_10plus":18804,"money_share_10plus":0.8969505320877011,"verdicts_whole_year":{"win":831,"unsure":88311,"lose":2815},"verdicts_whole_year_10plus":18804},"group_defs":{"win":"Over 10 or more other matches, got better prices than the close by more than luck can explain.","unsure":"Fewer than 10 other matches, or an edge too small to tell apart from luck.","lose":"Over 10 or more other matches, got worse prices than the close by more than luck can explain."},"robust":[{"label":"All tennis","total":true,"main_win":{"est":0.012584989205054539,"lo":0.009669982073378016,"hi":0.015781540634257026},"buffer_win":{"est":0.012628388954991063,"lo":0.009444057665970592,"hi":0.015565747293290718},"main_lose":{"est":-0.014399984170262139,"lo":-0.01810517881678255,"hi":-0.010972319774264421},"buffer_lose":{"est":-0.01390191236982393,"lo":-0.0177562266073651,"hi":-0.010564106370696194}},{"label":"Grand Slams","main_win":{"est":0.006836160843043911,"lo":-0.0003894416357173093,"hi":0.012725516124032452},"buffer_win":{"est":0.01132579981102315,"lo":0.0031058496104096976,"hi":0.016648798881490744},"main_lose":{"est":-0.010033924582692104,"lo":-0.02135702575442819,"hi":0.0006558624082061884},"buffer_lose":{"est":-0.01235126896740739,"lo":-0.02461125721054967,"hi":-0.0008704271726713526}},{"label":"Masters 1000, WTA 1000 and Finals","main_win":{"est":0.015381397620912708,"lo":0.00991462259720442,"hi":0.022092020980068322},"buffer_win":{"est":0.014972330018305509,"lo":0.009341815051778592,"hi":0.022096944227758285},"main_lose":{"est":-0.010650712673339315,"lo":-0.0151714478459967,"hi":-0.006560127194968511},"buffer_lose":{"est":-0.012617720637520612,"lo":-0.018005741845497417,"hi":-0.007907661342634521}},{"label":"500 events","main_win":{"est":0.014165013852217878,"lo":0.0037137175734781045,"hi":0.02336944550064388},"buffer_win":{"est":0.008665196903509342,"lo":-0.0025929887069391067,"hi":0.020490616444250435},"main_lose":{"est":-0.017207476444442604,"lo":-0.02680544072794662,"hi":-0.008429206306445116},"buffer_lose":{"est":-0.011413788506558739,"lo":-0.01732841711189989,"hi":-0.0061023967458764036}},{"label":"250 events","main_win":{"est":0.012434938523403086,"lo":0.007806109418743602,"hi":0.017605465496253674},"buffer_win":{"est":0.011494346609358448,"lo":0.005347460282065047,"hi":0.01787476384625198},"main_lose":{"est":-0.018135118274861584,"lo":-0.029636654546371047,"hi":-0.0077514959698558325},"buffer_lose":{"est":-0.013015849255474565,"lo":-0.02048964428659679,"hi":-0.006235248387866431}},{"label":"Qualifying (Slams and tour)","main_win":{"est":0.016948287080438117,"lo":0.012032310935901121,"hi":0.02174704504816103},"buffer_win":{"est":0.011946130060732916,"lo":0.0076260048814999195,"hi":0.01655540052773844},"main_lose":{"est":-0.0181640520942366,"lo":-0.03244962790584884,"hi":-0.006613576254407333},"buffer_lose":{"est":-0.020904208048000302,"lo":-0.031256222866066226,"hi":-0.012858439778534061}},{"label":"Challenger and WTA 125","main_win":{"est":0.017515781040590195,"lo":0.013614385806719984,"hi":0.021866562306371677},"buffer_win":{"est":0.016172126491493986,"lo":0.01264257400502025,"hi":0.019914753552756324},"main_lose":{"est":-0.01870039934442073,"lo":-0.022340357849560802,"hi":-0.015147897735320518},"buffer_lose":{"est":-0.017073059161646503,"lo":-0.02127033494105656,"hi":-0.01313440483516253}},{"label":"ITF","main_win":{"est":0.017478241787711523,"lo":0.010098269619459333,"hi":0.02610349703401411},"buffer_win":{"est":0.013291388643892486,"lo":0.005546068247057312,"hi":0.02526359356676008},"main_lose":{"est":-0.024975336451829155,"lo":-0.03596504338269269,"hi":-0.01468706971430117},"buffer_lose":{"est":-0.02120423479289448,"lo":-0.027159859795147484,"hi":-0.01487069889136733}}],"steps":{"groups":0.01,"levels":0.005}}</script>
+<script>
+(function () {
+  const D = JSON.parse(document.getElementById("report-data").textContent);
+  const GROUPS = [
+    { key: "win", label: "Clearly beat the close", color: "var(--g-win)", mark: "var(--g-win)" },
+    { key: "unsure", label: "Unsure", color: "var(--g-unsure)", mark: "var(--g-unsure-mark)" },
+    { key: "lose", label: "Clearly lose to the close", color: "var(--g-lose)", mark: "var(--g-lose)" },
+  ];
+  const pct = (v, d = 0) => (v * 100).toFixed(d) + "%";
+  const cents = (v, d = 1) => (v >= 0 ? "+" : "−") + Math.abs(v * 100).toFixed(d) + "¢";
+  const money = v => v >= 1e9 ? "$" + (v / 1e9).toFixed(2) + "B" : v >= 1e6 ? "$" + (v / 1e6).toFixed(1) + "M" : "$" + Math.round(v / 1e3) + "K";
+  const rng = (r, f) => r ? f(r.lo) + " to " + f(r.hi) : "";
+  const el = (tag, attrs, text) => { const n = document.createElement(tag); for (const k in attrs || {}) n.setAttribute(k, attrs[k]); if (text != null) n.textContent = text; return n; };
+
+  const tip = document.getElementById("tip");
+  function showTip(evt, rows) {
+    tip.replaceChildren();
+    rows.forEach((r, i) => {
+      const line = el("div");
+      if (r.key) { const k = el("span", { class: "k" }); k.style.background = r.key; line.appendChild(k); }
+      if (r.value) line.appendChild(el("span", { class: i === 0 ? "v" : "" }, r.value + (r.label ? "  " : "")));
+      if (r.label) line.appendChild(el("span", {}, r.label));
+      tip.appendChild(line);
+    });
+    tip.hidden = false;
+    const box = evt.target.getBoundingClientRect();
+    const x = evt.clientX != null && evt.clientX > 0 ? evt.clientX : box.left + 12;
+    const y = evt.clientY != null && evt.clientY > 0 ? evt.clientY : box.top;
+    tip.style.left = Math.min(window.innerWidth - tip.offsetWidth - 8, x + 14) + "px";
+    tip.style.top = Math.max(8, y - tip.offsetHeight - 12) + "px";
+  }
+  const hideTip = () => { tip.hidden = true; };
+  function bindTip(node, rowsFn) {
+    node.addEventListener("pointermove", e => showTip(e, rowsFn()));
+    node.addEventListener("pointerleave", hideTip);
+    node.addEventListener("focus", e => showTip(e, rowsFn()));
+    node.addEventListener("blur", hideTip);
+  }
+
+  // ---------------- A: closing-price accuracy
+  (function () {
+    const t = document.getElementById("calib-table");
+    const hr = el("tr");
+    ["Favourite's price at the close", "Matches", "Average price", "Favourite actually won", "Difference"].forEach((h, i) => hr.appendChild(el("th", { class: i ? "r" : "" }, h)));
+    const th = el("thead"); th.appendChild(hr); t.appendChild(th);
+    const tb = el("tbody");
+    D.calibration.bins.forEach(b => {
+      const tr = el("tr");
+      tr.appendChild(el("td", {}, Math.round(b.lo * 100) + "–" + Math.round(b.hi * 100) + "¢"));
+      tr.appendChild(el("td", { class: "r" }, b.markets.toLocaleString()));
+      tr.appendChild(el("td", { class: "r" }, (b.price * 100).toFixed(1) + "¢"));
+      const w = el("td", { class: "r" }, pct(b.won, 1)); w.appendChild(el("br")); w.appendChild(el("span", { class: "rng" }, "± " + (1.96 * b.won_se * 100).toFixed(1))); tr.appendChild(w);
+      tr.appendChild(el("td", { class: "r" }, ((b.won - b.price) * 100 >= 0 ? "+" : "−") + Math.abs((b.won - b.price) * 100).toFixed(1) + " points"));
+      tb.appendChild(tr);
+    });
+    t.appendChild(tb);
+  })();
+
+  // ---------------- dot-and-range chart with a before-fees and after-fees marker per row
+  function dotChart(box, rows, opts) {
+    const vals = rows.flatMap(r => [r.a, r.b].filter(Boolean).flatMap(v => [v.lo, v.hi, v.est]));
+    const step = opts.step;
+    const lo = Math.floor(Math.min(0, ...vals) / step - 1e-9) * step, hi = Math.ceil(Math.max(0, ...vals) / step + 1e-9) * step;
+    const xp = v => (v - lo) / (hi - lo) * 100;
+    const ticks = [];
+    for (let k = Math.round(lo / step); k <= Math.round(hi / step); k++) ticks.push(k * step);
+    rows.forEach(r => {
+      const row = el("div", { class: "dot-row" + (r.total ? " total" : ""), tabindex: 0, role: "img",
+        "aria-label": r.label + ": " + (r.a ? cents(r.a.est, 2) + " per $1 before fees" : "") + (r.b ? ", " + cents(r.b.est, 2) + " after fees" : "") });
+      const lab = el("div", { class: "lab" }, r.label); if (r.sub) lab.appendChild(el("small", {}, r.sub)); row.appendChild(lab);
+      const tr = el("div", { class: "dtrack" });
+      ticks.forEach(t => { const g = el("span", { class: Math.abs(t) < 1e-9 ? "zline" : "gline" }); g.style.left = xp(t) + "%"; tr.appendChild(g); });
+      [[r.a, 8, false], [r.b, 18, true]].forEach(([v, y, hollow]) => {
+        if (!v) return;
+        const w = el("span", { class: "whisk" }); w.style.top = y + "px"; w.style.left = xp(v.lo) + "%"; w.style.width = Math.max(0.3, xp(v.hi) - xp(v.lo)) + "%"; w.style.background = r.color; w.style.opacity = hollow ? .55 : 1; tr.appendChild(w);
+        const p = el("span", { class: "pt" + (hollow ? " hollow" : "") }); p.style.top = y + "px"; p.style.left = xp(v.est) + "%"; p.style.background = r.color; p.style.color = r.color; tr.appendChild(p);
+      });
+      row.appendChild(tr);
+      const val = el("div", { class: "val" }, r.a ? cents(r.a.est, 1) : "–");
+      if (r.b) { val.appendChild(el("br")); val.appendChild(el("span", {}, cents(r.b.est, 1) + " after fees")); }
+      row.appendChild(val);
+      bindTip(row, () => [{ value: (r.a ? cents(r.a.est, 2) : "–") + " per $1", key: r.color, label: "before fees" },
+        { label: r.label }, { label: "likely range " + rng(r.a, v => cents(v, 2)) },
+        r.b ? { label: "after fees " + cents(r.b.est, 2) + " (" + rng(r.b, v => cents(v, 2)) + ")" } : {}].concat(r.extra || []));
+      box.appendChild(row);
+    });
+    const head = el("div", { class: "dot-head" });
+    head.appendChild(el("div", { class: "spacer" }));
+    const aw = el("div", { class: "axis-wrap" }), ax = el("div", { class: "axis" });
+    ticks.forEach(t => {
+      const g = el("span", { class: "gl" }); g.style.left = xp(t) + "%"; ax.appendChild(g);
+      const s = el("span", {}, Math.abs(t) < 1e-9 ? "0" : cents(t, step < 0.01 ? 1 : 0)); s.style.left = xp(t) + "%"; ax.appendChild(s);
+    });
+    aw.appendChild(ax); head.appendChild(aw); head.appendChild(el("div", { class: "spacer" }));
+    box.appendChild(head);
+    box.appendChild(el("div", { class: "dcap" }, opts.axis));
+  }
+
+  // ---------------- B: the three groups
+  (function () {
+    const cards = document.getElementById("group-cards");
+    GROUPS.forEach(g => {
+      const c = el("div", { class: "gcard" }); c.style.borderTopColor = g.color;
+      c.appendChild(el("h3", {}, g.label));
+      c.appendChild(el("p", {}, D.group_defs[g.key]));
+      c.appendChild(el("div", { class: "big" }, D.overall.accounts_by_verdict[g.key].toLocaleString()));
+      c.appendChild(el("div", { class: "sub" }, g.key === "unsure" ? "accounts, " + (D.info.verdicts_whole_year_10plus - D.overall.accounts_by_verdict.win - D.overall.accounts_by_verdict.lose).toLocaleString() + " of them with 10+ matches" : "accounts, over the year"));
+      c.appendChild(el("div", { class: "sub" }, pct(D.overall.share[g.key].est) + " of the money bet before matches"));
+      cards.appendChild(c);
+    });
+    dotChart(document.getElementById("chart-groups"), GROUPS.map(g => ({ label: g.label, a: D.overall.edge[g.key], b: D.overall.edge_after_fees[g.key], color: g.mark,
+      extra: [{ label: pct(D.overall.share[g.key].est, 1) + " of pre-match money" }] })),
+      { step: D.steps.groups, axis: "cents gained (+) or given up (−) against the closing price, per $1 bet" });
+  })();
+
+  // ---------------- C: by level
+  const levelRows = [Object.assign({}, D.overall, { label: "All tennis", total: true })].concat(D.levels_shown);
+  dotChart(document.getElementById("chart-levels"), levelRows.map(r => ({ label: r.label, sub: money(r.money) + " bet before matches", total: r.total,
+    a: r.edge.win, b: r.edge_after_fees.win, color: "var(--g-win)",
+    extra: [{ label: r.accounts_by_verdict.win.toLocaleString() + " clear winners bet at this level" },
+            { label: "they took " + money(r.winner_take_per_100.est / 100 * r.money) + " of value from other bettors" }] })),
+    { step: D.steps.levels, axis: "cents per $1 by which the clear winners beat the closing price" });
+
+  const bars = document.getElementById("money-bars");
+  levelRows.forEach(r => {
+    const row = el("div", { class: "bar-row" + (r.total ? " total" : "") });
+    const lab = el("div", { class: "lab" }, r.label); lab.appendChild(el("small", {}, money(r.money))); row.appendChild(lab);
+    const bar = el("div", { class: "bar" });
+    GROUPS.forEach(g => {
+      const v = r.share[g.key].est;
+      const seg = el("div", { class: "seg " + g.key, tabindex: 0, role: "img", "aria-label": r.label + ", " + g.label + ": " + pct(v) + " of pre-match money" });
+      seg.style.flex = v + " 1 0"; seg.style.background = g.color;
+      if (v >= 0.09) seg.textContent = pct(v);
+      bindTip(seg, () => [{ value: pct(v, 1), key: g.color, label: g.label }, { label: r.label },
+        { label: "likely range " + rng(r.share[g.key], x => pct(x, 1)) },
+        { label: "edge " + (r.edge[g.key] ? cents(r.edge[g.key].est, 2) : "–") + " per $1 before fees" }]);
+      bar.appendChild(seg);
+    });
+    row.appendChild(bar);
+    const val = el("div", { class: "val" });
+    val.appendChild(el("b", {}, pct(r.share.win.est))); val.appendChild(document.createTextNode(" clear winners"));
+    row.appendChild(val);
+    bars.appendChild(row);
+  });
+
+  function levelTable(tableId, rows, withAll) {
+    const t = document.getElementById(tableId);
+    const hr = el("tr");
+    ["Level of play", "Money bet before matches", "Matches", "Clear winners", "Clear losers", "Winners' edge per $1", "After fees", "Losers' edge per $1", "Unsure accounts' edge", "Value winners took"].forEach((h, i) => hr.appendChild(el("th", { class: i ? "r" : "" }, h)));
+    const th = el("thead"); th.appendChild(hr); t.appendChild(th);
+    const tb = el("tbody");
+    rows.forEach(r => {
+      const tr = el("tr", { class: r.total ? "total" : "" });
+      const cell = (txt, sub) => { const td = el("td", { class: "r" }, txt); if (sub) { td.appendChild(el("br")); td.appendChild(el("span", { class: "rng" }, sub)); } return td; };
+      tr.appendChild(el("td", {}, r.label + (r.passes_rule === false ? " (too few to estimate)" : "")));
+      tr.appendChild(cell(money(r.money)));
+      tr.appendChild(cell(r.markets.toLocaleString()));
+      tr.appendChild(cell(r.accounts_by_verdict.win.toLocaleString(), pct(r.share.win.est) + " of money"));
+      tr.appendChild(cell(r.accounts_by_verdict.lose.toLocaleString(), pct(r.share.lose.est) + " of money"));
+      tr.appendChild(cell(cents(r.edge.win.est, 2), rng(r.edge.win, v => cents(v, 2))));
+      tr.appendChild(cell(cents(r.edge_after_fees.win.est, 2), rng(r.edge_after_fees.win, v => cents(v, 2))));
+      tr.appendChild(cell(cents(r.edge.lose.est, 2), rng(r.edge.lose, v => cents(v, 2))));
+      tr.appendChild(cell(cents(r.edge.unsure.est, 2), rng(r.edge.unsure, v => cents(v, 2))));
+      tr.appendChild(cell(money(r.winner_take_per_100.est / 100 * r.money), "$" + r.winner_take_per_100.est.toFixed(2) + " per $100 bet"));
+      tb.appendChild(tr);
+    });
+    t.appendChild(tb);
+  }
+  levelTable("level-table", levelRows.concat(D.levels_hidden));
+  levelTable("men-table", D.men);
+
+  // ---------------- D: robustness
+  (function () {
+    const t = document.getElementById("robust-table");
+    const hr = el("tr");
+    ["Level of play", "Close at the scheduled start", "Close 30 minutes earlier", "Clear losers, at the start", "Clear losers, 30 minutes earlier"].forEach((h, i) => hr.appendChild(el("th", { class: i ? "r" : "" }, h)));
+    const th = el("thead"); th.appendChild(hr); t.appendChild(th);
+    const tb = el("tbody");
+    D.robust.forEach(r => {
+      const tr = el("tr", { class: r.total ? "total" : "" });
+      const cell = (v) => { const td = el("td", { class: "r" }, v ? cents(v.est, 2) : "–"); if (v) { td.appendChild(el("br")); td.appendChild(el("span", { class: "rng" }, rng(v, x => cents(x, 2)))); } return td; };
+      tr.appendChild(el("td", {}, r.label));
+      tr.appendChild(cell(r.main_win)); tr.appendChild(cell(r.buffer_win)); tr.appendChild(cell(r.main_lose)); tr.appendChild(cell(r.buffer_lose));
+      tb.appendChild(tr);
+    });
+    t.appendChild(tb);
+  })();
+})();
+</script>

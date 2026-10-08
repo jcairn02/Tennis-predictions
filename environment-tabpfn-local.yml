@@ -1,0 +1,32 @@
+name: tennis-tabpfn-local
+# Isolated env for LOCAL TabPFN-3.5 inference on this machine's GPU (RTX 5090, 32 GB): open weights, no API tokens.
+# The hosted API (thinking mode, paid) stays in `tennis-tabpfn` (environment-tabpfn.yml); everything else runs in
+# `tennis` (environment.yml).
+# - torch 2.11.0+cu128: the RTX 5090 (Blackwell, compute capability 12.0) needs a CUDA 12.8+ build; this is the build the
+#   UFC project's ag15_test env already runs on this card (checked 6 Oct 2026; driver 596.36, CUDA 13.2).
+# - tabpfn 9.1.0 (2 Oct 2026): TabPFN-3.5 is its default model, checkpoint tabpfn-v3.5-20260909.safetensors from the
+#   Hugging Face repo Prior-Labs/tabpfn_3_5 (876 MB, downloaded once into the package's cache) -- the same date stamp
+#   as the model the API served for the paid fits. There is NO thinking mode locally: thinking is API-only.
+# - Weights licence: TABPFN-3.5 License v1.0 (non-commercial). The first download checks that the Prior Labs account
+#   behind TABPFN_TOKEN has accepted it; the owner reports (6 Oct 2026) that Prior Labs agreed to their use of TabPFN for
+#   predictive analytics. After the download, fits and predictions run offline.
+# - Build every estimator through src/eda/tabpfn_local/runtime.py (classifier() or prepare()): on Windows, tabpfn 9.1.0's
+#   grouped-query attention falls back to torch's MATH kernel and needs ~100 GB for 40k training rows, which spills into
+#   system RAM; runtime.py repeats the key/value heads instead (7.7 GB) and caps torch's allocator at 85% of the card.
+# Create: conda env create -f environment-tabpfn-local.yml      Run: ./python_tabpfn_local.sh <script>
+# Verify: ./python_tabpfn_local.sh src/eda/tabpfn_local/verify.py   (add --offline to prove no token or network is used)
+channels:
+  - conda-forge
+dependencies:
+  - python=3.11
+  - pandas=2.3
+  - numpy
+  - pyarrow
+  - scikit-learn
+  - scipy
+  - pytest
+  - pip
+  - pip:
+      - --extra-index-url https://download.pytorch.org/whl/cu128
+      - torch==2.11.0+cu128
+      - tabpfn==9.1.0

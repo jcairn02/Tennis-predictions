@@ -1,0 +1,1406 @@
+{
+  "generated_at": "2026-10-03T02:28:35+00:00",
+  "tour": "atp",
+  "test_year": 2026,
+  "info": {
+    "manifest": {
+      "study_date": "2026-10-02",
+      "input_sha256": "54ca16ba7c2321e47ec891da7b00db3fb06e798b8df3b37f8556803d8d240673",
+      "source_sha256": {
+        "data\\studies\\feature_alpha_audit\\repairs\\repair_features.parquet": "2da344b939992fab50c1e209d13a2d0696e16217d1293a7e3dc511de8e3efdcb",
+        "data\\studies\\predictive_frontier\\frontier_features.parquet": "1a6bbfe5ef69473f080cd6342ed994f952add29c162674d8a043e02ffaf1e9ad",
+        "data\\studies\\predictability_diagnostic\\stage1_odds.parquet": "43741983ba8720b5ec5e6dc1bc81ed879b0ab94bead1091c76dd2a01fe0fc74d",
+        "data\\studies\\predictive_frontier\\predictions.parquet": "c2445511d2e6a718d561435caa897d9e5044b41d474c4f77558afa971b62e53f"
+      },
+      "artifact_sha256": {
+        "frame.parquet": "381c9ad487649235c60bea8376d4e1979c4e96bc78d9ae64ab6a475e2698ae95",
+        "baselines.parquet": "7bd2676f213c1f9d11ac4f71f670d3ed44ddca720f03509999a2bbe07162a5b7",
+        "baselines_meta.json": "dabeb4e90a4bfdc3642bfb4e3034baa09a07ebc8993c855ed195f416079711f7",
+        "upload\\X_train.parquet": "8cefe26f8882f1474cbec94e0e3b6a3a08e8cf00bc870e06385fe6a37fe73345",
+        "upload\\y_train.npy": "ea9ba375352f411dd217b9f3c7d7053e1eaba2d5c53d7e86f29897b6f6e439d6",
+        "upload\\X_query.parquet": "9ff7964fe5b48bab2c58cbca3816c010c38b81bb32f653b94272887f108a844b",
+        "upload\\query_ids.parquet": "07f6878e35c76a0048f3ce94664f208a5b431149e2c10994b1b7feb31e1d2581"
+      },
+      "code_sha256": {
+        "src\\eda\\predictive_frontier_tabpfn\\prepare.py": "62743be76ce3b043d0d9a4d29104e05fe6fe4851c5d13600ce1976a8eb61b6d2",
+        "src\\eda\\predictive_frontier_tabpfn\\common.py": "b84c23ad2938e33296570f0a9b1b821956978b9b88c1b701a819fff5d432f65e",
+        "src\\eda\\predictive_frontier_tabpfn\\guard.py": "d4421fbedf1c575fb3e626b62ef71ba140260e1ef312e310c7192cc866c3941f"
+      },
+      "names": [
+        "elo_logit",
+        "serve_return_matchup_logit",
+        "recent_adjusted_total_points",
+        "short_memory_serve_return_matchup",
+        "games_weighted_elo_logit",
+        "observed_14d_sets_log_difference",
+        "surface_familiarity_difference",
+        "age_difference",
+        "age_centered_squared_difference",
+        "pf_serve_28",
+        "pf_return_28",
+        "pf_serve_182",
+        "pf_return_182",
+        "pf_serve_momentum",
+        "pf_return_momentum",
+        "pf_box_seen_diff",
+        "pf_box_unknown_elo",
+        "pf_surface_serve",
+        "pf_surface_return",
+        "pf_surface_evidence_diff",
+        "pf_surface_unknown_elo",
+        "pf_evidence_diff",
+        "pf_uncertainty_elo",
+        "pf_uncertainty_sr",
+        "pf_instability_diff",
+        "pf_instability_elo",
+        "pf_rest_diff",
+        "pf_inactivity_elo",
+        "pf_retired_loss_recent",
+        "pf_retired_loss_rate",
+        "pf_history_seen_diff",
+        "pf_history_unknown_elo",
+        "pf_event_speed_style",
+        "pf_event_speed_elo",
+        "pf_event_evidence_style",
+        "pf_event_unknown_elo"
+      ],
+      "sports_source_columns": [
+        "elo_logit",
+        "rating_matchup|single",
+        "adjperf_tpw|decayed",
+        "ios_short",
+        "elo_games|single",
+        "sets_14d|single",
+        "surface_first|single",
+        "age|single",
+        "age|single|2",
+        "pf_serve_28",
+        "pf_return_28",
+        "pf_serve_182",
+        "pf_return_182",
+        "pf_serve_momentum",
+        "pf_return_momentum",
+        "pf_box_seen_diff",
+        "pf_box_unknown_elo",
+        "pf_surface_serve",
+        "pf_surface_return",
+        "pf_surface_evidence_diff",
+        "pf_surface_unknown_elo",
+        "pf_evidence_diff",
+        "pf_uncertainty_elo",
+        "pf_uncertainty_sr",
+        "pf_instability_diff",
+        "pf_instability_elo",
+        "pf_rest_diff",
+        "pf_inactivity_elo",
+        "pf_retired_loss_recent",
+        "pf_retired_loss_rate",
+        "pf_history_seen_diff",
+        "pf_history_unknown_elo",
+        "pf_event_speed_style",
+        "pf_event_speed_elo",
+        "pf_event_evidence_style",
+        "pf_event_unknown_elo"
+      ],
+      "fit_description": "Professional men's tennis singles, ATP only. One row per match; random player A orientation; target1 means A won/advanced. All 36 sporting columns reverse sign when A and B are swapped. NO market prices, player identities or match outcomes are input features. The first9 sports inputs are surface Elo logit, pre-match serve/return matchup logit, recent opponent-adjusted total-points form, short-memory serve/return strength, games-weighted Elo, observed 14day workload difference, surface-familiarity difference, age difference and centered squared-age difference. The new27 inputs include serve/return point performance minus each player's own expected performance given own and opposing strength, at28/182day half-lives and their difference; a partially pooled surface residual correction; effective point exposure and variability interactions; observed recovery/retirement history; and prior-days event serve residuals interacting with style and Elo. Missing history uses explicit neutral priors and coverage controls, not guessed injury or rest. All history is rebuilt using trusted match days; new rolling states use strictly earlier days. Training ends in2025, future evaluation is2026 only. Optimize probability log loss.",
+      "config": {
+        "model_path": "v3.5_default",
+        "n_estimators": 8,
+        "softmax_temperature": 0.9,
+        "random_state": 0,
+        "ignore_pretraining_limits": true,
+        "thinking_mode": true,
+        "thinking_effort": "high",
+        "thinking_metric": "log_loss",
+        "thinking_timeout_s": null,
+        "http_timeout_s": 2700.0
+      },
+      "shapes": {
+        "X_train": [
+          13952,
+          36
+        ],
+        "X_query": [
+          3424,
+          36
+        ]
+      },
+      "counts": [
+        {
+          "split": "test",
+          "tour": "atp",
+          "matches": 1712
+        },
+        {
+          "split": "train",
+          "tour": "atp",
+          "matches": 13952
+        },
+        {
+          "split": "unused_history",
+          "tour": "atp",
+          "matches": 15202
+        }
+      ],
+      "coverage": [
+        {
+          "tour": "atp",
+          "window": "post_tuning_2019_2026",
+          "eligible": 18563,
+          "common_rows": 18174,
+          "missing_required_inputs": 389
+        },
+        {
+          "tour": "atp",
+          "window": "recent_2022_2026",
+          "eligible": 12299,
+          "common_rows": 12042,
+          "missing_required_inputs": 257
+        }
+      ],
+      "train_selection": {
+        "strategy": "latest6",
+        "chosen_penalty": 0.01,
+        "validation_years": [
+          2023,
+          2024,
+          2025
+        ],
+        "validation_rows": 7784,
+        "selection_metric": "Pooled match log loss on forward 2023, 2024, 2025 predictions; logistic proxy",
+        "selected_training_min_year": 2020,
+        "candidates": [
+          {
+            "strategy": "all",
+            "penalty": 0.0001,
+            "log_loss": 0.6133191145490149,
+            "validation_rows": 7784,
+            "folds": [
+              {
+                "validation_year": 2023,
+                "train_rows": 21370,
+                "train_year_min": 2013,
+                "train_year_max": 2022,
+                "validation_rows": 2603,
+                "log_loss": 0.6144125441026593
+              },
+              {
+                "validation_year": 2024,
+                "train_rows": 23973,
+                "train_year_min": 2013,
+                "train_year_max": 2023,
+                "validation_rows": 2655,
+                "log_loss": 0.6063478795279295
+              },
+              {
+                "validation_year": 2025,
+                "train_rows": 26628,
+                "train_year_min": 2013,
+                "train_year_max": 2024,
+                "validation_rows": 2526,
+                "log_loss": 0.6195196022183919
+              }
+            ]
+          },
+          {
+            "strategy": "all",
+            "penalty": 0.001,
+            "log_loss": 0.6132983141260093,
+            "validation_rows": 7784,
+            "folds": [
+              {
+                "validation_year": 2023,
+                "train_rows": 21370,
+                "train_year_min": 2013,
+                "train_year_max": 2022,
+                "validation_rows": 2603,
+                "log_loss": 0.6143979659930453
+              },
+              {
+                "validation_year": 2024,
+                "train_rows": 23973,
+                "train_year_min": 2013,
+                "train_year_max": 2023,
+                "validation_rows": 2655,
+                "log_loss": 0.6063462527064766
+              },
+              {
+                "validation_year": 2025,
+                "train_rows": 26628,
+                "train_year_min": 2013,
+                "train_year_max": 2024,
+                "validation_rows": 2526,
+                "log_loss": 0.6194722370313792
+              }
+            ]
+          },
+          {
+            "strategy": "all",
+            "penalty": 0.01,
+            "log_loss": 0.6132278338944003,
+            "validation_rows": 7784,
+            "folds": [
+              {
+                "validation_year": 2023,
+                "train_rows": 21370,
+                "train_year_min": 2013,
+                "train_year_max": 2022,
+                "validation_rows": 2603,
+                "log_loss": 0.6143798446464475
+              },
+              {
+                "validation_year": 2024,
+                "train_rows": 23973,
+                "train_year_min": 2013,
+                "train_year_max": 2023,
+                "validation_rows": 2655,
+                "log_loss": 0.6063981436144017
+              },
+              {
+                "validation_year": 2025,
+                "train_rows": 26628,
+                "train_year_min": 2013,
+                "train_year_max": 2024,
+                "validation_rows": 2526,
+                "log_loss": 0.6192191813630534
+              }
+            ]
+          },
+          {
+            "strategy": "all",
+            "penalty": 0.1,
+            "log_loss": 0.6139439445829138,
+            "validation_rows": 7784,
+            "folds": [
+              {
+                "validation_year": 2023,
+                "train_rows": 21370,
+                "train_year_min": 2013,
+                "train_year_max": 2022,
+                "validation_rows": 2603,
+                "log_loss": 0.6152626224148298
+              },
+              {
+                "validation_year": 2024,
+                "train_rows": 23973,
+                "train_year_min": 2013,
+                "train_year_max": 2023,
+                "validation_rows": 2655,
+                "log_loss": 0.6074294361599324
+              },
+              {
+                "validation_year": 2025,
+                "train_rows": 26628,
+                "train_year_min": 2013,
+                "train_year_max": 2024,
+                "validation_rows": 2526,
+                "log_loss": 0.61943226662034
+              }
+            ]
+          },
+          {
+            "strategy": "latest6",
+            "penalty": 0.0001,
+            "log_loss": 0.6123921058608994,
+            "validation_rows": 7784,
+            "folds": [
+              {
+                "validation_year": 2023,
+                "train_rows": 11245,
+                "train_year_min": 2017,
+                "train_year_max": 2022,
+                "validation_rows": 2603,
+                "log_loss": 0.6136071608953076
+              },
+              {
+                "validation_year": 2024,
+                "train_rows": 11295,
+                "train_year_min": 2018,
+                "train_year_max": 2023,
+                "validation_rows": 2655,
+                "log_loss": 0.6060076049719724
+              },
+              {
+                "validation_year": 2025,
+                "train_rows": 13936,
+                "train_year_min": 2019,
+                "train_year_max": 2024,
+                "validation_rows": 2526,
+                "log_loss": 0.6178505625535111
+              }
+            ]
+          },
+          {
+            "strategy": "latest6",
+            "penalty": 0.001,
+            "log_loss": 0.6123767633750103,
+            "validation_rows": 7784,
+            "folds": [
+              {
+                "validation_year": 2023,
+                "train_rows": 11245,
+                "train_year_min": 2017,
+                "train_year_max": 2022,
+                "validation_rows": 2603,
+                "log_loss": 0.6136058907840787
+              },
+              {
+                "validation_year": 2024,
+                "train_rows": 11295,
+                "train_year_min": 2018,
+                "train_year_max": 2023,
+                "validation_rows": 2655,
+                "log_loss": 0.6060067132807004
+              },
+              {
+                "validation_year": 2025,
+                "train_rows": 13936,
+                "train_year_min": 2019,
+                "train_year_max": 2024,
+                "validation_rows": 2526,
+                "log_loss": 0.6178055299445222
+              }
+            ]
+          },
+          {
+            "strategy": "latest6",
+            "penalty": 0.01,
+            "log_loss": 0.6123387214562092,
+            "validation_rows": 7784,
+            "folds": [
+              {
+                "validation_year": 2023,
+                "train_rows": 11245,
+                "train_year_min": 2017,
+                "train_year_max": 2022,
+                "validation_rows": 2603,
+                "log_loss": 0.6136702532922917
+              },
+              {
+                "validation_year": 2024,
+                "train_rows": 11295,
+                "train_year_min": 2018,
+                "train_year_max": 2023,
+                "validation_rows": 2655,
+                "log_loss": 0.6060554223675018
+              },
+              {
+                "validation_year": 2025,
+                "train_rows": 13936,
+                "train_year_min": 2019,
+                "train_year_max": 2024,
+                "validation_rows": 2526,
+                "log_loss": 0.6175707807242992
+              }
+            ]
+          },
+          {
+            "strategy": "latest6",
+            "penalty": 0.1,
+            "log_loss": 0.6130822892218357,
+            "validation_rows": 7784,
+            "folds": [
+              {
+                "validation_year": 2023,
+                "train_rows": 11245,
+                "train_year_min": 2017,
+                "train_year_max": 2022,
+                "validation_rows": 2603,
+                "log_loss": 0.6146350731746919
+              },
+              {
+                "validation_year": 2024,
+                "train_rows": 11295,
+                "train_year_min": 2018,
+                "train_year_max": 2023,
+                "validation_rows": 2655,
+                "log_loss": 0.6069706197783535
+              },
+              {
+                "validation_year": 2025,
+                "train_rows": 13936,
+                "train_year_min": 2019,
+                "train_year_max": 2024,
+                "validation_rows": 2526,
+                "log_loss": 0.6179059573703557
+              }
+            ]
+          },
+          {
+            "strategy": "latest4",
+            "penalty": 0.0001,
+            "log_loss": 0.6130238083833466,
+            "validation_rows": 7784,
+            "folds": [
+              {
+                "validation_year": 2023,
+                "train_rows": 8678,
+                "train_year_min": 2019,
+                "train_year_max": 2022,
+                "validation_rows": 2603,
+                "log_loss": 0.6139871258531043
+              },
+              {
+                "validation_year": 2024,
+                "train_rows": 8771,
+                "train_year_min": 2020,
+                "train_year_max": 2023,
+                "validation_rows": 2655,
+                "log_loss": 0.6063655281128166
+              },
+              {
+                "validation_year": 2025,
+                "train_rows": 10212,
+                "train_year_min": 2021,
+                "train_year_max": 2024,
+                "validation_rows": 2526,
+                "log_loss": 0.6190294373399884
+              }
+            ]
+          },
+          {
+            "strategy": "latest4",
+            "penalty": 0.001,
+            "log_loss": 0.6129790086805188,
+            "validation_rows": 7784,
+            "folds": [
+              {
+                "validation_year": 2023,
+                "train_rows": 8678,
+                "train_year_min": 2019,
+                "train_year_max": 2022,
+                "validation_rows": 2603,
+                "log_loss": 0.6139672292468752
+              },
+              {
+                "validation_year": 2024,
+                "train_rows": 8771,
+                "train_year_min": 2020,
+                "train_year_max": 2023,
+                "validation_rows": 2655,
+                "log_loss": 0.6063395917887112
+              },
+              {
+                "validation_year": 2025,
+                "train_rows": 10212,
+                "train_year_min": 2021,
+                "train_year_max": 2024,
+                "validation_rows": 2526,
+                "log_loss": 0.6189391487096253
+              }
+            ]
+          },
+          {
+            "strategy": "latest4",
+            "penalty": 0.01,
+            "log_loss": 0.6127742383442827,
+            "validation_rows": 7784,
+            "folds": [
+              {
+                "validation_year": 2023,
+                "train_rows": 8678,
+                "train_year_min": 2019,
+                "train_year_max": 2022,
+                "validation_rows": 2603,
+                "log_loss": 0.6139220449947832
+              },
+              {
+                "validation_year": 2024,
+                "train_rows": 8771,
+                "train_year_min": 2020,
+                "train_year_max": 2023,
+                "validation_rows": 2655,
+                "log_loss": 0.6062538531315993
+              },
+              {
+                "validation_year": 2025,
+                "train_rows": 10212,
+                "train_year_min": 2021,
+                "train_year_max": 2024,
+                "validation_rows": 2526,
+                "log_loss": 0.6184448171362154
+              }
+            ]
+          },
+          {
+            "strategy": "latest4",
+            "penalty": 0.1,
+            "log_loss": 0.6131120224212866,
+            "validation_rows": 7784,
+            "folds": [
+              {
+                "validation_year": 2023,
+                "train_rows": 8678,
+                "train_year_min": 2019,
+                "train_year_max": 2022,
+                "validation_rows": 2603,
+                "log_loss": 0.6145524778457461
+              },
+              {
+                "validation_year": 2024,
+                "train_rows": 8771,
+                "train_year_min": 2020,
+                "train_year_max": 2023,
+                "validation_rows": 2655,
+                "log_loss": 0.6068577055245087
+              },
+              {
+                "validation_year": 2025,
+                "train_rows": 10212,
+                "train_year_min": 2021,
+                "train_year_max": 2024,
+                "validation_rows": 2526,
+                "log_loss": 0.6182013755056402
+              }
+            ]
+          }
+        ]
+      },
+      "protocol": {
+        "authorized_budget": "one Thinking fit and one prediction request; saved receipts prevent repetitions",
+        "model": "TabPFN3.5 Thinking; high effort; log_loss; 8 estimators requested; seed0",
+        "inputs": "36 exact frontier sporting columns; men only; no prices/dates/IDs/labels in X",
+        "train": "ATP 2020-2025; strategy latest6",
+        "test": "ATP2026 only, through available2026-08-02; no test labels uploaded",
+        "comparison": "logistic uses identical training/test rows and same36 sports inputs",
+        "baseline_penalty": "original9 coefficients unpenalized; new27 ridge and training history picked on forward2023/24/25 predictions only",
+        "annual_reference": "cached original36-input logistic for2026 uses all2013-2025 training and its previously selected ridge",
+        "symmetry": "one query contains original and flipped A/B inputs; average p(A) and 1-p(A swapped)",
+        "markets": "raw and selected-pre2026-training slope-calibrated Average/Pinnacle on identical finite-quote test subsets",
+        "uncertainty": "paired four-week calendar-block95% intervals; single fit uncertainty not covered",
+        "time_col": "omitted to keep exact sporting inputs; internal Thinking validation not guaranteed chronological",
+        "limitations": [
+          "Features/years previously selected and inspected; not untouched holdout",
+          "Training history selection uses logistic validation as a proxy; one TabPFN fit cannot establish its optimal history",
+          "Sporting aggregates update using allowed earlier test matches while fitted model weights stay frozen",
+          "Dated-only coverage; ATP2018 largely absent;2026 partial; exact quote/publication times unverified",
+          "Onefit/seed/split; no executable betting returns"
+        ]
+      }
+    },
+    "metadata": {
+      "billing_model_version": "v3.5",
+      "cache_outcome": "not_requested",
+      "execution_mode": "thinking",
+      "n_estimators": 2,
+      "package_version": "9.0.0",
+      "tabpfn_config": {
+        "balance_probabilities": false,
+        "categorical_features_indices": [],
+        "fit_mode": "fit_preprocessors",
+        "ignore_pretraining_limits": true,
+        "inference_config": {
+          "TRANSFORM_DATES": false,
+          "TRANSFORM_TEXT": false
+        },
+        "model_path": "tabpfn-v3.5-20260909.safetensors",
+        "n_estimators": 8,
+        "random_state": 0,
+        "softmax_temperature": 0.9
+      },
+      "task": "classification",
+      "test_set_num_cols": 36,
+      "test_set_num_rows": 3424,
+      "timings": {
+        "fit": {
+          "elapsed_s": 92.656,
+          "fit_s": 90.921,
+          "queue_wait_s": 1.275,
+          "train_set_transform_s": 0.46
+        },
+        "predict": {
+          "predict_queue_wait_s": 0.108,
+          "predict_s": 2.961,
+          "test_set_transform_queue_wait_s": 0.091,
+          "test_set_transform_s": 0.313
+        }
+      }
+    },
+    "receipt": {
+      "config_sha256": "ec0d49f25d72f8d21e019003796a440b4e1d6a3ded32419a0b2feaf79999b98d",
+      "fit_requests_dispatched": 1,
+      "input_sha256": "54ca16ba7c2321e47ec891da7b00db3fb06e798b8df3b37f8556803d8d240673",
+      "metadata": {
+        "billing_model_version": "v3.5",
+        "cache_outcome": "not_requested",
+        "execution_mode": "thinking",
+        "n_estimators": 2,
+        "package_version": "9.0.0",
+        "tabpfn_config": {
+          "balance_probabilities": false,
+          "categorical_features_indices": [],
+          "fit_mode": "fit_preprocessors",
+          "ignore_pretraining_limits": true,
+          "inference_config": {
+            "TRANSFORM_DATES": false,
+            "TRANSFORM_TEXT": false
+          },
+          "model_path": "tabpfn-v3.5-20260909.safetensors",
+          "n_estimators": 8,
+          "random_state": 0,
+          "softmax_temperature": 0.9
+        },
+        "task": "classification",
+        "test_set_num_cols": 36,
+        "test_set_num_rows": 3424,
+        "timings": {
+          "fit": {
+            "elapsed_s": 92.656,
+            "fit_s": 90.921,
+            "queue_wait_s": 1.275,
+            "train_set_transform_s": 0.46
+          },
+          "predict": {
+            "predict_queue_wait_s": 0.108,
+            "predict_s": 2.961,
+            "test_set_transform_queue_wait_s": 0.091,
+            "test_set_transform_s": 0.313
+          }
+        }
+      },
+      "model_path": "v3.5_default",
+      "prediction_requests_dispatched": 1,
+      "prediction_sha256": "8a1c6a4672ad75bc2d3593a7a15bce097b01bfe67bb1e972ddfed0f01168bd2f",
+      "query_rows": 3424,
+      "schema": "tennis-predictive-frontier-tabpfn-thinking-v1",
+      "status": "COMPLETE"
+    },
+    "training_rows": 13952,
+    "test_rows": 1712,
+    "query_rows": 3424,
+    "train_first_date": "2020-01-06",
+    "train_last_date": "2025-11-16",
+    "test_first_date": "2026-01-04",
+    "test_last_date": "2026-08-02",
+    "training_year_counts": {
+      "2020": 1214,
+      "2021": 2408,
+      "2022": 2546,
+      "2023": 2603,
+      "2024": 2655,
+      "2025": 2526
+    },
+    "asymmetry_mean_abs": 0.015699593209668072,
+    "asymmetry_p95": 0.03801626861095428,
+    "asymmetry_max": 0.0771942138671875,
+    "run": {
+      "finished_at": "2026-10-03T02:24:54.085467+00:00",
+      "wall_seconds": 109.96899999999732,
+      "reused_saved_predictions": false,
+      "receipt": {
+        "schema": "tennis-predictive-frontier-tabpfn-thinking-v1",
+        "input_sha256": "54ca16ba7c2321e47ec891da7b00db3fb06e798b8df3b37f8556803d8d240673",
+        "config_sha256": "ec0d49f25d72f8d21e019003796a440b4e1d6a3ded32419a0b2feaf79999b98d",
+        "model_path": "v3.5_default",
+        "status": "COMPLETE",
+        "fit_requests_dispatched": 1,
+        "prediction_requests_dispatched": 1,
+        "prediction_sha256": "8a1c6a4672ad75bc2d3593a7a15bce097b01bfe67bb1e972ddfed0f01168bd2f",
+        "query_rows": 3424,
+        "metadata": {
+          "task": "classification",
+          "package_version": "9.0.0",
+          "tabpfn_config": {
+            "n_estimators": 8,
+            "categorical_features_indices": [],
+            "softmax_temperature": 0.9,
+            "random_state": 0,
+            "inference_config": {
+              "TRANSFORM_DATES": false,
+              "TRANSFORM_TEXT": false
+            },
+            "ignore_pretraining_limits": true,
+            "fit_mode": "fit_preprocessors",
+            "model_path": "tabpfn-v3.5-20260909.safetensors",
+            "balance_probabilities": false
+          },
+          "test_set_num_rows": 3424,
+          "test_set_num_cols": 36,
+          "n_estimators": 2,
+          "billing_model_version": "v3.5",
+          "execution_mode": "thinking",
+          "cache_outcome": "not_requested",
+          "timings": {
+            "fit": {
+              "elapsed_s": 92.656,
+              "queue_wait_s": 1.275,
+              "train_set_transform_s": 0.46,
+              "fit_s": 90.921
+            },
+            "predict": {
+              "test_set_transform_queue_wait_s": 0.091,
+              "test_set_transform_s": 0.313,
+              "predict_queue_wait_s": 0.108,
+              "predict_s": 2.961
+            }
+          }
+        }
+      },
+      "usage_before": {
+        "daily_tokens_used": 162211,
+        "daily_token_limit": 5000000,
+        "monthly_tokens_used": 335191,
+        "monthly_token_limit": 20000000,
+        "current_usage": 335191,
+        "usage_limit": 20000000,
+        "reset_time": "2026-11-01 00:00:00 UTC",
+        "monthly_usage": 335191,
+        "monthly_limit": 20000000,
+        "monthly_reset_time": "2026-11-01 00:00:00 UTC",
+        "daily_usage": 162211,
+        "daily_limit": 5000000,
+        "daily_reset_time": "2026-10-04 00:00:00 UTC",
+        "thinking_fit_count": 0,
+        "thinking_fit_limit": 0
+      },
+      "usage_after": {
+        "daily_tokens_used": 240231,
+        "daily_token_limit": 5000000,
+        "monthly_tokens_used": 413211,
+        "monthly_token_limit": 20000000,
+        "current_usage": 413211,
+        "usage_limit": 20000000,
+        "reset_time": "2026-11-01 00:00:00 UTC",
+        "monthly_usage": 413211,
+        "monthly_limit": 20000000,
+        "monthly_reset_time": "2026-11-01 00:00:00 UTC",
+        "daily_usage": 240231,
+        "daily_limit": 5000000,
+        "daily_reset_time": "2026-10-04 00:00:00 UTC",
+        "thinking_fit_count": 0,
+        "thinking_fit_limit": 0
+      },
+      "tokens_monthly_delta": 78020
+    },
+    "preflight": {
+      "checked_at": "2026-10-03T02:22:37.432918+00:00",
+      "sdk_version": "0.6.0",
+      "usage": {
+        "daily_tokens_used": 162211,
+        "daily_token_limit": 5000000,
+        "monthly_tokens_used": 335191,
+        "monthly_token_limit": 20000000,
+        "current_usage": 335191,
+        "usage_limit": 20000000,
+        "reset_time": "2026-11-01 00:00:00 UTC",
+        "monthly_usage": 335191,
+        "monthly_limit": 20000000,
+        "monthly_reset_time": "2026-11-01 00:00:00 UTC",
+        "daily_usage": 162211,
+        "daily_limit": 5000000,
+        "daily_reset_time": "2026-10-04 00:00:00 UTC",
+        "thinking_fit_count": 0,
+        "thinking_fit_limit": 0
+      },
+      "model_limits": {
+        "train_set_max_rows": 1000000,
+        "train_set_max_cells": 200000000,
+        "test_set_max_rows": 1000000,
+        "max_classes": 160,
+        "max_cols": 20000,
+        "test_set_max_rows_w_full_regression_output": 100000,
+        "predict_row_pairs_budget": 250000000000,
+        "test_set_max_cells": 200000000
+      },
+      "capacity": {
+        "training_rows": 13952,
+        "prediction_rows": 3424,
+        "features": 36,
+        "monthly_tokens_remaining": 19664809,
+        "daily_tokens_remaining": 4837789
+      },
+      "quote": {
+        "thinking_fit": {
+          "estimated_cost": 264367,
+          "pricing_version": "quota_v3",
+          "inputs": {
+            "train_rows": 13952,
+            "raw_columns": 36,
+            "test_rows": 0,
+            "model_version": "v3.5",
+            "operation": "thinking_fit",
+            "n_estimators": 8,
+            "thinking_effort": "high"
+          }
+        },
+        "thinking_predict": {
+          "estimated_cost": 47714,
+          "pricing_version": "quota_v3",
+          "inputs": {
+            "train_rows": 13952,
+            "raw_columns": 36,
+            "test_rows": 3424,
+            "model_version": "v3.5",
+            "operation": "thinking_predict",
+            "n_estimators": 8,
+            "thinking_effort": null
+          }
+        }
+      },
+      "total_quoted": 312081,
+      "preview": {
+        "tabpfn_config": {
+          "n_estimators": 8,
+          "categorical_features_indices": null,
+          "softmax_temperature": 0.9,
+          "average_before_softmax": null,
+          "random_state": 0,
+          "inference_config": null,
+          "inference_precision": null,
+          "ignore_pretraining_limits": true,
+          "fit_mode": null,
+          "model_path": "v3.5_default",
+          "balance_probabilities": false
+        },
+        "thinking_config": {
+          "effort": "high",
+          "timeout_secs": null,
+          "metric": "log_loss",
+          "group_col": null,
+          "time_col": null,
+          "group_time_col": null
+        }
+      },
+      "input_sha256": "54ca16ba7c2321e47ec891da7b00db3fb06e798b8df3b37f8556803d8d240673",
+      "config": {
+        "model_path": "v3.5_default",
+        "n_estimators": 8,
+        "softmax_temperature": 0.9,
+        "random_state": 0,
+        "ignore_pretraining_limits": true,
+        "thinking_mode": true,
+        "thinking_effort": "high",
+        "thinking_metric": "log_loss",
+        "thinking_timeout_s": null,
+        "http_timeout_s": 2700.0
+      }
+    },
+    "baselines": {
+      "atp": {
+        "logistic_strong_fixed": {
+          "columns": [
+            "elo_logit",
+            "rating_matchup|single",
+            "adjperf_tpw|decayed",
+            "ios_short",
+            "elo_games|single",
+            "sets_14d|single",
+            "surface_first|single",
+            "age|single",
+            "age|single|2"
+          ],
+          "n_train": 13952,
+          "n_test": 1712,
+          "train_years": [
+            2020,
+            2021,
+            2022,
+            2023,
+            2024,
+            2025
+          ],
+          "chosen_penalty": 0.0,
+          "training_rms": [
+            1.2183266852852181,
+            1.5563783537380913,
+            0.16621276976195415,
+            1.2730971155433382,
+            1.247421392223578,
+            0.9749517814491597,
+            0.4884708634132334,
+            6.256638790630478,
+            52.03537280880661
+          ],
+          "beta": [
+            -1.0977588626560413,
+            0.5547051820337755,
+            0.03328085778045992,
+            0.08001122994556277,
+            1.3746320194134285,
+            0.05698367691928935,
+            -0.07757897812429082,
+            -0.2119924629952564,
+            0.03679384822109555
+          ]
+        },
+        "logistic_combined_fixed": {
+          "columns": [
+            "elo_logit",
+            "rating_matchup|single",
+            "adjperf_tpw|decayed",
+            "ios_short",
+            "elo_games|single",
+            "sets_14d|single",
+            "surface_first|single",
+            "age|single",
+            "age|single|2",
+            "pf_serve_28",
+            "pf_return_28",
+            "pf_serve_182",
+            "pf_return_182",
+            "pf_serve_momentum",
+            "pf_return_momentum",
+            "pf_box_seen_diff",
+            "pf_box_unknown_elo",
+            "pf_surface_serve",
+            "pf_surface_return",
+            "pf_surface_evidence_diff",
+            "pf_surface_unknown_elo",
+            "pf_evidence_diff",
+            "pf_uncertainty_elo",
+            "pf_uncertainty_sr",
+            "pf_instability_diff",
+            "pf_instability_elo",
+            "pf_rest_diff",
+            "pf_inactivity_elo",
+            "pf_retired_loss_recent",
+            "pf_retired_loss_rate",
+            "pf_history_seen_diff",
+            "pf_history_unknown_elo",
+            "pf_event_speed_style",
+            "pf_event_speed_elo",
+            "pf_event_evidence_style",
+            "pf_event_unknown_elo"
+          ],
+          "n_train": 13952,
+          "n_test": 1712,
+          "train_years": [
+            2020,
+            2021,
+            2022,
+            2023,
+            2024,
+            2025
+          ],
+          "chosen_penalty": 0.01,
+          "training_rms": [
+            1.2183266852852181,
+            1.5563783537380913,
+            0.16621276976195415,
+            1.2730971155433382,
+            1.247421392223578,
+            0.9749517814491597,
+            0.4884708634132334,
+            6.256638790630478,
+            52.03537280880661,
+            0.01941087754487511,
+            0.01893958072457358,
+            0.013957459714671586,
+            0.012712181795007854,
+            0.013680934799251181,
+            0.013903247008907018,
+            1.0,
+            1.0,
+            0.010822914144764677,
+            0.010930915792824722,
+            1.5780810807159027,
+            0.1207483895733571,
+            1.268921491909927,
+            0.27902852492492874,
+            0.05392453548186652,
+            0.0020549677692310825,
+            0.003964742531393439,
+            1.159312540362666,
+            0.23949117174170104,
+            0.09436764390205445,
+            0.0185929142878245,
+            1.0,
+            1.0,
+            0.00301185556100671,
+            0.014011225153652933,
+            0.17538585495228554,
+            0.46761258721583876
+          ],
+          "beta": [
+            -0.49288898443293094,
+            0.6688661397958359,
+            0.02316230905149732,
+            0.14496537973636686,
+            0.8333171469908166,
+            0.016724153599356088,
+            -0.051450683831090874,
+            -0.2568961579506836,
+            0.06042837323386921,
+            -0.01951769746029329,
+            -0.03449749029083199,
+            -0.04967786385950161,
+            -0.07259416685601904,
+            0.022989741036373478,
+            0.01938124554644275,
+            0.0,
+            0.0,
+            0.06225066358757268,
+            0.05018846485212678,
+            0.10201620315447318,
+            -0.021897529691480903,
+            0.023633758024255356,
+            -0.09458970485207706,
+            -0.11028335638312718,
+            -0.03457043048778318,
+            -0.08303016749359289,
+            -0.04511266817382644,
+            0.01918941630346422,
+            -0.047954877357447724,
+            0.00013070545880855842,
+            0.0,
+            0.0,
+            0.029245439398330325,
+            -0.05256209734073857,
+            0.0015190303654095097,
+            -0.008574351170285297
+          ]
+        },
+        "average_calibrated": {
+          "column": "p_avg_a",
+          "n_train": 13936,
+          "slope": 1.0817696463611834,
+          "train_year_max": 2025
+        },
+        "pinnacle_calibrated": {
+          "column": "p_ps_a",
+          "n_train": 13796,
+          "slope": 1.0333556249227092,
+          "train_year_max": 2025
+        }
+      }
+    }
+  },
+  "scores": [
+    {
+      "subset": "all_2026",
+      "model": "tabpfn",
+      "n": 1712,
+      "log_loss": 0.6078248770449746
+    },
+    {
+      "subset": "all_2026",
+      "model": "logistic_combined_fixed",
+      "n": 1712,
+      "log_loss": 0.6098527825768647
+    },
+    {
+      "subset": "all_2026",
+      "model": "logistic_strong_fixed",
+      "n": 1712,
+      "log_loss": 0.617108230874193
+    },
+    {
+      "subset": "all_2026",
+      "model": "logistic_combined_annual",
+      "n": 1712,
+      "log_loss": 0.6103285204768247
+    },
+    {
+      "subset": "average_closing",
+      "model": "tabpfn",
+      "n": 1712,
+      "log_loss": 0.6078248770449746
+    },
+    {
+      "subset": "average_closing",
+      "model": "logistic_combined_fixed",
+      "n": 1712,
+      "log_loss": 0.6098527825768647
+    },
+    {
+      "subset": "average_closing",
+      "model": "logistic_strong_fixed",
+      "n": 1712,
+      "log_loss": 0.617108230874193
+    },
+    {
+      "subset": "average_closing",
+      "model": "logistic_combined_annual",
+      "n": 1712,
+      "log_loss": 0.6103285204768247
+    },
+    {
+      "subset": "average_closing",
+      "model": "p_avg_a",
+      "n": 1712,
+      "log_loss": 0.5947898699341594
+    },
+    {
+      "subset": "average_closing",
+      "model": "average_calibrated",
+      "n": 1712,
+      "log_loss": 0.5944520857531627
+    },
+    {
+      "subset": "pinnacle_closing",
+      "model": "tabpfn",
+      "n": 70,
+      "log_loss": 0.6272818806957583
+    },
+    {
+      "subset": "pinnacle_closing",
+      "model": "logistic_combined_fixed",
+      "n": 70,
+      "log_loss": 0.626780402939564
+    },
+    {
+      "subset": "pinnacle_closing",
+      "model": "logistic_strong_fixed",
+      "n": 70,
+      "log_loss": 0.6436473619864574
+    },
+    {
+      "subset": "pinnacle_closing",
+      "model": "logistic_combined_annual",
+      "n": 70,
+      "log_loss": 0.6283149236892339
+    },
+    {
+      "subset": "pinnacle_closing",
+      "model": "p_ps_a",
+      "n": 70,
+      "log_loss": 0.6081375524235266
+    },
+    {
+      "subset": "pinnacle_closing",
+      "model": "pinnacle_calibrated",
+      "n": 70,
+      "log_loss": 0.6066971066429647
+    }
+  ],
+  "comparisons": [
+    {
+      "subset": "all_2026",
+      "base": "logistic_combined_fixed",
+      "model": "tabpfn",
+      "n": 1712,
+      "base_ll": 0.6098527825768647,
+      "model_ll": 0.6078248770449746,
+      "first_date": "2026-01-04",
+      "last_date": "2026-08-02",
+      "clusters": 9,
+      "gain_mll": 2.0279055318902293,
+      "lo_mll": -1.1100955790630151,
+      "hi_mll": 5.165906642843474
+    },
+    {
+      "subset": "all_2026",
+      "base": "logistic_strong_fixed",
+      "model": "tabpfn",
+      "n": 1712,
+      "base_ll": 0.617108230874193,
+      "model_ll": 0.6078248770449746,
+      "first_date": "2026-01-04",
+      "last_date": "2026-08-02",
+      "clusters": 9,
+      "gain_mll": 9.283353829218525,
+      "lo_mll": 5.08246712695569,
+      "hi_mll": 13.48424053148136
+    },
+    {
+      "subset": "all_2026",
+      "base": "logistic_combined_annual",
+      "model": "tabpfn",
+      "n": 1712,
+      "base_ll": 0.6103285204768247,
+      "model_ll": 0.6078248770449746,
+      "first_date": "2026-01-04",
+      "last_date": "2026-08-02",
+      "clusters": 9,
+      "gain_mll": 2.503643431850219,
+      "lo_mll": -1.5073300798451417,
+      "hi_mll": 6.51461694354558
+    },
+    {
+      "subset": "average_closing",
+      "base": "logistic_combined_fixed",
+      "model": "tabpfn",
+      "n": 1712,
+      "base_ll": 0.6098527825768647,
+      "model_ll": 0.6078248770449746,
+      "first_date": "2026-01-04",
+      "last_date": "2026-08-02",
+      "clusters": 9,
+      "gain_mll": 2.0279055318902293,
+      "lo_mll": -1.1100955790630151,
+      "hi_mll": 5.165906642843474
+    },
+    {
+      "subset": "average_closing",
+      "base": "logistic_strong_fixed",
+      "model": "tabpfn",
+      "n": 1712,
+      "base_ll": 0.617108230874193,
+      "model_ll": 0.6078248770449746,
+      "first_date": "2026-01-04",
+      "last_date": "2026-08-02",
+      "clusters": 9,
+      "gain_mll": 9.283353829218525,
+      "lo_mll": 5.08246712695569,
+      "hi_mll": 13.48424053148136
+    },
+    {
+      "subset": "average_closing",
+      "base": "logistic_combined_annual",
+      "model": "tabpfn",
+      "n": 1712,
+      "base_ll": 0.6103285204768247,
+      "model_ll": 0.6078248770449746,
+      "first_date": "2026-01-04",
+      "last_date": "2026-08-02",
+      "clusters": 9,
+      "gain_mll": 2.503643431850219,
+      "lo_mll": -1.5073300798451417,
+      "hi_mll": 6.51461694354558
+    },
+    {
+      "subset": "average_closing",
+      "base": "p_avg_a",
+      "model": "tabpfn",
+      "n": 1712,
+      "base_ll": 0.5947898699341594,
+      "model_ll": 0.6078248770449746,
+      "first_date": "2026-01-04",
+      "last_date": "2026-08-02",
+      "clusters": 9,
+      "gain_mll": -13.035007110815101,
+      "lo_mll": -18.235747770242146,
+      "hi_mll": -7.834266451388058
+    },
+    {
+      "subset": "average_closing",
+      "base": "average_calibrated",
+      "model": "tabpfn",
+      "n": 1712,
+      "base_ll": 0.5944520857531627,
+      "model_ll": 0.6078248770449746,
+      "first_date": "2026-01-04",
+      "last_date": "2026-08-02",
+      "clusters": 9,
+      "gain_mll": -13.372791291811827,
+      "lo_mll": -20.385435922451272,
+      "hi_mll": -6.360146661172381
+    },
+    {
+      "subset": "average_closing",
+      "base": "p_avg_a",
+      "model": "logistic_combined_fixed",
+      "n": 1712,
+      "base_ll": 0.5947898699341594,
+      "model_ll": 0.6098527825768647,
+      "first_date": "2026-01-04",
+      "last_date": "2026-08-02",
+      "clusters": 9,
+      "gain_mll": -15.06291264270533,
+      "lo_mll": -22.283982132919817,
+      "hi_mll": -7.84184315249084
+    },
+    {
+      "subset": "average_closing",
+      "base": "average_calibrated",
+      "model": "logistic_combined_fixed",
+      "n": 1712,
+      "base_ll": 0.5944520857531627,
+      "model_ll": 0.6098527825768647,
+      "first_date": "2026-01-04",
+      "last_date": "2026-08-02",
+      "clusters": 9,
+      "gain_mll": -15.40069682370206,
+      "lo_mll": -24.41058936360104,
+      "hi_mll": -6.390804283803078
+    },
+    {
+      "subset": "pinnacle_closing",
+      "base": "logistic_combined_fixed",
+      "model": "tabpfn",
+      "n": 70,
+      "base_ll": 0.626780402939564,
+      "model_ll": 0.6272818806957583,
+      "first_date": "2026-01-04",
+      "last_date": "2026-01-13",
+      "clusters": 2,
+      "gain_mll": -0.5014777561942256,
+      "lo_mll": -21.517530766813167,
+      "hi_mll": 20.514575254424713
+    },
+    {
+      "subset": "pinnacle_closing",
+      "base": "logistic_strong_fixed",
+      "model": "tabpfn",
+      "n": 70,
+      "base_ll": 0.6436473619864574,
+      "model_ll": 0.6272818806957583,
+      "first_date": "2026-01-04",
+      "last_date": "2026-01-13",
+      "clusters": 2,
+      "gain_mll": 16.365481290699215,
+      "lo_mll": -131.87742169060164,
+      "hi_mll": 164.60838427200002
+    },
+    {
+      "subset": "pinnacle_closing",
+      "base": "logistic_combined_annual",
+      "model": "tabpfn",
+      "n": 70,
+      "base_ll": 0.6283149236892339,
+      "model_ll": 0.6272818806957583,
+      "first_date": "2026-01-04",
+      "last_date": "2026-01-13",
+      "clusters": 2,
+      "gain_mll": 1.0330429934756524,
+      "lo_mll": -95.17988764361205,
+      "hi_mll": 97.24597363056334
+    },
+    {
+      "subset": "pinnacle_closing",
+      "base": "p_ps_a",
+      "model": "tabpfn",
+      "n": 70,
+      "base_ll": 0.6081375524235266,
+      "model_ll": 0.6272818806957583,
+      "first_date": "2026-01-04",
+      "last_date": "2026-01-13",
+      "clusters": 2,
+      "gain_mll": -19.144328272231395,
+      "lo_mll": -169.44188551599555,
+      "hi_mll": 131.15322897153274
+    },
+    {
+      "subset": "pinnacle_closing",
+      "base": "pinnacle_calibrated",
+      "model": "tabpfn",
+      "n": 70,
+      "base_ll": 0.6066971066429647,
+      "model_ll": 0.6272818806957583,
+      "first_date": "2026-01-04",
+      "last_date": "2026-01-13",
+      "clusters": 2,
+      "gain_mll": -20.58477405279334,
+      "lo_mll": -164.30613651412162,
+      "hi_mll": 123.13658840853496
+    },
+    {
+      "subset": "pinnacle_closing",
+      "base": "p_ps_a",
+      "model": "logistic_combined_fixed",
+      "n": 70,
+      "base_ll": 0.6081375524235266,
+      "model_ll": 0.626780402939564,
+      "first_date": "2026-01-04",
+      "last_date": "2026-01-13",
+      "clusters": 2,
+      "gain_mll": -18.64285051603717,
+      "lo_mll": -189.95646077042022,
+      "hi_mll": 152.67075973834588
+    },
+    {
+      "subset": "pinnacle_closing",
+      "base": "pinnacle_calibrated",
+      "model": "logistic_combined_fixed",
+      "n": 70,
+      "base_ll": 0.6066971066429647,
+      "model_ll": 0.626780402939564,
+      "first_date": "2026-01-04",
+      "last_date": "2026-01-13",
+      "clusters": 2,
+      "gain_mll": -20.08329629659911,
+      "lo_mll": -184.82071176854646,
+      "hi_mll": 144.65411917534823
+    }
+  ]
+}

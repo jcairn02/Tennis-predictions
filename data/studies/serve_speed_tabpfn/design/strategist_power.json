@@ -1,0 +1,49 @@
+{
+ "rules": "synthetic outcomes only; real data: 2024-2026 men's match counts and four-week blocks, the base's 2019-2023 men's forecast distribution (forecasts only)",
+ "reps": 2000,
+ "assumed": {
+  "VAR_X": 0.92,
+  "SEED_SD_1": 0.0192,
+  "K_SEEDS": 16,
+  "COVER": {
+   "2024": [
+    0.61,
+    0.24
+   ],
+   "2025": [
+    0.5,
+    0.28
+   ],
+   "2026": [
+    0.56,
+    0.26
+   ]
+  },
+  "SE_TRAIN": {
+   "bayes": {
+    "2024": 0.036,
+    "2025": 0.03,
+    "2026": 0.027
+   },
+   "registered": {
+    "2024": 0.043,
+    "2025": 0.034,
+    "2026": 0.03
+   }
+  },
+  "P1MP": 0.194
+ },
+ "template": {
+  "matches": 7068,
+  "by_season": {
+   "2024": 2674,
+   "2025": 2620,
+   "2026": 1774
+  },
+  "blocks": 33
+ },
+ "eta_pool": {
+  "n": 11594,
+  "sd": 1.269555926322937
+ }
+}

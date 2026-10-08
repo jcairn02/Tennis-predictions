@@ -21,6 +21,12 @@
 * per-point serve speed, placement and distance run for about 34 Grand Slam matches, from the Slams' public feeds;
 * ATP tracking, which exists from 2025 but only under licence.
 
+**Update, 24 September 2026.** The owner decided to collect from both free sites regardless of their terms, for non-commercial research. Scrapers in `src/ingest/point_sources/` then downloaded the records, and the appraisal above was checked against them ([Direct download](#direct-download-24-september-2026)):
+
+* **TennisLive.net holds far more than the study credited:** point-by-point for 3,648 of the 3,959 matches (90%), not only the 700 in SofaScore's gaps, and the statistics block for 3,815. Its records usually lack the game that closed each set (87% of them), so they are less complete than SofaScore's.
+* **SofaScore's appraisal was accurate.** Every one of its 4,565 listed singles events was fetched: 4,039 of the 4,055 official matches are listed; 2,881 of the 3,959 matches needing a record have one (72.8%, against the study's "about 2,930, 74%"); 98% of the records are complete; the rates by level and period match the study's within a few points, except ITF 2012–18, where the study's 91% of the matches it had linked is 79% of all official matches; and the ITF gap runs exactly from January 2025 to February 2026. The site blocked the plain client after about 3,800 requests. The block turned out to be a token check bound to the browser's TLS fingerprint, so the adapter gained a mode that makes its requests inside a Chrome window the owner opens, and the rest was fetched that way.
+* **Together the two sites give the project point records for 3,819 matches (96.5%), 2,918 of them complete,** staged under `data/dump/points/`, against 85 before and the study's "about 92%". TennisLive fills 938 of SofaScore's holes, more than the "about 700, at least 557" the study expected.
+
 **Status: study, not a decision.** It audits sources the project does not use yet, measures the free ones match by match against the ten careers of the [career-coverage study](../career_coverage/README.md), and maps the paid and private ones onto the same matches from what their providers claim. Nothing was bought, no account was opened and no provider was contacted.
 
 | Item | Where |
@@ -32,7 +38,10 @@
 | Provider claims, one row per source and level | [source_claims.csv](../../../data/studies/point_shot_sources/source_claims.csv) |
 | The four research passes (23 Sep 2026): each source's URLs, quotations, evidence labels and blocked pages | [research_notes/](../../../data/studies/point_shot_sources/research_notes/): [self-serve APIs](../../../data/studies/point_shot_sources/research_notes/1_self_serve_apis.md), [official feeds](../../../data/studies/point_shot_sources/research_notes/2_official_feeds.md), [tracking and Grand Slam feeds](../../../data/studies/point_shot_sources/research_notes/3_tracking_and_grand_slam_feeds.md), [public websites and datasets](../../../data/studies/point_shot_sources/research_notes/4_public_websites_and_datasets.md) |
 | What each source adds, match by match | `fill_matrix.py` → [fill_matrix.csv](../../../data/studies/point_shot_sources/fill_matrix.csv), [fill_summary.json](../../../data/studies/point_shot_sources/fill_summary.json) |
-| Tests | `test/point_shot_sources/` (offline) |
+| Scrapers for both free sites (24 Sep 2026): a paced, caching browser-fingerprint client, the SofaScore adapter and the TennisLive adapter | `src/ingest/point_sources/{common,sofascore,tennislive}.py` → `data/raw/point_sources/` (verbatim, gitignored), `data/dump/points/{sofascore,tennislive}/` (Parquet, gitignored), run summaries in [scrape/](../../../data/studies/point_shot_sources/scrape/) |
+| The appraisal checked against the downloads, match by match | `verify_scrape.py` → [verification_matches.csv](../../../data/studies/point_shot_sources/scrape/verification_matches.csv), [verification_summary.json](../../../data/studies/point_shot_sources/scrape/verification_summary.json) |
+| SofaScore's per-point codes, inferred from the records | `sofascore_codes.py` → [sofascore_point_codes.json](../../../data/studies/point_shot_sources/scrape/sofascore_point_codes.json) |
+| Tests | `test/point_shot_sources/` (offline; `test_point_sources_scrape.py` covers the adapters' parsers and caching on fixtures cut from real pages) |
 
 ## Question
 
@@ -349,12 +358,80 @@ The by-player figures leave TennisLive out; its estimate is by level and period 
 * **Challengers and ITF events:** almost no electronic line calling before 2026, and ITF rules keep such data for coaching.
 * **Grand Slam feeds:** serve speed, placement and distance run per point for about 34 of their Slam matches. That is the closest thing to shot-level data that is publicly reachable.
 
+## Direct download (24 September 2026)
+
+On 23 September 2026 the owner decided to collect the records from both free sites regardless of their terms, for non-commercial research, and asked for the appraisal above to be checked against what the sites hold. Two adapters in `src/ingest/point_sources/` do the collecting; `verify_scrape.py` links every downloaded record to the ten players' official matches with the study's own linking rules and compares the result with the claims above.
+
+**How the sites were read.**
+
+* Both sites refuse python-requests' TLS fingerprint (SofaScore with HTTP 403, TennisLive with a Cloudflare challenge). The `curl_cffi` client, which presents a browser's fingerprint, gets through: SofaScore with its Chrome profile, TennisLive with its Safari or Firefox profile plus the same-origin fetch headers TennisLive's own scripts send. SofaScore's later block (below) is answered by the adapter's `--browser` mode, which runs the same requests as `fetch()` calls inside a Chrome tab reached over the DevTools Protocol (`src/ingest/point_sources/browser.py`, Playwright).
+* *SofaScore:* each player's match list (30 events a page, to a final HTTP 404), then `/event/<id>/point-by-point` and `/event/<id>/statistics` for every singles event, newest first, at about one request a second.
+* *TennisLive:* each player's page carries a session token and the seasons of his career table; `/api/player-matches` then lists one season at a time (60 matches a page), and every listed singles match page is fetched and parsed: the games score before and after each game, the server, the score after each point in fixed player order, break-, set- and match-point markers, the game's winner, and the statistics block. TennisLive's robots.txt disallows the `/api/player-*` paths (the match pages themselves are allowed); its terms and SofaScore's forbid bulk extraction. Both were read anyway, on the owner's instruction, at a low rate and with a cache so that nothing is fetched twice.
+* Everything is kept verbatim under `data/raw/point_sources/` with receipts (URL, time, status, hash), staged as string Parquet under `data/dump/points/{sofascore,tennislive}/`, and summarised in [scrape/](../../../data/studies/point_shot_sources/scrape/) (`runs.jsonl` keeps one line per run).
+
+**Volumes.**
+
+| | SofaScore | TennisLive.net |
+|---|---|---|
+| Listing | 201 pages: 5,849 events, 4,565 singles | 10 player pages and 132 season pages: 4,250 singles matches |
+| Records fetched | all 4,565 singles events (3,145 with a record): 1,847 by the plain client before the block, the rest inside a Chrome tab | all 4,250 pages (3,768 with a record) |
+| Requests | about 3,800 in 57 minutes before the block; then about 5,400 in the browser over three runs, the last 3,068 in 59 minutes | 4,408 in 2 h 11 min, no block |
+| Raw size | 121 MB of JSON | 206 MB of gzipped HTML |
+| Staged | 368,534 point states, 176,606 statistics rows | 76,366 games, 372,281 point states, 31,725 statistics rows |
+
+**SofaScore, checked against the study.**
+
+* *Listings.* 4,039 of the 4,055 official matches link to a listed event (1 ambiguous, 15 absent: Choinski's 2012–13 German Futures and 2015 Furth qualifying, one 2020 ITF match, four Davis Cup rubbers). The study had linked 2,491 and left 1,552 unread; "essentially the whole official record" holds.
+* *The block.* After about 3,800 requests in 57 minutes SofaScore answered HTTP 403 with the reason "challenge" to every request, and kept doing so for more than eleven hours: a resume job tried once every 20 minutes for six hours (14 rounds of 4 requests, 02:44 to 08:48 UTC), probes at 12:00 and 13:54 UTC were refused too, as were a second address and every browser profile `curl_cffi` offers. The adapter stops on a block rather than insist. How the site itself gets past the block was read from its own scripts: the page runs a Cloudflare Turnstile check, usually invisible, posts the result to `/api/v1/token/captcha`, and sends the signed token it gets back as an `X-Captcha` header on every API call; the token lasts an hour and carries the client's address and `f`, its JA4 TLS fingerprint (the site reports both at `/api/v1/country/alpha2`). A token copied from the owner's Chrome 154 was verified by the API (a made-up one was refused with "jwt:signature-fail") but not honoured from the adapter, whose handshake is a different Chrome's (`t13d1516h2_…` against the browser's `t13d1513h2_8daaf6152771_ecd0401ec68b`). Rather than forge a handshake, the adapter's `--browser` mode makes its requests inside a real Chrome window: the owner opens Chrome with a blank profile and a debugging port on the SofaScore site, the site's check passes as it does for any visitor, and the adapter evaluates `fetch()` in that tab at its own pace, so the token and the handshake match by construction. The token lasts an hour and the site renews it only on a page load, so on the first challenge the transport reloads the tab and waits for the new token; the first pass needed no click, the renewal an hour later asked the owner for one. No check was solved by program and no automation flag was hidden. Every event from 9 January 2024 onward had been fetched before the block; the 2,718 earlier singles events were fetched in this mode between 14:14 and 19:10 UTC on 24 September, in three runs: the first two stopped at the hourly token expiry because the renewal wanted a click that nobody was at the window to give, and the third, from a fresh profile at about one request a second, finished its 3,068 requests within one token hour with no error. The transport now clears the tab's site data and reloads when a renewal stalls, since a fresh visitor's state is what passed silently.
+* *Records.* The share of official matches with a point record, from direct reads of every event, next to the study's marker-based figure (whose denominators were the matches the study had linked):
+
+| Level | 2012–18 | 2019–21 | 2022–23 | 2024 | 2025–26 |
+|---|---|---|---|---|---|
+| ITF main draw | 294 of 371 (79%; study 91% of 238) | 461 of 478 (96%; study 96%) | 521 of 533 (98%; study 98%) | 257 of 265 (97%; study 97%) | 2025: **0 of 253** (study: 0 of 15); 2026: 75 of 108 (69%), all from March, where it is 75 of 76 (study: 7 of 8, from April) |
+| Challenger main draw | 16 of 49 (33%; study 35%) | 90 of 121 (74%; study 79%) | 2 of 357 (0.6%; study 1%) | 263 of 265 (99%; study 99%) | 518 of 520 (99.6%; study 98%) |
+| Challenger qualifying | 0 of 39 (study 4% of 27) | 16 of 46 (35%; study 29%) | 3 of 137 (2%; study 0%) | 45 of 45 (study 100%) | 93 of 93 (study 100%) |
+| Tour qualifying | 0 of 10 (study 1 of 9) | 1 of 2 (study 1 of 2) | 25 of 56 (45%; study 37%) | 50 of 50 (study 100%) | 93 of 94 (99%; study 98%) |
+| Tour main draw | 1 of 1 | – | 12 of 12 (study 4 of 5) | 23 of 23 (study 100%) | 83 of 83 (study 100%) |
+
+  ITF qualifying 2022–23: 14 of 30. Davis Cup: 10 of 14. The ITF gap is exactly January 2025 to February 2026: 0 of 289 ITF matches in those fourteen months, then 75 of 76. The 2024 figures are higher than the earlier reading of this section because the block had fallen in the first week of January 2024 and those events were fetched later. SofaScore also holds 192 records for events outside the official list: 88 qualifying rounds, 85 exhibitions (mostly of 2020) and 19 others.
+* *The marker.* Of the 4,039 linked matches, 3,056 carry the `firstToServe` marker and 2,889 of those have a record (94.5%); of the 983 without it, 77 have one. In 2024 the two agree on every match. The disagreements sit where the study warned, ITF 2025 (95 marked, none with a record) and ITF 2026 (74 records without a marker), and in one place it had not seen: 2012–18, where 367 matches are marked and 312 have a record, so a marker-based count runs about 15% high there (7 such cases in 2019–21, 1 in 2022–23). That is the difference between the study's 91% and the measured 79% for ITF 2012–18.
+* *Completeness.* Of the 2,966 linked records, 2,882 have exactly the official games in every set, 30 also list the game in progress at a retirement, and 2 write a 10-point match tiebreak as one game: 2,914 complete (98.2%). 33 stop early and 19 carry an extra game. The study's "all 40 checked were complete" was right in kind and slightly optimistic in degree.
+* *Box scores.* 3,175 of the official matches have a statistics document; 287 of them have no point record (the 2025 ITF matches and a few older ones, with aces and double faults only), and 78 records have no statistics.
+* *Per-point codes.* SofaScore's undocumented integer codes, inferred from all 3,145 records ([sofascore_point_codes.json](../../../data/studies/point_shot_sources/scrape/sofascore_point_codes.json)): `pointDescription` 1 is an ace and 2 a double fault (the server wins 98% of code-1 points and the receiver 98% of code-2 points; per-match totals fall short of the box score because a game's final point is never listed as a state); `homePointType` and `awayPointType` describe each side at the state: 1 won the point, 5 lost it, 2 holds a break point, 3 holds a set point, 4 holds a match point (rare), 6 unclear (rare).
+
+**TennisLive.net, checked against the study.**
+
+* *Listings.* 3,904 of the 4,055 official matches link to a listed match; the 151 absent are nearly all ITF matches of 2012–15 (116) and 2019 (22), plus 8 Davis Cup rubbers.
+* *Records.* 3,648 official matches have point-by-point on TennisLive, 90.0% of the 3,959 that need one, and 3,815 have the statistics block. By level and period:
+
+| Level | 2012–18 | 2019–21 | 2022–23 | 2024 | 2025–26 |
+|---|---|---|---|---|---|
+| ITF main draw | 26% of 371 | 92% of 478 | 98% of 533 | 97% of 265 | 2025: 91% of 253; 2026: 99% of 108 |
+| Challenger main draw | 98% of 49 | 98% of 121 | 99% of 357 | 99% of 265 | 99.6% of 520 |
+| Challenger qualifying | 95% of 39 | 98% of 46 | 99% of 137 | 98% of 45 | 98% of 93 |
+| Tour qualifying | 8 of 10 | 2 of 2 | 100% of 56 | 100% of 50 | 99% of 94 |
+| Tour main draw | 1 of 1 | – | 100% of 12 | 100% of 23 | 99% of 83 |
+
+  ITF qualifying 2022–23: 14 of 30. Davis Cup: 1 of 14.
+* *The study's three gaps.* Challenger 2022–23: 488 of 493. ITF 2025: 231 of 253, January included (the study had found none on the January pages it opened and counted ITF only from March). Challenger before 2019: 85 of 88. The study's "about 700, at least 557" for the gaps was in range for the gaps themselves, but the site holds records for nearly every match at every level from 2019, which the study's 20-page sample could not show.
+* *Completeness, which the study had not checked.* Only 490 records (13%) have every game: 485 exact and 5 with a retirement's unfinished game. 3,158 are short, and in 2,740 of them the missing games are exactly the ones that closed a set (one game short in 1,796 records, two in 945, three in 226): the page lists a set's games up to the state before its last game. 418 miss games elsewhere as well. Separately, 2,232 records list 5,193 games without their points, usually a set's opening game. Complete records cluster in 2023–24 (417 of the 490). A TennisLive record therefore usually holds every point of a match except its set-closing games, whose outcome the score gives.
+
+**Together.** 3,819 of the 3,959 matches needing a point record have one from at least one site (96.5%), and 2,918 of them a complete one; the study had expected "about 92%". By player: 89% (Choinski, whose 2012–18 ITF years TennisLive covers a quarter of and SofaScore three quarters) to 99.6% (Onclin). TennisLive fills 938 of SofaScore's holes, mostly Challenger 2022–23 (350 main draw, 133 qualifying) and ITF 2025 (231); SofaScore fills TennisLive's ITF 2012–18 hole (294 records against TennisLive's 97). Where both sites hold a match, SofaScore's record is the more complete.
+
+Per match: [verification_matches.csv](../../../data/studies/point_shot_sources/scrape/verification_matches.csv). Tables by level, period and player: [verification_summary.json](../../../data/studies/point_shot_sources/scrape/verification_summary.json).
+
+**What the download changes in the findings below.**
+
+* Finding 1's permission question was decided by the owner for non-commercial research; the rights position itself is unchanged, and commercial or betting use would still need the licences described.
+* TennisLive is not a gap-filler but a second, near-complete source from 2019 with weaker records. The two sites' records are best merged per match with SofaScore preferred and the source recorded, as finding 5 already suggests.
+* The Live Tennis API's paid window and the register corrections remain open options.
+
 ## Findings for the next phase
 
 These are options for the owner, not decisions.
 
 1. **The coverage exists; the permission does not.**
-   * Two public sites together show point-by-point for an estimated nine in ten of these careers' matches that lack it.
+   * Two public sites together hold point-by-point for 96.5% of these careers' matches that lack it, measured match by match on 24 September 2026.
    * Neither licenses bulk use, and the official owners of the same umpire data (Sportradar, Infront, TDI) sell it live or within a rolling window, with no betting use without consent.
    * Asking SofaScore and TennisLive's operator for permission is the only route to most of this data. The official feeds are not a substitute for the history.
 2. **Paid route with the fewest strings.** The Live Tennis API's one-month $49 window would let the project check its 2023–26 index against these players' matches directly (its `/history/coverage` roll-up and per-match tapes). Its storage clause (§3(c)) needs written clarification first.
@@ -401,6 +478,7 @@ The [source register](../../research/tennis-data-audit/source-register.md) was o
 * **Claims are not coverage.** Paid and private sources are mapped from what their providers say, with unstated shares counted in full. Nothing was bought, so none of those figures is measured.
 * **Scope.** Ten Challenger-level men show the pattern for such careers, not rates for the whole tour. WTA, doubles and junior matches are out of scope.
 * **Rights.** Reading a public page for this measurement is not permission to collect it. SofaScore, TennisLive, Flashscore and the official feeds each need their own permission or licence before any bulk use.
+* **After the direct download (24 Sep 2026).** The transcription and sample limitations above no longer apply to what was downloaded: every SofaScore event and every TennisLive page were read by program and linked by the same rules. Most of SofaScore's records came through a Chrome tab the owner opened after the site blocked the plain client. TennisLive's index came through a path its robots.txt disallows.
 
 ## Rerunning
 
@@ -413,3 +491,21 @@ The [source register](../../research/tennis-data-audit/source-register.md) was o
 ```
 
 `pbp_checks.py --sample`, `--sample-itf-recent` and `--sample-tennislive` redraw the three check samples (seeded). The SofaScore listings and the direct reads are evidence files, not reproducible downloads. They were read on 23 September 2026 through a web-reading tool, because SofaScore refuses plain HTTP clients. Reading them again later will show more matches, and possibly different coverage.
+
+The direct download (24 September 2026) is reproducible and resumable; each adapter skips what it already holds and stops cleanly when a site blocks it:
+
+```
+./python.sh -m src.ingest.point_sources.sofascore                  # listings, point-by-point and statistics of the ten players
+./python.sh -m src.ingest.point_sources.tennislive                 # season index and match pages of the ten players
+./python.sh src/eda/point_shot_sources/verify_scrape.py            # links the downloads to the official matches -> scrape/verification_*
+./python.sh src/eda/point_shot_sources/sofascore_codes.py          # the per-point codes -> scrape/sofascore_point_codes.json
+```
+
+When SofaScore challenges the plain client, open a Chrome window with a blank profile and a debugging port on the site, then rerun the adapter with `--browser` (PowerShell):
+
+```
+& "C:\Program Files\Google\Chrome\Application\chrome.exe" --remote-debugging-port=9222 --user-data-dir="$env:LOCALAPPDATA\sofascore-cdp" --no-first-run --no-default-browser-check https://www.sofascore.com/tennis
+./python.sh -m src.ingest.point_sources.sofascore --browser --min-interval 2.5 --jitter 1.0
+```
+
+`--limit`, `--max-requests` and `--min-interval` bound a run; `--refresh-listings` (SofaScore) and `--refresh-index` (TennisLive) pick up new matches; `--team-ids` and `--slugs` extend the adapters to other players; `--stage-only` rebuilds the Parquet tables from the raw files. The `curl_cffi` and `playwright` dependencies are in `environment.yml` (Playwright only connects to the Chrome you opened; it downloads no browser).

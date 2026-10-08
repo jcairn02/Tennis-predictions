@@ -1,0 +1,350 @@
+[    3.7s] pieces: 872,704 matches; main tour design rows 42,787
+tour     count_bin  player_rows  stage1_minus_overall_mean  stage1_minus_overall_std  anchored_minus_overall_mean  anchored_minus_overall_std  offset_mean  offset_std
+ atp       (-1, 0]           28                     -445.2                     254.2                          0.0                         0.0          0.0         0.0
+ atp        (0, 2]           91                     -455.1                     293.1                       -145.2                       275.9         -2.3        14.3
+ atp        (2, 5]          188                     -459.1                     293.6                       -195.8                       264.3         -5.2        20.6
+ atp       (5, 10]          434                     -424.0                     240.5                       -187.9                       213.4         -6.5        24.7
+ atp      (10, 20]         1175                     -346.1                     182.4                       -133.1                       168.1         -2.0        27.8
+ atp      (20, 40]         2580                     -252.3                     149.8                        -72.6                       135.2         10.5        32.6
+ atp      (40, 80]         4625                     -138.3                     117.6                        -49.9                       112.5         20.7        34.6
+ atp     (80, 160]        11595                      -50.3                      70.1                        -35.8                        82.8         43.1        32.4
+ atp (160, 100000]        23236                      -17.6                      48.8                        -19.1                        60.5         64.7        22.9
+ wta       (-1, 0]           35                     -518.1                     200.1                          0.0                         0.0          0.0         0.0
+ wta        (0, 2]           92                     -312.2                     354.9                        -54.2                       379.9          1.3         9.3
+ wta        (2, 5]          247                     -277.1                     292.9                        -25.5                       294.0          3.0        12.9
+ wta       (5, 10]          467                     -339.6                     240.1                       -108.0                       232.7         -0.4        17.6
+ wta      (10, 20]         1151                     -280.6                     185.4                        -73.7                       162.8          2.5        20.7
+ wta      (20, 40]         2727                     -189.7                     154.2                        -18.7                       135.6         10.6        25.6
+ wta      (40, 80]         5612                      -71.7                     110.9                         -9.6                       101.5         21.6        27.7
+ wta     (80, 160]        13375                      -28.9                      64.8                        -24.5                        74.9         36.1        23.3
+ wta (160, 100000]        17916                      -25.1                      46.7                        -34.6                        51.2         49.5        20.6
+tour surface  share_below_20
+ atp    Clay           0.011
+ atp   Grass           0.310
+ atp    Hard           0.004
+ wta  Carpet           1.000
+ wta    Clay           0.013
+ wta   Grass           0.335
+ wta    Hard           0.004
+{'atp': {'stage1_w': 0.3, 'stage1_evidence': {'w_max': 0.3, 'k': 0.0}, 'anchored_w': np.float64(0.3), 'anchored_evidence': {'w_max': 0.35, 'k': 2.0}}, 'wta': {'stage1_w': 0.25, 'stage1_evidence': {'w_max': 0.25, 'k': 0.0}, 'anchored_w': np.float64(0.25), 'anchored_evidence': {'w_max': 0.35, 'k': 10.0}}}
+tour    min_surface_count  matches  best_w  gain_best_vs_stage1_w
+ atp (80.0, 1000000000.0]    15672    0.45                  0.307
+ atp         (20.0, 40.0]     1603    0.35                  0.422
+ atp         (40.0, 80.0]     3097    0.40                  0.768
+ wta (80.0, 1000000000.0]    13721    0.35                  0.211
+ wta         (40.0, 80.0]     3851    0.30                  0.109
+ wta         (20.0, 40.0]     1641    0.25                  0.000
+ atp           (2.0, 5.0]      184    0.50                  4.972
+ atp          (5.0, 10.0]      383    0.15                  5.499
+ atp         (10.0, 20.0]      919    0.25                  0.357
+ wta           (2.0, 5.0]      228    0.10                  4.675
+ wta          (-1.0, 2.0]      123    0.30                  0.105
+ wta          (5.0, 10.0]      389    0.15                  2.362
+ wta         (10.0, 20.0]      858    0.25                  0.000
+ atp          (-1.0, 2.0]      118    0.35                  0.214
+tour           variant     k  mll_worse_than_best
+ atp anchored_evidence   0.0                0.035
+ atp anchored_evidence   2.0                0.000
+ atp anchored_evidence   5.0                0.041
+ atp anchored_evidence  10.0                0.113
+ atp anchored_evidence  20.0                0.251
+ atp anchored_evidence  40.0                0.456
+ atp anchored_evidence  80.0                0.708
+ atp anchored_evidence 160.0                0.983
+ atp   stage1_evidence   0.0                0.000
+ atp   stage1_evidence   2.0                0.597
+ atp   stage1_evidence   5.0                0.780
+ atp   stage1_evidence  10.0                0.965
+ atp   stage1_evidence  20.0                1.172
+ atp   stage1_evidence  40.0                1.390
+ atp   stage1_evidence  80.0                1.604
+ atp   stage1_evidence 160.0                1.807
+ wta anchored_evidence   0.0                0.332
+ wta anchored_evidence   2.0                0.153
+ wta anchored_evidence   5.0                0.046
+ wta anchored_evidence  10.0                0.000
+ wta anchored_evidence  20.0                0.026
+ wta anchored_evidence  40.0                0.146
+ wta anchored_evidence  80.0                0.355
+ wta anchored_evidence 160.0                0.589
+ wta   stage1_evidence   0.0                0.000
+ wta   stage1_evidence   2.0                0.362
+ wta   stage1_evidence   5.0                0.385
+ wta   stage1_evidence  10.0                0.437
+ wta   stage1_evidence  20.0                0.528
+ wta   stage1_evidence  40.0                0.661
+ wta   stage1_evidence  80.0                0.812
+ wta   stage1_evidence 160.0                0.965
+tour                                        subset           variant  matches  log_loss  slope_2013_2018  gain_vs_stage1_blend      lo     hi
+ atp                                all evaluation           overall    26035     0.626            0.964                -4.487  -5.818 -3.156
+ atp                                all evaluation      stage1_blend    26035     0.622            1.002                 0.000   0.000  0.000
+ atp                                all evaluation   stage1_evidence    26035     0.622            1.002                 0.000   0.000  0.000
+ atp                                all evaluation    anchored_blend    26035     0.622            0.981                -0.506  -0.818 -0.195
+ atp                                all evaluation anchored_evidence    26035     0.622            0.981                -0.207  -0.462  0.048
+ atp                                all evaluation            offset    26035     0.620            0.915                 1.570   0.312  2.828
+ atp                                     main tour           overall     6316     0.619            0.964                -4.843  -7.243 -2.443
+ atp                                     main tour      stage1_blend     6316     0.614            1.002                 0.000   0.000  0.000
+ atp                                     main tour   stage1_evidence     6316     0.614            1.002                 0.000   0.000  0.000
+ atp                                     main tour    anchored_blend     6316     0.614            0.981                -0.003  -0.486  0.481
+ atp                                     main tour anchored_evidence     6316     0.614            0.981                 0.346  -0.154  0.846
+ atp                                     main tour            offset     6316     0.610            0.915                 4.500   2.062  6.938
+ atp                                         grass           overall     1236     0.627            0.964                -7.835 -16.092  0.422
+ atp                                         grass      stage1_blend     1236     0.620            1.002                 0.000   0.000  0.000
+ atp                                         grass   stage1_evidence     1236     0.620            1.002                 0.000   0.000  0.000
+ atp                                         grass    anchored_blend     1236     0.622            0.981                -2.309  -8.517  3.898
+ atp                                         grass anchored_evidence     1236     0.621            0.981                -1.108  -4.389  2.173
+ atp                                         grass            offset     1236     0.618            0.915                 1.134 -17.838 20.107
+ atp    low evidence (either < 20 surface matches)           overall     2317     0.548            0.964                -9.545 -15.403 -3.686
+ atp    low evidence (either < 20 surface matches)      stage1_blend     2317     0.538            1.002                 0.000   0.000  0.000
+ atp    low evidence (either < 20 surface matches)   stage1_evidence     2317     0.538            1.002                 0.000   0.000  0.000
+ atp    low evidence (either < 20 surface matches)    anchored_blend     2317     0.541            0.981                -3.234  -5.919 -0.548
+ atp    low evidence (either < 20 surface matches) anchored_evidence     2317     0.540            0.981                -1.993  -4.079  0.093
+ atp    low evidence (either < 20 surface matches)            offset     2317     0.539            0.915                -0.959  -5.980  4.062
+ atp early surface season (either < 3 this season)           overall     6469     0.610            0.964               -10.024 -12.809 -7.239
+ atp early surface season (either < 3 this season)      stage1_blend     6469     0.600            1.002                 0.000   0.000  0.000
+ atp early surface season (either < 3 this season)   stage1_evidence     6469     0.600            1.002                 0.000   0.000  0.000
+ atp early surface season (either < 3 this season)    anchored_blend     6469     0.601            0.981                -1.410  -2.478 -0.342
+ atp early surface season (either < 3 this season) anchored_evidence     6469     0.600            0.981                -0.559  -1.337  0.220
+ atp early surface season (either < 3 this season)            offset     6469     0.598            0.915                 2.052  -0.373  4.478
+ wta                                all evaluation           overall    10647     0.604            0.982                -3.469  -5.102 -1.836
+ wta                                all evaluation      stage1_blend    10647     0.601            1.013                 0.000   0.000  0.000
+ wta                                all evaluation   stage1_evidence    10647     0.601            1.013                 0.000   0.000  0.000
+ wta                                all evaluation    anchored_blend    10647     0.601            0.996                -0.240  -0.782  0.302
+ wta                                all evaluation anchored_evidence    10647     0.601            1.004                -0.275  -0.930  0.379
+ wta                                all evaluation            offset    10647     0.599            0.948                 1.442  -0.272  3.156
+ wta                                     main tour           overall     5891     0.615            0.982                -2.741  -4.603 -0.878
+ wta                                     main tour      stage1_blend     5891     0.613            1.013                 0.000   0.000  0.000
+ wta                                     main tour   stage1_evidence     5891     0.613            1.013                 0.000   0.000  0.000
+ wta                                     main tour    anchored_blend     5891     0.613            0.996                -0.548  -1.076 -0.021
+ wta                                     main tour anchored_evidence     5891     0.613            1.004                -0.318  -1.085  0.449
+ wta                                     main tour            offset     5891     0.611            0.948                 1.806  -0.993  4.606
+ wta                                         grass           overall      976     0.598            0.982                -4.312 -81.426 72.802
+ wta                                         grass      stage1_blend      976     0.594            1.013                 0.000   0.000  0.000
+ wta                                         grass   stage1_evidence      976     0.594            1.013                 0.000   0.000  0.000
+ wta                                         grass    anchored_blend      976     0.593            0.996                 0.518 -47.099 48.134
+ wta                                         grass anchored_evidence      976     0.595            1.004                -1.472 -53.482 50.537
+ wta                                         grass            offset      976     0.591            0.948                 2.263 -57.385 61.911
+ wta    low evidence (either < 20 surface matches)           overall      971     0.567            0.982                -9.802 -21.386  1.782
+ wta    low evidence (either < 20 surface matches)      stage1_blend      971     0.557            1.013                 0.000   0.000  0.000
+ wta    low evidence (either < 20 surface matches)   stage1_evidence      971     0.557            1.013                 0.000   0.000  0.000
+ wta    low evidence (either < 20 surface matches)    anchored_blend      971     0.556            0.996                 1.250  -4.546  7.046
+ wta    low evidence (either < 20 surface matches) anchored_evidence      971     0.560            1.004                -2.055  -8.628  4.519
+ wta    low evidence (either < 20 surface matches)            offset      971     0.559            0.948                -2.024  -7.846  3.798
+ wta early surface season (either < 3 this season)           overall     3367     0.602            0.982                -4.139  -7.151 -1.128
+ wta early surface season (either < 3 this season)      stage1_blend     3367     0.598            1.013                 0.000   0.000  0.000
+ wta early surface season (either < 3 this season)   stage1_evidence     3367     0.598            1.013                 0.000   0.000  0.000
+ wta early surface season (either < 3 this season)    anchored_blend     3367     0.598            0.996                -0.101  -1.501  1.299
+ wta early surface season (either < 3 this season) anchored_evidence     3367     0.599            1.004                -0.734  -3.031  1.563
+ wta early surface season (either < 3 this season)            offset     3367     0.597            0.948                 0.585  -2.316  3.486
+tour surface  both new  neither new  one new  share_both_new  share_flag_zero
+ atp    Clay       523         4919     1354           0.077            0.801
+ atp   Grass       590         1021      875           0.237            0.648
+ atp    Hard       784        10867     1043           0.062            0.918
+ wta  Carpet        35            4       15           0.648            0.722
+ wta    Clay       643         3727     1131           0.117            0.794
+ wta   Grass       655          824      784           0.289            0.654
+ wta    Hard       798        11225      970           0.061            0.925
+tour surface  week  both new  neither new  one new  share_both_new
+ atp    Clay     0       120           39       83           0.496
+ atp    Clay     1        69           66      111           0.280
+ atp    Clay     2        19          157       96           0.070
+ atp    Clay     3         1          185       34           0.005
+ atp   Grass     0       314           46      157           0.607
+ atp   Grass     1       154          125      189           0.329
+ atp   Grass     2        63          218      233           0.123
+ atp   Grass     3        58          447      254           0.076
+ atp   Grass     4         0           50       12           0.000
+ atp   Grass     5         1          135       30           0.006
+ atp    Hard     0       516           50      110           0.763
+ atp    Hard     1       123          109      198           0.286
+ atp    Hard     2        74          582      358           0.073
+ atp    Hard     4        50          150       69           0.186
+ atp    Hard     5        14          478       76           0.025
+ wta  Carpet     0        35            4       15           0.648
+ wta    Clay     0       248           56      102           0.611
+ wta    Clay     1        73           75       99           0.296
+ wta    Clay     2        30            6       22           0.517
+ wta    Clay     3        38           91      106           0.162
+ wta    Clay     4        24           98       63           0.130
+ wta    Clay     5        18          176       77           0.066
+ wta   Grass     0       290           59      118           0.621
+ wta   Grass     1       204           88      190           0.423
+ wta   Grass     2       103          215      234           0.187
+ wta   Grass     3        58          462      242           0.076
+ wta    Hard     0       571           75      138           0.728
+ wta    Hard     1       130          163      178           0.276
+ wta    Hard     2        80          628      308           0.079
+ wta    Hard     4        13          278       68           0.036
+ wta    Hard     5         0          196       29           0.000
+{'stored_flag_reproduced_share': 1.0, 'layoff_quantiles': [{'surface': 'Carpet', 'config': 'both new', 'days_since_p10': 1.0, 'days_since_p50': 43.0, 'days_since_p90': 458.0}, {'surface': 'Carpet', 'config': 'neither new', 'days_since_p10': 1.0, 'days_since_p50': 1.0, 'days_since_p90': 2.0}, {'surface': 'Carpet', 'config': 'one new', 'days_since_p10': 1.0, 'days_since_p50': 1.0, 'days_since_p90': 717.6}, {'surface': 'Clay', 'config': 'both new', 'days_since_p10': 1.0, 'days_since_p50': 8.5, 'days_since_p90': 315.0}, {'surface': 'Clay', 'config': 'neither new', 'days_since_p10': 1.0, 'days_since_p50': 2.0, 'days_since_p90': 12.0}, {'surface': 'Clay', 'config': 'one new', 'days_since_p10': 1.0, 'days_since_p50': 4.0, 'days_since_p90': 220.30000000000018}, {'surface': 'Grass', 'config': 'both new', 'days_since_p10': 1.0, 'days_since_p50': 7.0, 'days_since_p90': 368.4000000000001}, {'surface': 'Grass', 'config': 'neither new', 'days_since_p10': 1.0, 'days_since_p50': 2.0, 'days_since_p90': 9.0}, {'surface': 'Grass', 'config': 'one new', 'days_since_p10': 1.0, 'days_since_p50': 3.0, 'days_since_p90': 350.0}, {'surface': 'Hard', 'config': 'both new', 'days_since_p10': 1.0, 'days_since_p50': 8.0, 'days_since_p90': 81.5}, {'surface': 'Hard', 'config': 'neither new', 'days_since_p10': 1.0, 'days_since_p50': 2.0, 'days_since_p90': 17.0}, {'surface': 'Hard', 'config': 'one new', 'days_since_p10': 1.0, 'days_since_p50': 5.0, 'days_since_p90': 69.5}]}
+tour               subset                 spec  matches  gain_vs_recalibrated_odds     lo     hi
+ atp                  all       odds+elo_blend    11527                     -0.058 -0.147  0.032
+ atp                  all   odds+surface_first    11527                     -0.074 -0.359  0.211
+ atp                  all  odds+pieces_literal    11527                     -0.267 -0.460 -0.075
+ atp                  all   odds+pieces_offset    11527                     -0.085 -0.247  0.077
+ atp                  all      odds x both_new    11527                     -0.032 -0.120  0.056
+ atp                  all odds x season counts    11527                     -0.005 -0.200  0.191
+ atp                  all    odds+switch diffs    11527                     -0.048 -0.210  0.114
+ atp                  all      odds+switch all    11527                     -0.130 -0.402  0.142
+ atp early surface season       odds+elo_blend     2764                     -0.110 -0.405  0.186
+ atp early surface season   odds+surface_first     2764                     -0.301 -1.496  0.894
+ atp early surface season  odds+pieces_literal     2764                     -0.422 -1.017  0.173
+ atp early surface season   odds+pieces_offset     2764                     -0.236 -0.769  0.298
+ atp early surface season      odds x both_new     2764                     -0.201 -0.545  0.144
+ atp early surface season odds x season counts     2764                     -0.255 -0.781  0.270
+ atp early surface season    odds+switch diffs     2764                     -0.084 -0.568  0.401
+ atp early surface season      odds+switch all     2764                     -0.543 -1.379  0.294
+ atp                grass       odds+elo_blend     1254                      0.144 -0.393  0.682
+ atp                grass   odds+surface_first     1254                      0.086 -1.067  1.239
+ atp                grass  odds+pieces_literal     1254                      0.148 -0.841  1.136
+ atp                grass   odds+pieces_offset     1254                      0.190 -0.432  0.813
+ atp                grass      odds x both_new     1254                     -0.484 -0.911 -0.056
+ atp                grass odds x season counts     1254                      0.025 -0.878  0.928
+ atp                grass    odds+switch diffs     1254                     -0.035 -0.676  0.606
+ atp                grass      odds+switch all     1254                     -0.231 -1.536  1.074
+ wta                  all       odds+elo_blend    13226                     -0.040 -0.123  0.044
+ wta                  all   odds+surface_first    13226                      0.024 -0.269  0.318
+ wta                  all  odds+pieces_literal    13226                     -0.042 -0.352  0.269
+ wta                  all   odds+pieces_offset    13226                      0.062 -0.203  0.327
+ wta                  all      odds x both_new    13226                     -0.034 -0.132  0.064
+ wta                  all odds x season counts    13226                     -0.090 -0.159 -0.021
+ wta                  all    odds+switch diffs    13226                      0.398 -0.074  0.870
+ wta                  all      odds+switch all    13226                      0.328 -0.150  0.807
+ wta early surface season       odds+elo_blend     3294                     -0.041 -0.178  0.097
+ wta early surface season   odds+surface_first     3294                      0.094 -1.102  1.290
+ wta early surface season  odds+pieces_literal     3294                     -0.295 -1.022  0.433
+ wta early surface season   odds+pieces_offset     3294                     -0.209 -0.722  0.305
+ wta early surface season      odds x both_new     3294                     -0.145 -0.515  0.226
+ wta early surface season odds x season counts     3294                     -0.251 -0.475 -0.027
+ wta early surface season    odds+switch diffs     3294                      0.536 -0.844  1.916
+ wta early surface season      odds+switch all     3294                      0.291 -1.147  1.729
+ wta                grass       odds+elo_blend     1488                      0.087 -0.250  0.424
+ wta                grass   odds+surface_first     1488                     -1.008 -2.606  0.589
+ wta                grass  odds+pieces_literal     1488                     -0.786 -2.129  0.558
+ wta                grass   odds+pieces_offset     1488                      0.542  0.191  0.894
+ wta                grass      odds x both_new     1488                     -0.170 -0.790  0.451
+ wta                grass odds x season counts     1488                     -0.232 -0.759  0.295
+ wta                grass    odds+switch diffs     1488                     -0.471 -2.044  1.102
+ wta                grass      odds+switch all     1488                     -0.716 -2.618  1.185
+both                  all       odds+elo_blend    24753                     -0.048 -0.107  0.011
+both                  all   odds+surface_first    24753                     -0.021 -0.235  0.192
+both                  all  odds+pieces_literal    24753                     -0.147 -0.320  0.027
+both                  all   odds+pieces_offset    24753                     -0.006 -0.185  0.172
+both                  all      odds x both_new    24753                     -0.033 -0.112  0.046
+both                  all odds x season counts    24753                     -0.051 -0.152  0.051
+both                  all    odds+switch diffs    24753                      0.190 -0.077  0.458
+both                  all      odds+switch all    24753                      0.115 -0.187  0.416
+both early surface season       odds+elo_blend     6058                     -0.072 -0.224  0.080
+both early surface season   odds+surface_first     6058                     -0.086 -0.958  0.786
+both early surface season  odds+pieces_literal     6058                     -0.353 -0.699 -0.006
+both early surface season   odds+pieces_offset     6058                     -0.221 -0.615  0.173
+both early surface season      odds x both_new     6058                     -0.170 -0.476  0.136
+both early surface season odds x season counts     6058                     -0.253 -0.545  0.039
+both early surface season    odds+switch diffs     6058                      0.253 -0.567  1.074
+both early surface season      odds+switch all     6058                     -0.090 -1.059  0.880
+both                grass       odds+elo_blend     2742                      0.113 -0.136  0.362
+both                grass   odds+surface_first     2742                     -0.508 -1.603  0.587
+both                grass  odds+pieces_literal     2742                     -0.359 -0.897  0.179
+both                grass   odds+pieces_offset     2742                      0.382 -0.026  0.789
+both                grass      odds x both_new     2742                     -0.313 -0.719  0.092
+both                grass odds x season counts     2742                     -0.115 -0.746  0.517
+both                grass    odds+switch diffs     2742                     -0.271 -1.046  0.503
+both                grass      odds+switch all     2742                     -0.494 -1.748  0.760
+tour         by                   bin  player_rows  wins_minus_overall_elo  se_overall_elo  wins_minus_offset_elo  se_offset_elo  wins_minus_market  se_market
+ atp career_bin  (80.0, 1000000000.0]        30472                  0.0063          0.0013                 0.0011         0.0011             0.0000     0.0010
+ atp career_bin          (20.0, 40.0]         2341                 -0.0151          0.0117                 0.0003         0.0092            -0.0044     0.0080
+ atp career_bin          (40.0, 80.0]         4110                 -0.0176          0.0088                 0.0017         0.0075             0.0028     0.0068
+ wta career_bin  (80.0, 1000000000.0]        30911                  0.0031          0.0010                -0.0005         0.0009            -0.0003     0.0009
+ wta career_bin          (40.0, 80.0]         5570                 -0.0059          0.0054                 0.0042         0.0047             0.0011     0.0047
+ wta career_bin          (20.0, 40.0]         2714                 -0.0034          0.0072                 0.0077         0.0065             0.0036     0.0069
+ atp career_bin           (-1.0, 5.0]          282                 -0.0584          0.0339                -0.0376         0.0317             0.0152     0.0262
+ atp career_bin          (10.0, 20.0]         1063                 -0.0468          0.0146                -0.0207         0.0137            -0.0054     0.0101
+ wta career_bin           (-1.0, 5.0]          371                 -0.0260          0.0243                -0.0186         0.0236             0.0120     0.0257
+ wta career_bin           (5.0, 10.0]          466                 -0.0261          0.0163                -0.0121         0.0161             0.0079     0.0171
+ wta career_bin          (10.0, 20.0]         1142                 -0.0281          0.0093                -0.0139         0.0088            -0.0134     0.0089
+ atp career_bin           (5.0, 10.0]          394                 -0.0477          0.0296                -0.0234         0.0285            -0.0012     0.0318
+ atp layoff_bin           (-1.0, 3.0]        22520                  0.0091          0.0015                 0.0084         0.0015             0.0019     0.0014
+ atp layoff_bin          (30.0, 90.0]         1601                 -0.0163          0.0093                -0.0133         0.0091             0.0050     0.0083
+ wta layoff_bin          (10.0, 30.0]         4903                 -0.0034          0.0054                -0.0047         0.0053             0.0051     0.0052
+ wta layoff_bin           (-1.0, 3.0]        23819                  0.0098          0.0014                 0.0100         0.0014             0.0037     0.0014
+ wta layoff_bin          (30.0, 90.0]         1448                 -0.0320          0.0105                -0.0316         0.0101            -0.0116     0.0096
+ wta layoff_bin        (200.0, 400.0]         1313                 -0.0604          0.0112                -0.0547         0.0110            -0.0231     0.0099
+ atp layoff_bin         (90.0, 200.0]          934                 -0.0425          0.0112                -0.0351         0.0113             0.0031     0.0116
+ wta layoff_bin         (90.0, 200.0]          968                 -0.0343          0.0120                -0.0345         0.0120            -0.0088     0.0106
+ wta layoff_bin           (3.0, 10.0]         8399                 -0.0039          0.0039                -0.0048         0.0039            -0.0061     0.0038
+ atp layoff_bin           (3.0, 10.0]         8614                  0.0021          0.0037                 0.0001         0.0036            -0.0007     0.0034
+ atp layoff_bin          (10.0, 30.0]         3753                 -0.0129          0.0058                -0.0138         0.0058            -0.0066     0.0056
+ wta layoff_bin (400.0, 1000000000.0]          324                 -0.0820          0.0270                -0.0729         0.0256            -0.0208     0.0217
+ atp layoff_bin        (200.0, 400.0]          986                 -0.0749          0.0133                -0.0552         0.0125            -0.0108     0.0108
+ atp layoff_bin (400.0, 1000000000.0]          254                 -0.1409          0.0245                -0.1215         0.0224            -0.0453     0.0189
+tour                                          spec  matches  gain_vs_blend    lo   hi
+ atp                                        offset    14166           2.16  0.58 3.73
+ atp      overall+surface1500 (the pieces, linear)    14166           0.10 -0.23 0.42
+ atp             overall+surface1500+career counts    14166          -0.83 -1.76 0.11
+ atp                          offset+career counts    14166           1.41 -0.42 3.24
+ atp                           blend+surface_first    14166           1.05  0.10 2.00
+ atp                          offset+season counts    14166           4.27  1.97 6.57
+ atp                                 offset+layoff    14166           3.85  1.93 5.77
+ atp                     offset+last season's form    14166           2.33  0.71 3.95
+ atp              offset+counts+season+layoff+form    14166           4.26  1.88 6.64
+ atp blend+surface_first+counts+season+layoff+form    14166           2.26  0.90 3.61
+ wta                                        offset    13429           1.44  0.10 2.77
+ wta      overall+surface1500 (the pieces, linear)    13429          -0.05 -0.12 0.03
+ wta             overall+surface1500+career counts    13429          -0.31 -0.82 0.19
+ wta                          offset+career counts    13429           1.23 -0.15 2.62
+ wta                           blend+surface_first    13429           1.45  0.77 2.13
+ wta                          offset+season counts    13429           5.10  3.30 6.90
+ wta                                 offset+layoff    13429           3.36  1.55 5.18
+ wta                     offset+last season's form    13429           1.38  0.06 2.69
+ wta              offset+counts+season+layoff+form    13429           5.21  3.28 7.14
+ wta blend+surface_first+counts+season+layoff+form    13429           3.73  2.44 5.02
+ odds tour    period                 base                             model  matches  gain    lo    hi
+False  atp 2016-2021               offset              offset+career counts    14166 -0.75 -1.41 -0.08
+False  atp 2016-2021               offset offset+career counts capped at 20    14166 -0.25 -0.82  0.32
+False  atp 2016-2021               offset         offset+last season's form    14166  0.17  0.00  0.34
+False  atp 2016-2021               offset              offset+season counts    14166  2.11  0.99  3.23
+False  atp 2016-2021               offset                     offset+layoff    14166  1.70  0.87  2.53
+False  atp 2016-2021               offset       offset+season counts+layoff    14166  2.56  1.36  3.75
+False  atp 2016-2021               offset                   offset+all four    14166  2.11  0.85  3.36
+False  atp 2016-2021                blend                            offset    14166  2.16  0.58  3.73
+False  atp 2016-2021 surface-blind offset                            offset    14166  6.44  3.99  8.89
+False  atp 2016-2018                blend                            offset     7850  0.54 -1.53  2.61
+False  atp 2019-2021                blend                            offset     6316  4.17  1.82  6.52
+False  wta 2016-2021               offset              offset+career counts    13429 -0.20 -0.51  0.10
+False  wta 2016-2021               offset offset+career counts capped at 20    13429  0.08 -0.12  0.29
+False  wta 2016-2021               offset         offset+last season's form    13429 -0.06 -0.18  0.06
+False  wta 2016-2021               offset              offset+season counts    13429  3.66  2.50  4.82
+False  wta 2016-2021               offset                     offset+layoff    13429  1.93  0.84  3.01
+False  wta 2016-2021               offset       offset+season counts+layoff    13429  3.83  2.53  5.12
+False  wta 2016-2021               offset                   offset+all four    13429  3.77  2.43  5.12
+False  wta 2016-2021                blend                            offset    13429  1.44  0.10  2.77
+False  wta 2016-2021 surface-blind offset                            offset    13429  4.61  3.21  6.01
+False  wta 2016-2018                blend                            offset     7538  1.12 -0.24  2.48
+False  wta 2019-2021                blend                            offset     5891  1.85 -0.75  4.44
+ True  atp 2016-2021               offset              offset+career counts    11527 -0.13 -0.23 -0.04
+ True  atp 2016-2021               offset offset+career counts capped at 20    11527 -0.07 -0.16  0.02
+ True  atp 2016-2021               offset         offset+last season's form    11527 -0.04 -0.14  0.05
+ True  atp 2016-2021               offset              offset+season counts    11527  0.01 -0.08  0.10
+ True  atp 2016-2021               offset                     offset+layoff    11527  0.08 -0.02  0.19
+ True  atp 2016-2021               offset       offset+season counts+layoff    11527  0.04 -0.09  0.16
+ True  atp 2016-2021               offset                   offset+all four    11527 -0.10 -0.29  0.08
+ True  atp 2016-2021                blend                            offset    11527 -0.03 -0.16  0.10
+ True  atp 2016-2021 surface-blind offset                            offset    11527 -0.02 -0.11  0.06
+ True  atp 2016-2018                blend                            offset     5215 -0.09 -0.29  0.11
+ True  atp 2019-2021                blend                            offset     6312  0.01 -0.17  0.19
+ True  wta 2016-2021               offset              offset+career counts    13226 -0.10 -0.34  0.14
+ True  wta 2016-2021               offset offset+career counts capped at 20    13226 -0.10 -0.37  0.16
+ True  wta 2016-2021               offset         offset+last season's form    13226  0.02 -0.06  0.10
+ True  wta 2016-2021               offset              offset+season counts    13226  0.45  0.02  0.88
+ True  wta 2016-2021               offset                     offset+layoff    13226  0.20 -0.23  0.64
+ True  wta 2016-2021               offset       offset+season counts+layoff    13226  0.44 -0.06  0.94
+ True  wta 2016-2021               offset                   offset+all four    13226  0.40 -0.14  0.94
+ True  wta 2016-2021                blend                            offset    13226  0.01 -0.05  0.07
+ True  wta 2016-2021 surface-blind offset                            offset    13226  0.00 -0.12  0.13
+ True  wta 2016-2018                blend                            offset     7433  0.04 -0.03  0.11
+ True  wta 2019-2021                blend                            offset     5793 -0.03 -0.14  0.09
+tour surface  mean  std  size
+ atp    Clay  76.9 23.3  6461
+ atp    Hard  60.1 20.9 16775
+ wta    Clay  60.2 20.2  2294
+ wta    Hard  48.0 20.2 15622

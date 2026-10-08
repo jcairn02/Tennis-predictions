@@ -1,0 +1,76 @@
+"""Universe rows: player background (age, body, hand, nation, rank, seed, entry, reputation, head to head). Field order
+as spec_market."""
+FAMILY = "player background"
+Z = "[z: + = declared direction]"
+E = "[onE/onM/onP: mLL added to surface Elo / the average close / calibrated Pinnacle, + = better]"
+P0 = "Stage 0 players (pre-rebuild)"
+ROWS = [
+    ("age", "age", "age_A - age_B (ages outside 14-50 missing)", "diff", P0 + ": age; perplayer_load (age_pl)",
+     "m__age; pp__age_a/_b; pp__age_pl_a/_b", "IM", "SC", "store:m__age",
+     E + " age + age^2 onE M 1.42 (2022-26: 2.88); onM M 0.128 tie; market_anchoring's in-sample coefficient -0.072 "
+     "(z -3.7): 'the older player does worse than priced'", "none", "yes", "", "high: incumbent"),
+    ("age squared", "age", "(age_A - 25)^2 - (age_B - 25)^2", "diff", "stage4_features: age|single|2", "m__age_sq", "IM",
+     "SC", "store:m__age_sq", "with age, above", "none", "yes", "a flexible learner can form it from the per-player ages",
+     "medium: redundant for TabPFN given per-player ages"),
+    ("height", "body", "height in cm", "pair", P0 + ": height",
+     "pp__height_a/_b; fp__f04_second_serve__height_a/_b; fp__f07_evidence_age__height_a/_b", "BN", "SC",
+     "store:pp__height_ab", E + " height onE M 0.104 tie; onM ties (stage4_ranking); I-022, I-023, I-024 use it", "none",
+     "yes", "women's both-player coverage 64% (2022-24) and 39% (2025-26); three copies", "low"),
+    ("left-handed", "body", "1 for a left-hander (U = unknown)", "pair", P0 + ": hand", "pp__hand_left_a/_b", "BN", "SC",
+     "store:pp__hand_left_ab", E + " lefty onE M -0.013 [-0.023, -0.003]; onM ties; I-021's left-hand deviations failed "
+     "their gate", "none", "yes", "a left-hander plays in 26% (men) / 16-18% (women) of matches", "low"),
+    ("record against the opponent's hand", "body", "results vs the opponent's handedness relative to overall", "diff",
+     "stage4_features: vs_hand|single", "", "BN", "SC", "s4:vs_hand|single", E + " onE M -0.022 [-0.044, -0.000]; W ties",
+     "none", "yes", "", "low"),
+    ("one-handed backhand", "body", "1H vs 2H backhand (men)", "pair",
+     "data/dump/players/tennis_my_life/ATP_Database.parquet: backhand (name + birth-date join)", "", "BD", "SC",
+     "=M 0.96 / W 0 | M 0.94 / W 0 | not measured", "never tested", "none", "no",
+     "men only; static current values; 16% of player-rows one-handed", "low"),
+    ("weight and turned-pro year", "body", "weight (kg), year turned pro (men)", "pair", "ATP_Database: weight, turnedpro",
+     "", "BD", "SC", "=M 0.96 / W 0 | M 0.95 / W 0 | not measured", "never tested", "none", "no",
+     "men only; weight is today's, not at match time", "exclude: not time-stamped"),
+    ("country and home", "nation", "nation represented; home = player's country equals the event's", "pair",
+     P0 + ": country; stage4_event_country.csv; f27_home.prepare_home (venue)", "", "BN", "SC", "s4:home|single",
+     E + " home onE M 0.235 [0.152, 0.318], W -0.325 (worse); onM M -0.118 tie; [Wald] B-HOME p 0.54", "none", "yes",
+     "categorical (not in the store); Monte Carlo coded Monaco", "low"),
+    ("ranking", "rank", "pre-match ATP/WTA rank (log rank in Stage 4)", "pair", P0 + ": rank; stage4 rank|single",
+     "pp__rank_a/_b", "BN", "SC", "store:pp__rank_ab",
+     E + " onE M -1.67 (2022-26 +0.24); onM W 0.32 [0.01, 0.62], onP W 0.30 [0.02, 0.57] (PD stage 4)", "none", "yes",
+     "unranked players need a fill rule (see the filled rank)", "medium: one of the few positives beyond the price (women)"),
+    ("ranking points", "rank", "pre-match ranking points", "pair", P0 + ": rank_points; stage1_baselines p_points",
+     "pp__rank_points_a/_b", "BN", "SC", "store:pp__rank_points_ab", E + " rank_points: small, onM ties (PD stage 4)",
+     "none", "yes", "", "low"),
+    ("filled rank and unranked flag", "rank", "Stage 1's fill (one below the worst seen) and an indicator", "pair",
+     "f16_repute / f17_info (mkt_common.ranks)", "fp__f16_repute__rkf_a/_b; fp__f16_repute__unr_a/_b; "
+     "fp__f17_info__rkf_a/_b; fp__f17_info__unr_a/_b", "BN", "SC", "store:fp__f16_repute__rkf_ab",
+     "used by I-036, I-071, I-080", "none", "no", "two copies", "low"),
+    ("rank trajectory and points to defend", "rank", "rank change over recent weeks; points dropping off", "pair",
+     "data/dump/rankings/sackmann_archive weekly rankings (2010 to 8 Jun 2026)", "", "BD", "SC",
+     "=1.00 | 1.00 | to Jun 2026", "never built (B-MOTIV's points-to-defend member deferred)", "none", "no",
+     "weekly files end 8 Jun 2026", "low"),
+    ("seed", "draw", "seed number and seeded flag (missing = unseeded)", "pair", P0 + ": seed",
+     "pp__seed_a/_b; pp__seeded_a/_b", "BN", "SC", "store:pp__seeded_ab", "never tested alone", "none", "no",
+     "coverage of seed itself = seeded share", "low"),
+    ("entry type", "draw", "qualifier, wild card, lucky loser, protected or special ranking, alternate", "pair",
+     P0 + ": entry; stage4 entry_*|single",
+     "pp__entry_Q_a/_b; pp__entry_WC_a/_b; pp__entry_LL_a/_b; pp__entry_PR_a/_b; pp__entry_SR_a/_b; pp__entry_ALT_a/_b",
+     "BN", "SC", "store:pp__entry_Q_ab", E + " Q onE M 0.402 [0.175, 0.628], W 0.351; WC M -0.061; onM all ties", "none",
+     "yes", "a protected ranking amplifies I-043's rust", "low"),
+    ("fame", "reputation", "log(1 + titles + Slam quarter-finals or better since 2010)", "pair",
+     "f14_anchor / f16_repute (mkt_common.fame)", "fp__f16_repute__fame_a/_b; fp__f14_anchor__fame_a/_b", "BN", "SC",
+     "store:fp__f16_repute__fame_ab", Z + " LIT-2 (|eta| dF) +0.53; I-083 inside B-REPUTE", "D", "no", "two copies",
+     "low"),
+    ("in-match retirement hazard", "health", "per-player retirement hazard (estimator a: recent retirements + k r_bar "
+     "over played matches + k)", "pair", "f11_retirement.hazard_primary", "fp__f11_retirement__hz_a/_b; fi__I-042__hz_a; "
+     "fi__I-042__hz_b", "BN", "PP", "store:fp__f11_retirement__hz_ab",
+     Z + " I-042 tau joint -0.64 model / -0.83 price", "none", "no", "the deployment columns are the same pair", "low: I-042 tied"),
+    ("medical treatment in the previous match (WTA)", "health", "a physio treatment logged in her previous match",
+     "pair", "point_sequence WTA umpire logs (point_sequence/README section 5.2)", "", "BD", "SC",
+     "=W partial | W partial | W partial", "[risk ratio] retiring or withdrawing next time 2.27 [1.69, 3.06] in "
+     "replication; 'moves the result too little' (point_sequence)", "none", "no", "women only", "low: moves results too little (point_sequence)"),
+    ("head to head", "head to head", "shrunk share of earlier meetings (5 forms); raw wins, meetings and Elo residual",
+     "diff", "stage4_features: h2h|*; f18_overreact (h2hn, h2hw, h2hres)",
+     "fp__f18_overreact__h2hn_a/_b; fp__f18_overreact__h2hw_a/_b; fp__f18_overreact__h2hres_a/_b", "BN", "SC",
+     "s4:h2h|career", E + " onE ties; onM M surface -0.587 [-1.058, -0.116] (worse): FAA 'stop'; I-091 in B-OVERREACT",
+     "none", "yes", "pair-level; career coverage ~60%; I-091's raw form has its own row (tier B); h2hn is identical for A and B (meetings)", "low"),
+]

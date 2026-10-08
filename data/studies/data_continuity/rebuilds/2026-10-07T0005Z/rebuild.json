@@ -1,0 +1,104 @@
+{
+ "started_at": "2026-10-07T00:05:41+00:00",
+ "steps": [
+  {
+   "step": "keep",
+   "files": 72,
+   "bytes": 382994458,
+   "seconds": 1.0
+  },
+  {
+   "step": "build",
+   "command": "src/eda/predictability_diagnostic/stage0_build.py",
+   "exit": 0,
+   "seconds": 125.9
+  },
+  {
+   "step": "checks",
+   "command": "src/eda/predictability_diagnostic/stage0_checks.py",
+   "exit": 0,
+   "seconds": 16.1
+  },
+  {
+   "step": "odds",
+   "command": "src/eda/predictability_diagnostic/stage1_odds.py",
+   "exit": 0,
+   "seconds": 6.0
+  },
+  {
+   "step": "remap",
+   "pairs": 42,
+   "rows": 104
+  },
+  {
+   "step": "refresh",
+   "command": "src/eda/match_timing/refresh.py --skip-ios",
+   "exit": 0,
+   "seconds": 222.6
+  },
+  {
+   "step": "features",
+   "command": "src/eda/match_timing/rebuild.py",
+   "exit": 0,
+   "seconds": 444.9
+  },
+  {
+   "step": "ttt",
+   "command": "src/eda/match_timing/ttt_timed.py",
+   "exit": 0,
+   "seconds": 963.0
+  }
+ ],
+ "expect": {
+  "folder": "C:/Users/zerom/AppData/Local/Temp/claude/c--Users-zerom-Documents-Tennis-predictions/46524484-2172-4ca0-9bc3-7948e1a2c7a2/scratchpad/s0dry2/overrides",
+  "matches_equal": true,
+  "players_equal": true,
+  "same_bytes": true
+ },
+ "ids": {
+  "changed": 42,
+  "left_without_partner": [],
+  "left_without_partner_count": 0
+ },
+ "remapped_rows": {
+  "api_tennis.parquet": 0,
+  "flashscore.parquet": 0,
+  "flashscore_ambiguous.parquet": 0,
+  "flashscore_daily_board.parquet": 0,
+  "flashscore_unlinked.parquet": 42,
+  "infosys.parquet": 0,
+  "live_tennis_api.parquet": 42,
+  "match_charting.parquet": 1,
+  "open_tennis_data.parquet": 19,
+  "pbp_copy.parquet": 0,
+  "tml_days.parquet": 0
+ },
+ "matches": {
+  "before": 872704,
+  "after": 873364
+ },
+ "sha256_after": {
+  "stage0_matches.parquet": "1f9244f51747667b0c5930fc6cc06d553463a9eebf3285d642e38b153c19832d",
+  "stage0_match_players.parquet": "220bba432f28cd087a2066f365d8f6c4bca22850686fef79957296b6bd5b1164"
+ },
+ "stage0_summary_overrides": {
+  "file": "data/studies/data_continuity/slam_box_overrides.csv",
+  "rows": 731,
+  "scores_replaced": 2,
+  "by_source": {
+   "wimbledon_feed": 366,
+   "usopen_feed": 365
+  }
+ },
+ "timing_check": {
+  "tested_matches": 473716,
+  "missed_share": 0.0004601913382701872,
+  "after_window_share": 0.0001034375026387118,
+  "before_window_share": 0.0003567538356314754,
+  "multi_source_matches": 258939,
+  "multi_source_same_day_share": 0.9642077863898447,
+  "multi_source_within_1_day_share": 0.9992585126226641
+ },
+ "finished_at": "2026-10-07T00:35:31+00:00",
+ "ok": true
+}

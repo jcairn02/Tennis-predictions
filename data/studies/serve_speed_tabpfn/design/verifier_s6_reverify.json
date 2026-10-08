@@ -1,0 +1,379 @@
+{
+ "what": "S6(b) on synthetic prices and forecasts: the registered regression and three variants (no outcome and no real price used)",
+ "reps": 400,
+ "lambda": 0.5,
+ "beta": 0.09,
+ "capture": 0.5,
+ "scorer_code_sha256": "6bcfc06c2aff73b2bf40fd4bac17050629fc019c84a9af94fb38f39300c04ba8",
+ "tag": "reverify",
+ "worlds": [
+  {
+   "world": "null, measured seed temperature",
+   "tau_sd": 0.0028,
+   "t_arm": 0.0,
+   "planted": false,
+   "endpoints": {
+    "odds_all|registered": {
+     "mean": 0.01231494524475219,
+     "sd": 0.2861608598712985,
+     "mean_half_width": 0.5922342644279971,
+     "reject_pos": 0.0325,
+     "reject_neg": 0.03,
+     "reject_two_sided": 0.0625
+    },
+    "noodds_all|registered": {
+     "mean": -0.027060629071453138,
+     "sd": 0.4167427455729128,
+     "mean_half_width": 0.8794545903209443,
+     "reject_pos": 0.0225,
+     "reject_neg": 0.045,
+     "reject_two_sided": 0.0675
+    },
+    "odds_clean|registered": {
+     "mean": -0.025105829633926185,
+     "sd": 0.49130763578290937,
+     "mean_half_width": 0.9917457047058553,
+     "reject_pos": 0.0375,
+     "reject_neg": 0.035,
+     "reject_two_sided": 0.0725
+    },
+    "noodds_clean|registered": {
+     "mean": 0.004439590514849146,
+     "sd": 0.6697006265061805,
+     "mean_half_width": 1.4510367820892218,
+     "reject_pos": 0.0325,
+     "reject_neg": 0.015,
+     "reject_two_sided": 0.0475
+    },
+    "odds_all|control": {
+     "mean": 0.34365271804243297,
+     "sd": 0.3354096999425199,
+     "mean_half_width": 0.7206334666206553,
+     "reject_pos": 0.175,
+     "reject_neg": 0.0,
+     "reject_two_sided": 0.175
+    },
+    "odds_all|disjoint": {
+     "mean": 0.017617390226202255,
+     "sd": 1.0262862361638763,
+     "mean_half_width": 0.9045014715583832,
+     "reject_pos": 0.1875,
+     "reject_neg": 0.19,
+     "reject_two_sided": 0.3775
+    },
+    "odds_all|control_disj": {
+     "mean": 0.012314945244751503,
+     "sd": 0.2861608598713022,
+     "mean_half_width": 0.5922342644279951,
+     "reject_pos": 0.0325,
+     "reject_neg": 0.03,
+     "reject_two_sided": 0.0625
+    },
+    "odds_clean|control": {
+     "mean": 0.302313628498113,
+     "sd": 0.615026700485379,
+     "mean_half_width": 1.2305831291838452,
+     "reject_pos": 0.08,
+     "reject_neg": 0.0175,
+     "reject_two_sided": 0.0975
+    },
+    "odds_clean|disjoint": {
+     "mean": -0.017695291974695947,
+     "sd": 1.134939660021419,
+     "mean_half_width": 1.4766127252085193,
+     "reject_pos": 0.105,
+     "reject_neg": 0.115,
+     "reject_two_sided": 0.22
+    },
+    "odds_clean|control_disj": {
+     "mean": -0.02510582963392321,
+     "sd": 0.49130763578292247,
+     "mean_half_width": 0.991745704705853,
+     "reject_pos": 0.0375,
+     "reject_neg": 0.035,
+     "reject_two_sided": 0.0725
+    }
+   },
+   "max_abs_registered_minus_control_disj": {
+    "all": 4.698463840213662e-13,
+    "clean": 1.0018652574217413e-12
+   }
+  },
+  {
+   "world": "null, no seed temperature",
+   "tau_sd": 0.0,
+   "t_arm": 0.0,
+   "planted": false,
+   "endpoints": {
+    "odds_all|registered": {
+     "mean": 0.01964577590230776,
+     "sd": 0.29348558475828385,
+     "mean_half_width": 0.6108917294687765,
+     "reject_pos": 0.0375,
+     "reject_neg": 0.0225,
+     "reject_two_sided": 0.06
+    },
+    "noodds_all|registered": {
+     "mean": 0.03775431531470785,
+     "sd": 0.43008938702016886,
+     "mean_half_width": 0.8981396369066039,
+     "reject_pos": 0.04,
+     "reject_neg": 0.02,
+     "reject_two_sided": 0.06
+    },
+    "odds_clean|registered": {
+     "mean": 0.006962438583268118,
+     "sd": 0.4740385906731471,
+     "mean_half_width": 1.0009420534131386,
+     "reject_pos": 0.035,
+     "reject_neg": 0.0275,
+     "reject_two_sided": 0.0625
+    },
+    "noodds_clean|registered": {
+     "mean": 0.0003241044240201063,
+     "sd": 0.7165236904511387,
+     "mean_half_width": 1.4853211814863265,
+     "reject_pos": 0.0425,
+     "reject_neg": 0.02,
+     "reject_two_sided": 0.0625
+    },
+    "odds_all|control": {
+     "mean": 0.36757659974343526,
+     "sd": 0.3442838985075715,
+     "mean_half_width": 0.7454118818178097,
+     "reject_pos": 0.1575,
+     "reject_neg": 0.0,
+     "reject_two_sided": 0.1575
+    },
+    "odds_all|disjoint": {
+     "mean": 0.021697842278648974,
+     "sd": 0.4073204558058036,
+     "mean_half_width": 0.8399954970105529,
+     "reject_pos": 0.04,
+     "reject_neg": 0.0325,
+     "reject_two_sided": 0.0725
+    },
+    "odds_all|control_disj": {
+     "mean": 0.019645775902308836,
+     "sd": 0.29348558475828834,
+     "mean_half_width": 0.6108917294687785,
+     "reject_pos": 0.0375,
+     "reject_neg": 0.0225,
+     "reject_two_sided": 0.06
+    },
+    "odds_clean|control": {
+     "mean": 0.33936787138552477,
+     "sd": 0.5707297908152936,
+     "mean_half_width": 1.2027768056555308,
+     "reject_pos": 0.0825,
+     "reject_neg": 0.0025,
+     "reject_two_sided": 0.085
+    },
+    "odds_clean|disjoint": {
+     "mean": 0.033050268910558005,
+     "sd": 0.6749424926118095,
+     "mean_half_width": 1.3762826244887236,
+     "reject_pos": 0.025,
+     "reject_neg": 0.035,
+     "reject_two_sided": 0.06
+    },
+    "odds_clean|control_disj": {
+     "mean": 0.006962438583272958,
+     "sd": 0.47403859067314946,
+     "mean_half_width": 1.000942053413143,
+     "reject_pos": 0.035,
+     "reject_neg": 0.0275,
+     "reject_two_sided": 0.0625
+    }
+   },
+   "max_abs_registered_minus_control_disj": {
+    "all": 4.418687638008123e-13,
+    "clean": 1.2989609388114332e-12
+   }
+  },
+  {
+   "world": "null, A1 1% more confident (no information)",
+   "tau_sd": 0.0028,
+   "t_arm": 0.01,
+   "planted": false,
+   "endpoints": {
+    "odds_all|registered": {
+     "mean": -0.029676412855164487,
+     "sd": 0.28916459805046835,
+     "mean_half_width": 0.6070963284111288,
+     "reject_pos": 0.025,
+     "reject_neg": 0.04,
+     "reject_two_sided": 0.065
+    },
+    "noodds_all|registered": {
+     "mean": -0.017603313802411143,
+     "sd": 0.42599697911724627,
+     "mean_half_width": 0.9072657407699759,
+     "reject_pos": 0.025,
+     "reject_neg": 0.0325,
+     "reject_two_sided": 0.0575
+    },
+    "odds_clean|registered": {
+     "mean": -0.011712705172249229,
+     "sd": 0.46545694915290875,
+     "mean_half_width": 1.005211156710897,
+     "reject_pos": 0.03,
+     "reject_neg": 0.0275,
+     "reject_two_sided": 0.0575
+    },
+    "noodds_clean|registered": {
+     "mean": -0.05264583661786032,
+     "sd": 0.6997820924590047,
+     "mean_half_width": 1.4779127099458291,
+     "reject_pos": 0.0275,
+     "reject_neg": 0.0375,
+     "reject_two_sided": 0.065
+    },
+    "odds_all|control": {
+     "mean": 0.29190980680435225,
+     "sd": 0.350787994431472,
+     "mean_half_width": 0.7311306236987481,
+     "reject_pos": 0.1225,
+     "reject_neg": 0.01,
+     "reject_two_sided": 0.1325
+    },
+    "odds_all|disjoint": {
+     "mean": -3.8455241427812092,
+     "sd": 0.23707750448786197,
+     "mean_half_width": 0.4267819246655952,
+     "reject_pos": 0.0,
+     "reject_neg": 1.0,
+     "reject_two_sided": 1.0
+    },
+    "odds_all|control_disj": {
+     "mean": -0.029676412855166555,
+     "sd": 0.28916459805046557,
+     "mean_half_width": 0.6070963284111288,
+     "reject_pos": 0.025,
+     "reject_neg": 0.04,
+     "reject_two_sided": 0.065
+    },
+    "odds_clean|control": {
+     "mean": 0.3023849714800312,
+     "sd": 0.5584121444189506,
+     "mean_half_width": 1.2193480486993034,
+     "reject_pos": 0.0725,
+     "reject_neg": 0.01,
+     "reject_two_sided": 0.0825
+    },
+    "odds_clean|disjoint": {
+     "mean": -3.8500006397402022,
+     "sd": 0.34256931259942996,
+     "mean_half_width": 0.7041720122253616,
+     "reject_pos": 0.0,
+     "reject_neg": 1.0,
+     "reject_two_sided": 1.0
+    },
+    "odds_clean|control_disj": {
+     "mean": -0.011712705172253684,
+     "sd": 0.4654569491528929,
+     "mean_half_width": 1.0052111567108886,
+     "reject_pos": 0.03,
+     "reject_neg": 0.0275,
+     "reject_two_sided": 0.0575
+    }
+   },
+   "max_abs_registered_minus_control_disj": {
+    "all": 5.520028878436278e-13,
+    "clean": 1.1668443988810395e-12
+   }
+  },
+  {
+   "world": "planted: A1 knows half the speed term, the 30-min price moves toward it",
+   "tau_sd": 0.0028,
+   "t_arm": 0.0,
+   "planted": true,
+   "endpoints": {
+    "odds_all|registered": {
+     "mean": 0.8946274728286625,
+     "sd": 0.044161667210250395,
+     "mean_half_width": 0.0932136980725251,
+     "reject_pos": 1.0,
+     "reject_neg": 0.0,
+     "reject_two_sided": 1.0
+    },
+    "noodds_all|registered": {
+     "mean": 0.8951329362320416,
+     "sd": 0.0742501773460178,
+     "mean_half_width": 0.1547234534692732,
+     "reject_pos": 1.0,
+     "reject_neg": 0.0,
+     "reject_two_sided": 1.0
+    },
+    "odds_clean|registered": {
+     "mean": 0.8873107687585133,
+     "sd": 0.09116446999844546,
+     "mean_half_width": 0.18586011725861268,
+     "reject_pos": 1.0,
+     "reject_neg": 0.0,
+     "reject_two_sided": 1.0
+    },
+    "noodds_clean|registered": {
+     "mean": 0.8820078945527149,
+     "sd": 0.15556358770143539,
+     "mean_half_width": 0.3091641433443452,
+     "reject_pos": 1.0,
+     "reject_neg": 0.0,
+     "reject_two_sided": 1.0
+    },
+    "odds_all|control": {
+     "mean": 0.9070389298692118,
+     "sd": 0.04409047584174569,
+     "mean_half_width": 0.09305584338006628,
+     "reject_pos": 1.0,
+     "reject_neg": 0.0,
+     "reject_two_sided": 1.0
+    },
+    "odds_all|disjoint": {
+     "mean": 0.9457355879445489,
+     "sd": 0.054267231727962904,
+     "mean_half_width": 0.11661557721796982,
+     "reject_pos": 1.0,
+     "reject_neg": 0.0,
+     "reject_two_sided": 1.0
+    },
+    "odds_all|control_disj": {
+     "mean": 0.8946274728286625,
+     "sd": 0.04416166721025034,
+     "mean_half_width": 0.09321369807252505,
+     "reject_pos": 1.0,
+     "reject_neg": 0.0,
+     "reject_two_sided": 1.0
+    },
+    "odds_clean|control": {
+     "mean": 0.9063363555114873,
+     "sd": 0.09193912436602153,
+     "mean_half_width": 0.1858635301910169,
+     "reject_pos": 1.0,
+     "reject_neg": 0.0,
+     "reject_two_sided": 1.0
+    },
+    "odds_clean|disjoint": {
+     "mean": 0.8892390335796605,
+     "sd": 0.1066700701469811,
+     "mean_half_width": 0.23816039788629936,
+     "reject_pos": 1.0,
+     "reject_neg": 0.0,
+     "reject_two_sided": 1.0
+    },
+    "odds_clean|control_disj": {
+     "mean": 0.887310768758513,
+     "sd": 0.09116446999844542,
+     "mean_half_width": 0.18586011725861262,
+     "reject_pos": 1.0,
+     "reject_neg": 0.0,
+     "reject_two_sided": 1.0
+    }
+   },
+   "max_abs_registered_minus_control_disj": {
+    "all": 1.176836406102666e-14,
+    "clean": 4.440892098500626e-14
+   }
+  }
+ ]
+}

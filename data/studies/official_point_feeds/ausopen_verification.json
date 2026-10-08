@@ -1,0 +1,624 @@
+{
+ "generated_at": "2026-09-24T22:41:25+00:00",
+ "inputs": {
+  "dump": "data/dump/points/ausopen",
+  "raw": "data/raw/point_sources/ausopen"
+ },
+ "accounting": {
+  "draw_matches": 604,
+  "expected": 604,
+  "by_event": {
+   "MS": {
+    "listed": 127,
+    "expected": 127,
+    "records": {
+     "points": 126,
+     "empty": 1
+    }
+   },
+   "WS": {
+    "listed": 127,
+    "expected": 127,
+    "records": {
+     "points": 126,
+     "empty": 1
+    }
+   },
+   "MQ": {
+    "listed": 112,
+    "expected": 112,
+    "records": {
+     "points": 112
+    }
+   },
+   "WQ": {
+    "listed": 112,
+    "expected": 112,
+    "records": {
+     "points": 112
+    }
+   },
+   "MD": {
+    "listed": 63,
+    "expected": 63,
+    "records": {
+     "points": 63
+    }
+   },
+   "WD": {
+    "listed": 63,
+    "expected": 63,
+    "records": {
+     "points": 61,
+     "empty": 2
+    }
+   }
+  },
+  "by_record": {
+   "points": 600,
+   "empty": 4
+  },
+  "reasons": {
+   "empty | walkover: no point was played": 4
+  },
+  "by_status_and_record": {
+   "CMP | points": 583,
+   "RET | points": 17,
+   "W/O | empty": 4
+  },
+  "points": 96414,
+  "wayback": {
+   "captures": 99,
+   "by_record": {
+    "points": 73,
+    "empty": 10,
+    "absent": 16
+   },
+   "by_year_event": {
+    "2020|MS": 1,
+    "2021|WS": 5,
+    "2021|MS": 4,
+    "2021|MD": 1,
+    "2022|MS": 7,
+    "2022|MD": 1,
+    "2022|WS": 2,
+    "2022|ED": 6,
+    "2023|MS": 17,
+    "2023|WD": 1,
+    "2023|WS": 2,
+    "2024|MS": 11,
+    "2024|WS": 8,
+    "2024|WQ": 1,
+    "2025|MS": 4,
+    "2025|MD": 1,
+    "2025|WS": 4,
+    "2025|CS": 1,
+    "2026|WQ": 1,
+    "2026|MS": 9,
+    "2026|WS": 5,
+    "2026|GD": 1,
+    "2026|LD": 1,
+    "2026|GS": 1,
+    "2026|BS": 1,
+    "2026|MD": 3
+   },
+   "points": 12253
+  }
+ },
+ "commentary": {
+  "entries": 125724,
+  "templates": 21,
+  "entries_by_type_and_kind": {
+   "game|point": 15281,
+   "match|point": 638,
+   "point|point": 91638,
+   "serve|serve": 17057,
+   "set|point": 1110
+  },
+  "unmapped_templates": 0,
+  "unmapped_entries": 0,
+  "unmapped_examples": [],
+  "verb_disagrees_entries": 0,
+  "outcomes": {
+   "unforced_error": 33306,
+   "ace": 6856,
+   "forced_error": 34104,
+   "winner": 28960,
+   "double_fault": 4216,
+   "service_winner": 1204,
+   "unspecified": 21
+  },
+  "subject_named_team_agrees": 108667,
+  "subject_named_team_differs": 0,
+  "subject_name_not_matched": 0
+ },
+ "checks_api": {
+  "matches_with_points": 600,
+  "aces_dfs": {
+   "sets_compared": 1571,
+   "sets_agree": 1570,
+   "matches_all_sets_agree": 599,
+   "matches_totals_agree": 599,
+   "aces_and_dfs_struck_by_server": 9734,
+   "struck_by_receiver": 1,
+   "server_unknown": 0
+  },
+  "score_replay": {
+   "replayed": 600,
+   "final_score_reproduced": 597,
+   "game_ends_agree": 597,
+   "game_numbering_agrees": 597,
+   "end_types_agree": 599,
+   "matches_with_points_after_end": 1,
+   "matches_with_score_text_differences": 5,
+   "score_texts_differing": 53,
+   "score_texts_unchecked": 10
+  },
+  "servers": {
+   "games": 15101,
+   "server_unknown_games": 2,
+   "matches_with_server_repeats": 2
+  },
+  "feed_defects": {
+   "games_with_extra_end_entries": 3,
+   "serve_lines_inside_games": 1,
+   "serve_lines_contradicted_by_scores": 2
+  },
+  "timestamps": {
+   "points": 96414,
+   "points_without_timestamp": 0,
+   "points_stamped_later_than_the_next": 388,
+   "matches_with_such_points": 218,
+   "step_back_seconds": {
+    "median": 38.0,
+    "p90": 1386.8000000000002,
+    "max": 92022.0
+   },
+   "steps_back_over_10_min": 52,
+   "steps_back_over_1_hour": 32
+  },
+  "games_score_readings": {
+   "game|entries": 13544,
+   "game|missing": 2,
+   "game|none": 38,
+   "game|server_first_after": 13494,
+   "game|server_first_before": 7,
+   "game|team_order_after": 8381,
+   "game|team_order_before": 8,
+   "game|winner_first_after": 10600,
+   "match|entries": 584,
+   "match|none": 4,
+   "match|server_first_after": 289,
+   "match|server_first_before": 1,
+   "match|team_order_after": 579,
+   "match|team_order_before": 1,
+   "match|winner_first_after": 298,
+   "point|entries": 81315,
+   "point|missing": 20,
+   "point|none": 250,
+   "point|server_first_after": 81033,
+   "point|server_first_before": 81035,
+   "point|team_order_after": 53921,
+   "point|team_order_before": 53923,
+   "point|winner_first_after": 58580,
+   "set|entries": 971,
+   "set|missing": 1,
+   "set|none": 4,
+   "set|server_first_after": 966,
+   "set|team_order_after": 474,
+   "set|winner_first_after": 627
+  }
+ },
+ "checks_wayback": {
+  "matches_with_points": 73,
+  "aces_dfs": {
+   "sets_compared": 210,
+   "sets_agree": 210,
+   "matches_all_sets_agree": 73,
+   "matches_totals_agree": 73,
+   "aces_and_dfs_struck_by_server": 1336,
+   "struck_by_receiver": 0,
+   "server_unknown": 1
+  },
+  "score_replay": {
+   "replayed": 73,
+   "final_score_reproduced": 73,
+   "game_ends_agree": 73,
+   "game_numbering_agrees": 73,
+   "end_types_agree": 71,
+   "matches_with_points_after_end": 0,
+   "matches_with_score_text_differences": 0,
+   "score_texts_differing": 0,
+   "score_texts_unchecked": 3
+  },
+  "servers": {
+   "games": 1944,
+   "server_unknown_games": 1,
+   "matches_with_server_repeats": 0
+  },
+  "feed_defects": {
+   "games_with_extra_end_entries": 0,
+   "serve_lines_inside_games": 0,
+   "serve_lines_contradicted_by_scores": 0
+  },
+  "timestamps": {
+   "points": 12253,
+   "points_without_timestamp": 0,
+   "points_stamped_later_than_the_next": 16,
+   "matches_with_such_points": 13,
+   "step_back_seconds": {
+    "median": 27.0,
+    "p90": 128.0,
+    "max": 12441.0
+   },
+   "steps_back_over_10_min": 1,
+   "steps_back_over_1_hour": 1
+  },
+  "games_score_readings": {
+   "game|entries": 1737,
+   "game|missing": 3,
+   "game|none": 1,
+   "game|server_first_after": 1732,
+   "game|team_order_after": 1117,
+   "game|winner_first_after": 1404,
+   "match|entries": 54,
+   "match|server_first_after": 29,
+   "match|team_order_after": 54,
+   "match|winner_first_after": 26,
+   "point|entries": 10323,
+   "point|missing": 14,
+   "point|server_first_after": 10306,
+   "point|server_first_before": 10306,
+   "point|team_order_after": 6888,
+   "point|team_order_before": 6888,
+   "point|winner_first_after": 7629,
+   "set|entries": 139,
+   "set|server_first_after": 136,
+   "set|team_order_after": 65,
+   "set|winner_first_after": 89
+  }
+ },
+ "wayback_captures_against_live": {
+  "compared": 14,
+  "identical": 13,
+  "captured_mid_match_and_contained": 1,
+  "differing": []
+ },
+ "archived_editions": {
+  "by_year": {
+   "2019": {
+    "main_event_matches_in_edition": 604,
+    "main_event_matches_with_archived_points": 0,
+    "of_them_captured_finished": 0,
+    "share_with_archived_points": 0.0,
+    "events_with_archived_draw": [
+     "MS",
+     "PS",
+     "QS",
+     "WS"
+    ],
+    "main_events_with_archived_draw": [
+     "MS",
+     "WS"
+    ],
+    "main_draw_copies_finished": 0,
+    "matches_in_archived_draws": 478
+   },
+   "2020": {
+    "main_event_matches_in_edition": 604,
+    "main_event_matches_with_archived_points": 1,
+    "of_them_captured_finished": 1,
+    "share_with_archived_points": 0.0017,
+    "events_with_archived_draw": [
+     "MS",
+     "WS"
+    ],
+    "main_events_with_archived_draw": [
+     "MS",
+     "WS"
+    ],
+    "main_draw_copies_finished": 2,
+    "matches_in_archived_draws": 254
+   },
+   "2021": {
+    "main_event_matches_in_edition": 604,
+    "main_event_matches_with_archived_points": 6,
+    "of_them_captured_finished": 4,
+    "share_with_archived_points": 0.0099,
+    "events_with_archived_draw": [
+     "CD",
+     "CS",
+     "MS"
+    ],
+    "main_events_with_archived_draw": [
+     "MS"
+    ],
+    "main_draw_copies_finished": 1,
+    "matches_in_archived_draws": 137
+   },
+   "2022": {
+    "main_event_matches_in_edition": 604,
+    "main_event_matches_with_archived_points": 5,
+    "of_them_captured_finished": 5,
+    "share_with_archived_points": 0.0083,
+    "events_with_archived_draw": [
+     "BS",
+     "MD",
+     "MS",
+     "QS",
+     "WS",
+     "XD"
+    ],
+    "main_events_with_archived_draw": [
+     "MD",
+     "MS",
+     "WS"
+    ],
+    "main_draw_copies_finished": 1,
+    "matches_in_archived_draws": 523
+   },
+   "2023": {
+    "main_event_matches_in_edition": 604,
+    "main_event_matches_with_archived_points": 13,
+    "of_them_captured_finished": 9,
+    "share_with_archived_points": 0.0215,
+    "events_with_archived_draw": [
+     "BD",
+     "MS"
+    ],
+    "main_events_with_archived_draw": [
+     "MS"
+    ],
+    "main_draw_copies_finished": 1,
+    "matches_in_archived_draws": 158
+   },
+   "2024": {
+    "main_event_matches_in_edition": 604,
+    "main_event_matches_with_archived_points": 15,
+    "of_them_captured_finished": 9,
+    "share_with_archived_points": 0.0248,
+    "events_with_archived_draw": [
+     "MS"
+    ],
+    "main_events_with_archived_draw": [
+     "MS"
+    ],
+    "main_draw_copies_finished": 1,
+    "matches_in_archived_draws": 127
+   },
+   "2025": {
+    "main_event_matches_in_edition": 604,
+    "main_event_matches_with_archived_points": 7,
+    "of_them_captured_finished": 6,
+    "share_with_archived_points": 0.0116,
+    "events_with_archived_draw": [
+     "LD",
+     "MD",
+     "MQ",
+     "MS",
+     "WD",
+     "WQ",
+     "WS",
+     "XD"
+    ],
+    "main_events_with_archived_draw": [
+     "MD",
+     "MQ",
+     "MS",
+     "WD",
+     "WQ",
+     "WS"
+    ],
+    "main_draw_copies_finished": 6,
+    "matches_in_archived_draws": 639
+   },
+   "2026": {
+    "main_event_matches_in_edition": 604,
+    "main_event_matches_with_archived_points": 14,
+    "of_them_captured_finished": 13,
+    "share_with_archived_points": 0.0232,
+    "events_with_archived_draw": [
+     "BS",
+     "GW",
+     "WM"
+    ],
+    "main_events_with_archived_draw": [],
+    "main_draw_copies_finished": 0,
+    "matches_in_archived_draws": 71
+   }
+  },
+  "point_captures_linked_to_an_archived_draw": 37,
+  "matches_with_point_captures_but_no_archived_draw": {
+   "2021": [
+    "MD601",
+    "WS406",
+    "WS407"
+   ],
+   "2022": [
+    "ED101",
+    "ED102",
+    "ED103",
+    "ED104",
+    "ED105",
+    "ED106"
+   ],
+   "2023": [
+    "WS313"
+   ],
+   "2024": [
+    "WQ158",
+    "WS128",
+    "WS148",
+    "WS217",
+    "WS301",
+    "WS501",
+    "WS502"
+   ],
+   "2025": [
+    "CS401"
+   ],
+   "2026": [
+    "GD108",
+    "GS601",
+    "LD103",
+    "MD112",
+    "MD401",
+    "MD402",
+    "MS116",
+    "MS126",
+    "MS131",
+    "MS302",
+    "MS309",
+    "MS503",
+    "MS701",
+    "WS225",
+    "WS503",
+    "WS504",
+    "WS701"
+   ]
+  }
+ },
+ "receipts": {
+  "file": "data/raw/point_sources/ausopen/_receipts.jsonl",
+  "receipt_lines": 812,
+  "documents": 812,
+  "first_retrieved_at": "2026-09-24T18:43:00+00:00",
+  "last_retrieved_at": "2026-09-24T22:39:15+00:00",
+  "by_kind": {
+   "draws": {
+    "documents": 6,
+    "bytes": 2280411,
+    "outcomes": {
+     "200": 6
+    }
+   },
+   "match-centre": {
+    "documents": 604,
+    "bytes": 51648269,
+    "outcomes": {
+     "200": 604
+    }
+   },
+   "wayback": {
+    "documents": 99,
+    "bytes": 6806865,
+    "outcomes": {
+     "200": 87,
+     "404": 9,
+     "absent": 3
+    }
+   },
+   "wayback-cdx": {
+    "documents": 1,
+    "bytes": 14334,
+    "outcomes": {
+     "200": 1
+    }
+   },
+   "wayback-draws": {
+    "documents": 94,
+    "bytes": 11578960,
+    "outcomes": {
+     "200": 72,
+     "404": 16,
+     "absent": 6
+    }
+   },
+   "wayback-draws-cdx": {
+    "documents": 1,
+    "bytes": 15514,
+    "outcomes": {
+     "200": 1
+    }
+   },
+   "wayback-extra": {
+    "documents": 6,
+    "bytes": 831502,
+    "outcomes": {
+     "200": 6
+    }
+   },
+   "wayback-page": {
+    "documents": 1,
+    "bytes": 291644,
+    "outcomes": {
+     "200": 1
+    }
+   }
+  },
+  "superseded_lines": 0,
+  "runs_that_fetched": [
+   {
+    "started_at": "2026-09-24T18:51:28+00:00",
+    "seconds": 1496.6,
+    "fetched": {
+     "match-centre:200": 599
+    },
+    "stopped": null,
+    "client": {
+     "impersonate": "chrome",
+     "requests": 599,
+     "retried": 0,
+     "slept_seconds": 1224.8,
+     "min_interval": 2.0,
+     "jitter": 1.0,
+     "not_found_answers": 0
+    }
+   },
+   {
+    "started_at": "2026-09-24T19:16:52+00:00",
+    "seconds": 244.9,
+    "fetched": {
+     "wayback-cdx:200": 1,
+     "wayback:200": 44,
+     "wayback:404": 6
+    },
+    "stopped": "Blocked: HTTP 302 redirect to 'https://web.archive.org/web/20210214061641id_/https://prod-scores-api.ausopen.com/match-centre/MS403' (not followed) for https://web.archive.org/web/20210214021224id_/https://prod-scores-api.ausopen.com/match-centre/MS403",
+    "client": {
+     "impersonate": "chrome",
+     "requests": 0,
+     "retried": 0,
+     "slept_seconds": 0.0,
+     "min_interval": 2.0,
+     "jitter": 1.0,
+     "not_found_answers": 0
+    }
+   },
+   {
+    "started_at": "2026-09-24T19:22:26+00:00",
+    "seconds": 222.3,
+    "fetched": {
+     "wayback:200": 43,
+     "wayback:302": 3,
+     "wayback:404": 3
+    },
+    "stopped": null,
+    "client": {
+     "impersonate": "chrome",
+     "requests": 0,
+     "retried": 0,
+     "slept_seconds": 0.0,
+     "min_interval": 2.0,
+     "jitter": 1.0,
+     "not_found_answers": 0
+    }
+   }
+  ],
+  "note": "the pilot's 11 documents (the six draws and five matches) were fetched through the adapter's functions before its command line existed, so no run line records them; their receipts do"
+ },
+ "mismatches_by_check_and_route": {
+  "aces_double_faults|api": 2,
+  "final_score|api": 7,
+  "game_ends|api": 3,
+  "game_numbering|api": 3,
+  "end_type|api": 1,
+  "point_score_text|api": 5,
+  "extra_game_end_entries|api": 3,
+  "serve_line_contradicted|api": 2,
+  "server_alternation|api": 2,
+  "ace_or_df_server|api": 1,
+  "serve_line_inside_game|api": 1,
+  "points_after_match_end|api": 1,
+  "end_type|wayback": 2
+ }
+}

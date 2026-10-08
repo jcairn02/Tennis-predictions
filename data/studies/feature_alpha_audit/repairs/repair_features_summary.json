@@ -1,0 +1,84 @@
+{
+ "input": "data\\studies\\feature_alpha_audit\\repairs\\repair_rows.parquet",
+ "input_sha256": "5434fa1cbc58edb446521cba0f5907b3402696786566d424b9a9d0b0601722c3",
+ "output": "data\\studies\\feature_alpha_audit\\repairs\\repair_features.parquet",
+ "pool_matches": 78706,
+ "features": [
+  "rating_matchup|single",
+  "adjperf_tpw|decayed",
+  "ios_short",
+  "elo_games|single",
+  "sets_14d|single",
+  "surface_first|single",
+  "age|single",
+  "age|single|2",
+  "adjperf_ace|decayed",
+  "adjperf_df|decayed",
+  "adjperf_first_in|decayed",
+  "adjperf_first_won|decayed",
+  "adjperf_second_won|decayed",
+  "adjperf_hold|decayed",
+  "adjperf_bp_saved|decayed",
+  "adjperf_bp_faced_pg|decayed",
+  "adjperf_brk|decayed",
+  "adjperf_bp_conv|decayed",
+  "adjperf_rpw_first|decayed",
+  "adjperf_rpw_second|decayed",
+  "adjdef_ace|decayed",
+  "adjdef_df|decayed",
+  "adjdef_first_in|decayed",
+  "adjdef_bp_faced_pg|decayed"
+ ],
+ "output_sha256": "2da344b939992fab50c1e209d13a2d0696e16217d1293a7e3dc511de8e3efdcb",
+ "original_inputs_sha256": {
+  "data\\studies\\predictability_diagnostic\\stage0_matches.parquet": "271d2561f31d0c8cc407e5fb9b73d572115173e329e272c337f8daddda4662af",
+  "data\\studies\\predictability_diagnostic\\stage0_match_players.parquet": "f84ec8410140740e929fef2b57b44f28f8ddef2b6b6983c43345d213ee9a6e28",
+  "data\\studies\\predictability_diagnostic\\stage1_odds.parquet": "43741983ba8720b5ec5e6dc1bc81ed879b0ab94bead1091c76dd2a01fe0fc74d"
+ },
+ "seconds": 36.1,
+ "ios": {
+  "atp": {
+   "constants": {
+    "h": 4.0,
+    "kappa": 1.0,
+    "tau": 1
+   },
+   "snapshots": 4338,
+   "observations": 76374,
+   "pairs": 43990,
+   "players": 1083,
+   "iterations_mean": 15.865606270170586,
+   "iterations_max": 21,
+   "not_converged": 0
+  },
+  "wta": {
+   "constants": {
+    "h": 13.0,
+    "kappa": 1.0,
+    "tau": 1
+   },
+   "snapshots": 4472,
+   "observations": 71940,
+   "pairs": 43682,
+   "players": 1078,
+   "iterations_mean": 14.251565295169947,
+   "iterations_max": 20,
+   "not_converged": 0
+  }
+ },
+ "definitions": {
+  "profile": "Original AP16 plus adjusted total-points form; frozen constants, rebuilt history",
+  "ratings": "Fresh Elo/SR plus games-weighted Elo from repair_history rows",
+  "format": "Scheduled edition metadata gates box history and iid targets; unsupported editions excluded from box history and iid predictions",
+  "surface": "Fewer than three observed dated matches on surface this calendar season",
+  "load": "log1p observed sets over prior 14 match-date days; missing historical totals mask load",
+  "age": "A minus B age, and (age minus 25) squared difference; outside 14..50 missing"
+ },
+ "limitations": [
+  "All undated matches omitted from history and targets",
+  "Workload and surface familiarity reflect the restricted observation universe",
+  "Provider dates with next-day availability assumption, not precise match-end timestamps",
+  "Match-day joins rely on retrospective source identity/score concordance",
+  "Frozen constants/short-IOS settings were selected in previously inspected research"
+ ]
+}

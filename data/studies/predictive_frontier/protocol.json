@@ -1,0 +1,157 @@
+{
+  "status": "exploratory reuse of previously inspected history; no untouched holdout",
+  "created_before_scores": true,
+  "date": "2026-10-02",
+  "groups": {
+    "innovations": [
+      "pf_serve_28",
+      "pf_return_28",
+      "pf_serve_182",
+      "pf_return_182",
+      "pf_serve_momentum",
+      "pf_return_momentum",
+      "pf_box_seen_diff",
+      "pf_box_unknown_elo"
+    ],
+    "surface_specialization": [
+      "pf_surface_serve",
+      "pf_surface_return",
+      "pf_surface_evidence_diff",
+      "pf_surface_unknown_elo"
+    ],
+    "reliability": [
+      "pf_evidence_diff",
+      "pf_uncertainty_elo",
+      "pf_uncertainty_sr",
+      "pf_instability_diff",
+      "pf_instability_elo"
+    ],
+    "recovery": [
+      "pf_rest_diff",
+      "pf_inactivity_elo",
+      "pf_retired_loss_recent",
+      "pf_retired_loss_rate",
+      "pf_history_seen_diff",
+      "pf_history_unknown_elo"
+    ],
+    "event_speed": [
+      "pf_event_speed_style",
+      "pf_event_speed_elo",
+      "pf_event_evidence_style",
+      "pf_event_unknown_elo"
+    ],
+    "combined": [
+      "pf_serve_28",
+      "pf_return_28",
+      "pf_serve_182",
+      "pf_return_182",
+      "pf_serve_momentum",
+      "pf_return_momentum",
+      "pf_box_seen_diff",
+      "pf_box_unknown_elo",
+      "pf_surface_serve",
+      "pf_surface_return",
+      "pf_surface_evidence_diff",
+      "pf_surface_unknown_elo",
+      "pf_evidence_diff",
+      "pf_uncertainty_elo",
+      "pf_uncertainty_sr",
+      "pf_instability_diff",
+      "pf_instability_elo",
+      "pf_rest_diff",
+      "pf_inactivity_elo",
+      "pf_retired_loss_recent",
+      "pf_retired_loss_rate",
+      "pf_history_seen_diff",
+      "pf_history_unknown_elo",
+      "pf_event_speed_style",
+      "pf_event_speed_elo",
+      "pf_event_evidence_style",
+      "pf_event_unknown_elo"
+    ]
+  },
+  "elo_baseline": [
+    "elo_logit",
+    "rating_matchup|single",
+    "adjperf_tpw|decayed",
+    "ios_short",
+    "elo_games|single",
+    "sets_14d|single",
+    "surface_first|single",
+    "age|single",
+    "age|single|2"
+  ],
+  "market_baseline": [
+    "adjperf_ace|decayed",
+    "adjperf_df|decayed",
+    "adjperf_first_in|decayed",
+    "adjperf_first_won|decayed",
+    "adjperf_second_won|decayed",
+    "adjperf_hold|decayed",
+    "adjperf_bp_saved|decayed",
+    "adjperf_bp_faced_pg|decayed",
+    "adjperf_brk|decayed",
+    "adjperf_bp_conv|decayed",
+    "adjperf_rpw_first|decayed",
+    "adjperf_rpw_second|decayed",
+    "adjdef_ace|decayed",
+    "adjdef_df|decayed",
+    "adjdef_first_in|decayed",
+    "adjdef_bp_faced_pg|decayed",
+    "rating_matchup|single",
+    "sets_14d|single",
+    "surface_first|single",
+    "age|single",
+    "age|single|2"
+  ],
+  "extension_grid": [
+    0.0001,
+    0.001,
+    0.01,
+    0.1
+  ],
+  "market_baseline_grid": [
+    0.0,
+    0.0001,
+    0.001,
+    0.01,
+    0.1
+  ],
+  "numerical_revision": "First run failed before any candidate scores: unpenalized redundant momentum/level columns did not converge. Extensions require strictly positive ridge; cached baselines retain their original grid.",
+  "elo_penalty": "new inputs only; all nine existing coefficients unpenalized",
+  "market_penalty": "all features penalized equally; market calibration unpenalized",
+  "selection": "ridge and family selected using prior two OOS calendar seasons; fallback baseline family",
+  "windows": {
+    "2019_onward": [
+      2019,
+      2026
+    ],
+    "2022_onward": [
+      2022,
+      2026
+    ],
+    "2019_2025": [
+      2019,
+      2025
+    ],
+    "2024_2025": [
+      2024,
+      2025
+    ]
+  },
+  "primary": "Pinnacle and market-free Elo, each tour, 2019 onward, versus strong baseline",
+  "multiple_testing": "Holm correction across 28 primary tests: six extensions plus past-only selector, two tours, two routes",
+  "average_market": "sensitivity on identical common Pinnacle/Average rows",
+  "uncertainty": "paired four-week calendar cluster t; weekly sensitivity; reused-history intervals descriptive",
+  "training": {
+    "elo": "2013 onward",
+    "market": "2010 onward"
+  },
+  "hashes": {
+    "data\\studies\\feature_alpha_audit\\repairs\\repair_features.parquet": "2da344b939992fab50c1e209d13a2d0696e16217d1293a7e3dc511de8e3efdcb",
+    "data\\studies\\predictive_frontier\\frontier_features.parquet": "1a6bbfe5ef69473f080cd6342ed994f952add29c162674d8a043e02ffaf1e9ad",
+    "data\\studies\\predictability_diagnostic\\stage1_odds.parquet": "43741983ba8720b5ec5e6dc1bc81ed879b0ab94bead1091c76dd2a01fe0fc74d",
+    "src\\eda\\predictive_frontier\\features.py": "2b0a26c5b952951b75f9532e1214f61e966661fa8343d37c091cc9c2551df69f",
+    "src\\eda\\predictive_frontier\\score.py": "b15ad2e04fcdc8cb010e26ae11793786225bafea13a176a040588d60cccfbc8d"
+  }
+}

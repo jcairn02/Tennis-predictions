@@ -14,7 +14,7 @@ The [tennis data and Polymarket coverage audit](docs/research/tennis-data-audit/
 
 | Location | Purpose and current status |
 |---|---|
-| `data/`, `src/ingest/` | Source data, provenance, and experimental loaders |
+| `data/`, `src/ingest/` | Source data, provenance, and experimental loaders. What is held, by tournament level, year and level of detail, is mapped in [data/data_map.html](data/data_map.html), built from the catalog [data/data_map.yaml](data/data_map.yaml) |
 | `src/eda/`, `docs/studies/`, `data/studies/` | Investigations, reports, reproducible evidence |
 | `src/ratings/`, `src/features/`, `src/models/` | Inherited experiments or reserved homes; no approved model stack |
 | `predictions/` | Reserved home for future prediction outputs |

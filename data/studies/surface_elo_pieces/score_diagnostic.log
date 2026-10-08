@@ -1,0 +1,80 @@
+tour           base             model seeds  matches   gain      lo     hi  blocks  week_lo  week_hi
+ atp         market       base_noodds     0    12341 -9.929 -12.968 -6.890      57  -12.820   -7.039
+ wta         market       base_noodds     0    11386 -6.484  -9.058 -3.909      57   -9.327   -3.640
+both         market       base_noodds     0    23727 -8.276 -10.090 -6.461      57  -10.312   -6.240
+ atp    base_noodds    primary_noodds     0    12341  2.743   1.234  4.253      57    1.332    4.155
+ wta    base_noodds    primary_noodds     0    11386 -0.140  -1.284  1.004      57   -1.207    0.927
+both    base_noodds    primary_noodds     0    23727  1.360   0.427  2.292      57    0.491    2.228
+ atp         market    primary_noodds     0    12341 -7.186  -9.741 -4.631      57   -9.660   -4.713
+ wta         market    primary_noodds     0    11386 -6.624  -8.809 -4.439      57   -9.236   -4.012
+both         market    primary_noodds     0    23727 -6.916  -8.390 -5.442      57   -8.634   -5.198
+ atp base_noodds_s0 primary_noodds_s0     0    12341  2.743   1.234  4.253      57    1.332    4.155
+ wta base_noodds_s0 primary_noodds_s0     0    11386 -0.140  -1.284  1.004      57   -1.207    0.927
+both base_noodds_s0 primary_noodds_s0     0    23727  1.360   0.427  2.292      57    0.491    2.228
+{
+ "excl_debut|atp|primary_noodds": {
+  "seasons": 5,
+  "mean": 2.7435293627180535,
+  "lo": 0.8632637141562383,
+  "hi": 4.623795011279869,
+  "positive": 5,
+  "gains": [
+   0.6443186150286573,
+   4.320107174274648,
+   3.938488838784938,
+   1.8477545525574832,
+   2.9669776329445416
+  ]
+ },
+ "excl_debut|wta|primary_noodds": {
+  "seasons": 5,
+  "mean": 0.0021697589691248797,
+  "lo": -2.4078954714623952,
+  "hi": 2.4122349894006447,
+  "positive": 3,
+  "gains": [
+   0.3283393501821623,
+   -1.5300403818476611,
+   -2.4342000473670224,
+   1.67116185306654,
+   1.975588020811606
+  ]
+ },
+ "excl_debut|both|primary_noodds": {
+  "seasons": 5,
+  "mean": 1.429240862629335,
+  "lo": 0.464708002321666,
+  "hi": 2.393773722937004,
+  "positive": 5,
+  "gains": [
+   0.4947755729172239,
+   1.5140870319709974,
+   0.8849604671577813,
+   1.7617931699453393,
+   2.490588071155333
+  ]
+ }
+}
+{
+ "atp": {
+  "matches": 12341,
+  "market_raw": 0.5892198415541062,
+  "market": 0.5887332644076795,
+  "base_noodds": 0.5986627281471016,
+  "primary_noodds": 0.5959194128978669
+ },
+ "wta": {
+  "matches": 11386,
+  "market_raw": 0.5902560388767824,
+  "market": 0.5897470525295961,
+  "base_noodds": 0.5962307224898754,
+  "primary_noodds": 0.5963707642401491
+ },
+ "both": {
+  "matches": 23727,
+  "market_raw": 0.5897170870008964,
+  "market": 0.5892197562337065,
+  "base_noodds": 0.5974956688301557,
+  "primary_noodds": 0.5961360052350029
+ }
+}

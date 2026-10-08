@@ -1,0 +1,218 @@
+{
+ "what": "score.py --synthetic and --check read no match result (trace, read spy, substitution)",
+ "scratch": "C:\\Users\\zerom\\AppData\\Local\\Temp\\claude\\c--Users-zerom-Documents-Tennis-predictions\\48421609-8831-440b-a460-5878ba530dde\\scratchpad\\noread_reverify",
+ "trace": {
+  "functions_called": [
+   "arms.<dictcomp>",
+   "arms.<listcomp>",
+   "arms.arm_inputs",
+   "arms.base_inputs",
+   "arms.stem",
+   "common.<listcomp>",
+   "common.blocks",
+   "common.feature_file",
+   "common.feature_meta",
+   "common.fit_logistic",
+   "common.lg",
+   "common.ll",
+   "common.race_names",
+   "common.read_json",
+   "common.symmetrize",
+   "common.write_json",
+   "forecasts.<dictcomp>",
+   "forecasts.__init__",
+   "forecasts.find_fit",
+   "forecasts.folders",
+   "forecasts.load_fit",
+   "score.<dictcomp>",
+   "score.<listcomp>",
+   "score.__init__",
+   "score._fit",
+   "score._sum_sq_by",
+   "score.blocks",
+   "score.brier",
+   "score.capture",
+   "score.close_edge",
+   "score.cluster_se",
+   "score.clustered_variances",
+   "score.column_unit",
+   "score.decision",
+   "score.direction",
+   "score.encompassing",
+   "score.eta",
+   "score.evaluate",
+   "score.feature_columns",
+   "score.forecast",
+   "score.frame_index",
+   "score.information",
+   "score.multiplicity",
+   "score.paired",
+   "score.paired_stats",
+   "score.per_seed",
+   "score.population",
+   "score.population_ids",
+   "score.price_forecast",
+   "score.price_slopes",
+   "score.recency",
+   "score.row_slopes",
+   "score.s_f_kmh",
+   "score.secondary_rows",
+   "score.seed_loss",
+   "score.slopes",
+   "score.synthetic",
+   "score.unit"
+  ],
+  "forbidden_called": [],
+  "frame_columns_called": false,
+  "load_frame_called": false
+ },
+ "read_spy_real_files": {
+  "parquet_reads": [
+   {
+    "fn": "pandas.read_parquet",
+    "path": "C:\\Users\\zerom\\Documents\\Tennis-predictions\\data\\studies\\surface_rating_race\\model\\model_frame.parquet",
+    "columns": [
+     "match_id",
+     "tour",
+     "season",
+     "tournament_date",
+     "debut_season",
+     "p_mkt"
+    ]
+   },
+   {
+    "fn": "pyarrow.read_table",
+    "path": "<_io.BufferedReader name='C:\\\\Users\\\\zerom\\\\Documents\\\\Tennis-predictions\\\\data\\\\studies\\\\surface_rating_race\\\\model\\\\model_frame.parquet'>",
+    "columns": [
+     "match_id",
+     "tour",
+     "season",
+     "tournament_date",
+     "debut_season",
+     "p_mkt"
+    ]
+   },
+   {
+    "fn": "pandas.read_parquet",
+    "path": "C:\\Users\\zerom\\Documents\\Tennis-predictions\\data\\studies\\data_continuity\\rebuilds\\2026-10-07T0005Z\\replaced\\data\\studies\\predictability_diagnostic\\stage0_matches.parquet",
+    "columns": [
+     "match_id",
+     "player_a_id",
+     "player_b_id"
+    ]
+   },
+   {
+    "fn": "pyarrow.read_table",
+    "path": "<_io.BufferedReader name='C:\\\\Users\\\\zerom\\\\Documents\\\\Tennis-predictions\\\\data\\\\studies\\\\data_continuity\\\\rebuilds\\\\2026-10-07T0005Z\\\\replaced\\\\data\\\\studies\\\\predictability_diagnostic\\\\stage0_matches.parquet'>",
+    "columns": [
+     "match_id",
+     "player_a_id",
+     "player_b_id"
+    ]
+   },
+   {
+    "fn": "pandas.read_parquet",
+    "path": "C:\\Users\\zerom\\Documents\\Tennis-predictions\\data\\studies\\serve_speed_tabpfn\\features\\speed.parquet",
+    "columns": [
+     "match_id",
+     "spd_f",
+     "spd_f_all",
+     "spd_raw",
+     "k28_a",
+     "k28_b",
+     "last_age_a",
+     "last_age_b",
+     "id_conflict"
+    ]
+   },
+   {
+    "fn": "pyarrow.read_table",
+    "path": "<_io.BufferedReader name='C:\\\\Users\\\\zerom\\\\Documents\\\\Tennis-predictions\\\\data\\\\studies\\\\serve_speed_tabpfn\\\\features\\\\speed.parquet'>",
+    "columns": [
+     "match_id",
+     "spd_f",
+     "spd_f_all",
+     "spd_raw",
+     "k28_a",
+     "k28_b",
+     "last_age_a",
+     "last_age_b",
+     "id_conflict"
+    ]
+   },
+   {
+    "fn": "pandas.read_parquet",
+    "path": "C:\\Users\\zerom\\Documents\\Tennis-predictions\\data\\studies\\surface_elo_pieces\\early_price_frame.parquet",
+    "columns": [
+     "match_id",
+     "has_early",
+     "clean",
+     "all_early",
+     "p_early_a",
+     "p_close_a"
+    ]
+   },
+   {
+    "fn": "pyarrow.read_table",
+    "path": "<_io.BufferedReader name='C:\\\\Users\\\\zerom\\\\Documents\\\\Tennis-predictions\\\\data\\\\studies\\\\surface_elo_pieces\\\\early_price_frame.parquet'>",
+    "columns": [
+     "match_id",
+     "has_early",
+     "clean",
+     "all_early",
+     "p_early_a",
+     "p_close_a"
+    ]
+   },
+   {
+    "fn": "pandas.read_parquet",
+    "path": "C:\\Users\\zerom\\Documents\\Tennis-predictions\\data\\studies\\surface_rating_race\\model\\model_frame.parquet",
+    "columns": [
+     "match_id",
+     "season"
+    ]
+   },
+   {
+    "fn": "pyarrow.read_table",
+    "path": "<_io.BufferedReader name='C:\\\\Users\\\\zerom\\\\Documents\\\\Tennis-predictions\\\\data\\\\studies\\\\surface_rating_race\\\\model\\\\model_frame.parquet'>",
+    "columns": [
+     "match_id",
+     "season"
+    ]
+   }
+  ],
+  "npz_reads": 128,
+  "problems": []
+ },
+ "substitution": {
+  "copies": {
+   "model_frame_no_result": "C:\\Users\\zerom\\AppData\\Local\\Temp\\claude\\c--Users-zerom-Documents-Tennis-predictions\\48421609-8831-440b-a460-5878ba530dde\\scratchpad\\noread_reverify\\model_frame_no_result.parquet",
+   "model_frame_coinflip": "C:\\Users\\zerom\\AppData\\Local\\Temp\\claude\\c--Users-zerom-Documents-Tennis-predictions\\48421609-8831-440b-a460-5878ba530dde\\scratchpad\\noread_reverify\\model_frame_coinflip.parquet",
+   "stage0_ids_only": "C:\\Users\\zerom\\AppData\\Local\\Temp\\claude\\c--Users-zerom-Documents-Tennis-predictions\\48421609-8831-440b-a460-5878ba530dde\\scratchpad\\noread_reverify\\stage0_ids_only.parquet",
+   "early_no_result": "C:\\Users\\zerom\\AppData\\Local\\Temp\\claude\\c--Users-zerom-Documents-Tennis-predictions\\48421609-8831-440b-a460-5878ba530dde\\scratchpad\\noread_reverify\\early_no_result.parquet"
+  },
+  "stripped_identical_to_real": true,
+  "coinflip_identical_to_real": true,
+  "read_spy_problems_stripped": [],
+  "replicate_P2_real": [
+   0.8978926623100224,
+   0.5608344924855676,
+   0.37895299311485864,
+   0.4132746392117979
+  ],
+  "replicate_P2_stripped": [
+   0.8978926623100224,
+   0.5608344924855676,
+   0.37895299311485864,
+   0.4132746392117979
+  ]
+ },
+ "check_on_stripped_copies": {
+  "ran": true,
+  "men_2024_2026": 7068,
+  "population_sha256": "e4ab0787b531526708fa7d97ffdd97a2878b02a1b113eda62c26b59d5296ef27",
+  "forbidden_called": [],
+  "read_spy_problems": []
+ },
+ "passed": true
+}

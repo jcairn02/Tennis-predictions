@@ -1,0 +1,191 @@
+{
+ "notes": {
+  "mcp": [
+   "M: 7566 charts listed, 5570 with points staged (the staged points start in 2010)",
+   "W: 4264 charts listed, 3844 with points staged (the staged points start in 2010)",
+   "Rally length, serve direction (wide/body/T), return depth, how the point ended, net approaches and the stroke of every shot are parsed from each point's shot string; the point is played from the second-serve string when the first is a fault"
+  ],
+  "infosys": [
+   "37908 distinct matches (37908 singles: codes MS and QS); doubles left out",
+   "Rally length is the shot that ended the point (serve, return, 3rd ... 8th, then '9+ odd' and '10+ even'); serve speed, serve direction, net flags and stroke per point; per-set key statistics (winners, unforced errors, net points won, serve speeds) are counted as match totals"
+  ],
+  "court_vision": [
+   "4570 files; 4566 placed through an Infosys record of the same year, tournament and match code; 0 unreadable",
+   "Counted as ball tracking only here; its per-stroke fields (speeds, spin, positions) use obfuscated keys that a later stage would decode against the readable Slam copy"
+  ],
+  "slam_pbp": [
+   "Ending counts points flagged ace, double fault, winner, unforced or forced error; net play counts points with a net-point flag; which columns are filled varies by Slam and year"
+  ],
+  "slamtracker": [
+   "Ending counts points flagged winner, unforced error, ace or double fault (forced errors are not flagged in these feeds, so about two thirds of points carry an ending)"
+  ],
+  "slam_tracking": [
+   "Dated three days after the Slam's first day, as the data map does (the copy has no match dates); every stroke's trajectory only for 2022-2024"
+  ],
+  "wta_advanced": [
+   "29361 singles matches listed 2019-2026; 24309 with an advanced-statistics file on disk (raw files read directly; the staged table holds a sample only; the download chain that writes other files beside them was left running)"
+  ]
+ },
+ "thresholds": {
+  "rally": 0.5,
+  "ending": 0.4,
+  "speed": 0.4,
+  "placement": 0.4,
+  "net": null,
+  "return": 0.4,
+  "stroke": 0.4,
+  "tracking": 0.5
+ },
+ "by_source": [
+  {
+   "source": "ausopen",
+   "matches": 532,
+   "linked": 532,
+   "oriented": 532,
+   "points": 74567,
+   "has_rally": 0,
+   "has_ending": 532,
+   "has_speed": 0,
+   "has_placement": 0,
+   "has_net": 0,
+   "has_return": 0,
+   "has_stroke": 532,
+   "has_tracking": 0
+  },
+  {
+   "source": "court_vision",
+   "matches": 4570,
+   "linked": 4463,
+   "oriented": 4463,
+   "points": 903596,
+   "has_rally": 0,
+   "has_ending": 0,
+   "has_speed": 0,
+   "has_placement": 0,
+   "has_net": 0,
+   "has_return": 0,
+   "has_stroke": 0,
+   "has_tracking": 4499
+  },
+  {
+   "source": "infosys",
+   "matches": 37908,
+   "linked": 36876,
+   "oriented": 36876,
+   "points": 4437046,
+   "has_rally": 5052,
+   "has_ending": 6453,
+   "has_speed": 6156,
+   "has_placement": 0,
+   "has_net": 6451,
+   "has_return": 0,
+   "has_stroke": 6411,
+   "has_tracking": 0
+  },
+  {
+   "source": "mcp",
+   "matches": 11830,
+   "linked": 9336,
+   "oriented": 9336,
+   "points": 1438299,
+   "has_rally": 9414,
+   "has_ending": 9414,
+   "has_speed": 0,
+   "has_placement": 9414,
+   "has_net": 9399,
+   "has_return": 8524,
+   "has_stroke": 9413,
+   "has_tracking": 0
+  },
+  {
+   "source": "sirgenkii",
+   "matches": 922,
+   "linked": 902,
+   "oriented": 902,
+   "points": 136928,
+   "has_rally": 922,
+   "has_ending": 922,
+   "has_speed": 374,
+   "has_placement": 922,
+   "has_net": 52,
+   "has_return": 0,
+   "has_stroke": 922,
+   "has_tracking": 0
+  },
+  {
+   "source": "slam_pbp",
+   "matches": 10508,
+   "linked": 10470,
+   "oriented": 10470,
+   "points": 1922136,
+   "has_rally": 6745,
+   "has_ending": 10498,
+   "has_speed": 8138,
+   "has_placement": 4167,
+   "has_net": 8480,
+   "has_return": 3684,
+   "has_stroke": 17,
+   "has_tracking": 0
+  },
+  {
+   "source": "slam_tracking",
+   "matches": 2027,
+   "linked": 2021,
+   "oriented": 2021,
+   "points": 503586,
+   "has_rally": 1979,
+   "has_ending": 2027,
+   "has_speed": 1902,
+   "has_placement": 1770,
+   "has_net": 0,
+   "has_return": 1705,
+   "has_stroke": 1721,
+   "has_tracking": 1225
+  },
+  {
+   "source": "slamtracker",
+   "matches": 5162,
+   "linked": 4938,
+   "oriented": 4938,
+   "points": 881597,
+   "has_rally": 4059,
+   "has_ending": 5143,
+   "has_speed": 3445,
+   "has_placement": 3774,
+   "has_net": 5144,
+   "has_return": 3755,
+   "has_stroke": 6,
+   "has_tracking": 0
+  },
+  {
+   "source": "tdi",
+   "matches": 4698,
+   "linked": 3146,
+   "oriented": 3146,
+   "points": 665504,
+   "has_rally": 4625,
+   "has_ending": 4631,
+   "has_speed": 0,
+   "has_placement": 0,
+   "has_net": 4609,
+   "has_return": 0,
+   "has_stroke": 4631,
+   "has_tracking": 0
+  },
+  {
+   "source": "wta_advanced",
+   "matches": 24309,
+   "linked": 22130,
+   "oriented": 22130,
+   "points": 0,
+   "has_rally": 0,
+   "has_ending": 21039,
+   "has_speed": 0,
+   "has_placement": 0,
+   "has_net": 7763,
+   "has_return": 0,
+   "has_stroke": 7929,
+   "has_tracking": 0
+  }
+ ]
+}

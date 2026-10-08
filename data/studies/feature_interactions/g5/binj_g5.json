@@ -1,0 +1,34 @@
+{
+ "hid": "B-INJ",
+ "arm": "binj",
+ "seasons": [
+  2016,
+  2024
+ ],
+ "harm": {
+  "gain_mll": 0.04398017657197016,
+  "lo": -0.1574241017500096,
+  "hi": 0.2453844548939499,
+  "matches": 22265,
+  "window": "2020-2024, calibrated walk-forward from 2019",
+  "harm_line": -0.1,
+  "harmful": false
+ },
+ "raw_gain_2016_2024": {
+  "gain_mll": 0.05571920843900298,
+  "lo": -0.08961435036146473,
+  "hi": 0.2010527672394707,
+  "matches": 39954
+ },
+ "capture": {
+  "slope": 0.39261620509642997,
+  "line": 0.5,
+  "b_hat": 0.042096319599871236,
+  "z_pooled": 3.9387869786886833,
+  "sd_term": 0.043272162988125605,
+  "sd_dev": 0.03390935748835022,
+  "corr_dev_term": 0.5010665237740574
+ },
+ "deployment": "nudge",
+ "key": "gains in mLL, positive = the arm has the lower log loss (better); 95% four-week-block intervals"
+}

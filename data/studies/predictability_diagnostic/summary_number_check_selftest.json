@@ -1,0 +1,315 @@
+[
+ {
+  "plant": "none (the page as built)",
+  "flagged": 0,
+  "flagged_in_data": 0,
+  "caught": true,
+  "examples": [],
+  "data_examples": []
+ },
+ {
+  "plant": "Stage 1 headline: the men's and women's 2022-2026 records exchanged",
+  "flagged": 51,
+  "flagged_in_data": 22,
+  "caught": true,
+  "examples": [
+   {
+    "section": "how-predictable",
+    "where": "text",
+    "token": "0.601",
+    "status": "tagged: the context names the men, the source is the other tour's",
+    "header": "Surface Elo, every evaluation match, 2022\u20132026",
+    "text": "0.601"
+   },
+   {
+    "section": "how-predictable",
+    "where": "text",
+    "token": "0.615",
+    "status": "tagged: the context names the women, the source is the other tour's",
+    "header": "Surface Elo, every evaluation match, 2022\u20132026",
+    "text": "0.615"
+   },
+   {
+    "section": "how-predictable",
+    "where": "text",
+    "token": "0.591",
+    "status": "tagged: the context names the men, the source is the other tour's",
+    "header": "Closing odds, 2022\u20132026",
+    "text": "0.591"
+   },
+   {
+    "section": "how-predictable",
+    "where": "text",
+    "token": "0.589",
+    "status": "tagged: the context names the women, the source is the other tour's",
+    "header": "Closing odds, 2022\u20132026",
+    "text": "0.589"
+   }
+  ],
+  "data_examples": [
+   {
+    "section": "how-predictable",
+    "path_in_page": "how-predictable.bars.atp[label=Ranking,key=p_rank].ll",
+    "value": 0.6400521914152169,
+    "status": "exact: other tour",
+    "source": "stage1_results.json.margins.era.rows[tour=wta,era=2022-26,n=23998].p_rank__m"
+   },
+   {
+    "section": "how-predictable",
+    "path_in_page": "how-predictable.bars.atp[label=Ranking,key=p_rank].milli",
+    "value": 53.09498914472843,
+    "status": "exact: other tour",
+    "source": "ln 2 \u2212 stage1_results.json.headline[tour=wta,window=2022-2026 (headline),n=23998.0].market_subset.p_rank"
+   },
+   {
+    "section": "how-predictable",
+    "path_in_page": "how-predictable.bars.atp[label=Ranking points,key=p_points].ll",
+    "value": 0.6394023546591364,
+    "status": "exact: other tour",
+    "source": "stage1_results.json.headline[tour=wta,window=2022-2026 (headline),n=23998.0].market_subset.p_points"
+   },
+   {
+    "section": "how-predictable",
+    "path_in_page": "how-predictable.bars.atp[label=Ranking points,key=p_points].milli",
+    "value": 53.74482590080887,
+    "status": "exact: other tour",
+    "source": "ln 2 \u2212 stage1_results.json.margins.era.rows[tour=wta,era=2022-26,n=23998].p_points__m"
+   }
+  ]
+ },
+ {
+  "plant": "Stage 1 headline: the men's 2013-2026 and 2022-2026 records exchanged",
+  "flagged": 4,
+  "flagged_in_data": 0,
+  "caught": true,
+  "examples": [
+   {
+    "section": "how-predictable",
+    "where": "text",
+    "token": "0.605",
+    "status": "tagged: the headers name [(2022, 2026)], the source [(2013, 2026)]",
+    "header": "Surface Elo, every evaluation match, 2022\u20132026",
+    "text": "0.605"
+   },
+   {
+    "section": "how-predictable",
+    "where": "text",
+    "token": "155,130",
+    "status": "tagged: the headers name [(2022, 2026)], the source [(2013, 2026)]",
+    "header": "Surface Elo, every evaluation match, 2022\u20132026",
+    "text": "coin 0.693; 155,130 and 23,998 matches, Challengers and qualifying included"
+   },
+   {
+    "section": "how-predictable",
+    "where": "text",
+    "token": "0.579",
+    "status": "tagged: the headers name [(2022, 2026)], the source [(2013, 2026)]",
+    "header": "Closing odds, 2022\u20132026",
+    "text": "0.579"
+   },
+   {
+    "section": "how-predictable",
+    "where": "text",
+    "token": "31,683",
+    "status": "tagged: the headers name [(2022, 2026)], the source [(2013, 2026)]",
+    "header": "Closing odds, 2022\u20132026",
+    "text": "tour-level main draws with odds: 31,683 and 11,467 matches"
+   }
+  ],
+  "data_examples": []
+ },
+ {
+  "plant": "Stage 3 persistence: the men's and women's serve points won exchanged",
+  "flagged": 32,
+  "flagged_in_data": 9,
+  "caught": true,
+  "examples": [
+   {
+    "section": "traits",
+    "where": "text",
+    "token": "0.78",
+    "status": "tagged: the context names the men, the source is the other tour's",
+    "header": "Serve points won: reliability of a regular's season",
+    "text": "0.78"
+   },
+   {
+    "section": "traits",
+    "where": "text",
+    "token": "0.81",
+    "status": "tagged: the context names the women, the source is the other tour's",
+    "header": "Serve points won: reliability of a regular's season",
+    "text": "0.81"
+   },
+   {
+    "section": "traits",
+    "where": "text",
+    "token": "44",
+    "status": "tagged: the context names the women, the source is the other tour's",
+    "header": "",
+    "text": "n. A typical season is the median regular's: 37 matches for the men and 44 for the women over all surfaces (on one surface, the median of regulars"
+   },
+   {
+    "section": "traits",
+    "where": "chart",
+    "token": "0.78",
+    "status": "linked: the context names the men, the source is the other tour's",
+    "header": "",
+    "text": "0.78"
+   }
+  ],
+  "data_examples": [
+   {
+    "section": "traits",
+    "path_in_page": "traits.persist.atp.all[label=Serve points won,key=spw].rel",
+    "value": 0.784917,
+    "status": "exact: other tour",
+    "source": "stage3_results.json.persistence[tour=wta,stat=spw,surface=all].reliability_typical"
+   },
+   {
+    "section": "traits",
+    "path_in_page": "traits.persist.atp.all[label=Serve points won,key=spw].lo",
+    "value": 0.757407,
+    "status": "exact: other tour",
+    "source": "stage3_results.json.persistence[tour=wta,stat=spw,surface=all].reliability_typical_lo"
+   },
+   {
+    "section": "traits",
+    "path_in_page": "traits.persist.atp.all[label=Serve points won,key=spw].hi",
+    "value": 0.809273,
+    "status": "exact: other tour",
+    "source": "stage3_results.json.persistence[tour=wta,stat=spw,surface=all].reliability_typical_hi"
+   },
+   {
+    "section": "traits",
+    "path_in_page": "traits.persist.atp.all[label=Serve points won,key=spw].u",
+    "value": 2651.0,
+    "status": "exact: other tour",
+    "source": "stage3_results.json.typical_season[tour=wta,stat=spw,surface=all].typical_units"
+   }
+  ]
+ },
+ {
+  "plant": "Stage 4 ranking: the men's and women's ratings through the iid model exchanged",
+  "flagged": 2,
+  "flagged_in_data": 22,
+  "caught": true,
+  "examples": [
+   {
+    "section": "rundown",
+    "where": "text",
+    "token": "4.58",
+    "status": "tagged: the context names the men, the source is the other tour's",
+    "header": "Largest gain on surface Elo (milli-log-loss)",
+    "text": "4.58"
+   },
+   {
+    "section": "rundown",
+    "where": "text",
+    "token": "3.61",
+    "status": "tagged: the context names the women, the source is the other tour's",
+    "header": "Largest gain on surface Elo (milli-log-loss)",
+    "text": "3.61"
+   }
+  ],
+  "data_examples": [
+   {
+    "section": "rundown",
+    "path_in_page": "rundown.table.atp[id=rating_matchup,form=single,label=Serve and return ratings through the iid model].elo",
+    "value": 4.5787200116,
+    "status": "exact: other tour",
+    "source": "stage4_results.json.leak_checks[tour=wta,id=rating_matchup,form=single,check=format recorded].original_elo"
+   },
+   {
+    "section": "rundown",
+    "path_in_page": "rundown.table.atp[id=rating_matchup,form=single,label=Serve and return ratings through the iid model].lo",
+    "value": 3.637598033,
+    "status": "exact: other tour",
+    "source": "stage4_results.json.ranking[tour=wta,id=rating_matchup,form=single,name=Serve and return ratings through the iid model,group=single,inputs=1].elo_lo"
+   },
+   {
+    "section": "rundown",
+    "path_in_page": "rundown.table.atp[id=rating_matchup,form=single,label=Serve and return ratings through the iid model].hi",
+    "value": 5.5198419903,
+    "status": "exact: other tour",
+    "source": "stage4_results.json.leak_checks[tour=wta,id=rating_matchup,form=single,check=one match later].original_elo_hi"
+   },
+   {
+    "section": "rundown",
+    "path_in_page": "rundown.table.atp[id=rating_matchup,form=single,label=Serve and return ratings through the iid model].bmax",
+    "value": 0.0302121346,
+    "status": "exact: other tour",
+    "source": "stage4_results.json.ranking[tour=wta,id=rating_matchup,form=single,name=Serve and return ratings through the iid model,group=single,inputs=1].elo_band_max"
+   }
+  ]
+ },
+ {
+  "plant": "Summary chart: the men's and women's aces exchanged",
+  "flagged": 4,
+  "flagged_in_data": 8,
+  "caught": true,
+  "examples": [
+   {
+    "section": "summary",
+    "where": "text",
+    "token": "95%",
+    "status": "tagged: the context names the men, the source is the other tour's",
+    "header": "Men | Consistent | Aces per serve point",
+    "text": "95%"
+   },
+   {
+    "section": "summary",
+    "where": "text",
+    "token": "8%",
+    "status": "tagged: the context names the men, the source is the other tour's",
+    "header": "Men | Decides | Aces per serve point | 95%",
+    "text": "8%"
+   },
+   {
+    "section": "summary",
+    "where": "text",
+    "token": "96%",
+    "status": "tagged: the context names the women, the source is the other tour's",
+    "header": "Women | Consistent | Aces per serve point | 95% | 8% | Habit",
+    "text": "96%"
+   },
+   {
+    "section": "summary",
+    "where": "text",
+    "token": "9%",
+    "status": "tagged: the context names the women, the source is the other tour's",
+    "header": "Women | Decides | Aces per serve point | 95% | 8% | Habit | 96%",
+    "text": "9%"
+   }
+  ],
+  "data_examples": [
+   {
+    "section": "summary",
+    "path_in_page": "summary.points.atp[stat=ace,label=Aces per serve point].rel",
+    "value": 0.946831259312318,
+    "status": "exact: other tour",
+    "source": "summary_results.json.chart.points[tour=wta,stat=ace,label=Aces per serve point].reliability"
+   },
+   {
+    "section": "summary",
+    "path_in_page": "summary.points.atp[stat=ace,label=Aces per serve point].lo",
+    "value": 0.9400717037661966,
+    "status": "exact: other tour",
+    "source": "summary_results.json.chart.points[tour=wta,stat=ace,label=Aces per serve point].reliability_lo"
+   },
+   {
+    "section": "summary",
+    "path_in_page": "summary.points.atp[stat=ace,label=Aces per serve point].hi",
+    "value": 0.9528201303026802,
+    "status": "exact: other tour",
+    "source": "summary_results.json.chart.points[tour=wta,stat=ace,label=Aces per serve point].reliability_hi"
+   },
+   {
+    "section": "summary",
+    "path_in_page": "summary.points.atp[stat=ace,label=Aces per serve point].share",
+    "value": 0.08185851662003979,
+    "status": "exact: other tour",
+    "source": "summary_results.json.chart.points[tour=wta,stat=ace,label=Aces per serve point].impact_defined_share"
+   }
+  ]
+ }
+]

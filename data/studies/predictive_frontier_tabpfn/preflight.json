@@ -1,0 +1,103 @@
+{
+  "checked_at": "2026-10-03T02:22:37.432918+00:00",
+  "sdk_version": "0.6.0",
+  "usage": {
+    "daily_tokens_used": 162211,
+    "daily_token_limit": 5000000,
+    "monthly_tokens_used": 335191,
+    "monthly_token_limit": 20000000,
+    "current_usage": 335191,
+    "usage_limit": 20000000,
+    "reset_time": "2026-11-01 00:00:00 UTC",
+    "monthly_usage": 335191,
+    "monthly_limit": 20000000,
+    "monthly_reset_time": "2026-11-01 00:00:00 UTC",
+    "daily_usage": 162211,
+    "daily_limit": 5000000,
+    "daily_reset_time": "2026-10-04 00:00:00 UTC",
+    "thinking_fit_count": 0,
+    "thinking_fit_limit": 0
+  },
+  "model_limits": {
+    "train_set_max_rows": 1000000,
+    "train_set_max_cells": 200000000,
+    "test_set_max_rows": 1000000,
+    "max_classes": 160,
+    "max_cols": 20000,
+    "test_set_max_rows_w_full_regression_output": 100000,
+    "predict_row_pairs_budget": 250000000000,
+    "test_set_max_cells": 200000000
+  },
+  "capacity": {
+    "training_rows": 13952,
+    "prediction_rows": 3424,
+    "features": 36,
+    "monthly_tokens_remaining": 19664809,
+    "daily_tokens_remaining": 4837789
+  },
+  "quote": {
+    "thinking_fit": {
+      "estimated_cost": 264367,
+      "pricing_version": "quota_v3",
+      "inputs": {
+        "train_rows": 13952,
+        "raw_columns": 36,
+        "test_rows": 0,
+        "model_version": "v3.5",
+        "operation": "thinking_fit",
+        "n_estimators": 8,
+        "thinking_effort": "high"
+      }
+    },
+    "thinking_predict": {
+      "estimated_cost": 47714,
+      "pricing_version": "quota_v3",
+      "inputs": {
+        "train_rows": 13952,
+        "raw_columns": 36,
+        "test_rows": 3424,
+        "model_version": "v3.5",
+        "operation": "thinking_predict",
+        "n_estimators": 8,
+        "thinking_effort": null
+      }
+    }
+  },
+  "total_quoted": 312081,
+  "preview": {
+    "tabpfn_config": {
+      "n_estimators": 8,
+      "categorical_features_indices": null,
+      "softmax_temperature": 0.9,
+      "average_before_softmax": null,
+      "random_state": 0,
+      "inference_config": null,
+      "inference_precision": null,
+      "ignore_pretraining_limits": true,
+      "fit_mode": null,
+      "model_path": "v3.5_default",
+      "balance_probabilities": false
+    },
+    "thinking_config": {
+      "effort": "high",
+      "timeout_secs": null,
+      "metric": "log_loss",
+      "group_col": null,
+      "time_col": null,
+      "group_time_col": null
+    }
+  },
+  "input_sha256": "54ca16ba7c2321e47ec891da7b00db3fb06e798b8df3b37f8556803d8d240673",
+  "config": {
+    "model_path": "v3.5_default",
+    "n_estimators": 8,
+    "softmax_temperature": 0.9,
+    "random_state": 0,
+    "ignore_pretraining_limits": true,
+    "thinking_mode": true,
+    "thinking_effort": "high",
+    "thinking_metric": "log_loss",
+    "thinking_timeout_s": null,
+    "http_timeout_s": 2700.0
+  }
+}

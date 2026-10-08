@@ -1,0 +1,146 @@
+{
+ "what": "calibration, close calibration and nudge read seasons < Y only (synthetic outcomes, injected forecasts); fit metadata",
+ "seasons": {
+  "2024": {
+   "B_outcomes_of_Y_flipped_unchanged": {
+    "slopes": true,
+    "price_slopes": true,
+    "nudge": true,
+    "q": true,
+    "nudge_forecast": true
+   },
+   "A_outcomes_forecasts_prices_of_ge_Y_noised_unchanged": {
+    "slopes": true,
+    "price_slopes": true,
+    "nudge": true
+   },
+   "C_outcomes_of_Y_minus_1_flipped_changed": {
+    "slopes": true,
+    "price_slopes": true,
+    "nudge": true,
+    "q": true,
+    "nudge_forecast": true
+   },
+   "passed": true,
+   "slopes_model": {
+    "atp": 0.8952786849799007,
+    "wta": 0.8801830881558584
+   },
+   "slopes_model_after_C": {
+    "atp": 0.40023269868923733,
+    "wta": 0.3598385100957113
+   },
+   "nudge_b_mle": 0.6143190168114693,
+   "nudge_b_mle_after_C": 0.06253318121789923
+  },
+  "2025": {
+   "B_outcomes_of_Y_flipped_unchanged": {
+    "slopes": true,
+    "price_slopes": true,
+    "nudge": true,
+    "q": true,
+    "nudge_forecast": true
+   },
+   "A_outcomes_forecasts_prices_of_ge_Y_noised_unchanged": {
+    "slopes": true,
+    "price_slopes": true,
+    "nudge": true
+   },
+   "C_outcomes_of_Y_minus_1_flipped_changed": {
+    "slopes": true,
+    "price_slopes": true,
+    "nudge": true,
+    "q": true,
+    "nudge_forecast": true
+   },
+   "passed": true,
+   "slopes_model": {
+    "atp": 0.8831088635276292,
+    "wta": 0.8845660461496483
+   },
+   "slopes_model_after_C": {
+    "atp": 0.489398973431924,
+    "wta": 0.4550093092997611
+   },
+   "nudge_b_mle": 0.6236578785834416,
+   "nudge_b_mle_after_C": 0.14540911675382834
+  },
+  "2026": {
+   "B_outcomes_of_Y_flipped_unchanged": {
+    "slopes": true,
+    "price_slopes": true,
+    "nudge": true,
+    "q": true,
+    "nudge_forecast": true
+   },
+   "A_outcomes_forecasts_prices_of_ge_Y_noised_unchanged": {
+    "slopes": true,
+    "price_slopes": true,
+    "nudge": true
+   },
+   "C_outcomes_of_Y_minus_1_flipped_changed": {
+    "slopes": true,
+    "price_slopes": true,
+    "nudge": true,
+    "q": true,
+    "nudge_forecast": true
+   },
+   "passed": true,
+   "slopes_model": {
+    "atp": 0.887080636956559,
+    "wta": 0.8772153356127997
+   },
+   "slopes_model_after_C": {
+    "atp": 0.5120612277443879,
+    "wta": 0.516024435422736
+   },
+   "nudge_b_mle": 0.6287448938026342,
+   "nudge_b_mle_after_C": 0.31175321343977147
+  }
+ },
+ "fit_metadata": {
+  "by_folder": [
+   {
+    "folder": "feature_interactions",
+    "files": 107,
+    "with_train_seasons": 0,
+    "train_seasons_ok": 0,
+    "train_shape_ok": 107,
+    "with_fingerprint": 107
+   },
+   {
+    "folder": "race",
+    "files": 45,
+    "with_train_seasons": 0,
+    "train_seasons_ok": 0,
+    "train_shape_ok": 45,
+    "with_fingerprint": 0
+   },
+   {
+    "folder": "study",
+    "files": 53,
+    "with_train_seasons": 53,
+    "train_seasons_ok": 53,
+    "train_shape_ok": 53,
+    "with_fingerprint": 53
+   },
+   {
+    "folder": "study_repro",
+    "files": 3,
+    "with_train_seasons": 3,
+    "train_seasons_ok": 3,
+    "train_shape_ok": 3,
+    "with_fingerprint": 3
+   }
+  ],
+  "bad": []
+ },
+ "refusal_test": {
+  "source": "feature_interactions/model__2024__seed5.npz",
+  "train_shape_one_short": "refused: del__2024__seed5.npz: training shape [50002, 58] is not the expanding window's [50003, 58]",
+  "unchanged_control": "loaded",
+  "passed": true,
+  "tmp": "C:\\Users\\zerom\\AppData\\Local\\Temp\\ssp_verifier_window_qv76x9zd"
+ },
+ "passed": true
+}

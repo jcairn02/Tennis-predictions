@@ -1,0 +1,115 @@
+{
+ "mean_fit_seconds_by_season": {
+  "odds": {
+   "2019": 14.9,
+   "2020": 16.4,
+   "2021": 20.2,
+   "2022": 24.7,
+   "2023": 28.5,
+   "2024": 33.4,
+   "2025": 39.3,
+   "2026": 47.4
+  },
+  "noodds": {
+   "2019": 14.6,
+   "2020": 16.2,
+   "2021": 20.4,
+   "2022": 23.1,
+   "2023": 27.5,
+   "2024": 32.3,
+   "2025": 37.6,
+   "2026": 41.2
+  }
+ },
+ "fits_logged": {
+  "odds": 270,
+  "noodds": 168
+ },
+ "sweep_2019_2026_one_seed_seconds_odds": 237,
+ "plan": [
+  {
+   "arm": "spd (A1)",
+   "odds": true,
+   "seasons": "2019-2023",
+   "seeds": 4,
+   "fits": 20,
+   "seconds": 448
+  },
+  {
+   "arm": "spd (A1)",
+   "odds": true,
+   "seasons": "2024-2026",
+   "seeds": 16,
+   "fits": 48,
+   "seconds": 1993
+  },
+  {
+   "arm": "spd_raw (A2)",
+   "odds": true,
+   "seasons": "2019-2023",
+   "seeds": 4,
+   "fits": 20,
+   "seconds": 448
+  },
+  {
+   "arm": "spd_raw (A2)",
+   "odds": true,
+   "seasons": "2024-2026",
+   "seeds": 8,
+   "fits": 24,
+   "seconds": 997
+  },
+  {
+   "arm": "A3",
+   "odds": true,
+   "seasons": "2019-2023",
+   "seeds": 4,
+   "fits": 20,
+   "seconds": 448
+  },
+  {
+   "arm": "A3",
+   "odds": true,
+   "seasons": "2024-2026",
+   "seeds": 8,
+   "fits": 24,
+   "seconds": 997
+  },
+  {
+   "arm": "spd_noodds",
+   "odds": false,
+   "seasons": "2019-2023",
+   "seeds": 4,
+   "fits": 20,
+   "seconds": 437
+  },
+  {
+   "arm": "spd_noodds",
+   "odds": false,
+   "seasons": "2024-2026",
+   "seeds": 8,
+   "fits": 24,
+   "seconds": 925
+  },
+  {
+   "arm": "model_noodds seed 3",
+   "odds": false,
+   "seasons": "2019-2023",
+   "seeds": 1,
+   "fits": 5,
+   "seconds": 109
+  },
+  {
+   "arm": "model_noodds seeds 3-7",
+   "odds": false,
+   "seasons": "2024-2026",
+   "seeds": 5,
+   "fits": 15,
+   "seconds": 578
+  }
+ ],
+ "plan_fits": 220,
+ "plan_hours_at_logged_speed": 2.05,
+ "plan_hours_with_safety": 3.08,
+ "safety_factor": 1.5
+}

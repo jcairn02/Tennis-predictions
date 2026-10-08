@@ -1,0 +1,45 @@
+{
+ "tabicl": {
+  "checkpoint_version": "tabicl-classifier-v2-20260212.ckpt",
+  "n_estimators": 8,
+  "softmax_temperature": 0.9,
+  "batch_size": 8,
+  "random_state": 42,
+  "device": "cuda"
+ },
+ "runs": {
+  "full54": {
+   "train": [
+    39918,
+    54
+   ],
+   "query": [
+    47638,
+    54
+   ],
+   "seconds": 48.1
+  },
+  "short_orig": {
+   "train": [
+    39705,
+    32
+   ],
+   "query": [
+    47362,
+    32
+   ],
+   "seconds": 35.5
+  },
+  "short_rep": {
+   "train": [
+    39705,
+    32
+   ],
+   "query": [
+    47362,
+    32
+   ],
+   "seconds": 36.2
+  }
+ }
+}

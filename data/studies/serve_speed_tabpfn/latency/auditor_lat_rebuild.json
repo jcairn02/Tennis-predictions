@@ -1,0 +1,112 @@
+{
+ "reads_results": false,
+ "release_rule": {
+  "use_rows": 42900,
+  "release_B_ge_A_all_rows": true,
+  "non_slam": {
+   "rows": 20113,
+   "level_not_GS": true,
+   "release_on_monday": 1.0,
+   "lag_matches_weekday_rule": 1.0,
+   "lag_by_lf_weekday": {
+    "0": [
+     7
+    ],
+    "1": [
+     6
+    ],
+    "2": [
+     5
+    ],
+    "3": [
+     4
+    ],
+    "4": [
+     3
+    ],
+    "5": [
+     9
+    ],
+    "6": [
+     8
+    ]
+   }
+  },
+  "slam": {
+   "rows": 22787,
+   "level_GS": true,
+   "release_eq_last_main_day_plus_3": 1.0,
+   "one_release_per_slam_year": true,
+   "qualifying_rows": 3058,
+   "last_main_day_reproduced": 1.0
+  }
+ },
+ "agreement_B_M0": {
+  "sd_meta": 1.5074758732518807,
+  "sd_mine": 1.5074758732518807,
+  "all": {
+   "n": 63737,
+   "corr": 0.9999999999999997,
+   "share_within_0.05": 1.0,
+   "max_abs_diff": 1.7985612998927536e-14
+  },
+  "men": {
+   "n": 31683,
+   "corr": 1.0,
+   "share_within_0.05": 1.0,
+   "max_abs_diff": 1.7985612998927536e-14
+  }
+ },
+ "agreement_B_M1": {
+  "sd_meta": 1.9496051535048338,
+  "sd_mine": 1.9496051535048338,
+  "all": {
+   "n": 63737,
+   "corr": 0.9999999999999998,
+   "share_within_0.05": 1.0,
+   "max_abs_diff": 2.4868995751603507e-14
+  },
+  "men": {
+   "n": 31683,
+   "corr": 0.9999999999999999,
+   "share_within_0.05": 1.0,
+   "max_abs_diff": 2.4868995751603507e-14
+  }
+ },
+ "agreement_A_M0": {
+  "sd_meta": 2.223995373606193,
+  "sd_mine": 2.223995373606193,
+  "all": {
+   "n": 63737,
+   "corr": 1.0,
+   "share_within_0.05": 1.0,
+   "max_abs_diff": 2.1843638009499955e-14
+  },
+  "men": {
+   "n": 31683,
+   "corr": 1.0,
+   "share_within_0.05": 1.0,
+   "max_abs_diff": 2.1843638009499955e-14
+  }
+ },
+ "same_event_share_men_2024_26": {
+  "sides": 14140,
+  "B": 0.021711456859971712,
+  "A": 0.4149222065063649,
+  "B_count": 307,
+  "B_top_events": {
+   "2024-5014": 29,
+   "2026-416": 21,
+   "2025-1536": 20,
+   "2024-1536": 19,
+   "2025-403": 19,
+   "2026-404": 19,
+   "2026-1536": 19,
+   "2024-404": 18,
+   "2025-422": 17,
+   "2025-5014": 17,
+   "2026-403": 17,
+   "2024-416": 16
+  }
+ }
+}

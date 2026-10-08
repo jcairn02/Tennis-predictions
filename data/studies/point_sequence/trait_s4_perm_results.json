@@ -1,0 +1,208 @@
+{
+ "prereg_sha256": "2caab7e1483d2b284677808e47cee2ae609e5671095546693ad17e539b156378",
+ "deviations": [
+  "Added after the pre-registered results were seen: calibration of the permutation null on the iid V1 replays (trait_s4_perm_calib.py); it changes no pre-registered number."
+ ],
+ "identity_check": {
+  "max_abs_diff_X": 1.7009649084798184e-06,
+  "max_abs_diff_D": 1.8956471095066263e-06,
+  "svc_games_equal": true,
+  "holds_equal": true,
+  "games": 2132969
+ },
+ "acceptance": {
+  "perm_0": {
+   "pools": 453706,
+   "rounds": 488,
+   "pools_at_cap_kept_real_order": 0,
+   "mean_draws_per_pool": 6.20161293877533,
+   "accepted_first_draw_pct": 20.33585625933975,
+   "max_draws": 488,
+   "games": 2185117
+  },
+  "perm_1": {
+   "pools": 453706,
+   "rounds": 679,
+   "pools_at_cap_kept_real_order": 0,
+   "mean_draws_per_pool": 6.234270651038337,
+   "accepted_first_draw_pct": 20.25562809396393,
+   "max_draws": 679,
+   "games": 2184572
+  },
+  "perm_2": {
+   "pools": 453706,
+   "rounds": 617,
+   "pools_at_cap_kept_real_order": 0,
+   "mean_draws_per_pool": 6.205820509316606,
+   "accepted_first_draw_pct": 20.35040312449031,
+   "max_draws": 617,
+   "games": 2184682
+  }
+ },
+ "population_level": {
+  "atp": {
+   "player_matches": 131936,
+   "real_S4": -0.02311380430908629,
+   "permuted_S4": 0.009977786434947082,
+   "real_minus_permuted": -0.033091590744033374,
+   "lo": -0.035229616948045855,
+   "hi": -0.030970472516614046,
+   "service_games_real": 1531016.0,
+   "service_games_permuted_mean": 1564393.0,
+   "hold_rate_real": 0.7588627421267968,
+   "hold_rate_permuted_mean": 0.7530695225426859
+  },
+  "wta": {
+   "player_matches": 56220,
+   "real_S4": -0.03437663299749547,
+   "permuted_S4": 0.02027052670791355,
+   "real_minus_permuted": -0.054647159705409024,
+   "lo": -0.05770400168092864,
+   "hi": -0.05192967318728075,
+   "service_games_real": 601953.0,
+   "service_games_permuted_mean": 620397.3333333334,
+   "hold_rate_real": 0.6434173432145035,
+   "hold_rate_permuted_mean": 0.6388013406075094
+  }
+ },
+ "reliability": [
+  {
+   "tour": "atp",
+   "population": "ge20",
+   "players": 754,
+   "player_matches": 108058,
+   "matches_per_player_median": 98.5,
+   "real_r": 0.0905524336,
+   "permuted_r": 0.0352007445,
+   "permuted_r_each": [
+    0.0821707253,
+    0.0143261563,
+    0.0091053517
+   ],
+   "delta": 0.0553516892,
+   "delta_lo": -0.0038117114,
+   "delta_hi": 0.1155184673,
+   "r_hold": -0.2447580709,
+   "r_break": 0.1638217078,
+   "ability_max_abs_r": 0.2447580709,
+   "pass": false
+  },
+  {
+   "tour": "atp",
+   "population": "ge50",
+   "players": 376,
+   "player_matches": 84219,
+   "matches_per_player_median": 185.0,
+   "real_r": 0.233885893,
+   "permuted_r": 0.0708597973,
+   "permuted_r_each": [
+    0.1226928062,
+    0.0612398676,
+    0.0286467179
+   ],
+   "delta": 0.1630260958,
+   "delta_lo": 0.0864424391,
+   "delta_hi": 0.2344777559,
+   "r_hold": null,
+   "r_break": null,
+   "ability_max_abs_r": null,
+   "pass": null
+  },
+  {
+   "tour": "wta",
+   "population": "ge20",
+   "players": 347,
+   "player_matches": 50321,
+   "matches_per_player_median": 128.0,
+   "real_r": 0.0095135529,
+   "permuted_r": -0.0038989329,
+   "permuted_r_each": [
+    -0.0102826243,
+    -0.0019319804,
+    0.0005178062
+   ],
+   "delta": 0.0134124857,
+   "delta_lo": -0.0838670386,
+   "delta_hi": 0.109318676,
+   "r_hold": -0.1178559668,
+   "r_break": -0.074298463,
+   "ability_max_abs_r": 0.1178559668,
+   "pass": false
+  },
+  {
+   "tour": "wta",
+   "population": "ge50",
+   "players": 204,
+   "player_matches": 41273,
+   "matches_per_player_median": 183.5,
+   "real_r": 0.0540925828,
+   "permuted_r": -0.004651338,
+   "permuted_r_each": [
+    -0.0287571724,
+    0.0351567344,
+    -0.0203535759
+   ],
+   "delta": 0.0587439207,
+   "delta_lo": -0.0524936713,
+   "delta_hi": 0.1694218747,
+   "r_hold": null,
+   "r_break": null,
+   "ability_max_abs_r": null,
+   "pass": null
+  }
+ ],
+ "seconds": 103.7,
+ "post_hoc_null_calibration": {
+  "note": "post-hoc calibration of the permutation null on iid V1 replays (not pre-registered)",
+  "atp_ge20": {
+   "replay_r": 0.011036606264296636,
+   "permuted_replay_r": 0.023263981411021484,
+   "delta": -0.012227375146724848,
+   "lo": -0.06126805612297401,
+   "hi": 0.03755084043743732,
+   "players": 754
+  },
+  "atp_ge50": {
+   "replay_r": -0.006326326142761633,
+   "permuted_replay_r": 0.0001387296730374551,
+   "delta": -0.006465055815799089,
+   "lo": -0.07374848497435467,
+   "hi": 0.06065354670840863,
+   "players": 376
+  },
+  "atp_population": {
+   "replay_S4": -0.05894892792358188,
+   "permuted_replay_S4": -8.626814118901584e-05,
+   "replay_minus_permuted": -0.058862659782392864,
+   "service_games_replay": 1553414.6666666667,
+   "service_games_permuted": 1594700.3333333333,
+   "hold_rate_replay": 0.7616068997512104,
+   "hold_rate_permuted": 0.7525347465149897
+  },
+  "wta_ge20": {
+   "replay_r": 0.02764093426707706,
+   "permuted_replay_r": -0.011100884888740059,
+   "delta": 0.03874181915581712,
+   "lo": -0.030462380926544193,
+   "hi": 0.10869189649485773,
+   "players": 347
+  },
+  "wta_ge50": {
+   "replay_r": -0.04223684903161842,
+   "permuted_replay_r": 0.006191927304031897,
+   "delta": -0.04842877633565032,
+   "lo": -0.13061721712158222,
+   "hi": 0.029958144635221565,
+   "players": 204
+  },
+  "wta_population": {
+   "replay_S4": -0.05417079394386185,
+   "permuted_replay_S4": 0.012847841173072352,
+   "replay_minus_permuted": -0.0670186351169342,
+   "service_games_replay": 613455.6666666666,
+   "service_games_permuted": 633824.0,
+   "hold_rate_replay": 0.6470479081812422,
+   "hold_rate_permuted": 0.6409125464798121
+  }
+ }
+}

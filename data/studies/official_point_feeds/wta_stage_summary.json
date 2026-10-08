@@ -1,0 +1,372 @@
+{
+ "source": "wta",
+ "mode": "stage",
+ "batch": null,
+ "started_at": "2026-10-03T05:07:24+00:00",
+ "args": {
+  "batch": null,
+  "years": "2019-2026",
+  "after_pid": null,
+  "calendar_only": false,
+  "sample": false,
+  "seed": 20260924,
+  "tiers": null,
+  "draws": null,
+  "endpoints": null,
+  "from_date": null,
+  "limit": null,
+  "max_requests": null,
+  "min_interval": 2.0,
+  "jitter": 1.0,
+  "stop_after_failures": 5,
+  "stop_after_absences": 150,
+  "pause_after_errors": 600,
+  "max_pauses": 12,
+  "refresh": false,
+  "refresh_calendar": false,
+  "stage_only": true,
+  "no_stage": false
+ },
+ "decision": "docs/decisions/2026-09-24-official-point-feeds.md",
+ "years": [
+  2019,
+  2020,
+  2021,
+  2022,
+  2023,
+  2024,
+  2025,
+  2026
+ ],
+ "receipts_unreadable_lines": 0,
+ "editions": {
+  "2019|1000": 9,
+  "2019|125": 11,
+  "2019|250": 31,
+  "2019|500": 11,
+  "2019|finals": 2,
+  "2019|slam": 4,
+  "2020|1000": 9,
+  "2020|125": 13,
+  "2020|250": 31,
+  "2020|500": 12,
+  "2020|finals": 2,
+  "2020|slam": 4,
+  "2021|1000": 7,
+  "2021|125": 15,
+  "2021|250": 29,
+  "2021|500": 14,
+  "2021|finals": 1,
+  "2021|slam": 4,
+  "2022|1000": 8,
+  "2022|125": 24,
+  "2022|250": 30,
+  "2022|500": 11,
+  "2022|finals": 1,
+  "2022|slam": 4,
+  "2023|1000": 9,
+  "2023|125": 31,
+  "2023|250": 30,
+  "2023|500": 11,
+  "2023|finals": 2,
+  "2023|slam": 4,
+  "2023|team": 1,
+  "2024|1000": 10,
+  "2024|125": 36,
+  "2024|250": 23,
+  "2024|500": 16,
+  "2024|finals": 1,
+  "2024|slam": 4,
+  "2024|team": 1,
+  "2025|1000": 10,
+  "2025|125": 53,
+  "2025|250": 20,
+  "2025|500": 17,
+  "2025|finals": 1,
+  "2025|slam": 4,
+  "2025|team": 1,
+  "2026|1000": 10,
+  "2026|125": 69,
+  "2026|250": 22,
+  "2026|500": 17,
+  "2026|finals": 1,
+  "2026|slam": 4,
+  "2026|team": 1
+ },
+ "pauses": [],
+ "matches_selected": 0,
+ "fetch_outcomes": {},
+ "staged": {
+  "editions": {
+   "rows": 828,
+   "dest": "data/dump/points/wta/editions.parquet",
+   "bytes": 35639
+  },
+  "matches/2019": {
+   "rows": 3394,
+   "dest": "data/dump/points/wta/matches/2019.parquet",
+   "bytes": 1435825
+  },
+  "points/2019": {
+   "rows": 0,
+   "dest": "data/dump/points/wta/points/2019.parquet",
+   "bytes": 2333
+  },
+  "events/2019": {
+   "rows": 492001,
+   "dest": "data/dump/points/wta/events/2019.parquet",
+   "bytes": 14216945
+  },
+  "stats/2019": {
+   "rows": 11323,
+   "dest": "data/dump/points/wta/stats/2019.parquet",
+   "bytes": 254175
+  },
+  "advanced/2019": {
+   "rows": 0,
+   "dest": "data/dump/points/wta/advanced/2019.parquet",
+   "bytes": 1316
+  },
+  "momentum/2019": {
+   "rows": 0,
+   "dest": "data/dump/points/wta/momentum/2019.parquet",
+   "bytes": 1316
+  },
+  "matches/2020": {
+   "rows": 1796,
+   "dest": "data/dump/points/wta/matches/2020.parquet",
+   "bytes": 750095
+  },
+  "points/2020": {
+   "rows": 0,
+   "dest": "data/dump/points/wta/points/2020.parquet",
+   "bytes": 2333
+  },
+  "events/2020": {
+   "rows": 378796,
+   "dest": "data/dump/points/wta/events/2020.parquet",
+   "bytes": 12881595
+  },
+  "stats/2020": {
+   "rows": 5976,
+   "dest": "data/dump/points/wta/stats/2020.parquet",
+   "bytes": 144810
+  },
+  "advanced/2020": {
+   "rows": 0,
+   "dest": "data/dump/points/wta/advanced/2020.parquet",
+   "bytes": 1316
+  },
+  "momentum/2020": {
+   "rows": 0,
+   "dest": "data/dump/points/wta/momentum/2020.parquet",
+   "bytes": 1316
+  },
+  "matches/2021": {
+   "rows": 4325,
+   "dest": "data/dump/points/wta/matches/2021.parquet",
+   "bytes": 1636823
+  },
+  "points/2021": {
+   "rows": 0,
+   "dest": "data/dump/points/wta/points/2021.parquet",
+   "bytes": 2333
+  },
+  "events/2021": {
+   "rows": 887605,
+   "dest": "data/dump/points/wta/events/2021.parquet",
+   "bytes": 33878814
+  },
+  "stats/2021": {
+   "rows": 14256,
+   "dest": "data/dump/points/wta/stats/2021.parquet",
+   "bytes": 318242
+  },
+  "advanced/2021": {
+   "rows": 405770,
+   "dest": "data/dump/points/wta/advanced/2021.parquet",
+   "bytes": 1319751
+  },
+  "momentum/2021": {
+   "rows": 0,
+   "dest": "data/dump/points/wta/momentum/2021.parquet",
+   "bytes": 1316
+  },
+  "matches/2022": {
+   "rows": 4749,
+   "dest": "data/dump/points/wta/matches/2022.parquet",
+   "bytes": 1812479
+  },
+  "points/2022": {
+   "rows": 476337,
+   "dest": "data/dump/points/wta/points/2022.parquet",
+   "bytes": 4452339
+  },
+  "events/2022": {
+   "rows": 976708,
+   "dest": "data/dump/points/wta/events/2022.parquet",
+   "bytes": 43325986
+  },
+  "stats/2022": {
+   "rows": 15584,
+   "dest": "data/dump/points/wta/stats/2022.parquet",
+   "bytes": 338150
+  },
+  "advanced/2022": {
+   "rows": 1376802,
+   "dest": "data/dump/points/wta/advanced/2022.parquet",
+   "bytes": 4982682
+  },
+  "momentum/2022": {
+   "rows": 0,
+   "dest": "data/dump/points/wta/momentum/2022.parquet",
+   "bytes": 1316
+  },
+  "matches/2023": {
+   "rows": 5244,
+   "dest": "data/dump/points/wta/matches/2023.parquet",
+   "bytes": 1922547
+  },
+  "points/2023": {
+   "rows": 697509,
+   "dest": "data/dump/points/wta/points/2023.parquet",
+   "bytes": 6538975
+  },
+  "events/2023": {
+   "rows": 1088157,
+   "dest": "data/dump/points/wta/events/2023.parquet",
+   "bytes": 48357068
+  },
+  "stats/2023": {
+   "rows": 17272,
+   "dest": "data/dump/points/wta/stats/2023.parquet",
+   "bytes": 376877
+  },
+  "advanced/2023": {
+   "rows": 1524594,
+   "dest": "data/dump/points/wta/advanced/2023.parquet",
+   "bytes": 5515367
+  },
+  "momentum/2023": {
+   "rows": 0,
+   "dest": "data/dump/points/wta/momentum/2023.parquet",
+   "bytes": 1316
+  },
+  "matches/2024": {
+   "rows": 6118,
+   "dest": "data/dump/points/wta/matches/2024.parquet",
+   "bytes": 2058097
+  },
+  "points/2024": {
+   "rows": 725036,
+   "dest": "data/dump/points/wta/points/2024.parquet",
+   "bytes": 6813360
+  },
+  "events/2024": {
+   "rows": 1133702,
+   "dest": "data/dump/points/wta/events/2024.parquet",
+   "bytes": 50390048
+  },
+  "stats/2024": {
+   "rows": 18690,
+   "dest": "data/dump/points/wta/stats/2024.parquet",
+   "bytes": 412393
+  },
+  "advanced/2024": {
+   "rows": 1596826,
+   "dest": "data/dump/points/wta/advanced/2024.parquet",
+   "bytes": 5775317
+  },
+  "momentum/2024": {
+   "rows": 0,
+   "dest": "data/dump/points/wta/momentum/2024.parquet",
+   "bytes": 1316
+  },
+  "matches/2025": {
+   "rows": 7627,
+   "dest": "data/dump/points/wta/matches/2025.parquet",
+   "bytes": 1303226
+  },
+  "points/2025": {
+   "rows": 424877,
+   "dest": "data/dump/points/wta/points/2025.parquet",
+   "bytes": 3978962
+  },
+  "events/2025": {
+   "rows": 1315287,
+   "dest": "data/dump/points/wta/events/2025.parquet",
+   "bytes": 58451397
+  },
+  "stats/2025": {
+   "rows": 22259,
+   "dest": "data/dump/points/wta/stats/2025.parquet",
+   "bytes": 489732
+  },
+  "advanced/2025": {
+   "rows": 2131498,
+   "dest": "data/dump/points/wta/advanced/2025.parquet",
+   "bytes": 8347854
+  },
+  "momentum/2025": {
+   "rows": 9250552,
+   "dest": "data/dump/points/wta/momentum/2025.parquet",
+   "bytes": 37419168
+  },
+  "matches/2026": {
+   "rows": 7111,
+   "dest": "data/dump/points/wta/matches/2026.parquet",
+   "bytes": 517297
+  },
+  "points/2026": {
+   "rows": 470700,
+   "dest": "data/dump/points/wta/points/2026.parquet",
+   "bytes": 4339937
+  },
+  "events/2026": {
+   "rows": 1197456,
+   "dest": "data/dump/points/wta/events/2026.parquet",
+   "bytes": 53075957
+  },
+  "stats/2026": {
+   "rows": 20438,
+   "dest": "data/dump/points/wta/stats/2026.parquet",
+   "bytes": 472742
+  },
+  "advanced/2026": {
+   "rows": 1988250,
+   "dest": "data/dump/points/wta/advanced/2026.parquet",
+   "bytes": 7949603
+  },
+  "momentum/2026": {
+   "rows": 7647163,
+   "dest": "data/dump/points/wta/momentum/2026.parquet",
+   "bytes": 36652164
+  }
+ },
+ "receipts": {
+  "calendar:200": 12,
+  "matches:200": 140192,
+  "matches:404": 7143,
+  "matches:error": 3,
+  "probe:200": 1,
+  "tournaments:200": 679,
+  "tournaments:404": 15
+ },
+ "receipts_with_errors": 3,
+ "error_examples": [
+  {
+   "name": "matches/1017/2022/RS029/point-by-point",
+   "error": "RuntimeError: HTTP 504 for https://api.wtatennis.com/tennis/tournaments/1017/2022/matches/RS029/point-by-point after 4 attempts"
+  },
+  {
+   "name": "matches/1065/2023/LS004/point-by-point",
+   "error": "RuntimeError: HTTP 504 for https://api.wtatennis.com/tennis/tournaments/1065/2023/matches/LS004/point-by-point after 4 attempts"
+  },
+  {
+   "name": "matches/2089/2023/LS029/point-by-point",
+   "error": "RuntimeError: HTTP 504 for https://api.wtatennis.com/tennis/tournaments/2089/2023/matches/LS029/point-by-point after 4 attempts"
+  }
+ ],
+ "finished_at": "2026-10-03T05:11:53+00:00",
+ "seconds": 268.8
+}

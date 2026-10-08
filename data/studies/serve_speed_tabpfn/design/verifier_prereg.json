@@ -1,0 +1,239 @@
+{
+ "what": "pre-registration claims against score.py: counts (no outcome) and --run's refusals on a stand-in world with fake labels",
+ "real_counts": {
+  "men 2024-2026": {
+   "matches": 7068,
+   "by_season": {
+    "2024": 2674,
+    "2025": 2620,
+    "2026": 1774
+   },
+   "blocks": 33
+  },
+  "women 2024-2026": {
+   "matches": 6586,
+   "by_season": {
+    "2024": 2460,
+    "2025": 2485,
+    "2026": 1641
+   },
+   "blocks": 33
+  },
+  "both 2024-2026": {
+   "matches": 13654,
+   "by_season": {
+    "2024": 5134,
+    "2025": 5105,
+    "2026": 3415
+   },
+   "blocks": 33
+  },
+  "men 2025-2026": {
+   "matches": 4394,
+   "by_season": {
+    "2025": 2620,
+    "2026": 1774
+   },
+   "blocks": 21
+  },
+  "men_early_all 2025-2026": {
+   "matches": 1442,
+   "by_season": {
+    "2025": 232,
+    "2026": 1210
+   },
+   "blocks": 12
+  },
+  "men_early_clean 2025-2026": {
+   "matches": 582,
+   "by_season": {
+    "2025": 117,
+    "2026": 465
+   },
+   "blocks": 11
+  },
+  "men_recency_both 2024-2026": {
+   "matches": 5420,
+   "by_season": {
+    "2024": 2104,
+    "2025": 1934,
+    "2026": 1382
+   },
+   "blocks": 33
+  },
+  "men_recency_one 2024-2026": {
+   "matches": 1130,
+   "by_season": {
+    "2024": 441,
+    "2025": 413,
+    "2026": 276
+   },
+   "blocks": 33
+  },
+  "men_recency_neither 2024-2026": {
+   "matches": 518,
+   "by_season": {
+    "2024": 129,
+    "2025": 273,
+    "2026": 116
+   },
+   "blocks": 29
+  },
+  "women_no_conflict 2024-2026": {
+   "matches": 6565,
+   "by_season": {
+    "2024": 2460,
+    "2025": 2485,
+    "2026": 1620
+   },
+   "blocks": 33
+  },
+  "spd_f_sd_men_2024_2026": 1.10591914032661,
+  "spd_f_sd_men_2022_2023": 0.9910919085314408,
+  "spd_f_nonzero_men_2024_2026": 7066,
+  "player_ids_missing_men_2024_2026": 0,
+  "women_id_conflict_2024_2026": 21,
+  "population_sha256": "e4ab0787b531526708fa7d97ffdd97a2878b02a1b113eda62c26b59d5296ef27",
+  "code_files": [
+   "src/eda/serve_speed_tabpfn/common.py",
+   "src/eda/serve_speed_tabpfn/arms.py",
+   "src/eda/serve_speed_tabpfn/forecasts.py",
+   "src/eda/serve_speed_tabpfn/score.py",
+   "src/eda/serve_speed_tabpfn/local_fits.py",
+   "src/eda/tabpfn_thinking/common.py"
+  ],
+  "prereg_keys_verified_by_run": [
+   "SCORER_CODE_SHA256",
+   "MODEL_FRAME_SHA256",
+   "FEATURE_SHA256",
+   "REGISTRY_SHA256",
+   "EARLY_SHA256",
+   "POPULATION_SHA256"
+  ],
+  "draft_recorded_hashes": {
+   "SCORER_CODE_SHA256": null,
+   "MODEL_FRAME_SHA256": null,
+   "FEATURE_SHA256": null,
+   "REGISTRY_SHA256": null,
+   "EARLY_SHA256": null,
+   "POPULATION_SHA256": null
+  }
+ },
+ "run_cases": [
+  {
+   "case": "results.json already present",
+   "result": "refused: results.json exists: the test runs once",
+   "expected": "refused",
+   "pass": true
+  },
+  {
+   "case": "no pre-registration",
+   "result": "refused: no hashed pre-registration",
+   "expected": "refused",
+   "pass": true
+  },
+  {
+   "case": "pre-registration without its .sha256",
+   "result": "refused: no hashed pre-registration",
+   "expected": "refused",
+   "pass": true
+  },
+  {
+   "case": ".sha256 does not match (edited after hashing)",
+   "result": "refused: preregistration.md does not match its recorded SHA-256",
+   "expected": "refused",
+   "pass": true
+  },
+  {
+   "case": "the draft's [lead] placeholders",
+   "result": "refused: recorded hashes differ from the current inputs or code: ['SCORER_CODE_SHA256', 'MODEL_FRAME_SHA256', 'FEATURE_SHA256', 'REGISTRY_SHA256', 'EARLY_SHA256', 'POPUL",
+   "expected": "refused",
+   "pass": true
+  },
+  {
+   "case": "the real draft text, hashed",
+   "result": "refused: recorded hashes differ from the current inputs or code: ['SCORER_CODE_SHA256', 'MODEL_FRAME_SHA256', 'FEATURE_SHA256', 'REGISTRY_SHA256', 'EARLY_SHA256', 'POPUL",
+   "expected": "refused",
+   "pass": true
+  },
+  {
+   "case": "recorded SCORER_CODE_SHA256 differs",
+   "result": "refused: recorded hashes differ from the current inputs or code: ['SCORER_CODE_SHA256']",
+   "expected": "refused",
+   "pass": true
+  },
+  {
+   "case": "recorded MODEL_FRAME_SHA256 differs",
+   "result": "refused: recorded hashes differ from the current inputs or code: ['MODEL_FRAME_SHA256']",
+   "expected": "refused",
+   "pass": true
+  },
+  {
+   "case": "recorded FEATURE_SHA256 differs",
+   "result": "refused: recorded hashes differ from the current inputs or code: ['FEATURE_SHA256']",
+   "expected": "refused",
+   "pass": true
+  },
+  {
+   "case": "recorded REGISTRY_SHA256 differs",
+   "result": "refused: recorded hashes differ from the current inputs or code: ['REGISTRY_SHA256']",
+   "expected": "refused",
+   "pass": true
+  },
+  {
+   "case": "recorded EARLY_SHA256 differs",
+   "result": "refused: recorded hashes differ from the current inputs or code: ['EARLY_SHA256']",
+   "expected": "refused",
+   "pass": true
+  },
+  {
+   "case": "recorded POPULATION_SHA256 differs",
+   "result": "refused: recorded hashes differ from the current inputs or code: ['POPULATION_SHA256']",
+   "expected": "refused",
+   "pass": true
+  },
+  {
+   "case": "feature meta says stand-in panel",
+   "result": "refused: feature file refused: ['built on a stand-in panel (standin_panel true): not the R3 panel']",
+   "expected": "refused",
+   "pass": true
+  },
+  {
+   "case": "reproduction check not passed",
+   "result": "refused: reuse checks not passed: {'repro_check.json': False, 'fingerprint_check.json': True}",
+   "expected": "refused",
+   "pass": true
+  },
+  {
+   "case": "a stale speed fit (another feature file)",
+   "result": "refused: 1 speed-arm fits were made on another feature file: ['spd__2024__seed0.npz']",
+   "expected": "refused",
+   "pass": true
+  },
+  {
+   "case": "a P2 fit missing (spd 2026 seed 15)",
+   "result": "refused: no fit for spd 2026 seed 15",
+   "expected": "refused",
+   "pass": true
+  },
+  {
+   "case": "everything present (synthetic stand-in labels)",
+   "result": "RAN (results.json written)",
+   "expected": "RAN",
+   "pass": true,
+   "unavailable_rows": []
+  },
+  {
+   "case": "every A2 (spd_raw) fit missing",
+   "result": "RAN (results.json written)",
+   "unavailable_rows": [
+    "S8_A2",
+    "S8_A1_vs_A2"
+   ],
+   "expected": "refused (proposed)",
+   "pass": false,
+   "note": "if RAN: --run consumed its one run with secondaries marked unavailable"
+  }
+ ],
+ "stand_in_root": "C:\\Users\\zerom\\AppData\\Local\\Temp\\ssp_verifier_prereg_611fs0jv"
+}

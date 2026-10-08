@@ -1,0 +1,89 @@
+{
+ "finished_at": "2026-10-06T04:38:22+00:00",
+ "wall_seconds": 334.8,
+ "reused_saved_predictions": false,
+ "receipt": {
+  "schema": "tennis-tabpfn-leakproof-thinking-v1",
+  "input_sha256": "7815fe22a5dfd4449f87d770fe5d2bff3a5045c0b837500c69307f057e083774",
+  "config_sha256": "ec0d49f25d72f8d21e019003796a440b4e1d6a3ded32419a0b2feaf79999b98d",
+  "model_path": "v3.5_default",
+  "status": "COMPLETE",
+  "fit_requests_dispatched": 1,
+  "prediction_requests_dispatched": 1,
+  "prediction_sha256": "444a443ba208d8cb411f69e35e64a54e453947bced87a8223423a1f2d7ed3ef5",
+  "query_rows": 47638,
+  "metadata": {
+   "task": "classification",
+   "package_version": "9.0.0",
+   "tabpfn_config": {
+    "n_estimators": 8,
+    "categorical_features_indices": [],
+    "softmax_temperature": 0.9,
+    "random_state": 0,
+    "inference_config": {
+     "TRANSFORM_DATES": false,
+     "TRANSFORM_TEXT": false
+    },
+    "ignore_pretraining_limits": true,
+    "fit_mode": "fit_preprocessors",
+    "model_path": "tabpfn-v3.5-20260909.safetensors",
+    "balance_probabilities": false
+   },
+   "test_set_num_rows": 47638,
+   "test_set_num_cols": 54,
+   "n_estimators": 2,
+   "billing_model_version": "v3.5",
+   "execution_mode": "thinking",
+   "cache_outcome": "not_requested",
+   "timings": {
+    "fit": {
+     "elapsed_s": 256.49,
+     "queue_wait_s": 1.874,
+     "train_set_transform_s": 0.798,
+     "fit_s": 253.818
+    },
+    "predict": {
+     "test_set_transform_queue_wait_s": 0.158,
+     "test_set_transform_s": 0.625,
+     "predict_queue_wait_s": 0.203,
+     "predict_s": 40.693
+    }
+   }
+  }
+ },
+ "usage_before": {
+  "daily_tokens_used": 0,
+  "daily_token_limit": 5000000,
+  "monthly_tokens_used": 614761,
+  "monthly_token_limit": 20000000,
+  "current_usage": 614761,
+  "usage_limit": 20000000,
+  "reset_time": "2026-11-01 00:00:00 UTC",
+  "monthly_usage": 614761,
+  "monthly_limit": 20000000,
+  "monthly_reset_time": "2026-11-01 00:00:00 UTC",
+  "daily_usage": 0,
+  "daily_limit": 5000000,
+  "daily_reset_time": "2026-10-07 00:00:00 UTC",
+  "thinking_fit_count": 0,
+  "thinking_fit_limit": 0
+ },
+ "usage_after": {
+  "daily_tokens_used": 162211,
+  "daily_token_limit": 5000000,
+  "monthly_tokens_used": 776972,
+  "monthly_token_limit": 20000000,
+  "current_usage": 776972,
+  "usage_limit": 20000000,
+  "reset_time": "2026-11-01 00:00:00 UTC",
+  "monthly_usage": 776972,
+  "monthly_limit": 20000000,
+  "monthly_reset_time": "2026-11-01 00:00:00 UTC",
+  "daily_usage": 162211,
+  "daily_limit": 5000000,
+  "daily_reset_time": "2026-10-07 00:00:00 UTC",
+  "thinking_fit_count": 0,
+  "thinking_fit_limit": 0
+ },
+ "tokens_monthly_delta": 162211
+}

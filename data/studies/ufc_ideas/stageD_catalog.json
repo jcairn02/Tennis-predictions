@@ -1,0 +1,178 @@
+[
+ {
+  "id": "earlier_three",
+  "form": "together",
+  "name": "The earlier study's three",
+  "family": "together",
+  "description": "the ratings through the iid model, the points matchup over the last 52 weeks and sets over the last 14 days",
+  "inputs": {
+   "atp": [
+    "rating_matchup|single",
+    "mu_points|52 weeks",
+    "sets_14d|single"
+   ],
+   "wta": [
+    "rating_matchup|single",
+    "mu_points|52 weeks",
+    "sets_14d|single"
+   ]
+  },
+  "tuned": "nothing: every input at its stage's frozen constants"
+ },
+ {
+  "id": "earlier_adjperf",
+  "form": "together",
+  "name": "Ratings + 2-week adjperf + load",
+  "family": "together",
+  "description": "the ratings, Stage B's adjperf of total points won (2-week half-life) and sets over the last 14 days",
+  "inputs": {
+   "atp": [
+    "rating_matchup|single",
+    "adjperf_tpw|decayed",
+    "sets_14d|single"
+   ],
+   "wta": [
+    "rating_matchup|single",
+    "adjperf_tpw|decayed",
+    "sets_14d|single"
+   ]
+  },
+  "tuned": "nothing: every input at its stage's frozen constants"
+ },
+ {
+  "id": "earlier_ios",
+  "form": "together",
+  "name": "Ratings + short-memory IOS + load",
+  "family": "together",
+  "description": "the ratings, Stage B's short-memory IOS points matchup and sets over the last 14 days",
+  "inputs": {
+   "atp": [
+    "rating_matchup|single",
+    "ios_matchup_points|diagnostic: h 4 weeks",
+    "sets_14d|single"
+   ],
+   "wta": [
+    "rating_matchup|single",
+    "ios_matchup_points|diagnostic: h 13 weeks",
+    "sets_14d|single"
+   ]
+  },
+  "tuned": "nothing: every input at its stage's frozen constants"
+ },
+ {
+  "id": "box_trio",
+  "form": "together",
+  "name": "The three point-level measures",
+  "family": "together",
+  "description": "the ratings through the iid model, the 2-week adjperf of total points and the short-memory IOS matchup",
+  "inputs": {
+   "atp": [
+    "rating_matchup|single",
+    "adjperf_tpw|decayed",
+    "ios_matchup_points|diagnostic: h 4 weeks"
+   ],
+   "wta": [
+    "rating_matchup|single",
+    "adjperf_tpw|decayed",
+    "ios_matchup_points|diagnostic: h 13 weeks"
+   ]
+  },
+  "tuned": "nothing: every input at its stage's frozen constants"
+ },
+ {
+  "id": "new_only",
+  "form": "together",
+  "name": "Stages A-C only",
+  "family": "together",
+  "description": "Bradley-Terry, the 2-week adjperf, the short-memory IOS matchup, the credit for opponents lost to, the quality of wins and the 52-week grinder",
+  "inputs": {
+   "atp": [
+    "bt|single",
+    "adjperf_tpw|decayed",
+    "ios_matchup_points|diagnostic: h 4 weeks",
+    "revalue_lost|52 weeks",
+    "sos_won_elo|52 weeks",
+    "grinder|52 weeks"
+   ],
+   "wta": [
+    "bt|single",
+    "adjperf_tpw|decayed",
+    "ios_matchup_points|diagnostic: h 13 weeks",
+    "revalue_lost|52 weeks",
+    "sos_won_elo|52 weeks",
+    "grinder|52 weeks"
+   ]
+  },
+  "tuned": "nothing: every input at its stage's frozen constants"
+ },
+ {
+  "id": "everything",
+  "form": "together",
+  "name": "Everything",
+  "family": "together",
+  "description": "Bradley-Terry, the ratings, the games-weighted Elo, the 2-week adjperf, the short-memory IOS matchup, sets over 14 days, the first matches on a surface, age and the credit for opponents lost to",
+  "inputs": {
+   "atp": [
+    "bt|single",
+    "rating_matchup|single",
+    "elo_games|single",
+    "adjperf_tpw|decayed",
+    "ios_matchup_points|diagnostic: h 4 weeks",
+    "sets_14d|single",
+    "surface_first|single",
+    "age|single",
+    "age|single|2",
+    "revalue_lost|52 weeks"
+   ],
+   "wta": [
+    "bt|single",
+    "rating_matchup|single",
+    "elo_games|single",
+    "adjperf_tpw|decayed",
+    "ios_matchup_points|diagnostic: h 13 weeks",
+    "sets_14d|single",
+    "surface_first|single",
+    "age|single",
+    "age|single|2",
+    "revalue_lost|52 weeks"
+   ]
+  },
+  "tuned": "nothing: every input at its stage's frozen constants"
+ },
+ {
+  "id": "everything_mesr",
+  "form": "together",
+  "name": "Everything + MESR",
+  "family": "together",
+  "description": "the everything model plus Stage A's market-embedded rating, where both players have an odds history",
+  "inputs": {
+   "atp": [
+    "bt|single",
+    "rating_matchup|single",
+    "elo_games|single",
+    "adjperf_tpw|decayed",
+    "ios_matchup_points|diagnostic: h 4 weeks",
+    "sets_14d|single",
+    "surface_first|single",
+    "age|single",
+    "age|single|2",
+    "revalue_lost|52 weeks",
+    "mesr|single"
+   ],
+   "wta": [
+    "bt|single",
+    "rating_matchup|single",
+    "elo_games|single",
+    "adjperf_tpw|decayed",
+    "ios_matchup_points|diagnostic: h 13 weeks",
+    "sets_14d|single",
+    "surface_first|single",
+    "age|single",
+    "age|single|2",
+    "revalue_lost|52 weeks",
+    "mesr|single"
+   ]
+  },
+  "tuned": "nothing: every input at its stage's frozen constants"
+ }
+]

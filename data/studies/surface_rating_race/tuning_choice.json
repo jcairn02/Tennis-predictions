@@ -1,0 +1,124 @@
+{
+ "rule": "lowest log loss on the rating-systems study's evaluation matches of 2013-2018",
+ "grid_start": {
+  "sigma_o": [
+   0.15,
+   0.25,
+   0.35,
+   0.5
+  ],
+  "gamma_o": [
+   0.0,
+   0.05,
+   0.1,
+   0.2
+  ]
+ },
+ "frozen_overall": {
+  "atp": {
+   "sigma0": 1.125,
+   "gamma": 0.4,
+   "window_days": 2336.5,
+   "w_blend": 0.35
+  },
+  "wta": {
+   "sigma0": 1.5,
+   "gamma": 0.5,
+   "window_days": 602.0,
+   "w_blend": 0.3
+  }
+ },
+ "key": "milli-log-loss; positive = the offset TTT (second named) is better; 95% intervals over four-week blocks; spanning 0 = tie",
+ "atp": {
+  "sigma_o": 0.25,
+  "gamma_o": 0.1,
+  "log_loss": 0.5832861666998281,
+  "matches": 64208,
+  "sigma_o_tried": [
+   0.15,
+   0.25,
+   0.35,
+   0.5
+  ],
+  "gamma_o_tried": [
+   0.0,
+   0.05,
+   0.1,
+   0.2
+  ],
+  "on_edge": {
+   "sigma_o": false,
+   "gamma_o": false
+  },
+  "settings_within_0_1_milli": 3,
+  "settings": 16,
+  "reference_check": {
+   "max_abs_gap_vs_decided_overall": 0.0,
+   "max_abs_gap_before_dec_2018": 0.0,
+   "rows_differing": 0,
+   "rows": 262437
+  },
+  "log_loss_overall_alone": 0.5879793966594434,
+  "log_loss_decided_blend": 0.5842560840220017,
+  "design_evidence_2013_2018": {
+   "vs decided TTT (blend)": {
+    "n": 64208.0,
+    "gain": 0.9699173221735894,
+    "lo": 0.4444475027992408,
+    "hi": 1.495387141547938
+   },
+   "vs overall chain alone": {
+    "n": 64208.0,
+    "gain": 4.693229959615174,
+    "lo": 3.5503411994697163,
+    "hi": 5.8361187197606315
+   }
+  }
+ },
+ "wta": {
+  "sigma_o": 0.25,
+  "gamma_o": 0.1,
+  "log_loss": 0.5957782300680117,
+  "matches": 25676,
+  "sigma_o_tried": [
+   0.15,
+   0.25,
+   0.35,
+   0.5
+  ],
+  "gamma_o_tried": [
+   0.0,
+   0.05,
+   0.1,
+   0.2
+  ],
+  "on_edge": {
+   "sigma_o": false,
+   "gamma_o": false
+  },
+  "settings_within_0_1_milli": 1,
+  "settings": 16,
+  "reference_check": {
+   "max_abs_gap_vs_decided_overall": 0.0,
+   "max_abs_gap_before_dec_2018": 0.0,
+   "rows_differing": 0,
+   "rows": 188569
+  },
+  "log_loss_overall_alone": 0.6000794976769045,
+  "log_loss_decided_blend": 0.5966157356994176,
+  "design_evidence_2013_2018": {
+   "vs decided TTT (blend)": {
+    "n": 25676.0,
+    "gain": 0.8375056314060703,
+    "lo": 0.014204567463952537,
+    "hi": 1.6608066953481877
+   },
+   "vs overall chain alone": {
+    "n": 25676.0,
+    "gain": 4.301267608892946,
+    "lo": 2.9471819387217524,
+    "hi": 5.655353279064139
+   }
+  }
+ }
+}

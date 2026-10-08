@@ -1,0 +1,917 @@
+{
+ "built_at": "2026-10-07T20:53:14+00:00",
+ "spec": "data/studies/serve_speed_tabpfn/design/2_audit.md, section (c) C3 and C7",
+ "panel_module": "src.eda.serve_speed_tabpfn.panel",
+ "standin_panel": false,
+ "panel_file": "C:\\Users\\zerom\\Documents\\Tennis-predictions\\data\\studies\\serve_speed_tabpfn\\speed_panel.parquet",
+ "panel_sha256": "f774eb50a0874469cb5a30101549b576c03c48a073de32d7966d5eadcdcaff39",
+ "features_py_sha256": "fc3c0cf58ce66521fff6a24feee79b4fa0cc759cb8040a6be1ba33644c0dabc5",
+ "features_parquet_sha256": "fcd8d24124e0d9987bd42c0557af27770dbd0c7fa314ddaa1ae7927f1328e0e3",
+ "constants": {
+  "men": {
+   "hl": 14.0,
+   "s2f": 12.0,
+   "q": 0.010958904109589041,
+   "c": 2.0,
+   "nu_pts": 7.0,
+   "nu_ks": 8.0,
+   "sigma": 13.49
+  },
+  "women_A3_only": {
+   "hl": 14.0,
+   "s2f": 12.0,
+   "q": 0.010958904109589041,
+   "c": 4.0,
+   "nu_pts": 14.0,
+   "nu_ks": 10.0,
+   "sigma": 10.72
+  },
+  "window_days": 364.0,
+  "raw_sd": 5.998,
+  "clip": 4.0,
+  "s_f_seasons": [
+   2022,
+   2023
+  ],
+  "c2_frozen": {
+   "tau2": 22.0,
+   "s": 12.4,
+   "K": 25.0,
+   "window_days": 364
+  },
+  "c2_from_panel_module": {
+   "TAU2": 22.0,
+   "S_SERVE": 12.4,
+   "K_PRIOR": 25.0,
+   "WINDOW": 364
+  }
+ },
+ "s_f": 2.223995373606193,
+ "s_f_definition": "SD (ddof 1) of unclipped f_hat_A - f_hat_B, men's frame matches 2022-23",
+ "rows": 63737,
+ "nan_spd_f": 0,
+ "nan_spd_f_all": 0,
+ "coverage": [
+  {
+   "tour": "atp",
+   "season": 2013,
+   "matches": 2611,
+   "spd_f_nonzero": 0,
+   "spd_f_all_nonzero": 0,
+   "spd_raw_present": 0,
+   "both_timed_28d": 0,
+   "either_timed_28d": 0,
+   "both_timed_14d": 0,
+   "id_conflict": 0,
+   "spd_f_clipped": 0
+  },
+  {
+   "tour": "atp",
+   "season": 2014,
+   "matches": 2574,
+   "spd_f_nonzero": 1253,
+   "spd_f_all_nonzero": 1253,
+   "spd_raw_present": 109,
+   "both_timed_28d": 254,
+   "either_timed_28d": 602,
+   "both_timed_14d": 123,
+   "id_conflict": 0,
+   "spd_f_clipped": 0
+  },
+  {
+   "tour": "atp",
+   "season": 2015,
+   "matches": 2619,
+   "spd_f_nonzero": 2584,
+   "spd_f_all_nonzero": 2584,
+   "spd_raw_present": 148,
+   "both_timed_28d": 355,
+   "either_timed_28d": 848,
+   "both_timed_14d": 162,
+   "id_conflict": 0,
+   "spd_f_clipped": 0
+  },
+  {
+   "tour": "atp",
+   "season": 2016,
+   "matches": 2603,
+   "spd_f_nonzero": 2542,
+   "spd_f_all_nonzero": 2542,
+   "spd_raw_present": 121,
+   "both_timed_28d": 319,
+   "either_timed_28d": 804,
+   "both_timed_14d": 132,
+   "id_conflict": 0,
+   "spd_f_clipped": 0
+  },
+  {
+   "tour": "atp",
+   "season": 2017,
+   "matches": 2612,
+   "spd_f_nonzero": 2553,
+   "spd_f_all_nonzero": 2553,
+   "spd_raw_present": 132,
+   "both_timed_28d": 314,
+   "either_timed_28d": 781,
+   "both_timed_14d": 142,
+   "id_conflict": 0,
+   "spd_f_clipped": 1
+  },
+  {
+   "tour": "atp",
+   "season": 2019,
+   "matches": 2587,
+   "spd_f_nonzero": 2506,
+   "spd_f_all_nonzero": 2506,
+   "spd_raw_present": 94,
+   "both_timed_28d": 226,
+   "either_timed_28d": 661,
+   "both_timed_14d": 97,
+   "id_conflict": 0,
+   "spd_f_clipped": 0
+  },
+  {
+   "tour": "atp",
+   "season": 2020,
+   "matches": 1259,
+   "spd_f_nonzero": 1220,
+   "spd_f_all_nonzero": 1220,
+   "spd_raw_present": 149,
+   "both_timed_28d": 386,
+   "either_timed_28d": 707,
+   "both_timed_14d": 167,
+   "id_conflict": 0,
+   "spd_f_clipped": 0
+  },
+  {
+   "tour": "atp",
+   "season": 2021,
+   "matches": 2466,
+   "spd_f_nonzero": 2402,
+   "spd_f_all_nonzero": 2402,
+   "spd_raw_present": 378,
+   "both_timed_28d": 638,
+   "either_timed_28d": 1084,
+   "both_timed_14d": 398,
+   "id_conflict": 0,
+   "spd_f_clipped": 0
+  },
+  {
+   "tour": "atp",
+   "season": 2022,
+   "matches": 2606,
+   "spd_f_nonzero": 2600,
+   "spd_f_all_nonzero": 2600,
+   "spd_raw_present": 1141,
+   "both_timed_28d": 1670,
+   "either_timed_28d": 2364,
+   "both_timed_14d": 1191,
+   "id_conflict": 0,
+   "spd_f_clipped": 7
+  },
+  {
+   "tour": "atp",
+   "season": 2023,
+   "matches": 2676,
+   "spd_f_nonzero": 2676,
+   "spd_f_all_nonzero": 2676,
+   "spd_raw_present": 1289,
+   "both_timed_28d": 1790,
+   "either_timed_28d": 2389,
+   "both_timed_14d": 1343,
+   "id_conflict": 0,
+   "spd_f_clipped": 7
+  },
+  {
+   "tour": "atp",
+   "season": 2024,
+   "matches": 2676,
+   "spd_f_nonzero": 2674,
+   "spd_f_all_nonzero": 2674,
+   "spd_raw_present": 1632,
+   "both_timed_28d": 2104,
+   "either_timed_28d": 2546,
+   "both_timed_14d": 1696,
+   "id_conflict": 0,
+   "spd_f_clipped": 7
+  },
+  {
+   "tour": "atp",
+   "season": 2025,
+   "matches": 2620,
+   "spd_f_nonzero": 2620,
+   "spd_f_all_nonzero": 2620,
+   "spd_raw_present": 1312,
+   "both_timed_28d": 1934,
+   "either_timed_28d": 2347,
+   "both_timed_14d": 1367,
+   "id_conflict": 0,
+   "spd_f_clipped": 10
+  },
+  {
+   "tour": "atp",
+   "season": 2026,
+   "matches": 1774,
+   "spd_f_nonzero": 1774,
+   "spd_f_all_nonzero": 1774,
+   "spd_raw_present": 930,
+   "both_timed_28d": 1382,
+   "either_timed_28d": 1658,
+   "both_timed_14d": 972,
+   "id_conflict": 0,
+   "spd_f_clipped": 13
+  },
+  {
+   "tour": "wta",
+   "season": 2013,
+   "matches": 2417,
+   "spd_f_nonzero": 0,
+   "spd_f_all_nonzero": 0,
+   "spd_raw_present": 0,
+   "both_timed_28d": 0,
+   "either_timed_28d": 0,
+   "both_timed_14d": 0,
+   "id_conflict": 0,
+   "spd_f_clipped": 0
+  },
+  {
+   "tour": "wta",
+   "season": 2014,
+   "matches": 2449,
+   "spd_f_nonzero": 0,
+   "spd_f_all_nonzero": 1177,
+   "spd_raw_present": 0,
+   "both_timed_28d": 286,
+   "either_timed_28d": 645,
+   "both_timed_14d": 114,
+   "id_conflict": 0,
+   "spd_f_clipped": 0
+  },
+  {
+   "tour": "wta",
+   "season": 2015,
+   "matches": 2495,
+   "spd_f_nonzero": 0,
+   "spd_f_all_nonzero": 2440,
+   "spd_raw_present": 0,
+   "both_timed_28d": 362,
+   "either_timed_28d": 824,
+   "both_timed_14d": 152,
+   "id_conflict": 0,
+   "spd_f_clipped": 0
+  },
+  {
+   "tour": "wta",
+   "season": 2016,
+   "matches": 2498,
+   "spd_f_nonzero": 0,
+   "spd_f_all_nonzero": 2405,
+   "spd_raw_present": 0,
+   "both_timed_28d": 253,
+   "either_timed_28d": 615,
+   "both_timed_14d": 107,
+   "id_conflict": 0,
+   "spd_f_clipped": 0
+  },
+  {
+   "tour": "wta",
+   "season": 2017,
+   "matches": 2485,
+   "spd_f_nonzero": 0,
+   "spd_f_all_nonzero": 2406,
+   "spd_raw_present": 0,
+   "both_timed_28d": 299,
+   "either_timed_28d": 774,
+   "both_timed_14d": 147,
+   "id_conflict": 0,
+   "spd_f_clipped": 0
+  },
+  {
+   "tour": "wta",
+   "season": 2018,
+   "matches": 2450,
+   "spd_f_nonzero": 0,
+   "spd_f_all_nonzero": 2335,
+   "spd_raw_present": 0,
+   "both_timed_28d": 236,
+   "either_timed_28d": 572,
+   "both_timed_14d": 104,
+   "id_conflict": 0,
+   "spd_f_clipped": 0
+  },
+  {
+   "tour": "wta",
+   "season": 2019,
+   "matches": 2458,
+   "spd_f_nonzero": 0,
+   "spd_f_all_nonzero": 2353,
+   "spd_raw_present": 0,
+   "both_timed_28d": 253,
+   "either_timed_28d": 730,
+   "both_timed_14d": 124,
+   "id_conflict": 0,
+   "spd_f_clipped": 0
+  },
+  {
+   "tour": "wta",
+   "season": 2020,
+   "matches": 1046,
+   "spd_f_nonzero": 0,
+   "spd_f_all_nonzero": 1005,
+   "spd_raw_present": 0,
+   "both_timed_28d": 222,
+   "either_timed_28d": 406,
+   "both_timed_14d": 130,
+   "id_conflict": 0,
+   "spd_f_clipped": 0
+  },
+  {
+   "tour": "wta",
+   "season": 2021,
+   "matches": 2289,
+   "spd_f_nonzero": 0,
+   "spd_f_all_nonzero": 2205,
+   "spd_raw_present": 0,
+   "both_timed_28d": 495,
+   "either_timed_28d": 807,
+   "both_timed_14d": 272,
+   "id_conflict": 0,
+   "spd_f_clipped": 0
+  },
+  {
+   "tour": "wta",
+   "season": 2022,
+   "matches": 2339,
+   "spd_f_nonzero": 0,
+   "spd_f_all_nonzero": 2307,
+   "spd_raw_present": 0,
+   "both_timed_28d": 366,
+   "either_timed_28d": 746,
+   "both_timed_14d": 192,
+   "id_conflict": 0,
+   "spd_f_clipped": 0
+  },
+  {
+   "tour": "wta",
+   "season": 2023,
+   "matches": 2464,
+   "spd_f_nonzero": 0,
+   "spd_f_all_nonzero": 2434,
+   "spd_raw_present": 0,
+   "both_timed_28d": 408,
+   "either_timed_28d": 791,
+   "both_timed_14d": 176,
+   "id_conflict": 0,
+   "spd_f_clipped": 0
+  },
+  {
+   "tour": "wta",
+   "season": 2024,
+   "matches": 2465,
+   "spd_f_nonzero": 0,
+   "spd_f_all_nonzero": 2435,
+   "spd_raw_present": 0,
+   "both_timed_28d": 408,
+   "either_timed_28d": 756,
+   "both_timed_14d": 184,
+   "id_conflict": 0,
+   "spd_f_clipped": 0
+  },
+  {
+   "tour": "wta",
+   "season": 2025,
+   "matches": 2485,
+   "spd_f_nonzero": 0,
+   "spd_f_all_nonzero": 2467,
+   "spd_raw_present": 0,
+   "both_timed_28d": 702,
+   "either_timed_28d": 993,
+   "both_timed_14d": 282,
+   "id_conflict": 0,
+   "spd_f_clipped": 0
+  },
+  {
+   "tour": "wta",
+   "season": 2026,
+   "matches": 1714,
+   "spd_f_nonzero": 0,
+   "spd_f_all_nonzero": 1663,
+   "spd_raw_present": 0,
+   "both_timed_28d": 460,
+   "either_timed_28d": 670,
+   "both_timed_14d": 213,
+   "id_conflict": 88,
+   "spd_f_clipped": 0
+  }
+ ],
+ "probes": {
+  "A": {
+   "probe": "A (own history, Stage 0 order)",
+   "sides": 5000,
+   "cuts": 26,
+   "cuts_2024_26": 12,
+   "tolerance": 1e-12,
+   "values_checked": [
+    "f_hat",
+    "f_sd",
+    "L_hat",
+    "x_raw"
+   ],
+   "moved_before_cut": 0,
+   "moved_at_cut": 0,
+   "leaky_control_cuts_moved": 24,
+   "leaky_control_required": 21,
+   "pass": true,
+   "per_cut": [
+    {
+     "cut_order": 318318.0,
+     "season": 2016,
+     "targets_before": 1250,
+     "targets_at": 1,
+     "moved_before": 0,
+     "moved_at": 0,
+     "leaky_moved_at": true
+    },
+    {
+     "cut_order": 367192.0,
+     "season": 2017,
+     "targets_before": 1599,
+     "targets_at": 1,
+     "moved_before": 0,
+     "moved_at": 0,
+     "leaky_moved_at": false
+    },
+    {
+     "cut_order": 373002.0,
+     "season": 2017,
+     "targets_before": 1631,
+     "targets_at": 1,
+     "moved_before": 0,
+     "moved_at": 0,
+     "leaky_moved_at": true
+    },
+    {
+     "cut_order": 425688.0,
+     "season": 2018,
+     "targets_before": 1884,
+     "targets_at": 1,
+     "moved_before": 0,
+     "moved_at": 0,
+     "leaky_moved_at": true
+    },
+    {
+     "cut_order": 452575.0,
+     "season": 2019,
+     "targets_before": 1982,
+     "targets_at": 1,
+     "moved_before": 0,
+     "moved_at": 0,
+     "leaky_moved_at": true
+    },
+    {
+     "cut_order": 513499.0,
+     "season": 2020,
+     "targets_before": 2340,
+     "targets_at": 1,
+     "moved_before": 0,
+     "moved_at": 0,
+     "leaky_moved_at": true
+    },
+    {
+     "cut_order": 523439.0,
+     "season": 2020,
+     "targets_before": 2428,
+     "targets_at": 1,
+     "moved_before": 0,
+     "moved_at": 0,
+     "leaky_moved_at": true
+    },
+    {
+     "cut_order": 619925.0,
+     "season": 2022,
+     "targets_before": 3070,
+     "targets_at": 1,
+     "moved_before": 0,
+     "moved_at": 0,
+     "leaky_moved_at": true
+    },
+    {
+     "cut_order": 630386.0,
+     "season": 2022,
+     "targets_before": 3126,
+     "targets_at": 1,
+     "moved_before": 0,
+     "moved_at": 0,
+     "leaky_moved_at": true
+    },
+    {
+     "cut_order": 647379.0,
+     "season": 2023,
+     "targets_before": 3178,
+     "targets_at": 1,
+     "moved_before": 0,
+     "moved_at": 0,
+     "leaky_moved_at": true
+    },
+    {
+     "cut_order": 680807.0,
+     "season": 2023,
+     "targets_before": 3344,
+     "targets_at": 1,
+     "moved_before": 0,
+     "moved_at": 0,
+     "leaky_moved_at": true
+    },
+    {
+     "cut_order": 691665.0,
+     "season": 2023,
+     "targets_before": 3416,
+     "targets_at": 1,
+     "moved_before": 0,
+     "moved_at": 0,
+     "leaky_moved_at": true
+    },
+    {
+     "cut_order": 699156.0,
+     "season": 2023,
+     "targets_before": 3465,
+     "targets_at": 1,
+     "moved_before": 0,
+     "moved_at": 0,
+     "leaky_moved_at": false
+    },
+    {
+     "cut_order": 704403.0,
+     "season": 2023,
+     "targets_before": 3490,
+     "targets_at": 1,
+     "moved_before": 0,
+     "moved_at": 0,
+     "leaky_moved_at": true
+    },
+    {
+     "cut_order": 734333.0,
+     "season": 2024,
+     "targets_before": 3719,
+     "targets_at": 1,
+     "moved_before": 0,
+     "moved_at": 0,
+     "leaky_moved_at": true
+    },
+    {
+     "cut_order": 740826.0,
+     "season": 2024,
+     "targets_before": 3765,
+     "targets_at": 1,
+     "moved_before": 0,
+     "moved_at": 0,
+     "leaky_moved_at": true
+    },
+    {
+     "cut_order": 764241.0,
+     "season": 2024,
+     "targets_before": 3946,
+     "targets_at": 1,
+     "moved_before": 0,
+     "moved_at": 0,
+     "leaky_moved_at": true
+    },
+    {
+     "cut_order": 777398.0,
+     "season": 2024,
+     "targets_before": 4029,
+     "targets_at": 1,
+     "moved_before": 0,
+     "moved_at": 0,
+     "leaky_moved_at": true
+    },
+    {
+     "cut_order": 789282.0,
+     "season": 2025,
+     "targets_before": 4107,
+     "targets_at": 1,
+     "moved_before": 0,
+     "moved_at": 0,
+     "leaky_moved_at": true
+    },
+    {
+     "cut_order": 804627.0,
+     "season": 2025,
+     "targets_before": 4276,
+     "targets_at": 1,
+     "moved_before": 0,
+     "moved_at": 0,
+     "leaky_moved_at": true
+    },
+    {
+     "cut_order": 818803.0,
+     "season": 2025,
+     "targets_before": 4405,
+     "targets_at": 1,
+     "moved_before": 0,
+     "moved_at": 0,
+     "leaky_moved_at": true
+    },
+    {
+     "cut_order": 819491.0,
+     "season": 2025,
+     "targets_before": 4421,
+     "targets_at": 1,
+     "moved_before": 0,
+     "moved_at": 0,
+     "leaky_moved_at": true
+    },
+    {
+     "cut_order": 844255.0,
+     "season": 2026,
+     "targets_before": 4617,
+     "targets_at": 1,
+     "moved_before": 0,
+     "moved_at": 0,
+     "leaky_moved_at": true
+    },
+    {
+     "cut_order": 845846.0,
+     "season": 2026,
+     "targets_before": 4646,
+     "targets_at": 1,
+     "moved_before": 0,
+     "moved_at": 0,
+     "leaky_moved_at": true
+    },
+    {
+     "cut_order": 854540.0,
+     "season": 2026,
+     "targets_before": 4770,
+     "targets_at": 1,
+     "moved_before": 0,
+     "moved_at": 0,
+     "leaky_moved_at": true
+    },
+    {
+     "cut_order": 868948.0,
+     "season": 2026,
+     "targets_before": 4937,
+     "targets_at": 1,
+     "moved_before": 0,
+     "moved_at": 0,
+     "leaky_moved_at": true
+    }
+   ]
+  },
+  "B": {
+   "probe": "B (clock: rows with es > D noised in filter and snapshot inputs)",
+   "days": 26,
+   "values_checked": [
+    "f_hat",
+    "f_sd",
+    "L_hat",
+    "x_raw",
+    "g_sum",
+    "g_abs"
+   ],
+   "tolerance": 1e-12,
+   "moved": 0,
+   "leaky_control_moved": 5272,
+   "pass": true,
+   "per_day": [
+    {
+     "day": 16601.0,
+     "date": "2015-06-15",
+     "kind": "random",
+     "sides_checked": 25534,
+     "moved": 0,
+     "leaky_sides": 912,
+     "leaky_moved": 0
+    },
+    {
+     "day": 16676.0,
+     "date": "2015-08-29",
+     "kind": "random",
+     "sides_checked": 28020,
+     "moved": 0,
+     "leaky_sides": 856,
+     "leaky_moved": 0
+    },
+    {
+     "day": 16923.0,
+     "date": "2016-05-02",
+     "kind": "random",
+     "sides_checked": 34474,
+     "moved": 0,
+     "leaky_sides": 1042,
+     "leaky_moved": 0
+    },
+    {
+     "day": 17640.0,
+     "date": "2018-04-19",
+     "kind": "random",
+     "sides_checked": 52344,
+     "moved": 0,
+     "leaky_sides": 388,
+     "leaky_moved": 0
+    },
+    {
+     "day": 17840.0,
+     "date": "2018-11-05",
+     "kind": "random",
+     "sides_checked": 55626,
+     "moved": 0,
+     "leaky_sides": 322,
+     "leaky_moved": 0
+    },
+    {
+     "day": 17913.0,
+     "date": "2019-01-17",
+     "kind": "random",
+     "sides_checked": 56566,
+     "moved": 0,
+     "leaky_sides": 940,
+     "leaky_moved": 195
+    },
+    {
+     "day": 18489.0,
+     "date": "2020-08-15",
+     "kind": "random",
+     "sides_checked": 68006,
+     "moved": 0,
+     "leaky_sides": 178,
+     "leaky_moved": 0
+    },
+    {
+     "day": 19581.0,
+     "date": "2023-08-12",
+     "kind": "random",
+     "sides_checked": 97242,
+     "moved": 0,
+     "leaky_sides": 1168,
+     "leaky_moved": 0
+    },
+    {
+     "day": 19606.0,
+     "date": "2023-09-06",
+     "kind": "timing_probe",
+     "sides_checked": 98110,
+     "moved": 0,
+     "leaky_sides": 952,
+     "leaky_moved": 478
+    },
+    {
+     "day": 19703.0,
+     "date": "2023-12-12",
+     "kind": "random",
+     "sides_checked": 100006,
+     "moved": 0,
+     "leaky_sides": 18,
+     "leaky_moved": 0
+    },
+    {
+     "day": 19746.0,
+     "date": "2024-01-24",
+     "kind": "timing_probe",
+     "sides_checked": 100992,
+     "moved": 0,
+     "leaky_sides": 986,
+     "leaky_moved": 319
+    },
+    {
+     "day": 19879.0,
+     "date": "2024-06-05",
+     "kind": "slam_2nd_wed",
+     "sides_checked": 105254,
+     "moved": 0,
+     "leaky_sides": 1046,
+     "leaky_moved": 310
+    },
+    {
+     "day": 19914.0,
+     "date": "2024-07-10",
+     "kind": "timing_probe",
+     "sides_checked": 106444,
+     "moved": 0,
+     "leaky_sides": 1056,
+     "leaky_moved": 484
+    },
+    {
+     "day": 19949.0,
+     "date": "2024-08-14",
+     "kind": "timing_probe",
+     "sides_checked": 107552,
+     "moved": 0,
+     "leaky_sides": 894,
+     "leaky_moved": 56
+    },
+    {
+     "day": 19970.0,
+     "date": "2024-09-04",
+     "kind": "slam_2nd_wed",
+     "sides_checked": 108362,
+     "moved": 0,
+     "leaky_sides": 1072,
+     "leaky_moved": 478
+    },
+    {
+     "day": 20110.0,
+     "date": "2025-01-22",
+     "kind": "slam_2nd_wed",
+     "sides_checked": 111280,
+     "moved": 0,
+     "leaky_sides": 992,
+     "leaky_moved": 336
+    },
+    {
+     "day": 20243.0,
+     "date": "2025-06-04",
+     "kind": "slam_2nd_wed",
+     "sides_checked": 115380,
+     "moved": 0,
+     "leaky_sides": 1044,
+     "leaky_moved": 314
+    },
+    {
+     "day": 20278.0,
+     "date": "2025-07-09",
+     "kind": "slam_2nd_wed",
+     "sides_checked": 116570,
+     "moved": 0,
+     "leaky_sides": 1066,
+     "leaky_moved": 491
+    },
+    {
+     "day": 20334.0,
+     "date": "2025-09-03",
+     "kind": "slam_2nd_wed",
+     "sides_checked": 118626,
+     "moved": 0,
+     "leaky_sides": 1076,
+     "leaky_moved": 406
+    },
+    {
+     "day": 20380.0,
+     "date": "2025-10-19",
+     "kind": "random",
+     "sides_checked": 119804,
+     "moved": 0,
+     "leaky_sides": 902,
+     "leaky_moved": 0
+    },
+    {
+     "day": 20440.0,
+     "date": "2025-12-18",
+     "kind": "random",
+     "sides_checked": 120498,
+     "moved": 0,
+     "leaky_sides": 0,
+     "leaky_moved": 0
+    },
+    {
+     "day": 20481.0,
+     "date": "2026-01-28",
+     "kind": "slam_2nd_wed",
+     "sides_checked": 121482,
+     "moved": 0,
+     "leaky_sides": 984,
+     "leaky_moved": 426
+    },
+    {
+     "day": 20533.0,
+     "date": "2026-03-21",
+     "kind": "random",
+     "sides_checked": 123230,
+     "moved": 0,
+     "leaky_sides": 954,
+     "leaky_moved": 128
+    },
+    {
+     "day": 20607.0,
+     "date": "2026-06-03",
+     "kind": "slam_2nd_wed",
+     "sides_checked": 125530,
+     "moved": 0,
+     "leaky_sides": 1056,
+     "leaky_moved": 316
+    },
+    {
+     "day": 20628.0,
+     "date": "2026-06-24",
+     "kind": "random",
+     "sides_checked": 126166,
+     "moved": 0,
+     "leaky_sides": 810,
+     "leaky_moved": 49
+    },
+    {
+     "day": 20642.0,
+     "date": "2026-07-08",
+     "kind": "slam_2nd_wed",
+     "sides_checked": 126716,
+     "moved": 0,
+     "leaky_sides": 1072,
+     "leaky_moved": 486
+    }
+   ]
+  }
+ },
+ "probes_pass": true,
+ "reads_results": false
+}

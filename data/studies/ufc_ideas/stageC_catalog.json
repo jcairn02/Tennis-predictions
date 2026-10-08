@@ -1,0 +1,357 @@
+[
+ {
+  "id": "sos_elo|52 weeks",
+  "name": "Opponents' surface Elo, last 52 weeks",
+  "family": "strength of schedule",
+  "description": "Mean pre-match surface Elo (log-odds scale) of the opponents a player met over the last year, shrunk toward the tour's typical opponent with phantom opponents; A minus B.",
+  "tuned": "K (phantom opponents) from {0, 2, 5, 10, 20}, per tour, by the in-sample log-loss gain given Elo on 2013-2018: men 20, women 20",
+  "tours": [
+   "atp",
+   "wta"
+  ],
+  "women_scored_from": 2013,
+  "also_given_ratings": [
+   "wta"
+  ]
+ },
+ {
+  "id": "sos_elo|decayed",
+  "name": "Opponents' surface Elo, decayed (52-week half-life)",
+  "family": "strength of schedule",
+  "description": "The same mean of opponents' surface Elo with every earlier match weighted by a one-year half-life; A minus B.",
+  "tuned": "K (phantom opponents) from {0, 2, 5, 10, 20}, per tour, by the in-sample log-loss gain given Elo on 2013-2018: men 0, women 20",
+  "tours": [
+   "atp",
+   "wta"
+  ],
+  "women_scored_from": 2013,
+  "also_given_ratings": []
+ },
+ {
+  "id": "sos_rating|52 weeks",
+  "name": "Opponents' serve + return ratings, last 52 weeks",
+  "family": "strength of schedule",
+  "description": "Mean pre-match serve-plus-return rating (the earlier study's ratings) of the last year's opponents, shrunk with phantom opponents; A minus B.",
+  "tuned": "K (phantom opponents) from {0, 2, 5, 10, 20}, per tour, by the in-sample log-loss gain given Elo on 2013-2018: men 20, women 20",
+  "tours": [
+   "atp",
+   "wta"
+  ],
+  "women_scored_from": 2019,
+  "also_given_ratings": []
+ },
+ {
+  "id": "sos_won_elo|52 weeks",
+  "name": "Quality of wins: surface Elo of opponents beaten, last 52 weeks",
+  "family": "strength of schedule",
+  "description": "Quality of wins: mean surface Elo of the opponents a player beat over the last year, shrunk; A minus B.",
+  "tuned": "K (phantom opponents) from {0, 2, 5, 10, 20}, per tour, by the in-sample log-loss gain given Elo on 2013-2018: men 20, women 5",
+  "tours": [
+   "atp",
+   "wta"
+  ],
+  "women_scored_from": 2013,
+  "also_given_ratings": [
+   "wta"
+  ]
+ },
+ {
+  "id": "sos_lost_elo|52 weeks",
+  "name": "Surface Elo of opponents lost to, last 52 weeks",
+  "family": "strength of schedule",
+  "description": "Mean surface Elo of the opponents a player lost to over the last year, shrunk; A minus B.",
+  "tuned": "K (phantom opponents) from {0, 2, 5, 10, 20}, per tour, by the in-sample log-loss gain given Elo on 2013-2018: men 5, women 20",
+  "tours": [
+   "atp",
+   "wta"
+  ],
+  "women_scored_from": 2013,
+  "also_given_ratings": []
+ },
+ {
+  "id": "over_elo|52 weeks",
+  "name": "Results above Elo's expectation, last 52 weeks",
+  "family": "strength of schedule",
+  "description": "Results above surface Elo's expectation over the last year: won minus Elo's pre-match probability, summed over matches plus phantom matches; A minus B.",
+  "tuned": "K (phantom opponents) from {0, 2, 5, 10, 20}, per tour, by the in-sample log-loss gain given Elo on 2013-2018: men 20, women 0",
+  "tours": [
+   "atp",
+   "wta"
+  ],
+  "women_scored_from": 2013,
+  "also_given_ratings": [
+   "atp"
+  ]
+ },
+ {
+  "id": "over_elo_strong|52 weeks",
+  "name": "Results above Elo's expectation against strong opponents, last 52 weeks",
+  "family": "strength of schedule",
+  "description": "Results above surface Elo's expectation against opponents above the tour's main-tour median Elo, over the last year, shrunk; A minus B.",
+  "tuned": "K (phantom opponents) from {0, 2, 5, 10, 20}, per tour, by the in-sample log-loss gain given Elo on 2013-2018: men 2, women 5",
+  "tours": [
+   "atp",
+   "wta"
+  ],
+  "women_scored_from": 2013,
+  "also_given_ratings": [
+   "atp"
+  ]
+ },
+ {
+  "id": "revalue|52 weeks",
+  "name": "Old opponents' Elo now minus then, all opponents, last 52 weeks",
+  "family": "retrospective credit",
+  "description": "Retrospective credit: for the last year's opponents, their latest pre-match surface Elo from an earlier week minus their Elo at the meeting, later rematches taken out, averaged and shrunk; A minus B.",
+  "tuned": "K (phantom encounters) from {0, 2, 5, 10, 20}, per tour, by the in-sample log-loss gain given Elo on 2013-2018: men 5, women 20",
+  "tours": [
+   "atp",
+   "wta"
+  ],
+  "women_scored_from": 2013,
+  "also_given_ratings": []
+ },
+ {
+  "id": "revalue_won|52 weeks",
+  "name": "Old opponents' Elo now minus then, opponents beaten, last 52 weeks",
+  "family": "retrospective credit",
+  "description": "The retrospective credit over the opponents a player beat; A minus B.",
+  "tuned": "K (phantom encounters) from {0, 2, 5, 10, 20}, per tour, by the in-sample log-loss gain given Elo on 2013-2018: men 0, women 5",
+  "tours": [
+   "atp",
+   "wta"
+  ],
+  "women_scored_from": 2013,
+  "also_given_ratings": []
+ },
+ {
+  "id": "revalue_lost|52 weeks",
+  "name": "Old opponents' Elo now minus then, opponents lost to, last 52 weeks",
+  "family": "retrospective credit",
+  "description": "The retrospective credit over the opponents a player lost to; A minus B.",
+  "tuned": "K (phantom encounters) from {0, 2, 5, 10, 20}, per tour, by the in-sample log-loss gain given Elo on 2013-2018: men 20, women 20",
+  "tours": [
+   "atp",
+   "wta"
+  ],
+  "women_scored_from": 2013,
+  "also_given_ratings": [
+   "atp",
+   "wta"
+  ]
+ },
+ {
+  "id": "revalue_later|52 weeks",
+  "name": "Old opponents revalued by their later matches only, all opponents, last 52 weeks",
+  "family": "retrospective credit",
+  "description": "The retrospective credit from the opponents' later matches only: the meeting's own Elo update and later rematches taken out (the UFC rule); A minus B.",
+  "tuned": "K (phantom encounters) from {0, 2, 5, 10, 20}, per tour, by the in-sample log-loss gain given Elo on 2013-2018: men 2, women 20",
+  "tours": [
+   "atp",
+   "wta"
+  ],
+  "women_scored_from": 2013,
+  "also_given_ratings": [
+   "atp"
+  ]
+ },
+ {
+  "id": "revalue_won_later|52 weeks",
+  "name": "Old opponents revalued by their later matches only, opponents beaten, last 52 weeks",
+  "family": "retrospective credit",
+  "description": "The later-matches-only credit over the opponents a player beat; A minus B.",
+  "tuned": "K (phantom encounters) from {0, 2, 5, 10, 20}, per tour, by the in-sample log-loss gain given Elo on 2013-2018: men 2, women 5",
+  "tours": [
+   "atp",
+   "wta"
+  ],
+  "women_scored_from": 2013,
+  "also_given_ratings": []
+ },
+ {
+  "id": "revalue_lost_later|52 weeks",
+  "name": "Old opponents revalued by their later matches only, opponents lost to, last 52 weeks",
+  "family": "retrospective credit",
+  "description": "The later-matches-only credit over the opponents a player lost to; A minus B.",
+  "tuned": "K (phantom encounters) from {0, 2, 5, 10, 20}, per tour, by the in-sample log-loss gain given Elo on 2013-2018: men 20, women 20",
+  "tours": [
+   "atp",
+   "wta"
+  ],
+  "women_scored_from": 2013,
+  "also_given_ratings": [
+   "wta"
+  ]
+ },
+ {
+  "id": "late_decline|career",
+  "name": "Late-match decline (Grand Slam point by point), career",
+  "family": "fatigue",
+  "description": "A player's change in serve-point win rate from the first two sets to the third set onward, relative to the opponent's, over earlier Grand Slam point-by-point matches, shrunk; A minus B.",
+  "tuned": "late-decline shrinkage K (effective points): men 944 (season), women 808 (career)",
+  "tours": [
+   "atp",
+   "wta"
+  ],
+  "women_scored_from": 2019,
+  "also_given_ratings": []
+ },
+ {
+  "id": "late_decline_x_bo5|single",
+  "name": "Late-match decline x best of five",
+  "family": "fatigue",
+  "description": "The late-decline difference multiplied by whether the match is best of five (the source's record); men only.",
+  "tuned": "late-decline shrinkage K (effective points): men 944 (season), women 808 (career)",
+  "tours": [
+   "atp"
+  ],
+  "women_scored_from": 2019,
+  "also_given_ratings": []
+ },
+ {
+  "id": "late_decline_x_long|single",
+  "name": "Late-match decline x expected match length (closeness)",
+  "family": "fatigue",
+  "description": "The late-decline difference multiplied by the match's expected closeness from the earlier study's ratings through the iid model.",
+  "tuned": "late-decline shrinkage K (effective points): men 944 (season), women 808 (career)",
+  "tours": [
+   "atp",
+   "wta"
+  ],
+  "women_scored_from": 2019,
+  "also_given_ratings": []
+ },
+ {
+  "id": "grinder|career",
+  "name": "Grinder: points won above expectation in long minus short matches, career",
+  "family": "fatigue",
+  "description": "A player's total points won above the earlier study's ratings' expectation in long matches (minutes per set above the tour's upper quartile) minus in short ones, career, shrunk; A minus B.",
+  "tuned": "grinder shrinkage K (effective points): men 14690 (career), women 10098 (career); long-match line 46 (men) and 46.5 (women) minutes per set, the 2010-2018 upper quartile",
+  "tours": [
+   "atp",
+   "wta"
+  ],
+  "women_scored_from": 2019,
+  "also_given_ratings": []
+ },
+ {
+  "id": "grinder|52 weeks",
+  "name": "Grinder: points won above expectation in long minus short matches, last 52 weeks",
+  "family": "fatigue",
+  "description": "The grinder contrast over the last year, shrunk; A minus B.",
+  "tuned": "grinder shrinkage K (effective points): men 14690 (career), women 10098 (career); long-match line 46 (men) and 46.5 (women) minutes per set, the 2010-2018 upper quartile",
+  "tours": [
+   "atp",
+   "wta"
+  ],
+  "women_scored_from": 2019,
+  "also_given_ratings": []
+ },
+ {
+  "id": "grinder_x_bo5|single",
+  "name": "Grinder (career) x best of five",
+  "family": "fatigue",
+  "description": "The career grinder difference multiplied by whether the match is best of five; men only.",
+  "tuned": "grinder shrinkage K (effective points): men 14690 (career), women 10098 (career); long-match line 46 (men) and 46.5 (women) minutes per set, the 2010-2018 upper quartile",
+  "tours": [
+   "atp"
+  ],
+  "women_scored_from": 2019,
+  "also_given_ratings": []
+ },
+ {
+  "id": "sets_14d_x_decline|single",
+  "name": "Sets over the last 14 days x late-match decline",
+  "family": "fatigue",
+  "description": "Each player's sets over the last two weeks (log of one plus) times their late-decline trait; A's product minus B's.",
+  "tuned": "late-decline shrinkage K (effective points): men 944 (season), women 808 (career)",
+  "tours": [
+   "atp",
+   "wta"
+  ],
+  "women_scored_from": 2019,
+  "also_given_ratings": []
+ },
+ {
+  "id": "minutes_14d_x_decline|single",
+  "name": "Minutes over the last 14 days x late-match decline",
+  "family": "fatigue",
+  "description": "Each player's minutes over the last two weeks (log of one plus) times their late-decline trait; A's product minus B's.",
+  "tuned": "late-decline shrinkage K (effective points): men 944 (season), women 808 (career)",
+  "tours": [
+   "atp",
+   "wta"
+  ],
+  "women_scored_from": 2019,
+  "also_given_ratings": []
+ },
+ {
+  "id": "elo_change_52w|single",
+  "name": "Elo's change over 12 months",
+  "family": "earlier study",
+  "description": "The earlier study's rundown row: overall Elo now minus at the first match on or after a year before; A minus B.",
+  "tuned": null,
+  "tours": [
+   "atp",
+   "wta"
+  ],
+  "women_scored_from": 2013,
+  "also_given_ratings": []
+ },
+ {
+  "id": "recent_level|single",
+  "name": "Level played over the last 52 weeks",
+  "family": "earlier study",
+  "description": "The earlier study's rundown row: share of the last year's matches played in main-tour main draws; A minus B.",
+  "tuned": null,
+  "tours": [
+   "atp",
+   "wta"
+  ],
+  "women_scored_from": 2013,
+  "also_given_ratings": []
+ },
+ {
+  "id": "played_52w|single",
+  "name": "Matches played (last 52 weeks)",
+  "family": "earlier study",
+  "description": "The earlier study's rundown row: log of one plus the matches played over the last year; A minus B.",
+  "tuned": null,
+  "tours": [
+   "atp",
+   "wta"
+  ],
+  "women_scored_from": 2013,
+  "also_given_ratings": []
+ },
+ {
+  "id": "sets_14d|single",
+  "name": "Sets over the last 14 days",
+  "family": "earlier study",
+  "description": "The earlier study's rundown row: log of one plus the sets played over the last two weeks; A minus B.",
+  "tuned": null,
+  "tours": [
+   "atp",
+   "wta"
+  ],
+  "women_scored_from": 2013,
+  "also_given_ratings": []
+ },
+ {
+  "id": "elo_surface|single",
+  "name": "Surface Elo (Stage 1) as a feature",
+  "family": "earlier study",
+  "description": "Surface Elo's own log-odds that A wins, scored only as an input added to the earlier study's serve and return ratings: the reference for what results-based strength adds to them.",
+  "tuned": null,
+  "tours": [
+   "atp",
+   "wta"
+  ],
+  "women_scored_from": 2019,
+  "also_given_ratings": [
+   "atp",
+   "wta"
+  ],
+  "only_given_ratings": true
+ }
+]

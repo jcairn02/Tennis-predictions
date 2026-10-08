@@ -1,0 +1,67 @@
+{
+ "rules": "no match result read; published tables re-read",
+ "determinism": {
+  "pairs": 3,
+  "all_identical": true,
+  "rows": [
+   {
+    "file": "model__2019__seed0.npz",
+    "same_ids": true,
+    "max_abs_diff": 0.0
+   },
+   {
+    "file": "model__2019__seed1.npz",
+    "same_ids": true,
+    "max_abs_diff": 0.0
+   },
+   {
+    "file": "model__2019__seed2.npz",
+    "same_ids": true,
+    "max_abs_diff": 0.0
+   }
+  ]
+ },
+ "seed_vs_seed_block_intervals": {
+  "raw": {
+   "rows": 576,
+   "share_excluding_0": 0.078125,
+   "sd_z": 1.1316475024010706
+  },
+  "recal": {
+   "rows": 576,
+   "share_excluding_0": 0.08333333333333333,
+   "sd_z": 1.1411619186244204
+  }
+ },
+ "published": {
+  "binj_capture_slope": 0.39261620509642997,
+  "binj_corr_dev_term": 0.5010665237740574,
+  "binj_pooled_z": 3.9387869786886833,
+  "binj_column_arm_2025_2026": [
+   {
+    "tour": "both",
+    "comparison": "column arm binj vs B (seeds 0-7 each, decided calibration)",
+    "matches": 8520,
+    "gain": -0.011775704713000969,
+    "lo": -0.23416432663064904,
+    "hi": 0.2106129172046471
+   },
+   {
+    "tour": "atp",
+    "comparison": "column arm binj vs B (seeds 0-7 each, decided calibration)",
+    "matches": 4394,
+    "gain": -0.023011365951192016,
+    "lo": -0.34375963640580665,
+    "hi": 0.2977369045034226
+   },
+   {
+    "tour": "wta",
+    "comparison": "column arm binj vs B (seeds 0-7 each, decided calibration)",
+    "matches": 4126,
+    "gain": 0.00018975710973571748,
+    "lo": -0.3963157282838826,
+    "hi": 0.39669524250335414
+   }
+  ]
+ }
+}

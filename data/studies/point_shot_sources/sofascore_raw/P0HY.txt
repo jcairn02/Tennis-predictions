@@ -259,3 +259,5 @@
 9550174 | 1622564400 | Skopje, Doubles M-ITF-MKD-01A | ITF Men | Round of 16 | Capecchi D / Pieri S | Ivanovski K / Kalender A | 2 | false | 1 | finished | 0 | 2
 9551628 | 1622640000 | Skopje, Singles Qualifying M-ITF-MKD-02A | ITF Men | Qualification | Samuele Pieri | Borjan Stefanovski | 1 | false | absent | finished | 2 | 0
 # page 13 | HTTP 404 Not Found (retried once, 404 again) -> end of list, paging stopped
+# note (collection metadata, 2026-09-23): on page 4 WebFetch printed three names as JSON backslash-u escape sequences (codepoints U+010D, U+0107, U+0161) instead of the letters; the saved lines hold the decoded letters (Poreč, Nedić, Malešević). Same values, different encoding.
+# note: page 8 came back from WebFetch with '|' delimiters without surrounding spaces; saved verbatim. Page 1 name 'Filip Jeff Planin­šek' contains a soft hyphen (U+00AD) exactly as returned.

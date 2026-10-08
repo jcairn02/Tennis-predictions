@@ -1,0 +1,172 @@
+{
+ "source": "sofascore_editions",
+ "gap": "atp_points_2025",
+ "targets_from": "frozen in data/studies/gap_downloads/sofascore_atp_points_2025_matches.csv",
+ "started_at": "2026-09-30T15:10:39+00:00",
+ "args": {
+  "gap": "atp_points_2025",
+  "refresh_targets": false,
+  "skip": null,
+  "limit": null,
+  "max_requests": 10000,
+  "min_interval": 1.0,
+  "jitter": 0.6,
+  "stage_only": false,
+  "no_stage": false,
+  "browser": "http://localhost:9222"
+ },
+ "fetch_outcomes": {
+  "point-by-point:200": 3775,
+  "point-by-point:404": 1,
+  "statistics:200": 3775,
+  "statistics:404": 1
+ },
+ "client": {
+  "impersonate": "browser:154.0.8037.58",
+  "requests": 7867,
+  "retried": 2,
+  "slept_seconds": 8634.3,
+  "min_interval": 1.0,
+  "transport": "browser",
+  "cdp_url": "http://localhost:9222",
+  "page_reloads": 0,
+  "token_renewals": 0,
+  "renewals_failed": 0,
+  "site_data_resets": 0
+ },
+ "staged": {
+  "events": {
+   "rows": 4995,
+   "dest": "data/dump/points/sofascore_editions/events.parquet",
+   "bytes": 642728
+  },
+  "points": {
+   "rows": 464721,
+   "dest": "data/dump/points/sofascore_editions/points.parquet",
+   "bytes": 2700934
+  },
+  "statistics": {
+   "rows": 226347,
+   "dest": "data/dump/points/sofascore_editions/statistics.parquet",
+   "bytes": 1951628
+  }
+ },
+ "all": {
+  "targets": 3778,
+  "listed": 3778,
+  "points_any": 3777,
+  "points_complete": 3753,
+  "points_absent": 1,
+  "points_not_fetched": 0,
+  "full_box_score": 3760,
+  "stats_any": 3777
+ },
+ "editions": 112,
+ "editions_located": 112,
+ "by_year_level": {
+  "2025|FIN": {
+   "targets": 18,
+   "listed": 18,
+   "points_any": 18,
+   "points_complete": 17,
+   "points_absent": 0,
+   "points_not_fetched": 0,
+   "full_box_score": 18,
+   "stats_any": 18
+  },
+  "2025|T1000": {
+   "targets": 503,
+   "listed": 503,
+   "points_any": 503,
+   "points_complete": 501,
+   "points_absent": 0,
+   "points_not_fetched": 0,
+   "full_box_score": 503,
+   "stats_any": 503
+  },
+  "2025|T250": {
+   "targets": 767,
+   "listed": 767,
+   "points_any": 766,
+   "points_complete": 761,
+   "points_absent": 1,
+   "points_not_fetched": 0,
+   "full_box_score": 762,
+   "stats_any": 766
+  },
+  "2025|T500": {
+   "targets": 411,
+   "listed": 411,
+   "points_any": 411,
+   "points_complete": 406,
+   "points_absent": 0,
+   "points_not_fetched": 0,
+   "full_box_score": 407,
+   "stats_any": 411
+  },
+  "2025|TQ": {
+   "targets": 790,
+   "listed": 790,
+   "points_any": 790,
+   "points_complete": 786,
+   "points_absent": 0,
+   "points_not_fetched": 0,
+   "full_box_score": 783,
+   "stats_any": 790
+  },
+  "2026|T1000": {
+   "targets": 317,
+   "listed": 317,
+   "points_any": 317,
+   "points_complete": 317,
+   "points_absent": 0,
+   "points_not_fetched": 0,
+   "full_box_score": 317,
+   "stats_any": 317
+  },
+  "2026|T250": {
+   "targets": 329,
+   "listed": 329,
+   "points_any": 329,
+   "points_complete": 324,
+   "points_absent": 0,
+   "points_not_fetched": 0,
+   "full_box_score": 328,
+   "stats_any": 329
+  },
+  "2026|T500": {
+   "targets": 224,
+   "listed": 224,
+   "points_any": 224,
+   "points_complete": 224,
+   "points_absent": 0,
+   "points_not_fetched": 0,
+   "full_box_score": 223,
+   "stats_any": 224
+  },
+  "2026|TQ": {
+   "targets": 419,
+   "listed": 419,
+   "points_any": 419,
+   "points_complete": 417,
+   "points_absent": 0,
+   "points_not_fetched": 0,
+   "full_box_score": 419,
+   "stats_any": 419
+  }
+ },
+ "pbp_verdicts": {
+  "complete": 3679,
+  "complete to retirement": 74,
+  "short": 12,
+  "other": 9,
+  "no score to compare": 3,
+  "nan": 1
+ },
+ "editions_not_located": [],
+ "matches_selected": 3778,
+ "receipts_with_errors": 0,
+ "error_examples": [],
+ "finished_at": "2026-09-30T18:01:17+00:00",
+ "seconds": 10237.6
+}

@@ -1,0 +1,481 @@
+<title>How Beatable Is Polymarket Tennis?</title>
+<meta name="description" content="Who gets better prices than Polymarket's final pre-match price in tennis, by how much, and at which level of play, from every bet placed before 27,968 matches.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Saira+Condensed:wght@600;700&family=Source+Sans+3:ital,wght@0,400;0,600;0,700;1,400&display=swap">
+<style>
+:root {
+  color-scheme: light;
+  --ground: #eef2f5;
+  --surface: #ffffff;
+  --ink: #0f1b27;
+  --ink-2: #435363;
+  --muted: #5b6977;
+  --rule: #d8e0e7;
+  --rule-strong: #b7c3cd;
+  --accent: #1c5cab;
+  --accent-soft: #e2ecf8;
+  --g-win: #1c5cab;
+  --g-unsure: #d3d2cb;
+  --g-unsure-mark: #7d828a;
+  --g-lose: #a1302b;
+  --tip-bg: #0f1b27;
+  --tip-ink: #f4f7fa;
+  --shadow: 0 1px 2px rgba(15, 27, 39, .05), 0 6px 20px rgba(15, 27, 39, .05);
+  --display: "Saira Condensed", "Arial Narrow", "Roboto Condensed", sans-serif;
+  --body: "Source Sans 3", "Source Sans Pro", system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+    --ground: #0b1116;
+    --surface: #121a21;
+    --ink: #edf2f6;
+    --ink-2: #b4c1cc;
+    --muted: #93a1ad;
+    --rule: #23303b;
+    --rule-strong: #364552;
+    --accent: #6da7ec;
+    --accent-soft: #15273a;
+    --g-win: #9ec5f4;
+    --g-unsure: #3d4146;
+    --g-unsure-mark: #8b949e;
+    --g-lose: #f7aba5;
+    --tip-bg: #edf2f6;
+    --tip-ink: #0f1b27;
+    --shadow: none;
+  }
+}
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --ground: #0b1116;
+  --surface: #121a21;
+  --ink: #edf2f6;
+  --ink-2: #b4c1cc;
+  --muted: #93a1ad;
+  --rule: #23303b;
+  --rule-strong: #364552;
+  --accent: #6da7ec;
+  --accent-soft: #15273a;
+  --g-win: #9ec5f4;
+  --g-unsure: #3d4146;
+  --g-unsure-mark: #8b949e;
+  --g-lose: #f7aba5;
+  --tip-bg: #edf2f6;
+  --tip-ink: #0f1b27;
+  --shadow: none;
+}
+
+* { box-sizing: border-box; }
+body {
+  background: var(--ground);
+  color: var(--ink);
+  font-family: var(--body);
+  font-size: 17px;
+  line-height: 1.55;
+  padding-inline: 20px;
+  padding-block: 0 64px;
+}
+.page { max-width: 1060px; margin: 0 auto; }
+.prose { max-width: 68ch; }
+p { margin: 0 0 .9em; }
+a { color: var(--accent); text-underline-offset: 2px; }
+a:focus-visible, summary:focus-visible, [tabindex]:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 3px; }
+h1, h2, h3 { font-family: var(--display); font-weight: 700; line-height: 1.08; text-wrap: balance; margin: 0; }
+h1 { font-size: clamp(2.1rem, 5.4vw, 3.4rem); letter-spacing: .005em; }
+h2 { font-size: clamp(1.55rem, 3.2vw, 2.15rem); letter-spacing: .01em; }
+h3 { font-size: 1.28rem; letter-spacing: .015em; margin-bottom: .35rem; }
+td { font-variant-numeric: tabular-nums; }
+strong { font-weight: 700; }
+
+.masthead { padding-block: 44px 28px; border-bottom: 1px solid var(--rule-strong); position: relative; }
+.masthead::after { content: ""; position: absolute; left: 50%; bottom: -1px; width: 2px; height: 10px; background: var(--rule-strong); }
+.eyebrow { font-size: .8rem; letter-spacing: .09em; text-transform: uppercase; color: var(--muted); font-weight: 600; margin-bottom: 14px; }
+.lede { font-size: 1.16rem; color: var(--ink-2); max-width: 64ch; margin-top: 16px; }
+
+.figures { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; margin-block: 28px 18px; }
+.figure { background: var(--surface); border: 1px solid var(--rule); border-radius: 10px; padding: 16px 18px 14px; box-shadow: var(--shadow); }
+.figure .label { font-size: .92rem; color: var(--ink-2); line-height: 1.3; }
+.figure .value { font-size: 2.35rem; font-weight: 700; line-height: 1.05; margin-block: 6px; letter-spacing: -.01em; }
+.figure .note { font-size: .82rem; color: var(--muted); line-height: 1.35; }
+.verdict { font-size: 1.08rem; max-width: 72ch; }
+
+section { padding-top: 46px; }
+.sec-head { display: flex; align-items: center; gap: 14px; margin-bottom: 14px; }
+.letter { flex: none; width: 2.1rem; height: 2.1rem; display: grid; place-items: center; border-radius: 6px; background: var(--ink); color: var(--surface); font-family: var(--display); font-weight: 700; font-size: 1.3rem; }
+.sec-kicker { font-size: .78rem; letter-spacing: .09em; text-transform: uppercase; color: var(--muted); font-weight: 600; }
+
+.panel { background: var(--surface); border: 1px solid var(--rule); border-radius: 12px; padding: 20px 22px; margin-block: 18px; box-shadow: var(--shadow); }
+.panel-head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 6px 18px; margin-bottom: 12px; }
+.panel-head p { margin: 0; color: var(--muted); font-size: .9rem; }
+.legend { display: flex; flex-wrap: wrap; gap: 6px 18px; margin: 4px 0 14px; padding: 0; list-style: none; font-size: .88rem; color: var(--ink-2); }
+.legend li { display: inline-flex; align-items: center; gap: 7px; }
+.sw { width: 12px; height: 12px; border-radius: 3px; flex: none; display: inline-block; }
+.mk { width: 11px; height: 11px; border-radius: 50%; display: inline-block; flex: none; }
+.mk.hollow { background: var(--surface) !important; border: 2px solid var(--g-win); }
+
+/* groups */
+.groups { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; margin: 6px 0 4px; }
+.gcard { border-top: 4px solid var(--rule); padding-top: 10px; }
+.gcard h3 { font-family: var(--body); font-size: 1.02rem; font-weight: 700; letter-spacing: 0; margin: 0 0 4px; }
+.gcard p { font-size: .9rem; color: var(--ink-2); margin: 0 0 8px; }
+.gcard .big { font-size: 1.9rem; font-weight: 700; line-height: 1.1; }
+.gcard .sub { font-size: .82rem; color: var(--muted); }
+
+/* dot-and-range charts (HTML, so text keeps its size at any width) */
+.dot-row, .dot-head { display: grid; grid-template-columns: minmax(8rem, 14rem) minmax(0, 1fr) 7.2rem; gap: 12px; align-items: center; }
+.dot-row { min-height: 48px; border-radius: 4px; padding-block: 3px; }
+.dot-row:hover, .dot-row:focus-visible { background: var(--accent-soft); }
+.dot-row .lab { font-size: .92rem; color: var(--ink-2); line-height: 1.2; }
+.dot-row .lab small { display: block; font-size: .76rem; color: var(--muted); }
+.dot-row.total .lab { font-weight: 700; color: var(--ink); }
+.dot-row .val { font-size: .85rem; text-align: right; font-variant-numeric: tabular-nums; color: var(--ink); line-height: 1.25; }
+.dot-row .val span { color: var(--muted); }
+.dtrack { position: relative; height: 26px; }
+.dtrack .gline { position: absolute; top: 0; bottom: 0; width: 1px; background: var(--rule); }
+.dtrack .zline { position: absolute; top: -4px; bottom: -4px; width: 1px; background: var(--ink-2); }
+.dtrack .whisk { position: absolute; height: 2px; border-radius: 1px; transform: translateY(-50%); }
+.dtrack .pt { position: absolute; width: 11px; height: 11px; border-radius: 50%; transform: translate(-50%, -50%); box-shadow: 0 0 0 2px var(--surface); }
+.dtrack .pt.hollow { background: var(--surface) !important; border: 2px solid currentColor; }
+.axis { position: relative; height: 24px; }
+.axis span { position: absolute; transform: translateX(-50%); font-size: .75rem; color: var(--muted); font-variant-numeric: tabular-nums; top: 4px; white-space: nowrap; }
+.axis .gl { position: absolute; top: 0; height: 4px; width: 1px; background: var(--rule-strong); }
+.dcap { font-size: .78rem; color: var(--muted); text-align: center; margin-top: 2px; }
+
+/* stacked money bars */
+.bar-row { display: grid; grid-template-columns: minmax(8rem, 14rem) minmax(0, 1fr) 7.2rem; gap: 12px; align-items: center; }
+.bars { display: grid; gap: 10px; }
+.bar-row .lab { font-size: .92rem; color: var(--ink-2); line-height: 1.2; }
+.bar-row .lab small { display: block; font-size: .76rem; color: var(--muted); }
+.bar-row.total .lab { font-weight: 700; color: var(--ink); }
+.bar { display: flex; gap: 2px; height: 22px; min-width: 0; }
+.seg { height: 100%; min-width: 2px; display: flex; align-items: center; justify-content: center; font-size: .75rem; font-weight: 600; overflow: hidden; white-space: nowrap; }
+.seg:first-child { border-radius: 4px 0 0 4px; }
+.seg:last-child { border-radius: 0 4px 4px 0; }
+.seg:hover, .seg:focus-visible { filter: brightness(1.1); }
+.seg.win { color: #ffffff; }
+.seg.lose { color: #ffffff; }
+.seg.unsure { color: var(--ink-2); }
+:root[data-theme="dark"] .seg.win, :root[data-theme="dark"] .seg.lose { color: #0f1b27; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .seg.win, :root:not([data-theme="light"]) .seg.lose { color: #0f1b27; } }
+.bar-row .val { font-size: .85rem; text-align: right; font-variant-numeric: tabular-nums; line-height: 1.25; }
+
+details.twin { margin-top: 14px; border-top: 1px solid var(--rule); padding-top: 10px; }
+details.twin summary { cursor: pointer; color: var(--accent); font-size: .9rem; font-weight: 600; }
+.table-wrap { overflow-x: auto; margin-top: 10px; }
+table { border-collapse: collapse; width: 100%; font-size: .88rem; }
+th, td { text-align: left; padding: 6px 10px 6px 0; border-bottom: 1px solid var(--rule); vertical-align: top; }
+th { font-size: .74rem; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); font-weight: 600; line-height: 1.3; min-width: 5.5rem; vertical-align: bottom; }
+th:first-child { min-width: 9rem; }
+td.r, th.r { text-align: right; }
+tbody tr:last-child td { border-bottom: 0; }
+td .rng { color: var(--muted); font-size: .8rem; white-space: nowrap; }
+tr.total td { font-weight: 700; }
+
+.example { background: var(--accent-soft); border-radius: 10px; padding: 14px 18px; max-width: 68ch; margin: 6px 0 16px; }
+.example p { margin: 0 0 .4em; }
+.example p:last-child { margin: 0; }
+ul.findings { padding-left: 1.2em; margin: 0 0 1em; max-width: 72ch; }
+ul.findings li { margin-bottom: .45em; }
+.method li, .caveats li { margin-bottom: .55em; }
+.method, .caveats { padding-left: 1.2em; max-width: 74ch; }
+.foot { margin-top: 48px; padding-top: 16px; border-top: 1px solid var(--rule); color: var(--muted); font-size: .85rem; }
+
+#tip { position: fixed; z-index: 20; pointer-events: none; max-width: 320px; background: var(--tip-bg); color: var(--tip-ink); border-radius: 7px; padding: 8px 11px; font-size: .82rem; line-height: 1.4; box-shadow: 0 6px 18px rgba(0,0,0,.18); }
+#tip .v { font-weight: 700; font-size: .95rem; }
+#tip .k { display: inline-block; width: 12px; height: 2px; vertical-align: middle; margin-right: 6px; }
+
+@media (max-width: 760px) {
+  body { font-size: 16px; padding-inline: 16px; }
+  .figures { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .groups { grid-template-columns: 1fr; }
+  .dot-row, .dot-head, .bar-row { grid-template-columns: minmax(0, 1fr) 7rem; }
+  .dot-row .dtrack, .dot-head .axis-wrap, .bar-row .bar { grid-column: 1 / -1; grid-row: 2; }
+  .dot-head .spacer { display: none; }
+  .panel { padding: 16px; }
+}
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } }
+</style>
+
+<div class="page">
+  <header class="masthead">
+    <p class="eyebrow">Polymarket tennis · bets placed before the match · {{window}}</p>
+    <h1>How beatable is Polymarket tennis before the match?</h1>
+    <p class="lede">{{LEDE}}</p>
+  </header>
+
+  <div class="figures" role="list">
+    <div class="figure" role="listitem">
+      <div class="label">Accounts that clearly beat the closing price</div>
+      <div class="value">{{win_accounts_pct}}</div>
+      <div class="note">{{win_accounts_note}}</div>
+    </div>
+    <div class="figure" role="listitem">
+      <div class="label">By how much, on average</div>
+      <div class="value">{{win_edge}}</div>
+      <div class="note">{{win_edge_note}}</div>
+    </div>
+    <div class="figure" role="listitem">
+      <div class="label">Accounts that clearly lose to it</div>
+      <div class="value">{{lose_accounts_pct}}</div>
+      <div class="note">{{lose_accounts_note}}</div>
+    </div>
+    <div class="figure" role="listitem">
+      <div class="label">{{calib_label}}</div>
+      <div class="value">{{calib_value}}</div>
+      <div class="note">so beating the closing price is a real edge, not a technicality</div>
+    </div>
+  </div>
+  {{VERDICT}}
+
+  <section id="a" aria-labelledby="a-h">
+    <div class="sec-head"><span class="letter" aria-hidden="true">A</span><div><div class="sec-kicker">The yardstick</div><h2 id="a-h">What "beating the closing price" means</h2></div></div>
+    <div class="prose">{{A_TEXT}}</div>
+    <div class="panel">
+      <div class="panel-head"><h3>Is the closing price the real chance of winning?</h3><p>Every settled match, by the favourite's price at the close</p></div>
+      <div class="table-wrap"><table id="calib-table"></table></div>
+      <p class="muted" style="margin:10px 0 0;font-size:.88rem;color:var(--muted)">{{CALIB_NOTE}}</p>
+    </div>
+  </section>
+
+  <section id="b" aria-labelledby="b-h">
+    <div class="sec-head"><span class="letter" aria-hidden="true">B</span><div><div class="sec-kicker">Who beats it</div><h2 id="b-h">Three kinds of account</h2></div></div>
+    <div class="prose">{{B_TEXT}}</div>
+    <div class="panel">
+      <div class="panel-head"><h3>How each group did against the closing price</h3><p>Cents gained or lost per $1 bet, on matches the account was not sorted on</p></div>
+      <div class="groups" id="group-cards"></div>
+      <ul class="legend" style="margin-top:18px"><li><span class="mk" style="background:var(--ink-2)"></span>before fees</li><li><span class="mk hollow" style="border-color:var(--ink-2)"></span>after the fees each account paid</li><li>lines show the range the true figure most likely lies in</li></ul>
+      <div id="chart-groups"></div>
+    </div>
+    <div class="prose">{{B_TEXT_2}}</div>
+  </section>
+
+  <section id="c" aria-labelledby="c-h">
+    <div class="sec-head"><span class="letter" aria-hidden="true">C</span><div><div class="sec-kicker">The answer by level</div><h2 id="c-h">Which levels of play can be beaten, and by how much</h2></div></div>
+    <div class="prose">{{C_TEXT}}</div>
+    <div class="panel">
+      <div class="panel-head"><h3>How much the clear winners beat the closing price by</h3><p>Cents per $1 bet before the match</p></div>
+      <ul class="legend"><li><span class="mk" style="background:var(--g-win)"></span>before fees</li><li><span class="mk hollow"></span>after the fees they paid</li><li>lines show the likely range</li></ul>
+      <div id="chart-levels"></div>
+    </div>
+    <div class="panel">
+      <div class="panel-head"><h3>Whose money is bet before the match</h3><p>Share of each level's pre-match money</p></div>
+      <ul class="legend"><li><span class="sw" style="background:var(--g-win)"></span>clearly beat the close</li><li><span class="sw" style="background:var(--g-unsure)"></span>unsure</li><li><span class="sw" style="background:var(--g-lose)"></span>clearly lose to the close</li></ul>
+      <div class="bars" id="money-bars"></div>
+      <details class="twin"><summary>Show all the numbers, with ranges</summary><div class="table-wrap"><table id="level-table"></table></div></details>
+    </div>
+    <div class="prose">{{C_TEXT_2}}</div>
+    <div class="panel">
+      <div class="panel-head"><h3>Men's events only</h3><p>The same measures for the ATP and ITF men's levels</p></div>
+      <div class="table-wrap"><table id="men-table"></table></div>
+    </div>
+  </section>
+
+  <section id="d" aria-labelledby="d-h">
+    <div class="sec-head"><span class="letter" aria-hidden="true">D</span><div><div class="sec-kicker">Checks</div><h2 id="d-h">How sure are these numbers?</h2></div></div>
+    <div class="prose">{{D_TEXT}}</div>
+    <div class="panel">
+      <div class="panel-head"><h3>Closing price taken 30 minutes before the start</h3><p>Clear winners' edge before fees, both ways of measuring</p></div>
+      <div class="table-wrap"><table id="robust-table"></table></div>
+    </div>
+  </section>
+
+  <section id="e" aria-labelledby="e-h">
+    <div class="sec-head"><span class="letter" aria-hidden="true">E</span><div><div class="sec-kicker">Method and limits</div><h2 id="e-h">How this was measured</h2></div></div>
+    {{E_TEXT}}
+  </section>
+
+  <p class="foot">{{FOOT}}</p>
+</div>
+<div id="tip" hidden></div>
+
+<script type="application/json" id="report-data">__REPORT_DATA__</script>
+<script>
+(function () {
+  const D = JSON.parse(document.getElementById("report-data").textContent);
+  const GROUPS = [
+    { key: "win", label: "Clearly beat the close", color: "var(--g-win)", mark: "var(--g-win)" },
+    { key: "unsure", label: "Unsure", color: "var(--g-unsure)", mark: "var(--g-unsure-mark)" },
+    { key: "lose", label: "Clearly lose to the close", color: "var(--g-lose)", mark: "var(--g-lose)" },
+  ];
+  const pct = (v, d = 0) => (v * 100).toFixed(d) + "%";
+  const cents = (v, d = 1) => (v >= 0 ? "+" : "−") + Math.abs(v * 100).toFixed(d) + "¢";
+  const money = v => v >= 1e9 ? "$" + (v / 1e9).toFixed(2) + "B" : v >= 1e6 ? "$" + (v / 1e6).toFixed(1) + "M" : "$" + Math.round(v / 1e3) + "K";
+  const rng = (r, f) => r ? f(r.lo) + " to " + f(r.hi) : "";
+  const el = (tag, attrs, text) => { const n = document.createElement(tag); for (const k in attrs || {}) n.setAttribute(k, attrs[k]); if (text != null) n.textContent = text; return n; };
+
+  const tip = document.getElementById("tip");
+  function showTip(evt, rows) {
+    tip.replaceChildren();
+    rows.forEach((r, i) => {
+      const line = el("div");
+      if (r.key) { const k = el("span", { class: "k" }); k.style.background = r.key; line.appendChild(k); }
+      if (r.value) line.appendChild(el("span", { class: i === 0 ? "v" : "" }, r.value + (r.label ? "  " : "")));
+      if (r.label) line.appendChild(el("span", {}, r.label));
+      tip.appendChild(line);
+    });
+    tip.hidden = false;
+    const box = evt.target.getBoundingClientRect();
+    const x = evt.clientX != null && evt.clientX > 0 ? evt.clientX : box.left + 12;
+    const y = evt.clientY != null && evt.clientY > 0 ? evt.clientY : box.top;
+    tip.style.left = Math.min(window.innerWidth - tip.offsetWidth - 8, x + 14) + "px";
+    tip.style.top = Math.max(8, y - tip.offsetHeight - 12) + "px";
+  }
+  const hideTip = () => { tip.hidden = true; };
+  function bindTip(node, rowsFn) {
+    node.addEventListener("pointermove", e => showTip(e, rowsFn()));
+    node.addEventListener("pointerleave", hideTip);
+    node.addEventListener("focus", e => showTip(e, rowsFn()));
+    node.addEventListener("blur", hideTip);
+  }
+
+  // ---------------- A: closing-price accuracy
+  (function () {
+    const t = document.getElementById("calib-table");
+    const hr = el("tr");
+    ["Favourite's price at the close", "Matches", "Average price", "Favourite actually won", "Difference"].forEach((h, i) => hr.appendChild(el("th", { class: i ? "r" : "" }, h)));
+    const th = el("thead"); th.appendChild(hr); t.appendChild(th);
+    const tb = el("tbody");
+    D.calibration.bins.forEach(b => {
+      const tr = el("tr");
+      tr.appendChild(el("td", {}, Math.round(b.lo * 100) + "–" + Math.round(b.hi * 100) + "¢"));
+      tr.appendChild(el("td", { class: "r" }, b.markets.toLocaleString()));
+      tr.appendChild(el("td", { class: "r" }, (b.price * 100).toFixed(1) + "¢"));
+      const w = el("td", { class: "r" }, pct(b.won, 1)); w.appendChild(el("br")); w.appendChild(el("span", { class: "rng" }, "± " + (1.96 * b.won_se * 100).toFixed(1))); tr.appendChild(w);
+      tr.appendChild(el("td", { class: "r" }, ((b.won - b.price) * 100 >= 0 ? "+" : "−") + Math.abs((b.won - b.price) * 100).toFixed(1) + " points"));
+      tb.appendChild(tr);
+    });
+    t.appendChild(tb);
+  })();
+
+  // ---------------- dot-and-range chart with a before-fees and after-fees marker per row
+  function dotChart(box, rows, opts) {
+    const vals = rows.flatMap(r => [r.a, r.b].filter(Boolean).flatMap(v => [v.lo, v.hi, v.est]));
+    const step = opts.step;
+    const lo = Math.floor(Math.min(0, ...vals) / step - 1e-9) * step, hi = Math.ceil(Math.max(0, ...vals) / step + 1e-9) * step;
+    const xp = v => (v - lo) / (hi - lo) * 100;
+    const ticks = [];
+    for (let k = Math.round(lo / step); k <= Math.round(hi / step); k++) ticks.push(k * step);
+    rows.forEach(r => {
+      const row = el("div", { class: "dot-row" + (r.total ? " total" : ""), tabindex: 0, role: "img",
+        "aria-label": r.label + ": " + (r.a ? cents(r.a.est, 2) + " per $1 before fees" : "") + (r.b ? ", " + cents(r.b.est, 2) + " after fees" : "") });
+      const lab = el("div", { class: "lab" }, r.label); if (r.sub) lab.appendChild(el("small", {}, r.sub)); row.appendChild(lab);
+      const tr = el("div", { class: "dtrack" });
+      ticks.forEach(t => { const g = el("span", { class: Math.abs(t) < 1e-9 ? "zline" : "gline" }); g.style.left = xp(t) + "%"; tr.appendChild(g); });
+      [[r.a, 8, false], [r.b, 18, true]].forEach(([v, y, hollow]) => {
+        if (!v) return;
+        const w = el("span", { class: "whisk" }); w.style.top = y + "px"; w.style.left = xp(v.lo) + "%"; w.style.width = Math.max(0.3, xp(v.hi) - xp(v.lo)) + "%"; w.style.background = r.color; w.style.opacity = hollow ? .55 : 1; tr.appendChild(w);
+        const p = el("span", { class: "pt" + (hollow ? " hollow" : "") }); p.style.top = y + "px"; p.style.left = xp(v.est) + "%"; p.style.background = r.color; p.style.color = r.color; tr.appendChild(p);
+      });
+      row.appendChild(tr);
+      const val = el("div", { class: "val" }, r.a ? cents(r.a.est, 1) : "–");
+      if (r.b) { val.appendChild(el("br")); val.appendChild(el("span", {}, cents(r.b.est, 1) + " after fees")); }
+      row.appendChild(val);
+      bindTip(row, () => [{ value: (r.a ? cents(r.a.est, 2) : "–") + " per $1", key: r.color, label: "before fees" },
+        { label: r.label }, { label: "likely range " + rng(r.a, v => cents(v, 2)) },
+        r.b ? { label: "after fees " + cents(r.b.est, 2) + " (" + rng(r.b, v => cents(v, 2)) + ")" } : {}].concat(r.extra || []));
+      box.appendChild(row);
+    });
+    const head = el("div", { class: "dot-head" });
+    head.appendChild(el("div", { class: "spacer" }));
+    const aw = el("div", { class: "axis-wrap" }), ax = el("div", { class: "axis" });
+    ticks.forEach(t => {
+      const g = el("span", { class: "gl" }); g.style.left = xp(t) + "%"; ax.appendChild(g);
+      const s = el("span", {}, Math.abs(t) < 1e-9 ? "0" : cents(t, step < 0.01 ? 1 : 0)); s.style.left = xp(t) + "%"; ax.appendChild(s);
+    });
+    aw.appendChild(ax); head.appendChild(aw); head.appendChild(el("div", { class: "spacer" }));
+    box.appendChild(head);
+    box.appendChild(el("div", { class: "dcap" }, opts.axis));
+  }
+
+  // ---------------- B: the three groups
+  (function () {
+    const cards = document.getElementById("group-cards");
+    GROUPS.forEach(g => {
+      const c = el("div", { class: "gcard" }); c.style.borderTopColor = g.color;
+      c.appendChild(el("h3", {}, g.label));
+      c.appendChild(el("p", {}, D.group_defs[g.key]));
+      c.appendChild(el("div", { class: "big" }, D.overall.accounts_by_verdict[g.key].toLocaleString()));
+      c.appendChild(el("div", { class: "sub" }, g.key === "unsure" ? "accounts, " + (D.info.verdicts_whole_year_10plus - D.overall.accounts_by_verdict.win - D.overall.accounts_by_verdict.lose).toLocaleString() + " of them with 10+ matches" : "accounts, over the year"));
+      c.appendChild(el("div", { class: "sub" }, pct(D.overall.share[g.key].est) + " of the money bet before matches"));
+      cards.appendChild(c);
+    });
+    dotChart(document.getElementById("chart-groups"), GROUPS.map(g => ({ label: g.label, a: D.overall.edge[g.key], b: D.overall.edge_after_fees[g.key], color: g.mark,
+      extra: [{ label: pct(D.overall.share[g.key].est, 1) + " of pre-match money" }] })),
+      { step: D.steps.groups, axis: "cents gained (+) or given up (−) against the closing price, per $1 bet" });
+  })();
+
+  // ---------------- C: by level
+  const levelRows = [Object.assign({}, D.overall, { label: "All tennis", total: true })].concat(D.levels_shown);
+  dotChart(document.getElementById("chart-levels"), levelRows.map(r => ({ label: r.label, sub: money(r.money) + " bet before matches", total: r.total,
+    a: r.edge.win, b: r.edge_after_fees.win, color: "var(--g-win)",
+    extra: [{ label: r.accounts_by_verdict.win.toLocaleString() + " clear winners bet at this level" },
+            { label: "they took " + money(r.winner_take_per_100.est / 100 * r.money) + " of value from other bettors" }] })),
+    { step: D.steps.levels, axis: "cents per $1 by which the clear winners beat the closing price" });
+
+  const bars = document.getElementById("money-bars");
+  levelRows.forEach(r => {
+    const row = el("div", { class: "bar-row" + (r.total ? " total" : "") });
+    const lab = el("div", { class: "lab" }, r.label); lab.appendChild(el("small", {}, money(r.money))); row.appendChild(lab);
+    const bar = el("div", { class: "bar" });
+    GROUPS.forEach(g => {
+      const v = r.share[g.key].est;
+      const seg = el("div", { class: "seg " + g.key, tabindex: 0, role: "img", "aria-label": r.label + ", " + g.label + ": " + pct(v) + " of pre-match money" });
+      seg.style.flex = v + " 1 0"; seg.style.background = g.color;
+      if (v >= 0.09) seg.textContent = pct(v);
+      bindTip(seg, () => [{ value: pct(v, 1), key: g.color, label: g.label }, { label: r.label },
+        { label: "likely range " + rng(r.share[g.key], x => pct(x, 1)) },
+        { label: "edge " + (r.edge[g.key] ? cents(r.edge[g.key].est, 2) : "–") + " per $1 before fees" }]);
+      bar.appendChild(seg);
+    });
+    row.appendChild(bar);
+    const val = el("div", { class: "val" });
+    val.appendChild(el("b", {}, pct(r.share.win.est))); val.appendChild(document.createTextNode(" clear winners"));
+    row.appendChild(val);
+    bars.appendChild(row);
+  });
+
+  function levelTable(tableId, rows, withAll) {
+    const t = document.getElementById(tableId);
+    const hr = el("tr");
+    ["Level of play", "Money bet before matches", "Matches", "Clear winners", "Clear losers", "Winners' edge per $1", "After fees", "Losers' edge per $1", "Unsure accounts' edge", "Value winners took"].forEach((h, i) => hr.appendChild(el("th", { class: i ? "r" : "" }, h)));
+    const th = el("thead"); th.appendChild(hr); t.appendChild(th);
+    const tb = el("tbody");
+    rows.forEach(r => {
+      const tr = el("tr", { class: r.total ? "total" : "" });
+      const cell = (txt, sub) => { const td = el("td", { class: "r" }, txt); if (sub) { td.appendChild(el("br")); td.appendChild(el("span", { class: "rng" }, sub)); } return td; };
+      tr.appendChild(el("td", {}, r.label + (r.passes_rule === false ? " (too few to estimate)" : "")));
+      tr.appendChild(cell(money(r.money)));
+      tr.appendChild(cell(r.markets.toLocaleString()));
+      tr.appendChild(cell(r.accounts_by_verdict.win.toLocaleString(), pct(r.share.win.est) + " of money"));
+      tr.appendChild(cell(r.accounts_by_verdict.lose.toLocaleString(), pct(r.share.lose.est) + " of money"));
+      tr.appendChild(cell(cents(r.edge.win.est, 2), rng(r.edge.win, v => cents(v, 2))));
+      tr.appendChild(cell(cents(r.edge_after_fees.win.est, 2), rng(r.edge_after_fees.win, v => cents(v, 2))));
+      tr.appendChild(cell(cents(r.edge.lose.est, 2), rng(r.edge.lose, v => cents(v, 2))));
+      tr.appendChild(cell(cents(r.edge.unsure.est, 2), rng(r.edge.unsure, v => cents(v, 2))));
+      tr.appendChild(cell(money(r.winner_take_per_100.est / 100 * r.money), "$" + r.winner_take_per_100.est.toFixed(2) + " per $100 bet"));
+      tb.appendChild(tr);
+    });
+    t.appendChild(tb);
+  }
+  levelTable("level-table", levelRows.concat(D.levels_hidden));
+  levelTable("men-table", D.men);
+
+  // ---------------- D: robustness
+  (function () {
+    const t = document.getElementById("robust-table");
+    const hr = el("tr");
+    ["Level of play", "Close at the scheduled start", "Close 30 minutes earlier", "Clear losers, at the start", "Clear losers, 30 minutes earlier"].forEach((h, i) => hr.appendChild(el("th", { class: i ? "r" : "" }, h)));
+    const th = el("thead"); th.appendChild(hr); t.appendChild(th);
+    const tb = el("tbody");
+    D.robust.forEach(r => {
+      const tr = el("tr", { class: r.total ? "total" : "" });
+      const cell = (v) => { const td = el("td", { class: "r" }, v ? cents(v.est, 2) : "–"); if (v) { td.appendChild(el("br")); td.appendChild(el("span", { class: "rng" }, rng(v, x => cents(x, 2)))); } return td; };
+      tr.appendChild(el("td", {}, r.label));
+      tr.appendChild(cell(r.main_win)); tr.appendChild(cell(r.buffer_win)); tr.appendChild(cell(r.main_lose)); tr.appendChild(cell(r.buffer_lose));
+      tb.appendChild(tr);
+    });
+    t.appendChild(tb);
+  })();
+})();
+</script>

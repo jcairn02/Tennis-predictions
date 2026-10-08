@@ -1,0 +1,1285 @@
+{
+ "source": "tml_days",
+ "notes": [
+  "Only rows of events judged day-level (srcb_sources.day_level_events) are output; the rest of Tennis My Life is dated by event, as Stage 0's rule C05 notes.",
+  "TML gives calendar days without times and does not say which calendar. Measured against the venue's day from api_tennis / the Live Tennis API (agreement_with_timed_sources_venue_day) they are the venue's day at events in Oceania (all) and Europe, Africa and Asia (about 93%), but not in the Americas, where most late matches carry the next day and no single calendar fits. date_basis is 'local' only in the first regions; in the Americas and where the zone is unknown it is 'utc_date', meaning 'not the venue's day' (TML gives no time to convert). Some WTA events are off by more.",
+  "The TML rows linked here also give the ATP player code -> Stage 0 id crosswalk used for Infosys."
+ ],
+ "input": {
+  "rows_read": 89571,
+  "first_season_file": 2019,
+  "left_out": {
+   "no_date_round_or_name": 1
+  },
+  "atp_codes_learned": 1991,
+  "atp_codes_learned_to_sackmann_ids": 1873,
+  "events": 3590,
+  "day_level_events": 86,
+  "multi_date_events_judged_event_dated": [
+   {
+    "event": "atp_challenger/2024_challenger.parquet|2024-2205|Noumea",
+    "rows": 62,
+    "dates": 2,
+    "span": 5850,
+    "monotone": false,
+    "crowded_day": true,
+    "round_dated": false,
+    "final_on_last_day": true
+   },
+   {
+    "event": "atp_main/2019.parquet|2019-418|Washington",
+    "rows": 47,
+    "dates": 2,
+    "span": 2,
+    "monotone": true,
+    "crowded_day": true,
+    "round_dated": true,
+    "final_on_last_day": true
+   },
+   {
+    "event": "atp_main/2024.parquet|2024-341|Metz",
+    "rows": 27,
+    "dates": 2,
+    "span": 1,
+    "monotone": true,
+    "crowded_day": true,
+    "round_dated": false,
+    "final_on_last_day": false
+   },
+   {
+    "event": "atp_main/2024.parquet|2024-4787|Belgrade",
+    "rows": 27,
+    "dates": 2,
+    "span": 1,
+    "monotone": true,
+    "crowded_day": true,
+    "round_dated": false,
+    "final_on_last_day": false
+   },
+   {
+    "event": "atp_main/2024.parquet|2024-6242|Winston-Salem",
+    "rows": 47,
+    "dates": 2,
+    "span": 1,
+    "monotone": true,
+    "crowded_day": true,
+    "round_dated": false,
+    "final_on_last_day": false
+   },
+   {
+    "event": "atp_qualifying/2026_atp_quali.parquet|2026-560|US Open",
+    "rows": 112,
+    "dates": 4,
+    "span": 4,
+    "monotone": true,
+    "crowded_day": true,
+    "round_dated": true,
+    "final_on_last_day": true
+   },
+   {
+    "event": "wta_main/2026_wta.parquet|2026-1139|Sao Paulo",
+    "rows": 31,
+    "dates": 2,
+    "span": 6,
+    "monotone": true,
+    "crowded_day": true,
+    "round_dated": true,
+    "final_on_last_day": true
+   },
+   {
+    "event": "wta_main/2026_wta.parquet|2026-804|Charleston",
+    "rows": 47,
+    "dates": 6,
+    "span": 6,
+    "monotone": true,
+    "crowded_day": false,
+    "round_dated": true,
+    "final_on_last_day": true
+   }
+  ],
+  "day_level_events_by_file": {
+   "atp_main/2026.parquet": 48,
+   "ongoing/ongoing_tourneys.parquet": 30,
+   "wta_main/2021_wta.parquet": 1,
+   "wta_main/2022_wta.parquet": 1,
+   "wta_main/2023_wta.parquet": 2,
+   "wta_main/2024_wta.parquet": 2,
+   "wta_main/2025_wta.parquet": 1,
+   "wta_main/2026_wta.parquet": 1
+  },
+  "rows_in_day_level_events": 2449
+ },
+ "rows_in_scope": 2449,
+ "row_status": {
+  "linked": 2448,
+  "unlinked": 1
+ },
+ "linked": 2448,
+ "ambiguous": 0,
+ "unlinked": 1,
+ "passes": {
+  "stage0_tml_row": {
+   "linked": 5109
+  },
+  "name_pair": {
+   "candidates": 80458,
+   "linked": 79593,
+   "ambiguous": 0,
+   "lost_to_better_row": 40,
+   "linked_identical_scores": 79060,
+   "linked_round_agrees": 79504
+  },
+  "player_ids": {
+   "candidates": 228,
+   "linked": 227,
+   "ambiguous": 0,
+   "lost_to_better_row": 0,
+   "linked_identical_scores": 227,
+   "linked_round_agrees": 227
+  },
+  "one_player_anchor": {
+   "candidates": 2682,
+   "linked": 2680,
+   "not_unique": 2
+  },
+  "learned_ids": {
+   "candidates": 22,
+   "linked": 22,
+   "ambiguous": 0,
+   "lost_to_better_row": 0,
+   "linked_identical_scores": 17,
+   "linked_round_agrees": 22
+  }
+ },
+ "links_by_method": [
+  {
+   "link_method": "name_pair",
+   "links": 1482,
+   "dated": 1482,
+   "score_agrees": 1467,
+   "score_differs": 2,
+   "round_agrees": 1482,
+   "round_differs": 0
+  },
+  {
+   "link_method": "one_player_anchor",
+   "links": 16,
+   "dated": 16,
+   "score_agrees": 16,
+   "score_differs": 0,
+   "round_agrees": 16,
+   "round_differs": 0
+  },
+  {
+   "link_method": "stage0_tml_row",
+   "links": 950,
+   "dated": 950,
+   "score_agrees": 947,
+   "score_differs": 0,
+   "round_agrees": 950,
+   "round_differs": 0
+  }
+ ],
+ "date_basis": {
+  "local": 1393,
+  "utc_date": 1055
+ },
+ "links_with_date": 2448,
+ "links_with_start_utc": 0,
+ "score_agrees": {
+  "True": 2430,
+  "unknown": 16,
+  "False": 2
+ },
+ "round_agrees": {
+  "True": 2448
+ },
+ "agreement_with_tennis_data": {
+  "matches": 1887,
+  "same_day": 1580,
+  "same_day_pct": 83.73,
+  "one_day_off": 273,
+  "one_day_off_pct": 14.47,
+  "larger": 34,
+  "larger_pct": 1.8,
+  "source_minus_td_days": {
+   "-3": 7,
+   "-2": 3,
+   "-1": 20,
+   "0": 1580,
+   "1": 253,
+   "2": 8,
+   "3": 9
+  },
+  "by_basis": {
+   "local": {
+    "matches": 1393,
+    "same_day": 1291,
+    "same_day_pct": 92.68,
+    "one_day_off": 90,
+    "one_day_off_pct": 6.46,
+    "larger": 12,
+    "larger_pct": 0.86,
+    "source_minus_td_days": {
+     "-2": 1,
+     "-1": 9,
+     "0": 1291,
+     "1": 81,
+     "2": 5,
+     "3": 1
+    }
+   },
+   "utc_date": {
+    "matches": 494,
+    "same_day": 289,
+    "same_day_pct": 58.5,
+    "one_day_off": 183,
+    "one_day_off_pct": 37.04,
+    "larger": 22,
+    "larger_pct": 4.45,
+    "source_minus_td_days": {
+     "-3": 7,
+     "-2": 2,
+     "-1": 11,
+     "0": 289,
+     "1": 172,
+     "2": 3,
+     "3": 8
+    }
+   }
+  },
+  "by_tour": {
+   "atp": {
+    "matches": 1785,
+    "same_day": 1538,
+    "same_day_pct": 86.16,
+    "one_day_off": 246,
+    "one_day_off_pct": 13.78,
+    "larger": 1,
+    "larger_pct": 0.06,
+    "source_minus_td_days": {
+     "-1": 2,
+     "0": 1538,
+     "1": 244,
+     "2": 1
+    }
+   },
+   "wta": {
+    "matches": 102,
+    "same_day": 42,
+    "same_day_pct": 41.18,
+    "one_day_off": 27,
+    "one_day_off_pct": 26.47,
+    "larger": 33,
+    "larger_pct": 32.35,
+    "source_minus_td_days": {
+     "-3": 7,
+     "-2": 3,
+     "-1": 18,
+     "0": 42,
+     "1": 9,
+     "2": 7,
+     "3": 9
+    }
+   }
+  },
+  "by_region": {
+   "Americas": {
+    "matches": 494,
+    "same_day": 289,
+    "same_day_pct": 58.5,
+    "one_day_off": 183,
+    "one_day_off_pct": 37.04,
+    "larger": 22,
+    "larger_pct": 4.45,
+    "source_minus_td_days": {
+     "-3": 7,
+     "-2": 2,
+     "-1": 11,
+     "0": 289,
+     "1": 172,
+     "2": 3,
+     "3": 8
+    }
+   },
+   "elsewhere": {
+    "matches": 1393,
+    "same_day": 1291,
+    "same_day_pct": 92.68,
+    "one_day_off": 90,
+    "one_day_off_pct": 6.46,
+    "larger": 12,
+    "larger_pct": 0.86,
+    "source_minus_td_days": {
+     "-2": 1,
+     "-1": 9,
+     "0": 1291,
+     "1": 81,
+     "2": 5,
+     "3": 1
+    }
+   }
+  },
+  "events_not_same_day": 33,
+  "events_with_most_disagreement": [
+   {
+    "tour": "atp",
+    "year": 2026,
+    "tournament_name": "Indian Wells Masters",
+    "matches": 95,
+    "not_same_day": 35,
+    "median_diff": 0.0,
+    "tz": "America/Los_Angeles"
+   },
+   {
+    "tour": "atp",
+    "year": 2026,
+    "tournament_name": "Miami Masters",
+    "matches": 95,
+    "not_same_day": 30,
+    "median_diff": 0.0,
+    "tz": "America/New_York"
+   },
+   {
+    "tour": "atp",
+    "year": 2026,
+    "tournament_name": "Rio de Janeiro",
+    "matches": 31,
+    "not_same_day": 16,
+    "median_diff": 1.0,
+    "tz": "America/Sao_Paulo"
+   },
+   {
+    "tour": "atp",
+    "year": 2026,
+    "tournament_name": "Houston",
+    "matches": 27,
+    "not_same_day": 15,
+    "median_diff": 1.0,
+    "tz": "America/Chicago"
+   },
+   {
+    "tour": "atp",
+    "year": 2026,
+    "tournament_name": "Santiago",
+    "matches": 27,
+    "not_same_day": 15,
+    "median_diff": 1.0,
+    "tz": "America/Santiago"
+   },
+   {
+    "tour": "atp",
+    "year": 2026,
+    "tournament_name": "Roland Garros",
+    "matches": 127,
+    "not_same_day": 14,
+    "median_diff": 0.0,
+    "tz": "Europe/Paris"
+   },
+   {
+    "tour": "atp",
+    "year": 2026,
+    "tournament_name": "Dallas",
+    "matches": 31,
+    "not_same_day": 14,
+    "median_diff": 0.0,
+    "tz": "America/Chicago"
+   },
+   {
+    "tour": "wta",
+    "year": 2021,
+    "tournament_name": "Guadalajara Finals",
+    "matches": 15,
+    "not_same_day": 14,
+    "median_diff": -1.0,
+    "tz": "America/Mexico_City"
+   },
+   {
+    "tour": "wta",
+    "year": 2024,
+    "tournament_name": "Riyadh Finals",
+    "matches": 15,
+    "not_same_day": 14,
+    "median_diff": 2.0,
+    "tz": "Asia/Riyadh"
+   },
+   {
+    "tour": "atp",
+    "year": 2026,
+    "tournament_name": "Washington",
+    "matches": 31,
+    "not_same_day": 13,
+    "median_diff": 0.0,
+    "tz": "America/New_York"
+   },
+   {
+    "tour": "atp",
+    "year": 2026,
+    "tournament_name": "Buenos Aires",
+    "matches": 27,
+    "not_same_day": 13,
+    "median_diff": 0.0,
+    "tz": "America/Argentina/Buenos_Aires"
+   },
+   {
+    "tour": "atp",
+    "year": 2026,
+    "tournament_name": "Delray Beach",
+    "matches": 27,
+    "not_same_day": 13,
+    "median_diff": 0.0,
+    "tz": "America/New_York"
+   },
+   {
+    "tour": "wta",
+    "year": 2022,
+    "tournament_name": "Fort Worth Finals",
+    "matches": 15,
+    "not_same_day": 13,
+    "median_diff": -1.0,
+    "tz": "America/Chicago"
+   },
+   {
+    "tour": "wta",
+    "year": 2023,
+    "tournament_name": "Cancun Finals",
+    "matches": 15,
+    "not_same_day": 13,
+    "median_diff": 1.0,
+    "tz": "America/Cancun"
+   },
+   {
+    "tour": "atp",
+    "year": 2026,
+    "tournament_name": "Auckland",
+    "matches": 27,
+    "not_same_day": 9,
+    "median_diff": 0.0,
+    "tz": "Pacific/Auckland"
+   }
+  ],
+  "worst": [
+   {
+    "match_id": "wta|2021-808|RR|wta:202469|wta:204426",
+    "source_key": "2021_wta.csv:2583",
+    "tournament_name": "Guadalajara Finals",
+    "round": "RR",
+    "tournament_date": "2021-11-10",
+    "date_local": "2021-11-10",
+    "td_date": "2021-11-15",
+    "diff": -5.0,
+    "date_basis": "utc_date",
+    "link_method": "name_pair"
+   },
+   {
+    "match_id": "wta|2022-808|RR|wta:201614|wta:214082",
+    "source_key": "2022_wta.csv:2523",
+    "tournament_name": "Fort Worth Finals",
+    "round": "RR",
+    "tournament_date": "2022-10-31",
+    "date_local": "2022-10-31",
+    "td_date": "2022-11-05",
+    "diff": -5.0,
+    "date_basis": "utc_date",
+    "link_method": "name_pair"
+   },
+   {
+    "match_id": "wta|2024-808|RR|wta:211148|wta:214544",
+    "source_key": "2024_wta.csv:2603",
+    "tournament_name": "Riyadh Finals",
+    "round": "RR",
+    "tournament_date": "2024-11-04",
+    "date_local": "2024-11-09",
+    "td_date": "2024-11-04",
+    "diff": 5.0,
+    "date_basis": "local",
+    "link_method": "name_pair"
+   },
+   {
+    "match_id": "wta|2024-808|RR|wta:214544|wta:221012",
+    "source_key": "2024_wta.csv:2599",
+    "tournament_name": "Riyadh Finals",
+    "round": "RR",
+    "tournament_date": "2024-11-04",
+    "date_local": "2024-11-07",
+    "td_date": "2024-11-02",
+    "diff": 5.0,
+    "date_basis": "local",
+    "link_method": "name_pair"
+   },
+   {
+    "match_id": "wta|2024-808|RR|wta:206252|wta:216347",
+    "source_key": "2024_wta.csv:2598",
+    "tournament_name": "Riyadh Finals",
+    "round": "RR",
+    "tournament_date": "2024-11-04",
+    "date_local": "2024-11-07",
+    "td_date": "2024-11-03",
+    "diff": 4.0,
+    "date_basis": "local",
+    "link_method": "name_pair"
+   },
+   {
+    "match_id": "wta|2024-808|RR|wta:211148|wta:214981",
+    "source_key": "2024_wta.csv:2597",
+    "tournament_name": "Riyadh Finals",
+    "round": "RR",
+    "tournament_date": "2024-11-04",
+    "date_local": "2024-11-06",
+    "td_date": "2024-11-02",
+    "diff": 4.0,
+    "date_basis": "local",
+    "link_method": "name_pair"
+   },
+   {
+    "match_id": "wta|2024-808|RR|wta:216347|wta:221103",
+    "source_key": "2024_wta.csv:2602",
+    "tournament_name": "Riyadh Finals",
+    "round": "RR",
+    "tournament_date": "2024-11-04",
+    "date_local": "2024-11-09",
+    "td_date": "2024-11-05",
+    "diff": 4.0,
+    "date_basis": "local",
+    "link_method": "name_pair"
+   },
+   {
+    "match_id": "wta|2021-808|RR|wta:204426|wta:206252",
+    "source_key": "2021_wta.csv:2590",
+    "tournament_name": "Guadalajara Finals",
+    "round": "RR",
+    "tournament_date": "2021-11-10",
+    "date_local": "2021-11-13",
+    "td_date": "2021-11-10",
+    "diff": 3.0,
+    "date_basis": "utc_date",
+    "link_method": "name_pair"
+   },
+   {
+    "match_id": "wta|2021-808|RR|wta:211651|wta:214544",
+    "source_key": "2021_wta.csv:2593",
+    "tournament_name": "Guadalajara Finals",
+    "round": "RR",
+    "tournament_date": "2021-11-10",
+    "date_local": "2021-11-15",
+    "td_date": "2021-11-12",
+    "diff": 3.0,
+    "date_basis": "utc_date",
+    "link_method": "name_pair"
+   },
+   {
+    "match_id": "wta|2021-808|RR|wta:214544|wta:216347",
+    "source_key": "2021_wta.csv:2585",
+    "tournament_name": "Guadalajara Finals",
+    "round": "RR",
+    "tournament_date": "2021-11-10",
+    "date_local": "2021-11-11",
+    "td_date": "2021-11-14",
+    "diff": -3.0,
+    "date_basis": "utc_date",
+    "link_method": "name_pair"
+   },
+   {
+    "match_id": "wta|2022-808|RR|wta:202460|wta:202468",
+    "source_key": "2022_wta.csv:2532",
+    "tournament_name": "Fort Worth Finals",
+    "round": "RR",
+    "tournament_date": "2022-10-31",
+    "date_local": "2022-11-05",
+    "td_date": "2022-11-02",
+    "diff": 3.0,
+    "date_basis": "utc_date",
+    "link_method": "name_pair"
+   },
+   {
+    "match_id": "wta|2022-808|RR|wta:202468|wta:214544",
+    "source_key": "2022_wta.csv:2524",
+    "tournament_name": "Fort Worth Finals",
+    "round": "RR",
+    "tournament_date": "2022-10-31",
+    "date_local": "2022-11-01",
+    "td_date": "2022-11-04",
+    "diff": -3.0,
+    "date_basis": "utc_date",
+    "link_method": "name_pair"
+   },
+   {
+    "match_id": "wta|2022-808|RR|wta:206289|wta:214544",
+    "source_key": "2022_wta.csv:2522",
+    "tournament_name": "Fort Worth Finals",
+    "round": "RR",
+    "tournament_date": "2022-10-31",
+    "date_local": "2022-10-31",
+    "td_date": "2022-11-03",
+    "diff": -3.0,
+    "date_basis": "utc_date",
+    "link_method": "name_pair"
+   },
+   {
+    "match_id": "wta|2022-808|RR|wta:214082|wta:221103",
+    "source_key": "2022_wta.csv:2525",
+    "tournament_name": "Fort Worth Finals",
+    "round": "RR",
+    "tournament_date": "2022-10-31",
+    "date_local": "2022-11-01",
+    "td_date": "2022-11-04",
+    "diff": -3.0,
+    "date_basis": "utc_date",
+    "link_method": "name_pair"
+   },
+   {
+    "match_id": "wta|2023-808|RR|wta:202460|wta:214954",
+    "source_key": "2023_wta.csv:2736",
+    "tournament_name": "Cancun Finals",
+    "round": "RR",
+    "tournament_date": "2023-10-30",
+    "date_local": "2023-10-30",
+    "td_date": "2023-11-02",
+    "diff": -3.0,
+    "date_basis": "utc_date",
+    "link_method": "name_pair"
+   },
+   {
+    "match_id": "wta|2023-808|RR|wta:202468|wta:206289",
+    "source_key": "2023_wta.csv:2737",
+    "tournament_name": "Cancun Finals",
+    "round": "RR",
+    "tournament_date": "2023-10-30",
+    "date_local": "2023-10-30",
+    "td_date": "2023-11-02",
+    "diff": -3.0,
+    "date_basis": "utc_date",
+    "link_method": "name_pair"
+   },
+   {
+    "match_id": "wta|2023-808|RR|wta:202468|wta:214544",
+    "source_key": "2023_wta.csv:2745",
+    "tournament_name": "Cancun Finals",
+    "round": "RR",
+    "tournament_date": "2023-10-30",
+    "date_local": "2023-11-03",
+    "td_date": "2023-10-31",
+    "diff": 3.0,
+    "date_basis": "utc_date",
+    "link_method": "name_pair"
+   },
+   {
+    "match_id": "wta|2023-808|RR|wta:202468|wta:214981",
+    "source_key": "2023_wta.csv:2741",
+    "tournament_name": "Cancun Finals",
+    "round": "RR",
+    "tournament_date": "2023-10-30",
+    "date_local": "2023-11-01",
+    "td_date": "2023-10-29",
+    "diff": 3.0,
+    "date_basis": "utc_date",
+    "link_method": "name_pair"
+   },
+   {
+    "match_id": "wta|2023-808|RR|wta:206289|wta:214544",
+    "source_key": "2023_wta.csv:2743",
+    "tournament_name": "Cancun Finals",
+    "round": "RR",
+    "tournament_date": "2023-10-30",
+    "date_local": "2023-11-02",
+    "td_date": "2023-10-30",
+    "diff": 3.0,
+    "date_basis": "utc_date",
+    "link_method": "name_pair"
+   },
+   {
+    "match_id": "wta|2023-808|RR|wta:214954|wta:216347",
+    "source_key": "2023_wta.csv:2742",
+    "tournament_name": "Cancun Finals",
+    "round": "RR",
+    "tournament_date": "2023-10-30",
+    "date_local": "2023-11-02",
+    "td_date": "2023-10-30",
+    "diff": 3.0,
+    "date_basis": "utc_date",
+    "link_method": "name_pair"
+   }
+  ]
+ },
+ "date_flags": {
+  "dated_links": 2448,
+  "main_draw_more_than_1_day_before_start": 30,
+  "qualifying_more_than_1_day_before_start_expected": 0,
+  "after_plausible_end": 0,
+  "round_of_16_or_later_dated_on_or_before_start": 0,
+  "plausible_end_days_by_level": {
+   "GS": 15,
+   "T1000": 14,
+   "TEAM": 14,
+   "FIN": 10,
+   "other": 9
+  },
+  "flagged_main_draw_early": [
+   {
+    "match_id": "wta|2023-9900|RR|wta:202499|wta:214604",
+    "source_key": "2023_wta.csv:1",
+    "tournament_name": "United Cup",
+    "level": "TEAM",
+    "round": "RR",
+    "tournament_date": "2023-01-02",
+    "date_local": "2022-12-29",
+    "days": -4.0,
+    "link_method": "name_pair"
+   },
+   {
+    "match_id": "wta|2023-9900|RR|wta:201427|wta:214604",
+    "source_key": "2023_wta.csv:2",
+    "tournament_name": "United Cup",
+    "level": "TEAM",
+    "round": "RR",
+    "tournament_date": "2023-01-02",
+    "date_local": "2022-12-29",
+    "days": -4.0,
+    "link_method": "name_pair"
+   },
+   {
+    "match_id": "wta|2023-9900|RR|wta:203354|wta:206242",
+    "source_key": "2023_wta.csv:3",
+    "tournament_name": "United Cup",
+    "level": "TEAM",
+    "round": "RR",
+    "tournament_date": "2023-01-02",
+    "date_local": "2022-12-29",
+    "days": -4.0,
+    "link_method": "name_pair"
+   },
+   {
+    "match_id": "wta|2023-9900|RR|wta:201709|wta:202505",
+    "source_key": "2023_wta.csv:6",
+    "tournament_name": "United Cup",
+    "level": "TEAM",
+    "round": "RR",
+    "tournament_date": "2023-01-02",
+    "date_local": "2022-12-29",
+    "days": -4.0,
+    "link_method": "name_pair"
+   },
+   {
+    "match_id": "wta|2023-9900|RR|wta:201619|wta:213631",
+    "source_key": "2023_wta.csv:5",
+    "tournament_name": "United Cup",
+    "level": "TEAM",
+    "round": "RR",
+    "tournament_date": "2023-01-02",
+    "date_local": "2022-12-29",
+    "days": -4.0,
+    "link_method": "name_pair"
+   },
+   {
+    "match_id": "wta|2023-9900|RR|wta:211941|wta:215042",
+    "source_key": "2023_wta.csv:4",
+    "tournament_name": "United Cup",
+    "level": "TEAM",
+    "round": "RR",
+    "tournament_date": "2023-01-02",
+    "date_local": "2022-12-29",
+    "days": -4.0,
+    "link_method": "name_pair"
+   },
+   {
+    "match_id": "wta|2023-9900|RR|wta:202604|wta:202688",
+    "source_key": "2023_wta.csv:7",
+    "tournament_name": "United Cup",
+    "level": "TEAM",
+    "round": "RR",
+    "tournament_date": "2023-01-02",
+    "date_local": "2022-12-29",
+    "days": -4.0,
+    "link_method": "name_pair"
+   },
+   {
+    "match_id": "wta|2023-9900|RR|wta:201520|wta:202468",
+    "source_key": "2023_wta.csv:11",
+    "tournament_name": "United Cup",
+    "level": "TEAM",
+    "round": "RR",
+    "tournament_date": "2023-01-02",
+    "date_local": "2022-12-30",
+    "days": -3.0,
+    "link_method": "name_pair"
+   },
+   {
+    "match_id": "wta|2023-9900|RR|wta:201614|wta:206408",
+    "source_key": "2023_wta.csv:8",
+    "tournament_name": "United Cup",
+    "level": "TEAM",
+    "round": "RR",
+    "tournament_date": "2023-01-02",
+    "date_local": "2022-12-30",
+    "days": -3.0,
+    "link_method": "name_pair"
+   },
+   {
+    "match_id": "wta|2023-9900|RR|wta:206007|wta:214459",
+    "source_key": "2023_wta.csv:9",
+    "tournament_name": "United Cup",
+    "level": "TEAM",
+    "round": "RR",
+    "tournament_date": "2023-01-02",
+    "date_local": "2022-12-30",
+    "days": -3.0,
+    "link_method": "name_pair"
+   },
+   {
+    "match_id": "wta|2023-9900|RR|wta:213525|wta:214992",
+    "source_key": "2023_wta.csv:12",
+    "tournament_name": "United Cup",
+    "level": "TEAM",
+    "round": "RR",
+    "tournament_date": "2023-01-02",
+    "date_local": "2022-12-30",
+    "days": -3.0,
+    "link_method": "name_pair"
+   },
+   {
+    "match_id": "wta|2024-9900|RR|wta:201548|wta:211107",
+    "source_key": "2024_wta.csv:1",
+    "tournament_name": "United Cup",
+    "level": "TEAM",
+    "round": "RR",
+    "tournament_date": "2024-01-01",
+    "date_local": "2023-12-29",
+    "days": -3.0,
+    "link_method": "name_pair"
+   },
+   {
+    "match_id": "wta|2023-9900|RR|wta:202600|wta:206289",
+    "source_key": "2023_wta.csv:13",
+    "tournament_name": "United Cup",
+    "level": "TEAM",
+    "round": "RR",
+    "tournament_date": "2023-01-02",
+    "date_local": "2022-12-30",
+    "days": -3.0,
+    "link_method": "name_pair"
+   },
+   {
+    "match_id": "wta|2023-9900|RR|wta:211279|wta:213666",
+    "source_key": "2023_wta.csv:10",
+    "tournament_name": "United Cup",
+    "level": "TEAM",
+    "round": "RR",
+    "tournament_date": "2023-01-02",
+    "date_local": "2022-12-30",
+    "days": -3.0,
+    "link_method": "name_pair"
+   },
+   {
+    "match_id": "atp|2026-9900|RR|atp:126774|atp:208278",
+    "source_key": "2026.csv:2",
+    "tournament_name": "United Cup",
+    "level": "TEAM",
+    "round": "RR",
+    "tournament_date": "2026-01-05",
+    "date_local": "2026-01-02",
+    "days": -3.0,
+    "link_method": "name_pair"
+   },
+   {
+    "match_id": "atp|2026-9900|RR|atp:144719|atp:202104",
+    "source_key": "2026.csv:1",
+    "tournament_name": "United Cup",
+    "level": "TEAM",
+    "round": "RR",
+    "tournament_date": "2026-01-05",
+    "date_local": "2026-01-02",
+    "days": -3.0,
+    "link_method": "name_pair"
+   },
+   {
+    "match_id": "wta|2024-9900|RR|wta:204427|wta:206242",
+    "source_key": "2024_wta.csv:2",
+    "tournament_name": "United Cup",
+    "level": "TEAM",
+    "round": "RR",
+    "tournament_date": "2024-01-01",
+    "date_local": "2023-12-29",
+    "days": -3.0,
+    "link_method": "name_pair"
+   },
+   {
+    "match_id": "wta|2023-9900|RR|wta:206242|wta:214935",
+    "source_key": "2023_wta.csv:14",
+    "tournament_name": "United Cup",
+    "level": "TEAM",
+    "round": "RR",
+    "tournament_date": "2023-01-02",
+    "date_local": "2022-12-31",
+    "days": -2.0,
+    "link_method": "name_pair"
+   },
+   {
+    "match_id": "wta|2023-9900|RR|wta:203463|wta:215042",
+    "source_key": "2023_wta.csv:15",
+    "tournament_name": "United Cup",
+    "level": "TEAM",
+    "round": "RR",
+    "tournament_date": "2023-01-02",
+    "date_local": "2022-12-31",
+    "days": -2.0,
+    "link_method": "name_pair"
+   },
+   {
+    "match_id": "wta|2023-9900|RR|wta:213631|wta:215898",
+    "source_key": "2023_wta.csv:16",
+    "tournament_name": "United Cup",
+    "level": "TEAM",
+    "round": "RR",
+    "tournament_date": "2023-01-02",
+    "date_local": "2022-12-31",
+    "days": -2.0,
+    "link_method": "name_pair"
+   },
+   {
+    "match_id": "wta|2023-9900|RR|wta:201709|wta:216347",
+    "source_key": "2023_wta.csv:17",
+    "tournament_name": "United Cup",
+    "level": "TEAM",
+    "round": "RR",
+    "tournament_date": "2023-01-02",
+    "date_local": "2022-12-31",
+    "days": -2.0,
+    "link_method": "name_pair"
+   },
+   {
+    "match_id": "wta|2023-9900|RR|wta:202421|wta:202688",
+    "source_key": "2023_wta.csv:18",
+    "tournament_name": "United Cup",
+    "level": "TEAM",
+    "round": "RR",
+    "tournament_date": "2023-01-02",
+    "date_local": "2022-12-31",
+    "days": -2.0,
+    "link_method": "name_pair"
+   },
+   {
+    "match_id": "wta|2024-9900|RR|wta:201493|wta:211148",
+    "source_key": "2024_wta.csv:5",
+    "tournament_name": "United Cup",
+    "level": "TEAM",
+    "round": "RR",
+    "tournament_date": "2024-01-01",
+    "date_local": "2023-12-30",
+    "days": -2.0,
+    "link_method": "name_pair"
+   },
+   {
+    "match_id": "wta|2024-9900|RR|wta:214954|wta:221012",
+    "source_key": "2024_wta.csv:4",
+    "tournament_name": "United Cup",
+    "level": "TEAM",
+    "round": "RR",
+    "tournament_date": "2024-01-01",
+    "date_local": "2023-12-30",
+    "days": -2.0,
+    "link_method": "name_pair"
+   },
+   {
+    "match_id": "wta|2024-9900|RR|wta:201551|wta:214935",
+    "source_key": "2024_wta.csv:3",
+    "tournament_name": "United Cup",
+    "level": "TEAM",
+    "round": "RR",
+    "tournament_date": "2024-01-01",
+    "date_local": "2023-12-30",
+    "days": -2.0,
+    "link_method": "name_pair"
+   },
+   {
+    "match_id": "wta|2024-9900|RR|wta:206242|wta:216347",
+    "source_key": "2024_wta.csv:6",
+    "tournament_name": "United Cup",
+    "level": "TEAM",
+    "round": "RR",
+    "tournament_date": "2024-01-01",
+    "date_local": "2023-12-30",
+    "days": -2.0,
+    "link_method": "name_pair"
+   },
+   {
+    "match_id": "atp|2026-9900|RR|atp:134770|atp:200282",
+    "source_key": "2026.csv:6",
+    "tournament_name": "United Cup",
+    "level": "TEAM",
+    "round": "RR",
+    "tournament_date": "2026-01-05",
+    "date_local": "2026-01-03",
+    "days": -2.0,
+    "link_method": "name_pair"
+   },
+   {
+    "match_id": "atp|2026-9900|RR|atp:104527|atp:126239",
+    "source_key": "2026.csv:4",
+    "tournament_name": "United Cup",
+    "level": "TEAM",
+    "round": "RR",
+    "tournament_date": "2026-01-05",
+    "date_local": "2026-01-03",
+    "days": -2.0,
+    "link_method": "name_pair"
+   },
+   {
+    "match_id": "atp|2026-9900|RR|atp:111190|atp:200267",
+    "source_key": "2026.csv:3",
+    "tournament_name": "United Cup",
+    "level": "TEAM",
+    "round": "RR",
+    "tournament_date": "2026-01-05",
+    "date_local": "2026-01-03",
+    "days": -2.0,
+    "link_method": "name_pair"
+   },
+   {
+    "match_id": "atp|2026-9900|RR|atp:126203|atp:202104",
+    "source_key": "2026.csv:5",
+    "tournament_name": "United Cup",
+    "level": "TEAM",
+    "round": "RR",
+    "tournament_date": "2026-01-05",
+    "date_local": "2026-01-03",
+    "days": -2.0,
+    "link_method": "name_pair"
+   }
+  ],
+  "flagged_after_end": [],
+  "examples_round_of_16_or_later_on_or_before_start": [],
+  "days_from_start_quantiles": {
+   "0.0": -4.0,
+   "0.01": -2.0,
+   "0.5": 2.0,
+   "0.99": 10.0,
+   "1.0": 14.0
+  }
+ },
+ "agreement_with_timed_sources_venue_day": {
+  "matches": 1903,
+  "same_day": 1441,
+  "same_day_pct": 75.72,
+  "one_day_off": 443,
+  "one_day_off_pct": 23.28,
+  "larger": 19,
+  "larger_pct": 1.0,
+  "source_minus_td_days": {
+   "-3": 2,
+   "-2": 2,
+   "-1": 17,
+   "0": 1441,
+   "1": 426,
+   "2": 6,
+   "3": 5
+  },
+  "by_tour": {
+   "atp": {
+    "matches": 1837,
+    "same_day": 1403,
+    "same_day_pct": 76.37,
+    "one_day_off": 433,
+    "one_day_off_pct": 23.57,
+    "larger": 1,
+    "larger_pct": 0.05,
+    "source_minus_td_days": {
+     "-1": 11,
+     "0": 1403,
+     "1": 422,
+     "2": 1
+    }
+   },
+   "wta": {
+    "matches": 66,
+    "same_day": 38,
+    "same_day_pct": 57.58,
+    "one_day_off": 10,
+    "one_day_off_pct": 15.15,
+    "larger": 18,
+    "larger_pct": 27.27,
+    "source_minus_td_days": {
+     "-3": 2,
+     "-2": 2,
+     "-1": 6,
+     "0": 38,
+     "1": 4,
+     "2": 5,
+     "3": 5
+    }
+   }
+  },
+  "by_region": {
+   "Americas": {
+    "matches": 542,
+    "same_day": 166,
+    "same_day_pct": 30.63,
+    "one_day_off": 366,
+    "one_day_off_pct": 67.53,
+    "larger": 10,
+    "larger_pct": 1.85,
+    "source_minus_td_days": {
+     "-3": 2,
+     "-2": 1,
+     "0": 166,
+     "1": 366,
+     "2": 2,
+     "3": 4
+    }
+   },
+   "elsewhere": {
+    "matches": 1361,
+    "same_day": 1275,
+    "same_day_pct": 93.68,
+    "one_day_off": 77,
+    "one_day_off_pct": 5.66,
+    "larger": 9,
+    "larger_pct": 0.66,
+    "source_minus_td_days": {
+     "-2": 1,
+     "-1": 17,
+     "0": 1275,
+     "1": 60,
+     "2": 4,
+     "3": 1
+    }
+   }
+  },
+  "events_least_agreeing": [
+   {
+    "tour": "atp",
+    "year": 2026,
+    "tournament_name": "Acapulco",
+    "matches": 31,
+    "same_day_pct": 0.0,
+    "later": 31,
+    "earlier": 0
+   },
+   {
+    "tour": "atp",
+    "year": 2026,
+    "tournament_name": "Los Cabos",
+    "matches": 27,
+    "same_day_pct": 0.0,
+    "later": 27,
+    "earlier": 0
+   },
+   {
+    "tour": "atp",
+    "year": 2026,
+    "tournament_name": "Cincinnati Masters",
+    "matches": 6,
+    "same_day_pct": 0.0,
+    "later": 6,
+    "earlier": 0
+   },
+   {
+    "tour": "wta",
+    "year": 2024,
+    "tournament_name": "Riyadh Finals",
+    "matches": 13,
+    "same_day_pct": 7.7,
+    "later": 9,
+    "earlier": 3
+   },
+   {
+    "tour": "atp",
+    "year": 2026,
+    "tournament_name": "Houston",
+    "matches": 26,
+    "same_day_pct": 11.5,
+    "later": 23,
+    "earlier": 0
+   },
+   {
+    "tour": "atp",
+    "year": 2026,
+    "tournament_name": "Dallas",
+    "matches": 30,
+    "same_day_pct": 20.0,
+    "later": 24,
+    "earlier": 0
+   },
+   {
+    "tour": "atp",
+    "year": 2026,
+    "tournament_name": "Rio de Janeiro",
+    "matches": 31,
+    "same_day_pct": 25.8,
+    "later": 23,
+    "earlier": 0
+   },
+   {
+    "tour": "wta",
+    "year": 2023,
+    "tournament_name": "Cancun Finals",
+    "matches": 15,
+    "same_day_pct": 26.7,
+    "later": 8,
+    "earlier": 3
+   },
+   {
+    "tour": "atp",
+    "year": 2026,
+    "tournament_name": "Indian Wells Masters",
+    "matches": 93,
+    "same_day_pct": 28.0,
+    "later": 67,
+    "earlier": 0
+   },
+   {
+    "tour": "atp",
+    "year": 2026,
+    "tournament_name": "Delray Beach",
+    "matches": 27,
+    "same_day_pct": 29.6,
+    "later": 19,
+    "earlier": 0
+   },
+   {
+    "tour": "atp",
+    "year": 2026,
+    "tournament_name": "Santiago",
+    "matches": 27,
+    "same_day_pct": 33.3,
+    "later": 18,
+    "earlier": 0
+   },
+   {
+    "tour": "atp",
+    "year": 2026,
+    "tournament_name": "Canada Masters",
+    "matches": 94,
+    "same_day_pct": 35.1,
+    "later": 61,
+    "earlier": 0
+   },
+   {
+    "tour": "atp",
+    "year": 2026,
+    "tournament_name": "Buenos Aires",
+    "matches": 27,
+    "same_day_pct": 40.7,
+    "later": 16,
+    "earlier": 0
+   },
+   {
+    "tour": "atp",
+    "year": 2026,
+    "tournament_name": "Washington",
+    "matches": 31,
+    "same_day_pct": 41.9,
+    "later": 18,
+    "earlier": 0
+   },
+   {
+    "tour": "atp",
+    "year": 2026,
+    "tournament_name": "Miami Masters",
+    "matches": 77,
+    "same_day_pct": 58.4,
+    "later": 32,
+    "earlier": 0
+   }
+  ]
+ }
+}

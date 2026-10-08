@@ -1,0 +1,193 @@
+{
+ "source": "infosys_slams",
+ "started_at": "2026-10-07T15:43:48+00:00",
+ "args": {
+  "editions": null,
+  "families": null,
+  "matches": null,
+  "max_requests": 2400,
+  "min_interval": 2.0,
+  "jitter": 1.0,
+  "skip_family_after": 8,
+  "refresh": false,
+  "stage_only": false,
+  "no_stage": false
+ },
+ "decision": "docs/decisions/2026-10-07-serve-speed-acquisition.md",
+ "client": {
+  "impersonate": "chrome",
+  "requests": 1910,
+  "retried": 0,
+  "slept_seconds": 4042.3,
+  "min_interval": 2.0,
+  "jitter": 1.0,
+  "not_found_answers": 17
+ },
+ "fetch_outcomes": {
+  "AO2025:match-beats:200": 467,
+  "AO2025:match-beats:200:cached": 2,
+  "AO2025:match-beats:absent": 9,
+  "RG2025:match-centre:200": 470,
+  "RG2025:match-centre:absent": 8,
+  "RG2026:keystats-api:200": 474,
+  "RG2026:keystats-api:404": 4,
+  "RG2026:match-beats-api:200": 478
+ },
+ "families_given_up": [],
+ "staged": {
+  "decrypt_failures": {},
+  "blocks.parquet": {
+   "rows": 4104,
+   "bytes": 14246454
+  },
+  "matches.parquet": {
+   "rows": 1434,
+   "bytes": 91689
+  },
+  "points.parquet": {
+   "rows": 235725,
+   "bytes": 4142799
+  },
+  "keystats.parquet": {
+   "rows": 67391,
+   "bytes": 3531851
+  },
+  "rally.parquet": {
+   "rows": 57483,
+   "bytes": 487101
+  }
+ },
+ "by_edition_family": {
+  "AO2025|MQ": {
+   "codes": 112,
+   "with_file": 108,
+   "with_points": 108,
+   "with_timed_points": 108,
+   "with_keystats": 0,
+   "blocks_failed": 0,
+   "match-beats:200": 108,
+   "match-beats:absent": 4
+  },
+  "AO2025|MS": {
+   "codes": 127,
+   "with_file": 127,
+   "with_points": 127,
+   "with_timed_points": 127,
+   "with_keystats": 0,
+   "blocks_failed": 0,
+   "match-beats:200": 127
+  },
+  "AO2025|WQ": {
+   "codes": 112,
+   "with_file": 108,
+   "with_points": 108,
+   "with_timed_points": 108,
+   "with_keystats": 0,
+   "blocks_failed": 0,
+   "match-beats:200": 108,
+   "match-beats:absent": 4
+  },
+  "AO2025|WS": {
+   "codes": 127,
+   "with_file": 126,
+   "with_points": 126,
+   "with_timed_points": 126,
+   "with_keystats": 0,
+   "blocks_failed": 0,
+   "match-beats:absent": 1,
+   "match-beats:200": 126
+  },
+  "RG2025|QD": {
+   "codes": 112,
+   "with_file": 112,
+   "with_points": 112,
+   "with_timed_points": 112,
+   "with_keystats": 112,
+   "blocks_failed": 0,
+   "match-centre:200": 112
+  },
+  "RG2025|QM": {
+   "codes": 112,
+   "with_file": 104,
+   "with_points": 103,
+   "with_timed_points": 103,
+   "with_keystats": 103,
+   "blocks_failed": 0,
+   "match-centre:200": 104,
+   "match-centre:absent": 8
+  },
+  "RG2025|SD": {
+   "codes": 127,
+   "with_file": 127,
+   "with_points": 127,
+   "with_timed_points": 127,
+   "with_keystats": 127,
+   "blocks_failed": 0,
+   "match-centre:200": 127
+  },
+  "RG2025|SM": {
+   "codes": 127,
+   "with_file": 127,
+   "with_points": 125,
+   "with_timed_points": 125,
+   "with_keystats": 125,
+   "blocks_failed": 0,
+   "match-centre:200": 127
+  },
+  "RG2026|QD": {
+   "codes": 112,
+   "with_file": 112,
+   "with_points": 112,
+   "with_timed_points": 112,
+   "with_keystats": 112,
+   "blocks_failed": 0,
+   "keystats-api:200": 112,
+   "match-beats-api:200": 112
+  },
+  "RG2026|QM": {
+   "codes": 112,
+   "with_file": 112,
+   "with_points": 111,
+   "with_timed_points": 111,
+   "with_keystats": 111,
+   "blocks_failed": 0,
+   "keystats-api:200": 111,
+   "match-beats-api:200": 112,
+   "keystats-api:404": 1
+  },
+  "RG2026|SD": {
+   "codes": 127,
+   "with_file": 127,
+   "with_points": 127,
+   "with_timed_points": 127,
+   "with_keystats": 127,
+   "blocks_failed": 0,
+   "keystats-api:200": 127,
+   "match-beats-api:200": 127
+  },
+  "RG2026|SM": {
+   "codes": 127,
+   "with_file": 127,
+   "with_points": 124,
+   "with_timed_points": 124,
+   "with_keystats": 124,
+   "blocks_failed": 0,
+   "keystats-api:200": 124,
+   "match-beats-api:200": 127,
+   "keystats-api:404": 3
+  }
+ },
+ "receipts": {
+  "AO/2025/match-beats:200": 469,
+  "AO/2025/match-beats:absent": 9,
+  "RG/2025/match-centre:200": 470,
+  "RG/2025/match-centre:absent": 8,
+  "RG/2026/keystats-api:200": 474,
+  "RG/2026/keystats-api:404": 4,
+  "RG/2026/match-beats-api:200": 478
+ },
+ "receipts_with_errors": 0,
+ "error_examples": [],
+ "finished_at": "2026-10-07T17:03:33+00:00",
+ "seconds": 4784.0
+}

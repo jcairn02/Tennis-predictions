@@ -1,0 +1,3744 @@
+{
+ "P2": {
+  "cid": "P2",
+  "base": "model",
+  "arm": "spd",
+  "seeds": [
+   0,
+   15
+  ],
+  "population": "men",
+  "seasons": [
+   2024,
+   2025,
+   2026
+  ],
+  "metric": "calibrated",
+  "block": "td",
+  "loss": "ll",
+  "direction": "positive = A1 spd has the lower log loss (better) than the base (58 inputs)",
+  "unit": "mLL",
+  "matches": 7068,
+  "estimate": 0.06705843667136731,
+  "lo": -0.0495867516265015,
+  "hi": 0.18370362496923612,
+  "se": 0.05726509837564235,
+  "se_block": 0.04216642706582071,
+  "v_seed_base": 0.0006693838971795973,
+  "v_seed_arm": 0.0008319000232952217,
+  "blocks": 33,
+  "lo_block_only": -0.018831764593581393,
+  "hi_block_only": 0.15294863793631602,
+  "lo_week": -0.049544651152392385,
+  "hi_week": 0.18366152449512702,
+  "weeks": 92
+ },
+ "S0": {
+  "matches": 7068,
+  "estimate": 0.06499523932162382,
+  "se": 0.025816828181193262,
+  "lo": 0.012408081176970856,
+  "hi": 0.11758239746627679,
+  "df": 32,
+  "p_two_sided": 0.017019464566521893,
+  "blocks": 33,
+  "sd_z": 1.1058409033246144,
+  "unit": "log-odds per unit of spd_f (one s_f = 2.224 km/h)",
+  "cid": "S0",
+  "direction": "positive = the man whose speed state is higher wins more often than the base says"
+ },
+ "S10": {
+  "cid": "S10",
+  "matches": 7068,
+  "applied_slope_a": 0.005226795799206629,
+  "applied_slope_calibrated": 0.004742202515600865,
+  "s_Y_men_A1": {
+   "2024": 0.903894476314616,
+   "2025": 0.9155644352361214,
+   "2026": 0.903280301789314
+  },
+  "unit": "log-odds per unit of spd_f (one s_f = 2.224 km/h); a on raw log-odds, a_cal on the calibrated scale",
+  "ratio_to_S0": 0.08041813298574442,
+  "calibrated_ratio_to_S0": 0.0729623056257159,
+  "direction": "a > 0 = TabPFN moved its forecast toward the player whose speed state is higher"
+ },
+ "S11": [
+  {
+   "cid": "S11_block_only",
+   "estimate": 0.06705843667136731,
+   "lo": -0.018831764593581393,
+   "hi": 0.15294863793631602,
+   "unit": "mLL",
+   "direction": "positive = A1 spd has the lower log loss (better) than the base (58 inputs)"
+  },
+  {
+   "cid": "S11_week",
+   "estimate": 0.06705843667136731,
+   "lo": -0.049544651152392385,
+   "hi": 0.18366152449512702,
+   "unit": "mLL",
+   "direction": "positive = A1 spd has the lower log loss (better) than the base (58 inputs)"
+  }
+ ],
+ "S13": {
+  "cid": "S13",
+  "base": "close",
+  "arm": "model",
+  "population": "men",
+  "seasons": [
+   2024,
+   2025,
+   2026
+  ],
+  "seeds": [
+   0,
+   15
+  ],
+  "matches": 7068,
+  "estimate": 2.199887922187266,
+  "lo": 1.104252801120418,
+  "hi": 3.2955230432541143,
+  "blocks": 33,
+  "unit": "mLL",
+  "direction": "positive = the calibrated base (58 inputs, seeds 0-15) has the lower log loss (better) than the calibrated closing price",
+  "ratio_P2_to_S13": 0.030482660500582966,
+  "ratio_note": "descriptive point value only (no interval): P2 as a share of the base's edge over the close"
+ },
+ "S14": {
+  "cid": "S14",
+  "base": "model",
+  "arm": "spd",
+  "seeds": [
+   0,
+   15
+  ],
+  "population": "men",
+  "seasons": [
+   2024,
+   2025,
+   2026
+  ],
+  "metric": "calibrated",
+  "block": "td",
+  "loss": "brier",
+  "direction": "positive = A1 spd has the lower Brier score (better) than the base (58 inputs)",
+  "unit": "1000 x Brier",
+  "matches": 7068,
+  "estimate": 0.027335426341779077,
+  "lo": -0.01945978758581902,
+  "hi": 0.07413064026937717,
+  "se": 0.02297336536703156,
+  "se_block": 0.01738120815534822,
+  "v_seed_base": 0.00010681589706420506,
+  "v_seed_arm": 0.00011885322228337676,
+  "blocks": 33,
+  "lo_block_only": -0.008068936099470358,
+  "hi_block_only": 0.06273978878302851,
+  "lo_week": -0.020113484029476218,
+  "hi_week": 0.07478433671303437,
+  "weeks": 92
+ },
+ "decision": {
+  "row": 3,
+  "reading": "S0 detects information beyond the base (b +0.065 [+0.012, +0.118] log-odds per unit of spd_f (one s_f = 2.224 km/h)); P2 ties (+0.07 [-0.05, +0.18] mLL). P2 has less power than S0 at small effects and loses power as capture rises, so the tie does not show the column fails; S10 (capture) and S9 (nudge) say whether it delivers"
+ },
+ "paired_secondaries": [
+  {
+   "cid": "S1_2024",
+   "base": "model",
+   "arm": "spd",
+   "seeds": [
+    0,
+    15
+   ],
+   "population": "men",
+   "seasons": [
+    2024
+   ],
+   "metric": "calibrated",
+   "block": "td",
+   "loss": "ll",
+   "direction": "positive = A1 spd has the lower log loss (better) than the base (58 inputs)",
+   "unit": "mLL",
+   "matches": 2674,
+   "estimate": 0.09761464556791295,
+   "lo": -0.12810476004507748,
+   "hi": 0.3233340511809034,
+   "se": 0.10255380622538707,
+   "se_block": 0.08140600944560339,
+   "v_seed_base": 0.0014837378077280612,
+   "v_seed_arm": 0.002406606989728509,
+   "blocks": 12,
+   "lo_block_only": -0.08155877316413988,
+   "hi_block_only": 0.2767880642999658,
+   "lo_week": -0.09588463367018764,
+   "hi_week": 0.29111392480601356,
+   "weeks": 36
+  },
+  {
+   "cid": "S1_2025",
+   "base": "model",
+   "arm": "spd",
+   "seeds": [
+    0,
+    15
+   ],
+   "population": "men",
+   "seasons": [
+    2025
+   ],
+   "metric": "calibrated",
+   "block": "td",
+   "loss": "ll",
+   "direction": "positive = A1 spd has the lower log loss (better) than the base (58 inputs)",
+   "unit": "mLL",
+   "matches": 2620,
+   "estimate": 0.008549369678307106,
+   "lo": -0.11667812529122926,
+   "hi": 0.13377686464784347,
+   "se": 0.05689611054184594,
+   "se_block": 0.03065522170574982,
+   "v_seed_base": 0.001208461175212764,
+   "v_seed_arm": 0.001088963601748514,
+   "blocks": 12,
+   "lo_block_only": -0.058922318375367336,
+   "hi_block_only": 0.07602105773198155,
+   "lo_week": -0.15121951846742163,
+   "hi_week": 0.16831825782403584,
+   "weeks": 33
+  },
+  {
+   "cid": "S1_2026",
+   "base": "model",
+   "arm": "spd",
+   "seeds": [
+    0,
+    15
+   ],
+   "population": "men",
+   "seasons": [
+    2026
+   ],
+   "metric": "calibrated",
+   "block": "td",
+   "loss": "ll",
+   "direction": "positive = A1 spd has the lower log loss (better) than the base (58 inputs)",
+   "unit": "mLL",
+   "matches": 1774,
+   "estimate": 0.10741156684749736,
+   "lo": -0.18605288323204416,
+   "hi": 0.4008760169270389,
+   "se": 0.1272610250777192,
+   "se_block": 0.11108461759175788,
+   "v_seed_base": 0.0025932891799211053,
+   "v_seed_arm": 0.0012622870584036846,
+   "blocks": 9,
+   "lo_block_only": -0.1487500206766697,
+   "hi_block_only": 0.36357315437166443,
+   "lo_week": -0.14291550194031827,
+   "hi_week": 0.357738635635313,
+   "weeks": 23
+  },
+  {
+   "cid": "S2",
+   "base": "model",
+   "arm": "spd",
+   "seeds": [
+    0,
+    15
+   ],
+   "population": "men",
+   "seasons": [
+    2025,
+    2026
+   ],
+   "metric": "calibrated",
+   "block": "td",
+   "loss": "ll",
+   "direction": "positive = A1 spd has the lower log loss (better) than the base (58 inputs)",
+   "unit": "mLL",
+   "matches": 4394,
+   "estimate": 0.04846323808480312,
+   "lo": -0.07661543389135667,
+   "hi": 0.17354191006096292,
+   "se": 0.059962063160840254,
+   "se_block": 0.047359150796333314,
+   "v_seed_base": 0.0006901290985796724,
+   "v_seed_arm": 0.0006624307557750854,
+   "blocks": 21,
+   "lo_block_only": -0.050326219369900206,
+   "hi_block_only": 0.14725269553950646,
+   "lo_week": -0.08561927365301569,
+   "hi_week": 0.18254574982262195,
+   "weeks": 56
+  },
+  {
+   "cid": "S3_both",
+   "base": "model",
+   "arm": "spd",
+   "seeds": [
+    0,
+    15
+   ],
+   "population": "men_recency_both",
+   "seasons": [
+    2024,
+    2025,
+    2026
+   ],
+   "metric": "calibrated",
+   "block": "td",
+   "loss": "ll",
+   "direction": "positive = A1 spd has the lower log loss (better) than the base (58 inputs)",
+   "unit": "mLL",
+   "matches": 5420,
+   "estimate": 0.06283434634848598,
+   "lo": -0.07887771320413106,
+   "hi": 0.204546405901103,
+   "se": 0.06957127979057642,
+   "se_block": 0.05626087753348143,
+   "v_seed_base": 0.0008126507425570208,
+   "v_seed_arm": 0.0008622258883042514,
+   "blocks": 33,
+   "lo_block_only": -0.05176531103178768,
+   "hi_block_only": 0.17743400372875962,
+   "lo_week": -0.07111847807447264,
+   "hi_week": 0.1967871707714446,
+   "weeks": 89
+  },
+  {
+   "cid": "S3_one",
+   "base": "model",
+   "arm": "spd",
+   "seeds": [
+    0,
+    15
+   ],
+   "population": "men_recency_one",
+   "seasons": [
+    2024,
+    2025,
+    2026
+   ],
+   "metric": "calibrated",
+   "block": "td",
+   "loss": "ll",
+   "direction": "positive = A1 spd has the lower log loss (better) than the base (58 inputs)",
+   "unit": "mLL",
+   "matches": 1130,
+   "estimate": 0.08266164456472022,
+   "lo": -0.15450472608499544,
+   "hi": 0.3198280152144359,
+   "se": 0.11643305433198195,
+   "se_block": 0.09075260830491735,
+   "v_seed_base": 0.0026297491045838175,
+   "v_seed_arm": 0.0026908711223446874,
+   "blocks": 33,
+   "lo_block_only": -0.10219536929754006,
+   "hi_block_only": 0.2675186584269805,
+   "lo_week": -0.16520451358066846,
+   "hi_week": 0.3305278027101089,
+   "weeks": 87
+  },
+  {
+   "cid": "S3_neither",
+   "base": "model",
+   "arm": "spd",
+   "seeds": [
+    0,
+    15
+   ],
+   "population": "men_recency_neither",
+   "seasons": [
+    2024,
+    2025,
+    2026
+   ],
+   "metric": "calibrated",
+   "block": "td",
+   "loss": "ll",
+   "direction": "positive = A1 spd has the lower log loss (better) than the base (58 inputs)",
+   "unit": "mLL",
+   "matches": 518,
+   "estimate": 0.07721856144072647,
+   "lo": -0.24008433795071427,
+   "hi": 0.3945214608321672,
+   "se": 0.15490226181956834,
+   "se_block": 0.09698956554322935,
+   "v_seed_base": 0.0040290390290376715,
+   "v_seed_arm": 0.010558695863516048,
+   "blocks": 29,
+   "lo_block_only": -0.12145555729764257,
+   "hi_block_only": 0.2758926801790955,
+   "lo_week": -0.26688880830602185,
+   "hi_week": 0.4213259311874748,
+   "weeks": 52
+  },
+  {
+   "cid": "S4_A1_women",
+   "base": "model",
+   "arm": "spd",
+   "seeds": [
+    0,
+    15
+   ],
+   "population": "women",
+   "seasons": [
+    2024,
+    2025,
+    2026
+   ],
+   "metric": "calibrated",
+   "block": "td",
+   "loss": "ll",
+   "direction": "positive = A1 spd has the lower log loss (better) than the base (58 inputs)",
+   "unit": "mLL",
+   "matches": 6586,
+   "estimate": 0.01776872267616655,
+   "lo": -0.07348771266911884,
+   "hi": 0.10902515802145195,
+   "se": 0.044800894265037534,
+   "se_block": 0.026848443436238857,
+   "v_seed_base": 0.0005956263480516031,
+   "v_seed_arm": 0.000690654863946553,
+   "blocks": 33,
+   "lo_block_only": -0.03691976697911088,
+   "hi_block_only": 0.07245721233144399,
+   "lo_week": -0.07754501204577605,
+   "hi_week": 0.11308245739810915,
+   "weeks": 93
+  },
+  {
+   "cid": "S4_A1_both",
+   "base": "model",
+   "arm": "spd",
+   "seeds": [
+    0,
+    15
+   ],
+   "population": "both",
+   "seasons": [
+    2024,
+    2025,
+    2026
+   ],
+   "metric": "calibrated",
+   "block": "td",
+   "loss": "ll",
+   "direction": "positive = A1 spd has the lower log loss (better) than the base (58 inputs)",
+   "unit": "mLL",
+   "matches": 13654,
+   "estimate": 0.04328356803416266,
+   "lo": -0.02679453006554245,
+   "hi": 0.11336166613386778,
+   "se": 0.034403726722183614,
+   "se_block": 0.025238115739915454,
+   "v_seed_base": 0.00030681302591049,
+   "v_seed_arm": 0.00023984090036283277,
+   "blocks": 33,
+   "lo_block_only": -0.008124791442576343,
+   "hi_block_only": 0.09469192751090166,
+   "lo_week": -0.02697093449862569,
+   "hi_week": 0.113538070566951,
+   "weeks": 101
+  },
+  {
+   "cid": "S4_A3_women",
+   "base": "model",
+   "arm": "spd_all",
+   "seeds": [
+    0,
+    7
+   ],
+   "population": "women",
+   "seasons": [
+    2024,
+    2025,
+    2026
+   ],
+   "metric": "calibrated",
+   "block": "td",
+   "loss": "ll",
+   "direction": "positive = A3 spd_all has the lower log loss (better) than the base (58 inputs)",
+   "unit": "mLL",
+   "matches": 6586,
+   "estimate": 0.03823930529660106,
+   "lo": -0.10841444496805325,
+   "hi": 0.18489305556125535,
+   "se": 0.07199732418123032,
+   "se_block": 0.030255855029479608,
+   "v_seed_base": 0.002076845563616908,
+   "v_seed_arm": 0.0021913523620753785,
+   "blocks": 33,
+   "lo_block_only": -0.02338985464784097,
+   "hi_block_only": 0.09986846524104309,
+   "lo_week": -0.10857036000396988,
+   "hi_week": 0.18504897059717199,
+   "weeks": 93
+  },
+  {
+   "cid": "S4_A3_women_no_conflict",
+   "base": "model",
+   "arm": "spd_all",
+   "seeds": [
+    0,
+    7
+   ],
+   "population": "women_no_conflict",
+   "seasons": [
+    2024,
+    2025,
+    2026
+   ],
+   "metric": "calibrated",
+   "block": "td",
+   "loss": "ll",
+   "direction": "positive = A3 spd_all has the lower log loss (better) than the base (58 inputs)",
+   "unit": "mLL",
+   "matches": 6565,
+   "estimate": 0.03815233018798613,
+   "lo": -0.11143553696854505,
+   "hi": 0.18774019734451733,
+   "se": 0.07343778216248795,
+   "se_block": 0.030344769305622313,
+   "v_seed_base": 0.0021492521187503064,
+   "v_seed_arm": 0.0023230507059832884,
+   "blocks": 33,
+   "lo_block_only": -0.02365794221024059,
+   "hi_block_only": 0.09996260258621285,
+   "lo_week": -0.11137729309602648,
+   "hi_week": 0.18768195347199876,
+   "weeks": 93
+  },
+  {
+   "cid": "S5",
+   "base": "model_noodds",
+   "arm": "spd_noodds",
+   "seeds": [
+    0,
+    7
+   ],
+   "population": "men",
+   "seasons": [
+    2024,
+    2025,
+    2026
+   ],
+   "metric": "calibrated",
+   "block": "td",
+   "loss": "ll",
+   "direction": "positive = A1's no-odds twin spd_noodds has the lower log loss (better) than the no-odds base model_noodds",
+   "unit": "mLL",
+   "matches": 7068,
+   "estimate": -0.009902721224202108,
+   "lo": -0.2223857394610866,
+   "hi": 0.2025802970126824,
+   "se": 0.10431515538743329,
+   "se_block": 0.07915759789833744,
+   "v_seed_base": 0.003106155258345626,
+   "v_seed_arm": 0.0015095710801238513,
+   "blocks": 33,
+   "lo_block_only": -0.1711414717715329,
+   "hi_block_only": 0.1513360293231287,
+   "lo_week": -0.2262049637729786,
+   "hi_week": 0.2063995213245744,
+   "weeks": 92
+  },
+  {
+   "cid": "S6_early_all",
+   "base": "model",
+   "arm": "spd",
+   "seeds": [
+    0,
+    15
+   ],
+   "population": "men_early_all",
+   "seasons": [
+    2025,
+    2026
+   ],
+   "metric": "calibrated",
+   "block": "early",
+   "loss": "ll",
+   "direction": "positive = A1 spd has the lower log loss (better) than the base (58 inputs)",
+   "unit": "mLL",
+   "matches": 1442,
+   "estimate": 0.14561629122950875,
+   "lo": -0.11091663084891473,
+   "hi": 0.40214921330793224,
+   "se": 0.1165536809288358,
+   "se_block": 0.09325179486470782,
+   "v_seed_base": 0.0025401097086519293,
+   "v_seed_arm": 0.002348753583919386,
+   "blocks": 12,
+   "lo_block_only": -0.05962952541962285,
+   "hi_block_only": 0.35086210787864036,
+   "lo_week": -0.09816047639424022,
+   "hi_week": 0.3893930588532577,
+   "weeks": 30
+  },
+  {
+   "cid": "S6_early_clean",
+   "base": "model",
+   "arm": "spd",
+   "seeds": [
+    0,
+    15
+   ],
+   "population": "men_early_clean",
+   "seasons": [
+    2025,
+    2026
+   ],
+   "metric": "calibrated",
+   "block": "early",
+   "loss": "ll",
+   "direction": "positive = A1 spd has the lower log loss (better) than the base (58 inputs)",
+   "unit": "mLL",
+   "matches": 582,
+   "estimate": 0.11139666752054508,
+   "lo": -0.2507059838490099,
+   "hi": 0.4734993188901,
+   "se": 0.1625135036116616,
+   "se_block": 0.06142263020603276,
+   "v_seed_base": 0.010167252484883985,
+   "v_seed_arm": 0.012470646869826518,
+   "blocks": 11,
+   "lo_block_only": -0.0254614812327022,
+   "hi_block_only": 0.24825481627379237,
+   "lo_week": -0.27749185637380747,
+   "hi_week": 0.5002851914148977,
+   "weeks": 29
+  },
+  {
+   "cid": "S7",
+   "base": "model",
+   "arm": "spd",
+   "seeds": [
+    0,
+    15
+   ],
+   "population": "men",
+   "seasons": [
+    2024,
+    2025,
+    2026
+   ],
+   "metric": "raw",
+   "block": "td",
+   "loss": "ll",
+   "direction": "positive = A1 spd has the lower log loss (better) than the base (58 inputs)",
+   "unit": "mLL",
+   "matches": 7068,
+   "estimate": 0.09384724059919251,
+   "lo": -0.04395837574998497,
+   "hi": 0.23165285694837,
+   "se": 0.06765347368465656,
+   "se_block": 0.05153405391813864,
+   "v_seed_base": 0.0008409100219851436,
+   "v_seed_arm": 0.0010803237663777549,
+   "blocks": 33,
+   "lo_block_only": -0.011124192150334763,
+   "hi_block_only": 0.19881867334871978,
+   "lo_week": -0.03744209620688528,
+   "hi_week": 0.22513657740527032,
+   "weeks": 92
+  },
+  {
+   "cid": "S8_A2",
+   "base": "model",
+   "arm": "spd_raw",
+   "seeds": [
+    0,
+    7
+   ],
+   "population": "men",
+   "seasons": [
+    2024,
+    2025,
+    2026
+   ],
+   "metric": "calibrated",
+   "block": "td",
+   "loss": "ll",
+   "direction": "positive = A2 spd_raw has the lower log loss (better) than the base (58 inputs)",
+   "unit": "mLL",
+   "matches": 7068,
+   "estimate": 0.09512819385316663,
+   "lo": -0.0698921462412846,
+   "hi": 0.2601485339476179,
+   "se": 0.08101410908917334,
+   "se_block": 0.04237601018415733,
+   "v_seed_base": 0.00169795887517178,
+   "v_seed_arm": 0.0030696007572128927,
+   "blocks": 33,
+   "lo_block_only": 0.008811085746251737,
+   "hi_block_only": 0.18144530196008152,
+   "lo_week": -0.06509112803525212,
+   "hi_week": 0.2553475157415854,
+   "weeks": 92
+  },
+  {
+   "cid": "S8_A3",
+   "base": "model",
+   "arm": "spd_all",
+   "seeds": [
+    0,
+    7
+   ],
+   "population": "men",
+   "seasons": [
+    2024,
+    2025,
+    2026
+   ],
+   "metric": "calibrated",
+   "block": "td",
+   "loss": "ll",
+   "direction": "positive = A3 spd_all has the lower log loss (better) than the base (58 inputs)",
+   "unit": "mLL",
+   "matches": 7068,
+   "estimate": 0.14677638174529736,
+   "lo": -0.0437882765237575,
+   "hi": 0.3373410400143522,
+   "se": 0.09355468546916029,
+   "se_block": 0.06684232533992307,
+   "v_seed_base": 0.00169795887517178,
+   "v_seed_arm": 0.002586623841213609,
+   "blocks": 33,
+   "lo_block_only": 0.010623020506000003,
+   "hi_block_only": 0.2829297429845947,
+   "lo_week": -0.03454009717898404,
+   "hi_week": 0.32809286066957877,
+   "weeks": 92
+  },
+  {
+   "cid": "S8_A1_vs_A2",
+   "base": "spd_raw",
+   "arm": "spd",
+   "seeds": [
+    0,
+    7
+   ],
+   "population": "men",
+   "seasons": [
+    2024,
+    2025,
+    2026
+   ],
+   "metric": "calibrated",
+   "block": "td",
+   "loss": "ll",
+   "direction": "positive = A1 spd has the lower log loss (better) than A2 spd_raw",
+   "unit": "mLL",
+   "matches": 7068,
+   "estimate": 0.008020535551973986,
+   "lo": -0.15530675420522638,
+   "hi": 0.17134782530917436,
+   "se": 0.08018293297696197,
+   "se_block": 0.029623362421154827,
+   "v_seed_base": 0.0030696007572128927,
+   "v_seed_arm": 0.0024821583824399945,
+   "blocks": 33,
+   "lo_block_only": -0.05232027910907924,
+   "hi_block_only": 0.06836135021302722,
+   "lo_week": -0.149273520261947,
+   "hi_week": 0.165314591365895,
+   "weeks": 92
+  },
+  {
+   "cid": "S8_A3_vs_A1",
+   "base": "spd",
+   "arm": "spd_all",
+   "seeds": [
+    0,
+    7
+   ],
+   "population": "men",
+   "seasons": [
+    2024,
+    2025,
+    2026
+   ],
+   "metric": "calibrated",
+   "block": "td",
+   "loss": "ll",
+   "direction": "positive = A3 spd_all has the lower log loss (better) than A1 spd",
+   "unit": "mLL",
+   "matches": 7068,
+   "estimate": 0.04362765234015675,
+   "lo": -0.10858493184845136,
+   "hi": 0.19584023652876487,
+   "se": 0.07472634520776579,
+   "se_block": 0.022698996551754842,
+   "v_seed_base": 0.0024821583824399945,
+   "v_seed_arm": 0.002586623841213609,
+   "blocks": 33,
+   "lo_block_only": -0.0026086905991985557,
+   "hi_block_only": 0.08986399527951205,
+   "lo_week": -0.10549623810798384,
+   "hi_week": 0.19275154278829734,
+   "weeks": 92
+  }
+ ],
+ "S6_moves": [
+  {
+   "cid": "S6_move_odds_all",
+   "population": "men_early_all",
+   "matches": 1442,
+   "estimate": 0.776035271583828,
+   "lo": -1.0854626208122453,
+   "hi": 2.637533163979901,
+   "unit": "slope",
+   "direction": "positive = the price moved toward A1's view beyond the base's (early-fed; the base's seeds 0-7 as controls, 8-15 in the deviation)"
+  },
+  {
+   "cid": "S6_move_noodds_all",
+   "population": "men_early_all",
+   "matches": 1442,
+   "estimate": -0.19087715907983138,
+   "lo": -1.2208182461482706,
+   "hi": 0.839063927988608,
+   "unit": "slope",
+   "direction": "positive = the price moved toward the no-odds A1's view beyond the no-odds base's"
+  },
+  {
+   "cid": "S6_move_odds_clean",
+   "population": "men_early_clean",
+   "matches": 582,
+   "estimate": 3.1864026461855124,
+   "lo": -2.1248822675253667,
+   "hi": 8.497687559896391,
+   "unit": "slope",
+   "direction": "positive = the price moved toward A1's view beyond the base's (early-fed; the base's seeds 0-7 as controls, 8-15 in the deviation)"
+  },
+  {
+   "cid": "S6_move_noodds_clean",
+   "population": "men_early_clean",
+   "matches": 582,
+   "estimate": 0.949540459702852,
+   "lo": -0.30406093750449414,
+   "hi": 2.203141856910198,
+   "unit": "slope",
+   "direction": "positive = the price moved toward the no-odds A1's view beyond the no-odds base's"
+  }
+ ],
+ "S9": [
+  {
+   "cid": "S9_shrunk",
+   "population": "men",
+   "seasons": [
+    2024,
+    2025,
+    2026
+   ],
+   "unit": "mLL",
+   "direction": "positive = the nudge has the lower log loss (better) than the calibrated base",
+   "matches": 7068,
+   "estimate": 0.409937900942379,
+   "lo_block_only": 0.04481313818073873,
+   "hi_block_only": 0.7750626637040192,
+   "lo": 0.04481313818073873,
+   "hi": 0.7750626637040192
+  },
+  {
+   "cid": "S9_mle",
+   "population": "men",
+   "seasons": [
+    2024,
+    2025,
+    2026
+   ],
+   "unit": "mLL",
+   "direction": "positive = the nudge has the lower log loss (better) than the calibrated base",
+   "matches": 7068,
+   "estimate": 0.4538867102903892,
+   "lo_block_only": 0.002084180532778368,
+   "hi_block_only": 0.905689240048,
+   "lo": 0.002084180532778368,
+   "hi": 0.905689240048
+  }
+ ],
+ "S9_parameters": {
+  "2024": {
+   "s_atp": 0.9000909205344313,
+   "s_wta": 0.9298880463961448,
+   "b_mle": 0.04043006773763976,
+   "se_b": 0.028579350323311152,
+   "b_shrunk": 0.03047389086565254,
+   "rows": 22174
+  },
+  "2025": {
+   "s_atp": 0.9125586676278096,
+   "s_wta": 0.9279789880564248,
+   "b_mle": 0.04039561669921243,
+   "se_b": 0.022795353023949673,
+   "b_shrunk": 0.03344419834227964,
+   "rows": 27308
+  },
+  "2026": {
+   "s_atp": 0.900704013652165,
+   "s_wta": 0.9167523248680112,
+   "b_mle": 0.04517197134041586,
+   "se_b": 0.020138384287259004,
+   "b_shrunk": 0.03886691077643746,
+   "rows": 32413
+  }
+ },
+ "S12": {
+  "matches": 4394,
+  "estimate": 0.1034432703709313,
+  "se": 0.03566061505207201,
+  "lo": 0.02905653086529021,
+  "hi": 0.17783000987657238,
+  "df": 20,
+  "p_two_sided": 0.008838800661125615,
+  "blocks": 21,
+  "sd_z": 0.7996837051059564,
+  "unit": "log-odds per unit of spd_raw (one unit = 5.998 km/h of the registered x_raw)",
+  "cid": "S12",
+  "direction": "positive = the man whose registered speed change is higher wins more often than the base says"
+ },
+ "multiplicity": {
+  "secondary_intervals": 30,
+  "excluding_0": 4,
+  "which": [
+   "S0",
+   "S9_shrunk",
+   "S9_mle",
+   "S12"
+  ],
+  "not_counted": [
+   "S13",
+   "S10 (point value)",
+   "the P2 / S13 ratio (point value)"
+  ],
+  "null_reference": "the verifier's null re-run after V1 (pre-registration section 9), not 5% x K"
+ },
+ "key": "mLL gains: positive = the named arm has the lower log loss (better); coefficients in log-odds per unit of the column (spd_f: one s_f = 2.224 km/h; spd_raw: 5.998 km/h); a 95% interval spanning 0 is a tie",
+ "hashes": {
+  "SCORER_CODE_SHA256": "6bcfc06c2aff73b2bf40fd4bac17050629fc019c84a9af94fb38f39300c04ba8",
+  "MODEL_FRAME_SHA256": "6113966fd8286cb41738eb7b52e0d6d9e2d7631c980c3aec7be6e4bbbaaab06b",
+  "FEATURE_SHA256": "fcd8d24124e0d9987bd42c0557af27770dbd0c7fa314ddaa1ae7927f1328e0e3",
+  "REGISTRY_SHA256": "217100ecf7ab2799b0ccb924c8d459cf9aa1161350e6a80ab6ba963ce4bab389",
+  "EARLY_SHA256": "22809fa7a9422a22f28953292cca0d5db894470f3218bc23d45d3cdce9729a5c",
+  "POPULATION_SHA256": "e4ab0787b531526708fa7d97ffdd97a2878b02a1b113eda62c26b59d5296ef27"
+ },
+ "calibration_seeds": [
+  0,
+  1,
+  2,
+  3
+ ],
+ "expanding_window": "each season Y scored by fits trained on 2013 .. Y - 1",
+ "provenance": [
+  {
+   "arm": "model",
+   "season": 2024,
+   "seed": 0,
+   "folder": "race",
+   "file": "model__2024__seed0.npz",
+   "fingerprint": null,
+   "feature_sha256": null
+  },
+  {
+   "arm": "model",
+   "season": 2024,
+   "seed": 1,
+   "folder": "race",
+   "file": "model__2024__seed1.npz",
+   "fingerprint": null,
+   "feature_sha256": null
+  },
+  {
+   "arm": "model",
+   "season": 2024,
+   "seed": 2,
+   "folder": "race",
+   "file": "model__2024__seed2.npz",
+   "fingerprint": null,
+   "feature_sha256": null
+  },
+  {
+   "arm": "model",
+   "season": 2024,
+   "seed": 3,
+   "folder": "feature_interactions",
+   "file": "model__2024__seed3.npz",
+   "fingerprint": "dcee433cad21fb507abe81e615b777d0f707c56badbd9b61850d9147c3509f5f",
+   "feature_sha256": null
+  },
+  {
+   "arm": "model",
+   "season": 2024,
+   "seed": 4,
+   "folder": "feature_interactions",
+   "file": "model__2024__seed4.npz",
+   "fingerprint": "dcee433cad21fb507abe81e615b777d0f707c56badbd9b61850d9147c3509f5f",
+   "feature_sha256": null
+  },
+  {
+   "arm": "model",
+   "season": 2024,
+   "seed": 5,
+   "folder": "feature_interactions",
+   "file": "model__2024__seed5.npz",
+   "fingerprint": "dcee433cad21fb507abe81e615b777d0f707c56badbd9b61850d9147c3509f5f",
+   "feature_sha256": null
+  },
+  {
+   "arm": "model",
+   "season": 2024,
+   "seed": 6,
+   "folder": "feature_interactions",
+   "file": "model__2024__seed6.npz",
+   "fingerprint": "dcee433cad21fb507abe81e615b777d0f707c56badbd9b61850d9147c3509f5f",
+   "feature_sha256": null
+  },
+  {
+   "arm": "model",
+   "season": 2024,
+   "seed": 7,
+   "folder": "feature_interactions",
+   "file": "model__2024__seed7.npz",
+   "fingerprint": "dcee433cad21fb507abe81e615b777d0f707c56badbd9b61850d9147c3509f5f",
+   "feature_sha256": null
+  },
+  {
+   "arm": "model",
+   "season": 2024,
+   "seed": 8,
+   "folder": "feature_interactions",
+   "file": "model__2024__seed8.npz",
+   "fingerprint": "dcee433cad21fb507abe81e615b777d0f707c56badbd9b61850d9147c3509f5f",
+   "feature_sha256": null
+  },
+  {
+   "arm": "model",
+   "season": 2024,
+   "seed": 9,
+   "folder": "feature_interactions",
+   "file": "model__2024__seed9.npz",
+   "fingerprint": "dcee433cad21fb507abe81e615b777d0f707c56badbd9b61850d9147c3509f5f",
+   "feature_sha256": null
+  },
+  {
+   "arm": "model",
+   "season": 2024,
+   "seed": 10,
+   "folder": "feature_interactions",
+   "file": "model__2024__seed10.npz",
+   "fingerprint": "dcee433cad21fb507abe81e615b777d0f707c56badbd9b61850d9147c3509f5f",
+   "feature_sha256": null
+  },
+  {
+   "arm": "model",
+   "season": 2024,
+   "seed": 11,
+   "folder": "feature_interactions",
+   "file": "model__2024__seed11.npz",
+   "fingerprint": "dcee433cad21fb507abe81e615b777d0f707c56badbd9b61850d9147c3509f5f",
+   "feature_sha256": null
+  },
+  {
+   "arm": "model",
+   "season": 2024,
+   "seed": 12,
+   "folder": "feature_interactions",
+   "file": "model__2024__seed12.npz",
+   "fingerprint": "dcee433cad21fb507abe81e615b777d0f707c56badbd9b61850d9147c3509f5f",
+   "feature_sha256": null
+  },
+  {
+   "arm": "model",
+   "season": 2024,
+   "seed": 13,
+   "folder": "feature_interactions",
+   "file": "model__2024__seed13.npz",
+   "fingerprint": "dcee433cad21fb507abe81e615b777d0f707c56badbd9b61850d9147c3509f5f",
+   "feature_sha256": null
+  },
+  {
+   "arm": "model",
+   "season": 2024,
+   "seed": 14,
+   "folder": "feature_interactions",
+   "file": "model__2024__seed14.npz",
+   "fingerprint": "dcee433cad21fb507abe81e615b777d0f707c56badbd9b61850d9147c3509f5f",
+   "feature_sha256": null
+  },
+  {
+   "arm": "model",
+   "season": 2024,
+   "seed": 15,
+   "folder": "feature_interactions",
+   "file": "model__2024__seed15.npz",
+   "fingerprint": "dcee433cad21fb507abe81e615b777d0f707c56badbd9b61850d9147c3509f5f",
+   "feature_sha256": null
+  },
+  {
+   "arm": "model",
+   "season": 2025,
+   "seed": 0,
+   "folder": "race",
+   "file": "model__2025__seed0.npz",
+   "fingerprint": null,
+   "feature_sha256": null
+  },
+  {
+   "arm": "model",
+   "season": 2025,
+   "seed": 1,
+   "folder": "race",
+   "file": "model__2025__seed1.npz",
+   "fingerprint": null,
+   "feature_sha256": null
+  },
+  {
+   "arm": "model",
+   "season": 2025,
+   "seed": 2,
+   "folder": "race",
+   "file": "model__2025__seed2.npz",
+   "fingerprint": null,
+   "feature_sha256": null
+  },
+  {
+   "arm": "model",
+   "season": 2025,
+   "seed": 3,
+   "folder": "feature_interactions",
+   "file": "model__2025__seed3.npz",
+   "fingerprint": "28b7893a76709d84c5fec148a2dd7f30e70b8b515aff0434da8270d91f19f064",
+   "feature_sha256": null
+  },
+  {
+   "arm": "model",
+   "season": 2025,
+   "seed": 4,
+   "folder": "feature_interactions",
+   "file": "model__2025__seed4.npz",
+   "fingerprint": "28b7893a76709d84c5fec148a2dd7f30e70b8b515aff0434da8270d91f19f064",
+   "feature_sha256": null
+  },
+  {
+   "arm": "model",
+   "season": 2025,
+   "seed": 5,
+   "folder": "feature_interactions",
+   "file": "model__2025__seed5.npz",
+   "fingerprint": "28b7893a76709d84c5fec148a2dd7f30e70b8b515aff0434da8270d91f19f064",
+   "feature_sha256": null
+  },
+  {
+   "arm": "model",
+   "season": 2025,
+   "seed": 6,
+   "folder": "feature_interactions",
+   "file": "model__2025__seed6.npz",
+   "fingerprint": "28b7893a76709d84c5fec148a2dd7f30e70b8b515aff0434da8270d91f19f064",
+   "feature_sha256": null
+  },
+  {
+   "arm": "model",
+   "season": 2025,
+   "seed": 7,
+   "folder": "feature_interactions",
+   "file": "model__2025__seed7.npz",
+   "fingerprint": "28b7893a76709d84c5fec148a2dd7f30e70b8b515aff0434da8270d91f19f064",
+   "feature_sha256": null
+  },
+  {
+   "arm": "model",
+   "season": 2025,
+   "seed": 8,
+   "folder": "feature_interactions",
+   "file": "model__2025__seed8.npz",
+   "fingerprint": "28b7893a76709d84c5fec148a2dd7f30e70b8b515aff0434da8270d91f19f064",
+   "feature_sha256": null
+  },
+  {
+   "arm": "model",
+   "season": 2025,
+   "seed": 9,
+   "folder": "feature_interactions",
+   "file": "model__2025__seed9.npz",
+   "fingerprint": "28b7893a76709d84c5fec148a2dd7f30e70b8b515aff0434da8270d91f19f064",
+   "feature_sha256": null
+  },
+  {
+   "arm": "model",
+   "season": 2025,
+   "seed": 10,
+   "folder": "feature_interactions",
+   "file": "model__2025__seed10.npz",
+   "fingerprint": "28b7893a76709d84c5fec148a2dd7f30e70b8b515aff0434da8270d91f19f064",
+   "feature_sha256": null
+  },
+  {
+   "arm": "model",
+   "season": 2025,
+   "seed": 11,
+   "folder": "feature_interactions",
+   "file": "model__2025__seed11.npz",
+   "fingerprint": "28b7893a76709d84c5fec148a2dd7f30e70b8b515aff0434da8270d91f19f064",
+   "feature_sha256": null
+  },
+  {
+   "arm": "model",
+   "season": 2025,
+   "seed": 12,
+   "folder": "feature_interactions",
+   "file": "model__2025__seed12.npz",
+   "fingerprint": "28b7893a76709d84c5fec148a2dd7f30e70b8b515aff0434da8270d91f19f064",
+   "feature_sha256": null
+  },
+  {
+   "arm": "model",
+   "season": 2025,
+   "seed": 13,
+   "folder": "feature_interactions",
+   "file": "model__2025__seed13.npz",
+   "fingerprint": "28b7893a76709d84c5fec148a2dd7f30e70b8b515aff0434da8270d91f19f064",
+   "feature_sha256": null
+  },
+  {
+   "arm": "model",
+   "season": 2025,
+   "seed": 14,
+   "folder": "feature_interactions",
+   "file": "model__2025__seed14.npz",
+   "fingerprint": "28b7893a76709d84c5fec148a2dd7f30e70b8b515aff0434da8270d91f19f064",
+   "feature_sha256": null
+  },
+  {
+   "arm": "model",
+   "season": 2025,
+   "seed": 15,
+   "folder": "feature_interactions",
+   "file": "model__2025__seed15.npz",
+   "fingerprint": "28b7893a76709d84c5fec148a2dd7f30e70b8b515aff0434da8270d91f19f064",
+   "feature_sha256": null
+  },
+  {
+   "arm": "model",
+   "season": 2026,
+   "seed": 0,
+   "folder": "race",
+   "file": "model__2026__seed0.npz",
+   "fingerprint": null,
+   "feature_sha256": null
+  },
+  {
+   "arm": "model",
+   "season": 2026,
+   "seed": 1,
+   "folder": "race",
+   "file": "model__2026__seed1.npz",
+   "fingerprint": null,
+   "feature_sha256": null
+  },
+  {
+   "arm": "model",
+   "season": 2026,
+   "seed": 2,
+   "folder": "race",
+   "file": "model__2026__seed2.npz",
+   "fingerprint": null,
+   "feature_sha256": null
+  },
+  {
+   "arm": "model",
+   "season": 2026,
+   "seed": 3,
+   "folder": "feature_interactions",
+   "file": "model__2026__seed3.npz",
+   "fingerprint": "323b441accf5495667b2b76175fd99c5b137b7987f18b2e24b336ce8632be584",
+   "feature_sha256": null
+  },
+  {
+   "arm": "model",
+   "season": 2026,
+   "seed": 4,
+   "folder": "feature_interactions",
+   "file": "model__2026__seed4.npz",
+   "fingerprint": "323b441accf5495667b2b76175fd99c5b137b7987f18b2e24b336ce8632be584",
+   "feature_sha256": null
+  },
+  {
+   "arm": "model",
+   "season": 2026,
+   "seed": 5,
+   "folder": "feature_interactions",
+   "file": "model__2026__seed5.npz",
+   "fingerprint": "323b441accf5495667b2b76175fd99c5b137b7987f18b2e24b336ce8632be584",
+   "feature_sha256": null
+  },
+  {
+   "arm": "model",
+   "season": 2026,
+   "seed": 6,
+   "folder": "feature_interactions",
+   "file": "model__2026__seed6.npz",
+   "fingerprint": "323b441accf5495667b2b76175fd99c5b137b7987f18b2e24b336ce8632be584",
+   "feature_sha256": null
+  },
+  {
+   "arm": "model",
+   "season": 2026,
+   "seed": 7,
+   "folder": "feature_interactions",
+   "file": "model__2026__seed7.npz",
+   "fingerprint": "323b441accf5495667b2b76175fd99c5b137b7987f18b2e24b336ce8632be584",
+   "feature_sha256": null
+  },
+  {
+   "arm": "model",
+   "season": 2026,
+   "seed": 8,
+   "folder": "feature_interactions",
+   "file": "model__2026__seed8.npz",
+   "fingerprint": "323b441accf5495667b2b76175fd99c5b137b7987f18b2e24b336ce8632be584",
+   "feature_sha256": null
+  },
+  {
+   "arm": "model",
+   "season": 2026,
+   "seed": 9,
+   "folder": "feature_interactions",
+   "file": "model__2026__seed9.npz",
+   "fingerprint": "323b441accf5495667b2b76175fd99c5b137b7987f18b2e24b336ce8632be584",
+   "feature_sha256": null
+  },
+  {
+   "arm": "model",
+   "season": 2026,
+   "seed": 10,
+   "folder": "feature_interactions",
+   "file": "model__2026__seed10.npz",
+   "fingerprint": "323b441accf5495667b2b76175fd99c5b137b7987f18b2e24b336ce8632be584",
+   "feature_sha256": null
+  },
+  {
+   "arm": "model",
+   "season": 2026,
+   "seed": 11,
+   "folder": "feature_interactions",
+   "file": "model__2026__seed11.npz",
+   "fingerprint": "323b441accf5495667b2b76175fd99c5b137b7987f18b2e24b336ce8632be584",
+   "feature_sha256": null
+  },
+  {
+   "arm": "model",
+   "season": 2026,
+   "seed": 12,
+   "folder": "feature_interactions",
+   "file": "model__2026__seed12.npz",
+   "fingerprint": "323b441accf5495667b2b76175fd99c5b137b7987f18b2e24b336ce8632be584",
+   "feature_sha256": null
+  },
+  {
+   "arm": "model",
+   "season": 2026,
+   "seed": 13,
+   "folder": "feature_interactions",
+   "file": "model__2026__seed13.npz",
+   "fingerprint": "323b441accf5495667b2b76175fd99c5b137b7987f18b2e24b336ce8632be584",
+   "feature_sha256": null
+  },
+  {
+   "arm": "model",
+   "season": 2026,
+   "seed": 14,
+   "folder": "feature_interactions",
+   "file": "model__2026__seed14.npz",
+   "fingerprint": "323b441accf5495667b2b76175fd99c5b137b7987f18b2e24b336ce8632be584",
+   "feature_sha256": null
+  },
+  {
+   "arm": "model",
+   "season": 2026,
+   "seed": 15,
+   "folder": "feature_interactions",
+   "file": "model__2026__seed15.npz",
+   "fingerprint": "323b441accf5495667b2b76175fd99c5b137b7987f18b2e24b336ce8632be584",
+   "feature_sha256": null
+  },
+  {
+   "arm": "model",
+   "season": 2019,
+   "seed": 0,
+   "folder": "feature_interactions",
+   "file": "model__2019__seed0.npz",
+   "fingerprint": "770e1299d37abf74e4ca57415417fdba847a5fc6462bcb1cf5a30a7af69a1271",
+   "feature_sha256": null
+  },
+  {
+   "arm": "model",
+   "season": 2019,
+   "seed": 1,
+   "folder": "feature_interactions",
+   "file": "model__2019__seed1.npz",
+   "fingerprint": "770e1299d37abf74e4ca57415417fdba847a5fc6462bcb1cf5a30a7af69a1271",
+   "feature_sha256": null
+  },
+  {
+   "arm": "model",
+   "season": 2019,
+   "seed": 2,
+   "folder": "feature_interactions",
+   "file": "model__2019__seed2.npz",
+   "fingerprint": "770e1299d37abf74e4ca57415417fdba847a5fc6462bcb1cf5a30a7af69a1271",
+   "feature_sha256": null
+  },
+  {
+   "arm": "model",
+   "season": 2019,
+   "seed": 3,
+   "folder": "feature_interactions",
+   "file": "model__2019__seed3.npz",
+   "fingerprint": "770e1299d37abf74e4ca57415417fdba847a5fc6462bcb1cf5a30a7af69a1271",
+   "feature_sha256": null
+  },
+  {
+   "arm": "model",
+   "season": 2020,
+   "seed": 0,
+   "folder": "race",
+   "file": "model__2020__seed0.npz",
+   "fingerprint": null,
+   "feature_sha256": null
+  },
+  {
+   "arm": "model",
+   "season": 2020,
+   "seed": 1,
+   "folder": "race",
+   "file": "model__2020__seed1.npz",
+   "fingerprint": null,
+   "feature_sha256": null
+  },
+  {
+   "arm": "model",
+   "season": 2020,
+   "seed": 2,
+   "folder": "race",
+   "file": "model__2020__seed2.npz",
+   "fingerprint": null,
+   "feature_sha256": null
+  },
+  {
+   "arm": "model",
+   "season": 2020,
+   "seed": 3,
+   "folder": "feature_interactions",
+   "file": "model__2020__seed3.npz",
+   "fingerprint": "4f9e442a11af495730fb5421435de82975a59cff4ba3aa9ab25aa555094eea02",
+   "feature_sha256": null
+  },
+  {
+   "arm": "model",
+   "season": 2021,
+   "seed": 0,
+   "folder": "race",
+   "file": "model__2021__seed0.npz",
+   "fingerprint": null,
+   "feature_sha256": null
+  },
+  {
+   "arm": "model",
+   "season": 2021,
+   "seed": 1,
+   "folder": "race",
+   "file": "model__2021__seed1.npz",
+   "fingerprint": null,
+   "feature_sha256": null
+  },
+  {
+   "arm": "model",
+   "season": 2021,
+   "seed": 2,
+   "folder": "race",
+   "file": "model__2021__seed2.npz",
+   "fingerprint": null,
+   "feature_sha256": null
+  },
+  {
+   "arm": "model",
+   "season": 2021,
+   "seed": 3,
+   "folder": "feature_interactions",
+   "file": "model__2021__seed3.npz",
+   "fingerprint": "fc52c6f257891f3e25bf8c762a1b29ffcc46da1956732e7ec43e34bf620a48c9",
+   "feature_sha256": null
+  },
+  {
+   "arm": "model",
+   "season": 2022,
+   "seed": 0,
+   "folder": "race",
+   "file": "model__2022__seed0.npz",
+   "fingerprint": null,
+   "feature_sha256": null
+  },
+  {
+   "arm": "model",
+   "season": 2022,
+   "seed": 1,
+   "folder": "race",
+   "file": "model__2022__seed1.npz",
+   "fingerprint": null,
+   "feature_sha256": null
+  },
+  {
+   "arm": "model",
+   "season": 2022,
+   "seed": 2,
+   "folder": "race",
+   "file": "model__2022__seed2.npz",
+   "fingerprint": null,
+   "feature_sha256": null
+  },
+  {
+   "arm": "model",
+   "season": 2022,
+   "seed": 3,
+   "folder": "feature_interactions",
+   "file": "model__2022__seed3.npz",
+   "fingerprint": "f4c67e5d47d60b7f533d66f17b23a2d0b453f43881cfd8e0afb6daba9f400e17",
+   "feature_sha256": null
+  },
+  {
+   "arm": "model",
+   "season": 2023,
+   "seed": 0,
+   "folder": "race",
+   "file": "model__2023__seed0.npz",
+   "fingerprint": null,
+   "feature_sha256": null
+  },
+  {
+   "arm": "model",
+   "season": 2023,
+   "seed": 1,
+   "folder": "race",
+   "file": "model__2023__seed1.npz",
+   "fingerprint": null,
+   "feature_sha256": null
+  },
+  {
+   "arm": "model",
+   "season": 2023,
+   "seed": 2,
+   "folder": "race",
+   "file": "model__2023__seed2.npz",
+   "fingerprint": null,
+   "feature_sha256": null
+  },
+  {
+   "arm": "model",
+   "season": 2023,
+   "seed": 3,
+   "folder": "feature_interactions",
+   "file": "model__2023__seed3.npz",
+   "fingerprint": "dfed1a9d29dadc7ee7a335b817e70d40b36f164c86abc79cec81b3d1f88d6a5b",
+   "feature_sha256": null
+  },
+  {
+   "arm": "spd",
+   "season": 2024,
+   "seed": 0,
+   "folder": "study",
+   "file": "spd__2024__seed0.npz",
+   "fingerprint": "de2016cf27954e95b8a8e8ba0048f8d0dcae23ffd70a26b1a26174ebaf46ff29",
+   "feature_sha256": "fcd8d24124e0d9987bd42c0557af27770dbd0c7fa314ddaa1ae7927f1328e0e3"
+  },
+  {
+   "arm": "spd",
+   "season": 2024,
+   "seed": 1,
+   "folder": "study",
+   "file": "spd__2024__seed1.npz",
+   "fingerprint": "de2016cf27954e95b8a8e8ba0048f8d0dcae23ffd70a26b1a26174ebaf46ff29",
+   "feature_sha256": "fcd8d24124e0d9987bd42c0557af27770dbd0c7fa314ddaa1ae7927f1328e0e3"
+  },
+  {
+   "arm": "spd",
+   "season": 2024,
+   "seed": 2,
+   "folder": "study",
+   "file": "spd__2024__seed2.npz",
+   "fingerprint": "de2016cf27954e95b8a8e8ba0048f8d0dcae23ffd70a26b1a26174ebaf46ff29",
+   "feature_sha256": "fcd8d24124e0d9987bd42c0557af27770dbd0c7fa314ddaa1ae7927f1328e0e3"
+  },
+  {
+   "arm": "spd",
+   "season": 2024,
+   "seed": 3,
+   "folder": "study",
+   "file": "spd__2024__seed3.npz",
+   "fingerprint": "de2016cf27954e95b8a8e8ba0048f8d0dcae23ffd70a26b1a26174ebaf46ff29",
+   "feature_sha256": "fcd8d24124e0d9987bd42c0557af27770dbd0c7fa314ddaa1ae7927f1328e0e3"
+  },
+  {
+   "arm": "spd",
+   "season": 2024,
+   "seed": 4,
+   "folder": "study",
+   "file": "spd__2024__seed4.npz",
+   "fingerprint": "de2016cf27954e95b8a8e8ba0048f8d0dcae23ffd70a26b1a26174ebaf46ff29",
+   "feature_sha256": "fcd8d24124e0d9987bd42c0557af27770dbd0c7fa314ddaa1ae7927f1328e0e3"
+  },
+  {
+   "arm": "spd",
+   "season": 2024,
+   "seed": 5,
+   "folder": "study",
+   "file": "spd__2024__seed5.npz",
+   "fingerprint": "de2016cf27954e95b8a8e8ba0048f8d0dcae23ffd70a26b1a26174ebaf46ff29",
+   "feature_sha256": "fcd8d24124e0d9987bd42c0557af27770dbd0c7fa314ddaa1ae7927f1328e0e3"
+  },
+  {
+   "arm": "spd",
+   "season": 2024,
+   "seed": 6,
+   "folder": "study",
+   "file": "spd__2024__seed6.npz",
+   "fingerprint": "de2016cf27954e95b8a8e8ba0048f8d0dcae23ffd70a26b1a26174ebaf46ff29",
+   "feature_sha256": "fcd8d24124e0d9987bd42c0557af27770dbd0c7fa314ddaa1ae7927f1328e0e3"
+  },
+  {
+   "arm": "spd",
+   "season": 2024,
+   "seed": 7,
+   "folder": "study",
+   "file": "spd__2024__seed7.npz",
+   "fingerprint": "de2016cf27954e95b8a8e8ba0048f8d0dcae23ffd70a26b1a26174ebaf46ff29",
+   "feature_sha256": "fcd8d24124e0d9987bd42c0557af27770dbd0c7fa314ddaa1ae7927f1328e0e3"
+  },
+  {
+   "arm": "spd",
+   "season": 2024,
+   "seed": 8,
+   "folder": "study",
+   "file": "spd__2024__seed8.npz",
+   "fingerprint": "de2016cf27954e95b8a8e8ba0048f8d0dcae23ffd70a26b1a26174ebaf46ff29",
+   "feature_sha256": "fcd8d24124e0d9987bd42c0557af27770dbd0c7fa314ddaa1ae7927f1328e0e3"
+  },
+  {
+   "arm": "spd",
+   "season": 2024,
+   "seed": 9,
+   "folder": "study",
+   "file": "spd__2024__seed9.npz",
+   "fingerprint": "de2016cf27954e95b8a8e8ba0048f8d0dcae23ffd70a26b1a26174ebaf46ff29",
+   "feature_sha256": "fcd8d24124e0d9987bd42c0557af27770dbd0c7fa314ddaa1ae7927f1328e0e3"
+  },
+  {
+   "arm": "spd",
+   "season": 2024,
+   "seed": 10,
+   "folder": "study",
+   "file": "spd__2024__seed10.npz",
+   "fingerprint": "de2016cf27954e95b8a8e8ba0048f8d0dcae23ffd70a26b1a26174ebaf46ff29",
+   "feature_sha256": "fcd8d24124e0d9987bd42c0557af27770dbd0c7fa314ddaa1ae7927f1328e0e3"
+  },
+  {
+   "arm": "spd",
+   "season": 2024,
+   "seed": 11,
+   "folder": "study",
+   "file": "spd__2024__seed11.npz",
+   "fingerprint": "de2016cf27954e95b8a8e8ba0048f8d0dcae23ffd70a26b1a26174ebaf46ff29",
+   "feature_sha256": "fcd8d24124e0d9987bd42c0557af27770dbd0c7fa314ddaa1ae7927f1328e0e3"
+  },
+  {
+   "arm": "spd",
+   "season": 2024,
+   "seed": 12,
+   "folder": "study",
+   "file": "spd__2024__seed12.npz",
+   "fingerprint": "de2016cf27954e95b8a8e8ba0048f8d0dcae23ffd70a26b1a26174ebaf46ff29",
+   "feature_sha256": "fcd8d24124e0d9987bd42c0557af27770dbd0c7fa314ddaa1ae7927f1328e0e3"
+  },
+  {
+   "arm": "spd",
+   "season": 2024,
+   "seed": 13,
+   "folder": "study",
+   "file": "spd__2024__seed13.npz",
+   "fingerprint": "de2016cf27954e95b8a8e8ba0048f8d0dcae23ffd70a26b1a26174ebaf46ff29",
+   "feature_sha256": "fcd8d24124e0d9987bd42c0557af27770dbd0c7fa314ddaa1ae7927f1328e0e3"
+  },
+  {
+   "arm": "spd",
+   "season": 2024,
+   "seed": 14,
+   "folder": "study",
+   "file": "spd__2024__seed14.npz",
+   "fingerprint": "de2016cf27954e95b8a8e8ba0048f8d0dcae23ffd70a26b1a26174ebaf46ff29",
+   "feature_sha256": "fcd8d24124e0d9987bd42c0557af27770dbd0c7fa314ddaa1ae7927f1328e0e3"
+  },
+  {
+   "arm": "spd",
+   "season": 2024,
+   "seed": 15,
+   "folder": "study",
+   "file": "spd__2024__seed15.npz",
+   "fingerprint": "de2016cf27954e95b8a8e8ba0048f8d0dcae23ffd70a26b1a26174ebaf46ff29",
+   "feature_sha256": "fcd8d24124e0d9987bd42c0557af27770dbd0c7fa314ddaa1ae7927f1328e0e3"
+  },
+  {
+   "arm": "spd",
+   "season": 2025,
+   "seed": 0,
+   "folder": "study",
+   "file": "spd__2025__seed0.npz",
+   "fingerprint": "3d56b3179935dff530bcba0aa5a72fcd5e4567bc5a53b4d63a57798d73eeff51",
+   "feature_sha256": "fcd8d24124e0d9987bd42c0557af27770dbd0c7fa314ddaa1ae7927f1328e0e3"
+  },
+  {
+   "arm": "spd",
+   "season": 2025,
+   "seed": 1,
+   "folder": "study",
+   "file": "spd__2025__seed1.npz",
+   "fingerprint": "3d56b3179935dff530bcba0aa5a72fcd5e4567bc5a53b4d63a57798d73eeff51",
+   "feature_sha256": "fcd8d24124e0d9987bd42c0557af27770dbd0c7fa314ddaa1ae7927f1328e0e3"
+  },
+  {
+   "arm": "spd",
+   "season": 2025,
+   "seed": 2,
+   "folder": "study",
+   "file": "spd__2025__seed2.npz",
+   "fingerprint": "3d56b3179935dff530bcba0aa5a72fcd5e4567bc5a53b4d63a57798d73eeff51",
+   "feature_sha256": "fcd8d24124e0d9987bd42c0557af27770dbd0c7fa314ddaa1ae7927f1328e0e3"
+  },
+  {
+   "arm": "spd",
+   "season": 2025,
+   "seed": 3,
+   "folder": "study",
+   "file": "spd__2025__seed3.npz",
+   "fingerprint": "3d56b3179935dff530bcba0aa5a72fcd5e4567bc5a53b4d63a57798d73eeff51",
+   "feature_sha256": "fcd8d24124e0d9987bd42c0557af27770dbd0c7fa314ddaa1ae7927f1328e0e3"
+  },
+  {
+   "arm": "spd",
+   "season": 2025,
+   "seed": 4,
+   "folder": "study",
+   "file": "spd__2025__seed4.npz",
+   "fingerprint": "3d56b3179935dff530bcba0aa5a72fcd5e4567bc5a53b4d63a57798d73eeff51",
+   "feature_sha256": "fcd8d24124e0d9987bd42c0557af27770dbd0c7fa314ddaa1ae7927f1328e0e3"
+  },
+  {
+   "arm": "spd",
+   "season": 2025,
+   "seed": 5,
+   "folder": "study",
+   "file": "spd__2025__seed5.npz",
+   "fingerprint": "3d56b3179935dff530bcba0aa5a72fcd5e4567bc5a53b4d63a57798d73eeff51",
+   "feature_sha256": "fcd8d24124e0d9987bd42c0557af27770dbd0c7fa314ddaa1ae7927f1328e0e3"
+  },
+  {
+   "arm": "spd",
+   "season": 2025,
+   "seed": 6,
+   "folder": "study",
+   "file": "spd__2025__seed6.npz",
+   "fingerprint": "3d56b3179935dff530bcba0aa5a72fcd5e4567bc5a53b4d63a57798d73eeff51",
+   "feature_sha256": "fcd8d24124e0d9987bd42c0557af27770dbd0c7fa314ddaa1ae7927f1328e0e3"
+  },
+  {
+   "arm": "spd",
+   "season": 2025,
+   "seed": 7,
+   "folder": "study",
+   "file": "spd__2025__seed7.npz",
+   "fingerprint": "3d56b3179935dff530bcba0aa5a72fcd5e4567bc5a53b4d63a57798d73eeff51",
+   "feature_sha256": "fcd8d24124e0d9987bd42c0557af27770dbd0c7fa314ddaa1ae7927f1328e0e3"
+  },
+  {
+   "arm": "spd",
+   "season": 2025,
+   "seed": 8,
+   "folder": "study",
+   "file": "spd__2025__seed8.npz",
+   "fingerprint": "3d56b3179935dff530bcba0aa5a72fcd5e4567bc5a53b4d63a57798d73eeff51",
+   "feature_sha256": "fcd8d24124e0d9987bd42c0557af27770dbd0c7fa314ddaa1ae7927f1328e0e3"
+  },
+  {
+   "arm": "spd",
+   "season": 2025,
+   "seed": 9,
+   "folder": "study",
+   "file": "spd__2025__seed9.npz",
+   "fingerprint": "3d56b3179935dff530bcba0aa5a72fcd5e4567bc5a53b4d63a57798d73eeff51",
+   "feature_sha256": "fcd8d24124e0d9987bd42c0557af27770dbd0c7fa314ddaa1ae7927f1328e0e3"
+  },
+  {
+   "arm": "spd",
+   "season": 2025,
+   "seed": 10,
+   "folder": "study",
+   "file": "spd__2025__seed10.npz",
+   "fingerprint": "3d56b3179935dff530bcba0aa5a72fcd5e4567bc5a53b4d63a57798d73eeff51",
+   "feature_sha256": "fcd8d24124e0d9987bd42c0557af27770dbd0c7fa314ddaa1ae7927f1328e0e3"
+  },
+  {
+   "arm": "spd",
+   "season": 2025,
+   "seed": 11,
+   "folder": "study",
+   "file": "spd__2025__seed11.npz",
+   "fingerprint": "3d56b3179935dff530bcba0aa5a72fcd5e4567bc5a53b4d63a57798d73eeff51",
+   "feature_sha256": "fcd8d24124e0d9987bd42c0557af27770dbd0c7fa314ddaa1ae7927f1328e0e3"
+  },
+  {
+   "arm": "spd",
+   "season": 2025,
+   "seed": 12,
+   "folder": "study",
+   "file": "spd__2025__seed12.npz",
+   "fingerprint": "3d56b3179935dff530bcba0aa5a72fcd5e4567bc5a53b4d63a57798d73eeff51",
+   "feature_sha256": "fcd8d24124e0d9987bd42c0557af27770dbd0c7fa314ddaa1ae7927f1328e0e3"
+  },
+  {
+   "arm": "spd",
+   "season": 2025,
+   "seed": 13,
+   "folder": "study",
+   "file": "spd__2025__seed13.npz",
+   "fingerprint": "3d56b3179935dff530bcba0aa5a72fcd5e4567bc5a53b4d63a57798d73eeff51",
+   "feature_sha256": "fcd8d24124e0d9987bd42c0557af27770dbd0c7fa314ddaa1ae7927f1328e0e3"
+  },
+  {
+   "arm": "spd",
+   "season": 2025,
+   "seed": 14,
+   "folder": "study",
+   "file": "spd__2025__seed14.npz",
+   "fingerprint": "3d56b3179935dff530bcba0aa5a72fcd5e4567bc5a53b4d63a57798d73eeff51",
+   "feature_sha256": "fcd8d24124e0d9987bd42c0557af27770dbd0c7fa314ddaa1ae7927f1328e0e3"
+  },
+  {
+   "arm": "spd",
+   "season": 2025,
+   "seed": 15,
+   "folder": "study",
+   "file": "spd__2025__seed15.npz",
+   "fingerprint": "3d56b3179935dff530bcba0aa5a72fcd5e4567bc5a53b4d63a57798d73eeff51",
+   "feature_sha256": "fcd8d24124e0d9987bd42c0557af27770dbd0c7fa314ddaa1ae7927f1328e0e3"
+  },
+  {
+   "arm": "spd",
+   "season": 2026,
+   "seed": 0,
+   "folder": "study",
+   "file": "spd__2026__seed0.npz",
+   "fingerprint": "9af5842456d9caf220df491d03e102a55d540313be23e4c754d86327bb515b4b",
+   "feature_sha256": "fcd8d24124e0d9987bd42c0557af27770dbd0c7fa314ddaa1ae7927f1328e0e3"
+  },
+  {
+   "arm": "spd",
+   "season": 2026,
+   "seed": 1,
+   "folder": "study",
+   "file": "spd__2026__seed1.npz",
+   "fingerprint": "9af5842456d9caf220df491d03e102a55d540313be23e4c754d86327bb515b4b",
+   "feature_sha256": "fcd8d24124e0d9987bd42c0557af27770dbd0c7fa314ddaa1ae7927f1328e0e3"
+  },
+  {
+   "arm": "spd",
+   "season": 2026,
+   "seed": 2,
+   "folder": "study",
+   "file": "spd__2026__seed2.npz",
+   "fingerprint": "9af5842456d9caf220df491d03e102a55d540313be23e4c754d86327bb515b4b",
+   "feature_sha256": "fcd8d24124e0d9987bd42c0557af27770dbd0c7fa314ddaa1ae7927f1328e0e3"
+  },
+  {
+   "arm": "spd",
+   "season": 2026,
+   "seed": 3,
+   "folder": "study",
+   "file": "spd__2026__seed3.npz",
+   "fingerprint": "9af5842456d9caf220df491d03e102a55d540313be23e4c754d86327bb515b4b",
+   "feature_sha256": "fcd8d24124e0d9987bd42c0557af27770dbd0c7fa314ddaa1ae7927f1328e0e3"
+  },
+  {
+   "arm": "spd",
+   "season": 2026,
+   "seed": 4,
+   "folder": "study",
+   "file": "spd__2026__seed4.npz",
+   "fingerprint": "9af5842456d9caf220df491d03e102a55d540313be23e4c754d86327bb515b4b",
+   "feature_sha256": "fcd8d24124e0d9987bd42c0557af27770dbd0c7fa314ddaa1ae7927f1328e0e3"
+  },
+  {
+   "arm": "spd",
+   "season": 2026,
+   "seed": 5,
+   "folder": "study",
+   "file": "spd__2026__seed5.npz",
+   "fingerprint": "9af5842456d9caf220df491d03e102a55d540313be23e4c754d86327bb515b4b",
+   "feature_sha256": "fcd8d24124e0d9987bd42c0557af27770dbd0c7fa314ddaa1ae7927f1328e0e3"
+  },
+  {
+   "arm": "spd",
+   "season": 2026,
+   "seed": 6,
+   "folder": "study",
+   "file": "spd__2026__seed6.npz",
+   "fingerprint": "9af5842456d9caf220df491d03e102a55d540313be23e4c754d86327bb515b4b",
+   "feature_sha256": "fcd8d24124e0d9987bd42c0557af27770dbd0c7fa314ddaa1ae7927f1328e0e3"
+  },
+  {
+   "arm": "spd",
+   "season": 2026,
+   "seed": 7,
+   "folder": "study",
+   "file": "spd__2026__seed7.npz",
+   "fingerprint": "9af5842456d9caf220df491d03e102a55d540313be23e4c754d86327bb515b4b",
+   "feature_sha256": "fcd8d24124e0d9987bd42c0557af27770dbd0c7fa314ddaa1ae7927f1328e0e3"
+  },
+  {
+   "arm": "spd",
+   "season": 2026,
+   "seed": 8,
+   "folder": "study",
+   "file": "spd__2026__seed8.npz",
+   "fingerprint": "9af5842456d9caf220df491d03e102a55d540313be23e4c754d86327bb515b4b",
+   "feature_sha256": "fcd8d24124e0d9987bd42c0557af27770dbd0c7fa314ddaa1ae7927f1328e0e3"
+  },
+  {
+   "arm": "spd",
+   "season": 2026,
+   "seed": 9,
+   "folder": "study",
+   "file": "spd__2026__seed9.npz",
+   "fingerprint": "9af5842456d9caf220df491d03e102a55d540313be23e4c754d86327bb515b4b",
+   "feature_sha256": "fcd8d24124e0d9987bd42c0557af27770dbd0c7fa314ddaa1ae7927f1328e0e3"
+  },
+  {
+   "arm": "spd",
+   "season": 2026,
+   "seed": 10,
+   "folder": "study",
+   "file": "spd__2026__seed10.npz",
+   "fingerprint": "9af5842456d9caf220df491d03e102a55d540313be23e4c754d86327bb515b4b",
+   "feature_sha256": "fcd8d24124e0d9987bd42c0557af27770dbd0c7fa314ddaa1ae7927f1328e0e3"
+  },
+  {
+   "arm": "spd",
+   "season": 2026,
+   "seed": 11,
+   "folder": "study",
+   "file": "spd__2026__seed11.npz",
+   "fingerprint": "9af5842456d9caf220df491d03e102a55d540313be23e4c754d86327bb515b4b",
+   "feature_sha256": "fcd8d24124e0d9987bd42c0557af27770dbd0c7fa314ddaa1ae7927f1328e0e3"
+  },
+  {
+   "arm": "spd",
+   "season": 2026,
+   "seed": 12,
+   "folder": "study",
+   "file": "spd__2026__seed12.npz",
+   "fingerprint": "9af5842456d9caf220df491d03e102a55d540313be23e4c754d86327bb515b4b",
+   "feature_sha256": "fcd8d24124e0d9987bd42c0557af27770dbd0c7fa314ddaa1ae7927f1328e0e3"
+  },
+  {
+   "arm": "spd",
+   "season": 2026,
+   "seed": 13,
+   "folder": "study",
+   "file": "spd__2026__seed13.npz",
+   "fingerprint": "9af5842456d9caf220df491d03e102a55d540313be23e4c754d86327bb515b4b",
+   "feature_sha256": "fcd8d24124e0d9987bd42c0557af27770dbd0c7fa314ddaa1ae7927f1328e0e3"
+  },
+  {
+   "arm": "spd",
+   "season": 2026,
+   "seed": 14,
+   "folder": "study",
+   "file": "spd__2026__seed14.npz",
+   "fingerprint": "9af5842456d9caf220df491d03e102a55d540313be23e4c754d86327bb515b4b",
+   "feature_sha256": "fcd8d24124e0d9987bd42c0557af27770dbd0c7fa314ddaa1ae7927f1328e0e3"
+  },
+  {
+   "arm": "spd",
+   "season": 2026,
+   "seed": 15,
+   "folder": "study",
+   "file": "spd__2026__seed15.npz",
+   "fingerprint": "9af5842456d9caf220df491d03e102a55d540313be23e4c754d86327bb515b4b",
+   "feature_sha256": "fcd8d24124e0d9987bd42c0557af27770dbd0c7fa314ddaa1ae7927f1328e0e3"
+  },
+  {
+   "arm": "spd",
+   "season": 2019,
+   "seed": 0,
+   "folder": "study",
+   "file": "spd__2019__seed0.npz",
+   "fingerprint": "203318b29de01c494f2f75b59b298751acd8b31ee3544e2f0aa3874f58ba20ea",
+   "feature_sha256": "fcd8d24124e0d9987bd42c0557af27770dbd0c7fa314ddaa1ae7927f1328e0e3"
+  },
+  {
+   "arm": "spd",
+   "season": 2019,
+   "seed": 1,
+   "folder": "study",
+   "file": "spd__2019__seed1.npz",
+   "fingerprint": "203318b29de01c494f2f75b59b298751acd8b31ee3544e2f0aa3874f58ba20ea",
+   "feature_sha256": "fcd8d24124e0d9987bd42c0557af27770dbd0c7fa314ddaa1ae7927f1328e0e3"
+  },
+  {
+   "arm": "spd",
+   "season": 2019,
+   "seed": 2,
+   "folder": "study",
+   "file": "spd__2019__seed2.npz",
+   "fingerprint": "203318b29de01c494f2f75b59b298751acd8b31ee3544e2f0aa3874f58ba20ea",
+   "feature_sha256": "fcd8d24124e0d9987bd42c0557af27770dbd0c7fa314ddaa1ae7927f1328e0e3"
+  },
+  {
+   "arm": "spd",
+   "season": 2019,
+   "seed": 3,
+   "folder": "study",
+   "file": "spd__2019__seed3.npz",
+   "fingerprint": "203318b29de01c494f2f75b59b298751acd8b31ee3544e2f0aa3874f58ba20ea",
+   "feature_sha256": "fcd8d24124e0d9987bd42c0557af27770dbd0c7fa314ddaa1ae7927f1328e0e3"
+  },
+  {
+   "arm": "spd",
+   "season": 2020,
+   "seed": 0,
+   "folder": "study",
+   "file": "spd__2020__seed0.npz",
+   "fingerprint": "35cc4d496691cfe0b4e005cd52d0a728d36fa187cfa9fcfe0c7b59cd23b3b816",
+   "feature_sha256": "fcd8d24124e0d9987bd42c0557af27770dbd0c7fa314ddaa1ae7927f1328e0e3"
+  },
+  {
+   "arm": "spd",
+   "season": 2020,
+   "seed": 1,
+   "folder": "study",
+   "file": "spd__2020__seed1.npz",
+   "fingerprint": "35cc4d496691cfe0b4e005cd52d0a728d36fa187cfa9fcfe0c7b59cd23b3b816",
+   "feature_sha256": "fcd8d24124e0d9987bd42c0557af27770dbd0c7fa314ddaa1ae7927f1328e0e3"
+  },
+  {
+   "arm": "spd",
+   "season": 2020,
+   "seed": 2,
+   "folder": "study",
+   "file": "spd__2020__seed2.npz",
+   "fingerprint": "35cc4d496691cfe0b4e005cd52d0a728d36fa187cfa9fcfe0c7b59cd23b3b816",
+   "feature_sha256": "fcd8d24124e0d9987bd42c0557af27770dbd0c7fa314ddaa1ae7927f1328e0e3"
+  },
+  {
+   "arm": "spd",
+   "season": 2020,
+   "seed": 3,
+   "folder": "study",
+   "file": "spd__2020__seed3.npz",
+   "fingerprint": "35cc4d496691cfe0b4e005cd52d0a728d36fa187cfa9fcfe0c7b59cd23b3b816",
+   "feature_sha256": "fcd8d24124e0d9987bd42c0557af27770dbd0c7fa314ddaa1ae7927f1328e0e3"
+  },
+  {
+   "arm": "spd",
+   "season": 2021,
+   "seed": 0,
+   "folder": "study",
+   "file": "spd__2021__seed0.npz",
+   "fingerprint": "367ac3a8470ec5b829471415606a8515b780808fa1e50a307e1e83bdca989ff7",
+   "feature_sha256": "fcd8d24124e0d9987bd42c0557af27770dbd0c7fa314ddaa1ae7927f1328e0e3"
+  },
+  {
+   "arm": "spd",
+   "season": 2021,
+   "seed": 1,
+   "folder": "study",
+   "file": "spd__2021__seed1.npz",
+   "fingerprint": "367ac3a8470ec5b829471415606a8515b780808fa1e50a307e1e83bdca989ff7",
+   "feature_sha256": "fcd8d24124e0d9987bd42c0557af27770dbd0c7fa314ddaa1ae7927f1328e0e3"
+  },
+  {
+   "arm": "spd",
+   "season": 2021,
+   "seed": 2,
+   "folder": "study",
+   "file": "spd__2021__seed2.npz",
+   "fingerprint": "367ac3a8470ec5b829471415606a8515b780808fa1e50a307e1e83bdca989ff7",
+   "feature_sha256": "fcd8d24124e0d9987bd42c0557af27770dbd0c7fa314ddaa1ae7927f1328e0e3"
+  },
+  {
+   "arm": "spd",
+   "season": 2021,
+   "seed": 3,
+   "folder": "study",
+   "file": "spd__2021__seed3.npz",
+   "fingerprint": "367ac3a8470ec5b829471415606a8515b780808fa1e50a307e1e83bdca989ff7",
+   "feature_sha256": "fcd8d24124e0d9987bd42c0557af27770dbd0c7fa314ddaa1ae7927f1328e0e3"
+  },
+  {
+   "arm": "spd",
+   "season": 2022,
+   "seed": 0,
+   "folder": "study",
+   "file": "spd__2022__seed0.npz",
+   "fingerprint": "c26eec2618fc26db0bc21a74c7295b55628d664d830683612f2fcfe5f1c4a548",
+   "feature_sha256": "fcd8d24124e0d9987bd42c0557af27770dbd0c7fa314ddaa1ae7927f1328e0e3"
+  },
+  {
+   "arm": "spd",
+   "season": 2022,
+   "seed": 1,
+   "folder": "study",
+   "file": "spd__2022__seed1.npz",
+   "fingerprint": "c26eec2618fc26db0bc21a74c7295b55628d664d830683612f2fcfe5f1c4a548",
+   "feature_sha256": "fcd8d24124e0d9987bd42c0557af27770dbd0c7fa314ddaa1ae7927f1328e0e3"
+  },
+  {
+   "arm": "spd",
+   "season": 2022,
+   "seed": 2,
+   "folder": "study",
+   "file": "spd__2022__seed2.npz",
+   "fingerprint": "c26eec2618fc26db0bc21a74c7295b55628d664d830683612f2fcfe5f1c4a548",
+   "feature_sha256": "fcd8d24124e0d9987bd42c0557af27770dbd0c7fa314ddaa1ae7927f1328e0e3"
+  },
+  {
+   "arm": "spd",
+   "season": 2022,
+   "seed": 3,
+   "folder": "study",
+   "file": "spd__2022__seed3.npz",
+   "fingerprint": "c26eec2618fc26db0bc21a74c7295b55628d664d830683612f2fcfe5f1c4a548",
+   "feature_sha256": "fcd8d24124e0d9987bd42c0557af27770dbd0c7fa314ddaa1ae7927f1328e0e3"
+  },
+  {
+   "arm": "spd",
+   "season": 2023,
+   "seed": 0,
+   "folder": "study",
+   "file": "spd__2023__seed0.npz",
+   "fingerprint": "e5a1b819089df36ce8cd5f084203687603a5037d7d2418d882064a17410921df",
+   "feature_sha256": "fcd8d24124e0d9987bd42c0557af27770dbd0c7fa314ddaa1ae7927f1328e0e3"
+  },
+  {
+   "arm": "spd",
+   "season": 2023,
+   "seed": 1,
+   "folder": "study",
+   "file": "spd__2023__seed1.npz",
+   "fingerprint": "e5a1b819089df36ce8cd5f084203687603a5037d7d2418d882064a17410921df",
+   "feature_sha256": "fcd8d24124e0d9987bd42c0557af27770dbd0c7fa314ddaa1ae7927f1328e0e3"
+  },
+  {
+   "arm": "spd",
+   "season": 2023,
+   "seed": 2,
+   "folder": "study",
+   "file": "spd__2023__seed2.npz",
+   "fingerprint": "e5a1b819089df36ce8cd5f084203687603a5037d7d2418d882064a17410921df",
+   "feature_sha256": "fcd8d24124e0d9987bd42c0557af27770dbd0c7fa314ddaa1ae7927f1328e0e3"
+  },
+  {
+   "arm": "spd",
+   "season": 2023,
+   "seed": 3,
+   "folder": "study",
+   "file": "spd__2023__seed3.npz",
+   "fingerprint": "e5a1b819089df36ce8cd5f084203687603a5037d7d2418d882064a17410921df",
+   "feature_sha256": "fcd8d24124e0d9987bd42c0557af27770dbd0c7fa314ddaa1ae7927f1328e0e3"
+  },
+  {
+   "arm": "spd_all",
+   "season": 2024,
+   "seed": 0,
+   "folder": "study",
+   "file": "spd_all__2024__seed0.npz",
+   "fingerprint": "6f3d7542a23ece5d0b92656ceb29836e5f52c0450ce056f652b5278b38d8fc00",
+   "feature_sha256": "fcd8d24124e0d9987bd42c0557af27770dbd0c7fa314ddaa1ae7927f1328e0e3"
+  },
+  {
+   "arm": "spd_all",
+   "season": 2024,
+   "seed": 1,
+   "folder": "study",
+   "file": "spd_all__2024__seed1.npz",
+   "fingerprint": "6f3d7542a23ece5d0b92656ceb29836e5f52c0450ce056f652b5278b38d8fc00",
+   "feature_sha256": "fcd8d24124e0d9987bd42c0557af27770dbd0c7fa314ddaa1ae7927f1328e0e3"
+  },
+  {
+   "arm": "spd_all",
+   "season": 2024,
+   "seed": 2,
+   "folder": "study",
+   "file": "spd_all__2024__seed2.npz",
+   "fingerprint": "6f3d7542a23ece5d0b92656ceb29836e5f52c0450ce056f652b5278b38d8fc00",
+   "feature_sha256": "fcd8d24124e0d9987bd42c0557af27770dbd0c7fa314ddaa1ae7927f1328e0e3"
+  },
+  {
+   "arm": "spd_all",
+   "season": 2024,
+   "seed": 3,
+   "folder": "study",
+   "file": "spd_all__2024__seed3.npz",
+   "fingerprint": "6f3d7542a23ece5d0b92656ceb29836e5f52c0450ce056f652b5278b38d8fc00",
+   "feature_sha256": "fcd8d24124e0d9987bd42c0557af27770dbd0c7fa314ddaa1ae7927f1328e0e3"
+  },
+  {
+   "arm": "spd_all",
+   "season": 2024,
+   "seed": 4,
+   "folder": "study",
+   "file": "spd_all__2024__seed4.npz",
+   "fingerprint": "6f3d7542a23ece5d0b92656ceb29836e5f52c0450ce056f652b5278b38d8fc00",
+   "feature_sha256": "fcd8d24124e0d9987bd42c0557af27770dbd0c7fa314ddaa1ae7927f1328e0e3"
+  },
+  {
+   "arm": "spd_all",
+   "season": 2024,
+   "seed": 5,
+   "folder": "study",
+   "file": "spd_all__2024__seed5.npz",
+   "fingerprint": "6f3d7542a23ece5d0b92656ceb29836e5f52c0450ce056f652b5278b38d8fc00",
+   "feature_sha256": "fcd8d24124e0d9987bd42c0557af27770dbd0c7fa314ddaa1ae7927f1328e0e3"
+  },
+  {
+   "arm": "spd_all",
+   "season": 2024,
+   "seed": 6,
+   "folder": "study",
+   "file": "spd_all__2024__seed6.npz",
+   "fingerprint": "6f3d7542a23ece5d0b92656ceb29836e5f52c0450ce056f652b5278b38d8fc00",
+   "feature_sha256": "fcd8d24124e0d9987bd42c0557af27770dbd0c7fa314ddaa1ae7927f1328e0e3"
+  },
+  {
+   "arm": "spd_all",
+   "season": 2024,
+   "seed": 7,
+   "folder": "study",
+   "file": "spd_all__2024__seed7.npz",
+   "fingerprint": "6f3d7542a23ece5d0b92656ceb29836e5f52c0450ce056f652b5278b38d8fc00",
+   "feature_sha256": "fcd8d24124e0d9987bd42c0557af27770dbd0c7fa314ddaa1ae7927f1328e0e3"
+  },
+  {
+   "arm": "spd_all",
+   "season": 2025,
+   "seed": 0,
+   "folder": "study",
+   "file": "spd_all__2025__seed0.npz",
+   "fingerprint": "8bf62632f6e504a4654758e1d87dd424727e69a1e6d8af858041a3d5770503b9",
+   "feature_sha256": "fcd8d24124e0d9987bd42c0557af27770dbd0c7fa314ddaa1ae7927f1328e0e3"
+  },
+  {
+   "arm": "spd_all",
+   "season": 2025,
+   "seed": 1,
+   "folder": "study",
+   "file": "spd_all__2025__seed1.npz",
+   "fingerprint": "8bf62632f6e504a4654758e1d87dd424727e69a1e6d8af858041a3d5770503b9",
+   "feature_sha256": "fcd8d24124e0d9987bd42c0557af27770dbd0c7fa314ddaa1ae7927f1328e0e3"
+  },
+  {
+   "arm": "spd_all",
+   "season": 2025,
+   "seed": 2,
+   "folder": "study",
+   "file": "spd_all__2025__seed2.npz",
+   "fingerprint": "8bf62632f6e504a4654758e1d87dd424727e69a1e6d8af858041a3d5770503b9",
+   "feature_sha256": "fcd8d24124e0d9987bd42c0557af27770dbd0c7fa314ddaa1ae7927f1328e0e3"
+  },
+  {
+   "arm": "spd_all",
+   "season": 2025,
+   "seed": 3,
+   "folder": "study",
+   "file": "spd_all__2025__seed3.npz",
+   "fingerprint": "8bf62632f6e504a4654758e1d87dd424727e69a1e6d8af858041a3d5770503b9",
+   "feature_sha256": "fcd8d24124e0d9987bd42c0557af27770dbd0c7fa314ddaa1ae7927f1328e0e3"
+  },
+  {
+   "arm": "spd_all",
+   "season": 2025,
+   "seed": 4,
+   "folder": "study",
+   "file": "spd_all__2025__seed4.npz",
+   "fingerprint": "8bf62632f6e504a4654758e1d87dd424727e69a1e6d8af858041a3d5770503b9",
+   "feature_sha256": "fcd8d24124e0d9987bd42c0557af27770dbd0c7fa314ddaa1ae7927f1328e0e3"
+  },
+  {
+   "arm": "spd_all",
+   "season": 2025,
+   "seed": 5,
+   "folder": "study",
+   "file": "spd_all__2025__seed5.npz",
+   "fingerprint": "8bf62632f6e504a4654758e1d87dd424727e69a1e6d8af858041a3d5770503b9",
+   "feature_sha256": "fcd8d24124e0d9987bd42c0557af27770dbd0c7fa314ddaa1ae7927f1328e0e3"
+  },
+  {
+   "arm": "spd_all",
+   "season": 2025,
+   "seed": 6,
+   "folder": "study",
+   "file": "spd_all__2025__seed6.npz",
+   "fingerprint": "8bf62632f6e504a4654758e1d87dd424727e69a1e6d8af858041a3d5770503b9",
+   "feature_sha256": "fcd8d24124e0d9987bd42c0557af27770dbd0c7fa314ddaa1ae7927f1328e0e3"
+  },
+  {
+   "arm": "spd_all",
+   "season": 2025,
+   "seed": 7,
+   "folder": "study",
+   "file": "spd_all__2025__seed7.npz",
+   "fingerprint": "8bf62632f6e504a4654758e1d87dd424727e69a1e6d8af858041a3d5770503b9",
+   "feature_sha256": "fcd8d24124e0d9987bd42c0557af27770dbd0c7fa314ddaa1ae7927f1328e0e3"
+  },
+  {
+   "arm": "spd_all",
+   "season": 2026,
+   "seed": 0,
+   "folder": "study",
+   "file": "spd_all__2026__seed0.npz",
+   "fingerprint": "48a70bb6adeea4d9a92911f663c97834100ab313d66d39f5471ca2a59ab7d45c",
+   "feature_sha256": "fcd8d24124e0d9987bd42c0557af27770dbd0c7fa314ddaa1ae7927f1328e0e3"
+  },
+  {
+   "arm": "spd_all",
+   "season": 2026,
+   "seed": 1,
+   "folder": "study",
+   "file": "spd_all__2026__seed1.npz",
+   "fingerprint": "48a70bb6adeea4d9a92911f663c97834100ab313d66d39f5471ca2a59ab7d45c",
+   "feature_sha256": "fcd8d24124e0d9987bd42c0557af27770dbd0c7fa314ddaa1ae7927f1328e0e3"
+  },
+  {
+   "arm": "spd_all",
+   "season": 2026,
+   "seed": 2,
+   "folder": "study",
+   "file": "spd_all__2026__seed2.npz",
+   "fingerprint": "48a70bb6adeea4d9a92911f663c97834100ab313d66d39f5471ca2a59ab7d45c",
+   "feature_sha256": "fcd8d24124e0d9987bd42c0557af27770dbd0c7fa314ddaa1ae7927f1328e0e3"
+  },
+  {
+   "arm": "spd_all",
+   "season": 2026,
+   "seed": 3,
+   "folder": "study",
+   "file": "spd_all__2026__seed3.npz",
+   "fingerprint": "48a70bb6adeea4d9a92911f663c97834100ab313d66d39f5471ca2a59ab7d45c",
+   "feature_sha256": "fcd8d24124e0d9987bd42c0557af27770dbd0c7fa314ddaa1ae7927f1328e0e3"
+  },
+  {
+   "arm": "spd_all",
+   "season": 2026,
+   "seed": 4,
+   "folder": "study",
+   "file": "spd_all__2026__seed4.npz",
+   "fingerprint": "48a70bb6adeea4d9a92911f663c97834100ab313d66d39f5471ca2a59ab7d45c",
+   "feature_sha256": "fcd8d24124e0d9987bd42c0557af27770dbd0c7fa314ddaa1ae7927f1328e0e3"
+  },
+  {
+   "arm": "spd_all",
+   "season": 2026,
+   "seed": 5,
+   "folder": "study",
+   "file": "spd_all__2026__seed5.npz",
+   "fingerprint": "48a70bb6adeea4d9a92911f663c97834100ab313d66d39f5471ca2a59ab7d45c",
+   "feature_sha256": "fcd8d24124e0d9987bd42c0557af27770dbd0c7fa314ddaa1ae7927f1328e0e3"
+  },
+  {
+   "arm": "spd_all",
+   "season": 2026,
+   "seed": 6,
+   "folder": "study",
+   "file": "spd_all__2026__seed6.npz",
+   "fingerprint": "48a70bb6adeea4d9a92911f663c97834100ab313d66d39f5471ca2a59ab7d45c",
+   "feature_sha256": "fcd8d24124e0d9987bd42c0557af27770dbd0c7fa314ddaa1ae7927f1328e0e3"
+  },
+  {
+   "arm": "spd_all",
+   "season": 2026,
+   "seed": 7,
+   "folder": "study",
+   "file": "spd_all__2026__seed7.npz",
+   "fingerprint": "48a70bb6adeea4d9a92911f663c97834100ab313d66d39f5471ca2a59ab7d45c",
+   "feature_sha256": "fcd8d24124e0d9987bd42c0557af27770dbd0c7fa314ddaa1ae7927f1328e0e3"
+  },
+  {
+   "arm": "spd_all",
+   "season": 2019,
+   "seed": 0,
+   "folder": "study",
+   "file": "spd_all__2019__seed0.npz",
+   "fingerprint": "54ba1967d6af25c062dbf003e3f3ff1e11735e983ed2dd1ad8518a3b18d44455",
+   "feature_sha256": "fcd8d24124e0d9987bd42c0557af27770dbd0c7fa314ddaa1ae7927f1328e0e3"
+  },
+  {
+   "arm": "spd_all",
+   "season": 2019,
+   "seed": 1,
+   "folder": "study",
+   "file": "spd_all__2019__seed1.npz",
+   "fingerprint": "54ba1967d6af25c062dbf003e3f3ff1e11735e983ed2dd1ad8518a3b18d44455",
+   "feature_sha256": "fcd8d24124e0d9987bd42c0557af27770dbd0c7fa314ddaa1ae7927f1328e0e3"
+  },
+  {
+   "arm": "spd_all",
+   "season": 2019,
+   "seed": 2,
+   "folder": "study",
+   "file": "spd_all__2019__seed2.npz",
+   "fingerprint": "54ba1967d6af25c062dbf003e3f3ff1e11735e983ed2dd1ad8518a3b18d44455",
+   "feature_sha256": "fcd8d24124e0d9987bd42c0557af27770dbd0c7fa314ddaa1ae7927f1328e0e3"
+  },
+  {
+   "arm": "spd_all",
+   "season": 2019,
+   "seed": 3,
+   "folder": "study",
+   "file": "spd_all__2019__seed3.npz",
+   "fingerprint": "54ba1967d6af25c062dbf003e3f3ff1e11735e983ed2dd1ad8518a3b18d44455",
+   "feature_sha256": "fcd8d24124e0d9987bd42c0557af27770dbd0c7fa314ddaa1ae7927f1328e0e3"
+  },
+  {
+   "arm": "spd_all",
+   "season": 2020,
+   "seed": 0,
+   "folder": "study",
+   "file": "spd_all__2020__seed0.npz",
+   "fingerprint": "db27262782fa9dec0ca88adf124c09431412af13dac00ddbb869c9579e943046",
+   "feature_sha256": "fcd8d24124e0d9987bd42c0557af27770dbd0c7fa314ddaa1ae7927f1328e0e3"
+  },
+  {
+   "arm": "spd_all",
+   "season": 2020,
+   "seed": 1,
+   "folder": "study",
+   "file": "spd_all__2020__seed1.npz",
+   "fingerprint": "db27262782fa9dec0ca88adf124c09431412af13dac00ddbb869c9579e943046",
+   "feature_sha256": "fcd8d24124e0d9987bd42c0557af27770dbd0c7fa314ddaa1ae7927f1328e0e3"
+  },
+  {
+   "arm": "spd_all",
+   "season": 2020,
+   "seed": 2,
+   "folder": "study",
+   "file": "spd_all__2020__seed2.npz",
+   "fingerprint": "db27262782fa9dec0ca88adf124c09431412af13dac00ddbb869c9579e943046",
+   "feature_sha256": "fcd8d24124e0d9987bd42c0557af27770dbd0c7fa314ddaa1ae7927f1328e0e3"
+  },
+  {
+   "arm": "spd_all",
+   "season": 2020,
+   "seed": 3,
+   "folder": "study",
+   "file": "spd_all__2020__seed3.npz",
+   "fingerprint": "db27262782fa9dec0ca88adf124c09431412af13dac00ddbb869c9579e943046",
+   "feature_sha256": "fcd8d24124e0d9987bd42c0557af27770dbd0c7fa314ddaa1ae7927f1328e0e3"
+  },
+  {
+   "arm": "spd_all",
+   "season": 2021,
+   "seed": 0,
+   "folder": "study",
+   "file": "spd_all__2021__seed0.npz",
+   "fingerprint": "ce08522c0efca912959ab5b3155fb175c867775b86a15ddfe82c580e5e0fa5df",
+   "feature_sha256": "fcd8d24124e0d9987bd42c0557af27770dbd0c7fa314ddaa1ae7927f1328e0e3"
+  },
+  {
+   "arm": "spd_all",
+   "season": 2021,
+   "seed": 1,
+   "folder": "study",
+   "file": "spd_all__2021__seed1.npz",
+   "fingerprint": "ce08522c0efca912959ab5b3155fb175c867775b86a15ddfe82c580e5e0fa5df",
+   "feature_sha256": "fcd8d24124e0d9987bd42c0557af27770dbd0c7fa314ddaa1ae7927f1328e0e3"
+  },
+  {
+   "arm": "spd_all",
+   "season": 2021,
+   "seed": 2,
+   "folder": "study",
+   "file": "spd_all__2021__seed2.npz",
+   "fingerprint": "ce08522c0efca912959ab5b3155fb175c867775b86a15ddfe82c580e5e0fa5df",
+   "feature_sha256": "fcd8d24124e0d9987bd42c0557af27770dbd0c7fa314ddaa1ae7927f1328e0e3"
+  },
+  {
+   "arm": "spd_all",
+   "season": 2021,
+   "seed": 3,
+   "folder": "study",
+   "file": "spd_all__2021__seed3.npz",
+   "fingerprint": "ce08522c0efca912959ab5b3155fb175c867775b86a15ddfe82c580e5e0fa5df",
+   "feature_sha256": "fcd8d24124e0d9987bd42c0557af27770dbd0c7fa314ddaa1ae7927f1328e0e3"
+  },
+  {
+   "arm": "spd_all",
+   "season": 2022,
+   "seed": 0,
+   "folder": "study",
+   "file": "spd_all__2022__seed0.npz",
+   "fingerprint": "d79b3c1c194b934a4b8d06a2553b501603ad65907138c101ddfdce882661f4ec",
+   "feature_sha256": "fcd8d24124e0d9987bd42c0557af27770dbd0c7fa314ddaa1ae7927f1328e0e3"
+  },
+  {
+   "arm": "spd_all",
+   "season": 2022,
+   "seed": 1,
+   "folder": "study",
+   "file": "spd_all__2022__seed1.npz",
+   "fingerprint": "d79b3c1c194b934a4b8d06a2553b501603ad65907138c101ddfdce882661f4ec",
+   "feature_sha256": "fcd8d24124e0d9987bd42c0557af27770dbd0c7fa314ddaa1ae7927f1328e0e3"
+  },
+  {
+   "arm": "spd_all",
+   "season": 2022,
+   "seed": 2,
+   "folder": "study",
+   "file": "spd_all__2022__seed2.npz",
+   "fingerprint": "d79b3c1c194b934a4b8d06a2553b501603ad65907138c101ddfdce882661f4ec",
+   "feature_sha256": "fcd8d24124e0d9987bd42c0557af27770dbd0c7fa314ddaa1ae7927f1328e0e3"
+  },
+  {
+   "arm": "spd_all",
+   "season": 2022,
+   "seed": 3,
+   "folder": "study",
+   "file": "spd_all__2022__seed3.npz",
+   "fingerprint": "d79b3c1c194b934a4b8d06a2553b501603ad65907138c101ddfdce882661f4ec",
+   "feature_sha256": "fcd8d24124e0d9987bd42c0557af27770dbd0c7fa314ddaa1ae7927f1328e0e3"
+  },
+  {
+   "arm": "spd_all",
+   "season": 2023,
+   "seed": 0,
+   "folder": "study",
+   "file": "spd_all__2023__seed0.npz",
+   "fingerprint": "4132c22ff3cd0949fcbcbe63b12321578b6f0d52997f8f34392fe2d680537fcd",
+   "feature_sha256": "fcd8d24124e0d9987bd42c0557af27770dbd0c7fa314ddaa1ae7927f1328e0e3"
+  },
+  {
+   "arm": "spd_all",
+   "season": 2023,
+   "seed": 1,
+   "folder": "study",
+   "file": "spd_all__2023__seed1.npz",
+   "fingerprint": "4132c22ff3cd0949fcbcbe63b12321578b6f0d52997f8f34392fe2d680537fcd",
+   "feature_sha256": "fcd8d24124e0d9987bd42c0557af27770dbd0c7fa314ddaa1ae7927f1328e0e3"
+  },
+  {
+   "arm": "spd_all",
+   "season": 2023,
+   "seed": 2,
+   "folder": "study",
+   "file": "spd_all__2023__seed2.npz",
+   "fingerprint": "4132c22ff3cd0949fcbcbe63b12321578b6f0d52997f8f34392fe2d680537fcd",
+   "feature_sha256": "fcd8d24124e0d9987bd42c0557af27770dbd0c7fa314ddaa1ae7927f1328e0e3"
+  },
+  {
+   "arm": "spd_all",
+   "season": 2023,
+   "seed": 3,
+   "folder": "study",
+   "file": "spd_all__2023__seed3.npz",
+   "fingerprint": "4132c22ff3cd0949fcbcbe63b12321578b6f0d52997f8f34392fe2d680537fcd",
+   "feature_sha256": "fcd8d24124e0d9987bd42c0557af27770dbd0c7fa314ddaa1ae7927f1328e0e3"
+  },
+  {
+   "arm": "model_noodds",
+   "season": 2024,
+   "seed": 0,
+   "folder": "race",
+   "file": "model_noodds__2024__seed0.npz",
+   "fingerprint": null,
+   "feature_sha256": null
+  },
+  {
+   "arm": "model_noodds",
+   "season": 2024,
+   "seed": 1,
+   "folder": "race",
+   "file": "model_noodds__2024__seed1.npz",
+   "fingerprint": null,
+   "feature_sha256": null
+  },
+  {
+   "arm": "model_noodds",
+   "season": 2024,
+   "seed": 2,
+   "folder": "race",
+   "file": "model_noodds__2024__seed2.npz",
+   "fingerprint": null,
+   "feature_sha256": null
+  },
+  {
+   "arm": "model_noodds",
+   "season": 2024,
+   "seed": 3,
+   "folder": "study",
+   "file": "model_noodds__2024__seed3.npz",
+   "fingerprint": "ba48fe4241797f42fd26c94eeb5a20347408fa3f0cbebf36343e1a1a9af65300",
+   "feature_sha256": null
+  },
+  {
+   "arm": "model_noodds",
+   "season": 2024,
+   "seed": 4,
+   "folder": "study",
+   "file": "model_noodds__2024__seed4.npz",
+   "fingerprint": "ba48fe4241797f42fd26c94eeb5a20347408fa3f0cbebf36343e1a1a9af65300",
+   "feature_sha256": null
+  },
+  {
+   "arm": "model_noodds",
+   "season": 2024,
+   "seed": 5,
+   "folder": "study",
+   "file": "model_noodds__2024__seed5.npz",
+   "fingerprint": "ba48fe4241797f42fd26c94eeb5a20347408fa3f0cbebf36343e1a1a9af65300",
+   "feature_sha256": null
+  },
+  {
+   "arm": "model_noodds",
+   "season": 2024,
+   "seed": 6,
+   "folder": "study",
+   "file": "model_noodds__2024__seed6.npz",
+   "fingerprint": "ba48fe4241797f42fd26c94eeb5a20347408fa3f0cbebf36343e1a1a9af65300",
+   "feature_sha256": null
+  },
+  {
+   "arm": "model_noodds",
+   "season": 2024,
+   "seed": 7,
+   "folder": "study",
+   "file": "model_noodds__2024__seed7.npz",
+   "fingerprint": "ba48fe4241797f42fd26c94eeb5a20347408fa3f0cbebf36343e1a1a9af65300",
+   "feature_sha256": null
+  },
+  {
+   "arm": "model_noodds",
+   "season": 2025,
+   "seed": 0,
+   "folder": "race",
+   "file": "model_noodds__2025__seed0.npz",
+   "fingerprint": null,
+   "feature_sha256": null
+  },
+  {
+   "arm": "model_noodds",
+   "season": 2025,
+   "seed": 1,
+   "folder": "race",
+   "file": "model_noodds__2025__seed1.npz",
+   "fingerprint": null,
+   "feature_sha256": null
+  },
+  {
+   "arm": "model_noodds",
+   "season": 2025,
+   "seed": 2,
+   "folder": "race",
+   "file": "model_noodds__2025__seed2.npz",
+   "fingerprint": null,
+   "feature_sha256": null
+  },
+  {
+   "arm": "model_noodds",
+   "season": 2025,
+   "seed": 3,
+   "folder": "study",
+   "file": "model_noodds__2025__seed3.npz",
+   "fingerprint": "1c6747f3574afd0c71f9e56bd17cc1918293377aff218b682ec662e29cc00def",
+   "feature_sha256": null
+  },
+  {
+   "arm": "model_noodds",
+   "season": 2025,
+   "seed": 4,
+   "folder": "study",
+   "file": "model_noodds__2025__seed4.npz",
+   "fingerprint": "1c6747f3574afd0c71f9e56bd17cc1918293377aff218b682ec662e29cc00def",
+   "feature_sha256": null
+  },
+  {
+   "arm": "model_noodds",
+   "season": 2025,
+   "seed": 5,
+   "folder": "study",
+   "file": "model_noodds__2025__seed5.npz",
+   "fingerprint": "1c6747f3574afd0c71f9e56bd17cc1918293377aff218b682ec662e29cc00def",
+   "feature_sha256": null
+  },
+  {
+   "arm": "model_noodds",
+   "season": 2025,
+   "seed": 6,
+   "folder": "study",
+   "file": "model_noodds__2025__seed6.npz",
+   "fingerprint": "1c6747f3574afd0c71f9e56bd17cc1918293377aff218b682ec662e29cc00def",
+   "feature_sha256": null
+  },
+  {
+   "arm": "model_noodds",
+   "season": 2025,
+   "seed": 7,
+   "folder": "study",
+   "file": "model_noodds__2025__seed7.npz",
+   "fingerprint": "1c6747f3574afd0c71f9e56bd17cc1918293377aff218b682ec662e29cc00def",
+   "feature_sha256": null
+  },
+  {
+   "arm": "model_noodds",
+   "season": 2026,
+   "seed": 0,
+   "folder": "race",
+   "file": "model_noodds__2026__seed0.npz",
+   "fingerprint": null,
+   "feature_sha256": null
+  },
+  {
+   "arm": "model_noodds",
+   "season": 2026,
+   "seed": 1,
+   "folder": "race",
+   "file": "model_noodds__2026__seed1.npz",
+   "fingerprint": null,
+   "feature_sha256": null
+  },
+  {
+   "arm": "model_noodds",
+   "season": 2026,
+   "seed": 2,
+   "folder": "race",
+   "file": "model_noodds__2026__seed2.npz",
+   "fingerprint": null,
+   "feature_sha256": null
+  },
+  {
+   "arm": "model_noodds",
+   "season": 2026,
+   "seed": 3,
+   "folder": "study",
+   "file": "model_noodds__2026__seed3.npz",
+   "fingerprint": "6c7586ac36aafc92b5da7b724a5fa7dcbb3829566105d9e8f4b62e8c2e85ec12",
+   "feature_sha256": null
+  },
+  {
+   "arm": "model_noodds",
+   "season": 2026,
+   "seed": 4,
+   "folder": "study",
+   "file": "model_noodds__2026__seed4.npz",
+   "fingerprint": "6c7586ac36aafc92b5da7b724a5fa7dcbb3829566105d9e8f4b62e8c2e85ec12",
+   "feature_sha256": null
+  },
+  {
+   "arm": "model_noodds",
+   "season": 2026,
+   "seed": 5,
+   "folder": "study",
+   "file": "model_noodds__2026__seed5.npz",
+   "fingerprint": "6c7586ac36aafc92b5da7b724a5fa7dcbb3829566105d9e8f4b62e8c2e85ec12",
+   "feature_sha256": null
+  },
+  {
+   "arm": "model_noodds",
+   "season": 2026,
+   "seed": 6,
+   "folder": "study",
+   "file": "model_noodds__2026__seed6.npz",
+   "fingerprint": "6c7586ac36aafc92b5da7b724a5fa7dcbb3829566105d9e8f4b62e8c2e85ec12",
+   "feature_sha256": null
+  },
+  {
+   "arm": "model_noodds",
+   "season": 2026,
+   "seed": 7,
+   "folder": "study",
+   "file": "model_noodds__2026__seed7.npz",
+   "fingerprint": "6c7586ac36aafc92b5da7b724a5fa7dcbb3829566105d9e8f4b62e8c2e85ec12",
+   "feature_sha256": null
+  },
+  {
+   "arm": "model_noodds",
+   "season": 2019,
+   "seed": 0,
+   "folder": "race",
+   "file": "model_noodds__2019__seed0.npz",
+   "fingerprint": null,
+   "feature_sha256": null
+  },
+  {
+   "arm": "model_noodds",
+   "season": 2019,
+   "seed": 1,
+   "folder": "race",
+   "file": "model_noodds__2019__seed1.npz",
+   "fingerprint": null,
+   "feature_sha256": null
+  },
+  {
+   "arm": "model_noodds",
+   "season": 2019,
+   "seed": 2,
+   "folder": "race",
+   "file": "model_noodds__2019__seed2.npz",
+   "fingerprint": null,
+   "feature_sha256": null
+  },
+  {
+   "arm": "model_noodds",
+   "season": 2019,
+   "seed": 3,
+   "folder": "study",
+   "file": "model_noodds__2019__seed3.npz",
+   "fingerprint": "1f0c87e693e12feb9a93b82a735c87eefceafb5d37d46a1abbd5f6376dc5a393",
+   "feature_sha256": null
+  },
+  {
+   "arm": "model_noodds",
+   "season": 2020,
+   "seed": 0,
+   "folder": "race",
+   "file": "model_noodds__2020__seed0.npz",
+   "fingerprint": null,
+   "feature_sha256": null
+  },
+  {
+   "arm": "model_noodds",
+   "season": 2020,
+   "seed": 1,
+   "folder": "race",
+   "file": "model_noodds__2020__seed1.npz",
+   "fingerprint": null,
+   "feature_sha256": null
+  },
+  {
+   "arm": "model_noodds",
+   "season": 2020,
+   "seed": 2,
+   "folder": "race",
+   "file": "model_noodds__2020__seed2.npz",
+   "fingerprint": null,
+   "feature_sha256": null
+  },
+  {
+   "arm": "model_noodds",
+   "season": 2020,
+   "seed": 3,
+   "folder": "study",
+   "file": "model_noodds__2020__seed3.npz",
+   "fingerprint": "b53f5966d88af75f44f35dd230e5d43a342210e0843eb5b82acf23bfbbd379af",
+   "feature_sha256": null
+  },
+  {
+   "arm": "model_noodds",
+   "season": 2021,
+   "seed": 0,
+   "folder": "race",
+   "file": "model_noodds__2021__seed0.npz",
+   "fingerprint": null,
+   "feature_sha256": null
+  },
+  {
+   "arm": "model_noodds",
+   "season": 2021,
+   "seed": 1,
+   "folder": "race",
+   "file": "model_noodds__2021__seed1.npz",
+   "fingerprint": null,
+   "feature_sha256": null
+  },
+  {
+   "arm": "model_noodds",
+   "season": 2021,
+   "seed": 2,
+   "folder": "race",
+   "file": "model_noodds__2021__seed2.npz",
+   "fingerprint": null,
+   "feature_sha256": null
+  },
+  {
+   "arm": "model_noodds",
+   "season": 2021,
+   "seed": 3,
+   "folder": "study",
+   "file": "model_noodds__2021__seed3.npz",
+   "fingerprint": "818a58fc9296ed304ff63910aead4b9a122431385d0ff7fe83e1bc2e4b53b0a9",
+   "feature_sha256": null
+  },
+  {
+   "arm": "model_noodds",
+   "season": 2022,
+   "seed": 0,
+   "folder": "race",
+   "file": "model_noodds__2022__seed0.npz",
+   "fingerprint": null,
+   "feature_sha256": null
+  },
+  {
+   "arm": "model_noodds",
+   "season": 2022,
+   "seed": 1,
+   "folder": "race",
+   "file": "model_noodds__2022__seed1.npz",
+   "fingerprint": null,
+   "feature_sha256": null
+  },
+  {
+   "arm": "model_noodds",
+   "season": 2022,
+   "seed": 2,
+   "folder": "race",
+   "file": "model_noodds__2022__seed2.npz",
+   "fingerprint": null,
+   "feature_sha256": null
+  },
+  {
+   "arm": "model_noodds",
+   "season": 2022,
+   "seed": 3,
+   "folder": "study",
+   "file": "model_noodds__2022__seed3.npz",
+   "fingerprint": "91f80d4923d5888e2ceb357386f975a288bde57518a2ace3b96ded76d6bf9738",
+   "feature_sha256": null
+  },
+  {
+   "arm": "model_noodds",
+   "season": 2023,
+   "seed": 0,
+   "folder": "race",
+   "file": "model_noodds__2023__seed0.npz",
+   "fingerprint": null,
+   "feature_sha256": null
+  },
+  {
+   "arm": "model_noodds",
+   "season": 2023,
+   "seed": 1,
+   "folder": "race",
+   "file": "model_noodds__2023__seed1.npz",
+   "fingerprint": null,
+   "feature_sha256": null
+  },
+  {
+   "arm": "model_noodds",
+   "season": 2023,
+   "seed": 2,
+   "folder": "race",
+   "file": "model_noodds__2023__seed2.npz",
+   "fingerprint": null,
+   "feature_sha256": null
+  },
+  {
+   "arm": "model_noodds",
+   "season": 2023,
+   "seed": 3,
+   "folder": "study",
+   "file": "model_noodds__2023__seed3.npz",
+   "fingerprint": "7c14d617727f3edf521ab36b4772ed03bc430293ecf1a6800ed71e7850bc53c6",
+   "feature_sha256": null
+  },
+  {
+   "arm": "spd_noodds",
+   "season": 2024,
+   "seed": 0,
+   "folder": "study",
+   "file": "spd_noodds__2024__seed0.npz",
+   "fingerprint": "af5f31a0fa100074041e1f304d7216058477bd17c0e3fe28c334d7f4750356ea",
+   "feature_sha256": "fcd8d24124e0d9987bd42c0557af27770dbd0c7fa314ddaa1ae7927f1328e0e3"
+  },
+  {
+   "arm": "spd_noodds",
+   "season": 2024,
+   "seed": 1,
+   "folder": "study",
+   "file": "spd_noodds__2024__seed1.npz",
+   "fingerprint": "af5f31a0fa100074041e1f304d7216058477bd17c0e3fe28c334d7f4750356ea",
+   "feature_sha256": "fcd8d24124e0d9987bd42c0557af27770dbd0c7fa314ddaa1ae7927f1328e0e3"
+  },
+  {
+   "arm": "spd_noodds",
+   "season": 2024,
+   "seed": 2,
+   "folder": "study",
+   "file": "spd_noodds__2024__seed2.npz",
+   "fingerprint": "af5f31a0fa100074041e1f304d7216058477bd17c0e3fe28c334d7f4750356ea",
+   "feature_sha256": "fcd8d24124e0d9987bd42c0557af27770dbd0c7fa314ddaa1ae7927f1328e0e3"
+  },
+  {
+   "arm": "spd_noodds",
+   "season": 2024,
+   "seed": 3,
+   "folder": "study",
+   "file": "spd_noodds__2024__seed3.npz",
+   "fingerprint": "af5f31a0fa100074041e1f304d7216058477bd17c0e3fe28c334d7f4750356ea",
+   "feature_sha256": "fcd8d24124e0d9987bd42c0557af27770dbd0c7fa314ddaa1ae7927f1328e0e3"
+  },
+  {
+   "arm": "spd_noodds",
+   "season": 2024,
+   "seed": 4,
+   "folder": "study",
+   "file": "spd_noodds__2024__seed4.npz",
+   "fingerprint": "af5f31a0fa100074041e1f304d7216058477bd17c0e3fe28c334d7f4750356ea",
+   "feature_sha256": "fcd8d24124e0d9987bd42c0557af27770dbd0c7fa314ddaa1ae7927f1328e0e3"
+  },
+  {
+   "arm": "spd_noodds",
+   "season": 2024,
+   "seed": 5,
+   "folder": "study",
+   "file": "spd_noodds__2024__seed5.npz",
+   "fingerprint": "af5f31a0fa100074041e1f304d7216058477bd17c0e3fe28c334d7f4750356ea",
+   "feature_sha256": "fcd8d24124e0d9987bd42c0557af27770dbd0c7fa314ddaa1ae7927f1328e0e3"
+  },
+  {
+   "arm": "spd_noodds",
+   "season": 2024,
+   "seed": 6,
+   "folder": "study",
+   "file": "spd_noodds__2024__seed6.npz",
+   "fingerprint": "af5f31a0fa100074041e1f304d7216058477bd17c0e3fe28c334d7f4750356ea",
+   "feature_sha256": "fcd8d24124e0d9987bd42c0557af27770dbd0c7fa314ddaa1ae7927f1328e0e3"
+  },
+  {
+   "arm": "spd_noodds",
+   "season": 2024,
+   "seed": 7,
+   "folder": "study",
+   "file": "spd_noodds__2024__seed7.npz",
+   "fingerprint": "af5f31a0fa100074041e1f304d7216058477bd17c0e3fe28c334d7f4750356ea",
+   "feature_sha256": "fcd8d24124e0d9987bd42c0557af27770dbd0c7fa314ddaa1ae7927f1328e0e3"
+  },
+  {
+   "arm": "spd_noodds",
+   "season": 2025,
+   "seed": 0,
+   "folder": "study",
+   "file": "spd_noodds__2025__seed0.npz",
+   "fingerprint": "e6d2055c2e367c841e0f14a40c7c2046a7ad264cf027106c115a1e3f5565d10b",
+   "feature_sha256": "fcd8d24124e0d9987bd42c0557af27770dbd0c7fa314ddaa1ae7927f1328e0e3"
+  },
+  {
+   "arm": "spd_noodds",
+   "season": 2025,
+   "seed": 1,
+   "folder": "study",
+   "file": "spd_noodds__2025__seed1.npz",
+   "fingerprint": "e6d2055c2e367c841e0f14a40c7c2046a7ad264cf027106c115a1e3f5565d10b",
+   "feature_sha256": "fcd8d24124e0d9987bd42c0557af27770dbd0c7fa314ddaa1ae7927f1328e0e3"
+  },
+  {
+   "arm": "spd_noodds",
+   "season": 2025,
+   "seed": 2,
+   "folder": "study",
+   "file": "spd_noodds__2025__seed2.npz",
+   "fingerprint": "e6d2055c2e367c841e0f14a40c7c2046a7ad264cf027106c115a1e3f5565d10b",
+   "feature_sha256": "fcd8d24124e0d9987bd42c0557af27770dbd0c7fa314ddaa1ae7927f1328e0e3"
+  },
+  {
+   "arm": "spd_noodds",
+   "season": 2025,
+   "seed": 3,
+   "folder": "study",
+   "file": "spd_noodds__2025__seed3.npz",
+   "fingerprint": "e6d2055c2e367c841e0f14a40c7c2046a7ad264cf027106c115a1e3f5565d10b",
+   "feature_sha256": "fcd8d24124e0d9987bd42c0557af27770dbd0c7fa314ddaa1ae7927f1328e0e3"
+  },
+  {
+   "arm": "spd_noodds",
+   "season": 2025,
+   "seed": 4,
+   "folder": "study",
+   "file": "spd_noodds__2025__seed4.npz",
+   "fingerprint": "e6d2055c2e367c841e0f14a40c7c2046a7ad264cf027106c115a1e3f5565d10b",
+   "feature_sha256": "fcd8d24124e0d9987bd42c0557af27770dbd0c7fa314ddaa1ae7927f1328e0e3"
+  },
+  {
+   "arm": "spd_noodds",
+   "season": 2025,
+   "seed": 5,
+   "folder": "study",
+   "file": "spd_noodds__2025__seed5.npz",
+   "fingerprint": "e6d2055c2e367c841e0f14a40c7c2046a7ad264cf027106c115a1e3f5565d10b",
+   "feature_sha256": "fcd8d24124e0d9987bd42c0557af27770dbd0c7fa314ddaa1ae7927f1328e0e3"
+  },
+  {
+   "arm": "spd_noodds",
+   "season": 2025,
+   "seed": 6,
+   "folder": "study",
+   "file": "spd_noodds__2025__seed6.npz",
+   "fingerprint": "e6d2055c2e367c841e0f14a40c7c2046a7ad264cf027106c115a1e3f5565d10b",
+   "feature_sha256": "fcd8d24124e0d9987bd42c0557af27770dbd0c7fa314ddaa1ae7927f1328e0e3"
+  },
+  {
+   "arm": "spd_noodds",
+   "season": 2025,
+   "seed": 7,
+   "folder": "study",
+   "file": "spd_noodds__2025__seed7.npz",
+   "fingerprint": "e6d2055c2e367c841e0f14a40c7c2046a7ad264cf027106c115a1e3f5565d10b",
+   "feature_sha256": "fcd8d24124e0d9987bd42c0557af27770dbd0c7fa314ddaa1ae7927f1328e0e3"
+  },
+  {
+   "arm": "spd_noodds",
+   "season": 2026,
+   "seed": 0,
+   "folder": "study",
+   "file": "spd_noodds__2026__seed0.npz",
+   "fingerprint": "99d3707933358900ef3e199c5c288db9296d034570db75b02b96355e77668b6b",
+   "feature_sha256": "fcd8d24124e0d9987bd42c0557af27770dbd0c7fa314ddaa1ae7927f1328e0e3"
+  },
+  {
+   "arm": "spd_noodds",
+   "season": 2026,
+   "seed": 1,
+   "folder": "study",
+   "file": "spd_noodds__2026__seed1.npz",
+   "fingerprint": "99d3707933358900ef3e199c5c288db9296d034570db75b02b96355e77668b6b",
+   "feature_sha256": "fcd8d24124e0d9987bd42c0557af27770dbd0c7fa314ddaa1ae7927f1328e0e3"
+  },
+  {
+   "arm": "spd_noodds",
+   "season": 2026,
+   "seed": 2,
+   "folder": "study",
+   "file": "spd_noodds__2026__seed2.npz",
+   "fingerprint": "99d3707933358900ef3e199c5c288db9296d034570db75b02b96355e77668b6b",
+   "feature_sha256": "fcd8d24124e0d9987bd42c0557af27770dbd0c7fa314ddaa1ae7927f1328e0e3"
+  },
+  {
+   "arm": "spd_noodds",
+   "season": 2026,
+   "seed": 3,
+   "folder": "study",
+   "file": "spd_noodds__2026__seed3.npz",
+   "fingerprint": "99d3707933358900ef3e199c5c288db9296d034570db75b02b96355e77668b6b",
+   "feature_sha256": "fcd8d24124e0d9987bd42c0557af27770dbd0c7fa314ddaa1ae7927f1328e0e3"
+  },
+  {
+   "arm": "spd_noodds",
+   "season": 2026,
+   "seed": 4,
+   "folder": "study",
+   "file": "spd_noodds__2026__seed4.npz",
+   "fingerprint": "99d3707933358900ef3e199c5c288db9296d034570db75b02b96355e77668b6b",
+   "feature_sha256": "fcd8d24124e0d9987bd42c0557af27770dbd0c7fa314ddaa1ae7927f1328e0e3"
+  },
+  {
+   "arm": "spd_noodds",
+   "season": 2026,
+   "seed": 5,
+   "folder": "study",
+   "file": "spd_noodds__2026__seed5.npz",
+   "fingerprint": "99d3707933358900ef3e199c5c288db9296d034570db75b02b96355e77668b6b",
+   "feature_sha256": "fcd8d24124e0d9987bd42c0557af27770dbd0c7fa314ddaa1ae7927f1328e0e3"
+  },
+  {
+   "arm": "spd_noodds",
+   "season": 2026,
+   "seed": 6,
+   "folder": "study",
+   "file": "spd_noodds__2026__seed6.npz",
+   "fingerprint": "99d3707933358900ef3e199c5c288db9296d034570db75b02b96355e77668b6b",
+   "feature_sha256": "fcd8d24124e0d9987bd42c0557af27770dbd0c7fa314ddaa1ae7927f1328e0e3"
+  },
+  {
+   "arm": "spd_noodds",
+   "season": 2026,
+   "seed": 7,
+   "folder": "study",
+   "file": "spd_noodds__2026__seed7.npz",
+   "fingerprint": "99d3707933358900ef3e199c5c288db9296d034570db75b02b96355e77668b6b",
+   "feature_sha256": "fcd8d24124e0d9987bd42c0557af27770dbd0c7fa314ddaa1ae7927f1328e0e3"
+  },
+  {
+   "arm": "spd_noodds",
+   "season": 2019,
+   "seed": 0,
+   "folder": "study",
+   "file": "spd_noodds__2019__seed0.npz",
+   "fingerprint": "bc67580c4de2a23609065ddb6d992ea831ad908ccda35338c34e1de0fcd4c31b",
+   "feature_sha256": "fcd8d24124e0d9987bd42c0557af27770dbd0c7fa314ddaa1ae7927f1328e0e3"
+  },
+  {
+   "arm": "spd_noodds",
+   "season": 2019,
+   "seed": 1,
+   "folder": "study",
+   "file": "spd_noodds__2019__seed1.npz",
+   "fingerprint": "bc67580c4de2a23609065ddb6d992ea831ad908ccda35338c34e1de0fcd4c31b",
+   "feature_sha256": "fcd8d24124e0d9987bd42c0557af27770dbd0c7fa314ddaa1ae7927f1328e0e3"
+  },
+  {
+   "arm": "spd_noodds",
+   "season": 2019,
+   "seed": 2,
+   "folder": "study",
+   "file": "spd_noodds__2019__seed2.npz",
+   "fingerprint": "bc67580c4de2a23609065ddb6d992ea831ad908ccda35338c34e1de0fcd4c31b",
+   "feature_sha256": "fcd8d24124e0d9987bd42c0557af27770dbd0c7fa314ddaa1ae7927f1328e0e3"
+  },
+  {
+   "arm": "spd_noodds",
+   "season": 2019,
+   "seed": 3,
+   "folder": "study",
+   "file": "spd_noodds__2019__seed3.npz",
+   "fingerprint": "bc67580c4de2a23609065ddb6d992ea831ad908ccda35338c34e1de0fcd4c31b",
+   "feature_sha256": "fcd8d24124e0d9987bd42c0557af27770dbd0c7fa314ddaa1ae7927f1328e0e3"
+  },
+  {
+   "arm": "spd_noodds",
+   "season": 2020,
+   "seed": 0,
+   "folder": "study",
+   "file": "spd_noodds__2020__seed0.npz",
+   "fingerprint": "76060fc01abcc7f41ef5fd58631cb2afeb05367318dabce38165f81c31259bf5",
+   "feature_sha256": "fcd8d24124e0d9987bd42c0557af27770dbd0c7fa314ddaa1ae7927f1328e0e3"
+  },
+  {
+   "arm": "spd_noodds",
+   "season": 2020,
+   "seed": 1,
+   "folder": "study",
+   "file": "spd_noodds__2020__seed1.npz",
+   "fingerprint": "76060fc01abcc7f41ef5fd58631cb2afeb05367318dabce38165f81c31259bf5",
+   "feature_sha256": "fcd8d24124e0d9987bd42c0557af27770dbd0c7fa314ddaa1ae7927f1328e0e3"
+  },
+  {
+   "arm": "spd_noodds",
+   "season": 2020,
+   "seed": 2,
+   "folder": "study",
+   "file": "spd_noodds__2020__seed2.npz",
+   "fingerprint": "76060fc01abcc7f41ef5fd58631cb2afeb05367318dabce38165f81c31259bf5",
+   "feature_sha256": "fcd8d24124e0d9987bd42c0557af27770dbd0c7fa314ddaa1ae7927f1328e0e3"
+  },
+  {
+   "arm": "spd_noodds",
+   "season": 2020,
+   "seed": 3,
+   "folder": "study",
+   "file": "spd_noodds__2020__seed3.npz",
+   "fingerprint": "76060fc01abcc7f41ef5fd58631cb2afeb05367318dabce38165f81c31259bf5",
+   "feature_sha256": "fcd8d24124e0d9987bd42c0557af27770dbd0c7fa314ddaa1ae7927f1328e0e3"
+  },
+  {
+   "arm": "spd_noodds",
+   "season": 2021,
+   "seed": 0,
+   "folder": "study",
+   "file": "spd_noodds__2021__seed0.npz",
+   "fingerprint": "4b83354e4987f893195dcd041ed8461bd30bd29fdc0f67f1d94f293e8dc5e96a",
+   "feature_sha256": "fcd8d24124e0d9987bd42c0557af27770dbd0c7fa314ddaa1ae7927f1328e0e3"
+  },
+  {
+   "arm": "spd_noodds",
+   "season": 2021,
+   "seed": 1,
+   "folder": "study",
+   "file": "spd_noodds__2021__seed1.npz",
+   "fingerprint": "4b83354e4987f893195dcd041ed8461bd30bd29fdc0f67f1d94f293e8dc5e96a",
+   "feature_sha256": "fcd8d24124e0d9987bd42c0557af27770dbd0c7fa314ddaa1ae7927f1328e0e3"
+  },
+  {
+   "arm": "spd_noodds",
+   "season": 2021,
+   "seed": 2,
+   "folder": "study",
+   "file": "spd_noodds__2021__seed2.npz",
+   "fingerprint": "4b83354e4987f893195dcd041ed8461bd30bd29fdc0f67f1d94f293e8dc5e96a",
+   "feature_sha256": "fcd8d24124e0d9987bd42c0557af27770dbd0c7fa314ddaa1ae7927f1328e0e3"
+  },
+  {
+   "arm": "spd_noodds",
+   "season": 2021,
+   "seed": 3,
+   "folder": "study",
+   "file": "spd_noodds__2021__seed3.npz",
+   "fingerprint": "4b83354e4987f893195dcd041ed8461bd30bd29fdc0f67f1d94f293e8dc5e96a",
+   "feature_sha256": "fcd8d24124e0d9987bd42c0557af27770dbd0c7fa314ddaa1ae7927f1328e0e3"
+  },
+  {
+   "arm": "spd_noodds",
+   "season": 2022,
+   "seed": 0,
+   "folder": "study",
+   "file": "spd_noodds__2022__seed0.npz",
+   "fingerprint": "11d1ca3a92518e8112d4c55826e8fd8300da6ac5cbcd32c9d1d2628a4a4d7f9c",
+   "feature_sha256": "fcd8d24124e0d9987bd42c0557af27770dbd0c7fa314ddaa1ae7927f1328e0e3"
+  },
+  {
+   "arm": "spd_noodds",
+   "season": 2022,
+   "seed": 1,
+   "folder": "study",
+   "file": "spd_noodds__2022__seed1.npz",
+   "fingerprint": "11d1ca3a92518e8112d4c55826e8fd8300da6ac5cbcd32c9d1d2628a4a4d7f9c",
+   "feature_sha256": "fcd8d24124e0d9987bd42c0557af27770dbd0c7fa314ddaa1ae7927f1328e0e3"
+  },
+  {
+   "arm": "spd_noodds",
+   "season": 2022,
+   "seed": 2,
+   "folder": "study",
+   "file": "spd_noodds__2022__seed2.npz",
+   "fingerprint": "11d1ca3a92518e8112d4c55826e8fd8300da6ac5cbcd32c9d1d2628a4a4d7f9c",
+   "feature_sha256": "fcd8d24124e0d9987bd42c0557af27770dbd0c7fa314ddaa1ae7927f1328e0e3"
+  },
+  {
+   "arm": "spd_noodds",
+   "season": 2022,
+   "seed": 3,
+   "folder": "study",
+   "file": "spd_noodds__2022__seed3.npz",
+   "fingerprint": "11d1ca3a92518e8112d4c55826e8fd8300da6ac5cbcd32c9d1d2628a4a4d7f9c",
+   "feature_sha256": "fcd8d24124e0d9987bd42c0557af27770dbd0c7fa314ddaa1ae7927f1328e0e3"
+  },
+  {
+   "arm": "spd_noodds",
+   "season": 2023,
+   "seed": 0,
+   "folder": "study",
+   "file": "spd_noodds__2023__seed0.npz",
+   "fingerprint": "4a5a4726706de1317f09c44b52612b9516789ddd1e720e893f85dcb615dc224f",
+   "feature_sha256": "fcd8d24124e0d9987bd42c0557af27770dbd0c7fa314ddaa1ae7927f1328e0e3"
+  },
+  {
+   "arm": "spd_noodds",
+   "season": 2023,
+   "seed": 1,
+   "folder": "study",
+   "file": "spd_noodds__2023__seed1.npz",
+   "fingerprint": "4a5a4726706de1317f09c44b52612b9516789ddd1e720e893f85dcb615dc224f",
+   "feature_sha256": "fcd8d24124e0d9987bd42c0557af27770dbd0c7fa314ddaa1ae7927f1328e0e3"
+  },
+  {
+   "arm": "spd_noodds",
+   "season": 2023,
+   "seed": 2,
+   "folder": "study",
+   "file": "spd_noodds__2023__seed2.npz",
+   "fingerprint": "4a5a4726706de1317f09c44b52612b9516789ddd1e720e893f85dcb615dc224f",
+   "feature_sha256": "fcd8d24124e0d9987bd42c0557af27770dbd0c7fa314ddaa1ae7927f1328e0e3"
+  },
+  {
+   "arm": "spd_noodds",
+   "season": 2023,
+   "seed": 3,
+   "folder": "study",
+   "file": "spd_noodds__2023__seed3.npz",
+   "fingerprint": "4a5a4726706de1317f09c44b52612b9516789ddd1e720e893f85dcb615dc224f",
+   "feature_sha256": "fcd8d24124e0d9987bd42c0557af27770dbd0c7fa314ddaa1ae7927f1328e0e3"
+  },
+  {
+   "arm": "spd_raw",
+   "season": 2024,
+   "seed": 0,
+   "folder": "study",
+   "file": "spd_raw__2024__seed0.npz",
+   "fingerprint": "a5a2f04a71ba7a3104df7bd77c896a87e821eab432e5eea62c492d2a06a54884",
+   "feature_sha256": "fcd8d24124e0d9987bd42c0557af27770dbd0c7fa314ddaa1ae7927f1328e0e3"
+  },
+  {
+   "arm": "spd_raw",
+   "season": 2024,
+   "seed": 1,
+   "folder": "study",
+   "file": "spd_raw__2024__seed1.npz",
+   "fingerprint": "a5a2f04a71ba7a3104df7bd77c896a87e821eab432e5eea62c492d2a06a54884",
+   "feature_sha256": "fcd8d24124e0d9987bd42c0557af27770dbd0c7fa314ddaa1ae7927f1328e0e3"
+  },
+  {
+   "arm": "spd_raw",
+   "season": 2024,
+   "seed": 2,
+   "folder": "study",
+   "file": "spd_raw__2024__seed2.npz",
+   "fingerprint": "a5a2f04a71ba7a3104df7bd77c896a87e821eab432e5eea62c492d2a06a54884",
+   "feature_sha256": "fcd8d24124e0d9987bd42c0557af27770dbd0c7fa314ddaa1ae7927f1328e0e3"
+  },
+  {
+   "arm": "spd_raw",
+   "season": 2024,
+   "seed": 3,
+   "folder": "study",
+   "file": "spd_raw__2024__seed3.npz",
+   "fingerprint": "a5a2f04a71ba7a3104df7bd77c896a87e821eab432e5eea62c492d2a06a54884",
+   "feature_sha256": "fcd8d24124e0d9987bd42c0557af27770dbd0c7fa314ddaa1ae7927f1328e0e3"
+  },
+  {
+   "arm": "spd_raw",
+   "season": 2024,
+   "seed": 4,
+   "folder": "study",
+   "file": "spd_raw__2024__seed4.npz",
+   "fingerprint": "a5a2f04a71ba7a3104df7bd77c896a87e821eab432e5eea62c492d2a06a54884",
+   "feature_sha256": "fcd8d24124e0d9987bd42c0557af27770dbd0c7fa314ddaa1ae7927f1328e0e3"
+  },
+  {
+   "arm": "spd_raw",
+   "season": 2024,
+   "seed": 5,
+   "folder": "study",
+   "file": "spd_raw__2024__seed5.npz",
+   "fingerprint": "a5a2f04a71ba7a3104df7bd77c896a87e821eab432e5eea62c492d2a06a54884",
+   "feature_sha256": "fcd8d24124e0d9987bd42c0557af27770dbd0c7fa314ddaa1ae7927f1328e0e3"
+  },
+  {
+   "arm": "spd_raw",
+   "season": 2024,
+   "seed": 6,
+   "folder": "study",
+   "file": "spd_raw__2024__seed6.npz",
+   "fingerprint": "a5a2f04a71ba7a3104df7bd77c896a87e821eab432e5eea62c492d2a06a54884",
+   "feature_sha256": "fcd8d24124e0d9987bd42c0557af27770dbd0c7fa314ddaa1ae7927f1328e0e3"
+  },
+  {
+   "arm": "spd_raw",
+   "season": 2024,
+   "seed": 7,
+   "folder": "study",
+   "file": "spd_raw__2024__seed7.npz",
+   "fingerprint": "a5a2f04a71ba7a3104df7bd77c896a87e821eab432e5eea62c492d2a06a54884",
+   "feature_sha256": "fcd8d24124e0d9987bd42c0557af27770dbd0c7fa314ddaa1ae7927f1328e0e3"
+  },
+  {
+   "arm": "spd_raw",
+   "season": 2025,
+   "seed": 0,
+   "folder": "study",
+   "file": "spd_raw__2025__seed0.npz",
+   "fingerprint": "6794827995f525c4635c255b818e1dffad09196ccb709748b252e5e39b5d807f",
+   "feature_sha256": "fcd8d24124e0d9987bd42c0557af27770dbd0c7fa314ddaa1ae7927f1328e0e3"
+  },
+  {
+   "arm": "spd_raw",
+   "season": 2025,
+   "seed": 1,
+   "folder": "study",
+   "file": "spd_raw__2025__seed1.npz",
+   "fingerprint": "6794827995f525c4635c255b818e1dffad09196ccb709748b252e5e39b5d807f",
+   "feature_sha256": "fcd8d24124e0d9987bd42c0557af27770dbd0c7fa314ddaa1ae7927f1328e0e3"
+  },
+  {
+   "arm": "spd_raw",
+   "season": 2025,
+   "seed": 2,
+   "folder": "study",
+   "file": "spd_raw__2025__seed2.npz",
+   "fingerprint": "6794827995f525c4635c255b818e1dffad09196ccb709748b252e5e39b5d807f",
+   "feature_sha256": "fcd8d24124e0d9987bd42c0557af27770dbd0c7fa314ddaa1ae7927f1328e0e3"
+  },
+  {
+   "arm": "spd_raw",
+   "season": 2025,
+   "seed": 3,
+   "folder": "study",
+   "file": "spd_raw__2025__seed3.npz",
+   "fingerprint": "6794827995f525c4635c255b818e1dffad09196ccb709748b252e5e39b5d807f",
+   "feature_sha256": "fcd8d24124e0d9987bd42c0557af27770dbd0c7fa314ddaa1ae7927f1328e0e3"
+  },
+  {
+   "arm": "spd_raw",
+   "season": 2025,
+   "seed": 4,
+   "folder": "study",
+   "file": "spd_raw__2025__seed4.npz",
+   "fingerprint": "6794827995f525c4635c255b818e1dffad09196ccb709748b252e5e39b5d807f",
+   "feature_sha256": "fcd8d24124e0d9987bd42c0557af27770dbd0c7fa314ddaa1ae7927f1328e0e3"
+  },
+  {
+   "arm": "spd_raw",
+   "season": 2025,
+   "seed": 5,
+   "folder": "study",
+   "file": "spd_raw__2025__seed5.npz",
+   "fingerprint": "6794827995f525c4635c255b818e1dffad09196ccb709748b252e5e39b5d807f",
+   "feature_sha256": "fcd8d24124e0d9987bd42c0557af27770dbd0c7fa314ddaa1ae7927f1328e0e3"
+  },
+  {
+   "arm": "spd_raw",
+   "season": 2025,
+   "seed": 6,
+   "folder": "study",
+   "file": "spd_raw__2025__seed6.npz",
+   "fingerprint": "6794827995f525c4635c255b818e1dffad09196ccb709748b252e5e39b5d807f",
+   "feature_sha256": "fcd8d24124e0d9987bd42c0557af27770dbd0c7fa314ddaa1ae7927f1328e0e3"
+  },
+  {
+   "arm": "spd_raw",
+   "season": 2025,
+   "seed": 7,
+   "folder": "study",
+   "file": "spd_raw__2025__seed7.npz",
+   "fingerprint": "6794827995f525c4635c255b818e1dffad09196ccb709748b252e5e39b5d807f",
+   "feature_sha256": "fcd8d24124e0d9987bd42c0557af27770dbd0c7fa314ddaa1ae7927f1328e0e3"
+  },
+  {
+   "arm": "spd_raw",
+   "season": 2026,
+   "seed": 0,
+   "folder": "study",
+   "file": "spd_raw__2026__seed0.npz",
+   "fingerprint": "b916309483f14cf0cbcb27b578a304e964ca69db1d63cf108b6ce4a375cc12ea",
+   "feature_sha256": "fcd8d24124e0d9987bd42c0557af27770dbd0c7fa314ddaa1ae7927f1328e0e3"
+  },
+  {
+   "arm": "spd_raw",
+   "season": 2026,
+   "seed": 1,
+   "folder": "study",
+   "file": "spd_raw__2026__seed1.npz",
+   "fingerprint": "b916309483f14cf0cbcb27b578a304e964ca69db1d63cf108b6ce4a375cc12ea",
+   "feature_sha256": "fcd8d24124e0d9987bd42c0557af27770dbd0c7fa314ddaa1ae7927f1328e0e3"
+  },
+  {
+   "arm": "spd_raw",
+   "season": 2026,
+   "seed": 2,
+   "folder": "study",
+   "file": "spd_raw__2026__seed2.npz",
+   "fingerprint": "b916309483f14cf0cbcb27b578a304e964ca69db1d63cf108b6ce4a375cc12ea",
+   "feature_sha256": "fcd8d24124e0d9987bd42c0557af27770dbd0c7fa314ddaa1ae7927f1328e0e3"
+  },
+  {
+   "arm": "spd_raw",
+   "season": 2026,
+   "seed": 3,
+   "folder": "study",
+   "file": "spd_raw__2026__seed3.npz",
+   "fingerprint": "b916309483f14cf0cbcb27b578a304e964ca69db1d63cf108b6ce4a375cc12ea",
+   "feature_sha256": "fcd8d24124e0d9987bd42c0557af27770dbd0c7fa314ddaa1ae7927f1328e0e3"
+  },
+  {
+   "arm": "spd_raw",
+   "season": 2026,
+   "seed": 4,
+   "folder": "study",
+   "file": "spd_raw__2026__seed4.npz",
+   "fingerprint": "b916309483f14cf0cbcb27b578a304e964ca69db1d63cf108b6ce4a375cc12ea",
+   "feature_sha256": "fcd8d24124e0d9987bd42c0557af27770dbd0c7fa314ddaa1ae7927f1328e0e3"
+  },
+  {
+   "arm": "spd_raw",
+   "season": 2026,
+   "seed": 5,
+   "folder": "study",
+   "file": "spd_raw__2026__seed5.npz",
+   "fingerprint": "b916309483f14cf0cbcb27b578a304e964ca69db1d63cf108b6ce4a375cc12ea",
+   "feature_sha256": "fcd8d24124e0d9987bd42c0557af27770dbd0c7fa314ddaa1ae7927f1328e0e3"
+  },
+  {
+   "arm": "spd_raw",
+   "season": 2026,
+   "seed": 6,
+   "folder": "study",
+   "file": "spd_raw__2026__seed6.npz",
+   "fingerprint": "b916309483f14cf0cbcb27b578a304e964ca69db1d63cf108b6ce4a375cc12ea",
+   "feature_sha256": "fcd8d24124e0d9987bd42c0557af27770dbd0c7fa314ddaa1ae7927f1328e0e3"
+  },
+  {
+   "arm": "spd_raw",
+   "season": 2026,
+   "seed": 7,
+   "folder": "study",
+   "file": "spd_raw__2026__seed7.npz",
+   "fingerprint": "b916309483f14cf0cbcb27b578a304e964ca69db1d63cf108b6ce4a375cc12ea",
+   "feature_sha256": "fcd8d24124e0d9987bd42c0557af27770dbd0c7fa314ddaa1ae7927f1328e0e3"
+  },
+  {
+   "arm": "spd_raw",
+   "season": 2019,
+   "seed": 0,
+   "folder": "study",
+   "file": "spd_raw__2019__seed0.npz",
+   "fingerprint": "0a96525826abd27ea64b75e27dae3d0f290ce857721ecc761688dfaeba7251f6",
+   "feature_sha256": "fcd8d24124e0d9987bd42c0557af27770dbd0c7fa314ddaa1ae7927f1328e0e3"
+  },
+  {
+   "arm": "spd_raw",
+   "season": 2019,
+   "seed": 1,
+   "folder": "study",
+   "file": "spd_raw__2019__seed1.npz",
+   "fingerprint": "0a96525826abd27ea64b75e27dae3d0f290ce857721ecc761688dfaeba7251f6",
+   "feature_sha256": "fcd8d24124e0d9987bd42c0557af27770dbd0c7fa314ddaa1ae7927f1328e0e3"
+  },
+  {
+   "arm": "spd_raw",
+   "season": 2019,
+   "seed": 2,
+   "folder": "study",
+   "file": "spd_raw__2019__seed2.npz",
+   "fingerprint": "0a96525826abd27ea64b75e27dae3d0f290ce857721ecc761688dfaeba7251f6",
+   "feature_sha256": "fcd8d24124e0d9987bd42c0557af27770dbd0c7fa314ddaa1ae7927f1328e0e3"
+  },
+  {
+   "arm": "spd_raw",
+   "season": 2019,
+   "seed": 3,
+   "folder": "study",
+   "file": "spd_raw__2019__seed3.npz",
+   "fingerprint": "0a96525826abd27ea64b75e27dae3d0f290ce857721ecc761688dfaeba7251f6",
+   "feature_sha256": "fcd8d24124e0d9987bd42c0557af27770dbd0c7fa314ddaa1ae7927f1328e0e3"
+  },
+  {
+   "arm": "spd_raw",
+   "season": 2020,
+   "seed": 0,
+   "folder": "study",
+   "file": "spd_raw__2020__seed0.npz",
+   "fingerprint": "4bd63cbe94a3b87db86f6d06db945122c2d400182037ea215c2dbd68308851c5",
+   "feature_sha256": "fcd8d24124e0d9987bd42c0557af27770dbd0c7fa314ddaa1ae7927f1328e0e3"
+  },
+  {
+   "arm": "spd_raw",
+   "season": 2020,
+   "seed": 1,
+   "folder": "study",
+   "file": "spd_raw__2020__seed1.npz",
+   "fingerprint": "4bd63cbe94a3b87db86f6d06db945122c2d400182037ea215c2dbd68308851c5",
+   "feature_sha256": "fcd8d24124e0d9987bd42c0557af27770dbd0c7fa314ddaa1ae7927f1328e0e3"
+  },
+  {
+   "arm": "spd_raw",
+   "season": 2020,
+   "seed": 2,
+   "folder": "study",
+   "file": "spd_raw__2020__seed2.npz",
+   "fingerprint": "4bd63cbe94a3b87db86f6d06db945122c2d400182037ea215c2dbd68308851c5",
+   "feature_sha256": "fcd8d24124e0d9987bd42c0557af27770dbd0c7fa314ddaa1ae7927f1328e0e3"
+  },
+  {
+   "arm": "spd_raw",
+   "season": 2020,
+   "seed": 3,
+   "folder": "study",
+   "file": "spd_raw__2020__seed3.npz",
+   "fingerprint": "4bd63cbe94a3b87db86f6d06db945122c2d400182037ea215c2dbd68308851c5",
+   "feature_sha256": "fcd8d24124e0d9987bd42c0557af27770dbd0c7fa314ddaa1ae7927f1328e0e3"
+  },
+  {
+   "arm": "spd_raw",
+   "season": 2021,
+   "seed": 0,
+   "folder": "study",
+   "file": "spd_raw__2021__seed0.npz",
+   "fingerprint": "04d340777f8cdc6e981a3401b11b320e23fbcfa8e5c2a02317600113be3b1820",
+   "feature_sha256": "fcd8d24124e0d9987bd42c0557af27770dbd0c7fa314ddaa1ae7927f1328e0e3"
+  },
+  {
+   "arm": "spd_raw",
+   "season": 2021,
+   "seed": 1,
+   "folder": "study",
+   "file": "spd_raw__2021__seed1.npz",
+   "fingerprint": "04d340777f8cdc6e981a3401b11b320e23fbcfa8e5c2a02317600113be3b1820",
+   "feature_sha256": "fcd8d24124e0d9987bd42c0557af27770dbd0c7fa314ddaa1ae7927f1328e0e3"
+  },
+  {
+   "arm": "spd_raw",
+   "season": 2021,
+   "seed": 2,
+   "folder": "study",
+   "file": "spd_raw__2021__seed2.npz",
+   "fingerprint": "04d340777f8cdc6e981a3401b11b320e23fbcfa8e5c2a02317600113be3b1820",
+   "feature_sha256": "fcd8d24124e0d9987bd42c0557af27770dbd0c7fa314ddaa1ae7927f1328e0e3"
+  },
+  {
+   "arm": "spd_raw",
+   "season": 2021,
+   "seed": 3,
+   "folder": "study",
+   "file": "spd_raw__2021__seed3.npz",
+   "fingerprint": "04d340777f8cdc6e981a3401b11b320e23fbcfa8e5c2a02317600113be3b1820",
+   "feature_sha256": "fcd8d24124e0d9987bd42c0557af27770dbd0c7fa314ddaa1ae7927f1328e0e3"
+  },
+  {
+   "arm": "spd_raw",
+   "season": 2022,
+   "seed": 0,
+   "folder": "study",
+   "file": "spd_raw__2022__seed0.npz",
+   "fingerprint": "8f92b65d53f579e9233ea1e8354273959c602ac0628ddb73c98e91ba630fdc5b",
+   "feature_sha256": "fcd8d24124e0d9987bd42c0557af27770dbd0c7fa314ddaa1ae7927f1328e0e3"
+  },
+  {
+   "arm": "spd_raw",
+   "season": 2022,
+   "seed": 1,
+   "folder": "study",
+   "file": "spd_raw__2022__seed1.npz",
+   "fingerprint": "8f92b65d53f579e9233ea1e8354273959c602ac0628ddb73c98e91ba630fdc5b",
+   "feature_sha256": "fcd8d24124e0d9987bd42c0557af27770dbd0c7fa314ddaa1ae7927f1328e0e3"
+  },
+  {
+   "arm": "spd_raw",
+   "season": 2022,
+   "seed": 2,
+   "folder": "study",
+   "file": "spd_raw__2022__seed2.npz",
+   "fingerprint": "8f92b65d53f579e9233ea1e8354273959c602ac0628ddb73c98e91ba630fdc5b",
+   "feature_sha256": "fcd8d24124e0d9987bd42c0557af27770dbd0c7fa314ddaa1ae7927f1328e0e3"
+  },
+  {
+   "arm": "spd_raw",
+   "season": 2022,
+   "seed": 3,
+   "folder": "study",
+   "file": "spd_raw__2022__seed3.npz",
+   "fingerprint": "8f92b65d53f579e9233ea1e8354273959c602ac0628ddb73c98e91ba630fdc5b",
+   "feature_sha256": "fcd8d24124e0d9987bd42c0557af27770dbd0c7fa314ddaa1ae7927f1328e0e3"
+  },
+  {
+   "arm": "spd_raw",
+   "season": 2023,
+   "seed": 0,
+   "folder": "study",
+   "file": "spd_raw__2023__seed0.npz",
+   "fingerprint": "356d0e39a8bf0a2409563e17e3e0676d96b6449bae262aa9792f810e3fa03112",
+   "feature_sha256": "fcd8d24124e0d9987bd42c0557af27770dbd0c7fa314ddaa1ae7927f1328e0e3"
+  },
+  {
+   "arm": "spd_raw",
+   "season": 2023,
+   "seed": 1,
+   "folder": "study",
+   "file": "spd_raw__2023__seed1.npz",
+   "fingerprint": "356d0e39a8bf0a2409563e17e3e0676d96b6449bae262aa9792f810e3fa03112",
+   "feature_sha256": "fcd8d24124e0d9987bd42c0557af27770dbd0c7fa314ddaa1ae7927f1328e0e3"
+  },
+  {
+   "arm": "spd_raw",
+   "season": 2023,
+   "seed": 2,
+   "folder": "study",
+   "file": "spd_raw__2023__seed2.npz",
+   "fingerprint": "356d0e39a8bf0a2409563e17e3e0676d96b6449bae262aa9792f810e3fa03112",
+   "feature_sha256": "fcd8d24124e0d9987bd42c0557af27770dbd0c7fa314ddaa1ae7927f1328e0e3"
+  },
+  {
+   "arm": "spd_raw",
+   "season": 2023,
+   "seed": 3,
+   "folder": "study",
+   "file": "spd_raw__2023__seed3.npz",
+   "fingerprint": "356d0e39a8bf0a2409563e17e3e0676d96b6449bae262aa9792f810e3fa03112",
+   "feature_sha256": "fcd8d24124e0d9987bd42c0557af27770dbd0c7fa314ddaa1ae7927f1328e0e3"
+  }
+ ]
+}

@@ -1,0 +1,772 @@
+{
+ "inputs": {
+  "rally": [
+   "srv|srv_quick|off|w52",
+   "srv|srv_quick|adj|w52",
+   "srv|ret_inplay|def|w52",
+   "srv|net_rate|off|w52",
+   "srv|srv_quick|off|dec2",
+   "srv|srv_quick|adj|dec2",
+   "srv|ret_inplay|def|dec2",
+   "srv|net_rate|off|dec2",
+   "ret|ret_quick|off|w52",
+   "ret|ret_quick|adj|w52",
+   "ret|ret_inplay|off|w52",
+   "ret|ret_inplay|adj|w52",
+   "ret|deep_ret|off|w52",
+   "ret|srv_quick|def|w52",
+   "ret|ret_quick|off|dec2",
+   "ret|ret_quick|adj|dec2",
+   "ret|ret_inplay|off|dec2",
+   "ret|ret_inplay|adj|dec2",
+   "ret|deep_ret|off|dec2",
+   "ret|srv_quick|def|dec2",
+   "srv|rally5|off|w52",
+   "srv|rally9|off|w52",
+   "srv|winner_rate|off|w52",
+   "srv|error_rate|off|w52",
+   "srv|ue_share|off|w52",
+   "srv|w_ratio|off|w52",
+   "srv|net_won|off|w52",
+   "srv|rally5|off|dec2",
+   "srv|rally9|off|dec2",
+   "srv|winner_rate|off|dec2",
+   "srv|error_rate|off|dec2",
+   "srv|ue_share|off|dec2",
+   "srv|w_ratio|off|dec2",
+   "srv|net_won|off|dec2",
+   "ret|rally5|off|w52",
+   "ret|rally9|off|w52",
+   "ret|winner_rate|off|w52",
+   "ret|error_rate|off|w52",
+   "ret|ue_share|off|w52",
+   "ret|w_ratio|off|w52",
+   "ret|net_won|off|w52",
+   "ret|rally5|off|dec2",
+   "ret|rally9|off|dec2",
+   "ret|winner_rate|off|dec2",
+   "ret|error_rate|off|dec2",
+   "ret|ue_share|off|dec2",
+   "ret|w_ratio|off|dec2",
+   "ret|net_won|off|dec2"
+  ],
+  "serve": [
+   "srv|spd1|off|w52",
+   "srv|spd2|off|w52",
+   "srv|t_share|off|w52",
+   "srv|wide_share|off|w52",
+   "srv|spd1|off|dec2",
+   "srv|spd2|off|dec2",
+   "srv|t_share|off|dec2",
+   "srv|wide_share|off|dec2"
+  ]
+ },
+ "points": {
+  "atp|M4-M2|all": {
+   "label": "rally and serve inputs",
+   "gain_per_point_milli": -0.0021722638371097992,
+   "lo": -0.006769519940302192,
+   "hi": 0.002424992266082594,
+   "serve_points": 20951082
+  },
+  "atp|M4-M2|2019_26": {
+   "label": "rally and serve inputs",
+   "gain_per_point_milli": 0.00486595328222396,
+   "lo": -0.00032497445784267437,
+   "hi": 0.010056881022290593,
+   "serve_points": 13295580
+  },
+  "atp|M4-M2|2022_26": {
+   "label": "rally and serve inputs",
+   "gain_per_point_milli": 0.012151359946281063,
+   "lo": 0.006306106814825866,
+   "hi": 0.017996613077736257,
+   "serve_points": 9452911
+  },
+  "atp|M4r-M2|all": {
+   "label": "rally inputs only",
+   "gain_per_point_milli": -0.0062016113928747675,
+   "lo": -0.010310428012823898,
+   "hi": -0.0020927947729256374,
+   "serve_points": 20951082
+  },
+  "atp|M4r-M2|2019_26": {
+   "label": "rally inputs only",
+   "gain_per_point_milli": -0.002491710856181032,
+   "lo": -0.006616050039475895,
+   "hi": 0.001632628327113831,
+   "serve_points": 13295580
+  },
+  "atp|M4r-M2|2022_26": {
+   "label": "rally inputs only",
+   "gain_per_point_milli": 0.0047964074655424,
+   "lo": 0.0010340585732035042,
+   "hi": 0.008558756357881296,
+   "serve_points": 9452911
+  },
+  "atp|M4s-M2|all": {
+   "label": "serve inputs only",
+   "gain_per_point_milli": 0.005047916417521648,
+   "lo": 0.002015814311287155,
+   "hi": 0.00808001852375614,
+   "serve_points": 20951082
+  },
+  "atp|M4s-M2|2019_26": {
+   "label": "serve inputs only",
+   "gain_per_point_milli": 0.008452521442361307,
+   "lo": 0.004500609834388672,
+   "hi": 0.012404433050333941,
+   "serve_points": 13295580
+  },
+  "atp|M4s-M2|2022_26": {
+   "label": "serve inputs only",
+   "gain_per_point_milli": 0.010092069840470485,
+   "lo": 0.004844266977470953,
+   "hi": 0.015339872703470016,
+   "serve_points": 9452911
+  },
+  "wta|M4-M2|all": {
+   "label": "rally and serve inputs",
+   "gain_per_point_milli": -0.008711756325312797,
+   "lo": -0.018899859152730524,
+   "hi": 0.001476346502104928,
+   "serve_points": 7374556
+  },
+  "wta|M4-M2|2019_26": {
+   "label": "rally and serve inputs",
+   "gain_per_point_milli": -0.005166163981231014,
+   "lo": -0.016448193839497496,
+   "hi": 0.006115865877035468,
+   "serve_points": 4850894
+  },
+  "wta|M4-M2|2022_26": {
+   "label": "rally and serve inputs",
+   "gain_per_point_milli": -0.000574414602996674,
+   "lo": -0.012077987245970917,
+   "hi": 0.01092915803997757,
+   "serve_points": 3346283
+  },
+  "wta|M4r-M2|all": {
+   "label": "rally inputs only",
+   "gain_per_point_milli": -0.01271751019908291,
+   "lo": -0.0212552871582169,
+   "hi": -0.00417973323994892,
+   "serve_points": 7374556
+  },
+  "wta|M4r-M2|2019_26": {
+   "label": "rally inputs only",
+   "gain_per_point_milli": -0.008028781525095936,
+   "lo": -0.01754887365998395,
+   "hi": 0.0014913106097920778,
+   "serve_points": 4850894
+  },
+  "wta|M4r-M2|2022_26": {
+   "label": "rally inputs only",
+   "gain_per_point_milli": -0.002419784095092311,
+   "lo": -0.01158004517489162,
+   "hi": 0.006740476984706998,
+   "serve_points": 3346283
+  },
+  "wta|M4s-M2|all": {
+   "label": "serve inputs only",
+   "gain_per_point_milli": 0.004382616469682041,
+   "lo": -0.002464614841540681,
+   "hi": 0.011229847780904764,
+   "serve_points": 7374556
+  },
+  "wta|M4s-M2|2019_26": {
+   "label": "serve inputs only",
+   "gain_per_point_milli": 0.002737326152338113,
+   "lo": -0.004383990150419731,
+   "hi": 0.009858642455095957,
+   "serve_points": 4850894
+  },
+  "wta|M4s-M2|2022_26": {
+   "label": "serve inputs only",
+   "gain_per_point_milli": 0.0013927263424368668,
+   "lo": -0.006692096966258492,
+   "hi": 0.009477549651132226,
+   "serve_points": 3346283
+  }
+ },
+ "seasons": [
+  {
+   "tour": "atp",
+   "season": 2014,
+   "comparison": "M4-M2",
+   "gain_per_point_milli": -0.004277108576694799
+  },
+  {
+   "tour": "atp",
+   "season": 2015,
+   "comparison": "M4-M2",
+   "gain_per_point_milli": -0.011534639171526518
+  },
+  {
+   "tour": "atp",
+   "season": 2016,
+   "comparison": "M4-M2",
+   "gain_per_point_milli": -0.020150778234062503
+  },
+  {
+   "tour": "atp",
+   "season": 2017,
+   "comparison": "M4-M2",
+   "gain_per_point_milli": -0.013184232682199851
+  },
+  {
+   "tour": "atp",
+   "season": 2018,
+   "comparison": "M4-M2",
+   "gain_per_point_milli": -0.019238827271401502
+  },
+  {
+   "tour": "atp",
+   "season": 2019,
+   "comparison": "M4-M2",
+   "gain_per_point_milli": -0.02135244232191992
+  },
+  {
+   "tour": "atp",
+   "season": 2020,
+   "comparison": "M4-M2",
+   "gain_per_point_milli": 0.00859348915390458
+  },
+  {
+   "tour": "atp",
+   "season": 2021,
+   "comparison": "M4-M2",
+   "gain_per_point_milli": -0.01352996670924815
+  },
+  {
+   "tour": "atp",
+   "season": 2022,
+   "comparison": "M4-M2",
+   "gain_per_point_milli": 0.01158247882815785
+  },
+  {
+   "tour": "atp",
+   "season": 2023,
+   "comparison": "M4-M2",
+   "gain_per_point_milli": 0.010793860258108658
+  },
+  {
+   "tour": "atp",
+   "season": 2024,
+   "comparison": "M4-M2",
+   "gain_per_point_milli": 0.017111292660551308
+  },
+  {
+   "tour": "atp",
+   "season": 2025,
+   "comparison": "M4-M2",
+   "gain_per_point_milli": 0.009441058807645277
+  },
+  {
+   "tour": "atp",
+   "season": 2026,
+   "comparison": "M4-M2",
+   "gain_per_point_milli": 0.011700537508731101
+  },
+  {
+   "tour": "atp",
+   "season": 2014,
+   "comparison": "M4r-M2",
+   "gain_per_point_milli": 0.0017825753035203892
+  },
+  {
+   "tour": "atp",
+   "season": 2015,
+   "comparison": "M4r-M2",
+   "gain_per_point_milli": -0.009299633581808422
+  },
+  {
+   "tour": "atp",
+   "season": 2016,
+   "comparison": "M4r-M2",
+   "gain_per_point_milli": -0.02343149554317257
+  },
+  {
+   "tour": "atp",
+   "season": 2017,
+   "comparison": "M4r-M2",
+   "gain_per_point_milli": -0.00904434359885229
+  },
+  {
+   "tour": "atp",
+   "season": 2018,
+   "comparison": "M4r-M2",
+   "gain_per_point_milli": -0.018256492666178493
+  },
+  {
+   "tour": "atp",
+   "season": 2019,
+   "comparison": "M4r-M2",
+   "gain_per_point_milli": -0.026616731658474415
+  },
+  {
+   "tour": "atp",
+   "season": 2020,
+   "comparison": "M4r-M2",
+   "gain_per_point_milli": -0.004129226866396935
+  },
+  {
+   "tour": "atp",
+   "season": 2021,
+   "comparison": "M4r-M2",
+   "gain_per_point_milli": -0.020830824873114374
+  },
+  {
+   "tour": "atp",
+   "season": 2022,
+   "comparison": "M4r-M2",
+   "gain_per_point_milli": 0.000755559136823157
+  },
+  {
+   "tour": "atp",
+   "season": 2023,
+   "comparison": "M4r-M2",
+   "gain_per_point_milli": 0.0028064405774936825
+  },
+  {
+   "tour": "atp",
+   "season": 2024,
+   "comparison": "M4r-M2",
+   "gain_per_point_milli": 0.0057827041751909725
+  },
+  {
+   "tour": "atp",
+   "season": 2025,
+   "comparison": "M4r-M2",
+   "gain_per_point_milli": 0.005972593888880849
+  },
+  {
+   "tour": "atp",
+   "season": 2026,
+   "comparison": "M4r-M2",
+   "gain_per_point_milli": 0.009161511972118608
+  },
+  {
+   "tour": "atp",
+   "season": 2014,
+   "comparison": "M4s-M2",
+   "gain_per_point_milli": -0.0011093597328638576
+  },
+  {
+   "tour": "atp",
+   "season": 2015,
+   "comparison": "M4s-M2",
+   "gain_per_point_milli": 0.004893058138849812
+  },
+  {
+   "tour": "atp",
+   "season": 2016,
+   "comparison": "M4s-M2",
+   "gain_per_point_milli": 7.3653076601488e-05
+  },
+  {
+   "tour": "atp",
+   "season": 2017,
+   "comparison": "M4s-M2",
+   "gain_per_point_milli": -0.008129343691830555
+  },
+  {
+   "tour": "atp",
+   "season": 2018,
+   "comparison": "M4s-M2",
+   "gain_per_point_milli": 0.0009892290146574269
+  },
+  {
+   "tour": "atp",
+   "season": 2019,
+   "comparison": "M4s-M2",
+   "gain_per_point_milli": 0.0027599498698372593
+  },
+  {
+   "tour": "atp",
+   "season": 2020,
+   "comparison": "M4s-M2",
+   "gain_per_point_milli": 0.007943332488645963
+  },
+  {
+   "tour": "atp",
+   "season": 2021,
+   "comparison": "M4s-M2",
+   "gain_per_point_milli": 0.004698499599827282
+  },
+  {
+   "tour": "atp",
+   "season": 2022,
+   "comparison": "M4s-M2",
+   "gain_per_point_milli": 0.014498756356267259
+  },
+  {
+   "tour": "atp",
+   "season": 2023,
+   "comparison": "M4s-M2",
+   "gain_per_point_milli": 0.012758749478076552
+  },
+  {
+   "tour": "atp",
+   "season": 2024,
+   "comparison": "M4s-M2",
+   "gain_per_point_milli": 0.014764752213780749
+  },
+  {
+   "tour": "atp",
+   "season": 2025,
+   "comparison": "M4s-M2",
+   "gain_per_point_milli": 0.004035971852141757
+  },
+  {
+   "tour": "atp",
+   "season": 2026,
+   "comparison": "M4s-M2",
+   "gain_per_point_milli": 0.0036247167660422566
+  },
+  {
+   "tour": "wta",
+   "season": 2014,
+   "comparison": "M4-M2",
+   "gain_per_point_milli": -0.047500295686997825
+  },
+  {
+   "tour": "wta",
+   "season": 2015,
+   "comparison": "M4-M2",
+   "gain_per_point_milli": 0.07917661442175836
+  },
+  {
+   "tour": "wta",
+   "season": 2016,
+   "comparison": "M4-M2",
+   "gain_per_point_milli": 0.00843477868640111
+  },
+  {
+   "tour": "wta",
+   "season": 2017,
+   "comparison": "M4-M2",
+   "gain_per_point_milli": -0.009045512036790514
+  },
+  {
+   "tour": "wta",
+   "season": 2018,
+   "comparison": "M4-M2",
+   "gain_per_point_milli": -0.05772806304254135
+  },
+  {
+   "tour": "wta",
+   "season": 2019,
+   "comparison": "M4-M2",
+   "gain_per_point_milli": -0.005760443082134215
+  },
+  {
+   "tour": "wta",
+   "season": 2020,
+   "comparison": "M4-M2",
+   "gain_per_point_milli": -0.003220775461911976
+  },
+  {
+   "tour": "wta",
+   "season": 2021,
+   "comparison": "M4-M2",
+   "gain_per_point_milli": -0.031391809523651955
+  },
+  {
+   "tour": "wta",
+   "season": 2022,
+   "comparison": "M4-M2",
+   "gain_per_point_milli": -0.0002636369395141361
+  },
+  {
+   "tour": "wta",
+   "season": 2023,
+   "comparison": "M4-M2",
+   "gain_per_point_milli": 0.009236155869981612
+  },
+  {
+   "tour": "wta",
+   "season": 2024,
+   "comparison": "M4-M2",
+   "gain_per_point_milli": -0.006444354109239809
+  },
+  {
+   "tour": "wta",
+   "season": 2025,
+   "comparison": "M4-M2",
+   "gain_per_point_milli": -0.011055775560618646
+  },
+  {
+   "tour": "wta",
+   "season": 2026,
+   "comparison": "M4-M2",
+   "gain_per_point_milli": 0.011568456310759406
+  },
+  {
+   "tour": "wta",
+   "season": 2014,
+   "comparison": "M4r-M2",
+   "gain_per_point_milli": -0.05225545865212871
+  },
+  {
+   "tour": "wta",
+   "season": 2015,
+   "comparison": "M4r-M2",
+   "gain_per_point_milli": 0.04089110196032567
+  },
+  {
+   "tour": "wta",
+   "season": 2016,
+   "comparison": "M4r-M2",
+   "gain_per_point_milli": 0.005266228257134107
+  },
+  {
+   "tour": "wta",
+   "season": 2017,
+   "comparison": "M4r-M2",
+   "gain_per_point_milli": -0.01572560190664536
+  },
+  {
+   "tour": "wta",
+   "season": 2018,
+   "comparison": "M4r-M2",
+   "gain_per_point_milli": -0.05328496522891478
+  },
+  {
+   "tour": "wta",
+   "season": 2019,
+   "comparison": "M4r-M2",
+   "gain_per_point_milli": -0.02491805924861939
+  },
+  {
+   "tour": "wta",
+   "season": 2020,
+   "comparison": "M4r-M2",
+   "gain_per_point_milli": -0.009944048013508315
+  },
+  {
+   "tour": "wta",
+   "season": 2021,
+   "comparison": "M4r-M2",
+   "gain_per_point_milli": -0.020689509112280808
+  },
+  {
+   "tour": "wta",
+   "season": 2022,
+   "comparison": "M4r-M2",
+   "gain_per_point_milli": -0.00794771330808131
+  },
+  {
+   "tour": "wta",
+   "season": 2023,
+   "comparison": "M4r-M2",
+   "gain_per_point_milli": 0.0030169611584521558
+  },
+  {
+   "tour": "wta",
+   "season": 2024,
+   "comparison": "M4r-M2",
+   "gain_per_point_milli": -0.011102824152175794
+  },
+  {
+   "tour": "wta",
+   "season": 2025,
+   "comparison": "M4r-M2",
+   "gain_per_point_milli": 0.0029886323154223937
+  },
+  {
+   "tour": "wta",
+   "season": 2026,
+   "comparison": "M4r-M2",
+   "gain_per_point_milli": 0.0011962587324550937
+  },
+  {
+   "tour": "wta",
+   "season": 2014,
+   "comparison": "M4s-M2",
+   "gain_per_point_milli": 0.012535327100069412
+  },
+  {
+   "tour": "wta",
+   "season": 2015,
+   "comparison": "M4s-M2",
+   "gain_per_point_milli": 0.04773430912172445
+  },
+  {
+   "tour": "wta",
+   "season": 2016,
+   "comparison": "M4s-M2",
+   "gain_per_point_milli": 0.007427443115794245
+  },
+  {
+   "tour": "wta",
+   "season": 2017,
+   "comparison": "M4s-M2",
+   "gain_per_point_milli": -0.0033523099250789123
+  },
+  {
+   "tour": "wta",
+   "season": 2018,
+   "comparison": "M4s-M2",
+   "gain_per_point_milli": -0.004270587525356257
+  },
+  {
+   "tour": "wta",
+   "season": 2019,
+   "comparison": "M4s-M2",
+   "gain_per_point_milli": 0.019500427639819656
+  },
+  {
+   "tour": "wta",
+   "season": 2020,
+   "comparison": "M4s-M2",
+   "gain_per_point_milli": 0.004520039495246826
+  },
+  {
+   "tour": "wta",
+   "season": 2021,
+   "comparison": "M4s-M2",
+   "gain_per_point_milli": -0.00850991186817603
+  },
+  {
+   "tour": "wta",
+   "season": 2022,
+   "comparison": "M4s-M2",
+   "gain_per_point_milli": 0.012254029111003789
+  },
+  {
+   "tour": "wta",
+   "season": 2023,
+   "comparison": "M4s-M2",
+   "gain_per_point_milli": 0.009199263087213574
+  },
+  {
+   "tour": "wta",
+   "season": 2024,
+   "comparison": "M4s-M2",
+   "gain_per_point_milli": 0.005045821324857388
+  },
+  {
+   "tour": "wta",
+   "season": 2025,
+   "comparison": "M4s-M2",
+   "gain_per_point_milli": -0.021406100605230984
+  },
+  {
+   "tour": "wta",
+   "season": 2026,
+   "comparison": "M4s-M2",
+   "gain_per_point_milli": 0.008886737388824683
+  }
+ ],
+ "match": {
+  "atp|M4 given the odds|all": {
+   "gain_milli": -0.016815917787006574,
+   "lo": -0.0769322683953047,
+   "hi": 0.043300432821291555,
+   "n": 26361
+  },
+  "atp|M4 given the odds|2019_26": {
+   "gain_milli": -0.015968766915622427,
+   "lo": -0.06163642287992795,
+   "hi": 0.02969888904868309,
+   "n": 18535
+  },
+  "atp|M4 given the odds|2022_26": {
+   "gain_milli": -0.0321463213256969,
+   "lo": -0.07280986966742638,
+   "hi": 0.008517227016032573,
+   "n": 12226
+  },
+  "atp|M4r given the odds|all": {
+   "gain_milli": -0.004694136227149061,
+   "lo": -0.05473508154548401,
+   "hi": 0.045346809091185894,
+   "n": 26361
+  },
+  "atp|M4r given the odds|2019_26": {
+   "gain_milli": 0.0035550425513986073,
+   "lo": -0.04927605422665189,
+   "hi": 0.0563861393294491,
+   "n": 18535
+  },
+  "atp|M4r given the odds|2022_26": {
+   "gain_milli": -0.02381488730025217,
+   "lo": -0.08296616688403238,
+   "hi": 0.035336392283528036,
+   "n": 12226
+  },
+  "atp|M4s given the odds|all": {
+   "gain_milli": -0.00441844848484732,
+   "lo": -0.027857540017850697,
+   "hi": 0.019020643048156056,
+   "n": 26361
+  },
+  "atp|M4s given the odds|2019_26": {
+   "gain_milli": -0.004310911044137638,
+   "lo": -0.03456933342803667,
+   "hi": 0.025947511339761385,
+   "n": 18535
+  },
+  "atp|M4s given the odds|2022_26": {
+   "gain_milli": 0.006353230401025399,
+   "lo": -0.03302291987611332,
+   "hi": 0.045729380678164115,
+   "n": 12226
+  },
+  "wta|M4 given the odds|all": {
+   "gain_milli": -0.017093458534428074,
+   "lo": -0.13642378751176168,
+   "hi": 0.10223687044290554,
+   "n": 26461
+  },
+  "wta|M4 given the odds|2019_26": {
+   "gain_milli": 0.049276976456740375,
+   "lo": -0.07734496451470575,
+   "hi": 0.1758989174281865,
+   "n": 17122
+  },
+  "wta|M4 given the odds|2022_26": {
+   "gain_milli": 0.04379842168316492,
+   "lo": -0.09544426155422767,
+   "hi": 0.1830411049205575,
+   "n": 11245
+  },
+  "wta|M4r given the odds|all": {
+   "gain_milli": -0.058930666370572204,
+   "lo": -0.16874992929451318,
+   "hi": 0.05088859655336878,
+   "n": 26461
+  },
+  "wta|M4r given the odds|2019_26": {
+   "gain_milli": 0.02632988420433172,
+   "lo": -0.06879588242364161,
+   "hi": 0.12145565083230506,
+   "n": 17122
+  },
+  "wta|M4r given the odds|2022_26": {
+   "gain_milli": 0.031908627001022136,
+   "lo": -0.07448265462706713,
+   "hi": 0.13829990862911143,
+   "n": 11245
+  },
+  "wta|M4s given the odds|all": {
+   "gain_milli": -0.056525309784423015,
+   "lo": -0.16270200958333736,
+   "hi": 0.04965139001449134,
+   "n": 26461
+  },
+  "wta|M4s given the odds|2019_26": {
+   "gain_milli": -0.001805871238188361,
+   "lo": -0.07834924978136557,
+   "hi": 0.07473750730498883,
+   "n": 17122
+  },
+  "wta|M4s given the odds|2022_26": {
+   "gain_milli": -0.012040795602892325,
+   "lo": -0.10433700732137305,
+   "hi": 0.08025541611558841,
+   "n": 11245
+  }
+ }
+}

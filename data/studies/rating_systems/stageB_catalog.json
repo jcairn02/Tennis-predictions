@@ -1,0 +1,839 @@
+[
+  {
+    "id": "glicko_cs",
+    "name": "Glicko with correlated surface skills",
+    "family": "new rating",
+    "description": "A skill per surface, correlated (the Bayesian form of the surface blend), updated match by match by Glicko's (Kalman) step; the deviation grows with the time since the player's last match",
+    "form": "single",
+    "columns": [
+      "glicko_cs|single"
+    ],
+    "tuned": {
+      "atp": {
+        "constants": {
+          "rd0": 600.0,
+          "sigma0": 0.07,
+          "rho": 0.99,
+          "w": 0.0
+        },
+        "tuned_on": "2013-2018 evaluation matches"
+      },
+      "wta": {
+        "constants": {
+          "rd0": 700.0,
+          "sigma0": 0.08,
+          "rho": 0.995,
+          "w": 0.0
+        },
+        "tuned_on": "2013-2018 evaluation matches"
+      }
+    },
+    "base_variants": {
+      "atp": {
+        "alone": "coin",
+        "elo": "p_elo",
+        "market": "p_mkt"
+      },
+      "wta": {
+        "alone": "coin",
+        "elo": "p_elo",
+        "market": "p_mkt"
+      }
+    },
+    "scored_from": {
+      "atp": 2013,
+      "wta": 2013
+    }
+  },
+  {
+    "id": "ttt",
+    "name": "TrueSkill Through Time",
+    "family": "new rating",
+    "description": "TrueSkill Through Time run causally: each finished week joins the model, then the last weeks' results are re-scored against what each opponent turned out to be worth; a surface rating blended in",
+    "form": "single",
+    "columns": [
+      "ttt|single"
+    ],
+    "tuned": {
+      "atp": {
+        "constants": {
+          "sigma0": 1.125,
+          "gamma": 0.4,
+          "window": 416.0,
+          "w": 0.35
+        },
+        "tuned_on": "2013-2018 evaluation matches"
+      },
+      "wta": {
+        "constants": {
+          "sigma0": 1.5,
+          "gamma": 0.5,
+          "window": 104.0,
+          "w": 0.3
+        },
+        "tuned_on": "2013-2018 evaluation matches"
+      }
+    },
+    "base_variants": {
+      "atp": {
+        "alone": "coin",
+        "elo": "p_elo",
+        "market": "p_mkt"
+      },
+      "wta": {
+        "alone": "coin",
+        "elo": "p_elo",
+        "market": "p_mkt"
+      }
+    },
+    "scored_from": {
+      "atp": 2013,
+      "wta": 2013
+    }
+  },
+  {
+    "id": "glicko2m",
+    "name": "Glicko-2, match by match",
+    "family": "new rating",
+    "description": "Glicko-2 updated round by round, the rating deviation growing with the time since the player's last match; a surface rating blended in as for surface Elo; A's rating minus B's on the log-odds scale",
+    "form": "single",
+    "columns": [
+      "glicko2m|single"
+    ],
+    "tuned": {
+      "atp": {
+        "constants": {
+          "rd0": 600.0,
+          "sigma0": 0.07,
+          "tau": 1.0,
+          "w": 0.3
+        },
+        "tuned_on": "2013-2018 evaluation matches"
+      },
+      "wta": {
+        "constants": {
+          "rd0": 700.0,
+          "sigma0": 0.07,
+          "tau": 1.0,
+          "w": 0.2
+        },
+        "tuned_on": "2013-2018 evaluation matches"
+      }
+    },
+    "base_variants": {
+      "atp": {
+        "alone": "coin",
+        "elo": "p_elo",
+        "market": "p_mkt"
+      },
+      "wta": {
+        "alone": "coin",
+        "elo": "p_elo",
+        "market": "p_mkt"
+      }
+    },
+    "scored_from": {
+      "atp": 2013,
+      "wta": 2013
+    }
+  },
+  {
+    "id": "trueskill",
+    "name": "TrueSkill",
+    "family": "new rating",
+    "description": "Two-player TrueSkill (Gaussian skill, probit link), the variance growing with the time since the player's last match; a surface rating blended in; the forecast's probit turned into log-odds",
+    "form": "single",
+    "columns": [
+      "trueskill|single"
+    ],
+    "tuned": {
+      "atp": {
+        "constants": {
+          "sigma0": 2.0,
+          "tau": 0.01,
+          "gamma": 0.4,
+          "w": 0.3
+        },
+        "tuned_on": "2013-2018 evaluation matches"
+      },
+      "wta": {
+        "constants": {
+          "sigma0": 3.0,
+          "tau": 0.02,
+          "gamma": 0.4,
+          "w": 0.25
+        },
+        "tuned_on": "2013-2018 evaluation matches"
+      }
+    },
+    "base_variants": {
+      "atp": {
+        "alone": "coin",
+        "elo": "p_elo",
+        "market": "p_mkt"
+      },
+      "wta": {
+        "alone": "coin",
+        "elo": "p_elo",
+        "market": "p_mkt"
+      }
+    },
+    "scored_from": {
+      "atp": 2013,
+      "wta": 2013
+    }
+  },
+  {
+    "id": "trueskill_cs",
+    "name": "TrueSkill with correlated surfaces",
+    "family": "new rating",
+    "description": "Correlated surface skills with TrueSkill's update",
+    "form": "single",
+    "columns": [
+      "trueskill_cs|single"
+    ],
+    "tuned": {
+      "atp": {
+        "constants": {
+          "sigma0": 2.0,
+          "gamma": 0.5,
+          "rho": 0.98,
+          "w": 0.0
+        },
+        "tuned_on": "2013-2018 evaluation matches"
+      },
+      "wta": {
+        "constants": {
+          "sigma0": 2.5,
+          "gamma": 0.5,
+          "rho": 0.99,
+          "w": 0.0
+        },
+        "tuned_on": "2013-2018 evaluation matches"
+      }
+    },
+    "base_variants": {
+      "atp": {
+        "alone": "coin",
+        "elo": "p_elo",
+        "market": "p_mkt"
+      },
+      "wta": {
+        "alone": "coin",
+        "elo": "p_elo",
+        "market": "p_mkt"
+      }
+    },
+    "scored_from": {
+      "atp": 2013,
+      "wta": 2013
+    }
+  },
+  {
+    "id": "glicko2",
+    "name": "Glicko-2, weekly rating periods",
+    "family": "new rating",
+    "description": "Glicko-2 as Glickman specifies it, with each tournament week a rating period",
+    "form": "single",
+    "columns": [
+      "glicko2|single"
+    ],
+    "tuned": {
+      "atp": {
+        "constants": {
+          "rd0": 700.0,
+          "sigma0": 0.07,
+          "tau": 1.666667,
+          "w": 0.25
+        },
+        "tuned_on": "2013-2018 evaluation matches"
+      },
+      "wta": {
+        "constants": {
+          "rd0": 700.0,
+          "sigma0": 0.07,
+          "tau": 1.0,
+          "w": 0.2
+        },
+        "tuned_on": "2013-2018 evaluation matches"
+      }
+    },
+    "base_variants": {
+      "atp": {
+        "alone": "coin",
+        "elo": "p_elo",
+        "market": "p_mkt"
+      },
+      "wta": {
+        "alone": "coin",
+        "elo": "p_elo",
+        "market": "p_mkt"
+      }
+    },
+    "scored_from": {
+      "atp": 2013,
+      "wta": 2013
+    }
+  },
+  {
+    "id": "glicko1m",
+    "name": "Glicko-1, match by match",
+    "family": "new rating",
+    "description": "The match-by-match Glicko-2 with the volatility held fixed (Glicko-1)",
+    "form": "single",
+    "columns": [
+      "glicko1m|single"
+    ],
+    "tuned": {
+      "atp": {
+        "constants": {
+          "rd0": 600.0,
+          "sigma0": 0.07,
+          "w": 0.3
+        },
+        "tuned_on": "2013-2018 evaluation matches"
+      },
+      "wta": {
+        "constants": {
+          "rd0": 700.0,
+          "sigma0": 0.07,
+          "w": 0.2
+        },
+        "tuned_on": "2013-2018 evaluation matches"
+      }
+    },
+    "base_variants": {
+      "atp": {
+        "alone": "coin",
+        "elo": "p_elo",
+        "market": "p_mkt"
+      },
+      "wta": {
+        "alone": "coin",
+        "elo": "p_elo",
+        "market": "p_mkt"
+      }
+    },
+    "scored_from": {
+      "atp": 2013,
+      "wta": 2013
+    }
+  },
+  {
+    "id": "glicko1",
+    "name": "Glicko-1, weekly rating periods",
+    "family": "new rating",
+    "description": "The weekly Glicko-2 with the volatility held fixed (Glicko-1)",
+    "form": "single",
+    "columns": [
+      "glicko1|single"
+    ],
+    "tuned": {
+      "atp": {
+        "constants": {
+          "rd0": 700.0,
+          "sigma0": 0.07,
+          "w": 0.25
+        },
+        "tuned_on": "2013-2018 evaluation matches"
+      },
+      "wta": {
+        "constants": {
+          "rd0": 700.0,
+          "sigma0": 0.07,
+          "w": 0.2
+        },
+        "tuned_on": "2013-2018 evaluation matches"
+      }
+    },
+    "base_variants": {
+      "atp": {
+        "alone": "coin",
+        "elo": "p_elo",
+        "market": "p_mkt"
+      },
+      "wta": {
+        "alone": "coin",
+        "elo": "p_elo",
+        "market": "p_mkt"
+      }
+    },
+    "scored_from": {
+      "atp": 2013,
+      "wta": 2013
+    }
+  },
+  {
+    "id": "ttt_hold",
+    "name": "TrueSkill Through Time, two-week events held",
+    "family": "new rating",
+    "description": "TrueSkill Through Time at the same constants, with each two-week event (a round of 128) joining the smoothed model only two weeks after its start date: the overlap sensitivity",
+    "form": "single",
+    "columns": [
+      "ttt_hold|single"
+    ],
+    "tuned": {
+      "atp": {
+        "constants": {
+          "sigma0": 1.125,
+          "gamma": 0.4,
+          "window": 416.0,
+          "w": 0.35
+        },
+        "tuned_on": "TrueSkill Through Time's frozen constants, not retuned (stageA_ttt_hold.py)"
+      },
+      "wta": {
+        "constants": {
+          "sigma0": 1.5,
+          "gamma": 0.5,
+          "window": 104.0,
+          "w": 0.3
+        },
+        "tuned_on": "TrueSkill Through Time's frozen constants, not retuned (stageA_ttt_hold.py)"
+      }
+    },
+    "base_variants": {
+      "atp": {
+        "alone": "coin",
+        "elo": "p_elo",
+        "market": "p_mkt"
+      },
+      "wta": {
+        "alone": "coin",
+        "elo": "p_elo",
+        "market": "p_mkt"
+      }
+    },
+    "scored_from": {
+      "atp": 2013,
+      "wta": 2013
+    }
+  },
+  {
+    "id": "elo",
+    "name": "Surface Elo (Stage 1)",
+    "family": "Elo",
+    "description": "Stage 1's surface Elo on the log-odds scale, scored on top of the new ratings and the market",
+    "form": "single",
+    "columns": [
+      "elo|single"
+    ],
+    "tuned": "Stage 1's frozen constants",
+    "base_variants": {
+      "atp": {
+        "alone": "coin",
+        "market": "p_mkt",
+        "glicko_cs": "p_glicko_cs",
+        "ttt": "p_ttt",
+        "glicko2m": "p_glicko2m",
+        "trueskill": "p_trueskill"
+      },
+      "wta": {
+        "alone": "coin",
+        "market": "p_mkt",
+        "glicko_cs": "p_glicko_cs",
+        "ttt": "p_ttt",
+        "glicko2m": "p_glicko2m",
+        "trueskill": "p_trueskill"
+      }
+    },
+    "scored_from": {
+      "atp": 2013,
+      "wta": 2013
+    }
+  },
+  {
+    "id": "rating_matchup",
+    "name": "Serve and return ratings through the iid model",
+    "family": "earlier leaders",
+    "description": "The predictability diagnostic's leader: the serve and return ratings through the iid model",
+    "form": "single",
+    "columns": [
+      "rating_matchup|single"
+    ],
+    "tuned": "the earlier studies' frozen constants",
+    "base_variants": {
+      "atp": {
+        "elo": "p_elo",
+        "glicko_cs": "p_glicko_cs",
+        "ttt": "p_ttt",
+        "glicko2m": "p_glicko2m",
+        "trueskill": "p_trueskill",
+        "market": "p_mkt"
+      },
+      "wta": {
+        "elo": "p_elo",
+        "glicko_cs": "p_glicko_cs",
+        "ttt": "p_ttt",
+        "glicko2m": "p_glicko2m",
+        "trueskill": "p_trueskill",
+        "market": "p_mkt"
+      }
+    },
+    "scored_from": {
+      "atp": 2013,
+      "wta": 2019
+    }
+  },
+  {
+    "id": "elo_games",
+    "name": "Games-weighted Elo",
+    "family": "earlier leaders",
+    "description": "The games-weighted Elo (margin of victory)",
+    "form": "single",
+    "columns": [
+      "elo_games|single"
+    ],
+    "tuned": "the earlier studies' frozen constants",
+    "base_variants": {
+      "atp": {
+        "elo": "p_elo",
+        "glicko_cs": "p_glicko_cs",
+        "ttt": "p_ttt",
+        "glicko2m": "p_glicko2m",
+        "trueskill": "p_trueskill",
+        "market": "p_mkt"
+      },
+      "wta": {
+        "elo": "p_elo",
+        "glicko_cs": "p_glicko_cs",
+        "ttt": "p_ttt",
+        "glicko2m": "p_glicko2m",
+        "trueskill": "p_trueskill",
+        "market": "p_mkt"
+      }
+    },
+    "scored_from": {
+      "atp": 2013,
+      "wta": 2013
+    }
+  },
+  {
+    "id": "sets_14d",
+    "name": "Sets over the last 14 days",
+    "family": "earlier leaders",
+    "description": "Sets played over the last two weeks",
+    "form": "single",
+    "columns": [
+      "sets_14d|single"
+    ],
+    "tuned": "the earlier studies' frozen constants",
+    "base_variants": {
+      "atp": {
+        "elo": "p_elo",
+        "glicko_cs": "p_glicko_cs",
+        "ttt": "p_ttt",
+        "glicko2m": "p_glicko2m",
+        "trueskill": "p_trueskill",
+        "market": "p_mkt"
+      },
+      "wta": {
+        "elo": "p_elo",
+        "glicko_cs": "p_glicko_cs",
+        "ttt": "p_ttt",
+        "glicko2m": "p_glicko2m",
+        "trueskill": "p_trueskill",
+        "market": "p_mkt"
+      }
+    },
+    "scored_from": {
+      "atp": 2013,
+      "wta": 2013
+    }
+  },
+  {
+    "id": "mu_points",
+    "name": "Serve against return: points",
+    "family": "earlier leaders",
+    "description": "The serve-against-return points matchup over the last year",
+    "form": "52 weeks",
+    "columns": [
+      "mu_points|52 weeks"
+    ],
+    "tuned": "the earlier studies' frozen constants",
+    "base_variants": {
+      "atp": {
+        "elo": "p_elo",
+        "glicko_cs": "p_glicko_cs",
+        "ttt": "p_ttt",
+        "glicko2m": "p_glicko2m",
+        "trueskill": "p_trueskill",
+        "market": "p_mkt"
+      },
+      "wta": {
+        "elo": "p_elo",
+        "glicko_cs": "p_glicko_cs",
+        "ttt": "p_ttt",
+        "glicko2m": "p_glicko2m",
+        "trueskill": "p_trueskill",
+        "market": "p_mkt"
+      }
+    },
+    "scored_from": {
+      "atp": 2013,
+      "wta": 2019
+    }
+  },
+  {
+    "id": "age",
+    "name": "Age and age squared",
+    "family": "earlier leaders",
+    "description": "Age and age squared",
+    "form": "single",
+    "columns": [
+      "age|single",
+      "age|single|2"
+    ],
+    "tuned": "the earlier studies' frozen constants",
+    "base_variants": {
+      "atp": {
+        "elo": "p_elo",
+        "glicko_cs": "p_glicko_cs",
+        "ttt": "p_ttt",
+        "glicko2m": "p_glicko2m",
+        "trueskill": "p_trueskill",
+        "market": "p_mkt"
+      },
+      "wta": {
+        "elo": "p_elo",
+        "glicko_cs": "p_glicko_cs",
+        "ttt": "p_ttt",
+        "glicko2m": "p_glicko2m",
+        "trueskill": "p_trueskill",
+        "market": "p_mkt"
+      }
+    },
+    "scored_from": {
+      "atp": 2013,
+      "wta": 2013
+    }
+  },
+  {
+    "id": "surface_first",
+    "name": "One of the first matches on this surface this season",
+    "family": "earlier leaders",
+    "description": "One of a player's first matches on the surface this season",
+    "form": "single",
+    "columns": [
+      "surface_first|single"
+    ],
+    "tuned": "the earlier studies' frozen constants",
+    "base_variants": {
+      "atp": {
+        "elo": "p_elo",
+        "glicko_cs": "p_glicko_cs",
+        "ttt": "p_ttt",
+        "glicko2m": "p_glicko2m",
+        "trueskill": "p_trueskill",
+        "market": "p_mkt"
+      },
+      "wta": {
+        "elo": "p_elo",
+        "glicko_cs": "p_glicko_cs",
+        "ttt": "p_ttt",
+        "glicko2m": "p_glicko2m",
+        "trueskill": "p_trueskill",
+        "market": "p_mkt"
+      }
+    },
+    "scored_from": {
+      "atp": 2013,
+      "wta": 2013
+    }
+  },
+  {
+    "id": "adjperf_tpw",
+    "name": "Opponent-adjusted total points won, 2-week memory",
+    "family": "earlier leaders",
+    "description": "The UFC-ideas study's 2-week opponent-adjusted total points won",
+    "form": "decayed",
+    "columns": [
+      "adjperf_tpw|decayed"
+    ],
+    "tuned": "the earlier studies' frozen constants",
+    "base_variants": {
+      "atp": {
+        "elo": "p_elo",
+        "glicko_cs": "p_glicko_cs",
+        "ttt": "p_ttt",
+        "glicko2m": "p_glicko2m",
+        "trueskill": "p_trueskill",
+        "market": "p_mkt"
+      },
+      "wta": {
+        "elo": "p_elo",
+        "glicko_cs": "p_glicko_cs",
+        "ttt": "p_ttt",
+        "glicko2m": "p_glicko2m",
+        "trueskill": "p_trueskill",
+        "market": "p_mkt"
+      }
+    },
+    "scored_from": {
+      "atp": 2013,
+      "wta": 2019
+    }
+  },
+  {
+    "id": "ios_short",
+    "name": "Short-memory IOS points matchup",
+    "family": "earlier leaders",
+    "description": "The UFC-ideas study's short-memory IOS points matchup (4 weeks men, 13 weeks women)",
+    "form": "single",
+    "columns": [
+      "ios_short|single"
+    ],
+    "tuned": "the earlier studies' frozen constants",
+    "base_variants": {
+      "atp": {
+        "elo": "p_elo",
+        "glicko_cs": "p_glicko_cs",
+        "ttt": "p_ttt",
+        "glicko2m": "p_glicko2m",
+        "trueskill": "p_trueskill",
+        "market": "p_mkt"
+      },
+      "wta": {
+        "elo": "p_elo",
+        "glicko_cs": "p_glicko_cs",
+        "ttt": "p_ttt",
+        "glicko2m": "p_glicko2m",
+        "trueskill": "p_trueskill",
+        "market": "p_mkt"
+      }
+    },
+    "scored_from": {
+      "atp": 2013,
+      "wta": 2019
+    }
+  },
+  {
+    "id": "profile_adjperf",
+    "name": "The adjperf profile, decayed (16 inputs)",
+    "family": "statistics profile",
+    "description": "The UFC-ideas study's men's lead against the odds: the 16-input 2-week adjperf / adjdef profile",
+    "form": "profile",
+    "columns": [
+      "adjperf_ace|decayed",
+      "adjperf_df|decayed",
+      "adjperf_first_in|decayed",
+      "adjperf_first_won|decayed",
+      "adjperf_second_won|decayed",
+      "adjperf_hold|decayed",
+      "adjperf_bp_saved|decayed",
+      "adjperf_bp_faced_pg|decayed",
+      "adjperf_brk|decayed",
+      "adjperf_bp_conv|decayed",
+      "adjperf_rpw_first|decayed",
+      "adjperf_rpw_second|decayed",
+      "adjdef_ace|decayed",
+      "adjdef_df|decayed",
+      "adjdef_first_in|decayed",
+      "adjdef_bp_faced_pg|decayed"
+    ],
+    "tuned": "the earlier studies' frozen constants",
+    "base_variants": {
+      "atp": {
+        "alone": "coin",
+        "elo": "p_elo",
+        "glicko_cs": "p_glicko_cs",
+        "ttt": "p_ttt",
+        "glicko2m": "p_glicko2m",
+        "trueskill": "p_trueskill",
+        "market": "p_mkt"
+      },
+      "wta": {
+        "alone": "coin",
+        "elo": "p_elo",
+        "glicko_cs": "p_glicko_cs",
+        "ttt": "p_ttt",
+        "glicko2m": "p_glicko2m",
+        "trueskill": "p_trueskill",
+        "market": "p_mkt"
+      }
+    },
+    "scored_from": {
+      "atp": 2013,
+      "wta": 2019
+    }
+  },
+  {
+    "id": "pair_glicko_cs",
+    "name": "Glicko with correlated surfaces and surface Elo",
+    "family": "ratings together",
+    "description": "Glicko with correlated surfaces and surface Elo together (two inputs)",
+    "form": "single",
+    "columns": [
+      "glicko_cs|single",
+      "elo|single"
+    ],
+    "tuned": "the earlier studies' frozen constants",
+    "base_variants": {
+      "atp": {
+        "alone": "coin",
+        "market": "p_mkt"
+      },
+      "wta": {
+        "alone": "coin",
+        "market": "p_mkt"
+      }
+    },
+    "scored_from": {
+      "atp": 2013,
+      "wta": 2013
+    }
+  },
+  {
+    "id": "pair_ttt",
+    "name": "TrueSkill Through Time and surface Elo",
+    "family": "ratings together",
+    "description": "TrueSkill Through Time and surface Elo together (two inputs)",
+    "form": "single",
+    "columns": [
+      "ttt|single",
+      "elo|single"
+    ],
+    "tuned": "the earlier studies' frozen constants",
+    "base_variants": {
+      "atp": {
+        "alone": "coin",
+        "market": "p_mkt"
+      },
+      "wta": {
+        "alone": "coin",
+        "market": "p_mkt"
+      }
+    },
+    "scored_from": {
+      "atp": 2013,
+      "wta": 2013
+    }
+  },
+  {
+    "id": "ratings_three",
+    "name": "Correlated-surface Glicko, TrueSkill Through Time and surface Elo",
+    "family": "ratings together",
+    "description": "Glicko with correlated surfaces, TrueSkill Through Time and surface Elo together (three inputs)",
+    "form": "single",
+    "columns": [
+      "glicko_cs|single",
+      "ttt|single",
+      "elo|single"
+    ],
+    "tuned": "the earlier studies' frozen constants",
+    "base_variants": {
+      "atp": {
+        "alone": "coin",
+        "market": "p_mkt"
+      },
+      "wta": {
+        "alone": "coin",
+        "market": "p_mkt"
+      }
+    },
+    "scored_from": {
+      "atp": 2013,
+      "wta": 2013
+    }
+  }
+]

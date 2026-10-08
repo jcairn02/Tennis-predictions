@@ -1,0 +1,322 @@
+=== 1. duplicates
+same player with identical (y_raw, n, spd2_raw, spd_max) on different matches: 10
+                               match_id side  player_id        source              source_key  y_raw  n  spd2_raw  spd_max   obs
+ atp|2021-404|R64|atp:106043|atp:202195    A atp:106043    handoff_ks          2021_404_MS044  168.0 60     140.0    183.0 18909
+atp|2023-5014|R64|atp:106043|atp:208103    A atp:106043 mantennisdata 2023-5014-sm37-l0bv-R64  168.0 60     140.0    183.0 19638
+ atp|2022-337|R16|atp:105777|atp:126094    A atp:126094 mantennisdata  2022-337-d875-re44-R16  196.0 33     147.0    216.0 19292
+ atp|2026-422|R64|atp:105807|atp:126094    A atp:126094 mantennisdata  2026-422-re44-cd85-R64  196.0 33     147.0    216.0 20681
+ atp|2022-429|R32|atp:126205|atp:209863    A atp:126205 mantennisdata  2022-429-pl56-b0jg-R32  193.0 47     154.0    221.0 19283
+ atp|2023-352|R64|atp:104755|atp:126205    A atp:126205 mantennisdata  2023-352-pl56-g628-R64  193.0 47     154.0    221.0 19660
+ atp|2024-329|R16|atp:106415|atp:208029    A atp:208029 mantennisdata  2024-329-r0dg-n732-R16  193.0 34     166.0    214.0 19994
+   atp|2025-404|F|atp:207733|atp:208029    B atp:208029 mantennisdata    2025-404-d0co-r0dg-F  193.0 34     166.0    214.0 20163
+atp|2026-8394|R16|atp:202146|atp:208169    A atp:208169 mantennisdata 2026-8394-d0dw-p0ay-R16  187.0 44     148.0    218.0 20643
+atp|2026-9120|R16|atp:133835|atp:208169    A atp:208169 mantennisdata 2026-9120-d0dw-bo10-R16  187.0 44     148.0    218.0 20705
+matches whose two sides carry the identical value and n: 12
+source records linked to more than one Stage 0 match: 0
+Empty DataFrame
+Columns: [source, source_key, match_id, side, y_raw]
+Index: []
+
+=== 2. unit errors / implausibly slow (men y < 150, women y < 125)
+year                2011  2014  2015  2016  2017  2019  2020  2021  2022  2023  2024  2025  2026
+tour source                                                                                     
+atp  handoff_ks        0     0     0     0     0     0     0     2     0     0     0     0     0
+     infosys_slams     0     0     0     0     0     0     0     0     0     0     0     2     0
+     mantennisdata     0     0     0     0     0     0     0     0     7    44    12     5    10
+     slam_pbp          1     1     0     1     0     0     0     0     0     0     0     0     0
+     slam_tracking     0     0     0     0     0     0     0     1     0     2     0     0     0
+     slamtracker       0     0     0     0     0     0     0     0     4     0     1     2     1
+wta  ausopen_mc        0     0     0     0     0     0     0     0     0     0     0     0     2
+     infosys_slams     0     0     0     0     0     0     0     0     0     0     0     8     2
+     slam_pbp          3    10    10     1     8     1     3     1     0     0     0     0     0
+     slam_tracking     0     0     0     0     0     0     1     3     0     2     0     0     0
+     slamtracker       0     0     0     0     0     0     0     2     4     5     3     2     0
+of which in 2024-26: 50
+                                            match_id side  player_id tour        source  year  y_raw  n  spd2_raw  spd_max  resid  mph_conv
+ wta|2011-W-SL-USA-1A-2011|R16|wta:201493|wta:201512    B wta:201512  wta      slam_pbp  2011  107.8 61     102.7    122.0   -9.6     173.4
+               wta|2023-560|Q3|wta:204291|wta:216097    B wta:204291  wta   slamtracker  2023  112.1 54     105.4    140.0   -1.5     180.3
+               wta|2026-580|Q1|wta:201483|wta:216081    B wta:201483  wta    ausopen_mc  2026  113.0 63     116.0    185.0   -0.0     181.9
+               wta|2025-580|Q1|wta:214480|wta:223410    A wta:214480  wta infosys_slams  2025  113.1 19     111.4    137.0  -22.7     181.9
+ wta|2011-W-SL-AUS-1A-2011|R64|wta:201450|wta:201512    A wta:201512  wta      slam_pbp  2011  115.5 25     104.9    150.0   -3.6     185.8
+             wta|2017-520|R128|wta:201506|wta:201595    A wta:201506  wta      slam_pbp  2017  115.7 47     107.1    132.0   -2.4     186.2
+ wta|2014-W-SL-FRA-1A-2014|R32|wta:201506|wta:202498    B wta:201506  wta      slam_pbp  2014  115.8 36     109.0    138.0   -3.9     186.3
+ wta|2014-W-SL-FRA-1A-2014|R16|wta:201347|wta:201506    B wta:201506  wta      slam_pbp  2014  116.0 65     109.0    140.0   -3.7     186.7
+             wta|2023-560|R128|wta:204291|wta:214954    B wta:204291  wta   slamtracker  2023  116.0 37     101.5    136.0    1.6     186.7
+             wta|2016-580|R128|wta:201506|wta:202506    B wta:201506  wta      slam_pbp  2016  116.2 63     104.3    131.0    0.0     187.0
+             wta|2017-580|R128|wta:201506|wta:203552    A wta:201506  wta      slam_pbp  2017  116.2 41     107.7    158.0   -3.2     187.0
+               wta|2025-520|Q2|wta:201506|wta:204431    B wta:201506  wta infosys_slams  2025  116.2 71     101.3    141.0   -8.6     187.0
+wta|2014-W-SL-USA-1A-2014|R128|wta:201465|wta:201506    A wta:201506  wta      slam_pbp  2014  116.6 48     108.5    133.0   -2.1     187.7
+ wta|2014-W-SL-FRA-1A-2014|R64|wta:201506|wta:202477    A wta:201506  wta      slam_pbp  2014  116.9 47     108.0    138.0   -2.8     188.1
+ wta|2011-W-SL-USA-1A-2011|R32|wta:201425|wta:201512    B wta:201512  wta      slam_pbp  2011  117.0 40     108.7    157.0   -0.4     188.2
+ wta|2014-W-SL-USA-1A-2014|R64|wta:201370|wta:201506    B wta:201506  wta      slam_pbp  2014  117.2 60     105.7    136.0   -1.5     188.6
+               wta|2025-520|Q1|wta:212303|wta:221247    B wta:221247  wta infosys_slams  2025  117.7 53     108.0    155.0   -6.6     189.4
+              wta|2020-520|R64|wta:201506|wta:202428    A wta:201506  wta      slam_pbp  2020  117.9 97     111.7    135.0    0.0     189.7
+               wta|2025-580|Q1|wta:211817|wta:215259    B wta:215259  wta infosys_slams  2025  118.3 17     107.8    140.0  -27.5     190.4
+wta|2014-W-SL-FRA-1A-2014|R128|wta:201506|wta:201619    A wta:201506  wta      slam_pbp  2014  118.4 72     112.2    141.0   -1.3     190.5
+ wta|2015-W-SL-USA-1A-2015|R32|wta:201325|wta:201506    A wta:201506  wta      slam_pbp  2015  118.6 56     109.4    138.0   -2.5     190.8
+             wta|2023-560|R128|wta:201483|wta:222328    B wta:201483  wta   slamtracker  2023  118.7 38     116.8    131.0   -2.5     191.1
+  wta|2014-W-SL-FRA-1A-2014|QF|wta:201492|wta:201506    A wta:201506  wta      slam_pbp  2014  119.0 34     108.9    137.0   -0.7     191.5
+wta|2015-W-SL-FRA-1A-2015|R128|wta:201506|wta:201590    A wta:201506  wta      slam_pbp  2015  119.0 71     108.4    138.0   -2.6     191.5
+ wta|2015-W-SL-AUS-1A-2015|R32|wta:201506|wta:201518    B wta:201506  wta      slam_pbp  2015  119.2 80     106.2    134.0   -3.2     191.8
+ wta|2015-W-SL-FRA-1A-2015|R64|wta:201506|wta:202489    A wta:201506  wta      slam_pbp  2015  119.4 69     107.3    138.0   -2.2     192.1
+               wta|2025-580|Q1|wta:214480|wta:223410    B wta:223410  wta infosys_slams  2025  119.7 32     118.9    182.0   -7.4     192.6
+               wta|2025-560|Q2|wta:220465|wta:264192    A wta:220465  wta   slamtracker  2025  119.8 55     103.2    162.0   -7.4     192.9
+              wta|2021-580|R32|wta:201444|wta:201506    B wta:201506  wta slam_tracking  2021  119.9 94     113.6    135.0   -6.6     192.9
+               wta|2025-580|Q1|wta:201478|wta:213949    A wta:201478  wta infosys_slams  2025  119.9 29     108.2    163.0  -25.7     192.9
+             wta|2021-580|R128|wta:201506|wta:202492    A wta:201506  wta slam_tracking  2021  120.3 78     113.9    165.0   -6.2     193.6
+ wta|2015-W-SL-AUS-1A-2015|R64|wta:201506|wta:201562    A wta:201506  wta      slam_pbp  2015  120.5 57     105.3    139.0   -1.9     193.9
+              wta|2017-580|R64|wta:201505|wta:201506    A wta:201506  wta      slam_pbp  2017  120.6 37     103.5    150.0    1.2     194.1
+               wta|2024-560|Q2|wta:201478|wta:260580    B wta:260580  wta   slamtracker  2024  120.7 61     104.2    156.0   -4.7     194.3
+               wta|2022-560|Q1|wta:201506|wta:211342    B wta:201506  wta   slamtracker  2022  120.8 53     103.8    138.0   -0.0     194.4
+wta|2015-W-SL-USA-1A-2015|R128|wta:201506|wta:206349    B wta:201506  wta      slam_pbp  2015  120.9 49     101.0    138.0   -0.2     194.5
+              wta|2021-520|R64|wta:201483|wta:214461    B wta:201483  wta      slam_pbp  2021  121.0 41     119.5    132.0   -4.4     194.7
+              wta|2024-560|R32|wta:201506|wta:223670    B wta:201506  wta   slamtracker  2024  121.0 40     103.9    143.0   -5.3     194.7
+             wta|2020-520|R128|wta:211552|wta:214082    A wta:214082  wta      slam_pbp  2020  121.1 52     112.5    142.0  -10.8     194.9
+             wta|2020-580|R128|wta:204291|wta:214461    B wta:204291  wta slam_tracking  2020  121.4 33     104.8    164.0    0.0     195.4
+
+=== 3. first/second-serve mix-ups: second-serve mean >= first-serve mean (both present, n2 >= 5)
+205 of 41811
+source         year
+handoff_ks     2024     1
+mantennisdata  2021     1
+               2022     3
+               2023    16
+               2024    81
+               2025    82
+               2026    10
+sirgenkii      2025     5
+slam_pbp       2014     1
+slam_tracking  2024     1
+slamtracker    2026     4
+                                match_id side        source  year     y  n  spd2   n2  spd_max
+ atp|2014-540|R128|atp:104460|atp:104571    B      slam_pbp  2014 184.7 68 185.3 41.0    210.0
+   atp|2021-568|Q1|atp:106415|atp:126128    A mantennisdata  2021 174.5 40 176.5 19.0    211.0
+  atp|2022-410|R64|atp:111513|atp:202195    B mantennisdata  2022 184.5 66 188.5 39.0    213.0
+ atp|2022-8994|R32|atp:111442|atp:202104    A mantennisdata  2022 141.5 34 161.5 14.0    196.0
+ atp|2022-6242|R32|atp:105311|atp:111513    B mantennisdata  2022 177.5 58 185.5 47.0      NaN
+  atp|2023-499|R32|atp:111153|atp:126846    B mantennisdata  2023 188.5 53 198.5 33.0      NaN
+   atp|2023-403|Q1|atp:105449|atp:132686    B mantennisdata  2023 180.5 45 190.5 11.0    207.0
+  atp|2023-403|R64|atp:105583|atp:202195    A mantennisdata  2023 207.5 31 212.5 31.0    227.0
+   atp|2023-410|Q2|atp:106214|atp:208134    A mantennisdata  2023 123.5 57 123.5 55.0    209.0
+  atp|2023-410|R64|atp:111456|atp:123809    A mantennisdata  2023 170.5 55 203.5 43.0      NaN
+atp|2023-1536|R128|atp:105870|atp:122669    B mantennisdata  2023 180.5 57 193.5 28.0    219.0
+   atp|2023-416|Q1|atp:105911|atp:126409    A mantennisdata  2023 139.5 75 142.5 10.0    190.0
+ atp|2023-416|R128|atp:105077|atp:208859    B mantennisdata  2023 166.5 57 168.5 31.0    191.0
+ atp|2023-416|R128|atp:106065|atp:111456    B mantennisdata  2023 159.5 48 166.5 12.0    196.0
+ atp|2023-416|R128|atp:200005|atp:200325    B mantennisdata  2023 169.5 54 172.5 52.0    213.0
+  atp|2023-741|R32|atp:106065|atp:111456    B mantennisdata  2023 185.5 19 186.5 27.0    209.0
+ atp|2023-3503|R16|atp:106298|atp:208169    B mantennisdata  2023 131.5 35 135.5 16.0    213.0
+  atp|2023-5014|Q1|atp:200309|atp:208014    A mantennisdata  2023 163.5 41 163.5 34.0    195.0
+atp|2023-5014|R128|atp:111456|atp:144895    B mantennisdata  2023 149.5 41 160.5 10.0    206.0
+ atp|2023-5014|R64|atp:105526|atp:208286    B mantennisdata  2023 126.5 52 148.5 32.0    212.0
+median first-minus-second gap by source and year (a mix-up would shrink it):
+year                2011  2014  2015  2016  2017  2018  2019  2020  2021  2022  2023  2024  2025  2026
+tour source                                                                                           
+atp  handoff_ks      NaN   NaN   NaN   NaN   NaN  34.0   NaN   NaN  36.0  39.0  43.0  34.5   NaN   NaN
+     infosys         NaN   NaN   NaN   NaN   NaN   NaN   NaN   NaN  23.1  30.9  28.7   NaN   NaN   NaN
+     infosys_slams   NaN   NaN   NaN   NaN   NaN   NaN   NaN   NaN   NaN   NaN   NaN   NaN  31.4  33.8
+     mantennisdata   NaN   NaN   NaN   NaN   NaN   NaN   NaN   NaN  35.0  35.0  34.0  32.0  32.0  33.0
+     sirgenkii       NaN   NaN   NaN   NaN   NaN   NaN   NaN   NaN   NaN   NaN   NaN   NaN  17.0   NaN
+     slam_pbp       35.5  33.1  33.7  32.9  33.0  32.0  32.3  32.3  33.5   NaN   NaN   NaN   NaN   NaN
+     slam_tracking   NaN   NaN   NaN   NaN   NaN   NaN  32.7  31.1  33.0  32.7  30.9  29.8   NaN   NaN
+     slamtracker     NaN   NaN   NaN   NaN   NaN   NaN  29.5   NaN  30.0  32.9  33.7  32.9  32.3  33.2
+wta  infosys_slams   NaN   NaN   NaN   NaN   NaN   NaN   NaN   NaN   NaN   NaN   NaN   NaN  23.7  24.2
+     slam_pbp       24.5  24.3  24.6  25.7  25.7  24.7  26.5  25.3  26.0   NaN   NaN   NaN   NaN   NaN
+     slam_tracking   NaN   NaN   NaN   NaN   NaN   NaN  23.5  24.3  25.6  25.8  24.5  21.8   NaN   NaN
+     slamtracker     NaN   NaN   NaN   NaN   NaN   NaN  25.6   NaN  23.8  25.3  26.2  25.5  24.0  24.7
+
+=== 4. max-vs-average: first-serve mean >= the match's fastest serve - 1 km/h
+108 of 42855
+source         year
+handoff_ks     2021     3
+               2022    14
+               2023    40
+               2024    22
+mantennisdata  2021     2
+               2022    10
+               2023    12
+               2024     3
+               2025     1
+               2026     1
+                               match_id side        source  year  y_raw  n  spd2_raw  spd_max
+  atp|2021-404|Q2|atp:111153|atp:111578    B    handoff_ks  2021  257.0 54     128.0    211.0
+ atp|2021-7485|Q2|atp:105967|atp:106148    B    handoff_ks  2021  213.0 28     144.0    210.0
+atp|2021-7485|R32|atp:111442|atp:200221    A mantennisdata  2021  172.0 30       NaN    172.0
+  atp|2021-568|Q1|atp:117360|atp:122298    A    handoff_ks  2021  203.0 22     147.0    192.0
+ atp|2021-337|R32|atp:100644|atp:105936    B mantennisdata  2021  232.0 36     176.0    233.0
+  atp|2022-407|Q1|atp:105967|atp:106000    A    handoff_ks  2022  224.0 64     139.0    177.0
+  atp|2022-407|Q2|atp:126523|atp:200384    B    handoff_ks  2022  201.0 60       NaN    195.0
+ atp|2022-407|R32|atp:105932|atp:111456    B mantennisdata  2022  171.0 39       NaN    171.0
+  atp|2022-499|Q1|atp:105877|atp:210098    B    handoff_ks  2022  204.0 30     153.0    202.0
+ atp|2022-451|R32|atp:106075|atp:122330    A    handoff_ks  2022  245.0 30     164.0    222.0
+  atp|2022-404|QF|atp:104745|atp:106401    B    handoff_ks  2022  255.0 58     163.0    229.0
+  atp|2022-403|Q2|atp:104269|atp:126409    A mantennisdata  2022  216.0 39     158.0    216.0
+atp|2022-403|R128|atp:105948|atp:202385    A    handoff_ks  2022  203.0 52     153.0    201.0
+atp|2022-403|R128|atp:200221|atp:200624    B    handoff_ks  2022  221.0 27     155.0    201.0
+ atp|2022-403|R16|atp:106401|atp:206173    A    handoff_ks  2022  224.0 42     170.0    220.0
+ atp|2022-416|R16|atp:111575|atp:126774    A    handoff_ks  2022  231.0 48     164.0    217.0
+ atp|2022-8994|Q1|atp:106045|atp:209404    A mantennisdata  2022  208.0 16     147.0    208.0
+  atp|2022-421|QF|atp:105807|atp:207733    A    handoff_ks  2022  215.0 39     141.0    213.0
+atp|2022-6242|R32|atp:105932|atp:106329    B    handoff_ks  2022  213.0 30     146.0    209.0
+atp|2022-2273|R32|atp:105967|atp:145001    B mantennisdata  2022  202.0 26     151.0    202.0
+median (max - first-serve mean) by source and year:
+year                2011  2014  2015  2016  2017  2018  2019  2020  2021  2022  2023  2024  2025  2026
+tour source                                                                                           
+atp  ausopen_mc      NaN   NaN   NaN   NaN   NaN   NaN   NaN   NaN   NaN   NaN   NaN   NaN   NaN  19.0
+     handoff_ks      NaN   NaN   NaN   NaN   NaN  15.0   NaN   NaN  19.0  14.0  11.0  16.0   NaN   NaN
+     infosys         NaN   NaN   NaN   NaN   NaN   NaN   NaN   NaN   9.5  20.5  16.9   NaN   NaN   NaN
+     infosys_slams   NaN   NaN   NaN   NaN   NaN   NaN   NaN   NaN   NaN   NaN   NaN   NaN  20.8  23.0
+     mantennisdata   NaN   NaN   NaN   NaN   NaN   NaN   NaN   NaN  17.0  18.0  19.0  19.0  20.0  20.0
+     sirgenkii       NaN   NaN   NaN   NaN   NaN   NaN   NaN   NaN   NaN   NaN   NaN   NaN  20.7   NaN
+     slam_pbp       21.0  21.6  20.1  20.7  20.2  19.9  19.8  20.9  21.5   NaN   NaN   NaN   NaN   NaN
+     slam_tracking   NaN   NaN   NaN   NaN   NaN   NaN  19.3  19.4  19.7  19.8  21.5  21.0   NaN   NaN
+     slamtracker     NaN   NaN   NaN   NaN   NaN   NaN  18.4   NaN  18.6  21.2  21.0  21.1  20.1  19.2
+wta  ausopen_mc      NaN   NaN   NaN   NaN   NaN   NaN   NaN   NaN   NaN   NaN   NaN  19.0  20.5  16.0
+     infosys_slams   NaN   NaN   NaN   NaN   NaN   NaN   NaN   NaN   NaN   NaN   NaN   NaN  17.5  18.2
+     slam_pbp       15.7  15.3  15.4  16.0  16.2  16.2  16.2  17.2  17.1   NaN   NaN   NaN   NaN   NaN
+     slam_tracking   NaN   NaN   NaN   NaN   NaN   NaN  16.5  15.3  17.1  16.9  16.8  17.7   NaN   NaN
+     slamtracker     NaN   NaN   NaN   NaN   NaN   NaN  14.0   NaN  14.8  17.0  17.0  16.6  15.9  14.6
+
+=== 5. match-level measurement failures: both sides' residual (vs the same player-season and edition) <= -8
+both sides <= -8 km/h: 132 matches; both >= +8: 40
+source         year
+ausopen_mc     2026     2
+infosys_slams  2025    10
+               2026     2
+mantennisdata  2022    18
+               2023    32
+               2024    14
+               2025     5
+               2026    17
+slam_pbp       2011     4
+               2014     1
+               2015     2
+               2017     3
+               2018     1
+               2021     2
+slam_tracking  2019     1
+               2020     1
+               2021     1
+               2022     1
+slamtracker    2022     5
+               2023     1
+               2024     3
+               2025     2
+               2026     4
+                                                         A     B tour      tournament_name  year mq round         source    obs
+match_id                                                                                                                       
+atp|2023-1536|R64|atp:122330|atp:208029              -69.5 -20.7  atp       Madrid Masters  2023  M   R64  mantennisdata  19475
+atp|2025-580|Q1|atp:206748|atp:208859                -51.0 -38.4  atp      Australian Open  2025  Q    Q1  infosys_slams  20094
+atp|2024-311|Q1|atp:106121|atp:209070                -45.6 -25.6  atp         Queen's Club  2024  Q    Q1  mantennisdata  19889
+atp|2026-410|Q2|atp:106000|atp:210696                -40.9 -40.7  atp  Monte Carlo Masters  2026  Q    Q2  mantennisdata  20548
+atp|2023-1536|R64|atp:126409|atp:200624              -40.8 -21.5  atp       Madrid Masters  2023  M   R64  mantennisdata  19475
+atp|2023-311|Q1|atp:106121|atp:126205                -39.4 -30.5  atp         Queen's Club  2023  Q    Q1  mantennisdata  19525
+atp|2023-416|R128|atp:122669|atp:202104              -38.7 -18.4  atp         Rome Masters  2023  M  R128  mantennisdata  19487
+atp|2024-807|R16|atp:106415|atp:207733               -36.5 -13.3  atp             Acapulco  2024  M   R16  mantennisdata  19781
+atp|2023-416|Q1|atp:206681|atp:207608                -36.1 -31.5  atp         Rome Masters  2023  Q    Q1  mantennisdata  19485
+atp|2023-416|R64|atp:126128|atp:200624               -32.2 -20.5  atp         Rome Masters  2023  M   R64  mantennisdata  19489
+atp|2026-6932|R32|atp:200116|atp:208882              -31.6 -20.7  atp       Rio de Janeiro  2026  M   R32  mantennisdata  20501
+atp|2023-741|Q1|atp:126846|atp:209259                -30.6 -26.3  atp           Eastbourne  2023  Q    Q1  mantennisdata  19532
+atp|2023-416|R64|atp:111815|atp:124186               -29.5 -24.4  atp         Rome Masters  2023  M   R64  mantennisdata  19489
+atp|2022-8994|R32|atp:111442|atp:202104              -29.4 -42.4  atp             Mallorca  2022  M   R32  mantennisdata  19164
+atp|2022-499|R32|atp:105815|atp:106218               -28.4 -17.1  atp         Delray Beach  2022  M   R32  mantennisdata  19038
+atp|2022-418|R64|atp:105902|atp:127339               -27.9 -16.2  atp           Washington  2022  M   R64  mantennisdata  19205
+atp|2026-8996|R32|atp:202058|atp:209860              -27.3 -26.6  atp             Santiago  2026  M   R32  mantennisdata  20508
+wta|2025-580|Q1|wta:201478|wta:213949                -25.7 -11.9  wta      Australian Open  2025  Q    Q1  infosys_slams  20094
+atp|2023-416|R64|atp:105916|atp:200282               -25.2 -26.3  atp         Rome Masters  2023  M   R64  mantennisdata  19489
+atp|2025-403|F|atp:104925|atp:210150                 -24.4 -37.8  atp        Miami Masters  2025  M     F  mantennisdata  20177
+atp|2023-418|R64|atp:105430|atp:106218               -24.0 -24.1  atp           Washington  2023  M   R64  mantennisdata  19569
+atp|2022-8998|R32|atp:105357|atp:106423              -23.9 -12.5  atp           Adelaide 1  2022  M   R32  mantennisdata  18996
+atp|2024-451|Q2|atp:109739|atp:200240                -23.0 -20.8  atp                 Doha  2024  Q    Q2  mantennisdata  19771
+atp|2011-540|R128|atp:103917|atp:104545              -22.7 -17.0  atp            Wimbledon  2011  M  R128       slam_pbp  15146
+atp|2026-786|R16|atp:144821|atp:212020               -22.5 -18.2  atp               Poznan  2026  M   R16  mantennisdata  20621
+atp|2024-440|Q2|atp:144817|atp:202261                -22.2 -20.1  atp      s Hertogenbosch  2024  Q    Q2  mantennisdata  19883
+atp|2023-311|Q1|atp:103852|atp:126239                -22.0 -27.8  atp         Queen's Club  2023  Q    Q1  mantennisdata  19525
+atp|2023-421|R64|atp:106218|atp:200325               -22.0 -16.8  atp       Canada Masters  2023  M   R64  mantennisdata  19577
+atp|2026-786|R16|atp:207680|atp:210558               -21.9 -19.8  atp               Poznan  2026  M   R16  mantennisdata  20621
+atp|2026-560|Q2|atp:209409|atp:209903                -21.7 -43.6  atp              US Open  2026  Q    Q2    slamtracker  20691
+wta|2017-560|R64|wta:201366|wta:206108               -21.1 -11.8  wta              US Open  2017  M   R64       slam_pbp  17409
+atp|2023-311|R32|atp:200221|atp:208103               -20.5 -23.5  atp         Queen's Club  2023  M   R32  mantennisdata  19528
+atp|2011-540|R128|atp:103970|atp:105332              -20.2 -17.7  atp            Wimbledon  2011  M  R128       slam_pbp  15146
+wta|2011-W-SL-GBR-1A-2011|R128|wta:201287|wta:201347 -19.5 -16.1  wta            Wimbledon  2011  M  R128       slam_pbp  15146
+atp|2023-416|R32|atp:105916|atp:111815               -19.5 -11.2  atp         Rome Masters  2023  M   R32  mantennisdata  19491
+atp|2023-6116|Q1|atp:105614|atp:209113               -19.3 -11.1  atp              Atlanta  2023  Q    Q1  mantennisdata  19560
+atp|2022-560|R128|atp:111513|atp:126094              -19.0 -11.3  atp              Us Open  2022  M  R128    slamtracker  19234
+atp|2022-9667|QF|atp:106329|atp:144895               -18.6 -24.5  atp           Adelaide 2  2022  M    QF  mantennisdata  19005
+atp|2023-421|Q1|atp:106423|atp:127339                -18.6 -14.1  atp       Canada Masters  2023  Q    Q1  mantennisdata  19574
+wta|2025-580|Q1|wta:211817|wta:215259                -18.4 -27.5  wta      Australian Open  2025  Q    Q1  infosys_slams  20094
+                                             A     B tour  tournament_name  year mq round         source    obs
+match_id                                                                                                       
+atp|2023-311|Q2|atp:105777|atp:126239     23.2  30.4  atp     Queen's Club  2023  Q    Q2  mantennisdata  19526
+atp|2023-8994|Q2|atp:144750|atp:210506    19.0   9.2  atp         Mallorca  2023  Q    Q2  mantennisdata  19533
+atp|2023-311|Q2|atp:200615|atp:209950     18.7  22.4  atp     Queen's Club  2023  Q    Q2  mantennisdata  19526
+atp|2023-7581|Q1|atp:111761|atp:209038    18.2  13.0  atp          Chengdu  2023  Q    Q1  mantennisdata  19619
+atp|2023-1536|R128|atp:200670|atp:207686  18.0  11.8  atp   Madrid Masters  2023  M  R128  mantennisdata  19474
+atp|2023-741|Q2|atp:127339|atp:209414     14.9  12.2  atp       Eastbourne  2023  Q    Q2  mantennisdata  19533
+atp|2022-499|R32|atp:106283|atp:111442    13.9   9.9  atp     Delray Beach  2022  M   R32  mantennisdata  19038
+atp|2023-6242|Q1|atp:105723|atp:111436    13.5   9.7  atp    Winston-Salem  2023  Q    Q1  mantennisdata  19588
+atp|2023-8994|Q1|atp:104269|atp:200303    13.3  12.7  atp         Mallorca  2023  Q    Q1  mantennisdata  19532
+atp|2023-1536|R16|atp:100644|atp:207989   13.3  28.9  atp   Madrid Masters  2023  M   R16  mantennisdata  19479
+atp|2026-520|R128|atp:105173|atp:200005   12.9  11.7  atp    Roland Garros  2026  M  R128  infosys_slams  20598
+atp|2025-1536|R16|atp:200282|atp:207518   12.3  10.3  atp   Madrid Masters  2025  M   R16  mantennisdata  20208
+atp|2025-580|R128|atp:200221|atp:209992   12.0   9.0  atp  Australian Open  2025  M  R128  infosys_slams  20101
+atp|2024-8994|R32|atp:104792|atp:106233   11.0   9.5  atp         Mallorca  2024  M   R32  mantennisdata  19898
+atp|2026-786|R32|atp:207213|atp:207494    10.9   8.2  atp           Poznan  2026  M   R32  mantennisdata  20619
+of the slow failures in 2024-26: 59
+
+=== 6. own-history outliers (panel flag: > 20 km/h from the player's previous-10 median)
+year                2011  2014  2015  2016  2017  2018  2019  2020  2021  2022  2023  2024  2025  2026
+tour source                                                                                           
+atp  ausopen_mc        0     0     0     0     0     0     0     0     0     0     0     0     0     3
+     handoff_ks        0     0     0     0     0     0     0     0     3    10    20    16     0     0
+     infosys_slams     0     0     0     0     0     0     0     0     0     0     0     0    11     2
+     mantennisdata     0     0     0     0     0     0     0     0     7    29   108    43    18    43
+     slam_pbp          1     2     1     6     2     2     2     0     1     0     0     0     0     0
+     slam_tracking     0     0     0     0     0     0     0     0     2     0     3     0     0     0
+     slamtracker       0     0     0     0     0     0     0     0     1     5     2    13    18     4
+wta  ausopen_mc        0     0     0     0     0     0     0     0     0     0     0     0     0     2
+     infosys_slams     0     0     0     0     0     0     0     0     0     0     0     0     6     3
+     slam_pbp          2     0     4     3     5     1     0     3     1     0     0     0     0     0
+     slam_tracking     0     0     0     0     0     0     0     2     1     2     1     0     0     0
+     slamtracker       0     0     0     0     0     0     1     0     0     3     0     2     5     0
+in 2024-26: 189 | below the median: 302 above: 122
+
+=== 7. residual tails by source and test years (share of |resid| > 10 km/h)
+                     size    mean
+tour source                      
+atp  ausopen_mc       457  0.0394
+     handoff_ks       350  0.2629
+     infosys           14  0.0714
+     infosys_slams   1359  0.0486
+     mantennisdata  18986  0.0645
+     sirgenkii         21  0.0000
+     slam_pbp        4136  0.0237
+     slam_tracking   1740  0.0224
+     slamtracker     3330  0.0306
+wta  ausopen_mc       358  0.0168
+     infosys_slams   1135  0.0379
+     slam_pbp        3853  0.0192
+     slam_tracking   1672  0.0167
+     slamtracker     2684  0.0168
+                         size    mean
+tour source        year              
+atp  ausopen_mc    2026   457  0.0394
+     handoff_ks    2024    70  0.4000
+     infosys_slams 2025   892  0.0437
+                   2026   467  0.0578
+     mantennisdata 2024  4729  0.0562
+                   2025  3294  0.0471
+                   2026  4050  0.0558
+     sirgenkii     2025    21  0.0000
+     slam_tracking 2024   383  0.0287
+     slamtracker   2024   460  0.0304
+                   2025   789  0.0279
+                   2026   938  0.0394
+wta  ausopen_mc    2025     1  0.0000
+                   2026   357  0.0168
+     infosys_slams 2025   891  0.0370
+                   2026   244  0.0410
+     slam_tracking 2024   352  0.0142
+     slamtracker   2024   386  0.0104
+                   2025   766  0.0222
+                   2026   491  0.0102

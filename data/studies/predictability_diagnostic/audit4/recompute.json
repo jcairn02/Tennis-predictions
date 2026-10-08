@@ -1,0 +1,401 @@
+{
+ "generated_at": "2026-10-02T15:36:08+00:00",
+ "seed": 20261002,
+ "rows_checked": {
+  "atp": [
+   {
+    "id": "rating_matchup",
+    "form": "single",
+    "rank_given_elo": 1.0
+   },
+   {
+    "id": "elo_games",
+    "form": "single",
+    "rank_given_elo": 2.0
+   },
+   {
+    "id": "sets_14d",
+    "form": "single",
+    "rank_given_elo": 3.0
+   },
+   {
+    "id": "mu_points",
+    "form": "52 weeks",
+    "rank_given_elo": 4.0
+   },
+   {
+    "id": "mu_components",
+    "form": "52 weeks",
+    "rank_given_elo": 5.0
+   },
+   {
+    "id": "minutes_14d",
+    "form": "single",
+    "rank_given_elo": 6.0
+   },
+   {
+    "id": "surface_first",
+    "form": "single",
+    "rank_given_elo": 7.0
+   },
+   {
+    "id": "age",
+    "form": "single",
+    "rank_given_elo": 8.0
+   },
+   {
+    "id": "mu_points",
+    "form": "decayed",
+    "rank_given_elo": 9.0
+   },
+   {
+    "id": "mu_components",
+    "form": "decayed",
+    "rank_given_elo": 10.0
+   }
+  ],
+  "wta": [
+   {
+    "id": "rating_matchup",
+    "form": "single",
+    "rank_given_elo": 1.0
+   },
+   {
+    "id": "elo_games",
+    "form": "single",
+    "rank_given_elo": 2.0
+   },
+   {
+    "id": "sets_14d",
+    "form": "single",
+    "rank_given_elo": 3.0
+   },
+   {
+    "id": "rating_serve",
+    "form": "single",
+    "rank_given_elo": 4.0
+   },
+   {
+    "id": "minutes_14d",
+    "form": "single",
+    "rank_given_elo": 5.0
+   },
+   {
+    "id": "mu_points",
+    "form": "52 weeks",
+    "rank_given_elo": 6.0
+   },
+   {
+    "id": "mu_components",
+    "form": "52 weeks",
+    "rank_given_elo": 7.0
+   },
+   {
+    "id": "tpw",
+    "form": "52 weeks",
+    "rank_given_elo": 8.0
+   },
+   {
+    "id": "mu_games",
+    "form": "52 weeks",
+    "rank_given_elo": 9.0
+   },
+   {
+    "id": "surface_first",
+    "form": "single",
+    "rank_given_elo": 10.0
+   }
+  ]
+ },
+ "features": [
+  "age|single",
+  "elo_games|single",
+  "minutes_14d|single",
+  "mu_components|52 weeks",
+  "mu_components|decayed",
+  "mu_games|52 weeks",
+  "mu_points|52 weeks",
+  "mu_points|decayed",
+  "rating_matchup|single",
+  "rating_serve|single",
+  "sets_14d|single",
+  "surface_first|single",
+  "tpw|52 weeks",
+  "age|single|2"
+ ],
+ "sample": {
+  "random": 200,
+  "two events in one week": 16,
+  "round robin": 12,
+  "Finals knockout after a round robin": 8,
+  "Grand Slam quarter-final onwards": 8,
+  "qualifier's first main-draw match": 8
+ },
+ "sample_by_tour": [
+  {
+   "tour": "atp",
+   "kind": "Finals knockout after a round robin",
+   "0": 4
+  },
+  {
+   "tour": "atp",
+   "kind": "Grand Slam quarter-final onwards",
+   "0": 4
+  },
+  {
+   "tour": "atp",
+   "kind": "qualifier's first main-draw match",
+   "0": 4
+  },
+  {
+   "tour": "atp",
+   "kind": "random",
+   "0": 100
+  },
+  {
+   "tour": "atp",
+   "kind": "round robin",
+   "0": 6
+  },
+  {
+   "tour": "atp",
+   "kind": "two events in one week",
+   "0": 8
+  },
+  {
+   "tour": "wta",
+   "kind": "Finals knockout after a round robin",
+   "0": 4
+  },
+  {
+   "tour": "wta",
+   "kind": "Grand Slam quarter-final onwards",
+   "0": 4
+  },
+  {
+   "tour": "wta",
+   "kind": "qualifier's first main-draw match",
+   "0": 4
+  },
+  {
+   "tour": "wta",
+   "kind": "random",
+   "0": 100
+  },
+  {
+   "tour": "wta",
+   "kind": "round robin",
+   "0": 6
+  },
+  {
+   "tour": "wta",
+   "kind": "two events in one week",
+   "0": 8
+  }
+ ],
+ "tolerance": {
+  "abs": 2e-05,
+  "rel": 2e-05
+ },
+ "comparisons": 3528,
+ "disagreements": 0,
+ "by_feature": [
+  {
+   "feature": "age|single",
+   "n": 252,
+   "agree": 252,
+   "both_missing": 1,
+   "max_abs_diff": 3.814697286941282e-07
+  },
+  {
+   "feature": "age|single|2",
+   "n": 252,
+   "agree": 252,
+   "both_missing": 1,
+   "max_abs_diff": 6.713867179541921e-06
+  },
+  {
+   "feature": "elo_games|single",
+   "n": 252,
+   "agree": 252,
+   "both_missing": 0,
+   "max_abs_diff": 1.141401786419749e-07
+  },
+  {
+   "feature": "minutes_14d|single",
+   "n": 252,
+   "agree": 252,
+   "both_missing": 75,
+   "max_abs_diff": 2.0979294390599534e-07
+  },
+  {
+   "feature": "mu_components|52 weeks",
+   "n": 252,
+   "agree": 252,
+   "both_missing": 9,
+   "max_abs_diff": 8.441519794288865e-08
+  },
+  {
+   "feature": "mu_components|decayed",
+   "n": 252,
+   "agree": 252,
+   "both_missing": 6,
+   "max_abs_diff": 9.818542823225584e-08
+  },
+  {
+   "feature": "mu_games|52 weeks",
+   "n": 252,
+   "agree": 252,
+   "both_missing": 25,
+   "max_abs_diff": 1.0330465238794773e-07
+  },
+  {
+   "feature": "mu_points|52 weeks",
+   "n": 252,
+   "agree": 252,
+   "both_missing": 9,
+   "max_abs_diff": 6.509300920498617e-08
+  },
+  {
+   "feature": "mu_points|decayed",
+   "n": 252,
+   "agree": 252,
+   "both_missing": 6,
+   "max_abs_diff": 7.475100316511885e-08
+  },
+  {
+   "feature": "rating_matchup|single",
+   "n": 252,
+   "agree": 252,
+   "both_missing": 0,
+   "max_abs_diff": 2.0878599027440714e-07
+  },
+  {
+   "feature": "rating_serve|single",
+   "n": 252,
+   "agree": 252,
+   "both_missing": 0,
+   "max_abs_diff": 3.8177480732315416e-08
+  },
+  {
+   "feature": "sets_14d|single",
+   "n": 252,
+   "agree": 252,
+   "both_missing": 0,
+   "max_abs_diff": 8.339842638704908e-08
+  },
+  {
+   "feature": "surface_first|single",
+   "n": 252,
+   "agree": 252,
+   "both_missing": 0,
+   "max_abs_diff": 0.0
+  },
+  {
+   "feature": "tpw|52 weeks",
+   "n": 252,
+   "agree": 252,
+   "both_missing": 9,
+   "max_abs_diff": 5.8471828212613985e-09
+  }
+ ],
+ "by_kind": [
+  {
+   "kind": "Finals knockout after a round robin",
+   "n": 112,
+   "agree": 112
+  },
+  {
+   "kind": "Grand Slam quarter-final onwards",
+   "n": 112,
+   "agree": 112
+  },
+  {
+   "kind": "qualifier's first main-draw match",
+   "n": 112,
+   "agree": 112
+  },
+  {
+   "kind": "random",
+   "n": 2800,
+   "agree": 2800
+  },
+  {
+   "kind": "round robin",
+   "n": 168,
+   "agree": 168
+  },
+  {
+   "kind": "two events in one week",
+   "n": 224,
+   "agree": 224
+  }
+ ],
+ "matches_with_format_from_own_score": 0,
+ "replayed_history_matches": {
+  "min": 60658,
+  "median": 247692.0,
+  "max": 464327
+ },
+ "constants": {
+  "atp": {
+   "games_scale_audit": 0.650022025993882,
+   "games_scale_stage4": 0.650022025993882,
+   "s3_mu_audit": {
+    "0": 0.4913554560343244,
+    "1": 0.5246804733535281,
+    "2": 0.4216749375966874,
+    "3": 0.6431364657511982,
+    "4": 0.6397107616637536
+   },
+   "s3_mu_stage3": {
+    "all": 0.4913554560343244,
+    "Hard": 0.5246804733535281,
+    "Clay": 0.4216749375966874,
+    "Grass": 0.6431364657511982,
+    "Carpet": 0.6397107616637536
+   }
+  },
+  "wta": {
+   "games_scale_audit": 0.673419361196863,
+   "games_scale_stage4": 0.673419361196863,
+   "s3_mu_audit": {
+    "0": 0.23481713055651612,
+    "1": 0.2320213299316147,
+    "2": 0.19908587637975902,
+    "3": 0.35448103316478397,
+    "4": 0.2869843755653414
+   },
+   "s3_mu_stage3": {
+    "all": 0.23481713055651612,
+    "Hard": 0.2320213299316147,
+    "Clay": 0.19908587637975902,
+    "Grass": 0.35448103316478397,
+    "Carpet": 0.2869843755653414
+   }
+  }
+ },
+ "full_pass": {
+  "atp": {
+   "matches": 466115,
+   "stage3_ratings_max_abs_diff": 4.259035746301265e-08,
+   "stage3_ratings_rows_beyond_1e-5": 0,
+   "stage3_mu_max_abs_diff": 2.404358712126964e-08,
+   "pool_matches": 182440,
+   "elo_games_max_abs_diff": 2.382246915288988e-07,
+   "elo_games_beyond_tol": 0,
+   "rating_serve_max_abs_diff": 6.664544227596991e-08
+  },
+  "wta": {
+   "matches": 406589,
+   "stage3_ratings_max_abs_diff": 2.980214952597038e-08,
+   "stage3_ratings_rows_beyond_1e-5": 0,
+   "stage3_mu_max_abs_diff": 8.494564607275379e-09,
+   "pool_matches": 72683,
+   "elo_games_max_abs_diff": 2.3833126050476494e-07,
+   "elo_games_beyond_tol": 0,
+   "rating_serve_max_abs_diff": 6.03371653751239e-08
+  }
+ },
+ "seconds": 87.6
+}

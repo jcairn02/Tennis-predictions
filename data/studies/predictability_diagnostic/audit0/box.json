@@ -1,0 +1,491 @@
+{
+ "matches": 872704,
+ "staged_row_found": 872704,
+ "status_and_has_box_agree": 872704,
+ "disagree": 0,
+ "crosstab_audit_by_stage0": {
+  "all_zero": {
+   "all_zero": 438,
+   "blank": 0,
+   "failed_check": 0,
+   "full": 0,
+   "no_svgms": 0,
+   "partial": 0
+  },
+  "blank": {
+   "all_zero": 0,
+   "blank": 574197,
+   "failed_check": 0,
+   "full": 0,
+   "no_svgms": 0,
+   "partial": 0
+  },
+  "failed_check": {
+   "all_zero": 0,
+   "blank": 0,
+   "failed_check": 1126,
+   "full": 0,
+   "no_svgms": 0,
+   "partial": 0
+  },
+  "full": {
+   "all_zero": 0,
+   "blank": 0,
+   "failed_check": 0,
+   "full": 276359,
+   "no_svgms": 0,
+   "partial": 0
+  },
+  "no_svgms": {
+   "all_zero": 0,
+   "blank": 0,
+   "failed_check": 0,
+   "full": 0,
+   "no_svgms": 20484,
+   "partial": 0
+  },
+  "partial": {
+   "all_zero": 0,
+   "blank": 0,
+   "failed_check": 0,
+   "full": 0,
+   "no_svgms": 0,
+   "partial": 100
+  }
+ },
+ "per_check_failures": {
+  "B5": {
+   "audit": 1758,
+   "stage0_log": 1758,
+   "audit_with_match_tiebreaks_fixed": 1715
+  },
+  "B1": {
+   "audit": 0,
+   "stage0_log": 0,
+   "audit_with_match_tiebreaks_fixed": 0
+  },
+  "B2": {
+   "audit": 1,
+   "stage0_log": 1,
+   "audit_with_match_tiebreaks_fixed": 1
+  },
+  "B3": {
+   "audit": 7,
+   "stage0_log": 7,
+   "audit_with_match_tiebreaks_fixed": 7
+  },
+  "B4": {
+   "audit": 12,
+   "stage0_log": 12,
+   "audit_with_match_tiebreaks_fixed": 12
+  },
+  "B6": {
+   "audit": 5,
+   "stage0_log": 5,
+   "audit_with_match_tiebreaks_fixed": 5
+  },
+  "B7": {
+   "audit": 0,
+   "stage0_log": 0,
+   "audit_with_match_tiebreaks_fixed": 0
+  },
+  "B8": {
+   "audit": 30,
+   "stage0_log": 30,
+   "audit_with_match_tiebreaks_fixed": 30
+  },
+  "B9": {
+   "audit": 1078,
+   "stage0_log": 1078,
+   "audit_with_match_tiebreaks_fixed": 1043
+  }
+ },
+ "kept_boxes": 296843,
+ "kept_counts_differing_from_staged_row": {
+  "ace": 0,
+  "df": 0,
+  "svpt": 0,
+  "first_in": 0,
+  "first_won": 0,
+  "second_won": 0,
+  "bp_saved": 0,
+  "bp_faced": 0
+ },
+ "kept_boxes_failing_any_audit_check": 0,
+ "evaluation_box_pct": {
+  "atp": 98.1,
+  "wta": 92.2
+ },
+ "match_tiebreak_written_as_set": {
+  "with_usable_box": 45,
+  "B5_fail_as_read": 45,
+  "B5_fail_fixed": 2,
+  "B9_fail_as_read": 37,
+  "B9_fail_fixed": 2,
+  "box_dropped_by_stage0": 37,
+  "box_dropped_only_because_of_B9_as_read": 35,
+  "service_games_dropped_only_because_of_B5_as_read": 43
+ },
+ "added_checks": {
+  "A1_service_game_split_exceeds_one_plus_tiebreaks": 89,
+  "A2_tested_completed_no_tiebreak": 190921,
+  "A2_games_not_holds_plus_breaks": 1822,
+  "A2_off_by_more_than_one_game": 157,
+  "A2_by_tour_level": [
+   {
+    "tour": "atp",
+    "level": "CH",
+    "matches": 3
+   },
+   {
+    "tour": "atp",
+    "level": "GS",
+    "matches": 7
+   },
+   {
+    "tour": "atp",
+    "level": "ITF",
+    "matches": 40
+   },
+   {
+    "tour": "atp",
+    "level": "T1000",
+    "matches": 1
+   },
+   {
+    "tour": "wta",
+    "level": "CH",
+    "matches": 2
+   },
+   {
+    "tour": "wta",
+    "level": "FIN",
+    "matches": 7
+   },
+   {
+    "tour": "wta",
+    "level": "GS",
+    "matches": 1
+   },
+   {
+    "tour": "wta",
+    "level": "ITF",
+    "matches": 41
+   },
+   {
+    "tour": "wta",
+    "level": "T1000",
+    "matches": 4
+   },
+   {
+    "tour": "wta",
+    "level": "T250",
+    "matches": 22
+   },
+   {
+    "tour": "wta",
+    "level": "T500",
+    "matches": 29
+   }
+  ],
+  "A2_evaluation_off_by_more_than_one_pct": {
+   "atp": 0.01,
+   "wta": 0.18
+  },
+  "A2_evaluation_off_by_one_or_more": {
+   "atp": {
+    "off": 365,
+    "tested": 98660
+   },
+   "wta": {
+    "off": 593,
+    "tested": 35531
+   }
+  },
+  "A2_off_by_one_or_more_by_tour_level": [
+   {
+    "tour": "atp",
+    "level": "CH",
+    "matches": 25
+   },
+   {
+    "tour": "atp",
+    "level": "GS",
+    "matches": 410
+   },
+   {
+    "tour": "atp",
+    "level": "ITF",
+    "matches": 200
+   },
+   {
+    "tour": "atp",
+    "level": "T1000",
+    "matches": 8
+   },
+   {
+    "tour": "atp",
+    "level": "T500",
+    "matches": 1
+   },
+   {
+    "tour": "atp",
+    "level": "TEAM",
+    "matches": 112
+   },
+   {
+    "tour": "wta",
+    "level": "CH",
+    "matches": 16
+   },
+   {
+    "tour": "wta",
+    "level": "FIN",
+    "matches": 8
+   },
+   {
+    "tour": "wta",
+    "level": "GS",
+    "matches": 496
+   },
+   {
+    "tour": "wta",
+    "level": "ITF",
+    "matches": 248
+   },
+   {
+    "tour": "wta",
+    "level": "T1000",
+    "matches": 7
+   },
+   {
+    "tour": "wta",
+    "level": "T250",
+    "matches": 30
+   },
+   {
+    "tour": "wta",
+    "level": "T500",
+    "matches": 36
+   },
+   {
+    "tour": "wta",
+    "level": "TEAM",
+    "matches": 225
+   }
+  ],
+  "A2_off_by_one_or_more_by_source": {
+   "sackmann": 1805,
+   "tml": 17
+  },
+  "A2_pattern_winner_by_loser": {
+   "-3.0": {
+    "-2.0": 0,
+    "-1.0": 0,
+    "0.0": 0,
+    "1.0": 0,
+    "2.0": 4,
+    "3.0": 96
+   },
+   "-2.0": {
+    "-2.0": 0,
+    "-1.0": 0,
+    "0.0": 0,
+    "1.0": 44,
+    "2.0": 7,
+    "3.0": 2
+   },
+   "-1.0": {
+    "-2.0": 0,
+    "-1.0": 0,
+    "0.0": 180,
+    "1.0": 316,
+    "2.0": 1,
+    "3.0": 0
+   },
+   "0.0": {
+    "-2.0": 0,
+    "-1.0": 20,
+    "0.0": 0,
+    "1.0": 14,
+    "2.0": 0,
+    "3.0": 0
+   },
+   "1.0": {
+    "-2.0": 0,
+    "-1.0": 1127,
+    "0.0": 8,
+    "1.0": 0,
+    "2.0": 0,
+    "3.0": 0
+   },
+   "2.0": {
+    "-2.0": 3,
+    "-1.0": 0,
+    "0.0": 0,
+    "1.0": 0,
+    "2.0": 0,
+    "3.0": 0
+   }
+  },
+  "A2_box_games_minus_score_games": {
+   "-1.0": 260,
+   "0.0": 1530,
+   "1.0": 32
+  },
+  "A2_examples": [
+   {
+    "match_id": "atp|2010-580|R128|atp:103294|atp:105385",
+    "score": "1-6 7-5 6-2 6-4",
+    "gap": 2.0,
+    "w": [
+     19.0,
+     15.0,
+     10.0
+    ],
+    "l": [
+     18.0,
+     6.0,
+     2.0
+    ]
+   },
+   {
+    "match_id": "atp|2011-560|R128|atp:104534|atp:105064",
+    "score": "4-6 2-6 6-4 6-3 6-0",
+    "gap": 2.0,
+    "w": [
+     22.0,
+     12.0,
+     6.0
+    ],
+    "l": [
+     21.0,
+     13.0,
+     7.0
+    ]
+   },
+   {
+    "match_id": "atp|2012-580|Q1|atp:103821|atp:104978",
+    "score": "6-2 4-6 6-2",
+    "gap": 2.0,
+    "w": [
+     13.0,
+     6.0,
+     4.0
+    ],
+    "l": [
+     13.0,
+     14.0,
+     7.0
+    ]
+   },
+   {
+    "match_id": "atp|2012-580|Q1|atp:105132|atp:105590",
+    "score": "2-6 7-5 9-7",
+    "gap": 2.0,
+    "w": [
+     18.0,
+     12.0,
+     10.0
+    ],
+    "l": [
+     18.0,
+     5.0,
+     1.0
+    ]
+   },
+   {
+    "match_id": "atp|2012-580|R128|atp:105376|atp:105385",
+    "score": "6-1 6-2 4-6 1-6 6-2",
+    "gap": 2.0,
+    "w": [
+     20.0,
+     9.0,
+     5.0
+    ],
+    "l": [
+     20.0,
+     17.0,
+     8.0
+    ]
+   },
+   {
+    "match_id": "wta|2013-W-WT-TUR-1A-2013|RR|wta:201347|wta:201506",
+    "score": "6-4 6-4",
+    "gap": 2.0,
+    "w": [
+     10.0,
+     11.0,
+     4.0
+    ],
+    "l": [
+     10.0,
+     13.0,
+     6.0
+    ]
+   },
+   {
+    "match_id": "wta|2013-W-WT-TUR-1A-2013|RR|wta:201419|wta:201458",
+    "score": "6-2 6-1",
+    "gap": 5.0,
+    "w": [
+     8.0,
+     3.0,
+     1.0
+    ],
+    "l": [
+     7.0,
+     6.0,
+     5.0
+    ]
+   },
+   {
+    "match_id": "wta|2013-W-WT-TUR-1A-2013|RR|wta:201474|wta:201493",
+    "score": "6-2 6-2",
+    "gap": 3.0,
+    "w": [
+     8.0,
+     0.0,
+     0.0
+    ],
+    "l": [
+     8.0,
+     5.0,
+     4.0
+    ]
+   },
+   {
+    "match_id": "wta|2013-W-WT-TUR-1A-2013|RR|wta:201474|wta:201520",
+    "score": "6-4 6-4",
+    "gap": 6.0,
+    "w": [
+     10.0,
+     8.0,
+     1.0
+    ],
+    "l": [
+     10.0,
+     6.0,
+     3.0
+    ]
+   },
+   {
+    "match_id": "wta|2013-W-WT-TUR-1A-2013|RR|wta:200033|wta:201493",
+    "score": "6-3 6-1",
+    "gap": 4.0,
+    "w": [
+     8.0,
+     2.0,
+     0.0
+    ],
+    "l": [
+     8.0,
+     6.0,
+     4.0
+    ]
+   }
+  ],
+  "A3_serve_points_below_four_per_service_game": 0,
+  "A3_examples": []
+ }
+}

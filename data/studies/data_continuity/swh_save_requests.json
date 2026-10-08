@@ -1,0 +1,26 @@
+{
+ "about": "Software Heritage 'Save Code Now' requests for GitHub sources the project uses that Software Heritage had never archived (checked 6 Oct 2026). Sent on the owner's permission of 6 Oct 2026 ('You have permission to send software heritage save requests if its physically possible'), anonymously, through POST https://archive.softwareheritage.org/api/1/origin/save/git/url/<origin>/. Status read back from https://archive.softwareheritage.org/api/1/origin/save/<id>/.",
+ "not_requested": {
+  "https://github.com/JeffSackmann/tennis_MatchChartingProject": "archived 26 Sep 2026, after its last push of 18 Sep",
+  "https://github.com/Tennismylife/TML-Database": "archived 21 Feb 2026, after its last push of 27 Jan; TML's live data is on its site's API, which Software Heritage does not archive",
+  "https://github.com/ppaulojr/tennis_pointbypoint": "archived 22 Jan 2021, after its last push of 18 Apr 2015",
+  "https://github.com/sportsdatascience/setuppoints": "archived 13 May 2021, after its last push of 6 Jan 2018",
+  "https://github.com/JeffSackmann/tennis_atp, tennis_wta, tennis_slam_pointbypoint": "answer 404; Software Heritage's last full visits are 8 May 2026, 3 Jan 2025 and 14 Nov 2024"
+ },
+ "requests": [
+  {"id": 2542922, "origin": "https://github.com/Aneeshers/tennis-sackmann-archive", "requested": "2026-10-06T22:36:18Z",
+   "request_status": "accepted", "task_status": "succeeded", "visit": "full", "visit_date": "2026-10-06T22:36:26Z",
+   "snapshot": "swh:1:snp:6d3bdb45e23b034eaef25cc7adaa37fb45f9e904",
+   "note": "the project's source for Sackmann's files; the first POST timed out without registering and was sent again"},
+  {"id": 2542918, "origin": "https://github.com/SirGenkii/infotennis", "requested": "2026-10-06T22:33:26Z",
+   "request_status": "accepted", "task_status": "succeeded", "visit": "full", "visit_date": "2026-10-06T22:33:34Z",
+   "snapshot": "swh:1:snp:c37c23b442bb4713a4600fbe64fea29b4ba290fd"},
+  {"id": 2542919, "origin": "https://github.com/hawkilol/tennisSlamBallTracking", "requested": "2026-10-06T22:33:33Z",
+   "request_status": "accepted", "task_status": "succeeded", "visit": "full", "visit_date": "2026-10-06T22:33:34Z",
+   "snapshot": "swh:1:snp:3573a84826e068def7689764fdaf288d4b5b3695"},
+  {"id": 2542923, "origin": "https://github.com/ryantjx/tennis-match-data", "requested": "2026-10-06T22:36:27Z",
+   "request_status": "accepted", "task_status": "succeeded", "visit": "full", "visit_date": "2026-10-06T22:36:36Z",
+   "snapshot": "swh:1:snp:d2f0648b50df5e3abe9f08540dd4dbe980e6b2b0",
+   "note": "Open Tennis Data; its data releases are GitHub release assets, which Software Heritage does not archive, so this keeps the repository, not the release files; the first POST timed out without registering and was sent again"}
+ ]
+}

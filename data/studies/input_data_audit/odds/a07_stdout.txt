@@ -1,0 +1,111 @@
+{
+ "frame_rows": 63737,
+ "rows_with_a_referee": 63629,
+ "reversed": 10,
+ "reversed_by_split": {
+  "test": 6,
+  "train": 4
+ },
+ "garbled": 7,
+ "garbled_by_split": {
+  "test": 5,
+  "train": 2
+ },
+ "dev_from_refs_quantiles": {
+  "0.5": 0.005,
+  "0.9": 0.0125,
+  "0.99": 0.0227,
+  "0.999": 0.0446,
+  "1.0": 0.6671
+ },
+ "reversed_logloss_avg": 0.9155,
+ "reversed_logloss_refs": 0.7761,
+ "reversed_winner_favoured_by_avg": 5,
+ "reversed_winner_favoured_by_refs": 5,
+ "garbled_logloss_avg": 0.5994,
+ "garbled_logloss_refs": 0.969,
+ "garbled_winner_favoured_by_avg": 4,
+ "garbled_winner_favoured_by_refs": 3
+}
+                                      match_id tabpfn_split  tournament_name round         td_winner      td_loser  a_won  rank_a  rank_b  avg_a  avg_b  max_a  max_b  p_mkt  p_ref_median  n_ref  p_B365   p_PS  p_Max  p_elo      flag
+161      atp|2013-891|SF|atp:104386|atp:105379        train          Chennai    SF     Tipsarevic J.     Bedene A.  False    86.0     9.0   1.14   5.44   1.17   6.70  0.827         0.160      5   0.157  0.160  0.851  0.216  reversed
+47562  wta|2023-2012|R32|wta:214082|wta:220589         test           Berlin   R32      Avanesyan E.  Kasatkina D.   True    81.0    11.0   2.91   1.41   2.91   1.41  0.326         0.926      1   0.926    NaN  0.326  0.153  reversed
+18357     atp|2016-540|F|atp:104918|atp:105683        train        Wimbledon     F         Murray A.     Raonic M.  False     7.0     2.0   1.26   3.97   1.30   4.36  0.759         0.232      4   0.224  0.226  0.770  0.263  reversed
+48099  wta|2023-2036|R32|wta:201611|wta:221237         test         Budapest   R32      Timofeeva M.    Saville D.  False   222.0   246.0   1.35   3.25   1.85   4.30  0.707         0.256      1   0.256    NaN  0.699  0.751  reversed
+55095   atp|2024-341|R32|atp:106296|atp:132283         test             Metz   R32         Sonego L.    Barrere G.   True    51.0   166.0   1.42   2.80   1.42   2.80  0.664         0.271      1   0.271    NaN  0.664  0.647  reversed
+29150  wta|2019-M007|R64|wta:201555|wta:201595        train            Miami   R64         Hercog P.        Doi M.  False   112.0    93.0   2.02   1.85   2.37   2.10  0.478         0.828      1   0.828    NaN  0.470  0.482  reversed
+57803     wta|2025-822|F|wta:210722|wta:211817         test  s Hertogenbosch     F        Mertens E.     Ruse E.G.  False    80.0    25.0   1.44   2.74   3.00   1.50  0.656         0.337      2   0.344  0.331  0.333  0.437  reversed
+37704  wta|2021-2017|R32|wta:201696|wta:211668        train      Bad Homburg   R32      Siegemund L.     Bhatia R.   True    55.0   362.0   1.50   2.61   1.50   2.61  0.635         0.318      1   0.318    NaN  0.635  0.944  reversed
+40074  wta|2022-2030|R32|wta:201603|wta:216146         test       Adelaide 2   R32        Kostyuk M.     Rogers S.   True    50.0    36.0   1.47   2.64   2.90   1.53  0.642         0.355      2   0.364  0.347  0.345  0.430  reversed
+50628  wta|2024-2050|R32|wta:211713|wta:215453         test      Cluj-Napoca   R32       Cristian J.    Bassols M.  False   105.0    81.0   2.02   1.70   2.02   1.70  0.457         0.725      2   0.719  0.731  0.457  0.423  reversed
+34530    wta|2020-M009|F|wta:201594|wta:201662        train             Rome     F          Halep S.  Pliskova Ka.  False     4.0     2.0   2.70   1.47   3.12   1.54  0.353         0.647      2   0.344  0.949  0.330  0.394   garbled
+43493   atp|2022-421|R64|atp:105138|atp:106218         test   Canada Masters   R64  Bautista Agut R.      Giron M.  False    57.0    18.0  13.75   1.02  16.00   1.03  0.069         0.279      2   0.271  0.287  0.060  0.292   garbled
+42169  atp|2022-520|R128|atp:105967|atp:124079         test    Roland Garros  R128      Laaksonen H.   Martinez P.   True    96.0    43.0   2.16   1.69   2.31   1.75  0.439         0.231      2   0.238  0.224  0.431  0.347   garbled
+4081   atp|2013-560|R128|atp:104297|atp:105577        train          US Open  R128    Dutra Silva R.   Pospisil V.   True   134.0    40.0   2.62   1.46   2.80   1.61  0.358         0.164      5   0.146  0.164  0.365  0.321   garbled
+61980  wta|2026-1051|R16|wta:220309|wta:220367         test        Stuttgart   R16    Fernandez L.A.     Sonmez Z.   True    25.0    79.0   1.43   3.27   1.83   4.00  0.696         0.526      1   0.526    NaN  0.686  0.611   garbled
+50738  wta|2024-1003|R64|wta:203354|wta:215713         test             Doha   R64       Potapova A.   Trevisan M.   True    34.0    58.0   2.11   1.60   2.11   1.60  0.431         0.588      2   0.587  0.590  0.431  0.647   garbled
+47725   wta|2023-710|R32|wta:201606|wta:216016         test       Eastbourne   R32         Wang Xiy.     Marino R.  False    83.0    73.0   2.02   1.79   2.05   1.80  0.470         0.620      1   0.620    NaN  0.468  0.422   garbled
+
+links without identical set scores in the frame: 255 | by split {'test': 124, 'train': 131} | td comment {'Retired': 179, 'Completed': 72, <NA>: 2, 'Walkover': 1, 'Rrtired': 1} | Stage 0 status {'retired': 184, 'completed': 71}
+round-alone links whose tennis-data event name shares no 4-letter prefix with Stage 0's: 132
+                                                   match_id       tournament_name                                    td_tournament round       td_round tournament_date    td_date            score           td_winner         td_loser
+65     wta|2013-W-INT-NZL-1A-2013|R32|wta:201514|wta:201586              Auckland                                      ASB Classic   R32      1st Round      2012-12-31 2012-12-31      6-3 0-0 RET           Watson H.       Cirstea S.
+230                  atp|2013-338|R16|atp:103285|atp:103898                Sydney                               Apia International   R16      2nd Round      2013-01-07 2013-01-09              RET        Benneteau J.      Stepanek R.
+747     wta|2013-W-PR-QAT-1A-2013|R32|wta:201421|wta:201594                  Doha                                 Qatar Total Open   R32      2nd Round      2013-02-11 2013-02-13      6-3 0-0 RET         Ivanovic A.         Halep S.
+991      wta|2013-W-INT-USA-1A-2013|F|wta:201513|wta:201523               Memphis          US National Indoor Tennis Championships     F      The Final      2013-02-18 2013-02-24      6-1 0-0 RET         Erakovic M.       Lisicki S.
+1556    wta|2013-W-PR-USA-1A-2013|R64|wta:201481|wta:202479            Charleston                                Family Circle Cup   R64      1st Round      2013-04-01 2013-04-01      6-3 0-0 RET              Min G.        Paszek T.
+1985                   atp|2013-468|F|atp:103970|atp:104527               Estoril                                    Portugal Open     F      The Final      2013-04-29 2013-05-05          6-1 6-4         Wawrinka S.        Ferrer D.
+4811    wta|2013-W-PR-RUS-1A-2013|R16|wta:201517|wta:201594                Moscow                                      Kremlin Cup   R16      2nd Round      2013-10-14 2013-10-17      6-2 0-0 RET            Halep S.    Rybarikova M.
+8622    wta|2014-W-INT-USA-1A-2014|QF|wta:201320|wta:201447            Washington                                        Citi Open    QF  Quarterfinals      2014-07-28 2014-08-01              RET       Kuznetsova S.          King V.
+13715   wta|2015-W-P700-USA-3A-2015|F|wta:201493|wta:201662              Stanford                         Bank of the West Classic     F      The Final      2015-08-03 2015-08-09      6-3 5-7 6-4           Kerber A.     Pliskova Ka.
+15904                wta|2016-1087|QF|wta:201527|wta:201709             Kaohsiung                                      Taiwan Open    QF  Quarterfinals      2016-02-08 2016-02-12      6-3 0-0 RET       Putintseva Y.       Voegele S.
+16157                atp|2016-533|R32|atp:104665|atp:105671             Sao Paulo                                      Brasil Open   R32      1st Round      2016-02-22 2016-02-23  1-6 6-4 0-0 RET            Elias G.       Andujar P.
+16322              wta|2016-M006|R128|wta:201426|wta:201533          Indian Wells                                 BNP Paribas Open  R128      1st Round      2016-03-07 2016-03-10   7-6(5) 0-0 RET            Zhang S.    Parmentier P.
+16591               atp|2016-M007|R64|atp:105062|atp:105064         Miami Masters                               Sony Ericsson Open   R64      2nd Round      2016-03-21 2016-03-26  5-7 6-3 0-0 RET        Kukushkin M.      Bellucci T.
+17118               wta|2016-1005|R16|wta:201523|wta:201615                 Rabat                      Grand Prix SAR Lalla Meryem   R16      2nd Round      2016-04-25 2016-04-27      6-4 0-0 RET         Erakovic M.      Tsurenko L.
+17721                atp|2016-520|R32|atp:104607|atp:104655         Roland Garros                                      French Open   R32      3rd Round      2016-05-23 2016-05-28  4-6 6-3 6-2 7-5          Berdych T.        Cuevas P.
+17809                atp|2016-321|R32|atp:104660|atp:123828             Stuttgart                                     Mercedes Cup   R32      1st Round      2016-06-06 2016-06-07      6-3 0-0 RET       Stakhovsky S.      Choinski J.
+18746                atp|2016-421|R64|atp:104871|atp:105577        Canada Masters                                   Rogers Masters   R64      1st Round      2016-07-25 2016-07-27   7-6(3) 0-0 RET         Pospisil V.        Chardy J.
+19032                atp|2016-M024|QF|atp:105227|atp:106432    Cincinnati Masters       Western & Southern Financial Group Masters    QF  Quarterfinals      2016-08-15 2016-08-19      6-2 0-0 RET            Cilic M.         Coric B.
+20023               wta|2016-M014|R32|wta:201615|wta:201709                Moscow                                      Kremlin Cup   R32      1st Round      2016-10-17 2016-10-18      6-3 0-0 RET       Putintseva Y.      Tsurenko L.
+20398                wta|2017-1049|QF|wta:211768|wta:211951              Auckland                                      ASB Classic    QF  Quarterfinals      2017-01-02 2017-01-05          2-0 RET           Konjuh A.         Osaka N.
+20515               atp|2017-M001|R16|atp:105723|atp:200282                Sydney                               Apia International   R16      2nd Round      2017-01-09 2017-01-11      6-2 0-0 RET       Kuznetsov An.     De Minaur A.
+20979               wta|2017-1003|R32|wta:201490|wta:201709                  Doha                                 Qatar Total Open   R32      1st Round      2017-02-13 2017-02-15      6-1 0-0 RET       Putintseva Y.    Bacsinszky T.
+21288               atp|2017-M004|R32|atp:105385|atp:106071              Acapulco                                 Abierto Mexicano   R32      1st Round      2017-02-27 2017-02-28   7-6(5) 0-0 RET            Young D.         Tomic B.
+21308               wta|2017-M004|R16|wta:201465|wta:201548              Acapulco                                 Abierto Mexicano   R16      2nd Round      2017-02-27 2017-03-01      7-5 0-0 RET         Flipkens K.   Tomljanovic A.
+21604              wta|2017-M007|R128|wta:201397|wta:203575                 Miami                               Sony Ericsson Open  R128      1st Round      2017-03-20 2017-03-21      6-2 0-0 RET             Peng S.       Kovinic D.
+21726               wta|2017-M007|R16|wta:201496|wta:202469                 Miami                               Sony Ericsson Open   R16      4th Round      2017-03-20 2017-03-27   7-6(1) 0-0 RET        Wozniacki C.      Muguruza G.
+22447               atp|2017-M009|R32|atp:104597|atp:104745          Rome Masters                      Internazionali BNL d'Italia   R32      2nd Round      2017-05-15 2017-05-17          3-0 RET            Nadal R.       Almagro N.
+22537               wta|2017-1068|R32|wta:201595|wta:206289              Nurnberg                      Nürnberger Versicherungscup   R32      1st Round      2017-05-22 2017-05-22   7-6(0) 0-0 RET              Doi M.       Sakkari M.
+22597                wta|2017-1068|QF|wta:201468|wta:201595              Nurnberg                      Nürnberger Versicherungscup    QF  Quarterfinals      2017-05-22 2017-05-25      6-4 0-0 RET              Doi M.      Shvedova Y.
+22892                atp|2017-321|R32|atp:104259|atp:104571             Stuttgart                                     Mercedes Cup   R32      1st Round      2017-06-12 2017-06-13      6-1 0-0 RET    Kohlschreiber P.     Baghdatis M.
+22983                 wta|2017-1080|F|wta:202427|wta:202499            Nottingham                                       Aegon Open     F      The Final      2017-06-12 2017-06-18   2-6 7-6(3) 7-5            Konta J.         Vekic D.
+23021                atp|2017-311|R32|atp:105385|atp:106401          Queen's Club                              AEGON Championships   R32      1st Round      2017-06-19 2017-06-19   7-6(3) 0-0 RET            Young D.       Kyrgios N.
+23036               wta|2017-1091|R32|wta:201513|wta:202428                Calvia                                    Mallorca Open   R32      1st Round      2017-06-19 2017-06-20  6-2 3-6 0-0 RET          Lisicki S.       Bertens K.
+23087                wta|2017-1052|QF|wta:201535|wta:202469            Birmingham                                   AEGON Classic     QF  Quarterfinals      2017-06-19 2017-06-23  4-6 6-4 0-0 RET         Muguruza G.    Vandeweghe C.
+23470                atp|2017-316|R32|atp:105583|atp:106329                Bastad                             SkiStar Swedish Open   R32      1st Round      2017-07-17 2017-07-18      6-3 0-0 RET         Monteiro T.       Lajovic D.
+23799                wta|2017-703|R32|wta:201535|wta:201548              Stanford                         Bank of the West Classic   R32      1st Round      2017-07-31 2017-08-01      6-2 0-0 RET       Vandeweghe C.   Tomljanovic A.
+23924                wta|2017-806|R64|wta:201465|wta:211951               Toronto                                       Rogers Cup   R64      1st Round      2017-08-07 2017-08-07      6-2 0-0 RET         Flipkens K.        Konjuh A.
+24822               wta|2017-M015|R64|wta:201455|wta:202663               Beijing                                       China Open   R64      1st Round      2017-10-02 2017-10-02      6-0 0-0 RET          Vesnina E.       Linette M.
+24862                atp|2017-329|R32|atp:105216|atp:105332                 Tokyo          Rakuten Japan Open Tennis Championships   R32      1st Round      2017-10-02 2017-10-03      6-4 0-0 RET           Sugita Y.         Paire B.
+25079               atp|2017-7485|R32|atp:103898|atp:105932               Antwerp                                    European Open   R32      1st Round      2017-10-16 2017-10-16      6-4 0-0 RET        Benneteau J.  Basilashvili N.
+25154               wta|2017-M014|R16|wta:201427|wta:201517                Moscow                                      Kremlin Cup   R16      2nd Round      2017-10-16 2017-10-18      6-1 0-0 RET           Cornet A.    Rybarikova M.
+25222                atp|2017-328|R32|atp:104252|atp:105227                 Basel                                    Swiss Indoors   R32      1st Round      2017-10-23 2017-10-24      6-3 0-0 RET            Cilic M.         Mayer F.
+25638               wta|2018-1086|R32|wta:201329|wta:202428        St. Petersburg                                    Ladies Trophy   R32      1st Round      2018-01-29 2018-01-30      6-4 0-0 RET        Zvonareva V.       Bertens K.
+26040                wta|2018-804|R64|wta:202596|wta:214304            Charleston                                Family Circle Cup   R64      1st Round      2018-04-02 2018-04-02      6-4 0-0 RET       Buzarnescu M.         Lapko V.
+26201               wta|2018-1051|R16|wta:201499|wta:202469             Stuttgart                        Porsche Tennis Grand Prix   R16      2nd Round      2018-04-23 2018-04-26      7-5 0-0 RET   Pavlyuchenkova A.      Muguruza G.
+26698               wta|2018-1052|R16|wta:203435|wta:211768            Birmingham                                   AEGON Classic    R16      2nd Round      2018-06-18 2018-06-20      6-3 0-0 RET        Jakupovic D.         Osaka N.
+27151               wta|2018-M024|R32|wta:201496|wta:202428            Cincinnati  Western & Southern Financial Group Women's Open   R32      2nd Round      2018-08-13 2018-08-16      6-4 0-0 RET          Bertens K.     Wozniacki C.
+27204                 wta|2018-602|QF|wta:201520|wta:201521             New Haven                                 Connecticut Open    QF  Quarterfinals      2018-08-20 2018-08-24      6-3 0-0 RET   Suarez Navarro C.       Kvitova P.
+27359                wta|2018-405|R32|wta:201709|wta:203533             Hiroshima                        Japan Women's Tennis Open   R32      1st Round      2018-09-10 2018-09-10      6-2 0-0 RET      Schmiedlova A.    Putintseva Y.
+27601               wta|2018-M015|R64|wta:201594|wta:202460               Beijing                                       China Open   R64      1st Round      2018-10-01 2018-09-30      6-1 0-0 RET           Jabeur O.         Halep S.
+27790                 wta|2018-808|RR|wta:202428|wta:211768             Singapore                           BNP Paribas WTA Finals    RR    Round Robin      2018-10-22 2018-10-26      6-3 0-0 RET          Bertens K.         Osaka N.
+28953              wta|2019-M006|R128|wta:202490|wta:206420          Indian Wells                                 BNP Paribas Open  R128      1st Round      2019-03-04 2019-03-07      7-5 3-6 6-2      Alexandrova E.      Peterson R.
+29064               atp|2019-M006|R16|atp:106415|atp:200175  Indian Wells Masters                                 BNP Paribas Open   R16      4th Round      2019-03-04 2019-03-13      6-4 0-0 RET       Kecmanovic M.      Nishioka Y.
+29911               wta|2019-M009|R64|wta:201496|wta:203389                  Rome                      Internazionali BNL d'Italia   R64      1st Round      2019-05-13 2019-05-14   7-6(5) 0-0 RET          Collins D.     Wozniacki C.
+30459                atp|2019-M010|QF|atp:105173|atp:105676       s Hertogenbosch               Rosmalen Grass Court Championships    QF  Quarterfinals      2019-06-10 2019-06-14      4-6 7-5 6-3        Mannarino A.        Goffin D.
+31097                 atp|2019-439|SF|atp:105583|atp:106099                  Umag                                     Croatia Open    SF     Semifinals      2019-07-15 2019-07-20      7-5 0-0 RET          Lajovic D.        Caruso S.
+31463                wta|2019-806|R32|wta:211768|wta:213583               Toronto                                       Rogers Cup   R32      2nd Round      2019-08-05 2019-08-07      6-2 0-0 RET            Osaka N.         Maria T.
+31474                atp|2019-421|R32|atp:105683|atp:200000        Canada Masters                                   Rogers Masters   R32      2nd Round      2019-08-05 2019-08-08  6-3 3-6 0-0 RET  Auger-Aliassime F.        Raonic M.
+31513                 wta|2019-806|QF|wta:201594|wta:213631               Toronto                                       Rogers Cup    QF  Quarterfinals      2019-08-05 2019-08-10      6-4 0-0 RET         Bouzkova M.         Halep S.
+31548               atp|2019-M024|R64|atp:104269|atp:105332    Cincinnati Masters       Western & Southern Financial Group Masters   R64      1st Round      2019-08-12 2019-08-13      6-4 0-0 RET            Paire B.      Verdasco F.

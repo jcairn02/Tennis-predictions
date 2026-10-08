@@ -1,0 +1,38 @@
+{
+ "request_preview": {
+  "tabpfn_config": {
+   "n_estimators": 8,
+   "categorical_features_indices": null,
+   "softmax_temperature": 0.9,
+   "average_before_softmax": null,
+   "random_state": 0,
+   "inference_config": null,
+   "inference_precision": null,
+   "ignore_pretraining_limits": true,
+   "fit_mode": null,
+   "model_path": "v3.5_default",
+   "balance_probabilities": false
+  },
+  "systems": [
+   "preprocessing",
+   "text",
+   "thinking"
+  ],
+  "thinking_config": {
+   "effort": "high",
+   "timeout_secs": null,
+   "metric": "log_loss",
+   "group_col": null,
+   "time_col": null,
+   "group_time_col": null
+  }
+ },
+ "quote_total": 648845,
+ "capacity": {
+  "training_rows": 39918,
+  "prediction_rows": 47638,
+  "features": 54,
+  "monthly_tokens_remaining": 19827020,
+  "daily_tokens_remaining": 5000000
+ }
+}

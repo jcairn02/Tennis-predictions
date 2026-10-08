@@ -1,0 +1,179 @@
+{
+ "source": "usopen",
+ "site": "usopen",
+ "started_at": "2026-09-25T02:06:10+00:00",
+ "args": {
+  "years": null,
+  "events": null,
+  "feeds": null,
+  "matches": null,
+  "limit": null,
+  "order": "new-first",
+  "max_requests": null,
+  "min_interval": 2.0,
+  "jitter": 1.0,
+  "streak": 5,
+  "refresh": false,
+  "listings_only": false,
+  "skip_listings": false,
+  "stage_only": true,
+  "stage_years": null,
+  "stage_all": false,
+  "no_stage": false
+ },
+ "decision": "docs/decisions/2026-09-24-official-point-feeds.md",
+ "hosts": {
+  "2022": "https://www.usopen.org",
+  "2023": "https://www.usopen.org",
+  "2024": "https://www.usopen.org",
+  "2025": "https://www.usopen.org",
+  "2026": "https://www.usopen.org"
+ },
+ "events": [
+  "MS",
+  "WS",
+  "MQ",
+  "WQ",
+  "MD",
+  "WD"
+ ],
+ "feeds": [
+  "history",
+  "stats",
+  "distance",
+  "livel2w",
+  "limbtracking",
+  "keymoments",
+  "prematch_l2w"
+ ],
+ "matches_selected": 3020,
+ "plan": [
+  "2026 MS: 127 matches",
+  "2026 WS: 127 matches",
+  "2026 MQ: 112 matches",
+  "2026 WQ: 112 matches",
+  "2026 MD: 63 matches",
+  "2026 WD: 63 matches",
+  "2025 MS: 127 matches",
+  "2025 WS: 127 matches",
+  "2025 MQ: 112 matches",
+  "2025 WQ: 112 matches",
+  "2025 MD: 63 matches",
+  "2025 WD: 63 matches",
+  "2024 MQ: 112 matches",
+  "2024 WQ: 112 matches",
+  "2023 MQ: 112 matches",
+  "2023 WQ: 112 matches",
+  "2022 MQ: 112 matches",
+  "2022 WQ: 112 matches",
+  "2024 MS: 127 matches (held)",
+  "2024 WS: 127 matches (held)",
+  "2024 MD: 63 matches (held)",
+  "2024 WD: 63 matches (held)",
+  "2023 MS: 127 matches (held)",
+  "2023 WS: 127 matches (held)",
+  "2023 MD: 63 matches (held)",
+  "2023 WD: 63 matches (held)",
+  "2022 MS: 127 matches (held)",
+  "2022 WS: 127 matches (held)",
+  "2022 MD: 63 matches (held)",
+  "2022 WD: 63 matches (held)"
+ ],
+ "fetch_outcomes": {},
+ "abandoned": [],
+ "staged": {
+  "points": {
+   "rows": 412037,
+   "dest": "data/dump/points/usopen/points.parquet",
+   "bytes": 20981198
+  },
+  "statistics": {
+   "rows": 2551556,
+   "dest": "data/dump/points/usopen/statistics.parquet",
+   "bytes": 10192738
+  },
+  "distance": {
+   "rows": 11468,
+   "dest": "data/dump/points/usopen/distance.parquet",
+   "bytes": 126177
+  },
+  "livel2w": {
+   "rows": 102100,
+   "dest": "data/dump/points/usopen/livel2w.parquet",
+   "bytes": 5417414
+  },
+  "limbtracking": {
+   "rows": 22491,
+   "dest": "data/dump/points/usopen/limbtracking.parquet",
+   "bytes": 255961
+  },
+  "keymoments": {
+   "rows": 6367,
+   "dest": "data/dump/points/usopen/keymoments.parquet",
+   "bytes": 407613
+  },
+  "prematch_l2w": {
+   "rows": 4104,
+   "dest": "data/dump/points/usopen/prematch_l2w.parquet",
+   "bytes": 37259
+  },
+  "matches": {
+   "rows": 3020,
+   "dest": "data/dump/points/usopen/matches.parquet",
+   "bytes": 267806
+  },
+  "unreadable": {
+   "prematch_l2w/2025/2701": "JSONDecodeError: Expecting ',' delimiter: line 1 column 62 (char 61)"
+  }
+ },
+ "receipts_with_errors": 0,
+ "error_examples": [],
+ "receipts_by_feed_outcome": {
+  "distance|2022|absent": 89,
+  "distance|2022|ok": 262,
+  "distance|2023|absent": 18,
+  "distance|2023|ok": 331,
+  "distance|2024|absent": 136,
+  "distance|2024|ok": 219,
+  "distance|2025|absent": 37,
+  "distance|2025|ok": 364,
+  "distance|2026|absent": 20,
+  "distance|2026|ok": 476,
+  "draws|2022|ok": 6,
+  "draws|2023|ok": 6,
+  "draws|2024|ok": 6,
+  "draws|2025|ok": 6,
+  "draws|2026|ok": 6,
+  "history|2022|absent": 1,
+  "history|2022|ok": 603,
+  "history|2023|ok": 604,
+  "history|2024|absent": 1,
+  "history|2024|ok": 603,
+  "history|2025|absent": 1,
+  "history|2025|ok": 603,
+  "history|2026|absent": 2,
+  "history|2026|ok": 602,
+  "keymoments|2026|absent": 37,
+  "keymoments|2026|ok": 254,
+  "limbtracking|2026|absent": 46,
+  "limbtracking|2026|ok": 245,
+  "livel2w|2025|absent": 80,
+  "livel2w|2025|ok": 321,
+  "livel2w|2026|absent": 37,
+  "livel2w|2026|ok": 254,
+  "prematch_l2w|2025|absent": 64,
+  "prematch_l2w|2025|ok": 431,
+  "prematch_l2w|2026|absent": 37,
+  "prematch_l2w|2026|ok": 254,
+  "stats|2022|ok": 604,
+  "stats|2023|ok": 604,
+  "stats|2024|absent": 1,
+  "stats|2024|ok": 603,
+  "stats|2025|absent": 1,
+  "stats|2025|ok": 603,
+  "stats|2026|absent": 1,
+  "stats|2026|ok": 603
+ },
+ "finished_at": "2026-09-25T02:06:40+00:00",
+ "seconds": 30.9
+}

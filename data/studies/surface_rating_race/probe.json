@@ -1,0 +1,108 @@
+{
+ "slice": [
+  "2023-01-01",
+  "2024-12-31"
+ ],
+ "cuts": [
+  {
+   "tour": "atp",
+   "cut": "2023-09-06",
+   "changed_matches": 41660,
+   "checked_matches": 22472,
+   "straddling_unchecked": 219,
+   "moved_checked_matches": 0,
+   "largest_difference_checked": 0.0,
+   "moved_later_matches": 41280
+  },
+  {
+   "tour": "atp",
+   "cut": "2024-01-24",
+   "changed_matches": 31126,
+   "checked_matches": 33073,
+   "straddling_unchecked": 152,
+   "moved_checked_matches": 0,
+   "largest_difference_checked": 0.0,
+   "moved_later_matches": 30884
+  },
+  {
+   "tour": "atp",
+   "cut": "2024-07-10",
+   "changed_matches": 15291,
+   "checked_matches": 48863,
+   "straddling_unchecked": 197,
+   "moved_checked_matches": 0,
+   "largest_difference_checked": 0.0,
+   "moved_later_matches": 14886
+  },
+  {
+   "tour": "atp",
+   "cut": "2024-08-14",
+   "changed_matches": 11470,
+   "checked_matches": 52698,
+   "straddling_unchecked": 183,
+   "moved_checked_matches": 0,
+   "largest_difference_checked": 0.0,
+   "moved_later_matches": 11125
+  },
+  {
+   "tour": "wta",
+   "cut": "2023-09-06",
+   "changed_matches": 51769,
+   "checked_matches": 26140,
+   "straddling_unchecked": 175,
+   "moved_checked_matches": 0,
+   "largest_difference_checked": 0.0,
+   "moved_later_matches": 51366
+  },
+  {
+   "tour": "wta",
+   "cut": "2024-01-24",
+   "changed_matches": 39166,
+   "checked_matches": 38817,
+   "straddling_unchecked": 101,
+   "moved_checked_matches": 0,
+   "largest_difference_checked": 0.0,
+   "moved_later_matches": 38851
+  },
+  {
+   "tour": "wta",
+   "cut": "2024-07-10",
+   "changed_matches": 19080,
+   "checked_matches": 58854,
+   "straddling_unchecked": 150,
+   "moved_checked_matches": 0,
+   "largest_difference_checked": 0.0,
+   "moved_later_matches": 18640
+  },
+  {
+   "tour": "wta",
+   "cut": "2024-08-14",
+   "changed_matches": 14352,
+   "checked_matches": 63593,
+   "straddling_unchecked": 139,
+   "moved_checked_matches": 0,
+   "largest_difference_checked": 0.0,
+   "moved_later_matches": 13923
+  }
+ ],
+ "constants": {
+  "atp": {
+   "sigma0": 1.125,
+   "gamma": 0.4,
+   "window_days": 2336.5,
+   "w_blend": 0.35,
+   "sigma_o": 0.25,
+   "gamma_o": 0.1
+  },
+  "wta": {
+   "sigma0": 1.5,
+   "gamma": 0.5,
+   "window_days": 602.0,
+   "w_blend": 0.3,
+   "sigma_o": 0.25,
+   "gamma_o": 0.1
+  }
+ },
+ "verdict": "PASS: no output of a match that surely finished by the cut moved",
+ "seconds": 72.7
+}

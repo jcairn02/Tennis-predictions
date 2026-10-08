@@ -1,0 +1,143 @@
+{
+ "check_nan_equals_noise": true,
+ "check_equals_study_check_json": true,
+ "check_diff_keys_vs_study": [],
+ "run_gate[no hash line]": "refused: the population differs from the pre-registered one",
+ "run_gate[wrong hash]": "refused: the population differs from the pre-registered one",
+ "run_gate[hash line indented]": "refused: the population differs from the pre-registered one",
+ "run_gate[file absent]": "refused: FileNotFoundError preregistration.md",
+ "run_gate[real pre-registration]": "passed the gate (reached parameters)",
+ "end_to_end_keys": [
+  "column_arm",
+  "effect",
+  "key",
+  "parameters",
+  "polymarket",
+  "primary",
+  "subsets"
+ ],
+ "end_to_end_primary": {
+  "b": 0.3108366382214341,
+  "lo": -1.0332920058148596,
+  "hi": 1.6549652822577277,
+  "df": 20,
+  "blocks": 21,
+  "n": 8520
+ },
+ "end_to_end_effect": {
+  "gain": -0.018778186523831876,
+  "lo": -0.56384584252412,
+  "hi": 0.5262894694764562,
+  "n": 8520
+ },
+ "end_to_end_subsets": [
+  [
+   "atp",
+   4394,
+   NaN,
+   20,
+   -0.218
+  ],
+  [
+   "wta",
+   4126,
+   NaN,
+   20,
+   0.193
+  ],
+  [
+   "2025",
+   5105,
+   0.637,
+   11,
+   0.085
+  ],
+  [
+   "2026",
+   3415,
+   -0.132,
+   8,
+   -0.174
+  ],
+  [
+   "TML-clean",
+   8145,
+   0.424,
+   20,
+   0.028
+  ]
+ ],
+ "end_to_end_polymarket": [
+  [
+   "early_all",
+   "F vs B, both fed the 24-hour price",
+   2648,
+   -0.0446
+  ],
+  [
+   "early_all",
+   "B vs the 24-hour price",
+   2648,
+   2.4868
+  ],
+  [
+   "early_all",
+   "F vs the 24-hour price",
+   2648,
+   2.4422
+  ],
+  [
+   "early_all",
+   "move 24 h -> 30 min on b x (slope)",
+   2648,
+   0.0056
+  ],
+  [
+   "early_clean",
+   "F vs B, both fed the 24-hour price",
+   1067,
+   0.3826
+  ],
+  [
+   "early_clean",
+   "B vs the 24-hour price",
+   1067,
+   2.9593
+  ],
+  [
+   "early_clean",
+   "F vs the 24-hour price",
+   1067,
+   3.3419
+  ],
+  [
+   "early_clean",
+   "move 24 h -> 30 min on b x (slope)",
+   1067,
+   0.5829
+  ]
+ ],
+ "end_to_end_column_arm": [
+  [
+   "both",
+   8520,
+   -0.0384,
+   -0.267,
+   0.19
+  ],
+  [
+   "atp",
+   4394,
+   -0.1405,
+   -0.504,
+   0.223
+  ],
+  [
+   "wta",
+   4126,
+   0.0703,
+   -0.29,
+   0.431
+  ]
+ ]
+}

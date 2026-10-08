@@ -1,0 +1,21 @@
+name: tennis-tabpfn
+# Isolated env for the hosted TabPFN (Prior Labs API) calls of the study docs/studies/tabpfn_thinking/.
+# Only the API dispatch step runs here (src/eda/tabpfn_thinking/dispatch.py); frames and scoring run in `tennis`.
+# tabpfn-client is pinned to 0.6.0: the version the UFC project's live thinking fits run on (checked 2 Oct 2026)
+# and the one whose internals the dispatch guard was inspected against. 0.6.1 (28 Sep 2026) changed how
+# predictions are delivered; review src/eda/tabpfn_thinking/guard.py before moving to it.
+# The API token is read from the TABPFN_TOKEN environment variable; it is never written to disk.
+# Create: conda env create -f environment-tabpfn.yml      Run: ./python_tabpfn.sh <script>
+channels:
+  - conda-forge
+dependencies:
+  - python=3.11
+  - pandas=2.3            # the pandas the UFC 0.6.0 client envs run with
+  - numpy
+  - pyarrow
+  - scikit-learn
+  - scipy
+  - pytest
+  - pip
+  - pip:
+      - tabpfn-client==0.6.0

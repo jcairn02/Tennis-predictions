@@ -1,0 +1,59 @@
+{
+ "constants": {
+  "atp": {
+   "sigma0": 1.125,
+   "gamma": 0.4,
+   "window_days": 2336.5,
+   "w_blend": 0.35,
+   "sigma_o": 0.25,
+   "gamma_o": 0.1
+  },
+  "wta": {
+   "sigma0": 1.5,
+   "gamma": 0.5,
+   "window_days": 602.0,
+   "w_blend": 0.3,
+   "sigma_o": 0.25,
+   "gamma_o": 0.1
+  }
+ },
+ "seconds": {
+  "atp": 1344.0,
+  "wta": 424.9
+ },
+ "rows": 872704,
+ "tuning_log_loss_check": {
+  "atp": {
+   "full_pass": 0.5832861666998281,
+   "tuning_pass": 0.5832861666998281,
+   "matches": 64208,
+   "tuning_matches": 64208
+  },
+  "wta": {
+   "full_pass": 0.5957782300680117,
+   "tuning_pass": 0.5957782300680117,
+   "matches": 25676,
+   "tuning_matches": 25676
+  }
+ },
+ "rescaling_slopes_2013_2018": {
+  "evaluation (every level)|elo|atp": 1.0013861737323875,
+  "evaluation (every level)|elo|wta": 1.0125830852668272,
+  "evaluation (every level)|elo_off|atp": 0.914408211360619,
+  "evaluation (every level)|elo_off|wta": 0.9481495958113593,
+  "evaluation (every level)|ttt_blend|atp": 1.003715080998192,
+  "evaluation (every level)|ttt_blend|wta": 1.0188938958490794,
+  "evaluation (every level)|ttt_off|atp": 0.956009390049786,
+  "evaluation (every level)|ttt_off|wta": 0.9686836989033062,
+  "race population|elo|atp": 1.003533080948818,
+  "race population|elo|wta": 0.9597158935466137,
+  "race population|elo_off|atp": 0.9336164267301111,
+  "race population|elo_off|wta": 0.9004846262488021,
+  "race population|ttt_blend|atp": 0.9908517151917147,
+  "race population|ttt_blend|wta": 0.9622216150335343,
+  "race population|ttt_off|atp": 0.9416076256386732,
+  "race population|ttt_off|wta": 0.9211493647841682
+ },
+ "key": "milli-log-loss; positive = the second-named rating is better; 95% intervals over four-week blocks",
+ "elapsed": 7.1
+}

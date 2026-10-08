@@ -6,7 +6,8 @@ data/raw/public_dump, and writes to data/studies/public_data_dump/:
     manifest.json        one record per staged Parquet file: provenance plus measured coverage
     coverage.json        per branch/source aggregates
     coverage_tables.md   the same as Markdown tables, for the report
-    download_log.json    latest receipt per downloaded object, including failures and routes
+    download_log.json    latest receipt per downloaded object, including failures and routes (sources with
+                         more than LISTED_RECEIPTS_MAX objects are counted, not listed)
 
 Coverage is measured from the verbatim string columns (lexicographic min/max of date-like columns,
 value counts of tournament-type columns). It is a description of what was staged, not validation.
@@ -36,6 +37,9 @@ DATE_COLUMNS = ["tourney_date", "Date", "date", "scheduled_time_utc", "ranking_d
                 "sport_date", "start_date", "gameStartTime", "t"]
 TIER_COLUMNS = ["_partition_value", "tourney_level", "Series", "Tier", "tier_key", "level", "bucket",
                 "bucket_slug", "sportsMarketType"]
+# download_log.json lists each receipt only for sources up to this many objects; per-market API pulls
+# (tens of thousands of receipts) are counted instead, which keeps the tracked log well under a megabyte
+LISTED_RECEIPTS_MAX = 1_000
 
 
 def nonempty(column):
@@ -45,6 +49,12 @@ def nonempty(column):
     return values
 
 
+def read_column(path: Path, name: str):
+    # reads the one file as written: pq.read_table's dataset reader rejects any file whose schema repeats a
+    # column name (the WTA point files carry two "year" columns), even when that column is not requested
+    return pq.ParquetFile(path).read(columns=[name]).column(0)
+
+
 def date_bounds(path: Path, columns: list[str]) -> tuple[str | None, str | None, str | None]:
     schema = pq.ParquetFile(path).schema_arrow
     candidates = [c for c in DATE_COLUMNS if c in columns]
@@ -52,7 +62,7 @@ def date_bounds(path: Path, columns: list[str]) -> tuple[str | None, str | None,
     candidates = [c for c in candidates if c != "t" or pa.types.is_integer(schema.field("t").type)]
     column = candidates[0] if candidates else None
     if column:
-        values = nonempty(pq.read_table(path, columns=[column]).column(0))
+        values = nonempty(read_column(path, column))
         if len(values) == 0:
             return column, None, None
         if column == "t":
@@ -66,7 +76,7 @@ def date_bounds(path: Path, columns: list[str]) -> tuple[str | None, str | None,
             return column, None, None
         return column, pc.min(date_like).as_py(), pc.max(date_like).as_py()
     if "match_id" in columns:
-        values = nonempty(pq.read_table(path, columns=["match_id"]).column(0)).to_pylist()
+        values = nonempty(read_column(path, "match_id")).to_pylist()
         dates = sorted({v[:8] for v in values if re.match(r"^\d{8}", v)})
         if dates:
             return "match_id[:8]", dates[0], dates[-1]
@@ -80,7 +90,7 @@ def tier_counts(path: Path, columns: list[str], top: int = 30) -> tuple[str | No
     column = next((c for c in TIER_COLUMNS if c in columns), None)
     if not column:
         return None, {}
-    values = pq.read_table(path, columns=[column]).column(0)
+    values = read_column(path, column)
     counts = pc.value_counts(values)
     pairs = sorted(((str(item["values"]), item["counts"]) for item in counts.to_pylist()), key=lambda p: -p[1])
     return column, {k: v for k, v in pairs[:top]}
@@ -160,6 +170,9 @@ def read_download_log() -> dict:
             entry["points"] = sum(r.get("points") or 0 for r in latest.values())
             entry["empty_histories"] = sum(1 for r in latest.values() if r.get("points") == 0)
             entry["buckets"] = dict(Counter(r.get("bucket") for r in latest.values() if not r.get("error")))
+        elif len(latest) > LISTED_RECEIPTS_MAX:
+            entry["receipts_note"] = (f"{len(latest):,} objects, too many to list here; every receipt is in "
+                                      f"{C.rel(receipts_path)}")
         else:
             entry["receipts"] = sorted(({k: v for k, v in r.items() if k not in ("attempts",)} for r in latest.values()),
                                        key=lambda r: r["name"])

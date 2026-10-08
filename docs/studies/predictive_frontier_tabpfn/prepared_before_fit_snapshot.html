@@ -1,0 +1,403 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Men's 2026 TabPFN experiment — prepared, not fitted</title><style>body{font:17px/1.6 system-ui,sans-serif;color:#142b36;background:#f5f7f6;margin:0}main{max-width:1050px;margin:auto;padding:35px 22px}h1{font-size:40px;line-height:1.15}h2{font-size:25px}section{background:white;border:1px solid #d9e2df;border-radius:12px;padding:25px;margin:22px 0}.pending{background:#fff4d9;border-left:5px solid #a76100}.scroll{overflow-x:auto}table{width:100%;border-collapse:collapse;font-size:14px}th,td{padding:12px;border-bottom:1px solid #d9e2df;text-align:left}td:last-child{font-variant-numeric:tabular-nums}th{background:#edf3f0}pre{white-space:pre-wrap;overflow-wrap:anywhere;font-size:12px}small{color:#536774}a{color:#096954}@media(max-width:650px){main{padding:20px 12px}h1{font-size:31px}section{padding:18px 14px}th,td{padding:9px 6px}}</style></head><body><main>
+<small>ATP men only · train before 2026 · test in 2026</small><h1>The revised experiment is ready. TabPFN has not been fitted.</h1><section class="pending"><h2>Current status: waiting for TabPFN access</h2><p>No TabPFN fit or prediction request has been dispatched for this experiment. The tables below contain only the local logistic models and closing-price benchmarks. There is no TabPFN score yet.</p></section>
+<section><h2>The experiment you requested</h2><p><b>13,952 men's matches for training</b>, dated 2020-01-06 to 2025-11-16. <b>1,712 men's matches for testing</b>, dated 2026-01-04 to 2026-08-02.</p><p>TabPFN and the direct logistic comparator will receive the same 36 sporting inputs: the established 9, including Elo and serve/return strength, plus the 27 new features. Neither receives closing prices as model inputs. No women's matches are included.</p><p>Training-history choice: <b>the latest six calendar years (2020–2025)</b>. This was selected using logistic-regression validation predictions for 2023, 2024 and 2025, with each validation season predicted using earlier seasons only. All 2026 results were excluded from that selection. This is a practical proxy for selecting history before spending the single TabPFN fit; it cannot prove which history TabPFN would prefer.</p></section>
+<section><h2>The comparison scores already available</h2><p><b>Lower log loss is better.</b> It rewards assigning a high probability to the outcome that actually happens and penalizes confident mistakes. Always saying “50–50” scores about 0.69315. Each group below uses identical matches for its listed models.</p><div class="scroll"><table><thead><tr><th>Match group</th><th>Forecast</th><th>Matches</th><th>Log loss ↓</th></tr></thead><tbody><tr><td>All 2026 test matches</td><td>Logistic regression · same 36 inputs</td><td>1,712</td><td>0.60985</td></tr><tr><td>All 2026 test matches</td><td>Logistic regression · original 9 inputs</td><td>1,712</td><td>0.61711</td></tr><tr><td>All 2026 test matches</td><td>Earlier annual logistic · 36 inputs</td><td>1,712</td><td>0.61033</td></tr><tr><td>With average closing prices</td><td>Logistic regression · same 36 inputs</td><td>1,712</td><td>0.60985</td></tr><tr><td>With average closing prices</td><td>Average closing line · raw</td><td>1,712</td><td>0.59479</td></tr><tr><td>With average closing prices</td><td>Average closing line · calibrated</td><td>1,712</td><td>0.59445</td></tr><tr><td>With Pinnacle closing prices</td><td>Logistic regression · same 36 inputs</td><td>70</td><td>0.62678</td></tr><tr><td>With Pinnacle closing prices</td><td>Pinnacle closing line · raw</td><td>70</td><td>0.60814</td></tr><tr><td>With Pinnacle closing prices</td><td>Pinnacle closing line · calibrated</td><td>70</td><td>0.60670</td></tr></tbody></table></div><p>The closing line is the bookmakers' late pre-match price, converted to a probability after removing the quoted margin. “Calibrated” adjusts its confidence using training data only. The Pinnacle quotes cover a small early-season subset, so they are not a full-2026 benchmark.</p></section>
+<section><h2>What happens in the one-fit comparison?</h2><p>Once access is available, the prepared request uses TabPFN 3.5 Thinking, high effort, log-loss objective, seed 0 and 8 estimators requested. One prediction request includes both player orders for each match; averaging the equivalent probabilities removes arbitrary player-order effects. The final report will compare TabPFN with logistic regression and both closing-line benchmarks, including paired uncertainty intervals.</p><p>The fitted model stays fixed through 2026. Pre-match sporting features can incorporate earlier 2026 matches as the season progresses. This is a test of forecasts made before each match, not a forecast of the entire season made on 1 January.</p></section>
+<section><h2>Limits to keep in mind</h2><p>These are the available 2026 matches, not a complete season. The archive has very little ATP data for 2018. Exact historical price timestamps remain unverified. This project previously examined 2026 outcomes during feature research, so this is a chronological test for this fit, not untouched research data. Prediction scores alone do not establish betting profit.</p><details><summary>Frozen training-history selection</summary><pre>{
+  &quot;strategy&quot;: &quot;latest6&quot;,
+  &quot;chosen_penalty&quot;: 0.01,
+  &quot;validation_years&quot;: [
+    2023,
+    2024,
+    2025
+  ],
+  &quot;validation_rows&quot;: 7784,
+  &quot;selection_metric&quot;: &quot;Pooled match log loss on forward 2023, 2024, 2025 predictions; logistic proxy&quot;,
+  &quot;selected_training_min_year&quot;: 2020,
+  &quot;candidates&quot;: [
+    {
+      &quot;strategy&quot;: &quot;all&quot;,
+      &quot;penalty&quot;: 0.0001,
+      &quot;log_loss&quot;: 0.6133191145490149,
+      &quot;validation_rows&quot;: 7784,
+      &quot;folds&quot;: [
+        {
+          &quot;validation_year&quot;: 2023,
+          &quot;train_rows&quot;: 21370,
+          &quot;train_year_min&quot;: 2013,
+          &quot;train_year_max&quot;: 2022,
+          &quot;validation_rows&quot;: 2603,
+          &quot;log_loss&quot;: 0.6144125441026593
+        },
+        {
+          &quot;validation_year&quot;: 2024,
+          &quot;train_rows&quot;: 23973,
+          &quot;train_year_min&quot;: 2013,
+          &quot;train_year_max&quot;: 2023,
+          &quot;validation_rows&quot;: 2655,
+          &quot;log_loss&quot;: 0.6063478795279295
+        },
+        {
+          &quot;validation_year&quot;: 2025,
+          &quot;train_rows&quot;: 26628,
+          &quot;train_year_min&quot;: 2013,
+          &quot;train_year_max&quot;: 2024,
+          &quot;validation_rows&quot;: 2526,
+          &quot;log_loss&quot;: 0.6195196022183919
+        }
+      ]
+    },
+    {
+      &quot;strategy&quot;: &quot;all&quot;,
+      &quot;penalty&quot;: 0.001,
+      &quot;log_loss&quot;: 0.6132983141260093,
+      &quot;validation_rows&quot;: 7784,
+      &quot;folds&quot;: [
+        {
+          &quot;validation_year&quot;: 2023,
+          &quot;train_rows&quot;: 21370,
+          &quot;train_year_min&quot;: 2013,
+          &quot;train_year_max&quot;: 2022,
+          &quot;validation_rows&quot;: 2603,
+          &quot;log_loss&quot;: 0.6143979659930453
+        },
+        {
+          &quot;validation_year&quot;: 2024,
+          &quot;train_rows&quot;: 23973,
+          &quot;train_year_min&quot;: 2013,
+          &quot;train_year_max&quot;: 2023,
+          &quot;validation_rows&quot;: 2655,
+          &quot;log_loss&quot;: 0.6063462527064766
+        },
+        {
+          &quot;validation_year&quot;: 2025,
+          &quot;train_rows&quot;: 26628,
+          &quot;train_year_min&quot;: 2013,
+          &quot;train_year_max&quot;: 2024,
+          &quot;validation_rows&quot;: 2526,
+          &quot;log_loss&quot;: 0.6194722370313792
+        }
+      ]
+    },
+    {
+      &quot;strategy&quot;: &quot;all&quot;,
+      &quot;penalty&quot;: 0.01,
+      &quot;log_loss&quot;: 0.6132278338944003,
+      &quot;validation_rows&quot;: 7784,
+      &quot;folds&quot;: [
+        {
+          &quot;validation_year&quot;: 2023,
+          &quot;train_rows&quot;: 21370,
+          &quot;train_year_min&quot;: 2013,
+          &quot;train_year_max&quot;: 2022,
+          &quot;validation_rows&quot;: 2603,
+          &quot;log_loss&quot;: 0.6143798446464475
+        },
+        {
+          &quot;validation_year&quot;: 2024,
+          &quot;train_rows&quot;: 23973,
+          &quot;train_year_min&quot;: 2013,
+          &quot;train_year_max&quot;: 2023,
+          &quot;validation_rows&quot;: 2655,
+          &quot;log_loss&quot;: 0.6063981436144017
+        },
+        {
+          &quot;validation_year&quot;: 2025,
+          &quot;train_rows&quot;: 26628,
+          &quot;train_year_min&quot;: 2013,
+          &quot;train_year_max&quot;: 2024,
+          &quot;validation_rows&quot;: 2526,
+          &quot;log_loss&quot;: 0.6192191813630534
+        }
+      ]
+    },
+    {
+      &quot;strategy&quot;: &quot;all&quot;,
+      &quot;penalty&quot;: 0.1,
+      &quot;log_loss&quot;: 0.6139439445829138,
+      &quot;validation_rows&quot;: 7784,
+      &quot;folds&quot;: [
+        {
+          &quot;validation_year&quot;: 2023,
+          &quot;train_rows&quot;: 21370,
+          &quot;train_year_min&quot;: 2013,
+          &quot;train_year_max&quot;: 2022,
+          &quot;validation_rows&quot;: 2603,
+          &quot;log_loss&quot;: 0.6152626224148298
+        },
+        {
+          &quot;validation_year&quot;: 2024,
+          &quot;train_rows&quot;: 23973,
+          &quot;train_year_min&quot;: 2013,
+          &quot;train_year_max&quot;: 2023,
+          &quot;validation_rows&quot;: 2655,
+          &quot;log_loss&quot;: 0.6074294361599324
+        },
+        {
+          &quot;validation_year&quot;: 2025,
+          &quot;train_rows&quot;: 26628,
+          &quot;train_year_min&quot;: 2013,
+          &quot;train_year_max&quot;: 2024,
+          &quot;validation_rows&quot;: 2526,
+          &quot;log_loss&quot;: 0.61943226662034
+        }
+      ]
+    },
+    {
+      &quot;strategy&quot;: &quot;latest6&quot;,
+      &quot;penalty&quot;: 0.0001,
+      &quot;log_loss&quot;: 0.6123921058608994,
+      &quot;validation_rows&quot;: 7784,
+      &quot;folds&quot;: [
+        {
+          &quot;validation_year&quot;: 2023,
+          &quot;train_rows&quot;: 11245,
+          &quot;train_year_min&quot;: 2017,
+          &quot;train_year_max&quot;: 2022,
+          &quot;validation_rows&quot;: 2603,
+          &quot;log_loss&quot;: 0.6136071608953076
+        },
+        {
+          &quot;validation_year&quot;: 2024,
+          &quot;train_rows&quot;: 11295,
+          &quot;train_year_min&quot;: 2018,
+          &quot;train_year_max&quot;: 2023,
+          &quot;validation_rows&quot;: 2655,
+          &quot;log_loss&quot;: 0.6060076049719724
+        },
+        {
+          &quot;validation_year&quot;: 2025,
+          &quot;train_rows&quot;: 13936,
+          &quot;train_year_min&quot;: 2019,
+          &quot;train_year_max&quot;: 2024,
+          &quot;validation_rows&quot;: 2526,
+          &quot;log_loss&quot;: 0.6178505625535111
+        }
+      ]
+    },
+    {
+      &quot;strategy&quot;: &quot;latest6&quot;,
+      &quot;penalty&quot;: 0.001,
+      &quot;log_loss&quot;: 0.6123767633750103,
+      &quot;validation_rows&quot;: 7784,
+      &quot;folds&quot;: [
+        {
+          &quot;validation_year&quot;: 2023,
+          &quot;train_rows&quot;: 11245,
+          &quot;train_year_min&quot;: 2017,
+          &quot;train_year_max&quot;: 2022,
+          &quot;validation_rows&quot;: 2603,
+          &quot;log_loss&quot;: 0.6136058907840787
+        },
+        {
+          &quot;validation_year&quot;: 2024,
+          &quot;train_rows&quot;: 11295,
+          &quot;train_year_min&quot;: 2018,
+          &quot;train_year_max&quot;: 2023,
+          &quot;validation_rows&quot;: 2655,
+          &quot;log_loss&quot;: 0.6060067132807004
+        },
+        {
+          &quot;validation_year&quot;: 2025,
+          &quot;train_rows&quot;: 13936,
+          &quot;train_year_min&quot;: 2019,
+          &quot;train_year_max&quot;: 2024,
+          &quot;validation_rows&quot;: 2526,
+          &quot;log_loss&quot;: 0.6178055299445222
+        }
+      ]
+    },
+    {
+      &quot;strategy&quot;: &quot;latest6&quot;,
+      &quot;penalty&quot;: 0.01,
+      &quot;log_loss&quot;: 0.6123387214562092,
+      &quot;validation_rows&quot;: 7784,
+      &quot;folds&quot;: [
+        {
+          &quot;validation_year&quot;: 2023,
+          &quot;train_rows&quot;: 11245,
+          &quot;train_year_min&quot;: 2017,
+          &quot;train_year_max&quot;: 2022,
+          &quot;validation_rows&quot;: 2603,
+          &quot;log_loss&quot;: 0.6136702532922917
+        },
+        {
+          &quot;validation_year&quot;: 2024,
+          &quot;train_rows&quot;: 11295,
+          &quot;train_year_min&quot;: 2018,
+          &quot;train_year_max&quot;: 2023,
+          &quot;validation_rows&quot;: 2655,
+          &quot;log_loss&quot;: 0.6060554223675018
+        },
+        {
+          &quot;validation_year&quot;: 2025,
+          &quot;train_rows&quot;: 13936,
+          &quot;train_year_min&quot;: 2019,
+          &quot;train_year_max&quot;: 2024,
+          &quot;validation_rows&quot;: 2526,
+          &quot;log_loss&quot;: 0.6175707807242992
+        }
+      ]
+    },
+    {
+      &quot;strategy&quot;: &quot;latest6&quot;,
+      &quot;penalty&quot;: 0.1,
+      &quot;log_loss&quot;: 0.6130822892218357,
+      &quot;validation_rows&quot;: 7784,
+      &quot;folds&quot;: [
+        {
+          &quot;validation_year&quot;: 2023,
+          &quot;train_rows&quot;: 11245,
+          &quot;train_year_min&quot;: 2017,
+          &quot;train_year_max&quot;: 2022,
+          &quot;validation_rows&quot;: 2603,
+          &quot;log_loss&quot;: 0.6146350731746919
+        },
+        {
+          &quot;validation_year&quot;: 2024,
+          &quot;train_rows&quot;: 11295,
+          &quot;train_year_min&quot;: 2018,
+          &quot;train_year_max&quot;: 2023,
+          &quot;validation_rows&quot;: 2655,
+          &quot;log_loss&quot;: 0.6069706197783535
+        },
+        {
+          &quot;validation_year&quot;: 2025,
+          &quot;train_rows&quot;: 13936,
+          &quot;train_year_min&quot;: 2019,
+          &quot;train_year_max&quot;: 2024,
+          &quot;validation_rows&quot;: 2526,
+          &quot;log_loss&quot;: 0.6179059573703557
+        }
+      ]
+    },
+    {
+      &quot;strategy&quot;: &quot;latest4&quot;,
+      &quot;penalty&quot;: 0.0001,
+      &quot;log_loss&quot;: 0.6130238083833466,
+      &quot;validation_rows&quot;: 7784,
+      &quot;folds&quot;: [
+        {
+          &quot;validation_year&quot;: 2023,
+          &quot;train_rows&quot;: 8678,
+          &quot;train_year_min&quot;: 2019,
+          &quot;train_year_max&quot;: 2022,
+          &quot;validation_rows&quot;: 2603,
+          &quot;log_loss&quot;: 0.6139871258531043
+        },
+        {
+          &quot;validation_year&quot;: 2024,
+          &quot;train_rows&quot;: 8771,
+          &quot;train_year_min&quot;: 2020,
+          &quot;train_year_max&quot;: 2023,
+          &quot;validation_rows&quot;: 2655,
+          &quot;log_loss&quot;: 0.6063655281128166
+        },
+        {
+          &quot;validation_year&quot;: 2025,
+          &quot;train_rows&quot;: 10212,
+          &quot;train_year_min&quot;: 2021,
+          &quot;train_year_max&quot;: 2024,
+          &quot;validation_rows&quot;: 2526,
+          &quot;log_loss&quot;: 0.6190294373399884
+        }
+      ]
+    },
+    {
+      &quot;strategy&quot;: &quot;latest4&quot;,
+      &quot;penalty&quot;: 0.001,
+      &quot;log_loss&quot;: 0.6129790086805188,
+      &quot;validation_rows&quot;: 7784,
+      &quot;folds&quot;: [
+        {
+          &quot;validation_year&quot;: 2023,
+          &quot;train_rows&quot;: 8678,
+          &quot;train_year_min&quot;: 2019,
+          &quot;train_year_max&quot;: 2022,
+          &quot;validation_rows&quot;: 2603,
+          &quot;log_loss&quot;: 0.6139672292468752
+        },
+        {
+          &quot;validation_year&quot;: 2024,
+          &quot;train_rows&quot;: 8771,
+          &quot;train_year_min&quot;: 2020,
+          &quot;train_year_max&quot;: 2023,
+          &quot;validation_rows&quot;: 2655,
+          &quot;log_loss&quot;: 0.6063395917887112
+        },
+        {
+          &quot;validation_year&quot;: 2025,
+          &quot;train_rows&quot;: 10212,
+          &quot;train_year_min&quot;: 2021,
+          &quot;train_year_max&quot;: 2024,
+          &quot;validation_rows&quot;: 2526,
+          &quot;log_loss&quot;: 0.6189391487096253
+        }
+      ]
+    },
+    {
+      &quot;strategy&quot;: &quot;latest4&quot;,
+      &quot;penalty&quot;: 0.01,
+      &quot;log_loss&quot;: 0.6127742383442827,
+      &quot;validation_rows&quot;: 7784,
+      &quot;folds&quot;: [
+        {
+          &quot;validation_year&quot;: 2023,
+          &quot;train_rows&quot;: 8678,
+          &quot;train_year_min&quot;: 2019,
+          &quot;train_year_max&quot;: 2022,
+          &quot;validation_rows&quot;: 2603,
+          &quot;log_loss&quot;: 0.6139220449947832
+        },
+        {
+          &quot;validation_year&quot;: 2024,
+          &quot;train_rows&quot;: 8771,
+          &quot;train_year_min&quot;: 2020,
+          &quot;train_year_max&quot;: 2023,
+          &quot;validation_rows&quot;: 2655,
+          &quot;log_loss&quot;: 0.6062538531315993
+        },
+        {
+          &quot;validation_year&quot;: 2025,
+          &quot;train_rows&quot;: 10212,
+          &quot;train_year_min&quot;: 2021,
+          &quot;train_year_max&quot;: 2024,
+          &quot;validation_rows&quot;: 2526,
+          &quot;log_loss&quot;: 0.6184448171362154
+        }
+      ]
+    },
+    {
+      &quot;strategy&quot;: &quot;latest4&quot;,
+      &quot;penalty&quot;: 0.1,
+      &quot;log_loss&quot;: 0.6131120224212866,
+      &quot;validation_rows&quot;: 7784,
+      &quot;folds&quot;: [
+        {
+          &quot;validation_year&quot;: 2023,
+          &quot;train_rows&quot;: 8678,
+          &quot;train_year_min&quot;: 2019,
+          &quot;train_year_max&quot;: 2022,
+          &quot;validation_rows&quot;: 2603,
+          &quot;log_loss&quot;: 0.6145524778457461
+        },
+        {
+          &quot;validation_year&quot;: 2024,
+          &quot;train_rows&quot;: 8771,
+          &quot;train_year_min&quot;: 2020,
+          &quot;train_year_max&quot;: 2023,
+          &quot;validation_rows&quot;: 2655,
+          &quot;log_loss&quot;: 0.6068577055245087
+        },
+        {
+          &quot;validation_year&quot;: 2025,
+          &quot;train_rows&quot;: 10212,
+          &quot;train_year_min&quot;: 2021,
+          &quot;train_year_max&quot;: 2024,
+          &quot;validation_rows&quot;: 2526,
+          &quot;log_loss&quot;: 0.6182013755056402
+        }
+      ]
+    }
+  ]
+}</pre></details><p><a href="../../../data/studies/predictive_frontier_tabpfn/manifest.json">Frozen experiment manifest</a> · <a href="../../../data/studies/predictive_frontier_tabpfn/prepared_scores.json">Exact local comparison scores</a></p></section><small>Prepared 2026-10-03T02:22:14+00:00. No paid TabPFN results are claimed.</small></main></body></html>

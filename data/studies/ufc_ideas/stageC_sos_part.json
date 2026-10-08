@@ -1,0 +1,1284 @@
+{
+ "generated_at": "2026-10-02T21:00:45+00:00",
+ "settings": {
+  "K_grid": [
+   0,
+   2,
+   5,
+   10,
+   20
+  ],
+  "tune_years": [
+   2013,
+   2018
+  ],
+  "prior_years": [
+   2010,
+   2018
+  ],
+  "week52_days": 364,
+  "half_life_weeks": 52,
+  "log_odds_per_elo_point": 0.005756462732485115,
+  "chunk": 60000,
+  "seed": 20261002
+ },
+ "elo_constants": {
+  "atp": {
+   "k0": 600.0,
+   "offset": 2.0,
+   "shape": 0.6,
+   "w": 0.3
+  },
+  "wta": {
+   "k0": 600.0,
+   "offset": 1.0,
+   "shape": 0.6,
+   "w": 0.25
+  }
+ },
+ "bt": {
+  "bt_file": "data\\studies\\ufc_ideas\\stageA_bt.parquet",
+  "bt_found": false
+ },
+ "priors": {
+  "atp": {
+   "m_elo": 9.77234773607756,
+   "m_rating": -0.09673168334034492,
+   "strong_line_elo_points": 2097.8165222167963,
+   "player_matches": 522348,
+   "main_tour_player_matches": 47210
+  },
+  "wta": {
+   "m_elo": 9.829739605715227,
+   "m_rating": -0.07090928453762803,
+   "strong_line_elo_points": 2101.2137756347656,
+   "player_matches": 375210,
+   "main_tour_player_matches": 44396
+  }
+ },
+ "K": {
+  "sos_elo|52 weeks": {
+   "atp": 20.0,
+   "wta": 20.0
+  },
+  "sos_elo|decayed": {
+   "atp": 0.0,
+   "wta": 20.0
+  },
+  "sos_rating|52 weeks": {
+   "atp": 20.0,
+   "wta": 20.0
+  },
+  "sos_won_elo|52 weeks": {
+   "atp": 20.0,
+   "wta": 5.0
+  },
+  "sos_lost_elo|52 weeks": {
+   "atp": 5.0,
+   "wta": 20.0
+  },
+  "over_elo|52 weeks": {
+   "atp": 20.0,
+   "wta": 0.0
+  },
+  "over_elo_strong|52 weeks": {
+   "atp": 2.0,
+   "wta": 5.0
+  },
+  "revalue|52 weeks": {
+   "atp": 5.0,
+   "wta": 20.0
+  },
+  "revalue_won|52 weeks": {
+   "atp": 0.0,
+   "wta": 5.0
+  },
+  "revalue_lost|52 weeks": {
+   "atp": 20.0,
+   "wta": 20.0
+  },
+  "revalue_later|52 weeks": {
+   "atp": 2.0,
+   "wta": 20.0
+  },
+  "revalue_won_later|52 weeks": {
+   "atp": 2.0,
+   "wta": 5.0
+  },
+  "revalue_lost_later|52 weeks": {
+   "atp": 20.0,
+   "wta": 20.0
+  }
+ },
+ "tuning_grid": [
+  {
+   "column": "sos_elo|52 weeks",
+   "tour": "atp",
+   "K": 0,
+   "matches": 63370,
+   "gain_milli": 0.6025842645125401
+  },
+  {
+   "column": "sos_elo|52 weeks",
+   "tour": "atp",
+   "K": 2,
+   "matches": 63370,
+   "gain_milli": 0.6051450421293847
+  },
+  {
+   "column": "sos_elo|52 weeks",
+   "tour": "atp",
+   "K": 5,
+   "matches": 63370,
+   "gain_milli": 0.6170615680093361
+  },
+  {
+   "column": "sos_elo|52 weeks",
+   "tour": "atp",
+   "K": 10,
+   "matches": 63370,
+   "gain_milli": 0.6350333793633256
+  },
+  {
+   "column": "sos_elo|52 weeks",
+   "tour": "atp",
+   "K": 20,
+   "matches": 63370,
+   "gain_milli": 0.6561740358258517
+  },
+  {
+   "column": "sos_elo|52 weeks",
+   "tour": "wta",
+   "K": 0,
+   "matches": 25550,
+   "gain_milli": 0.5994570717788861
+  },
+  {
+   "column": "sos_elo|52 weeks",
+   "tour": "wta",
+   "K": 2,
+   "matches": 25550,
+   "gain_milli": 0.7496072062025405
+  },
+  {
+   "column": "sos_elo|52 weeks",
+   "tour": "wta",
+   "K": 5,
+   "matches": 25550,
+   "gain_milli": 0.8402347663246656
+  },
+  {
+   "column": "sos_elo|52 weeks",
+   "tour": "wta",
+   "K": 10,
+   "matches": 25550,
+   "gain_milli": 0.9089745872601362
+  },
+  {
+   "column": "sos_elo|52 weeks",
+   "tour": "wta",
+   "K": 20,
+   "matches": 25550,
+   "gain_milli": 0.949871950051917
+  },
+  {
+   "column": "sos_elo|decayed",
+   "tour": "atp",
+   "K": 0,
+   "matches": 63729,
+   "gain_milli": 0.39844966205748733
+  },
+  {
+   "column": "sos_elo|decayed",
+   "tour": "atp",
+   "K": 2,
+   "matches": 63729,
+   "gain_milli": 0.34110409000953634
+  },
+  {
+   "column": "sos_elo|decayed",
+   "tour": "atp",
+   "K": 5,
+   "matches": 63729,
+   "gain_milli": 0.3257419362004965
+  },
+  {
+   "column": "sos_elo|decayed",
+   "tour": "atp",
+   "K": 10,
+   "matches": 63729,
+   "gain_milli": 0.3226406341766408
+  },
+  {
+   "column": "sos_elo|decayed",
+   "tour": "atp",
+   "K": 20,
+   "matches": 63729,
+   "gain_milli": 0.3274106536312882
+  },
+  {
+   "column": "sos_elo|decayed",
+   "tour": "wta",
+   "K": 0,
+   "matches": 25626,
+   "gain_milli": 0.5496474283718245
+  },
+  {
+   "column": "sos_elo|decayed",
+   "tour": "wta",
+   "K": 2,
+   "matches": 25626,
+   "gain_milli": 0.5921701406048641
+  },
+  {
+   "column": "sos_elo|decayed",
+   "tour": "wta",
+   "K": 5,
+   "matches": 25626,
+   "gain_milli": 0.6238700554244136
+  },
+  {
+   "column": "sos_elo|decayed",
+   "tour": "wta",
+   "K": 10,
+   "matches": 25626,
+   "gain_milli": 0.6547606659614846
+  },
+  {
+   "column": "sos_elo|decayed",
+   "tour": "wta",
+   "K": 20,
+   "matches": 25626,
+   "gain_milli": 0.6839441904917809
+  },
+  {
+   "column": "sos_rating|52 weeks",
+   "tour": "atp",
+   "K": 0,
+   "matches": 63370,
+   "gain_milli": 0.45534780046552203
+  },
+  {
+   "column": "sos_rating|52 weeks",
+   "tour": "atp",
+   "K": 2,
+   "matches": 63370,
+   "gain_milli": 0.47196800080728796
+  },
+  {
+   "column": "sos_rating|52 weeks",
+   "tour": "atp",
+   "K": 5,
+   "matches": 63370,
+   "gain_milli": 0.4960088851626576
+  },
+  {
+   "column": "sos_rating|52 weeks",
+   "tour": "atp",
+   "K": 10,
+   "matches": 63370,
+   "gain_milli": 0.5270402561273757
+  },
+  {
+   "column": "sos_rating|52 weeks",
+   "tour": "atp",
+   "K": 20,
+   "matches": 63370,
+   "gain_milli": 0.566593790876313
+  },
+  {
+   "column": "sos_rating|52 weeks",
+   "tour": "wta",
+   "K": 0,
+   "matches": 25550,
+   "gain_milli": 0.08802452768541524
+  },
+  {
+   "column": "sos_rating|52 weeks",
+   "tour": "wta",
+   "K": 2,
+   "matches": 25550,
+   "gain_milli": 0.12601613233875764
+  },
+  {
+   "column": "sos_rating|52 weeks",
+   "tour": "wta",
+   "K": 5,
+   "matches": 25550,
+   "gain_milli": 0.1487163761971777
+  },
+  {
+   "column": "sos_rating|52 weeks",
+   "tour": "wta",
+   "K": 10,
+   "matches": 25550,
+   "gain_milli": 0.1685897669402303
+  },
+  {
+   "column": "sos_rating|52 weeks",
+   "tour": "wta",
+   "K": 20,
+   "matches": 25550,
+   "gain_milli": 0.18761832149716273
+  },
+  {
+   "column": "sos_won_elo|52 weeks",
+   "tour": "atp",
+   "K": 0,
+   "matches": 63370,
+   "gain_milli": 0.3937619614101662
+  },
+  {
+   "column": "sos_won_elo|52 weeks",
+   "tour": "atp",
+   "K": 2,
+   "matches": 63370,
+   "gain_milli": 0.35594093623281253
+  },
+  {
+   "column": "sos_won_elo|52 weeks",
+   "tour": "atp",
+   "K": 5,
+   "matches": 63370,
+   "gain_milli": 0.3625504337794183
+  },
+  {
+   "column": "sos_won_elo|52 weeks",
+   "tour": "atp",
+   "K": 10,
+   "matches": 63370,
+   "gain_milli": 0.3787698430305353
+  },
+  {
+   "column": "sos_won_elo|52 weeks",
+   "tour": "atp",
+   "K": 20,
+   "matches": 63370,
+   "gain_milli": 0.3954989057779468
+  },
+  {
+   "column": "sos_won_elo|52 weeks",
+   "tour": "wta",
+   "K": 0,
+   "matches": 25550,
+   "gain_milli": 0.5484919212538353
+  },
+  {
+   "column": "sos_won_elo|52 weeks",
+   "tour": "wta",
+   "K": 2,
+   "matches": 25550,
+   "gain_milli": 0.6552719708204924
+  },
+  {
+   "column": "sos_won_elo|52 weeks",
+   "tour": "wta",
+   "K": 5,
+   "matches": 25550,
+   "gain_milli": 0.6909595248030254
+  },
+  {
+   "column": "sos_won_elo|52 weeks",
+   "tour": "wta",
+   "K": 10,
+   "matches": 25550,
+   "gain_milli": 0.678165742498904
+  },
+  {
+   "column": "sos_won_elo|52 weeks",
+   "tour": "wta",
+   "K": 20,
+   "matches": 25550,
+   "gain_milli": 0.5931105082715993
+  },
+  {
+   "column": "sos_lost_elo|52 weeks",
+   "tour": "atp",
+   "K": 0,
+   "matches": 63370,
+   "gain_milli": 0.5677209021385243
+  },
+  {
+   "column": "sos_lost_elo|52 weeks",
+   "tour": "atp",
+   "K": 2,
+   "matches": 63370,
+   "gain_milli": 0.6542186811639983
+  },
+  {
+   "column": "sos_lost_elo|52 weeks",
+   "tour": "atp",
+   "K": 5,
+   "matches": 63370,
+   "gain_milli": 0.6739494953805769
+  },
+  {
+   "column": "sos_lost_elo|52 weeks",
+   "tour": "atp",
+   "K": 10,
+   "matches": 63370,
+   "gain_milli": 0.6722607499289879
+  },
+  {
+   "column": "sos_lost_elo|52 weeks",
+   "tour": "atp",
+   "K": 20,
+   "matches": 63370,
+   "gain_milli": 0.6566057210688481
+  },
+  {
+   "column": "sos_lost_elo|52 weeks",
+   "tour": "wta",
+   "K": 0,
+   "matches": 25550,
+   "gain_milli": 0.6716431286956093
+  },
+  {
+   "column": "sos_lost_elo|52 weeks",
+   "tour": "wta",
+   "K": 2,
+   "matches": 25550,
+   "gain_milli": 0.8925584595518288
+  },
+  {
+   "column": "sos_lost_elo|52 weeks",
+   "tour": "wta",
+   "K": 5,
+   "matches": 25550,
+   "gain_milli": 0.9802817429520605
+  },
+  {
+   "column": "sos_lost_elo|52 weeks",
+   "tour": "wta",
+   "K": 10,
+   "matches": 25550,
+   "gain_milli": 1.020015452797285
+  },
+  {
+   "column": "sos_lost_elo|52 weeks",
+   "tour": "wta",
+   "K": 20,
+   "matches": 25550,
+   "gain_milli": 1.0289494292010648
+  },
+  {
+   "column": "over_elo|52 weeks",
+   "tour": "atp",
+   "K": 0,
+   "matches": 63370,
+   "gain_milli": 0.0024140267128602844
+  },
+  {
+   "column": "over_elo|52 weeks",
+   "tour": "atp",
+   "K": 2,
+   "matches": 63370,
+   "gain_milli": 0.0004115117663294754
+  },
+  {
+   "column": "over_elo|52 weeks",
+   "tour": "atp",
+   "K": 5,
+   "matches": 63370,
+   "gain_milli": 0.002895396203239642
+  },
+  {
+   "column": "over_elo|52 weeks",
+   "tour": "atp",
+   "K": 10,
+   "matches": 63370,
+   "gain_milli": 0.006758529454753415
+  },
+  {
+   "column": "over_elo|52 weeks",
+   "tour": "atp",
+   "K": 20,
+   "matches": 63370,
+   "gain_milli": 0.012698576172920362
+  },
+  {
+   "column": "over_elo|52 weeks",
+   "tour": "wta",
+   "K": 0,
+   "matches": 25550,
+   "gain_milli": 0.01151053617964859
+  },
+  {
+   "column": "over_elo|52 weeks",
+   "tour": "wta",
+   "K": 2,
+   "matches": 25550,
+   "gain_milli": 0.004117451772644998
+  },
+  {
+   "column": "over_elo|52 weeks",
+   "tour": "wta",
+   "K": 5,
+   "matches": 25550,
+   "gain_milli": 0.0009377163070478645
+  },
+  {
+   "column": "over_elo|52 weeks",
+   "tour": "wta",
+   "K": 10,
+   "matches": 25550,
+   "gain_milli": 1.4197631958978718e-07
+  },
+  {
+   "column": "over_elo|52 weeks",
+   "tour": "wta",
+   "K": 20,
+   "matches": 25550,
+   "gain_milli": 0.0008557193847957834
+  },
+  {
+   "column": "over_elo_strong|52 weeks",
+   "tour": "atp",
+   "K": 0,
+   "matches": 63370,
+   "gain_milli": 0.00940311558594864
+  },
+  {
+   "column": "over_elo_strong|52 weeks",
+   "tour": "atp",
+   "K": 2,
+   "matches": 63370,
+   "gain_milli": 0.014991590370772023
+  },
+  {
+   "column": "over_elo_strong|52 weeks",
+   "tour": "atp",
+   "K": 5,
+   "matches": 63370,
+   "gain_milli": 0.011395044553164091
+  },
+  {
+   "column": "over_elo_strong|52 weeks",
+   "tour": "atp",
+   "K": 10,
+   "matches": 63370,
+   "gain_milli": 0.006600070670659264
+  },
+  {
+   "column": "over_elo_strong|52 weeks",
+   "tour": "atp",
+   "K": 20,
+   "matches": 63370,
+   "gain_milli": 0.00248832247362607
+  },
+  {
+   "column": "over_elo_strong|52 weeks",
+   "tour": "wta",
+   "K": 0,
+   "matches": 25550,
+   "gain_milli": 0.009170679700964968
+  },
+  {
+   "column": "over_elo_strong|52 weeks",
+   "tour": "wta",
+   "K": 2,
+   "matches": 25550,
+   "gain_milli": 0.022069306092276086
+  },
+  {
+   "column": "over_elo_strong|52 weeks",
+   "tour": "wta",
+   "K": 5,
+   "matches": 25550,
+   "gain_milli": 0.02547744872949398
+  },
+  {
+   "column": "over_elo_strong|52 weeks",
+   "tour": "wta",
+   "K": 10,
+   "matches": 25550,
+   "gain_milli": 0.023850993998375536
+  },
+  {
+   "column": "over_elo_strong|52 weeks",
+   "tour": "wta",
+   "K": 20,
+   "matches": 25550,
+   "gain_milli": 0.019330121342475692
+  },
+  {
+   "column": "revalue|52 weeks",
+   "tour": "atp",
+   "K": 0,
+   "matches": 63370,
+   "gain_milli": 0.1947768986187981
+  },
+  {
+   "column": "revalue|52 weeks",
+   "tour": "atp",
+   "K": 2,
+   "matches": 63370,
+   "gain_milli": 0.29616892884898327
+  },
+  {
+   "column": "revalue|52 weeks",
+   "tour": "atp",
+   "K": 5,
+   "matches": 63370,
+   "gain_milli": 0.3152369344382455
+  },
+  {
+   "column": "revalue|52 weeks",
+   "tour": "atp",
+   "K": 10,
+   "matches": 63370,
+   "gain_milli": 0.30858486449847344
+  },
+  {
+   "column": "revalue|52 weeks",
+   "tour": "atp",
+   "K": 20,
+   "matches": 63370,
+   "gain_milli": 0.28172763506484344
+  },
+  {
+   "column": "revalue|52 weeks",
+   "tour": "wta",
+   "K": 0,
+   "matches": 25550,
+   "gain_milli": 0.12911909206647643
+  },
+  {
+   "column": "revalue|52 weeks",
+   "tour": "wta",
+   "K": 2,
+   "matches": 25550,
+   "gain_milli": 0.1634734071431776
+  },
+  {
+   "column": "revalue|52 weeks",
+   "tour": "wta",
+   "K": 5,
+   "matches": 25550,
+   "gain_milli": 0.18828443163942943
+  },
+  {
+   "column": "revalue|52 weeks",
+   "tour": "wta",
+   "K": 10,
+   "matches": 25550,
+   "gain_milli": 0.21006821233604533
+  },
+  {
+   "column": "revalue|52 weeks",
+   "tour": "wta",
+   "K": 20,
+   "matches": 25550,
+   "gain_milli": 0.22905439205778144
+  },
+  {
+   "column": "revalue_won|52 weeks",
+   "tour": "atp",
+   "K": 0,
+   "matches": 63370,
+   "gain_milli": 0.07269675315735302
+  },
+  {
+   "column": "revalue_won|52 weeks",
+   "tour": "atp",
+   "K": 2,
+   "matches": 63370,
+   "gain_milli": 0.06502154962584328
+  },
+  {
+   "column": "revalue_won|52 weeks",
+   "tour": "atp",
+   "K": 5,
+   "matches": 63370,
+   "gain_milli": 0.056064155806390126
+  },
+  {
+   "column": "revalue_won|52 weeks",
+   "tour": "atp",
+   "K": 10,
+   "matches": 63370,
+   "gain_milli": 0.046547951621844774
+  },
+  {
+   "column": "revalue_won|52 weeks",
+   "tour": "atp",
+   "K": 20,
+   "matches": 63370,
+   "gain_milli": 0.035620200821817605
+  },
+  {
+   "column": "revalue_won|52 weeks",
+   "tour": "wta",
+   "K": 0,
+   "matches": 25550,
+   "gain_milli": 0.021189649829223
+  },
+  {
+   "column": "revalue_won|52 weeks",
+   "tour": "wta",
+   "K": 2,
+   "matches": 25550,
+   "gain_milli": 0.025599045995750025
+  },
+  {
+   "column": "revalue_won|52 weeks",
+   "tour": "wta",
+   "K": 5,
+   "matches": 25550,
+   "gain_milli": 0.02693807109444002
+  },
+  {
+   "column": "revalue_won|52 weeks",
+   "tour": "wta",
+   "K": 10,
+   "matches": 25550,
+   "gain_milli": 0.025976228533619583
+  },
+  {
+   "column": "revalue_won|52 weeks",
+   "tour": "wta",
+   "K": 20,
+   "matches": 25550,
+   "gain_milli": 0.02322513302965845
+  },
+  {
+   "column": "revalue_lost|52 weeks",
+   "tour": "atp",
+   "K": 0,
+   "matches": 63370,
+   "gain_milli": 0.043096805650066905
+  },
+  {
+   "column": "revalue_lost|52 weeks",
+   "tour": "atp",
+   "K": 2,
+   "matches": 63370,
+   "gain_milli": 0.09330635100213147
+  },
+  {
+   "column": "revalue_lost|52 weeks",
+   "tour": "atp",
+   "K": 5,
+   "matches": 63370,
+   "gain_milli": 0.11883907765175561
+  },
+  {
+   "column": "revalue_lost|52 weeks",
+   "tour": "atp",
+   "K": 10,
+   "matches": 63370,
+   "gain_milli": 0.13760599720213929
+  },
+  {
+   "column": "revalue_lost|52 weeks",
+   "tour": "atp",
+   "K": 20,
+   "matches": 63370,
+   "gain_milli": 0.15414850144623848
+  },
+  {
+   "column": "revalue_lost|52 weeks",
+   "tour": "wta",
+   "K": 0,
+   "matches": 25550,
+   "gain_milli": 0.022811887448015433
+  },
+  {
+   "column": "revalue_lost|52 weeks",
+   "tour": "wta",
+   "K": 2,
+   "matches": 25550,
+   "gain_milli": 0.06226725685787304
+  },
+  {
+   "column": "revalue_lost|52 weeks",
+   "tour": "wta",
+   "K": 5,
+   "matches": 25550,
+   "gain_milli": 0.10495012618128019
+  },
+  {
+   "column": "revalue_lost|52 weeks",
+   "tour": "wta",
+   "K": 10,
+   "matches": 25550,
+   "gain_milli": 0.15424065627378525
+  },
+  {
+   "column": "revalue_lost|52 weeks",
+   "tour": "wta",
+   "K": 20,
+   "matches": 25550,
+   "gain_milli": 0.21239853201204806
+  },
+  {
+   "column": "revalue_later|52 weeks",
+   "tour": "atp",
+   "K": 0,
+   "matches": 63370,
+   "gain_milli": 0.16043679591781768
+  },
+  {
+   "column": "revalue_later|52 weeks",
+   "tour": "atp",
+   "K": 2,
+   "matches": 63370,
+   "gain_milli": 0.200049445650885
+  },
+  {
+   "column": "revalue_later|52 weeks",
+   "tour": "atp",
+   "K": 5,
+   "matches": 63370,
+   "gain_milli": 0.19635114208149673
+  },
+  {
+   "column": "revalue_later|52 weeks",
+   "tour": "atp",
+   "K": 10,
+   "matches": 63370,
+   "gain_milli": 0.17932722307134608
+  },
+  {
+   "column": "revalue_later|52 weeks",
+   "tour": "atp",
+   "K": 20,
+   "matches": 63370,
+   "gain_milli": 0.15066290657494985
+  },
+  {
+   "column": "revalue_later|52 weeks",
+   "tour": "wta",
+   "K": 0,
+   "matches": 25550,
+   "gain_milli": 0.10655919115021284
+  },
+  {
+   "column": "revalue_later|52 weeks",
+   "tour": "wta",
+   "K": 2,
+   "matches": 25550,
+   "gain_milli": 0.11059461366080825
+  },
+  {
+   "column": "revalue_later|52 weeks",
+   "tour": "wta",
+   "K": 5,
+   "matches": 25550,
+   "gain_milli": 0.11781583947900742
+  },
+  {
+   "column": "revalue_later|52 weeks",
+   "tour": "wta",
+   "K": 10,
+   "matches": 25550,
+   "gain_milli": 0.12426632387807501
+  },
+  {
+   "column": "revalue_later|52 weeks",
+   "tour": "wta",
+   "K": 20,
+   "matches": 25550,
+   "gain_milli": 0.12879224393480548
+  },
+  {
+   "column": "revalue_won_later|52 weeks",
+   "tour": "atp",
+   "K": 0,
+   "matches": 63370,
+   "gain_milli": 0.06567519472788774
+  },
+  {
+   "column": "revalue_won_later|52 weeks",
+   "tour": "atp",
+   "K": 2,
+   "matches": 63370,
+   "gain_milli": 0.06805362545947435
+  },
+  {
+   "column": "revalue_won_later|52 weeks",
+   "tour": "atp",
+   "K": 5,
+   "matches": 63370,
+   "gain_milli": 0.05581452790093255
+  },
+  {
+   "column": "revalue_won_later|52 weeks",
+   "tour": "atp",
+   "K": 10,
+   "matches": 63370,
+   "gain_milli": 0.03924908946495442
+  },
+  {
+   "column": "revalue_won_later|52 weeks",
+   "tour": "atp",
+   "K": 20,
+   "matches": 63370,
+   "gain_milli": 0.020395355034841245
+  },
+  {
+   "column": "revalue_won_later|52 weeks",
+   "tour": "wta",
+   "K": 0,
+   "matches": 25550,
+   "gain_milli": 0.002923396230869457
+  },
+  {
+   "column": "revalue_won_later|52 weeks",
+   "tour": "wta",
+   "K": 2,
+   "matches": 25550,
+   "gain_milli": 0.007330816855666278
+  },
+  {
+   "column": "revalue_won_later|52 weeks",
+   "tour": "wta",
+   "K": 5,
+   "matches": 25550,
+   "gain_milli": 0.00850754488468386
+  },
+  {
+   "column": "revalue_won_later|52 weeks",
+   "tour": "wta",
+   "K": 10,
+   "matches": 25550,
+   "gain_milli": 0.007431644343913746
+  },
+  {
+   "column": "revalue_won_later|52 weeks",
+   "tour": "wta",
+   "K": 20,
+   "matches": 25550,
+   "gain_milli": 0.004745720641352591
+  },
+  {
+   "column": "revalue_lost_later|52 weeks",
+   "tour": "atp",
+   "K": 0,
+   "matches": 63370,
+   "gain_milli": 0.18074591342331914
+  },
+  {
+   "column": "revalue_lost_later|52 weeks",
+   "tour": "atp",
+   "K": 2,
+   "matches": 63370,
+   "gain_milli": 0.21894141995149052
+  },
+  {
+   "column": "revalue_lost_later|52 weeks",
+   "tour": "atp",
+   "K": 5,
+   "matches": 63370,
+   "gain_milli": 0.2288305941925417
+  },
+  {
+   "column": "revalue_lost_later|52 weeks",
+   "tour": "atp",
+   "K": 10,
+   "matches": 63370,
+   "gain_milli": 0.23368253603084366
+  },
+  {
+   "column": "revalue_lost_later|52 weeks",
+   "tour": "atp",
+   "K": 20,
+   "matches": 63370,
+   "gain_milli": 0.23740640025637916
+  },
+  {
+   "column": "revalue_lost_later|52 weeks",
+   "tour": "wta",
+   "K": 0,
+   "matches": 25550,
+   "gain_milli": 0.19596283759559796
+  },
+  {
+   "column": "revalue_lost_later|52 weeks",
+   "tour": "wta",
+   "K": 2,
+   "matches": 25550,
+   "gain_milli": 0.22888001463272634
+  },
+  {
+   "column": "revalue_lost_later|52 weeks",
+   "tour": "wta",
+   "K": 5,
+   "matches": 25550,
+   "gain_milli": 0.254975703589011
+  },
+  {
+   "column": "revalue_lost_later|52 weeks",
+   "tour": "wta",
+   "K": 10,
+   "matches": 25550,
+   "gain_milli": 0.28098046321300973
+  },
+  {
+   "column": "revalue_lost_later|52 weeks",
+   "tour": "wta",
+   "K": 20,
+   "matches": 25550,
+   "gain_milli": 0.3091069443617034
+  }
+ ],
+ "coverage": {
+  "sos_elo|52 weeks": {
+   "atp": {
+    "evaluation_matches": 155130,
+    "exists": 153565,
+    "sd": 0.6534056965902638
+   },
+   "wta": {
+    "evaluation_matches": 60321,
+    "exists": 59972,
+    "sd": 0.6237627971793285
+   }
+  },
+  "sos_elo|decayed": {
+   "atp": {
+    "evaluation_matches": 155130,
+    "exists": 154403,
+    "sd": 0.8909408628911395
+   },
+   "wta": {
+    "evaluation_matches": 60321,
+    "exists": 60197,
+    "sd": 0.6558690833154991
+   }
+  },
+  "sos_rating|52 weeks": {
+   "atp": {
+    "evaluation_matches": 155130,
+    "exists": 153565,
+    "sd": 0.1433126487831101
+   },
+   "wta": {
+    "evaluation_matches": 60321,
+    "exists": 59972,
+    "sd": 0.12140276984426553
+   }
+  },
+  "sos_won_elo|52 weeks": {
+   "atp": {
+    "evaluation_matches": 155130,
+    "exists": 153565,
+    "sd": 0.5788596232364073
+   },
+   "wta": {
+    "evaluation_matches": 60321,
+    "exists": 59972,
+    "sd": 0.7755135603085765
+   }
+  },
+  "sos_lost_elo|52 weeks": {
+   "atp": {
+    "evaluation_matches": 155130,
+    "exists": 153565,
+    "sd": 0.7092392970081445
+   },
+   "wta": {
+    "evaluation_matches": 60321,
+    "exists": 59972,
+    "sd": 0.4742781419230174
+   }
+  },
+  "over_elo|52 weeks": {
+   "atp": {
+    "evaluation_matches": 155130,
+    "exists": 153565,
+    "sd": 0.06638599943812916
+   },
+   "wta": {
+    "evaluation_matches": 60321,
+    "exists": 59972,
+    "sd": 0.1136788236916102
+   }
+  },
+  "over_elo_strong|52 weeks": {
+   "atp": {
+    "evaluation_matches": 155130,
+    "exists": 153565,
+    "sd": 0.1457270736420522
+   },
+   "wta": {
+    "evaluation_matches": 60321,
+    "exists": 59972,
+    "sd": 0.1114233182107317
+   }
+  },
+  "revalue|52 weeks": {
+   "atp": {
+    "evaluation_matches": 155130,
+    "exists": 153565,
+    "sd": 0.068056032947455
+   },
+   "wta": {
+    "evaluation_matches": 60321,
+    "exists": 59972,
+    "sd": 0.04725887188197326
+   }
+  },
+  "revalue_won|52 weeks": {
+   "atp": {
+    "evaluation_matches": 155130,
+    "exists": 153565,
+    "sd": 0.1193637970960206
+   },
+   "wta": {
+    "evaluation_matches": 60321,
+    "exists": 59972,
+    "sd": 0.07389962030443188
+   }
+  },
+  "revalue_lost|52 weeks": {
+   "atp": {
+    "evaluation_matches": 155130,
+    "exists": 153565,
+    "sd": 0.05911493115960357
+   },
+   "wta": {
+    "evaluation_matches": 60321,
+    "exists": 59972,
+    "sd": 0.052909993822672
+   }
+  },
+  "revalue_later|52 weeks": {
+   "atp": {
+    "evaluation_matches": 155130,
+    "exists": 153565,
+    "sd": 0.07352066138177854
+   },
+   "wta": {
+    "evaluation_matches": 60321,
+    "exists": 59972,
+    "sd": 0.04714566532447615
+   }
+  },
+  "revalue_won_later|52 weeks": {
+   "atp": {
+    "evaluation_matches": 155130,
+    "exists": 153565,
+    "sd": 0.09410623898161041
+   },
+   "wta": {
+    "evaluation_matches": 60321,
+    "exists": 59972,
+    "sd": 0.07491568928172754
+   }
+  },
+  "revalue_lost_later|52 weeks": {
+   "atp": {
+    "evaluation_matches": 155130,
+    "exists": 153565,
+    "sd": 0.0507827940666037
+   },
+   "wta": {
+    "evaluation_matches": 60321,
+    "exists": 59972,
+    "sd": 0.047334848761343404
+   }
+  }
+ },
+ "pairs": {
+  "pairs": 27607816,
+  "pairs_with_later_evidence": 26051035,
+  "pairs_with_a_later_rematch_taken_out": 3027212,
+  "pairs_an_earlier_date_rule_would_read_in_the_pool_week": 299480,
+  "mean_encounters_per_pool_player_row": 54.106873939237154
+ },
+ "data_notes": {
+  "evaluation_level_events": 4976,
+  "events_not_dated_monday": 287,
+  "evaluation_matches": 215451,
+  "evaluation_matches_in_events_not_dated_monday": 13246,
+  "by_weekday": {
+   "0": 4689,
+   "1": 96,
+   "2": 36,
+   "3": 13,
+   "4": 1,
+   "5": 3,
+   "6": 138
+  }
+ },
+ "checks": {
+  "elo_update": {
+   "checked": 413644,
+   "within_0.01_points": 1.0,
+   "within_0.1_points": 1.0,
+   "max_abs_error_points": 0.00024079817114674995,
+   "median_abs_update_points": 13.404024791661431
+  },
+  "revalue_row_by_row": {
+   "rows_checked": 300,
+   "count_mismatches": 0,
+   "largest_sum_difference": 8.57625082062441e-12
+  },
+  "build_equals_tuning_columns": {
+   "largest_difference": 0.0
+  }
+ },
+ "probe": {
+  "cuts": 4,
+  "protected_checked": 97620,
+  "later_checked": 38848,
+  "columns": 13,
+  "atol": 1e-09,
+  "protected_changed": 0,
+  "later_changed": 37840,
+  "control_protected_changed": 19,
+  "largest_protected_difference": 3.552713678800501e-15,
+  "changed_by_column": {},
+  "cut_matches": [
+   {
+    "match_id": "atp|2026-3059|Q1|atp:202326|atp:202354",
+    "tournament": "Phan Thiet 2 CH",
+    "date": "2026-01-26",
+    "round_order": 1
+   },
+   {
+    "match_id": "atp|2026-6239|Q1|atp:132744|atp:209874",
+    "tournament": "Quimper CH",
+    "date": "2026-01-27",
+    "round_order": 1
+   },
+   {
+    "match_id": "atp|2026-2937|QF|atp:111200|atp:129911",
+    "tournament": "Guangzhou Huangpu International Tennis Open",
+    "date": "2026-09-14",
+    "round_order": 15
+   },
+   {
+    "match_id": "atp|2026-2967|Q2|atp:200661|atp:206923",
+    "tournament": "Brisbane 1 CH",
+    "date": "2026-02-02",
+    "round_order": 2
+   }
+  ]
+ },
+ "timings": {
+  "load_s": 22.0,
+  "family1_sums_s": 16.4,
+  "family2_pairs_s": 153.6,
+  "tuning_s": 7.5,
+  "rebuild_check_s": 58.5,
+  "probe_s": 16.0,
+  "total_s": 312.3
+ },
+ "columns": {
+  "sos_elo|52 weeks": "Opponents' surface Elo, last 52 weeks",
+  "sos_elo|decayed": "Opponents' surface Elo, decayed (52-week half-life)",
+  "sos_rating|52 weeks": "Opponents' serve + return ratings, last 52 weeks",
+  "sos_won_elo|52 weeks": "Quality of wins: surface Elo of opponents beaten, last 52 weeks",
+  "sos_lost_elo|52 weeks": "Surface Elo of opponents lost to, last 52 weeks",
+  "over_elo|52 weeks": "Results above Elo's expectation, last 52 weeks",
+  "over_elo_strong|52 weeks": "Results above Elo's expectation against strong opponents, last 52 weeks",
+  "revalue|52 weeks": "Old opponents' Elo now minus then, all opponents, last 52 weeks",
+  "revalue_won|52 weeks": "Old opponents' Elo now minus then, opponents beaten, last 52 weeks",
+  "revalue_lost|52 weeks": "Old opponents' Elo now minus then, opponents lost to, last 52 weeks",
+  "revalue_later|52 weeks": "Old opponents revalued by their later matches only, all opponents, last 52 weeks",
+  "revalue_won_later|52 weeks": "Old opponents revalued by their later matches only, opponents beaten, last 52 weeks",
+  "revalue_lost_later|52 weeks": "Old opponents revalued by their later matches only, opponents lost to, last 52 weeks"
+ }
+}

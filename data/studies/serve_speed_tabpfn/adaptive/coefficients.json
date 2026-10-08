@@ -1,0 +1,130 @@
+{
+ "policy": "always mode L (the 28-day memory; owner's amendment of 8 Oct 2026); the L set follows the live speed feed: L_weekly while only the weekly feed runs (the default), L_daily once a daily feed runs",
+ "L_weekly": {
+  "2024": {
+   "s_atp": 0.8994132786118072,
+   "s_wta": 0.9298880463961448,
+   "b_mle": 0.03736016265018907,
+   "se_b": 0.02839705412062579,
+   "b_shrunk": 0.028248431323154733,
+   "rows": 22174
+  },
+  "2025": {
+   "s_atp": 0.9117663289277699,
+   "s_wta": 0.9279789880564248,
+   "b_mle": 0.034810557244318356,
+   "se_b": 0.022879691585940713,
+   "b_shrunk": 0.028783515964377563,
+   "rows": 27308
+  },
+  "2026": {
+   "s_atp": 0.8995934886422011,
+   "s_wta": 0.9167523248680112,
+   "b_mle": 0.04378215420743318,
+   "se_b": 0.020230213949450862,
+   "b_shrunk": 0.03762308180103965,
+   "rows": 32413
+  }
+ },
+ "L_daily": {
+  "2024": {
+   "s_atp": 0.8996956467607224,
+   "s_wta": 0.9298880463961448,
+   "b_mle": 0.03154008180804915,
+   "se_b": 0.026171840343737665,
+   "b_shrunk": 0.02475700640378301,
+   "rows": 22174
+  },
+  "2025": {
+   "s_atp": 0.9121175250420406,
+   "s_wta": 0.9279789880564248,
+   "b_mle": 0.027450440404176227,
+   "se_b": 0.020873973634074117,
+   "b_shrunk": 0.023376219848956353,
+   "rows": 27308
+  },
+  "2026": {
+   "s_atp": 0.8999416526674738,
+   "s_wta": 0.9167523248680112,
+   "b_mle": 0.04048562671572902,
+   "se_b": 0.018470460477046386,
+   "b_shrunk": 0.03562423138282439,
+   "rows": 32413
+  }
+ },
+ "T": {
+  "2024": {
+   "s_atp": 0.9000909205344313,
+   "s_wta": 0.9298880463961448,
+   "b_mle": 0.04043006773763976,
+   "se_b": 0.028579350323311152,
+   "b_shrunk": 0.03047389086565254,
+   "rows": 22174
+  },
+  "2025": {
+   "s_atp": 0.9125586676278096,
+   "s_wta": 0.9279789880564248,
+   "b_mle": 0.04039561669921243,
+   "se_b": 0.022795353023949673,
+   "b_shrunk": 0.03344419834227964,
+   "rows": 27308
+  },
+  "2026": {
+   "s_atp": 0.900704013652165,
+   "s_wta": 0.9167523248680112,
+   "b_mle": 0.04517197134041586,
+   "se_b": 0.020138384287259004,
+   "b_shrunk": 0.03886691077643746,
+   "rows": 32413
+  }
+ },
+ "L": {
+  "2024": {
+   "s_atp": 0.8994132786118072,
+   "s_wta": 0.9298880463961448,
+   "b_mle": 0.03736016265018907,
+   "se_b": 0.02839705412062579,
+   "b_shrunk": 0.028248431323154733,
+   "rows": 22174
+  },
+  "2025": {
+   "s_atp": 0.9117663289277699,
+   "s_wta": 0.9279789880564248,
+   "b_mle": 0.034810557244318356,
+   "se_b": 0.022879691585940713,
+   "b_shrunk": 0.028783515964377563,
+   "rows": 27308
+  },
+  "2026": {
+   "s_atp": 0.8995934886422011,
+   "s_wta": 0.9167523248680112,
+   "b_mle": 0.04378215420743318,
+   "se_b": 0.020230213949450862,
+   "b_shrunk": 0.03762308180103965,
+   "rows": 32413
+  }
+ },
+ "history": {
+  "L_weekly": "spd_B_M1 = spd_L_B: today's sources (weekly ManTennisData, Slams after the event)",
+  "L_daily": "spd_L_D: scenario D (non-Slam rows at lf + 2, Slams after the event)",
+  "T": "spd_f: the instant history (the study's S9); superseded with the switch",
+  "L": "an alias of L_weekly (the switch's name)"
+ },
+ "tau": 0.05,
+ "standardised_by_km_h": {
+  "T": 2.223995373606193,
+  "L": 1.9496051535048338,
+  "source": "adaptive/columns_meta.json"
+ },
+ "fit": "score.nudge_parameters: logit q = s_tour eta + b z on 2019 .. Y - 1, eta the base's seeds 0-3 mean, debut seasons out; b_shrunk = b_mle tau^2 / (tau^2 + se_b^2)",
+ "applied_with": "the 16-seed mean of the base's symmetrised forecasts; b_shrunk",
+ "agreement_with_published": {
+  "T_2024": 0.0,
+  "T_2025": 0.0,
+  "T_2026": 0.0,
+  "L_2024": 0.0,
+  "L_2025": 0.0,
+  "L_2026": 0.0
+ },
+ "season_2027": "not yet fittable: the frame's 2026 is not complete (needs events into November)"
+}

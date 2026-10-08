@@ -37,3 +37,26 @@ def test_normalise_event_falls_back_to_slug_date():
     row, markets = K.normalise_event(event, "now")
     assert row["date_basis"] == "slug_date" and row["sport_date"] == "2026-09-15T00:00:00+00:00"
     assert markets == [] and row["market_count"] == 0
+
+
+def test_normalise_event_labels_revisits():
+    event = {"id": 7, "slug": "atp-a-b-2026-09-23", "closed": True,
+             "markets": [{"id": "m", "sportsMarketType": "moneyline", "closed": True, "outcomePrices": "[\"1\", \"0\"]"}]}
+    row, markets = K.normalise_event(event, "2026-10-05T20:00:00+00:00", catalog="revisit")
+    assert row["catalog"] == "revisit" and markets[0]["catalog"] == "revisit"
+    assert markets[0]["outcomePrices"] == ["1", "0"]
+
+
+def test_revisit_targets_are_events_with_open_match_winners_past_their_day():
+    import pandas as pd
+    events = pd.DataFrame({"id": ["a", "b", "c", "d"],
+                           "sport_date": ["2026-09-23T00:00:00+00:00", "2026-09-23T00:00:00+00:00",
+                                          "2026-10-05T18:00:00+00:00", "2026-09-23T00:00:00+00:00"]})
+    markets = pd.DataFrame({"event_id": ["a", "b", "b", "c", "d"],
+                            "sportsMarketType": ["moneyline", "moneyline", "totals", "moneyline", "totals"],
+                            "closed": ["False", "True", "False", "False", None]})
+    now = pd.Timestamp("2026-10-05T20:00:00Z").timestamp()
+    # a: open match winner, long past; b: match winner settled (an open totals market is not enough);
+    # c: open but only 2 hours past its date; d: no match-winner market
+    assert K.revisit_targets(events, markets, now, settle_hours=6) == ["a"]
+    assert K.revisit_targets(events, markets, now, settle_hours=1) == ["a", "c"]

@@ -1,0 +1,591 @@
+[
+  {
+    "id": "bt",
+    "name": "Bradley-Terry rating (wins and losses)",
+    "family": "BT rating",
+    "description": "Bradley-Terry rating from wins and losses: every earlier result re-solved at once each week with a time decay and a ridge toward a newcomer anchor, plus the same event's earlier rounds; A's minus B's",
+    "form": "single",
+    "columns": [
+      "bt|single"
+    ],
+    "tuned": {
+      "atp": {
+        "constants": {
+          "half_life": 0.5,
+          "lam": 0.1,
+          "anchor": -2.0,
+          "ret_w": 1.0
+        },
+        "tuned_on": "2013-2018 evaluation matches"
+      },
+      "wta": {
+        "constants": {
+          "half_life": 0.5,
+          "lam": 0.1,
+          "anchor": -1.5,
+          "ret_w": 1.0
+        },
+        "tuned_on": "2013-2018 evaluation matches"
+      }
+    },
+    "base_variants": {
+      "atp": {
+        "alone": "coin",
+        "elo": "p_elo",
+        "market": "p_mkt",
+        "mesr": "p_mesr"
+      },
+      "wta": {
+        "alone": "coin",
+        "elo": "p_elo",
+        "market": "p_mkt",
+        "mesr": "p_mesr"
+      }
+    },
+    "scored_from": {
+      "atp": 2013,
+      "wta": 2013
+    }
+  },
+  {
+    "id": "bt_games",
+    "name": "Bradley-Terry rating weighted by the games margin",
+    "family": "BT rating",
+    "description": "The same rating with each result weighted by the winner's share of the games over its mean in the warm-up and tuning years",
+    "form": "single",
+    "columns": [
+      "bt_games|single"
+    ],
+    "tuned": {
+      "atp": {
+        "constants": {
+          "half_life": 0.5,
+          "lam": 0.1,
+          "anchor": -2.0,
+          "ret_w": 1.0
+        },
+        "games_scale": 0.650022025993882,
+        "note": "the primary's constants; each result's weight times the games share over the scale"
+      },
+      "wta": {
+        "constants": {
+          "half_life": 0.5,
+          "lam": 0.1,
+          "anchor": -1.5,
+          "ret_w": 1.0
+        },
+        "games_scale": 0.673419361196863,
+        "note": "the primary's constants; each result's weight times the games share over the scale"
+      }
+    },
+    "base_variants": {
+      "atp": {
+        "alone": "coin",
+        "elo": "p_elo",
+        "market": "p_mkt",
+        "bt": "p_bt"
+      },
+      "wta": {
+        "alone": "coin",
+        "elo": "p_elo",
+        "market": "p_mkt",
+        "bt": "p_bt"
+      }
+    },
+    "scored_from": {
+      "atp": 2013,
+      "wta": 2013
+    }
+  },
+  {
+    "id": "bt_nodecay",
+    "name": "Bradley-Terry rating without decay",
+    "family": "BT rating",
+    "description": "The same rating without time decay (the best setting without decay)",
+    "form": "single",
+    "columns": [
+      "bt_nodecay|single"
+    ],
+    "tuned": {
+      "atp": {
+        "constants": {
+          "half_life": "none",
+          "lam": 1.0,
+          "anchor": -1.0,
+          "ret_w": 1.0
+        },
+        "tuned_on": "the best grid row without decay"
+      },
+      "wta": {
+        "constants": {
+          "half_life": "none",
+          "lam": 1.0,
+          "anchor": -1.0,
+          "ret_w": 1.0
+        },
+        "tuned_on": "the best grid row without decay"
+      }
+    },
+    "base_variants": {
+      "atp": {
+        "alone": "coin",
+        "elo": "p_elo",
+        "market": "p_mkt",
+        "bt": "p_bt"
+      },
+      "wta": {
+        "alone": "coin",
+        "elo": "p_elo",
+        "market": "p_mkt",
+        "bt": "p_bt"
+      }
+    },
+    "scored_from": {
+      "atp": 2013,
+      "wta": 2013
+    }
+  },
+  {
+    "id": "bt_surface",
+    "name": "Surface Bradley-Terry rating",
+    "family": "BT rating",
+    "description": "The rating plus a per-surface deviation with its own ridge (the analogue of surface Elo)",
+    "form": "single",
+    "columns": [
+      "bt_surface|single"
+    ],
+    "tuned": {
+      "atp": {
+        "constants": {
+          "half_life": 0.5,
+          "lam": 0.1,
+          "anchor": -2.0,
+          "ret_w": 1.0
+        },
+        "lam_u": 3.0,
+        "tuned_on": "lam_u on 2013-2018, the other constants the primary's"
+      },
+      "wta": {
+        "constants": {
+          "half_life": 0.5,
+          "lam": 0.1,
+          "anchor": -1.5,
+          "ret_w": 1.0
+        },
+        "lam_u": 10.0,
+        "tuned_on": "lam_u on 2013-2018, the other constants the primary's"
+      }
+    },
+    "base_variants": {
+      "atp": {
+        "alone": "coin",
+        "elo": "p_elo",
+        "market": "p_mkt",
+        "bt": "p_bt"
+      },
+      "wta": {
+        "alone": "coin",
+        "elo": "p_elo",
+        "market": "p_mkt",
+        "bt": "p_bt"
+      }
+    },
+    "scored_from": {
+      "atp": 2013,
+      "wta": 2013
+    }
+  },
+  {
+    "id": "mesr",
+    "name": "Market-embedded skill rating (MESR)",
+    "family": "MESR",
+    "description": "Market-embedded skill rating: a rating solved from earlier closing odds instead of results, carried forward; missing where a player has no odds history",
+    "form": "single",
+    "columns": [
+      "mesr|single"
+    ],
+    "tuned": {
+      "atp": {
+        "constants": {
+          "half_life": 0.09,
+          "lam": 0.0003,
+          "anchor": -1.0
+        },
+        "tuned_on": "2013-2018 evaluation matches with odds"
+      },
+      "wta": {
+        "constants": {
+          "half_life": 0.09,
+          "lam": 0.0003,
+          "anchor": -1.0
+        },
+        "tuned_on": "2013-2018 evaluation matches with odds"
+      }
+    },
+    "base_variants": {
+      "atp": {
+        "alone": "coin",
+        "elo": "p_elo",
+        "market": "p_mkt",
+        "bt": "p_bt"
+      },
+      "wta": {
+        "alone": "coin",
+        "elo": "p_elo",
+        "market": "p_mkt",
+        "bt": "p_bt"
+      }
+    },
+    "scored_from": {
+      "atp": 2013,
+      "wta": 2013
+    }
+  },
+  {
+    "id": "mesr_minus_bt",
+    "name": "MESR minus BT (market's view minus results' view)",
+    "family": "MESR",
+    "description": "The market's view of the pair (MESR) minus the results' view (BT), both on the log-odds scale",
+    "form": "single",
+    "columns": [
+      "mesr_minus_bt|single"
+    ],
+    "tuned": {
+      "atp": {
+        "mesr": {
+          "half_life": 0.09,
+          "lam": 0.0003,
+          "anchor": -1.0
+        },
+        "bt": {
+          "half_life": 0.5,
+          "lam": 0.1,
+          "anchor": -2.0,
+          "ret_w": 1.0
+        }
+      },
+      "wta": {
+        "mesr": {
+          "half_life": 0.09,
+          "lam": 0.0003,
+          "anchor": -1.0
+        },
+        "bt": {
+          "half_life": 0.5,
+          "lam": 0.1,
+          "anchor": -1.5,
+          "ret_w": 1.0
+        }
+      }
+    },
+    "base_variants": {
+      "atp": {
+        "alone": "coin",
+        "elo": "p_elo",
+        "market": "p_mkt",
+        "bt": "p_bt"
+      },
+      "wta": {
+        "alone": "coin",
+        "elo": "p_elo",
+        "market": "p_mkt",
+        "bt": "p_bt"
+      }
+    },
+    "scored_from": {
+      "atp": 2013,
+      "wta": 2013
+    }
+  },
+  {
+    "id": "mesr_minus_elo",
+    "name": "MESR minus surface Elo",
+    "family": "MESR",
+    "description": "The market's view of the pair (MESR) minus surface Elo on the log-odds scale",
+    "form": "single",
+    "columns": [
+      "mesr_minus_elo|single"
+    ],
+    "tuned": {
+      "atp": {
+        "mesr": {
+          "half_life": 0.09,
+          "lam": 0.0003,
+          "anchor": -1.0
+        }
+      },
+      "wta": {
+        "mesr": {
+          "half_life": 0.09,
+          "lam": 0.0003,
+          "anchor": -1.0
+        }
+      }
+    },
+    "base_variants": {
+      "atp": {
+        "alone": "coin",
+        "elo": "p_elo",
+        "market": "p_mkt",
+        "bt": "p_bt"
+      },
+      "wta": {
+        "alone": "coin",
+        "elo": "p_elo",
+        "market": "p_mkt",
+        "bt": "p_bt"
+      }
+    },
+    "scored_from": {
+      "atp": 2013,
+      "wta": 2013
+    }
+  },
+  {
+    "id": "elo",
+    "name": "Surface Elo (Stage 1)",
+    "family": "Elo",
+    "description": "The earlier study's surface Elo on the log-odds scale, scored as a feature on top of BT, MESR or the market",
+    "form": "single",
+    "columns": [
+      "elo|single"
+    ],
+    "tuned": "Stage 1's frozen constants",
+    "base_variants": {
+      "atp": {
+        "alone": "coin",
+        "bt": "p_bt",
+        "market": "p_mkt",
+        "mesr": "p_mesr"
+      },
+      "wta": {
+        "alone": "coin",
+        "bt": "p_bt",
+        "market": "p_mkt",
+        "mesr": "p_mesr"
+      }
+    },
+    "scored_from": {
+      "atp": 2013,
+      "wta": 2013
+    }
+  },
+  {
+    "id": "rating_matchup",
+    "name": "Serve and return ratings through the iid model",
+    "family": "earlier leaders",
+    "description": "The earlier study's leader: the serve and return ratings combined through the iid point model",
+    "form": "single",
+    "columns": [
+      "rating_matchup|single"
+    ],
+    "tuned": "none in this stage (the earlier study's constants)",
+    "base_variants": {
+      "atp": {
+        "elo": "p_elo",
+        "bt": "p_bt",
+        "mesr": "p_mesr",
+        "market": "p_mkt"
+      },
+      "wta": {
+        "elo": "p_elo",
+        "bt": "p_bt",
+        "mesr": "p_mesr",
+        "market": "p_mkt"
+      }
+    },
+    "scored_from": {
+      "atp": 2013,
+      "wta": 2019
+    }
+  },
+  {
+    "id": "elo_games",
+    "name": "Games-weighted Elo",
+    "family": "earlier leaders",
+    "description": "The earlier study's games-weighted Elo",
+    "form": "single",
+    "columns": [
+      "elo_games|single"
+    ],
+    "tuned": "none in this stage (the earlier study's constants)",
+    "base_variants": {
+      "atp": {
+        "elo": "p_elo",
+        "bt": "p_bt",
+        "mesr": "p_mesr",
+        "market": "p_mkt"
+      },
+      "wta": {
+        "elo": "p_elo",
+        "bt": "p_bt",
+        "mesr": "p_mesr",
+        "market": "p_mkt"
+      }
+    },
+    "scored_from": {
+      "atp": 2013,
+      "wta": 2013
+    }
+  },
+  {
+    "id": "sets_14d",
+    "name": "Sets over the last 14 days",
+    "family": "earlier leaders",
+    "description": "The earlier study's sets played over the last two weeks (recent workload)",
+    "form": "single",
+    "columns": [
+      "sets_14d|single"
+    ],
+    "tuned": "none in this stage (the earlier study's constants)",
+    "base_variants": {
+      "atp": {
+        "elo": "p_elo",
+        "bt": "p_bt",
+        "mesr": "p_mesr",
+        "market": "p_mkt"
+      },
+      "wta": {
+        "elo": "p_elo",
+        "bt": "p_bt",
+        "mesr": "p_mesr",
+        "market": "p_mkt"
+      }
+    },
+    "scored_from": {
+      "atp": 2013,
+      "wta": 2013
+    }
+  },
+  {
+    "id": "mu_points",
+    "name": "Serve against return: points",
+    "family": "earlier leaders",
+    "description": "The earlier study's serve-against-return points matchup over the last year",
+    "form": "52 weeks",
+    "columns": [
+      "mu_points|52 weeks"
+    ],
+    "tuned": "none in this stage (the earlier study's constants)",
+    "base_variants": {
+      "atp": {
+        "elo": "p_elo",
+        "bt": "p_bt",
+        "mesr": "p_mesr",
+        "market": "p_mkt"
+      },
+      "wta": {
+        "elo": "p_elo",
+        "bt": "p_bt",
+        "mesr": "p_mesr",
+        "market": "p_mkt"
+      }
+    },
+    "scored_from": {
+      "atp": 2013,
+      "wta": 2019
+    }
+  },
+  {
+    "id": "age",
+    "name": "Age and age squared",
+    "family": "earlier leaders",
+    "description": "The earlier study's age and age squared (two inputs)",
+    "form": "single",
+    "columns": [
+      "age|single",
+      "age|single|2"
+    ],
+    "tuned": "none in this stage (the earlier study's constants)",
+    "base_variants": {
+      "atp": {
+        "elo": "p_elo",
+        "bt": "p_bt",
+        "mesr": "p_mesr",
+        "market": "p_mkt"
+      },
+      "wta": {
+        "elo": "p_elo",
+        "bt": "p_bt",
+        "mesr": "p_mesr",
+        "market": "p_mkt"
+      }
+    },
+    "scored_from": {
+      "atp": 2013,
+      "wta": 2013
+    }
+  },
+  {
+    "id": "surface_first",
+    "name": "One of the first matches on this surface this season",
+    "family": "earlier leaders",
+    "description": "The earlier study's flag for one of a player's first matches on the surface this season",
+    "form": "single",
+    "columns": [
+      "surface_first|single"
+    ],
+    "tuned": "none in this stage (the earlier study's constants)",
+    "base_variants": {
+      "atp": {
+        "elo": "p_elo",
+        "bt": "p_bt",
+        "mesr": "p_mesr",
+        "market": "p_mkt"
+      },
+      "wta": {
+        "elo": "p_elo",
+        "bt": "p_bt",
+        "mesr": "p_mesr",
+        "market": "p_mkt"
+      }
+    },
+    "scored_from": {
+      "atp": 2013,
+      "wta": 2013
+    }
+  },
+  {
+    "id": "bt_plus_ratings",
+    "name": "BT plus the ratings through the iid model",
+    "family": "BT rating",
+    "description": "Two inputs: the BT rating and the serve and return ratings through the iid model",
+    "form": "single",
+    "columns": [
+      "bt|single",
+      "rating_matchup|single"
+    ],
+    "tuned": {
+      "atp": {
+        "bt": {
+          "half_life": 0.5,
+          "lam": 0.1,
+          "anchor": -2.0,
+          "ret_w": 1.0
+        }
+      },
+      "wta": {
+        "bt": {
+          "half_life": 0.5,
+          "lam": 0.1,
+          "anchor": -1.5,
+          "ret_w": 1.0
+        }
+      }
+    },
+    "base_variants": {
+      "atp": {
+        "elo": "p_elo",
+        "market": "p_mkt"
+      },
+      "wta": {
+        "elo": "p_elo",
+        "market": "p_mkt"
+      }
+    },
+    "scored_from": {
+      "atp": 2013,
+      "wta": 2019
+    }
+  }
+]

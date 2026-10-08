@@ -1,0 +1,498 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Men's tennis: TabPFN vs logistic regression in 2026</title><style>
+:root{--ink:#142b36;--muted:#536774;--paper:#f5f7f6;--line:#d9e2df;--accent:#096954;--tint:#eaf6ee}*{box-sizing:border-box}body{margin:0;color:var(--ink);background:var(--paper);font:17px/1.6 system-ui,-apple-system,Segoe UI,sans-serif}main{max-width:1100px;margin:auto;padding:44px 24px 70px}header{padding:24px 0 30px}.eyebrow{letter-spacing:.12em;text-transform:uppercase;color:var(--accent);font-size:12px;font-weight:750}h1{font-size:clamp(30px,4.7vw,51px);line-height:1.12;max-width:880px;margin:14px 0 22px;letter-spacing:-.025em}h2{font-size:26px;line-height:1.25;margin:0 0 15px}h3{font-size:18px;margin:26px 0 5px}p{max-width:850px;margin:10px 0 17px}.lead{font-size:21px}.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin:25px 0}.stats>div{padding:20px;background:white;border:1px solid var(--line);border-radius:12px}.stats span,.stats small{display:block;color:var(--muted);font-size:13px}.stats strong{display:block;font-size:33px;line-height:1.3;margin:6px 0}section{margin:24px 0;padding:29px;background:white;border:1px solid var(--line);border-radius:14px}.takeaway{background:var(--tint);border-left:5px solid var(--accent)}.callout{font-size:23px;font-weight:700;margin:0 0 12px}.scroll{overflow-x:auto}table{border-collapse:collapse;width:100%;margin:16px 0;font-size:15px}th,td{padding:13px 12px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}th{font-size:12px;text-transform:uppercase;letter-spacing:.025em;color:var(--muted);background:#f4f7f6}td:nth-child(n+2){font-variant-numeric:tabular-nums;white-space:nowrap}.best{background:var(--tint)}.caption,small,footer{font-size:13px;color:var(--muted)}.two{display:grid;grid-template-columns:1fr 1fr;gap:25px}li{margin:11px 0}a{color:var(--accent)}details{margin:25px 0}summary{cursor:pointer;font-weight:650}pre{overflow:auto;font-size:12px;background:#f2f5f4;padding:18px;border-radius:8px;max-height:500px}code{font-size:.9em;overflow-wrap:anywhere}footer{margin:32px 0 0}@media(max-width:760px){main{padding:22px 14px 40px}section{padding:20px 17px}.stats{grid-template-columns:1fr 1fr}.two{grid-template-columns:1fr;gap:5px}table{font-size:13px}th,td{padding:11px 8px}}@media print{body{background:white;font-size:12px}main{padding:0}section{break-inside:avoid}details{display:none}}
+</style></head><body><main>
+<header><div class="eyebrow">One fit · ATP men only · 2026 test</div><h1>Can TabPFN improve the tennis forecast?</h1><p class="lead">We gave TabPFN 3.5 Thinking and logistic regression the same 36 sporting inputs and the same training matches, then compared their forecasts on men's matches played in 2026.</p><div class="stats"><div><span>Training matches</span><strong>13,952</strong><small>2020-01-06 → 2025-11-16</small></div><div><span>2026 test matches</span><strong>1,712</strong><small>2026-01-04 → 2026-08-02</small></div><div><span>Model inputs</span><strong>36</strong><small>9 established inputs + 27 new features</small></div><div><span>Paid Thinking fits</span><strong>1</strong><small>Men only · no market odds as inputs</small></div></div></header>
+<section class="takeaway"><p class="callout">TabPFN had lower log loss than logistic regression.</p><p>TabPFN log loss: <b>0.60782</b>. Logistic log loss: <b>0.60985</b>. TabPFN's gain was <b>+2.03 milli-log-loss</b> (95% interval: -1.11 to +5.17).</p><p>The paired uncertainty interval includes zero, so this sample does not clearly separate the models.</p><p><b>The average closing line still had lower log loss than TabPFN: 0.59479 versus 0.60782, on the same 1,712 matches.</b></p></section>
+<section><h2>How to read the results</h2><div class="two"><div><h3>Log loss: lower is better</h3><p>This scores the probability attached to what actually happened. Correct, confident forecasts earn a better score; confident mistakes receive a larger penalty. A model that always says “50–50” scores about <b>0.69315</b>.</p><p>A 70% forecast for the eventual winner scores about 0.357. A 90% forecast for the loser scores about 2.303. We average that penalty across the matches.</p></div><div><h3>The closing line: a strong benchmark</h3><p>The source describes these odds as late pre-match prices. We turn each player's price into an implied probability, then scale the pair to sum to 100%, removing the quoted margin proportionally. Exact historical quote timestamps have not been verified.</p><p>“Raw” uses that normalized probability directly. “Calibrated” adjusts its confidence using training matches only. Beating logistic regression shows an improvement over our model; beating the closing line is a separate question.</p></div></div></section>
+<section><h2>The direct model comparison</h2><p>Each model is scored on exactly the same 2026 matches. The earlier annual model is a reference from the existing study; its tuning history may differ.</p><div class="scroll"><table><thead><tr><th>Forecast</th><th>Matches</th><th>Log loss ↓</th></tr></thead><tbody><tr class="best"><td>TabPFN 3.5 Thinking · 36 inputs</td><td>1,712</td><td>0.60782</td></tr><tr class=""><td>Logistic regression · same 36 inputs</td><td>1,712</td><td>0.60985</td></tr><tr class=""><td>Logistic regression · original 9 inputs</td><td>1,712</td><td>0.61711</td></tr><tr class=""><td>Earlier annual logistic · 36 inputs</td><td>1,712</td><td>0.61033</td></tr></tbody></table></div><h3>TabPFN's gain over the comparator</h3><p class="caption">Positive = TabPFN better. A gain of +1.00 here means log loss fell by 0.001.</p><div class="scroll"><table><thead><tr><th>Comparator</th><th>Gain (milli-log-loss)</th><th>Paired 95% interval</th></tr></thead><tbody><tr><td>Logistic regression · same 36 inputs</td><td>+2.03</td><td>-1.11 to +5.17</td></tr></tbody></table></div></section><section><h2>Against the average closing line</h2><p>1,712 of 1,712 test matches have an average closing quote. All rows in this table use that same subset. This benchmark averages the bookmakers represented in the source.</p><div class="scroll"><table><thead><tr><th>Forecast</th><th>Matches</th><th>Log loss ↓</th></tr></thead><tbody><tr class=""><td>TabPFN 3.5 Thinking · 36 inputs</td><td>1,712</td><td>0.60782</td></tr><tr class=""><td>Logistic regression · same 36 inputs</td><td>1,712</td><td>0.60985</td></tr><tr class=""><td>Logistic regression · original 9 inputs</td><td>1,712</td><td>0.61711</td></tr><tr class=""><td>Earlier annual logistic · 36 inputs</td><td>1,712</td><td>0.61033</td></tr><tr class=""><td>Average closing line · raw</td><td>1,712</td><td>0.59479</td></tr><tr class="best"><td>Average closing line · calibrated</td><td>1,712</td><td>0.59445</td></tr></tbody></table></div><h3>TabPFN's gain over the comparator</h3><p class="caption">Positive = TabPFN better. A gain of +1.00 here means log loss fell by 0.001.</p><div class="scroll"><table><thead><tr><th>Comparator</th><th>Gain (milli-log-loss)</th><th>Paired 95% interval</th></tr></thead><tbody><tr><td>Average closing line · raw</td><td>-13.04</td><td>-18.24 to -7.83</td></tr><tr><td>Average closing line · calibrated</td><td>-13.37</td><td>-20.39 to -6.36</td></tr></tbody></table></div></section><section><h2>Against Pinnacle's closing line</h2><p>Only 70 of 1,712 test matches have a Pinnacle quote (2026-01-04 to 2026-01-13). This small, early-season subset cannot establish performance against Pinnacle across 2026. Its dates occupy only 2 of the fixed 28-day time blocks; uncertainty estimates based on so few blocks are unreliable.</p><div class="scroll"><table><thead><tr><th>Forecast</th><th>Matches</th><th>Log loss ↓</th></tr></thead><tbody><tr class=""><td>TabPFN 3.5 Thinking · 36 inputs</td><td>70</td><td>0.62728</td></tr><tr class=""><td>Logistic regression · same 36 inputs</td><td>70</td><td>0.62678</td></tr><tr class=""><td>Logistic regression · original 9 inputs</td><td>70</td><td>0.64365</td></tr><tr class=""><td>Earlier annual logistic · 36 inputs</td><td>70</td><td>0.62831</td></tr><tr class=""><td>Pinnacle closing line · raw</td><td>70</td><td>0.60814</td></tr><tr class="best"><td>Pinnacle closing line · calibrated</td><td>70</td><td>0.60670</td></tr></tbody></table></div><h3>TabPFN's gain over the comparator</h3><p class="caption">Positive = TabPFN better. A gain of +1.00 here means log loss fell by 0.001.</p><div class="scroll"><table><thead><tr><th>Comparator</th><th>Gain (milli-log-loss)</th><th>Paired 95% interval</th></tr></thead><tbody><tr><td>Pinnacle closing line · raw</td><td>-19.14</td><td>-169.44 to +131.15</td></tr><tr><td>Pinnacle closing line · calibrated</td><td>-20.58</td><td>-164.31 to +123.14</td></tr></tbody></table></div></section>
+<section><h2>Why train on 2020–2025?</h2><p>We compared three ways to choose training history before looking at this experiment's 2026 scores. Each strategy predicted the same 7,784 validation matches in 2023, 2024, 2025. To predict a validation season, its model saw only earlier seasons. For example, the six-year strategy predicted 2025 using 2019–2024, then used 2020–2025 for the final 2026 fit.</p><div class="scroll"><table><thead><tr><th>History strategy</th><th>Final training years</th><th>Validation log loss ↓</th><th>Chosen ridge</th></tr></thead><tbody><tr class=""><td>All eligible history</td><td>2013–2025</td><td>0.613228</td><td>0.01</td></tr><tr class="best"><td>Latest six calendar years · selected</td><td>2020–2025</td><td>0.612339</td><td>0.01</td></tr><tr class=""><td>Latest four calendar years</td><td>2022–2025</td><td>0.612774</td><td>0.01</td></tr></tbody></table></div><p><b>Latest six calendar years had the lowest validation log loss.</b> Its validation advantage over using all available history was 0.89 milli-log-loss (a log-loss reduction of 0.000889). This is a small advantage, not proof of a universally best training window.</p><p class="caption">Each row shows that history's best ridge setting from the fixed search. Ridge gently limits the 27 new feature weights to reduce fitting noise. This selection used logistic regression as a proxy; the single paid TabPFN fit uses the selected history, so this experiment cannot determine which history TabPFN itself would prefer.</p></section>
+<section><h2>What was trained, and what was held back?</h2><ol><li><b>Men only.</b> Neither model was trained on women's matches. Each training row is one men's singles match.</li><li><b>Choose history before 2026.</b> Candidate training histories were compared using earlier validation seasons ending in 2025. The selected history was then frozen for both models. This uses logistic validation as a practical proxy; one TabPFN fit cannot establish TabPFN's best history length.</li><li><b>Use the same 36 inputs.</b> These are the established 9 inputs, including Elo and serve/return strength, plus the 27 new performance, reliability, recovery and event-condition features. Closing prices, player names and match outcomes are excluded from the input columns.</li><li><b>Fit once, then test in 2026.</b> Model weights stay fixed through the test. Sporting features can update from earlier matches as the season proceeds, following the repaired study's historical availability rules.</li><li><b>Handle player order consistently.</b> One prediction request contains each test match in both player orders. We average the two equivalent win probabilities. That means 3,424 query rows, but only 1,712 distinct test matches.</li></ol><p>The logistic model is a probability regression with one coefficient per feature; the 27 new coefficients have a selected ridge penalty. TabPFN uses its pretrained tabular model and the provider's high-effort Thinking procedure. Both are judged on probabilities, using log loss.</p></section>
+<section><h2>How strong is this evidence?</h2><ul><li><b>2026 was excluded from this fit and its history selection, but it is not untouched research data.</b> This project's earlier feature study had already examined these years and outcomes.</li><li><b>The test covers the available part of 2026.</b> It runs through 2026-08-02; it is not a complete season. The underlying archive also has very little ATP data in 2018.</li><li><b>The uncertainty interval groups nearby matches.</b> We compare losses match by match, then group dates into 28-day blocks. The interval describes sampling uncertainty in this test; it does not cover different random seeds, alternative training choices or all previous feature searches. Secondary comparisons are exploratory.</li><li><b>The historical timing has limits.</b> Features use reconstructed match days, not exact match timestamps. The new rolling features use earlier days; some established features allow an earlier round in the same event on the same day. Exact historical quote/publication times remain unverified.</li><li><b>One fitted configuration is one experiment.</b> Internal Thinking validation is controlled by the provider and is not guaranteed to follow time order. The outer boundary still keeps all 2026 targets out of training.</li><li><b>Prediction quality is not a betting profit result.</b> These scores do not measure executable prices, commission, limits or actual returns. Matches ending in retirement follow the study's winner/advancement label; bookmakers can settle them differently.</li></ul></section>
+<section><h2>The actual run</h2><p>One completed hosted Thinking fit and one prediction request are recorded. Requested model: <code>v3.5_default</code>; returned model: <code>tabpfn-v3.5-20260909.safetensors</code>. Settings: high Thinking effort, log-loss objective, seed 0, 8 estimators requested. The server reported 2 prediction estimators.</p><p>The provider token counter increased by 78,020 tokens. The preflight estimate was 312,081 tokens. The recorded dispatch-to-completion time was 1.8 minutes. Token-counter movement is not a dollar-cost receipt and may include other account activity.</p><p class="caption">Provider documentation for the settings and token accounting: <a href="https://docs.priorlabs.ai/capabilities/thinking-mode">Thinking mode</a> · <a href="https://docs.priorlabs.ai/api-reference/metering">API metering</a>. Checked 2 October 2026 (Pacific). The scores above come from our saved run, not provider benchmarks.</p><details><summary>Technical details and the training-selection record</summary><pre>{
+  &quot;training_selection&quot;: {
+    &quot;strategy&quot;: &quot;latest6&quot;,
+    &quot;chosen_penalty&quot;: 0.01,
+    &quot;validation_years&quot;: [
+      2023,
+      2024,
+      2025
+    ],
+    &quot;validation_rows&quot;: 7784,
+    &quot;selection_metric&quot;: &quot;Pooled match log loss on forward 2023, 2024, 2025 predictions; logistic proxy&quot;,
+    &quot;selected_training_min_year&quot;: 2020,
+    &quot;candidates&quot;: [
+      {
+        &quot;strategy&quot;: &quot;all&quot;,
+        &quot;penalty&quot;: 0.0001,
+        &quot;log_loss&quot;: 0.6133191145490149,
+        &quot;validation_rows&quot;: 7784,
+        &quot;folds&quot;: [
+          {
+            &quot;validation_year&quot;: 2023,
+            &quot;train_rows&quot;: 21370,
+            &quot;train_year_min&quot;: 2013,
+            &quot;train_year_max&quot;: 2022,
+            &quot;validation_rows&quot;: 2603,
+            &quot;log_loss&quot;: 0.6144125441026593
+          },
+          {
+            &quot;validation_year&quot;: 2024,
+            &quot;train_rows&quot;: 23973,
+            &quot;train_year_min&quot;: 2013,
+            &quot;train_year_max&quot;: 2023,
+            &quot;validation_rows&quot;: 2655,
+            &quot;log_loss&quot;: 0.6063478795279295
+          },
+          {
+            &quot;validation_year&quot;: 2025,
+            &quot;train_rows&quot;: 26628,
+            &quot;train_year_min&quot;: 2013,
+            &quot;train_year_max&quot;: 2024,
+            &quot;validation_rows&quot;: 2526,
+            &quot;log_loss&quot;: 0.6195196022183919
+          }
+        ]
+      },
+      {
+        &quot;strategy&quot;: &quot;all&quot;,
+        &quot;penalty&quot;: 0.001,
+        &quot;log_loss&quot;: 0.6132983141260093,
+        &quot;validation_rows&quot;: 7784,
+        &quot;folds&quot;: [
+          {
+            &quot;validation_year&quot;: 2023,
+            &quot;train_rows&quot;: 21370,
+            &quot;train_year_min&quot;: 2013,
+            &quot;train_year_max&quot;: 2022,
+            &quot;validation_rows&quot;: 2603,
+            &quot;log_loss&quot;: 0.6143979659930453
+          },
+          {
+            &quot;validation_year&quot;: 2024,
+            &quot;train_rows&quot;: 23973,
+            &quot;train_year_min&quot;: 2013,
+            &quot;train_year_max&quot;: 2023,
+            &quot;validation_rows&quot;: 2655,
+            &quot;log_loss&quot;: 0.6063462527064766
+          },
+          {
+            &quot;validation_year&quot;: 2025,
+            &quot;train_rows&quot;: 26628,
+            &quot;train_year_min&quot;: 2013,
+            &quot;train_year_max&quot;: 2024,
+            &quot;validation_rows&quot;: 2526,
+            &quot;log_loss&quot;: 0.6194722370313792
+          }
+        ]
+      },
+      {
+        &quot;strategy&quot;: &quot;all&quot;,
+        &quot;penalty&quot;: 0.01,
+        &quot;log_loss&quot;: 0.6132278338944003,
+        &quot;validation_rows&quot;: 7784,
+        &quot;folds&quot;: [
+          {
+            &quot;validation_year&quot;: 2023,
+            &quot;train_rows&quot;: 21370,
+            &quot;train_year_min&quot;: 2013,
+            &quot;train_year_max&quot;: 2022,
+            &quot;validation_rows&quot;: 2603,
+            &quot;log_loss&quot;: 0.6143798446464475
+          },
+          {
+            &quot;validation_year&quot;: 2024,
+            &quot;train_rows&quot;: 23973,
+            &quot;train_year_min&quot;: 2013,
+            &quot;train_year_max&quot;: 2023,
+            &quot;validation_rows&quot;: 2655,
+            &quot;log_loss&quot;: 0.6063981436144017
+          },
+          {
+            &quot;validation_year&quot;: 2025,
+            &quot;train_rows&quot;: 26628,
+            &quot;train_year_min&quot;: 2013,
+            &quot;train_year_max&quot;: 2024,
+            &quot;validation_rows&quot;: 2526,
+            &quot;log_loss&quot;: 0.6192191813630534
+          }
+        ]
+      },
+      {
+        &quot;strategy&quot;: &quot;all&quot;,
+        &quot;penalty&quot;: 0.1,
+        &quot;log_loss&quot;: 0.6139439445829138,
+        &quot;validation_rows&quot;: 7784,
+        &quot;folds&quot;: [
+          {
+            &quot;validation_year&quot;: 2023,
+            &quot;train_rows&quot;: 21370,
+            &quot;train_year_min&quot;: 2013,
+            &quot;train_year_max&quot;: 2022,
+            &quot;validation_rows&quot;: 2603,
+            &quot;log_loss&quot;: 0.6152626224148298
+          },
+          {
+            &quot;validation_year&quot;: 2024,
+            &quot;train_rows&quot;: 23973,
+            &quot;train_year_min&quot;: 2013,
+            &quot;train_year_max&quot;: 2023,
+            &quot;validation_rows&quot;: 2655,
+            &quot;log_loss&quot;: 0.6074294361599324
+          },
+          {
+            &quot;validation_year&quot;: 2025,
+            &quot;train_rows&quot;: 26628,
+            &quot;train_year_min&quot;: 2013,
+            &quot;train_year_max&quot;: 2024,
+            &quot;validation_rows&quot;: 2526,
+            &quot;log_loss&quot;: 0.61943226662034
+          }
+        ]
+      },
+      {
+        &quot;strategy&quot;: &quot;latest6&quot;,
+        &quot;penalty&quot;: 0.0001,
+        &quot;log_loss&quot;: 0.6123921058608994,
+        &quot;validation_rows&quot;: 7784,
+        &quot;folds&quot;: [
+          {
+            &quot;validation_year&quot;: 2023,
+            &quot;train_rows&quot;: 11245,
+            &quot;train_year_min&quot;: 2017,
+            &quot;train_year_max&quot;: 2022,
+            &quot;validation_rows&quot;: 2603,
+            &quot;log_loss&quot;: 0.6136071608953076
+          },
+          {
+            &quot;validation_year&quot;: 2024,
+            &quot;train_rows&quot;: 11295,
+            &quot;train_year_min&quot;: 2018,
+            &quot;train_year_max&quot;: 2023,
+            &quot;validation_rows&quot;: 2655,
+            &quot;log_loss&quot;: 0.6060076049719724
+          },
+          {
+            &quot;validation_year&quot;: 2025,
+            &quot;train_rows&quot;: 13936,
+            &quot;train_year_min&quot;: 2019,
+            &quot;train_year_max&quot;: 2024,
+            &quot;validation_rows&quot;: 2526,
+            &quot;log_loss&quot;: 0.6178505625535111
+          }
+        ]
+      },
+      {
+        &quot;strategy&quot;: &quot;latest6&quot;,
+        &quot;penalty&quot;: 0.001,
+        &quot;log_loss&quot;: 0.6123767633750103,
+        &quot;validation_rows&quot;: 7784,
+        &quot;folds&quot;: [
+          {
+            &quot;validation_year&quot;: 2023,
+            &quot;train_rows&quot;: 11245,
+            &quot;train_year_min&quot;: 2017,
+            &quot;train_year_max&quot;: 2022,
+            &quot;validation_rows&quot;: 2603,
+            &quot;log_loss&quot;: 0.6136058907840787
+          },
+          {
+            &quot;validation_year&quot;: 2024,
+            &quot;train_rows&quot;: 11295,
+            &quot;train_year_min&quot;: 2018,
+            &quot;train_year_max&quot;: 2023,
+            &quot;validation_rows&quot;: 2655,
+            &quot;log_loss&quot;: 0.6060067132807004
+          },
+          {
+            &quot;validation_year&quot;: 2025,
+            &quot;train_rows&quot;: 13936,
+            &quot;train_year_min&quot;: 2019,
+            &quot;train_year_max&quot;: 2024,
+            &quot;validation_rows&quot;: 2526,
+            &quot;log_loss&quot;: 0.6178055299445222
+          }
+        ]
+      },
+      {
+        &quot;strategy&quot;: &quot;latest6&quot;,
+        &quot;penalty&quot;: 0.01,
+        &quot;log_loss&quot;: 0.6123387214562092,
+        &quot;validation_rows&quot;: 7784,
+        &quot;folds&quot;: [
+          {
+            &quot;validation_year&quot;: 2023,
+            &quot;train_rows&quot;: 11245,
+            &quot;train_year_min&quot;: 2017,
+            &quot;train_year_max&quot;: 2022,
+            &quot;validation_rows&quot;: 2603,
+            &quot;log_loss&quot;: 0.6136702532922917
+          },
+          {
+            &quot;validation_year&quot;: 2024,
+            &quot;train_rows&quot;: 11295,
+            &quot;train_year_min&quot;: 2018,
+            &quot;train_year_max&quot;: 2023,
+            &quot;validation_rows&quot;: 2655,
+            &quot;log_loss&quot;: 0.6060554223675018
+          },
+          {
+            &quot;validation_year&quot;: 2025,
+            &quot;train_rows&quot;: 13936,
+            &quot;train_year_min&quot;: 2019,
+            &quot;train_year_max&quot;: 2024,
+            &quot;validation_rows&quot;: 2526,
+            &quot;log_loss&quot;: 0.6175707807242992
+          }
+        ]
+      },
+      {
+        &quot;strategy&quot;: &quot;latest6&quot;,
+        &quot;penalty&quot;: 0.1,
+        &quot;log_loss&quot;: 0.6130822892218357,
+        &quot;validation_rows&quot;: 7784,
+        &quot;folds&quot;: [
+          {
+            &quot;validation_year&quot;: 2023,
+            &quot;train_rows&quot;: 11245,
+            &quot;train_year_min&quot;: 2017,
+            &quot;train_year_max&quot;: 2022,
+            &quot;validation_rows&quot;: 2603,
+            &quot;log_loss&quot;: 0.6146350731746919
+          },
+          {
+            &quot;validation_year&quot;: 2024,
+            &quot;train_rows&quot;: 11295,
+            &quot;train_year_min&quot;: 2018,
+            &quot;train_year_max&quot;: 2023,
+            &quot;validation_rows&quot;: 2655,
+            &quot;log_loss&quot;: 0.6069706197783535
+          },
+          {
+            &quot;validation_year&quot;: 2025,
+            &quot;train_rows&quot;: 13936,
+            &quot;train_year_min&quot;: 2019,
+            &quot;train_year_max&quot;: 2024,
+            &quot;validation_rows&quot;: 2526,
+            &quot;log_loss&quot;: 0.6179059573703557
+          }
+        ]
+      },
+      {
+        &quot;strategy&quot;: &quot;latest4&quot;,
+        &quot;penalty&quot;: 0.0001,
+        &quot;log_loss&quot;: 0.6130238083833466,
+        &quot;validation_rows&quot;: 7784,
+        &quot;folds&quot;: [
+          {
+            &quot;validation_year&quot;: 2023,
+            &quot;train_rows&quot;: 8678,
+            &quot;train_year_min&quot;: 2019,
+            &quot;train_year_max&quot;: 2022,
+            &quot;validation_rows&quot;: 2603,
+            &quot;log_loss&quot;: 0.6139871258531043
+          },
+          {
+            &quot;validation_year&quot;: 2024,
+            &quot;train_rows&quot;: 8771,
+            &quot;train_year_min&quot;: 2020,
+            &quot;train_year_max&quot;: 2023,
+            &quot;validation_rows&quot;: 2655,
+            &quot;log_loss&quot;: 0.6063655281128166
+          },
+          {
+            &quot;validation_year&quot;: 2025,
+            &quot;train_rows&quot;: 10212,
+            &quot;train_year_min&quot;: 2021,
+            &quot;train_year_max&quot;: 2024,
+            &quot;validation_rows&quot;: 2526,
+            &quot;log_loss&quot;: 0.6190294373399884
+          }
+        ]
+      },
+      {
+        &quot;strategy&quot;: &quot;latest4&quot;,
+        &quot;penalty&quot;: 0.001,
+        &quot;log_loss&quot;: 0.6129790086805188,
+        &quot;validation_rows&quot;: 7784,
+        &quot;folds&quot;: [
+          {
+            &quot;validation_year&quot;: 2023,
+            &quot;train_rows&quot;: 8678,
+            &quot;train_year_min&quot;: 2019,
+            &quot;train_year_max&quot;: 2022,
+            &quot;validation_rows&quot;: 2603,
+            &quot;log_loss&quot;: 0.6139672292468752
+          },
+          {
+            &quot;validation_year&quot;: 2024,
+            &quot;train_rows&quot;: 8771,
+            &quot;train_year_min&quot;: 2020,
+            &quot;train_year_max&quot;: 2023,
+            &quot;validation_rows&quot;: 2655,
+            &quot;log_loss&quot;: 0.6063395917887112
+          },
+          {
+            &quot;validation_year&quot;: 2025,
+            &quot;train_rows&quot;: 10212,
+            &quot;train_year_min&quot;: 2021,
+            &quot;train_year_max&quot;: 2024,
+            &quot;validation_rows&quot;: 2526,
+            &quot;log_loss&quot;: 0.6189391487096253
+          }
+        ]
+      },
+      {
+        &quot;strategy&quot;: &quot;latest4&quot;,
+        &quot;penalty&quot;: 0.01,
+        &quot;log_loss&quot;: 0.6127742383442827,
+        &quot;validation_rows&quot;: 7784,
+        &quot;folds&quot;: [
+          {
+            &quot;validation_year&quot;: 2023,
+            &quot;train_rows&quot;: 8678,
+            &quot;train_year_min&quot;: 2019,
+            &quot;train_year_max&quot;: 2022,
+            &quot;validation_rows&quot;: 2603,
+            &quot;log_loss&quot;: 0.6139220449947832
+          },
+          {
+            &quot;validation_year&quot;: 2024,
+            &quot;train_rows&quot;: 8771,
+            &quot;train_year_min&quot;: 2020,
+            &quot;train_year_max&quot;: 2023,
+            &quot;validation_rows&quot;: 2655,
+            &quot;log_loss&quot;: 0.6062538531315993
+          },
+          {
+            &quot;validation_year&quot;: 2025,
+            &quot;train_rows&quot;: 10212,
+            &quot;train_year_min&quot;: 2021,
+            &quot;train_year_max&quot;: 2024,
+            &quot;validation_rows&quot;: 2526,
+            &quot;log_loss&quot;: 0.6184448171362154
+          }
+        ]
+      },
+      {
+        &quot;strategy&quot;: &quot;latest4&quot;,
+        &quot;penalty&quot;: 0.1,
+        &quot;log_loss&quot;: 0.6131120224212866,
+        &quot;validation_rows&quot;: 7784,
+        &quot;folds&quot;: [
+          {
+            &quot;validation_year&quot;: 2023,
+            &quot;train_rows&quot;: 8678,
+            &quot;train_year_min&quot;: 2019,
+            &quot;train_year_max&quot;: 2022,
+            &quot;validation_rows&quot;: 2603,
+            &quot;log_loss&quot;: 0.6145524778457461
+          },
+          {
+            &quot;validation_year&quot;: 2024,
+            &quot;train_rows&quot;: 8771,
+            &quot;train_year_min&quot;: 2020,
+            &quot;train_year_max&quot;: 2023,
+            &quot;validation_rows&quot;: 2655,
+            &quot;log_loss&quot;: 0.6068577055245087
+          },
+          {
+            &quot;validation_year&quot;: 2025,
+            &quot;train_rows&quot;: 10212,
+            &quot;train_year_min&quot;: 2021,
+            &quot;train_year_max&quot;: 2024,
+            &quot;validation_rows&quot;: 2526,
+            &quot;log_loss&quot;: 0.6182013755056402
+          }
+        ]
+      }
+    ]
+  },
+  &quot;protocol&quot;: {
+    &quot;authorized_budget&quot;: &quot;one Thinking fit and one prediction request; saved receipts prevent repetitions&quot;,
+    &quot;model&quot;: &quot;TabPFN3.5 Thinking; high effort; log_loss; 8 estimators requested; seed0&quot;,
+    &quot;inputs&quot;: &quot;36 exact frontier sporting columns; men only; no prices/dates/IDs/labels in X&quot;,
+    &quot;train&quot;: &quot;ATP 2020-2025; strategy latest6&quot;,
+    &quot;test&quot;: &quot;ATP2026 only, through available2026-08-02; no test labels uploaded&quot;,
+    &quot;comparison&quot;: &quot;logistic uses identical training/test rows and same36 sports inputs&quot;,
+    &quot;baseline_penalty&quot;: &quot;original9 coefficients unpenalized; new27 ridge and training history picked on forward2023/24/25 predictions only&quot;,
+    &quot;annual_reference&quot;: &quot;cached original36-input logistic for2026 uses all2013-2025 training and its previously selected ridge&quot;,
+    &quot;symmetry&quot;: &quot;one query contains original and flipped A/B inputs; average p(A) and 1-p(A swapped)&quot;,
+    &quot;markets&quot;: &quot;raw and selected-pre2026-training slope-calibrated Average/Pinnacle on identical finite-quote test subsets&quot;,
+    &quot;uncertainty&quot;: &quot;paired four-week calendar-block95% intervals; single fit uncertainty not covered&quot;,
+    &quot;time_col&quot;: &quot;omitted to keep exact sporting inputs; internal Thinking validation not guaranteed chronological&quot;,
+    &quot;limitations&quot;: [
+      &quot;Features/years previously selected and inspected; not untouched holdout&quot;,
+      &quot;Training history selection uses logistic validation as a proxy; one TabPFN fit cannot establish its optimal history&quot;,
+      &quot;Sporting aggregates update using allowed earlier test matches while fitted model weights stay frozen&quot;,
+      &quot;Dated-only coverage; ATP2018 largely absent;2026 partial; exact quote/publication times unverified&quot;,
+      &quot;Onefit/seed/split; no executable betting returns&quot;
+    ]
+  },
+  &quot;requested_config&quot;: {
+    &quot;model_path&quot;: &quot;v3.5_default&quot;,
+    &quot;n_estimators&quot;: 8,
+    &quot;softmax_temperature&quot;: 0.9,
+    &quot;random_state&quot;: 0,
+    &quot;ignore_pretraining_limits&quot;: true,
+    &quot;thinking_mode&quot;: true,
+    &quot;thinking_effort&quot;: &quot;high&quot;,
+    &quot;thinking_metric&quot;: &quot;log_loss&quot;,
+    &quot;thinking_timeout_s&quot;: null,
+    &quot;http_timeout_s&quot;: 2700.0
+  },
+  &quot;returned_model_metadata&quot;: {
+    &quot;billing_model_version&quot;: &quot;v3.5&quot;,
+    &quot;cache_outcome&quot;: &quot;not_requested&quot;,
+    &quot;execution_mode&quot;: &quot;thinking&quot;,
+    &quot;n_estimators&quot;: 2,
+    &quot;package_version&quot;: &quot;9.0.0&quot;,
+    &quot;tabpfn_config&quot;: {
+      &quot;balance_probabilities&quot;: false,
+      &quot;categorical_features_indices&quot;: [],
+      &quot;fit_mode&quot;: &quot;fit_preprocessors&quot;,
+      &quot;ignore_pretraining_limits&quot;: true,
+      &quot;inference_config&quot;: {
+        &quot;TRANSFORM_DATES&quot;: false,
+        &quot;TRANSFORM_TEXT&quot;: false
+      },
+      &quot;model_path&quot;: &quot;tabpfn-v3.5-20260909.safetensors&quot;,
+      &quot;n_estimators&quot;: 8,
+      &quot;random_state&quot;: 0,
+      &quot;softmax_temperature&quot;: 0.9
+    },
+    &quot;task&quot;: &quot;classification&quot;,
+    &quot;test_set_num_cols&quot;: 36,
+    &quot;test_set_num_rows&quot;: 3424,
+    &quot;timings&quot;: {
+      &quot;fit&quot;: {
+        &quot;elapsed_s&quot;: 92.656,
+        &quot;fit_s&quot;: 90.921,
+        &quot;queue_wait_s&quot;: 1.275,
+        &quot;train_set_transform_s&quot;: 0.46
+      },
+      &quot;predict&quot;: {
+        &quot;predict_queue_wait_s&quot;: 0.108,
+        &quot;predict_s&quot;: 2.961,
+        &quot;test_set_transform_queue_wait_s&quot;: 0.091,
+        &quot;test_set_transform_s&quot;: 0.313
+      }
+    }
+  },
+  &quot;training_year_counts&quot;: {
+    &quot;2020&quot;: 1214,
+    &quot;2021&quot;: 2408,
+    &quot;2022&quot;: 2546,
+    &quot;2023&quot;: 2603,
+    &quot;2024&quot;: 2655,
+    &quot;2025&quot;: 2526
+  },
+  &quot;input_sha256&quot;: &quot;54ca16ba7c2321e47ec891da7b00db3fb06e798b8df3b37f8556803d8d240673&quot;,
+  &quot;symmetry&quot;: {
+    &quot;asymmetry_mean_abs&quot;: 0.015699593209668072,
+    &quot;asymmetry_p95&quot;: 0.03801626861095428,
+    &quot;asymmetry_max&quot;: 0.0771942138671875
+  }
+}</pre></details><p class="caption">Reproduce scoring from saved predictions: <code>./python.sh src/eda/predictive_frontier_tabpfn/score.py</code>. This does not call the paid API.</p><p class="caption"><a href="../../../data/studies/predictive_frontier_tabpfn/results.json">Exact results (JSON)</a> · <a href="../../../data/studies/predictive_frontier_tabpfn/comparisons.csv">Paired comparisons (CSV)</a> · <a href="../../../data/studies/predictive_frontier_tabpfn/manifest.json">Frozen experiment manifest</a> · <a href="../../../src/eda/predictive_frontier_tabpfn/score.py">Scoring code</a></p></section>
+<footer>Generated 2026-10-03T02:28:35+00:00 from the saved experiment. Positive gains favor TabPFN in the displayed comparison tables. This is a bounded research comparison.</footer>
+</main></body></html>

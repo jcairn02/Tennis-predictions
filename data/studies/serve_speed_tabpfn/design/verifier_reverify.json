@@ -1,0 +1,239 @@
+{
+ "what": "re-verification of V2, V5, V7, V8 and the LinAlgError fallback (stand-in world with fake labels; the real tree only for V5's refusal)",
+ "scorer_code_sha256": "6bcfc06c2aff73b2bf40fd4bac17050629fc019c84a9af94fb38f39300c04ba8",
+ "stand_in_root": "C:\\Users\\zerom\\AppData\\Local\\Temp\\ssp_verifier_reverify_2uf670qe",
+ "linalgerror_is_valueerror": true,
+ "V2": [
+  {
+   "case": "one P2 fit missing (spd 2026 seed 15)",
+   "outcome": "refused: RuntimeError: 1 needed fits are missing, e.g. [('spd', 2026, 15)]",
+   "labels_reached": false,
+   "results_written": false,
+   "pass": true
+  },
+  {
+   "case": "every A2 fit missing",
+   "outcome": "refused: RuntimeError: 44 needed fits are missing, e.g. [('spd_raw', 2019, 0), ('spd_raw', 2019, 1), ('spd_raw', 2019, 2), ('spd_raw', 2019, 3), ('spd_raw', 2020, 0)]",
+   "labels_reached": false,
+   "results_written": false,
+   "pass": true
+  },
+  {
+   "case": "one model_noodds race seed missing (2019 seed 0)",
+   "outcome": "refused: RuntimeError: 1 needed fits are missing, e.g. [('model_noodds', 2019, 0)]",
+   "labels_reached": false,
+   "results_written": false,
+   "pass": true
+  },
+  {
+   "case": "control: every fit present",
+   "outcome": "ran",
+   "labels_reached": true,
+   "K": 30,
+   "pass": true
+  }
+ ],
+ "V7": [
+  {
+   "case": "recorded FORECASTS_SHA256 equals the fits",
+   "outcome": "ran",
+   "labels_reached": true,
+   "pass": true
+  },
+  {
+   "case": "one fit refitted after the hash (spd_raw 2024 seed 3)",
+   "outcome": "refused: RuntimeError: the fits differ from the FORECASTS_SHA256 the pre-registration records",
+   "labels_reached": false,
+   "pass": true
+  },
+  {
+   "case": "recorded FORECASTS_SHA256 = 0...0",
+   "outcome": "refused: RuntimeError: the fits differ from the FORECASTS_SHA256 the pre-registration records",
+   "labels_reached": false,
+   "pass": true
+  },
+  {
+   "case": "FORECASTS_SHA256 line without a hex (fits not pinned): not checked",
+   "outcome": "ran",
+   "labels_reached": true,
+   "pass": true
+  }
+ ],
+ "V8": [
+  {
+   "case": "hash_prereg on LF text = SHA-256 of the raw LF bytes = prereg_sha256",
+   "hash": "087e4d908872ff7965f58e0a3d3e5d497bd04d836b03abb0a63ae321b6da1a77",
+   "pass": true
+  },
+  {
+   "case": "the same file converted to CRLF after hashing still verifies (and its keys parse)",
+   "crlf_bytes": true,
+   "verify": true,
+   "pass": true
+  },
+  {
+   "case": "hash_prereg on the CRLF file gives the LF hash",
+   "pass": true
+  },
+  {
+   "case": "a raw (un-normalised) sha256sum of the CRLF file is refused: use --hash-prereg",
+   "verify": "refused: preregistration.md does not match its recorded SHA-256",
+   "pass": true
+  },
+  {
+   "case": "--run on a CRLF checkout of a hashed pre-registration",
+   "outcome": "ran",
+   "labels_reached": true,
+   "pass": true
+  }
+ ],
+ "V5": [
+  {
+   "case": "real tree (no preregistration.sha256): synthetic(arms='real')",
+   "outcome": "refused: RuntimeError: no hashed pre-registration",
+   "labels_reached": false,
+   "fit_files_opened": [],
+   "pass": true
+  },
+  {
+   "case": "stand-in world, no hash",
+   "outcome": "refused: RuntimeError: no hashed pre-registration",
+   "labels_reached": false,
+   "fit_files_opened": 0,
+   "pass": true
+  },
+  {
+   "case": "stand-in world after a valid hash (fake spd fits)",
+   "outcome": "ran",
+   "labels_reached": false,
+   "pass": true
+  },
+  {
+   "case": "arms='synthetic' needs no hash (the verifier's mode)",
+   "outcome": "ran",
+   "labels_reached": false,
+   "pass": true
+  }
+ ],
+ "fallback": [
+  {
+   "case": "S6 moves LinAlgError",
+   "expected": "fallback",
+   "outcome": "ran",
+   "labels_reached": true,
+   "results_written": true,
+   "unavailable": [
+    "S6_move"
+   ],
+   "P2_present": true,
+   "S0_present": true,
+   "K": 26,
+   "pass": true
+  },
+  {
+   "case": "S9 nudge LinAlgError",
+   "expected": "fallback",
+   "outcome": "ran",
+   "labels_reached": true,
+   "results_written": true,
+   "unavailable": [
+    "S9"
+   ],
+   "P2_present": true,
+   "S0_present": true,
+   "K": 28,
+   "pass": true
+  },
+  {
+   "case": "S12 (information on spd_raw) LinAlgError",
+   "expected": "fallback",
+   "outcome": "ran",
+   "labels_reached": true,
+   "results_written": true,
+   "unavailable": [
+    "S12"
+   ],
+   "P2_present": true,
+   "S0_present": true,
+   "K": 29,
+   "pass": true
+  },
+  {
+   "case": "S8_A2 (a paired secondary) LinAlgError",
+   "expected": "fallback",
+   "outcome": "ran",
+   "labels_reached": true,
+   "results_written": true,
+   "unavailable": [
+    "S8_A2"
+   ],
+   "P2_present": true,
+   "S0_present": true,
+   "K": 29,
+   "pass": true
+  },
+  {
+   "case": "S12 ValueError",
+   "expected": "fallback",
+   "outcome": "ran",
+   "labels_reached": true,
+   "results_written": true,
+   "unavailable": [
+    "S12"
+   ],
+   "P2_present": true,
+   "S0_present": true,
+   "K": 29,
+   "pass": true
+  },
+  {
+   "case": "P2 LinAlgError",
+   "expected": "abort",
+   "outcome": "refused: LinAlgError: synthetic failure",
+   "labels_reached": true,
+   "results_written": false,
+   "pass": true
+  },
+  {
+   "case": "P2 ValueError",
+   "expected": "abort",
+   "outcome": "refused: ValueError: synthetic failure",
+   "labels_reached": true,
+   "results_written": false,
+   "pass": true
+  },
+  {
+   "case": "S0 (information on spd_f) LinAlgError",
+   "expected": "abort",
+   "outcome": "refused: LinAlgError: synthetic failure",
+   "labels_reached": true,
+   "results_written": false,
+   "pass": true
+  },
+  {
+   "case": "S10 capture LinAlgError",
+   "expected": "abort",
+   "outcome": "refused: LinAlgError: synthetic failure",
+   "labels_reached": true,
+   "results_written": false,
+   "pass": true
+  },
+  {
+   "case": "S13 close_edge LinAlgError",
+   "expected": "abort",
+   "outcome": "refused: LinAlgError: synthetic failure",
+   "labels_reached": true,
+   "results_written": false,
+   "pass": true
+  },
+  {
+   "case": "S14 LinAlgError",
+   "expected": "abort",
+   "outcome": "refused: LinAlgError: synthetic failure",
+   "labels_reached": true,
+   "results_written": false,
+   "pass": true
+  }
+ ],
+ "passed": true
+}

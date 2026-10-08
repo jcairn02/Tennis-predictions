@@ -1,0 +1,330 @@
+{
+ "note": "descriptive: pre-match features and box-score statistics of seasons <= 2021; no result or price read",
+ "matches": 39864,
+ "dominance": {
+  "overall": {
+   "atp": {
+    "n": 19331,
+    "sd_m": 0.1476,
+    "pbar_p05_p50_p95": [
+     0.5869,
+     0.6331,
+     0.6987
+    ],
+    "lev_p05_p50_p95": [
+     0.82,
+     0.973,
+     1.056
+    ]
+   },
+   "wta": {
+    "n": 20533,
+    "sd_m": 0.1071,
+    "pbar_p05_p50_p95": [
+     0.5237,
+     0.5643,
+     0.6098
+    ],
+    "lev_p05_p50_p95": [
+     1.018,
+     1.085,
+     1.117
+    ]
+   }
+  },
+  "by_tour_surface": {
+   "atp_Clay": {
+    "n": 5977,
+    "sd_m_within": 0.117,
+    "pbar_p05_p50_p95": [
+     0.5754,
+     0.614,
+     0.6612
+    ],
+    "lev_p05_p50_p95": [
+     0.912,
+     1.011,
+     1.072
+    ],
+    "lev_sd": 0.0529
+   },
+   "atp_Grass": {
+    "n": 2163,
+    "sd_m_within": 0.1353,
+    "pbar_p05_p50_p95": [
+     0.6242,
+     0.664,
+     0.7216
+    ],
+    "lev_p05_p50_p95": [
+     0.761,
+     0.905,
+     0.991
+    ],
+    "lev_sd": 0.07
+   },
+   "atp_Hard": {
+    "n": 11191,
+    "sd_m_within": 0.1372,
+    "pbar_p05_p50_p95": [
+     0.5962,
+     0.6375,
+     0.7012
+    ],
+    "lev_p05_p50_p95": [
+     0.814,
+     0.964,
+     1.042
+    ],
+    "lev_sd": 0.0679
+   },
+   "wta_Clay": {
+    "n": 5403,
+    "sd_m_within": 0.1004,
+    "pbar_p05_p50_p95": [
+     0.5148,
+     0.5554,
+     0.5967
+    ],
+    "lev_p05_p50_p95": [
+     1.041,
+     1.094,
+     1.12
+    ],
+    "lev_sd": 0.025
+   },
+   "wta_Grass": {
+    "n": 2260,
+    "sd_m_within": 0.0959,
+    "pbar_p05_p50_p95": [
+     0.5572,
+     0.5945,
+     0.6319
+    ],
+    "lev_p05_p50_p95": [
+     0.976,
+     1.044,
+     1.093
+    ],
+    "lev_sd": 0.0362
+   },
+   "wta_Hard": {
+    "n": 12870,
+    "sd_m_within": 0.0965,
+    "pbar_p05_p50_p95": [
+     0.526,
+     0.5639,
+     0.6038
+    ],
+    "lev_p05_p50_p95": [
+     1.029,
+     1.085,
+     1.116
+    ],
+    "lev_sd": 0.0271
+   }
+  },
+  "share_of_var_m_explained_by_tour_surface_indoor": 0.6575,
+  "sum_expected_holds_p05_p50_p95": {
+   "atp": [
+    1.3958,
+    1.5778,
+    1.7692
+   ],
+   "wta": [
+    1.1308,
+    1.2728,
+    1.4781
+   ]
+  }
+ },
+ "composition": {
+  "atp": {
+   "n": 19331,
+   "composed_edge_logit_sd": 0.2559,
+   "r2_on_model_ios_21": 0.9973,
+   "residual_sd_spw_logit": 0.01321,
+   "residual_sd_match_logit_bo3_approx": 0.0634,
+   "second_exposure_term_sd": 0.0669,
+   "second_exposure_r2_on_model": 0.9935,
+   "first_exposure_term_sd": 0.1142,
+   "first_exposure_r2_on_model": 0.9968
+  },
+  "wta": {
+   "n": 20533,
+   "composed_edge_logit_sd": 0.2067,
+   "r2_on_model_ios_21": 0.9955,
+   "residual_sd_spw_logit": 0.01386,
+   "residual_sd_match_logit_bo3_approx": 0.0665,
+   "second_exposure_term_sd": 0.0457,
+   "second_exposure_r2_on_model": 0.9888,
+   "first_exposure_term_sd": 0.0913,
+   "first_exposure_r2_on_model": 0.9959
+  }
+ },
+ "free_points": {
+  "atp": {
+   "n": 19331,
+   "term_sd_spw_logit": 0.04979,
+   "r2_on_model_ios_21": 0.9386,
+   "residual_sd_spw_logit": 0.01233,
+   "residual_sd_match_logit_bo3_approx": 0.0592,
+   "term_p01_p99": [
+    -0.1329,
+    0.137
+   ]
+  },
+  "wta": {
+   "n": 20533,
+   "term_sd_spw_logit": 0.03121,
+   "r2_on_model_ios_21": 0.9396,
+   "residual_sd_spw_logit": 0.00767,
+   "residual_sd_match_logit_bo3_approx": 0.0368,
+   "term_p01_p99": [
+    -0.0807,
+    0.0799
+   ]
+  }
+ },
+ "cross_statistic": {
+  "atp": {
+   "O_first_in x D_second_won": {
+    "sd": 0.0543,
+    "r2_on_model_ios_21": 0.8672
+   },
+   "O_ace x D_first_won": {
+    "sd": 0.2767,
+    "r2_on_model_ios_21": 0.9797
+   },
+   "O_df x D_second_won": {
+    "sd": 0.0928,
+    "r2_on_model_ios_21": 0.8531
+   },
+   "O_first_won x D_second_won": {
+    "sd": 0.1102,
+    "r2_on_model_ios_21": 0.9779
+   },
+   "O_second_won x D_first_won": {
+    "sd": 0.0585,
+    "r2_on_model_ios_21": 0.9619
+   },
+   "O_ace x D_hold": {
+    "sd": 0.6508,
+    "r2_on_model_ios_21": 0.9753
+   },
+   "O_first_in x D_first_won": {
+    "sd": 0.0746,
+    "r2_on_model_ios_21": 0.9009
+   }
+  },
+  "wta": {
+   "O_first_in x D_second_won": {
+    "sd": 0.0312,
+    "r2_on_model_ios_21": 0.6195
+   },
+   "O_ace x D_first_won": {
+    "sd": 0.1548,
+    "r2_on_model_ios_21": 0.9569
+   },
+   "O_df x D_second_won": {
+    "sd": 0.0558,
+    "r2_on_model_ios_21": 0.6683
+   },
+   "O_first_won x D_second_won": {
+    "sd": 0.0386,
+    "r2_on_model_ios_21": 0.8946
+   },
+   "O_second_won x D_first_won": {
+    "sd": 0.0263,
+    "r2_on_model_ios_21": 0.8926
+   },
+   "O_ace x D_hold": {
+    "sd": 0.283,
+    "r2_on_model_ios_21": 0.8081
+   },
+   "O_first_in x D_first_won": {
+    "sd": 0.0522,
+    "r2_on_model_ios_21": 0.8113
+   }
+  }
+ },
+ "hand": {
+  "sides": {
+   "A": 39864,
+   "B": 39864
+  },
+  "atp": {
+   "matches": 19331,
+   "hand_known_both": 19317,
+   "lefty_vs_righty": 4701,
+   "lefty_vs_lefty": 383,
+   "share_lr": 0.2434,
+   "share_ll": 0.0198
+  },
+  "wta": {
+   "matches": 20533,
+   "hand_known_both": 20410,
+   "lefty_vs_righty": 3107,
+   "lefty_vs_lefty": 133,
+   "share_lr": 0.1522,
+   "share_ll": 0.0065
+  },
+  "height_rows": 78333
+ },
+ "venue": {
+  "atp": {
+   "editions": 485,
+   "venues": 111,
+   "ace_sd_edition_residual": 0.1627,
+   "consecutive_pairs": 361,
+   "ace_corr_with_previous_edition": 0.5162,
+   "ace_sd_by_surface": {
+    "Clay": 0.1825,
+    "Grass": 0.1171,
+    "Hard": 0.1533
+   },
+   "spw_sd_edition_residual": 0.0613,
+   "spw_corr_with_previous_edition": 0.3684,
+   "spw_sd_by_surface": {
+    "Clay": 0.0612,
+    "Grass": 0.0511,
+    "Hard": 0.0614
+   },
+   "corr_ace_res_spw_res": 0.7756
+  },
+  "wta": {
+   "editions": 457,
+   "venues": 251,
+   "ace_sd_edition_residual": 0.1903,
+   "consecutive_pairs": 203,
+   "ace_corr_with_previous_edition": 0.4213,
+   "ace_sd_by_surface": {
+    "Clay": 0.2269,
+    "Grass": 0.1135,
+    "Hard": 0.1781
+   },
+   "spw_sd_edition_residual": 0.0536,
+   "spw_corr_with_previous_edition": 0.442,
+   "spw_sd_by_surface": {
+    "Clay": 0.0572,
+    "Grass": 0.0461,
+    "Hard": 0.0524
+   },
+   "corr_ace_res_spw_res": 0.6123
+  }
+ },
+ "mec01_bound": {
+  "atp": {
+   "sd_strength_logodds_proxy": 1.674,
+   "sd_lam_rel_within_cell": 0.067,
+   "upper_bound_mLL_price_ignores_within_cell_dominance": 0.395,
+   "upper_bound_mLL_price_holds_half": 0.099
+  },
+  "wta": {
+   "sd_strength_logodds_proxy": 1.45,
+   "sd_lam_rel_within_cell": 0.0258,
+   "upper_bound_mLL_price_ignores_within_cell_dominance": 0.06,
+   "upper_bound_mLL_price_holds_half": 0.015
+  }
+ }
+}

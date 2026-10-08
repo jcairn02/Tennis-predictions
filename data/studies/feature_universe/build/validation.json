@@ -1,0 +1,133 @@
+{
+ "rows": 329,
+ "by_family": {
+  "feature-interactions study": 95,
+  "long-memory profile": 60,
+  "ratings": 35,
+  "load and schedule": 35,
+  "two-week profile": 20,
+  "level sums": 19,
+  "player background": 18,
+  "shot and point level": 18,
+  "context": 17,
+  "market": 12
+ },
+ "by_status": {
+  "built_not_in_model": 235,
+  "in_model": 56,
+  "buildable_from_disk": 21,
+  "market_internal": 7,
+  "excluded_leaky": 6,
+  "needs_new_data": 4
+ },
+ "family_x_status": {
+  "context": {
+   "built_not_in_model": 9,
+   "in_model": 6,
+   "buildable_from_disk": 1,
+   "needs_new_data": 1
+  },
+  "feature-interactions study": {
+   "built_not_in_model": 89,
+   "buildable_from_disk": 6
+  },
+  "level sums": {
+   "built_not_in_model": 19
+  },
+  "load and schedule": {
+   "built_not_in_model": 31,
+   "in_model": 3,
+   "buildable_from_disk": 1
+  },
+  "long-memory profile": {
+   "built_not_in_model": 37,
+   "in_model": 23
+  },
+  "market": {
+   "market_internal": 7,
+   "buildable_from_disk": 2,
+   "needs_new_data": 2,
+   "in_model": 1
+  },
+  "player background": {
+   "built_not_in_model": 12,
+   "buildable_from_disk": 4,
+   "in_model": 2
+  },
+  "ratings": {
+   "built_not_in_model": 26,
+   "excluded_leaky": 5,
+   "in_model": 4
+  },
+  "shot and point level": {
+   "built_not_in_model": 10,
+   "buildable_from_disk": 6,
+   "needs_new_data": 1,
+   "excluded_leaky": 1
+  },
+  "two-week profile": {
+   "in_model": 17,
+   "built_not_in_model": 2,
+   "buildable_from_disk": 1
+  }
+ },
+ "priority": {
+  "low": 198,
+  "high": 59,
+  "medium": 39,
+  "exclude": 33
+ },
+ "tier": {
+  "none": 237,
+  "C": 46,
+  "D": 21,
+  "A": 15,
+  "B": 10
+ },
+ "in_model_inputs_covered": 58,
+ "store_columns_referenced": 763,
+ "store_columns_total": 776,
+ "store_columns_unreferenced": [],
+ "menu_columns": 603,
+ "menu_by_group": {
+  "pp": 196,
+  "fp": 124,
+  "fi": 92,
+  "m": 58,
+  "alt": 46,
+  "ad": 21,
+  "rt": 18,
+  "lv": 17,
+  "sl": 14,
+  "ds": 7,
+  "mk": 5,
+  "ctx": 3,
+  "kn": 2
+ },
+ "menu_unreferenced": [],
+ "menu_by_priority": {
+  "low": 370,
+  "high": 141,
+  "medium": 74,
+  "exclude": 18
+ },
+ "menu_by_tier": {
+  "none": 482,
+  "C": 53,
+  "D": 33,
+  "A": 20,
+  "B": 15
+ },
+ "menu_seen_2025_2026": {
+  "yes": 367,
+  "no": 236
+ },
+ "store_columns_in_two_rows": [
+  "m__odds_logit",
+  "mk__ps_minus_avg"
+ ],
+ "rows_without_store": 71,
+ "bad_store": {},
+ "bad_cov": [],
+ "bad_rows": []
+}

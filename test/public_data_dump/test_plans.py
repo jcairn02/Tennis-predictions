@@ -72,9 +72,69 @@ def test_open_tennis_data_helpers():
 
 
 def test_tennis_data_urls():
-    assert tennis_data_couk.live_url("atp", 2012) == "https://www.tennis-data.co.uk/2012/2012.xls"
-    assert tennis_data_couk.live_url("wta", 2026) == "https://www.tennis-data.co.uk/2026w/2026.xlsx"
+    assert tennis_data_couk.legacy_url("atp", 2012) == "https://www.tennis-data.co.uk/2012/2012.xls"
+    assert tennis_data_couk.legacy_url("wta", 2026) == "https://www.tennis-data.co.uk/2026w/2026.xlsx"
     assert tennis_data_couk.wayback_url("20260803192930", "https://x/y.xlsx") == "https://web.archive.org/web/20260803192930id_/https://x/y.xlsx"
+
+
+def test_tennis_data_listing_links():
+    # shape of the relaunched data.php (5 Oct 2026): upper-case HREF, unannounced directory prefix
+    html = """<A HREF="hrjk-85HytOjkhth76j_ygh4jf7/2026/2026.xlsx">2026</A>
+              <a href='hrjk-85HytOjkhth76j_ygh4jf7/2026w/2026.xlsx'>2026</a>
+              <A HREF="hrjk-85HytOjkhth76j_ygh4jf7/2012/2012.xls">2012</A>
+              <A HREF="notes.txt">Notes</A> <A HREF="https://example.com/2026/calendar.pdf">Calendar</A>
+              <A HREF="old/2025/2025.xlsx.bak">backup</A>"""
+    links = tennis_data_couk.listed_urls(html, "https://tennis-data.co.uk/data.php")
+    assert links == {("atp", 2026): "https://tennis-data.co.uk/hrjk-85HytOjkhth76j_ygh4jf7/2026/2026.xlsx",
+                     ("wta", 2026): "https://tennis-data.co.uk/hrjk-85HytOjkhth76j_ygh4jf7/2026w/2026.xlsx",
+                     ("atp", 2012): "https://tennis-data.co.uk/hrjk-85HytOjkhth76j_ygh4jf7/2012/2012.xls"}
+
+
+class FakeSite:
+    """requests.Session stand-in: 200 with the mapped body, otherwise a 404 parking page."""
+
+    def __init__(self, pages):
+        self.pages, self.requested = pages, []
+
+    def get(self, url, timeout=None):
+        self.requested.append(url)
+        body = self.pages.get(url)
+
+        class R:
+            status_code = 200 if body is not None else 404
+            headers = {}
+            content = body if body is not None else b"<html>parked</html>"
+        R.url = url
+        return R()
+
+
+def test_acquire_follows_listing_and_keeps_replaced_bytes(tmp_path, monkeypatch):
+    monkeypatch.setattr(C, "RAW_ROOT", tmp_path / "raw")
+    monkeypatch.setattr(C, "PROJECT_ROOT", tmp_path)
+    listed = "https://www.tennis-data.co.uk/abc_123/2026/2026.xlsx"
+    old, new = b"PK\x03\x04" + b"a" * 20_000, b"PK\x03\x04" + b"b" * 20_000
+    site = FakeSite({listed: old})
+    monkeypatch.setattr(C, "session", lambda: site)
+    receipts = C.Receipts("tennis_data_couk")
+    listing = {("atp", 2026): listed}
+
+    first = tennis_data_couk.acquire("atp", 2026, receipts, refresh=False, routes=("live",), listing=listing)
+    assert first["url"] == listed and first["route"] == "live" and "superseded" not in first
+    same = tennis_data_couk.acquire("atp", 2026, receipts, refresh=True, routes=("live",), listing=listing)
+    assert "superseded" not in same  # identical bytes: nothing to keep
+
+    site.pages[listed] = new
+    changed = tennis_data_couk.acquire("atp", 2026, receipts, refresh=True, routes=("live",), listing=listing)
+    kept = tmp_path / changed["superseded"]
+    assert kept.read_bytes() == old and (tmp_path / changed["dest"]).read_bytes() == new
+    assert kept.name.startswith("2026.live-") and kept.suffix == ".xlsx"
+    meta = json.loads((kept.parent / (kept.name + ".meta.json")).read_text(encoding="utf-8"))
+    assert meta["receipt"]["sha256"] == C.sha256_bytes(old) and meta["replaced_by"]["sha256"] == C.sha256_bytes(new)
+    assert len(list((tmp_path / "raw" / "tennis_data_couk" / "superseded").rglob("*.xlsx"))) == 1
+
+    unlisted = tennis_data_couk.acquire("wta", 2026, receipts, refresh=False, routes=("live",), listing=listing)
+    assert unlisted.get("error") == "live: HTTP 404"
+    assert site.requested[-1] == tennis_data_couk.legacy_url("wta", 2026)
 
 
 class CdxSession:

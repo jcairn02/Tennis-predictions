@@ -1,0 +1,1131 @@
+{
+  "generated_at": "2026-10-03T01:46:45+00:00",
+  "ladder": {
+    "coverage": [
+      {
+        "tour": "atp",
+        "since": 2019,
+        "eligible": 90922,
+        "common_rows": 88968
+      },
+      {
+        "tour": "atp",
+        "since": 2022,
+        "eligible": 64887,
+        "common_rows": 63336
+      },
+      {
+        "tour": "wta",
+        "since": 2019,
+        "eligible": 34645,
+        "common_rows": 33779
+      },
+      {
+        "tour": "wta",
+        "since": 2022,
+        "eligible": 23998,
+        "common_rows": 23379
+      }
+    ],
+    "specs": {
+      "elo_calibrated": [
+        "elo_logit"
+      ],
+      "elo_sr": [
+        "elo_logit",
+        "rating_matchup|single"
+      ],
+      "elo_sr_adjperf": [
+        "elo_logit",
+        "rating_matchup|single",
+        "adjperf_tpw|decayed"
+      ],
+      "elo_sr_adjperf_ios": [
+        "elo_logit",
+        "rating_matchup|single",
+        "adjperf_tpw|decayed",
+        "ios_short"
+      ],
+      "elo_sr_adjperf_ios_games": [
+        "elo_logit",
+        "rating_matchup|single",
+        "adjperf_tpw|decayed",
+        "ios_short",
+        "elo_games|single"
+      ],
+      "elo_full": [
+        "elo_logit",
+        "rating_matchup|single",
+        "adjperf_tpw|decayed",
+        "ios_short",
+        "elo_games|single",
+        "sets_14d|single",
+        "surface_first|single",
+        "age|single",
+        "age|single|2"
+      ],
+      "glicko_cs_calibrated": [
+        "glicko_cs_logit"
+      ],
+      "glicko_cs_sr": [
+        "glicko_cs_logit",
+        "rating_matchup|single"
+      ],
+      "glicko_cs_sr_adjperf": [
+        "glicko_cs_logit",
+        "rating_matchup|single",
+        "adjperf_tpw|decayed"
+      ],
+      "glicko_cs_sr_adjperf_ios": [
+        "glicko_cs_logit",
+        "rating_matchup|single",
+        "adjperf_tpw|decayed",
+        "ios_short"
+      ],
+      "glicko_cs_sr_adjperf_ios_games": [
+        "glicko_cs_logit",
+        "rating_matchup|single",
+        "adjperf_tpw|decayed",
+        "ios_short",
+        "elo_games|single"
+      ],
+      "glicko_cs_full": [
+        "glicko_cs_logit",
+        "rating_matchup|single",
+        "adjperf_tpw|decayed",
+        "ios_short",
+        "elo_games|single",
+        "sets_14d|single",
+        "surface_first|single",
+        "age|single",
+        "age|single|2"
+      ],
+      "ttt_calibrated": [
+        "ttt_logit"
+      ],
+      "ttt_sr": [
+        "ttt_logit",
+        "rating_matchup|single"
+      ],
+      "ttt_sr_adjperf": [
+        "ttt_logit",
+        "rating_matchup|single",
+        "adjperf_tpw|decayed"
+      ],
+      "ttt_sr_adjperf_ios": [
+        "ttt_logit",
+        "rating_matchup|single",
+        "adjperf_tpw|decayed",
+        "ios_short"
+      ],
+      "ttt_sr_adjperf_ios_games": [
+        "ttt_logit",
+        "rating_matchup|single",
+        "adjperf_tpw|decayed",
+        "ios_short",
+        "elo_games|single"
+      ],
+      "ttt_full": [
+        "ttt_logit",
+        "rating_matchup|single",
+        "adjperf_tpw|decayed",
+        "ios_short",
+        "elo_games|single",
+        "sets_14d|single",
+        "surface_first|single",
+        "age|single",
+        "age|single|2"
+      ],
+      "glicko2m_calibrated": [
+        "glicko2m_logit"
+      ],
+      "glicko2m_sr": [
+        "glicko2m_logit",
+        "rating_matchup|single"
+      ],
+      "glicko2m_sr_adjperf": [
+        "glicko2m_logit",
+        "rating_matchup|single",
+        "adjperf_tpw|decayed"
+      ],
+      "glicko2m_sr_adjperf_ios": [
+        "glicko2m_logit",
+        "rating_matchup|single",
+        "adjperf_tpw|decayed",
+        "ios_short"
+      ],
+      "glicko2m_sr_adjperf_ios_games": [
+        "glicko2m_logit",
+        "rating_matchup|single",
+        "adjperf_tpw|decayed",
+        "ios_short",
+        "elo_games|single"
+      ],
+      "glicko2m_full": [
+        "glicko2m_logit",
+        "rating_matchup|single",
+        "adjperf_tpw|decayed",
+        "ios_short",
+        "elo_games|single",
+        "sets_14d|single",
+        "surface_first|single",
+        "age|single",
+        "age|single|2"
+      ],
+      "trueskill_calibrated": [
+        "trueskill_logit"
+      ],
+      "trueskill_sr": [
+        "trueskill_logit",
+        "rating_matchup|single"
+      ],
+      "trueskill_sr_adjperf": [
+        "trueskill_logit",
+        "rating_matchup|single",
+        "adjperf_tpw|decayed"
+      ],
+      "trueskill_sr_adjperf_ios": [
+        "trueskill_logit",
+        "rating_matchup|single",
+        "adjperf_tpw|decayed",
+        "ios_short"
+      ],
+      "trueskill_sr_adjperf_ios_games": [
+        "trueskill_logit",
+        "rating_matchup|single",
+        "adjperf_tpw|decayed",
+        "ios_short",
+        "elo_games|single"
+      ],
+      "trueskill_full": [
+        "trueskill_logit",
+        "rating_matchup|single",
+        "adjperf_tpw|decayed",
+        "ios_short",
+        "elo_games|single",
+        "sets_14d|single",
+        "surface_first|single",
+        "age|single",
+        "age|single|2"
+      ],
+      "glicko2_calibrated": [
+        "glicko2_logit"
+      ],
+      "glicko2_sr": [
+        "glicko2_logit",
+        "rating_matchup|single"
+      ],
+      "glicko2_sr_adjperf": [
+        "glicko2_logit",
+        "rating_matchup|single",
+        "adjperf_tpw|decayed"
+      ],
+      "glicko2_sr_adjperf_ios": [
+        "glicko2_logit",
+        "rating_matchup|single",
+        "adjperf_tpw|decayed",
+        "ios_short"
+      ],
+      "glicko2_sr_adjperf_ios_games": [
+        "glicko2_logit",
+        "rating_matchup|single",
+        "adjperf_tpw|decayed",
+        "ios_short",
+        "elo_games|single"
+      ],
+      "glicko2_full": [
+        "glicko2_logit",
+        "rating_matchup|single",
+        "adjperf_tpw|decayed",
+        "ios_short",
+        "elo_games|single",
+        "sets_14d|single",
+        "surface_first|single",
+        "age|single",
+        "age|single|2"
+      ],
+      "elo+glicko_cs_calibrated": [
+        "elo_logit",
+        "glicko_cs_logit"
+      ],
+      "elo+glicko_cs_full": [
+        "elo_logit",
+        "glicko_cs_logit",
+        "rating_matchup|single",
+        "adjperf_tpw|decayed",
+        "ios_short",
+        "elo_games|single",
+        "sets_14d|single",
+        "surface_first|single",
+        "age|single",
+        "age|single|2"
+      ],
+      "elo+ttt_calibrated": [
+        "elo_logit",
+        "ttt_logit"
+      ],
+      "elo+ttt_full": [
+        "elo_logit",
+        "ttt_logit",
+        "rating_matchup|single",
+        "adjperf_tpw|decayed",
+        "ios_short",
+        "elo_games|single",
+        "sets_14d|single",
+        "surface_first|single",
+        "age|single",
+        "age|single|2"
+      ],
+      "elo+glicko2m_calibrated": [
+        "elo_logit",
+        "glicko2m_logit"
+      ],
+      "elo+glicko2m_full": [
+        "elo_logit",
+        "glicko2m_logit",
+        "rating_matchup|single",
+        "adjperf_tpw|decayed",
+        "ios_short",
+        "elo_games|single",
+        "sets_14d|single",
+        "surface_first|single",
+        "age|single",
+        "age|single|2"
+      ],
+      "elo+trueskill_calibrated": [
+        "elo_logit",
+        "trueskill_logit"
+      ],
+      "elo+trueskill_full": [
+        "elo_logit",
+        "trueskill_logit",
+        "rating_matchup|single",
+        "adjperf_tpw|decayed",
+        "ios_short",
+        "elo_games|single",
+        "sets_14d|single",
+        "surface_first|single",
+        "age|single",
+        "age|single|2"
+      ],
+      "elo+glicko2_calibrated": [
+        "elo_logit",
+        "glicko2_logit"
+      ],
+      "elo+glicko2_full": [
+        "elo_logit",
+        "glicko2_logit",
+        "rating_matchup|single",
+        "adjperf_tpw|decayed",
+        "ios_short",
+        "elo_games|single",
+        "sets_14d|single",
+        "surface_first|single",
+        "age|single",
+        "age|single|2"
+      ]
+    },
+    "references": {
+      "elo_calibrated": [
+        "elo_raw"
+      ],
+      "elo_sr": [
+        "elo_calibrated"
+      ],
+      "elo_sr_adjperf": [
+        "elo_sr"
+      ],
+      "elo_sr_adjperf_ios": [
+        "elo_sr_adjperf"
+      ],
+      "elo_sr_adjperf_ios_games": [
+        "elo_sr_adjperf_ios"
+      ],
+      "elo_full": [
+        "elo_sr_adjperf_ios_games",
+        "elo_calibrated"
+      ],
+      "glicko_cs_calibrated": [
+        "elo_raw",
+        "elo_calibrated"
+      ],
+      "glicko_cs_sr": [
+        "glicko_cs_calibrated",
+        "elo_sr"
+      ],
+      "glicko_cs_sr_adjperf": [
+        "glicko_cs_sr",
+        "elo_sr_adjperf"
+      ],
+      "glicko_cs_sr_adjperf_ios": [
+        "glicko_cs_sr_adjperf",
+        "elo_sr_adjperf_ios"
+      ],
+      "glicko_cs_sr_adjperf_ios_games": [
+        "glicko_cs_sr_adjperf_ios",
+        "elo_sr_adjperf_ios_games"
+      ],
+      "glicko_cs_full": [
+        "glicko_cs_sr_adjperf_ios_games",
+        "elo_full",
+        "elo_calibrated",
+        "glicko_cs_calibrated"
+      ],
+      "ttt_calibrated": [
+        "elo_raw",
+        "elo_calibrated"
+      ],
+      "ttt_sr": [
+        "ttt_calibrated",
+        "elo_sr"
+      ],
+      "ttt_sr_adjperf": [
+        "ttt_sr",
+        "elo_sr_adjperf"
+      ],
+      "ttt_sr_adjperf_ios": [
+        "ttt_sr_adjperf",
+        "elo_sr_adjperf_ios"
+      ],
+      "ttt_sr_adjperf_ios_games": [
+        "ttt_sr_adjperf_ios",
+        "elo_sr_adjperf_ios_games"
+      ],
+      "ttt_full": [
+        "ttt_sr_adjperf_ios_games",
+        "elo_full",
+        "elo_calibrated",
+        "ttt_calibrated"
+      ],
+      "glicko2m_calibrated": [
+        "elo_raw",
+        "elo_calibrated"
+      ],
+      "glicko2m_sr": [
+        "glicko2m_calibrated",
+        "elo_sr"
+      ],
+      "glicko2m_sr_adjperf": [
+        "glicko2m_sr",
+        "elo_sr_adjperf"
+      ],
+      "glicko2m_sr_adjperf_ios": [
+        "glicko2m_sr_adjperf",
+        "elo_sr_adjperf_ios"
+      ],
+      "glicko2m_sr_adjperf_ios_games": [
+        "glicko2m_sr_adjperf_ios",
+        "elo_sr_adjperf_ios_games"
+      ],
+      "glicko2m_full": [
+        "glicko2m_sr_adjperf_ios_games",
+        "elo_full",
+        "elo_calibrated",
+        "glicko2m_calibrated"
+      ],
+      "trueskill_calibrated": [
+        "elo_raw",
+        "elo_calibrated"
+      ],
+      "trueskill_sr": [
+        "trueskill_calibrated",
+        "elo_sr"
+      ],
+      "trueskill_sr_adjperf": [
+        "trueskill_sr",
+        "elo_sr_adjperf"
+      ],
+      "trueskill_sr_adjperf_ios": [
+        "trueskill_sr_adjperf",
+        "elo_sr_adjperf_ios"
+      ],
+      "trueskill_sr_adjperf_ios_games": [
+        "trueskill_sr_adjperf_ios",
+        "elo_sr_adjperf_ios_games"
+      ],
+      "trueskill_full": [
+        "trueskill_sr_adjperf_ios_games",
+        "elo_full",
+        "elo_calibrated",
+        "trueskill_calibrated"
+      ],
+      "glicko2_calibrated": [
+        "elo_raw",
+        "elo_calibrated"
+      ],
+      "glicko2_sr": [
+        "glicko2_calibrated",
+        "elo_sr"
+      ],
+      "glicko2_sr_adjperf": [
+        "glicko2_sr",
+        "elo_sr_adjperf"
+      ],
+      "glicko2_sr_adjperf_ios": [
+        "glicko2_sr_adjperf",
+        "elo_sr_adjperf_ios"
+      ],
+      "glicko2_sr_adjperf_ios_games": [
+        "glicko2_sr_adjperf_ios",
+        "elo_sr_adjperf_ios_games"
+      ],
+      "glicko2_full": [
+        "glicko2_sr_adjperf_ios_games",
+        "elo_full",
+        "elo_calibrated",
+        "glicko2_calibrated"
+      ],
+      "elo+glicko_cs_calibrated": [
+        "elo_calibrated",
+        "glicko_cs_calibrated"
+      ],
+      "elo+glicko_cs_full": [
+        "elo_full",
+        "glicko_cs_full",
+        "elo_calibrated",
+        "elo+glicko_cs_calibrated"
+      ],
+      "elo+ttt_calibrated": [
+        "elo_calibrated",
+        "ttt_calibrated"
+      ],
+      "elo+ttt_full": [
+        "elo_full",
+        "ttt_full",
+        "elo_calibrated",
+        "elo+ttt_calibrated"
+      ],
+      "elo+glicko2m_calibrated": [
+        "elo_calibrated",
+        "glicko2m_calibrated"
+      ],
+      "elo+glicko2m_full": [
+        "elo_full",
+        "glicko2m_full",
+        "elo_calibrated",
+        "elo+glicko2m_calibrated"
+      ],
+      "elo+trueskill_calibrated": [
+        "elo_calibrated",
+        "trueskill_calibrated"
+      ],
+      "elo+trueskill_full": [
+        "elo_full",
+        "trueskill_full",
+        "elo_calibrated",
+        "elo+trueskill_calibrated"
+      ],
+      "elo+glicko2_calibrated": [
+        "elo_calibrated",
+        "glicko2_calibrated"
+      ],
+      "elo+glicko2_full": [
+        "elo_full",
+        "glicko2_full",
+        "elo_calibrated",
+        "elo+glicko2_calibrated"
+      ]
+    },
+    "train_from": 2013,
+    "score_from": 2019,
+    "interval": "paired calendar-week cluster-robust t (elo_retest.clustered_gain)"
+  },
+  "market": {
+    "atp_pool_rows": 182440,
+    "stored_p_mkt_vs_p_avg_max_abs": 0.0,
+    "missing_p_mkt_but_avg": 0,
+    "tournament_date_is_not_match_time": true,
+    "rows": 36633,
+    "rows_by_year": {
+      "2010": 1697,
+      "2011": 2631,
+      "2012": 2570,
+      "2013": 2593,
+      "2014": 2557,
+      "2015": 2611,
+      "2016": 2597,
+      "2017": 2601,
+      "2019": 2569,
+      "2020": 1244,
+      "2021": 2460,
+      "2022": 2592,
+      "2023": 2665,
+      "2024": 2667,
+      "2025": 2508,
+      "2026": 71
+    },
+    "models": {
+      "profile": [
+        "adjperf_ace|decayed",
+        "adjperf_df|decayed",
+        "adjperf_first_in|decayed",
+        "adjperf_first_won|decayed",
+        "adjperf_second_won|decayed",
+        "adjperf_hold|decayed",
+        "adjperf_bp_saved|decayed",
+        "adjperf_bp_faced_pg|decayed",
+        "adjperf_brk|decayed",
+        "adjperf_bp_conv|decayed",
+        "adjperf_rpw_first|decayed",
+        "adjperf_rpw_second|decayed",
+        "adjdef_ace|decayed",
+        "adjdef_df|decayed",
+        "adjdef_first_in|decayed",
+        "adjdef_bp_faced_pg|decayed"
+      ],
+      "rating_elo": [
+        "elo_logit"
+      ],
+      "profile_rating_elo": [
+        "adjperf_ace|decayed",
+        "adjperf_df|decayed",
+        "adjperf_first_in|decayed",
+        "adjperf_first_won|decayed",
+        "adjperf_second_won|decayed",
+        "adjperf_hold|decayed",
+        "adjperf_bp_saved|decayed",
+        "adjperf_bp_faced_pg|decayed",
+        "adjperf_brk|decayed",
+        "adjperf_bp_conv|decayed",
+        "adjperf_rpw_first|decayed",
+        "adjperf_rpw_second|decayed",
+        "adjdef_ace|decayed",
+        "adjdef_df|decayed",
+        "adjdef_first_in|decayed",
+        "adjdef_bp_faced_pg|decayed",
+        "elo_logit"
+      ],
+      "rating_glicko_cs": [
+        "glicko_cs_logit"
+      ],
+      "profile_rating_glicko_cs": [
+        "adjperf_ace|decayed",
+        "adjperf_df|decayed",
+        "adjperf_first_in|decayed",
+        "adjperf_first_won|decayed",
+        "adjperf_second_won|decayed",
+        "adjperf_hold|decayed",
+        "adjperf_bp_saved|decayed",
+        "adjperf_bp_faced_pg|decayed",
+        "adjperf_brk|decayed",
+        "adjperf_bp_conv|decayed",
+        "adjperf_rpw_first|decayed",
+        "adjperf_rpw_second|decayed",
+        "adjdef_ace|decayed",
+        "adjdef_df|decayed",
+        "adjdef_first_in|decayed",
+        "adjdef_bp_faced_pg|decayed",
+        "glicko_cs_logit"
+      ],
+      "rating_ttt": [
+        "ttt_logit"
+      ],
+      "profile_rating_ttt": [
+        "adjperf_ace|decayed",
+        "adjperf_df|decayed",
+        "adjperf_first_in|decayed",
+        "adjperf_first_won|decayed",
+        "adjperf_second_won|decayed",
+        "adjperf_hold|decayed",
+        "adjperf_bp_saved|decayed",
+        "adjperf_bp_faced_pg|decayed",
+        "adjperf_brk|decayed",
+        "adjperf_bp_conv|decayed",
+        "adjperf_rpw_first|decayed",
+        "adjperf_rpw_second|decayed",
+        "adjdef_ace|decayed",
+        "adjdef_df|decayed",
+        "adjdef_first_in|decayed",
+        "adjdef_bp_faced_pg|decayed",
+        "ttt_logit"
+      ],
+      "rating_glicko2m": [
+        "glicko2m_logit"
+      ],
+      "profile_rating_glicko2m": [
+        "adjperf_ace|decayed",
+        "adjperf_df|decayed",
+        "adjperf_first_in|decayed",
+        "adjperf_first_won|decayed",
+        "adjperf_second_won|decayed",
+        "adjperf_hold|decayed",
+        "adjperf_bp_saved|decayed",
+        "adjperf_bp_faced_pg|decayed",
+        "adjperf_brk|decayed",
+        "adjperf_bp_conv|decayed",
+        "adjperf_rpw_first|decayed",
+        "adjperf_rpw_second|decayed",
+        "adjdef_ace|decayed",
+        "adjdef_df|decayed",
+        "adjdef_first_in|decayed",
+        "adjdef_bp_faced_pg|decayed",
+        "glicko2m_logit"
+      ],
+      "rating_trueskill": [
+        "trueskill_logit"
+      ],
+      "profile_rating_trueskill": [
+        "adjperf_ace|decayed",
+        "adjperf_df|decayed",
+        "adjperf_first_in|decayed",
+        "adjperf_first_won|decayed",
+        "adjperf_second_won|decayed",
+        "adjperf_hold|decayed",
+        "adjperf_bp_saved|decayed",
+        "adjperf_bp_faced_pg|decayed",
+        "adjperf_brk|decayed",
+        "adjperf_bp_conv|decayed",
+        "adjperf_rpw_first|decayed",
+        "adjperf_rpw_second|decayed",
+        "adjdef_ace|decayed",
+        "adjdef_df|decayed",
+        "adjdef_first_in|decayed",
+        "adjdef_bp_faced_pg|decayed",
+        "trueskill_logit"
+      ]
+    },
+    "comparators": {
+      "profile": [
+        "raw_market",
+        "calibrated_market"
+      ],
+      "rating_elo": [
+        "raw_market",
+        "calibrated_market"
+      ],
+      "profile_rating_elo": [
+        "calibrated_market",
+        "rating_elo",
+        "profile"
+      ],
+      "rating_glicko_cs": [
+        "raw_market",
+        "calibrated_market"
+      ],
+      "profile_rating_glicko_cs": [
+        "calibrated_market",
+        "rating_glicko_cs",
+        "profile"
+      ],
+      "rating_ttt": [
+        "raw_market",
+        "calibrated_market"
+      ],
+      "profile_rating_ttt": [
+        "calibrated_market",
+        "rating_ttt",
+        "profile"
+      ],
+      "rating_glicko2m": [
+        "raw_market",
+        "calibrated_market"
+      ],
+      "profile_rating_glicko2m": [
+        "calibrated_market",
+        "rating_glicko2m",
+        "profile"
+      ],
+      "rating_trueskill": [
+        "raw_market",
+        "calibrated_market"
+      ],
+      "profile_rating_trueskill": [
+        "calibrated_market",
+        "rating_trueskill",
+        "profile"
+      ]
+    },
+    "known_limitations_from_the_audit": [
+      "Inherited feature chronology is not repaired in this model-only retest.",
+      "2010-2018 feature hyperparameters/population constants selected using that interval.",
+      "2019-2026 outcomes have already informed profile selection; no untouched holdout.",
+      "Pointwise cluster intervals do not adjust for historical or current model selection.",
+      "Clustering by tournament-start week does not model all across-week player dependence.",
+      "Four-week non-overlapping calendar clusters are an uncertainty sensitivity, not an independence guarantee.",
+      "Archived bookmaker probabilities are not proven timestamped executable closing quotes."
+    ],
+    "ridge_grid": [
+      0.0,
+      0.0001,
+      0.001,
+      0.01,
+      0.1
+    ],
+    "interval": "calendar-week cluster-robust t (profile_retest.clustered_interval)"
+  },
+  "repaired": {
+    "source": "src/eda/feature_alpha_audit/repair_score.py (load_frame, common_cohort, comparison_rows)",
+    "frame": "data\\studies\\feature_alpha_audit\\repairs\\repair_features.parquet",
+    "rows": 78706,
+    "coverage": [
+      {
+        "tour": "atp",
+        "window": "post_tuning_2019_2026",
+        "eligible": 18563,
+        "common_rows": 18174,
+        "missing_required_inputs": 389
+      },
+      {
+        "tour": "atp",
+        "window": "recent_2022_2026",
+        "eligible": 12299,
+        "common_rows": 12042,
+        "missing_required_inputs": 257
+      },
+      {
+        "tour": "wta",
+        "window": "post_tuning_2019_2026",
+        "eligible": 17280,
+        "common_rows": 16675,
+        "missing_required_inputs": 605
+      },
+      {
+        "tour": "wta",
+        "window": "recent_2022_2026",
+        "eligible": 11413,
+        "common_rows": 11040,
+        "missing_required_inputs": 373
+      },
+      {
+        "tour": "atp",
+        "window": "post_tuning_2019_2026",
+        "eligible": 18563,
+        "common_rows": 16333,
+        "missing_required_inputs": 2230,
+        "family": "profile"
+      },
+      {
+        "tour": "atp",
+        "window": "recent_2022_2026",
+        "eligible": 12299,
+        "common_rows": 10243,
+        "missing_required_inputs": 2056,
+        "family": "profile"
+      }
+    ],
+    "specs": {
+      "elo_repaired_calibrated": [
+        "elo_logit"
+      ],
+      "elo_repaired_sr": [
+        "elo_logit",
+        "rating_matchup|single"
+      ],
+      "elo_repaired_sr_adjperf": [
+        "elo_logit",
+        "rating_matchup|single",
+        "adjperf_tpw|decayed"
+      ],
+      "elo_repaired_sr_adjperf_ios": [
+        "elo_logit",
+        "rating_matchup|single",
+        "adjperf_tpw|decayed",
+        "ios_short"
+      ],
+      "elo_repaired_sr_adjperf_ios_games": [
+        "elo_logit",
+        "rating_matchup|single",
+        "adjperf_tpw|decayed",
+        "ios_short",
+        "elo_games|single"
+      ],
+      "elo_repaired_full": [
+        "elo_logit",
+        "rating_matchup|single",
+        "adjperf_tpw|decayed",
+        "ios_short",
+        "elo_games|single",
+        "sets_14d|single",
+        "surface_first|single",
+        "age|single",
+        "age|single|2"
+      ],
+      "elo_calibrated": [
+        "elo_s1_logit"
+      ],
+      "elo_sr": [
+        "elo_s1_logit",
+        "rating_matchup|single"
+      ],
+      "elo_sr_adjperf": [
+        "elo_s1_logit",
+        "rating_matchup|single",
+        "adjperf_tpw|decayed"
+      ],
+      "elo_sr_adjperf_ios": [
+        "elo_s1_logit",
+        "rating_matchup|single",
+        "adjperf_tpw|decayed",
+        "ios_short"
+      ],
+      "elo_sr_adjperf_ios_games": [
+        "elo_s1_logit",
+        "rating_matchup|single",
+        "adjperf_tpw|decayed",
+        "ios_short",
+        "elo_games|single"
+      ],
+      "elo_full": [
+        "elo_s1_logit",
+        "rating_matchup|single",
+        "adjperf_tpw|decayed",
+        "ios_short",
+        "elo_games|single",
+        "sets_14d|single",
+        "surface_first|single",
+        "age|single",
+        "age|single|2"
+      ],
+      "glicko_cs_calibrated": [
+        "glicko_cs_logit"
+      ],
+      "glicko_cs_sr": [
+        "glicko_cs_logit",
+        "rating_matchup|single"
+      ],
+      "glicko_cs_sr_adjperf": [
+        "glicko_cs_logit",
+        "rating_matchup|single",
+        "adjperf_tpw|decayed"
+      ],
+      "glicko_cs_sr_adjperf_ios": [
+        "glicko_cs_logit",
+        "rating_matchup|single",
+        "adjperf_tpw|decayed",
+        "ios_short"
+      ],
+      "glicko_cs_sr_adjperf_ios_games": [
+        "glicko_cs_logit",
+        "rating_matchup|single",
+        "adjperf_tpw|decayed",
+        "ios_short",
+        "elo_games|single"
+      ],
+      "glicko_cs_full": [
+        "glicko_cs_logit",
+        "rating_matchup|single",
+        "adjperf_tpw|decayed",
+        "ios_short",
+        "elo_games|single",
+        "sets_14d|single",
+        "surface_first|single",
+        "age|single",
+        "age|single|2"
+      ],
+      "elo+glicko_cs_full": [
+        "elo_s1_logit",
+        "glicko_cs_logit",
+        "rating_matchup|single",
+        "adjperf_tpw|decayed",
+        "ios_short",
+        "elo_games|single",
+        "sets_14d|single",
+        "surface_first|single",
+        "age|single",
+        "age|single|2"
+      ],
+      "ttt_calibrated": [
+        "ttt_logit"
+      ],
+      "ttt_sr": [
+        "ttt_logit",
+        "rating_matchup|single"
+      ],
+      "ttt_sr_adjperf": [
+        "ttt_logit",
+        "rating_matchup|single",
+        "adjperf_tpw|decayed"
+      ],
+      "ttt_sr_adjperf_ios": [
+        "ttt_logit",
+        "rating_matchup|single",
+        "adjperf_tpw|decayed",
+        "ios_short"
+      ],
+      "ttt_sr_adjperf_ios_games": [
+        "ttt_logit",
+        "rating_matchup|single",
+        "adjperf_tpw|decayed",
+        "ios_short",
+        "elo_games|single"
+      ],
+      "ttt_full": [
+        "ttt_logit",
+        "rating_matchup|single",
+        "adjperf_tpw|decayed",
+        "ios_short",
+        "elo_games|single",
+        "sets_14d|single",
+        "surface_first|single",
+        "age|single",
+        "age|single|2"
+      ],
+      "elo+ttt_full": [
+        "elo_s1_logit",
+        "ttt_logit",
+        "rating_matchup|single",
+        "adjperf_tpw|decayed",
+        "ios_short",
+        "elo_games|single",
+        "sets_14d|single",
+        "surface_first|single",
+        "age|single",
+        "age|single|2"
+      ],
+      "glicko2m_calibrated": [
+        "glicko2m_logit"
+      ],
+      "glicko2m_sr": [
+        "glicko2m_logit",
+        "rating_matchup|single"
+      ],
+      "glicko2m_sr_adjperf": [
+        "glicko2m_logit",
+        "rating_matchup|single",
+        "adjperf_tpw|decayed"
+      ],
+      "glicko2m_sr_adjperf_ios": [
+        "glicko2m_logit",
+        "rating_matchup|single",
+        "adjperf_tpw|decayed",
+        "ios_short"
+      ],
+      "glicko2m_sr_adjperf_ios_games": [
+        "glicko2m_logit",
+        "rating_matchup|single",
+        "adjperf_tpw|decayed",
+        "ios_short",
+        "elo_games|single"
+      ],
+      "glicko2m_full": [
+        "glicko2m_logit",
+        "rating_matchup|single",
+        "adjperf_tpw|decayed",
+        "ios_short",
+        "elo_games|single",
+        "sets_14d|single",
+        "surface_first|single",
+        "age|single",
+        "age|single|2"
+      ],
+      "elo+glicko2m_full": [
+        "elo_s1_logit",
+        "glicko2m_logit",
+        "rating_matchup|single",
+        "adjperf_tpw|decayed",
+        "ios_short",
+        "elo_games|single",
+        "sets_14d|single",
+        "surface_first|single",
+        "age|single",
+        "age|single|2"
+      ],
+      "trueskill_calibrated": [
+        "trueskill_logit"
+      ],
+      "trueskill_sr": [
+        "trueskill_logit",
+        "rating_matchup|single"
+      ],
+      "trueskill_sr_adjperf": [
+        "trueskill_logit",
+        "rating_matchup|single",
+        "adjperf_tpw|decayed"
+      ],
+      "trueskill_sr_adjperf_ios": [
+        "trueskill_logit",
+        "rating_matchup|single",
+        "adjperf_tpw|decayed",
+        "ios_short"
+      ],
+      "trueskill_sr_adjperf_ios_games": [
+        "trueskill_logit",
+        "rating_matchup|single",
+        "adjperf_tpw|decayed",
+        "ios_short",
+        "elo_games|single"
+      ],
+      "trueskill_full": [
+        "trueskill_logit",
+        "rating_matchup|single",
+        "adjperf_tpw|decayed",
+        "ios_short",
+        "elo_games|single",
+        "sets_14d|single",
+        "surface_first|single",
+        "age|single",
+        "age|single|2"
+      ],
+      "elo+trueskill_full": [
+        "elo_s1_logit",
+        "trueskill_logit",
+        "rating_matchup|single",
+        "adjperf_tpw|decayed",
+        "ios_short",
+        "elo_games|single",
+        "sets_14d|single",
+        "surface_first|single",
+        "age|single",
+        "age|single|2"
+      ]
+    },
+    "windows": {
+      "post_tuning_2019_2026": [
+        2019,
+        2026
+      ],
+      "recent_2022_2026": [
+        2022,
+        2026
+      ]
+    },
+    "intervals": "lo_mll / hi_mll: four-week calendar blocks of the match day; week_*: calendar weeks",
+    "note": "Stage 1's Elo and this study's ratings come from the full 2010-2026 history under the event-start time rule. A filtering rating (Elo, Glicko, TrueSkill, the correlated-surface ratings) moves only with the player's own matches, so an overlapping event's later rounds cannot reach another player's rating; TrueSkill Through Time re-scores opponents and can carry them across (small, not measured here)."
+  },
+  "shared_code": {
+    "code_sha256": {
+      "src/eda/predictability_diagnostic/common.py": "6fa433773dfbd5f4b9070b6fa22da8408a455489e8d6acdfb92c86a1d23b88cd",
+      "src/eda/predictability_diagnostic/stage1_baselines.py": "4ce00d8abd372f5ccc9f95e6d8d245c029712c1bfe452dc73b356ddca87edb76",
+      "src/eda/predictability_diagnostic/stage4_rundown.py": "d70cc965e8adc5be2e3292fcf5d62f67df7c702f683c18d4242fc93067d2d2cb",
+      "src/eda/ufc_ideas/common.py": "ca06a88240aaca2817a62ea29927c0037f90d2ddfc1342b2ee23b9a406d6c8c1",
+      "src/eda/ufc_ideas/stageA_rundown.py": "a1061714f227720f5bbc4d01a71697dfb9a9efa8450ace8cdeeb9c0bb884d4bf",
+      "src/eda/feature_alpha_audit/elo_retest.py": "606b74cd4b58610af38f3d3a6d1694dba5c7677018b8e01d7b28445f3e6cddf0",
+      "src/eda/feature_alpha_audit/profile_retest.py": "717572f1b54912de06a626ab8ca87f38f714698ca58fd09e0ef02422acc57c83"
+    },
+    "input_tables": {
+      "data/studies/predictability_diagnostic/stage0_matches.parquet": {
+        "bytes": 26426965,
+        "modified": "2026-09-30T17:30:51+00:00"
+      },
+      "data/studies/predictability_diagnostic/stage0_match_players.parquet": {
+        "bytes": 62258289,
+        "modified": "2026-09-30T17:30:53+00:00"
+      },
+      "data/studies/predictability_diagnostic/stage1_baselines.parquet": {
+        "bytes": 74635669,
+        "modified": "2026-09-30T21:18:13+00:00"
+      },
+      "data/studies/predictability_diagnostic/stage1_odds.parquet": {
+        "bytes": 3310519,
+        "modified": "2026-09-30T21:25:41+00:00"
+      },
+      "data/studies/predictability_diagnostic/stage4_features.parquet": {
+        "bytes": 196959142,
+        "modified": "2026-10-02T02:15:25+00:00"
+      },
+      "data/studies/ufc_ideas/stageB_adj_features.parquet": {
+        "bytes": 129380976,
+        "modified": "2026-10-02T21:03:29+00:00"
+      },
+      "data/studies/ufc_ideas/stageB_ios_features.parquet": {
+        "bytes": 32727990,
+        "modified": "2026-10-02T21:42:47+00:00"
+      },
+      "data/studies/ufc_ideas/stageD_profile_features.parquet": {
+        "bytes": 110514550,
+        "modified": "2026-10-02T22:22:53+00:00"
+      }
+    }
+  },
+  "seconds": 89.7
+}

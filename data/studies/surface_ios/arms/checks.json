@@ -1,0 +1,284 @@
+{
+ "iosO_ace": {
+  "max_abs_gap": 1.4432899320127035e-15,
+  "same_missing": true
+ },
+ "iosD_ace": {
+  "max_abs_gap": 1.1102230246251565e-15,
+  "same_missing": true
+ },
+ "prod_ace": {
+  "max_abs_gap": 1.7763568394002505e-15,
+  "same_missing": true
+ },
+ "iosO_df": {
+  "max_abs_gap": 5.551115123125783e-16,
+  "same_missing": true
+ },
+ "iosD_df": {
+  "max_abs_gap": 5.551115123125783e-16,
+  "same_missing": true
+ },
+ "prod_df": {
+  "max_abs_gap": 3.3306690738754696e-16,
+  "same_missing": true
+ },
+ "iosO_first_in": {
+  "max_abs_gap": 3.3306690738754696e-16,
+  "same_missing": true
+ },
+ "iosD_first_in": {
+  "max_abs_gap": 1.6653345369377348e-16,
+  "same_missing": true
+ },
+ "prod_first_in": {
+  "max_abs_gap": 6.938893903907228e-17,
+  "same_missing": true
+ },
+ "iosO_first_won": {
+  "max_abs_gap": 1.0547118733938987e-15,
+  "same_missing": true
+ },
+ "iosD_first_won": {
+  "max_abs_gap": 1.0547118733938987e-15,
+  "same_missing": true
+ },
+ "prod_first_won": {
+  "max_abs_gap": 9.992007221626409e-16,
+  "same_missing": true
+ },
+ "iosO_second_won": {
+  "max_abs_gap": 6.106226635438361e-16,
+  "same_missing": true
+ },
+ "iosD_second_won": {
+  "max_abs_gap": 7.771561172376096e-16,
+  "same_missing": true
+ },
+ "prod_second_won": {
+  "max_abs_gap": 3.885780586188048e-16,
+  "same_missing": true
+ },
+ "iosO_hold": {
+  "max_abs_gap": 2.4424906541753444e-15,
+  "same_missing": true
+ },
+ "iosD_hold": {
+  "max_abs_gap": 3.1086244689504383e-15,
+  "same_missing": true
+ },
+ "prod_hold": {
+  "max_abs_gap": 5.329070518200751e-15,
+  "same_missing": true
+ },
+ "iosO_bp_saved": {
+  "max_abs_gap": 5.551115123125783e-16,
+  "same_missing": true
+ },
+ "iosD_bp_saved": {
+  "max_abs_gap": 5.551115123125783e-16,
+  "same_missing": true
+ },
+ "prod_bp_saved": {
+  "max_abs_gap": 2.220446049250313e-16,
+  "same_missing": true
+ },
+ "arm:base": {
+  "columns": 54,
+  "derived": [],
+  "missing_share": {}
+ },
+ "arm:sprof": {
+  "columns": 54,
+  "derived": [
+   "iosO_ace",
+   "iosD_ace",
+   "iosO_df",
+   "iosD_df",
+   "iosO_first_in",
+   "iosD_first_in",
+   "iosO_first_won",
+   "iosD_first_won",
+   "iosO_second_won",
+   "iosD_second_won",
+   "iosO_hold",
+   "iosD_hold",
+   "iosO_bp_saved",
+   "iosD_bp_saved",
+   "prod_ace",
+   "prod_df",
+   "prod_first_in",
+   "prod_first_won",
+   "prod_second_won",
+   "prod_hold",
+   "prod_bp_saved"
+  ],
+  "missing_share": {
+   "iosO_ace": 0.0,
+   "iosD_ace": 0.0,
+   "iosO_df": 0.0,
+   "iosD_df": 0.0,
+   "iosO_first_in": 0.0,
+   "iosD_first_in": 0.0,
+   "iosO_first_won": 0.0,
+   "iosD_first_won": 0.0,
+   "iosO_second_won": 0.0,
+   "iosD_second_won": 0.0,
+   "iosO_hold": 0.0,
+   "iosD_hold": 0.0,
+   "iosO_bp_saved": 0.0,
+   "iosD_bp_saved": 0.0,
+   "prod_ace": 0.0,
+   "prod_df": 0.0,
+   "prod_first_in": 0.0,
+   "prod_first_won": 0.0,
+   "prod_second_won": 0.0,
+   "prod_hold": 0.0,
+   "prod_bp_saved": 0.0
+  }
+ },
+ "arm:sdev": {
+  "columns": 62,
+  "derived": [
+   "sdevO_spw",
+   "sdevD_spw",
+   "sdevO_hold",
+   "sdevD_hold",
+   "sdevO_first_won",
+   "sdevD_first_won",
+   "sdevO_ace",
+   "sdevD_ace"
+  ],
+  "missing_share": {
+   "sdevO_spw": 0.0,
+   "sdevD_spw": 0.0,
+   "sdevO_hold": 0.0,
+   "sdevD_hold": 0.0,
+   "sdevO_first_won": 0.0,
+   "sdevD_first_won": 0.0,
+   "sdevO_ace": 0.0,
+   "sdevD_ace": 0.0
+  }
+ },
+ "arm:snet1": {
+  "columns": 55,
+  "derived": [
+   "dnet_spw"
+  ],
+  "missing_share": {
+   "dnet_spw": 0.0
+  }
+ },
+ "arm:snet1_perm": {
+  "columns": 55,
+  "derived": [
+   "dnet_spw"
+  ],
+  "missing_share": {
+   "dnet_spw": 0.0
+  }
+ },
+ "arm:base_noodds": {
+  "columns": 53,
+  "derived": [],
+  "missing_share": {}
+ },
+ "arm:sprof_noodds": {
+  "columns": 53,
+  "derived": [
+   "iosO_ace",
+   "iosD_ace",
+   "iosO_df",
+   "iosD_df",
+   "iosO_first_in",
+   "iosD_first_in",
+   "iosO_first_won",
+   "iosD_first_won",
+   "iosO_second_won",
+   "iosD_second_won",
+   "iosO_hold",
+   "iosD_hold",
+   "iosO_bp_saved",
+   "iosD_bp_saved",
+   "prod_ace",
+   "prod_df",
+   "prod_first_in",
+   "prod_first_won",
+   "prod_second_won",
+   "prod_hold",
+   "prod_bp_saved"
+  ],
+  "missing_share": {
+   "iosO_ace": 0.0,
+   "iosD_ace": 0.0,
+   "iosO_df": 0.0,
+   "iosD_df": 0.0,
+   "iosO_first_in": 0.0,
+   "iosD_first_in": 0.0,
+   "iosO_first_won": 0.0,
+   "iosD_first_won": 0.0,
+   "iosO_second_won": 0.0,
+   "iosD_second_won": 0.0,
+   "iosO_hold": 0.0,
+   "iosD_hold": 0.0,
+   "iosO_bp_saved": 0.0,
+   "iosD_bp_saved": 0.0,
+   "prod_ace": 0.0,
+   "prod_df": 0.0,
+   "prod_first_in": 0.0,
+   "prod_first_won": 0.0,
+   "prod_second_won": 0.0,
+   "prod_hold": 0.0,
+   "prod_bp_saved": 0.0
+  }
+ },
+ "arm:sprof_bysurf": {
+  "columns": 54,
+  "derived": [
+   "iosO_ace",
+   "iosD_ace",
+   "iosO_df",
+   "iosD_df",
+   "iosO_first_in",
+   "iosD_first_in",
+   "iosO_first_won",
+   "iosD_first_won",
+   "iosO_second_won",
+   "iosD_second_won",
+   "iosO_hold",
+   "iosD_hold",
+   "iosO_bp_saved",
+   "iosD_bp_saved",
+   "prod_ace",
+   "prod_df",
+   "prod_first_in",
+   "prod_first_won",
+   "prod_second_won",
+   "prod_hold",
+   "prod_bp_saved"
+  ],
+  "missing_share": {
+   "iosO_ace": 0.0,
+   "iosD_ace": 0.0,
+   "iosO_df": 0.0,
+   "iosD_df": 0.0,
+   "iosO_first_in": 0.0,
+   "iosD_first_in": 0.0,
+   "iosO_first_won": 0.0,
+   "iosD_first_won": 0.0,
+   "iosO_second_won": 0.0,
+   "iosD_second_won": 0.0,
+   "iosO_hold": 0.0,
+   "iosD_hold": 0.0,
+   "iosO_bp_saved": 0.0,
+   "iosD_bp_saved": 0.0,
+   "prod_ace": 0.0,
+   "prod_df": 0.0,
+   "prod_first_in": 0.0,
+   "prod_first_won": 0.0,
+   "prod_second_won": 0.0,
+   "prod_hold": 0.0,
+   "prod_bp_saved": 0.0
+  }
+ }
+}

@@ -1,0 +1,107 @@
+{
+ "built_at": "2026-10-07T23:35:11+00:00",
+ "reads_results": false,
+ "scenarios": [
+  "S0_held",
+  "S1_on_disk",
+  "N1_mantd",
+  "N2_slams",
+  "H1_atp_files",
+  "H2_slams_full",
+  "H3_wta"
+ ],
+ "holdout_2025_26": {
+  "atp": {
+   "frame_matches": 4925,
+   "with_feature": {
+    "S0_held": 454,
+    "S1_on_disk": 622,
+    "N1_mantd": 2392,
+    "N2_slams": 2590,
+    "H1_atp_files": 3772,
+    "H2_slams_full": 3772,
+    "H3_wta": 3772
+   },
+   "share": {
+    "S0_held": 0.0922,
+    "S1_on_disk": 0.1263,
+    "N1_mantd": 0.4857,
+    "N2_slams": 0.5259,
+    "H1_atp_files": 0.7659,
+    "H2_slams_full": 0.7659,
+    "H3_wta": 0.7659
+   },
+   "power_beta_0.09": {
+    "S0_held": 0.136,
+    "S1_on_disk": 0.17,
+    "N1_mantd": 0.506,
+    "N2_slams": 0.538,
+    "H1_atp_files": 0.699,
+    "H2_slams_full": 0.699,
+    "H3_wta": 0.699
+   }
+  },
+  "wta": {
+   "frame_matches": 4778,
+   "with_feature": {
+    "S0_held": 272,
+    "S1_on_disk": 432,
+    "N1_mantd": 432,
+    "N2_slams": 575,
+    "H1_atp_files": 575,
+    "H2_slams_full": 575,
+    "H3_wta": 3407
+   },
+   "share": {
+    "S0_held": 0.0569,
+    "S1_on_disk": 0.0904,
+    "N1_mantd": 0.0904,
+    "N2_slams": 0.1203,
+    "H1_atp_files": 0.1203,
+    "H2_slams_full": 0.1203,
+    "H3_wta": 0.7131
+   },
+   "power_beta_0.09": {
+    "S0_held": 0.098,
+    "S1_on_disk": 0.131,
+    "N1_mantd": 0.131,
+    "N2_slams": 0.161,
+    "H1_atp_files": 0.161,
+    "H2_slams_full": 0.161,
+    "H3_wta": 0.655
+   }
+  }
+ },
+ "power_note": "two-sided 5% Wald test, SE = 1/sqrt(n * 0.19 * 1.06) as speed_prereg.md section 8; beta 0.09 is the 2022-24 replication estimate (probably inflated). The women's row uses the same formula",
+ "polymarket_window_10sep2025_10sep2026": {
+  "atp": {
+   "frame": 2640,
+   "S0_held": 137,
+   "S1_on_disk": 212,
+   "N1_mantd": 1467,
+   "N2_slams": 1540,
+   "H1_atp_files": 2044,
+   "H2_slams_full": 2044,
+   "H3_wta": 2044
+  },
+  "wta": {
+   "frame": 2505,
+   "S0_held": 130,
+   "S1_on_disk": 212,
+   "N1_mantd": 212,
+   "N2_slams": 282,
+   "H1_atp_files": 282,
+   "H2_slams_full": 282,
+   "H3_wta": 1775
+  }
+ },
+ "men_2022_24": {
+  "S0_held": 3592,
+  "S1_on_disk": 4019,
+  "N1_mantd": 4127,
+  "N2_slams": 4127,
+  "H1_atp_files": 4127,
+  "H2_slams_full": 4127,
+  "H3_wta": 4127
+ }
+}

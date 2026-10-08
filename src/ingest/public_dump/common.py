@@ -24,6 +24,7 @@ import gzip
 import hashlib
 import io
 import json
+import os
 import re
 import sys
 import threading
@@ -103,29 +104,58 @@ def log(message: str) -> None:
 # receipts and downloads
 # --------------------------------------------------------------------------------------
 class Receipts:
-    """Append-only JSONL receipts for one source; the latest receipt per name wins."""
+    """Append-only JSONL receipts for one source; the latest receipt per name wins.
+
+    A line cut short by an interrupted write (or being written while another process reads) is skipped and
+    counted in ``unreadable_lines``: its fetch simply has no receipt and is done again. The next record starts
+    on a fresh line, so a cut-short line never swallows a good one."""
 
     def __init__(self, source: str, root: Path | None = None):
         self.source = source
         self.path = (root or RAW_ROOT) / source / "_receipts.jsonl"
         self.path.parent.mkdir(parents=True, exist_ok=True)
         self._latest: dict[str, dict] = {}
+        self._seen: dict[tuple[str, str], list[dict]] = {}     # (name, sha256) -> [first receipt, last receipt]
         self._lock = threading.Lock()
+        self.unreadable_lines = 0
+        self._needs_newline = False
         if self.path.exists():
-            with self.path.open(encoding="utf-8") as handle:
-                for line in handle:
-                    if line.strip():
-                        receipt = json.loads(line)
-                        self._latest[receipt["name"]] = receipt
+            text = self.path.read_text(encoding="utf-8", errors="replace")
+            self._needs_newline = bool(text) and not text.endswith("\n")
+            for line in text.splitlines():
+                if not line.strip():
+                    continue
+                try:
+                    receipt = json.loads(line)
+                except json.JSONDecodeError:
+                    self.unreadable_lines += 1
+                    continue
+                self._latest[receipt["name"]] = receipt
+                self._note_sighting(receipt)
+
+    def _note_sighting(self, receipt: dict) -> None:
+        if receipt.get("sha256") and not receipt.get("error"):
+            pair = self._seen.setdefault((receipt["name"], receipt["sha256"]), [receipt, receipt])
+            pair[1] = receipt
 
     def get(self, name: str) -> dict | None:
         return self._latest.get(name)
 
+    def sightings(self, name: str, sha256: str) -> tuple[dict | None, dict | None]:
+        """The first and the last receipt of ``name`` that describe bytes with this SHA-256. The receipts file is
+        append-only and holds every fetch, so it is the record of when a version was first seen: never compact it."""
+        first, last = self._seen.get((name, sha256), (None, None))
+        return first, last
+
     def record(self, receipt: dict) -> dict:
         with self._lock:
             with self.path.open("a", encoding="utf-8") as handle:
+                if self._needs_newline:
+                    handle.write("\n")
+                    self._needs_newline = False
                 handle.write(json.dumps(receipt, ensure_ascii=False) + "\n")
             self._latest[receipt["name"]] = receipt
+            self._note_sighting(receipt)
         return receipt
 
     def all(self) -> dict[str, dict]:
@@ -145,12 +175,86 @@ def session() -> requests.Session:
     return sess
 
 
+def write_atomic(path: Path, data: bytes) -> None:
+    """Write whole, then rename: an interrupted write never leaves a truncated file in place of a good one."""
+    part = path.with_name(path.name + ".part")
+    part.write_bytes(data)
+    os.replace(part, path)
+
+
+def read_meta(path: Path) -> dict | None:
+    """The .meta.json beside ``path``, or None when it is missing or unreadable."""
+    meta = path.parent / (path.name + ".meta.json")
+    try:
+        return json.loads(meta.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError):
+        return None
+
+
+def _side_path(receipts: Receipts, dest: Path, folder: str, filename: str) -> Path:
+    """<source>/<folder>/<dest's subfolders under the source>/<filename>."""
+    root = receipts.path.parent
+    try:
+        sub = dest.parent.relative_to(root)
+    except ValueError:
+        sub = Path()
+    return root / folder / sub / filename
+
+
+def keep_replaced(dest: Path, name: str, receipts: Receipts, body: bytes) -> str | None:
+    """Keep the bytes at ``dest`` before a download replaces them with a different ``body``.
+
+    They go to <source>/superseded/<dest's subfolders>/<stem>.<stamp>.<sha256[:12]><suffix>, with a .meta.json
+    holding their first and last receipts, the layout tennis_data_couk.py uses for workbooks. The stamp is the
+    first time these bytes were seen (their earliest receipt; the file time when no receipt describes them), so a
+    version that comes back after another one (A, B, A) is kept once. Copy and meta are written atomically; a kept
+    copy whose hash is wrong (an interrupted earlier run) is written again, and a missing or stale meta refreshed.
+    Returns the kept path (project-relative), or None when there was nothing to keep."""
+    if not dest.exists():
+        return None
+    old = dest.read_bytes()
+    old_sha = sha256_bytes(old)
+    if old_sha == sha256_bytes(body):
+        return None
+    first, last = receipts.sightings(name, old_sha)
+    stamp = re.sub(r"\D", "", (first or {}).get("retrieved_at", ""))[:14] or dt.datetime.fromtimestamp(
+        dest.stat().st_mtime, dt.timezone.utc).strftime("%Y%m%d%H%M%S")
+    kept = _side_path(receipts, dest, "superseded", f"{dest.stem}.{stamp}.{old_sha[:12]}{dest.suffix}")
+    meta = {"sha256": old_sha, "bytes": len(old), "receipt": last, "first_seen": first,
+            "replaced_by_sha256": sha256_bytes(body)}
+    if not kept.exists() or sha256_file(kept) != old_sha:
+        kept.parent.mkdir(parents=True, exist_ok=True)
+        write_atomic(kept, old)
+        write_meta(kept, meta)
+    elif (read_meta(kept) or {}).get("receipt") != last:
+        write_meta(kept, meta)
+    return rel(kept)
+
+
+def keep_held(dest: Path, name: str, receipts: Receipts, body: bytes, reason: str) -> str:
+    """Keep a received version that a gate refused to make current: <source>/held/<dest's subfolders>/
+    <stem>.<sha256[:12]><suffix>, with a .meta.json giving the reason. One copy per version."""
+    sha = sha256_bytes(body)
+    held = _side_path(receipts, dest, "held", f"{dest.stem}.{sha[:12]}{dest.suffix}")
+    if not held.exists() or sha256_file(held) != sha:
+        held.parent.mkdir(parents=True, exist_ok=True)
+        write_atomic(held, body)
+    write_meta(held, {"sha256": sha, "bytes": len(body), "name": name, "reason": reason, "held_at": utc_now_iso()})
+    return rel(held)
+
+
 def download(url: str, dest: Path, receipts: Receipts, *, name: str | None = None,
              refresh: bool = False, timeout: int = 120, retries: int = 2,
-             validator=None, extra: dict | None = None, sess=None) -> dict:
+             validator=None, extra: dict | None = None, sess=None, keep_superseded: bool = False,
+             gate=None) -> dict:
     """GET ``url`` into ``dest`` and record a receipt. HTTP/validation failures never raise;
     the returned receipt carries an ``error`` key instead. A successful earlier download is
-    reused (``skipped: True``) unless ``refresh`` is set."""
+    reused (``skipped: True``) unless ``refresh`` is set. With ``keep_superseded``, bytes the
+    download replaces are kept first (keep_replaced) and the receipt names them under ``superseded``.
+
+    ``gate``, a function of the new bytes returning a reason or None, can refuse to make a valid download
+    current: the bytes are kept aside (keep_held), ``dest`` stays as it was, and the receipt is recorded under
+    ``held/<name>`` with the reason in ``held``, so the latest receipt under ``name`` still describes ``dest``."""
     name = name or rel(dest)
     previous = receipts.get(name)
     if dest.exists() and previous and not previous.get("error") and not refresh:
@@ -178,9 +282,17 @@ def download(url: str, dest: Path, receipts: Receipts, *, name: str | None = Non
             if problem:
                 last_error = problem
                 break
+            reason = gate(body) if gate else None
+            if reason:
+                held = {**receipt, "name": f"held/{name}", "dest": keep_held(dest, name, receipts, body, reason),
+                        "bytes": len(body), "sha256": sha256_bytes(body), "held": reason}
+                return receipts.record(held)
             dest.parent.mkdir(parents=True, exist_ok=True)
-            dest.write_bytes(body)
+            kept = keep_replaced(dest, name, receipts, body) if keep_superseded else None
+            write_atomic(dest, body)
             receipt.update(bytes=len(body), sha256=sha256_bytes(body))
+            if kept:
+                receipt["superseded"] = kept
             return receipts.record(receipt)
         except requests.RequestException as err:
             last_error = f"{type(err).__name__}: {err}"
@@ -475,7 +587,7 @@ def stage_parquet_as_strings(src: Path, dest: Path, prov: Provenance) -> dict:
 # metadata sidecars ----------------------------------------------------------------------
 def write_meta(dest: Path, meta: dict) -> Path:
     path = dest.parent / (dest.name + ".meta.json")
-    path.write_text(json.dumps(meta, indent=1, ensure_ascii=False), encoding="utf-8")
+    write_atomic(path, json.dumps(meta, indent=1, ensure_ascii=False).encode("utf-8"))
     return path
 
 

@@ -1,0 +1,250 @@
+{
+ "built_at": "2026-09-29T18:17:26Z",
+ "itftennis_com": {
+  "robots_txt": "User-agent: * / Disallow: /umbraco/ / Allow: / (fetched 2026-09-29)",
+  "front": "Imperva (x-cdn: Imperva; visid_incap/incap_ses/nlbi cookies; ABP script on pages)",
+  "requests": {
+   "robots.txt": {
+    "url": "https://www.itftennis.com/robots.txt",
+    "status": 200,
+    "bytes": 128,
+    "retrieved_at": "2026-09-29T17:28:23Z",
+    "problem": null
+   },
+   "pages/m-itf-tur-29a-2023_overview.html": {
+    "url": "https://www.itftennis.com/en/tournament/m15-antalya/tur/2023/m-itf-tur-29a-2023/",
+    "status": 200,
+    "bytes": 61292,
+    "retrieved_at": "2026-09-29T17:29:38Z",
+    "problem": null
+   },
+   "api/eventfilters_M-ITF-TUR-29A-2023.json": {
+    "url": "https://www.itftennis.com/tennis/api/TournamentApi/GetEventFilters?tournamentKey=M-ITF-TUR-29A-2023",
+    "status": 200,
+    "bytes": 659,
+    "retrieved_at": "2026-09-29T17:31:11Z",
+    "problem": null
+   },
+   "api/drawsheet_M-ITF-TUR-29A-2023_S_Q.json": {
+    "url": "https://www.itftennis.com/tennis/api/TournamentApi/GetDrawsheet?circuitCode=MT&eventClassificationCode=Q&matchTypeCode=S&tournamentId=1100192931&tourType=N&weekNumber=0",
+    "status": 403,
+    "bytes": 853,
+    "retrieved_at": "2026-09-29T17:31:24Z",
+    "problem": "HTTP 403"
+   }
+  },
+  "api_endpoints_in_page_bundle": "31 /tennis/api/* paths in bundle.js, e.g. TournamentApi/GetCalendar, GetEventFilters, GetDrawsheet, GetOrderOfPlay, PlayerApi/GetPlayerActivity",
+  "drawsheet_parameters": "circuitCode (MT/WT), eventClassificationCode (M main, Q qualifying), matchTypeCode (S/D), tournamentId (numeric, from GetEventFilters), tourType (N), weekNumber=0",
+  "blocked": {
+   "problem": "HTTP 403 (Incapsula incident page, edet=15)",
+   "url": "https://www.itftennis.com/tennis/api/TournamentApi/GetDrawsheet?circuitCode=MT&eventClassificationCode=Q&matchTypeCode=S&tournamentId=1100192931&tourType=N&weekNumber=0",
+   "at": "2026-09-29T17:31:24Z",
+   "name": "api/drawsheet_M-ITF-TUR-29A-2023_S_Q.json"
+  }
+ },
+ "wayback_cdx": {
+  "itftennis_GetDrawsheet_captures": 30,
+  "itftennis_GetDrawsheet_captures_with_parameters": 2,
+  "stadion_api_captures": 384,
+  "stadion_day_list_captures": [
+   "2025-01-30 (captured 20250723)",
+   "2025-03-17 (captured 20250323)",
+   "2025-05-16 (captured 20250516)",
+   "2025-06-09 (captured 20250610)",
+   "2026-01-29 (captured 20260210)",
+   "2026-05-11 (captured 20260511)"
+  ]
+ },
+ "stadion_live_window": {
+  "first_list_date": "2026-09-15",
+  "last_list_date": "2026-09-29",
+  "out_of_window_answer": "HTTP 422 'date must be within 14 days of today'",
+  "matches": 3637,
+  "events": 64
+ },
+ "stadion_live_by_main_draw_week": {
+  "2026-W38 M": {
+   "events": 10,
+   "qualifying_listed": 44,
+   "qualifying_with_result": 44,
+   "main_listed": 306,
+   "main_with_result": 306
+  },
+  "2026-W38 W": {
+   "events": 8,
+   "main_listed": 244,
+   "main_with_result": 244,
+   "qualifying_listed": 32,
+   "qualifying_with_result": 32
+  },
+  "2026-W39 M": {
+   "events": 13,
+   "qualifying_listed": 485,
+   "qualifying_with_result": 479,
+   "main_listed": 403,
+   "main_with_result": 403
+  },
+  "2026-W39 W": {
+   "events": 10,
+   "qualifying_listed": 283,
+   "qualifying_with_result": 280,
+   "main_listed": 309,
+   "main_with_result": 309
+  },
+  "2026-W40 M": {
+   "events": 12,
+   "qualifying_listed": 412,
+   "qualifying_with_result": 406,
+   "main_listed": 72,
+   "main_with_result": 61
+  },
+  "2026-W40 W": {
+   "events": 11,
+   "qualifying_listed": 292,
+   "qualifying_with_result": 279,
+   "main_listed": 60,
+   "main_with_result": 46
+  }
+ },
+ "stadion_wayback_days": {
+  "2025-01-30 men": {
+   "main_listed": 56,
+   "main_with_result": 56,
+   "events": 7
+  },
+  "2025-01-30 women": {
+   "main_listed": 68,
+   "main_with_result": 68,
+   "events": 9
+  },
+  "2025-03-17 men": {
+   "qualifying_listed": 233,
+   "qualifying_with_result": 233,
+   "events": 16
+  },
+  "2025-03-17 women": {
+   "qualifying_listed": 188,
+   "qualifying_with_result": 185,
+   "main_listed": 6,
+   "main_with_result": 6,
+   "events": 15
+  },
+  "2025-05-16 men": {
+   "main_listed": 58,
+   "main_with_result": 52,
+   "events": 14
+  },
+  "2025-05-16 women": {
+   "main_listed": 58,
+   "main_with_result": 56,
+   "events": 16
+  },
+  "2025-06-09 men": {
+   "qualifying_listed": 273,
+   "qualifying_with_result": 269,
+   "main_listed": 3,
+   "main_with_result": 3,
+   "events": 18
+  },
+  "2025-06-09 women": {
+   "qualifying_listed": 157,
+   "qualifying_with_result": 155,
+   "main_listed": 6,
+   "main_with_result": 6,
+   "events": 14
+  },
+  "2026-01-29 men": {
+   "main_listed": 73,
+   "main_with_result": 73,
+   "events": 9
+  },
+  "2026-01-29 women": {
+   "main_listed": 61,
+   "main_with_result": 61,
+   "events": 8
+  },
+  "2026-05-11 men": {
+   "qualifying_listed": 192,
+   "qualifying_with_result": 187,
+   "main_listed": 3,
+   "main_with_result": 3,
+   "events": 14
+  },
+  "2026-05-11 women": {
+   "qualifying_listed": 155,
+   "qualifying_with_result": 154,
+   "main_listed": 7,
+   "main_with_result": 7,
+   "events": 15
+  }
+ },
+ "sampled_events": 21,
+ "main_draw_2025_statistics_check": [
+  {
+   "list_date": "2025-01-30",
+   "event": "W15 Antalya",
+   "itf_tournament_key": "W-ITF-TUR-2025-004",
+   "round": "R16",
+   "match_id": "02e082ef-f767-4559-8ded-3b0251cadb64",
+   "match_tennisId": "W-ITF-TUR-2025-004-S-M-2-16-002-7267B81E-7F7D-43C7-BDA5-0BF01BEA6BC4",
+   "stats_with_values": false,
+   "stat_names": 0,
+   "pbp_with_points": false
+  },
+  {
+   "list_date": "2025-05-16",
+   "event": "W35 Bethany Beach",
+   "itf_tournament_key": "W-ITF-USA-2025-018",
+   "round": "Quarterfinals",
+   "match_id": "04c72e81-6edf-41d6-91d7-b67f17f7eafa",
+   "match_tennisId": "W-ITF-USA-2025-018-S-M-3-QF-001-DAAA28B5-B998-4795-870F-70A8951CA1DB",
+   "stats_with_values": true,
+   "stat_names": 34,
+   "pbp_with_points": true
+  },
+  {
+   "list_date": "2025-05-16",
+   "event": "W15 Tsaghkadzor",
+   "itf_tournament_key": "W-ITF-ARM-2025-001",
+   "round": "R16",
+   "match_id": "095c7f4f-7913-409d-a6f5-0494d615351e",
+   "match_tennisId": "W-ITF-ARM-2025-001-S-M-2-16-001-D18C85A0-C207-4DA6-AC34-63BEBD155D81",
+   "stats_with_values": true,
+   "stat_names": 34,
+   "pbp_with_points": true
+  },
+  {
+   "list_date": "2025-01-30",
+   "event": "M25 Antalya",
+   "itf_tournament_key": "M-ITF-TUR-2025-004",
+   "round": "R16",
+   "match_id": "03231dfd-6285-48cf-b767-2f241bcc23e6",
+   "match_tennisId": "M-ITF-TUR-2025-004-S-M-2-16-005-19DC70FD-6DDD-43D1-B5B4-290AD6F74CE6",
+   "stats_with_values": true,
+   "stat_names": 34,
+   "pbp_with_points": true
+  },
+  {
+   "list_date": "2025-05-16",
+   "event": "M15 Luan",
+   "itf_tournament_key": "M-ITF-CHN-2025-010",
+   "round": "Quarterfinals",
+   "match_id": "02ce8182-77a2-4520-89c1-f8fd31d7aca3",
+   "match_tennisId": "M-ITF-CHN-2025-010-S-M-3-QF-001-10C126EF-BE19-4144-A6C8-05A3E1913339",
+   "stats_with_values": true,
+   "stat_names": 34,
+   "pbp_with_points": true
+  },
+  {
+   "list_date": "2025-05-16",
+   "event": "M25 Reggio Emilia",
+   "itf_tournament_key": "M-ITF-ITA-2025-008",
+   "round": "Quarterfinals",
+   "match_id": "0313bf20-deac-4ee6-a769-cb183457c040",
+   "match_tennisId": "M-ITF-ITA-2025-008-S-M-3-QF-001-5337CBBE-64DE-4A0D-9CEF-16C51C0E698D",
+   "stats_with_values": true,
+   "stat_names": 34,
+   "pbp_with_points": true
+  }
+ ]
+}

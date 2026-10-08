@@ -1,0 +1,99 @@
+{
+ "pool_matches": 255759,
+ "history_matches": 873364,
+ "per_player_features": [
+  "rating_matchup|single",
+  "sets_14d|single",
+  "surface_first|single",
+  "age|single",
+  "age|single|2",
+  "elo_games|single",
+  "mu_points|52 weeks",
+  "adjperf_ace|decayed",
+  "adjperf_df|decayed",
+  "adjperf_first_in|decayed",
+  "adjperf_first_won|decayed",
+  "adjperf_second_won|decayed",
+  "adjperf_hold|decayed",
+  "adjperf_bp_saved|decayed",
+  "adjperf_bp_faced_pg|decayed",
+  "adjperf_brk|decayed",
+  "adjperf_bp_conv|decayed",
+  "adjperf_rpw_first|decayed",
+  "adjperf_rpw_second|decayed",
+  "adjperf_tpw|decayed",
+  "adjdef_ace|decayed",
+  "adjdef_df|decayed",
+  "adjdef_first_in|decayed",
+  "adjdef_bp_faced_pg|decayed"
+ ],
+ "data_repairs": {
+  "identity_player_rows_changed": 0,
+  "historical_plain_match_tiebreaks_corrected": 7652,
+  "negative_primitive_box_matches_masked": 0,
+  "invalid_rate_rows_masked": {
+   "spw": 0,
+   "rpw": 0,
+   "tpw": 0,
+   "hold": 0,
+   "brk": 0,
+   "ace": 0,
+   "df": 0,
+   "first_in": 0,
+   "first_won": 0,
+   "second_won": 0,
+   "bp_saved": 0,
+   "bp_conv": 0,
+   "bp_faced_pg": 0,
+   "tb_won": 0,
+   "sets_won": 0,
+   "games_won": 0
+  },
+  "implausible_minutes_masked": 0,
+  "match_id_and_side_orientation": "Original stable handles retained; canonical player IDs corrected separately.",
+  "box_scores_previously_discarded": "Not reconstructed from missing derived values; the corrected raw Stage 0 builder handles subsequent source rebuilds."
+ },
+ "ratings": {
+  "elo_constants": {
+   "atp": {
+    "tour": "atp",
+    "rule": "ret",
+    "k0": 600.0,
+    "offset": 2.0,
+    "shape": 0.6,
+    "w": 0.3
+   },
+   "wta": {
+    "tour": "wta",
+    "rule": "ret",
+    "k0": 600.0,
+    "offset": 1.0,
+    "shape": 0.6,
+    "w": 0.25
+   }
+  },
+  "sr_constants": {
+   "atp": {
+    "var_serve": 0.02,
+    "var_return": 0.005,
+    "drift": 0.0002,
+    "start_serve": -0.2,
+    "start_return": 0.0
+   },
+   "wta": {
+    "var_serve": 0.02,
+    "var_return": 0.005,
+    "drift": 0.0001,
+    "start_serve": -0.1,
+    "start_return": 0.0
+   }
+  },
+  "rating_updates": 287187,
+  "all_matches": 873364
+ },
+ "box_history": {
+  "eligible_rows": 1671780,
+  "own_score_standard_rows": 1218772
+ },
+ "seconds": 170.0
+}

@@ -1,0 +1,2508 @@
+{
+ "source": {
+  "dataset": "https://www.kaggle.com/datasets/marcosjn2/tennis-point-by-point-match-dataset-20152025",
+  "version": 2,
+  "files": [
+   {
+    "name": "atp-matches.jsonl",
+    "bytes": 145024923,
+    "created": "2025-08-29T16:30:14.066Z"
+   },
+   {
+    "name": "wta-matches.jsonl",
+    "bytes": 118527233,
+    "created": "2025-08-29T16:30:14.131Z"
+   }
+  ],
+  "receipts": [
+   {
+    "name": "atp-matches.jsonl",
+    "dest": "data/raw/gap_sources/marcosjn2/atp-matches.jsonl",
+    "dataset_ref": "marcosjn2/tennis-point-by-point-match-dataset-20152025",
+    "dataset_id": 8163030,
+    "version_number": 2,
+    "storage_version_id": "12907792",
+    "storage_path": "https://storage.googleapis.com/kagglesdsdata/datasets/8163030/12907792/atp-matches.jsonl",
+    "signed_url_expires_s": 259200,
+    "bytes": 145024923,
+    "sha256": "57ddc344997ccb221d406dca451998bd5ea1159e755da6a7ba79f67c1b00d8ca",
+    "retrieved_at": "2026-09-29T17:29:42Z",
+    "last_updated": "2025-08-29T16:30:11.26Z",
+    "license": "MIT"
+   },
+   {
+    "name": "wta-matches.jsonl",
+    "dest": "data/raw/gap_sources/marcosjn2/wta-matches.jsonl",
+    "dataset_ref": "marcosjn2/tennis-point-by-point-match-dataset-20152025",
+    "dataset_id": 8163030,
+    "version_number": 2,
+    "storage_version_id": "12907792",
+    "storage_path": "https://storage.googleapis.com/kagglesdsdata/datasets/8163030/12907792/wta-matches.jsonl",
+    "signed_url_expires_s": 259200,
+    "bytes": 118527233,
+    "sha256": "4243a226ae4cb74c67a5ee1a87e3627b1d11ca69bc2fbc0d6f26eb9af56231f0",
+    "retrieved_at": "2026-09-29T17:29:46Z",
+    "last_updated": "2025-08-29T16:30:11.26Z",
+    "license": "MIT"
+   }
+  ]
+ },
+ "records": {
+  "total": 48479,
+  "by_tour": {
+   "M": 25185,
+   "W": 23294
+  },
+  "date_min": "2015-06-20",
+  "date_max": "2025-06-28",
+  "distinct_event_ids": 48479
+ },
+ "counts_tour_year_tier_draw": [
+  {
+   "tour": "M",
+   "year": 2015,
+   "tier": "1000",
+   "draw": "main",
+   "n": 134
+  },
+  {
+   "tour": "M",
+   "year": 2015,
+   "tier": "1000",
+   "draw": "qual",
+   "n": 3
+  },
+  {
+   "tour": "M",
+   "year": 2015,
+   "tier": "2000",
+   "draw": "main",
+   "n": 89
+  },
+  {
+   "tour": "M",
+   "year": 2015,
+   "tier": "250",
+   "draw": "main",
+   "n": 204
+  },
+  {
+   "tour": "M",
+   "year": 2015,
+   "tier": "250",
+   "draw": "qual",
+   "n": 18
+  },
+  {
+   "tour": "M",
+   "year": 2015,
+   "tier": "500",
+   "draw": "main",
+   "n": 133
+  },
+  {
+   "tour": "M",
+   "year": 2015,
+   "tier": "none",
+   "draw": "main",
+   "n": 96
+  },
+  {
+   "tour": "M",
+   "year": 2015,
+   "tier": "none",
+   "draw": "qual",
+   "n": 10
+  },
+  {
+   "tour": "M",
+   "year": 2016,
+   "tier": "1000",
+   "draw": "main",
+   "n": 445
+  },
+  {
+   "tour": "M",
+   "year": 2016,
+   "tier": "1000",
+   "draw": "qual",
+   "n": 25
+  },
+  {
+   "tour": "M",
+   "year": 2016,
+   "tier": "2000",
+   "draw": "main",
+   "n": 266
+  },
+  {
+   "tour": "M",
+   "year": 2016,
+   "tier": "2000",
+   "draw": "qual",
+   "n": 21
+  },
+  {
+   "tour": "M",
+   "year": 2016,
+   "tier": "250",
+   "draw": "main",
+   "n": 622
+  },
+  {
+   "tour": "M",
+   "year": 2016,
+   "tier": "250",
+   "draw": "qual",
+   "n": 21
+  },
+  {
+   "tour": "M",
+   "year": 2016,
+   "tier": "500",
+   "draw": "main",
+   "n": 324
+  },
+  {
+   "tour": "M",
+   "year": 2016,
+   "tier": "none",
+   "draw": "main",
+   "n": 99
+  },
+  {
+   "tour": "M",
+   "year": 2016,
+   "tier": "none",
+   "draw": "qual",
+   "n": 1
+  },
+  {
+   "tour": "M",
+   "year": 2017,
+   "tier": "1000",
+   "draw": "main",
+   "n": 448
+  },
+  {
+   "tour": "M",
+   "year": 2017,
+   "tier": "1000",
+   "draw": "qual",
+   "n": 32
+  },
+  {
+   "tour": "M",
+   "year": 2017,
+   "tier": "2000",
+   "draw": "main",
+   "n": 316
+  },
+  {
+   "tour": "M",
+   "year": 2017,
+   "tier": "2000",
+   "draw": "qual",
+   "n": 74
+  },
+  {
+   "tour": "M",
+   "year": 2017,
+   "tier": "250",
+   "draw": "main",
+   "n": 751
+  },
+  {
+   "tour": "M",
+   "year": 2017,
+   "tier": "250",
+   "draw": "qual",
+   "n": 61
+  },
+  {
+   "tour": "M",
+   "year": 2017,
+   "tier": "500",
+   "draw": "main",
+   "n": 351
+  },
+  {
+   "tour": "M",
+   "year": 2017,
+   "tier": "500",
+   "draw": "qual",
+   "n": 3
+  },
+  {
+   "tour": "M",
+   "year": 2017,
+   "tier": "none",
+   "draw": "main",
+   "n": 25
+  },
+  {
+   "tour": "M",
+   "year": 2018,
+   "tier": "1000",
+   "draw": "main",
+   "n": 448
+  },
+  {
+   "tour": "M",
+   "year": 2018,
+   "tier": "1000",
+   "draw": "qual",
+   "n": 27
+  },
+  {
+   "tour": "M",
+   "year": 2018,
+   "tier": "2000",
+   "draw": "main",
+   "n": 328
+  },
+  {
+   "tour": "M",
+   "year": 2018,
+   "tier": "2000",
+   "draw": "qual",
+   "n": 109
+  },
+  {
+   "tour": "M",
+   "year": 2018,
+   "tier": "250",
+   "draw": "main",
+   "n": 781
+  },
+  {
+   "tour": "M",
+   "year": 2018,
+   "tier": "250",
+   "draw": "qual",
+   "n": 75
+  },
+  {
+   "tour": "M",
+   "year": 2018,
+   "tier": "500",
+   "draw": "main",
+   "n": 377
+  },
+  {
+   "tour": "M",
+   "year": 2018,
+   "tier": "500",
+   "draw": "qual",
+   "n": 9
+  },
+  {
+   "tour": "M",
+   "year": 2018,
+   "tier": "none",
+   "draw": "main",
+   "n": 24
+  },
+  {
+   "tour": "M",
+   "year": 2019,
+   "tier": "1000",
+   "draw": "main",
+   "n": 450
+  },
+  {
+   "tour": "M",
+   "year": 2019,
+   "tier": "1000",
+   "draw": "qual",
+   "n": 58
+  },
+  {
+   "tour": "M",
+   "year": 2019,
+   "tier": "2000",
+   "draw": "main",
+   "n": 329
+  },
+  {
+   "tour": "M",
+   "year": 2019,
+   "tier": "2000",
+   "draw": "qual",
+   "n": 117
+  },
+  {
+   "tour": "M",
+   "year": 2019,
+   "tier": "250",
+   "draw": "main",
+   "n": 801
+  },
+  {
+   "tour": "M",
+   "year": 2019,
+   "tier": "250",
+   "draw": "qual",
+   "n": 88
+  },
+  {
+   "tour": "M",
+   "year": 2019,
+   "tier": "500",
+   "draw": "main",
+   "n": 378
+  },
+  {
+   "tour": "M",
+   "year": 2019,
+   "tier": "500",
+   "draw": "qual",
+   "n": 5
+  },
+  {
+   "tour": "M",
+   "year": 2019,
+   "tier": "none",
+   "draw": "main",
+   "n": 29
+  },
+  {
+   "tour": "M",
+   "year": 2019,
+   "tier": "none",
+   "draw": "qual",
+   "n": 1
+  },
+  {
+   "tour": "M",
+   "year": 2020,
+   "tier": "1000",
+   "draw": "main",
+   "n": 146
+  },
+  {
+   "tour": "M",
+   "year": 2020,
+   "tier": "1000",
+   "draw": "qual",
+   "n": 18
+  },
+  {
+   "tour": "M",
+   "year": 2020,
+   "tier": "2000",
+   "draw": "main",
+   "n": 303
+  },
+  {
+   "tour": "M",
+   "year": 2020,
+   "tier": "2000",
+   "draw": "qual",
+   "n": 43
+  },
+  {
+   "tour": "M",
+   "year": 2020,
+   "tier": "250",
+   "draw": "main",
+   "n": 341
+  },
+  {
+   "tour": "M",
+   "year": 2020,
+   "tier": "250",
+   "draw": "qual",
+   "n": 46
+  },
+  {
+   "tour": "M",
+   "year": 2020,
+   "tier": "500",
+   "draw": "main",
+   "n": 167
+  },
+  {
+   "tour": "M",
+   "year": 2020,
+   "tier": "none",
+   "draw": "main",
+   "n": 158
+  },
+  {
+   "tour": "M",
+   "year": 2021,
+   "tier": "1000",
+   "draw": "main",
+   "n": 491
+  },
+  {
+   "tour": "M",
+   "year": 2021,
+   "tier": "1000",
+   "draw": "qual",
+   "n": 144
+  },
+  {
+   "tour": "M",
+   "year": 2021,
+   "tier": "2000",
+   "draw": "main",
+   "n": 471
+  },
+  {
+   "tour": "M",
+   "year": 2021,
+   "tier": "2000",
+   "draw": "qual",
+   "n": 400
+  },
+  {
+   "tour": "M",
+   "year": 2021,
+   "tier": "250",
+   "draw": "main",
+   "n": 860
+  },
+  {
+   "tour": "M",
+   "year": 2021,
+   "tier": "250",
+   "draw": "qual",
+   "n": 173
+  },
+  {
+   "tour": "M",
+   "year": 2021,
+   "tier": "500",
+   "draw": "main",
+   "n": 348
+  },
+  {
+   "tour": "M",
+   "year": 2021,
+   "tier": "500",
+   "draw": "qual",
+   "n": 18
+  },
+  {
+   "tour": "M",
+   "year": 2021,
+   "tier": "none",
+   "draw": "main",
+   "n": 255
+  },
+  {
+   "tour": "M",
+   "year": 2021,
+   "tier": "none",
+   "draw": "qual",
+   "n": 20
+  },
+  {
+   "tour": "M",
+   "year": 2022,
+   "tier": "1000",
+   "draw": "main",
+   "n": 484
+  },
+  {
+   "tour": "M",
+   "year": 2022,
+   "tier": "2000",
+   "draw": "main",
+   "n": 463
+  },
+  {
+   "tour": "M",
+   "year": 2022,
+   "tier": "2000",
+   "draw": "qual",
+   "n": 310
+  },
+  {
+   "tour": "M",
+   "year": 2022,
+   "tier": "250",
+   "draw": "main",
+   "n": 816
+  },
+  {
+   "tour": "M",
+   "year": 2022,
+   "tier": "250",
+   "draw": "qual",
+   "n": 64
+  },
+  {
+   "tour": "M",
+   "year": 2022,
+   "tier": "500",
+   "draw": "main",
+   "n": 439
+  },
+  {
+   "tour": "M",
+   "year": 2022,
+   "tier": "500",
+   "draw": "qual",
+   "n": 47
+  },
+  {
+   "tour": "M",
+   "year": 2022,
+   "tier": "none",
+   "draw": "main",
+   "n": 258
+  },
+  {
+   "tour": "M",
+   "year": 2022,
+   "tier": "none",
+   "draw": "qual",
+   "n": 23
+  },
+  {
+   "tour": "M",
+   "year": 2023,
+   "tier": "1000",
+   "draw": "main",
+   "n": 643
+  },
+  {
+   "tour": "M",
+   "year": 2023,
+   "tier": "2000",
+   "draw": "main",
+   "n": 411
+  },
+  {
+   "tour": "M",
+   "year": 2023,
+   "tier": "2000",
+   "draw": "qual",
+   "n": 413
+  },
+  {
+   "tour": "M",
+   "year": 2023,
+   "tier": "250",
+   "draw": "main",
+   "n": 891
+  },
+  {
+   "tour": "M",
+   "year": 2023,
+   "tier": "250",
+   "draw": "qual",
+   "n": 24
+  },
+  {
+   "tour": "M",
+   "year": 2023,
+   "tier": "500",
+   "draw": "main",
+   "n": 488
+  },
+  {
+   "tour": "M",
+   "year": 2023,
+   "tier": "none",
+   "draw": "main",
+   "n": 41
+  },
+  {
+   "tour": "M",
+   "year": 2024,
+   "tier": "1000",
+   "draw": "main",
+   "n": 648
+  },
+  {
+   "tour": "M",
+   "year": 2024,
+   "tier": "1000",
+   "draw": "qual",
+   "n": 250
+  },
+  {
+   "tour": "M",
+   "year": 2024,
+   "tier": "2000",
+   "draw": "main",
+   "n": 428
+  },
+  {
+   "tour": "M",
+   "year": 2024,
+   "tier": "2000",
+   "draw": "qual",
+   "n": 432
+  },
+  {
+   "tour": "M",
+   "year": 2024,
+   "tier": "250",
+   "draw": "main",
+   "n": 915
+  },
+  {
+   "tour": "M",
+   "year": 2024,
+   "tier": "250",
+   "draw": "qual",
+   "n": 407
+  },
+  {
+   "tour": "M",
+   "year": 2024,
+   "tier": "500",
+   "draw": "main",
+   "n": 472
+  },
+  {
+   "tour": "M",
+   "year": 2024,
+   "tier": "500",
+   "draw": "qual",
+   "n": 193
+  },
+  {
+   "tour": "M",
+   "year": 2024,
+   "tier": "none",
+   "draw": "main",
+   "n": 73
+  },
+  {
+   "tour": "M",
+   "year": 2025,
+   "tier": "1000",
+   "draw": "main",
+   "n": 406
+  },
+  {
+   "tour": "M",
+   "year": 2025,
+   "tier": "1000",
+   "draw": "qual",
+   "n": 160
+  },
+  {
+   "tour": "M",
+   "year": 2025,
+   "tier": "2000",
+   "draw": "main",
+   "n": 227
+  },
+  {
+   "tour": "M",
+   "year": 2025,
+   "tier": "2000",
+   "draw": "qual",
+   "n": 324
+  },
+  {
+   "tour": "M",
+   "year": 2025,
+   "tier": "250",
+   "draw": "main",
+   "n": 409
+  },
+  {
+   "tour": "M",
+   "year": 2025,
+   "tier": "250",
+   "draw": "qual",
+   "n": 161
+  },
+  {
+   "tour": "M",
+   "year": 2025,
+   "tier": "500",
+   "draw": "main",
+   "n": 322
+  },
+  {
+   "tour": "M",
+   "year": 2025,
+   "tier": "500",
+   "draw": "qual",
+   "n": 135
+  },
+  {
+   "tour": "W",
+   "year": 2015,
+   "tier": "1000",
+   "draw": "main",
+   "n": 98
+  },
+  {
+   "tour": "W",
+   "year": 2015,
+   "tier": "125",
+   "draw": "main",
+   "n": 16
+  },
+  {
+   "tour": "W",
+   "year": 2015,
+   "tier": "2000",
+   "draw": "main",
+   "n": 98
+  },
+  {
+   "tour": "W",
+   "year": 2015,
+   "tier": "250",
+   "draw": "main",
+   "n": 65
+  },
+  {
+   "tour": "W",
+   "year": 2015,
+   "tier": "250",
+   "draw": "qual",
+   "n": 2
+  },
+  {
+   "tour": "W",
+   "year": 2015,
+   "tier": "500",
+   "draw": "main",
+   "n": 100
+  },
+  {
+   "tour": "W",
+   "year": 2015,
+   "tier": "500",
+   "draw": "qual",
+   "n": 7
+  },
+  {
+   "tour": "W",
+   "year": 2015,
+   "tier": "none",
+   "draw": "main",
+   "n": 173
+  },
+  {
+   "tour": "W",
+   "year": 2015,
+   "tier": "none",
+   "draw": "qual",
+   "n": 6
+  },
+  {
+   "tour": "W",
+   "year": 2016,
+   "tier": "1000",
+   "draw": "main",
+   "n": 371
+  },
+  {
+   "tour": "W",
+   "year": 2016,
+   "tier": "1000",
+   "draw": "qual",
+   "n": 40
+  },
+  {
+   "tour": "W",
+   "year": 2016,
+   "tier": "125",
+   "draw": "main",
+   "n": 28
+  },
+  {
+   "tour": "W",
+   "year": 2016,
+   "tier": "2000",
+   "draw": "main",
+   "n": 307
+  },
+  {
+   "tour": "W",
+   "year": 2016,
+   "tier": "2000",
+   "draw": "qual",
+   "n": 18
+  },
+  {
+   "tour": "W",
+   "year": 2016,
+   "tier": "250",
+   "draw": "main",
+   "n": 212
+  },
+  {
+   "tour": "W",
+   "year": 2016,
+   "tier": "250",
+   "draw": "qual",
+   "n": 9
+  },
+  {
+   "tour": "W",
+   "year": 2016,
+   "tier": "500",
+   "draw": "main",
+   "n": 245
+  },
+  {
+   "tour": "W",
+   "year": 2016,
+   "tier": "500",
+   "draw": "qual",
+   "n": 31
+  },
+  {
+   "tour": "W",
+   "year": 2016,
+   "tier": "none",
+   "draw": "main",
+   "n": 339
+  },
+  {
+   "tour": "W",
+   "year": 2016,
+   "tier": "none",
+   "draw": "qual",
+   "n": 15
+  },
+  {
+   "tour": "W",
+   "year": 2017,
+   "tier": "1000",
+   "draw": "main",
+   "n": 447
+  },
+  {
+   "tour": "W",
+   "year": 2017,
+   "tier": "1000",
+   "draw": "qual",
+   "n": 17
+  },
+  {
+   "tour": "W",
+   "year": 2017,
+   "tier": "125",
+   "draw": "main",
+   "n": 25
+  },
+  {
+   "tour": "W",
+   "year": 2017,
+   "tier": "2000",
+   "draw": "main",
+   "n": 368
+  },
+  {
+   "tour": "W",
+   "year": 2017,
+   "tier": "2000",
+   "draw": "qual",
+   "n": 61
+  },
+  {
+   "tour": "W",
+   "year": 2017,
+   "tier": "250",
+   "draw": "main",
+   "n": 309
+  },
+  {
+   "tour": "W",
+   "year": 2017,
+   "tier": "250",
+   "draw": "qual",
+   "n": 12
+  },
+  {
+   "tour": "W",
+   "year": 2017,
+   "tier": "500",
+   "draw": "main",
+   "n": 300
+  },
+  {
+   "tour": "W",
+   "year": 2017,
+   "tier": "500",
+   "draw": "qual",
+   "n": 24
+  },
+  {
+   "tour": "W",
+   "year": 2017,
+   "tier": "none",
+   "draw": "main",
+   "n": 317
+  },
+  {
+   "tour": "W",
+   "year": 2017,
+   "tier": "none",
+   "draw": "qual",
+   "n": 25
+  },
+  {
+   "tour": "W",
+   "year": 2018,
+   "tier": "1000",
+   "draw": "main",
+   "n": 475
+  },
+  {
+   "tour": "W",
+   "year": 2018,
+   "tier": "1000",
+   "draw": "qual",
+   "n": 10
+  },
+  {
+   "tour": "W",
+   "year": 2018,
+   "tier": "125",
+   "draw": "main",
+   "n": 22
+  },
+  {
+   "tour": "W",
+   "year": 2018,
+   "tier": "2000",
+   "draw": "main",
+   "n": 410
+  },
+  {
+   "tour": "W",
+   "year": 2018,
+   "tier": "2000",
+   "draw": "qual",
+   "n": 41
+  },
+  {
+   "tour": "W",
+   "year": 2018,
+   "tier": "250",
+   "draw": "main",
+   "n": 355
+  },
+  {
+   "tour": "W",
+   "year": 2018,
+   "tier": "250",
+   "draw": "qual",
+   "n": 21
+  },
+  {
+   "tour": "W",
+   "year": 2018,
+   "tier": "500",
+   "draw": "main",
+   "n": 310
+  },
+  {
+   "tour": "W",
+   "year": 2018,
+   "tier": "500",
+   "draw": "qual",
+   "n": 24
+  },
+  {
+   "tour": "W",
+   "year": 2018,
+   "tier": "none",
+   "draw": "main",
+   "n": 318
+  },
+  {
+   "tour": "W",
+   "year": 2018,
+   "tier": "none",
+   "draw": "qual",
+   "n": 18
+  },
+  {
+   "tour": "W",
+   "year": 2019,
+   "tier": "1000",
+   "draw": "main",
+   "n": 482
+  },
+  {
+   "tour": "W",
+   "year": 2019,
+   "tier": "1000",
+   "draw": "qual",
+   "n": 32
+  },
+  {
+   "tour": "W",
+   "year": 2019,
+   "tier": "125",
+   "draw": "main",
+   "n": 27
+  },
+  {
+   "tour": "W",
+   "year": 2019,
+   "tier": "2000",
+   "draw": "main",
+   "n": 406
+  },
+  {
+   "tour": "W",
+   "year": 2019,
+   "tier": "2000",
+   "draw": "qual",
+   "n": 101
+  },
+  {
+   "tour": "W",
+   "year": 2019,
+   "tier": "250",
+   "draw": "main",
+   "n": 348
+  },
+  {
+   "tour": "W",
+   "year": 2019,
+   "tier": "250",
+   "draw": "qual",
+   "n": 39
+  },
+  {
+   "tour": "W",
+   "year": 2019,
+   "tier": "500",
+   "draw": "main",
+   "n": 330
+  },
+  {
+   "tour": "W",
+   "year": 2019,
+   "tier": "500",
+   "draw": "qual",
+   "n": 17
+  },
+  {
+   "tour": "W",
+   "year": 2019,
+   "tier": "none",
+   "draw": "main",
+   "n": 287
+  },
+  {
+   "tour": "W",
+   "year": 2019,
+   "tier": "none",
+   "draw": "qual",
+   "n": 65
+  },
+  {
+   "tour": "W",
+   "year": 2020,
+   "tier": "1000",
+   "draw": "main",
+   "n": 165
+  },
+  {
+   "tour": "W",
+   "year": 2020,
+   "tier": "1000",
+   "draw": "qual",
+   "n": 10
+  },
+  {
+   "tour": "W",
+   "year": 2020,
+   "tier": "2000",
+   "draw": "main",
+   "n": 333
+  },
+  {
+   "tour": "W",
+   "year": 2020,
+   "tier": "2000",
+   "draw": "qual",
+   "n": 33
+  },
+  {
+   "tour": "W",
+   "year": 2020,
+   "tier": "250",
+   "draw": "main",
+   "n": 154
+  },
+  {
+   "tour": "W",
+   "year": 2020,
+   "tier": "250",
+   "draw": "qual",
+   "n": 10
+  },
+  {
+   "tour": "W",
+   "year": 2020,
+   "tier": "500",
+   "draw": "main",
+   "n": 193
+  },
+  {
+   "tour": "W",
+   "year": 2020,
+   "tier": "500",
+   "draw": "qual",
+   "n": 14
+  },
+  {
+   "tour": "W",
+   "year": 2020,
+   "tier": "none",
+   "draw": "main",
+   "n": 68
+  },
+  {
+   "tour": "W",
+   "year": 2020,
+   "tier": "none",
+   "draw": "qual",
+   "n": 6
+  },
+  {
+   "tour": "W",
+   "year": 2021,
+   "tier": "1000",
+   "draw": "main",
+   "n": 461
+  },
+  {
+   "tour": "W",
+   "year": 2021,
+   "tier": "1000",
+   "draw": "qual",
+   "n": 63
+  },
+  {
+   "tour": "W",
+   "year": 2021,
+   "tier": "125",
+   "draw": "main",
+   "n": 29
+  },
+  {
+   "tour": "W",
+   "year": 2021,
+   "tier": "2000",
+   "draw": "main",
+   "n": 484
+  },
+  {
+   "tour": "W",
+   "year": 2021,
+   "tier": "2000",
+   "draw": "qual",
+   "n": 387
+  },
+  {
+   "tour": "W",
+   "year": 2021,
+   "tier": "250",
+   "draw": "main",
+   "n": 303
+  },
+  {
+   "tour": "W",
+   "year": 2021,
+   "tier": "500",
+   "draw": "main",
+   "n": 430
+  },
+  {
+   "tour": "W",
+   "year": 2021,
+   "tier": "500",
+   "draw": "qual",
+   "n": 66
+  },
+  {
+   "tour": "W",
+   "year": 2021,
+   "tier": "none",
+   "draw": "main",
+   "n": 670
+  },
+  {
+   "tour": "W",
+   "year": 2021,
+   "tier": "none",
+   "draw": "qual",
+   "n": 19
+  },
+  {
+   "tour": "W",
+   "year": 2022,
+   "tier": "1000",
+   "draw": "main",
+   "n": 439
+  },
+  {
+   "tour": "W",
+   "year": 2022,
+   "tier": "125",
+   "draw": "main",
+   "n": 29
+  },
+  {
+   "tour": "W",
+   "year": 2022,
+   "tier": "2000",
+   "draw": "main",
+   "n": 486
+  },
+  {
+   "tour": "W",
+   "year": 2022,
+   "tier": "2000",
+   "draw": "qual",
+   "n": 325
+  },
+  {
+   "tour": "W",
+   "year": 2022,
+   "tier": "250",
+   "draw": "main",
+   "n": 477
+  },
+  {
+   "tour": "W",
+   "year": 2022,
+   "tier": "500",
+   "draw": "main",
+   "n": 472
+  },
+  {
+   "tour": "W",
+   "year": 2022,
+   "tier": "none",
+   "draw": "main",
+   "n": 285
+  },
+  {
+   "tour": "W",
+   "year": 2023,
+   "tier": "1000",
+   "draw": "main",
+   "n": 591
+  },
+  {
+   "tour": "W",
+   "year": 2023,
+   "tier": "125",
+   "draw": "main",
+   "n": 29
+  },
+  {
+   "tour": "W",
+   "year": 2023,
+   "tier": "2000",
+   "draw": "main",
+   "n": 444
+  },
+  {
+   "tour": "W",
+   "year": 2023,
+   "tier": "2000",
+   "draw": "qual",
+   "n": 432
+  },
+  {
+   "tour": "W",
+   "year": 2023,
+   "tier": "250",
+   "draw": "main",
+   "n": 626
+  },
+  {
+   "tour": "W",
+   "year": 2023,
+   "tier": "250",
+   "draw": "qual",
+   "n": 17
+  },
+  {
+   "tour": "W",
+   "year": 2023,
+   "tier": "500",
+   "draw": "main",
+   "n": 544
+  },
+  {
+   "tour": "W",
+   "year": 2023,
+   "tier": "500",
+   "draw": "qual",
+   "n": 18
+  },
+  {
+   "tour": "W",
+   "year": 2023,
+   "tier": "none",
+   "draw": "main",
+   "n": 79
+  },
+  {
+   "tour": "W",
+   "year": 2024,
+   "tier": "1000",
+   "draw": "main",
+   "n": 700
+  },
+  {
+   "tour": "W",
+   "year": 2024,
+   "tier": "1000",
+   "draw": "qual",
+   "n": 286
+  },
+  {
+   "tour": "W",
+   "year": 2024,
+   "tier": "125",
+   "draw": "main",
+   "n": 30
+  },
+  {
+   "tour": "W",
+   "year": 2024,
+   "tier": "125",
+   "draw": "qual",
+   "n": 4
+  },
+  {
+   "tour": "W",
+   "year": 2024,
+   "tier": "2000",
+   "draw": "main",
+   "n": 458
+  },
+  {
+   "tour": "W",
+   "year": 2024,
+   "tier": "2000",
+   "draw": "qual",
+   "n": 429
+  },
+  {
+   "tour": "W",
+   "year": 2024,
+   "tier": "250",
+   "draw": "main",
+   "n": 653
+  },
+  {
+   "tour": "W",
+   "year": 2024,
+   "tier": "250",
+   "draw": "qual",
+   "n": 347
+  },
+  {
+   "tour": "W",
+   "year": 2024,
+   "tier": "500",
+   "draw": "main",
+   "n": 515
+  },
+  {
+   "tour": "W",
+   "year": 2024,
+   "tier": "500",
+   "draw": "qual",
+   "n": 264
+  },
+  {
+   "tour": "W",
+   "year": 2024,
+   "tier": "none",
+   "draw": "main",
+   "n": 64
+  },
+  {
+   "tour": "W",
+   "year": 2025,
+   "tier": "1000",
+   "draw": "main",
+   "n": 468
+  },
+  {
+   "tour": "W",
+   "year": 2025,
+   "tier": "1000",
+   "draw": "qual",
+   "n": 178
+  },
+  {
+   "tour": "W",
+   "year": 2025,
+   "tier": "2000",
+   "draw": "main",
+   "n": 235
+  },
+  {
+   "tour": "W",
+   "year": 2025,
+   "tier": "2000",
+   "draw": "qual",
+   "n": 331
+  },
+  {
+   "tour": "W",
+   "year": 2025,
+   "tier": "250",
+   "draw": "main",
+   "n": 307
+  },
+  {
+   "tour": "W",
+   "year": 2025,
+   "tier": "250",
+   "draw": "qual",
+   "n": 169
+  },
+  {
+   "tour": "W",
+   "year": 2025,
+   "tier": "500",
+   "draw": "main",
+   "n": 290
+  },
+  {
+   "tour": "W",
+   "year": 2025,
+   "tier": "500",
+   "draw": "qual",
+   "n": 152
+  }
+ ],
+ "wta_2018_by_tier_draw": {
+  "1000|main": 475,
+  "1000|qual": 10,
+  "125|main": 22,
+  "2000|main": 410,
+  "2000|qual": 41,
+  "250|main": 355,
+  "250|qual": 21,
+  "500|main": 310,
+  "500|qual": 24,
+  "none|main": 318,
+  "none|qual": 18
+ },
+ "wta_2018_tier_none_tournaments": {
+  "Moscow": 47,
+  "Nuremberg": 29,
+  "Istanbul": 27,
+  "Hiroshima": 24,
+  "Lausanne": 24,
+  "Mallorca": 24,
+  "Luxembourg": 24,
+  "Tokyo": 21,
+  "New Heaven": 20,
+  "Tashkent, Singles": 20,
+  "Tianjin": 19,
+  "Lugano": 18,
+  "Australian Open Asia-Pacific Wildcard Playoff": 13,
+  "Elite Trophy": 13,
+  "WTA Finals": 9,
+  "Australian Open Australian Wildcard Playoff": 4
+ },
+ "wta_125_records": [
+  {
+   "year": 2015,
+   "tournament": "Limoges, France",
+   "n": 16
+  },
+  {
+   "year": 2016,
+   "tournament": "Limoges, France",
+   "n": 28
+  },
+  {
+   "year": 2017,
+   "tournament": "Limoges, France",
+   "n": 25
+  },
+  {
+   "year": 2018,
+   "tournament": "Limoges, France",
+   "n": 22
+  },
+  {
+   "year": 2019,
+   "tournament": "Limoges, France",
+   "n": 27
+  },
+  {
+   "year": 2021,
+   "tournament": "Limoges, France",
+   "n": 29
+  },
+  {
+   "year": 2022,
+   "tournament": "Limoges, France",
+   "n": 29
+  },
+  {
+   "year": 2023,
+   "tournament": "Limoges, France",
+   "n": 29
+  },
+  {
+   "year": 2024,
+   "tournament": "Limoges, France",
+   "n": 34
+  }
+ ],
+ "atp_2025_by_month_tier_draw": [
+  {
+   "month": 1,
+   "tier": "2000",
+   "draw": "main",
+   "n": 119
+  },
+  {
+   "month": 1,
+   "tier": "2000",
+   "draw": "qual",
+   "n": 104
+  },
+  {
+   "month": 1,
+   "tier": "250",
+   "draw": "main",
+   "n": 99
+  },
+  {
+   "month": 1,
+   "tier": "250",
+   "draw": "qual",
+   "n": 30
+  },
+  {
+   "month": 2,
+   "tier": "250",
+   "draw": "main",
+   "n": 102
+  },
+  {
+   "month": 2,
+   "tier": "250",
+   "draw": "qual",
+   "n": 42
+  },
+  {
+   "month": 2,
+   "tier": "500",
+   "draw": "main",
+   "n": 168
+  },
+  {
+   "month": 2,
+   "tier": "500",
+   "draw": "qual",
+   "n": 71
+  },
+  {
+   "month": 3,
+   "tier": "1000",
+   "draw": "main",
+   "n": 176
+  },
+  {
+   "month": 3,
+   "tier": "1000",
+   "draw": "qual",
+   "n": 71
+  },
+  {
+   "month": 3,
+   "tier": "250",
+   "draw": "main",
+   "n": 14
+  },
+  {
+   "month": 3,
+   "tier": "250",
+   "draw": "qual",
+   "n": 31
+  },
+  {
+   "month": 3,
+   "tier": "500",
+   "draw": "main",
+   "n": 4
+  },
+  {
+   "month": 4,
+   "tier": "1000",
+   "draw": "main",
+   "n": 132
+  },
+  {
+   "month": 4,
+   "tier": "1000",
+   "draw": "qual",
+   "n": 55
+  },
+  {
+   "month": 4,
+   "tier": "250",
+   "draw": "main",
+   "n": 66
+  },
+  {
+   "month": 4,
+   "tier": "500",
+   "draw": "main",
+   "n": 60
+  },
+  {
+   "month": 4,
+   "tier": "500",
+   "draw": "qual",
+   "n": 28
+  },
+  {
+   "month": 5,
+   "tier": "1000",
+   "draw": "main",
+   "n": 98
+  },
+  {
+   "month": 5,
+   "tier": "1000",
+   "draw": "qual",
+   "n": 34
+  },
+  {
+   "month": 5,
+   "tier": "2000",
+   "draw": "main",
+   "n": 98
+  },
+  {
+   "month": 5,
+   "tier": "2000",
+   "draw": "qual",
+   "n": 110
+  },
+  {
+   "month": 5,
+   "tier": "250",
+   "draw": "main",
+   "n": 25
+  },
+  {
+   "month": 5,
+   "tier": "250",
+   "draw": "qual",
+   "n": 12
+  },
+  {
+   "month": 5,
+   "tier": "500",
+   "draw": "main",
+   "n": 30
+  },
+  {
+   "month": 5,
+   "tier": "500",
+   "draw": "qual",
+   "n": 12
+  },
+  {
+   "month": 6,
+   "tier": "2000",
+   "draw": "main",
+   "n": 10
+  },
+  {
+   "month": 6,
+   "tier": "2000",
+   "draw": "qual",
+   "n": 110
+  },
+  {
+   "month": 6,
+   "tier": "250",
+   "draw": "main",
+   "n": 103
+  },
+  {
+   "month": 6,
+   "tier": "250",
+   "draw": "qual",
+   "n": 46
+  },
+  {
+   "month": 6,
+   "tier": "500",
+   "draw": "main",
+   "n": 60
+  },
+  {
+   "month": 6,
+   "tier": "500",
+   "draw": "qual",
+   "n": 24
+  }
+ ],
+ "atp_2026_records": 0,
+ "ao_rg_2022_2026_by_tour_year_draw": [
+  {
+   "slam": "AO",
+   "tour": "M",
+   "year": 2022,
+   "draw": "main",
+   "n": 122
+  },
+  {
+   "slam": "AO",
+   "tour": "M",
+   "year": 2023,
+   "draw": "main",
+   "n": 95
+  },
+  {
+   "slam": "AO",
+   "tour": "M",
+   "year": 2023,
+   "draw": "qual",
+   "n": 104
+  },
+  {
+   "slam": "AO",
+   "tour": "M",
+   "year": 2024,
+   "draw": "main",
+   "n": 105
+  },
+  {
+   "slam": "AO",
+   "tour": "M",
+   "year": 2024,
+   "draw": "qual",
+   "n": 109
+  },
+  {
+   "slam": "AO",
+   "tour": "M",
+   "year": 2025,
+   "draw": "main",
+   "n": 119
+  },
+  {
+   "slam": "AO",
+   "tour": "M",
+   "year": 2025,
+   "draw": "qual",
+   "n": 104
+  },
+  {
+   "slam": "AO",
+   "tour": "W",
+   "year": 2022,
+   "draw": "main",
+   "n": 123
+  },
+  {
+   "slam": "AO",
+   "tour": "W",
+   "year": 2023,
+   "draw": "main",
+   "n": 109
+  },
+  {
+   "slam": "AO",
+   "tour": "W",
+   "year": 2023,
+   "draw": "qual",
+   "n": 109
+  },
+  {
+   "slam": "AO",
+   "tour": "W",
+   "year": 2024,
+   "draw": "main",
+   "n": 115
+  },
+  {
+   "slam": "AO",
+   "tour": "W",
+   "year": 2024,
+   "draw": "qual",
+   "n": 104
+  },
+  {
+   "slam": "AO",
+   "tour": "W",
+   "year": 2025,
+   "draw": "main",
+   "n": 117
+  },
+  {
+   "slam": "AO",
+   "tour": "W",
+   "year": 2025,
+   "draw": "qual",
+   "n": 109
+  },
+  {
+   "slam": "RG",
+   "tour": "M",
+   "year": 2022,
+   "draw": "main",
+   "n": 120
+  },
+  {
+   "slam": "RG",
+   "tour": "M",
+   "year": 2022,
+   "draw": "qual",
+   "n": 104
+  },
+  {
+   "slam": "RG",
+   "tour": "M",
+   "year": 2023,
+   "draw": "main",
+   "n": 100
+  },
+  {
+   "slam": "RG",
+   "tour": "M",
+   "year": 2023,
+   "draw": "qual",
+   "n": 93
+  },
+  {
+   "slam": "RG",
+   "tour": "M",
+   "year": 2024,
+   "draw": "main",
+   "n": 102
+  },
+  {
+   "slam": "RG",
+   "tour": "M",
+   "year": 2024,
+   "draw": "qual",
+   "n": 107
+  },
+  {
+   "slam": "RG",
+   "tour": "M",
+   "year": 2025,
+   "draw": "main",
+   "n": 108
+  },
+  {
+   "slam": "RG",
+   "tour": "M",
+   "year": 2025,
+   "draw": "qual",
+   "n": 110
+  },
+  {
+   "slam": "RG",
+   "tour": "W",
+   "year": 2022,
+   "draw": "main",
+   "n": 119
+  },
+  {
+   "slam": "RG",
+   "tour": "W",
+   "year": 2022,
+   "draw": "qual",
+   "n": 109
+  },
+  {
+   "slam": "RG",
+   "tour": "W",
+   "year": 2023,
+   "draw": "main",
+   "n": 108
+  },
+  {
+   "slam": "RG",
+   "tour": "W",
+   "year": 2023,
+   "draw": "qual",
+   "n": 106
+  },
+  {
+   "slam": "RG",
+   "tour": "W",
+   "year": 2024,
+   "draw": "main",
+   "n": 113
+  },
+  {
+   "slam": "RG",
+   "tour": "W",
+   "year": 2024,
+   "draw": "qual",
+   "n": 107
+  },
+  {
+   "slam": "RG",
+   "tour": "W",
+   "year": 2025,
+   "draw": "main",
+   "n": 118
+  },
+  {
+   "slam": "RG",
+   "tour": "W",
+   "year": 2025,
+   "draw": "qual",
+   "n": 111
+  }
+ ],
+ "replay": {
+  "by_status": {
+   "complete": 48284,
+   "inconsistent": 177,
+   "unfinished": 18
+  },
+  "by_tour_status": {
+   "M|complete": 25061,
+   "M|inconsistent": 107,
+   "M|unfinished": 17,
+   "W|complete": 23223,
+   "W|inconsistent": 70,
+   "W|unfinished": 1
+  },
+  "tiebreaks": 17141,
+  "tiebreaks_with_one_trailing_point": 17059,
+  "records_with_a_tiebreak": 14707,
+  "final_set_10pt_tiebreaks": 239,
+  "issue_types": {
+   "short": 156,
+   "set_unfinished": 107,
+   "overlong": 29,
+   "winner_field": 29,
+   "set_winner_field": 29,
+   "match_winner_field": 19,
+   "game_after_set_end": 7,
+   "sets_after_match_end": 3
+  },
+  "inconsistent_share_by_year": {
+   "2015": 0.0,
+   "2016": 0.0,
+   "2017": 0.0008,
+   "2018": 0.0,
+   "2019": 0.0,
+   "2020": 0.0,
+   "2021": 0.0,
+   "2022": 0.0007,
+   "2023": 0.0042,
+   "2024": 0.0149,
+   "2025": 0.0077
+  }
+ },
+ "score_check": {
+  "records_2018_on": 39822,
+  "linked_to_sackmann_row": 39275,
+  "result": {
+   "exact": 39058,
+   "sets_differ": 175,
+   "games_only": 24,
+   "winner_differs": 18
+  },
+  "result_complete_replays": {
+   "exact": 39019,
+   "sets_differ": 27,
+   "games_only": 24,
+   "winner_differs": 18
+  },
+  "result_by_tour": {
+   "M|exact": 20304,
+   "M|games_only": 7,
+   "M|sets_differ": 95,
+   "M|winner_differs": 10,
+   "W|exact": 18754,
+   "W|games_only": 17,
+   "W|sets_differ": 80,
+   "W|winner_differs": 8
+  },
+  "sackmann_ended_early": 14,
+  "examples_sets_differ": [
+   {
+    "key": "match7684655-M-Australian_Open-Qualification-Liam_Broady-Matteo_Berrettini-2018-01-10",
+    "m_score": "5-7 6-3 7-6(5)",
+    "score": "6-4 7-5",
+    "replay": "complete",
+    "replay_issues": ""
+   },
+   {
+    "key": "match7753577-M-Indian_Wells-Semifinals-Milos_Raonic-J_del_Potro-2018-03-17",
+    "m_score": "6-2 6-3",
+    "score": "5-7 7-6(1) 7-6(3)",
+    "replay": "complete",
+    "replay_issues": ""
+   },
+   {
+    "key": "match8031362-M-Basel-Round_of_16-Henri_Laaksonen-Taylor_Fritz-2018-10-24",
+    "m_score": "6-2 6-5",
+    "score": "6-2 7-5",
+    "replay": "unfinished",
+    "replay_issues": ""
+   },
+   {
+    "key": "match9341565-M-Australian_Open-Round_of_16-Andrey_Rublev-Casper_Ruud-2021-02-15",
+    "m_score": "6-2 7-6(3)",
+    "score": "6-2 7-6(3) 0-0 RET",
+    "replay": "unfinished",
+    "replay_issues": ""
+   },
+   {
+    "key": "match9728037-M-Cincinnati-Round_of_32-Gael_Monfils-Alex_de_Minaur-2021-08-18",
+    "m_score": "6-3 6-5",
+    "score": "6-3 7-5",
+    "replay": "unfinished",
+    "replay_issues": ""
+   },
+   {
+    "key": "match10401599-M-Wimbledon-Unknown-Lukas_Rosol-Renzo_Olivo-2022-06-23",
+    "m_score": "7-6(5) 7-6(4) 5-3",
+    "score": "7-6(5) 7-6(4) 6-4",
+    "replay": "inconsistent",
+    "replay_issues": "s3g6:short;s3g9:short;sets_after_match_end"
+   },
+   {
+    "key": "match10610072-M-Winston_Salem-Round_of_64-Soonwoo_Kwon-Daniel_Altmaier-2022-08-21",
+    "m_score": "5-1 6-4",
+    "score": "6-1 6-4",
+    "replay": "inconsistent",
+    "replay_issues": "s1g2:short;s1:set_unfinished"
+   },
+   {
+    "key": "match10806050-M-Antwerp-Round_of_32-Marc-Andrea_Huesler-Francisco_Cerundolo-2022-10-18",
+    "m_score": "5-7 6-4 6-3",
+    "score": "5-7 7-6(3) 6-3",
+    "replay": "inconsistent",
+    "replay_issues": "s2g7:short;s2:game_after_set_end"
+   }
+  ]
+ },
+ "slam_point_order_check": {
+  "editions": [
+   "2015-usopen",
+   "2015-wimbledon",
+   "2016-ausopen",
+   "2016-frenchopen",
+   "2016-usopen",
+   "2016-wimbledon",
+   "2017-ausopen",
+   "2017-frenchopen",
+   "2017-usopen",
+   "2017-wimbledon",
+   "2018-ausopen",
+   "2018-frenchopen",
+   "2018-usopen",
+   "2018-wimbledon",
+   "2019-ausopen",
+   "2019-frenchopen",
+   "2019-usopen",
+   "2019-wimbledon",
+   "2020-ausopen",
+   "2020-frenchopen",
+   "2020-usopen",
+   "2021-ausopen",
+   "2021-frenchopen",
+   "2021-usopen",
+   "2021-wimbledon",
+   "2022-usopen",
+   "2022-wimbledon",
+   "2023-usopen",
+   "2023-wimbledon",
+   "2024-usopen",
+   "2024-wimbledon"
+  ],
+  "matches_compared": 5392,
+  "no_pair_in_sackmann": 3169,
+  "games_equal": 150710,
+  "games_differ": 697,
+  "matches_with_a_differing_game": 511,
+  "games_missing_in_sackmann": 353,
+  "tiebreaks": {
+   "equal": 21,
+   "equal_plus_one_trailing_point": 2153,
+   "other": 7
+  },
+  "examples": [
+   {
+    "key": "match6875587-M-US_Open-R128-Matthew_Ebden-Grigor_Dimitrov-2015-08-31",
+    "set": 1,
+    "game": 1,
+    "marcosjn2": "1110001011",
+    "sackmann": "01011011"
+   },
+   {
+    "key": "match6875587-M-US_Open-R128-Matthew_Ebden-Grigor_Dimitrov-2015-08-31",
+    "set": 3,
+    "game": 6,
+    "marcosjn2": "01000",
+    "sackmann": "010010100"
+   },
+   {
+    "key": "match6875587-M-US_Open-R128-Matthew_Ebden-Grigor_Dimitrov-2015-08-31",
+    "set": 3,
+    "game": 7,
+    "marcosjn2": "00100",
+    "sackmann": "010000"
+   },
+   {
+    "key": "match6875587-M-US_Open-R128-Matthew_Ebden-Grigor_Dimitrov-2015-08-31",
+    "set": 3,
+    "game": 8,
+    "marcosjn2": "00100",
+    "sackmann": "10000"
+   },
+   {
+    "key": "match6875587-M-US_Open-R128-Matthew_Ebden-Grigor_Dimitrov-2015-08-31",
+    "set": 3,
+    "game": 10,
+    "marcosjn2": "10000",
+    "sackmann": "110000"
+   },
+   {
+    "key": "match6880643-M-US_Open-Round_of_64-Jérémy_Chardy-Martin_Klizan-2015-09-02",
+    "set": 2,
+    "game": 3,
+    "marcosjn2": "111001",
+    "sackmann": "11101"
+   }
+  ]
+ },
+ "universe_link": {
+  "records_2018_on": 39822,
+  "linked": 39472,
+  "by_pass": {
+   "pair": 39280,
+   "one_surname": 192
+  },
+  "records_sharing_a_uid": 98,
+  "linked_by_level": {
+   "T250": 11772,
+   "T1000": 7363,
+   "GS": 6162,
+   "T500": 5278,
+   "GSQ": 4189,
+   "TQ": 3932,
+   "TEAM": 375,
+   "FIN": 205,
+   "CH": 142,
+   "CHQ": 4,
+   "ITFQ": 1
+  }
+ },
+ "gap_fills": {
+  "wta_2018_points": {
+   "gap_matches": 3491,
+   "filled": 1377,
+   "filled_complete_replay": 1377,
+   "filled_complete_and_score_exact": 1375,
+   "by_level": {
+    "CH|main": [
+     304,
+     19
+    ],
+    "CHQ|qual": [
+     129,
+     0
+    ],
+    "FIN|main": [
+     27,
+     16
+    ],
+    "T1000|main": [
+     559,
+     417
+    ],
+    "T250|main": [
+     949,
+     622
+    ],
+    "T500|main": [
+     361,
+     248
+    ],
+    "TQ|qual": [
+     1162,
+     55
+    ]
+   },
+   "by_year": {
+    "2018": [
+     3491,
+     1377
+    ]
+   }
+  },
+  "atp_points_2025": {
+   "gap_matches": 3778,
+   "filled": 1335,
+   "filled_complete_replay": 1335,
+   "filled_complete_and_score_exact": 1307,
+   "by_level": {
+    "FIN|main": [
+     18,
+     0
+    ],
+    "T1000|main": [
+     820,
+     280
+    ],
+    "T250|main": [
+     1096,
+     352
+    ],
+    "T500|main": [
+     635,
+     254
+    ],
+    "TQ|qual": [
+     1209,
+     449
+    ]
+   },
+   "by_year": {
+    "2025": [
+     2489,
+     1335
+    ],
+    "2026": [
+     1289,
+     0
+    ]
+   },
+   "by_month_of_d": {
+    "2024-12": [
+     49,
+     45
+    ],
+    "2025-01": [
+     97,
+     88
+    ],
+    "2025-02": [
+     334,
+     313
+    ],
+    "2025-03": [
+     296,
+     276
+    ],
+    "2025-04": [
+     255,
+     239
+    ],
+    "2025-05": [
+     176,
+     169
+    ],
+    "2025-06": [
+     212,
+     205
+    ],
+    "2025-07": [
+     336,
+     0
+    ],
+    "2025-08": [
+     171,
+     0
+    ],
+    "2025-09": [
+     141,
+     0
+    ],
+    "2025-10": [
+     354,
+     0
+    ],
+    "2025-11": [
+     57,
+     0
+    ],
+    "2025-12": [
+     11,
+     0
+    ],
+    "2026-01": [
+     148,
+     0
+    ],
+    "2026-02": [
+     336,
+     0
+    ],
+    "2026-03": [
+     272,
+     0
+    ],
+    "2026-04": [
+     302,
+     0
+    ],
+    "2026-05": [
+     207,
+     0
+    ],
+    "2026-06": [
+     23,
+     0
+    ],
+    "2026-08": [
+     1,
+     0
+    ]
+   },
+   "by_month_of_d_note": "[gap matches, filled]; d is the tournament week start, so Dec 2024 = 2025 season openers"
+  },
+  "slam_points_ao_rg": {
+   "gap_matches": 1636,
+   "filled": 1243,
+   "filled_complete_replay": 1237,
+   "filled_complete_and_score_exact": 1230,
+   "by_level": {
+    "GS|main": [
+     1636,
+     1243
+    ]
+   },
+   "by_year": {
+    "2022": [
+     401,
+     382
+    ],
+    "2023": [
+     322,
+     257
+    ],
+    "2024": [
+     345,
+     292
+    ],
+    "2025": [
+     346,
+     312
+    ],
+    "2026": [
+     222,
+     0
+    ]
+   },
+   "by_slam_year_tour": {
+    "AO|2022|M": [
+     89,
+     87
+    ],
+    "AO|2022|W": [
+     108,
+     106
+    ],
+    "AO|2023|M": [
+     60,
+     43
+    ],
+    "AO|2023|W": [
+     63,
+     51
+    ],
+    "AO|2024|M": [
+     75,
+     61
+    ],
+    "AO|2024|W": [
+     94,
+     85
+    ],
+    "AO|2025|M": [
+     76,
+     70
+    ],
+    "AO|2025|W": [
+     89,
+     82
+    ],
+    "AO|2026|M": [
+     3,
+     0
+    ],
+    "RG|2022|M": [
+     96,
+     91
+    ],
+    "RG|2022|W": [
+     104,
+     98
+    ],
+    "RG|2023|M": [
+     90,
+     69
+    ],
+    "RG|2023|W": [
+     109,
+     94
+    ],
+    "RG|2024|M": [
+     82,
+     63
+    ],
+    "RG|2024|W": [
+     93,
+     82
+    ],
+    "RG|2025|M": [
+     74,
+     63
+    ],
+    "RG|2025|W": [
+     107,
+     97
+    ],
+    "RG|2026|M": [
+     114,
+     0
+    ],
+    "RG|2026|W": [
+     100,
+     0
+    ],
+    "USO|2024|W": [
+     1,
+     1
+    ],
+    "USO|2026|M": [
+     1,
+     0
+    ],
+    "W|2026|M": [
+     3,
+     0
+    ]
+   },
+   "ao_rg_2022_2025": {
+    "gap_matches": 1409,
+    "filled": 1242,
+    "filled_complete_replay": 1236
+   }
+  }
+ }
+}

@@ -1,0 +1,1101 @@
+{
+ "prereg_sha256": "b817cb92b6f71c3baa3a1eccfb163886a35053b8253613e497c050f8ecaefeaa",
+ "key": "beta: log-odds per SD of x = xA - xB (2-week minus 52-week mean first-serve speed, km/h), given the benchmark as an offset; positive = the player whose recent first-serve speed rose more against his own norm wins more often than the benchmark says; tie when the Wald 95% interval spans 0. mLL gains: positive = the feature better.",
+ "fits": {
+  "x_raw|atp|discovery|p_model": {
+   "feature": "x_raw",
+   "benchmark": "p_model",
+   "matches": 860,
+   "blocks": 27,
+   "beta": -0.017695323600390434,
+   "se": 0.09777883315725316,
+   "lo": -0.20934183658860664,
+   "hi": 0.17395118938782575,
+   "block_lo": -0.20866190141014548,
+   "block_hi": 0.2021501813018693,
+   "verdict": "tie",
+   "tour": "atp",
+   "window": "discovery"
+  },
+  "x_raw|atp|discovery|p_market": {
+   "feature": "x_raw",
+   "benchmark": "p_market",
+   "matches": 860,
+   "blocks": 27,
+   "beta": -0.025522577134954726,
+   "se": 0.0977268770270833,
+   "lo": -0.21706725610803798,
+   "hi": 0.16602210183812852,
+   "block_lo": -0.221639133365594,
+   "block_hi": 0.18591010549335474,
+   "verdict": "tie",
+   "tour": "atp",
+   "window": "discovery"
+  },
+  "x_raw|atp|replication|p_model": {
+   "feature": "x_raw",
+   "benchmark": "p_model",
+   "matches": 3534,
+   "blocks": 36,
+   "beta": 0.08957605698064092,
+   "se": 0.037008962580306316,
+   "lo": 0.017038490323240535,
+   "hi": 0.1621136236380413,
+   "block_lo": 0.0074629015923374925,
+   "block_hi": 0.17771540903973718,
+   "verdict": "speed rise wins more than the benchmark says",
+   "tour": "atp",
+   "window": "replication"
+  },
+  "x_raw|atp|replication|p_market": {
+   "feature": "x_raw",
+   "benchmark": "p_market",
+   "matches": 3534,
+   "blocks": 36,
+   "beta": 0.0969176969665949,
+   "se": 0.037107144158371415,
+   "lo": 0.024187694416186928,
+   "hi": 0.16964769951700287,
+   "block_lo": 0.017727750348988776,
+   "block_hi": 0.1826136797360016,
+   "verdict": "speed rise wins more than the benchmark says",
+   "tour": "atp",
+   "window": "replication"
+  },
+  "x_raw|wta|discovery|p_model": {
+   "feature": "x_raw",
+   "benchmark": "p_model",
+   "matches": 840,
+   "blocks": 25,
+   "beta": 0.024776913423923408,
+   "se": 0.08056847099542665,
+   "lo": -0.1331372897271128,
+   "hi": 0.18269111657495962,
+   "block_lo": -0.12058172287504162,
+   "block_hi": 0.1852042319640758,
+   "verdict": "tie",
+   "tour": "wta",
+   "window": "discovery"
+  },
+  "x_raw|wta|discovery|p_market": {
+   "feature": "x_raw",
+   "benchmark": "p_market",
+   "matches": 840,
+   "blocks": 25,
+   "beta": 0.016588072582088238,
+   "se": 0.08082203972122003,
+   "lo": -0.141823125271503,
+   "hi": 0.1749992704356795,
+   "block_lo": -0.13151110890890266,
+   "block_hi": 0.17053254448769828,
+   "verdict": "tie",
+   "tour": "wta",
+   "window": "discovery"
+  },
+  "x_raw|wta|replication|p_model": {
+   "feature": "x_raw",
+   "benchmark": "p_model",
+   "matches": 503,
+   "blocks": 12,
+   "beta": 0.06213787207598279,
+   "se": 0.1003036734836668,
+   "lo": -0.13445732795200413,
+   "hi": 0.25873307210396973,
+   "block_lo": -0.14582006348647586,
+   "block_hi": 0.28564921100672225,
+   "verdict": "tie",
+   "tour": "wta",
+   "window": "replication"
+  },
+  "x_raw|wta|replication|p_market": {
+   "feature": "x_raw",
+   "benchmark": "p_market",
+   "matches": 503,
+   "blocks": 12,
+   "beta": 0.06598064948432593,
+   "se": 0.09989078933833655,
+   "lo": -0.1298052976188137,
+   "hi": 0.26176659658746554,
+   "block_lo": -0.13758770496134792,
+   "block_hi": 0.30279814502984187,
+   "verdict": "tie",
+   "tour": "wta",
+   "window": "replication"
+  },
+  "x_raw|atp|replication Slams|p_model": {
+   "feature": "x_raw",
+   "benchmark": "p_model",
+   "matches": 776,
+   "blocks": 12,
+   "beta": 0.18371488396070054,
+   "se": 0.09132959443797585,
+   "lo": 0.004708878862267868,
+   "hi": 0.36272088905913324,
+   "block_lo": 0.07448738368017187,
+   "block_hi": 0.32535777389830894,
+   "verdict": "speed rise wins more than the benchmark says",
+   "tour": "atp",
+   "window": "replication Slams"
+  },
+  "x_raw|atp|replication Slams|p_market": {
+   "feature": "x_raw",
+   "benchmark": "p_market",
+   "matches": 776,
+   "blocks": 12,
+   "beta": 0.19282806988860002,
+   "se": 0.09109840712232886,
+   "lo": 0.014275191928835446,
+   "hi": 0.3713809478483646,
+   "block_lo": 0.0770695102642497,
+   "block_hi": 0.349478189360146,
+   "verdict": "speed rise wins more than the benchmark says",
+   "tour": "atp",
+   "window": "replication Slams"
+  },
+  "x_raw|atp|replication non-Slam|p_model": {
+   "feature": "x_raw",
+   "benchmark": "p_model",
+   "matches": 2758,
+   "blocks": 36,
+   "beta": 0.07093834671019293,
+   "se": 0.04047112946581008,
+   "lo": -0.00838506704279482,
+   "hi": 0.15026176046318068,
+   "block_lo": -0.021971543035404405,
+   "block_hi": 0.16020814064847155,
+   "verdict": "tie",
+   "tour": "atp",
+   "window": "replication non-Slam"
+  },
+  "x_raw|atp|replication non-Slam|p_market": {
+   "feature": "x_raw",
+   "benchmark": "p_market",
+   "matches": 2758,
+   "blocks": 36,
+   "beta": 0.07769329884525661,
+   "se": 0.040617250548793726,
+   "lo": -0.0019165122303791,
+   "hi": 0.1573031099208923,
+   "block_lo": -0.006823687271152122,
+   "block_hi": 0.16459579789870224,
+   "verdict": "tie",
+   "tour": "atp",
+   "window": "replication non-Slam"
+  },
+  "x_evt|atp|discovery|p_model": {
+   "feature": "x_evt",
+   "benchmark": "p_model",
+   "matches": 860,
+   "blocks": 27,
+   "beta": -0.005580736007551039,
+   "se": 0.09622979795546585,
+   "lo": -0.1941911400002641,
+   "hi": 0.18302966798516201,
+   "block_lo": -0.18673486211402593,
+   "block_hi": 0.19166043667995536,
+   "verdict": "tie",
+   "tour": "atp",
+   "window": "discovery"
+  },
+  "x_evt|atp|discovery|p_market": {
+   "feature": "x_evt",
+   "benchmark": "p_market",
+   "matches": 860,
+   "blocks": 27,
+   "beta": -0.0148131546090842,
+   "se": 0.09625484231935318,
+   "lo": -0.20347264555501643,
+   "hi": 0.17384633633684804,
+   "block_lo": -0.18722754984931375,
+   "block_hi": 0.18735682578716417,
+   "verdict": "tie",
+   "tour": "atp",
+   "window": "discovery"
+  },
+  "x_evt|atp|replication|p_model": {
+   "feature": "x_evt",
+   "benchmark": "p_model",
+   "matches": 3534,
+   "blocks": 36,
+   "beta": 0.09504803509410213,
+   "se": 0.03692697928357924,
+   "lo": 0.022671155698286816,
+   "hi": 0.16742491448991745,
+   "block_lo": 0.013995476410939399,
+   "block_hi": 0.18686897529634802,
+   "verdict": "speed rise wins more than the benchmark says",
+   "tour": "atp",
+   "window": "replication"
+  },
+  "x_evt|atp|replication|p_market": {
+   "feature": "x_evt",
+   "benchmark": "p_market",
+   "matches": 3534,
+   "blocks": 36,
+   "beta": 0.1025279250182956,
+   "se": 0.03703014433431758,
+   "lo": 0.02994884212303313,
+   "hi": 0.17510700791355804,
+   "block_lo": 0.0160442220077796,
+   "block_hi": 0.19066759207399855,
+   "verdict": "speed rise wins more than the benchmark says",
+   "tour": "atp",
+   "window": "replication"
+  },
+  "x_evt|wta|discovery|p_model": {
+   "feature": "x_evt",
+   "benchmark": "p_model",
+   "matches": 840,
+   "blocks": 25,
+   "beta": 0.040688850689018556,
+   "se": 0.08184712624433796,
+   "lo": -0.11973151674988383,
+   "hi": 0.20110921812792096,
+   "block_lo": -0.09935326824394489,
+   "block_hi": 0.1848254214249084,
+   "verdict": "tie",
+   "tour": "wta",
+   "window": "discovery"
+  },
+  "x_evt|wta|discovery|p_market": {
+   "feature": "x_evt",
+   "benchmark": "p_market",
+   "matches": 840,
+   "blocks": 25,
+   "beta": 0.033862474547916514,
+   "se": 0.08211916967028784,
+   "lo": -0.12709109800584764,
+   "hi": 0.19481604710168068,
+   "block_lo": -0.11406288352783643,
+   "block_hi": 0.19150899892197712,
+   "verdict": "tie",
+   "tour": "wta",
+   "window": "discovery"
+  },
+  "x_evt|wta|replication|p_model": {
+   "feature": "x_evt",
+   "benchmark": "p_model",
+   "matches": 503,
+   "blocks": 12,
+   "beta": 0.07241055015341297,
+   "se": 0.0979047261097788,
+   "lo": -0.11948271302175348,
+   "hi": 0.26430381332857944,
+   "block_lo": -0.12180040717399993,
+   "block_hi": 0.27558075662444825,
+   "verdict": "tie",
+   "tour": "wta",
+   "window": "replication"
+  },
+  "x_evt|wta|replication|p_market": {
+   "feature": "x_evt",
+   "benchmark": "p_market",
+   "matches": 503,
+   "blocks": 12,
+   "beta": 0.07575753792855275,
+   "se": 0.09754164082691152,
+   "lo": -0.11542407809219385,
+   "hi": 0.26693915394929935,
+   "block_lo": -0.1147413484429659,
+   "block_hi": 0.28103504171760496,
+   "verdict": "tie",
+   "tour": "wta",
+   "window": "replication"
+  },
+  "x_shot|atp|discovery|p_model": {
+   "feature": "x_shot",
+   "benchmark": "p_model",
+   "matches": 3774,
+   "blocks": 31,
+   "beta": -0.006878804405316793,
+   "se": 0.03325940270159906,
+   "lo": -0.07206723370045094,
+   "hi": 0.05830962488981735,
+   "block_lo": -0.07924782767916082,
+   "block_hi": 0.0627312859410304,
+   "verdict": "tie",
+   "tour": "atp",
+   "window": "discovery"
+  },
+  "x_shot|atp|discovery|p_market": {
+   "feature": "x_shot",
+   "benchmark": "p_market",
+   "matches": 3774,
+   "blocks": 31,
+   "beta": -0.012536457546687614,
+   "se": 0.03331599120619119,
+   "lo": -0.07783580031082235,
+   "hi": 0.052762885217447125,
+   "block_lo": -0.08813187181322008,
+   "block_hi": 0.05461837293693253,
+   "verdict": "tie",
+   "tour": "atp",
+   "window": "discovery"
+  },
+  "x_shot|atp|replication|p_model": {
+   "feature": "x_shot",
+   "benchmark": "p_model",
+   "matches": 7580,
+   "blocks": 36,
+   "beta": 0.059877606780495266,
+   "se": 0.028703087918643747,
+   "lo": 0.0036195544599535237,
+   "hi": 0.11613565910103701,
+   "block_lo": 0.0046742688093278206,
+   "block_hi": 0.11238157168492388,
+   "verdict": "speed rise wins more than the benchmark says",
+   "tour": "atp",
+   "window": "replication"
+  },
+  "x_shot|atp|replication|p_market": {
+   "feature": "x_shot",
+   "benchmark": "p_market",
+   "matches": 7580,
+   "blocks": 36,
+   "beta": 0.06608011024838162,
+   "se": 0.028737088402467963,
+   "lo": 0.009755416979544414,
+   "hi": 0.12240480351721883,
+   "block_lo": 0.009924589888811805,
+   "block_hi": 0.12031062891595015,
+   "verdict": "speed rise wins more than the benchmark says",
+   "tour": "atp",
+   "window": "replication"
+  },
+  "x_shot|wta|discovery|p_model": {
+   "feature": "x_shot",
+   "benchmark": "p_model",
+   "matches": 2684,
+   "blocks": 27,
+   "beta": 0.01484651556307137,
+   "se": 0.04451733789859253,
+   "lo": -0.07240746671816999,
+   "hi": 0.10210049784431273,
+   "block_lo": -0.094178768695981,
+   "block_hi": 0.11727024132213022,
+   "verdict": "tie",
+   "tour": "wta",
+   "window": "discovery"
+  },
+  "x_shot|wta|discovery|p_market": {
+   "feature": "x_shot",
+   "benchmark": "p_market",
+   "matches": 2684,
+   "blocks": 27,
+   "beta": 0.01624943627003548,
+   "se": 0.044628519812863116,
+   "lo": -0.07122246256317621,
+   "hi": 0.10372133510324719,
+   "block_lo": -0.09282660111597303,
+   "block_hi": 0.122068516887768,
+   "verdict": "tie",
+   "tour": "wta",
+   "window": "discovery"
+  },
+  "x_shot|wta|replication|p_model": {
+   "feature": "x_shot",
+   "benchmark": "p_model",
+   "matches": 1338,
+   "blocks": 12,
+   "beta": -0.023014811687725824,
+   "se": 0.06184702106741084,
+   "lo": -0.14423497297985108,
+   "hi": 0.09820534960439942,
+   "block_lo": -0.07346572649456677,
+   "block_hi": 0.03677170757416179,
+   "verdict": "tie",
+   "tour": "wta",
+   "window": "replication"
+  },
+  "x_shot|wta|replication|p_market": {
+   "feature": "x_shot",
+   "benchmark": "p_market",
+   "matches": 1338,
+   "blocks": 12,
+   "beta": -0.026021867517713248,
+   "se": 0.06166704308875039,
+   "lo": -0.146889271971664,
+   "hi": 0.0948455369362375,
+   "block_lo": -0.0789825708979425,
+   "block_hi": 0.03350204823876409,
+   "verdict": "tie",
+   "tour": "wta",
+   "window": "replication"
+  },
+  "x_raw_unclipped|atp|discovery|p_model": {
+   "feature": "x_raw_unclipped",
+   "benchmark": "p_model",
+   "matches": 860,
+   "blocks": 27,
+   "beta": -0.017928167911846017,
+   "se": 0.09768050262296384,
+   "lo": -0.20938195305285512,
+   "hi": 0.1735256172291631,
+   "block_lo": -0.21155459060979337,
+   "block_hi": 0.19824312618284232,
+   "verdict": "tie",
+   "tour": "atp",
+   "window": "discovery"
+  },
+  "x_raw_unclipped|atp|discovery|p_market": {
+   "feature": "x_raw_unclipped",
+   "benchmark": "p_market",
+   "matches": 860,
+   "blocks": 27,
+   "beta": -0.02582263365527397,
+   "se": 0.09759948396610854,
+   "lo": -0.21711762222884673,
+   "hi": 0.16547235491829876,
+   "block_lo": -0.22205868517093552,
+   "block_hi": 0.18219153676121091,
+   "verdict": "tie",
+   "tour": "atp",
+   "window": "discovery"
+  },
+  "x_raw_unclipped|atp|replication|p_model": {
+   "feature": "x_raw_unclipped",
+   "benchmark": "p_model",
+   "matches": 3534,
+   "blocks": 36,
+   "beta": 0.0837659091768396,
+   "se": 0.03661419884816721,
+   "lo": 0.012002079434431864,
+   "hi": 0.15552973891924732,
+   "block_lo": -0.0019023653518174543,
+   "block_hi": 0.17277130608852206,
+   "verdict": "speed rise wins more than the benchmark says",
+   "tour": "atp",
+   "window": "replication"
+  },
+  "x_raw_unclipped|atp|replication|p_market": {
+   "feature": "x_raw_unclipped",
+   "benchmark": "p_market",
+   "matches": 3534,
+   "blocks": 36,
+   "beta": 0.09100356497119048,
+   "se": 0.03670427389274901,
+   "lo": 0.019063188141402426,
+   "hi": 0.16294394180097854,
+   "block_lo": 0.004358680608507805,
+   "block_hi": 0.17909687055624424,
+   "verdict": "speed rise wins more than the benchmark says",
+   "tour": "atp",
+   "window": "replication"
+  },
+  "x_raw_unclipped|wta|discovery|p_model": {
+   "feature": "x_raw_unclipped",
+   "benchmark": "p_model",
+   "matches": 840,
+   "blocks": 25,
+   "beta": 0.024776913423923408,
+   "se": 0.08056847099542665,
+   "lo": -0.1331372897271128,
+   "hi": 0.18269111657495962,
+   "block_lo": -0.11373526188925148,
+   "block_hi": 0.1792116049907695,
+   "verdict": "tie",
+   "tour": "wta",
+   "window": "discovery"
+  },
+  "x_raw_unclipped|wta|discovery|p_market": {
+   "feature": "x_raw_unclipped",
+   "benchmark": "p_market",
+   "matches": 840,
+   "blocks": 25,
+   "beta": 0.016588072582088238,
+   "se": 0.08082203972122003,
+   "lo": -0.141823125271503,
+   "hi": 0.1749992704356795,
+   "block_lo": -0.13791754029900635,
+   "block_hi": 0.18128833119825957,
+   "verdict": "tie",
+   "tour": "wta",
+   "window": "discovery"
+  },
+  "x_raw_unclipped|wta|replication|p_model": {
+   "feature": "x_raw_unclipped",
+   "benchmark": "p_model",
+   "matches": 503,
+   "blocks": 12,
+   "beta": 0.06213787207598279,
+   "se": 0.1003036734836668,
+   "lo": -0.13445732795200413,
+   "hi": 0.25873307210396973,
+   "block_lo": -0.13728778136999117,
+   "block_hi": 0.2882717886433019,
+   "verdict": "tie",
+   "tour": "wta",
+   "window": "replication"
+  },
+  "x_raw_unclipped|wta|replication|p_market": {
+   "feature": "x_raw_unclipped",
+   "benchmark": "p_market",
+   "matches": 503,
+   "blocks": 12,
+   "beta": 0.06598064948432593,
+   "se": 0.09989078933833655,
+   "lo": -0.1298052976188137,
+   "hi": 0.26176659658746554,
+   "block_lo": -0.1322110134429824,
+   "block_hi": 0.2994443693759466,
+   "verdict": "tie",
+   "tour": "wta",
+   "window": "replication"
+  }
+ },
+ "implied_gain": {
+  "x_raw|atp|discovery|p_model": {
+   "scored_seasons": [
+    2019,
+    2020,
+    2021
+   ],
+   "unscored_seasons": [
+    2015,
+    2016,
+    2017
+   ],
+   "matches_scored": 498,
+   "gain_mll": -2.7934775316049185,
+   "lo": -7.281810539096569,
+   "hi": 1.6948554758867327,
+   "frame_matches_in_scored_seasons": 3351,
+   "gain_mll_diluted": -0.41514527327342565,
+   "betas_by_season": {
+    "2019": -0.20017212530958287,
+    "2020": -0.18194810024895022,
+    "2021": -0.06927167013667147
+   }
+  },
+  "x_raw|atp|discovery|p_market": {
+   "scored_seasons": [
+    2019,
+    2020,
+    2021
+   ],
+   "unscored_seasons": [
+    2015,
+    2016,
+    2017
+   ],
+   "matches_scored": 498,
+   "gain_mll": -2.885434706392606,
+   "lo": -7.624071547331069,
+   "hi": 1.8532021345458571,
+   "frame_matches_in_scored_seasons": 3351,
+   "gain_mll_diluted": -0.42881124553372657,
+   "betas_by_season": {
+    "2019": -0.20696733688111887,
+    "2020": -0.19149139170082702,
+    "2021": -0.08045211181501924
+   }
+  },
+  "x_raw|atp|replication|p_model": {
+   "scored_seasons": [
+    2022,
+    2023,
+    2024
+   ],
+   "unscored_seasons": [],
+   "matches_scored": 3534,
+   "gain_mll": 0.35522098127096796,
+   "lo": -0.8795530608252926,
+   "hi": 1.5899950233672286,
+   "frame_matches_in_scored_seasons": 7958,
+   "gain_mll_diluted": 0.15774704043875354,
+   "betas_by_season": {
+    "2022": -0.017695323600390434,
+    "2023": 0.05348211276262254,
+    "2024": 0.08946479505145649
+   }
+  },
+  "x_raw|atp|replication|p_market": {
+   "scored_seasons": [
+    2022,
+    2023,
+    2024
+   ],
+   "unscored_seasons": [],
+   "matches_scored": 3534,
+   "gain_mll": 0.4078497698734081,
+   "lo": -0.824581793471942,
+   "hi": 1.6402813332187582,
+   "frame_matches_in_scored_seasons": 7958,
+   "gain_mll_diluted": 0.1811185080086233,
+   "betas_by_season": {
+    "2022": -0.025522577134954726,
+    "2023": 0.05222839165122899,
+    "2024": 0.09031699169035287
+   }
+  },
+  "x_raw|wta|discovery|p_model": {
+   "scored_seasons": [
+    2018,
+    2019,
+    2020,
+    2021
+   ],
+   "unscored_seasons": [
+    2015,
+    2016,
+    2017
+   ],
+   "matches_scored": 494,
+   "gain_mll": -3.639643554485847,
+   "lo": -10.76747968529572,
+   "hi": 3.4881925763240265,
+   "frame_matches_in_scored_seasons": 1895,
+   "gain_mll_diluted": -0.9488041772643845,
+   "betas_by_season": {
+    "2018": 0.10716491656270322,
+    "2019": 0.20237170795820994,
+    "2020": 0.13819705468864557,
+    "2021": 0.14015479084873536
+   }
+  },
+  "x_raw|wta|discovery|p_market": {
+   "scored_seasons": [
+    2018,
+    2019,
+    2020,
+    2021
+   ],
+   "unscored_seasons": [
+    2015,
+    2016,
+    2017
+   ],
+   "matches_scored": 494,
+   "gain_mll": -4.116284853136958,
+   "lo": -11.658048229388426,
+   "hi": 3.42547852311451,
+   "frame_matches_in_scored_seasons": 1895,
+   "gain_mll_diluted": -1.0730578983903205,
+   "betas_by_season": {
+    "2018": 0.11223457233331695,
+    "2019": 0.20788025788102685,
+    "2020": 0.14015747055576877,
+    "2021": 0.14130837775756594
+   }
+  },
+  "x_raw|wta|replication|p_model": {
+   "scored_seasons": [
+    2022,
+    2023,
+    2024
+   ],
+   "unscored_seasons": [],
+   "matches_scored": 503,
+   "gain_mll": 0.2741261360244854,
+   "lo": -1.0598290647428907,
+   "hi": 1.6080813367918616,
+   "frame_matches_in_scored_seasons": 1515,
+   "gain_mll_diluted": 0.09101349598700735,
+   "betas_by_season": {
+    "2022": 0.024776913423923408,
+    "2023": 0.025428055349846296,
+    "2024": 0.0318963927954918
+   }
+  },
+  "x_raw|wta|replication|p_market": {
+   "scored_seasons": [
+    2022,
+    2023,
+    2024
+   ],
+   "unscored_seasons": [],
+   "matches_scored": 503,
+   "gain_mll": 0.24264137343748193,
+   "lo": -0.7954304099921153,
+   "hi": 1.280713156867079,
+   "frame_matches_in_scored_seasons": 1515,
+   "gain_mll_diluted": 0.08056013916769202,
+   "betas_by_season": {
+    "2022": 0.016588072582088238,
+    "2023": 0.016714875529773767,
+    "2024": 0.026461845535586042
+   }
+  },
+  "x_evt|atp|discovery|p_model": {
+   "scored_seasons": [
+    2019,
+    2020,
+    2021
+   ],
+   "unscored_seasons": [
+    2015,
+    2016,
+    2017
+   ],
+   "matches_scored": 498,
+   "gain_mll": -1.4525780405042914,
+   "lo": -4.084159126690937,
+   "hi": 1.1790030456823544,
+   "frame_matches_in_scored_seasons": 3351,
+   "gain_mll_diluted": -0.2158710427248992,
+   "betas_by_season": {
+    "2019": -0.1333514777536245,
+    "2020": -0.12746659586438758,
+    "2021": -0.03668477328913198
+   }
+  },
+  "x_evt|atp|discovery|p_market": {
+   "scored_seasons": [
+    2019,
+    2020,
+    2021
+   ],
+   "unscored_seasons": [
+    2015,
+    2016,
+    2017
+   ],
+   "matches_scored": 498,
+   "gain_mll": -1.4826156834395372,
+   "lo": -4.372262168773649,
+   "hi": 1.4070308018945747,
+   "frame_matches_in_scored_seasons": 3351,
+   "gain_mll_diluted": -0.2203350075657683,
+   "betas_by_season": {
+    "2019": -0.13917211377356925,
+    "2020": -0.13597617196026568,
+    "2021": -0.048127738990196595
+   }
+  },
+  "x_evt|atp|replication|p_model": {
+   "scored_seasons": [
+    2022,
+    2023,
+    2024
+   ],
+   "unscored_seasons": [],
+   "matches_scored": 3534,
+   "gain_mll": 0.5420004160286321,
+   "lo": -0.8821679527342036,
+   "hi": 1.9661687847914677,
+   "frame_matches_in_scored_seasons": 7958,
+   "gain_mll_diluted": 0.240692318452524,
+   "betas_by_season": {
+    "2022": -0.005580736007551039,
+    "2023": 0.057952105407114825,
+    "2024": 0.09143433283162244
+   }
+  },
+  "x_evt|atp|replication|p_market": {
+   "scored_seasons": [
+    2022,
+    2023,
+    2024
+   ],
+   "unscored_seasons": [],
+   "matches_scored": 3534,
+   "gain_mll": 0.5904084768415295,
+   "lo": -0.8335333387299655,
+   "hi": 2.0143502924130248,
+   "frame_matches_in_scored_seasons": 7958,
+   "gain_mll_diluted": 0.2621894392005486,
+   "betas_by_season": {
+    "2022": -0.0148131546090842,
+    "2023": 0.057425136198136356,
+    "2024": 0.09283556896485977
+   }
+  },
+  "x_evt|wta|discovery|p_model": {
+   "scored_seasons": [
+    2018,
+    2019,
+    2020,
+    2021
+   ],
+   "unscored_seasons": [
+    2015,
+    2016,
+    2017
+   ],
+   "matches_scored": 494,
+   "gain_mll": -3.7769016483545967,
+   "lo": -11.136895887641634,
+   "hi": 3.5830925909324423,
+   "frame_matches_in_scored_seasons": 1895,
+   "gain_mll_diluted": -0.9845854428956046,
+   "betas_by_season": {
+    "2018": 0.14978369915983922,
+    "2019": 0.22740454074745237,
+    "2020": 0.1613962342033726,
+    "2021": 0.15394508005957433
+   }
+  },
+  "x_evt|wta|discovery|p_market": {
+   "scored_seasons": [
+    2018,
+    2019,
+    2020,
+    2021
+   ],
+   "unscored_seasons": [
+    2015,
+    2016,
+    2017
+   ],
+   "matches_scored": 494,
+   "gain_mll": -4.288370121732344,
+   "lo": -12.09201285536508,
+   "hi": 3.515272611900394,
+   "frame_matches_in_scored_seasons": 1895,
+   "gain_mll_diluted": -1.1179181214436822,
+   "betas_by_season": {
+    "2018": 0.155459439403901,
+    "2019": 0.2341993697147726,
+    "2020": 0.16450735653437146,
+    "2021": 0.15609677538868752
+   }
+  },
+  "x_evt|wta|replication|p_model": {
+   "scored_seasons": [
+    2022,
+    2023,
+    2024
+   ],
+   "unscored_seasons": [],
+   "matches_scored": 503,
+   "gain_mll": 0.4609476002167415,
+   "lo": -1.5906406169445257,
+   "hi": 2.5125358173780086,
+   "frame_matches_in_scored_seasons": 1515,
+   "gain_mll_diluted": 0.15304068838879273,
+   "betas_by_season": {
+    "2022": 0.040688850689018556,
+    "2023": 0.04020482010114947,
+    "2024": 0.04754470280686015
+   }
+  },
+  "x_evt|wta|replication|p_market": {
+   "scored_seasons": [
+    2022,
+    2023,
+    2024
+   ],
+   "unscored_seasons": [],
+   "matches_scored": 503,
+   "gain_mll": 0.4520609156537922,
+   "lo": -1.3845594145247522,
+   "hi": 2.2886812458323367,
+   "frame_matches_in_scored_seasons": 1515,
+   "gain_mll_diluted": 0.15009019179792574,
+   "betas_by_season": {
+    "2022": 0.033862474547916514,
+    "2023": 0.03268284415009187,
+    "2024": 0.04310985953070811
+   }
+  },
+  "x_shot|atp|discovery|p_model": {
+   "scored_seasons": [
+    2016,
+    2017,
+    2019,
+    2020,
+    2021
+   ],
+   "unscored_seasons": [
+    2015
+   ],
+   "matches_scored": 3364,
+   "gain_mll": -0.18154859705362233,
+   "lo": -0.5634351041476953,
+   "hi": 0.20033791004045062,
+   "frame_matches_in_scored_seasons": 4363,
+   "gain_mll_diluted": -0.1399792529196391,
+   "betas_by_season": {
+    "2016": -0.03519094838028134,
+    "2017": 0.010609865314210567,
+    "2019": -0.018195917542046715,
+    "2020": -0.03547520730320278,
+    "2021": -0.01012602800841812
+   }
+  },
+  "x_shot|atp|discovery|p_market": {
+   "scored_seasons": [
+    2016,
+    2017,
+    2019,
+    2020,
+    2021
+   ],
+   "unscored_seasons": [
+    2015
+   ],
+   "matches_scored": 3364,
+   "gain_mll": -0.16755097404141694,
+   "lo": -0.6917031187031097,
+   "hi": 0.3566011706202759,
+   "frame_matches_in_scored_seasons": 4363,
+   "gain_mll_diluted": -0.1291866781286561,
+   "betas_by_season": {
+    "2016": -0.0411768400272838,
+    "2017": -0.0022438990806887193,
+    "2019": -0.028985474493236386,
+    "2020": -0.04789276923763173,
+    "2021": -0.021798037855213018
+   }
+  },
+  "x_shot|atp|replication|p_model": {
+   "scored_seasons": [
+    2022,
+    2023,
+    2024
+   ],
+   "unscored_seasons": [],
+   "matches_scored": 7580,
+   "gain_mll": 0.02382077486713404,
+   "lo": -0.20640688383383002,
+   "hi": 0.2540484335680981,
+   "frame_matches_in_scored_seasons": 7958,
+   "gain_mll_diluted": 0.022689303027503903,
+   "betas_by_season": {
+    "2022": -0.006878804405316793,
+    "2023": 0.029479043759872578,
+    "2024": 0.029117497318035444
+   }
+  },
+  "x_shot|atp|replication|p_market": {
+   "scored_seasons": [
+    2022,
+    2023,
+    2024
+   ],
+   "unscored_seasons": [],
+   "matches_scored": 7580,
+   "gain_mll": 0.012737423916770376,
+   "lo": -0.20852085890947672,
+   "hi": 0.23399570674301748,
+   "frame_matches_in_scored_seasons": 7958,
+   "gain_mll_diluted": 0.012132404283628984,
+   "betas_by_season": {
+    "2022": -0.012536457546687614,
+    "2023": 0.02576855288803671,
+    "2024": 0.02806954672606504
+   }
+  },
+  "x_shot|wta|discovery|p_model": {
+   "scored_seasons": [
+    2016,
+    2017,
+    2018,
+    2019,
+    2020,
+    2021
+   ],
+   "unscored_seasons": [
+    2015
+   ],
+   "matches_scored": 2271,
+   "gain_mll": -1.9931152573852582,
+   "lo": -3.6655740905485388,
+   "hi": -0.320656424221978,
+   "frame_matches_in_scored_seasons": 2910,
+   "gain_mll_diluted": -1.5554518039594234,
+   "betas_by_season": {
+    "2016": -0.17067848166253843,
+    "2017": -0.01495599727372786,
+    "2018": -0.05476569857854303,
+    "2019": 0.0399470197474922,
+    "2020": 0.041162522157790635,
+    "2021": 0.04037024607762608
+   }
+  },
+  "x_shot|wta|discovery|p_market": {
+   "scored_seasons": [
+    2016,
+    2017,
+    2018,
+    2019,
+    2020,
+    2021
+   ],
+   "unscored_seasons": [
+    2015
+   ],
+   "matches_scored": 2271,
+   "gain_mll": -2.0743563838726398,
+   "lo": -3.8012486824215785,
+   "hi": -0.3474640853237006,
+   "frame_matches_in_scored_seasons": 2910,
+   "gain_mll_diluted": -1.6188533841150397,
+   "betas_by_season": {
+    "2016": -0.17581484333216787,
+    "2017": -0.014547050734034112,
+    "2018": -0.0524056209796417,
+    "2019": 0.045340373416641475,
+    "2020": 0.045360438206002364,
+    "2021": 0.0432524861633723
+   }
+  },
+  "x_shot|wta|replication|p_model": {
+   "scored_seasons": [
+    2022,
+    2023,
+    2024
+   ],
+   "unscored_seasons": [],
+   "matches_scored": 1338,
+   "gain_mll": -0.08207722077630675,
+   "lo": -0.26228176642984596,
+   "hi": 0.09812732487723244,
+   "frame_matches_in_scored_seasons": 1515,
+   "gain_mll_diluted": -0.07248800092323329,
+   "betas_by_season": {
+    "2022": 0.01484651556307137,
+    "2023": 0.013239689921003493,
+    "2024": 0.013824649986406975
+   }
+  },
+  "x_shot|wta|replication|p_market": {
+   "scored_seasons": [
+    2022,
+    2023,
+    2024
+   ],
+   "unscored_seasons": [],
+   "matches_scored": 1338,
+   "gain_mll": -0.0953217741541062,
+   "lo": -0.28012036672564955,
+   "hi": 0.08947681841743717,
+   "frame_matches_in_scored_seasons": 1515,
+   "gain_mll_diluted": -0.0841851708370918,
+   "betas_by_season": {
+    "2022": 0.01624943627003548,
+    "2023": 0.01285878241930897,
+    "2024": 0.014029922514492135
+   }
+  }
+ },
+ "coverage": {
+  "atp|discovery": {
+   "frame_matches": 4868,
+   "with_feature": 860,
+   "share": 0.177
+  },
+  "atp|replication": {
+   "frame_matches": 7958,
+   "with_feature": 3534,
+   "share": 0.444
+  },
+  "wta|discovery": {
+   "frame_matches": 3416,
+   "with_feature": 840,
+   "share": 0.246
+  },
+  "wta|replication": {
+   "frame_matches": 1515,
+   "with_feature": 503,
+   "share": 0.332
+  }
+ },
+ "deviations_after_estimation": [],
+ "pass_rule": {
+  "replication_beta_positive_wald_above_0": true,
+  "discovery_same_sign": false,
+  "pass": false,
+  "fragile": false
+ }
+}

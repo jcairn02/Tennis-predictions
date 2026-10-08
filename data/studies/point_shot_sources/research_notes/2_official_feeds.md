@@ -17,7 +17,7 @@
 
 - **How pages were read.** I read pages with the WebFetch tool. For public documentation pages I also downloaded the raw HTML or PDF and converted it to text, so that quotes are verbatim.
   - The conversion used the base Miniforge interpreter, not the project's `tennis` env. It was used only to turn HTML or PDF into text in the scratchpad.
-  - Scratch files are in the session scratchpad and have not been deleted.
+  - Scratch files were kept in the session scratchpad and deleted with it on 25 Sep 2026, at the owner's request.
 - **Blocked or unreadable pages.** These are recorded here. I did not try to get around any of them.
   - **tennisdata.com and results.tennisdata.com:** HTTP 403 on every page tried. That covers the home page, `/tennis-data-platform`, a results match page, `/about` and `/terms-and-conditions`. TDI and Tennis Results evidence therefore comes from the ATP Tour site, Sportradar pages, a TDI staff interview and search-engine summaries. Each is labelled.
   - **coverage-matrix.sportradar.com:** a JavaScript app. The static fetch shows only "Showing 0 to 0 of 0 rows".

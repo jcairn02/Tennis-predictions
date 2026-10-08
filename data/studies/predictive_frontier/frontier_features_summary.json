@@ -1,0 +1,421 @@
+{
+  "matches": 78714,
+  "player_rows": 157428,
+  "feature_groups": {
+    "innovations": [
+      "pf_serve_28",
+      "pf_return_28",
+      "pf_serve_182",
+      "pf_return_182",
+      "pf_serve_momentum",
+      "pf_return_momentum",
+      "pf_box_seen_diff",
+      "pf_box_unknown_elo"
+    ],
+    "surface_specialization": [
+      "pf_surface_serve",
+      "pf_surface_return",
+      "pf_surface_evidence_diff",
+      "pf_surface_unknown_elo"
+    ],
+    "reliability": [
+      "pf_evidence_diff",
+      "pf_uncertainty_elo",
+      "pf_uncertainty_sr",
+      "pf_instability_diff",
+      "pf_instability_elo"
+    ],
+    "recovery": [
+      "pf_rest_diff",
+      "pf_inactivity_elo",
+      "pf_retired_loss_recent",
+      "pf_retired_loss_rate",
+      "pf_history_seen_diff",
+      "pf_history_unknown_elo"
+    ],
+    "event_speed": [
+      "pf_event_speed_style",
+      "pf_event_speed_elo",
+      "pf_event_evidence_style",
+      "pf_event_unknown_elo"
+    ]
+  },
+  "constants": {
+    "half_life_days": [
+      28.0,
+      182.0
+    ],
+    "point_prior": 200.0,
+    "surface_prior": 400.0,
+    "event_prior": 800.0,
+    "retirement_prior": 5.0
+  },
+  "definitions": {
+    "innovations": "Serve wins minus n*expit(mu+own serve-opponent return); return wins minus n*(1-expit(mu+opponent serve-own return)). Each player/channel has exponentially decayed sums S,N at 28 and 182 days; S/(N+200), plus short-minus-long. Box-seen difference and mean unknown indicator times Elo distinguish no observed eligible history from neutral residuals.",
+    "surface_specialization": "182-day surface mean partially pooled toward global innovation: (S_surface+400*global)/(N_surface+400)-global. Unknown surface is neutral with coverage control. Surface evidence difference uses log1p of serve+return points; mean absence of surface observations interacts with Elo.",
+    "reliability": "182-day observed eligible point exposure log1p difference; symmetric mean 400/(400+serve+return exposure) times Elo logit and SR strength. Excess residual dispersion estimates max(0,[sum n*(observed rate-expected)^2 - expected*(1-expected)]/(N+200) - pooled mean^2); channel sum gives difference and symmetric interaction with Elo. This approximates binomial-noise correction, not calibrated posterior uncertainty.",
+    "recovery": "Observed prior completed/retired matches only. Rest is log1p(min(days since last observed played match,365)); absence score clip((gap-28)/154,0,1) interacts symmetrically with Elo. Last observed retired loss decays at 28 days; 182-day retired-loss count/(played count+5) supplies recurrent observation rate. History coverage remains explicit. Rest/absence describe the restricted dated universe, not verified inactivity or injury.",
+    "event_speed": "Current-edition prior-day service residual total/(service points+800), multiplied by signed serve-versus-return style contrast and Elo logit. Current edition keys include tour,tournament_id,surface. Evidence fraction N/(N+800) times style and event-unobserved times Elo distinguish neutral and unknown conditions. This is an inferred playing-condition proxy, not measured court speed."
+  },
+  "history_policy": "New rolling states: strictly earlier provider dates, including same-event exclusion on forecast day. Upstream supplied pre-match ratings retain repaired same-event strictly-earlier-round allowance.",
+  "outcome_blind_forecast": "Current score, won/status, point counts, box validity and market quote are read for later updates only. No market input is used anywhere.",
+  "missingness": "Neutral zero innovation/no observed event; every family has coverage/exposure or unknown-by-strength controls. Flags reverse sign or multiply signed current strength. Equal unknown players at zero strength cannot produce directional advantage.",
+  "coverage_by_tour_year": [
+    {
+      "tour": "atp",
+      "year": 2010,
+      "matches": 2655,
+      "eligible_current_boxes": 2561,
+      "both_box_histories": 2399,
+      "both_surface_histories": 2169,
+      "prior_event_box": 2294,
+      "both_observed_played_histories": 2401
+    },
+    {
+      "tour": "atp",
+      "year": 2011,
+      "matches": 2660,
+      "eligible_current_boxes": 2563,
+      "both_box_histories": 2588,
+      "both_surface_histories": 2496,
+      "prior_event_box": 2281,
+      "both_observed_played_histories": 2590
+    },
+    {
+      "tour": "atp",
+      "year": 2012,
+      "matches": 2604,
+      "eligible_current_boxes": 2515,
+      "both_box_histories": 2549,
+      "both_surface_histories": 2500,
+      "prior_event_box": 2225,
+      "both_observed_played_histories": 2550
+    },
+    {
+      "tour": "atp",
+      "year": 2013,
+      "matches": 2577,
+      "eligible_current_boxes": 2485,
+      "both_box_histories": 2509,
+      "both_surface_histories": 2461,
+      "prior_event_box": 2219,
+      "both_observed_played_histories": 2511
+    },
+    {
+      "tour": "atp",
+      "year": 2014,
+      "matches": 2535,
+      "eligible_current_boxes": 2448,
+      "both_box_histories": 2489,
+      "both_surface_histories": 2434,
+      "prior_event_box": 2192,
+      "both_observed_played_histories": 2490
+    },
+    {
+      "tour": "atp",
+      "year": 2015,
+      "matches": 2621,
+      "eligible_current_boxes": 2526,
+      "both_box_histories": 2579,
+      "both_surface_histories": 2530,
+      "prior_event_box": 2269,
+      "both_observed_played_histories": 2580
+    },
+    {
+      "tour": "atp",
+      "year": 2016,
+      "matches": 2595,
+      "eligible_current_boxes": 2523,
+      "both_box_histories": 2547,
+      "both_surface_histories": 2508,
+      "prior_event_box": 2220,
+      "both_observed_played_histories": 2547
+    },
+    {
+      "tour": "atp",
+      "year": 2017,
+      "matches": 2604,
+      "eligible_current_boxes": 2524,
+      "both_box_histories": 2553,
+      "both_surface_histories": 2497,
+      "prior_event_box": 2226,
+      "both_observed_played_histories": 2554
+    },
+    {
+      "tour": "atp",
+      "year": 2018,
+      "matches": 17,
+      "eligible_current_boxes": 17,
+      "both_box_histories": 14,
+      "both_surface_histories": 11,
+      "prior_event_box": 0,
+      "both_observed_played_histories": 14
+    },
+    {
+      "tour": "atp",
+      "year": 2019,
+      "matches": 2561,
+      "eligible_current_boxes": 2511,
+      "both_box_histories": 2510,
+      "both_surface_histories": 2433,
+      "prior_event_box": 2203,
+      "both_observed_played_histories": 2511
+    },
+    {
+      "tour": "atp",
+      "year": 2020,
+      "matches": 1254,
+      "eligible_current_boxes": 1234,
+      "both_box_histories": 1215,
+      "both_surface_histories": 1187,
+      "prior_event_box": 1061,
+      "both_observed_played_histories": 1216
+    },
+    {
+      "tour": "atp",
+      "year": 2021,
+      "matches": 2452,
+      "eligible_current_boxes": 2406,
+      "both_box_histories": 2409,
+      "both_surface_histories": 2353,
+      "prior_event_box": 2085,
+      "both_observed_played_histories": 2409
+    },
+    {
+      "tour": "atp",
+      "year": 2022,
+      "matches": 2600,
+      "eligible_current_boxes": 2541,
+      "both_box_histories": 2546,
+      "both_surface_histories": 2481,
+      "prior_event_box": 2200,
+      "both_observed_played_histories": 2546
+    },
+    {
+      "tour": "atp",
+      "year": 2023,
+      "matches": 2665,
+      "eligible_current_boxes": 2611,
+      "both_box_histories": 2604,
+      "both_surface_histories": 2541,
+      "prior_event_box": 2223,
+      "both_observed_played_histories": 2607
+    },
+    {
+      "tour": "atp",
+      "year": 2024,
+      "matches": 2698,
+      "eligible_current_boxes": 2628,
+      "both_box_histories": 2657,
+      "both_surface_histories": 2602,
+      "prior_event_box": 2305,
+      "both_observed_played_histories": 2659
+    },
+    {
+      "tour": "atp",
+      "year": 2025,
+      "matches": 2574,
+      "eligible_current_boxes": 2485,
+      "both_box_histories": 2526,
+      "both_surface_histories": 2484,
+      "prior_event_box": 2208,
+      "both_observed_played_histories": 2527
+    },
+    {
+      "tour": "atp",
+      "year": 2026,
+      "matches": 1765,
+      "eligible_current_boxes": 1609,
+      "both_box_histories": 1719,
+      "both_surface_histories": 1677,
+      "prior_event_box": 1390,
+      "both_observed_played_histories": 1722
+    },
+    {
+      "tour": "wta",
+      "year": 2010,
+      "matches": 2416,
+      "eligible_current_boxes": 2105,
+      "both_box_histories": 2005,
+      "both_surface_histories": 1774,
+      "prior_event_box": 2007,
+      "both_observed_played_histories": 2178
+    },
+    {
+      "tour": "wta",
+      "year": 2011,
+      "matches": 2435,
+      "eligible_current_boxes": 2073,
+      "both_box_histories": 2121,
+      "both_surface_histories": 2042,
+      "prior_event_box": 2016,
+      "both_observed_played_histories": 2365
+    },
+    {
+      "tour": "wta",
+      "year": 2012,
+      "matches": 2408,
+      "eligible_current_boxes": 2056,
+      "both_box_histories": 2156,
+      "both_surface_histories": 2086,
+      "prior_event_box": 1970,
+      "both_observed_played_histories": 2352
+    },
+    {
+      "tour": "wta",
+      "year": 2013,
+      "matches": 2432,
+      "eligible_current_boxes": 2092,
+      "both_box_histories": 2240,
+      "both_surface_histories": 2168,
+      "prior_event_box": 1954,
+      "both_observed_played_histories": 2378
+    },
+    {
+      "tour": "wta",
+      "year": 2014,
+      "matches": 2401,
+      "eligible_current_boxes": 2116,
+      "both_box_histories": 2324,
+      "both_surface_histories": 2238,
+      "prior_event_box": 1938,
+      "both_observed_played_histories": 2347
+    },
+    {
+      "tour": "wta",
+      "year": 2015,
+      "matches": 2491,
+      "eligible_current_boxes": 1868,
+      "both_box_histories": 2443,
+      "both_surface_histories": 2391,
+      "prior_event_box": 1662,
+      "both_observed_played_histories": 2455
+    },
+    {
+      "tour": "wta",
+      "year": 2016,
+      "matches": 2494,
+      "eligible_current_boxes": 2434,
+      "both_box_histories": 2422,
+      "both_surface_histories": 2368,
+      "prior_event_box": 2097,
+      "both_observed_played_histories": 2428
+    },
+    {
+      "tour": "wta",
+      "year": 2017,
+      "matches": 2482,
+      "eligible_current_boxes": 2408,
+      "both_box_histories": 2437,
+      "both_surface_histories": 2380,
+      "prior_event_box": 2028,
+      "both_observed_played_histories": 2437
+    },
+    {
+      "tour": "wta",
+      "year": 2018,
+      "matches": 2438,
+      "eligible_current_boxes": 2379,
+      "both_box_histories": 2400,
+      "both_surface_histories": 2349,
+      "prior_event_box": 2018,
+      "both_observed_played_histories": 2405
+    },
+    {
+      "tour": "wta",
+      "year": 2019,
+      "matches": 2423,
+      "eligible_current_boxes": 2335,
+      "both_box_histories": 2382,
+      "both_surface_histories": 2333,
+      "prior_event_box": 1979,
+      "both_observed_played_histories": 2383
+    },
+    {
+      "tour": "wta",
+      "year": 2020,
+      "matches": 1045,
+      "eligible_current_boxes": 1032,
+      "both_box_histories": 1031,
+      "both_surface_histories": 1022,
+      "prior_event_box": 873,
+      "both_observed_played_histories": 1032
+    },
+    {
+      "tour": "wta",
+      "year": 2021,
+      "matches": 2399,
+      "eligible_current_boxes": 2179,
+      "both_box_histories": 2338,
+      "both_surface_histories": 2275,
+      "prior_event_box": 1874,
+      "both_observed_played_histories": 2341
+    },
+    {
+      "tour": "wta",
+      "year": 2022,
+      "matches": 2338,
+      "eligible_current_boxes": 2229,
+      "both_box_histories": 2275,
+      "both_surface_histories": 2212,
+      "prior_event_box": 1917,
+      "both_observed_played_histories": 2275
+    },
+    {
+      "tour": "wta",
+      "year": 2023,
+      "matches": 2467,
+      "eligible_current_boxes": 2393,
+      "both_box_histories": 2412,
+      "both_surface_histories": 2353,
+      "prior_event_box": 2049,
+      "both_observed_played_histories": 2414
+    },
+    {
+      "tour": "wta",
+      "year": 2024,
+      "matches": 2487,
+      "eligible_current_boxes": 2412,
+      "both_box_histories": 2442,
+      "both_surface_histories": 2393,
+      "prior_event_box": 2088,
+      "both_observed_played_histories": 2443
+    },
+    {
+      "tour": "wta",
+      "year": 2025,
+      "matches": 2438,
+      "eligible_current_boxes": 2372,
+      "both_box_histories": 2380,
+      "both_surface_histories": 2348,
+      "prior_event_box": 2028,
+      "both_observed_played_histories": 2381
+    },
+    {
+      "tour": "wta",
+      "year": 2026,
+      "matches": 1683,
+      "eligible_current_boxes": 1487,
+      "both_box_histories": 1645,
+      "both_surface_histories": 1599,
+      "prior_event_box": 1288,
+      "both_observed_played_histories": 1647
+    }
+  ],
+  "limitations": [
+    "Provider match dates are not exact end times.",
+    "Upstream repaired dates omit most ATP 2018 matches; new rolling states decay across that observation gap.",
+    "Observed rest and retirement outcomes are neither complete workload nor diagnoses.",
+    "No longitudinal injury records or measured court/weather conditions are added.",
+    "2026 history is partial and prior periods have already been inspected."
+  ],
+  "pool_matches": 78706,
+  "pool_order_exact": true,
+  "input_sha256": {
+    "data\\studies\\feature_alpha_audit\\repairs\\repair_rows.parquet": "5434fa1cbc58edb446521cba0f5907b3402696786566d424b9a9d0b0601722c3",
+    "data\\studies\\feature_alpha_audit\\repairs\\repair_features.parquet": "2da344b939992fab50c1e209d13a2d0696e16217d1293a7e3dc511de8e3efdcb"
+  },
+  "output": "data\\studies\\predictive_frontier\\frontier_features.parquet",
+  "output_sha256": "1a6bbfe5ef69473f080cd6342ed994f952add29c162674d8a043e02ffaf1e9ad",
+  "seconds": 4.57
+}

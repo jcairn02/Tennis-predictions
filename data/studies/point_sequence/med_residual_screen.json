@@ -1,0 +1,93 @@
+{
+ "key": "beta = log-odds shift per treated side (A minus B), given the benchmark as an offset; negative = a player treated in her previous match wins less often than the benchmark says; Wald 95% interval (block bootstrap as a check); spanning 0 = tie",
+ "windows": {
+  "discovery | all | p_model": {
+   "matches": 4566,
+   "exposed_matches": 315,
+   "beta": -0.2196699709545563,
+   "se": 0.12379756004857614,
+   "lo": -0.46231318864976556,
+   "hi": 0.02297324674065296,
+   "block_lo": -0.4162447865933212,
+   "block_hi": -0.012756336930959853,
+   "verdict": "tie"
+  },
+  "discovery | all | p_market": {
+   "matches": 4566,
+   "exposed_matches": 315,
+   "beta": -0.20586297124223063,
+   "se": 0.12403276552770423,
+   "lo": -0.44896719167653093,
+   "hi": 0.03724124919206967,
+   "block_lo": -0.4203489733388801,
+   "block_hi": -0.0021319072290904677,
+   "verdict": "tie"
+  },
+  "discovery | both logged | p_model": {
+   "matches": 2187,
+   "exposed_matches": 254,
+   "beta": -0.20348074556156168,
+   "se": 0.1364669319731528,
+   "lo": -0.47095593222894117,
+   "hi": 0.06399444110581778,
+   "block_lo": -0.42936419903345097,
+   "block_hi": 0.01680344708442024,
+   "verdict": "tie"
+  },
+  "discovery | both logged | p_market": {
+   "matches": 2187,
+   "exposed_matches": 254,
+   "beta": -0.19232253376705974,
+   "se": 0.13682460135832575,
+   "lo": -0.4604987524293782,
+   "hi": 0.0758536848952587,
+   "block_lo": -0.42765853300260304,
+   "block_hi": 0.048900099887953165,
+   "verdict": "tie"
+  },
+  "replication | all | p_model": {
+   "matches": 7308,
+   "exposed_matches": 586,
+   "beta": 0.07019095715731039,
+   "se": 0.09151544744030024,
+   "lo": -0.10917931982567808,
+   "hi": 0.24956123414029885,
+   "block_lo": -0.10733456634712682,
+   "block_hi": 0.24977327787568654,
+   "verdict": "tie"
+  },
+  "replication | all | p_market": {
+   "matches": 7308,
+   "exposed_matches": 586,
+   "beta": 0.08830291185183885,
+   "se": 0.0912985618802549,
+   "lo": -0.09064226943346075,
+   "hi": 0.26724809313713843,
+   "block_lo": -0.09290723274325884,
+   "block_hi": 0.2591010116751678,
+   "verdict": "tie"
+  },
+  "replication | both logged | p_model": {
+   "matches": 4419,
+   "exposed_matches": 486,
+   "beta": 0.0977145044607626,
+   "se": 0.0995773535581,
+   "lo": -0.0974571085131134,
+   "hi": 0.2928861174346386,
+   "block_lo": -0.09561679811265182,
+   "block_hi": 0.28144080756971446,
+   "verdict": "tie"
+  },
+  "replication | both logged | p_market": {
+   "matches": 4419,
+   "exposed_matches": 486,
+   "beta": 0.110042448976833,
+   "se": 0.09933018782319002,
+   "lo": -0.08464471915661943,
+   "hi": 0.30472961711028546,
+   "block_lo": -0.0887519913659641,
+   "block_hi": 0.28540537405775185,
+   "verdict": "tie"
+  }
+ }
+}

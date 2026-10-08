@@ -1,0 +1,179 @@
+{
+ "source": "infosys_atp",
+ "started_at": "2026-10-08T16:55:29+00:00",
+ "args": {
+  "years": "2016",
+  "since": "20150101",
+  "until": "20211017",
+  "events": null,
+  "routes": null,
+  "phase": "all",
+  "max_requests": 6000,
+  "min_interval": 2.0,
+  "jitter": 1.0,
+  "timeout": 60,
+  "skip_after": 8,
+  "refresh": false,
+  "inventory_only": false
+ },
+ "instruction": "Owner, 8 Oct 2026: \"Acquire this speed data and download it. DO NOT DECRYPT IT. I just want the encrypted files on my computer.\"",
+ "decision": "docs/decisions/2026-10-08-scraping-approved.md",
+ "decrypted": false,
+ "years": [
+  2016
+ ],
+ "routes": [
+  "keystats",
+  "match-beats",
+  "rally-analysis",
+  "court-vision"
+ ],
+ "events_selected": 62,
+ "matches_selected": 2868,
+ "rows_without_a_code": 95,
+ "events_with_files_found": 0,
+ "client": {
+  "impersonate": "chrome",
+  "requests": 372,
+  "retried": 0,
+  "slept_seconds": 737.1,
+  "min_interval": 2.0,
+  "jitter": 1.0,
+  "not_found_answers": 372
+ },
+ "fetch_outcomes": {
+  "2016:court-vision:absent": 124,
+  "2016:keystats:absent": 124,
+  "2016:match-beats:absent": 62,
+  "2016:rally-analysis:absent": 62
+ },
+ "families_given_up": [],
+ "events_by_state": {
+  "2016": {
+   "empty": 62
+  }
+ },
+ "events_with_files": [],
+ "by_year_route": {
+  "2016|court-vision": {
+   "absent": 124
+  },
+  "2016|keystats": {
+   "absent": 124
+  },
+  "2016|match-beats": {
+   "absent": 62
+  },
+  "2016|rally-analysis": {
+   "absent": 62
+  },
+  "2017|court-vision": {
+   "absent": 128
+  },
+  "2017|keystats": {
+   "absent": 128
+  },
+  "2017|match-beats": {
+   "absent": 64
+  },
+  "2017|rally-analysis": {
+   "absent": 64
+  },
+  "2018|court-vision": {
+   "absent": 127,
+   "files": 14,
+   "bytes": 6771492,
+   "stored_bytes": 5129765
+  },
+  "2018|keystats": {
+   "absent": 126,
+   "files": 15,
+   "bytes": 485892,
+   "stored_bytes": 368397
+  },
+  "2018|match-beats": {
+   "absent": 63,
+   "files": 15,
+   "bytes": 1073352,
+   "stored_bytes": 813629
+  },
+  "2018|rally-analysis": {
+   "absent": 63,
+   "files": 15,
+   "bytes": 776872,
+   "stored_bytes": 588984
+  },
+  "2019|court-vision": {
+   "absent": 138
+  },
+  "2019|keystats": {
+   "absent": 122,
+   "files": 30,
+   "bytes": 988092,
+   "stored_bytes": 749427
+  },
+  "2019|match-beats": {
+   "absent": 61,
+   "files": 30,
+   "bytes": 2321000,
+   "stored_bytes": 1759320
+  },
+  "2019|rally-analysis": {
+   "absent": 61,
+   "files": 30,
+   "bytes": 1668648,
+   "stored_bytes": 1264973
+  },
+  "2020|court-vision": {
+   "absent": 106
+  },
+  "2020|keystats": {
+   "absent": 50,
+   "files": 164,
+   "bytes": 4306208,
+   "stored_bytes": 3266942
+  },
+  "2020|match-beats": {
+   "absent": 26,
+   "files": 163,
+   "bytes": 13532680,
+   "stored_bytes": 10256505
+  },
+  "2020|rally-analysis": {
+   "absent": 25,
+   "files": 164,
+   "bytes": 9699756,
+   "stored_bytes": 7352672
+  },
+  "2022|court-vision": {
+   "files": 1,
+   "bytes": 566636,
+   "stored_bytes": 429228
+  },
+  "2022|match-beats": {
+   "files": 1,
+   "bytes": 65572,
+   "stored_bytes": 49695
+  },
+  "2022|rally-analysis": {
+   "files": 1,
+   "bytes": 45592,
+   "stored_bytes": 34568
+  },
+  "2025|keystats": {
+   "files": 1,
+   "bytes": 31660,
+   "stored_bytes": 24005
+  }
+ },
+ "files_held": 644,
+ "files_held_in_plan": 640,
+ "bytes_served": 42333452,
+ "bytes_stored": 32088110,
+ "files_not_whole_aes_blocks": 0,
+ "receipts": 2368,
+ "receipts_with_errors": 0,
+ "error_examples": [],
+ "finished_at": "2026-10-08T17:10:50+00:00",
+ "seconds": 921.6
+}

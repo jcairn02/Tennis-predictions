@@ -1,0 +1,372 @@
+{
+ "generated_at": "2026-09-24T21:32:48+00:00",
+ "decision": "docs/decisions/2026-09-24-official-point-feeds.md",
+ "queries": {
+  "ao_api": {
+   "url": "prod-scores-api.ausopen.com",
+   "matchType": "host",
+   "filter": [
+    "statuscode:200"
+   ]
+  },
+  "ao_domain": {
+   "url": "ausopen.com",
+   "matchType": "domain",
+   "filter": [
+    "statuscode:200",
+    "mimetype:.*(json|xml).*",
+    "original:(?i).*(slamtracker|score|match|stats|point).*"
+   ]
+  },
+  "ao_manhattan": {
+   "url": "prod-manhattan-api.ausopen.com",
+   "matchType": "host",
+   "filter": [
+    "statuscode:200"
+   ]
+  },
+  "ao_match_pages": {
+   "url": "ausopen.com/match/",
+   "matchType": "prefix",
+   "filter": [
+    "statuscode:200"
+   ]
+  },
+  "uso_slamtracker": {
+   "url": "usopen.org",
+   "matchType": "domain",
+   "filter": [
+    "statuscode:200",
+    "original:(?i).*slamtracker.*"
+   ]
+  },
+  "wim_slamtracker": {
+   "url": "wimbledon.com",
+   "matchType": "domain",
+   "filter": [
+    "statuscode:200",
+    "original:(?i).*slamtracker.*"
+   ]
+  },
+  "wta_pbp": {
+   "url": "api.wtatennis.com",
+   "matchType": "host",
+   "filter": [
+    "statuscode:200",
+    "original:(?i).*point-by-point.*"
+   ]
+  }
+ },
+ "fetch": {
+  "ao_api": {
+   "pages": 1,
+   "cut_at_page_limit": false
+  },
+  "ao_domain": {
+   "pages": 1,
+   "cut_at_page_limit": false
+  },
+  "ao_manhattan": {
+   "pages": 1,
+   "cut_at_page_limit": false
+  },
+  "ao_match_pages": {
+   "pages": 1,
+   "cut_at_page_limit": false
+  },
+  "uso_slamtracker": {
+   "pages": 3,
+   "cut_at_page_limit": false
+  },
+  "wim_slamtracker": {
+   "pages": 3,
+   "cut_at_page_limit": false
+  },
+  "wta_pbp": {
+   "pages": 1,
+   "cut_at_page_limit": false
+  },
+  "client": {
+   "impersonate": "chrome",
+   "requests": 0,
+   "retried": 0,
+   "slept_seconds": 0.0,
+   "min_interval": 4.0,
+   "jitter": 1.0,
+   "not_found_answers": 0
+  }
+ },
+ "summary": {
+  "ao_api": {
+   "captures": 779,
+   "distinct_urls": 524,
+   "by_family": {
+    "schedule": 252,
+    "other:/players": 165,
+    "results": 112,
+    "draws": 107,
+    "match-centre": 99,
+    "other:/year": 19,
+    "live": 14,
+    "other:/ref-data/current": 11
+   },
+   "years_not_served_live": [
+    2018,
+    2019,
+    2020,
+    2021,
+    2022,
+    2023,
+    2024,
+    2025
+   ]
+  },
+  "ao_domain": {
+   "captures": 2162,
+   "distinct_urls": 765,
+   "by_family": {
+    "other": 1101,
+    "scores": 279,
+    "schedule": 252,
+    "other:/players": 165,
+    "results": 112,
+    "draws": 107,
+    "match-centre": 99,
+    "other:/year": 19,
+    "live": 14,
+    "other:/ref-data/current": 11,
+    "slamtracker/history": 3
+   },
+   "years_not_served_live": [
+    2013,
+    2014,
+    2015,
+    2016,
+    2017,
+    2018,
+    2019,
+    2020,
+    2021,
+    2022,
+    2023,
+    2024,
+    2025
+   ]
+  },
+  "ao_manhattan": {
+   "captures": 3,
+   "distinct_urls": 3,
+   "by_family": {
+    "other": 3
+   },
+   "years_not_served_live": [
+    2019
+   ]
+  },
+  "ao_match_pages": {
+   "captures": 5342,
+   "distinct_urls": 3228,
+   "by_family": {
+    "other": 5342
+   },
+   "years_not_served_live": [
+    1999,
+    2000,
+    2005,
+    2018,
+    2019,
+    2020,
+    2021,
+    2022,
+    2023,
+    2024,
+    2025
+   ]
+  },
+  "uso_slamtracker": {
+   "captures": 45853,
+   "distinct_urls": 1568,
+   "by_family": {
+    "other": 33804,
+    "scores": 8788,
+    "slamtracker/stats": 3194,
+    "slamtracker/history": 54,
+    "draws": 11,
+    "slamtracker/distance": 2
+   },
+   "years_not_served_live": [
+    2008,
+    2009,
+    2010,
+    2011,
+    2012,
+    2013,
+    2014,
+    2015,
+    2016,
+    2017,
+    2018,
+    2019,
+    2020,
+    2021
+   ]
+  },
+  "wim_slamtracker": {
+   "captures": 41044,
+   "distinct_urls": 1279,
+   "by_family": {
+    "other": 29595,
+    "scores": 7958,
+    "slamtracker/stats": 3463,
+    "slamtracker/history": 23,
+    "slamtracker/distance": 5
+   },
+   "years_not_served_live": [
+    2011,
+    2012,
+    2013,
+    2014,
+    2015,
+    2016,
+    2017,
+    2018,
+    2020
+   ]
+  },
+  "wta_pbp": {
+   "captures": 0,
+   "distinct_urls": 0,
+   "by_family": {},
+   "years_not_served_live": []
+  }
+ },
+ "point_data_by_feed_and_year": {
+  "ao": {
+   "2017": {
+    "captures": 3,
+    "fetched": 3,
+    "live_feed_serves_year": false
+   },
+   "2019": {
+    "captures": 3,
+    "fetched": 3,
+    "live_feed_serves_year": false
+   },
+   "2020": {
+    "captures": 1,
+    "fetched": 1,
+    "live_feed_serves_year": false
+   },
+   "2021": {
+    "captures": 10,
+    "fetched": 10,
+    "live_feed_serves_year": false
+   },
+   "2022": {
+    "captures": 17,
+    "fetched": 17,
+    "live_feed_serves_year": false
+   },
+   "2023": {
+    "captures": 19,
+    "fetched": 19,
+    "live_feed_serves_year": false
+   },
+   "2024": {
+    "captures": 20,
+    "fetched": 20,
+    "live_feed_serves_year": false
+   },
+   "2025": {
+    "captures": 12,
+    "fetched": 12,
+    "live_feed_serves_year": false
+   },
+   "2026": {
+    "captures": 20,
+    "fetched": 20,
+    "live_feed_serves_year": true
+   }
+  },
+  "uso": {
+   "2016": {
+    "captures": 1,
+    "fetched": 0,
+    "live_feed_serves_year": false
+   },
+   "2017": {
+    "captures": 2,
+    "fetched": 0,
+    "live_feed_serves_year": false
+   },
+   "2018": {
+    "captures": 4,
+    "fetched": 0,
+    "live_feed_serves_year": false
+   },
+   "2019": {
+    "captures": 13,
+    "fetched": 0,
+    "live_feed_serves_year": false
+   },
+   "2021": {
+    "captures": 5,
+    "fetched": 0,
+    "live_feed_serves_year": false
+   },
+   "2022": {
+    "captures": 4,
+    "fetched": 0,
+    "live_feed_serves_year": true
+   },
+   "2023": {
+    "captures": 6,
+    "fetched": 0,
+    "live_feed_serves_year": true
+   },
+   "2024": {
+    "captures": 17,
+    "fetched": 0,
+    "live_feed_serves_year": true
+   },
+   "2025": {
+    "captures": 2,
+    "fetched": 0,
+    "live_feed_serves_year": true
+   }
+  },
+  "wim": {
+   "2019": {
+    "captures": 7,
+    "fetched": 0,
+    "live_feed_serves_year": true
+   },
+   "2021": {
+    "captures": 1,
+    "fetched": 0,
+    "live_feed_serves_year": true
+   },
+   "2022": {
+    "captures": 7,
+    "fetched": 0,
+    "live_feed_serves_year": true
+   },
+   "2023": {
+    "captures": 4,
+    "fetched": 0,
+    "live_feed_serves_year": true
+   },
+   "2024": {
+    "captures": 3,
+    "fetched": 0,
+    "live_feed_serves_year": true
+   },
+   "2025": {
+    "captures": 1,
+    "fetched": 0,
+    "live_feed_serves_year": true
+   }
+  }
+ },
+ "seconds": 0.5
+}

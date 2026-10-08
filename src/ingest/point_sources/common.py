@@ -4,7 +4,8 @@ Layout (paths relative to the project root):
 
     data/raw/point_sources/<source>/          verbatim responses (JSON, or gzipped HTML) plus _receipts.jsonl
     data/dump/points/<source>/                staged Parquet tables, rebuilt from the raw files by --stage
-    data/studies/point_shot_sources/scrape/   small tracked summaries of each run
+    data/studies/point_shot_sources/scrape/   small tracked summaries of each run (write_summary's default;
+                                              the official feeds write to data/studies/official_point_feeds/)
 
 Both sites refuse python-requests' TLS fingerprint (SofaScore answers HTTP 403, TennisLive serves a
 Cloudflare challenge), so the client is curl_cffi impersonating a browser: SofaScore accepts the chrome
@@ -16,11 +17,19 @@ recorded as a terminal answer ("absent") and not asked again unless --refresh is
 Terms of use: both sites restrict automated extraction (see docs/studies/point_shot_sources/README.md).
 The owner decided on 23 Sep 2026 to collect regardless, for non-commercial research. The request rate
 here is deliberately low and nothing is fetched twice.
+
+Blocks: SofaScore answers HTTP 403 ``{"error": {"code": 403, "reason": "challenge"}}`` once an address has
+made too many requests (about 3,800 in an hour on 24 Sep 2026), and the block outlasted a day. Its own site
+then runs a Cloudflare Turnstile check and exchanges the solved check for a signed token that it sends as an
+``X-Captcha`` header; a 403 whose reason starts with ``jwt:`` means that token was rejected. The SofaScore
+adapter can send a token the owner obtained in a browser (see its docstring); nothing here solves a check.
 """
 from __future__ import annotations
 
+import base64
 import gzip
 import json
+import os
 import random
 import sys
 import time
@@ -57,18 +66,23 @@ class Client:
 
     def __init__(self, impersonate: str, *, min_interval: float = 1.0, jitter: float = 0.5,
                  max_requests: int | None = None, timeout: int = 30, retries: int = 3,
-                 headers: dict | None = None):
-        from curl_cffi import requests as cr  # imported here so parsers and tests run without it
+                 headers: dict | None = None, session=None):
+        if session is None:
+            from curl_cffi import requests as cr  # imported here so parsers and tests run without it
 
-        self._session = cr.Session(impersonate=impersonate)
-        if headers:
-            self._session.headers.update(headers)
+            session = cr.Session(impersonate=impersonate)
+            if headers:
+                session.headers.update(headers)
+            headers = None
+        self._session = session
+        self._headers = dict(headers or {})  # sent with every request by transports without their own header store
         self.impersonate = impersonate
         self.min_interval = min_interval
         self.jitter = jitter
         self.max_requests = max_requests
         self.timeout = timeout
         self.retries = retries
+        self.block_retries = 1  # one retry after a minute; a block has never cleared faster
         self.requests = 0
         self.retried = 0
         self.slept = 0.0
@@ -94,7 +108,7 @@ class Client:
             self.requests += 1
             self._last = time.monotonic()
             try:
-                response = self._session.get(url, timeout=self.timeout, headers=headers)
+                response = self._session.get(url, timeout=self.timeout, headers={**self._headers, **(headers or {})})
             except Exception as err:  # curl_cffi raises its own RequestsError family
                 last_error = f"{type(err).__name__}: {err}"
                 self.retried += 1
@@ -113,10 +127,13 @@ class Client:
                 self._sleep(5 * (attempt + 1))
                 continue
             if status == 403 or challenged:
-                last_error = "Cloudflare challenge" if challenged else "HTTP 403"
+                reason = None if challenged else refusal_reason(response)
+                last_error = "Cloudflare challenge" if challenged else f"HTTP 403 ({reason})" if reason else "HTTP 403"
                 self.retried += 1
-                if attempt < self.retries:
-                    self._sleep(60 * (attempt + 1))
+                if reason and reason.startswith("jwt:"):
+                    raise Blocked(f"{last_error} for {url}: the captcha token was rejected; obtain a new one")
+                if attempt < min(self.retries, self.block_retries):
+                    self._sleep(60)
                     continue
                 raise Blocked(f"{last_error} for {url} after {attempt + 1} attempts")
             return response
@@ -125,6 +142,28 @@ class Client:
     def stats(self) -> dict:
         return {"impersonate": self.impersonate, "requests": self.requests, "retried": self.retried,
                 "slept_seconds": round(self.slept, 1), "min_interval": self.min_interval}
+
+
+def refusal_reason(response) -> str | None:
+    """SofaScore's ``error.reason`` from a JSON refusal ("challenge", "jwt:expired", ...), else None."""
+    try:
+        data = json.loads(response.content[:4096])
+        reason = data["error"]["reason"]
+    except Exception:
+        return None
+    return str(reason) if reason is not None else None
+
+
+def jwt_claims(token: str) -> dict:
+    """The payload of a JWT, decoded without verification (the signature is the issuer's business)."""
+    parts = token.split(".")
+    if len(parts) != 3:
+        raise ValueError("not a JWT (expected three dot-separated parts)")
+    payload = parts[1] + "=" * (-len(parts[1]) % 4)
+    claims = json.loads(base64.urlsafe_b64decode(payload).decode("utf-8"))
+    if not isinstance(claims, dict):
+        raise ValueError("JWT payload is not an object")
+    return claims
 
 
 def receipts_for(source: str) -> C.Receipts:
@@ -140,17 +179,21 @@ def dump_path(source: str, *parts: str) -> Path:
 
 
 def fetch(client: Client, url: str, dest: Path, receipts: C.Receipts, *, name: str, refresh: bool = False,
-          validator=None, compress: bool = False, extra: dict | None = None, headers: dict | None = None) -> dict:
+          validator=None, compress: bool = False, extra: dict | None = None, headers: dict | None = None,
+          absent=None) -> dict:
     """GET ``url`` into ``dest`` and record a receipt.
 
     Outcomes, all recorded: status 200 with the body saved (gzipped when ``compress``); status 404 with
     no file (a terminal "absent" answer, reused on later runs); any other status or a validator problem
-    as ``error`` (retried on the next run). Blocked and BudgetExhausted propagate so the run stops."""
+    as ``error`` (retried on the next run). Blocked and BudgetExhausted propagate so the run stops.
+    ``absent`` is an optional function of the response returning a reason when a site answers "not found"
+    with another status (API Gateway's 403, for one); such an answer is recorded with that reason under
+    ``absent`` and treated like a 404."""
     previous = receipts.get(name)
     if previous and not refresh:
         if previous.get("status") == 200 and not previous.get("error") and dest.exists():
             return {**previous, "skipped": True}
-        if previous.get("status") == 404 and not previous.get("error"):
+        if (previous.get("status") == 404 or previous.get("absent")) and not previous.get("error"):
             return {**previous, "skipped": True}
     receipt = {"name": name, "url": url, "dest": rel(dest), "retrieved_at": utc_now_iso()}
     if extra:
@@ -166,6 +209,10 @@ def fetch(client: Client, url: str, dest: Path, receipts: C.Receipts, *, name: s
                    final_url=str(response.url))
     if response.status_code == 404:
         return receipts.record(receipt)
+    reason = absent(response) if absent else None
+    if reason:
+        receipt["absent"] = reason
+        return receipts.record(receipt)
     if response.status_code != 200:
         receipt["error"] = f"HTTP {response.status_code}"
         return receipts.record(receipt)
@@ -175,7 +222,9 @@ def fetch(client: Client, url: str, dest: Path, receipts: C.Receipts, *, name: s
         receipt["error"] = problem
         return receipts.record(receipt)
     dest.parent.mkdir(parents=True, exist_ok=True)
-    dest.write_bytes(gzip.compress(body) if compress else body)
+    part = dest.with_name(dest.name + ".part")  # written whole, then renamed: an interrupted write never leaves a
+    part.write_bytes(gzip.compress(body) if compress else body)  # truncated file in place of a good one
+    os.replace(part, dest)
     receipt.update(bytes=len(body), sha256=sha256_bytes(body), compressed=compress)
     return receipts.record(receipt)
 
@@ -203,10 +252,18 @@ def html_validator(body: bytes):
     return None
 
 
-def write_summary(name: str, data: dict) -> Path:
-    STUDY_ROOT.mkdir(parents=True, exist_ok=True)
-    path = STUDY_ROOT / name
+def write_summary(name: str, data: dict, root: Path | None = None) -> Path:
+    """Write the latest run's summary and append one compact line to runs.jsonl, so earlier runs stay on record.
+
+    ``root`` is the study folder written to (default: this study's scrape/ folder, STUDY_ROOT)."""
+    root = root or STUDY_ROOT
+    root.mkdir(parents=True, exist_ok=True)
+    path = root / name
     path.write_text(json.dumps(data, indent=1, ensure_ascii=False, default=str) + "\n", encoding="utf-8")
+    line = {k: data.get(k) for k in ("source", "started_at", "finished_at", "seconds", "client", "fetch_outcomes",
+                                     "stopped", "receipts_with_errors", "events_selected", "matches_selected")}
+    with (root / "runs.jsonl").open("a", encoding="utf-8") as handle:
+        handle.write(json.dumps(line, ensure_ascii=False, default=str) + "\n")
     return path
 
 

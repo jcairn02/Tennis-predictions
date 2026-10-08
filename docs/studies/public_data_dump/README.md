@@ -1,6 +1,6 @@
 # Public data dump: acquisition run of 22 September 2026
 
-**Seven public source families were downloaded byte-exact and staged by source into string-typed Parquet under `data/dump/`, with per-file provenance and a tracked manifest.** Scope is 2010 onward with the emphasis on 2022–2026; the freshest rows in the dump are Tennis My Life matches with tournament weeks up to 21 September 2026 and Polymarket contracts scheduled through 24 September 2026. No cleaning, merging or normalisation was done: every source column is kept verbatim, and the [structure plan](structure-plan.md) records how the next phase should combine them.
+**Seven public source families were downloaded byte-exact and staged by source into string-typed Parquet under `data/dump/`, with per-file provenance and a tracked manifest.** Scope is 2010 onward with the emphasis on 2022–2026; the freshest rows in the dump are Tennis My Life matches with tournament weeks up to 21 September 2026 and Polymarket contracts scheduled through 24 September 2026 (tennis-data.co.uk, refreshed on 5 October, now has match dates to 29 September). No cleaning, merging or normalisation was done: every source column is kept verbatim, and the [structure plan](structure-plan.md) records how the next phase should combine them.
 
 This is an acquisition and organisation record, not a source selection or a decision. Rights of every source are unchanged by copying it (see the last section).
 
@@ -21,7 +21,24 @@ This is an acquisition and organisation record, not a source selection or a deci
 
 **Environment.** The project's `tennis` Conda environment did not exist; it was created from `environment.yml` (`mamba env create`) so `./python.sh` works as documented. Nothing else on the machine was changed.
 
-**Status.** Acquisition complete for the planned sources except the gaps listed below. The 2010 lower bound was set mid-run on the owner's direction (the run had started at 2000); files fetched before that correction are kept and marked as out of scope rather than deleted. Re-running `./python.sh -m src.ingest.public_dump.run_all --sources all` refreshes changed Tennis My Life files, retries failed downloads and skips everything already staged.
+**Status.** Acquisition complete for the planned sources except the gaps listed below. The 2010 lower bound was set mid-run on the owner's direction (the run had started at 2000); files fetched before that correction are kept and marked as out of scope rather than deleted. Re-running `./python.sh -m src.ingest.public_dump.run_all --sources all` refreshes changed Tennis My Life files, retries failed downloads and skips everything already staged. tennis-data.co.uk was re-fetched from its relaunched site on 5 October 2026 (next section); the tables below show that state for it.
+
+## Refresh of 5 October 2026: tennis-data.co.uk
+
+**tennis-data.co.uk came back online, so every 2010–2026 season was re-fetched from the live site: the dump now has ATP 2018, and 2026 results to 29 September.** The relaunched site ([listing](https://www.tennis-data.co.uk/data.php), "Data Updated: 29th September 2026", accessed 5 October 2026) redirects `alldata.php` and `alldataw.php` to `data.php`, serves workbooks under an unannounced directory (`hrjk-85HytOjkhth76j_ygh4jf7/<year>[w]/<year>.xls|xlsx`) and answers 404 on the old paths. The adapter now follows the listing's links and keeps the old paths for Internet Archive lookups (the archive was offline that day). A workbook that a refresh replaces with different bytes is kept, beside its previous receipt, under `data/raw/public_dump/tennis_data_couk/superseded/<tour>/`. Run: `./python.sh -m src.ingest.public_dump.run_all --sources tdcouk --refresh --no-manifest`.
+
+| Season | Change against the archive captures staged on 22 September |
+|---|---|
+| 30 of 34 | byte-identical; only the provenance changes (`route=live`, retrieved 2026-10-05) |
+| ATP 2018 | new: 2,637 rows (no usable capture existed) |
+| ATP 2026 | 1,786 → 2,204 rows, match dates to 2026-09-29; the Fritz–Jodar Citi Open match, blank in the capture, now has its result |
+| WTA 2026 | 1,731 → 2,191 rows, match dates to 2026-09-27; the Iasi row dated 2029-07-20 now reads 2026-07-20; the Eala–Pegula Citi Open match now has its result |
+| ATP 2025 | same rows; winner and loser corrected in two matches (Moutet–Humbert in Rome; Quinn–Dimitrov at Roland Garros, now a retirement) |
+| ATP 2013 | same rows; the 62 China Open and Japan Open rows dated 1–7 October 2012 are now dated 30 September–6 October 2013 |
+
+**Pinnacle odds stop in January 2026.** In the 2026 files `PSW`/`PSL` are filled for 71 ATP and 101 WTA matches (3.2% and 4.7% of non-walkover rows), all played 4–14 January, and are empty afterwards. Bet365 (99%), the OddsPortal maximum and average (100%) and Betfair Exchange (95%; columns added in August 2025) continue through September. That the odds are the last before play starts is the provider's claim (its notes are unchanged), not verified.
+
+**Consequences.** Studies run before 5 October used the 3 August captures; those workbooks are kept in `superseded/`, and the studies' reports still describe them. A rerun reads the corrected and extended files. The manifest, coverage tables and download log in `data/studies/public_data_dump/` were rebuilt on 5 October, after a Polymarket trades download running at the same time had finished. They now also cover data other studies have staged in `data/dump/` since 22 September (point-by-point feeds, ball tracking, Polymarket trades), which this report does not describe. Two changes to `build_manifest.py` made that rebuild possible: it reads each file directly, because `pq.read_table` rejects an empty file that repeats a column name (11 WTA point files carry two `year` columns); and the download log counts, rather than lists, the receipts of sources with more than 1,000 objects, which keeps it at about 0.5 MB instead of 45 MB.
 
 ## What was retrieved
 
@@ -34,10 +51,10 @@ Row counts are physical rows in the staged files (2010+ files unless stated). Da
 | Match Charting Project (PUB005) | chart metadata (men 7,566, women 4,264); shot-by-shot points 2010s and 2020s; 32 per-match aggregate stats files (all eras) | 2010–2026 (stats files include older matches) | women's charts 2026-09-09, men's 2026-05-21 | 38 / 4,537,499 (points 1,437,120; stats 3,088,549) | commit `1813a13` ("thru 18 sep 2026") |
 | Live Tennis API public sample (PUB010) | match index (no winner/score), players (partial Sackmann crosswalk), June 2026 observed score states | 2023–2026 | index 2026-08-13; states 2026-06-01 to 07-01 | 3 / 1,157,313 (173,571 + 32,678 + 951,064) | Zenodo record 22048731 v1.0.0, MD5 verified |
 | Open Tennis Data (PUB013) | completed results with exact dates, fixtures, players, tournaments, provenance, quarantine, coverage, health, catalog, sources | 2020–2026 | 2026-08-29 | 11 / 111,478 (completed 26,619) | release `data-v3-20260905T083014Z`, SHA-256 verified; derivative of tennis-data.co.uk and Sackmann |
-| tennis-data.co.uk (PUB014, PUB015, tennis_data_odds) | ATP (2010–2026 except 2018) and WTA (2010–2026) results with set scores and closing odds, partitioned by `Series`/`Tier` | 2010–2026 | 2026-08-03 in both tours (2026 file captured that day: 1,786 ATP and 1,730 WTA rows, against 1,296 and 1,248 in the inherited June workbooks; one row mis-dated 2029) | 178 / 79,728 (plus 51 pre-2010 files, 27,268 rows, fetched before the scope change) | every file via Internet Archive captures (`route=wayback`, capture timestamp recorded per file); live site dead |
+| tennis-data.co.uk (PUB014, PUB015, tennis_data_odds) | ATP and WTA results with set scores and closing odds, partitioned by `Series`/`Tier` | 2010–2026 | ATP 2026-09-29, WTA 2026-09-27 (2026 files: 2,204 ATP and 2,191 WTA rows) | 183 / 83,243 (plus 51 pre-2010 files, 27,268 rows, fetched before the scope change) | live site, re-fetched 2026-10-05 (`route=live`); on 22 September every file came from Internet Archive captures of 3 August or earlier, without ATP 2018 |
 | Polymarket (poly_gamma, poly_clob_history) | event and market index (census of 2026-09-10 plus post-census extension of 2026-09-22); minute price history of the first outcome token of every moneyline | sporting dates 2025-09-10 to 2026-09-24 | catalog 2026-09-24 (scheduled); prices 2026-09-22 | index 2 / 34,197 + 3,483 events and 411,502 + 52,764 contracts; prices 84 / 62,218,248 minute rows for 36,270 markets (33,115 census and 3,155 extension moneylines; one market returned an empty history) | public Gamma and CLOB APIs; no account; 36,295 price requests, none failed |
 
-Totals: 743 staged Parquet files, 74,838,119 rows, 426 MB staged, plus 1.75 GB of byte-exact downloads under `data/raw/public_dump/`. The full per-file table with date bounds, malformed-row counts and routes is in [coverage_tables.md](../../../data/studies/public_data_dump/coverage_tables.md).
+Totals on 22 September: 743 staged Parquet files, 74,838,119 rows, 426 MB staged, plus 1.75 GB of byte-exact downloads under `data/raw/public_dump/` (the 5 October tennis-data.co.uk refresh adds 5 files and 3,515 rows; the manifest rebuilt that day lists 895 files and 173,327,313 rows, because it also covers other studies' staged data). The full per-file table with date bounds, malformed-row counts and routes is in [coverage_tables.md](../../../data/studies/public_data_dump/coverage_tables.md).
 
 ### Recency, the owner's priority
 
@@ -49,8 +66,8 @@ Totals: 743 staged Parquet files, 74,838,119 rows, 426 MB staged, plus 1.75 GB o
 | WTA qualifying, WTA 125, ITF women | Sackmann to 2026-06-02 | **no public result source from June 2026 on**; the Live Tennis API index schedules them to 2026-08-13 without results; Polymarket settlements (`outcomePrices`) identify winners for markets that resolved |
 | ATP Futures / ITF men | Sackmann to 2026-06-01 | same gap as above |
 | Doubles | Sackmann to 2020; Slam doubles points to 2024 | no current public doubles results; Polymarket doubles markets exist (2,532 census moneylines) |
-| Exact match dates | tennis-data.co.uk to 2026-08-03, Open Tennis Data to 2026-08-29 | September only from scheduled times (Live Tennis API index, Polymarket `gameStartTime`) |
-| Closing bookmaker odds | tennis-data.co.uk to 2026-08-03 (archive capture of that day) | 4 August to September 2026; ATP 2018 entirely |
+| Exact match dates | tennis-data.co.uk to 2026-09-29 (ATP) and 2026-09-27 (WTA), Open Tennis Data to 2026-08-29 | main tour after the provider's 29 September update; lower tiers only from scheduled times (Live Tennis API index, Polymarket `gameStartTime`) |
+| Closing bookmaker odds | tennis-data.co.uk to 2026-09-29 (live site, 5 October refresh) | matches after 29 September; Pinnacle after 14 January 2026; lower tiers entirely |
 | Polymarket prices | minute history through 2026-09-22 | other contract types (set winners, totals, handicaps, exact score, completion) |
 | Shot-level data | Match Charting Project women's charts to 2026-09-09 | men's file ends 2026-05-21 in this commit |
 
@@ -60,7 +77,7 @@ Nothing was purchased, no account was created, no site was scraped against its t
 
 | Source | Reason | Consequence |
 |---|---|---|
-| tennis-data.co.uk live files | Every workbook path returned an IONOS/Sedo domain-parking page (HTTP 404) on 22 Sep 2026, while the index pages still listed the files | All 2010–2026 files came from Internet Archive captures instead; the capture date is recorded per file. ATP 2018 has only HTTP 503 captures and is missing; ATP 2002, 2004, 2006 also failed but are out of scope |
+| tennis-data.co.uk live files | Every workbook path returned an IONOS/Sedo domain-parking page (HTTP 404) on 22 Sep 2026, while the index pages still listed the files | All 2010–2026 files came from Internet Archive captures instead, and ATP 2018 (only HTTP 503 captures) was missing. Resolved on 5 Oct 2026, when the relaunched site served every season (see the refresh section). ATP 2002, 2004, 2006 also failed on 22 Sep and are out of scope |
 | tennis-data.co.uk inherited June 2026 workbooks (`data/raw/tennis_data_couk/`) | Older than the August archive captures; overlap | Not staged; left on disk for a later diff |
 | Sackmann original repositories, `tennis_pointbypoint`, `tennis_slam_pointbypoint` | Still HTTP 404 on 22 Sep 2026 | Archive mirror used; the 2012–2015 point strings are unavailable and old anyway |
 | Sackmann 2000–2009 files, TML amateur file, TML `backup_ll_audit_*` folder, MCP points before 2010 | Out of the 2010+ scope; backup folder is a duplicate of the season files | `--mcp-all-eras` and `--start-year` flags fetch them if ever wanted |
@@ -109,10 +126,10 @@ Detailed tables: [coverage_tables.md](../../../data/studies/public_data_dump/cov
 * **Match rows 2010+ with serve statistics available**: Sackmann main tours (90,888 rows to May 2026), Sackmann qualifying/Challenger (137,088) and Futures (277,637) with statistics that become sparse below Challenger level and before 2025; WTA qualifying/ITF (363,168 rows) largely without statistics before 2025; Tennis My Life ATP main (47,875), Challenger (79,326), qualifying (24,564) and WTA (44,547) rows with serve totals to September 2026.
 * **Point and shot level**: 2.33 million Grand Slam point rows 2011–2024 (Wimbledon and US Open to 2024, Australian Open and Roland Garros to 2021, doubles and mixed for 2018–2024 where published); 1.44 million Match Charting Project shot rows 2010–2026 plus 3.09 million aggregate stat rows; 951,064 timestamped score states for June 2026.
 * **Rankings**: 2.54 million weekly ranking rows 2010 to 8 June 2026 (ATP and WTA) plus one ATP snapshot of 31 August 2026.
-* **Closing odds**: 79,728 match rows 2010–2026 across ATP and WTA main-tour tiers, partitioned by tournament type; no lower-tier odds exist in any public file.
+* **Closing odds**: 83,243 match rows 2010–2026 across ATP and WTA main-tour tiers, partitioned by tournament type; no lower-tier odds exist in any public file. Pinnacle's columns are empty after 14 January 2026.
 * **Polymarket**: minute price histories for every moneyline in the catalog, by inferred bucket (markets / price rows / first–last price time): ITF 17,929 / 20.35M / 2026-05-13 to 2026-09-22; Challenger-WTA 125 (inferred) 7,021 / 14.55M / 2025-10-11 to 2026-09-22; doubles 2,786 / 8.12M / 2026-05-13 to 2026-09-22; Masters-WTA 1000 1,660 / 4.05M / 2025-09-23 to 2026-08-23; Grand Slam main draws 1,007 / 3.92M / 2026-01-18 to 2026-09-13; 250s 1,538 / 3.61M; 500s 1,017 / 2.41M; tour qualifying 1,699 / 2.00M; Slam juniors 692 / 1.54M; Slam qualifying 832 / 1.38M; Tour Finals 51 / 0.22M; team events 38 / 0.06M. ITF and doubles markets only appear in the catalog from May 2026, so their price history is short by construction, not by omission. Each market contributes one series (its first outcome token), typically one observation per minute while the market is open, from about three days before a Slam match to a day before a lower-tier match.
 
-Known defects surfaced by verbatim staging (for the cleaning phase; also listed in the structure plan): the WTA 2021 workbook labels 26 rows `WTA251`…`WTA276` (an Excel fill-down of `WTA250`); the WTA 2026 file dates the Iasi Open Sherif–Badosa match `2029-07-20`; 2 men's and 9 women's Match Charting metadata rows are short and shift values into the wrong columns; Tennis My Life ATP files repeat `(tourney_id, match_num)` keys; Sackmann doubles rows carry trailing empty fields; the Live Tennis API index has no winners.
+Known defects surfaced by verbatim staging (for the cleaning phase; also listed in the structure plan): the WTA 2021 workbook labels 26 rows `WTA251`…`WTA276` (an Excel fill-down of `WTA250`); the WTA 2026 file dated the Iasi Open Sherif–Badosa match `2029-07-20` (corrected by the provider by 5 October); 2 men's and 9 women's Match Charting metadata rows are short and shift values into the wrong columns; Tennis My Life ATP files repeat `(tourney_id, match_num)` keys; Sackmann doubles rows carry trailing empty fields; the Live Tennis API index has no winners.
 
 ## Ambiguities and how they were navigated
 
@@ -121,7 +138,7 @@ Known defects surfaced by verbatim staging (for the cleaning phase; also listed 
 3. **"Don't download overlapping data."** Applied strictly to the odds branch (one copy of each odds source, derivatives skipped). For match sources the owner also said "consider using all", so overlapping-by-derivation sources with extra value (Open Tennis Data's exact dates, MCP's aggregate stats) were downloaded and flagged as derivatives.
 4. **"Organise by tournament type."** Done with verbatim source labels for tennis-data.co.uk and inferred buckets for Polymarket. A normalised tier taxonomy across sources is cleaning work and was not attempted.
 5. **"Tabular format."** Parquet with every column as a string, plus provenance. Typing dates, numbers and scores was deliberately left to the cleaning phase so nothing is altered by parsing.
-6. **tennis-data.co.uk being dead.** The adapter tries live, then Internet Archive captures, then the inherited local workbooks, and records the route. Archive captures were preferred over the local June files because they are newer (2026 captured 3 August).
+6. **tennis-data.co.uk being dead.** The adapter tries live, then Internet Archive captures, then the inherited local workbooks, and records the route. Archive captures were preferred over the local June files because they are newer (2026 captured 3 August). Since 5 October the live route follows the links on the relaunched listing page.
 7. **"As much odds data as reasonable" for Polymarket.** Minute prices of the first outcome token for every moneyline in the catalog (36,271 markets whose sporting date had passed), fetched at a capped 8 requests per second with per-market windows split into 13-day chunks because the endpoint returns nothing for windows longer than about 14 days. Other contract types were deferred. One earlier pull was force-stopped to raise its worker count, which left a damaged gzip member in the Slam bucket's raw store; the reader skips damaged members and the lost requests were re-fetched, which is why the store has 36,295 receipts for 36,270 markets.
 8. **Recency for Polymarket.** The audited census ends 10 September; a catalog extension adapter pages newer events from Gamma (keyset pagination, because the offset endpoint rejects offsets above 2,000) and merges them with a `catalog` flag. It found 3,483 events for 11–24 September.
 9. **Player A/B ordering.** Not applied here; the [structure plan](structure-plan.md) proposes higher-ranked player first, then first server where point data exists, then a deterministic hash, with swap augmentation in training.
@@ -131,13 +148,18 @@ Known defects surfaced by verbatim staging (for the cleaning phase; also listed 
 
 ```
 ./python.sh -m src.ingest.public_dump.run_all --sources all          # static sources; skips what is staged, retries failures
+./python.sh -m src.ingest.public_dump.run_all --sources tdcouk --refresh   # re-fetch every tennis-data.co.uk season
 ./python.sh -m src.ingest.public_dump.polymarket_catalog             # new Polymarket tennis events since the last known id
+./python.sh -m src.ingest.public_dump.polymarket_catalog --revisit   # results of events captured while their markets were open
 ./python.sh -m src.ingest.public_dump.polymarket_prices --buckets all --workers 10 --rps 8   # prices for markets without a stored body
 ./python.sh -m src.ingest.public_dump.build_manifest                 # manifest, coverage tables, download log
 ./python.sh -m pytest test/public_data_dump -q                       # offline tests
+./python.sh -m src.ingest.refresh_odds                               # all odds sources to today in one command (see below)
 ```
 
-Tennis My Life season files are re-fetched only when the publisher's manifest changes; its ongoing files are always re-fetched. Sackmann and Match Charting Project are pinned to commits and only change when `--sackmann-commit` / `--mcp-commit` are pointed at a newer commit. The Polymarket price store is append-only and resumable; a request is repeated only if its body is not stored (a run stopped by force can leave a damaged gzip member, which the reader skips).
+Tennis My Life season files are re-fetched only when the publisher's manifest changes; its ongoing files are always re-fetched. tennis-data.co.uk files are re-fetched only with `--refresh`; the current season changes weekly, and a replaced workbook whose bytes differ is kept under `superseded/`. Sackmann and Match Charting Project are pinned to commits and only change when `--sackmann-commit` / `--mcp-commit` are pointed at a newer commit. The Polymarket price store is append-only and resumable. A request is repeated if its body is not stored (a run stopped by force can leave a damaged gzip member, which the reader skips), or if it was made before its market closed. Trades follow the same rule.
+
+An event captured while its matches were still to be played keeps open markets (no result, no close time) until `polymarket_catalog.py --revisit` fetches it again; the index then uses the latest row of each market. Until 5 Oct 2026 nothing revisited them, and 893 match-winner markets of 21–24 Sep and 4–7 Oct 2026 sat unresolved. [`src/ingest/refresh_odds.py`](../../../src/ingest/refresh_odds.py) runs every odds step in order: tennis-data.co.uk, new Polymarket events, revisits, prices, trades, Betfair (with an account token) and the sharp-benchmark study.
 
 ## Limitations
 
@@ -149,4 +171,4 @@ Tennis My Life season files are re-fetched only when the publisher's manifest ch
 
 ## Cleanup candidates (not deleted)
 
-`data/raw/public_dump/polymarket_catalog/pages/20260922T211935Z/` (21 pages from the aborted offset-paginated attempt), the pre-2010 Tennis My Life and tennis-data.co.uk files, the inherited `data/raw/sackmann/` and `data/raw/tennis_data_couk/` June snapshots, and the 5 smoke-test Polymarket receipts are all retained. Removing them is a separate decision.
+`data/raw/public_dump/polymarket_catalog/pages/20260922T211935Z/` (21 pages from the aborted offset-paginated attempt), the pre-2010 Tennis My Life and tennis-data.co.uk files, the inherited `data/raw/sackmann/` and `data/raw/tennis_data_couk/` June snapshots, the four tennis-data.co.uk workbooks replaced on 5 October (`data/raw/public_dump/tennis_data_couk/superseded/`) and the pre-relaunch `alldata.php`/`alldataw.php` copies in its `docs/`, and the 5 smoke-test Polymarket receipts are all retained. Removing them is a separate decision.

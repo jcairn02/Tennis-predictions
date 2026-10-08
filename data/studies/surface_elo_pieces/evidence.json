@@ -1,0 +1,118 @@
+{
+ "constants": {
+  "atp": {
+   "stage1_w": 0.3,
+   "stage1_evidence": {
+    "w_max": 0.3,
+    "k": 0.0
+   },
+   "anchored_w": 0.3,
+   "anchored_evidence": {
+    "w_max": 0.35,
+    "k": 2.0
+   }
+  },
+  "wta": {
+   "stage1_w": 0.25,
+   "stage1_evidence": {
+    "w_max": 0.25,
+    "k": 0.0
+   },
+   "anchored_w": 0.25,
+   "anchored_evidence": {
+    "w_max": 0.35,
+    "k": 10.0
+   }
+  }
+ },
+ "switch": {
+  "stored_flag_reproduced_share": 1.0,
+  "layoff_quantiles": [
+   {
+    "surface": "Carpet",
+    "config": "both new",
+    "days_since_p10": 1.0,
+    "days_since_p50": 43.0,
+    "days_since_p90": 458.0
+   },
+   {
+    "surface": "Carpet",
+    "config": "neither new",
+    "days_since_p10": 1.0,
+    "days_since_p50": 1.0,
+    "days_since_p90": 2.0
+   },
+   {
+    "surface": "Carpet",
+    "config": "one new",
+    "days_since_p10": 1.0,
+    "days_since_p50": 1.0,
+    "days_since_p90": 717.6
+   },
+   {
+    "surface": "Clay",
+    "config": "both new",
+    "days_since_p10": 1.0,
+    "days_since_p50": 8.5,
+    "days_since_p90": 315.0
+   },
+   {
+    "surface": "Clay",
+    "config": "neither new",
+    "days_since_p10": 1.0,
+    "days_since_p50": 2.0,
+    "days_since_p90": 12.0
+   },
+   {
+    "surface": "Clay",
+    "config": "one new",
+    "days_since_p10": 1.0,
+    "days_since_p50": 4.0,
+    "days_since_p90": 220.30000000000018
+   },
+   {
+    "surface": "Grass",
+    "config": "both new",
+    "days_since_p10": 1.0,
+    "days_since_p50": 7.0,
+    "days_since_p90": 368.4000000000001
+   },
+   {
+    "surface": "Grass",
+    "config": "neither new",
+    "days_since_p10": 1.0,
+    "days_since_p50": 2.0,
+    "days_since_p90": 9.0
+   },
+   {
+    "surface": "Grass",
+    "config": "one new",
+    "days_since_p10": 1.0,
+    "days_since_p50": 3.0,
+    "days_since_p90": 350.0
+   },
+   {
+    "surface": "Hard",
+    "config": "both new",
+    "days_since_p10": 1.0,
+    "days_since_p50": 8.0,
+    "days_since_p90": 81.5
+   },
+   {
+    "surface": "Hard",
+    "config": "neither new",
+    "days_since_p10": 1.0,
+    "days_since_p50": 2.0,
+    "days_since_p90": 17.0
+   },
+   {
+    "surface": "Hard",
+    "config": "one new",
+    "days_since_p10": 1.0,
+    "days_since_p50": 5.0,
+    "days_since_p90": 69.5
+   }
+  ]
+ },
+ "key": "log loss: lower is better; gains in milli-log-loss, positive = the variant is better than the named base; a 95% interval spanning 0 is a tie"
+}

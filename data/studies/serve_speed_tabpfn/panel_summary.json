@@ -1,0 +1,1473 @@
+{
+ "built_at": "2026-10-07T20:50:10+00:00",
+ "reads_results": false,
+ "records": {
+  "rows": 70805,
+  "by_source": {
+   "mantennisdata": 20248,
+   "slam_pbp": 13274,
+   "handoff_ks": 12275,
+   "infosys": 9746,
+   "slamtracker": 6455,
+   "slam_tracking": 3944,
+   "infosys_slams": 2820,
+   "ausopen_mc": 1345,
+   "sirgenkii": 698
+  },
+  "invalid_by_reason_source": [
+   {
+    "invalid_reason": "duplicate_copy",
+    "source": "ausopen_mc",
+    "n": 22
+   },
+   {
+    "invalid_reason": "duplicate_copy",
+    "source": "handoff_ks",
+    "n": 2
+   },
+   {
+    "invalid_reason": "duplicate_copy",
+    "source": "mantennisdata",
+    "n": 2
+   },
+   {
+    "invalid_reason": "gate",
+    "source": "infosys",
+    "n": 37
+   },
+   {
+    "invalid_reason": "gate",
+    "source": "infosys_slams",
+    "n": 1
+   },
+   {
+    "invalid_reason": "gate",
+    "source": "slam_pbp",
+    "n": 26
+   },
+   {
+    "invalid_reason": "gate",
+    "source": "slam_tracking",
+    "n": 50
+   },
+   {
+    "invalid_reason": "gate",
+    "source": "slamtracker",
+    "n": 17
+   },
+   {
+    "invalid_reason": "ks_duplicate",
+    "source": "handoff_ks",
+    "n": 36
+   },
+   {
+    "invalid_reason": "ks_duplicate",
+    "source": "mantennisdata",
+    "n": 20
+   },
+   {
+    "invalid_reason": "mc_duplicate",
+    "source": "ausopen_mc",
+    "n": 4
+   },
+   {
+    "invalid_reason": "mislink_level",
+    "source": "ausopen_mc",
+    "n": 2
+   },
+   {
+    "invalid_reason": "mislink_level",
+    "source": "slam_pbp",
+    "n": 4
+   },
+   {
+    "invalid_reason": "mislink_level",
+    "source": "slam_tracking",
+    "n": 4
+   },
+   {
+    "invalid_reason": "mislink_level",
+    "source": "slamtracker",
+    "n": 4
+   },
+   {
+    "invalid_reason": "mislink_round",
+    "source": "mantennisdata",
+    "n": 54
+   },
+   {
+    "invalid_reason": "unlinked",
+    "source": "ausopen_mc",
+    "n": 282
+   },
+   {
+    "invalid_reason": "unlinked",
+    "source": "handoff_ks",
+    "n": 252
+   },
+   {
+    "invalid_reason": "unlinked",
+    "source": "infosys_slams",
+    "n": 224
+   },
+   {
+    "invalid_reason": "unlinked",
+    "source": "mantennisdata",
+    "n": 438
+   }
+  ]
+ },
+ "panel": {
+  "rows": 43089,
+  "use": 42900,
+  "drops": {
+   "gate": 70,
+   "low_n": 57,
+   "implausible": 30,
+   "mislink_level": 14,
+   "mislink_round": 12,
+   "ks_duplicate": 4,
+   "mc_duplicate": 2
+  },
+  "chosen_source_by_tour": [
+   {
+    "tour": "atp",
+    "source": "ausopen_mc",
+    "n": 474
+   },
+   {
+    "tour": "atp",
+    "source": "handoff_ks",
+    "n": 370
+   },
+   {
+    "tour": "atp",
+    "source": "infosys",
+    "n": 15
+   },
+   {
+    "tour": "atp",
+    "source": "infosys_slams",
+    "n": 1393
+   },
+   {
+    "tour": "atp",
+    "source": "mantennisdata",
+    "n": 19707
+   },
+   {
+    "tour": "atp",
+    "source": "sirgenkii",
+    "n": 21
+   },
+   {
+    "tour": "atp",
+    "source": "slam_pbp",
+    "n": 4694
+   },
+   {
+    "tour": "atp",
+    "source": "slam_tracking",
+    "n": 1841
+   },
+   {
+    "tour": "atp",
+    "source": "slamtracker",
+    "n": 3434
+   },
+   {
+    "tour": "wta",
+    "source": "ausopen_mc",
+    "n": 478
+   },
+   {
+    "tour": "wta",
+    "source": "infosys_slams",
+    "n": 1199
+   },
+   {
+    "tour": "wta",
+    "source": "slam_pbp",
+    "n": 4441
+   },
+   {
+    "tour": "wta",
+    "source": "slam_tracking",
+    "n": 1851
+   },
+   {
+    "tour": "wta",
+    "source": "slamtracker",
+    "n": 2982
+   }
+  ],
+  "non_slam_basis_by_year": [
+   {
+    "year": 2018,
+    "ks": 17,
+    "pts": 0
+   },
+   {
+    "year": 2021,
+    "ks": 602,
+    "pts": 1
+   },
+   {
+    "year": 2022,
+    "ks": 3095,
+    "pts": 3
+   },
+   {
+    "year": 2023,
+    "ks": 3754,
+    "pts": 11
+   },
+   {
+    "year": 2024,
+    "ks": 4959,
+    "pts": 0
+   },
+   {
+    "year": 2025,
+    "ks": 3420,
+    "pts": 21
+   },
+   {
+    "year": 2026,
+    "ks": 4230,
+    "pts": 0
+   }
+  ],
+  "use_rows_by_tour_year_slam": [
+   {
+    "tour": "atp",
+    "year": 2011,
+    "non_slam": 0,
+    "slam": 664
+   },
+   {
+    "tour": "atp",
+    "year": 2014,
+    "non_slam": 0,
+    "slam": 516
+   },
+   {
+    "tour": "atp",
+    "year": 2015,
+    "non_slam": 0,
+    "slam": 692
+   },
+   {
+    "tour": "atp",
+    "year": 2016,
+    "non_slam": 0,
+    "slam": 650
+   },
+   {
+    "tour": "atp",
+    "year": 2017,
+    "non_slam": 0,
+    "slam": 684
+   },
+   {
+    "tour": "atp",
+    "year": 2018,
+    "non_slam": 17,
+    "slam": 490
+   },
+   {
+    "tour": "atp",
+    "year": 2019,
+    "non_slam": 0,
+    "slam": 548
+   },
+   {
+    "tour": "atp",
+    "year": 2020,
+    "non_slam": 0,
+    "slam": 568
+   },
+   {
+    "tour": "atp",
+    "year": 2021,
+    "non_slam": 603,
+    "slam": 838
+   },
+   {
+    "tour": "atp",
+    "year": 2022,
+    "non_slam": 3098,
+    "slam": 879
+   },
+   {
+    "tour": "atp",
+    "year": 2023,
+    "non_slam": 3765,
+    "slam": 827
+   },
+   {
+    "tour": "atp",
+    "year": 2024,
+    "non_slam": 4959,
+    "slam": 852
+   },
+   {
+    "tour": "atp",
+    "year": 2025,
+    "non_slam": 3441,
+    "slam": 1735
+   },
+   {
+    "tour": "atp",
+    "year": 2026,
+    "non_slam": 4230,
+    "slam": 1893
+   },
+   {
+    "tour": "wta",
+    "year": 2011,
+    "non_slam": 0,
+    "slam": 622
+   },
+   {
+    "tour": "wta",
+    "year": 2014,
+    "non_slam": 0,
+    "slam": 507
+   },
+   {
+    "tour": "wta",
+    "year": 2015,
+    "non_slam": 0,
+    "slam": 688
+   },
+   {
+    "tour": "wta",
+    "year": 2016,
+    "non_slam": 0,
+    "slam": 499
+   },
+   {
+    "tour": "wta",
+    "year": 2017,
+    "non_slam": 0,
+    "slam": 632
+   },
+   {
+    "tour": "wta",
+    "year": 2018,
+    "non_slam": 0,
+    "slam": 509
+   },
+   {
+    "tour": "wta",
+    "year": 2019,
+    "non_slam": 0,
+    "slam": 572
+   },
+   {
+    "tour": "wta",
+    "year": 2020,
+    "non_slam": 0,
+    "slam": 578
+   },
+   {
+    "tour": "wta",
+    "year": 2021,
+    "non_slam": 0,
+    "slam": 826
+   },
+   {
+    "tour": "wta",
+    "year": 2022,
+    "non_slam": 0,
+    "slam": 871
+   },
+   {
+    "tour": "wta",
+    "year": 2023,
+    "non_slam": 0,
+    "slam": 813
+   },
+   {
+    "tour": "wta",
+    "year": 2024,
+    "non_slam": 0,
+    "slam": 842
+   },
+   {
+    "tour": "wta",
+    "year": 2025,
+    "non_slam": 0,
+    "slam": 1757
+   },
+   {
+    "tour": "wta",
+    "year": 2026,
+    "non_slam": 0,
+    "slam": 1235
+   }
+  ],
+  "ao_2026_use_rows": {
+   "atp": 474,
+   "wta": 474
+  },
+  "flag_own_outlier": 425,
+  "obs_half_days_floored": 1100
+ },
+ "frame_keys": {
+  "rows": 63737,
+  "rebuilt_id_differs": 40,
+  "flipped": 21,
+  "id_conflict": 88,
+  "id_conflict_not_flipped": 67,
+  "obs_half_days_floored": 3889
+ },
+ "frame_coverage": [
+  {
+   "tour": "atp",
+   "year": 2013,
+   "slam": false,
+   "frame": 2106,
+   "both14": 0,
+   "one14": 0,
+   "both364": 0
+  },
+  {
+   "tour": "atp",
+   "year": 2013,
+   "slam": true,
+   "frame": 505,
+   "both14": 0,
+   "one14": 0,
+   "both364": 0
+  },
+  {
+   "tour": "atp",
+   "year": 2014,
+   "slam": false,
+   "frame": 2070,
+   "both14": 17,
+   "one14": 94,
+   "both364": 661
+  },
+  {
+   "tour": "atp",
+   "year": 2014,
+   "slam": true,
+   "frame": 504,
+   "both14": 92,
+   "one14": 169,
+   "both364": 197
+  },
+  {
+   "tour": "atp",
+   "year": 2015,
+   "slam": false,
+   "frame": 2114,
+   "both14": 22,
+   "one14": 124,
+   "both364": 1667
+  },
+  {
+   "tour": "atp",
+   "year": 2015,
+   "slam": true,
+   "frame": 505,
+   "both14": 126,
+   "one14": 221,
+   "both364": 408
+  },
+  {
+   "tour": "atp",
+   "year": 2016,
+   "slam": false,
+   "frame": 2099,
+   "both14": 10,
+   "one14": 116,
+   "both364": 1592
+  },
+  {
+   "tour": "atp",
+   "year": 2016,
+   "slam": true,
+   "frame": 504,
+   "both14": 111,
+   "one14": 214,
+   "both364": 395
+  },
+  {
+   "tour": "atp",
+   "year": 2017,
+   "slam": false,
+   "frame": 2104,
+   "both14": 7,
+   "one14": 73,
+   "both364": 1594
+  },
+  {
+   "tour": "atp",
+   "year": 2017,
+   "slam": true,
+   "frame": 508,
+   "both14": 125,
+   "one14": 219,
+   "both364": 388
+  },
+  {
+   "tour": "atp",
+   "year": 2019,
+   "slam": false,
+   "frame": 2081,
+   "both14": 1,
+   "one14": 70,
+   "both364": 1495
+  },
+  {
+   "tour": "atp",
+   "year": 2019,
+   "slam": true,
+   "frame": 506,
+   "both14": 93,
+   "one14": 196,
+   "both364": 364
+  },
+  {
+   "tour": "atp",
+   "year": 2020,
+   "slam": false,
+   "frame": 880,
+   "both14": 32,
+   "one14": 153,
+   "both364": 687
+  },
+  {
+   "tour": "atp",
+   "year": 2020,
+   "slam": true,
+   "frame": 379,
+   "both14": 117,
+   "one14": 168,
+   "both364": 281
+  },
+  {
+   "tour": "atp",
+   "year": 2021,
+   "slam": false,
+   "frame": 1962,
+   "both14": 190,
+   "one14": 376,
+   "both364": 1513
+  },
+  {
+   "tour": "atp",
+   "year": 2021,
+   "slam": true,
+   "frame": 504,
+   "both14": 188,
+   "one14": 235,
+   "both364": 425
+  },
+  {
+   "tour": "atp",
+   "year": 2022,
+   "slam": false,
+   "frame": 2102,
+   "both14": 858,
+   "one14": 1450,
+   "both364": 1965
+  },
+  {
+   "tour": "atp",
+   "year": 2022,
+   "slam": true,
+   "frame": 504,
+   "both14": 283,
+   "one14": 450,
+   "both364": 468
+  },
+  {
+   "tour": "atp",
+   "year": 2023,
+   "slam": false,
+   "frame": 2169,
+   "both14": 1038,
+   "one14": 1604,
+   "both364": 2087
+  },
+  {
+   "tour": "atp",
+   "year": 2023,
+   "slam": true,
+   "frame": 507,
+   "both14": 251,
+   "one14": 409,
+   "both364": 492
+  },
+  {
+   "tour": "atp",
+   "year": 2024,
+   "slam": false,
+   "frame": 2172,
+   "both14": 1324,
+   "one14": 1834,
+   "both364": 2110
+  },
+  {
+   "tour": "atp",
+   "year": 2024,
+   "slam": true,
+   "frame": 504,
+   "both14": 308,
+   "one14": 459,
+   "both364": 496
+  },
+  {
+   "tour": "atp",
+   "year": 2025,
+   "slam": false,
+   "frame": 2115,
+   "both14": 987,
+   "one14": 1516,
+   "both364": 2086
+  },
+  {
+   "tour": "atp",
+   "year": 2025,
+   "slam": true,
+   "frame": 505,
+   "both14": 325,
+   "one14": 440,
+   "both364": 500
+  },
+  {
+   "tour": "atp",
+   "year": 2026,
+   "slam": false,
+   "frame": 1397,
+   "both14": 704,
+   "one14": 1081,
+   "both364": 1376
+  },
+  {
+   "tour": "atp",
+   "year": 2026,
+   "slam": true,
+   "frame": 377,
+   "both14": 226,
+   "one14": 324,
+   "both364": 377
+  },
+  {
+   "tour": "wta",
+   "year": 2013,
+   "slam": false,
+   "frame": 1913,
+   "both14": 0,
+   "one14": 0,
+   "both364": 0
+  },
+  {
+   "tour": "wta",
+   "year": 2013,
+   "slam": true,
+   "frame": 504,
+   "both14": 0,
+   "one14": 0,
+   "both364": 0
+  },
+  {
+   "tour": "wta",
+   "year": 2014,
+   "slam": false,
+   "frame": 1941,
+   "both14": 15,
+   "one14": 117,
+   "both364": 581
+  },
+  {
+   "tour": "wta",
+   "year": 2014,
+   "slam": true,
+   "frame": 508,
+   "both14": 92,
+   "one14": 168,
+   "both364": 192
+  },
+  {
+   "tour": "wta",
+   "year": 2015,
+   "slam": false,
+   "frame": 1989,
+   "both14": 11,
+   "one14": 90,
+   "both364": 1561
+  },
+  {
+   "tour": "wta",
+   "year": 2015,
+   "slam": true,
+   "frame": 506,
+   "both14": 132,
+   "one14": 223,
+   "both364": 411
+  },
+  {
+   "tour": "wta",
+   "year": 2016,
+   "slam": false,
+   "frame": 1990,
+   "both14": 5,
+   "one14": 59,
+   "both364": 1467
+  },
+  {
+   "tour": "wta",
+   "year": 2016,
+   "slam": true,
+   "frame": 508,
+   "both14": 100,
+   "one14": 161,
+   "both364": 405
+  },
+  {
+   "tour": "wta",
+   "year": 2017,
+   "slam": false,
+   "frame": 1978,
+   "both14": 26,
+   "one14": 120,
+   "both364": 1409
+  },
+  {
+   "tour": "wta",
+   "year": 2017,
+   "slam": true,
+   "frame": 507,
+   "both14": 114,
+   "one14": 216,
+   "both364": 379
+  },
+  {
+   "tour": "wta",
+   "year": 2018,
+   "slam": false,
+   "frame": 1943,
+   "both14": 6,
+   "one14": 73,
+   "both364": 1318
+  },
+  {
+   "tour": "wta",
+   "year": 2018,
+   "slam": true,
+   "frame": 507,
+   "both14": 91,
+   "one14": 169,
+   "both364": 385
+  },
+  {
+   "tour": "wta",
+   "year": 2019,
+   "slam": false,
+   "frame": 1954,
+   "both14": 14,
+   "one14": 121,
+   "both364": 1294
+  },
+  {
+   "tour": "wta",
+   "year": 2019,
+   "slam": true,
+   "frame": 504,
+   "both14": 102,
+   "one14": 198,
+   "both364": 384
+  },
+  {
+   "tour": "wta",
+   "year": 2020,
+   "slam": false,
+   "frame": 666,
+   "both14": 9,
+   "one14": 44,
+   "both364": 481
+  },
+  {
+   "tour": "wta",
+   "year": 2020,
+   "slam": true,
+   "frame": 380,
+   "both14": 121,
+   "one14": 173,
+   "both364": 274
+  },
+  {
+   "tour": "wta",
+   "year": 2021,
+   "slam": false,
+   "frame": 1785,
+   "both14": 85,
+   "one14": 207,
+   "both364": 1273
+  },
+  {
+   "tour": "wta",
+   "year": 2021,
+   "slam": true,
+   "frame": 504,
+   "both14": 181,
+   "one14": 233,
+   "both364": 415
+  },
+  {
+   "tour": "wta",
+   "year": 2022,
+   "slam": false,
+   "frame": 1836,
+   "both14": 18,
+   "one14": 93,
+   "both364": 1493
+  },
+  {
+   "tour": "wta",
+   "year": 2022,
+   "slam": true,
+   "frame": 503,
+   "both14": 174,
+   "one14": 240,
+   "both364": 430
+  },
+  {
+   "tour": "wta",
+   "year": 2023,
+   "slam": false,
+   "frame": 1958,
+   "both14": 19,
+   "one14": 117,
+   "both364": 1581
+  },
+  {
+   "tour": "wta",
+   "year": 2023,
+   "slam": true,
+   "frame": 506,
+   "both14": 157,
+   "one14": 231,
+   "both364": 437
+  },
+  {
+   "tour": "wta",
+   "year": 2024,
+   "slam": false,
+   "frame": 1959,
+   "both14": 15,
+   "one14": 100,
+   "both364": 1696
+  },
+  {
+   "tour": "wta",
+   "year": 2024,
+   "slam": true,
+   "frame": 506,
+   "both14": 169,
+   "one14": 233,
+   "both364": 462
+  },
+  {
+   "tour": "wta",
+   "year": 2025,
+   "slam": false,
+   "frame": 1978,
+   "both14": 26,
+   "one14": 137,
+   "both364": 1796
+  },
+  {
+   "tour": "wta",
+   "year": 2025,
+   "slam": true,
+   "frame": 507,
+   "both14": 255,
+   "one14": 315,
+   "both364": 486
+  },
+  {
+   "tour": "wta",
+   "year": 2026,
+   "slam": false,
+   "frame": 1334,
+   "both14": 25,
+   "one14": 109,
+   "both364": 1192
+  },
+  {
+   "tour": "wta",
+   "year": 2026,
+   "slam": true,
+   "frame": 380,
+   "both14": 188,
+   "one14": 205,
+   "both364": 365
+  }
+ ],
+ "validation_n2": {
+  "cells": 48,
+  "cells_ok": 48,
+  "max_abs_diff": 3,
+  "rows": [
+   {
+    "tour": "atp",
+    "year": 2015,
+    "slam": false,
+    "frame": 2122,
+    "both14": 22,
+    "acq_frame": 2122,
+    "N2_slams": 22,
+    "diff": 0,
+    "ok": true
+   },
+   {
+    "tour": "atp",
+    "year": 2015,
+    "slam": true,
+    "frame": 508,
+    "both14": 128,
+    "acq_frame": 508,
+    "N2_slams": 128,
+    "diff": 0,
+    "ok": true
+   },
+   {
+    "tour": "atp",
+    "year": 2016,
+    "slam": false,
+    "frame": 2118,
+    "both14": 10,
+    "acq_frame": 2118,
+    "N2_slams": 10,
+    "diff": 0,
+    "ok": true
+   },
+   {
+    "tour": "atp",
+    "year": 2016,
+    "slam": true,
+    "frame": 508,
+    "both14": 113,
+    "acq_frame": 508,
+    "N2_slams": 113,
+    "diff": 0,
+    "ok": true
+   },
+   {
+    "tour": "atp",
+    "year": 2017,
+    "slam": false,
+    "frame": 2141,
+    "both14": 7,
+    "acq_frame": 2141,
+    "N2_slams": 7,
+    "diff": 0,
+    "ok": true
+   },
+   {
+    "tour": "atp",
+    "year": 2017,
+    "slam": true,
+    "frame": 508,
+    "both14": 125,
+    "acq_frame": 508,
+    "N2_slams": 125,
+    "diff": 0,
+    "ok": true
+   },
+   {
+    "tour": "atp",
+    "year": 2018,
+    "slam": false,
+    "frame": 2145,
+    "both14": 7,
+    "acq_frame": 2145,
+    "N2_slams": 7,
+    "diff": 0,
+    "ok": true
+   },
+   {
+    "tour": "atp",
+    "year": 2018,
+    "slam": true,
+    "frame": 508,
+    "both14": 85,
+    "acq_frame": 508,
+    "N2_slams": 85,
+    "diff": 0,
+    "ok": true
+   },
+   {
+    "tour": "atp",
+    "year": 2019,
+    "slam": false,
+    "frame": 2117,
+    "both14": 1,
+    "acq_frame": 2117,
+    "N2_slams": 1,
+    "diff": 0,
+    "ok": true
+   },
+   {
+    "tour": "atp",
+    "year": 2019,
+    "slam": true,
+    "frame": 508,
+    "both14": 93,
+    "acq_frame": 508,
+    "N2_slams": 93,
+    "diff": 0,
+    "ok": true
+   },
+   {
+    "tour": "atp",
+    "year": 2020,
+    "slam": false,
+    "frame": 886,
+    "both14": 32,
+    "acq_frame": 886,
+    "N2_slams": 32,
+    "diff": 0,
+    "ok": true
+   },
+   {
+    "tour": "atp",
+    "year": 2020,
+    "slam": true,
+    "frame": 381,
+    "both14": 119,
+    "acq_frame": 381,
+    "N2_slams": 119,
+    "diff": 0,
+    "ok": true
+   },
+   {
+    "tour": "atp",
+    "year": 2021,
+    "slam": false,
+    "frame": 1996,
+    "both14": 197,
+    "acq_frame": 1996,
+    "N2_slams": 196,
+    "diff": 1,
+    "ok": true
+   },
+   {
+    "tour": "atp",
+    "year": 2021,
+    "slam": true,
+    "frame": 508,
+    "both14": 190,
+    "acq_frame": 508,
+    "N2_slams": 190,
+    "diff": 0,
+    "ok": true
+   },
+   {
+    "tour": "atp",
+    "year": 2022,
+    "slam": false,
+    "frame": 2139,
+    "both14": 874,
+    "acq_frame": 2139,
+    "N2_slams": 875,
+    "diff": -1,
+    "ok": true
+   },
+   {
+    "tour": "atp",
+    "year": 2022,
+    "slam": true,
+    "frame": 508,
+    "both14": 286,
+    "acq_frame": 508,
+    "N2_slams": 286,
+    "diff": 0,
+    "ok": true
+   },
+   {
+    "tour": "atp",
+    "year": 2023,
+    "slam": false,
+    "frame": 2210,
+    "both14": 1057,
+    "acq_frame": 2210,
+    "N2_slams": 1057,
+    "diff": 0,
+    "ok": true
+   },
+   {
+    "tour": "atp",
+    "year": 2023,
+    "slam": true,
+    "frame": 508,
+    "both14": 252,
+    "acq_frame": 508,
+    "N2_slams": 253,
+    "diff": -1,
+    "ok": true
+   },
+   {
+    "tour": "atp",
+    "year": 2024,
+    "slam": false,
+    "frame": 2210,
+    "both14": 1344,
+    "acq_frame": 2210,
+    "N2_slams": 1345,
+    "diff": -1,
+    "ok": true
+   },
+   {
+    "tour": "atp",
+    "year": 2024,
+    "slam": true,
+    "frame": 508,
+    "both14": 311,
+    "acq_frame": 508,
+    "N2_slams": 311,
+    "diff": 0,
+    "ok": true
+   },
+   {
+    "tour": "atp",
+    "year": 2025,
+    "slam": false,
+    "frame": 2151,
+    "both14": 995,
+    "acq_frame": 2151,
+    "N2_slams": 995,
+    "diff": 0,
+    "ok": true
+   },
+   {
+    "tour": "atp",
+    "year": 2025,
+    "slam": true,
+    "frame": 508,
+    "both14": 328,
+    "acq_frame": 508,
+    "N2_slams": 329,
+    "diff": -1,
+    "ok": true
+   },
+   {
+    "tour": "atp",
+    "year": 2026,
+    "slam": false,
+    "frame": 1758,
+    "both14": 941,
+    "acq_frame": 1758,
+    "N2_slams": 941,
+    "diff": 0,
+    "ok": true
+   },
+   {
+    "tour": "atp",
+    "year": 2026,
+    "slam": true,
+    "frame": 508,
+    "both14": 325,
+    "acq_frame": 508,
+    "N2_slams": 325,
+    "diff": 0,
+    "ok": true
+   },
+   {
+    "tour": "wta",
+    "year": 2015,
+    "slam": false,
+    "frame": 2013,
+    "both14": 11,
+    "acq_frame": 2013,
+    "N2_slams": 10,
+    "diff": 1,
+    "ok": true
+   },
+   {
+    "tour": "wta",
+    "year": 2015,
+    "slam": true,
+    "frame": 508,
+    "both14": 133,
+    "acq_frame": 508,
+    "N2_slams": 133,
+    "diff": 0,
+    "ok": true
+   },
+   {
+    "tour": "wta",
+    "year": 2016,
+    "slam": false,
+    "frame": 2045,
+    "both14": 6,
+    "acq_frame": 2045,
+    "N2_slams": 6,
+    "diff": 0,
+    "ok": true
+   },
+   {
+    "tour": "wta",
+    "year": 2016,
+    "slam": true,
+    "frame": 508,
+    "both14": 100,
+    "acq_frame": 508,
+    "N2_slams": 100,
+    "diff": 0,
+    "ok": true
+   },
+   {
+    "tour": "wta",
+    "year": 2017,
+    "slam": false,
+    "frame": 2054,
+    "both14": 28,
+    "acq_frame": 2054,
+    "N2_slams": 26,
+    "diff": 2,
+    "ok": true
+   },
+   {
+    "tour": "wta",
+    "year": 2017,
+    "slam": true,
+    "frame": 508,
+    "both14": 114,
+    "acq_frame": 508,
+    "N2_slams": 114,
+    "diff": 0,
+    "ok": true
+   },
+   {
+    "tour": "wta",
+    "year": 2018,
+    "slam": false,
+    "frame": 1961,
+    "both14": 6,
+    "acq_frame": 1961,
+    "N2_slams": 5,
+    "diff": 1,
+    "ok": true
+   },
+   {
+    "tour": "wta",
+    "year": 2018,
+    "slam": true,
+    "frame": 508,
+    "both14": 91,
+    "acq_frame": 508,
+    "N2_slams": 91,
+    "diff": 0,
+    "ok": true
+   },
+   {
+    "tour": "wta",
+    "year": 2019,
+    "slam": false,
+    "frame": 1995,
+    "both14": 14,
+    "acq_frame": 1995,
+    "N2_slams": 14,
+    "diff": 0,
+    "ok": true
+   },
+   {
+    "tour": "wta",
+    "year": 2019,
+    "slam": true,
+    "frame": 508,
+    "both14": 102,
+    "acq_frame": 508,
+    "N2_slams": 102,
+    "diff": 0,
+    "ok": true
+   },
+   {
+    "tour": "wta",
+    "year": 2020,
+    "slam": false,
+    "frame": 705,
+    "both14": 9,
+    "acq_frame": 705,
+    "N2_slams": 9,
+    "diff": 0,
+    "ok": true
+   },
+   {
+    "tour": "wta",
+    "year": 2020,
+    "slam": true,
+    "frame": 381,
+    "both14": 121,
+    "acq_frame": 381,
+    "N2_slams": 120,
+    "diff": 1,
+    "ok": true
+   },
+   {
+    "tour": "wta",
+    "year": 2021,
+    "slam": false,
+    "frame": 1966,
+    "both14": 86,
+    "acq_frame": 1966,
+    "N2_slams": 86,
+    "diff": 0,
+    "ok": true
+   },
+   {
+    "tour": "wta",
+    "year": 2021,
+    "slam": true,
+    "frame": 508,
+    "both14": 182,
+    "acq_frame": 508,
+    "N2_slams": 182,
+    "diff": 0,
+    "ok": true
+   },
+   {
+    "tour": "wta",
+    "year": 2022,
+    "slam": false,
+    "frame": 1861,
+    "both14": 18,
+    "acq_frame": 1861,
+    "N2_slams": 18,
+    "diff": 0,
+    "ok": true
+   },
+   {
+    "tour": "wta",
+    "year": 2022,
+    "slam": true,
+    "frame": 508,
+    "both14": 176,
+    "acq_frame": 508,
+    "N2_slams": 179,
+    "diff": -3,
+    "ok": true
+   },
+   {
+    "tour": "wta",
+    "year": 2023,
+    "slam": false,
+    "frame": 1982,
+    "both14": 19,
+    "acq_frame": 1982,
+    "N2_slams": 19,
+    "diff": 0,
+    "ok": true
+   },
+   {
+    "tour": "wta",
+    "year": 2023,
+    "slam": true,
+    "frame": 508,
+    "both14": 158,
+    "acq_frame": 508,
+    "N2_slams": 158,
+    "diff": 0,
+    "ok": true
+   },
+   {
+    "tour": "wta",
+    "year": 2024,
+    "slam": false,
+    "frame": 1982,
+    "both14": 15,
+    "acq_frame": 1982,
+    "N2_slams": 15,
+    "diff": 0,
+    "ok": true
+   },
+   {
+    "tour": "wta",
+    "year": 2024,
+    "slam": true,
+    "frame": 508,
+    "both14": 170,
+    "acq_frame": 508,
+    "N2_slams": 170,
+    "diff": 0,
+    "ok": true
+   },
+   {
+    "tour": "wta",
+    "year": 2025,
+    "slam": false,
+    "frame": 1997,
+    "both14": 26,
+    "acq_frame": 1997,
+    "N2_slams": 26,
+    "diff": 0,
+    "ok": true
+   },
+   {
+    "tour": "wta",
+    "year": 2025,
+    "slam": true,
+    "frame": 508,
+    "both14": 256,
+    "acq_frame": 508,
+    "N2_slams": 256,
+    "diff": 0,
+    "ok": true
+   },
+   {
+    "tour": "wta",
+    "year": 2026,
+    "slam": false,
+    "frame": 1765,
+    "both14": 41,
+    "acq_frame": 1765,
+    "N2_slams": 41,
+    "diff": 0,
+    "ok": true
+   },
+   {
+    "tour": "wta",
+    "year": 2026,
+    "slam": true,
+    "frame": 508,
+    "both14": 252,
+    "acq_frame": 508,
+    "N2_slams": 252,
+    "diff": 0,
+    "ok": true
+   }
+  ]
+ },
+ "snapshots": {
+  "constants": {
+   "tau2": 22.0,
+   "s": 12.4,
+   "K": 25.0,
+   "window": 364,
+   "min_rows": 50,
+   "max_iter": 60,
+   "tol": 1e-06,
+   "ref_min_rows": 200
+  },
+  "atp": {
+   "fingerprint": "ba912af6412883aed0bc8106510427d04488ebe090cb01df5a078566b401b25f",
+   "days": 3458,
+   "editions": 466,
+   "seconds": 6.3
+  },
+  "wta": {
+   "fingerprint": "a9a69203c2441270a55d99cc5fd4e16e1016be9c005b69b8e290ac768b6b7622",
+   "days": 3650,
+   "editions": 61,
+   "seconds": 4.8
+  }
+ }
+}

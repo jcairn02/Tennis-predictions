@@ -1,95 +1,106 @@
 {
  "source": "tennislive",
- "started_at": "2026-09-24T01:49:00+00:00",
+ "started_at": "2026-09-24T04:04:09+00:00",
  "args": {
-  "slugs": "brandon-holt",
-  "seasons": "2023",
+  "slugs": null,
+  "seasons": null,
   "states": "finished",
   "doubles": false,
-  "limit": 3,
-  "max_requests": 30,
+  "limit": null,
+  "max_requests": null,
   "min_interval": 1.5,
   "jitter": 1.0,
   "refresh": false,
   "refresh_index": false,
-  "skip_index": false,
+  "skip_index": true,
   "skip_matches": false,
   "stage_only": false,
   "no_stage": false
  },
- "players": {
-  "brandon-holt": {
-   "slug": "brandon-holt",
-   "name": "Brandon Holt",
-   "seasons_available": [
-    "2026",
-    "2025",
-    "2024",
-    "2023",
-    "2022",
-    "2021",
-    "2020",
-    "2019",
-    "2018",
-    "2017",
-    "2016"
-   ],
-   "seasons_fetched": [
-    "2023"
-   ],
-   "pages": 1,
-   "matches_listed": 46,
-   "errors": []
-  }
- },
- "matches_listed": 46,
- "matches_selected": 3,
+ "players": {},
+ "matches_listed": 4250,
+ "matches_selected": 4250,
  "fetch_outcomes": {
-  "page:200": 3
+  "page:200": 2,
+  "page:200:cached": 4248
  },
  "client": {
   "impersonate": "safari",
-  "requests": 5,
+  "requests": 2,
   "retried": 0,
-  "slept_seconds": 3.9,
+  "slept_seconds": 1.3,
   "min_interval": 1.5
  },
  "staged": {
   "index": {
-   "rows": 46,
+   "rows": 4293,
    "dest": "data/dump/points/tennislive/index.parquet",
-   "bytes": 20734
+   "bytes": 353498
   },
   "matches": {
-   "rows": 46,
+   "rows": 4250,
    "dest": "data/dump/points/tennislive/matches.parquet",
-   "bytes": 22149
+   "bytes": 586474
   },
   "games": {
-   "rows": 61,
+   "rows": 76366,
    "dest": "data/dump/points/tennislive/games.parquet",
-   "bytes": 8013
+   "bytes": 803065
   },
   "points": {
-   "rows": 285,
+   "rows": 372281,
    "dest": "data/dump/points/tennislive/points.parquet",
-   "bytes": 7211
+   "bytes": 1835876
   },
   "statistics": {
-   "rows": 24,
+   "rows": 31725,
    "dest": "data/dump/points/tennislive/statistics.parquet",
-   "bytes": 5854
+   "bytes": 433719
   }
  },
  "listed_by_season_kind_state": {
-  "2023|singles|finished": 46
+  "2014|singles|finished": 12,
+  "2015|singles|finished": 7,
+  "2016|singles|finished": 78,
+  "2017|singles|finished": 111,
+  "2018|singles|finished": 203,
+  "2019|singles|finished": 333,
+  "2020|singles|finished": 165,
+  "2021|singles|finished": 323,
+  "2022|singles|finished": 574,
+  "2023|singles|finished": 644,
+  "2024|singles|finished": 670,
+  "2025|singles|finished": 660,
+  "2026|singles|finished": 513
  },
  "pages_by_year_status_pbp": {
-  "2023|200|pbp": 3,
-  "2023|not fetched": 43
+  "2014|200|no pbp": 12,
+  "2015|200|pbp": 7,
+  "2016|200|no pbp": 64,
+  "2016|200|pbp": 14,
+  "2017|200|no pbp": 87,
+  "2017|200|pbp": 24,
+  "2018|200|no pbp": 47,
+  "2018|200|pbp": 155,
+  "2019|200|no pbp": 38,
+  "2019|200|pbp": 270,
+  "2020|200|no pbp": 27,
+  "2020|200|pbp": 138,
+  "2021|200|no pbp": 56,
+  "2021|200|pbp": 266,
+  "2022|200|no pbp": 51,
+  "2022|200|pbp": 523,
+  "2023|200|no pbp": 37,
+  "2023|200|pbp": 608,
+  "2024|200|no pbp": 25,
+  "2024|200|pbp": 637,
+  "2025|200|no pbp": 35,
+  "2025|200|pbp": 619,
+  "2026|200|no pbp": 3,
+  "2026|200|pbp": 507
  },
  "receipts_with_errors": 0,
  "error_examples": [],
- "finished_at": "2026-09-24T01:49:09+00:00",
- "seconds": 8.5
+ "finished_at": "2026-09-24T04:08:32+00:00",
+ "seconds": 262.5
 }

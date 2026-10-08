@@ -1,0 +1,641 @@
+{
+ "generated_at": "2026-10-02T21:14:16+00:00",
+ "settings": {
+  "stats": [
+   "tpw",
+   "spw",
+   "rpw"
+  ],
+  "forms": [
+   "52 weeks",
+   "career"
+  ],
+  "main_tour": [
+   "GS",
+   "FIN",
+   "T1000",
+   "T500",
+   "T250"
+  ],
+  "line_years": [
+   2010,
+   2018
+  ],
+  "elo_unit": 100.0,
+  "min_group": 5,
+  "describe_years": [
+   2013,
+   2026
+  ]
+ },
+ "lines": {
+  "atp": {
+   "median": 2066.9471435546875,
+   "q33": 1992.3639729817708,
+   "q67": 2135.75439453125,
+   "player_rows": 47210
+  },
+  "wta": {
+   "median": 2072.1868896484375,
+   "q33": 2001.6764729817708,
+   "q67": 2141.3360188802085,
+   "player_rows": 44396
+  }
+ },
+ "population_slope": {
+  "atp": {
+   "b0": -0.1883567991996991,
+   "var_e_within": 3.3494450130948445,
+   "rows": 172638
+  },
+  "wta": {
+   "b0": -0.1737308901540678,
+   "var_e_within": 3.716929375902962,
+   "rows": 63412
+  }
+ },
+ "used": {
+  "tpw": {
+   "atp": {
+    "from": "tpw",
+    "h1": 104.0,
+    "K1": 2.0,
+    "tau": 0,
+    "h3": 2.0,
+    "K3": 10.0
+   },
+   "wta": {
+    "from": "tpw",
+    "h1": "inf",
+    "K1": 20.0,
+    "tau": 0,
+    "h3": 2.0,
+    "K3": 20.0
+   }
+  },
+  "spw": {
+   "atp": {
+    "from": "spw",
+    "h1": 104.0,
+    "K1": 2.0,
+    "tau": 0,
+    "h3": 2.0,
+    "K3": 10.0
+   },
+   "wta": {
+    "from": "spw",
+    "h1": 26.0,
+    "K1": 2.0,
+    "tau": 0,
+    "h3": 2.0,
+    "K3": 20.0
+   }
+  },
+  "rpw": {
+   "atp": {
+    "from": "rpw",
+    "h1": 52.0,
+    "K1": 2.0,
+    "tau": 0,
+    "h3": 2.0,
+    "K3": 160.0
+   },
+   "wta": {
+    "from": "rpw",
+    "h1": "inf",
+    "K1": 10.0,
+    "tau": 0,
+    "h3": 2.0,
+    "K3": 160.0
+   }
+  }
+ },
+ "describe": {
+  "group_means": [
+   {
+    "stat": "tpw",
+    "tour": "atp",
+    "group": "strong",
+    "rows": 68823,
+    "mean_z": 0.03281276480206372,
+    "sd_z": 1.2317497396231583
+   },
+   {
+    "stat": "tpw",
+    "tour": "atp",
+    "group": "weak",
+    "rows": 225121,
+    "mean_z": 0.07774094254847806,
+    "sd_z": 1.3063162181946602
+   },
+   {
+    "stat": "tpw",
+    "tour": "atp",
+    "group": "top",
+    "rows": 40037,
+    "mean_z": 0.04826999922870278,
+    "sd_z": 1.2374277828356608
+   },
+   {
+    "stat": "tpw",
+    "tour": "atp",
+    "group": "mid",
+    "rows": 70686,
+    "mean_z": 0.0063056716475097495,
+    "sd_z": 1.2305743564642455
+   },
+   {
+    "stat": "tpw",
+    "tour": "atp",
+    "group": "bottom",
+    "rows": 183221,
+    "mean_z": 0.09486403291234582,
+    "sd_z": 1.3214012661152323
+   },
+   {
+    "stat": "tpw",
+    "tour": "wta",
+    "group": "strong",
+    "rows": 53904,
+    "mean_z": -0.02331701498031913,
+    "sd_z": 1.2310750831953592
+   },
+   {
+    "stat": "tpw",
+    "tour": "wta",
+    "group": "weak",
+    "rows": 54216,
+    "mean_z": 0.1505962232192824,
+    "sd_z": 1.2945051895510826
+   },
+   {
+    "stat": "tpw",
+    "tour": "wta",
+    "group": "top",
+    "rows": 36446,
+    "mean_z": -0.028515938649494588,
+    "sd_z": 1.2305911282564836
+   },
+   {
+    "stat": "tpw",
+    "tour": "wta",
+    "group": "mid",
+    "rows": 34746,
+    "mean_z": -0.004407171862998789,
+    "sd_z": 1.2427031123257442
+   },
+   {
+    "stat": "tpw",
+    "tour": "wta",
+    "group": "bottom",
+    "rows": 36928,
+    "mean_z": 0.21935301007714275,
+    "sd_z": 1.3076715657551645
+   },
+   {
+    "stat": "spw",
+    "tour": "atp",
+    "group": "strong",
+    "rows": 68823,
+    "mean_z": 0.08453819868533538,
+    "sd_z": 1.2715414027534124
+   },
+   {
+    "stat": "spw",
+    "tour": "atp",
+    "group": "weak",
+    "rows": 225121,
+    "mean_z": 0.07117432544080457,
+    "sd_z": 1.3368264275387525
+   },
+   {
+    "stat": "spw",
+    "tour": "atp",
+    "group": "top",
+    "rows": 40037,
+    "mean_z": 0.1057982775083705,
+    "sd_z": 1.271792132233368
+   },
+   {
+    "stat": "spw",
+    "tour": "atp",
+    "group": "mid",
+    "rows": 70686,
+    "mean_z": 0.04242092515763845,
+    "sd_z": 1.2767848563995652
+   },
+   {
+    "stat": "spw",
+    "tour": "atp",
+    "group": "bottom",
+    "rows": 183221,
+    "mean_z": 0.0797211925127837,
+    "sd_z": 1.3491352428370698
+   },
+   {
+    "stat": "spw",
+    "tour": "wta",
+    "group": "strong",
+    "rows": 53904,
+    "mean_z": 0.06659096035603146,
+    "sd_z": 1.315809271163776
+   },
+   {
+    "stat": "spw",
+    "tour": "wta",
+    "group": "weak",
+    "rows": 54216,
+    "mean_z": 0.15135381719392238,
+    "sd_z": 1.3924554010805392
+   },
+   {
+    "stat": "spw",
+    "tour": "wta",
+    "group": "top",
+    "rows": 36446,
+    "mean_z": 0.07540964917045728,
+    "sd_z": 1.31066217940507
+   },
+   {
+    "stat": "spw",
+    "tour": "wta",
+    "group": "mid",
+    "rows": 34746,
+    "mean_z": 0.05185643265987714,
+    "sd_z": 1.3369790549258989
+   },
+   {
+    "stat": "spw",
+    "tour": "wta",
+    "group": "bottom",
+    "rows": 36928,
+    "mean_z": 0.19619621959355066,
+    "sd_z": 1.410702634604844
+   },
+   {
+    "stat": "rpw",
+    "tour": "atp",
+    "group": "strong",
+    "rows": 68823,
+    "mean_z": -0.021897892926387722,
+    "sd_z": 1.2784947705152878
+   },
+   {
+    "stat": "rpw",
+    "tour": "atp",
+    "group": "weak",
+    "rows": 225121,
+    "mean_z": 0.08106848530070808,
+    "sd_z": 1.3515945620272998
+   },
+   {
+    "stat": "rpw",
+    "tour": "atp",
+    "group": "top",
+    "rows": 40037,
+    "mean_z": -0.01662815698732784,
+    "sd_z": 1.278387649010058
+   },
+   {
+    "stat": "rpw",
+    "tour": "atp",
+    "group": "mid",
+    "rows": 70686,
+    "mean_z": -0.023890340096365804,
+    "sd_z": 1.2836540236898764
+   },
+   {
+    "stat": "rpw",
+    "tour": "atp",
+    "group": "bottom",
+    "rows": 183221,
+    "mean_z": 0.10423256010971056,
+    "sd_z": 1.3648607759870508
+   },
+   {
+    "stat": "rpw",
+    "tour": "wta",
+    "group": "strong",
+    "rows": 53904,
+    "mean_z": -0.061364924654020776,
+    "sd_z": 1.2753004845127356
+   },
+   {
+    "stat": "rpw",
+    "tour": "wta",
+    "group": "weak",
+    "rows": 54216,
+    "mean_z": 0.12437539806935236,
+    "sd_z": 1.3424902733880895
+   },
+   {
+    "stat": "rpw",
+    "tour": "wta",
+    "group": "top",
+    "rows": 36446,
+    "mean_z": -0.07644284202659242,
+    "sd_z": 1.2768380292603603
+   },
+   {
+    "stat": "rpw",
+    "tour": "wta",
+    "group": "mid",
+    "rows": 34746,
+    "mean_z": -0.022623079117350852,
+    "sd_z": 1.2840782956870076
+   },
+   {
+    "stat": "rpw",
+    "tour": "wta",
+    "group": "bottom",
+    "rows": 36928,
+    "mean_z": 0.18975896367770612,
+    "sd_z": 1.3585149396357024
+   }
+  ],
+  "player_season_gap": [
+   {
+    "stat": "tpw",
+    "tour": "atp",
+    "player_seasons": 3438,
+    "mean_gap": -0.5544431136278241,
+    "sd_gap_observed": 0.42917303086100855,
+    "sd_chance": 0.4140509781433473,
+    "sd_true": 0.11292155647599593,
+    "true_var": 0.01275127791696154,
+    "reliability_typical": 0.0769857612223338,
+    "median_matches_strong": 14.0,
+    "median_matches_weak": 34.0,
+    "season_pairs": 2478,
+    "season_to_season_r": 0.08245128866531479,
+    "strong_mean_season_to_season_r": 0.5272738815350488,
+    "strong_mean_pairs": 2478
+   },
+   {
+    "stat": "tpw",
+    "tour": "wta",
+    "player_seasons": 2564,
+    "mean_gap": -0.5960403244315103,
+    "sd_gap_observed": 0.4603841674524294,
+    "sd_chance": 0.4539776080720699,
+    "sd_true": 0.07653700418770411,
+    "true_var": 0.005857913010028637,
+    "reliability_typical": 0.03077388802467596,
+    "median_matches_strong": 16.0,
+    "median_matches_weak": 16.0,
+    "season_pairs": 1703,
+    "season_to_season_r": 0.08629526553408962,
+    "strong_mean_season_to_season_r": 0.5220519357484653,
+    "strong_mean_pairs": 1703
+   },
+   {
+    "stat": "spw",
+    "tour": "atp",
+    "player_seasons": 3438,
+    "mean_gap": -0.4781092710239199,
+    "sd_gap_observed": 0.43321536608265854,
+    "sd_chance": 0.4279276838059592,
+    "sd_true": 0.06747926231516514,
+    "true_var": 0.004553450842598866,
+    "reliability_typical": 0.02712761957896771,
+    "median_matches_strong": 14.0,
+    "median_matches_weak": 34.0,
+    "season_pairs": 2478,
+    "season_to_season_r": 0.052716341291984645,
+    "strong_mean_season_to_season_r": 0.6140888794144457,
+    "strong_mean_pairs": 2478
+   },
+   {
+    "stat": "spw",
+    "tour": "wta",
+    "player_seasons": 2564,
+    "mean_gap": -0.4966697150249234,
+    "sd_gap_observed": 0.4977287659740635,
+    "sd_chance": 0.48407281837449656,
+    "sd_true": 0.11579046156327286,
+    "true_var": 0.013407430989035768,
+    "reliability_typical": 0.060075885145996655,
+    "median_matches_strong": 16.0,
+    "median_matches_weak": 16.0,
+    "season_pairs": 1703,
+    "season_to_season_r": 0.06213120022803724,
+    "strong_mean_season_to_season_r": 0.5852765673786606,
+    "strong_mean_pairs": 1703
+   },
+   {
+    "stat": "rpw",
+    "tour": "atp",
+    "player_seasons": 3438,
+    "mean_gap": -0.48004287951868374,
+    "sd_gap_observed": 0.4404144757401341,
+    "sd_chance": 0.43608062142063686,
+    "sd_true": 0.06163280021910695,
+    "true_var": 0.0037986020628483497,
+    "reliability_typical": 0.021909140995672698,
+    "median_matches_strong": 14.0,
+    "median_matches_weak": 34.0,
+    "season_pairs": 2478,
+    "season_to_season_r": 0.018809883566509557,
+    "strong_mean_season_to_season_r": 0.5381251177680283,
+    "strong_mean_pairs": 2478
+   },
+   {
+    "stat": "rpw",
+    "tour": "wta",
+    "player_seasons": 2564,
+    "mean_gap": -0.5130552635302364,
+    "sd_gap_observed": 0.48543957941519894,
+    "sd_chance": 0.480638271313918,
+    "sd_true": 0.06810607470096784,
+    "true_var": 0.0046384374111738125,
+    "reliability_typical": 0.021937385709301784,
+    "median_matches_strong": 16.0,
+    "median_matches_weak": 16.0,
+    "season_pairs": 1703,
+    "season_to_season_r": 0.014730739446413408,
+    "strong_mean_season_to_season_r": 0.4575387465929229,
+    "strong_mean_pairs": 1703
+   }
+  ]
+ },
+ "share_vs_strong": {
+  "atp": 0.1928510664155071,
+  "wta": 0.3478116896965887
+ },
+ "contrast_vs_naive_corr": {
+  "contrast_vs_naive_tpw|52 weeks": 0.8430047817446508,
+  "contrast_vs_naive_tpw|career": 0.873900412346569
+ },
+ "exists_evaluation_matches": {
+  "vs_strong_tpw|52 weeks": {
+   "atp": 149120,
+   "wta": 57180
+  },
+  "vs_weak_tpw|52 weeks": {
+   "atp": 149120,
+   "wta": 57180
+  },
+  "strong_minus_weak_tpw|52 weeks": {
+   "atp": 149120,
+   "wta": 57180
+  },
+  "strong_minus_weak_naive_tpw|52 weeks": {
+   "atp": 149120,
+   "wta": 57180
+  },
+  "vs_top_third_tpw|52 weeks": {
+   "atp": 149120,
+   "wta": 57180
+  },
+  "vs_mid_third_tpw|52 weeks": {
+   "atp": 149120,
+   "wta": 57180
+  },
+  "vs_bottom_third_tpw|52 weeks": {
+   "atp": 149120,
+   "wta": 57180
+  },
+  "top_minus_bottom_third_tpw|52 weeks": {
+   "atp": 149120,
+   "wta": 57180
+  },
+  "slope_tpw|52 weeks": {
+   "atp": 149120,
+   "wta": 57180
+  },
+  "vs_strong_tpw|career": {
+   "atp": 151432,
+   "wta": 58606
+  },
+  "vs_weak_tpw|career": {
+   "atp": 151432,
+   "wta": 58606
+  },
+  "strong_minus_weak_tpw|career": {
+   "atp": 151432,
+   "wta": 58606
+  },
+  "strong_minus_weak_naive_tpw|career": {
+   "atp": 151432,
+   "wta": 58606
+  },
+  "vs_top_third_tpw|career": {
+   "atp": 151432,
+   "wta": 58606
+  },
+  "vs_mid_third_tpw|career": {
+   "atp": 151432,
+   "wta": 58606
+  },
+  "vs_bottom_third_tpw|career": {
+   "atp": 151432,
+   "wta": 58606
+  },
+  "top_minus_bottom_third_tpw|career": {
+   "atp": 151432,
+   "wta": 58606
+  },
+  "slope_tpw|career": {
+   "atp": 151432,
+   "wta": 58606
+  },
+  "vs_strong_spw|52 weeks": {
+   "atp": 149120,
+   "wta": 57180
+  },
+  "vs_weak_spw|52 weeks": {
+   "atp": 149120,
+   "wta": 57180
+  },
+  "strong_minus_weak_spw|52 weeks": {
+   "atp": 149120,
+   "wta": 57180
+  },
+  "vs_strong_spw|career": {
+   "atp": 151432,
+   "wta": 58606
+  },
+  "vs_weak_spw|career": {
+   "atp": 151432,
+   "wta": 58606
+  },
+  "strong_minus_weak_spw|career": {
+   "atp": 151432,
+   "wta": 58606
+  },
+  "vs_strong_rpw|52 weeks": {
+   "atp": 149120,
+   "wta": 57180
+  },
+  "vs_weak_rpw|52 weeks": {
+   "atp": 149120,
+   "wta": 57180
+  },
+  "strong_minus_weak_rpw|52 weeks": {
+   "atp": 149120,
+   "wta": 57180
+  },
+  "vs_strong_rpw|career": {
+   "atp": 151432,
+   "wta": 58606
+  },
+  "vs_weak_rpw|career": {
+   "atp": 151432,
+   "wta": 58606
+  },
+  "strong_minus_weak_rpw|career": {
+   "atp": 151432,
+   "wta": 58606
+  },
+  "strong_gap_x_strong_opp|52 weeks": {
+   "atp": 149075,
+   "wta": 57180
+  },
+  "strong_gap_x_strong_opp|career": {
+   "atp": 151386,
+   "wta": 58606
+  },
+  "wins_over_strong|52 weeks": {
+   "atp": 153565,
+   "wta": 59972
+  },
+  "wins_over_weak|52 weeks": {
+   "atp": 153565,
+   "wta": 59972
+  },
+  "wins_over_strong|career": {
+   "atp": 154403,
+   "wta": 60197
+  },
+  "wins_over_weak|career": {
+   "atp": 154403,
+   "wta": 60197
+  },
+  "adjperf_tpw|decayed, earlier weeks": {
+   "atp": 151432,
+   "wta": 58606
+  },
+  "adjperf_spw|decayed, earlier weeks": {
+   "atp": 151432,
+   "wta": 58606
+  },
+  "adjperf_rpw|decayed, earlier weeks": {
+   "atp": 151432,
+   "wta": 58606
+  }
+ },
+ "probe": {
+  "slice_from": "2023-01-01",
+  "cuts": 4,
+  "protected_checked": 244189,
+  "protected_changed": 0,
+  "later_changed": 41698,
+  "largest_protected_difference": 1.1102230246251565e-15,
+  "columns": 39
+ },
+ "seconds": {
+  "features": 116.1,
+  "probe": 223.5,
+  "total": 340.8
+ }
+}

@@ -1,0 +1,105 @@
+{
+ "A positive control": "passed the gate (reached population)",
+ "B changed: model frame": "refused: MODEL_FRAME_SHA256: model_frame.parquet differs from the pre-registered file",
+ "B changed: stage0": "refused: STAGE0_MATCHES_SHA256: stage0_matches.parquet differs from the pre-registered file",
+ "B changed: x file": "refused: BINJ_X_SHA256: binj_x.parquet differs from the pre-registered file",
+ "B changed: early": "refused: EARLY_SHA256: early_price_frame.parquet differs from the pre-registered file",
+ "B changed: code final_test.py": "refused: the final test's code differs from the pre-registered code",
+ "B changed: code tabpfn_tests.py": "refused: the final test's code differs from the pre-registered code",
+ "B changed: code screen.py": "refused: the final test's code differs from the pre-registered code",
+ "B changed: code common.py": "refused: the final test's code differs from the pre-registered code",
+ "B changed: code panel.py": "refused: the final test's code differs from the pre-registered code",
+ "B changed: code history.py": "refused: the final test's code differs from the pre-registered code",
+ "B changed: code g5_build.py": "refused: the final test's code differs from the pre-registered code",
+ "B changed: code screen_batch.py": "refused: the final test's code differs from the pre-registered code",
+ "B changed: code tabpfn_thinking/common.py": "refused: the final test's code differs from the pre-registered code",
+ "B changed: code early_price_score.py": "refused: the final test's code differs from the pre-registered code",
+ "B changed: forecast feature_interactions/model__2026__seed9.npz": "refused: the forecast files differ from the pre-registered ones",
+ "B changed: forecast feature_interactions/binj__2026__seed7.npz": "refused: the forecast files differ from the pre-registered ones",
+ "B changed: forecast surface_rating_race/model__2026__seed2.npz": "refused: the forecast files differ from the pre-registered ones",
+ "C real copy changed: x file": "refused: BINJ_X_SHA256: copy_binj_x.parquet differs from the pre-registered file",
+ "C real copy changed: early": "refused: EARLY_SHA256: copy_early_price_frame.parquet differs from the pre-registered file",
+ "C copied tree unchanged": "passed the gate (reached population)",
+ "C copied tree, screen.py changed": "refused: the final test's code differs from the pre-registered code",
+ "D line removed: MODEL_FRAME_SHA256": "refused: MODEL_FRAME_SHA256: model_frame.parquet differs from the pre-registered file",
+ "D line removed: STAGE0_MATCHES_SHA256": "refused: STAGE0_MATCHES_SHA256: stage0_matches.parquet differs from the pre-registered file",
+ "D line removed: BINJ_X_SHA256": "refused: BINJ_X_SHA256: binj_x.parquet differs from the pre-registered file",
+ "D line removed: EARLY_SHA256": "refused: EARLY_SHA256: early_price_frame.parquet differs from the pre-registered file",
+ "D line removed: FINAL_TEST_CODE_SHA256": "refused: the final test's code differs from the pre-registered code",
+ "D line removed: FORECASTS_SHA256": "refused: the forecast files differ from the pre-registered ones",
+ "E full synthetic population": "passed the gate (reached parameters)",
+ "E one match dropped": "refused: the population differs from the pre-registered one",
+ "E one NaN a_won": "refused: missing results in the test population",
+ "F end to end": "ran to the end",
+ "F primary file keys": [
+  "effect",
+  "parameters",
+  "preregistration_sha256",
+  "primary"
+ ],
+ "F primary file records the text's SHA-256": true,
+ "F effect keys": [
+  "B14_vs_B",
+  "F_vs_B",
+  "F_vs_B14"
+ ],
+ "F b14 in parameters": true,
+ "F subsets": [
+  [
+   "atp",
+   false,
+   [
+    "B14_vs_B",
+    "F_vs_B",
+    "F_vs_B14"
+   ]
+  ],
+  [
+   "wta",
+   false,
+   [
+    "B14_vs_B",
+    "F_vs_B",
+    "F_vs_B14"
+   ]
+  ],
+  [
+   "2025",
+   false,
+   [
+    "B14_vs_B",
+    "F_vs_B",
+    "F_vs_B14"
+   ]
+  ],
+  [
+   "2026",
+   false,
+   [
+    "B14_vs_B",
+    "F_vs_B",
+    "F_vs_B14"
+   ]
+  ],
+  [
+   "TML-clean",
+   false,
+   [
+    "B14_vs_B",
+    "F_vs_B",
+    "F_vs_B14"
+   ]
+  ]
+ ],
+ "F secondaries ok": [
+  true,
+  true
+ ],
+ "F2 failing polymarket": "ran to the end",
+ "F2 recorded": [
+  "{'error': \"Trap('polymarket failure')\"}",
+  true
+ ],
+ "F3 failing tml_exposed": "run() crashed: tml_exposed failure",
+ "F3 final_results.json written": false
+}

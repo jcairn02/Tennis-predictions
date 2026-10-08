@@ -79,3 +79,43 @@ def test_rate_limiter_spaces_requests():
     for _ in range(5):
         limiter.wait()
     assert time.monotonic() - started >= 0.07
+
+
+def test_select_jobs_refetches_a_chunk_stored_before_its_market_closed(tmp_path, monkeypatch):
+    monkeypatch.setattr(C, "RAW_ROOT", tmp_path)
+    receipts = C.Receipts("polymarket_prices")
+    events = {"e1": {"id": "e1", "slug": "atp-a-vs-b", "sport_date": "2025-09-19T05:00:00+00:00", "_cfb": False,
+                     "_bucket_slug": "tour_250"}}
+    base = {"in_sport_window": True, "sportsMarketType": "moneyline", "startDate": "2025-09-18T22:00:00Z",
+            "closedTime": "2025-09-19 13:00:00+00", "conditionId": "0x1", "outcomes": ["A", "B"], "clobTokenIds": ["t1", "t2"],
+            "event_id": "e1"}
+    markets = [{**base, "id": "early"}, {**base, "id": "complete"}, {**base, "id": "old_receipt"}]
+    full_end = P.parse_ts("2025-09-19 13:00:00+00") + P.MARGIN
+    receipts.record({"name": "early/0", "status": 200, "end": P.parse_ts("2025-09-19 10:00:00+00")})   # fetched mid-match
+    receipts.record({"name": "complete/0", "status": 200, "end": full_end})
+    receipts.record({"name": "old_receipt/0", "status": 200})                                          # no end recorded
+    jobs, _, skipped = P.select_jobs(events, markets, ["tour_250"], {"moneyline"}, 0, receipts, False, 2_000_000_000)
+    assert [(j["name"], j["refetch"]) for j in jobs] == [("early/0", True)]
+    assert skipped["already fetched"] == 2
+    assert P.ended_early({"end": full_end - P.STALE_SLACK + 1}, full_end) is False
+
+
+def test_iter_markets_yields_each_market_once_in_its_latest_form(tmp_path, monkeypatch):
+    import gzip
+    import json
+    census, ext_events, ext_markets = tmp_path / "markets.jsonl.gz", tmp_path / "events.jsonl", tmp_path / "markets_ext.jsonl.gz"
+    with gzip.open(census, "wt", encoding="utf-8") as h:
+        h.write(json.dumps({"id": "1", "event_id": "e1", "closed": True}) + "\n")
+        h.write(json.dumps({"id": "2", "event_id": "e2", "closed": False}) + "\n")
+    with gzip.open(ext_markets, "wt", encoding="utf-8") as h:
+        for row in ({"id": "3", "event_id": "e3", "closed": False, "catalog": "extension"},
+                    {"id": "2", "event_id": "e2", "closed": True, "catalog": "revisit"},
+                    {"id": "3", "event_id": "e3", "closed": True, "catalog": "revisit"}):
+            h.write(json.dumps(row) + "\n")
+    ext_events.write_text("", encoding="utf-8")
+    monkeypatch.setattr(P, "MARKETS_FILE", census)
+    monkeypatch.setattr(P, "extension_paths", lambda: (ext_events, ext_markets))
+    rows = list(P.iter_markets({"e2": {"in_sport_window": True}, "e3": {"in_sport_window": True}}))
+    assert [(m["id"], m["closed"], m["catalog"]) for m in rows] == [("1", True, "census"), ("2", True, "revisit"),
+                                                                     ("3", True, "revisit")]
+    assert all(m.get("in_sport_window") for m in rows[1:])

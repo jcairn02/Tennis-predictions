@@ -147,3 +147,137 @@ def test_tennislive_index_rows_and_paths():
     assert parts == ("atp", "a-b-VS-c-d", "some-open-2024")
     assert T.match_dest("/atp/match/a-b-VS-c-d/some-open-2024/").as_posix().endswith("matches/atp/a-b-VS-c-d/some-open-2024.html.gz")
     assert T.match_path_parts("/atp/brandon-holt/") is None
+
+
+# SofaScore code inference ------------------------------------------------------------
+def test_point_winner_and_game_point_derivation():
+    sys.path.insert(0, str(PROJECT_ROOT / "src" / "eda" / "point_shot_sources"))
+    import sofascore_codes as K
+
+    assert K.point_winner(("0", "0"), ("15", "0"), False) == 1
+    assert K.point_winner(("30", "40"), ("40", "40"), False) == 1
+    assert K.point_winner(("40", "40"), ("40", "A"), False) == 2
+    assert K.point_winner(("A", "40"), ("40", "40"), False) == 2
+    assert K.point_winner(("3", "2"), ("3", "3"), True) == 2
+    assert K.point_winner(("0", "0"), ("30", "0"), False) is None
+    assert K.game_point_for(("40", "15"), False) == {1}
+    assert K.game_point_for(("40", "A"), False) == {2}
+    assert K.game_point_for(("40", "40"), False) == set()
+    assert K.game_point_for(("6", "5"), True) == {1} and K.game_point_for(("6", "6"), True) == set()
+    assert K.set_point_for((5, 3), 1, False) and not K.set_point_for((5, 4), 2, False)
+    assert K.set_point_for((6, 6), 2, True)
+
+
+def test_tennislive_opening_game_without_points_is_still_a_game():
+    block = ('<div class="tl-progress-game"><div><span>Serve lost</span></div><div><div><span>{before} '
+             '<span aria-hidden="true">→</span></span><strong>{after}</strong></div><div><span>A B serves</span>'
+             '<span data-progress-server-ball data-player-index="0"></span></div>{points}</div><div></div></div>')
+    points = ('<div>0-15 <span aria-hidden="true">·</span> 15-15 <span aria-hidden="true">→</span> '
+              '<span data-progress-outcome>A B wins the game</span></div>')
+    html = ('<html><head></head><body><main><section data-set-panel="2">'
+            + block.format(before="0-0", after="0-0", points="")      # start marker
+            + block.format(before="0-0", after="1-0", points="")      # a game whose points are missing
+            + block.format(before="1-0", after="2-0", points=points)  # a normal game
+            + "</section></main></body></html>")
+    parsed = T.parse_match_page(html)
+    games = parsed["games"]
+    assert [g["game"] for g in games] == [0, 1, 2]
+    assert games[1]["points"] == [] and games[1]["outcome"] is None and (games[1]["before"], games[1]["after"]) == ("0-0", "1-0")
+    assert parsed["meta"]["games_listed"] == 2 and parsed["meta"]["games_without_points"] == 1
+    assert parsed["meta"]["points_listed"] == 2 and parsed["meta"]["first_server_index"] == 0
+
+
+def test_verification_completeness_categories():
+    sys.path.insert(0, str(PROJECT_ROOT / "src" / "eda" / "point_shot_sources"))
+    import verify_scrape as V
+
+    assert V.completeness([12, 6, 7], [12, 6, 7]) == "exact"
+    assert V.completeness([9, 8, 2], [9, 8, 3]) == "unfinished game listed"      # retirement, game in progress listed
+    assert V.completeness([6], [6, 1]) == "unfinished game listed"
+    assert V.completeness([13, 10, 16], [13, 10, 1]) == "match tiebreak as one game"
+    assert V.completeness([13, 12, 8], [14]) == "short"
+    assert V.completeness([10, 9], [11, 9]) == "long"
+    assert V.completeness([10, 9], None) is None and V.complete([10, 9], [10, 9]) is True
+    assert V.period("ITF main draw", 2025) == "2025" and V.period("Challenger main draw", 2025) == "2025-26"
+    assert V.period("ITF main draw", 2019) == "2019-21"
+
+
+# captcha token and refusals -----------------------------------------------------------
+def _jwt(claims: dict) -> str:
+    import base64
+
+    part = lambda obj: base64.urlsafe_b64encode(json.dumps(obj).encode()).decode().rstrip("=")
+    return f"{part({'alg': 'HS256', 'typ': 'JWT'})}.{part(claims)}.signature"
+
+
+def test_captcha_token_file_is_decoded_and_expiry_checked(tmp_path):
+    import time
+
+    assert S.load_captcha_token(tmp_path / "missing.txt") is None
+    live = _jwt({"exp": int(time.time()) + 3600, "sub": "captcha"})
+    path = tmp_path / "_captcha_token.txt"
+    path.write_text(f'"{live}"\n', encoding="utf-8")  # pasted with the console's quotes and a newline
+    info = S.load_captcha_token(path)
+    assert info["token"] == live and info["claims"]["sub"] == "captcha" and not info["expired"]
+    assert info["expires_at"].endswith("UTC")
+    path.write_text(_jwt({"exp": int(time.time()) - 60}), encoding="utf-8")
+    assert S.load_captcha_token(path)["expired"] is True
+    path.write_text("not-a-jwt", encoding="utf-8")
+    odd = S.load_captcha_token(path)
+    assert odd["token"] == "not-a-jwt" and odd["claims"] == {} and "not a decodable JWT" in odd["problem"]
+    assert P.refusal_reason(FakeResponse(403, b'{"error": {"code": 403, "reason": "jwt:expired"}}')) == "jwt:expired"
+    assert P.refusal_reason(FakeResponse(403, b"")) is None
+
+
+class FakeSession:
+    def __init__(self, bodies):
+        self.bodies = list(bodies)
+        self.calls = 0
+
+    def get(self, url, timeout=None, headers=None):
+        self.calls += 1
+        return FakeResponse(403, self.bodies.pop(0))
+
+
+def _client(bodies) -> P.Client:
+    client = P.Client.__new__(P.Client)
+    client._session, client.impersonate, client._headers, client.block_retries = FakeSession(bodies), "test", {}, 1
+    client.min_interval, client.jitter, client.max_requests, client.timeout, client.retries = 0.0, 0.0, None, 1, 3
+    client.requests = client.retried = 0
+    client.slept = client._last = 0.0
+    client._sleep = lambda seconds: setattr(client, "slept", client.slept + seconds)  # no real waiting
+    return client
+
+
+def test_client_stops_at_once_on_a_rejected_token_and_after_one_challenge_retry():
+    import pytest
+
+    rejected = _client([b'{"error": {"code": 403, "reason": "jwt:expired"}}'])
+    with pytest.raises(P.Blocked, match="captcha token was rejected"):
+        rejected.get("http://x/a")
+    assert rejected._session.calls == 1 and rejected.slept == 0
+    challenged = _client([b'{"error": {"code": 403, "reason": "challenge"}}'] * 2)
+    with pytest.raises(P.Blocked, match=r"HTTP 403 \(challenge\) .* after 2 attempts"):
+        challenged.get("http://x/a")
+    assert challenged._session.calls == 2 and challenged.slept == 60
+
+
+def test_browser_transport_pure_parts():
+    from src.ingest.point_sources import browser as B
+
+    assert B.allowed_headers({"Accept": "*/*", "Referer": "x", "Origin": "y", "X-Captcha": "t"}) == {"Accept": "*/*", "X-Captcha": "t"}
+    session = B.PageSession.__new__(B.PageSession)
+    session.url_map = {"https://api.sofascore.com/": "https://www.sofascore.com/"}
+    assert session._rewrite("https://api.sofascore.com/api/v1/event/1/statistics") == "https://www.sofascore.com/api/v1/event/1/statistics"
+    assert session._rewrite("https://other.example/x") == "https://other.example/x"
+    response = B.BrowserResponse(404, {"Content-Type": "application/json"}, '{"error": 1}', "https://www.sofascore.com/api/v1/x")
+    assert response.status_code == 404 and response.headers["content-type"] == "application/json"
+    assert response.content == b'{"error": 1}' and response.url.endswith("/x")
+    import time
+
+    assert B.is_challenge(403, '{"error": {"code": 403, "reason": "challenge"}}') is True
+    assert B.is_challenge(403, '{"error": {"code": 403, "reason": "jwt:expired"}}') is False
+    assert B.is_challenge(404, '{"error": {"code": 404}}') is False
+    assert B.token_expired(None) is True and B.token_expired("opaque") is False
+    assert B.token_expired(_jwt({"exp": int(time.time()) - 5})) is True
+    assert B.token_expired(_jwt({"exp": int(time.time()) + 3600})) is False

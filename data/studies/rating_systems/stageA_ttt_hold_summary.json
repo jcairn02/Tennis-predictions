@@ -1,0 +1,76 @@
+{
+  "generated_at": "2026-10-03T01:45:31+00:00",
+  "constants": {
+    "atp": {
+      "sigma0": 1.125,
+      "gamma": 0.4,
+      "window": 416.0,
+      "w": 0.35
+    },
+    "wta": {
+      "sigma0": 1.5,
+      "gamma": 0.5,
+      "window": 104.0,
+      "w": 0.3
+    }
+  },
+  "hold": "events with a round of 128 join the smoothed model at the first date >= start date + 14 days",
+  "held": {
+    "atp": {
+      "rating_moving_matches": 21812,
+      "events": 114,
+      "seconds": 1106.7
+    },
+    "wta": {
+      "rating_moving_matches": 20491,
+      "events": 114,
+      "seconds": 291.5
+    }
+  },
+  "shared_code": {
+    "code_sha256": {
+      "src/eda/predictability_diagnostic/common.py": "6fa433773dfbd5f4b9070b6fa22da8408a455489e8d6acdfb92c86a1d23b88cd",
+      "src/eda/predictability_diagnostic/stage1_baselines.py": "4ce00d8abd372f5ccc9f95e6d8d245c029712c1bfe452dc73b356ddca87edb76",
+      "src/eda/predictability_diagnostic/stage4_rundown.py": "d70cc965e8adc5be2e3292fcf5d62f67df7c702f683c18d4242fc93067d2d2cb",
+      "src/eda/ufc_ideas/common.py": "ca06a88240aaca2817a62ea29927c0037f90d2ddfc1342b2ee23b9a406d6c8c1",
+      "src/eda/ufc_ideas/stageA_rundown.py": "a1061714f227720f5bbc4d01a71697dfb9a9efa8450ace8cdeeb9c0bb884d4bf",
+      "src/eda/feature_alpha_audit/elo_retest.py": "606b74cd4b58610af38f3d3a6d1694dba5c7677018b8e01d7b28445f3e6cddf0",
+      "src/eda/feature_alpha_audit/profile_retest.py": "717572f1b54912de06a626ab8ca87f38f714698ca58fd09e0ef02422acc57c83"
+    },
+    "input_tables": {
+      "data/studies/predictability_diagnostic/stage0_matches.parquet": {
+        "bytes": 26426965,
+        "modified": "2026-09-30T17:30:51+00:00"
+      },
+      "data/studies/predictability_diagnostic/stage0_match_players.parquet": {
+        "bytes": 62258289,
+        "modified": "2026-09-30T17:30:53+00:00"
+      },
+      "data/studies/predictability_diagnostic/stage1_baselines.parquet": {
+        "bytes": 74635669,
+        "modified": "2026-09-30T21:18:13+00:00"
+      },
+      "data/studies/predictability_diagnostic/stage1_odds.parquet": {
+        "bytes": 3310519,
+        "modified": "2026-09-30T21:25:41+00:00"
+      },
+      "data/studies/predictability_diagnostic/stage4_features.parquet": {
+        "bytes": 196959142,
+        "modified": "2026-10-02T02:15:25+00:00"
+      },
+      "data/studies/ufc_ideas/stageB_adj_features.parquet": {
+        "bytes": 129380976,
+        "modified": "2026-10-02T21:03:29+00:00"
+      },
+      "data/studies/ufc_ideas/stageB_ios_features.parquet": {
+        "bytes": 32727990,
+        "modified": "2026-10-02T21:42:47+00:00"
+      },
+      "data/studies/ufc_ideas/stageD_profile_features.parquet": {
+        "bytes": 110514550,
+        "modified": "2026-10-02T22:22:53+00:00"
+      }
+    }
+  },
+  "seconds": 1112.0
+}

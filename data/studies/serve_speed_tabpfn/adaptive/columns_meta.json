@@ -1,0 +1,1325 @@
+{
+ "built_at": "2026-10-08T14:49:50+00:00",
+ "plan": "data/studies/serve_speed_tabpfn/adaptive/plan.md",
+ "reads_results": false,
+ "scenarios": [
+  "A",
+  "B",
+  "D",
+  "E"
+ ],
+ "constants": {
+  "men": {
+   "hl": 14.0,
+   "s2f": 12.0,
+   "q": 0.010958904109589041,
+   "c": 2.0,
+   "nu_pts": 7.0,
+   "nu_ks": 8.0,
+   "sigma": 13.49
+  },
+  "half_life_T": 14.0,
+  "half_life_L": 28.0,
+  "late_window_days": 14,
+  "grace": "lf + 1 < es (a match that finished the day before es is never late)",
+  "clip": 4.0
+ },
+ "standardisers_km_h": {
+  "spd_T": 2.223995373606193,
+  "spd_T_source": "features/speed_meta.json s_f",
+  "spd_L": 1.9496051535048338,
+  "spd_L_source": "latency/variants_meta.json standardisation_sd_km_h.B_M1"
+ },
+ "women": "spd_T = spd_L = 0, never flagged late, mode T",
+ "inputs": {
+  "panel_sha256": "f774eb50a0874469cb5a30101549b576c03c48a073de32d7966d5eadcdcaff39",
+  "availability_sha256": "3deecae32865c0b1aca342f7e564b582fe904af5ca91b2102bf4a60ae0f54a81",
+  "features_parquet_sha256": "fcd8d24124e0d9987bd42c0557af27770dbd0c7fa314ddaa1ae7927f1328e0e3",
+  "variants_parquet_sha256": "b88b74ebf662c423ba9043e8a96a6e9c470dc93aaa20b615630d774dc8e8666d"
+ },
+ "code_sha256": {
+  "columns.py": "a84f815d42b9fb5cfdfec061e375c9997b55676686364690f16d214d5bc0c1d9",
+  "features_latency.py": "298f3c7e1654bac35272c35e0d146c37ac89aeb316f379a2ff47e0513418da14",
+  "features.py": "fc3c0cf58ce66521fff6a24feee79b4fa0cc759cb8040a6be1ba33644c0dabc5"
+ },
+ "columns_parquet_sha256": "62cc77f373b4a872576bcd01857a4ec0a4991125f866217be636814707a3f98f",
+ "mode_shares": [
+  {
+   "scenario": "A",
+   "tour": "atp",
+   "season": 2013,
+   "matches": 2611,
+   "mode_L": 0,
+   "share_L": 0.0,
+   "late_a": 0,
+   "late_b": 0
+  },
+  {
+   "scenario": "A",
+   "tour": "atp",
+   "season": 2014,
+   "matches": 2574,
+   "mode_L": 0,
+   "share_L": 0.0,
+   "late_a": 0,
+   "late_b": 0
+  },
+  {
+   "scenario": "A",
+   "tour": "atp",
+   "season": 2015,
+   "matches": 2619,
+   "mode_L": 0,
+   "share_L": 0.0,
+   "late_a": 0,
+   "late_b": 0
+  },
+  {
+   "scenario": "A",
+   "tour": "atp",
+   "season": 2016,
+   "matches": 2603,
+   "mode_L": 0,
+   "share_L": 0.0,
+   "late_a": 0,
+   "late_b": 0
+  },
+  {
+   "scenario": "A",
+   "tour": "atp",
+   "season": 2017,
+   "matches": 2612,
+   "mode_L": 0,
+   "share_L": 0.0,
+   "late_a": 0,
+   "late_b": 0
+  },
+  {
+   "scenario": "A",
+   "tour": "atp",
+   "season": 2019,
+   "matches": 2587,
+   "mode_L": 0,
+   "share_L": 0.0,
+   "late_a": 0,
+   "late_b": 0
+  },
+  {
+   "scenario": "A",
+   "tour": "atp",
+   "season": 2020,
+   "matches": 1259,
+   "mode_L": 0,
+   "share_L": 0.0,
+   "late_a": 0,
+   "late_b": 0
+  },
+  {
+   "scenario": "A",
+   "tour": "atp",
+   "season": 2021,
+   "matches": 2466,
+   "mode_L": 0,
+   "share_L": 0.0,
+   "late_a": 0,
+   "late_b": 0
+  },
+  {
+   "scenario": "A",
+   "tour": "atp",
+   "season": 2022,
+   "matches": 2606,
+   "mode_L": 0,
+   "share_L": 0.0,
+   "late_a": 0,
+   "late_b": 0
+  },
+  {
+   "scenario": "A",
+   "tour": "atp",
+   "season": 2023,
+   "matches": 2676,
+   "mode_L": 0,
+   "share_L": 0.0,
+   "late_a": 0,
+   "late_b": 0
+  },
+  {
+   "scenario": "A",
+   "tour": "atp",
+   "season": 2024,
+   "matches": 2676,
+   "mode_L": 0,
+   "share_L": 0.0,
+   "late_a": 0,
+   "late_b": 0
+  },
+  {
+   "scenario": "A",
+   "tour": "atp",
+   "season": 2025,
+   "matches": 2620,
+   "mode_L": 0,
+   "share_L": 0.0,
+   "late_a": 0,
+   "late_b": 0
+  },
+  {
+   "scenario": "A",
+   "tour": "atp",
+   "season": 2026,
+   "matches": 1774,
+   "mode_L": 0,
+   "share_L": 0.0,
+   "late_a": 0,
+   "late_b": 0
+  },
+  {
+   "scenario": "A",
+   "tour": "wta",
+   "season": 2013,
+   "matches": 2417,
+   "mode_L": 0,
+   "share_L": 0.0,
+   "late_a": 0,
+   "late_b": 0
+  },
+  {
+   "scenario": "A",
+   "tour": "wta",
+   "season": 2014,
+   "matches": 2449,
+   "mode_L": 0,
+   "share_L": 0.0,
+   "late_a": 0,
+   "late_b": 0
+  },
+  {
+   "scenario": "A",
+   "tour": "wta",
+   "season": 2015,
+   "matches": 2495,
+   "mode_L": 0,
+   "share_L": 0.0,
+   "late_a": 0,
+   "late_b": 0
+  },
+  {
+   "scenario": "A",
+   "tour": "wta",
+   "season": 2016,
+   "matches": 2498,
+   "mode_L": 0,
+   "share_L": 0.0,
+   "late_a": 0,
+   "late_b": 0
+  },
+  {
+   "scenario": "A",
+   "tour": "wta",
+   "season": 2017,
+   "matches": 2485,
+   "mode_L": 0,
+   "share_L": 0.0,
+   "late_a": 0,
+   "late_b": 0
+  },
+  {
+   "scenario": "A",
+   "tour": "wta",
+   "season": 2018,
+   "matches": 2450,
+   "mode_L": 0,
+   "share_L": 0.0,
+   "late_a": 0,
+   "late_b": 0
+  },
+  {
+   "scenario": "A",
+   "tour": "wta",
+   "season": 2019,
+   "matches": 2458,
+   "mode_L": 0,
+   "share_L": 0.0,
+   "late_a": 0,
+   "late_b": 0
+  },
+  {
+   "scenario": "A",
+   "tour": "wta",
+   "season": 2020,
+   "matches": 1046,
+   "mode_L": 0,
+   "share_L": 0.0,
+   "late_a": 0,
+   "late_b": 0
+  },
+  {
+   "scenario": "A",
+   "tour": "wta",
+   "season": 2021,
+   "matches": 2289,
+   "mode_L": 0,
+   "share_L": 0.0,
+   "late_a": 0,
+   "late_b": 0
+  },
+  {
+   "scenario": "A",
+   "tour": "wta",
+   "season": 2022,
+   "matches": 2339,
+   "mode_L": 0,
+   "share_L": 0.0,
+   "late_a": 0,
+   "late_b": 0
+  },
+  {
+   "scenario": "A",
+   "tour": "wta",
+   "season": 2023,
+   "matches": 2464,
+   "mode_L": 0,
+   "share_L": 0.0,
+   "late_a": 0,
+   "late_b": 0
+  },
+  {
+   "scenario": "A",
+   "tour": "wta",
+   "season": 2024,
+   "matches": 2465,
+   "mode_L": 0,
+   "share_L": 0.0,
+   "late_a": 0,
+   "late_b": 0
+  },
+  {
+   "scenario": "A",
+   "tour": "wta",
+   "season": 2025,
+   "matches": 2485,
+   "mode_L": 0,
+   "share_L": 0.0,
+   "late_a": 0,
+   "late_b": 0
+  },
+  {
+   "scenario": "A",
+   "tour": "wta",
+   "season": 2026,
+   "matches": 1714,
+   "mode_L": 0,
+   "share_L": 0.0,
+   "late_a": 0,
+   "late_b": 0
+  },
+  {
+   "scenario": "B",
+   "tour": "atp",
+   "season": 2013,
+   "matches": 2611,
+   "mode_L": 0,
+   "share_L": 0.0,
+   "late_a": 0,
+   "late_b": 0
+  },
+  {
+   "scenario": "B",
+   "tour": "atp",
+   "season": 2014,
+   "matches": 2574,
+   "mode_L": 191,
+   "share_L": 0.07420357420357421,
+   "late_a": 135,
+   "late_b": 143
+  },
+  {
+   "scenario": "B",
+   "tour": "atp",
+   "season": 2015,
+   "matches": 2619,
+   "mode_L": 198,
+   "share_L": 0.07560137457044673,
+   "late_a": 161,
+   "late_b": 145
+  },
+  {
+   "scenario": "B",
+   "tour": "atp",
+   "season": 2016,
+   "matches": 2603,
+   "mode_L": 203,
+   "share_L": 0.07798693814829043,
+   "late_a": 150,
+   "late_b": 143
+  },
+  {
+   "scenario": "B",
+   "tour": "atp",
+   "season": 2017,
+   "matches": 2612,
+   "mode_L": 181,
+   "share_L": 0.06929555895865237,
+   "late_a": 138,
+   "late_b": 142
+  },
+  {
+   "scenario": "B",
+   "tour": "atp",
+   "season": 2019,
+   "matches": 2587,
+   "mode_L": 189,
+   "share_L": 0.073057595670661,
+   "late_a": 121,
+   "late_b": 140
+  },
+  {
+   "scenario": "B",
+   "tour": "atp",
+   "season": 2020,
+   "matches": 1259,
+   "mode_L": 216,
+   "share_L": 0.1715647339158062,
+   "late_a": 163,
+   "late_b": 164
+  },
+  {
+   "scenario": "B",
+   "tour": "atp",
+   "season": 2021,
+   "matches": 2466,
+   "mode_L": 396,
+   "share_L": 0.16058394160583941,
+   "late_a": 309,
+   "late_b": 286
+  },
+  {
+   "scenario": "B",
+   "tour": "atp",
+   "season": 2022,
+   "matches": 2606,
+   "mode_L": 941,
+   "share_L": 0.3610897927858787,
+   "late_a": 677,
+   "late_b": 682
+  },
+  {
+   "scenario": "B",
+   "tour": "atp",
+   "season": 2023,
+   "matches": 2676,
+   "mode_L": 1052,
+   "share_L": 0.3931240657698057,
+   "late_a": 766,
+   "late_b": 712
+  },
+  {
+   "scenario": "B",
+   "tour": "atp",
+   "season": 2024,
+   "matches": 2676,
+   "mode_L": 1345,
+   "share_L": 0.5026158445440957,
+   "late_a": 951,
+   "late_b": 958
+  },
+  {
+   "scenario": "B",
+   "tour": "atp",
+   "season": 2025,
+   "matches": 2620,
+   "mode_L": 1117,
+   "share_L": 0.4263358778625954,
+   "late_a": 827,
+   "late_b": 808
+  },
+  {
+   "scenario": "B",
+   "tour": "atp",
+   "season": 2026,
+   "matches": 1774,
+   "mode_L": 830,
+   "share_L": 0.46786922209695603,
+   "late_a": 618,
+   "late_b": 634
+  },
+  {
+   "scenario": "B",
+   "tour": "wta",
+   "season": 2013,
+   "matches": 2417,
+   "mode_L": 0,
+   "share_L": 0.0,
+   "late_a": 0,
+   "late_b": 0
+  },
+  {
+   "scenario": "B",
+   "tour": "wta",
+   "season": 2014,
+   "matches": 2449,
+   "mode_L": 0,
+   "share_L": 0.0,
+   "late_a": 0,
+   "late_b": 0
+  },
+  {
+   "scenario": "B",
+   "tour": "wta",
+   "season": 2015,
+   "matches": 2495,
+   "mode_L": 0,
+   "share_L": 0.0,
+   "late_a": 0,
+   "late_b": 0
+  },
+  {
+   "scenario": "B",
+   "tour": "wta",
+   "season": 2016,
+   "matches": 2498,
+   "mode_L": 0,
+   "share_L": 0.0,
+   "late_a": 0,
+   "late_b": 0
+  },
+  {
+   "scenario": "B",
+   "tour": "wta",
+   "season": 2017,
+   "matches": 2485,
+   "mode_L": 0,
+   "share_L": 0.0,
+   "late_a": 0,
+   "late_b": 0
+  },
+  {
+   "scenario": "B",
+   "tour": "wta",
+   "season": 2018,
+   "matches": 2450,
+   "mode_L": 0,
+   "share_L": 0.0,
+   "late_a": 0,
+   "late_b": 0
+  },
+  {
+   "scenario": "B",
+   "tour": "wta",
+   "season": 2019,
+   "matches": 2458,
+   "mode_L": 0,
+   "share_L": 0.0,
+   "late_a": 0,
+   "late_b": 0
+  },
+  {
+   "scenario": "B",
+   "tour": "wta",
+   "season": 2020,
+   "matches": 1046,
+   "mode_L": 0,
+   "share_L": 0.0,
+   "late_a": 0,
+   "late_b": 0
+  },
+  {
+   "scenario": "B",
+   "tour": "wta",
+   "season": 2021,
+   "matches": 2289,
+   "mode_L": 0,
+   "share_L": 0.0,
+   "late_a": 0,
+   "late_b": 0
+  },
+  {
+   "scenario": "B",
+   "tour": "wta",
+   "season": 2022,
+   "matches": 2339,
+   "mode_L": 0,
+   "share_L": 0.0,
+   "late_a": 0,
+   "late_b": 0
+  },
+  {
+   "scenario": "B",
+   "tour": "wta",
+   "season": 2023,
+   "matches": 2464,
+   "mode_L": 0,
+   "share_L": 0.0,
+   "late_a": 0,
+   "late_b": 0
+  },
+  {
+   "scenario": "B",
+   "tour": "wta",
+   "season": 2024,
+   "matches": 2465,
+   "mode_L": 0,
+   "share_L": 0.0,
+   "late_a": 0,
+   "late_b": 0
+  },
+  {
+   "scenario": "B",
+   "tour": "wta",
+   "season": 2025,
+   "matches": 2485,
+   "mode_L": 0,
+   "share_L": 0.0,
+   "late_a": 0,
+   "late_b": 0
+  },
+  {
+   "scenario": "B",
+   "tour": "wta",
+   "season": 2026,
+   "matches": 1714,
+   "mode_L": 0,
+   "share_L": 0.0,
+   "late_a": 0,
+   "late_b": 0
+  },
+  {
+   "scenario": "D",
+   "tour": "atp",
+   "season": 2013,
+   "matches": 2611,
+   "mode_L": 0,
+   "share_L": 0.0,
+   "late_a": 0,
+   "late_b": 0
+  },
+  {
+   "scenario": "D",
+   "tour": "atp",
+   "season": 2014,
+   "matches": 2574,
+   "mode_L": 191,
+   "share_L": 0.07420357420357421,
+   "late_a": 135,
+   "late_b": 143
+  },
+  {
+   "scenario": "D",
+   "tour": "atp",
+   "season": 2015,
+   "matches": 2619,
+   "mode_L": 198,
+   "share_L": 0.07560137457044673,
+   "late_a": 161,
+   "late_b": 145
+  },
+  {
+   "scenario": "D",
+   "tour": "atp",
+   "season": 2016,
+   "matches": 2603,
+   "mode_L": 203,
+   "share_L": 0.07798693814829043,
+   "late_a": 150,
+   "late_b": 143
+  },
+  {
+   "scenario": "D",
+   "tour": "atp",
+   "season": 2017,
+   "matches": 2612,
+   "mode_L": 181,
+   "share_L": 0.06929555895865237,
+   "late_a": 138,
+   "late_b": 142
+  },
+  {
+   "scenario": "D",
+   "tour": "atp",
+   "season": 2019,
+   "matches": 2587,
+   "mode_L": 189,
+   "share_L": 0.073057595670661,
+   "late_a": 121,
+   "late_b": 140
+  },
+  {
+   "scenario": "D",
+   "tour": "atp",
+   "season": 2020,
+   "matches": 1259,
+   "mode_L": 216,
+   "share_L": 0.1715647339158062,
+   "late_a": 163,
+   "late_b": 164
+  },
+  {
+   "scenario": "D",
+   "tour": "atp",
+   "season": 2021,
+   "matches": 2466,
+   "mode_L": 267,
+   "share_L": 0.10827250608272507,
+   "late_a": 214,
+   "late_b": 202
+  },
+  {
+   "scenario": "D",
+   "tour": "atp",
+   "season": 2022,
+   "matches": 2606,
+   "mode_L": 275,
+   "share_L": 0.10552570990023023,
+   "late_a": 224,
+   "late_b": 208
+  },
+  {
+   "scenario": "D",
+   "tour": "atp",
+   "season": 2023,
+   "matches": 2676,
+   "mode_L": 215,
+   "share_L": 0.08034379671150972,
+   "late_a": 167,
+   "late_b": 175
+  },
+  {
+   "scenario": "D",
+   "tour": "atp",
+   "season": 2024,
+   "matches": 2676,
+   "mode_L": 273,
+   "share_L": 0.10201793721973094,
+   "late_a": 214,
+   "late_b": 206
+  },
+  {
+   "scenario": "D",
+   "tour": "atp",
+   "season": 2025,
+   "matches": 2620,
+   "mode_L": 357,
+   "share_L": 0.13625954198473283,
+   "late_a": 299,
+   "late_b": 292
+  },
+  {
+   "scenario": "D",
+   "tour": "atp",
+   "season": 2026,
+   "matches": 1774,
+   "mode_L": 288,
+   "share_L": 0.16234498308906425,
+   "late_a": 242,
+   "late_b": 236
+  },
+  {
+   "scenario": "D",
+   "tour": "wta",
+   "season": 2013,
+   "matches": 2417,
+   "mode_L": 0,
+   "share_L": 0.0,
+   "late_a": 0,
+   "late_b": 0
+  },
+  {
+   "scenario": "D",
+   "tour": "wta",
+   "season": 2014,
+   "matches": 2449,
+   "mode_L": 0,
+   "share_L": 0.0,
+   "late_a": 0,
+   "late_b": 0
+  },
+  {
+   "scenario": "D",
+   "tour": "wta",
+   "season": 2015,
+   "matches": 2495,
+   "mode_L": 0,
+   "share_L": 0.0,
+   "late_a": 0,
+   "late_b": 0
+  },
+  {
+   "scenario": "D",
+   "tour": "wta",
+   "season": 2016,
+   "matches": 2498,
+   "mode_L": 0,
+   "share_L": 0.0,
+   "late_a": 0,
+   "late_b": 0
+  },
+  {
+   "scenario": "D",
+   "tour": "wta",
+   "season": 2017,
+   "matches": 2485,
+   "mode_L": 0,
+   "share_L": 0.0,
+   "late_a": 0,
+   "late_b": 0
+  },
+  {
+   "scenario": "D",
+   "tour": "wta",
+   "season": 2018,
+   "matches": 2450,
+   "mode_L": 0,
+   "share_L": 0.0,
+   "late_a": 0,
+   "late_b": 0
+  },
+  {
+   "scenario": "D",
+   "tour": "wta",
+   "season": 2019,
+   "matches": 2458,
+   "mode_L": 0,
+   "share_L": 0.0,
+   "late_a": 0,
+   "late_b": 0
+  },
+  {
+   "scenario": "D",
+   "tour": "wta",
+   "season": 2020,
+   "matches": 1046,
+   "mode_L": 0,
+   "share_L": 0.0,
+   "late_a": 0,
+   "late_b": 0
+  },
+  {
+   "scenario": "D",
+   "tour": "wta",
+   "season": 2021,
+   "matches": 2289,
+   "mode_L": 0,
+   "share_L": 0.0,
+   "late_a": 0,
+   "late_b": 0
+  },
+  {
+   "scenario": "D",
+   "tour": "wta",
+   "season": 2022,
+   "matches": 2339,
+   "mode_L": 0,
+   "share_L": 0.0,
+   "late_a": 0,
+   "late_b": 0
+  },
+  {
+   "scenario": "D",
+   "tour": "wta",
+   "season": 2023,
+   "matches": 2464,
+   "mode_L": 0,
+   "share_L": 0.0,
+   "late_a": 0,
+   "late_b": 0
+  },
+  {
+   "scenario": "D",
+   "tour": "wta",
+   "season": 2024,
+   "matches": 2465,
+   "mode_L": 0,
+   "share_L": 0.0,
+   "late_a": 0,
+   "late_b": 0
+  },
+  {
+   "scenario": "D",
+   "tour": "wta",
+   "season": 2025,
+   "matches": 2485,
+   "mode_L": 0,
+   "share_L": 0.0,
+   "late_a": 0,
+   "late_b": 0
+  },
+  {
+   "scenario": "D",
+   "tour": "wta",
+   "season": 2026,
+   "matches": 1714,
+   "mode_L": 0,
+   "share_L": 0.0,
+   "late_a": 0,
+   "late_b": 0
+  },
+  {
+   "scenario": "E",
+   "tour": "atp",
+   "season": 2013,
+   "matches": 2611,
+   "mode_L": 0,
+   "share_L": 0.0,
+   "late_a": 0,
+   "late_b": 0
+  },
+  {
+   "scenario": "E",
+   "tour": "atp",
+   "season": 2014,
+   "matches": 2574,
+   "mode_L": 0,
+   "share_L": 0.0,
+   "late_a": 0,
+   "late_b": 0
+  },
+  {
+   "scenario": "E",
+   "tour": "atp",
+   "season": 2015,
+   "matches": 2619,
+   "mode_L": 0,
+   "share_L": 0.0,
+   "late_a": 0,
+   "late_b": 0
+  },
+  {
+   "scenario": "E",
+   "tour": "atp",
+   "season": 2016,
+   "matches": 2603,
+   "mode_L": 0,
+   "share_L": 0.0,
+   "late_a": 0,
+   "late_b": 0
+  },
+  {
+   "scenario": "E",
+   "tour": "atp",
+   "season": 2017,
+   "matches": 2612,
+   "mode_L": 0,
+   "share_L": 0.0,
+   "late_a": 0,
+   "late_b": 0
+  },
+  {
+   "scenario": "E",
+   "tour": "atp",
+   "season": 2019,
+   "matches": 2587,
+   "mode_L": 0,
+   "share_L": 0.0,
+   "late_a": 0,
+   "late_b": 0
+  },
+  {
+   "scenario": "E",
+   "tour": "atp",
+   "season": 2020,
+   "matches": 1259,
+   "mode_L": 0,
+   "share_L": 0.0,
+   "late_a": 0,
+   "late_b": 0
+  },
+  {
+   "scenario": "E",
+   "tour": "atp",
+   "season": 2021,
+   "matches": 2466,
+   "mode_L": 129,
+   "share_L": 0.052311435523114354,
+   "late_a": 95,
+   "late_b": 84
+  },
+  {
+   "scenario": "E",
+   "tour": "atp",
+   "season": 2022,
+   "matches": 2606,
+   "mode_L": 671,
+   "share_L": 0.25748273215656176,
+   "late_a": 456,
+   "late_b": 475
+  },
+  {
+   "scenario": "E",
+   "tour": "atp",
+   "season": 2023,
+   "matches": 2676,
+   "mode_L": 844,
+   "share_L": 0.3153961136023916,
+   "late_a": 604,
+   "late_b": 538
+  },
+  {
+   "scenario": "E",
+   "tour": "atp",
+   "season": 2024,
+   "matches": 2676,
+   "mode_L": 1091,
+   "share_L": 0.4076980568011958,
+   "late_a": 743,
+   "late_b": 756
+  },
+  {
+   "scenario": "E",
+   "tour": "atp",
+   "season": 2025,
+   "matches": 2620,
+   "mode_L": 773,
+   "share_L": 0.2950381679389313,
+   "late_a": 531,
+   "late_b": 518
+  },
+  {
+   "scenario": "E",
+   "tour": "atp",
+   "season": 2026,
+   "matches": 1774,
+   "mode_L": 557,
+   "share_L": 0.31397970687711385,
+   "late_a": 379,
+   "late_b": 400
+  },
+  {
+   "scenario": "E",
+   "tour": "wta",
+   "season": 2013,
+   "matches": 2417,
+   "mode_L": 0,
+   "share_L": 0.0,
+   "late_a": 0,
+   "late_b": 0
+  },
+  {
+   "scenario": "E",
+   "tour": "wta",
+   "season": 2014,
+   "matches": 2449,
+   "mode_L": 0,
+   "share_L": 0.0,
+   "late_a": 0,
+   "late_b": 0
+  },
+  {
+   "scenario": "E",
+   "tour": "wta",
+   "season": 2015,
+   "matches": 2495,
+   "mode_L": 0,
+   "share_L": 0.0,
+   "late_a": 0,
+   "late_b": 0
+  },
+  {
+   "scenario": "E",
+   "tour": "wta",
+   "season": 2016,
+   "matches": 2498,
+   "mode_L": 0,
+   "share_L": 0.0,
+   "late_a": 0,
+   "late_b": 0
+  },
+  {
+   "scenario": "E",
+   "tour": "wta",
+   "season": 2017,
+   "matches": 2485,
+   "mode_L": 0,
+   "share_L": 0.0,
+   "late_a": 0,
+   "late_b": 0
+  },
+  {
+   "scenario": "E",
+   "tour": "wta",
+   "season": 2018,
+   "matches": 2450,
+   "mode_L": 0,
+   "share_L": 0.0,
+   "late_a": 0,
+   "late_b": 0
+  },
+  {
+   "scenario": "E",
+   "tour": "wta",
+   "season": 2019,
+   "matches": 2458,
+   "mode_L": 0,
+   "share_L": 0.0,
+   "late_a": 0,
+   "late_b": 0
+  },
+  {
+   "scenario": "E",
+   "tour": "wta",
+   "season": 2020,
+   "matches": 1046,
+   "mode_L": 0,
+   "share_L": 0.0,
+   "late_a": 0,
+   "late_b": 0
+  },
+  {
+   "scenario": "E",
+   "tour": "wta",
+   "season": 2021,
+   "matches": 2289,
+   "mode_L": 0,
+   "share_L": 0.0,
+   "late_a": 0,
+   "late_b": 0
+  },
+  {
+   "scenario": "E",
+   "tour": "wta",
+   "season": 2022,
+   "matches": 2339,
+   "mode_L": 0,
+   "share_L": 0.0,
+   "late_a": 0,
+   "late_b": 0
+  },
+  {
+   "scenario": "E",
+   "tour": "wta",
+   "season": 2023,
+   "matches": 2464,
+   "mode_L": 0,
+   "share_L": 0.0,
+   "late_a": 0,
+   "late_b": 0
+  },
+  {
+   "scenario": "E",
+   "tour": "wta",
+   "season": 2024,
+   "matches": 2465,
+   "mode_L": 0,
+   "share_L": 0.0,
+   "late_a": 0,
+   "late_b": 0
+  },
+  {
+   "scenario": "E",
+   "tour": "wta",
+   "season": 2025,
+   "matches": 2485,
+   "mode_L": 0,
+   "share_L": 0.0,
+   "late_a": 0,
+   "late_b": 0
+  },
+  {
+   "scenario": "E",
+   "tour": "wta",
+   "season": 2026,
+   "matches": 1714,
+   "mode_L": 0,
+   "share_L": 0.0,
+   "late_a": 0,
+   "late_b": 0
+  }
+ ],
+ "mode_L_share_men_2024_26": {
+  "A": 0.0,
+  "B": 0.46562942008486563,
+  "D": 0.12984441301272984,
+  "E": 0.34243281471004244
+ },
+ "values_men_2024_26": {
+  "A": {
+   "sd_spd_T": 1.1060784643971124,
+   "sd_spd_L": 1.3432723182803574
+  },
+  "B": {
+   "sd_spd_T": 0.7430455659235268,
+   "sd_spd_L": 1.0917557339171602
+  },
+  "D": {
+   "sd_spd_T": 0.896720020013854,
+   "sd_spd_L": 1.197491680718008
+  },
+  "E": {
+   "sd_spd_T": 0.8210770057935326,
+   "sd_spd_L": 1.1483415146549139
+  }
+ },
+ "probes": {
+  "D": {
+   "scenario": "D",
+   "days": 19,
+   "values_checked": [
+    "spd_T_D",
+    "spd_L_D",
+    "late_a_D",
+    "late_b_D",
+    "mode_D"
+   ],
+   "check_set": "men's frame matches with es <= D",
+   "moved": 0,
+   "leaky_columns_moved": 3145,
+   "leaky_flag_moved": 94,
+   "pass": true,
+   "per_day": [
+    {
+     "day": 16238.0,
+     "date": "2014-06-17",
+     "matches_checked": 4053,
+     "moved": 0,
+     "leaky_columns_moved": 0,
+     "leaky_flag_moved": 0
+    },
+    {
+     "day": 16243.0,
+     "date": "2014-06-22",
+     "matches_checked": 4097,
+     "moved": 0,
+     "leaky_columns_moved": 0,
+     "leaky_flag_moved": 0
+    },
+    {
+     "day": 16574.0,
+     "date": "2015-05-19",
+     "matches_checked": 6396,
+     "moved": 0,
+     "leaky_columns_moved": 0,
+     "leaky_flag_moved": 0
+    },
+    {
+     "day": 17433.0,
+     "date": "2017-09-24",
+     "matches_checked": 12651,
+     "moved": 0,
+     "leaky_columns_moved": 0,
+     "leaky_flag_moved": 0
+    },
+    {
+     "day": 19470.0,
+     "date": "2023-04-23",
+     "matches_checked": 22932,
+     "moved": 0,
+     "leaky_columns_moved": 0,
+     "leaky_flag_moved": 0
+    },
+    {
+     "day": 19606.0,
+     "date": "2023-09-06",
+     "matches_checked": 24136,
+     "moved": 0,
+     "leaky_columns_moved": 262,
+     "leaky_flag_moved": 12
+    },
+    {
+     "day": 19746.0,
+     "date": "2024-01-24",
+     "matches_checked": 24847,
+     "moved": 0,
+     "leaky_columns_moved": 161,
+     "leaky_flag_moved": 3
+    },
+    {
+     "day": 19879.0,
+     "date": "2024-06-05",
+     "matches_checked": 26002,
+     "moved": 0,
+     "leaky_columns_moved": 155,
+     "leaky_flag_moved": 1
+    },
+    {
+     "day": 19914.0,
+     "date": "2024-07-10",
+     "matches_checked": 26296,
+     "moved": 0,
+     "leaky_columns_moved": 179,
+     "leaky_flag_moved": 8
+    },
+    {
+     "day": 19949.0,
+     "date": "2024-08-14",
+     "matches_checked": 26627,
+     "moved": 0,
+     "leaky_columns_moved": 26,
+     "leaky_flag_moved": 0
+    },
+    {
+     "day": 19970.0,
+     "date": "2024-09-04",
+     "matches_checked": 26812,
+     "moved": 0,
+     "leaky_columns_moved": 278,
+     "leaky_flag_moved": 12
+    },
+    {
+     "day": 20084.0,
+     "date": "2024-12-27",
+     "matches_checked": 27289,
+     "moved": 0,
+     "leaky_columns_moved": 0,
+     "leaky_flag_moved": 0
+    },
+    {
+     "day": 20110.0,
+     "date": "2025-01-22",
+     "matches_checked": 27524,
+     "moved": 0,
+     "leaky_columns_moved": 303,
+     "leaky_flag_moved": 10
+    },
+    {
+     "day": 20243.0,
+     "date": "2025-06-04",
+     "matches_checked": 28595,
+     "moved": 0,
+     "leaky_columns_moved": 303,
+     "leaky_flag_moved": 3
+    },
+    {
+     "day": 20278.0,
+     "date": "2025-07-09",
+     "matches_checked": 28890,
+     "moved": 0,
+     "leaky_columns_moved": 298,
+     "leaky_flag_moved": 16
+    },
+    {
+     "day": 20334.0,
+     "date": "2025-09-03",
+     "matches_checked": 29431,
+     "moved": 0,
+     "leaky_columns_moved": 275,
+     "leaky_flag_moved": 8
+    },
+    {
+     "day": 20481.0,
+     "date": "2026-01-28",
+     "matches_checked": 30143,
+     "moved": 0,
+     "leaky_columns_moved": 304,
+     "leaky_flag_moved": 13
+    },
+    {
+     "day": 20607.0,
+     "date": "2026-06-03",
+     "matches_checked": 31192,
+     "moved": 0,
+     "leaky_columns_moved": 302,
+     "leaky_flag_moved": 3
+    },
+    {
+     "day": 20642.0,
+     "date": "2026-07-08",
+     "matches_checked": 31488,
+     "moved": 0,
+     "leaky_columns_moved": 299,
+     "leaky_flag_moved": 5
+    }
+   ]
+  }
+ },
+ "probes_pass": true
+}

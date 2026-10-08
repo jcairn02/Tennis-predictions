@@ -1,0 +1,161 @@
+{
+ "source": "ausopen",
+ "started_at": "2026-09-24T22:40:02+00:00",
+ "args": {
+  "events": null,
+  "matches": null,
+  "limit": null,
+  "max_requests": null,
+  "min_interval": 2.0,
+  "jitter": 1.0,
+  "stop_after_failures": 5,
+  "refresh": false,
+  "refresh_draws": false,
+  "wayback": false,
+  "wayback_draws": false,
+  "wayback_interval": 4.0,
+  "stage_only": true,
+  "no_stage": false
+ },
+ "decision": "docs/decisions/2026-09-24-official-point-feeds.md",
+ "matches_listed": 604,
+ "matches_selected": 604,
+ "fetch_outcomes": {},
+ "staged": {
+  "matches": {
+   "rows": 703,
+   "dest": "data/dump/points/ausopen/matches.parquet",
+   "bytes": 125405
+  },
+  "points": {
+   "rows": 108667,
+   "dest": "data/dump/points/ausopen/points.parquet",
+   "bytes": 2676736
+  },
+  "set_statistics": {
+   "rows": 188632,
+   "dest": "data/dump/points/ausopen/set_statistics.parquet",
+   "bytes": 985290
+  },
+  "archived_draws": {
+   "rows": 2387,
+   "dest": "data/dump/points/ausopen/archived_draws.parquet",
+   "bytes": 92376
+  }
+ },
+ "draws": {
+  "MS": {
+   "listed": 127,
+   "expected": 127,
+   "as_expected": true
+  },
+  "WS": {
+   "listed": 127,
+   "expected": 127,
+   "as_expected": true
+  },
+  "MQ": {
+   "listed": 112,
+   "expected": 112,
+   "as_expected": true
+  },
+  "WQ": {
+   "listed": 112,
+   "expected": 112,
+   "as_expected": true
+  },
+  "MD": {
+   "listed": 63,
+   "expected": 63,
+   "as_expected": true
+  },
+  "WD": {
+   "listed": 63,
+   "expected": 63,
+   "as_expected": true
+  }
+ },
+ "records_by_route_event": {
+  "api|2026|MD|points": 63,
+  "api|2026|MQ|points": 112,
+  "api|2026|MS|empty": 1,
+  "api|2026|MS|points": 126,
+  "api|2026|WD|empty": 2,
+  "api|2026|WD|points": 61,
+  "api|2026|WQ|points": 112,
+  "api|2026|WS|empty": 1,
+  "api|2026|WS|points": 126,
+  "wayback|2020|MS|points": 1,
+  "wayback|2021|MD|points": 1,
+  "wayback|2021|MS|absent": 1,
+  "wayback|2021|MS|points": 3,
+  "wayback|2021|WS|empty": 2,
+  "wayback|2021|WS|points": 3,
+  "wayback|2022|ED|points": 6,
+  "wayback|2022|MD|points": 1,
+  "wayback|2022|MS|absent": 3,
+  "wayback|2022|MS|empty": 1,
+  "wayback|2022|MS|points": 3,
+  "wayback|2022|WS|absent": 1,
+  "wayback|2022|WS|points": 1,
+  "wayback|2023|MS|absent": 5,
+  "wayback|2023|MS|points": 12,
+  "wayback|2023|WD|absent": 1,
+  "wayback|2023|WS|absent": 1,
+  "wayback|2023|WS|points": 1,
+  "wayback|2024|MS|absent": 2,
+  "wayback|2024|MS|empty": 1,
+  "wayback|2024|MS|points": 8,
+  "wayback|2024|WQ|points": 1,
+  "wayback|2024|WS|empty": 2,
+  "wayback|2024|WS|points": 6,
+  "wayback|2025|CS|points": 1,
+  "wayback|2025|MD|points": 1,
+  "wayback|2025|MS|empty": 2,
+  "wayback|2025|MS|points": 2,
+  "wayback|2025|WS|points": 4,
+  "wayback|2026|BS|points": 1,
+  "wayback|2026|GD|points": 1,
+  "wayback|2026|GS|points": 1,
+  "wayback|2026|LD|points": 1,
+  "wayback|2026|MD|points": 3,
+  "wayback|2026|MS|absent": 1,
+  "wayback|2026|MS|empty": 1,
+  "wayback|2026|MS|points": 7,
+  "wayback|2026|WQ|absent": 1,
+  "wayback|2026|WS|empty": 1,
+  "wayback|2026|WS|points": 4
+ },
+ "empty_or_absent_reasons": {
+  "api|empty|walkover: no point was played": 4,
+  "wayback|absent|HTTP 404": 9,
+  "wayback|absent|Wayback redirects this capture to capture 20210214061641 (not followed)": 1,
+  "wayback|absent|Wayback redirects this capture to capture 20240123141938 (not followed)": 1,
+  "wayback|absent|Wayback redirects this capture to capture 20240128132209 (not followed)": 1,
+  "wayback|absent|no match document (match id not found)": 4,
+  "wayback|empty|no point in the commentary (status None)": 1,
+  "wayback|empty|no point in the commentary (status SCH)": 7,
+  "wayback|empty|no point in the commentary (status WRM)": 1,
+  "wayback|empty|walkover: no point was played": 1
+ },
+ "points_by_route": {
+  "api": 96414,
+  "wayback": 12253
+ },
+ "receipts": {
+  "draws:200": 6,
+  "match-centre:200": 604,
+  "wayback-draws:200": 73,
+  "wayback-draws:404": 16,
+  "wayback-draws:absent": 6,
+  "wayback-extra:200": 6,
+  "wayback-page:200": 1,
+  "wayback:200": 88,
+  "wayback:404": 9,
+  "wayback:absent": 3
+ },
+ "receipts_with_errors": 0,
+ "error_examples": [],
+ "finished_at": "2026-09-24T22:40:09+00:00",
+ "seconds": 7.1
+}

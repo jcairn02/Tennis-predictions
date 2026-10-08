@@ -1,6 +1,6 @@
 # Files over 50 MB: how to get them back
 
-These five files are gitignored because each is over 50 MB. GitHub warns above 50 MiB and rejects files above 100 MiB. A fresh clone does not have them. The rebuild and re-download results quoted below were tested on 23 September 2026 against the originals from 10 and 22 September 2026.
+These files and folders are gitignored because they are over 50 MB, or hold files that are. GitHub warns above 50 MiB and rejects files above 100 MiB. A fresh clone does not have them. The rebuild and re-download results quoted below were tested on 23 September 2026 against the originals from 10 and 22 September 2026.
 
 | File | Size | What it is | Way back | Exact copy? |
 |---|---:|---|---|---|
@@ -9,6 +9,27 @@ These five files are gitignored because each is over 50 MB. GitHub warns above 5
 | `data/raw/public_dump/polymarket_prices/bodies/itf.jsonl.gz` | 72.2 MB | Raw minute price-history responses for 17,930 ITF moneylines | Re-download, about an hour together with the next file | No; the responses matched in a spot check |
 | `data/raw/public_dump/polymarket_prices/bodies/challenger_125_inferred.jsonl.gz` | 50.5 MB | The same for 7,021 Challenger / WTA 125 moneylines | Same command as the ITF file | No; the responses matched in a spot check |
 | `data/raw/public_dump/match_charting_project/charting-m-points-2020s.csv` | 56.6 MB | Match Charting Project men's shot-by-shot points, 2020s | Re-download from a pinned commit | Yes |
+| `data/raw/public_dump/atp_pipeline_handoff/` (a folder; dozens of its files are over 50 MB even gzipped) | 16.8 GB (150.5 GB uncompressed) | The Hugging Face dataset `atlas-polybot/atp-pipeline-handoff`: Infosys, Court Vision, Flashscore, ATP-site and Tennis Abstract files ([section 5](#5-the-hugging-face-atp-pipeline-dump)) | Restore the zip in cold storage, or re-download from a pinned commit (1–2 hours) | Yes |
+| `data/raw/public_dump/polymarket_trades/` (a folder; eight bucket files over 50 MB) | 1.91 GB | Raw Data API trade responses for 35,756 tennis moneylines, both parties of every fill, with receipts ([section 6](#6-polymarket-trade-fills)) | Re-download, about 55 minutes | No; settled markets' fills should match |
+| `data/dump/odds/polymarket/trades/` (a folder; seven files over 50 MB) | 877 MB | The same fills staged to Parquet, 36,037,873 rows | Offline rebuild from the raw folder, about 10 minutes | Same rows |
+| `data/studies/polymarket_sharp_money/wallet_markets.parquet`, `scored_positions.parquet`, `prematch_positions.parquet`, `prematch_positions_buffer30.parquet` | 1.34 GB, 1.07 GB, 123 MB, 103 MB | Sharp-money study tables: one row per account and market (all money, with tiers; and bets before the match, with closing-price groups) | Offline rebuild from the staged fills and price history, about 10 minutes | Same rows |
+| `data/studies/predictability_diagnostic/stage0_match_players.parquet` | 62.3 MB | Predictability diagnostic, Stage 0: two rows per singles match, 2010 to September 2026 (players, box scores and rates) | Offline rebuild from the staged Sackmann and Tennis My Life files with `./python.sh src/eda/predictability_diagnostic/stage0_build.py`, about a minute | Same rows |
+| `data/studies/predictability_diagnostic/stage1_baselines.parquet` | 74.6 MB | Predictability diagnostic, Stage 1: one row per singles match, every baseline's pre-match probability and each player's pre-match Elo ratings | Offline rebuild after Stage 0: `./python.sh src/eda/predictability_diagnostic/stage1_odds.py`, then `stage1_baselines.py`, about 5½ minutes | Same rows |
+| `data/studies/predictability_diagnostic/stage4_features.parquet` | 197.0 MB | Predictability diagnostic, Stage 4: one row per evaluation-level match of 2010–2026 (completed or retired), every candidate's features (165 columns) beside the result and surface Elo's and the market's probabilities | Offline rebuild after Stages 0–3: `./python.sh src/eda/predictability_diagnostic/stage4_features.py`, about 9 minutes | Same rows; a rebuild on 1 Oct 2026 gave identical values |
+| `data/studies/ufc_ideas/stageB_adj.parquet`, `stageB_adj_features.parquet`, `stageB_ios.parquet`, `stageB_split_features.parquet`, `stageB_features.parquet` | 84.3, 129.4, 95.6, 54.2 and 232.0 MB | UFC-ideas study, Stage B: the per-match adjperf/adjdef z per statistic; the adjperf/adjdef features per pool match; each player's pre-match IOS offence and defence per statistic for every match; the opponent-strength split features; the scored frame (the pool, the earlier study's re-scored columns, every Stage B feature) | Offline rebuild after the predictability diagnostic's Stages 0–4: `./python.sh src/eda/ufc_ideas/stageB_adjperf.py`, `stageB_ios.py`, `stageB_split.py`, `stageB_rundown.py` (about 23, 16, 6 and 9 minutes) | Same rows (deterministic; the frozen constants are in `stageB_summary.json`) |
+| `data/studies/ufc_ideas/stageD_profile_features.parquet` | 110.5 MB | UFC-ideas study, Stage D: the pool with the individual-statistic adjperf / adjdef / IOS columns of Stage B and the seven matchup products, the inputs of the profile models | Offline rebuild after Stage B: `./python.sh src/eda/ufc_ideas/stageD_profile.py` (about 4 minutes) | Same rows |
+| `data/studies/shot_level/stage2_frame.parquet`, `stage2_features.parquet` | 134.5 and 103.5 MB | Shot-level study, Stage 2: the scored frame (the Stage 4 pool, every shot-level feature, the Stage D box-score profile and the two walk-forward bases built from it); the pool with the shot-level features alone | Offline rebuild after Stage 0 and the predictability diagnostic's Stages 0–4 and the UFC-ideas Stage D: `./python.sh src/eda/shot_level/stage1_points.py`, `stage1_stats.py`, `stage2_features.py`, `stage2_rundown.py` (about 1½, ½, 6 and 4 minutes) | Same rows (deterministic) |
+| `data/studies/shot_level/stage3_sides.parquet` | 193.2 MB | Shot-level study, Stage 3: per pool match, each player's own Stage 2 feature values (A and B), box-score serve and return form in the same memories, the serve-point counts and the ratings' serve forecasts | Offline rebuild after Stage 2 and the predictability diagnostic's Stage 3 ratings: `./python.sh src/eda/shot_level/stage3_sides.py` (a few minutes) | Same rows (deterministic) |
+| `data/studies/rating_systems/stageA_ratings.parquet`, `stageB_features.parquet` | 132.1 and 99.3 MB | Rating-systems study: one row per singles match (872,704) with every system's pre-match probability and the main systems' ratings; the scored frame (the Stage 4 pool, the new ratings, the earlier leaders) | Offline rebuild after the predictability diagnostic's Stages 0–4 and the UFC-ideas Stage B: `./python.sh src/eda/rating_systems/stageA_ratings.py`, then `stageA_ttt_hold.py` and `stageB_compare.py` (the grids about an hour on 5 workers, `--reuse-grid` reads back `stageA_tuning.csv`; the rest about half an hour) | Same rows (deterministic; the frozen constants are in `stageA_summary.json`) |
+| `data/studies/line_sharpening/prices.parquet`, `takers.parquet` | 101.7 and 179.1 MB | Line-sharpening study: the pre-match minute price path of every 2026 singles moneyline (42.3 million points) and its pre-match taker orders (2.1 million) | Offline rebuild from the staged price history and fills: `./python.sh src/eda/line_sharpening/build.py` (about 15 minutes) | Same rows (deterministic) |
+| `data/studies/data_continuity/rebuilds/<stamp>/replaced/` (a folder; it holds copies of files over 50 MB) | 366 MB (the rebuild of 6 Oct 2026, `2026-10-07T0005Z`) | What a coordinated Stage 0 rebuild replaced, under the same relative paths with a SHA-256 manifest: Stage 0's tables and evidence, Stage 1's odds links, and the match-timing links, timeline, feature tables and TrueSkill table | None by rebuilding: Stage 0's code changed on 2 Oct 2026, so the tables of 30 Sep cannot be built again. Copy them back from here | Only from this copy, or a backup of it |
+| `data/studies/point_sequence/sequences.parquet` | 94.0 MB | Point-sequence study: the unified point-by-point table, one row per point (19.17 million) for 130,751 Stage 0 matches from 13 sources, with the `usable` flag | Offline rebuild from the staged point sources and Stage 0: `./python.sh src/eda/point_sequence/build.py` (about 2 minutes; `--refresh all` re-reads every source) | Same rows (deterministic) |
+| `data/studies/point_sequence/trait_player_matches_variants.parquet` | 61.6 MB | Point-sequence study: the momentum and streak statistics per player-match on the pure-luck replays, every variant | Offline rebuild after `build.py`: `./python.sh src/eda/point_sequence/trait_build.py` (fixed seeds) | Same rows (fixed seeds) |
+| `data/studies/match_timing/leakproof_features.parquet` | 97.1 MB | Match-timing study: the Stage 4 pool (255,123 matches) with the 46 sporting inputs rebuilt on the leak-proof timeline (per-player inputs and daily-solved IOS) | Offline rebuild after the predictability diagnostic's Stages 0–4, the feature-alpha repair and the match-timing links: `./python.sh src/eda/match_timing/timing.py`, then `rebuild.py` (about 1 and 15 minutes; after a timeline change only `rebuild.py --part ios` and `--part merge` need rerunning) | Same rows (deterministic) |
+| `data/studies/match_timing/undated_matches.csv` | 109.8 MB | Match-timing study: an older, uncompressed list of the undated matches, written 5 Oct 2026, with the first 12 columns of today's list (no `why`). Nothing in the code writes or reads it now | None by rebuilding: no script writes it any more. `./python.sh src/eda/match_timing/timing.py` writes the current list, `undated_matches.csv.gz` (4.2 MB) and `undated_matches.parquet` | Only from a backup |
+| `data/studies/feature_interactions/round1/_panel_aug.parquet` | 112.5 MB | Feature-interactions study, round 1: the augmented 2014–2024 player panel of the feasibility audit (history quantities, venue, shot-level sides, the current best's forecast), read by the round-1 audit and round-2 checks | `./python.sh src/eda/feature_interactions/round1/feasibility/augment.py` writes it again, but not the same values: its history quantities have changed since 6 Oct (see the next row) | No |
+| `data/studies/feature_interactions/round1/_history_feats_2010_2024.parquet` | 74.4 MB | Feature-interactions study, round 1: per-player history quantities of 2010–2024, the values the feasibility audit saw | None. No script writes or reads it. A rebuild with today's code on 8 Oct 2026 (`history_feats.build`) differs in 35 of its 37 columns, because the history table changed after 6 Oct | Only from a backup |
+| `data/studies/feature_universe/store.parquet` | 317.5 MB | Feature-universe store: 63,737 model-frame matches × 776 candidate features: the 58 inputs, alternatives, per-player pairs, other rating systems, opponent-adjusted profiles, serve speed, market-internal, interaction and module columns, levels, known-null placebos and context. Described column by column in the tracked `store_registry.csv`; the selection pool is `menu.csv` | Offline rebuild after the feature-interactions study's inputs and the rating-systems, UFC-ideas and shot-level tables: `./python.sh src/eda/feature_universe/perplayer_2026.py`, then `build_store.py` (about 1 and 8 minutes) | Same rows (deterministic) |
 
 Sizes are decimal megabytes. `challenger_125_inferred.jsonl.gz` is 48.1 MiB, under GitHub's warning threshold, but it is over 50 MB, so it is listed.
 
@@ -92,6 +113,41 @@ A file fetched with `curl` has no receipt, so the adapter downloads it again the
 
 Run the adapter directly rather than `run_all --sources mcp`, because `run_all` also rewrites the tracked manifest, coverage tables and download log.
 
+## 5. The Hugging Face ATP pipeline dump
+
+[`atp_pipeline_handoff.py`](../src/ingest/public_dump/atp_pipeline_handoff.py) downloads the dataset [`atlas-polybot/atp-pipeline-handoff`](https://huggingface.co/datasets/atlas-polybot/atp-pipeline-handoff) at commit `ea3d94d79f5d9e9b4bead031e2c6262f91a86c35`. The download needs no account. The tracked [plan.csv](studies/atp_pipeline_handoff/plan.csv) lists every file with its hash, and the adapter checks each file against it. From the repository root:
+
+```
+./python.sh -m src.ingest.public_dump.atp_pipeline_handoff plan    # only if data/studies/atp_pipeline_handoff/plan.csv is missing
+./python.sh -m src.ingest.public_dump.atp_pipeline_handoff fetch
+```
+
+* **Resuming.** The fetch resumes: finished files are skipped and part-way files continue from their last complete 256 MB range. [status.md](studies/atp_pipeline_handoff/status.md) shows what is done and what is left.
+* **Exact copies.** Files over 1 MB are stored gzipped. The `.gz` bytes differ from run to run, but `gzip -dc` returns the original file, whose hash the adapter has checked.
+* **Availability.** The dataset has no licence and could be withdrawn, so this re-download works only while it stays online.
+* **Backup.** A zip of the whole folder is in cold storage at `gs://tennis-predictions-archive/public_dump/tennis_atp_pipeline_handoff_raw_2026-09-25.zip`: Coldline, uploaded 25 Sep 2026, 16,666,419,985 bytes, SHA-256 `bc7d1b49977d4c58f3f3cfe5f49f0f166370d64e2077e3b6593e7b9eb30e6c9f`. To restore:
+
+  ```
+  gcloud storage cp gs://tennis-predictions-archive/public_dump/tennis_atp_pipeline_handoff_raw_2026-09-25.zip .
+  tar -x -f tennis_atp_pipeline_handoff_raw_2026-09-25.zip -C data\raw
+  ```
+
+  This recreates `data/raw/public_dump/atp_pipeline_handoff/`. The restore was tested with Windows `tar` before upload. `README.txt` in the same bucket folder describes both of the bucket's zips.
+
+## 6. Polymarket trade fills
+
+[`polymarket_trades.py`](../src/ingest/public_dump/polymarket_trades.py) downloads every fill of every tennis moneyline in the index from section 2 whose match was on or before the cutoff (default 21 Sep 2026). It uses Polymarket's public trades endpoint, `https://data-api.polymarket.com/trades?market=<condition id>&takerOnly=false`, which needs no account. The original run on 25 Sep 2026 made 36,028 requests for 35,756 markets with no errors:
+
+```
+./python.sh -m src.ingest.public_dump.polymarket_trades --buckets all --workers 8 --rps 14
+```
+
+* The run is resumable: a market counts as done when its receipt says so and all its pages are stored.
+* The same command rebuilds `data/dump/odds/polymarket/trades/`. To rebuild only that from existing raw files: `./python.sh -m src.ingest.public_dump.polymarket_trades --no-fetch`. It also appends a line to `polymarket_runs.jsonl`.
+* Each stored response carries its retrieval time, so the bytes will differ. Fills of settled markets should not change.
+
+The study tables in `data/studies/polymarket_sharp_money/` rebuild offline from the staged fills with `build_positions.py`, `classify.py` and `prematch.py` (see the [study README](../docs/studies/polymarket_sharp_money/README.md#reproduce)).
+
 ## Checksums
 
 These are the SHA-256 values of the originals on 23 September 2026. Use them to check a restored backup with `sha256sum <file>`.
@@ -110,12 +166,31 @@ The `markets.jsonl.gz` and `events.jsonl` hashes also appear in [manifest.json](
 
 ## Keeping this list current
 
-`.gitignore` matches paths, not sizes. Before pushing, this lists every file over 50 MB and says whether git ignores it:
+`.gitignore` matches paths, not sizes. Three kinds of rule keep large files out of git:
+* **Folders:** `data/raw/` and `data/dump/` as whole folders.
+* **File types:** every `.parquet` file, and archives (`.zip`, `.7z`, `.tar`, `.tar.gz`, `.tgz`) anywhere in `data/`, plus `data/backups/`.
+* **Names:** a list of every file over 50 MB by name.
+
+A large file anywhere else, for example a new output in `data/studies/`, would still be committed. So before committing, run these from the repository root in Git Bash.
+
+**Check.** This prints every file over 50 MB that git would pick up. On 25 Sep 2026 it printed nothing: 94 files were over 50 MB, all ignored.
 
 ```
-find . -path ./.git -prune -o -type f -size +50000000c -print | while read -r f; do
-  git check-ignore -q "$f" && echo "ignored:     $f" || echo "NOT IGNORED: $f"
-done
+find . -path ./.git -prune -o -type f -size +50000000c -print | git check-ignore --no-index --stdin -n -v | grep '^::' | cut -f2
 ```
 
-Add any `NOT IGNORED` file to the list in `.gitignore` and to this page.
+**Fix.** This appends each of those files to the end of `.gitignore`:
+
+```
+find . -path ./.git -prune -o -type f -size +50000000c -print | git check-ignore --no-index --stdin -n -v | grep '^::' | cut -f2 | sed 's|^\./||' >> .gitignore
+```
+
+Then move each new line into the named list in `.gitignore` and describe the file on this page.
+
+**Already tracked.** An ignore rule does not remove a file git already tracks. This lists tracked files over 50 MB; on 25 Sep 2026 there were none:
+
+```
+git ls-files -z | xargs -0 -r ls -l | awk '$5 > 50000000 {print $5, $NF}'
+```
+
+Take any it lists out of the index with `git rm --cached <file>`. The file stays on disk.

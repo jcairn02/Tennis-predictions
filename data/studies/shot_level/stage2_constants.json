@@ -1,0 +1,2960 @@
+{
+ "half_life_weeks": 2.0,
+ "window_days": 364,
+ "prior_years": [
+  2010,
+  2018
+ ],
+ "mu": {
+  "srv_quick|atp|all": 0.26497926976059916,
+  "srv_quick|atp|Hard": 0.24299782107423157,
+  "srv_quick|atp|Clay": 0.24631221595575753,
+  "srv_quick|atp|Grass": 0.33970834024419805,
+  "srv_quick|atp|Carpet": 0.26497926976059916,
+  "srv_quick|wta|all": 0.2279110548235466,
+  "srv_quick|wta|Hard": 0.20461513635630144,
+  "srv_quick|wta|Clay": 0.22740155451539484,
+  "srv_quick|wta|Grass": 0.29756085456936554,
+  "srv_quick|wta|Carpet": 0.2279110548235466,
+  "ret_quick|atp|all": 0.23146816905175874,
+  "ret_quick|atp|Hard": 0.21392608576082586,
+  "ret_quick|atp|Clay": 0.20519082297541477,
+  "ret_quick|atp|Grass": 0.30422689751081283,
+  "ret_quick|atp|Carpet": 0.23146816905175874,
+  "ret_quick|wta|all": 0.2580189483426289,
+  "ret_quick|wta|Hard": 0.23951317700415312,
+  "ret_quick|wta|Clay": 0.2495598402542191,
+  "ret_quick|wta|Grass": 0.32264708071760007,
+  "ret_quick|wta|Carpet": 0.2580189483426289,
+  "rally5|atp|all": 0.5,
+  "rally5|atp|Hard": 0.5,
+  "rally5|atp|Clay": 0.5,
+  "rally5|atp|Grass": 0.5,
+  "rally5|atp|Carpet": 0.5,
+  "rally5|wta|all": 0.5,
+  "rally5|wta|Hard": 0.5,
+  "rally5|wta|Clay": 0.5,
+  "rally5|wta|Grass": 0.5,
+  "rally5|wta|Carpet": 0.5,
+  "rally9|atp|all": 0.5,
+  "rally9|atp|Hard": 0.5,
+  "rally9|atp|Clay": 0.5,
+  "rally9|atp|Grass": 0.5,
+  "rally9|atp|Carpet": 0.5,
+  "rally9|wta|all": 0.5,
+  "rally9|wta|Hard": 0.5,
+  "rally9|wta|Clay": 0.5,
+  "rally9|wta|Grass": 0.5,
+  "rally9|wta|Carpet": 0.5,
+  "ret_inplay|atp|all": 0.7607790600066137,
+  "ret_inplay|atp|Hard": 0.7628753676515088,
+  "ret_inplay|atp|Clay": 0.7884897677229945,
+  "ret_inplay|atp|Grass": 0.7263906137050287,
+  "ret_inplay|atp|Carpet": 0.7607790600066137,
+  "ret_inplay|wta|all": 0.7978756480711382,
+  "ret_inplay|wta|Hard": 0.8023865177421443,
+  "ret_inplay|wta|Clay": 0.8082676755405921,
+  "ret_inplay|wta|Grass": 0.7734871312592365,
+  "ret_inplay|wta|Carpet": 0.7978756480711382,
+  "long_share|atp|all": 0.34989525775112,
+  "long_share|atp|Hard": 0.3768081374441321,
+  "long_share|atp|Clay": 0.40630475696021806,
+  "long_share|atp|Grass": 0.2315593833490981,
+  "long_share|atp|Carpet": 0.34989525775112,
+  "long_share|wta|all": 0.39213617160416303,
+  "long_share|wta|Hard": 0.4261317394899441,
+  "long_share|wta|Clay": 0.40751459591481676,
+  "long_share|wta|Grass": 0.27882320794243554,
+  "long_share|wta|Carpet": 0.4838709677419355,
+  "winner_rate|atp|all": 0.12387517641240268,
+  "winner_rate|atp|Hard": 0.11949630768882807,
+  "winner_rate|atp|Clay": 0.1323384500378019,
+  "winner_rate|atp|Grass": 0.12362493197543341,
+  "winner_rate|atp|Carpet": 0.12387517641240268,
+  "winner_rate|wta|all": 0.131853103779519,
+  "winner_rate|wta|Hard": 0.1287095531587057,
+  "winner_rate|wta|Clay": 0.13888375317772128,
+  "winner_rate|wta|Grass": 0.13100986185939859,
+  "winner_rate|wta|Carpet": 0.1251372118551043,
+  "error_rate|atp|all": 0.31699568687944424,
+  "error_rate|atp|Hard": 0.31781243285421873,
+  "error_rate|atp|Clay": 0.32300011043247057,
+  "error_rate|atp|Grass": 0.30834564254062036,
+  "error_rate|atp|Carpet": 0.31699568687944424,
+  "error_rate|wta|all": 0.32353703655323623,
+  "error_rate|wta|Hard": 0.3246475346687211,
+  "error_rate|wta|Clay": 0.3229412217856868,
+  "error_rate|wta|Grass": 0.3214844987975616,
+  "error_rate|wta|Carpet": 0.3336992316136114,
+  "ue_share|atp|all": 0.5,
+  "ue_share|atp|Hard": 0.5,
+  "ue_share|atp|Clay": 0.5,
+  "ue_share|atp|Grass": 0.5,
+  "ue_share|atp|Carpet": 0.5,
+  "ue_share|wta|all": 0.5,
+  "ue_share|wta|Hard": 0.5,
+  "ue_share|wta|Clay": 0.5,
+  "ue_share|wta|Grass": 0.5,
+  "ue_share|wta|Carpet": 0.5,
+  "w_ratio|atp|all": 0.28097836969189777,
+  "w_ratio|atp|Hard": 0.2732538744604977,
+  "w_ratio|atp|Clay": 0.2906374762135741,
+  "w_ratio|atp|Grass": 0.2861883176045803,
+  "w_ratio|atp|Carpet": 0.28097836969189777,
+  "w_ratio|wta|all": 0.28953877587945465,
+  "w_ratio|wta|Hard": 0.2839032555452178,
+  "w_ratio|wta|Clay": 0.30072811282829714,
+  "w_ratio|wta|Grass": 0.2895281648796465,
+  "w_ratio|wta|Carpet": 0.28953877587945465,
+  "spd1|atp|all": 184.03072770899956,
+  "spd1|atp|Hard": 183.34626941643953,
+  "spd1|atp|Clay": 182.3041990192072,
+  "spd1|atp|Grass": 187.11348961374821,
+  "spd1|atp|Carpet": 184.03072770899956,
+  "spd1|wta|all": 156.20886209167634,
+  "spd1|wta|Hard": 155.82716711126625,
+  "spd1|wta|Clay": 154.93805381021429,
+  "spd1|wta|Grass": 158.82324333389235,
+  "spd1|wta|Carpet": 156.20886209167634,
+  "spd2|atp|all": 150.01620228937392,
+  "spd2|atp|Hard": 148.42671368438658,
+  "spd2|atp|Clay": 147.88182908545727,
+  "spd2|atp|Grass": 156.03983869394128,
+  "spd2|atp|Carpet": 150.01620228937392,
+  "spd2|wta|all": 131.68907443365697,
+  "spd2|wta|Hard": 130.5926914580265,
+  "spd2|wta|Clay": 131.62483210659218,
+  "spd2|wta|Grass": 134.9062644094592,
+  "spd2|wta|Carpet": 131.68907443365697,
+  "net_rate|atp|all": 0.10431409327308382,
+  "net_rate|atp|Hard": 0.10433317596083103,
+  "net_rate|atp|Clay": 0.08901863247292013,
+  "net_rate|atp|Grass": 0.11983334548016422,
+  "net_rate|atp|Carpet": 0.10431409327308382,
+  "net_rate|wta|all": 0.07885891227155958,
+  "net_rate|wta|Hard": 0.07998226877242176,
+  "net_rate|wta|Clay": 0.07038877649749319,
+  "net_rate|wta|Grass": 0.08536369398255164,
+  "net_rate|wta|Carpet": 0.070801317233809,
+  "net_won|atp|all": 0.6673535286093348,
+  "net_won|atp|Hard": 0.6657976340875158,
+  "net_won|atp|Clay": 0.6674263956668633,
+  "net_won|atp|Grass": 0.6700184483143106,
+  "net_won|atp|Carpet": 0.6673535286093348,
+  "net_won|wta|all": 0.6686548015504722,
+  "net_won|wta|Hard": 0.6714326197284695,
+  "net_won|wta|Clay": 0.6614807872539832,
+  "net_won|wta|Grass": 0.6692689850958127,
+  "net_won|wta|Carpet": 0.6686548015504722,
+  "t_share|atp|all": 0.39866811049685,
+  "t_share|atp|Hard": 0.40070223128327104,
+  "t_share|atp|Clay": 0.38423584045111536,
+  "t_share|atp|Grass": 0.4074630021141649,
+  "t_share|atp|Carpet": 0.39866811049685,
+  "t_share|wta|all": 0.3534572127991358,
+  "t_share|wta|Hard": 0.3527337106532467,
+  "t_share|wta|Clay": 0.3560698732690708,
+  "t_share|wta|Grass": 0.35205516740767623,
+  "t_share|wta|Carpet": 0.3534572127991358,
+  "wide_share|atp|all": 0.4201940402548039,
+  "wide_share|atp|Hard": 0.4203949107109148,
+  "wide_share|atp|Clay": 0.4510946181275396,
+  "wide_share|atp|Grass": 0.38813953488372094,
+  "wide_share|atp|Carpet": 0.4201940402548039,
+  "wide_share|wta|all": 0.3416180992952286,
+  "wide_share|wta|Hard": 0.34004795494465667,
+  "wide_share|wta|Clay": 0.3613544062240055,
+  "wide_share|wta|Grass": 0.3266491243988749,
+  "wide_share|wta|Carpet": 0.3416180992952286,
+  "deep_ret|atp|all": 0.2968579294672901,
+  "deep_ret|atp|Hard": 0.29882312554571305,
+  "deep_ret|atp|Clay": 0.2892561983471074,
+  "deep_ret|atp|Grass": 0.300309226454443,
+  "deep_ret|atp|Carpet": 0.2968579294672901,
+  "deep_ret|wta|all": 0.3466315186606099,
+  "deep_ret|wta|Hard": 0.3450978935245384,
+  "deep_ret|wta|Clay": 0.3392064735056121,
+  "deep_ret|wta|Grass": 0.3590855853901878,
+  "deep_ret|wta|Carpet": 0.3466315186606099,
+  "bh_ue_share|atp|all": 0.4506359781950333,
+  "bh_ue_share|atp|Hard": 0.4529839026305457,
+  "bh_ue_share|atp|Clay": 0.4473829708809436,
+  "bh_ue_share|atp|Grass": 0.4451212084297722,
+  "bh_ue_share|atp|Carpet": 0.4506359781950333,
+  "bh_ue_share|wta|all": 0.44633546483030007,
+  "bh_ue_share|wta|Hard": 0.4498242431114639,
+  "bh_ue_share|wta|Clay": 0.43936170212765957,
+  "bh_ue_share|wta|Grass": 0.4381939304219097,
+  "bh_ue_share|wta|Carpet": 0.44633546483030007,
+  "fh_win_share|atp|all": 0.7038901525287664,
+  "fh_win_share|atp|Hard": 0.7030010059237733,
+  "fh_win_share|atp|Clay": 0.7181402815510003,
+  "fh_win_share|atp|Grass": 0.6785530381050463,
+  "fh_win_share|atp|Carpet": 0.7038901525287664,
+  "fh_win_share|wta|all": 0.66003229314265,
+  "fh_win_share|wta|Hard": 0.6572549424456718,
+  "fh_win_share|wta|Clay": 0.6615717153002934,
+  "fh_win_share|wta|Grass": 0.672054345279925,
+  "fh_win_share|wta|Carpet": 0.66003229314265,
+  "consolidate|atp|all": 0.8255028157683025,
+  "consolidate|atp|Hard": 0.8262781748213304,
+  "consolidate|atp|Clay": 0.7973509933774835,
+  "consolidate|atp|Grass": 0.8696698010059042,
+  "consolidate|atp|Carpet": 0.8255028157683025,
+  "consolidate|wta|all": 0.6843211985806282,
+  "consolidate|wta|Hard": 0.679888770753251,
+  "consolidate|wta|Clay": 0.6688144329896907,
+  "consolidate|wta|Grass": 0.7201011959521619,
+  "consolidate|wta|Carpet": 0.6843211985806282,
+  "break_back|atp|all": 0.1744971842316975,
+  "break_back|atp|Hard": 0.1737218251786696,
+  "break_back|atp|Clay": 0.20264900662251656,
+  "break_back|atp|Grass": 0.1303301989940958,
+  "break_back|atp|Carpet": 0.1744971842316975,
+  "break_back|wta|all": 0.3156788014193718,
+  "break_back|wta|Hard": 0.320111229246749,
+  "break_back|wta|Clay": 0.33118556701030927,
+  "break_back|wta|Grass": 0.27989880404783807,
+  "break_back|wta|Carpet": 0.3156788014193718,
+  "serve_set|atp|all": 0.8563915857605178,
+  "serve_set|atp|Hard": 0.8525959816988263,
+  "serve_set|atp|Clay": 0.831031976744186,
+  "serve_set|atp|Grass": 0.8984819734345351,
+  "serve_set|atp|Carpet": 0.8563915857605178,
+  "serve_set|wta|all": 0.7105177993527508,
+  "serve_set|wta|Hard": 0.7130434782608696,
+  "serve_set|wta|Clay": 0.6954128440366972,
+  "serve_set|wta|Grass": 0.7242955064737243,
+  "serve_set|wta|Carpet": 0.7105177993527508,
+  "pressure_srv|atp|all": 0.0,
+  "pressure_srv|atp|Hard": 0.0,
+  "pressure_srv|atp|Clay": 0.0,
+  "pressure_srv|atp|Grass": 0.0,
+  "pressure_srv|atp|Carpet": 0.0,
+  "pressure_srv|wta|all": 0.0,
+  "pressure_srv|wta|Hard": 0.0,
+  "pressure_srv|wta|Clay": 0.0,
+  "pressure_srv|wta|Grass": 0.0,
+  "pressure_srv|wta|Carpet": 0.0,
+  "first_in_pressure|atp|all": 0.0,
+  "first_in_pressure|atp|Hard": 0.0,
+  "first_in_pressure|atp|Clay": 0.0,
+  "first_in_pressure|atp|Grass": 0.0,
+  "first_in_pressure|atp|Carpet": 0.0,
+  "first_in_pressure|wta|all": 0.0,
+  "first_in_pressure|wta|Hard": 0.0,
+  "first_in_pressure|wta|Clay": 0.0,
+  "first_in_pressure|wta|Grass": 0.0,
+  "first_in_pressure|wta|Carpet": 0.0,
+  "after_loss|atp|all": 0.0,
+  "after_loss|atp|Hard": 0.0,
+  "after_loss|atp|Clay": 0.0,
+  "after_loss|atp|Grass": 0.0,
+  "after_loss|atp|Carpet": 0.0,
+  "after_loss|wta|all": 0.0,
+  "after_loss|wta|Hard": 0.0,
+  "after_loss|wta|Clay": 0.0,
+  "after_loss|wta|Grass": 0.0,
+  "after_loss|wta|Carpet": 0.0
+ },
+ "K": {
+  "srv_quick|atp|off": 41.46635893169671,
+  "srv_quick|atp|def": 31.32895129467734,
+  "srv_quick|wta|off": 38.195194312013804,
+  "srv_quick|wta|def": 31.274241499263518,
+  "ret_quick|atp|off": 44.45184645500001,
+  "ret_quick|atp|def": 30.899044471057238,
+  "ret_quick|wta|off": 40.580883885665905,
+  "ret_quick|wta|def": 37.0695225492855,
+  "rally5|atp|off": 158.3152996792595,
+  "rally5|atp|def": 158.31529967925954,
+  "rally5|wta|off": 223.75583920544992,
+  "rally5|wta|def": 223.75583920544992,
+  "rally9|atp|off": 151.89092916078593,
+  "rally9|atp|def": 151.89092916078596,
+  "rally9|wta|off": 192.41926830253274,
+  "rally9|wta|def": 192.41926830253286,
+  "ret_inplay|atp|off": 87.65426121089435,
+  "ret_inplay|atp|def": 113.02863278811454,
+  "ret_inplay|wta|off": 64.98872954310336,
+  "ret_inplay|wta|def": 117.05153239596459,
+  "long_share|atp|off": 21.058748937423857,
+  "long_share|atp|def": 21.058748937423857,
+  "long_share|wta|off": 19.550339319950346,
+  "long_share|wta|def": 19.550339319950346,
+  "winner_rate|atp|off": 394.94530228420524,
+  "winner_rate|atp|def": 210.5095299649677,
+  "winner_rate|wta|off": 178.2207593742711,
+  "winner_rate|wta|def": 95.93673806430766,
+  "error_rate|atp|off": 302.1077706246782,
+  "error_rate|atp|def": 226.82444075817781,
+  "error_rate|wta|off": 157.44435991153006,
+  "error_rate|wta|def": 212.14575271862705,
+  "ue_share|atp|off": 45.15908149812478,
+  "ue_share|atp|def": 45.15908149812478,
+  "ue_share|wta|off": 32.607442510781006,
+  "ue_share|wta|def": 32.607442510781,
+  "w_ratio|atp|off": 225.22203365306123,
+  "w_ratio|atp|def": 125.980725592197,
+  "w_ratio|wta|off": 128.98416151527397,
+  "w_ratio|wta|def": 92.16856347307237,
+  "spd1|atp|off": 2.31774604482766,
+  "spd1|atp|def": 9.532292032134754,
+  "spd1|wta|off": 1.4714610949853422,
+  "spd1|wta|def": 6.671843191074675,
+  "spd2|atp|off": 1.4094613437868355,
+  "spd2|atp|def": 6.300477034992487,
+  "spd2|wta|off": 1.2957205276968335,
+  "spd2|wta|def": 5.435569990531262,
+  "net_rate|atp|off": 51.905419246760935,
+  "net_rate|atp|def": 108.8050561682981,
+  "net_rate|wta|off": 87.59200963918389,
+  "net_rate|wta|def": 65.95363158883664,
+  "net_won|atp|off": 103.96516163358667,
+  "net_won|atp|def": 159.3336934269416,
+  "net_won|wta|off": 154.568939436565,
+  "net_won|wta|def": 206.23548417535096,
+  "t_share|atp|off": 70.15757128420093,
+  "t_share|atp|def": 162.06892226668697,
+  "t_share|wta|off": 33.51147574132693,
+  "t_share|wta|def": 71.34061090276566,
+  "wide_share|atp|off": 47.19570765488824,
+  "wide_share|atp|def": 73.33775891991166,
+  "wide_share|wta|off": 27.109664269272226,
+  "wide_share|wta|def": 38.69575376463051,
+  "deep_ret|atp|off": 51.5231789696174,
+  "deep_ret|atp|def": 51.18752252745877,
+  "deep_ret|wta|off": 67.47148524552975,
+  "deep_ret|wta|def": 86.62766257792008,
+  "bh_ue_share|atp|off": 130.9263975108248,
+  "bh_ue_share|atp|def": 134.12686432205703,
+  "bh_ue_share|wta|off": 88.49733182280964,
+  "bh_ue_share|wta|def": 127.23320512897028,
+  "fh_win_share|atp|off": 52.02380459080556,
+  "fh_win_share|atp|def": 89.4416605954913,
+  "fh_win_share|wta|off": 36.392485687553,
+  "fh_win_share|wta|def": 72.28225812337443,
+  "consolidate|atp|off": 23.554128584374297,
+  "consolidate|atp|def": 85.52534107415731,
+  "consolidate|wta|off": 28.963438237173563,
+  "consolidate|wta|def": 66.00378901836689,
+  "break_back|atp|off": 85.52534107415738,
+  "break_back|atp|def": 23.554128584374304,
+  "break_back|wta|off": 66.00378901836689,
+  "break_back|wta|def": 28.963438237173573,
+  "serve_set|atp|off": 17.045670841465125,
+  "serve_set|atp|def": null,
+  "serve_set|wta|off": 32.47984621044488,
+  "serve_set|wta|def": null,
+  "pressure_srv|atp|off": 3996.06118519839,
+  "pressure_srv|atp|def": 3996.06118519839,
+  "pressure_srv|wta|off": 12151.25271945874,
+  "pressure_srv|wta|def": 12151.25271945874,
+  "first_in_pressure|atp|off": 2943.0000805842433,
+  "first_in_pressure|atp|def": 2943.0000805842433,
+  "first_in_pressure|wta|off": 1457.8777812792782,
+  "first_in_pressure|wta|def": 1457.8777812792782,
+  "after_loss|atp|off": 12730.08433502978,
+  "after_loss|atp|def": 12730.08433502978,
+  "after_loss|wta|off": null,
+  "after_loss|wta|def": null
+ },
+ "split_half": {
+  "pressure_srv|atp": {
+   "players": 315,
+   "split_half_r": 0.16980366193018537,
+   "half_units": 817.331746031746,
+   "years": [
+    2010,
+    2026
+   ]
+  },
+  "pressure_srv|wta": {
+   "players": 199,
+   "split_half_r": 0.05172829360950818,
+   "half_units": 662.8517587939698,
+   "years": [
+    2010,
+    2026
+   ]
+  },
+  "first_in_pressure|atp": {
+   "players": 297,
+   "split_half_r": 0.21508476876494492,
+   "half_units": 806.4494949494949,
+   "years": [
+    2010,
+    2026
+   ]
+  },
+  "first_in_pressure|wta": {
+   "players": 194,
+   "split_half_r": 0.3009254473498509,
+   "half_units": 627.5618556701031,
+   "years": [
+    2010,
+    2026
+   ]
+  },
+  "after_loss|atp": {
+   "players": 317,
+   "split_half_r": 0.0939096383229028,
+   "half_units": 1319.3801261829653,
+   "years": [
+    2010,
+    2026
+   ]
+  },
+  "after_loss|wta": {
+   "players": 200,
+   "split_half_r": -0.003240469829302561,
+   "half_units": 995.27,
+   "years": [
+    2010,
+    2026
+   ]
+  }
+ },
+ "catalog": [
+  {
+   "id": "srv_quick|off|career",
+   "statistic": "srv_quick",
+   "family": "rally",
+   "kind": "off",
+   "memory": "career",
+   "description": "the player's own srv_quick, career"
+  },
+  {
+   "id": "srv_quick|off|dec2",
+   "statistic": "srv_quick",
+   "family": "rally",
+   "kind": "off",
+   "memory": "dec2",
+   "description": "the player's own srv_quick, two-week half-life"
+  },
+  {
+   "id": "srv_quick|off|w52",
+   "statistic": "srv_quick",
+   "family": "rally",
+   "kind": "off",
+   "memory": "w52",
+   "description": "the player's own srv_quick, last 52 weeks"
+  },
+  {
+   "id": "srv_quick|def|career",
+   "statistic": "srv_quick",
+   "family": "rally",
+   "kind": "def",
+   "memory": "career",
+   "description": "what opponents did against the player: srv_quick, career"
+  },
+  {
+   "id": "srv_quick|def|dec2",
+   "statistic": "srv_quick",
+   "family": "rally",
+   "kind": "def",
+   "memory": "dec2",
+   "description": "what opponents did against the player: srv_quick, two-week half-life"
+  },
+  {
+   "id": "srv_quick|def|w52",
+   "statistic": "srv_quick",
+   "family": "rally",
+   "kind": "def",
+   "memory": "w52",
+   "description": "what opponents did against the player: srv_quick, last 52 weeks"
+  },
+  {
+   "id": "srv_quick|adj|dec2",
+   "statistic": "srv_quick",
+   "family": "rally",
+   "kind": "adj",
+   "memory": "dec2",
+   "description": "opponent-adjusted srv_quick, two-week half-life"
+  },
+  {
+   "id": "srv_quick|adj|w52",
+   "statistic": "srv_quick",
+   "family": "rally",
+   "kind": "adj",
+   "memory": "w52",
+   "description": "opponent-adjusted srv_quick, last 52 weeks"
+  },
+  {
+   "id": "ret_quick|off|career",
+   "statistic": "ret_quick",
+   "family": "rally",
+   "kind": "off",
+   "memory": "career",
+   "description": "the player's own ret_quick, career"
+  },
+  {
+   "id": "ret_quick|off|dec2",
+   "statistic": "ret_quick",
+   "family": "rally",
+   "kind": "off",
+   "memory": "dec2",
+   "description": "the player's own ret_quick, two-week half-life"
+  },
+  {
+   "id": "ret_quick|off|w52",
+   "statistic": "ret_quick",
+   "family": "rally",
+   "kind": "off",
+   "memory": "w52",
+   "description": "the player's own ret_quick, last 52 weeks"
+  },
+  {
+   "id": "ret_quick|def|career",
+   "statistic": "ret_quick",
+   "family": "rally",
+   "kind": "def",
+   "memory": "career",
+   "description": "what opponents did against the player: ret_quick, career"
+  },
+  {
+   "id": "ret_quick|def|dec2",
+   "statistic": "ret_quick",
+   "family": "rally",
+   "kind": "def",
+   "memory": "dec2",
+   "description": "what opponents did against the player: ret_quick, two-week half-life"
+  },
+  {
+   "id": "ret_quick|def|w52",
+   "statistic": "ret_quick",
+   "family": "rally",
+   "kind": "def",
+   "memory": "w52",
+   "description": "what opponents did against the player: ret_quick, last 52 weeks"
+  },
+  {
+   "id": "ret_quick|adj|dec2",
+   "statistic": "ret_quick",
+   "family": "rally",
+   "kind": "adj",
+   "memory": "dec2",
+   "description": "opponent-adjusted ret_quick, two-week half-life"
+  },
+  {
+   "id": "ret_quick|adj|w52",
+   "statistic": "ret_quick",
+   "family": "rally",
+   "kind": "adj",
+   "memory": "w52",
+   "description": "opponent-adjusted ret_quick, last 52 weeks"
+  },
+  {
+   "id": "rally5|off|career",
+   "statistic": "rally5",
+   "family": "rally",
+   "kind": "off",
+   "memory": "career",
+   "description": "the player's own rally5, career"
+  },
+  {
+   "id": "rally5|off|dec2",
+   "statistic": "rally5",
+   "family": "rally",
+   "kind": "off",
+   "memory": "dec2",
+   "description": "the player's own rally5, two-week half-life"
+  },
+  {
+   "id": "rally5|off|w52",
+   "statistic": "rally5",
+   "family": "rally",
+   "kind": "off",
+   "memory": "w52",
+   "description": "the player's own rally5, last 52 weeks"
+  },
+  {
+   "id": "rally5|adj|dec2",
+   "statistic": "rally5",
+   "family": "rally",
+   "kind": "adj",
+   "memory": "dec2",
+   "description": "opponent-adjusted rally5, two-week half-life"
+  },
+  {
+   "id": "rally5|adj|w52",
+   "statistic": "rally5",
+   "family": "rally",
+   "kind": "adj",
+   "memory": "w52",
+   "description": "opponent-adjusted rally5, last 52 weeks"
+  },
+  {
+   "id": "rally9|off|career",
+   "statistic": "rally9",
+   "family": "rally",
+   "kind": "off",
+   "memory": "career",
+   "description": "the player's own rally9, career"
+  },
+  {
+   "id": "rally9|off|dec2",
+   "statistic": "rally9",
+   "family": "rally",
+   "kind": "off",
+   "memory": "dec2",
+   "description": "the player's own rally9, two-week half-life"
+  },
+  {
+   "id": "rally9|off|w52",
+   "statistic": "rally9",
+   "family": "rally",
+   "kind": "off",
+   "memory": "w52",
+   "description": "the player's own rally9, last 52 weeks"
+  },
+  {
+   "id": "rally9|adj|dec2",
+   "statistic": "rally9",
+   "family": "rally",
+   "kind": "adj",
+   "memory": "dec2",
+   "description": "opponent-adjusted rally9, two-week half-life"
+  },
+  {
+   "id": "rally9|adj|w52",
+   "statistic": "rally9",
+   "family": "rally",
+   "kind": "adj",
+   "memory": "w52",
+   "description": "opponent-adjusted rally9, last 52 weeks"
+  },
+  {
+   "id": "ret_inplay|off|career",
+   "statistic": "ret_inplay",
+   "family": "rally",
+   "kind": "off",
+   "memory": "career",
+   "description": "the player's own ret_inplay, career"
+  },
+  {
+   "id": "ret_inplay|off|dec2",
+   "statistic": "ret_inplay",
+   "family": "rally",
+   "kind": "off",
+   "memory": "dec2",
+   "description": "the player's own ret_inplay, two-week half-life"
+  },
+  {
+   "id": "ret_inplay|off|w52",
+   "statistic": "ret_inplay",
+   "family": "rally",
+   "kind": "off",
+   "memory": "w52",
+   "description": "the player's own ret_inplay, last 52 weeks"
+  },
+  {
+   "id": "ret_inplay|def|career",
+   "statistic": "ret_inplay",
+   "family": "rally",
+   "kind": "def",
+   "memory": "career",
+   "description": "what opponents did against the player: ret_inplay, career"
+  },
+  {
+   "id": "ret_inplay|def|dec2",
+   "statistic": "ret_inplay",
+   "family": "rally",
+   "kind": "def",
+   "memory": "dec2",
+   "description": "what opponents did against the player: ret_inplay, two-week half-life"
+  },
+  {
+   "id": "ret_inplay|def|w52",
+   "statistic": "ret_inplay",
+   "family": "rally",
+   "kind": "def",
+   "memory": "w52",
+   "description": "what opponents did against the player: ret_inplay, last 52 weeks"
+  },
+  {
+   "id": "ret_inplay|adj|dec2",
+   "statistic": "ret_inplay",
+   "family": "rally",
+   "kind": "adj",
+   "memory": "dec2",
+   "description": "opponent-adjusted ret_inplay, two-week half-life"
+  },
+  {
+   "id": "ret_inplay|adj|w52",
+   "statistic": "ret_inplay",
+   "family": "rally",
+   "kind": "adj",
+   "memory": "w52",
+   "description": "opponent-adjusted ret_inplay, last 52 weeks"
+  },
+  {
+   "id": "long_share|off|career",
+   "statistic": "long_share",
+   "family": "rally",
+   "kind": "off",
+   "memory": "career",
+   "description": "the player's own long_share, career"
+  },
+  {
+   "id": "long_share|off|dec2",
+   "statistic": "long_share",
+   "family": "rally",
+   "kind": "off",
+   "memory": "dec2",
+   "description": "the player's own long_share, two-week half-life"
+  },
+  {
+   "id": "long_share|off|w52",
+   "statistic": "long_share",
+   "family": "rally",
+   "kind": "off",
+   "memory": "w52",
+   "description": "the player's own long_share, last 52 weeks"
+  },
+  {
+   "id": "winner_rate|off|career",
+   "statistic": "winner_rate",
+   "family": "ending",
+   "kind": "off",
+   "memory": "career",
+   "description": "the player's own winner_rate, career"
+  },
+  {
+   "id": "winner_rate|off|dec2",
+   "statistic": "winner_rate",
+   "family": "ending",
+   "kind": "off",
+   "memory": "dec2",
+   "description": "the player's own winner_rate, two-week half-life"
+  },
+  {
+   "id": "winner_rate|off|w52",
+   "statistic": "winner_rate",
+   "family": "ending",
+   "kind": "off",
+   "memory": "w52",
+   "description": "the player's own winner_rate, last 52 weeks"
+  },
+  {
+   "id": "winner_rate|def|career",
+   "statistic": "winner_rate",
+   "family": "ending",
+   "kind": "def",
+   "memory": "career",
+   "description": "what opponents did against the player: winner_rate, career"
+  },
+  {
+   "id": "winner_rate|def|dec2",
+   "statistic": "winner_rate",
+   "family": "ending",
+   "kind": "def",
+   "memory": "dec2",
+   "description": "what opponents did against the player: winner_rate, two-week half-life"
+  },
+  {
+   "id": "winner_rate|def|w52",
+   "statistic": "winner_rate",
+   "family": "ending",
+   "kind": "def",
+   "memory": "w52",
+   "description": "what opponents did against the player: winner_rate, last 52 weeks"
+  },
+  {
+   "id": "winner_rate|adj|dec2",
+   "statistic": "winner_rate",
+   "family": "ending",
+   "kind": "adj",
+   "memory": "dec2",
+   "description": "opponent-adjusted winner_rate, two-week half-life"
+  },
+  {
+   "id": "winner_rate|adj|w52",
+   "statistic": "winner_rate",
+   "family": "ending",
+   "kind": "adj",
+   "memory": "w52",
+   "description": "opponent-adjusted winner_rate, last 52 weeks"
+  },
+  {
+   "id": "error_rate|off|career",
+   "statistic": "error_rate",
+   "family": "ending",
+   "kind": "off",
+   "memory": "career",
+   "description": "the player's own error_rate, career"
+  },
+  {
+   "id": "error_rate|off|dec2",
+   "statistic": "error_rate",
+   "family": "ending",
+   "kind": "off",
+   "memory": "dec2",
+   "description": "the player's own error_rate, two-week half-life"
+  },
+  {
+   "id": "error_rate|off|w52",
+   "statistic": "error_rate",
+   "family": "ending",
+   "kind": "off",
+   "memory": "w52",
+   "description": "the player's own error_rate, last 52 weeks"
+  },
+  {
+   "id": "error_rate|def|career",
+   "statistic": "error_rate",
+   "family": "ending",
+   "kind": "def",
+   "memory": "career",
+   "description": "what opponents did against the player: error_rate, career"
+  },
+  {
+   "id": "error_rate|def|dec2",
+   "statistic": "error_rate",
+   "family": "ending",
+   "kind": "def",
+   "memory": "dec2",
+   "description": "what opponents did against the player: error_rate, two-week half-life"
+  },
+  {
+   "id": "error_rate|def|w52",
+   "statistic": "error_rate",
+   "family": "ending",
+   "kind": "def",
+   "memory": "w52",
+   "description": "what opponents did against the player: error_rate, last 52 weeks"
+  },
+  {
+   "id": "error_rate|adj|dec2",
+   "statistic": "error_rate",
+   "family": "ending",
+   "kind": "adj",
+   "memory": "dec2",
+   "description": "opponent-adjusted error_rate, two-week half-life"
+  },
+  {
+   "id": "error_rate|adj|w52",
+   "statistic": "error_rate",
+   "family": "ending",
+   "kind": "adj",
+   "memory": "w52",
+   "description": "opponent-adjusted error_rate, last 52 weeks"
+  },
+  {
+   "id": "ue_share|off|career",
+   "statistic": "ue_share",
+   "family": "ending",
+   "kind": "off",
+   "memory": "career",
+   "description": "the player's own ue_share, career"
+  },
+  {
+   "id": "ue_share|off|dec2",
+   "statistic": "ue_share",
+   "family": "ending",
+   "kind": "off",
+   "memory": "dec2",
+   "description": "the player's own ue_share, two-week half-life"
+  },
+  {
+   "id": "ue_share|off|w52",
+   "statistic": "ue_share",
+   "family": "ending",
+   "kind": "off",
+   "memory": "w52",
+   "description": "the player's own ue_share, last 52 weeks"
+  },
+  {
+   "id": "ue_share|adj|dec2",
+   "statistic": "ue_share",
+   "family": "ending",
+   "kind": "adj",
+   "memory": "dec2",
+   "description": "opponent-adjusted ue_share, two-week half-life"
+  },
+  {
+   "id": "ue_share|adj|w52",
+   "statistic": "ue_share",
+   "family": "ending",
+   "kind": "adj",
+   "memory": "w52",
+   "description": "opponent-adjusted ue_share, last 52 weeks"
+  },
+  {
+   "id": "w_ratio|off|career",
+   "statistic": "w_ratio",
+   "family": "ending",
+   "kind": "off",
+   "memory": "career",
+   "description": "the player's own w_ratio, career"
+  },
+  {
+   "id": "w_ratio|off|dec2",
+   "statistic": "w_ratio",
+   "family": "ending",
+   "kind": "off",
+   "memory": "dec2",
+   "description": "the player's own w_ratio, two-week half-life"
+  },
+  {
+   "id": "w_ratio|off|w52",
+   "statistic": "w_ratio",
+   "family": "ending",
+   "kind": "off",
+   "memory": "w52",
+   "description": "the player's own w_ratio, last 52 weeks"
+  },
+  {
+   "id": "w_ratio|def|career",
+   "statistic": "w_ratio",
+   "family": "ending",
+   "kind": "def",
+   "memory": "career",
+   "description": "what opponents did against the player: w_ratio, career"
+  },
+  {
+   "id": "w_ratio|def|dec2",
+   "statistic": "w_ratio",
+   "family": "ending",
+   "kind": "def",
+   "memory": "dec2",
+   "description": "what opponents did against the player: w_ratio, two-week half-life"
+  },
+  {
+   "id": "w_ratio|def|w52",
+   "statistic": "w_ratio",
+   "family": "ending",
+   "kind": "def",
+   "memory": "w52",
+   "description": "what opponents did against the player: w_ratio, last 52 weeks"
+  },
+  {
+   "id": "w_ratio|adj|dec2",
+   "statistic": "w_ratio",
+   "family": "ending",
+   "kind": "adj",
+   "memory": "dec2",
+   "description": "opponent-adjusted w_ratio, two-week half-life"
+  },
+  {
+   "id": "w_ratio|adj|w52",
+   "statistic": "w_ratio",
+   "family": "ending",
+   "kind": "adj",
+   "memory": "w52",
+   "description": "opponent-adjusted w_ratio, last 52 weeks"
+  },
+  {
+   "id": "spd1|off|career",
+   "statistic": "spd1",
+   "family": "speed",
+   "kind": "off",
+   "memory": "career",
+   "description": "the player's own spd1, career"
+  },
+  {
+   "id": "spd1|off|dec2",
+   "statistic": "spd1",
+   "family": "speed",
+   "kind": "off",
+   "memory": "dec2",
+   "description": "the player's own spd1, two-week half-life"
+  },
+  {
+   "id": "spd1|off|w52",
+   "statistic": "spd1",
+   "family": "speed",
+   "kind": "off",
+   "memory": "w52",
+   "description": "the player's own spd1, last 52 weeks"
+  },
+  {
+   "id": "spd2|off|career",
+   "statistic": "spd2",
+   "family": "speed",
+   "kind": "off",
+   "memory": "career",
+   "description": "the player's own spd2, career"
+  },
+  {
+   "id": "spd2|off|dec2",
+   "statistic": "spd2",
+   "family": "speed",
+   "kind": "off",
+   "memory": "dec2",
+   "description": "the player's own spd2, two-week half-life"
+  },
+  {
+   "id": "spd2|off|w52",
+   "statistic": "spd2",
+   "family": "speed",
+   "kind": "off",
+   "memory": "w52",
+   "description": "the player's own spd2, last 52 weeks"
+  },
+  {
+   "id": "net_rate|off|career",
+   "statistic": "net_rate",
+   "family": "net",
+   "kind": "off",
+   "memory": "career",
+   "description": "the player's own net_rate, career"
+  },
+  {
+   "id": "net_rate|off|dec2",
+   "statistic": "net_rate",
+   "family": "net",
+   "kind": "off",
+   "memory": "dec2",
+   "description": "the player's own net_rate, two-week half-life"
+  },
+  {
+   "id": "net_rate|off|w52",
+   "statistic": "net_rate",
+   "family": "net",
+   "kind": "off",
+   "memory": "w52",
+   "description": "the player's own net_rate, last 52 weeks"
+  },
+  {
+   "id": "net_rate|def|career",
+   "statistic": "net_rate",
+   "family": "net",
+   "kind": "def",
+   "memory": "career",
+   "description": "what opponents did against the player: net_rate, career"
+  },
+  {
+   "id": "net_rate|def|dec2",
+   "statistic": "net_rate",
+   "family": "net",
+   "kind": "def",
+   "memory": "dec2",
+   "description": "what opponents did against the player: net_rate, two-week half-life"
+  },
+  {
+   "id": "net_rate|def|w52",
+   "statistic": "net_rate",
+   "family": "net",
+   "kind": "def",
+   "memory": "w52",
+   "description": "what opponents did against the player: net_rate, last 52 weeks"
+  },
+  {
+   "id": "net_won|off|career",
+   "statistic": "net_won",
+   "family": "net",
+   "kind": "off",
+   "memory": "career",
+   "description": "the player's own net_won, career"
+  },
+  {
+   "id": "net_won|off|dec2",
+   "statistic": "net_won",
+   "family": "net",
+   "kind": "off",
+   "memory": "dec2",
+   "description": "the player's own net_won, two-week half-life"
+  },
+  {
+   "id": "net_won|off|w52",
+   "statistic": "net_won",
+   "family": "net",
+   "kind": "off",
+   "memory": "w52",
+   "description": "the player's own net_won, last 52 weeks"
+  },
+  {
+   "id": "net_won|def|career",
+   "statistic": "net_won",
+   "family": "net",
+   "kind": "def",
+   "memory": "career",
+   "description": "what opponents did against the player: net_won, career"
+  },
+  {
+   "id": "net_won|def|dec2",
+   "statistic": "net_won",
+   "family": "net",
+   "kind": "def",
+   "memory": "dec2",
+   "description": "what opponents did against the player: net_won, two-week half-life"
+  },
+  {
+   "id": "net_won|def|w52",
+   "statistic": "net_won",
+   "family": "net",
+   "kind": "def",
+   "memory": "w52",
+   "description": "what opponents did against the player: net_won, last 52 weeks"
+  },
+  {
+   "id": "net_won|adj|dec2",
+   "statistic": "net_won",
+   "family": "net",
+   "kind": "adj",
+   "memory": "dec2",
+   "description": "opponent-adjusted net_won, two-week half-life"
+  },
+  {
+   "id": "net_won|adj|w52",
+   "statistic": "net_won",
+   "family": "net",
+   "kind": "adj",
+   "memory": "w52",
+   "description": "opponent-adjusted net_won, last 52 weeks"
+  },
+  {
+   "id": "t_share|off|career",
+   "statistic": "t_share",
+   "family": "placement",
+   "kind": "off",
+   "memory": "career",
+   "description": "the player's own t_share, career"
+  },
+  {
+   "id": "t_share|off|dec2",
+   "statistic": "t_share",
+   "family": "placement",
+   "kind": "off",
+   "memory": "dec2",
+   "description": "the player's own t_share, two-week half-life"
+  },
+  {
+   "id": "t_share|off|w52",
+   "statistic": "t_share",
+   "family": "placement",
+   "kind": "off",
+   "memory": "w52",
+   "description": "the player's own t_share, last 52 weeks"
+  },
+  {
+   "id": "wide_share|off|career",
+   "statistic": "wide_share",
+   "family": "placement",
+   "kind": "off",
+   "memory": "career",
+   "description": "the player's own wide_share, career"
+  },
+  {
+   "id": "wide_share|off|dec2",
+   "statistic": "wide_share",
+   "family": "placement",
+   "kind": "off",
+   "memory": "dec2",
+   "description": "the player's own wide_share, two-week half-life"
+  },
+  {
+   "id": "wide_share|off|w52",
+   "statistic": "wide_share",
+   "family": "placement",
+   "kind": "off",
+   "memory": "w52",
+   "description": "the player's own wide_share, last 52 weeks"
+  },
+  {
+   "id": "deep_ret|off|career",
+   "statistic": "deep_ret",
+   "family": "return",
+   "kind": "off",
+   "memory": "career",
+   "description": "the player's own deep_ret, career"
+  },
+  {
+   "id": "deep_ret|off|dec2",
+   "statistic": "deep_ret",
+   "family": "return",
+   "kind": "off",
+   "memory": "dec2",
+   "description": "the player's own deep_ret, two-week half-life"
+  },
+  {
+   "id": "deep_ret|off|w52",
+   "statistic": "deep_ret",
+   "family": "return",
+   "kind": "off",
+   "memory": "w52",
+   "description": "the player's own deep_ret, last 52 weeks"
+  },
+  {
+   "id": "deep_ret|def|career",
+   "statistic": "deep_ret",
+   "family": "return",
+   "kind": "def",
+   "memory": "career",
+   "description": "what opponents did against the player: deep_ret, career"
+  },
+  {
+   "id": "deep_ret|def|dec2",
+   "statistic": "deep_ret",
+   "family": "return",
+   "kind": "def",
+   "memory": "dec2",
+   "description": "what opponents did against the player: deep_ret, two-week half-life"
+  },
+  {
+   "id": "deep_ret|def|w52",
+   "statistic": "deep_ret",
+   "family": "return",
+   "kind": "def",
+   "memory": "w52",
+   "description": "what opponents did against the player: deep_ret, last 52 weeks"
+  },
+  {
+   "id": "deep_ret|adj|dec2",
+   "statistic": "deep_ret",
+   "family": "return",
+   "kind": "adj",
+   "memory": "dec2",
+   "description": "opponent-adjusted deep_ret, two-week half-life"
+  },
+  {
+   "id": "deep_ret|adj|w52",
+   "statistic": "deep_ret",
+   "family": "return",
+   "kind": "adj",
+   "memory": "w52",
+   "description": "opponent-adjusted deep_ret, last 52 weeks"
+  },
+  {
+   "id": "bh_ue_share|off|career",
+   "statistic": "bh_ue_share",
+   "family": "stroke",
+   "kind": "off",
+   "memory": "career",
+   "description": "the player's own bh_ue_share, career"
+  },
+  {
+   "id": "bh_ue_share|off|dec2",
+   "statistic": "bh_ue_share",
+   "family": "stroke",
+   "kind": "off",
+   "memory": "dec2",
+   "description": "the player's own bh_ue_share, two-week half-life"
+  },
+  {
+   "id": "bh_ue_share|off|w52",
+   "statistic": "bh_ue_share",
+   "family": "stroke",
+   "kind": "off",
+   "memory": "w52",
+   "description": "the player's own bh_ue_share, last 52 weeks"
+  },
+  {
+   "id": "fh_win_share|off|career",
+   "statistic": "fh_win_share",
+   "family": "stroke",
+   "kind": "off",
+   "memory": "career",
+   "description": "the player's own fh_win_share, career"
+  },
+  {
+   "id": "fh_win_share|off|dec2",
+   "statistic": "fh_win_share",
+   "family": "stroke",
+   "kind": "off",
+   "memory": "dec2",
+   "description": "the player's own fh_win_share, two-week half-life"
+  },
+  {
+   "id": "fh_win_share|off|w52",
+   "statistic": "fh_win_share",
+   "family": "stroke",
+   "kind": "off",
+   "memory": "w52",
+   "description": "the player's own fh_win_share, last 52 weeks"
+  },
+  {
+   "id": "consolidate|off|career",
+   "statistic": "consolidate",
+   "family": "sequence",
+   "kind": "off",
+   "memory": "career",
+   "description": "the player's own consolidate, career"
+  },
+  {
+   "id": "consolidate|off|dec2",
+   "statistic": "consolidate",
+   "family": "sequence",
+   "kind": "off",
+   "memory": "dec2",
+   "description": "the player's own consolidate, two-week half-life"
+  },
+  {
+   "id": "consolidate|off|w52",
+   "statistic": "consolidate",
+   "family": "sequence",
+   "kind": "off",
+   "memory": "w52",
+   "description": "the player's own consolidate, last 52 weeks"
+  },
+  {
+   "id": "consolidate|def|career",
+   "statistic": "consolidate",
+   "family": "sequence",
+   "kind": "def",
+   "memory": "career",
+   "description": "what opponents did against the player: consolidate, career"
+  },
+  {
+   "id": "consolidate|def|dec2",
+   "statistic": "consolidate",
+   "family": "sequence",
+   "kind": "def",
+   "memory": "dec2",
+   "description": "what opponents did against the player: consolidate, two-week half-life"
+  },
+  {
+   "id": "consolidate|def|w52",
+   "statistic": "consolidate",
+   "family": "sequence",
+   "kind": "def",
+   "memory": "w52",
+   "description": "what opponents did against the player: consolidate, last 52 weeks"
+  },
+  {
+   "id": "consolidate|adj|dec2",
+   "statistic": "consolidate",
+   "family": "sequence",
+   "kind": "adj",
+   "memory": "dec2",
+   "description": "opponent-adjusted consolidate, two-week half-life"
+  },
+  {
+   "id": "consolidate|adj|w52",
+   "statistic": "consolidate",
+   "family": "sequence",
+   "kind": "adj",
+   "memory": "w52",
+   "description": "opponent-adjusted consolidate, last 52 weeks"
+  },
+  {
+   "id": "break_back|off|career",
+   "statistic": "break_back",
+   "family": "sequence",
+   "kind": "off",
+   "memory": "career",
+   "description": "the player's own break_back, career"
+  },
+  {
+   "id": "break_back|off|dec2",
+   "statistic": "break_back",
+   "family": "sequence",
+   "kind": "off",
+   "memory": "dec2",
+   "description": "the player's own break_back, two-week half-life"
+  },
+  {
+   "id": "break_back|off|w52",
+   "statistic": "break_back",
+   "family": "sequence",
+   "kind": "off",
+   "memory": "w52",
+   "description": "the player's own break_back, last 52 weeks"
+  },
+  {
+   "id": "break_back|def|career",
+   "statistic": "break_back",
+   "family": "sequence",
+   "kind": "def",
+   "memory": "career",
+   "description": "what opponents did against the player: break_back, career"
+  },
+  {
+   "id": "break_back|def|dec2",
+   "statistic": "break_back",
+   "family": "sequence",
+   "kind": "def",
+   "memory": "dec2",
+   "description": "what opponents did against the player: break_back, two-week half-life"
+  },
+  {
+   "id": "break_back|def|w52",
+   "statistic": "break_back",
+   "family": "sequence",
+   "kind": "def",
+   "memory": "w52",
+   "description": "what opponents did against the player: break_back, last 52 weeks"
+  },
+  {
+   "id": "break_back|adj|dec2",
+   "statistic": "break_back",
+   "family": "sequence",
+   "kind": "adj",
+   "memory": "dec2",
+   "description": "opponent-adjusted break_back, two-week half-life"
+  },
+  {
+   "id": "break_back|adj|w52",
+   "statistic": "break_back",
+   "family": "sequence",
+   "kind": "adj",
+   "memory": "w52",
+   "description": "opponent-adjusted break_back, last 52 weeks"
+  },
+  {
+   "id": "serve_set|off|career",
+   "statistic": "serve_set",
+   "family": "sequence",
+   "kind": "off",
+   "memory": "career",
+   "description": "the player's own serve_set, career"
+  },
+  {
+   "id": "serve_set|off|dec2",
+   "statistic": "serve_set",
+   "family": "sequence",
+   "kind": "off",
+   "memory": "dec2",
+   "description": "the player's own serve_set, two-week half-life"
+  },
+  {
+   "id": "serve_set|off|w52",
+   "statistic": "serve_set",
+   "family": "sequence",
+   "kind": "off",
+   "memory": "w52",
+   "description": "the player's own serve_set, last 52 weeks"
+  },
+  {
+   "id": "serve_set|def|career",
+   "statistic": "serve_set",
+   "family": "sequence",
+   "kind": "def",
+   "memory": "career",
+   "description": "what opponents did against the player: serve_set, career"
+  },
+  {
+   "id": "serve_set|def|dec2",
+   "statistic": "serve_set",
+   "family": "sequence",
+   "kind": "def",
+   "memory": "dec2",
+   "description": "what opponents did against the player: serve_set, two-week half-life"
+  },
+  {
+   "id": "serve_set|def|w52",
+   "statistic": "serve_set",
+   "family": "sequence",
+   "kind": "def",
+   "memory": "w52",
+   "description": "what opponents did against the player: serve_set, last 52 weeks"
+  },
+  {
+   "id": "serve_set|adj|dec2",
+   "statistic": "serve_set",
+   "family": "sequence",
+   "kind": "adj",
+   "memory": "dec2",
+   "description": "opponent-adjusted serve_set, two-week half-life"
+  },
+  {
+   "id": "serve_set|adj|w52",
+   "statistic": "serve_set",
+   "family": "sequence",
+   "kind": "adj",
+   "memory": "w52",
+   "description": "opponent-adjusted serve_set, last 52 weeks"
+  },
+  {
+   "id": "pressure_srv|off|career",
+   "statistic": "pressure_srv",
+   "family": "sequence",
+   "kind": "off",
+   "memory": "career",
+   "description": "the player's own pressure_srv, career"
+  },
+  {
+   "id": "pressure_srv|off|dec2",
+   "statistic": "pressure_srv",
+   "family": "sequence",
+   "kind": "off",
+   "memory": "dec2",
+   "description": "the player's own pressure_srv, two-week half-life"
+  },
+  {
+   "id": "pressure_srv|off|w52",
+   "statistic": "pressure_srv",
+   "family": "sequence",
+   "kind": "off",
+   "memory": "w52",
+   "description": "the player's own pressure_srv, last 52 weeks"
+  },
+  {
+   "id": "first_in_pressure|off|career",
+   "statistic": "first_in_pressure",
+   "family": "sequence",
+   "kind": "off",
+   "memory": "career",
+   "description": "the player's own first_in_pressure, career"
+  },
+  {
+   "id": "first_in_pressure|off|dec2",
+   "statistic": "first_in_pressure",
+   "family": "sequence",
+   "kind": "off",
+   "memory": "dec2",
+   "description": "the player's own first_in_pressure, two-week half-life"
+  },
+  {
+   "id": "first_in_pressure|off|w52",
+   "statistic": "first_in_pressure",
+   "family": "sequence",
+   "kind": "off",
+   "memory": "w52",
+   "description": "the player's own first_in_pressure, last 52 weeks"
+  },
+  {
+   "id": "after_loss|off|career",
+   "statistic": "after_loss",
+   "family": "sequence",
+   "kind": "off",
+   "memory": "career",
+   "description": "the player's own after_loss, career"
+  },
+  {
+   "id": "after_loss|off|dec2",
+   "statistic": "after_loss",
+   "family": "sequence",
+   "kind": "off",
+   "memory": "dec2",
+   "description": "the player's own after_loss, two-week half-life"
+  },
+  {
+   "id": "after_loss|off|w52",
+   "statistic": "after_loss",
+   "family": "sequence",
+   "kind": "off",
+   "memory": "w52",
+   "description": "the player's own after_loss, last 52 weeks"
+  },
+  {
+   "id": "spd1_change|off|dec2-w52",
+   "statistic": "spd1_change",
+   "family": "speed",
+   "kind": "off",
+   "memory": "dec2-w52",
+   "description": "the player's own spd1_change, two-week minus 52-week"
+  },
+  {
+   "id": "rally_edge|x_long|w52",
+   "statistic": "rally_edge",
+   "family": "rally",
+   "kind": "x_long",
+   "memory": "w52",
+   "description": "x_long rally_edge, last 52 weeks"
+  }
+ ],
+ "coverage": {
+  "srv_quick|off|career": {
+   "atp": {
+    "evaluation": 74578,
+    "market": 28521
+   },
+   "wta": {
+    "evaluation": 41657,
+    "market": 27592
+   }
+  },
+  "srv_quick|off|dec2": {
+   "atp": {
+    "evaluation": 74182,
+    "market": 28380
+   },
+   "wta": {
+    "evaluation": 41366,
+    "market": 27420
+   }
+  },
+  "srv_quick|off|w52": {
+   "atp": {
+    "evaluation": 55976,
+    "market": 25020
+   },
+   "wta": {
+    "evaluation": 32474,
+    "market": 23401
+   }
+  },
+  "srv_quick|def|career": {
+   "atp": {
+    "evaluation": 74578,
+    "market": 28521
+   },
+   "wta": {
+    "evaluation": 41657,
+    "market": 27592
+   }
+  },
+  "srv_quick|def|dec2": {
+   "atp": {
+    "evaluation": 74175,
+    "market": 28378
+   },
+   "wta": {
+    "evaluation": 41364,
+    "market": 27420
+   }
+  },
+  "srv_quick|def|w52": {
+   "atp": {
+    "evaluation": 55976,
+    "market": 25020
+   },
+   "wta": {
+    "evaluation": 32474,
+    "market": 23401
+   }
+  },
+  "srv_quick|adj|dec2": {
+   "atp": {
+    "evaluation": 74182,
+    "market": 28380
+   },
+   "wta": {
+    "evaluation": 41366,
+    "market": 27420
+   }
+  },
+  "srv_quick|adj|w52": {
+   "atp": {
+    "evaluation": 55976,
+    "market": 25020
+   },
+   "wta": {
+    "evaluation": 32474,
+    "market": 23401
+   }
+  },
+  "ret_quick|off|career": {
+   "atp": {
+    "evaluation": 74578,
+    "market": 28521
+   },
+   "wta": {
+    "evaluation": 41657,
+    "market": 27592
+   }
+  },
+  "ret_quick|off|dec2": {
+   "atp": {
+    "evaluation": 74175,
+    "market": 28378
+   },
+   "wta": {
+    "evaluation": 41364,
+    "market": 27420
+   }
+  },
+  "ret_quick|off|w52": {
+   "atp": {
+    "evaluation": 55976,
+    "market": 25020
+   },
+   "wta": {
+    "evaluation": 32474,
+    "market": 23401
+   }
+  },
+  "ret_quick|def|career": {
+   "atp": {
+    "evaluation": 74578,
+    "market": 28521
+   },
+   "wta": {
+    "evaluation": 41657,
+    "market": 27592
+   }
+  },
+  "ret_quick|def|dec2": {
+   "atp": {
+    "evaluation": 74182,
+    "market": 28380
+   },
+   "wta": {
+    "evaluation": 41366,
+    "market": 27420
+   }
+  },
+  "ret_quick|def|w52": {
+   "atp": {
+    "evaluation": 55976,
+    "market": 25020
+   },
+   "wta": {
+    "evaluation": 32474,
+    "market": 23401
+   }
+  },
+  "ret_quick|adj|dec2": {
+   "atp": {
+    "evaluation": 74175,
+    "market": 28378
+   },
+   "wta": {
+    "evaluation": 41364,
+    "market": 27420
+   }
+  },
+  "ret_quick|adj|w52": {
+   "atp": {
+    "evaluation": 55976,
+    "market": 25020
+   },
+   "wta": {
+    "evaluation": 32474,
+    "market": 23401
+   }
+  },
+  "rally5|off|career": {
+   "atp": {
+    "evaluation": 71361,
+    "market": 28333
+   },
+   "wta": {
+    "evaluation": 40236,
+    "market": 27250
+   }
+  },
+  "rally5|off|dec2": {
+   "atp": {
+    "evaluation": 70921,
+    "market": 28166
+   },
+   "wta": {
+    "evaluation": 39889,
+    "market": 27032
+   }
+  },
+  "rally5|off|w52": {
+   "atp": {
+    "evaluation": 51751,
+    "market": 24483
+   },
+   "wta": {
+    "evaluation": 29958,
+    "market": 22484
+   }
+  },
+  "rally5|adj|dec2": {
+   "atp": {
+    "evaluation": 70921,
+    "market": 28166
+   },
+   "wta": {
+    "evaluation": 39889,
+    "market": 27032
+   }
+  },
+  "rally5|adj|w52": {
+   "atp": {
+    "evaluation": 51751,
+    "market": 24483
+   },
+   "wta": {
+    "evaluation": 29958,
+    "market": 22484
+   }
+  },
+  "rally9|off|career": {
+   "atp": {
+    "evaluation": 71318,
+    "market": 28327
+   },
+   "wta": {
+    "evaluation": 40130,
+    "market": 27234
+   }
+  },
+  "rally9|off|dec2": {
+   "atp": {
+    "evaluation": 70876,
+    "market": 28156
+   },
+   "wta": {
+    "evaluation": 39784,
+    "market": 27016
+   }
+  },
+  "rally9|off|w52": {
+   "atp": {
+    "evaluation": 51695,
+    "market": 24470
+   },
+   "wta": {
+    "evaluation": 29874,
+    "market": 22459
+   }
+  },
+  "rally9|adj|dec2": {
+   "atp": {
+    "evaluation": 70876,
+    "market": 28156
+   },
+   "wta": {
+    "evaluation": 39784,
+    "market": 27016
+   }
+  },
+  "rally9|adj|w52": {
+   "atp": {
+    "evaluation": 51695,
+    "market": 24470
+   },
+   "wta": {
+    "evaluation": 29874,
+    "market": 22459
+   }
+  },
+  "ret_inplay|off|career": {
+   "atp": {
+    "evaluation": 74578,
+    "market": 28521
+   },
+   "wta": {
+    "evaluation": 41657,
+    "market": 27592
+   }
+  },
+  "ret_inplay|off|dec2": {
+   "atp": {
+    "evaluation": 74185,
+    "market": 28381
+   },
+   "wta": {
+    "evaluation": 41367,
+    "market": 27421
+   }
+  },
+  "ret_inplay|off|w52": {
+   "atp": {
+    "evaluation": 55976,
+    "market": 25020
+   },
+   "wta": {
+    "evaluation": 32474,
+    "market": 23401
+   }
+  },
+  "ret_inplay|def|career": {
+   "atp": {
+    "evaluation": 74578,
+    "market": 28521
+   },
+   "wta": {
+    "evaluation": 41657,
+    "market": 27592
+   }
+  },
+  "ret_inplay|def|dec2": {
+   "atp": {
+    "evaluation": 74180,
+    "market": 28381
+   },
+   "wta": {
+    "evaluation": 41364,
+    "market": 27422
+   }
+  },
+  "ret_inplay|def|w52": {
+   "atp": {
+    "evaluation": 55976,
+    "market": 25020
+   },
+   "wta": {
+    "evaluation": 32474,
+    "market": 23401
+   }
+  },
+  "ret_inplay|adj|dec2": {
+   "atp": {
+    "evaluation": 74185,
+    "market": 28381
+   },
+   "wta": {
+    "evaluation": 41367,
+    "market": 27421
+   }
+  },
+  "ret_inplay|adj|w52": {
+   "atp": {
+    "evaluation": 55976,
+    "market": 25020
+   },
+   "wta": {
+    "evaluation": 32474,
+    "market": 23401
+   }
+  },
+  "long_share|off|career": {
+   "atp": {
+    "evaluation": 74589,
+    "market": 28521
+   },
+   "wta": {
+    "evaluation": 41657,
+    "market": 27592
+   }
+  },
+  "long_share|off|dec2": {
+   "atp": {
+    "evaluation": 74192,
+    "market": 28381
+   },
+   "wta": {
+    "evaluation": 41368,
+    "market": 27423
+   }
+  },
+  "long_share|off|w52": {
+   "atp": {
+    "evaluation": 55985,
+    "market": 25020
+   },
+   "wta": {
+    "evaluation": 32474,
+    "market": 23401
+   }
+  },
+  "winner_rate|off|career": {
+   "atp": {
+    "evaluation": 79046,
+    "market": 30037
+   },
+   "wta": {
+    "evaluation": 45887,
+    "market": 29644
+   }
+  },
+  "winner_rate|off|dec2": {
+   "atp": {
+    "evaluation": 78721,
+    "market": 29978
+   },
+   "wta": {
+    "evaluation": 45674,
+    "market": 29555
+   }
+  },
+  "winner_rate|off|w52": {
+   "atp": {
+    "evaluation": 62536,
+    "market": 28897
+   },
+   "wta": {
+    "evaluation": 40251,
+    "market": 28023
+   }
+  },
+  "winner_rate|def|career": {
+   "atp": {
+    "evaluation": 79046,
+    "market": 30037
+   },
+   "wta": {
+    "evaluation": 45887,
+    "market": 29644
+   }
+  },
+  "winner_rate|def|dec2": {
+   "atp": {
+    "evaluation": 78721,
+    "market": 29978
+   },
+   "wta": {
+    "evaluation": 45674,
+    "market": 29555
+   }
+  },
+  "winner_rate|def|w52": {
+   "atp": {
+    "evaluation": 62536,
+    "market": 28897
+   },
+   "wta": {
+    "evaluation": 40251,
+    "market": 28023
+   }
+  },
+  "winner_rate|adj|dec2": {
+   "atp": {
+    "evaluation": 78721,
+    "market": 29978
+   },
+   "wta": {
+    "evaluation": 45674,
+    "market": 29555
+   }
+  },
+  "winner_rate|adj|w52": {
+   "atp": {
+    "evaluation": 62536,
+    "market": 28897
+   },
+   "wta": {
+    "evaluation": 40251,
+    "market": 28023
+   }
+  },
+  "error_rate|off|career": {
+   "atp": {
+    "evaluation": 79046,
+    "market": 30037
+   },
+   "wta": {
+    "evaluation": 45887,
+    "market": 29644
+   }
+  },
+  "error_rate|off|dec2": {
+   "atp": {
+    "evaluation": 78721,
+    "market": 29978
+   },
+   "wta": {
+    "evaluation": 45674,
+    "market": 29555
+   }
+  },
+  "error_rate|off|w52": {
+   "atp": {
+    "evaluation": 62536,
+    "market": 28897
+   },
+   "wta": {
+    "evaluation": 40251,
+    "market": 28023
+   }
+  },
+  "error_rate|def|career": {
+   "atp": {
+    "evaluation": 79046,
+    "market": 30037
+   },
+   "wta": {
+    "evaluation": 45887,
+    "market": 29644
+   }
+  },
+  "error_rate|def|dec2": {
+   "atp": {
+    "evaluation": 78721,
+    "market": 29978
+   },
+   "wta": {
+    "evaluation": 45674,
+    "market": 29555
+   }
+  },
+  "error_rate|def|w52": {
+   "atp": {
+    "evaluation": 62536,
+    "market": 28897
+   },
+   "wta": {
+    "evaluation": 40251,
+    "market": 28023
+   }
+  },
+  "error_rate|adj|dec2": {
+   "atp": {
+    "evaluation": 78721,
+    "market": 29978
+   },
+   "wta": {
+    "evaluation": 45674,
+    "market": 29555
+   }
+  },
+  "error_rate|adj|w52": {
+   "atp": {
+    "evaluation": 62536,
+    "market": 28897
+   },
+   "wta": {
+    "evaluation": 40251,
+    "market": 28023
+   }
+  },
+  "ue_share|off|career": {
+   "atp": {
+    "evaluation": 79035,
+    "market": 30037
+   },
+   "wta": {
+    "evaluation": 45887,
+    "market": 29644
+   }
+  },
+  "ue_share|off|dec2": {
+   "atp": {
+    "evaluation": 78703,
+    "market": 29977
+   },
+   "wta": {
+    "evaluation": 45670,
+    "market": 29556
+   }
+  },
+  "ue_share|off|w52": {
+   "atp": {
+    "evaluation": 62501,
+    "market": 28897
+   },
+   "wta": {
+    "evaluation": 40251,
+    "market": 28023
+   }
+  },
+  "ue_share|adj|dec2": {
+   "atp": {
+    "evaluation": 78703,
+    "market": 29977
+   },
+   "wta": {
+    "evaluation": 45670,
+    "market": 29556
+   }
+  },
+  "ue_share|adj|w52": {
+   "atp": {
+    "evaluation": 62501,
+    "market": 28897
+   },
+   "wta": {
+    "evaluation": 40251,
+    "market": 28023
+   }
+  },
+  "w_ratio|off|career": {
+   "atp": {
+    "evaluation": 79035,
+    "market": 30037
+   },
+   "wta": {
+    "evaluation": 45887,
+    "market": 29644
+   }
+  },
+  "w_ratio|off|dec2": {
+   "atp": {
+    "evaluation": 78708,
+    "market": 29976
+   },
+   "wta": {
+    "evaluation": 45671,
+    "market": 29556
+   }
+  },
+  "w_ratio|off|w52": {
+   "atp": {
+    "evaluation": 62527,
+    "market": 28897
+   },
+   "wta": {
+    "evaluation": 40251,
+    "market": 28023
+   }
+  },
+  "w_ratio|def|career": {
+   "atp": {
+    "evaluation": 79035,
+    "market": 30037
+   },
+   "wta": {
+    "evaluation": 45887,
+    "market": 29644
+   }
+  },
+  "w_ratio|def|dec2": {
+   "atp": {
+    "evaluation": 78707,
+    "market": 29977
+   },
+   "wta": {
+    "evaluation": 45672,
+    "market": 29554
+   }
+  },
+  "w_ratio|def|w52": {
+   "atp": {
+    "evaluation": 62527,
+    "market": 28897
+   },
+   "wta": {
+    "evaluation": 40251,
+    "market": 28023
+   }
+  },
+  "w_ratio|adj|dec2": {
+   "atp": {
+    "evaluation": 78708,
+    "market": 29976
+   },
+   "wta": {
+    "evaluation": 45671,
+    "market": 29556
+   }
+  },
+  "w_ratio|adj|w52": {
+   "atp": {
+    "evaluation": 62527,
+    "market": 28897
+   },
+   "wta": {
+    "evaluation": 40251,
+    "market": 28023
+   }
+  },
+  "spd1|off|career": {
+   "atp": {
+    "evaluation": 60720,
+    "market": 27494
+   },
+   "wta": {
+    "evaluation": 37582,
+    "market": 26559
+   }
+  },
+  "spd1|off|dec2": {
+   "atp": {
+    "evaluation": 60462,
+    "market": 27355
+   },
+   "wta": {
+    "evaluation": 37342,
+    "market": 26397
+   }
+  },
+  "spd1|off|w52": {
+   "atp": {
+    "evaluation": 43445,
+    "market": 23369
+   },
+   "wta": {
+    "evaluation": 28570,
+    "market": 21953
+   }
+  },
+  "spd2|off|career": {
+   "atp": {
+    "evaluation": 60578,
+    "market": 27489
+   },
+   "wta": {
+    "evaluation": 37452,
+    "market": 26541
+   }
+  },
+  "spd2|off|dec2": {
+   "atp": {
+    "evaluation": 60321,
+    "market": 27350
+   },
+   "wta": {
+    "evaluation": 37211,
+    "market": 26377
+   }
+  },
+  "spd2|off|w52": {
+   "atp": {
+    "evaluation": 43399,
+    "market": 23364
+   },
+   "wta": {
+    "evaluation": 28511,
+    "market": 21928
+   }
+  },
+  "net_rate|off|career": {
+   "atp": {
+    "evaluation": 79723,
+    "market": 29994
+   },
+   "wta": {
+    "evaluation": 45432,
+    "market": 29479
+   }
+  },
+  "net_rate|off|dec2": {
+   "atp": {
+    "evaluation": 79394,
+    "market": 29941
+   },
+   "wta": {
+    "evaluation": 45225,
+    "market": 29383
+   }
+  },
+  "net_rate|off|w52": {
+   "atp": {
+    "evaluation": 62200,
+    "market": 28657
+   },
+   "wta": {
+    "evaluation": 38796,
+    "market": 27320
+   }
+  },
+  "net_rate|def|career": {
+   "atp": {
+    "evaluation": 79723,
+    "market": 29994
+   },
+   "wta": {
+    "evaluation": 45432,
+    "market": 29479
+   }
+  },
+  "net_rate|def|dec2": {
+   "atp": {
+    "evaluation": 79394,
+    "market": 29941
+   },
+   "wta": {
+    "evaluation": 45225,
+    "market": 29383
+   }
+  },
+  "net_rate|def|w52": {
+   "atp": {
+    "evaluation": 62200,
+    "market": 28657
+   },
+   "wta": {
+    "evaluation": 38796,
+    "market": 27320
+   }
+  },
+  "net_won|off|career": {
+   "atp": {
+    "evaluation": 79692,
+    "market": 29994
+   },
+   "wta": {
+    "evaluation": 45410,
+    "market": 29475
+   }
+  },
+  "net_won|off|dec2": {
+   "atp": {
+    "evaluation": 79352,
+    "market": 29940
+   },
+   "wta": {
+    "evaluation": 45193,
+    "market": 29374
+   }
+  },
+  "net_won|off|w52": {
+   "atp": {
+    "evaluation": 62161,
+    "market": 28655
+   },
+   "wta": {
+    "evaluation": 38694,
+    "market": 27282
+   }
+  },
+  "net_won|def|career": {
+   "atp": {
+    "evaluation": 79681,
+    "market": 29984
+   },
+   "wta": {
+    "evaluation": 45402,
+    "market": 29464
+   }
+  },
+  "net_won|def|dec2": {
+   "atp": {
+    "evaluation": 79343,
+    "market": 29929
+   },
+   "wta": {
+    "evaluation": 45186,
+    "market": 29362
+   }
+  },
+  "net_won|def|w52": {
+   "atp": {
+    "evaluation": 62048,
+    "market": 28647
+   },
+   "wta": {
+    "evaluation": 38686,
+    "market": 27254
+   }
+  },
+  "net_won|adj|dec2": {
+   "atp": {
+    "evaluation": 79352,
+    "market": 29940
+   },
+   "wta": {
+    "evaluation": 45193,
+    "market": 29374
+   }
+  },
+  "net_won|adj|w52": {
+   "atp": {
+    "evaluation": 62161,
+    "market": 28655
+   },
+   "wta": {
+    "evaluation": 38694,
+    "market": 27282
+   }
+  },
+  "t_share|off|career": {
+   "atp": {
+    "evaluation": 57952,
+    "market": 26680
+   },
+   "wta": {
+    "evaluation": 38031,
+    "market": 25754
+   }
+  },
+  "t_share|off|dec2": {
+   "atp": {
+    "evaluation": 57636,
+    "market": 26543
+   },
+   "wta": {
+    "evaluation": 37773,
+    "market": 25594
+   }
+  },
+  "t_share|off|w52": {
+   "atp": {
+    "evaluation": 39372,
+    "market": 23602
+   },
+   "wta": {
+    "evaluation": 29505,
+    "market": 22074
+   }
+  },
+  "wide_share|off|career": {
+   "atp": {
+    "evaluation": 57952,
+    "market": 26680
+   },
+   "wta": {
+    "evaluation": 38031,
+    "market": 25754
+   }
+  },
+  "wide_share|off|dec2": {
+   "atp": {
+    "evaluation": 57636,
+    "market": 26543
+   },
+   "wta": {
+    "evaluation": 37773,
+    "market": 25594
+   }
+  },
+  "wide_share|off|w52": {
+   "atp": {
+    "evaluation": 39372,
+    "market": 23602
+   },
+   "wta": {
+    "evaluation": 29505,
+    "market": 22074
+   }
+  },
+  "deep_ret|off|career": {
+   "atp": {
+    "evaluation": 55001,
+    "market": 26339
+   },
+   "wta": {
+    "evaluation": 37429,
+    "market": 25591
+   }
+  },
+  "deep_ret|off|dec2": {
+   "atp": {
+    "evaluation": 54686,
+    "market": 26196
+   },
+   "wta": {
+    "evaluation": 37159,
+    "market": 25420
+   }
+  },
+  "deep_ret|off|w52": {
+   "atp": {
+    "evaluation": 36154,
+    "market": 22411
+   },
+   "wta": {
+    "evaluation": 27786,
+    "market": 21194
+   }
+  },
+  "deep_ret|def|career": {
+   "atp": {
+    "evaluation": 55034,
+    "market": 26304
+   },
+   "wta": {
+    "evaluation": 37428,
+    "market": 25590
+   }
+  },
+  "deep_ret|def|dec2": {
+   "atp": {
+    "evaluation": 54716,
+    "market": 26163
+   },
+   "wta": {
+    "evaluation": 37155,
+    "market": 25416
+   }
+  },
+  "deep_ret|def|w52": {
+   "atp": {
+    "evaluation": 36104,
+    "market": 22402
+   },
+   "wta": {
+    "evaluation": 27759,
+    "market": 21182
+   }
+  },
+  "deep_ret|adj|dec2": {
+   "atp": {
+    "evaluation": 54686,
+    "market": 26196
+   },
+   "wta": {
+    "evaluation": 37159,
+    "market": 25420
+   }
+  },
+  "deep_ret|adj|w52": {
+   "atp": {
+    "evaluation": 36154,
+    "market": 22411
+   },
+   "wta": {
+    "evaluation": 27786,
+    "market": 21194
+   }
+  },
+  "bh_ue_share|off|career": {
+   "atp": {
+    "evaluation": 63301,
+    "market": 26667
+   },
+   "wta": {
+    "evaluation": 38856,
+    "market": 25499
+   }
+  },
+  "bh_ue_share|off|dec2": {
+   "atp": {
+    "evaluation": 62961,
+    "market": 26565
+   },
+   "wta": {
+    "evaluation": 38608,
+    "market": 25336
+   }
+  },
+  "bh_ue_share|off|w52": {
+   "atp": {
+    "evaluation": 46914,
+    "market": 23097
+   },
+   "wta": {
+    "evaluation": 29819,
+    "market": 20401
+   }
+  },
+  "fh_win_share|off|career": {
+   "atp": {
+    "evaluation": 63315,
+    "market": 26667
+   },
+   "wta": {
+    "evaluation": 38826,
+    "market": 25473
+   }
+  },
+  "fh_win_share|off|dec2": {
+   "atp": {
+    "evaluation": 62975,
+    "market": 26562
+   },
+   "wta": {
+    "evaluation": 38579,
+    "market": 25314
+   }
+  },
+  "fh_win_share|off|w52": {
+   "atp": {
+    "evaluation": 46923,
+    "market": 23097
+   },
+   "wta": {
+    "evaluation": 29776,
+    "market": 20367
+   }
+  },
+  "consolidate|off|career": {
+   "atp": {
+    "evaluation": 75651,
+    "market": 29714
+   },
+   "wta": {
+    "evaluation": 45053,
+    "market": 29412
+   }
+  },
+  "consolidate|off|dec2": {
+   "atp": {
+    "evaluation": 75335,
+    "market": 29648
+   },
+   "wta": {
+    "evaluation": 44843,
+    "market": 29321
+   }
+  },
+  "consolidate|off|w52": {
+   "atp": {
+    "evaluation": 59532,
+    "market": 28296
+   },
+   "wta": {
+    "evaluation": 38882,
+    "market": 27489
+   }
+  },
+  "consolidate|def|career": {
+   "atp": {
+    "evaluation": 79860,
+    "market": 30013
+   },
+   "wta": {
+    "evaluation": 45784,
+    "market": 29614
+   }
+  },
+  "consolidate|def|dec2": {
+   "atp": {
+    "evaluation": 79507,
+    "market": 29943
+   },
+   "wta": {
+    "evaluation": 45574,
+    "market": 29526
+   }
+  },
+  "consolidate|def|w52": {
+   "atp": {
+    "evaluation": 63494,
+    "market": 28837
+   },
+   "wta": {
+    "evaluation": 39998,
+    "market": 27936
+   }
+  },
+  "consolidate|adj|dec2": {
+   "atp": {
+    "evaluation": 75335,
+    "market": 29648
+   },
+   "wta": {
+    "evaluation": 44843,
+    "market": 29321
+   }
+  },
+  "consolidate|adj|w52": {
+   "atp": {
+    "evaluation": 59532,
+    "market": 28296
+   },
+   "wta": {
+    "evaluation": 38882,
+    "market": 27489
+   }
+  },
+  "break_back|off|career": {
+   "atp": {
+    "evaluation": 79860,
+    "market": 30013
+   },
+   "wta": {
+    "evaluation": 45784,
+    "market": 29614
+   }
+  },
+  "break_back|off|dec2": {
+   "atp": {
+    "evaluation": 79507,
+    "market": 29943
+   },
+   "wta": {
+    "evaluation": 45574,
+    "market": 29526
+   }
+  },
+  "break_back|off|w52": {
+   "atp": {
+    "evaluation": 63494,
+    "market": 28837
+   },
+   "wta": {
+    "evaluation": 39998,
+    "market": 27936
+   }
+  },
+  "break_back|def|career": {
+   "atp": {
+    "evaluation": 75651,
+    "market": 29714
+   },
+   "wta": {
+    "evaluation": 45053,
+    "market": 29412
+   }
+  },
+  "break_back|def|dec2": {
+   "atp": {
+    "evaluation": 75335,
+    "market": 29648
+   },
+   "wta": {
+    "evaluation": 44843,
+    "market": 29321
+   }
+  },
+  "break_back|def|w52": {
+   "atp": {
+    "evaluation": 59532,
+    "market": 28296
+   },
+   "wta": {
+    "evaluation": 38882,
+    "market": 27489
+   }
+  },
+  "break_back|adj|dec2": {
+   "atp": {
+    "evaluation": 79507,
+    "market": 29943
+   },
+   "wta": {
+    "evaluation": 45574,
+    "market": 29526
+   }
+  },
+  "break_back|adj|w52": {
+   "atp": {
+    "evaluation": 63494,
+    "market": 28837
+   },
+   "wta": {
+    "evaluation": 39998,
+    "market": 27936
+   }
+  },
+  "serve_set|off|career": {
+   "atp": {
+    "evaluation": 65268,
+    "market": 28775
+   },
+   "wta": {
+    "evaluation": 39913,
+    "market": 27498
+   }
+  },
+  "serve_set|off|dec2": {
+   "atp": {
+    "evaluation": 65013,
+    "market": 28708
+   },
+   "wta": {
+    "evaluation": 39745,
+    "market": 27410
+   }
+  },
+  "serve_set|off|w52": {
+   "atp": {
+    "evaluation": 49399,
+    "market": 26310
+   },
+   "wta": {
+    "evaluation": 31230,
+    "market": 23741
+   }
+  },
+  "serve_set|def|career": {
+   "atp": {
+    "evaluation": 76835,
+    "market": 29816
+   },
+   "wta": {
+    "evaluation": 44469,
+    "market": 29173
+   }
+  },
+  "serve_set|def|dec2": {
+   "atp": {
+    "evaluation": 76451,
+    "market": 29728
+   },
+   "wta": {
+    "evaluation": 44204,
+    "market": 29052
+   }
+  },
+  "serve_set|def|w52": {
+   "atp": {
+    "evaluation": 59649,
+    "market": 28427
+   },
+   "wta": {
+    "evaluation": 37415,
+    "market": 26781
+   }
+  },
+  "serve_set|adj|dec2": {
+   "atp": {
+    "evaluation": 65013,
+    "market": 28708
+   },
+   "wta": {
+    "evaluation": 39745,
+    "market": 27410
+   }
+  },
+  "serve_set|adj|w52": {
+   "atp": {
+    "evaluation": 49399,
+    "market": 26310
+   },
+   "wta": {
+    "evaluation": 31230,
+    "market": 23741
+   }
+  },
+  "pressure_srv|off|career": {
+   "atp": {
+    "evaluation": 81389,
+    "market": 30082
+   },
+   "wta": {
+    "evaluation": 45860,
+    "market": 29636
+   }
+  },
+  "pressure_srv|off|dec2": {
+   "atp": {
+    "evaluation": 81043,
+    "market": 30018
+   },
+   "wta": {
+    "evaluation": 45650,
+    "market": 29550
+   }
+  },
+  "pressure_srv|off|w52": {
+   "atp": {
+    "evaluation": 65080,
+    "market": 28986
+   },
+   "wta": {
+    "evaluation": 40131,
+    "market": 27985
+   }
+  },
+  "first_in_pressure|off|career": {
+   "atp": {
+    "evaluation": 80729,
+    "market": 29936
+   },
+   "wta": {
+    "evaluation": 45509,
+    "market": 29451
+   }
+  },
+  "first_in_pressure|off|dec2": {
+   "atp": {
+    "evaluation": 80379,
+    "market": 29874
+   },
+   "wta": {
+    "evaluation": 45293,
+    "market": 29352
+   }
+  },
+  "first_in_pressure|off|w52": {
+   "atp": {
+    "evaluation": 64301,
+    "market": 28652
+   },
+   "wta": {
+    "evaluation": 39345,
+    "market": 27554
+   }
+  },
+  "after_loss|off|career": {
+   "atp": {
+    "evaluation": 81398,
+    "market": 30082
+   },
+   "wta": {
+    "evaluation": 45860,
+    "market": 29636
+   }
+  },
+  "after_loss|off|dec2": {
+   "atp": {
+    "evaluation": 81054,
+    "market": 30022
+   },
+   "wta": {
+    "evaluation": 45648,
+    "market": 29547
+   }
+  },
+  "after_loss|off|w52": {
+   "atp": {
+    "evaluation": 65106,
+    "market": 28987
+   },
+   "wta": {
+    "evaluation": 40135,
+    "market": 27988
+   }
+  },
+  "spd1_change|off|dec2-w52": {
+   "atp": {
+    "evaluation": 43445,
+    "market": 23369
+   },
+   "wta": {
+    "evaluation": 28570,
+    "market": 21953
+   }
+  },
+  "rally_edge|x_long|w52": {
+   "atp": {
+    "evaluation": 51695,
+    "market": 24470
+   },
+   "wta": {
+    "evaluation": 29874,
+    "market": 22459
+   }
+  }
+ }
+}

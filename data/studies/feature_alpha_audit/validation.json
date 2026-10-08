@@ -1,0 +1,20 @@
+{
+  "date": "2026-10-02",
+  "interpreter": "C:/Users/zerom/miniforge3/envs/tennis/python.exe via ./python.sh",
+  "invocation_environment": "Prepend tennis/Library/bin to PATH; no shim or environment changes",
+  "original_tests": {
+    "main_command": "./python.sh -m pytest test/predictability_diagnostic test/ufc_ideas -q",
+    "main_result": "286 passed, 4 setup errors from inaccessible default pytest temporary directory",
+    "retry_command": "./python.sh -m pytest test/predictability_diagnostic/test_summary.py test/ufc_ideas/test_common.py -q -p no:cacheprovider --basetemp=data/studies/feature_alpha_audit/pytest_original_retry_20261002",
+    "retry_result": "26 passed; includes all 4 initially blocked tests and 22 repeated tests",
+    "unique_original_tests_passed": 290
+  },
+  "audit_tests": {
+    "command": "./python.sh -m pytest test/feature_alpha_audit -q -p no:cacheprovider --basetemp=data/studies/feature_alpha_audit/pytest_audit_20261002",
+    "result": "10 passed in 2.12s",
+    "checks": ["future data isolation", "actual side-swapped model fits", "prior-only regularization selection", "clustered uncertainty under duplicate observations", "calendar date mapping", "same-week history exclusion", "restricted feature builder versus original implementation"]
+  },
+  "earlier_environment_failure": "A first original-suite invocation without Library/bin on PATH hit a Windows numerical-DLL exception. The subsequent per-process PATH setup resolved it.",
+  "original_integrity": "original_unchanged.json records the final hash comparison",
+  "report_verification": "report_check.json records local-link checks and desktop/mobile headless-browser checks; report_desktop.png and report_mobile.png were visually inspected"
+}

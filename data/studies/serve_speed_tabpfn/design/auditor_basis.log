@@ -1,0 +1,28 @@
+[    2.1s] panels: ks_first 42902, pm_first 42907
+[    5.5s]  year    bases  matches        mse  share_abs_resid_gt_25  mse_without_gt_25
+ 2019 both_pts      227  37.765507               0.004405          28.346700
+ 2020 both_pts      222  37.970711               0.004505          35.186567
+ 2021  both_ks      264  79.748385               0.018939          44.932540
+ 2021 both_pts      358  36.968037               0.002793          35.027328
+ 2022  both_ks     1411  70.007601               0.018427          45.699472
+ 2022 both_pts      386  50.233939               0.010363          35.226957
+ 2023  both_ks     1731 188.832080               0.046216          67.999862
+ 2023 both_pts      392  38.256233               0.002551          36.116205
+[    5.5s] {"huber10_frozen_minus_asof": {"est": 1.06018, "lo": 0.48709, "hi": 1.56631}, "mse_trimmed_frozen_minus_asof": {"est": 2.45273, "lo": 0.91991, "hi": 3.8256}, "matches": 2129, "matches_trimmed": 2046, "key": "positive = as-of better (lower loss); km/h^2; 95% four-week-block bootstrap"}
+[    9.3s] {"matches": 1136, "mse_ks_history": 41.92016, "mse_pm_history": 36.06101, "ks_minus_pm": {"est": 5.85915, "lo": 0.25287, "hi": 14.47478}, "corr_df_ks_vs_pm": 0.93416, "key": "positive ks_minus_pm = the point-mean history forecasts the point-mean target better"}
+C:\Users\zerom\Documents\Tennis-predictions\src\eda\serve_speed_tabpfn\design\auditor_basis.py:158: Pandas4Warning: Starting with pandas version 4.0 all arguments of sum will be keyword-only.
+  c = (c.T / c.sum(1)).T.round(3)
+C:\Users\zerom\Documents\Tennis-predictions\src\eda\serve_speed_tabpfn\design\auditor_basis.py:158: Pandas4Warning: Starting with pandas version 4.0 all arguments of sum will be keyword-only.
+  c = (c.T / c.sum(1)).T.round(3)
+[   17.7s]  season  slam  matches  sd_ks_first  sd_pm_first     corr  share_diff_gt_1sd
+   2022 False     2102     2.146266     2.070173 0.930347           0.025690
+   2022  True      504     2.168026     2.066277 0.926450           0.015873
+   2023 False     2169     2.283130     2.188390 0.920037           0.042416
+   2023  True      507     2.306380     2.086082 0.916838           0.021696
+   2024 False     2172     2.589051     2.500074 0.911229           0.041897
+   2024  True      504     2.357378     2.294835 0.958029           0.015873
+   2025 False     2115     2.258666     2.249070 0.984176           0.005201
+   2025  True      505     2.343458     2.356023 0.995204           0.001980
+   2026 False     1397     2.707212     2.711275 0.999768           0.000000
+   2026  True      377     2.644879     2.643798 0.999758           0.000000
+[   17.7s] [{"panel": "ks", "non_slam_sides_28d_history_mix": {"2022": {"ks_only": 0.546, "mixed": 0.106, "none": 0.23, "pts_only": 0.118}, "2023": {"ks_only": 0.596, "mixed": 0.101, "none": 0.228, "pts_only": 0.075}, "2024": {"ks_only": 0.69, "mixed": 0.117, "none": 0.133, "pts_only": 0.06}, "2025": {"ks_only": 0.523, "mixed": 0.12, "none": 0.189, "pts_only": 0.168}, "2026": {"ks_only": 0.547, "mixed": 0.149, "none": 0.135, "pts_only": 0.17}}}, {"panel": "pm", "non_slam_sides_28d_history_mix": {"2022": {"ks_only": 0.041, "mixed": 0.218, "none": 0.23, "pts_only": 0.51}, "2023": {"ks_only": 0.03, "mixed": 0.254, "none": 0.228, "pts_only": 0.488}, "2024": {"ks_only": 0.029, "mixed": 0.373, "none": 0.133, "pts_only": 0.465}, "2025": {"ks_only": 0.349, "mixed": 0.187, "none": 0.189, "pts_only": 0.275}, "2026": {"ks_only": 0.547, "mixed": 0.149, "none": 0.135, "pts_only": 0.17}}}]

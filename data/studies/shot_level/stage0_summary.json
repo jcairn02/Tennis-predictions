@@ -1,0 +1,3078 @@
+{
+ "earlier_studies": {
+  "box_fields": [
+   "ace",
+   "df",
+   "svpt",
+   "first_in",
+   "first_won",
+   "second_won",
+   "sv_gms",
+   "bp_saved",
+   "bp_faced"
+  ],
+  "rates": [
+   "spw",
+   "rpw",
+   "tpw",
+   "hold",
+   "brk",
+   "ace",
+   "df",
+   "first_in",
+   "first_won",
+   "second_won",
+   "bp_saved",
+   "bp_conv",
+   "bp_faced_pg",
+   "tb_won",
+   "sets_won",
+   "games_won"
+  ],
+  "point_by_point_features": [
+   "Stage 2: big points in the Grand Slam point-by-point files (an analysis, src/eda/predictability_diagnostic/stage2_pbp.py)",
+   "Stage 4: big-point play on return (stage4_features.pbp_history)",
+   "UFC ideas Stage C: late-match decline (stageC_fatigue.py)"
+  ],
+  "shot_level_fields_used": []
+ },
+ "stage0_matches_with_shot_data": 82100,
+ "source_matches_total": 102466,
+ "sources": [
+  {
+   "source": "mcp",
+   "name": "Match Charting Project",
+   "grain": "shot",
+   "tours": [
+    "M",
+    "W"
+   ],
+   "matches": 11830,
+   "linked": 9336,
+   "link_rate": 0.789,
+   "linked_from_2010": 9336,
+   "matches_from_2010": 9429,
+   "years": [
+    2010,
+    2026
+   ],
+   "points": 1438299,
+   "linked_with": {
+    "rally": 9306,
+    "ending": 9306,
+    "speed": 0,
+    "placement": 9306,
+    "net": 9291,
+    "return": 8421,
+    "stroke": 9305,
+    "tracking": 0
+   },
+   "link_rate_from_2010": 0.99
+  },
+  {
+   "source": "infosys",
+   "name": "ATP Infosys Stats Centre (Hugging Face handoff)",
+   "grain": "point+",
+   "tours": [
+    "M"
+   ],
+   "matches": 37908,
+   "linked": 36876,
+   "link_rate": 0.973,
+   "linked_from_2010": 36876,
+   "matches_from_2010": 37908,
+   "years": [
+    2018,
+    2025
+   ],
+   "points": 4437046,
+   "linked_with": {
+    "rally": 4936,
+    "ending": 6312,
+    "speed": 6028,
+    "placement": 0,
+    "net": 6311,
+    "return": 0,
+    "stroke": 6308,
+    "tracking": 0
+   },
+   "link_rate_from_2010": 0.973
+  },
+  {
+   "source": "court_vision",
+   "name": "Hawk-Eye Court Vision, ATP (Hugging Face handoff)",
+   "grain": "shot",
+   "tours": [
+    "M"
+   ],
+   "matches": 4570,
+   "linked": 4463,
+   "link_rate": 0.977,
+   "linked_from_2010": 4463,
+   "matches_from_2010": 4570,
+   "years": [
+    2018,
+    2024
+   ],
+   "points": 903596,
+   "linked_with": {
+    "rally": 0,
+    "ending": 0,
+    "speed": 0,
+    "placement": 0,
+    "net": 0,
+    "return": 0,
+    "stroke": 0,
+    "tracking": 4402
+   },
+   "link_rate_from_2010": 0.977
+  },
+  {
+   "source": "slam_pbp",
+   "name": "Sackmann's Grand Slam point-by-point (IBM and Infosys feeds)",
+   "grain": "point+",
+   "tours": [
+    "M",
+    "W"
+   ],
+   "matches": 10508,
+   "linked": 10470,
+   "link_rate": 0.996,
+   "linked_from_2010": 10470,
+   "matches_from_2010": 10508,
+   "years": [
+    2011,
+    2024
+   ],
+   "points": 1922136,
+   "linked_with": {
+    "rally": 6710,
+    "ending": 10460,
+    "speed": 8103,
+    "placement": 4136,
+    "net": 8443,
+    "return": 3653,
+    "stroke": 17,
+    "tracking": 0
+   },
+   "link_rate_from_2010": 0.996
+  },
+  {
+   "source": "slamtracker",
+   "name": "Wimbledon and US Open scoring feeds (IBM SlamTracker)",
+   "grain": "point+",
+   "tours": [
+    "M",
+    "W"
+   ],
+   "matches": 5162,
+   "linked": 4938,
+   "link_rate": 0.957,
+   "linked_from_2010": 4938,
+   "matches_from_2010": 5162,
+   "years": [
+    2019,
+    2026
+   ],
+   "points": 881597,
+   "linked_with": {
+    "rally": 3839,
+    "ending": 4920,
+    "speed": 3226,
+    "placement": 3553,
+    "net": 4920,
+    "return": 3535,
+    "stroke": 5,
+    "tracking": 0
+   },
+   "link_rate_from_2010": 0.957
+  },
+  {
+   "source": "ausopen",
+   "name": "Australian Open match centre 2026",
+   "grain": "point+",
+   "tours": [
+    "M",
+    "W"
+   ],
+   "matches": 532,
+   "linked": 532,
+   "link_rate": 1.0,
+   "linked_from_2010": 532,
+   "matches_from_2010": 532,
+   "years": [
+    2020,
+    2026
+   ],
+   "points": 74567,
+   "linked_with": {
+    "rally": 0,
+    "ending": 532,
+    "speed": 0,
+    "placement": 0,
+    "net": 0,
+    "return": 0,
+    "stroke": 532,
+    "tracking": 0
+   },
+   "link_rate_from_2010": 1.0
+  },
+  {
+   "source": "tdi",
+   "name": "TDI Tennis Results (ATP)",
+   "grain": "point+",
+   "tours": [
+    "M"
+   ],
+   "matches": 4698,
+   "linked": 3146,
+   "link_rate": 0.67,
+   "linked_from_2010": 3146,
+   "matches_from_2010": 4698,
+   "years": [
+    2025,
+    2026
+   ],
+   "points": 665504,
+   "linked_with": {
+    "rally": 3084,
+    "ending": 3086,
+    "speed": 0,
+    "placement": 0,
+    "net": 3076,
+    "return": 0,
+    "stroke": 3086,
+    "tracking": 0
+   },
+   "link_rate_from_2010": 0.67
+  },
+  {
+   "source": "sirgenkii",
+   "name": "SirGenkii infotennis (ATP Stats Centre, Jan-Apr 2025)",
+   "grain": "point+",
+   "tours": [
+    "M"
+   ],
+   "matches": 922,
+   "linked": 902,
+   "link_rate": 0.978,
+   "linked_from_2010": 902,
+   "matches_from_2010": 922,
+   "years": [
+    2025,
+    2025
+   ],
+   "points": 136928,
+   "linked_with": {
+    "rally": 902,
+    "ending": 902,
+    "speed": 365,
+    "placement": 902,
+    "net": 52,
+    "return": 0,
+    "stroke": 902,
+    "tracking": 0
+   },
+   "link_rate_from_2010": 0.978
+  },
+  {
+   "source": "wta_advanced",
+   "name": "WTA official API, advanced statistics",
+   "grain": "totals",
+   "tours": [
+    "W"
+   ],
+   "matches": 24309,
+   "linked": 22130,
+   "link_rate": 0.91,
+   "linked_from_2010": 22130,
+   "matches_from_2010": 24309,
+   "years": [
+    2021,
+    2026
+   ],
+   "points": 0,
+   "linked_with": {
+    "rally": 0,
+    "ending": 19018,
+    "speed": 0,
+    "placement": 0,
+    "net": 6215,
+    "return": 0,
+    "stroke": 6372,
+    "tracking": 0
+   },
+   "link_rate_from_2010": 0.91
+  },
+  {
+   "source": "slam_tracking",
+   "name": "Hawk-Eye Court Vision at the Australian Open and Roland Garros (GitHub copy)",
+   "grain": "shot",
+   "tours": [
+    "M",
+    "W"
+   ],
+   "matches": 2027,
+   "linked": 2021,
+   "link_rate": 0.997,
+   "linked_from_2010": 2021,
+   "matches_from_2010": 2027,
+   "years": [
+    2019,
+    2024
+   ],
+   "points": 503586,
+   "linked_with": {
+    "rally": 1973,
+    "ending": 2021,
+    "speed": 1897,
+    "placement": 1765,
+    "net": 0,
+    "return": 1700,
+    "stroke": 1716,
+    "tracking": 1221
+   },
+   "link_rate_from_2010": 0.997
+  }
+ ],
+ "source_notes": {
+  "mcp": [
+   "M: 7566 charts listed, 5570 with points staged (the staged points start in 2010)",
+   "W: 4264 charts listed, 3844 with points staged (the staged points start in 2010)",
+   "Rally length, serve direction (wide/body/T), return depth, how the point ended, net approaches and the stroke of every shot are parsed from each point's shot string; the point is played from the second-serve string when the first is a fault"
+  ],
+  "infosys": [
+   "37908 distinct matches (37908 singles: codes MS and QS); doubles left out",
+   "Rally length is the shot that ended the point (serve, return, 3rd ... 8th, then '9+ odd' and '10+ even'); serve speed, serve direction, net flags and stroke per point; per-set key statistics (winners, unforced errors, net points won, serve speeds) are counted as match totals"
+  ],
+  "court_vision": [
+   "4570 files; 4566 placed through an Infosys record of the same year, tournament and match code; 0 unreadable",
+   "Counted as ball tracking only here; its per-stroke fields (speeds, spin, positions) use obfuscated keys that a later stage would decode against the readable Slam copy"
+  ],
+  "slam_pbp": [
+   "Ending counts points flagged ace, double fault, winner, unforced or forced error; net play counts points with a net-point flag; which columns are filled varies by Slam and year"
+  ],
+  "slamtracker": [
+   "Ending counts points flagged winner, unforced error, ace or double fault (forced errors are not flagged in these feeds, so about two thirds of points carry an ending)"
+  ],
+  "slam_tracking": [
+   "Dated three days after the Slam's first day, as the data map does (the copy has no match dates); every stroke's trajectory only for 2022-2024"
+  ],
+  "wta_advanced": [
+   "29361 singles matches listed 2019-2026; 24309 with an advanced-statistics file on disk (raw files read directly; the staged table holds a sample only; the download chain that writes other files beside them was left running)"
+  ]
+ },
+ "thresholds": {
+  "rally": 0.5,
+  "ending": 0.4,
+  "speed": 0.4,
+  "placement": 0.4,
+  "net": null,
+  "return": 0.4,
+  "stroke": 0.4,
+  "tracking": 0.5
+ },
+ "coverage": {
+  "atp|rally": {
+   "market_52w_k3": {
+    "eligible": 31683,
+    "covered": 19990,
+    "share": 0.631,
+    "mde_single_input": 0.938,
+    "mde_profile": 1.682,
+    "mde_family_wide": 1.982
+   },
+   "market_13w_k3": {
+    "eligible": 31683,
+    "covered": 10870,
+    "share": 0.343,
+    "mde_single_input": 1.726,
+    "mde_profile": 3.093,
+    "mde_family_wide": 3.645
+   },
+   "market_career_k3": {
+    "eligible": 31683,
+    "covered": 25081,
+    "share": 0.792,
+    "mde_single_input": 0.748,
+    "mde_profile": 1.34,
+    "mde_family_wide": 1.58
+   },
+   "market_52w_k1": {
+    "eligible": 31683,
+    "covered": 25104,
+    "share": 0.792,
+    "mde_single_input": 0.747,
+    "mde_profile": 1.339,
+    "mde_family_wide": 1.578
+   },
+   "market_52w_k10": {
+    "eligible": 31683,
+    "covered": 10648,
+    "share": 0.336,
+    "mde_single_input": 1.762,
+    "mde_profile": 3.157,
+    "mde_family_wide": 3.721
+   },
+   "recent_52w_k3": {
+    "eligible": 12352,
+    "covered": 11337,
+    "share": 0.918,
+    "mde_single_input": 1.654,
+    "mde_profile": 2.965,
+    "mde_family_wide": 3.494
+   },
+   "recent_13w_k3": {
+    "eligible": 12352,
+    "covered": 7544,
+    "share": 0.611,
+    "mde_single_input": 2.486,
+    "mde_profile": 4.456,
+    "mde_family_wide": 5.251
+   },
+   "evaluation_52w_k3": {
+    "eligible": 155130,
+    "covered": 33477,
+    "share": 0.216,
+    "mde_single_input": 0.56,
+    "mde_profile": 1.004,
+    "mde_family_wide": 1.183
+   },
+   "repaired_52w_k3": {
+    "eligible": 31496,
+    "covered": 17624,
+    "share": 0.56,
+    "mde_single_input": 1.064,
+    "mde_profile": 1.908,
+    "mde_family_wide": 2.248
+   },
+   "repaired_2019_26_52w_k3": {
+    "eligible": 18563,
+    "covered": 14176,
+    "share": 0.764,
+    "mde_single_input": 1.323,
+    "mde_profile": 2.372,
+    "mde_family_wide": 2.795
+   },
+   "repaired_2019_26_13w_k3": {
+    "eligible": 18563,
+    "covered": 8202,
+    "share": 0.442,
+    "mde_single_input": 2.287,
+    "mde_profile": 4.099,
+    "mde_family_wide": 4.83
+   },
+   "repaired_2022_26_52w_k3": {
+    "eligible": 12286,
+    "covered": 10006,
+    "share": 0.814,
+    "mde_single_input": 1.875,
+    "mde_profile": 3.36,
+    "mde_family_wide": 3.959
+   }
+  },
+  "atp|ending": {
+   "market_52w_k3": {
+    "eligible": 31683,
+    "covered": 24986,
+    "share": 0.789,
+    "mde_single_input": 0.751,
+    "mde_profile": 1.346,
+    "mde_family_wide": 1.586
+   },
+   "market_13w_k3": {
+    "eligible": 31683,
+    "covered": 13177,
+    "share": 0.416,
+    "mde_single_input": 1.423,
+    "mde_profile": 2.551,
+    "mde_family_wide": 3.006
+   },
+   "market_career_k3": {
+    "eligible": 31683,
+    "covered": 28209,
+    "share": 0.89,
+    "mde_single_input": 0.665,
+    "mde_profile": 1.192,
+    "mde_family_wide": 1.404
+   },
+   "market_52w_k1": {
+    "eligible": 31683,
+    "covered": 29021,
+    "share": 0.916,
+    "mde_single_input": 0.646,
+    "mde_profile": 1.158,
+    "mde_family_wide": 1.365
+   },
+   "market_52w_k10": {
+    "eligible": 31683,
+    "covered": 12696,
+    "share": 0.401,
+    "mde_single_input": 1.477,
+    "mde_profile": 2.648,
+    "mde_family_wide": 3.12
+   },
+   "recent_52w_k3": {
+    "eligible": 12352,
+    "covered": 11673,
+    "share": 0.945,
+    "mde_single_input": 1.607,
+    "mde_profile": 2.88,
+    "mde_family_wide": 3.394
+   },
+   "recent_13w_k3": {
+    "eligible": 12352,
+    "covered": 8406,
+    "share": 0.681,
+    "mde_single_input": 2.231,
+    "mde_profile": 3.999,
+    "mde_family_wide": 4.713
+   },
+   "evaluation_52w_k3": {
+    "eligible": 155130,
+    "covered": 41838,
+    "share": 0.27,
+    "mde_single_input": 0.448,
+    "mde_profile": 0.804,
+    "mde_family_wide": 0.947
+   },
+   "repaired_52w_k3": {
+    "eligible": 31496,
+    "covered": 22601,
+    "share": 0.718,
+    "mde_single_input": 0.83,
+    "mde_profile": 1.487,
+    "mde_family_wide": 1.753
+   },
+   "repaired_2019_26_52w_k3": {
+    "eligible": 18563,
+    "covered": 14500,
+    "share": 0.781,
+    "mde_single_input": 1.294,
+    "mde_profile": 2.319,
+    "mde_family_wide": 2.732
+   },
+   "repaired_2019_26_13w_k3": {
+    "eligible": 18563,
+    "covered": 8884,
+    "share": 0.479,
+    "mde_single_input": 2.111,
+    "mde_profile": 3.784,
+    "mde_family_wide": 4.459
+   },
+   "repaired_2022_26_52w_k3": {
+    "eligible": 12286,
+    "covered": 10327,
+    "share": 0.841,
+    "mde_single_input": 1.816,
+    "mde_profile": 3.255,
+    "mde_family_wide": 3.836
+   }
+  },
+  "atp|speed": {
+   "market_52w_k3": {
+    "eligible": 31683,
+    "covered": 18877,
+    "share": 0.596,
+    "mde_single_input": 0.994,
+    "mde_profile": 1.781,
+    "mde_family_wide": 2.099
+   },
+   "market_13w_k3": {
+    "eligible": 31683,
+    "covered": 8224,
+    "share": 0.26,
+    "mde_single_input": 2.281,
+    "mde_profile": 4.088,
+    "mde_family_wide": 4.817
+   },
+   "market_career_k3": {
+    "eligible": 31683,
+    "covered": 25464,
+    "share": 0.804,
+    "mde_single_input": 0.737,
+    "mde_profile": 1.32,
+    "mde_family_wide": 1.556
+   },
+   "market_52w_k1": {
+    "eligible": 31683,
+    "covered": 26690,
+    "share": 0.842,
+    "mde_single_input": 0.703,
+    "mde_profile": 1.26,
+    "mde_family_wide": 1.484
+   },
+   "market_52w_k10": {
+    "eligible": 31683,
+    "covered": 8380,
+    "share": 0.264,
+    "mde_single_input": 2.238,
+    "mde_profile": 4.012,
+    "mde_family_wide": 4.727
+   },
+   "recent_52w_k3": {
+    "eligible": 12352,
+    "covered": 10516,
+    "share": 0.851,
+    "mde_single_input": 1.784,
+    "mde_profile": 3.197,
+    "mde_family_wide": 3.767
+   },
+   "recent_13w_k3": {
+    "eligible": 12352,
+    "covered": 6384,
+    "share": 0.517,
+    "mde_single_input": 2.938,
+    "mde_profile": 5.266,
+    "mde_family_wide": 6.206
+   },
+   "evaluation_52w_k3": {
+    "eligible": 155130,
+    "covered": 27289,
+    "share": 0.176,
+    "mde_single_input": 0.687,
+    "mde_profile": 1.232,
+    "mde_family_wide": 1.452
+   },
+   "repaired_52w_k3": {
+    "eligible": 31496,
+    "covered": 17145,
+    "share": 0.544,
+    "mde_single_input": 1.094,
+    "mde_profile": 1.961,
+    "mde_family_wide": 2.311
+   },
+   "repaired_2019_26_52w_k3": {
+    "eligible": 18563,
+    "covered": 11422,
+    "share": 0.615,
+    "mde_single_input": 1.642,
+    "mde_profile": 2.943,
+    "mde_family_wide": 3.468
+   },
+   "repaired_2019_26_13w_k3": {
+    "eligible": 18563,
+    "covered": 5965,
+    "share": 0.321,
+    "mde_single_input": 3.144,
+    "mde_profile": 5.636,
+    "mde_family_wide": 6.641
+   },
+   "repaired_2022_26_52w_k3": {
+    "eligible": 12286,
+    "covered": 9371,
+    "share": 0.763,
+    "mde_single_input": 2.002,
+    "mde_profile": 3.588,
+    "mde_family_wide": 4.228
+   }
+  },
+  "atp|placement": {
+   "market_52w_k3": {
+    "eligible": 31683,
+    "covered": 16508,
+    "share": 0.521,
+    "mde_single_input": 1.136,
+    "mde_profile": 2.037,
+    "mde_family_wide": 2.4
+   },
+   "market_13w_k3": {
+    "eligible": 31683,
+    "covered": 6203,
+    "share": 0.196,
+    "mde_single_input": 3.024,
+    "mde_profile": 5.42,
+    "mde_family_wide": 6.387
+   },
+   "market_career_k3": {
+    "eligible": 31683,
+    "covered": 23140,
+    "share": 0.73,
+    "mde_single_input": 0.811,
+    "mde_profile": 1.453,
+    "mde_family_wide": 1.712
+   },
+   "market_52w_k1": {
+    "eligible": 31683,
+    "covered": 23770,
+    "share": 0.75,
+    "mde_single_input": 0.789,
+    "mde_profile": 1.414,
+    "mde_family_wide": 1.667
+   },
+   "market_52w_k10": {
+    "eligible": 31683,
+    "covered": 5993,
+    "share": 0.189,
+    "mde_single_input": 3.13,
+    "mde_profile": 5.61,
+    "mde_family_wide": 6.61
+   },
+   "recent_52w_k3": {
+    "eligible": 12352,
+    "covered": 9854,
+    "share": 0.798,
+    "mde_single_input": 1.903,
+    "mde_profile": 3.412,
+    "mde_family_wide": 4.02
+   },
+   "recent_13w_k3": {
+    "eligible": 12352,
+    "covered": 4252,
+    "share": 0.344,
+    "mde_single_input": 4.411,
+    "mde_profile": 7.907,
+    "mde_family_wide": 9.317
+   },
+   "evaluation_52w_k3": {
+    "eligible": 155130,
+    "covered": 21558,
+    "share": 0.139,
+    "mde_single_input": 0.87,
+    "mde_profile": 1.559,
+    "mde_family_wide": 1.838
+   },
+   "repaired_52w_k3": {
+    "eligible": 31496,
+    "covered": 14592,
+    "share": 0.463,
+    "mde_single_input": 1.285,
+    "mde_profile": 2.304,
+    "mde_family_wide": 2.715
+   },
+   "repaired_2019_26_52w_k3": {
+    "eligible": 18563,
+    "covered": 11977,
+    "share": 0.645,
+    "mde_single_input": 1.566,
+    "mde_profile": 2.807,
+    "mde_family_wide": 3.308
+   },
+   "repaired_2019_26_13w_k3": {
+    "eligible": 18563,
+    "covered": 4880,
+    "share": 0.263,
+    "mde_single_input": 3.844,
+    "mde_profile": 6.889,
+    "mde_family_wide": 8.118
+   },
+   "repaired_2022_26_52w_k3": {
+    "eligible": 12286,
+    "covered": 8939,
+    "share": 0.728,
+    "mde_single_input": 2.098,
+    "mde_profile": 3.761,
+    "mde_family_wide": 4.432
+   }
+  },
+  "atp|net": {
+   "market_52w_k3": {
+    "eligible": 31683,
+    "covered": 23560,
+    "share": 0.744,
+    "mde_single_input": 0.796,
+    "mde_profile": 1.427,
+    "mde_family_wide": 1.682
+   },
+   "market_13w_k3": {
+    "eligible": 31683,
+    "covered": 11032,
+    "share": 0.348,
+    "mde_single_input": 1.7,
+    "mde_profile": 3.047,
+    "mde_family_wide": 3.591
+   },
+   "market_career_k3": {
+    "eligible": 31683,
+    "covered": 27970,
+    "share": 0.883,
+    "mde_single_input": 0.671,
+    "mde_profile": 1.202,
+    "mde_family_wide": 1.416
+   },
+   "market_52w_k1": {
+    "eligible": 31683,
+    "covered": 28694,
+    "share": 0.906,
+    "mde_single_input": 0.654,
+    "mde_profile": 1.172,
+    "mde_family_wide": 1.381
+   },
+   "market_52w_k10": {
+    "eligible": 31683,
+    "covered": 10769,
+    "share": 0.34,
+    "mde_single_input": 1.742,
+    "mde_profile": 3.122,
+    "mde_family_wide": 3.679
+   },
+   "recent_52w_k3": {
+    "eligible": 12352,
+    "covered": 11398,
+    "share": 0.923,
+    "mde_single_input": 1.646,
+    "mde_profile": 2.95,
+    "mde_family_wide": 3.476
+   },
+   "recent_13w_k3": {
+    "eligible": 12352,
+    "covered": 7225,
+    "share": 0.585,
+    "mde_single_input": 2.596,
+    "mde_profile": 4.653,
+    "mde_family_wide": 5.483
+   },
+   "evaluation_52w_k3": {
+    "eligible": 155130,
+    "covered": 38205,
+    "share": 0.246,
+    "mde_single_input": 0.491,
+    "mde_profile": 0.88,
+    "mde_family_wide": 1.037
+   },
+   "repaired_52w_k3": {
+    "eligible": 31496,
+    "covered": 20542,
+    "share": 0.652,
+    "mde_single_input": 0.913,
+    "mde_profile": 1.637,
+    "mde_family_wide": 1.929
+   },
+   "repaired_2019_26_52w_k3": {
+    "eligible": 18563,
+    "covered": 12446,
+    "share": 0.67,
+    "mde_single_input": 1.507,
+    "mde_profile": 2.701,
+    "mde_family_wide": 3.183
+   },
+   "repaired_2019_26_13w_k3": {
+    "eligible": 18563,
+    "covered": 6953,
+    "share": 0.375,
+    "mde_single_input": 2.698,
+    "mde_profile": 4.835,
+    "mde_family_wide": 5.698
+   },
+   "repaired_2022_26_52w_k3": {
+    "eligible": 12286,
+    "covered": 9774,
+    "share": 0.796,
+    "mde_single_input": 1.919,
+    "mde_profile": 3.44,
+    "mde_family_wide": 4.053
+   }
+  },
+  "atp|return": {
+   "market_52w_k3": {
+    "eligible": 31683,
+    "covered": 15438,
+    "share": 0.487,
+    "mde_single_input": 1.215,
+    "mde_profile": 2.178,
+    "mde_family_wide": 2.566
+   },
+   "market_13w_k3": {
+    "eligible": 31683,
+    "covered": 4551,
+    "share": 0.144,
+    "mde_single_input": 4.121,
+    "mde_profile": 7.387,
+    "mde_family_wide": 8.705
+   },
+   "market_career_k3": {
+    "eligible": 31683,
+    "covered": 21057,
+    "share": 0.665,
+    "mde_single_input": 0.891,
+    "mde_profile": 1.597,
+    "mde_family_wide": 1.881
+   },
+   "market_52w_k1": {
+    "eligible": 31683,
+    "covered": 23224,
+    "share": 0.733,
+    "mde_single_input": 0.808,
+    "mde_profile": 1.448,
+    "mde_family_wide": 1.706
+   },
+   "market_52w_k10": {
+    "eligible": 31683,
+    "covered": 3786,
+    "share": 0.119,
+    "mde_single_input": 4.954,
+    "mde_profile": 8.88,
+    "mde_family_wide": 10.464
+   },
+   "recent_52w_k3": {
+    "eligible": 12352,
+    "covered": 9228,
+    "share": 0.747,
+    "mde_single_input": 2.033,
+    "mde_profile": 3.643,
+    "mde_family_wide": 4.293
+   },
+   "recent_13w_k3": {
+    "eligible": 12352,
+    "covered": 2802,
+    "share": 0.227,
+    "mde_single_input": 6.694,
+    "mde_profile": 11.998,
+    "mde_family_wide": 14.139
+   },
+   "evaluation_52w_k3": {
+    "eligible": 155130,
+    "covered": 19316,
+    "share": 0.125,
+    "mde_single_input": 0.971,
+    "mde_profile": 1.74,
+    "mde_family_wide": 2.051
+   },
+   "repaired_52w_k3": {
+    "eligible": 31496,
+    "covered": 13624,
+    "share": 0.433,
+    "mde_single_input": 1.377,
+    "mde_profile": 2.468,
+    "mde_family_wide": 2.908
+   },
+   "repaired_2019_26_52w_k3": {
+    "eligible": 18563,
+    "covered": 11239,
+    "share": 0.605,
+    "mde_single_input": 1.669,
+    "mde_profile": 2.991,
+    "mde_family_wide": 3.525
+   },
+   "repaired_2019_26_13w_k3": {
+    "eligible": 18563,
+    "covered": 3455,
+    "share": 0.186,
+    "mde_single_input": 5.429,
+    "mde_profile": 9.73,
+    "mde_family_wide": 11.466
+   },
+   "repaired_2022_26_52w_k3": {
+    "eligible": 12286,
+    "covered": 8347,
+    "share": 0.679,
+    "mde_single_input": 2.247,
+    "mde_profile": 4.028,
+    "mde_family_wide": 4.746
+   }
+  },
+  "atp|stroke": {
+   "market_52w_k3": {
+    "eligible": 31683,
+    "covered": 15884,
+    "share": 0.501,
+    "mde_single_input": 1.181,
+    "mde_profile": 2.117,
+    "mde_family_wide": 2.494
+   },
+   "market_13w_k3": {
+    "eligible": 31683,
+    "covered": 8754,
+    "share": 0.276,
+    "mde_single_input": 2.143,
+    "mde_profile": 3.84,
+    "mde_family_wide": 4.526
+   },
+   "market_career_k3": {
+    "eligible": 31683,
+    "covered": 21304,
+    "share": 0.672,
+    "mde_single_input": 0.88,
+    "mde_profile": 1.578,
+    "mde_family_wide": 1.86
+   },
+   "market_52w_k1": {
+    "eligible": 31683,
+    "covered": 22818,
+    "share": 0.72,
+    "mde_single_input": 0.822,
+    "mde_profile": 1.473,
+    "mde_family_wide": 1.736
+   },
+   "market_52w_k10": {
+    "eligible": 31683,
+    "covered": 8818,
+    "share": 0.278,
+    "mde_single_input": 2.127,
+    "mde_profile": 3.813,
+    "mde_family_wide": 4.493
+   },
+   "recent_52w_k3": {
+    "eligible": 12352,
+    "covered": 11146,
+    "share": 0.902,
+    "mde_single_input": 1.683,
+    "mde_profile": 3.016,
+    "mde_family_wide": 3.554
+   },
+   "recent_13w_k3": {
+    "eligible": 12352,
+    "covered": 7585,
+    "share": 0.614,
+    "mde_single_input": 2.473,
+    "mde_profile": 4.432,
+    "mde_family_wide": 5.223
+   },
+   "evaluation_52w_k3": {
+    "eligible": 155130,
+    "covered": 26158,
+    "share": 0.169,
+    "mde_single_input": 0.717,
+    "mde_profile": 1.285,
+    "mde_family_wide": 1.515
+   },
+   "repaired_52w_k3": {
+    "eligible": 31496,
+    "covered": 13785,
+    "share": 0.438,
+    "mde_single_input": 1.361,
+    "mde_profile": 2.439,
+    "mde_family_wide": 2.874
+   },
+   "repaired_2019_26_52w_k3": {
+    "eligible": 18563,
+    "covered": 11955,
+    "share": 0.644,
+    "mde_single_input": 1.569,
+    "mde_profile": 2.812,
+    "mde_family_wide": 3.314
+   },
+   "repaired_2019_26_13w_k3": {
+    "eligible": 18563,
+    "covered": 6998,
+    "share": 0.377,
+    "mde_single_input": 2.68,
+    "mde_profile": 4.804,
+    "mde_family_wide": 5.661
+   },
+   "repaired_2022_26_52w_k3": {
+    "eligible": 12286,
+    "covered": 9809,
+    "share": 0.798,
+    "mde_single_input": 1.912,
+    "mde_profile": 3.427,
+    "mde_family_wide": 4.039
+   }
+  },
+  "atp|tracking": {
+   "market_52w_k3": {
+    "eligible": 31683,
+    "covered": 8511,
+    "share": 0.269,
+    "mde_single_input": 2.204,
+    "mde_profile": 3.95,
+    "mde_family_wide": 4.655
+   },
+   "market_13w_k3": {
+    "eligible": 31683,
+    "covered": 4581,
+    "share": 0.145,
+    "mde_single_input": 4.094,
+    "mde_profile": 7.339,
+    "mde_family_wide": 8.648
+   },
+   "market_career_k3": {
+    "eligible": 31683,
+    "covered": 10751,
+    "share": 0.339,
+    "mde_single_input": 1.745,
+    "mde_profile": 3.127,
+    "mde_family_wide": 3.685
+   },
+   "market_52w_k1": {
+    "eligible": 31683,
+    "covered": 9715,
+    "share": 0.307,
+    "mde_single_input": 1.931,
+    "mde_profile": 3.46,
+    "mde_family_wide": 4.078
+   },
+   "market_52w_k10": {
+    "eligible": 31683,
+    "covered": 5373,
+    "share": 0.17,
+    "mde_single_input": 3.491,
+    "mde_profile": 6.257,
+    "mde_family_wide": 7.373
+   },
+   "recent_52w_k3": {
+    "eligible": 12352,
+    "covered": 8422,
+    "share": 0.682,
+    "mde_single_input": 2.227,
+    "mde_profile": 3.992,
+    "mde_family_wide": 4.704
+   },
+   "recent_13w_k3": {
+    "eligible": 12352,
+    "covered": 4497,
+    "share": 0.364,
+    "mde_single_input": 4.171,
+    "mde_profile": 7.476,
+    "mde_family_wide": 8.809
+   },
+   "evaluation_52w_k3": {
+    "eligible": 155130,
+    "covered": 12407,
+    "share": 0.08,
+    "mde_single_input": 1.512,
+    "mde_profile": 2.71,
+    "mde_family_wide": 3.193
+   },
+   "repaired_52w_k3": {
+    "eligible": 31496,
+    "covered": 7464,
+    "share": 0.237,
+    "mde_single_input": 2.513,
+    "mde_profile": 4.504,
+    "mde_family_wide": 5.308
+   },
+   "repaired_2019_26_52w_k3": {
+    "eligible": 18563,
+    "covered": 7464,
+    "share": 0.402,
+    "mde_single_input": 2.513,
+    "mde_profile": 4.504,
+    "mde_family_wide": 5.308
+   },
+   "repaired_2019_26_13w_k3": {
+    "eligible": 18563,
+    "covered": 3833,
+    "share": 0.206,
+    "mde_single_input": 4.893,
+    "mde_profile": 8.771,
+    "mde_family_wide": 10.336
+   },
+   "repaired_2022_26_52w_k3": {
+    "eligible": 12286,
+    "covered": 7394,
+    "share": 0.602,
+    "mde_single_input": 2.537,
+    "mde_profile": 4.547,
+    "mde_family_wide": 5.358
+   }
+  },
+  "atp|any": {
+   "market_52w_k3": {
+    "eligible": 31683,
+    "covered": 24999,
+    "share": 0.789,
+    "mde_single_input": 0.75,
+    "mde_profile": 1.345,
+    "mde_family_wide": 1.585
+   },
+   "market_13w_k3": {
+    "eligible": 31683,
+    "covered": 13186,
+    "share": 0.416,
+    "mde_single_input": 1.422,
+    "mde_profile": 2.55,
+    "mde_family_wide": 3.004
+   },
+   "market_career_k3": {
+    "eligible": 31683,
+    "covered": 28210,
+    "share": 0.89,
+    "mde_single_input": 0.665,
+    "mde_profile": 1.192,
+    "mde_family_wide": 1.404
+   },
+   "market_52w_k1": {
+    "eligible": 31683,
+    "covered": 29021,
+    "share": 0.916,
+    "mde_single_input": 0.646,
+    "mde_profile": 1.158,
+    "mde_family_wide": 1.365
+   },
+   "market_52w_k10": {
+    "eligible": 31683,
+    "covered": 12701,
+    "share": 0.401,
+    "mde_single_input": 1.477,
+    "mde_profile": 2.647,
+    "mde_family_wide": 3.119
+   },
+   "recent_52w_k3": {
+    "eligible": 12352,
+    "covered": 11684,
+    "share": 0.946,
+    "mde_single_input": 1.605,
+    "mde_profile": 2.877,
+    "mde_family_wide": 3.391
+   },
+   "recent_13w_k3": {
+    "eligible": 12352,
+    "covered": 8410,
+    "share": 0.681,
+    "mde_single_input": 2.23,
+    "mde_profile": 3.997,
+    "mde_family_wide": 4.711
+   },
+   "evaluation_52w_k3": {
+    "eligible": 155130,
+    "covered": 41880,
+    "share": 0.27,
+    "mde_single_input": 0.448,
+    "mde_profile": 0.803,
+    "mde_family_wide": 0.946
+   },
+   "repaired_52w_k3": {
+    "eligible": 31496,
+    "covered": 22601,
+    "share": 0.718,
+    "mde_single_input": 0.83,
+    "mde_profile": 1.487,
+    "mde_family_wide": 1.753
+   },
+   "repaired_2019_26_52w_k3": {
+    "eligible": 18563,
+    "covered": 14500,
+    "share": 0.781,
+    "mde_single_input": 1.294,
+    "mde_profile": 2.319,
+    "mde_family_wide": 2.732
+   },
+   "repaired_2019_26_13w_k3": {
+    "eligible": 18563,
+    "covered": 8884,
+    "share": 0.479,
+    "mde_single_input": 2.111,
+    "mde_profile": 3.784,
+    "mde_family_wide": 4.459
+   },
+   "repaired_2022_26_52w_k3": {
+    "eligible": 12286,
+    "covered": 10327,
+    "share": 0.841,
+    "mde_single_input": 1.816,
+    "mde_profile": 3.255,
+    "mde_family_wide": 3.836
+   }
+  },
+  "wta|rally": {
+   "market_52w_k3": {
+    "eligible": 32178,
+    "covered": 16876,
+    "share": 0.524,
+    "mde_single_input": 1.111,
+    "mde_profile": 1.992,
+    "mde_family_wide": 2.347
+   },
+   "market_13w_k3": {
+    "eligible": 32178,
+    "covered": 4871,
+    "share": 0.151,
+    "mde_single_input": 3.851,
+    "mde_profile": 6.902,
+    "mde_family_wide": 8.133
+   },
+   "market_career_k3": {
+    "eligible": 32178,
+    "covered": 23568,
+    "share": 0.732,
+    "mde_single_input": 0.796,
+    "mde_profile": 1.426,
+    "mde_family_wide": 1.681
+   },
+   "market_52w_k1": {
+    "eligible": 32178,
+    "covered": 23554,
+    "share": 0.732,
+    "mde_single_input": 0.796,
+    "mde_profile": 1.427,
+    "mde_family_wide": 1.682
+   },
+   "market_52w_k10": {
+    "eligible": 32178,
+    "covered": 3838,
+    "share": 0.119,
+    "mde_single_input": 4.887,
+    "mde_profile": 8.759,
+    "mde_family_wide": 10.322
+   },
+   "recent_52w_k3": {
+    "eligible": 11467,
+    "covered": 8272,
+    "share": 0.721,
+    "mde_single_input": 2.267,
+    "mde_profile": 4.064,
+    "mde_family_wide": 4.789
+   },
+   "recent_13w_k3": {
+    "eligible": 11467,
+    "covered": 2192,
+    "share": 0.191,
+    "mde_single_input": 8.557,
+    "mde_profile": 15.337,
+    "mde_family_wide": 18.073
+   },
+   "evaluation_52w_k3": {
+    "eligible": 60321,
+    "covered": 20405,
+    "share": 0.338,
+    "mde_single_input": 0.919,
+    "mde_profile": 1.648,
+    "mde_family_wide": 1.941
+   },
+   "repaired_52w_k3": {
+    "eligible": 32006,
+    "covered": 15321,
+    "share": 0.479,
+    "mde_single_input": 1.224,
+    "mde_profile": 2.194,
+    "mde_family_wide": 2.586
+   },
+   "repaired_2019_26_52w_k3": {
+    "eligible": 17285,
+    "covered": 11201,
+    "share": 0.648,
+    "mde_single_input": 1.675,
+    "mde_profile": 3.001,
+    "mde_family_wide": 3.537
+   },
+   "repaired_2019_26_13w_k3": {
+    "eligible": 17285,
+    "covered": 3210,
+    "share": 0.186,
+    "mde_single_input": 5.843,
+    "mde_profile": 10.473,
+    "mde_family_wide": 12.342
+   },
+   "repaired_2022_26_52w_k3": {
+    "eligible": 11395,
+    "covered": 7218,
+    "share": 0.633,
+    "mde_single_input": 2.599,
+    "mde_profile": 4.658,
+    "mde_family_wide": 5.489
+   }
+  },
+  "wta|ending": {
+   "market_52w_k3": {
+    "eligible": 32178,
+    "covered": 24221,
+    "share": 0.753,
+    "mde_single_input": 0.774,
+    "mde_profile": 1.388,
+    "mde_family_wide": 1.636
+   },
+   "market_13w_k3": {
+    "eligible": 32178,
+    "covered": 14057,
+    "share": 0.437,
+    "mde_single_input": 1.334,
+    "mde_profile": 2.392,
+    "mde_family_wide": 2.818
+   },
+   "market_career_k3": {
+    "eligible": 32178,
+    "covered": 27745,
+    "share": 0.862,
+    "mde_single_input": 0.676,
+    "mde_profile": 1.212,
+    "mde_family_wide": 1.428
+   },
+   "market_52w_k1": {
+    "eligible": 32178,
+    "covered": 28688,
+    "share": 0.892,
+    "mde_single_input": 0.654,
+    "mde_profile": 1.172,
+    "mde_family_wide": 1.381
+   },
+   "market_52w_k10": {
+    "eligible": 32178,
+    "covered": 12906,
+    "share": 0.401,
+    "mde_single_input": 1.453,
+    "mde_profile": 2.605,
+    "mde_family_wide": 3.07
+   },
+   "recent_52w_k3": {
+    "eligible": 11467,
+    "covered": 11062,
+    "share": 0.965,
+    "mde_single_input": 1.696,
+    "mde_profile": 3.039,
+    "mde_family_wide": 3.581
+   },
+   "recent_13w_k3": {
+    "eligible": 11467,
+    "covered": 10124,
+    "share": 0.883,
+    "mde_single_input": 1.853,
+    "mde_profile": 3.321,
+    "mde_family_wide": 3.913
+   },
+   "evaluation_52w_k3": {
+    "eligible": 60321,
+    "covered": 35743,
+    "share": 0.593,
+    "mde_single_input": 0.525,
+    "mde_profile": 0.941,
+    "mde_family_wide": 1.108
+   },
+   "repaired_52w_k3": {
+    "eligible": 32006,
+    "covered": 22569,
+    "share": 0.705,
+    "mde_single_input": 0.831,
+    "mde_profile": 1.49,
+    "mde_family_wide": 1.755
+   },
+   "repaired_2019_26_52w_k3": {
+    "eligible": 17285,
+    "covered": 13967,
+    "share": 0.808,
+    "mde_single_input": 1.343,
+    "mde_profile": 2.407,
+    "mde_family_wide": 2.836
+   },
+   "repaired_2019_26_13w_k3": {
+    "eligible": 17285,
+    "covered": 9258,
+    "share": 0.536,
+    "mde_single_input": 2.026,
+    "mde_profile": 3.631,
+    "mde_family_wide": 4.279
+   },
+   "repaired_2022_26_52w_k3": {
+    "eligible": 11395,
+    "covered": 9984,
+    "share": 0.876,
+    "mde_single_input": 1.879,
+    "mde_profile": 3.367,
+    "mde_family_wide": 3.968
+   }
+  },
+  "wta|speed": {
+   "market_52w_k3": {
+    "eligible": 32178,
+    "covered": 14197,
+    "share": 0.441,
+    "mde_single_input": 1.321,
+    "mde_profile": 2.368,
+    "mde_family_wide": 2.79
+   },
+   "market_13w_k3": {
+    "eligible": 32178,
+    "covered": 2444,
+    "share": 0.076,
+    "mde_single_input": 7.675,
+    "mde_profile": 13.756,
+    "mde_family_wide": 16.21
+   },
+   "market_career_k3": {
+    "eligible": 32178,
+    "covered": 23639,
+    "share": 0.735,
+    "mde_single_input": 0.793,
+    "mde_profile": 1.422,
+    "mde_family_wide": 1.676
+   },
+   "market_52w_k1": {
+    "eligible": 32178,
+    "covered": 24881,
+    "share": 0.773,
+    "mde_single_input": 0.754,
+    "mde_profile": 1.351,
+    "mde_family_wide": 1.592
+   },
+   "market_52w_k10": {
+    "eligible": 32178,
+    "covered": 1145,
+    "share": 0.036,
+    "mde_single_input": 16.381,
+    "mde_profile": 29.361,
+    "mde_family_wide": 34.599
+   },
+   "recent_52w_k3": {
+    "eligible": 11467,
+    "covered": 5924,
+    "share": 0.517,
+    "mde_single_input": 3.166,
+    "mde_profile": 5.675,
+    "mde_family_wide": 6.687
+   },
+   "recent_13w_k3": {
+    "eligible": 11467,
+    "covered": 885,
+    "share": 0.077,
+    "mde_single_input": 21.194,
+    "mde_profile": 37.987,
+    "mde_family_wide": 44.764
+   },
+   "evaluation_52w_k3": {
+    "eligible": 60321,
+    "covered": 15651,
+    "share": 0.259,
+    "mde_single_input": 1.198,
+    "mde_profile": 2.148,
+    "mde_family_wide": 2.531
+   },
+   "repaired_52w_k3": {
+    "eligible": 32006,
+    "covered": 13382,
+    "share": 0.418,
+    "mde_single_input": 1.402,
+    "mde_profile": 2.512,
+    "mde_family_wide": 2.96
+   },
+   "repaired_2019_26_52w_k3": {
+    "eligible": 17285,
+    "covered": 7490,
+    "share": 0.433,
+    "mde_single_input": 2.504,
+    "mde_profile": 4.488,
+    "mde_family_wide": 5.289
+   },
+   "repaired_2019_26_13w_k3": {
+    "eligible": 17285,
+    "covered": 1225,
+    "share": 0.071,
+    "mde_single_input": 15.312,
+    "mde_profile": 27.444,
+    "mde_family_wide": 32.34
+   },
+   "repaired_2022_26_52w_k3": {
+    "eligible": 11395,
+    "covered": 5294,
+    "share": 0.465,
+    "mde_single_input": 3.543,
+    "mde_profile": 6.35,
+    "mde_family_wide": 7.483
+   }
+  },
+  "wta|placement": {
+   "market_52w_k3": {
+    "eligible": 32178,
+    "covered": 13862,
+    "share": 0.431,
+    "mde_single_input": 1.353,
+    "mde_profile": 2.425,
+    "mde_family_wide": 2.858
+   },
+   "market_13w_k3": {
+    "eligible": 32178,
+    "covered": 3757,
+    "share": 0.117,
+    "mde_single_input": 4.992,
+    "mde_profile": 8.948,
+    "mde_family_wide": 10.545
+   },
+   "market_career_k3": {
+    "eligible": 32178,
+    "covered": 21562,
+    "share": 0.67,
+    "mde_single_input": 0.87,
+    "mde_profile": 1.559,
+    "mde_family_wide": 1.837
+   },
+   "market_52w_k1": {
+    "eligible": 32178,
+    "covered": 22079,
+    "share": 0.686,
+    "mde_single_input": 0.85,
+    "mde_profile": 1.523,
+    "mde_family_wide": 1.794
+   },
+   "market_52w_k10": {
+    "eligible": 32178,
+    "covered": 2994,
+    "share": 0.093,
+    "mde_single_input": 6.265,
+    "mde_profile": 11.229,
+    "mde_family_wide": 13.232
+   },
+   "recent_52w_k3": {
+    "eligible": 11467,
+    "covered": 8189,
+    "share": 0.714,
+    "mde_single_input": 2.29,
+    "mde_profile": 4.105,
+    "mde_family_wide": 4.838
+   },
+   "recent_13w_k3": {
+    "eligible": 11467,
+    "covered": 2322,
+    "share": 0.202,
+    "mde_single_input": 8.078,
+    "mde_profile": 14.478,
+    "mde_family_wide": 17.061
+   },
+   "evaluation_52w_k3": {
+    "eligible": 60321,
+    "covered": 16151,
+    "share": 0.268,
+    "mde_single_input": 1.161,
+    "mde_profile": 2.082,
+    "mde_family_wide": 2.453
+   },
+   "repaired_52w_k3": {
+    "eligible": 32006,
+    "covered": 12816,
+    "share": 0.4,
+    "mde_single_input": 1.464,
+    "mde_profile": 2.623,
+    "mde_family_wide": 3.091
+   },
+   "repaired_2019_26_52w_k3": {
+    "eligible": 17285,
+    "covered": 10372,
+    "share": 0.6,
+    "mde_single_input": 1.808,
+    "mde_profile": 3.241,
+    "mde_family_wide": 3.82
+   },
+   "repaired_2019_26_13w_k3": {
+    "eligible": 17285,
+    "covered": 2878,
+    "share": 0.167,
+    "mde_single_input": 6.517,
+    "mde_profile": 11.681,
+    "mde_family_wide": 13.765
+   },
+   "repaired_2022_26_52w_k3": {
+    "eligible": 11395,
+    "covered": 7512,
+    "share": 0.659,
+    "mde_single_input": 2.497,
+    "mde_profile": 4.475,
+    "mde_family_wide": 5.274
+   }
+  },
+  "wta|net": {
+   "market_52w_k3": {
+    "eligible": 32178,
+    "covered": 20975,
+    "share": 0.652,
+    "mde_single_input": 0.894,
+    "mde_profile": 1.603,
+    "mde_family_wide": 1.889
+   },
+   "market_13w_k3": {
+    "eligible": 32178,
+    "covered": 7538,
+    "share": 0.234,
+    "mde_single_input": 2.488,
+    "mde_profile": 4.46,
+    "mde_family_wide": 5.256
+   },
+   "market_career_k3": {
+    "eligible": 32178,
+    "covered": 26910,
+    "share": 0.836,
+    "mde_single_input": 0.697,
+    "mde_profile": 1.249,
+    "mde_family_wide": 1.472
+   },
+   "market_52w_k1": {
+    "eligible": 32178,
+    "covered": 27614,
+    "share": 0.858,
+    "mde_single_input": 0.679,
+    "mde_profile": 1.217,
+    "mde_family_wide": 1.435
+   },
+   "market_52w_k10": {
+    "eligible": 32178,
+    "covered": 5890,
+    "share": 0.183,
+    "mde_single_input": 3.184,
+    "mde_profile": 5.708,
+    "mde_family_wide": 6.726
+   },
+   "recent_52w_k3": {
+    "eligible": 11467,
+    "covered": 9356,
+    "share": 0.816,
+    "mde_single_input": 2.005,
+    "mde_profile": 3.593,
+    "mde_family_wide": 4.234
+   },
+   "recent_13w_k3": {
+    "eligible": 11467,
+    "covered": 4551,
+    "share": 0.397,
+    "mde_single_input": 4.121,
+    "mde_profile": 7.387,
+    "mde_family_wide": 8.705
+   },
+   "evaluation_52w_k3": {
+    "eligible": 60321,
+    "covered": 27510,
+    "share": 0.456,
+    "mde_single_input": 0.682,
+    "mde_profile": 1.222,
+    "mde_family_wide": 1.44
+   },
+   "repaired_52w_k3": {
+    "eligible": 32006,
+    "covered": 18570,
+    "share": 0.58,
+    "mde_single_input": 1.01,
+    "mde_profile": 1.81,
+    "mde_family_wide": 2.133
+   },
+   "repaired_2019_26_52w_k3": {
+    "eligible": 17285,
+    "covered": 10393,
+    "share": 0.601,
+    "mde_single_input": 1.805,
+    "mde_profile": 3.235,
+    "mde_family_wide": 3.812
+   },
+   "repaired_2019_26_13w_k3": {
+    "eligible": 17285,
+    "covered": 4101,
+    "share": 0.237,
+    "mde_single_input": 4.574,
+    "mde_profile": 8.198,
+    "mde_family_wide": 9.66
+   },
+   "repaired_2022_26_52w_k3": {
+    "eligible": 11395,
+    "covered": 7638,
+    "share": 0.67,
+    "mde_single_input": 2.456,
+    "mde_profile": 4.402,
+    "mde_family_wide": 5.187
+   }
+  },
+  "wta|return": {
+   "market_52w_k3": {
+    "eligible": 32178,
+    "covered": 13680,
+    "share": 0.425,
+    "mde_single_input": 1.371,
+    "mde_profile": 2.458,
+    "mde_family_wide": 2.896
+   },
+   "market_13w_k3": {
+    "eligible": 32178,
+    "covered": 3660,
+    "share": 0.114,
+    "mde_single_input": 5.125,
+    "mde_profile": 9.185,
+    "mde_family_wide": 10.824
+   },
+   "market_career_k3": {
+    "eligible": 32178,
+    "covered": 20075,
+    "share": 0.624,
+    "mde_single_input": 0.934,
+    "mde_profile": 1.675,
+    "mde_family_wide": 1.973
+   },
+   "market_52w_k1": {
+    "eligible": 32178,
+    "covered": 21985,
+    "share": 0.683,
+    "mde_single_input": 0.853,
+    "mde_profile": 1.529,
+    "mde_family_wide": 1.802
+   },
+   "market_52w_k10": {
+    "eligible": 32178,
+    "covered": 2891,
+    "share": 0.09,
+    "mde_single_input": 6.488,
+    "mde_profile": 11.629,
+    "mde_family_wide": 13.703
+   },
+   "recent_52w_k3": {
+    "eligible": 11467,
+    "covered": 8142,
+    "share": 0.71,
+    "mde_single_input": 2.304,
+    "mde_profile": 4.129,
+    "mde_family_wide": 4.866
+   },
+   "recent_13w_k3": {
+    "eligible": 11467,
+    "covered": 2259,
+    "share": 0.197,
+    "mde_single_input": 8.303,
+    "mde_profile": 14.882,
+    "mde_family_wide": 17.537
+   },
+   "evaluation_52w_k3": {
+    "eligible": 60321,
+    "covered": 15929,
+    "share": 0.264,
+    "mde_single_input": 1.178,
+    "mde_profile": 2.111,
+    "mde_family_wide": 2.487
+   },
+   "repaired_52w_k3": {
+    "eligible": 32006,
+    "covered": 12651,
+    "share": 0.395,
+    "mde_single_input": 1.483,
+    "mde_profile": 2.657,
+    "mde_family_wide": 3.131
+   },
+   "repaired_2019_26_52w_k3": {
+    "eligible": 17285,
+    "covered": 10310,
+    "share": 0.596,
+    "mde_single_input": 1.819,
+    "mde_profile": 3.261,
+    "mde_family_wide": 3.843
+   },
+   "repaired_2019_26_13w_k3": {
+    "eligible": 17285,
+    "covered": 2802,
+    "share": 0.162,
+    "mde_single_input": 6.694,
+    "mde_profile": 11.998,
+    "mde_family_wide": 14.139
+   },
+   "repaired_2022_26_52w_k3": {
+    "eligible": 11395,
+    "covered": 7478,
+    "share": 0.656,
+    "mde_single_input": 2.508,
+    "mde_profile": 4.496,
+    "mde_family_wide": 5.298
+   }
+  },
+  "wta|stroke": {
+   "market_52w_k3": {
+    "eligible": 32178,
+    "covered": 11233,
+    "share": 0.349,
+    "mde_single_input": 1.67,
+    "mde_profile": 2.993,
+    "mde_family_wide": 3.527
+   },
+   "market_13w_k3": {
+    "eligible": 32178,
+    "covered": 4757,
+    "share": 0.148,
+    "mde_single_input": 3.943,
+    "mde_profile": 7.067,
+    "mde_family_wide": 8.328
+   },
+   "market_career_k3": {
+    "eligible": 32178,
+    "covered": 18498,
+    "share": 0.575,
+    "mde_single_input": 1.014,
+    "mde_profile": 1.817,
+    "mde_family_wide": 2.142
+   },
+   "market_52w_k1": {
+    "eligible": 32178,
+    "covered": 19276,
+    "share": 0.599,
+    "mde_single_input": 0.973,
+    "mde_profile": 1.744,
+    "mde_family_wide": 2.055
+   },
+   "market_52w_k10": {
+    "eligible": 32178,
+    "covered": 3814,
+    "share": 0.119,
+    "mde_single_input": 4.918,
+    "mde_profile": 8.815,
+    "mde_family_wide": 10.387
+   },
+   "recent_52w_k3": {
+    "eligible": 11467,
+    "covered": 7839,
+    "share": 0.684,
+    "mde_single_input": 2.393,
+    "mde_profile": 4.289,
+    "mde_family_wide": 5.054
+   },
+   "recent_13w_k3": {
+    "eligible": 11467,
+    "covered": 4147,
+    "share": 0.362,
+    "mde_single_input": 4.523,
+    "mde_profile": 8.107,
+    "mde_family_wide": 9.553
+   },
+   "evaluation_52w_k3": {
+    "eligible": 60321,
+    "covered": 15115,
+    "share": 0.251,
+    "mde_single_input": 1.241,
+    "mde_profile": 2.224,
+    "mde_family_wide": 2.621
+   },
+   "repaired_52w_k3": {
+    "eligible": 32006,
+    "covered": 10082,
+    "share": 0.315,
+    "mde_single_input": 1.86,
+    "mde_profile": 3.335,
+    "mde_family_wide": 3.929
+   },
+   "repaired_2019_26_52w_k3": {
+    "eligible": 17285,
+    "covered": 8778,
+    "share": 0.508,
+    "mde_single_input": 2.137,
+    "mde_profile": 3.83,
+    "mde_family_wide": 4.513
+   },
+   "repaired_2019_26_13w_k3": {
+    "eligible": 17285,
+    "covered": 3571,
+    "share": 0.207,
+    "mde_single_input": 5.253,
+    "mde_profile": 9.414,
+    "mde_family_wide": 11.094
+   },
+   "repaired_2022_26_52w_k3": {
+    "eligible": 11395,
+    "covered": 6948,
+    "share": 0.61,
+    "mde_single_input": 2.7,
+    "mde_profile": 4.839,
+    "mde_family_wide": 5.702
+   }
+  },
+  "wta|tracking": {
+   "market_52w_k3": {
+    "eligible": 32178,
+    "covered": 1644,
+    "share": 0.051,
+    "mde_single_input": 11.409,
+    "mde_profile": 20.449,
+    "mde_family_wide": 24.098
+   },
+   "market_13w_k3": {
+    "eligible": 32178,
+    "covered": 258,
+    "share": 0.008,
+    "mde_single_input": 72.7,
+    "mde_profile": 130.305,
+    "mde_family_wide": 153.552
+   },
+   "market_career_k3": {
+    "eligible": 32178,
+    "covered": 5141,
+    "share": 0.16,
+    "mde_single_input": 3.648,
+    "mde_profile": 6.539,
+    "mde_family_wide": 7.706
+   },
+   "market_52w_k1": {
+    "eligible": 32178,
+    "covered": 5364,
+    "share": 0.167,
+    "mde_single_input": 3.497,
+    "mde_profile": 6.267,
+    "mde_family_wide": 7.386
+   },
+   "market_52w_k10": {
+    "eligible": 32178,
+    "covered": 15,
+    "share": 0.0,
+    "mde_single_input": 1250.445,
+    "mde_profile": 2241.246,
+    "mde_family_wide": 2641.087
+   },
+   "recent_52w_k3": {
+    "eligible": 11467,
+    "covered": 1644,
+    "share": 0.143,
+    "mde_single_input": 11.409,
+    "mde_profile": 20.449,
+    "mde_family_wide": 24.098
+   },
+   "recent_13w_k3": {
+    "eligible": 11467,
+    "covered": 258,
+    "share": 0.022,
+    "mde_single_input": 72.7,
+    "mde_profile": 130.305,
+    "mde_family_wide": 153.552
+   },
+   "evaluation_52w_k3": {
+    "eligible": 60321,
+    "covered": 1723,
+    "share": 0.029,
+    "mde_single_input": 10.886,
+    "mde_profile": 19.512,
+    "mde_family_wide": 22.993
+   },
+   "repaired_52w_k3": {
+    "eligible": 32006,
+    "covered": 1579,
+    "share": 0.049,
+    "mde_single_input": 11.879,
+    "mde_profile": 21.291,
+    "mde_family_wide": 25.089
+   },
+   "repaired_2019_26_52w_k3": {
+    "eligible": 17285,
+    "covered": 1579,
+    "share": 0.091,
+    "mde_single_input": 11.879,
+    "mde_profile": 21.291,
+    "mde_family_wide": 25.089
+   },
+   "repaired_2019_26_13w_k3": {
+    "eligible": 17285,
+    "covered": 236,
+    "share": 0.014,
+    "mde_single_input": 79.477,
+    "mde_profile": 142.452,
+    "mde_family_wide": 167.866
+   },
+   "repaired_2022_26_52w_k3": {
+    "eligible": 11395,
+    "covered": 1579,
+    "share": 0.139,
+    "mde_single_input": 11.879,
+    "mde_profile": 21.291,
+    "mde_family_wide": 25.089
+   }
+  },
+  "wta|any": {
+   "market_52w_k3": {
+    "eligible": 32178,
+    "covered": 24227,
+    "share": 0.753,
+    "mde_single_input": 0.774,
+    "mde_profile": 1.388,
+    "mde_family_wide": 1.635
+   },
+   "market_13w_k3": {
+    "eligible": 32178,
+    "covered": 14058,
+    "share": 0.437,
+    "mde_single_input": 1.334,
+    "mde_profile": 2.391,
+    "mde_family_wide": 2.818
+   },
+   "market_career_k3": {
+    "eligible": 32178,
+    "covered": 27753,
+    "share": 0.862,
+    "mde_single_input": 0.676,
+    "mde_profile": 1.211,
+    "mde_family_wide": 1.427
+   },
+   "market_52w_k1": {
+    "eligible": 32178,
+    "covered": 28695,
+    "share": 0.892,
+    "mde_single_input": 0.654,
+    "mde_profile": 1.172,
+    "mde_family_wide": 1.381
+   },
+   "market_52w_k10": {
+    "eligible": 32178,
+    "covered": 12909,
+    "share": 0.401,
+    "mde_single_input": 1.453,
+    "mde_profile": 2.604,
+    "mde_family_wide": 3.069
+   },
+   "recent_52w_k3": {
+    "eligible": 11467,
+    "covered": 11062,
+    "share": 0.965,
+    "mde_single_input": 1.696,
+    "mde_profile": 3.039,
+    "mde_family_wide": 3.581
+   },
+   "recent_13w_k3": {
+    "eligible": 11467,
+    "covered": 10124,
+    "share": 0.883,
+    "mde_single_input": 1.853,
+    "mde_profile": 3.321,
+    "mde_family_wide": 3.913
+   },
+   "evaluation_52w_k3": {
+    "eligible": 60321,
+    "covered": 35753,
+    "share": 0.593,
+    "mde_single_input": 0.525,
+    "mde_profile": 0.94,
+    "mde_family_wide": 1.108
+   },
+   "repaired_52w_k3": {
+    "eligible": 32006,
+    "covered": 22573,
+    "share": 0.705,
+    "mde_single_input": 0.831,
+    "mde_profile": 1.489,
+    "mde_family_wide": 1.755
+   },
+   "repaired_2019_26_52w_k3": {
+    "eligible": 17285,
+    "covered": 13967,
+    "share": 0.808,
+    "mde_single_input": 1.343,
+    "mde_profile": 2.407,
+    "mde_family_wide": 2.836
+   },
+   "repaired_2019_26_13w_k3": {
+    "eligible": 17285,
+    "covered": 9258,
+    "share": 0.536,
+    "mde_single_input": 2.026,
+    "mde_profile": 3.631,
+    "mde_family_wide": 4.279
+   },
+   "repaired_2022_26_52w_k3": {
+    "eligible": 11395,
+    "covered": 9984,
+    "share": 0.876,
+    "mde_single_input": 1.879,
+    "mde_profile": 3.367,
+    "mde_family_wide": 3.968
+   }
+  }
+ },
+ "by_group_market_52w_k3": {
+  "atp|rally|all": 19990,
+  "atp|rally|slams": 13264,
+  "atp|rally|atp_feeds": 9300,
+  "atp|rally|charts": 10663,
+  "atp|rally|wta_api": 0,
+  "atp|ending|all": 24986,
+  "atp|ending|slams": 21070,
+  "atp|ending|atp_feeds": 9829,
+  "atp|ending|charts": 10663,
+  "atp|ending|wta_api": 0,
+  "atp|speed|all": 18877,
+  "atp|speed|slams": 15024,
+  "atp|speed|atp_feeds": 9257,
+  "atp|speed|charts": 0,
+  "atp|speed|wta_api": 0,
+  "atp|placement|all": 16508,
+  "atp|placement|slams": 10146,
+  "atp|placement|atp_feeds": 2314,
+  "atp|placement|charts": 10663,
+  "atp|placement|wta_api": 0,
+  "atp|net|all": 23560,
+  "atp|net|slams": 15364,
+  "atp|net|atp_feeds": 8985,
+  "atp|net|charts": 10647,
+  "atp|net|wta_api": 0,
+  "atp|return|all": 15438,
+  "atp|return|slams": 10081,
+  "atp|return|atp_feeds": 0,
+  "atp|return|charts": 9285,
+  "atp|return|wta_api": 0,
+  "atp|stroke|all": 15884,
+  "atp|stroke|slams": 2235,
+  "atp|stroke|atp_feeds": 9826,
+  "atp|stroke|charts": 10663,
+  "atp|stroke|wta_api": 0,
+  "atp|tracking|all": 8511,
+  "atp|tracking|slams": 2027,
+  "atp|tracking|atp_feeds": 8216,
+  "atp|tracking|charts": 0,
+  "atp|tracking|wta_api": 0,
+  "atp|any|all": 24999,
+  "atp|any|slams": 21098,
+  "atp|any|atp_feeds": 9829,
+  "atp|any|charts": 10663,
+  "atp|any|wta_api": 0,
+  "wta|rally|all": 16876,
+  "wta|rally|slams": 12972,
+  "wta|rally|atp_feeds": 0,
+  "wta|rally|charts": 7368,
+  "wta|rally|wta_api": 0,
+  "wta|ending|all": 24221,
+  "wta|ending|slams": 20239,
+  "wta|ending|atp_feeds": 0,
+  "wta|ending|charts": 7368,
+  "wta|ending|wta_api": 10686,
+  "wta|speed|all": 14197,
+  "wta|speed|slams": 14197,
+  "wta|speed|atp_feeds": 0,
+  "wta|speed|charts": 0,
+  "wta|speed|wta_api": 0,
+  "wta|placement|all": 13862,
+  "wta|placement|slams": 9245,
+  "wta|placement|atp_feeds": 0,
+  "wta|placement|charts": 7368,
+  "wta|placement|wta_api": 0,
+  "wta|net|all": 20975,
+  "wta|net|slams": 15057,
+  "wta|net|atp_feeds": 0,
+  "wta|net|charts": 7336,
+  "wta|net|wta_api": 3400,
+  "wta|return|all": 13680,
+  "wta|return|slams": 9180,
+  "wta|return|atp_feeds": 0,
+  "wta|return|charts": 7139,
+  "wta|return|wta_api": 0,
+  "wta|stroke|all": 11233,
+  "wta|stroke|slams": 1881,
+  "wta|stroke|atp_feeds": 0,
+  "wta|stroke|charts": 7368,
+  "wta|stroke|wta_api": 3410,
+  "wta|tracking|all": 1644,
+  "wta|tracking|slams": 1644,
+  "wta|tracking|atp_feeds": 0,
+  "wta|tracking|charts": 0,
+  "wta|tracking|wta_api": 0,
+  "wta|any|all": 24227,
+  "wta|any|slams": 20247,
+  "wta|any|atp_feeds": 0,
+  "wta|any|charts": 7368,
+  "wta|any|wta_api": 10686
+ },
+ "by_season_market_52w_k3": {
+  "atp|any": {
+   "2013": 0.528,
+   "2014": 0.602,
+   "2015": 0.716,
+   "2016": 0.669,
+   "2017": 0.682,
+   "2019": 0.847,
+   "2020": 0.751,
+   "2021": 0.753,
+   "2022": 0.927,
+   "2023": 0.942,
+   "2024": 0.961,
+   "2025": 0.953,
+   "2026": 0.945
+  },
+  "atp|ending": {
+   "2013": 0.528,
+   "2014": 0.602,
+   "2015": 0.716,
+   "2016": 0.669,
+   "2017": 0.682,
+   "2019": 0.847,
+   "2020": 0.751,
+   "2021": 0.752,
+   "2022": 0.927,
+   "2023": 0.939,
+   "2024": 0.961,
+   "2025": 0.953,
+   "2026": 0.945
+  },
+  "atp|net": {
+   "2013": 0.526,
+   "2014": 0.602,
+   "2015": 0.716,
+   "2016": 0.669,
+   "2017": 0.682,
+   "2019": 0.75,
+   "2020": 0.589,
+   "2021": 0.471,
+   "2022": 0.904,
+   "2023": 0.929,
+   "2024": 0.959,
+   "2025": 0.928,
+   "2026": 0.878
+  },
+  "atp|placement": {
+   "2013": 0.092,
+   "2014": 0.091,
+   "2015": 0.184,
+   "2016": 0.288,
+   "2017": 0.438,
+   "2019": 0.64,
+   "2020": 0.597,
+   "2021": 0.568,
+   "2022": 0.767,
+   "2023": 0.747,
+   "2024": 0.767,
+   "2025": 0.915,
+   "2026": 0.793
+  },
+  "atp|rally": {
+   "2013": 0.092,
+   "2014": 0.091,
+   "2015": 0.184,
+   "2016": 0.375,
+   "2017": 0.664,
+   "2019": 0.847,
+   "2020": 0.751,
+   "2021": 0.751,
+   "2022": 0.879,
+   "2023": 0.91,
+   "2024": 0.947,
+   "2025": 0.945,
+   "2026": 0.904
+  },
+  "atp|return": {
+   "2013": 0.083,
+   "2014": 0.075,
+   "2015": 0.151,
+   "2016": 0.266,
+   "2017": 0.417,
+   "2019": 0.614,
+   "2020": 0.585,
+   "2021": 0.527,
+   "2022": 0.739,
+   "2023": 0.721,
+   "2024": 0.754,
+   "2025": 0.771,
+   "2026": 0.752
+  },
+  "atp|speed": {
+   "2013": 0.483,
+   "2014": 0.411,
+   "2015": 0.493,
+   "2016": 0.436,
+   "2017": 0.418,
+   "2019": 0.316,
+   "2020": 0.35,
+   "2021": 0.515,
+   "2022": 0.84,
+   "2023": 0.883,
+   "2024": 0.939,
+   "2025": 0.925,
+   "2026": 0.579
+  },
+  "atp|stroke": {
+   "2013": 0.092,
+   "2014": 0.091,
+   "2015": 0.184,
+   "2016": 0.228,
+   "2017": 0.176,
+   "2019": 0.517,
+   "2020": 0.477,
+   "2021": 0.321,
+   "2022": 0.849,
+   "2023": 0.905,
+   "2024": 0.944,
+   "2025": 0.935,
+   "2026": 0.866
+  },
+  "atp|tracking": {
+   "2013": 0.0,
+   "2014": 0.0,
+   "2015": 0.0,
+   "2016": 0.0,
+   "2017": 0.0,
+   "2019": 0.002,
+   "2020": 0.0,
+   "2021": 0.034,
+   "2022": 0.76,
+   "2023": 0.828,
+   "2024": 0.872,
+   "2025": 0.722,
+   "2026": 0.0
+  },
+  "wta|any": {
+   "2013": 0.487,
+   "2014": 0.542,
+   "2015": 0.686,
+   "2016": 0.646,
+   "2017": 0.563,
+   "2018": 0.672,
+   "2019": 0.766,
+   "2020": 0.703,
+   "2021": 0.692,
+   "2022": 0.952,
+   "2023": 0.967,
+   "2024": 0.978,
+   "2025": 0.973,
+   "2026": 0.949
+  },
+  "wta|ending": {
+   "2013": 0.485,
+   "2014": 0.542,
+   "2015": 0.686,
+   "2016": 0.646,
+   "2017": 0.563,
+   "2018": 0.672,
+   "2019": 0.766,
+   "2020": 0.703,
+   "2021": 0.692,
+   "2022": 0.952,
+   "2023": 0.967,
+   "2024": 0.978,
+   "2025": 0.973,
+   "2026": 0.949
+  },
+  "wta|net": {
+   "2013": 0.487,
+   "2014": 0.542,
+   "2015": 0.685,
+   "2016": 0.646,
+   "2017": 0.563,
+   "2018": 0.509,
+   "2019": 0.616,
+   "2020": 0.552,
+   "2021": 0.436,
+   "2022": 0.704,
+   "2023": 0.757,
+   "2024": 0.784,
+   "2025": 0.922,
+   "2026": 0.945
+  },
+  "wta|placement": {
+   "2013": 0.041,
+   "2014": 0.069,
+   "2015": 0.226,
+   "2016": 0.16,
+   "2017": 0.305,
+   "2018": 0.29,
+   "2019": 0.472,
+   "2020": 0.55,
+   "2021": 0.514,
+   "2022": 0.694,
+   "2023": 0.704,
+   "2024": 0.741,
+   "2025": 0.738,
+   "2026": 0.683
+  },
+  "wta|rally": {
+   "2013": 0.041,
+   "2014": 0.069,
+   "2015": 0.226,
+   "2016": 0.223,
+   "2017": 0.526,
+   "2018": 0.662,
+   "2019": 0.766,
+   "2020": 0.703,
+   "2021": 0.692,
+   "2022": 0.734,
+   "2023": 0.691,
+   "2024": 0.759,
+   "2025": 0.728,
+   "2026": 0.684
+  },
+  "wta|return": {
+   "2013": 0.039,
+   "2014": 0.068,
+   "2015": 0.21,
+   "2016": 0.153,
+   "2017": 0.304,
+   "2018": 0.277,
+   "2019": 0.461,
+   "2020": 0.545,
+   "2021": 0.512,
+   "2022": 0.688,
+   "2023": 0.697,
+   "2024": 0.737,
+   "2025": 0.737,
+   "2026": 0.68
+  },
+  "wta|speed": {
+   "2013": 0.403,
+   "2014": 0.399,
+   "2015": 0.444,
+   "2016": 0.458,
+   "2017": 0.363,
+   "2018": 0.385,
+   "2019": 0.337,
+   "2020": 0.314,
+   "2021": 0.443,
+   "2022": 0.514,
+   "2023": 0.547,
+   "2024": 0.574,
+   "2025": 0.458,
+   "2026": 0.478
+  },
+  "wta|stroke": {
+   "2013": 0.041,
+   "2014": 0.071,
+   "2015": 0.228,
+   "2016": 0.132,
+   "2017": 0.045,
+   "2018": 0.07,
+   "2019": 0.276,
+   "2020": 0.438,
+   "2021": 0.332,
+   "2022": 0.528,
+   "2023": 0.556,
+   "2024": 0.58,
+   "2025": 0.879,
+   "2026": 0.946
+  },
+  "wta|tracking": {
+   "2013": 0.0,
+   "2014": 0.0,
+   "2015": 0.0,
+   "2016": 0.0,
+   "2017": 0.0,
+   "2018": 0.0,
+   "2019": 0.0,
+   "2020": 0.0,
+   "2021": 0.0,
+   "2022": 0.196,
+   "2023": 0.269,
+   "2024": 0.181,
+   "2025": 0.031,
+   "2026": 0.0
+  }
+ },
+ "by_level_evaluation_52w_k3": {
+  "atp|any": {
+   "CH": 0.127,
+   "CHQ": 0.013,
+   "FIN": 0.946,
+   "GS": 0.79,
+   "GSQ": 0.219,
+   "T1000": 0.899,
+   "T250": 0.697,
+   "T500": 0.84,
+   "TQ": 0.264
+  },
+  "atp|ending": {
+   "CH": 0.127,
+   "CHQ": 0.013,
+   "FIN": 0.946,
+   "GS": 0.79,
+   "GSQ": 0.219,
+   "T1000": 0.899,
+   "T250": 0.697,
+   "T500": 0.84,
+   "TQ": 0.264
+  },
+  "atp|net": {
+   "CH": 0.112,
+   "CHQ": 0.012,
+   "FIN": 0.914,
+   "GS": 0.73,
+   "GSQ": 0.19,
+   "T1000": 0.863,
+   "T250": 0.633,
+   "T500": 0.794,
+   "TQ": 0.23
+  },
+  "atp|placement": {
+   "CH": 0.027,
+   "CHQ": 0.002,
+   "FIN": 0.838,
+   "GS": 0.521,
+   "GSQ": 0.05,
+   "T1000": 0.66,
+   "T250": 0.387,
+   "T500": 0.588,
+   "TQ": 0.107
+  },
+  "atp|rally": {
+   "CH": 0.096,
+   "CHQ": 0.008,
+   "FIN": 0.93,
+   "GS": 0.65,
+   "GSQ": 0.169,
+   "T1000": 0.755,
+   "T250": 0.547,
+   "T500": 0.691,
+   "TQ": 0.217
+  },
+  "atp|return": {
+   "CH": 0.018,
+   "CHQ": 0.001,
+   "FIN": 0.803,
+   "GS": 0.491,
+   "GSQ": 0.03,
+   "T1000": 0.62,
+   "T250": 0.357,
+   "T500": 0.557,
+   "TQ": 0.082
+  },
+  "atp|speed": {
+   "CH": 0.059,
+   "CHQ": 0.007,
+   "FIN": 0.822,
+   "GS": 0.569,
+   "GSQ": 0.105,
+   "T1000": 0.728,
+   "T250": 0.468,
+   "T500": 0.643,
+   "TQ": 0.15
+  },
+  "atp|stroke": {
+   "CH": 0.084,
+   "CHQ": 0.009,
+   "FIN": 0.841,
+   "GS": 0.477,
+   "GSQ": 0.134,
+   "T1000": 0.625,
+   "T250": 0.374,
+   "T500": 0.538,
+   "TQ": 0.164
+  },
+  "atp|tracking": {
+   "CH": 0.031,
+   "CHQ": 0.004,
+   "FIN": 0.327,
+   "GS": 0.233,
+   "GSQ": 0.053,
+   "T1000": 0.299,
+   "T250": 0.208,
+   "T500": 0.277,
+   "TQ": 0.085
+  },
+  "wta|any": {
+   "CH": 0.657,
+   "CHQ": 0.287,
+   "FIN": 1.0,
+   "GS": 0.787,
+   "GSQ": 0.319,
+   "T1000": 0.881,
+   "T250": 0.601,
+   "T500": 0.845,
+   "TQ": 0.309
+  },
+  "wta|ending": {
+   "CH": 0.656,
+   "CHQ": 0.287,
+   "FIN": 1.0,
+   "GS": 0.786,
+   "GSQ": 0.318,
+   "T1000": 0.881,
+   "T250": 0.601,
+   "T500": 0.845,
+   "TQ": 0.309
+  },
+  "wta|net": {
+   "CH": 0.369,
+   "CHQ": 0.121,
+   "FIN": 0.993,
+   "GS": 0.69,
+   "GSQ": 0.124,
+   "T1000": 0.814,
+   "T250": 0.47,
+   "T500": 0.756,
+   "TQ": 0.188
+  },
+  "wta|placement": {
+   "CH": 0.112,
+   "CHQ": 0.008,
+   "FIN": 0.846,
+   "GS": 0.47,
+   "GSQ": 0.023,
+   "T1000": 0.591,
+   "T250": 0.247,
+   "T500": 0.535,
+   "TQ": 0.076
+  },
+  "wta|rally": {
+   "CH": 0.162,
+   "CHQ": 0.01,
+   "FIN": 0.863,
+   "GS": 0.562,
+   "GSQ": 0.061,
+   "T1000": 0.667,
+   "T250": 0.356,
+   "T500": 0.623,
+   "TQ": 0.122
+  },
+  "wta|return": {
+   "CH": 0.109,
+   "CHQ": 0.008,
+   "FIN": 0.846,
+   "GS": 0.463,
+   "GSQ": 0.021,
+   "T1000": 0.583,
+   "T250": 0.243,
+   "T500": 0.53,
+   "TQ": 0.075
+  },
+  "wta|speed": {
+   "CH": 0.052,
+   "CHQ": 0.005,
+   "FIN": 0.968,
+   "GS": 0.474,
+   "GSQ": 0.012,
+   "T1000": 0.61,
+   "T250": 0.233,
+   "T500": 0.566,
+   "TQ": 0.059
+  },
+  "wta|stroke": {
+   "CH": 0.258,
+   "CHQ": 0.115,
+   "FIN": 0.698,
+   "GS": 0.382,
+   "GSQ": 0.058,
+   "T1000": 0.496,
+   "T250": 0.193,
+   "T500": 0.457,
+   "TQ": 0.082
+  },
+  "wta|tracking": {
+   "CH": 0.004,
+   "CHQ": 0.0,
+   "FIN": 0.168,
+   "GS": 0.058,
+   "GSQ": 0.0,
+   "T1000": 0.072,
+   "T250": 0.019,
+   "T500": 0.07,
+   "TQ": 0.003
+  }
+ },
+ "inflation": {
+  "single_input_rows": 49,
+  "single_input_median_ratio": 1.0930924202964107,
+  "single_input_q75_ratio": 1.3055196099219282,
+  "multi_input_rows": 19,
+  "multi_input_median_ratio": 1.463420892559993,
+  "clustered_rows": 243,
+  "clustered_median_ratio": 1.055310787253535
+ },
+ "inflation_by_source": {
+  "feature_alpha_audit profile_results": {
+   "rows": 243,
+   "median": 1.055,
+   "mean": 1.135,
+   "max": 2.984
+  },
+  "predictability_diagnostic stage 4": {
+   "rows": 24,
+   "median": 1.101,
+   "mean": 1.088,
+   "max": 1.643
+  },
+  "ufc_ideas stageA": {
+   "rows": 4,
+   "median": 1.091,
+   "mean": 1.116,
+   "max": 1.325
+  },
+  "ufc_ideas stageB": {
+   "rows": 17,
+   "median": 1.276,
+   "mean": 1.166,
+   "max": 2.001
+  },
+  "ufc_ideas stageC": {
+   "rows": 6,
+   "median": 1.128,
+   "mean": 1.071,
+   "max": 1.325
+  },
+  "ufc_ideas stageD": {
+   "rows": 10,
+   "median": 1.438,
+   "mean": 1.42,
+   "max": 1.621
+  },
+  "ufc_ideas stageD_profile": {
+   "rows": 7,
+   "median": 2.356,
+   "mean": 2.219,
+   "max": 3.014
+  }
+ },
+ "mde_examples": {
+  "2000": {
+   "ideal": 7.849,
+   "single_input": 9.378,
+   "profile": 16.809
+  },
+  "5000": {
+   "ideal": 3.14,
+   "single_input": 3.751,
+   "profile": 6.724
+  },
+  "10000": {
+   "ideal": 1.57,
+   "single_input": 1.876,
+   "profile": 3.362
+  },
+  "20000": {
+   "ideal": 0.785,
+   "single_input": 0.938,
+   "profile": 1.681
+  },
+  "30000": {
+   "ideal": 0.523,
+   "single_input": 0.625,
+   "profile": 1.121
+  }
+ },
+ "family_wide_over_single": 2.112,
+ "mde_ranges_excluding_tracking": {
+  "atp|market_52w_k3": {
+   "single": [
+    0.751,
+    1.215
+   ],
+   "profile": [
+    1.346,
+    2.178
+   ],
+   "family_wide": [
+    1.586,
+    2.566
+   ]
+  },
+  "atp|recent_52w_k3": {
+   "single": [
+    1.607,
+    2.033
+   ],
+   "profile": [
+    2.88,
+    3.643
+   ],
+   "family_wide": [
+    3.394,
+    4.293
+   ]
+  },
+  "wta|market_52w_k3": {
+   "single": [
+    0.774,
+    1.67
+   ],
+   "profile": [
+    1.388,
+    2.993
+   ],
+   "family_wide": [
+    1.636,
+    3.527
+   ]
+  },
+  "wta|recent_52w_k3": {
+   "single": [
+    1.696,
+    3.166
+   ],
+   "profile": [
+    3.039,
+    5.675
+   ],
+   "family_wide": [
+    3.581,
+    6.687
+   ]
+  }
+ },
+ "headroom_any_52w_k3": {
+  "atp": {
+   "covered": 24999,
+   "eligible": 31683,
+   "uncovered_share": 0.211,
+   "n_increase": 0.267,
+   "mde_reduction": 0.211
+  },
+  "wta": {
+   "covered": 24227,
+   "eligible": 32178,
+   "uncovered_share": 0.247,
+   "n_increase": 0.328,
+   "mde_reduction": 0.247
+  }
+ },
+ "group_shares_market_52w_k3": {
+  "atp|rally|all": 0.631,
+  "atp|rally|slams": 0.419,
+  "atp|rally|atp_feeds": 0.294,
+  "atp|rally|charts": 0.337,
+  "atp|rally|wta_api": 0.0,
+  "atp|ending|all": 0.789,
+  "atp|ending|slams": 0.665,
+  "atp|ending|atp_feeds": 0.31,
+  "atp|ending|charts": 0.337,
+  "atp|ending|wta_api": 0.0,
+  "atp|speed|all": 0.596,
+  "atp|speed|slams": 0.474,
+  "atp|speed|atp_feeds": 0.292,
+  "atp|speed|charts": 0.0,
+  "atp|speed|wta_api": 0.0,
+  "atp|placement|all": 0.521,
+  "atp|placement|slams": 0.32,
+  "atp|placement|atp_feeds": 0.073,
+  "atp|placement|charts": 0.337,
+  "atp|placement|wta_api": 0.0,
+  "atp|net|all": 0.744,
+  "atp|net|slams": 0.485,
+  "atp|net|atp_feeds": 0.284,
+  "atp|net|charts": 0.336,
+  "atp|net|wta_api": 0.0,
+  "atp|return|all": 0.487,
+  "atp|return|slams": 0.318,
+  "atp|return|atp_feeds": 0.0,
+  "atp|return|charts": 0.293,
+  "atp|return|wta_api": 0.0,
+  "atp|stroke|all": 0.501,
+  "atp|stroke|slams": 0.071,
+  "atp|stroke|atp_feeds": 0.31,
+  "atp|stroke|charts": 0.337,
+  "atp|stroke|wta_api": 0.0,
+  "atp|tracking|all": 0.269,
+  "atp|tracking|slams": 0.064,
+  "atp|tracking|atp_feeds": 0.259,
+  "atp|tracking|charts": 0.0,
+  "atp|tracking|wta_api": 0.0,
+  "atp|any|all": 0.789,
+  "atp|any|slams": 0.666,
+  "atp|any|atp_feeds": 0.31,
+  "atp|any|charts": 0.337,
+  "atp|any|wta_api": 0.0,
+  "wta|rally|all": 0.524,
+  "wta|rally|slams": 0.403,
+  "wta|rally|atp_feeds": 0.0,
+  "wta|rally|charts": 0.229,
+  "wta|rally|wta_api": 0.0,
+  "wta|ending|all": 0.753,
+  "wta|ending|slams": 0.629,
+  "wta|ending|atp_feeds": 0.0,
+  "wta|ending|charts": 0.229,
+  "wta|ending|wta_api": 0.332,
+  "wta|speed|all": 0.441,
+  "wta|speed|slams": 0.441,
+  "wta|speed|atp_feeds": 0.0,
+  "wta|speed|charts": 0.0,
+  "wta|speed|wta_api": 0.0,
+  "wta|placement|all": 0.431,
+  "wta|placement|slams": 0.287,
+  "wta|placement|atp_feeds": 0.0,
+  "wta|placement|charts": 0.229,
+  "wta|placement|wta_api": 0.0,
+  "wta|net|all": 0.652,
+  "wta|net|slams": 0.468,
+  "wta|net|atp_feeds": 0.0,
+  "wta|net|charts": 0.228,
+  "wta|net|wta_api": 0.106,
+  "wta|return|all": 0.425,
+  "wta|return|slams": 0.285,
+  "wta|return|atp_feeds": 0.0,
+  "wta|return|charts": 0.222,
+  "wta|return|wta_api": 0.0,
+  "wta|stroke|all": 0.349,
+  "wta|stroke|slams": 0.058,
+  "wta|stroke|atp_feeds": 0.0,
+  "wta|stroke|charts": 0.229,
+  "wta|stroke|wta_api": 0.106,
+  "wta|tracking|all": 0.051,
+  "wta|tracking|slams": 0.051,
+  "wta|tracking|atp_feeds": 0.0,
+  "wta|tracking|charts": 0.0,
+  "wta|tracking|wta_api": 0.0,
+  "wta|any|all": 0.753,
+  "wta|any|slams": 0.629,
+  "wta|any|atp_feeds": 0.0,
+  "wta|any|charts": 0.229,
+  "wta|any|wta_api": 0.332
+ },
+ "infosys_long_rallies": {
+  "matches": 5052,
+  "mean_points": 142.4,
+  "mean_long_9plus": 18.1,
+  "share_long_9plus": 0.127
+ },
+ "grand_slam_main_draw_carrying_share": {
+  "AO|2011": 0.705,
+  "AO|2012": 0.657,
+  "AO|2013": 0.705,
+  "AO|2014": 0.626,
+  "AO|2015": 0.827,
+  "AO|2016": 0.909,
+  "AO|2017": 0.89,
+  "AO|2018": 0.992,
+  "AO|2019": 0.996,
+  "AO|2020": 0.996,
+  "AO|2021": 0.996,
+  "AO|2022": 0.984,
+  "AO|2023": 1.0,
+  "AO|2024": 1.0,
+  "AO|2025": 0.39,
+  "AO|2026": 0.992,
+  "RG|2011": 0.76,
+  "RG|2012": 0.673,
+  "RG|2013": 0.732,
+  "RG|2014": 0.992,
+  "RG|2015": 0.815,
+  "RG|2016": 0.697,
+  "RG|2017": 0.921,
+  "RG|2018": 0.992,
+  "RG|2019": 0.992,
+  "RG|2020": 0.996,
+  "RG|2021": 0.988,
+  "RG|2022": 0.886,
+  "RG|2023": 0.508,
+  "RG|2024": 0.559,
+  "RG|2025": 0.272,
+  "RG|2026": 0.094,
+  "USO|2011": 0.63,
+  "USO|2012": 0.673,
+  "USO|2013": 0.654,
+  "USO|2014": 0.736,
+  "USO|2015": 0.693,
+  "USO|2016": 0.65,
+  "USO|2017": 0.622,
+  "USO|2018": 0.701,
+  "USO|2019": 0.984,
+  "USO|2020": 0.976,
+  "USO|2021": 0.996,
+  "USO|2022": 0.992,
+  "USO|2023": 0.996,
+  "USO|2024": 0.992,
+  "USO|2025": 0.992,
+  "USO|2026": 1.0,
+  "W|2011": 0.461,
+  "W|2012": 0.551,
+  "W|2013": 0.575,
+  "W|2014": 0.996,
+  "W|2015": 0.988,
+  "W|2016": 0.508,
+  "W|2017": 1.0,
+  "W|2018": 1.0,
+  "W|2019": 1.0,
+  "W|2021": 0.996,
+  "W|2022": 0.992,
+  "W|2023": 1.0,
+  "W|2024": 0.992,
+  "W|2025": 1.0,
+  "W|2026": 1.0
+ },
+ "market_v": {
+  "atp": 0.20360797708516237,
+  "wta": 0.20902442182745026
+ },
+ "inputs": [
+  {
+   "path": "data/studies/predictability_diagnostic/stage0_matches.parquet",
+   "modified": "2026-09-30T10:30:51",
+   "sha256": "271d2561f31d0c8cc407e5fb9b73d572115173e329e272c337f8daddda4662af"
+  },
+  {
+   "path": "data/studies/predictability_diagnostic/stage0_match_players.parquet",
+   "modified": "2026-09-30T10:30:53",
+   "sha256": "f84ec8410140740e929fef2b57b44f28f8ddef2b6b6983c43345d213ee9a6e28"
+  },
+  {
+   "path": "data/studies/predictability_diagnostic/stage4_features.parquet",
+   "modified": "2026-10-01T19:15:25",
+   "sha256": "9a95b150a16456523aa38b045f1fc3cdbb8f7787218fb1c6dcd7e5011b0fa30d"
+  },
+  {
+   "path": "src/eda/predictability_diagnostic/common.py",
+   "modified": "2026-09-30T09:51:53",
+   "sha256": "6fa433773dfbd5f4b9070b6fa22da8408a455489e8d6acdfb92c86a1d23b88cd"
+  },
+  {
+   "path": "src/eda/predictability_diagnostic/stage3_traits.py",
+   "modified": "2026-10-01T07:34:43",
+   "sha256": "25397fa9ad8f2e75032135d484b658071d0a48348fab4bcb14f0ce811a2b2309"
+  },
+  {
+   "path": "src/eda/ufc_ideas/common.py",
+   "modified": "2026-10-02T16:48:37",
+   "sha256": "ca06a88240aaca2817a62ea29927c0037f90d2ddfc1342b2ee23b9a406d6c8c1"
+  },
+  {
+   "path": "src/eda/data_map/measure.py",
+   "modified": "2026-09-30T11:03:34",
+   "sha256": "88a13dfefe65767531dc737efe7ed63f0d1b9928c8857eed96c34c691485d7df"
+  },
+  {
+   "path": "data/studies/feature_alpha_audit/repairs/repair_date_audit.parquet",
+   "modified": "2026-10-02T17:00:28",
+   "sha256": "5c472fc856f422838570381520e4d8bf24a4b795c8409945c40e28090da25059"
+  }
+ ]
+}

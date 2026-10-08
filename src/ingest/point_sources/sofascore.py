@@ -24,11 +24,26 @@ Usage:
     ./python.sh -m src.ingest.point_sources.sofascore --limit 20 --max-requests 60   # dry run
     ./python.sh -m src.ingest.point_sources.sofascore --stage-only         # rebuild Parquet from the raw files
 
+Block and captcha token (observed 24 Sep 2026): after about 3,800 requests in an hour the API answered
+every request with HTTP 403 {"error": {"code": 403, "reason": "challenge"}}, for more than eleven hours
+and from a second address too. SofaScore's own site answers that refusal by running a Cloudflare Turnstile
+check (usually invisible), exchanging the solved check at /api/v1/token/captcha for a signed token, keeping
+it in the browser's localStorage under "sofa.captcha.token" (and the cookie "sofa_captcha"), and sending it
+as the X-Captcha header on every API call until it expires. This adapter sends the same header when a token
+is pasted into data/raw/point_sources/sofascore/_captcha_token.txt (gitignored; or --captcha-token-file):
+open www.sofascore.com in a browser, let the check pass, then run in the browser console
+    localStorage.getItem("sofa.captcha.token")
+and paste the printed value into that file. The adapter refuses to start with an expired token and stops
+as soon as the API rejects one (a 403 whose reason starts with "jwt:"). Nothing here solves a check.
+
 Point record shape, as observed (24 Sep 2026): sets are listed last-first and games last-first; the points
 of a game are chronological score states *after* each point, the game-winning point being implied
 (the game's ``score.scoring`` names the winner) except in tiebreaks, where the final state is listed;
-``score.serving`` is the server (1 home, 2 away); ``homePointType``/``awayPointType`` and
-``pointDescription`` are undocumented integer codes and are kept verbatim.
+``score.serving`` is the server (1 home, 2 away). The integer codes are undocumented and kept verbatim;
+src/eda/point_shot_sources/sofascore_codes.py infers from the records themselves that ``pointDescription``
+is 0 plain, 1 ace, 2 double fault, and that ``homePointType``/``awayPointType`` describe each side at the
+state: 1 won the point, 5 lost it, 2 holds a break point, 3 holds a set point, 4 holds a match point (rare),
+6 unclear (rare).
 """
 from __future__ import annotations
 
@@ -45,11 +60,35 @@ if not __package__:
 from src.ingest.point_sources import common as P
 
 SOURCE = "sofascore"
-API = "https://api.sofascore.com/api/v1"
+SITE = "https://www.sofascore.com"
+API_HOST = "https://api.sofascore.com"
+API = f"{API_HOST}/api/v1"
 IMPERSONATE = "chrome"
 HEADERS = {"Accept": "*/*", "Referer": "https://www.sofascore.com/", "Origin": "https://www.sofascore.com"}
 MAX_PAGES = 200  # safety stop per team: 6,000 events
 REGULAR_POINTS = {"0", "15", "30", "40", "A"}
+TOKEN_FILE = P.raw_path(SOURCE, "_captcha_token.txt")
+TOKEN_HEADER = "X-Captcha"
+
+
+def load_captcha_token(path: Path) -> dict | None:
+    """The token pasted at ``path`` (quotes and whitespace tolerated) with its decoded claims; None without a file."""
+    if not path.exists():
+        return None
+    token = path.read_text(encoding="utf-8").strip().strip("'\"").strip()
+    if not token:
+        return None
+    info = {"file": P.rel(path), "token": token, "claims": {}, "expires_at": None, "expired": False}
+    try:
+        info["claims"] = P.jwt_claims(token)
+    except ValueError as err:
+        info["problem"] = f"not a decodable JWT ({err}); sent as pasted"
+        return info
+    exp = info["claims"].get("exp")
+    if isinstance(exp, (int, float)) and not isinstance(exp, bool):
+        info["expires_at"] = dt.datetime.fromtimestamp(exp, dt.timezone.utc).strftime("%Y-%m-%d %H:%M:%S UTC")
+        info["expired"] = time.time() > exp
+    return info
 
 EVENT_COLUMNS = [
     "event_id", "custom_id", "slug", "start_timestamp", "start_utc", "tournament_id", "tournament_name",
@@ -62,7 +101,11 @@ EVENT_COLUMNS = [
     "home_sets", "away_sets", "home_set1", "away_set1", "home_set2", "away_set2", "home_set3", "away_set3",
     "home_set4", "away_set4", "home_set5", "away_set5", "home_tb1", "away_tb1", "home_tb2", "away_tb2",
     "home_tb3", "away_tb3", "home_tb4", "away_tb4", "home_tb5", "away_tb5", "time_set1", "time_set2",
-    "time_set3", "time_set4", "time_set5", "listed_for_teams", "listed_pages", "doubles",
+    "time_set3", "time_set4", "time_set5",
+    # the match's clock for the match-timing rule (docs/decisions/2026-10-05-match-timing.md): when its last set began
+    # and when the record last changed (for a finished match, within a minute of the last point), and where it was
+    "current_period_start_timestamp", "change_timestamp", "venue_name", "venue_city", "venue_country",
+    "listed_for_teams", "listed_pages", "doubles",
     "pbp_status", "pbp_sets", "pbp_games", "pbp_points", "pbp_retrieved_at", "pbp_sha256",
     "stats_status", "stats_periods", "stats_retrieved_at", "stats_sha256", "listing_file",
 ]
@@ -114,6 +157,11 @@ def flatten_event(event: dict) -> dict:
         "filter_level": ";".join(filters.get("level") or []) or None,
         "home_sets": hs.get("current"), "away_sets": as_.get("current"),
         "doubles": is_doubles(event),
+        "current_period_start_timestamp": tm.get("currentPeriodStartTimestamp"),
+        "change_timestamp": g(event, "changes", "changeTimestamp"),
+        "venue_name": g(event, "venue", "name") or g(event, "venue", "stadium", "name"),
+        "venue_city": g(event, "venue", "city", "name"),
+        "venue_country": g(event, "venue", "country", "alpha3") or g(event, "venue", "country", "name"),
     }
     for side, team in (("home", home), ("away", away)):
         row[f"{side}_id"] = team.get("id")
@@ -363,10 +411,31 @@ def run(args) -> dict:
     receipts = P.receipts_for(SOURCE)
     summary = {"source": SOURCE, "started_at": P.utc_now_iso(), "args": vars(args), "teams": {}, "errors": []}
     client = None
-    if not args.stage_only:
+    token = None
+    if not args.stage_only and args.browser:
+        from src.ingest.point_sources import browser as B
+
+        client = B.BrowserClient(args.browser, origin=SITE, url_map={API_HOST + "/": SITE + "/"},
+                                 token_key="sofa.captcha.token", min_interval=args.min_interval, jitter=args.jitter,
+                                 max_requests=args.max_requests, headers={"Accept": "*/*"})
+        P.log(f"[{SOURCE}] requests run inside {client.impersonate} at {args.browser}; the tab's own token is used")
+    elif not args.stage_only:
+        headers = dict(HEADERS)
+        token = load_captcha_token(Path(args.captcha_token_file))
+        if token:
+            headers[TOKEN_HEADER] = token["token"]
+            summary["captcha_token"] = {"file": token["file"], "expires_at": token["expires_at"],
+                                        "expired": token["expired"], "claim_keys": sorted(token["claims"]),
+                                        "problem": token.get("problem")}
+            P.log(f"[{SOURCE}] captcha token from {token['file']}: expires {token['expires_at'] or 'unknown'}; "
+                  f"claims {token['claims']}" + (f"; {token['problem']}" if token.get("problem") else ""))
+        else:
+            P.log(f"[{SOURCE}] no captcha token at {P.rel(Path(args.captcha_token_file))}; requests go without one")
         client = P.Client(IMPERSONATE, min_interval=args.min_interval, jitter=args.jitter,
-                          max_requests=args.max_requests, headers=HEADERS)
+                          max_requests=args.max_requests, headers=headers)
     try:
+        if token and token["expired"]:
+            raise P.Blocked(f"captcha token in {token['file']} expired at {token['expires_at']}; obtain a new one")
         if not args.stage_only:
             for team_id in team_ids:
                 have = team_listing_pages(team_id)
@@ -408,6 +477,8 @@ def run(args) -> dict:
     summary["fetch_outcomes"] = dict(sorted(outcomes.items())) if "outcomes" in locals() else {}
     if client is not None:
         summary["client"] = client.stats()
+        if hasattr(client, "close"):
+            client.close()
     if not args.no_stage:
         summary["staged"] = stage(team_ids, receipts)
     summary.update(summarize_events(events, receipts, set(selected)))
@@ -437,6 +508,12 @@ def add_arguments(parser: argparse.ArgumentParser) -> None:
     parser.add_argument("--refresh-listings", action="store_true", help="refetch the listing pages (new matches)")
     parser.add_argument("--stage-only", action="store_true", help="no HTTP; rebuild the Parquet tables and summary")
     parser.add_argument("--no-stage", action="store_true", help="fetch only; skip the Parquet rebuild")
+    parser.add_argument("--captcha-token-file", default=str(TOKEN_FILE),
+                        help="file holding the X-Captcha token copied from a browser (module docstring); "
+                             "default data/raw/point_sources/sofascore/_captcha_token.txt")
+    parser.add_argument("--browser", nargs="?", const="http://localhost:9222", metavar="CDP_URL",
+                        help="make the requests inside a Chrome tab reached over the DevTools Protocol at this URL "
+                             "(bare flag: http://localhost:9222); see src/ingest/point_sources/browser.py")
 
 
 def main() -> int:

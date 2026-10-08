@@ -1,0 +1,302 @@
+C:\Users\zerom\AppData\Local\Temp\claude\c--Users-zerom-Documents-Tennis-predictions\6a2c00c2-76fc-4179-a6fa-f816c61187b3\scratchpad\odds_audit\a04_suspects_detail.py:56: UserWarning: obj.round has no effect with datetime, timedelta, or period dtypes. Use obj.dt.round(...) instead.
+  print(dis[show + ["d_ps", "verdict"]].round(3).to_string())
+C:\Users\zerom\AppData\Local\Temp\claude\c--Users-zerom-Documents-Tennis-predictions\6a2c00c2-76fc-4179-a6fa-f816c61187b3\scratchpad\odds_audit\a04_suspects_detail.py:62: UserWarning: obj.round has no effect with datetime, timedelta, or period dtypes. Use obj.dt.round(...) instead.
+  print(d2[show + ["d_b365", "d_max"]].round(3).to_string())
+C:\Users\zerom\AppData\Local\Temp\claude\c--Users-zerom-Documents-Tennis-predictions\6a2c00c2-76fc-4179-a6fa-f816c61187b3\scratchpad\odds_audit\a04_suspects_detail.py:71: UserWarning: obj.round has no effect with datetime, timedelta, or period dtypes. Use obj.dt.round(...) instead.
+  print(gt[show + ["excess_a", "excess_b"]].round(3).to_string())
+rows |p_mkt - p_ps| > 0.10: 24 {'split': 13, 'pinnacle is the outlier': 9, 'average is the outlier': 2} {('average is the outlier', 'test'): 2, ('pinnacle is the outlier', 'test'): 1, ('pinnacle is the outlier', 'train'): 8, ('split', 'test'): 5, ('split', 'train'): 8}
+                                                   match_id tabpfn_split      tournament_name round    td_date         td_winner           td_loser  a_won  rank_a  rank_b  avg_a  avg_b  max_a  max_b  ps_a   ps_b  b365_a  b365_b  p_mkt   p_ps  p_b365  p_max  p_elo   d_ps                  verdict
+161                   atp|2013-891|SF|atp:104386|atp:105379        train              Chennai    SF 2013-01-05     Tipsarevic J.          Bedene A.  False    86.0     9.0   1.14   5.44   1.17   6.70  6.16   1.17    6.00    1.12  0.827  0.160   0.157  0.851  0.216  0.667                    split
+34530                 wta|2020-M009|F|wta:201594|wta:201662        train                 Rome     F 2020-09-21          Halep S.       Pliskova Ka.  False     4.0     2.0   2.70   1.47   3.12   1.54  2.77  52.00    2.75    1.44  0.353  0.949   0.344  0.330  0.394 -0.597  pinnacle is the outlier
+18357                  atp|2016-540|F|atp:104918|atp:105683        train            Wimbledon     F 2016-07-10         Murray A.          Raonic M.  False     7.0     2.0   1.26   3.97   1.30   4.36  4.36   1.27    4.33    1.25  0.759  0.226   0.224  0.770  0.263  0.534                    split
+57803                  wta|2025-822|F|wta:210722|wta:211817         test      s Hertogenbosch     F 2025-06-15        Mertens E.          Ruse E.G.  False    80.0    25.0   1.44   2.74   3.00   1.50  2.95   1.46    2.75    1.44  0.656  0.331   0.344  0.333  0.437  0.324   average is the outlier
+40074               wta|2022-2030|R32|wta:201603|wta:216146         test           Adelaide 2   R32 2022-01-10        Kostyuk M.          Rogers S.   True    50.0    36.0   1.47   2.64   2.90   1.53  2.81   1.49    2.62    1.50  0.642  0.347   0.364  0.345  0.430  0.296   average is the outlier
+18259                wta|2016-540|R64|wta:201505|wta:201520        train            Wimbledon   R64 2016-07-02       Makarova E.         Kvitova P.   True    35.0    10.0   2.88   1.40   3.13   1.46  1.60   2.42    2.75    1.44  0.327  0.602   0.344  0.318  0.372 -0.275  pinnacle is the outlier
+50628               wta|2024-2050|R32|wta:211713|wta:215453         test          Cluj-Napoca   R32 2024-02-06       Cristian J.         Bassols M.  False   105.0    81.0   2.02   1.70   2.02   1.70  1.32   3.59    1.33    3.40  0.457  0.731   0.719  0.457  0.423 -0.274                    split
+34579                 wta|2020-406|QF|wta:211701|wta:214544        train           Strasbourg    QF 2020-09-25      Sabalenka A.       Siniakova K.   True    12.0    62.0   2.49   1.54   2.63   1.64  1.60   2.51    2.50    1.50  0.382  0.611   0.375  0.384  0.694 -0.229  pinnacle is the outlier
+43493                atp|2022-421|R64|atp:105138|atp:106218         test       Canada Masters   R64 2022-08-09  Bautista Agut R.           Giron M.  False    57.0    18.0  13.75   1.02  16.00   1.03  3.41   1.37    3.50    1.30  0.069  0.287   0.271  0.060  0.292 -0.218                    split
+42169               atp|2022-520|R128|atp:105967|atp:124079         test        Roland Garros  R128 2022-05-24      Laaksonen H.        Martinez P.   True    96.0    43.0   2.16   1.69   2.31   1.75  4.37   1.26    4.00    1.25  0.439  0.224   0.238  0.431  0.347  0.215                    split
+33995                wta|2020-1082|QF|wta:201593|wta:204427        train               Prague    QF 2020-08-15           Begu I.  Sorribes Tormo S.   True    82.0    84.0   1.97   1.91   3.10   2.12  3.38   1.36    1.80    1.95  0.492  0.287   0.520  0.406  0.543  0.205  pinnacle is the outlier
+4081                atp|2013-560|R128|atp:104297|atp:105577        train              US Open  R128 2013-08-27    Dutra Silva R.        Pospisil V.   True   134.0    40.0   2.62   1.46   2.80   1.61  5.98   1.17    6.50    1.11  0.358  0.164   0.146  0.365  0.321  0.194                    split
+50738               wta|2024-1003|R64|wta:203354|wta:215713         test                 Doha   R64 2024-02-12       Potapova A.        Trevisan M.   True    34.0    58.0   2.11   1.60   2.11   1.60  1.64   2.36    1.62    2.30  0.431  0.590   0.587  0.431  0.647 -0.159                    split
+18914                 wta|2016-1064|F|wta:201593|wta:201693        train        Florianopolis     F 2016-08-05           Begu I.           Babos T.   True    31.0    44.0   1.82   1.98   2.65   2.15  2.65   1.56    2.37    1.57  0.521  0.371   0.398  0.448  0.559  0.151                    split
+51687                atp|2024-410|R64|atp:104792|atp:126846         test  Monte Carlo Masters   R64 2024-04-09        Monfils G.           Vukic A.   True    40.0    65.0   1.29   3.72   1.33   3.90  1.11   8.31    1.10    7.00  0.743  0.882   0.864  0.746  0.694 -0.140                    split
+18720                atp|2016-421|R64|atp:103565|atp:104022        train       Canada Masters   R64 2016-07-25        Youzhny M.          Robert S.   True    61.0    58.0   1.75   2.04   2.41   2.12  2.41   1.61    1.66    2.10  0.538  0.400   0.559  0.468  0.564  0.138                    split
+48807                 atp|2023-6242|F|atp:202104|atp:208103         test        Winston-Salem     F 2023-08-26           Baez S.         Lehecka J.  False    35.0    42.0   1.59   2.34   1.66   2.50  1.65   1.40    1.57    2.38  0.595  0.459   0.603  0.601  0.625  0.136  pinnacle is the outlier
+10984                  atp|2015-496|F|atp:104468|atp:104792        train            Marseille     F 2015-02-22          Simon G.         Monfils G.  False    21.0    17.0   1.52   2.48   1.58   2.63  1.58   1.58    1.53    2.50  0.620  0.500   0.620  0.625  0.622  0.120  pinnacle is the outlier
+15049                atp|2015-573|R32|atp:104198|atp:104269        train             Valencia   R32 2015-10-27   Garcia-Lopez G.        Verdasco F.   True    26.0    45.0   2.26   1.64   2.54   2.11  1.80   2.11    1.90    1.80  0.421  0.540   0.486  0.454  0.462 -0.119                    split
+2601   wta|2013-W-INT-GBR-1A-2013|R64|wta:201535|wta:201697        train           Birmingham   R64 2013-06-10      Pliskova Kr.      Vandeweghe C.   True   105.0   113.0   2.04   1.76   2.81   1.90  2.81   1.49    2.20    1.61  0.463  0.347   0.423  0.403  0.475  0.117                    split
+12907                  atp|2015-741|F|atp:104797|atp:105023        train           Nottingham     F 2015-06-27        Istomin D.         Querrey S.   True    92.0    44.0   2.69   1.46   3.00   1.55  1.74   1.53    2.75    1.44  0.352  0.468   0.344  0.341  0.382 -0.116  pinnacle is the outlier
+18307                atp|2016-540|R32|atp:105449|atp:105777        train            Wimbledon   R32 2016-07-02        Johnson S.        Dimitrov G.  False    37.0    29.0   1.69   2.15   1.83   2.27  2.14   1.75    1.66    2.20  0.560  0.450   0.570  0.554  0.535  0.110  pinnacle is the outlier
+28048               atp|2019-M001|R16|atp:124187|atp:200282        train               Sydney   R16 2019-01-09      De Minaur A.          Opelka R.  False   102.0    29.0   5.39   1.17   6.25   1.33  3.40   1.37    3.40    1.30  0.178  0.287   0.277  0.175  0.352 -0.109                    split
+17916               wta|2016-1091|R32|wta:201527|wta:201545        train             Mallorca   R32 2016-06-13      Sevastova A.         Voegele S.  False   102.0    82.0   2.00   1.80   2.64   1.91  2.64   1.52    2.00    1.72  0.474  0.365   0.462  0.420  0.421  0.108  pinnacle is the outlier
+
+rows without Pinnacle: 3778 | average disagrees with both B365 and Max by > 0.15: 0
+Empty DataFrame
+Columns: [match_id, tabpfn_split, tournament_name, round, td_date, td_winner, td_loser, a_won, rank_a, rank_b, avg_a, avg_b, max_a, max_b, ps_a, ps_b, b365_a, b365_b, p_mkt, p_ps, p_b365, p_max, p_elo, d_b365, d_max]
+Index: []
+
+frame rows with an average quote above the max quote (+0.011): 23 {'test': 4, 'train': 19}
+                                                    match_id tabpfn_split     tournament_name round    td_date         td_winner              td_loser  a_won  rank_a  rank_b  avg_a  avg_b  max_a  max_b  ps_a  ps_b  b365_a  b365_b  p_mkt   p_ps  p_b365  p_max  p_elo  excess_a  excess_b
+5012                    atp|2013-352|F|atp:103970|atp:104925        train       Paris Masters     F 2013-11-03       Djokovic N.             Ferrer D.   True     2.0     3.0   1.18   6.50   1.15   5.42  1.17  6.00    1.12    6.00  0.846  0.837   0.843  0.825  0.797      0.03      1.08
+7588     wta|2014-W-SL-FRA-1A-2014|R16|wta:201585|wta:201594        train       Roland Garros   R16 2014-06-02          Halep S.           Stephens S.  False    19.0     4.0   3.99   1.24   3.35   1.28  4.35  1.27    4.00    1.25  0.237  0.226   0.238  0.276  0.260      0.64     -0.04
+7647                  atp|2014-311|R64|atp:103852|atp:105583        train        Queen's Club   R64 2014-06-10          Lopez F.            Lajovic D.  False    76.0    29.0   6.16   1.18   5.16   1.15  6.16  1.15    5.00    1.16  0.161  0.157   0.188  0.182  0.110      1.00      0.03
+8438    wta|2014-W-INT-AZE-1A-2014|R32|wta:201435|wta:202498        train                Baku   R32 2014-07-22        Glushko J.         Bondarenko K.   True   102.0   679.0   2.21   1.64   1.73   1.91  2.39  1.63    2.25    1.57  0.426  0.405   0.411  0.525  0.503      0.48     -0.27
+12207                  atp|2015-416|QF|atp:103819|atp:104607        train        Rome Masters    QF 2015-05-15        Federer R.            Berdych T.   True     2.0     5.0   1.50   2.59   1.64   1.88  1.64  2.44    1.53    2.50  0.633  0.598   0.620  0.534  0.618     -0.14      0.71
+12747  wta|2015-W-P700-GBR-1A-2015|R64|wta:201614|wta:213583        train          Birmingham   R64 2015-06-16         Garcia C.              Maria T.  False    79.0    33.0   2.40   1.55   1.55   1.61  2.45  1.61    2.37    1.53  0.392  0.397   0.392  0.509  0.438      0.85     -0.06
+13598                 atp|2015-418|R64|atp:104534|atp:111202        train          Washington   R64 2015-08-03          Chung H.               Sela D.  False   125.0    77.0   1.76   2.02   1.84   1.83  1.81  2.09    1.72    2.00  0.534  0.536   0.538  0.499  0.452     -0.08      0.19
+14241                 atp|2015-560|R16|atp:104527|atp:105385        train             US Open   R16 2015-09-07       Wawrinka S.              Young D.   True     5.0    68.0   1.12   7.06   1.15   7.00  1.14  6.92    1.11    6.50  0.863  0.859   0.854  0.859  0.806     -0.03      0.06
+16245                   atp|2016-533|F|atp:104655|atp:105807        train           Sao Paulo     F 2016-02-28         Cuevas P.      Carreno-Busta P.  False    67.0    27.0   2.81   1.42   3.06   1.40  3.06  1.44    2.75    1.44  0.336  0.320   0.344  0.314  0.289     -0.25      0.02
+16936                wta|2016-1051|R32|wta:202427|wta:204431        train           Stuttgart   R32 2016-04-18     Friedsam A.L.              Konta J.   True    52.0    22.0   2.78   1.42   3.00   1.37  2.94  1.45    2.75    1.40  0.338  0.330   0.337  0.314  0.376     -0.22      0.05
+20387                wta|2017-1063|R16|wta:201450|wta:201590        train            Shenzhen   R16 2017-01-03          Riske A.          Pironkova T.  False    63.0    39.0   2.45   1.53   2.40   1.59  2.52  1.59    2.50    1.50  0.384  0.387   0.375  0.398  0.431      0.05     -0.06
+20517                wta|2017-1050|R16|wta:201448|wta:202428        train              Hobart   R16 2017-01-11        Bertens K.         Voskoboeva G.  False   310.0    22.0   4.44   1.20   4.00   1.24  4.61  1.24    4.50    1.18  0.213  0.212   0.208  0.237  0.242      0.44     -0.04
+20642                wta|2017-580|R128|wta:200002|wta:202492        train     Australian Open  R128 2017-01-17   Lucic-Baroni M.               Wang Q.  False    71.0    79.0   1.95   1.83   1.92   1.96  1.99  1.92    1.90    1.90  0.484  0.491   0.500  0.505  0.470      0.03     -0.13
+20843                wta|2017-1086|R16|wta:212001|wta:214082        train      St. Petersburg   R16 2017-02-01  Vikhlyantseva N.          Kasatkina D.  False    27.0   115.0   1.32   3.31   1.38   3.29  1.32  3.78    1.28    3.50  0.715  0.741   0.732  0.704  0.636     -0.06      0.02
+23283                atp|2017-540|R128|atp:106058|atp:106426        train           Wimbledon  R128 2017-07-04           Sock J.              Garin C.   True    18.0   220.0   1.18   5.78   1.22   5.50  1.22  4.86    1.16    5.00  0.830  0.799   0.812  0.818  0.800     -0.04      0.28
+29366                 wta|2019-894|R32|wta:201603|wta:206292        train              Bogota   R32 2019-04-10         Sharma A.             Rogers S.   True   138.0   574.0   2.63   1.58   2.48   1.65  2.48  1.60    2.20    1.61  0.375  0.392   0.423  0.400  0.410      0.15     -0.07
+34028                wta|2020-M024|R64|wta:201465|wta:211701        train          Cincinnati   R64 2020-08-23       Flipkens K.          Siniakova K.  False    55.0    79.0   1.70   2.16   1.60   2.47  1.83  2.47    1.72    2.00  0.560  0.574   0.538  0.607  0.510      0.10     -0.31
+34061                atp|2020-M024|R32|atp:104731|atp:126774        train  Cincinnati Masters   R32 2020-08-24      Tsitsipas S.           Anderson K.  False   124.0     6.0   3.95   1.25   3.85   1.31  4.60  1.31    4.00    1.22  0.240  0.222   0.234  0.254  0.411      0.10     -0.06
+35127                atp|2020-7434|R32|atp:105932|atp:144817        train               Sofia   R32 2020-11-09      Huesler M.A.       Basilashvili N.  False    39.0   149.0   1.70   2.42   1.63   2.23   NaN   NaN    1.70    2.05  0.587    NaN   0.547  0.578  0.698      0.07      0.19
+40074                wta|2022-2030|R32|wta:201603|wta:216146         test          Adelaide 2   R32 2022-01-10        Kostyuk M.             Rogers S.   True    50.0    36.0   1.47   2.64   2.90   1.53  2.81  1.49    2.62    1.50  0.642  0.347   0.364  0.345  0.430     -1.43      1.11
+52100                wta|2024-709|R128|wta:201593|wta:214119         test                Rome  R128 2024-05-09           Begu I.           Masarova R.  False   104.0   161.0   2.57   1.50   1.75   1.61  2.75  1.50    2.75    1.44  0.369  0.353   0.344  0.479  0.333      0.82     -0.11
+57803                   wta|2025-822|F|wta:210722|wta:211817         test     s Hertogenbosch     F 2025-06-15        Mertens E.             Ruse E.G.  False    80.0    25.0   1.44   2.74   3.00   1.50  2.95  1.46    2.75    1.44  0.656  0.331   0.344  0.333  0.437     -1.56      1.24
+62575                atp|2026-520|R128|atp:122298|atp:202103         test       Roland Garros  R128 2026-05-25      Cerundolo F.  Van De Zandschulp B.  False    55.0    26.0   5.28   1.15   7.00   1.10   NaN   NaN    5.00    1.17  0.179    NaN   0.190  0.136  0.307     -1.72      0.05
+
+== atp 2015 Montpellier: n=27 fav won 25; fav better-ranked 21; |p_mkt-p_ps|>0.05: 0; rank_agree both true: 27; links {'name_pair': 27}
+   round          td_winner           td_loser  a_won  rank_a  rank_b  avg_a  avg_b  ps_a  ps_b  p_mkt  p_elo  fav_won
+0    R32     De Schepper K.           Ilhan M.  False   101.0   105.0   2.40   1.54  2.55  1.57  0.391  0.542      1.0
+1    R32          Darcis S.             Ito T.  False    87.0   125.0   4.19   1.21  3.99  1.28  0.224  0.328      1.0
+2    R32        Nieminen J.        Struff J.L.   True    66.0    58.0   1.72   2.06  1.77  2.16  0.545  0.523      1.0
+3    R32         Pouille L.     Kudryavtsev A.  False   117.0   115.0   2.61   1.46  2.87  1.47  0.359  0.329      1.0
+4    R32            Sela D.            Zopp J.   True    89.0   183.0   1.74   2.03  1.79  2.13  0.538  0.581      1.0
+5    R32         Istomin D.          Jaziri M.  False    65.0    61.0   3.50   1.29  3.89  1.29  0.269  0.377      1.0
+6    R32           Sousa J.          Lokoli L.   True    49.0   214.0   1.35   3.07  1.40  3.18  0.695  0.709      1.0
+7    R32           Kamke T.          Millot V.  False   175.0    98.0   2.86   1.40  3.06  1.42  0.329  0.367      1.0
+8    R32       Mathieu P.H.          Daniel T.  False   187.0    96.0   2.23   1.62  2.32  1.68  0.421  0.412      1.0
+9    R32        Janowicz J.           Brown D.  False    94.0    44.0   2.78   1.42  2.94  1.45  0.338  0.360      1.0
+10   R32           Paire B.    Basilashvili N.  False   170.0   149.0   1.93   1.82  1.97  1.92  0.485  0.344      1.0
+11   R32  Roger-Vasselin E.            Beck A.   True   127.0   110.0   1.44   2.70  1.45  2.93  0.652  0.589      1.0
+12   R16         Monfils G.     De Schepper K.   True    20.0   105.0   1.21   4.12  1.25  4.50  0.773  0.866      1.0
+13   R16          Darcis S.        Nieminen J.  False    66.0   125.0   1.98   1.78  2.04  1.86  0.473  0.458      1.0
+14   R16         Gasquet R.         Pouille L.   True    28.0   115.0   1.19   4.50  1.21  5.02  0.791  0.789      1.0
+15   R16         Istomin D.            Sela D.  False    89.0    61.0   1.99   1.77  2.13  1.80  0.471  0.430      1.0
+16   R16           Sousa J.           Kamke T.   True    49.0    98.0   1.63   2.22  1.74  2.22  0.577  0.567      1.0
+17   R16   Kohlschreiber P.       Mathieu P.H.   True    23.0    96.0   1.27   3.59  1.32  3.79  0.739  0.672      1.0
+18   R16        Janowicz J.           Paire B.  False   149.0    44.0   2.51   1.50  2.60  1.56  0.374  0.363      1.0
+19   R16           Simon G.  Roger-Vasselin E.   True    19.0   127.0   1.30   3.34  1.36  3.48  0.720  0.705      1.0
+20    QF         Monfils G.          Darcis S.  False   125.0    20.0   3.05   1.36  3.21  1.41  0.308  0.259      1.0
+21    QF         Gasquet R.         Istomin D.  False    61.0    28.0   4.09   1.22  4.55  1.25  0.230  0.307      1.0
+22    QF           Sousa J.   Kohlschreiber P.   True    49.0    23.0   3.26   1.32  3.46  1.37  0.288  0.379      0.0
+23    QF        Janowicz J.           Simon G.   True    44.0    19.0   2.58   1.48  2.67  1.55  0.365  0.446      0.0
+24    SF         Gasquet R.         Monfils G.   True    28.0    20.0   1.68   2.13  1.71  2.29  0.559  0.420      1.0
+25    SF        Janowicz J.           Sousa J.  False    49.0    44.0   2.96   1.37  3.12  1.43  0.316  0.362      1.0
+26     F         Gasquet R.        Janowicz J.  False    44.0    28.0   3.10   1.35  3.36  1.38  0.303  0.369      1.0
+
+== atp 2019 Tour Finals: n=15 fav won 4; fav better-ranked 13; |p_mkt-p_ps|>0.05: 0; rank_agree both true: 15; links {'name_pair': 15}
+   round       td_winner        td_loser  a_won  rank_a  rank_b  avg_a  avg_b  ps_a  ps_b  p_mkt  p_elo  fav_won
+54    RR  Berrettini M.        Thiem D.    True     8.0     5.0   3.20   1.36  3.27  1.39  0.298  0.388      0.0
+55    RR     Federer R.   Berrettini M.   False     8.0     3.0   5.43   1.16  5.84  1.17  0.176  0.166      1.0
+56    RR       Thiem D.      Federer R.    True     5.0     3.0   3.62   1.29  3.69  1.33  0.263  0.239      0.0
+57    RR    Djokovic N.   Berrettini M.    True     2.0     8.0   1.11   6.72  1.11  8.06  0.858  0.838      1.0
+58    RR       Thiem D.     Djokovic N.   False     2.0     5.0   1.17   5.15  1.18  5.68  0.815  0.767      0.0
+59    RR     Federer R.     Djokovic N.   False     2.0     3.0   1.37   3.12  1.42  3.12  0.695  0.508      0.0
+60    RR   Tsitsipas S.       Zverev A.    True     6.0     7.0   2.09   1.75  2.20  1.76  0.456  0.508      0.0
+61    RR      Zverev A.     Medvedev D.   False     4.0     7.0   1.90   1.92  1.79  2.14  0.503  0.635      0.0
+62    RR   Tsitsipas S.     Medvedev D.   False     4.0     6.0   1.39   3.03  1.42  3.14  0.686  0.627      0.0
+63    RR      Zverev A.        Nadal R.   False     1.0     7.0   1.40   2.98  1.41  3.19  0.680  0.806      0.0
+64    RR       Nadal R.    Tsitsipas S.   False     6.0     1.0   2.93   1.41  3.26  1.39  0.325  0.199      1.0
+65    RR       Nadal R.     Medvedev D.    True     1.0     4.0   2.16   1.71  2.13  1.80  0.442  0.705      0.0
+66    SF       Thiem D.       Zverev A.    True     5.0     7.0   1.78   2.06  1.84  2.10  0.536  0.550      1.0
+67    SF   Tsitsipas S.      Federer R.    True     6.0     3.0   3.39   1.33  3.75  1.33  0.282  0.227      0.0
+68     F   Tsitsipas S.        Thiem D.    True     6.0     5.0   1.96   1.86  2.00  1.93  0.487  0.471      0.0
+
+== atp 2024 Canada Masters: n=53 fav won 25; fav better-ranked 44; |p_mkt-p_ps|>0.05: 0; rank_agree both true: 53; links {'name_pair': 53}
+    round             td_winner              td_loser  a_won  rank_a  rank_b  avg_a  avg_b   ps_a   ps_b  p_mkt  p_elo  fav_won
+69    R64           Thompson J.             Draper J.   True    30.0    28.0   3.17   1.36   3.34   1.37  0.300  0.388      0.0
+70    R64      Carreno Busta P.           Marozsan F.  False    49.0   799.0   1.32   3.36   1.34   3.55  0.718  0.419      0.0
+71    R64              Fritz T.             Navone M.  False    36.0    13.0   9.43   1.06  12.13   1.06  0.101  0.088      1.0
+72    R64              Korda S.           Pospisil V.  False   610.0    18.0   9.02   1.07  11.43   1.07  0.106  0.129      1.0
+73    R64          Duckworth J.              Giron M.  False    37.0    80.0   1.53   2.49   1.57   2.55  0.619  0.646      0.0
+74    R64         Kokkinakis T.            Monfils G.  False    34.0    81.0   2.04   1.78   2.05   1.84  0.466  0.613      1.0
+75    R64        Rinderknech A.          Mannarino A.   True    65.0    31.0   1.52   2.53   1.56   2.57  0.625  0.471      1.0
+76    R64            Cobolli F.    Auger-Aliassime F.  False    19.0    33.0   1.27   3.78   1.28   4.07  0.749  0.644      0.0
+77    R64            Shelton B.             Bublik A.   True    14.0    25.0   1.51   2.58   1.55   2.60  0.631  0.550      1.0
+78    R64            Popyrin A.             Machac T.  False    39.0    62.0   1.66   2.22   1.71   2.25  0.572  0.644      0.0
+79    R64           Hijikata R.             Daniel T.  False    87.0    74.0   1.65   2.24   1.68   2.31  0.576  0.573      0.0
+80    R64          Nishikori K.          Michelsen A.   True   576.0    55.0   3.36   1.32   3.55   1.34  0.282  0.723      0.0
+81    R64             Borges N.         Kecmanovic M.   True    43.0    50.0   2.28   1.62   2.31   1.68  0.415  0.526      0.0
+82    R64            Humbert U.               Fils A.  False    23.0    15.0   2.27   1.62   2.35   1.65  0.416  0.434      1.0
+83    R64          Khachanov K.             Diallo G.   True    22.0   141.0   1.47   2.69   1.50   2.78  0.647  0.754      1.0
+84    R64            Arnaldi M.           Mcdonald M.   True    46.0    93.0   1.83   1.98   1.86   2.03  0.520  0.588      1.0
+85    R64  Davidovich Fokina A.          Safiullin R.   True    42.0    66.0   1.90   1.90   1.98   1.91  0.500  0.551      NaN
+86    R64         Etcheverry T.              Jarry N.   True    38.0    24.0   1.74   2.10   1.77   2.15  0.547  0.442      1.0
+87    R64          Nakashima B.         Shapovalov D.  False   106.0    52.0   1.78   2.04   1.76   2.16  0.534  0.528      0.0
+88    R64               Paul T.            Darderi L.   True    12.0    32.0   1.14   5.93   1.14   6.72  0.839  0.830      1.0
+89    R64             Tabilo A.             Tiafoe F.   True    21.0    27.0   2.24   1.64   2.29   1.69  0.423  0.434      0.0
+90    R64             Sonego L.         Griekspoor T.  False    40.0    57.0   1.62   2.29   1.66   2.35  0.586  0.635      0.0
+91    R64              Coric B.           Martinez P.  False    45.0    94.0   3.11   1.37   3.13   1.41  0.306  0.370      1.0
+92    R32             Zverev A.           Thompson J.  False    30.0     4.0   3.58   1.30   3.87   1.32  0.266  0.205      1.0
+93    R32               Rune H.      Carreno Busta P.  False   799.0    17.0   3.47   1.31   3.60   1.34  0.274  0.380      1.0
+94    R32              Korda S.              Fritz T.   True    18.0    13.0   2.33   1.60   2.45   1.62  0.407  0.433      0.0
+95    R32               Ruud C.          Duckworth J.   True     9.0    80.0   1.31   3.42   1.36   3.45  0.723  0.829      1.0
+96    R32            Hurkacz H.         Kokkinakis T.  False    81.0     6.0   2.14   1.72   2.22   1.74  0.446  0.270      1.0
+97    R32        Rinderknech A.            Cobolli F.   True    65.0    33.0   2.33   1.61   2.41   1.64  0.409  0.416      0.0
+98    R32            Popyrin A.            Shelton B.   True    62.0    14.0   2.50   1.53   2.56   1.58  0.380  0.359      0.0
+99    R32           Dimitrov G.           Hijikata R.   True    10.0    74.0   1.24   4.06   1.27   4.25  0.766  0.870      1.0
+100   R32          Nishikori K.          Tsitsipas S.  False    11.0   576.0   1.21   4.38   1.23   4.79  0.784  0.605      0.0
+101   R32             Borges N.            Humbert U.   True    43.0    15.0   3.26   1.34   3.46   1.36  0.291  0.330      0.0
+102   R32            Arnaldi M.          Khachanov K.   True    46.0    22.0   2.27   1.63   2.33   1.68  0.418  0.386      0.0
+103   R32  Davidovich Fokina A.           Medvedev D.  False     5.0    42.0   1.18   4.87   1.20   5.32  0.805  0.851      0.0
+104   R32             Rublev A.         Etcheverry T.  False    38.0     8.0   3.45   1.31   3.55   1.35  0.275  0.235      1.0
+105   R32          Nakashima B.               Paul T.  False    12.0    52.0   1.38   3.06   1.37   3.37  0.689  0.705      0.0
+106   R32             Tabilo A.             Sonego L.   True    21.0    57.0   1.58   2.36   1.59   2.52  0.599  0.561      1.0
+107   R32             Sinner J.              Coric B.   True     1.0    94.0   1.07   8.60   1.07  12.01  0.889  0.919      1.0
+108   R16             Zverev A.               Rune H.  False    17.0     4.0   3.43   1.31   3.57   1.34  0.276  0.323      1.0
+109   R16            Hurkacz H.        Rinderknech A.   True     6.0    65.0   1.62   2.30   1.61   2.46  0.587  0.764      1.0
+110   R16            Popyrin A.           Dimitrov G.   True    62.0    10.0   3.34   1.33   3.50   1.35  0.285  0.216      0.0
+111   R16          Nishikori K.             Borges N.   True   576.0    43.0   2.27   1.64   2.39   1.65  0.419  0.659      0.0
+112   R16            Arnaldi M.  Davidovich Fokina A.   True    46.0    42.0   2.18   1.68   2.23   1.74  0.435  0.510      0.0
+113   R16             Rublev A.          Nakashima B.   True     8.0    52.0   1.54   2.45   1.60   2.51  0.614  0.720      1.0
+114   R16             Sinner J.             Tabilo A.  False    21.0     1.0   9.08   1.06  11.12   1.08  0.105  0.086      1.0
+115    QF              Korda S.             Zverev A.   True    18.0     4.0   3.23   1.34   3.48   1.36  0.293  0.344      0.0
+116    QF            Popyrin A.            Hurkacz H.  False     6.0    62.0   1.64   2.25   1.68   2.34  0.578  0.745      0.0
+117    QF            Arnaldi M.          Nishikori K.  False   576.0    46.0   2.54   1.52   2.63   1.54  0.374  0.598      1.0
+118    QF             Rublev A.             Sinner J.   True     8.0     1.0   4.61   1.20   4.78   1.22  0.207  0.194      0.0
+119    SF            Popyrin A.              Korda S.  False    18.0    62.0   1.38   3.03   1.37   3.35  0.687  0.713      0.0
+120    SF             Rublev A.            Arnaldi M.   True     8.0    46.0   1.30   3.54   1.30   3.89  0.731  0.676      1.0
+121     F            Popyrin A.             Rublev A.  False     8.0    62.0   1.37   3.13   1.41   3.18  0.696  0.737      0.0C:\Users\zerom\AppData\Local\Temp\claude\c--Users-zerom-Documents-Tennis-predictions\6a2c00c2-76fc-4179-a6fa-f816c61187b3\scratchpad\odds_audit\a04_suspects_detail.py:90: UserWarning: obj.round has no effect with datetime, timedelta, or period dtypes. Use obj.dt.round(...) instead.
+  print(rm[show + ["link", "same_set_scores"]].head(70).round(3).to_string())
+
+
+== wta 2016 Dubai: n=27 fav won 9; fav better-ranked 19; |p_mkt-p_ps|>0.05: 0; rank_agree both true: 27; links {'name_pair': 25, 'one_player_anchor': 2}
+   round      td_winner           td_loser  a_won  rank_a  rank_b  avg_a  avg_b  ps_a  ps_b  p_mkt  p_elo  fav_won
+27   R32   Svitolina E.        Cepelova J.   True    21.0   133.0   1.31   3.36  1.35  3.49  0.719  0.731      1.0
+28   R32  Mladenovic K.        Tsurenko L.  False    34.0    30.0   2.11   1.71  2.13  1.79  0.448  0.552      1.0
+29   R32  Vandeweghe C.       Pliskova Ka.   True    46.0    14.0   4.17   1.22  4.46  1.24  0.226  0.261      0.0
+30   R32     Brengle M.        Makarova E.   True    60.0    31.0   3.48   1.29  3.61  1.33  0.270  0.339      0.0
+31   R32      Errani S.           Zheng S.   True    22.0    72.0   1.61   2.28  1.62  2.43  0.586  0.697      1.0
+32   R32    Shvedova Y.           Vinci R.  False    13.0    82.0   1.43   2.76  1.44  3.00  0.659  0.703      0.0
+33   R32    Jankovic J.          Bencic B.  False     9.0    20.0   1.51   2.54  1.52  2.68  0.627  0.665      0.0
+34   R32    Petkovic A.          Giorgi C.   True    28.0    40.0   2.18   1.67  2.35  1.66  0.434  0.484      0.0
+35   R32      Garcia C.     Schmiedlova A.   True    38.0    29.0   1.41   2.85  1.45  2.95  0.669  0.533      1.0
+36   R32     Goerges J.      Kuznetsova S.   True    54.0    18.0   2.64   1.47  2.95  1.45  0.358  0.313      0.0
+37   R32    Strycova B.       Pironkova T.  False    93.0    47.0   1.87   1.91  1.87  2.02  0.505  0.422      0.0
+38   R32    Ivanovic A.       Gavrilova D.   True    17.0    35.0   1.56   2.39  1.62  2.43  0.605  0.657      1.0
+39   R16   Svitolina E.        Muguruza G.  False     5.0    21.0   1.38   2.98  1.43  3.06  0.683  0.683      0.0
+40   R16  Vandeweghe C.      Mladenovic K.   True    46.0    30.0   2.00   1.79  2.11  1.82  0.472  0.469      0.0
+41   R16     Brengle M.         Kvitova P.   True    60.0     8.0   2.98   1.38  3.12  1.42  0.317  0.262      0.0
+42   R16      Errani S.        Shvedova Y.  False    82.0    22.0   1.72   2.10  1.74  2.22  0.550  0.378      0.0
+43   R16    Petkovic A.        Jankovic J.   True    28.0    20.0   2.32   1.60  2.44  1.63  0.408  0.368      0.0
+44   R16      Garcia C.  Suarez Navarro C.   True    38.0    11.0   1.75   2.05  1.80  2.13  0.539  0.379      1.0
+45   R16    Strycova B.         Goerges J.   True    47.0    54.0   1.96   1.82  2.02  1.88  0.481  0.568      0.0
+46   R16    Ivanovic A.           Halep S.   True    17.0     3.0   2.10   1.72  2.25  1.72  0.450  0.391      0.0
+47    QF   Svitolina E.      Vandeweghe C.  False    46.0    21.0   2.68   1.46  3.06  1.44  0.353  0.370      1.0
+48    QF      Errani S.         Brengle M.  False    60.0    22.0   2.28   1.62  2.30  1.71  0.415  0.420      1.0
+49    QF      Garcia C.        Petkovic A.  False    28.0    38.0   1.96   1.83  2.04  1.88  0.483  0.454      1.0
+50    QF    Strycova B.        Ivanovic A.  False    17.0    47.0   1.31   3.40  1.34  3.62  0.722  0.663      0.0
+51    SF      Errani S.       Svitolina E.   True    22.0    21.0   2.55   1.51  2.73  1.53  0.372  0.459      0.0
+52    SF    Strycova B.          Garcia C.   True    47.0    38.0   2.15   1.70  2.19  1.78  0.442  0.459      0.0
+53     F      Errani S.        Strycova B.  False    47.0    22.0   1.89   1.90  1.88  2.04  0.501  0.486      0.0
+
+== wta 2024 Osaka: n=31 fav won 12; fav better-ranked 22; |p_mkt-p_ps|>0.05: 0; rank_agree both true: 31; links {'name_pair': 30, 'one_player_anchor': 1}
+    round       td_winner           td_loser  a_won  rank_a  rank_b  avg_a  avg_b  ps_a  ps_b  p_mkt  p_elo  fav_won
+122   R32       Tauson C.        Volynets K.  False    58.0    63.0   2.27   1.64  2.38  1.63  0.419  0.500      1.0
+123   R32         Dart H.       Siegemund L.   True    81.0    89.0   2.61   1.48  2.80  1.48  0.362  0.353      0.0
+124   R32       Minnen G.       Andreescu B.   True    95.0   163.0   2.53   1.51  2.65  1.52  0.374  0.344      0.0
+125   R32        Parry D.        Andreeva E.   True    52.0    66.0   2.14   1.69  2.22  1.71  0.441  0.432      0.0
+126   R32     Bouzkova M.        Uchijima M.  False    59.0    43.0   3.99   1.23  4.22  1.25  0.236  0.326      1.0
+127   R32       Bogdan A.     Kudermetova V.  False    67.0   111.0   1.52   2.47  1.54  2.60  0.619  0.617      0.0
+128   R32    Bronzetti L.           Bucsa C.  False    70.0    78.0   1.90   1.88  2.00  1.87  0.497  0.507      1.0
+129   R32       Lamens S.          Tomova V.  False    49.0   125.0   1.54   2.45  1.59  2.47  0.614  0.631      0.0
+130   R32    Avanesyan E.         Krueger A.  False    65.0    48.0   1.62   2.26  1.68  2.29  0.582  0.558      0.0
+131   R32        Saito S.  Bouzas Maneiro J.  False    61.0   179.0   1.40   2.90  1.43  2.98  0.674  0.677      0.0
+132   R32      Birrell K.           Zheng S.  False  1007.0   150.0   5.60   1.14  5.79  1.16  0.169  0.493      1.0
+133   R32      Mertens E.         Hontama M.  False   126.0    27.0   5.29   1.15  5.84  1.16  0.179  0.207      1.0
+134   R32  Cocciaretto E.         Ponchet J.  False   109.0    50.0   3.42   1.30  3.50  1.34  0.275  0.310      1.0
+135   R32          Ito A.           Kenin S.   True   188.0   158.0   3.31   1.32  3.43  1.35  0.285  0.344      0.0
+136   R32      Kessler M.       Shibahara E.   True    76.0   139.0   1.55   2.43  1.57  2.52  0.611  0.616      1.0
+137   R32          Lys E.          Osorio M.   True   118.0    55.0   2.25   1.62  2.27  1.68  0.419  0.442      0.0
+138   R16       Tauson C.            Dart H.   True    63.0    81.0   1.28   3.60  1.29  3.92  0.738  0.623      1.0
+139   R16        Parry D.          Minnen G.   True    52.0    95.0   2.07   1.74  2.16  1.76  0.457  0.500      0.0
+140   R16       Bogdan A.        Bouzkova M.  False    43.0   111.0   1.59   2.32  1.63  2.40  0.593  0.606      0.0
+141   R16       Lamens S.       Bronzetti L.   True   125.0    78.0   2.18   1.67  2.18  1.76  0.434  0.400      0.0
+142   R16        Saito S.       Avanesyan E.   True   179.0    48.0   3.73   1.27  4.16  1.27  0.254  0.314      0.0
+143   R16      Birrell K.         Mertens E.  False    27.0   150.0   1.22   4.23  1.23  4.67  0.776  0.719      0.0
+144   R16          Ito A.     Cocciaretto E.  False    50.0   188.0   1.30   3.42  1.34  3.51  0.725  0.706      0.0
+145   R16          Lys E.         Kessler M.   True   118.0    76.0   1.80   1.99  1.79  2.12  0.525  0.457      1.0
+146    QF        Parry D.          Tauson C.  False    63.0    52.0   1.49   2.59  1.56  2.60  0.635  0.555      0.0
+147    QF       Lamens S.          Bogdan A.   True   125.0   111.0   2.38   1.57  2.34  1.68  0.397  0.345      0.0
+148    QF      Birrell K.           Saito S.   True   150.0   179.0   1.73   2.09  1.80  2.14  0.547  0.529      1.0
+149    QF          Ito A.             Lys E.   True   188.0   118.0   2.86   1.41  2.87  1.48  0.330  0.304      0.0
+150    SF       Lamens S.           Parry D.   True   125.0    52.0   2.50   1.52  2.59  1.56  0.378  0.376      0.0
+151    SF      Birrell K.             Ito A.   True   150.0   188.0   1.61   2.29  1.67  2.36  0.587  0.542      1.0
+152     F       Lamens S.         Birrell K.   True   125.0   150.0   1.57   2.42  1.62  2.43  0.607  0.452      1.0
+
+both ranks disagree: 66 {('atp', 2015): 1, ('wta', 2015): 4, ('wta', 2016): 1, ('wta', 2017): 10, ('wta', 2021): 1, ('wta', 2025): 1, ('wta', 2026): 48}
+                                                    match_id tabpfn_split   tournament_name round    td_date          td_winner           td_loser  a_won  rank_a  rank_b  avg_a  avg_b  max_a  max_b  ps_a  ps_b  b365_a  b365_b  p_mkt   p_ps  p_b365  p_max  p_elo               link  same_set_scores
+10227                 atp|2015-338|R32|atp:104660|atp:105223        train            Sydney   R32 2015-01-13     Del Potro J.M.      Stakhovsky S.  False    69.0   338.0   1.92   1.84   2.05   1.96  2.04  1.85    1.83    1.83  0.489  0.476   0.500  0.489  0.111          name_pair             True
+12748  wta|2015-W-P700-GBR-1A-2015|R64|wta:201366|wta:201512        train        Birmingham   R64 2015-06-16        Strycova B.       Niculescu M.  False    49.0    28.0   2.41   1.54   2.60   1.61  2.57  1.56    2.37    1.53  0.390  0.378   0.392  0.382  0.350          name_pair             True
+13454   wta|2015-W-INT-AZE-1A-2015|R32|wta:201465|wta:201666        train              Baku   R32 2015-07-28        Flipkens K.      Buyukakcay C.  False   186.0    86.0   3.79   1.25   4.00   1.29  4.00  1.28    4.00    1.22  0.248  0.242   0.234  0.244  0.254          name_pair             True
+13511   wta|2015-W-INT-AZE-1A-2015|R32|wta:201498|wta:201527        train              Baku   R32 2015-07-29           Knapp K.         Voegele S.  False   133.0    38.0   2.56   1.49   2.83   1.57  2.83  1.48    2.50    1.50  0.368  0.343   0.375  0.357  0.325          name_pair             True
+13529   wta|2015-W-INT-AZE-1A-2015|R16|wta:201465|wta:201554        train              Baku   R16 2015-07-30        Flipkens K.      Diatchenko V.   True    86.0    92.0   1.52   2.47   1.57   2.67  1.54  2.67    1.50    2.50  0.619  0.634   0.625  0.630  0.516          name_pair             True
+18773                 wta|2016-806|R32|wta:201325|wta:214082        train          Montreal   R32 2016-07-27       Kasatkina D.          Stosur S.   True    33.0    18.0   1.85   1.93   1.95   2.06  1.85  2.06    1.83    1.83  0.511  0.527   0.500  0.514  0.539          name_pair             True
+22884                wta|2017-M010|R32|wta:201615|wta:210722        train  's Hertogenbosch   R32 2017-06-12        Tsurenko L.         Mertens E.  False    51.0    37.0   1.65   2.20   1.77   2.30  1.71  2.24    1.66    2.10  0.571  0.567   0.559  0.565  0.596          name_pair             True
+22886                wta|2017-M010|R32|wta:201535|wta:202489        train  's Hertogenbosch   R32 2017-06-13       Witthoeft C.      Vandeweghe C.   True    66.0    25.0   4.01   1.24   4.42   1.26  4.31  1.25    3.75    1.25  0.236  0.225   0.250  0.222  0.225          name_pair             True
+22903                wta|2017-1080|R32|wta:202663|wta:206219        train        Nottingham   R32 2017-06-12         Linette M.           Dodin O.   True    77.0    46.0   2.47   1.52   2.60   1.57  2.60  1.55    2.50    1.50  0.381  0.373   0.375  0.376  0.372          name_pair             True
+22917                wta|2017-1080|R32|wta:202458|wta:213583        train        Nottingham   R32 2017-06-13           Barty A.           Maria T.   True    88.0    92.0   1.24   3.97   1.26   4.23  1.26  4.23    1.22    4.00  0.762  0.770   0.766  0.770  0.686          name_pair             True
+22938                wta|2017-M010|R16|wta:202429|wta:202489        train  's Hertogenbosch   R16 2017-06-14       Witthoeft C.          Giorgi C.   True    66.0   105.0   2.07   1.73   2.28   1.83  2.28  1.71    2.10    1.66  0.455  0.429   0.441  0.445  0.425          name_pair             True
+22946                wta|2017-M010|R16|wta:201551|wta:201599        train  's Hertogenbosch   R16 2017-06-15             Rus A.      Hlavackova A.   True   183.0   531.0   1.99   1.79   2.08   1.90  2.04  1.87    2.00    1.72  0.474  0.478   0.462  0.477  0.383          name_pair             True
+22947                wta|2017-1080|R16|wta:201517|wta:201590        train        Nottingham   R16 2017-06-15      Rybarikova M.           Riske A.   True   117.0    43.0   1.74   2.06   1.90   2.23  1.74  2.23    1.61    2.20  0.542  0.562   0.577  0.540  0.492          name_pair             True
+22951                wta|2017-1080|R16|wta:202458|wta:213544        train        Nottingham   R16 2017-06-14           Barty A.            Fett J.  False   167.0    88.0   3.92   1.25   4.39   1.29  4.39  1.26    4.00    1.22  0.242  0.223   0.234  0.227  0.322          name_pair             True
+22963                 wta|2017-1080|QF|wta:201425|wta:201450        train        Nottingham    QF 2017-06-16        Safarova L.       Pironkova T.   True    44.0   126.0   1.88   1.90   1.97   2.00  1.95  1.97    1.90    1.90  0.503  0.503   0.500  0.504  0.663          name_pair             True
+22983                  wta|2017-1080|F|wta:202427|wta:202499        train        Nottingham     F 2017-06-18           Konta J.           Vekic D.  False     8.0    70.0   4.98   1.17   6.00   1.23  5.77  1.18    5.00    1.16  0.190  0.170   0.188  0.170  0.796     winner_swapped            False
+38635                wta|2021-1017|R64|wta:202429|wta:202468        train        Cincinnati   R64 2021-08-18          Pegula J.          Giorgi C.   True    25.0    33.0   1.74   2.10   1.82   2.30  1.71  2.25    1.80    2.00  0.547  0.568   0.526  0.558  0.541          name_pair             True
+55754                wta|2025-2050|R32|wta:204427|wta:215020         test       Cluj-Napoca   R32 2025-02-04        Blinkova A.  Sorribes Tormo S.  False    83.0    71.0   2.17   1.67   2.27   1.72  2.27  1.68    2.20    1.67  0.435  0.425   0.432  0.431  0.506          name_pair             True
+62778                wta|2026-1111|R32|wta:313974|wta:326678         test      Queen's Club   R32 2026-06-08       Pliskova Ka.         Kessler M.  False    44.0    87.0   2.10   1.70   2.20   1.76   NaN   NaN    2.10    1.73  0.447    NaN   0.452  0.444  0.500          name_pair             True
+62852                 wta|2026-822|R16|wta:266376|wta:315130         test  's-Hertogenbosch   R16 2026-06-11         Linette M.       Pohankova M.  False   253.0    48.0   1.97   1.80   2.07   2.00   NaN   NaN    2.00    1.80  0.477    NaN   0.474  0.491  0.578          name_pair             True
+62857                 wta|2026-1111|QF|wta:313974|wta:318516         test      Queen's Club    QF 2026-06-12           Vekic D.       Pliskova Ka.   True    33.0    87.0   1.67   2.16   1.73   2.21   NaN   NaN    1.67    2.20  0.564    NaN   0.568  0.561  0.689          name_pair             True
+62859                 wta|2026-1111|QF|wta:325936|wta:328366         test      Queen's Club    QF 2026-06-13        Raducanu E.       Rakhimova K.   True    31.0    65.0   1.19   4.44   1.20   5.00   NaN   NaN    1.20    4.50  0.789    NaN   0.789  0.806  0.483          name_pair             True
+62867                  wta|2026-822|QF|wta:211817|wta:318314         test  's-Hertogenbosch    QF 2026-06-12      Krejcikova B.          Ruse E.G.  False   105.0    39.0   2.62   1.47   2.75   1.50   NaN   NaN    2.75    1.44  0.359    NaN   0.344  0.353  0.745          name_pair             True
+62869                 wta|2026-1111|SF|wta:318516|wta:319125         test      Queen's Club    SF 2026-06-13           Vekic D.         Boulter K.   True    33.0    56.0   2.10   1.70   2.20   1.75   NaN   NaN    2.10    1.73  0.447    NaN   0.452  0.443  0.531          name_pair             True
+62876                  wta|2026-822|SF|wta:315130|wta:318314         test  's-Hertogenbosch    SF 2026-06-13      Krejcikova B.         Linette M.   True    39.0    48.0   1.33   3.21   1.35   3.50   NaN   NaN    1.33    3.40  0.707    NaN   0.719  0.722  0.278          name_pair             True
+62877                  wta|2026-1111|F|wta:318516|wta:328366         test      Queen's Club     F 2026-06-14           Vekic D.        Raducanu E.  False    31.0    33.0   1.66   2.19   1.68   2.25   NaN   NaN    1.67    2.20  0.569    NaN   0.568  0.573  0.602          name_pair             True
+63135                wta|2026-904|R128|wta:214906|wta:243420         test         Wimbledon  R128 2026-06-29             Liu C.     Vandewinkel H.   True   113.0    91.0   1.63   2.23   1.68   2.30   NaN   NaN    1.62    2.30  0.578    NaN   0.587  0.578  0.623          name_pair             True
+63139                wta|2026-904|R128|wta:222290|wta:260172         test         Wimbledon  R128 2026-06-29       Tararudee L.          Tagger L.  False    45.0    78.0   1.72   2.09   1.78   2.11   NaN   NaN    1.73    2.10  0.549    NaN   0.548  0.542  0.387          name_pair             True
+63143                wta|2026-904|R128|wta:220367|wta:222145         test         Wimbledon  R128 2026-06-29            Tjen J.     Fernandez L.A.   True    37.0    34.0   2.91   1.40   3.25   1.44   NaN   NaN    2.75    1.44  0.325    NaN   0.344  0.307  0.237          name_pair             True
+63147                wta|2026-904|R128|wta:206252|wta:263872         test         Wimbledon  R128 2026-06-29      Krejcikova B.         Klugman H.  False   374.0    25.0   8.38   1.07   9.50   1.08   NaN   NaN    9.00    1.07  0.113    NaN   0.106  0.102  0.061          name_pair             True
+63153                wta|2026-904|R128|wta:220520|wta:220716         test         Wimbledon  R128 2026-06-29         Kessler M.      Oliynykova O.  False    44.0    47.0   5.49   1.14   6.00   1.17   NaN   NaN    6.00    1.13  0.172    NaN   0.158  0.163  0.245          name_pair             True
+63177                wta|2026-904|R128|wta:211107|wta:261972         test         Wimbledon  R128 2026-06-30         Grant T.C.         Boulter K.  False    69.0   151.0   1.34   3.16   1.37   3.30   NaN   NaN    1.36    3.20  0.702    NaN   0.702  0.707  0.769          name_pair             True
+63187                wta|2026-904|R128|wta:201662|wta:238184         test         Wimbledon  R128 2026-06-30       Pliskova Ka.       Valentova T.   True    63.0    64.0   1.63   2.23   1.68   2.31   NaN   NaN    1.62    2.30  0.578    NaN   0.587  0.579  0.607          name_pair             True
+63189                wta|2026-904|R128|wta:206289|wta:220704         test         Wimbledon  R128 2026-06-30         Sakkari M.          Tauson C.   True    33.0    30.0   2.61   1.48   2.70   1.50   NaN   NaN    2.63    1.50  0.362    NaN   0.363  0.357  0.516          name_pair             True
+63191                wta|2026-904|R128|wta:211843|wta:215872         test         Wimbledon  R128 2026-06-30       Rakhimova K.        Kalinina A.   True    82.0    54.0   2.26   1.61   2.38   1.67   NaN   NaN    2.20    1.67  0.416    NaN   0.432  0.412  0.423          name_pair             True
+63197                wta|2026-904|R128|wta:203501|wta:216347         test         Wimbledon  R128 2026-06-30         Swiatek I.        Townsend T.  False   105.0     8.0   5.27   1.15   5.75   1.20   NaN   NaN    5.50    1.14  0.179    NaN   0.172  0.173  0.128          name_pair             True
+63203                wta|2026-904|R128|wta:206417|wta:220662         test         Wimbledon  R128 2026-06-30        Jeanjean L.         Erjavec V.  False   100.0   117.0   2.49   1.52   2.63   1.57   NaN   NaN    2.50    1.53  0.379    NaN   0.380  0.374  0.600          name_pair             True
+63213                wta|2026-904|R128|wta:201696|wta:210722         test         Wimbledon  R128 2026-06-30         Mertens E.       Siegemund L.  False    88.0    23.0   3.44   1.30   3.60   1.32   NaN   NaN    3.50    1.30  0.274    NaN   0.271  0.268  0.319          name_pair             True
+63234                wta|2026-904|R128|wta:200033|wta:233741         test         Wimbledon  R128 2026-06-30           Joint M.        Williams S.   True    76.0  1227.0   1.84   1.92   1.95   2.00   NaN   NaN    1.91    1.91  0.511    NaN   0.500  0.506  0.096          name_pair             True
+63243                 wta|2026-904|R64|wta:216566|wta:219917         test         Wimbledon   R64 2026-07-01      Sawangkaew M.           Parks A.   True   111.0    68.0   2.16   1.67   2.25   1.73   NaN   NaN    2.20    1.67  0.436    NaN   0.432  0.435  0.510          name_pair             True
+63252                 wta|2026-904|R64|wta:215035|wta:222601         test         Wimbledon   R64 2026-07-01  Bouzas Maneiro J.      Yastremska D.  False    87.0    59.0   2.04   1.75   2.11   1.80   NaN   NaN    2.10    1.73  0.462    NaN   0.452  0.460  0.584          name_pair             True
+63275                 wta|2026-904|R64|wta:206417|wta:220750         test         Wimbledon   R64 2026-07-02          Snigur D.        Jeanjean L.  False   117.0    43.0   4.74   1.18   5.25   1.20   NaN   NaN    5.00    1.17  0.199    NaN   0.190  0.186  0.353          name_pair             True
+63279                 wta|2026-904|R64|wta:213734|wta:221909         test         Wimbledon   R64 2026-07-02         Krueger A.       Bolkvadze M.   True    67.0   420.0   1.15   5.18   1.17   6.00   NaN   NaN    1.14    5.50  0.818    NaN   0.828  0.837  0.760          name_pair             True
+63283                 wta|2026-904|R64|wta:223253|wta:233741         test         Wimbledon   R64 2026-07-02            Eala A.           Joint M.   True    28.0    76.0   1.22   4.05   1.25   4.40   NaN   NaN    1.22    4.33  0.769    NaN   0.780  0.779  0.716          name_pair             True
+63285                 wta|2026-904|R64|wta:201662|wta:216347         test         Wimbledon   R64 2026-07-02         Swiatek I.       Pliskova Ka.   True     8.0    63.0   1.26   3.78   1.29   4.33   NaN   NaN    1.25    4.00  0.750    NaN   0.762  0.770  0.780          name_pair             True
+63291                 wta|2026-904|R64|wta:206289|wta:215872         test         Wimbledon   R64 2026-07-02         Sakkari M.       Rakhimova K.   True    33.0    82.0   1.55   2.42   1.58   2.53   NaN   NaN    1.53    2.50  0.610    NaN   0.620  0.616  0.592          name_pair             True
+63301                 wta|2026-904|R64|wta:215785|wta:222328         test         Wimbledon   R64 2026-07-02         Noskova L.          Osorio M.  False    56.0     7.0   4.32   1.21   4.60   1.22   NaN   NaN    4.50    1.20  0.219    NaN   0.211  0.210  0.240  one_player_anchor             True
+63311                 wta|2026-904|R32|wta:206252|wta:223360         test         Wimbledon   R32 2026-07-03      Krejcikova B.      Bartunkova N.  False    41.0    25.0   2.49   1.52   2.60   1.55   NaN   NaN    2.50    1.53  0.379    NaN   0.380  0.373  0.436          name_pair             True
+63323                 wta|2026-904|R32|wta:220750|wta:221909         test         Wimbledon   R32 2026-07-04         Krueger A.          Snigur D.   True    67.0    43.0   2.06   1.74   2.11   1.79   NaN   NaN    2.10    1.73  0.458    NaN   0.452  0.459  0.539          name_pair             True
+63327                 wta|2026-904|R32|wta:216347|wta:223253         test         Wimbledon   R32 2026-07-04            Eala A.         Swiatek I.  False     8.0    28.0   1.25   3.80   1.29   4.00   NaN   NaN    1.25    4.00  0.752    NaN   0.762  0.756  0.754          name_pair             True
+63355                  wta|2026-904|QF|wta:210722|wta:222328         test         Wimbledon    QF 2026-07-08         Noskova L.         Mertens E.   True     7.0    23.0   1.56   2.38   1.60   2.45   NaN   NaN    1.57    2.38  0.604    NaN   0.603  0.605  0.632          name_pair             True
+63400                wta|2026-2063|R32|wta:210886|wta:213646         test              Iasi   R32 2026-07-14          Sherif M.           Galfi D.  False   156.0    50.0   2.33   1.57   2.38   1.60   NaN   NaN    2.38    1.57  0.403    NaN   0.397  0.402  0.551          name_pair             True
+63409                wta|2026-1175|R32|wta:202600|wta:206252         test            Athens   R32 2026-07-14      Krejcikova B.          Tomova V.   True    25.0   234.0   1.07   7.81   1.10   8.50   NaN   NaN    1.08    8.00  0.880    NaN   0.881  0.885  0.790          name_pair             True
+63458                wta|2026-1175|R16|wta:239383|wta:260172         test            Athens   R16 2026-07-15          Bejlek S.          Tagger L.   True    38.0    45.0   1.72   2.07   1.75   2.10   NaN   NaN    1.73    2.10  0.546    NaN   0.548  0.545  0.572          name_pair             True
+63459                wta|2026-2063|R16|wta:220589|wta:238075         test              Iasi   R16 2026-07-15        Marcinko P.       Avanesyan E.  False   161.0    53.0   2.40   1.54   2.45   1.58   NaN   NaN    2.38    1.57  0.391    NaN   0.397  0.392  0.407          name_pair             True
+63468                wta|2026-2063|R16|wta:211651|wta:332575         test              Iasi   R16 2026-07-16          Badosa P.      Ibragimova A.   True    84.0   219.0   1.12   5.81   1.13   6.50   NaN   NaN    1.13    6.00  0.838    NaN   0.842  0.852  0.799          name_pair             True
+63486                 wta|2026-2063|QF|wta:216262|wta:220716         test              Iasi    QF 2026-07-17      Oliynykova O.           Burel C.   True    44.0   413.0   1.68   2.14   1.73   2.30   NaN   NaN    1.67    2.20  0.560    NaN   0.568  0.571  0.603          name_pair             True
+63498                 wta|2026-2063|SF|wta:210886|wta:220716         test              Iasi    SF 2026-07-18          Sherif M.      Oliynykova O.   True    50.0    44.0   1.75   2.02   1.80   2.10   NaN   NaN    1.80    2.00  0.536    NaN   0.526  0.538  0.394          name_pair             True
+63504                  wta|2026-1175|F|wta:206252|wta:206289         test            Athens     F 2026-07-19      Krejcikova B.         Sakkari M.  False    33.0    25.0   2.15   1.66   2.20   1.71   NaN   NaN    2.20    1.67  0.436    NaN   0.432  0.437  0.433          name_pair             True
+63505                  wta|2026-2063|F|wta:210886|wta:211651         test              Iasi     F 2026-07-20          Sherif M.          Badosa P.   True    50.0    84.0   2.56   1.49   2.75   1.54   NaN   NaN    2.75    1.44  0.368    NaN   0.344  0.359  0.272          name_pair             True
+63578                wta|2026-2042|R16|wta:211337|wta:260847         test           Hamburg   R16 2026-07-22       Korpatsch T.          Stusek J.   True    46.0   375.0   1.16   5.03   1.21   5.50   NaN   NaN    1.17    5.00  0.813    NaN   0.810  0.820  0.810          name_pair             True
+63605                 wta|2026-2042|QF|wta:210886|wta:211651         test           Hamburg    QF 2026-07-24          Sherif M.          Badosa P.  False    84.0    50.0   1.61   2.25   1.63   2.30   NaN   NaN    1.62    2.30  0.583    NaN   0.587  0.585  0.696          name_pair             True
+63614                 wta|2026-2042|SF|wta:214388|wta:220589         test           Hamburg    SF 2026-07-25          Bondar A.       Avanesyan E.  False   161.0    77.0   2.50   1.51   2.63   1.54   NaN   NaN    2.63    1.50  0.377    NaN   0.363  0.369  0.426          name_pair             True
+63616                 wta|2026-2042|SF|wta:210886|wta:211337         test           Hamburg    SF 2026-07-25       Korpatsch T.          Sherif M.  False    50.0    46.0   1.56   2.34   1.60   2.40   NaN   NaN    1.57    2.38  0.600    NaN   0.603  0.600  0.543          name_pair             True
+63619                  wta|2026-1082|F|wta:220750|wta:260172         test            Prague     F 2026-07-26          Tagger L.          Snigur D.   True    45.0    43.0   2.25   1.62   2.30   1.66   NaN   NaN    2.30    1.62  0.419    NaN   0.413  0.419  0.506          name_pair             True
+63620                  wta|2026-2042|F|wta:211337|wta:214388         test           Hamburg     F 2026-07-26       Korpatsch T.          Bondar A.   True    46.0    77.0   2.01   1.77   2.10   1.85   NaN   NaN    2.00    1.80  0.468    NaN   0.474  0.468  0.435          name_pair             True

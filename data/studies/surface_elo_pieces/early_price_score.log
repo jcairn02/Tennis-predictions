@@ -1,0 +1,144 @@
+{
+ "base_noodds seed 0": {
+  "matches": 8593,
+  "log_odds_correlation": 0.9997725660593847,
+  "mean_abs_prob_gap": 0.003383967818979104,
+  "max_abs_prob_gap": 0.03368714451789856
+ },
+ "primary_noodds seed 0": {
+  "matches": 8593,
+  "log_odds_correlation": 0.999795870439648,
+  "mean_abs_prob_gap": 0.003218683350419312,
+  "max_abs_prob_gap": 0.03485400974750519
+ },
+ "base seed 0": {
+  "matches": 8593,
+  "log_odds_correlation": 0.9998429023958625,
+  "mean_abs_prob_gap": 0.0028589838189293465,
+  "max_abs_prob_gap": 0.06211221218109131
+ },
+ "base seed 1": {
+  "matches": 8593,
+  "log_odds_correlation": 0.9998163224211574,
+  "mean_abs_prob_gap": 0.003076554993832982,
+  "max_abs_prob_gap": 0.06444132328033447
+ },
+ "primary seed 0": {
+  "matches": 8593,
+  "log_odds_correlation": 0.999803247481767,
+  "mean_abs_prob_gap": 0.0029313748207753535,
+  "max_abs_prob_gap": 0.060759544372558594
+ },
+ "primary seed 2": {
+  "matches": 8593,
+  "log_odds_correlation": 0.9998006207716891,
+  "mean_abs_prob_gap": 0.0025675087056902957,
+  "max_abs_prob_gap": 0.06720787286758423
+ }
+}
+population tour        forecasts  matches  clusters  beta_D  lo_D  hi_D  beta_Delta  lo_Delta  hi_Delta  sd_M  sd_D  sd_Delta  r2_uncentred
+     clean  atp local seed means      582        11   0.367 0.097 0.638       0.340     0.015     0.665 0.294 0.468     0.184         0.311
+     clean  atp       API seed 0      582        11   0.367 0.090 0.644       0.348    -0.018     0.714 0.294 0.470     0.178         0.304
+     clean  wta local seed means      485        11   0.382 0.164 0.600       0.320     0.071     0.569 0.377 0.422     0.164         0.174
+     clean  wta       API seed 0      485        11   0.387 0.165 0.609       0.322     0.037     0.608 0.377 0.425     0.158         0.173
+     clean both local seed means     1067        11   0.373 0.164 0.583       0.332     0.091     0.574 0.334 0.448     0.175         0.231
+     clean both       API seed 0     1067        11   0.375 0.161 0.589       0.338     0.070     0.607 0.334 0.450     0.169         0.228
+       all  atp local seed means     1442        12   0.386 0.162 0.609       0.368     0.086     0.649 0.414 0.456     0.173         0.175
+       all  atp       API seed 0     1442        12   0.385 0.158 0.612       0.368     0.074     0.661 0.414 0.454     0.171         0.172
+       all  wta local seed means     1206        11   0.433 0.167 0.699       0.350     0.028     0.672 0.453 0.402     0.150         0.140
+       all  wta       API seed 0     1206        11   0.438 0.166 0.710       0.355    -0.012     0.722 0.453 0.403     0.148         0.139
+       all both local seed means     2648        12   0.405 0.178 0.631       0.360     0.088     0.633 0.432 0.432     0.163         0.157
+       all both       API seed 0     2648        12   0.406 0.175 0.637       0.361     0.071     0.651 0.432 0.432     0.161         0.155
+population tour base model  matches  gain    lo    hi  blocks  week_lo  week_hi
+     clean  atp   S1    S2      582  3.71 -1.96  9.39      11    -0.08     7.50
+     clean  atp   S0    S1      582  0.54 -7.72  8.80      11    -5.74     6.82
+     clean  atp   S0    S2      582  4.25 -6.36 14.86      11    -4.03    12.53
+     clean  atp   R1    R2      582  2.09 -3.38  7.55      11    -2.41     6.58
+     clean  atp   R0    R1      582 -2.58 -5.91  0.74      11    -5.34     0.17
+     clean  atp   R0    R2      582 -0.50 -8.27  7.27      11    -7.15     6.15
+     clean  wta   S1    S2      485 -0.20 -0.49  0.09      11    -0.64     0.25
+     clean  wta   S0    S1      485 -0.66 -1.69  0.36      11    -1.79     0.46
+     clean  wta   S0    S2      485 -0.86 -1.72 -0.00      11    -1.77     0.05
+     clean  wta   R1    R2      485 -0.39 -4.37  3.59      11    -3.47     2.69
+     clean  wta   R0    R1      485 -0.31 -2.05  1.44      11    -2.56     1.95
+     clean  wta   R0    R2      485 -0.70 -5.26  3.86      11    -5.07     3.68
+     clean both   S1    S2     1067  1.11 -1.19  3.41      11    -0.46     2.68
+     clean both   S0    S1     1067  0.27 -2.80  3.34      11    -2.59     3.14
+     clean both   S0    S2     1067  1.38 -1.89  4.65      11    -2.07     4.83
+     clean both   R1    R2     1067  0.64 -0.51  1.80      11    -0.47     1.75
+     clean both   R0    R1     1067 -1.28 -2.06 -0.50      11    -2.04    -0.51
+     clean both   R0    R2     1067 -0.64 -1.50  0.23      11    -1.53     0.25
+       all  atp   S1    S2     1442  1.62 -0.45  3.69      12     0.15     3.10
+       all  atp   S0    S1     1442  0.67 -3.05  4.38      12    -2.07     3.40
+       all  atp   S0    S2     1442  2.29 -2.22  6.80      12    -0.60     5.18
+       all  atp   R1    R2     1442  0.67 -0.38  1.73      12    -0.33     1.67
+       all  atp   R0    R1     1442  0.10 -0.66  0.86      12    -1.19     1.39
+       all  atp   R0    R2     1442  0.77 -0.66  2.20      12    -1.16     2.70
+       all  wta   S1    S2     1206  0.42 -1.18  2.01      11    -0.72     1.55
+       all  wta   S0    S1     1206  1.38 -0.69  3.46      11    -0.54     3.30
+       all  wta   S0    S2     1206  1.80 -0.86  4.46      11    -0.45     4.05
+       all  wta   R1    R2     1206 -0.24 -0.74  0.27      11    -0.58     0.10
+       all  wta   R0    R1     1206 -0.69 -1.78  0.40      11    -1.37    -0.01
+       all  wta   R0    R2     1206 -0.93 -2.42  0.56      11    -1.82    -0.04
+       all both   S1    S2     2648  1.09  0.08  2.11      12     0.27     1.92
+       all both   S0    S1     2648  1.24 -1.42  3.91      12    -0.79     3.28
+       all both   S0    S2     2648  2.34 -0.36  5.03      12     0.33     4.35
+       all both   R1    R2     2648  0.24 -0.23  0.70      12    -0.17     0.64
+       all both   R0    R1     2648 -0.13 -0.48  0.21      12    -0.56     0.29
+       all both   R0    R2     2648  0.10 -0.64  0.85      12    -0.62     0.83
+population tour       base         model  matches  gain     lo    hi  blocks  week_lo  week_hi
+     clean  atp base@early primary@early      582  1.66  -0.48  3.80      11    -0.17     3.50
+     clean  atp         S0    base@early      582  3.85  -1.83  9.52      11    -2.38    10.07
+     clean  atp         S0 primary@early      582  5.51   0.99 10.02      11     0.12    10.89
+     clean  atp base@close primary@close      582  1.66  -0.71  4.02      11    -0.31     3.62
+     clean  atp         R0    base@close      582  2.07  -6.70 10.84      11    -6.47    10.61
+     clean  atp         R0 primary@close      582  3.73  -3.27 10.73      11    -3.66    11.12
+     clean  atp  raw early            S0      582 -1.37  -6.76  4.02      11    -6.71     3.97
+     clean  atp         S0            R0      582  5.46  -6.71 17.64      11    -4.14    15.06
+     clean  wta base@early primary@early      485  0.44  -1.00  1.87      11    -0.90     1.77
+     clean  wta         S0    base@early      485  0.24  -4.75  5.22      11    -4.67     5.14
+     clean  wta         S0 primary@early      485  0.67  -3.98  5.32      11    -3.90     5.25
+     clean  wta base@close primary@close      485  0.41  -0.91  1.73      11    -0.79     1.61
+     clean  wta         R0    base@close      485 -2.12 -10.38  6.15      11    -9.34     5.10
+     clean  wta         R0 primary@close      485 -1.70  -9.58  6.18      11    -8.69     5.28
+     clean  wta  raw early            S0      485 -0.97  -5.28  3.33      11    -4.59     2.65
+     clean  wta         S0            R0      485  3.16 -11.42 17.74      11    -9.68    16.00
+     clean both base@early primary@early     1067  1.11  -0.21  2.42      11     0.05     2.16
+     clean both         S0    base@early     1067  1.75  -0.91  4.41      11    -1.86     5.36
+     clean both         S0 primary@early     1067  2.85   0.14  5.57      11    -0.70     6.41
+     clean both base@close primary@close     1067  1.09  -0.18  2.36      11     0.05     2.13
+     clean both         R0    base@close     1067 -0.31  -6.03  5.42      11    -5.90     5.29
+     clean both         R0 primary@close     1067  0.79  -4.67  6.24      11    -4.68     6.25
+     clean both  raw early            S0     1067 -0.73  -5.24  3.78      11    -4.87     3.41
+     clean both         S0            R0     1067  4.43  -1.89 10.75      11    -1.98    10.84
+       all  atp base@early primary@early     1442  0.97  -0.62  2.56      12    -0.28     2.22
+       all  atp         S0    base@early     1442  2.77  -5.20 10.74      12    -3.66     9.20
+       all  atp         S0 primary@early     1442  3.74  -3.06 10.54      12    -1.82     9.30
+       all  atp base@close primary@close     1442  0.92  -0.65  2.50      12    -0.31     2.16
+       all  atp         R0    base@close     1442 -0.43 -11.93 11.07      12    -9.15     8.29
+       all  atp         R0 primary@close     1442  0.49  -9.63 10.62      12    -7.27     8.26
+       all  atp  raw early            S0     1442 -1.72  -3.10 -0.35      12    -3.10    -0.35
+       all  atp         S0            R0     1442  3.38  -5.82 12.59      12    -4.54    11.30
+       all  wta base@early primary@early     1206  1.15   0.05  2.25      11     0.30     2.00
+       all  wta         S0    base@early     1206 -0.12  -5.44  5.21      11    -4.28     4.05
+       all  wta         S0 primary@early     1206  1.03  -4.18  6.25      11    -3.13     5.20
+       all  wta base@close primary@close     1206  0.95  -0.19  2.09      11     0.18     1.72
+       all  wta         R0    base@close     1206 -2.45  -9.26  4.37      11    -7.74     2.85
+       all  wta         R0 primary@close     1206 -1.50  -8.35  5.36      11    -6.82     3.83
+       all  wta  raw early            S0     1206 -1.20  -4.49  2.09      11    -3.52     1.12
+       all  wta         S0            R0     1206  8.49  -1.45 18.43      11     0.76    16.22
+       all both base@early primary@early     2648  1.05   0.13  1.97      12     0.33     1.77
+       all both         S0    base@early     2648  0.96  -4.04  5.95      12    -3.17     5.08
+       all both         S0 primary@early     2648  2.01  -2.32  6.34      12    -1.80     5.81
+       all both base@close primary@close     2648  0.94   0.03  1.84      12     0.28     1.59
+       all both         R0    base@close     2648 -1.69  -8.95  5.57      12    -7.25     3.88
+       all both         R0 primary@close     2648 -0.75  -7.43  5.93      12    -6.02     4.51
+       all both  raw early            S0     2648 -0.99  -3.07  1.10      12    -2.57     0.60
+       all both         S0            R0     2648  5.55   0.50 10.59      12     0.24    10.86
+population tour  matches  log_loss S0  log_loss S1  log_loss S2  log_loss R0  log_loss R1  log_loss R2  log_loss base@early  log_loss primary@early  log_loss base@close  log_loss primary@close  log_loss raw early  log_loss raw close
+     clean  atp      582      0.59611      0.59557      0.59185      0.59064      0.59323      0.59114              0.59226                 0.59060              0.58857                 0.58692             0.59474             0.58787
+     clean  wta      485      0.58506      0.58572      0.58592      0.58190      0.58220      0.58260              0.58482                 0.58438              0.58401                 0.58360             0.58408             0.58056
+     clean both     1067      0.59063      0.59036      0.58925      0.58620      0.58747      0.58683              0.58888                 0.58777              0.58650                 0.58541             0.58989             0.58455
+       all  atp     1442      0.59362      0.59296      0.59133      0.59024      0.59014      0.58947              0.59085                 0.58988              0.59067                 0.58975             0.59190             0.58824
+       all  wta     1206      0.57422      0.57284      0.57242      0.56573      0.56642      0.56666              0.57434                 0.57319              0.56818                 0.56723             0.57302             0.56471
+       all both     2648      0.58429      0.58304      0.58195      0.57874      0.57887      0.57864              0.58333                 0.58228              0.58043                 0.57949             0.58330             0.57752

@@ -1,0 +1,438 @@
+{
+ "built_at": "2026-10-07T01:41:52+00:00",
+ "last_year_read": 2024,
+ "stage0_matches": 787039,
+ "sequences_chosen_usable": 106900,
+ "sequences_not_in_stage0": 47,
+ "chains": {
+  "player_matches_in_chains": 1547904,
+  "player_events_dropped_two_matches_one_round": 58
+ },
+ "triples": {
+  "candidate_triples": 352104,
+  "steps": [
+   {
+    "step": "all three completed",
+    "kept": 316059,
+    "dropped": 36045
+   },
+   {
+    "step": "both gaps known",
+    "kept": 316059,
+    "dropped": 0
+   },
+   {
+    "step": "no negative gap (impossible order on the clock)",
+    "kept": 312386,
+    "dropped": 3673
+   },
+   {
+    "step": "both gaps <= 3 days",
+    "kept": 309703,
+    "dropped": 2683
+   },
+   {
+    "step": "match t has a usable sequence",
+    "kept": 47874
+   },
+   {
+    "step": "match t: best of 3 or 5, not short sets",
+    "kept": 47874,
+    "dropped": 0
+   },
+   {
+    "step": "match t: the sequence's winner (replay and last point) is Stage 0's",
+    "kept": 47870,
+    "dropped": 4
+   },
+   {
+    "step": "match t: set 1 and the late set served by both players",
+    "kept": 47870,
+    "dropped": 0
+   },
+   {
+    "step": "endpoints t-1 and t+1 have serve and return points (sequence or box score)",
+    "kept": 41147,
+    "dropped": 6723
+   },
+   {
+    "step": "pre-match p_serve known for t-1, t, t+1 (both players)",
+    "kept": 41147,
+    "dropped": 0
+   }
+  ]
+ },
+ "triples_final": {
+  "warmup": {
+   "atp": 3464,
+   "wta": 396
+  },
+  "discovery": {
+   "atp": 19259,
+   "wta": 7452
+  },
+  "replication": {
+   "atp": 4739,
+   "wta": 5837
+  }
+ },
+ "triples_by_window_tour_bo": [
+  {
+   "window": "discovery",
+   "tour": "atp",
+   "bo": 3.0,
+   "n": 17327
+  },
+  {
+   "window": "discovery",
+   "tour": "atp",
+   "bo": 5.0,
+   "n": 1932
+  },
+  {
+   "window": "discovery",
+   "tour": "wta",
+   "bo": 3.0,
+   "n": 7452
+  },
+  {
+   "window": "replication",
+   "tour": "atp",
+   "bo": 3.0,
+   "n": 4065
+  },
+  {
+   "window": "replication",
+   "tour": "atp",
+   "bo": 5.0,
+   "n": 674
+  },
+  {
+   "window": "replication",
+   "tour": "wta",
+   "bo": 3.0,
+   "n": 5837
+  },
+  {
+   "window": "warmup",
+   "tour": "atp",
+   "bo": 3.0,
+   "n": 3061
+  },
+  {
+   "window": "warmup",
+   "tour": "atp",
+   "bo": 5.0,
+   "n": 403
+  },
+  {
+   "window": "warmup",
+   "tour": "wta",
+   "bo": 3.0,
+   "n": 396
+  }
+ ],
+ "triples_by_window_source": [
+  {
+   "window": "discovery",
+   "source": "infosys",
+   "n": 23
+  },
+  {
+   "window": "discovery",
+   "source": "marcosjn2",
+   "n": 7610
+  },
+  {
+   "window": "discovery",
+   "source": "mcp",
+   "n": 1250
+  },
+  {
+   "window": "discovery",
+   "source": "sackmann_pbp",
+   "n": 11461
+  },
+  {
+   "window": "discovery",
+   "source": "slam_pbp",
+   "n": 3445
+  },
+  {
+   "window": "discovery",
+   "source": "slam_tracking",
+   "n": 4
+  },
+  {
+   "window": "discovery",
+   "source": "slamtracker",
+   "n": 363
+  },
+  {
+   "window": "discovery",
+   "source": "sofascore",
+   "n": 216
+  },
+  {
+   "window": "discovery",
+   "source": "wta",
+   "n": 2339
+  },
+  {
+   "window": "replication",
+   "source": "ausopen_mc",
+   "n": 15
+  },
+  {
+   "window": "replication",
+   "source": "infosys",
+   "n": 1126
+  },
+  {
+   "window": "replication",
+   "source": "marcosjn2",
+   "n": 2901
+  },
+  {
+   "window": "replication",
+   "source": "mcp",
+   "n": 652
+  },
+  {
+   "window": "replication",
+   "source": "slam_tracking",
+   "n": 505
+  },
+  {
+   "window": "replication",
+   "source": "slamtracker",
+   "n": 929
+  },
+  {
+   "window": "replication",
+   "source": "sofascore",
+   "n": 476
+  },
+  {
+   "window": "replication",
+   "source": "wta",
+   "n": 3590
+  },
+  {
+   "window": "replication",
+   "source": "wta_pbp",
+   "n": 382
+  },
+  {
+   "window": "warmup",
+   "source": "mcp",
+   "n": 135
+  },
+  {
+   "window": "warmup",
+   "source": "sackmann_pbp",
+   "n": 3003
+  },
+  {
+   "window": "warmup",
+   "source": "slam_pbp",
+   "n": 722
+  }
+ ],
+ "triples_by_window_level": [
+  {
+   "window": "discovery",
+   "map_level": "CH",
+   "n": 5788
+  },
+  {
+   "window": "discovery",
+   "map_level": "CHQ",
+   "n": 112
+  },
+  {
+   "window": "discovery",
+   "map_level": "GS",
+   "n": 3889
+  },
+  {
+   "window": "discovery",
+   "map_level": "GSQ",
+   "n": 710
+  },
+  {
+   "window": "discovery",
+   "map_level": "ITF",
+   "n": 2370
+  },
+  {
+   "window": "discovery",
+   "map_level": "T1000",
+   "n": 3075
+  },
+  {
+   "window": "discovery",
+   "map_level": "T250",
+   "n": 5704
+  },
+  {
+   "window": "discovery",
+   "map_level": "T500",
+   "n": 2202
+  },
+  {
+   "window": "discovery",
+   "map_level": "TQ",
+   "n": 2861
+  },
+  {
+   "window": "replication",
+   "map_level": "CH",
+   "n": 1277
+  },
+  {
+   "window": "replication",
+   "map_level": "CHQ",
+   "n": 135
+  },
+  {
+   "window": "replication",
+   "map_level": "GS",
+   "n": 1370
+  },
+  {
+   "window": "replication",
+   "map_level": "GSQ",
+   "n": 749
+  },
+  {
+   "window": "replication",
+   "map_level": "ITF",
+   "n": 189
+  },
+  {
+   "window": "replication",
+   "map_level": "T1000",
+   "n": 1671
+  },
+  {
+   "window": "replication",
+   "map_level": "T250",
+   "n": 2622
+  },
+  {
+   "window": "replication",
+   "map_level": "T500",
+   "n": 1098
+  },
+  {
+   "window": "replication",
+   "map_level": "TQ",
+   "n": 1465
+  },
+  {
+   "window": "warmup",
+   "map_level": "CH",
+   "n": 1513
+  },
+  {
+   "window": "warmup",
+   "map_level": "GS",
+   "n": 771
+  },
+  {
+   "window": "warmup",
+   "map_level": "GSQ",
+   "n": 17
+  },
+  {
+   "window": "warmup",
+   "map_level": "ITF",
+   "n": 150
+  },
+  {
+   "window": "warmup",
+   "map_level": "T1000",
+   "n": 296
+  },
+  {
+   "window": "warmup",
+   "map_level": "T250",
+   "n": 569
+  },
+  {
+   "window": "warmup",
+   "map_level": "T500",
+   "n": 201
+  },
+  {
+   "window": "warmup",
+   "map_level": "TQ",
+   "n": 343
+  }
+ ],
+ "players_by_window": {
+  "discovery": 1560,
+  "replication": 843,
+  "warmup": 537
+ },
+ "endpoint_source": {
+  "m": {
+   "seq": 35892,
+   "box": 5255
+  },
+  "p": {
+   "seq": 38263,
+   "box": 2884
+  }
+ },
+ "gaps": {
+  "fwd": {
+   "0.0": 532,
+   "0.5": 309,
+   "1.0": 25709,
+   "1.5": 634,
+   "2.0": 12637,
+   "2.5": 326,
+   "3.0": 1000
+  },
+  "rev": {
+   "0.0": 495,
+   "0.5": 227,
+   "1.0": 21945,
+   "1.5": 679,
+   "2.0": 15762,
+   "2.5": 434,
+   "3.0": 1605
+  }
+ },
+ "both_gaps_exact_share": 0.985296619437626,
+ "won_m_share": 0.9914696089629864,
+ "won_t_share": 0.9833766738765888,
+ "strict_share": 0.9650521301674484,
+ "serve_points_set1_mean": 30.73759933895545,
+ "serve_points_late_mean": 29.870148491992126,
+ "endpoint_serve_points_mean": {
+  "m": 71.25265511458916,
+  "p": 76.4342965465283
+ },
+ "form_m_has_history_share": 0.9915182151797215,
+ "settings": {
+  "max_gap_days": 3,
+  "form_half_life_days": 14.0,
+  "form_k": 50.0,
+  "form_lookback_days": 180.0,
+  "excluded_levels": [
+   "TEAM",
+   "FIN"
+  ],
+  "discovery": [
+   2013,
+   2021
+  ],
+  "replication": [
+   2022,
+   2024
+  ]
+ }
+}
