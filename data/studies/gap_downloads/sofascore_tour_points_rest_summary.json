@@ -1,0 +1,517 @@
+{
+ "source": "sofascore_editions",
+ "gap": "tour_points_rest",
+ "targets_from": "frozen in data/studies/gap_downloads/sofascore_tour_points_rest_matches.csv",
+ "started_at": "2026-10-10T01:55:44+00:00",
+ "args": {
+  "gap": "tour_points_rest",
+  "refresh_targets": false,
+  "skip": null,
+  "limit": null,
+  "max_requests": 100,
+  "min_interval": 2.0,
+  "jitter": 1.0,
+  "stage_only": false,
+  "no_stage": false,
+  "browser": "http://localhost:9222"
+ },
+ "fetch_outcomes": {
+  "point-by-point:200": 2,
+  "point-by-point:200:cached": 1022,
+  "point-by-point:404:cached": 87,
+  "statistics:200": 2,
+  "statistics:200:cached": 1049,
+  "statistics:404:cached": 60
+ },
+ "client": {
+  "impersonate": "browser:154.0.8037.98",
+  "requests": 4,
+  "retried": 0,
+  "slept_seconds": 7.1,
+  "min_interval": 2.0,
+  "transport": "browser",
+  "cdp_url": "http://localhost:9222",
+  "page_reloads": 0,
+  "token_renewals": 0,
+  "renewals_failed": 0,
+  "site_data_resets": 0
+ },
+ "staged": {
+  "events": {
+   "rows": 46764,
+   "dest": "data/dump/points/sofascore_editions/events.parquet",
+   "bytes": 5474701
+  },
+  "points": {
+   "rows": 2363211,
+   "dest": "data/dump/points/sofascore_editions/points.parquet",
+   "bytes": 13740905
+  },
+  "statistics": {
+   "rows": 1162119,
+   "dest": "data/dump/points/sofascore_editions/statistics.parquet",
+   "bytes": 9978493
+  }
+ },
+ "all": {
+  "targets": 1216,
+  "listed": 1112,
+  "points_any": 1025,
+  "points_complete": 943,
+  "points_absent": 87,
+  "points_not_fetched": 0,
+  "full_box_score": 1019,
+  "stats_any": 1052
+ },
+ "editions": 360,
+ "editions_located": 347,
+ "by_year_level": {
+  "2019|FIN": {
+   "targets": 7,
+   "listed": 7,
+   "points_any": 7,
+   "points_complete": 7,
+   "points_absent": 0,
+   "points_not_fetched": 0,
+   "full_box_score": 5,
+   "stats_any": 7
+  },
+  "2019|GS": {
+   "targets": 2,
+   "listed": 2,
+   "points_any": 2,
+   "points_complete": 2,
+   "points_absent": 0,
+   "points_not_fetched": 0,
+   "full_box_score": 2,
+   "stats_any": 2
+  },
+  "2019|T1000": {
+   "targets": 144,
+   "listed": 131,
+   "points_any": 130,
+   "points_complete": 130,
+   "points_absent": 1,
+   "points_not_fetched": 0,
+   "full_box_score": 127,
+   "stats_any": 130
+  },
+  "2019|T250": {
+   "targets": 357,
+   "listed": 321,
+   "points_any": 276,
+   "points_complete": 258,
+   "points_absent": 45,
+   "points_not_fetched": 0,
+   "full_box_score": 281,
+   "stats_any": 290
+  },
+  "2019|T500": {
+   "targets": 100,
+   "listed": 96,
+   "points_any": 92,
+   "points_complete": 90,
+   "points_absent": 4,
+   "points_not_fetched": 0,
+   "full_box_score": 93,
+   "stats_any": 96
+  },
+  "2020|FIN": {
+   "targets": 1,
+   "listed": 1,
+   "points_any": 1,
+   "points_complete": 1,
+   "points_absent": 0,
+   "points_not_fetched": 0,
+   "full_box_score": 1,
+   "stats_any": 1
+  },
+  "2020|GS": {
+   "targets": 2,
+   "listed": 2,
+   "points_any": 0,
+   "points_complete": 0,
+   "points_absent": 2,
+   "points_not_fetched": 0,
+   "full_box_score": 0,
+   "stats_any": 0
+  },
+  "2020|T1000": {
+   "targets": 16,
+   "listed": 16,
+   "points_any": 15,
+   "points_complete": 10,
+   "points_absent": 1,
+   "points_not_fetched": 0,
+   "full_box_score": 15,
+   "stats_any": 16
+  },
+  "2020|T250": {
+   "targets": 79,
+   "listed": 79,
+   "points_any": 66,
+   "points_complete": 60,
+   "points_absent": 13,
+   "points_not_fetched": 0,
+   "full_box_score": 70,
+   "stats_any": 72
+  },
+  "2020|T500": {
+   "targets": 31,
+   "listed": 31,
+   "points_any": 30,
+   "points_complete": 26,
+   "points_absent": 1,
+   "points_not_fetched": 0,
+   "full_box_score": 28,
+   "stats_any": 30
+  },
+  "2021|FIN": {
+   "targets": 4,
+   "listed": 4,
+   "points_any": 4,
+   "points_complete": 4,
+   "points_absent": 0,
+   "points_not_fetched": 0,
+   "full_box_score": 4,
+   "stats_any": 4
+  },
+  "2021|GS": {
+   "targets": 4,
+   "listed": 3,
+   "points_any": 0,
+   "points_complete": 0,
+   "points_absent": 3,
+   "points_not_fetched": 0,
+   "full_box_score": 0,
+   "stats_any": 0
+  },
+  "2021|T1000": {
+   "targets": 15,
+   "listed": 15,
+   "points_any": 15,
+   "points_complete": 12,
+   "points_absent": 0,
+   "points_not_fetched": 0,
+   "full_box_score": 14,
+   "stats_any": 15
+  },
+  "2021|T250": {
+   "targets": 74,
+   "listed": 72,
+   "points_any": 64,
+   "points_complete": 50,
+   "points_absent": 8,
+   "points_not_fetched": 0,
+   "full_box_score": 61,
+   "stats_any": 65
+  },
+  "2021|T500": {
+   "targets": 24,
+   "listed": 24,
+   "points_any": 23,
+   "points_complete": 15,
+   "points_absent": 1,
+   "points_not_fetched": 0,
+   "full_box_score": 23,
+   "stats_any": 23
+  },
+  "2022|FIN": {
+   "targets": 1,
+   "listed": 1,
+   "points_any": 1,
+   "points_complete": 1,
+   "points_absent": 0,
+   "points_not_fetched": 0,
+   "full_box_score": 1,
+   "stats_any": 1
+  },
+  "2022|GS": {
+   "targets": 3,
+   "listed": 3,
+   "points_any": 0,
+   "points_complete": 0,
+   "points_absent": 3,
+   "points_not_fetched": 0,
+   "full_box_score": 0,
+   "stats_any": 0
+  },
+  "2022|T1000": {
+   "targets": 6,
+   "listed": 6,
+   "points_any": 5,
+   "points_complete": 4,
+   "points_absent": 1,
+   "points_not_fetched": 0,
+   "full_box_score": 5,
+   "stats_any": 6
+  },
+  "2022|T250": {
+   "targets": 35,
+   "listed": 31,
+   "points_any": 31,
+   "points_complete": 26,
+   "points_absent": 0,
+   "points_not_fetched": 0,
+   "full_box_score": 29,
+   "stats_any": 31
+  },
+  "2022|T500": {
+   "targets": 13,
+   "listed": 13,
+   "points_any": 13,
+   "points_complete": 10,
+   "points_absent": 0,
+   "points_not_fetched": 0,
+   "full_box_score": 12,
+   "stats_any": 13
+  },
+  "2023|FIN": {
+   "targets": 3,
+   "listed": 3,
+   "points_any": 3,
+   "points_complete": 3,
+   "points_absent": 0,
+   "points_not_fetched": 0,
+   "full_box_score": 3,
+   "stats_any": 3
+  },
+  "2023|GS": {
+   "targets": 2,
+   "listed": 1,
+   "points_any": 1,
+   "points_complete": 1,
+   "points_absent": 0,
+   "points_not_fetched": 0,
+   "full_box_score": 1,
+   "stats_any": 1
+  },
+  "2023|T1000": {
+   "targets": 17,
+   "listed": 17,
+   "points_any": 17,
+   "points_complete": 15,
+   "points_absent": 0,
+   "points_not_fetched": 0,
+   "full_box_score": 17,
+   "stats_any": 17
+  },
+  "2023|T250": {
+   "targets": 61,
+   "listed": 27,
+   "points_any": 27,
+   "points_complete": 25,
+   "points_absent": 0,
+   "points_not_fetched": 0,
+   "full_box_score": 26,
+   "stats_any": 27
+  },
+  "2023|T500": {
+   "targets": 12,
+   "listed": 12,
+   "points_any": 12,
+   "points_complete": 11,
+   "points_absent": 0,
+   "points_not_fetched": 0,
+   "full_box_score": 11,
+   "stats_any": 12
+  },
+  "2024|FIN": {
+   "targets": 3,
+   "listed": 3,
+   "points_any": 3,
+   "points_complete": 2,
+   "points_absent": 0,
+   "points_not_fetched": 0,
+   "full_box_score": 3,
+   "stats_any": 3
+  },
+  "2024|GS": {
+   "targets": 2,
+   "listed": 2,
+   "points_any": 1,
+   "points_complete": 1,
+   "points_absent": 1,
+   "points_not_fetched": 0,
+   "full_box_score": 1,
+   "stats_any": 1
+  },
+  "2024|T1000": {
+   "targets": 14,
+   "listed": 14,
+   "points_any": 14,
+   "points_complete": 12,
+   "points_absent": 0,
+   "points_not_fetched": 0,
+   "full_box_score": 14,
+   "stats_any": 14
+  },
+  "2024|T250": {
+   "targets": 21,
+   "listed": 21,
+   "points_any": 21,
+   "points_complete": 19,
+   "points_absent": 0,
+   "points_not_fetched": 0,
+   "full_box_score": 21,
+   "stats_any": 21
+  },
+  "2024|T500": {
+   "targets": 23,
+   "listed": 23,
+   "points_any": 23,
+   "points_complete": 22,
+   "points_absent": 0,
+   "points_not_fetched": 0,
+   "full_box_score": 23,
+   "stats_any": 23
+  },
+  "2025|GS": {
+   "targets": 5,
+   "listed": 5,
+   "points_any": 4,
+   "points_complete": 4,
+   "points_absent": 1,
+   "points_not_fetched": 0,
+   "full_box_score": 4,
+   "stats_any": 4
+  },
+  "2025|T1000": {
+   "targets": 1,
+   "listed": 1,
+   "points_any": 1,
+   "points_complete": 1,
+   "points_absent": 0,
+   "points_not_fetched": 0,
+   "full_box_score": 1,
+   "stats_any": 1
+  },
+  "2025|T250": {
+   "targets": 4,
+   "listed": 4,
+   "points_any": 3,
+   "points_complete": 3,
+   "points_absent": 1,
+   "points_not_fetched": 0,
+   "full_box_score": 3,
+   "stats_any": 3
+  },
+  "2025|T500": {
+   "targets": 1,
+   "listed": 1,
+   "points_any": 1,
+   "points_complete": 1,
+   "points_absent": 0,
+   "points_not_fetched": 0,
+   "full_box_score": 1,
+   "stats_any": 1
+  },
+  "2026|GS": {
+   "targets": 5,
+   "listed": 5,
+   "points_any": 4,
+   "points_complete": 4,
+   "points_absent": 1,
+   "points_not_fetched": 0,
+   "full_box_score": 4,
+   "stats_any": 4
+  },
+  "2026|T1000": {
+   "targets": 46,
+   "listed": 45,
+   "points_any": 45,
+   "points_complete": 44,
+   "points_absent": 0,
+   "points_not_fetched": 0,
+   "full_box_score": 45,
+   "stats_any": 45
+  },
+  "2026|T250": {
+   "targets": 9,
+   "listed": 7,
+   "points_any": 7,
+   "points_complete": 7,
+   "points_absent": 0,
+   "points_not_fetched": 0,
+   "full_box_score": 7,
+   "stats_any": 7
+  },
+  "2026|T500": {
+   "targets": 69,
+   "listed": 63,
+   "points_any": 63,
+   "points_complete": 62,
+   "points_absent": 0,
+   "points_not_fetched": 0,
+   "full_box_score": 63,
+   "stats_any": 63
+  }
+ },
+ "pbp_verdicts": {
+  "complete": 852,
+  "nan": 191,
+  "complete to retirement": 91,
+  "short": 70,
+  "other": 10,
+  "no score to compare": 2
+ },
+ "editions_not_located": [
+  {
+   "edition": "W|SP Open - Sao Paulo, BRA|2026|w38",
+   "locate_tried": "6/2026-09-16:27;6/2026-09-18:34;6/2026-09-15:20;6/2026-09-20:24;6/2026-09-14:27;6/2026-09-13:34;6/2026-09-11:2;6/2026-09-09:4"
+  },
+  {
+   "edition": "W|Guadalajara Open presentado por Santander - Guadalajara, MEX|2026|w37",
+   "locate_tried": "6/2026-09-15:20;6/2026-09-17:29;6/2026-09-14:27;6/2026-09-19:34;6/2026-09-13:34;6/2026-09-12:19;6/2026-09-10:4;6/2026-09-08:6"
+  },
+  {
+   "edition": "M|Asian Games|2023|w39",
+   "locate_tried": "3/2023-09-27:24;3/2023-09-29:28;3/2023-09-26:31;3/2023-10-01:42;3/2023-09-25:26;3/2023-09-24:15;3/2023-09-22:18;3/2023-09-20:35"
+  },
+  {
+   "edition": "M|Asian Games|2023|w38",
+   "locate_tried": "3/2023-09-26:31;3/2023-09-28:32;3/2023-09-25:26;3/2023-09-30:20;3/2023-09-24:15;3/2023-09-23:20;3/2023-09-21:28;3/2023-09-19:32"
+  },
+  {
+   "edition": "M||2021|w22",
+   "locate_tried": "3/2021-06-02:37;3/2021-06-05:14;3/2021-06-08:25;3/2021-06-11:27;3/2021-05-31:48"
+  },
+  {
+   "edition": "W|Bucharest|2019|w29",
+   "locate_tried": "6/2019-07-17:10;6/2019-07-19:9;6/2019-07-16:15;6/2019-07-21:40;6/2019-07-15:17;6/2019-07-14:23;6/2019-07-12:12;6/2019-07-10:6"
+  },
+  {
+   "edition": "W||2019|w10",
+   "locate_tried": "6/2019-03-08:32;6/2019-03-10:24;6/2019-03-07:32;6/2019-03-12:16;6/2019-03-06:28;6/2019-03-05:36;6/2019-03-03:1;6/2019-03-01:6"
+  },
+  {
+   "edition": "W||2019|w09",
+   "locate_tried": "6/2019-02-28:12;6/2019-03-02:3;6/2019-02-27:20;6/2019-03-04:24;6/2019-02-26:17;6/2019-02-25:12;6/2019-02-23:21;6/2019-02-21:21"
+  },
+  {
+   "edition": "W||2019|w08",
+   "locate_tried": "6/2019-02-21:21;6/2019-02-23:21;6/2019-02-20:28;6/2019-02-25:12;6/2019-02-19:47;6/2019-02-18:57;6/2019-02-16:31;6/2019-02-14:32"
+  },
+  {
+   "edition": "W||2019|w07",
+   "locate_tried": "6/2019-02-19:47;6/2019-02-21:21;6/2019-02-18:57;6/2019-02-23:21;6/2019-02-17:42;6/2019-02-16:31;6/2019-02-14:32;6/2019-02-12:23"
+  },
+  {
+   "edition": "W||2019|w05",
+   "locate_tried": "6/2019-01-30:24;6/2019-02-01:15;6/2019-01-29:27;6/2019-02-03:3;6/2019-01-28:33;6/2019-01-27:36;6/2019-01-25:23;6/2019-01-23:4"
+  },
+  {
+   "edition": "W||2019|w02",
+   "locate_tried": "6/2019-01-09:87;6/2019-01-11:22;6/2019-01-08:99;6/2019-01-13:32;6/2019-01-07:69;6/2019-01-06:35;6/2019-01-04:37;6/2019-01-02:23"
+  },
+  {
+   "edition": "W||2019|w01",
+   "locate_tried": "6/2019-01-03:16;6/2019-01-05:48;6/2019-01-02:23;6/2019-01-07:69;6/2019-01-01:39;6/2018-12-31:50;6/2018-12-29:55;6/2018-12-27:16"
+  }
+ ],
+ "matches_selected": 1112,
+ "receipts_with_errors": 0,
+ "error_examples": [],
+ "finished_at": "2026-10-10T01:58:33+00:00",
+ "seconds": 169.5
+}

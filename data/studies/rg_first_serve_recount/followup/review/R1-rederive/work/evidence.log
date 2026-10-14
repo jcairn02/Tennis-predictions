@@ -1,0 +1,256 @@
+C:\Users\zerom\Documents\Tennis-predictions\src\eda\rg_first_serve_recount\review_followup\R1-rederive\evidence.py:60: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  boxed = boxed.assign(eq8=eq8.all(axis=1))
+E1 held: {"rg_documents": {"2019": 450, "2020": 450, "2021": 478, "2022": 478, "2023": 478, "2024": 478, "2025": 478, "2026": 478}, "rg_documents_with_statistics": {"2019": 448, "2020": 448, "2021": 474, "2022": 476, "2023": 476, "2024": 477, "2025": 475, "2026": 474}, "rg_team_rows_failing_own_checks": 0, "matchbeats_files_with_points": {"2019": 445, "2020": 448, "2021": 474, "2022": 476, "2023": 476, "2024": 476, "2025": 467, "2026": 478}, "matchbeats_files_empty": {"2025": 3}, "keystats_files": {"2025": 467, "2026": 474}}
+E1 control: 2732 of 2740 | not equal: [('SD075', 'w', 'Karolina Muchova'), ('SD075', 'l', 'Andrea Petkovic'), ('SD094', 'w', 'Rebecca Peterson'), ('SD094', 'l', 'Shelby Rogers'), ('SD028', 'w', 'Tamara Zidansek'), ('SD028', 'l', 'Katerina Siniakova'), ('SD031', 'w', 'Paula Badosa'), ('SD031', 'l', 'Ana Bogdan')]
+E1 service games: {"2019-2021": {"rows_with_row_and_mb": 2734, "equal_mb_done": 2212, "pct_of_rows_with_mb": 80.9, "rows_with_row_count": 2748, "pct_of_rows_with_row_count": 80.5, "equal_with_tiebreaks_counted": 1970, "equal_derived": 2214, "equal_neither_way": 437}, "2022-2025": {"rows_with_row_and_mb": 3778, "equal_mb_done": 3706, "pct_of_rows_with_mb": 98.1, "rows_with_row_count": 3796, "pct_of_rows_with_row_count": 97.6, "equal_with_tiebreaks_counted": 3119, "equal_derived": 3721}}
+E7: {'proposed': 1509, 'equal': 730, 'referee_contradicts': 13, 'statistics_short': 13, 'walkover': 12, 'identity': 1} {'2022-2025': 1177, '2026': {('atp', 'main'): 124, ('atp', 'qual'): 81, ('wta', 'main'): 127}}
+      year   code round                  cls                  row_score
+393   2022  SM076  R128  referee_contradicts            6-3 3-6 6-3 6-2
+492   2022  SM031   R32  referee_contradicts                6-2 6-4 6-2
+501   2022  SM004    QF  referee_contradicts         6-2 4-6 6-2 7-6(4)
+531   2023  SM087  R128  referee_contradicts        6-3 5-7 6-4 2-6 6-4
+571   2023  SM127  R128  referee_contradicts  7-6(5) 6-7(6) 2-6 6-3 6-4
+580   2023  SM040   R64  referee_contradicts             7-6(2) 6-0 6-3
+588   2023  SM048   R64             walkover                        W/O
+638   2024  SM004    QF             walkover                        W/O
+650   2024  SM016   R32  referee_contradicts     7-5 6-7(6) 2-6 6-3 6-0
+766   2025  SM007    QF  referee_contradicts                6-0 6-1 6-4
+786   2025  SM017   R32             walkover                        W/O
+803   2025  SM060   R64             walkover                        W/O
+831   2025  SM112  R128  referee_contradicts                6-3 6-4 6-2
+964   2026  SM043   R64             walkover                        W/O
+969   2026  SM048   R64             walkover                        W/O
+1013  2026  SM002    SF             walkover                        W/O
+1640  2024  QM119    Q1     statistics_short                6-3 4-6 6-1
+1654  2024  QM107    Q1     statistics_short                    6-3 6-2
+1669  2024  QM118    Q1     statistics_short             6-4 6-7(5) 6-1
+1672  2024  QM126    Q1             identity             6-7(3) 6-4 6-3
+1678  2024  QM114    Q1     statistics_short                4-6 6-4 6-2
+1700  2025  QM019    Q3  referee_contradicts                    6-4 6-1
+1721  2025  QM038    Q2             walkover                        W/O
+1742  2025  QM088    Q1     statistics_short                    6-3 6-2
+1751  2025  QM124    Q1     statistics_short                 7-6(5) 6-4
+1761  2025  QM083    Q1     statistics_short                 7-6(3) 7-5
+2250  2022  SD037   R64             walkover                        W/O
+2263  2022  SD050   R64  referee_contradicts                 6-1 7-6(2)
+2270  2022  SD057   R64             walkover                        W/O
+2312  2023  SD068  R128  referee_contradicts                2-6 6-3 6-4
+2408  2023  SD020   R32             walkover                        W/O
+2531  2024  SD016   R32  referee_contradicts                    6-4 6-2
+3327  2024  QD071    Q1     statistics_short                    6-2 6-4
+3336  2024  QD080    Q1     statistics_short                    6-0 6-1
+3364  2024  QD108    Q1     statistics_short                    6-4 6-2
+3365  2024  QD109    Q1     statistics_short                    6-3 6-2
+3594  2026  QM069    Q1     statistics_short                    7-6 6-2
+3607  2026  QM066    Q1     statistics_short                    6-4 6-2
+3617  2026  QM056    Q2             walkover                        W/O
+E2 W22:
+             rows_changing  cv_rg  cv_row  cv_held  mcp_rg  mcp_row  mcp_held
+svpt                  294     15       0       15      39        0        45
+ace                    74     10       0       10       1        0         1
+df                    201     21       0       21       5        0         5
+first_in             1751    232       0      236     129        0       139
+first_won            1300    182       0      185      83        0        87
+second_won           1282    178       0      181      80        0        85
+E2 W22+W26:
+             rows_changing  cv_rg  cv_row  cv_held  mcp_rg  mcp_row  mcp_held
+svpt                  861     15       0       15      84        0        91
+ace                   587     10       0       10      45        0        47
+df                    711     21       0       21      50        0        50
+first_in             2337    232       0      236     171        0       185
+first_won            1894    182       0      185     128        0       133
+second_won           1882    178       0      181     125        0       131
+E2 W22+W26 non-blank:
+             rows_changing  cv_rg  cv_row  cv_held  mcp_rg  mcp_row  mcp_held
+svpt                  357     15       0       15      39        0        45
+ace                    83     10       0       10       2        0         2
+df                    207     21       0       21       5        0         5
+first_in             1833    232       0      236     130        0       140
+first_won            1390    182       0      185      84        0        88
+second_won           1378    178       0      181      81        0        86
+E2 direction: {'ace': {'changing': 74, 'row_lower': 71, 'row_lower_by_one': 58, 'row_higher': 1, 'row_blank': 2}, 'df': {'changing': 201, 'row_lower': 175, 'row_lower_by_one': 138, 'row_higher': 20, 'row_blank': 6}}
+E2 including the excluded matches (W22):
+             cv_rg  cv_row  mcp_rg  mcp_row
+svpt           16       1      40        0
+ace            10       0       1        0
+df             21       0       5        0
+first_in      237       1     136       11
+first_won     186       1      91        3
+second_won    182       1      88        3
+E3 sv_from: {'W22': {'derived': 2338, 'row': 16}, 'W26': {'derived': 664, 'row': 0}} | W22 rows whose service games change: {'rows': 42, 'fit_score_exactly': 42, 'mb_count_equals_mine': 42}
+      year   code side               name                     row_score  games  std_tb  raw_sv_gms  mb_sv_gms_reg_done  der_sv  off_sv_gms  sv_from
+2765  2022  QM067    l      Jozef Kovalik                   4-6 6-4 6-4     30       0         6.0                15.0    15.0        15.0  derived
+3010  2022  SM074    w         Borna Gojo  6-4 6-7(3) 6-7(4) 7-6(4) 6-4     59       3        27.0                28.0    28.0        28.0  derived
+3026  2022  SM082    w  Brandon Nakashima        6-4 2-6 4-6 7-6(3) 6-2     49       1        23.0                24.0    24.0        24.0  derived
+all W22 proposed rows whose service games change:
+      year   code side                  name                     row_score  games  std_tb  raw_sv_gms  mb_sv_gms_reg_done  der_sv  off_sv_gms  sv_from
+2764  2022  QM067    w    Tomas Barrios Vera                   4-6 6-4 6-4     30       0         6.0                15.0    15.0        15.0  derived
+2765  2022  QM067    l         Jozef Kovalik                   4-6 6-4 6-4     30       0         6.0                15.0    15.0        15.0  derived
+3010  2022  SM074    w            Borna Gojo  6-4 6-7(3) 6-7(4) 7-6(4) 6-4     59       3        27.0                28.0    28.0        28.0  derived
+3026  2022  SM082    w     Brandon Nakashima        6-4 2-6 4-6 7-6(3) 6-2     49       1        23.0                24.0    24.0        24.0  derived
+3036  2022  SM087    w          Taylor Fritz        7-6(2) 3-6 6-3 4-6 6-4     51       1        24.0                25.0    25.0        25.0  derived
+3093  2022  SM115    l            Tommy Paul               5-7 6-1 6-2 6-3     36       0        17.0                18.0    18.0        18.0  derived
+3094  2022  SM116    w  Nikoloz Basilashvili        3-6 2-6 7-6(8) 6-4 6-4     50       1        23.0                24.0    24.0        24.0  derived
+3250  2022  QD071    w       Moyuka Uchijima                       6-2 6-3     17       0         6.0                 9.0     9.0         9.0  derived
+3251  2022  QD071    l              Yue Yuan                       6-2 6-3     17       0         7.0                 8.0     8.0         8.0  derived
+3310  2022  QD101    w      Marina Melnikova                       6-4 6-4     20       0        11.0                10.0    10.0        10.0  derived
+3311  2022  QD101    l         Varvara Flink                       6-4 6-4     20       0         9.0                10.0    10.0        10.0  derived
+3580  2022  SD120    w     Victoria Azarenka             6-7(7) 7-6(1) 6-2     34       2        15.0                16.0    16.0        16.0  derived
+3824  2023  QM119    w   Facundo Diaz Acosta                       7-5 6-3     21       0        10.0                11.0    11.0        11.0  derived
+3825  2023  QM119    l      Franco Agamenone                       7-5 6-3     21       0        11.0                10.0    10.0        10.0  derived
+3834  2023  QM124    w         Lucas Pouille                       7-5 6-3     21       0        10.0                11.0    11.0        11.0  derived
+4020  2023  SM101    w      Yannick Hanfmann     6-3 7-5 6-7(6) 6-7(2) 6-4     57       2        27.0                28.0    28.0        28.0  derived
+4022  2023  SM102    w    Arthur Rinderknech            6-4 2-6 6-2 7-6(4)     39       1        18.0                19.0    19.0        19.0  derived
+4023  2023  SM102    l       Richard Gasquet            6-4 2-6 6-2 7-6(4)     39       1        17.0                19.0    19.0        19.0  derived
+4148  2023  SM045    w    Thanasi Kokkinakis        3-6 7-5 6-3 6-7(4) 6-3     52       1        25.0                26.0    26.0        26.0  derived
+4170  2023  SM056    w       Daniel Altmaier  6-7(0) 7-6(7) 1-6 7-6(4) 7-5     58       3        26.0                27.0    27.0        27.0  derived
+4638  2023  SD051    w       Elina Avanesyan                       6-0 7-5     18       0         6.0                 9.0     9.0         9.0  derived
+4639  2023  SD051    l       Leolia Jeanjean                       6-0 7-5     18       0         5.0                 9.0     9.0         9.0  derived
+4733  2024  QM095    l        Henrique Rocha                4-6 7-6(5) 6-3     32       1        15.0                16.0    16.0        16.0  derived
+4831  2024  QM048    l     Marco Trungelliti                7-6(6) 3-6 6-4     32       1        15.0                16.0    16.0        16.0  derived
+4840  2024  QM053    w       Giulio Zeppieri                   4-6 7-5 6-3     31       0        15.0                16.0    16.0        16.0  derived
+4983  2024  SM104    l           Hugo Gaston               3-6 6-3 6-4 6-4     38       0        18.0                19.0    19.0        19.0  derived
+4992  2024  SM109    w         Soon Woo Kwon                   6-3 6-4 6-3     28       0        13.0                14.0    14.0        14.0  derived
+5089  2024  SM037    l       Giulio Zeppieri        1-6 4-6 6-3 7-6(5) 6-2     47       1        22.0                23.0    23.0        23.0  derived
+5096  2024  SM041    w     Tallon Griekspoor                7-6(2) 6-3 6-3     31       1        14.0                15.0    15.0        15.0  derived
+5128  2024  SM057    w      Denis Shapovalov            6-7(4) 6-4 6-2 6-4     41       1        19.0                20.0    20.0        20.0  derived
+5184  2024  QD082    w   Anastasia Tikhonova                       6-3 6-3     18       0         5.0                 9.0     9.0         9.0  derived
+5185  2024  QD082    l        Jaimee Fourlis                       6-3 6-3     18       0         5.0                 9.0     9.0         9.0  derived
+5290  2024  QD039    w       Leolia Jeanjean                   6-2 3-6 6-3     26       0        12.0                13.0    13.0        13.0  derived
+5291  2024  QD039    l     Darja Semenistaja                   6-2 3-6 6-3     26       0        12.0                13.0    13.0        13.0  derived
+5299  2024  QD043    l      Noma Noha Akugue                   4-6 6-4 6-1     27       0        13.0                14.0    14.0        14.0  derived
+5310  2024  QD049    w         Raluka Serban               3-6 6-4 7-6(11)     32       1         9.0                15.0    15.0        15.0  derived
+5311  2024  QD049    l      Dominika Salkova               3-6 6-4 7-6(11)     32       1        10.0                16.0    16.0        16.0  derived
+5526  2024  SD017    w    Anastasia Potapova                7-5 6-7(6) 6-4     35       1        18.0                17.0    17.0        17.0  derived
+5527  2024  SD017    l           Xin Yu Wang                7-5 6-7(6) 6-4     35       1        16.0                17.0    17.0        17.0  derived
+5565  2024  SD036    l      Danielle Collins                6-7(3) 7-5 6-4     35       1        16.0                17.0    17.0        17.0  derived
+6182  2025  QD103    w       Marina Stakusic                       6-4 6-4     20       0         9.0                10.0    10.0        10.0  derived
+6183  2025  QD103    l          Lauren Davis                       6-4 6-4     20       0        11.0                10.0    10.0        10.0  derived
+proposed rows not derived:
+      year   code side                       name       row_score  raw_sv_gms  mb_sv_gms_reg_done  mbf_points  mb_svpt  off_svpt sv_from  off_sv_gms
+5642  2025  QM072    w           Andrea Collarini     7-5 5-7 6-4        17.0                 NaN         NaN      NaN      93.0     row        17.0
+5643  2025  QM072    l        Nishesh Basavareddy     7-5 5-7 6-4        17.0                 NaN         NaN      NaN     109.0     row        17.0
+5648  2025  QM075    w    Roman Andres Burruchaga      6-3 7-6(6)        11.0                 NaN         NaN      NaN      90.0     row        11.0
+5649  2025  QM075    l         Constant Lestienne      6-3 7-6(6)        10.0                 NaN         NaN      NaN      64.0     row        10.0
+5656  2025  QM079    w             Federico Coria     7-5 3-6 6-3        15.0                 NaN         NaN      NaN      94.0     row        15.0
+5657  2025  QM079    l            Arthur Bouquier     7-5 3-6 6-3        15.0                 NaN         NaN      NaN     114.0     row        15.0
+5658  2025  QM080    w              James Trotter         6-1 6-4         9.0                 NaN         NaN      NaN      55.0     row         9.0
+5659  2025  QM080    l               Brandon Holt         6-1 6-4         8.0                 NaN         NaN      NaN      41.0     row         8.0
+5752  2025  QM127    w            Dalibor Svrcina         6-2 6-4         9.0                 NaN         NaN      NaN      59.0     row         9.0
+5753  2025  QM127    l           Gregoire Barrere         6-2 6-4         9.0                 NaN         NaN      NaN      72.0     row         9.0
+5758  2025  QM034    w       Alexander Shevchenko  3-6 6-3 7-6(5)        15.0                 NaN         NaN      NaN     103.0     row        15.0
+5759  2025  QM034    l              Mathys Erhard  3-6 6-3 7-6(5)        15.0                 NaN         NaN      NaN     100.0     row        15.0
+5768  2025  QM039    w        Maximilian Marterer         5-1 RET         3.0                 NaN         NaN      NaN      20.0     row         3.0
+5769  2025  QM039    l             Federico Coria         5-1 RET         3.0                 NaN         NaN      NaN      30.0     row         3.0
+5772  2025  QM041    w            Benjamin Hassan         6-4 6-4        10.0                 NaN         NaN      NaN      55.0     row        10.0
+5773  2025  QM041    l  Sascha Gueymard Wayenburg         6-4 6-4        10.0                 NaN         NaN      NaN      63.0     row        10.0
+E4: {"matches": {"atp|False|sackmann": 127, "atp|True|tml": 112, "wta|False|sackmann": 127}, "with_box": {"atp|False": 0, "atp|True": 97, "wta|False": 0}, "qual_player_rows_with_sv_gms_in_stage0": 26, "qual_matches_without_box": 15, "tml_player_rows": 224, "tml_sv_gms_zero": 194, "tml_sv_gms_blank": 2, "tml_rows_with_both": 222, "tml_svpt_equal_pct": 69.4, "tml_svpt_within1_pct": 88.3, "tml_first_in_equal_pct": 60.4, "tml_first_in_within1_pct": 77.9, "tml_ace_equal_pct": 95.0, "tml_ace_within1_pct": 98.6, "tml_df_equal_pct": 96.4, "tml_df_within1_pct": 98.6, "tml_first_won_equal_pct": 56.8, "tml_first_won_within1_pct": 75.7, "tml_second_won_equal_pct": 55.0, "tml_second_won_within1_pct": 80.6, "pooled_first_in_tml_pct": 63.24, "pooled_first_in_rg_pct": 63.11, "tml_main_reference_rows": 502, "tml_main_first_in_equal_pct": 60.4, "tml_main_pooled_first_in_pct": {"atp": 64.7, "wta": 63.61}, "rg_main_pooled_first_in_pct": {"atp": 62.23, "wta": 63.03}, "women_qual_in_stage0": 0}
+RGX:
+                                                                                           0                                                               1                                                               2                                                               3
+year                                                                                   2021                                                            2021                                                            2021                                                            2021
+code                                                                                  SD075                                                           SD094                                                           SD028                                                           SD031
+round                                                                                  R128                                                            R128                                                             R32                                                             R32
+source_file                  data/raw/public_dump/sackmann_archive/wta/wta_matches_2021.csv  data/raw/public_dump/sackmann_archive/wta/wta_matches_2021.csv  data/raw/public_dump/sackmann_archive/wta/wta_matches_2021.csv  data/raw/public_dump/sackmann_archive/wta/wta_matches_2021.csv
+source_row                                                                             1097                                                            1116                                                            1194                                                            1197
+winner_name                                                                Karolina Muchova                                                Rebecca Peterson                                                 Tamara Zidansek                                                    Paula Badosa
+loser_name                                                                  Andrea Petkovic                                                   Shelby Rogers                                              Katerina Siniakova                                                      Ana Bogdan
+row_score                                                                       1-6 6-3 6-4                                               6-7(3) 7-6(8) 6-2                                                  0-6 7-6(5) 6-2                                                  2-6 7-6(4) 6-4
+rg_games_winner_view                                                            1-6 6-3 6-4                                                     6-7 7-6 6-2                                                     0-6 7-6 6-2                                                     2-6 7-6 6-4
+rg_winner                                                                  Karolina MUCHOVA                                                Rebecca PETERSON                                                 Tamara ZIDANSEK                                                    Paula BADOSA
+winner_id                                                                            214096                                                          202490                                                          214461                                                          211651
+loser_id                                                                             201492                                                          201603                                                          211701                                                          202536
+winner_seed                                                                              18                                                                                                                                                                                              33
+loser_seed                                                                                                                                                                                                                                                                                 
+winner_rank                                                                              19                                                              60                                                              85                                                              35
+loser_rank                                                                              112                                                              47                                                              68                                                             102
+raw_w_ace                                                                               3.0                                                             0.0                                                             0.0                                                             3.0
+raw_l_ace                                                                               3.0                                                             3.0                                                             0.0                                                             0.0
+rg_w_ace                                                                                3.0                                                             3.0                                                             0.0                                                             0.0
+rg_l_ace                                                                                3.0                                                             0.0                                                             0.0                                                             3.0
+raw_w_df                                                                                7.0                                                             8.0                                                             4.0                                                             5.0
+raw_l_df                                                                                5.0                                                             6.0                                                             4.0                                                             5.0
+rg_w_df                                                                                 5.0                                                             6.0                                                             4.0                                                             5.0
+rg_l_df                                                                                 7.0                                                             8.0                                                             4.0                                                             5.0
+raw_w_svpt                                                                             88.0                                                           105.0                                                            73.0                                                           127.0
+raw_l_svpt                                                                             88.0                                                           127.0                                                            88.0                                                           110.0
+rg_w_svpt                                                                              88.0                                                           127.0                                                            88.0                                                           110.0
+rg_l_svpt                                                                              88.0                                                           105.0                                                            73.0                                                           127.0
+raw_w_first_in                                                                         53.0                                                            65.0                                                            44.0                                                            87.0
+raw_l_first_in                                                                         55.0                                                            81.0                                                            55.0                                                            80.0
+rg_w_first_in                                                                          55.0                                                            81.0                                                            55.0                                                            80.0
+rg_l_first_in                                                                          53.0                                                            65.0                                                            44.0                                                            87.0
+raw_w_first_won                                                                        34.0                                                            39.0                                                            28.0                                                            50.0
+raw_l_first_won                                                                        36.0                                                            47.0                                                            32.0                                                            45.0
+rg_w_first_won                                                                         36.0                                                            47.0                                                            32.0                                                            45.0
+rg_l_first_won                                                                         34.0                                                            39.0                                                            28.0                                                            50.0
+raw_w_second_won                                                                       16.0                                                            19.0                                                            15.0                                                            18.0
+raw_l_second_won                                                                       15.0                                                            21.0                                                            16.0                                                            12.0
+rg_w_second_won                                                                        15.0                                                            21.0                                                            16.0                                                            12.0
+rg_l_second_won                                                                        16.0                                                            19.0                                                            15.0                                                            18.0
+raw_w_bp_faced                                                                         12.0                                                            12.0                                                             4.0                                                            22.0
+raw_l_bp_faced                                                                         10.0                                                             9.0                                                            10.0                                                            14.0
+rg_w_bp_faced                                                                          10.0                                                             9.0                                                            10.0                                                            14.0
+rg_l_bp_faced                                                                          12.0                                                            12.0                                                             4.0                                                            22.0
+raw_w_bp_saved                                                                          8.0                                                             4.0                                                             0.0                                                            16.0
+raw_l_bp_saved                                                                          6.0                                                             3.0                                                             5.0                                                             7.0
+rg_w_bp_saved                                                                           6.0                                                             3.0                                                             5.0                                                             7.0
+rg_l_bp_saved                                                                           8.0                                                             4.0                                                             0.0                                                            16.0
+equal_as_recorded                                                                     False                                                           False                                                           False                                                           False
+equal_exchanged                                                                        True                                                            True                                                            True                                                            True
+raw_w_sv_gms                                                                           13.0                                                            16.0                                                            13.0                                                            15.0
+raw_l_sv_gms                                                                           13.0                                                            16.0                                                            13.0                                                            15.0
+mb_w_sv_gms                                                                            13.0                                                            16.0                                                            13.0                                                            15.0
+mb_l_sv_gms                                                                            13.0                                                            16.0                                                            13.0                                                            15.0
+der_w_sv_gms                                                                           13.0                                                            16.0                                                            13.0                                                            15.0
+der_l_sv_gms                                                                           13.0                                                            16.0                                                            13.0                                                            15.0
+mb_w_svpt                                                                              88.0                                                           127.0                                                            88.0                                                           110.0
+mb_l_svpt                                                                              88.0                                                           105.0                                                            73.0                                                           127.0
+mb_w_first_in                                                                          55.0                                                            81.0                                                            55.0                                                            80.0
+mb_l_first_in                                                                          53.0                                                            65.0                                                            44.0                                                            87.0
+mb_w_ace                                                                                3.0                                                             3.0                                                             0.0                                                             0.0
+mb_l_ace                                                                                3.0                                                             0.0                                                             0.0                                                             3.0
+next_round_has_winner_id                                                               True                                                            True                                                            True                                                            True
+next_round_has_loser_id                                                               False                                                           False                                                           False                                                           False
+rg_next_round_has_rg_winner                                                            True                                                            True                                                            True                                                            True
+rg_next_round_has_rg_loser                                                            False                                                           False                                                           False                                                           False
+rg_games                                                                        1-6 6-3 6-4                                                     6-7 7-6 6-2                                                     0-6 7-6 6-2                                                     2-6 7-6 6-4
+games_agree                                                                            True                                                            True                                                            True                                                            True
+winner_agrees                                                                          True                                                            True                                                            True                                                            True
+sim_w                                                                                   1.0                                                             1.0                                                             1.0                                                             1.0
+sim_l                                                                                   1.0                                                             1.0                                                             1.0                                                             1.0
+E7 round 1 rows: {'rg_rows': 887, 'inside_proposed': 875, 'same_split': 875}
+    year   code                winner_name          loser_name                  cls
+0   2022  SM031            Daniil Medvedev   Miomir Kecmanovic  referee_contradicts
+1   2022  SM004               Rafael Nadal      Novak Djokovic  referee_contradicts
+2   2023  SM127        Thiago Seyboth Wild     Daniil Medvedev  referee_contradicts
+3   2025  SM007             Carlos Alcaraz          Tommy Paul  referee_contradicts
+4   2024  QM119               Billy Harris         Emilio Nava     statistics_short
+5   2024  QM107            Giulio Zeppieri   Stefano Travaglia     statistics_short
+6   2024  QM114         Shintaro Mochizuki          Nick Hardt     statistics_short
+7   2025  QM088  Nicolas Moreno De Alboran       Fabio Fognini     statistics_short
+8   2025  QM083            Benjamin Hassan         Pavel Kotov     statistics_short
+9   2023  SD068           Bianca Andreescu   Victoria Azarenka  referee_contradicts
+10  2024  QD080              Jule Niemeier  Laura Ioana Andrei     statistics_short
+11  2024  QD108      Aliaksandra Sasnovich           Jenny Lim     statistics_short
+pooled first serves in (before / after / RG's own):
+                 before_pct  after_pct  rg_pct
+year tour draw                               
+2022 atp  main       66.09      63.36   63.35
+          qual       68.55      62.50   62.50
+     wta  main       65.64      63.58   63.55
+          qual       69.98      65.06   65.06
+2023 atp  main       62.29      61.25   61.24
+          qual       65.29      61.45   61.45
+     wta  main       62.62      61.49   61.47
+          qual       68.08      64.70   64.70
+2024 atp  main       63.09      62.25   62.25
+          qual       65.19      61.91   61.18
+     wta  main       64.75      62.87   62.86
+          qual       67.64      63.95   63.59
+2025 atp  main       62.78      62.35   62.34
+          qual       68.60      63.50   63.31
+     wta  main       63.34      62.65   62.65
+          qual       68.59      63.55   63.55
+2026 atp  main         NaN      62.23   62.23
+          qual       63.24      63.11   63.11
+     wta  main         NaN      63.03   63.03

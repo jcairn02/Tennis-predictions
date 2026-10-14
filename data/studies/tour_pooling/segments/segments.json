@@ -1,0 +1,60 @@
+{
+ "generated_at": "2026-10-10T00:02:56+00:00",
+ "forecasts": "data/studies/tour_pooling/scores/forecasts.parquet",
+ "forecasts_sha256": "38edb441763a78ff9583ee89c72eb172d896fa96c0f5e8eef8996bc9506c4d2e",
+ "rows": 35884,
+ "models": [
+  "pooled",
+  "split",
+  "notour",
+  "borrow25",
+  "borrow50",
+  "borrowsim",
+  "aligned",
+  "sizectl",
+  "blend",
+  "select",
+  "avg_split_pooled",
+  "blend_control",
+  "pooled8"
+ ],
+ "comparisons": [
+  "pooled vs split",
+  "borrow25 vs split",
+  "borrow50 vs split",
+  "borrowsim vs split",
+  "aligned vs split",
+  "blend vs split",
+  "select vs split",
+  "borrowsim vs borrow50",
+  "sizectl vs split",
+  "pooled vs sizectl"
+ ],
+ "windows": {
+  "W1": "2022 to 28 Jul 2026 (the declared seasons)",
+  "W2": "2020-2024 (the decided comparison's default window)"
+ },
+ "favourite_cuts": {
+  "atp": {
+   "abs_logit": [
+    0.4360485314802449,
+    0.9558883058175303
+   ],
+   "p_lo": 0.6073170731707318,
+   "p_hi": 0.7222978206783316
+  },
+  "wta": {
+   "abs_logit": [
+    0.4360485314802446,
+    0.9538131711972447
+   ],
+   "p_lo": 0.6073170731707317,
+   "p_hi": 0.721881390593047
+  }
+ },
+ "min_matches": 100,
+ "min_blocks": 5,
+ "sealed_from": "2026-07-29",
+ "standin": false,
+ "unit": "mLL per match = 1000 x mean(LL(split) - LL(arm)); + = the arm better than split (pooled vs split: + = borrowing the other tour's data helps); 95% interval over four-week blocks plus the seed term (paired by seed when both carry the same seeds); P(better) = t CDF on blocks - 1 df; q_bh = Benjamini-Hochberg over the read cells of one window and comparison"
+}

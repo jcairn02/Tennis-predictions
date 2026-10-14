@@ -1,0 +1,730 @@
+<title>Ten Careers, Checked</title>
+<meta name="description" content="Ten randomly drawn ATP Challenger players' whole careers, checked match by match against our downloaded tennis data: what is there, what is missing, and how much in-match detail we hold.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Saira+Condensed:wght@600;700&family=Source+Sans+3:ital,wght@0,400;0,600;0,700;1,400&display=swap">
+<style>
+:root {
+  color-scheme: light;
+  --ground: #eef2f5;
+  --surface: #ffffff;
+  --ink: #0f1b27;
+  --ink-2: #435363;
+  --muted: #5b6977;
+  --rule: #d8e0e7;
+  --rule-strong: #b7c3cd;
+  --accent: #1c5cab;
+  --accent-soft: #e2ecf8;
+  --chip: #e7edf2;
+  --d0: #ec835a;
+  --d1: #86b6ef;
+  --d2: #5598e7;
+  --d3: #256abf;
+  --d4: #184f95;
+  --d5: #0d366b;
+  --tip-bg: #0f1b27;
+  --tip-ink: #f4f7fa;
+  --shadow: 0 1px 2px rgba(15, 27, 39, .05), 0 6px 20px rgba(15, 27, 39, .05);
+  --display: "Saira Condensed", "Arial Narrow", "Roboto Condensed", sans-serif;
+  --body: "Source Sans 3", "Source Sans Pro", system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+    --ground: #0b1116;
+    --surface: #121a21;
+    --ink: #edf2f6;
+    --ink-2: #b4c1cc;
+    --muted: #93a1ad;
+    --rule: #23303b;
+    --rule-strong: #364552;
+    --accent: #6da7ec;
+    --accent-soft: #15273a;
+    --chip: #1a242d;
+    --d1: #184f95;
+    --d2: #2a78d6;
+    --d3: #6da7ec;
+    --d4: #9ec5f4;
+    --d5: #cde2fb;
+    --tip-bg: #edf2f6;
+    --tip-ink: #0f1b27;
+    --shadow: none;
+  }
+}
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --ground: #0b1116;
+  --surface: #121a21;
+  --ink: #edf2f6;
+  --ink-2: #b4c1cc;
+  --muted: #93a1ad;
+  --rule: #23303b;
+  --rule-strong: #364552;
+  --accent: #6da7ec;
+  --accent-soft: #15273a;
+  --chip: #1a242d;
+  --d1: #184f95;
+  --d2: #2a78d6;
+  --d3: #6da7ec;
+  --d4: #9ec5f4;
+  --d5: #cde2fb;
+  --tip-bg: #edf2f6;
+  --tip-ink: #0f1b27;
+  --shadow: none;
+}
+
+* { box-sizing: border-box; }
+body {
+  background: var(--ground);
+  color: var(--ink);
+  font-family: var(--body);
+  font-size: 17px;
+  line-height: 1.55;
+  padding-inline: 20px;
+  padding-block: 0 64px;
+}
+.page { max-width: 1060px; margin: 0 auto; }
+.prose { max-width: 68ch; }
+p { margin: 0 0 .9em; }
+a { color: var(--accent); text-underline-offset: 2px; }
+a:focus-visible, button:focus-visible, select:focus-visible, summary:focus-visible, [tabindex]:focus-visible {
+  outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 3px;
+}
+h1, h2, h3 { font-family: var(--display); font-weight: 700; line-height: 1.08; text-wrap: balance; margin: 0; }
+h1 { font-size: clamp(2.1rem, 5.4vw, 3.5rem); letter-spacing: .005em; }
+h2 { font-size: clamp(1.55rem, 3.2vw, 2.15rem); letter-spacing: .01em; }
+h3 { font-size: 1.28rem; letter-spacing: .015em; margin-bottom: .35rem; }
+.num { font-variant-numeric: tabular-nums; }
+strong { font-weight: 700; }
+
+/* masthead */
+.masthead { padding-block: 44px 28px; border-bottom: 1px solid var(--rule-strong); position: relative; }
+.masthead::after { /* a baseline with a centre mark, as on a court */
+  content: ""; position: absolute; left: 50%; bottom: -1px; width: 2px; height: 10px; background: var(--rule-strong);
+}
+.eyebrow {
+  font-size: .8rem; letter-spacing: .09em; text-transform: uppercase; color: var(--muted); font-weight: 600; margin-bottom: 14px;
+}
+.lede { font-size: 1.16rem; color: var(--ink-2); max-width: 62ch; margin-top: 16px; }
+
+/* headline figures */
+.figures { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; margin-block: 28px 18px; }
+.figure { background: var(--surface); border: 1px solid var(--rule); border-radius: 10px; padding: 16px 18px 14px; box-shadow: var(--shadow); }
+.figure .label { font-size: .92rem; color: var(--ink-2); line-height: 1.3; }
+.figure .value { font-size: 2.35rem; font-weight: 700; line-height: 1.05; margin-block: 6px 6px; letter-spacing: -.01em; }
+.figure .note { font-size: .82rem; color: var(--muted); line-height: 1.35; }
+.verdict { font-size: 1.08rem; max-width: 70ch; }
+.verdict strong { font-weight: 700; }
+
+/* sections */
+section { padding-top: 46px; }
+.sec-head { display: flex; align-items: center; gap: 14px; margin-bottom: 14px; }
+.letter {
+  flex: none; width: 2.1rem; height: 2.1rem; display: grid; place-items: center; border-radius: 6px;
+  background: var(--ink); color: var(--surface); font-family: var(--display); font-weight: 700; font-size: 1.3rem;
+}
+.sec-kicker { font-size: .78rem; letter-spacing: .09em; text-transform: uppercase; color: var(--muted); font-weight: 600; }
+
+/* panels & charts */
+.panel { background: var(--surface); border: 1px solid var(--rule); border-radius: 12px; padding: 20px 22px; margin-block: 18px; box-shadow: var(--shadow); }
+.panel-head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 6px 18px; margin-bottom: 12px; }
+.panel-head p { margin: 0; color: var(--muted); font-size: .9rem; }
+.legend { display: flex; flex-wrap: wrap; gap: 6px 16px; margin: 4px 0 14px; padding: 0; list-style: none; font-size: .88rem; color: var(--ink-2); }
+.legend li { display: inline-flex; align-items: center; gap: 7px; }
+.sw { width: 12px; height: 12px; border-radius: 3px; flex: none; display: inline-block; }
+.sw.miss { position: relative; }
+.bars { display: grid; gap: 9px; }
+.bar-row { display: grid; grid-template-columns: minmax(8.5rem, 12rem) minmax(0, 1fr) 6.2rem; align-items: center; gap: 12px; }
+.bar-label { line-height: 1.2; }
+.bar-label .n1 { font-weight: 600; font-size: .95rem; }
+.bar-label .n2 { font-size: .78rem; color: var(--muted); }
+.bar { display: flex; gap: 2px; height: 20px; min-width: 0; }
+.seg { height: 100%; min-width: 2px; }
+.seg:last-child { border-radius: 0 4px 4px 0; }
+.seg:hover, .seg:focus-visible { filter: brightness(1.12) saturate(1.05); }
+.bar-value { font-size: .85rem; color: var(--ink-2); text-align: right; font-variant-numeric: tabular-nums; line-height: 1.2; }
+.bar-value b { color: var(--ink); font-weight: 700; }
+.chart-svg { width: 100%; display: block; overflow: visible; }
+.chart-svg text { fill: var(--muted); font-family: var(--body); font-size: 12px; font-variant-numeric: tabular-nums; }
+.chart-svg .cap { fill: var(--ink-2); font-size: 11.5px; }
+.chart-svg .grid { stroke: var(--rule); stroke-width: 1; shape-rendering: crispEdges; }
+.chart-svg .base { stroke: var(--rule-strong); stroke-width: 1; shape-rendering: crispEdges; }
+.chart-svg .mark:hover { filter: brightness(1.12); }
+.chart-svg .note-line { stroke: var(--ink-2); stroke-width: 1; }
+.chart-svg .note-text { fill: var(--ink-2); font-size: 11.5px; }
+details.twin { margin-top: 14px; border-top: 1px solid var(--rule); padding-top: 10px; }
+details.twin summary { cursor: pointer; color: var(--accent); font-size: .9rem; font-weight: 600; }
+.table-wrap { overflow-x: auto; margin-top: 10px; }
+table { border-collapse: collapse; width: 100%; font-size: .88rem; }
+th, td { text-align: left; padding: 6px 10px 6px 0; border-bottom: 1px solid var(--rule); vertical-align: top; }
+th { font-size: .74rem; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); font-weight: 600; white-space: nowrap; }
+td.r, th.r { text-align: right; }
+tbody tr:last-child td { border-bottom: 0; }
+td { font-variant-numeric: tabular-nums; }
+
+/* reasons */
+.reasons { display: grid; gap: 14px; margin-top: 6px; }
+.reason { display: grid; grid-template-columns: minmax(0, 1fr) 11rem; gap: 6px 18px; align-items: start; }
+.reason h3 { font-family: var(--body); font-size: 1rem; font-weight: 700; letter-spacing: 0; margin: 0 0 2px; }
+.reason p { margin: 0; font-size: .92rem; color: var(--ink-2); }
+.reason .rbar { display: flex; align-items: center; gap: 8px; font-size: .9rem; font-variant-numeric: tabular-nums; padding-top: 2px; }
+.reason .rbar span.fill { height: 14px; background: var(--d0); border-radius: 0 4px 4px 0; min-width: 2px; }
+
+/* ladder */
+.ladder { display: grid; gap: 10px; margin: 10px 0 22px; padding: 0; list-style: none; }
+.ladder li { display: grid; grid-template-columns: 1.1rem minmax(9rem, 13rem) minmax(0, 1fr); gap: 12px; align-items: start; font-size: .93rem; }
+.ladder .sw { width: 16px; height: 16px; margin-top: 3px; }
+.ladder b { font-weight: 700; }
+.ladder span.d { color: var(--ink-2); }
+
+/* career calendars */
+.cal-wrap { overflow-x: auto; padding-bottom: 6px; }
+.cal { display: grid; column-gap: 7px; row-gap: 14px; align-items: start; width: max-content; }
+.cal .yr { font-size: .74rem; color: var(--muted); text-align: left; font-variant-numeric: tabular-nums; padding-bottom: 2px; border-bottom: 1px solid var(--rule); }
+.cal .who { position: sticky; left: 0; background: var(--surface); padding-right: 10px; line-height: 1.2; z-index: 1; }
+.cal .who .n1 { font-weight: 600; font-size: .9rem; }
+.cal .who .n2 { font-size: .74rem; color: var(--muted); }
+.blk { display: flex; flex-wrap: wrap; gap: 2px; align-content: flex-start; width: 46px; }
+.sq { width: 6px; height: 6px; border-radius: 1.5px; display: block; }
+.blk.empty { height: 6px; border-bottom: 1px dotted var(--rule-strong); }
+td.nw { white-space: nowrap; }
+
+/* explorer */
+.controls { display: flex; flex-wrap: wrap; gap: 10px 16px; align-items: end; }
+.controls label { display: grid; gap: 4px; font-size: .78rem; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); font-weight: 600; }
+select {
+  font: inherit; font-size: .95rem; text-transform: none; letter-spacing: 0; color: var(--ink); background: var(--surface);
+  border: 1px solid var(--rule-strong); border-radius: 7px; padding: 6px 30px 6px 10px; min-width: 11rem;
+}
+.count { font-size: .9rem; color: var(--muted); margin: 12px 0 0; }
+.explorer-wrap { max-height: 560px; overflow: auto; margin-top: 8px; border-top: 1px solid var(--rule); }
+.explorer-wrap thead th { position: sticky; top: 0; background: var(--surface); z-index: 1; }
+.pill { display: inline-flex; align-items: center; gap: 6px; white-space: nowrap; }
+.wl-W { font-weight: 700; }
+.muted { color: var(--muted); }
+
+ul.findings { padding-left: 1.2em; margin: 0 0 1em; }
+ul.findings li { margin-bottom: .4em; }
+.callout { border-left: 3px solid var(--d0); padding: 4px 0 4px 16px; margin-block: 26px 8px; }
+.callout h3 { margin-bottom: .45rem; }
+
+/* notes */
+.method li, .caveats li { margin-bottom: .55em; }
+.method, .caveats { padding-left: 1.2em; max-width: 72ch; }
+.src-table td:first-child { font-weight: 600; white-space: nowrap; }
+.foot { margin-top: 48px; padding-top: 16px; border-top: 1px solid var(--rule); color: var(--muted); font-size: .85rem; }
+
+/* tooltip */
+#tip {
+  position: fixed; z-index: 20; pointer-events: none; max-width: 300px; background: var(--tip-bg); color: var(--tip-ink);
+  border-radius: 7px; padding: 8px 11px; font-size: .82rem; line-height: 1.4; box-shadow: 0 6px 18px rgba(0,0,0,.18);
+}
+#tip .tip-head { font-weight: 700; margin-bottom: 2px; }
+
+@media (max-width: 760px) {
+  body { font-size: 16px; padding-inline: 16px; }
+  .figures { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .bar-row { grid-template-columns: minmax(0, 1fr) 5.6rem; }
+  .bar-row .bar { grid-column: 1 / -1; grid-row: 2; }
+  .reason { grid-template-columns: 1fr; }
+  .ladder li { grid-template-columns: 1.1rem minmax(0, 1fr); }
+  .ladder span.d { grid-column: 2; }
+  .panel { padding: 16px; }
+}
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } }
+</style>
+
+<div class="page">
+  <header class="masthead">
+    <p class="eyebrow">Tennis data audit · data downloaded 22 Sep 2026 · checked against official records {{generated}}</p>
+    <h1>Ten Challenger careers, checked match by match</h1>
+    <p class="lede">We drew ten players at random from the ATP Challenger Tour, from the top 100 down to about No.&nbsp;700. For each one we listed every professional singles match of their career from the ATP's official website, then looked for every one of those matches in the tennis data we downloaded. This page shows how much of each career we hold, what is missing and why, and how much detail we have about the matches we do hold.</p>
+  </header>
+
+  <div class="figures" role="list">
+    <div class="figure" role="listitem">
+      <div class="label">Matches on the ten players' official ATP record</div>
+      <div class="value">{{n_ref}}</div>
+      <div class="note">ITF, Challenger and tour-level matches, qualifying included (except at ITF events)</div>
+    </div>
+    <div class="figure" role="listitem">
+      <div class="label">Found in our data</div>
+      <div class="value">{{pct_present}}%</div>
+      <div class="note">{{n_missing}} matches are not in any of our sources</div>
+    </div>
+    <div class="figure" role="listitem">
+      <div class="label">Come with serve and return statistics</div>
+      <div class="value">{{pct_box}}%</div>
+      <div class="note">aces, double faults, serve points won, break points</div>
+    </div>
+    <div class="figure" role="listitem">
+      <div class="label">Have point-by-point or shot-by-shot detail</div>
+      <div class="value">{{pct_detail}}%</div>
+      <div class="note">{{n_detail}} matches in total</div>
+    </div>
+  </div>
+  <p class="verdict">{{VERDICT}}</p>
+
+  <section id="a" aria-labelledby="a-h">
+    <div class="sec-head"><span class="letter" aria-hidden="true">A</span><div><div class="sec-kicker">Question A</div><h2 id="a-h">Who we checked, and how they were picked</h2></div></div>
+    <div class="prose">
+      <p>A player was eligible if they were ranked between 1 and 700 on the ATP ranking of 31&nbsp;August&nbsp;2026 (the newest ranking in our download), had played at least five Challenger main-draw matches in the year before, and were born in 1994 or later. The age limit keeps each whole career inside our download, which starts in 2010. We split the eligible players into five ranking bands and drew two from each band at random, so the sample runs from players on the edge of the top 100 down to players around No.&nbsp;700.</p>
+    </div>
+    <div class="panel">
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Player</th><th>Country</th><th class="r">Rank, 31 Aug 2026</th><th>Band</th><th class="r">Born</th><th>Career on record</th><th class="r">Official matches</th><th class="r">Won–lost</th><th class="r" title="Tour-level main draws and Davis Cup: the headline record on the ATP profile, then the same count from our transcription">Tour-level W–L: profile / transcribed</th></tr></thead>
+          <tbody id="sample-body"></tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section id="b" aria-labelledby="b-h">
+    <div class="sec-head"><span class="letter" aria-hidden="true">B</span><div><div class="sec-kicker">Question B</div><h2 id="b-h">Every match, lined up against the official record</h2></div></div>
+    <div class="prose">
+      <p>The ATP's website lists every match a player has played at events that count for the ATP ranking: ITF World Tennis Tour events (the old "Futures", the lowest professional level), Challengers, and tour-level events such as ATP 250s and Grand Slams, with their qualifying rounds, plus Davis Cup. That is the official record we checked against. It covers each player's whole career, from their first professional match (2012 at the earliest) to 21&nbsp;September&nbsp;2026. The one kind of professional match it leaves out, qualifying at ITF events, is covered separately under C.</p>
+      <p>{{B_TEXT}}</p>
+    </div>
+    <div class="panel">
+      <div class="panel-head"><h3>Look up any match</h3><p>All {{n_ref}} matches; pick a player or show only the gaps</p></div>
+      <div class="controls">
+        <label for="ex-player">Player <select id="ex-player"></select></label>
+        <label for="ex-level">Level <select id="ex-level"></select></label>
+        <label for="ex-status">Show <select id="ex-status">
+          <option value="all">All matches</option>
+          <option value="missing">Only matches not in our data</option>
+          <option value="present">Only matches in our data</option>
+        </select></label>
+      </div>
+      <p class="count" id="ex-count" aria-live="polite"></p>
+      <div class="explorer-wrap">
+        <table>
+          <thead><tr><th>Date</th><th>Tournament</th><th>Level</th><th>Round</th><th></th><th>Opponent</th><th>Score</th><th>In our data</th><th>Where</th></tr></thead>
+          <tbody id="ex-body"></tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section id="c" aria-labelledby="c-h">
+    <div class="sec-head"><span class="letter" aria-hidden="true">C</span><div><div class="sec-kicker">Question C</div><h2 id="c-h">What share is in our data, and what is missing</h2></div></div>
+    <div class="prose"><p>{{C_TEXT}}</p></div>
+
+    <div class="panel">
+      <div class="panel-head"><h3>By player</h3><p>Share of each career, sorted by ranking</p></div>
+      <ul class="legend" id="legend-1"></ul>
+      <div class="bars" id="by-player"></div>
+      <details class="twin"><summary>Show the numbers</summary><div class="table-wrap"><table id="by-player-table"></table></div></details>
+    </div>
+
+    <div class="panel">
+      <div class="panel-head"><h3>By level</h3><p>All ten careers together, lowest level first</p></div>
+      <ul class="legend" id="legend-2"></ul>
+      <div class="bars" id="by-level"></div>
+      <details class="twin"><summary>Show the numbers</summary><div class="table-wrap"><table id="by-level-table"></table></div></details>
+    </div>
+
+    <div class="panel">
+      <div class="panel-head"><h3>By season</h3><p>Matches per season across the ten players</p></div>
+      <ul class="legend" id="legend-3"></ul>
+      <div id="by-year"></div>
+      <details class="twin"><summary>Show the numbers</summary><div class="table-wrap"><table id="by-year-table"></table></div></details>
+    </div>
+
+    <div class="panel">
+      <div class="panel-head"><h3>Why matches are missing</h3><p>{{n_missing}} matches not in any of our sources</p></div>
+      <div class="reasons" id="reasons"></div>
+      <p class="count">To see every missing match, choose "Only matches not in our data" in the match list under B.</p>
+    </div>
+
+    <div class="prose callout">
+      <h3>The blind spot in both records: ITF qualifying</h3>
+      <p>{{ITF_TEXT}}</p>
+    </div>
+
+    <div class="prose">
+      <h3>The other direction: rows in our data that match nothing official</h3>
+      {{EXTRAS_TEXT}}
+    </div>
+    <details class="panel twin" id="extras-panel"><summary>Show those {{n_extras}} rows</summary>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Player</th><th>Source</th><th>Week or day</th><th>Tournament</th><th>Round</th><th>Opponent</th><th>Result</th><th>Why it did not match</th></tr></thead>
+        <tbody id="extras-body"></tbody>
+      </table></div>
+    </details>
+  </section>
+
+  <section id="d" aria-labelledby="d-h">
+    <div class="sec-head"><span class="letter" aria-hidden="true">D</span><div><div class="sec-kicker">Question D</div><h2 id="d-h">How much detail we hold about each match</h2></div></div>
+    <div class="prose">
+      <p>A match can sit in our data at very different depths. We graded every match by the richest layer any of our sources holds for it:</p>
+    </div>
+    <ul class="ladder" id="ladder"></ul>
+    <div class="prose"><p>{{D_TEXT}}</p></div>
+
+    <div class="panel">
+      <div class="panel-head"><h3>Each career, one square per match</h3><p>Columns are seasons; squares run in date order within a season</p></div>
+      <ul class="legend" id="legend-4"></ul>
+      <div class="cal-wrap"><div class="cal" id="calendars"></div></div>
+    </div>
+
+    <div class="prose"><p>{{D_TEXT_2}}</p></div>
+
+    <div class="panel">
+      <div class="panel-head"><h3>Which layers exist at each level</h3><p>Share of matches at that level holding each layer</p></div>
+      <div class="table-wrap"><table id="layers-table"></table></div>
+    </div>
+  </section>
+
+  <section id="how" aria-labelledby="how-h">
+    <div class="sec-head"><div><div class="sec-kicker">Method</div><h2 id="how-h">How we checked</h2></div></div>
+    <ol class="method">
+      <li><strong>The sample.</strong> Drawn by <code>src/eda/career_coverage/select_players.py</code> from the Tennis My Life ranking of 31 August 2026 and its Challenger results (seed 20260923). Two further players per band were drawn as reserves in case a pick's career started before 2010; none was needed.</li>
+      <li><strong>The official record.</strong> For each player and season we read the ATP website's player-activity data, and the ITF website's activity data for ITF events, on 23 September 2026. We transcribed every tournament and match line by line into text files kept with the study, and checked each season's match count against the count the site gives for each tournament. {{METHOD_ITF}}</li>
+      <li><strong>Finding each match in our data.</strong> We searched all eight sources in the download (listed below) for each player. A row counts as the same match when it is the same player, the opponent agrees, and the date falls in the same tournament week. Opponents are matched by the ATP player code where a source has it, and otherwise by name, allowing for accents, hyphens and middle names. A row that could fit two official matches equally well is counted as unmatched rather than guessed.</li>
+      <li><strong>Grading detail.</strong> Each official match takes the richest layer any source holds for it (the ladder in section D). "Serve and return statistics" means both players' serve totals are present, not just the score.</li>
+    </ol>
+  </section>
+
+  <section id="sources" aria-labelledby="src-h">
+    <div class="sec-head"><div><div class="sec-kicker">Sources</div><h2 id="src-h">What "our data" is</h2></div></div>
+    <div class="prose"><p>Our data is the public tennis download of 22&nbsp;September&nbsp;2026: eight sources, kept exactly as published. For these ten players they contribute as follows.</p></div>
+    <div class="panel">
+      <div class="table-wrap"><table class="src-table" id="src-table"></table></div>
+    </div>
+    <h3>Caveats</h3>
+    <ul class="caveats">
+      <li>The official record is our transcription of the ATP and ITF websites through a web-reading tool. Match counts were checked per tournament, and every match our data holds was matched back to it, so an omission would show up as an unmatched row in our data. {{CAVEAT_TRANSCRIPTION}}</li>
+      <li>Matches outside professional events are not counted: junior events, US college (NCAA) matches, exhibitions and doubles. Several of these players played college tennis, so the official record has gaps of whole seasons that are not gaps in our data.</li>
+      <li>Walkovers are counted as matches because the official record lists them; there is nothing to measure in them, so none can have statistics.</li>
+      <li>Ten players is a small sample. It shows the pattern for this kind of player, not exact rates for the whole Challenger tour.</li>
+      <li>"Serve and return statistics" are the totals a scoreboard keeps (aces, double faults, serve points, first serves in, points won on first and second serve, service games, break points). They say nothing about rally length, shot types or point order unless a deeper layer exists.</li>
+    </ul>
+    <p class="foot">Study files: <code>src/eda/career_coverage/</code> (code), <code>data/studies/career_coverage/</code> (transcribed official records, per-match results, coverage.json), <code>docs/studies/career_coverage/</code> (this report). Rights of each source are unchanged by this study.</p>
+  </section>
+</div>
+
+<div id="tip" hidden role="status"></div>
+
+<script type="application/json" id="report-data">__REPORT_DATA__</script>
+<script>
+(function () {
+  "use strict";
+  var DATA = JSON.parse(document.getElementById("report-data").textContent);
+  var P = DATA.players, M = DATA.m, DEPTH = DATA.depth, LEVELS = DATA.levels, SOURCES = DATA.sources;
+  var F = { p: 0, date: 1, event: 2, level: 3, round: 4, wl: 5, opp: 6, score: 7, depth: 8, mask: 9, reason: 10, ref: 11, wo: 12, atpStats: 13, season: 14 };
+  var STACK = [5, 4, 3, 2, 1, 0];
+  var DEPTH_NOTE = [
+    "No source in our download has this match at all.",
+    "A live-score schedule or a betting market lists the match, but no source holds the score.",
+    "Who won and the set scores, nothing about how the points went.",
+    "The scoreboard totals for both players: aces, double faults, serve points, first serves in, points won on first and second serve, service games, break points (and usually the match length).",
+    "The order of every point: who served and who won it, so momentum and pressure points can be studied.",
+    "Every shot charted by a volunteer: serve direction, shot type, rally length and how each point ended."
+  ];
+  var SRC = {
+    sackmann: ["Sackmann archive", "Jeff Sackmann's tennis_atp files: results and serve statistics for tour, Challenger and ITF main draws, to 1 June 2026"],
+    tml: ["Tennis My Life", "Results and serve statistics for tour level and Challenger main draws, to 21 September 2026"],
+    tennis_data: ["tennis-data.co.uk", "Tour-level main-draw results with bookmaker closing odds, to 3 August 2026"],
+    otd: ["Open Tennis Data", "Tour-level results with exact match days, derived from the two sources above"],
+    live_tennis_api: ["Live Tennis API sample", "A schedule of matches 2023–2026 without results, plus live score states for June 2026"],
+    charting: ["Match Charting Project", "Volunteer shot-by-shot charts of selected matches"],
+    slam_points: ["Grand Slam point-by-point", "Point sequences from Grand Slam main draws, 2011–2024"],
+    polymarket: ["Polymarket", "Prediction-market listings and minute prices, from September 2025"]
+  };
+  var ROUND = { R128: "Round of 128", R64: "Round of 64", R32: "Round of 32", R16: "Round of 16", QF: "Quarter-final", SF: "Semi-final", F: "Final", RR: "Round robin / tie", BR: "Bronze match", Q1: "Qualifying 1", Q2: "Qualifying 2", Q3: "Qualifying 3", Q4: "Qualifying 4" };
+  var ROUND_ORDER = { Q1: 1, Q2: 2, Q3: 3, Q4: 4, R128: 5, R64: 6, R32: 7, R16: 8, QF: 9, SF: 10, BR: 11, F: 12, RR: 7 };
+  var REASON_TEXT = [
+    ["Qualifying rounds of ITF events", "The ITF lists them, but the ATP does not, and none of our sources collects them. This is the one kind of professional match our download has never held."],
+    ["Lower levels after early June 2026", "Our only source for ITF main draws and Challenger qualifying (the Sackmann archive) stops at 1 June 2026, and no other public source covers these levels since. Challenger and tour-level main draws are still covered."],
+    ["Single matches from an event we otherwise hold", "Other matches of the same tournament are in our data but this one is not: usually an early round dropped from a source's draw."],
+    ["Whole tournaments absent", "No match of the event appears in any source."]
+  ];
+
+  function el(tag, cls, text) { var e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; }
+  function fmt(n) { return n.toLocaleString("en-US"); }
+  function pct(n, d) { return d ? Math.round(100 * n / d) : 0; }
+  function pct1(n, d) { if (!d) return "0"; var v = 100 * n / d; return (v > 0 && v < 1) || (v > 99 && v < 100) ? v.toFixed(1) : String(Math.round(v)); }
+  function color(d) { return "var(--d" + d + ")"; }
+  function srcList(mask) { var out = []; SOURCES.forEach(function (s, k) { if (mask & (1 << k)) out.push(SRC[s][0]); }); return out; }
+  function counts(rows) { var c = [0, 0, 0, 0, 0, 0]; rows.forEach(function (r) { c[r[F.depth]]++; }); return c; }
+
+  /* ---------- tooltip ---------- */
+  var tip = document.getElementById("tip");
+  var TIPS = [];
+  function tipKey(lines) { TIPS.push(lines); return String(TIPS.length - 1); }
+  function matchLines(i) {
+    var r = M[i], p = P[r[F.p]];
+    var lines = [r[F.date] + " · " + r[F.event], p.name + " · " + LEVELS[r[F.level]] + " · " + (ROUND[r[F.round]] || r[F.round]),
+      (r[F.wl] === "W" ? "Won" : "Lost") + " vs " + r[F.opp] + (r[F.score] ? ", " + r[F.score] : "") + (r[F.wo] ? " (walkover)" : ""),
+      "In our data: " + DEPTH[r[F.depth]]];
+    var s = srcList(r[F.mask]);
+    if (s.length) lines.push("Sources: " + s.join(", "));
+    return lines;
+  }
+  function showTip(lines, x, y) {
+    tip.replaceChildren();
+    lines.forEach(function (ln, i) { tip.appendChild(el("div", i === 0 ? "tip-head" : "", ln)); });
+    tip.hidden = false;
+    var r = tip.getBoundingClientRect(), left = x + 14, top = y + 16;
+    if (left + r.width > window.innerWidth - 8) left = x - r.width - 14;
+    if (top + r.height > window.innerHeight - 8) top = y - r.height - 12;
+    tip.style.left = Math.max(8, left) + "px"; tip.style.top = Math.max(8, top) + "px";
+  }
+  function linesFor(t) { return t.dataset.mi != null ? matchLines(+t.dataset.mi) : TIPS[+t.dataset.t]; }
+  document.addEventListener("pointermove", function (e) {
+    var t = e.target.closest && e.target.closest("[data-t],[data-mi]");
+    if (!t) { tip.hidden = true; return; }
+    showTip(linesFor(t), e.clientX, e.clientY);
+  });
+  document.addEventListener("focusin", function (e) {
+    var t = e.target.closest && e.target.closest("[data-t],[data-mi]");
+    if (!t) { tip.hidden = true; return; }
+    var r = t.getBoundingClientRect(); showTip(linesFor(t), r.left + r.width / 2, r.bottom);
+  });
+  document.addEventListener("focusout", function () { tip.hidden = true; });
+  window.addEventListener("scroll", function () { tip.hidden = true; }, { passive: true });
+
+  /* ---------- legends & ladder ---------- */
+  function legend(id) {
+    var ul = document.getElementById(id);
+    STACK.forEach(function (d) {
+      var li = el("li"); var sw = el("span", "sw"); sw.style.background = color(d);
+      li.appendChild(sw); li.appendChild(document.createTextNode(DEPTH[d])); ul.appendChild(li);
+    });
+  }
+  ["legend-1", "legend-2", "legend-3", "legend-4"].forEach(legend);
+  var ladder = document.getElementById("ladder");
+  STACK.slice().reverse().forEach(function (d) {
+    var li = el("li"); var sw = el("span", "sw"); sw.style.background = color(d);
+    li.appendChild(sw); li.appendChild(el("b", "", DEPTH[d])); li.appendChild(el("span", "d", DEPTH_NOTE[d])); ladder.appendChild(li);
+  });
+
+  /* ---------- A: sample table ---------- */
+  var sb = document.getElementById("sample-body");
+  P.forEach(function (p, i) {
+    var tr = el("tr");
+    var n = M.filter(function (r) { return r[F.p] === i; }).length;
+    var prof = p.tour_wl_profile.join("–"), mine = p.tour_wl_record.join("–");
+    [p.name, p.ioc, "No. " + p.rank_2026_08_31, p.band, p.birthdate.slice(0, 4), p.first_year + "–" + p.last_year, fmt(n),
+      p.wl[0] + "–" + p.wl[1], prof + " / " + mine + (prof === mine ? " ✓" : "")]
+      .forEach(function (v, k) { var td = el("td", (k >= 6 || k === 2 || k === 4 ? "r " : "") + (k === 3 || k === 5 || k >= 6 ? "nw" : ""), v); if (k === 0) td.style.fontWeight = "600"; tr.appendChild(td); });
+    sb.appendChild(tr);
+  });
+
+  /* ---------- 100% depth bars ---------- */
+  function depthBars(host, groups, valueText) {
+    var box = document.getElementById(host);
+    groups.forEach(function (g) {
+      var c = counts(g.rows), n = g.rows.length;
+      var row = el("div", "bar-row");
+      var lab = el("div", "bar-label"); lab.appendChild(el("div", "n1", g.label)); if (g.sub) lab.appendChild(el("div", "n2", g.sub));
+      var bar = el("div", "bar"); bar.setAttribute("role", "img");
+      var aria = [];
+      STACK.forEach(function (d) {
+        if (!c[d]) return;
+        var s = el("span", "seg"); s.style.flexGrow = c[d]; s.style.flexBasis = "0"; s.style.background = color(d);
+        s.tabIndex = 0;
+        s.dataset.t = tipKey([g.label, DEPTH[d] + ": " + fmt(c[d]) + " of " + fmt(n) + " matches (" + pct1(c[d], n) + "%)"]);
+        bar.appendChild(s); aria.push(DEPTH[d] + " " + pct1(c[d], n) + "%");
+      });
+      bar.setAttribute("aria-label", g.label + ": " + aria.join(", "));
+      var val = el("div", "bar-value"); valueText(val, c, n);
+      row.appendChild(lab); row.appendChild(bar); row.appendChild(val); box.appendChild(row);
+    });
+  }
+  function twinTable(id, firstHead, groups) {
+    var t = document.getElementById(id), thead = el("thead"), hr = el("tr");
+    [firstHead, "Matches"].concat(STACK.map(function (d) { return DEPTH[d]; })).forEach(function (h, k) { hr.appendChild(el("th", k ? "r" : "", h)); });
+    thead.appendChild(hr); t.appendChild(thead);
+    var tb = el("tbody");
+    groups.forEach(function (g) {
+      var c = counts(g.rows), tr = el("tr");
+      tr.appendChild(el("td", "", g.label)); tr.appendChild(el("td", "r", fmt(g.rows.length)));
+      STACK.forEach(function (d) { tr.appendChild(el("td", "r", fmt(c[d]))); });
+      tb.appendChild(tr);
+    });
+    t.appendChild(tb);
+  }
+  function presentText(val, c, n) {
+    var b = el("b", "", pct1(n - c[0], n) + "%"); val.appendChild(b); val.appendChild(document.createTextNode(" in data"));
+    val.appendChild(el("div", "muted", fmt(c[0]) + " missing"));
+  }
+  var playerGroups = P.map(function (p, i) {
+    return { label: p.name, sub: p.ioc + " · No. " + p.rank_2026_08_31, rows: M.filter(function (r) { return r[F.p] === i; }) };
+  });
+  depthBars("by-player", playerGroups, presentText);
+  twinTable("by-player-table", "Player", playerGroups);
+  var levelGroups = LEVELS.map(function (l, k) {
+    return { label: l, rows: M.filter(function (r) { return r[F.level] === k; }) };
+  }).filter(function (g) { return g.rows.length; });
+  levelGroups.forEach(function (g) { g.sub = fmt(g.rows.length) + " matches"; });
+  depthBars("by-level", levelGroups, presentText);
+  twinTable("by-level-table", "Level", levelGroups);
+
+  /* ---------- by season: stacked columns ---------- */
+  var years = [], y0 = 9999, y1 = 0;
+  M.forEach(function (r) { var y = r[F.season]; if (y < y0) y0 = y; if (y > y1) y1 = y; });
+  for (var y = y0; y <= y1; y++) years.push(y);
+  var yearRows = years.map(function (yy) { return M.filter(function (r) { return r[F.season] === yy; }); });
+  twinTable("by-year-table", "Season", years.map(function (yy, k) { return { label: String(yy), rows: yearRows[k] }; }));
+  var NS = "http://www.w3.org/2000/svg";
+  function svg(tag, attrs) { var e = document.createElementNS(NS, tag); for (var k in attrs) e.setAttribute(k, attrs[k]); return e; }
+  function niceStep(max) { var raw = max / 5, pow = Math.pow(10, Math.floor(Math.log10(raw))), m = raw / pow; return (m <= 1 ? 1 : m <= 2 ? 2 : m <= 5 ? 5 : 10) * pow; }
+  function drawYears() {
+    var host = document.getElementById("by-year"); host.replaceChildren();
+    var W = Math.max(300, host.clientWidth), H = 300, m = { t: 30, r: 6, b: 30, l: 38 };
+    var iw = W - m.l - m.r, ih = H - m.t - m.b;
+    var totals = yearRows.map(function (rs) { return rs.length; });
+    var step = niceStep(Math.max.apply(null, totals)), top = Math.ceil(Math.max.apply(null, totals) / step) * step;
+    var s = svg("svg", { "class": "chart-svg", viewBox: "0 0 " + W + " " + H, width: W, height: H, role: "img",
+      "aria-label": "Matches per season, split by how much of each match is in our data" });
+    for (var v = 0; v <= top; v += step) {
+      var yv = m.t + ih - v / top * ih;
+      s.appendChild(svg("line", { "class": v ? "grid" : "base", x1: m.l, x2: W - m.r, y1: yv, y2: yv }));
+      var tl = svg("text", { x: m.l - 8, y: yv + 4, "text-anchor": "end" }); tl.textContent = fmt(v); s.appendChild(tl);
+    }
+    var band = iw / years.length, bw = Math.min(24, band * 0.62), every = band < 34 ? 2 : 1;
+    years.forEach(function (yy, k) {
+      var c = counts(yearRows[k]), n = yearRows[k].length, cx = m.l + band * k + band / 2, yCur = m.t + ih;
+      var segs = STACK.filter(function (d) { return c[d]; });
+      segs.forEach(function (d, j) {
+        var h = c[d] / top * ih, yTop = yCur - h, isTop = j === segs.length - 1, isBottom = j === 0;
+        var y1p = yTop + (isTop ? 0 : 1), y2p = yCur - (isBottom ? 0 : 1), hh = Math.max(0, y2p - y1p);
+        yCur = yTop;
+        if (hh < .5) return;
+        var x = cx - bw / 2, r = isTop ? Math.min(4, hh, bw / 2) : 0, path;
+        path = "M" + x + "," + (y1p + hh) + "V" + (y1p + r) + (r ? "Q" + x + "," + y1p + " " + (x + r) + "," + y1p : "") +
+          "H" + (x + bw - r) + (r ? "Q" + (x + bw) + "," + y1p + " " + (x + bw) + "," + (y1p + r) : "") + "V" + (y1p + hh) + "Z";
+        var p = svg("path", { d: path, "class": "mark", fill: color(d), tabindex: "0" });
+        p.dataset.t = tipKey([String(yy), DEPTH[d] + ": " + fmt(c[d]) + " of " + fmt(n) + " matches (" + pct1(c[d], n) + "%)"]);
+        s.appendChild(p);
+      });
+      var cap = svg("text", { "class": "cap", x: cx, y: m.t + ih - n / top * ih - 6, "text-anchor": "middle" }); cap.textContent = fmt(n); s.appendChild(cap);
+      if (k % every === 0 || k === years.length - 1) {
+        var xl = svg("text", { x: cx, y: H - m.b + 18, "text-anchor": "middle" }); xl.textContent = every === 1 ? String(yy) : "’" + String(yy).slice(2); s.appendChild(xl);
+      }
+    });
+    host.appendChild(s);
+  }
+  drawYears();
+  if (window.ResizeObserver) { var lastW = 0; new ResizeObserver(function (en) { var w = Math.round(en[0].contentRect.width); if (Math.abs(w - lastW) > 4) { lastW = w; drawYears(); } }).observe(document.getElementById("by-year")); }
+
+  /* ---------- reasons ---------- */
+  var reasonsBox = document.getElementById("reasons"), rc = [0, 0, 0, 0];
+  M.forEach(function (r) { if (r[F.reason] >= 0) rc[r[F.reason]]++; });
+  var rmax = Math.max.apply(null, rc) || 1;
+  REASON_TEXT.forEach(function (t, k) {
+    if (!rc[k]) return;
+    var d = el("div", "reason"), txt = el("div");
+    txt.appendChild(el("h3", "", t[0])); txt.appendChild(el("p", "", t[1]));
+    var bar = el("div", "rbar"), fill = el("span", "fill"); fill.style.width = (rc[k] / rmax * 7.2) + "rem";
+    bar.appendChild(fill); bar.appendChild(el("span", "", fmt(rc[k])));
+    d.appendChild(txt); d.appendChild(bar); reasonsBox.appendChild(d);
+  });
+
+  /* ---------- extras ---------- */
+  var xb = document.getElementById("extras-body");
+  var SRC_NAME = { sackmann: "Sackmann archive", tml: "Tennis My Life", tennis_data: "tennis-data.co.uk", otd: "Open Tennis Data" };
+  DATA.extras.forEach(function (x) {
+    var tr = el("tr");
+    var why = x[8] === "ambiguous" ? "Fits two official matches equally" : x[8] === "duplicate" ? "Second copy of a match this source already holds" :
+      x[8] === "official record unread" ? "Official record for these weeks could not be read" :
+      (x[2] || "") >= "2026-09-21" ? "Played this week; not yet on the official record" :
+      x[11] ? "The official record puts the player at " + x[11] + " that week" :
+      (x[9] && !x[10] ? "Player's ID on a row naming someone else" : (!x[9] && x[10] ? "Same name, different player ID" : "No official match with this opponent that week"));
+    [x[0], SRC_NAME[x[1]] || x[1], x[2] || "", x[3] || "", ROUND[x[4]] || x[4] || "", x[5] || "", x[6] === true ? "Won" : x[6] === false ? "Lost" : "", why]
+      .forEach(function (v) { tr.appendChild(el("td", "", v)); });
+    xb.appendChild(tr);
+  });
+
+  /* ---------- D: career calendars ---------- */
+  var cal = document.getElementById("calendars");
+  cal.style.gridTemplateColumns = "9.5rem repeat(" + years.length + ", 46px)";
+  cal.appendChild(el("div", "yr who", ""));
+  years.forEach(function (yy) { cal.appendChild(el("div", "yr", String(yy))); });
+  var order = M.map(function (r, i) { return i; }).sort(function (a, b) {
+    var ra = M[a], rb = M[b];
+    return ra[F.p] - rb[F.p] || (ra[F.date] < rb[F.date] ? -1 : ra[F.date] > rb[F.date] ? 1 : 0) ||
+      (ROUND_ORDER[ra[F.round]] || 0) - (ROUND_ORDER[rb[F.round]] || 0);
+  });
+  P.forEach(function (p, pi) {
+    var who = el("div", "who"); who.appendChild(el("div", "n1", p.name)); who.appendChild(el("div", "n2", "No. " + p.rank_2026_08_31));
+    cal.appendChild(who);
+    var blocks = years.map(function () { return el("div", "blk"); });
+    order.forEach(function (i) {
+      var r = M[i]; if (r[F.p] !== pi) return;
+      var sq = el("i", "sq"); sq.style.background = color(r[F.depth]); sq.dataset.mi = String(i);
+      blocks[r[F.season] - y0].appendChild(sq);
+    });
+    blocks.forEach(function (b) { if (!b.childElementCount) b.classList.add("empty"); cal.appendChild(b); });
+  });
+  cal.setAttribute("role", "img");
+  cal.setAttribute("aria-label", "Every match of the ten careers as a square coloured by how much of it is in our data; the match list under B has the same information as a table.");
+
+  /* ---------- D: layers by level ---------- */
+  var lt = document.getElementById("layers-table");
+  var heads = ["Level", "Matches", "In our data", "Score or better", "Serve stats", "Point by point", "Shot by shot", "ATP publishes a stats page"];
+  var thead = el("thead"), hr = el("tr"); heads.forEach(function (h, k) { hr.appendChild(el("th", k ? "r" : "", h)); }); thead.appendChild(hr); lt.appendChild(thead);
+  var tb = el("tbody");
+  levelGroups.forEach(function (g) {
+    var rs = g.rows, n = rs.length, tr = el("tr");
+    var ge = function (d) { return rs.filter(function (r) { return r[F.depth] >= d; }).length; };
+    var eq = function (d) { return rs.filter(function (r) { return r[F.depth] === d; }).length; };
+    var atp = rs.filter(function (r) { return r[F.atpStats]; }).length;
+    [g.label, fmt(n), pct1(ge(1), n) + "%", pct1(ge(2), n) + "%", pct1(ge(3), n) + "%", pct1(eq(4), n) + "%", pct1(eq(5), n) + "%", pct1(atp, n) + "%"]
+      .forEach(function (v, k) { tr.appendChild(el("td", k ? "r" : "", v)); });
+    tb.appendChild(tr);
+  });
+  lt.appendChild(tb);
+
+  /* ---------- sources table ---------- */
+  var st = document.getElementById("src-table");
+  var sh = el("thead"), shr = el("tr"); ["Source", "What it holds", "Official matches it has"].forEach(function (h, k) { shr.appendChild(el("th", k === 2 ? "r" : "", h)); }); sh.appendChild(shr); st.appendChild(sh);
+  var sbd = el("tbody");
+  SOURCES.forEach(function (s, k) {
+    var n = M.filter(function (r) { return r[F.mask] & (1 << k); }).length, tr = el("tr");
+    tr.appendChild(el("td", "", SRC[s][0])); tr.appendChild(el("td", "", SRC[s][1])); tr.appendChild(el("td", "r", fmt(n) + " (" + pct1(n, M.length) + "%)"));
+    sbd.appendChild(tr);
+  });
+  st.appendChild(sbd);
+
+  /* ---------- B: explorer ---------- */
+  var exP = document.getElementById("ex-player"), exL = document.getElementById("ex-level"), exS = document.getElementById("ex-status");
+  exP.appendChild(new Option("All ten players", "all"));
+  P.forEach(function (p, i) { exP.appendChild(new Option(p.name + " (No. " + p.rank_2026_08_31 + ")", String(i))); });
+  exL.appendChild(new Option("All levels", "all"));
+  LEVELS.forEach(function (l, k) { exL.appendChild(new Option(l, String(k))); });
+  exP.value = "0";
+  var exBody = document.getElementById("ex-body"), exCount = document.getElementById("ex-count");
+  function renderExplorer() {
+    var pv = exP.value, lv = exL.value, sv = exS.value;
+    var rows = order.filter(function (i) {
+      var r = M[i];
+      return (pv === "all" || r[F.p] === +pv) && (lv === "all" || r[F.level] === +lv) &&
+        (sv === "all" || (sv === "missing" ? r[F.depth] === 0 : r[F.depth] > 0));
+    });
+    if (pv === "all") rows.reverse();
+    var frag = document.createDocumentFragment();
+    rows.forEach(function (i) {
+      var r = M[i], tr = el("tr");
+      tr.appendChild(el("td", "nw", r[F.date]));
+      var ev = el("td", "", r[F.event]); if (pv === "all") ev.appendChild(el("div", "muted", P[r[F.p]].name)); tr.appendChild(ev);
+      tr.appendChild(el("td", "", LEVELS[r[F.level]]));
+      tr.appendChild(el("td", "", ROUND[r[F.round]] || r[F.round]));
+      tr.appendChild(el("td", "wl-" + r[F.wl], r[F.wl]));
+      tr.appendChild(el("td", "", r[F.opp]));
+      tr.appendChild(el("td", "", r[F.score] || (r[F.wo] ? "walkover" : "")));
+      var dtd = el("td"), pill = el("span", "pill"), sw = el("span", "sw"); sw.style.background = color(r[F.depth]);
+      pill.appendChild(sw); pill.appendChild(document.createTextNode(DEPTH[r[F.depth]])); dtd.appendChild(pill); tr.appendChild(dtd);
+      tr.appendChild(el("td", "muted", srcList(r[F.mask]).join(", ")));
+      frag.appendChild(tr);
+    });
+    exBody.replaceChildren(frag);
+    exCount.textContent = fmt(rows.length) + (rows.length === 1 ? " match" : " matches") + (pv === "all" ? ", newest first" : ", oldest first");
+  }
+  [exP, exL, exS].forEach(function (s) { s.addEventListener("change", renderExplorer); });
+  renderExplorer();
+})();
+</script>

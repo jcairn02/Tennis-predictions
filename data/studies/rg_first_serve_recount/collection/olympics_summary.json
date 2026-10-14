@@ -1,0 +1,46 @@
+{
+ "source": "olympics",
+ "started_at": "2026-10-09T15:36:56+00:00",
+ "args": {
+  "max_requests": 200,
+  "min_interval": 2.0,
+  "jitter": 1.0,
+  "refresh": false,
+  "stage_only": false,
+  "no_stage": false
+ },
+ "decision": "docs/decisions/2026-10-08-scraping-approved.md",
+ "units_TENMSINGLES": 64,
+ "units_TENWSINGLES": 61,
+ "client": {
+  "impersonate": "chrome",
+  "requests": 127,
+  "retried": 0,
+  "slept_seconds": 211.4,
+  "min_interval": 2.0,
+  "jitter": 1.0,
+  "not_found_answers": 0
+ },
+ "fetch_outcomes": {
+  "cdx:200": 2,
+  "unit:200": 125
+ },
+ "staged": {
+  "units.parquet": {
+   "rows": 125,
+   "bytes": 22066
+  },
+  "stats.parquet": {
+   "rows": 11340,
+   "bytes": 67965
+  },
+  "pbp.parquet": {
+   "rows": 16770,
+   "bytes": 210792
+  }
+ },
+ "receipts_with_errors": 0,
+ "error_examples": [],
+ "finished_at": "2026-10-09T15:42:28+00:00",
+ "seconds": 331.9
+}

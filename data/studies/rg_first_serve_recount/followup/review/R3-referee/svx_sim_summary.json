@@ -1,0 +1,95 @@
+{
+ "swap_rows": 323,
+ "candidate_overrides": 2272,
+ "candidate_corrections": 1584,
+ "whole_frame": {
+  "rows_changed": 3620,
+  "rows_changed_not_named": 0,
+  "corrections_by_action": {
+   "add_df_to_svpt": 1196,
+   "exchange_box": 82,
+   "exchange_svgms": 324,
+   "blank_box": 19,
+   "replace_box": 34,
+   "replace_split": 58,
+   "set_age": 194
+  }
+ },
+ "a_vs_b": {
+  "rows_differing": 323,
+  "rows_differing_not_swaps": 0,
+  "columns_differing": [
+   "w_SvGms",
+   "l_SvGms"
+  ],
+  "swap_rows_in_subset": 323,
+  "swap_rows_exchanged": 323,
+  "swap_rows_changed": 323
+ },
+ "swap_rows_equal_to_truth_after": 323,
+ "box_checks": {
+  "stage0_rows": 7386,
+  "status_A": {
+   "full": 7329,
+   "blank": 30,
+   "failed_check": 10,
+   "no_svgms": 10,
+   "all_zero": 6,
+   "partial": 1
+  },
+  "status_B": {
+   "full": 7331,
+   "blank": 30,
+   "no_svgms": 10,
+   "failed_check": 8,
+   "all_zero": 6,
+   "partial": 1
+  },
+  "status_changes_A_to_B": [
+   {
+    "A_box_status": "failed_check",
+    "B_box_status": "full",
+    "rows": 2
+   }
+  ],
+  "B5_failures": {
+   "A": 10,
+   "B": 10
+  },
+  "B8_failures": {
+   "A": 6,
+   "B": 4
+  },
+  "swap_rows_B5_or_B8_after": 0,
+  "swap_rows_status_after": {
+   "full": 323
+  },
+  "rows_losing_a_usable_box": 0,
+  "B8_rows_after": [
+   {
+    "stage0_match_id": "atp|2021-580|R32|atp:105777|atp:105807",
+    "event": "Australian Open",
+    "year": 2021,
+    "swap": false
+   },
+   {
+    "stage0_match_id": "wta|2023-580|R128|wta:201615|wta:214096",
+    "event": "Australian Open",
+    "year": 2023,
+    "swap": false
+   },
+   {
+    "stage0_match_id": "wta|2024-580|R16|wta:202494|wta:222328",
+    "event": "Australian Open",
+    "year": 2024,
+    "swap": false
+   },
+   {
+    "stage0_match_id": "wta|2026-580|Q3|wta:215992|wta:223360",
+    "event": "Australian Open",
+    "year": 2026,
+    "swap": false
+   }
+  ]
+ }
+}

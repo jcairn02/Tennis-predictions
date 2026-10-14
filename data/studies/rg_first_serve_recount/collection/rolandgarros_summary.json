@@ -1,0 +1,93 @@
+{
+ "source": "rolandgarros",
+ "started_at": "2026-10-09T15:33:19+00:00",
+ "args": {
+  "years": "2022-2025,2019-2021",
+  "families": null,
+  "max_requests": 3600,
+  "min_interval": 2.0,
+  "jitter": 1.0,
+  "skip_family_after": 8,
+  "refresh": false,
+  "stage_only": false,
+  "no_stage": false
+ },
+ "decision": "docs/decisions/2026-10-08-scraping-approved.md",
+ "client": {
+  "impersonate": "chrome",
+  "requests": 3340,
+  "retried": 0,
+  "slept_seconds": 6675.0,
+  "min_interval": 2.0,
+  "jitter": 1.0,
+  "not_found_answers": 0
+ },
+ "fetch_outcomes": {
+  "2019:QD:200": 84,
+  "2019:QD:absent": 28,
+  "2019:QM:200": 112,
+  "2019:SD:200": 126,
+  "2019:SD:200:cached": 1,
+  "2019:SM:200": 127,
+  "2020:QD:200": 84,
+  "2020:QD:absent": 28,
+  "2020:QM:200": 112,
+  "2020:SD:200": 127,
+  "2020:SM:200": 127,
+  "2021:QD:200": 112,
+  "2021:QM:200": 112,
+  "2021:SD:200": 127,
+  "2021:SM:200": 126,
+  "2021:SM:200:cached": 1,
+  "2022:QD:200": 111,
+  "2022:QD:200:cached": 1,
+  "2022:QM:200": 112,
+  "2022:SD:200": 127,
+  "2022:SM:200": 127,
+  "2023:QD:200": 112,
+  "2023:QM:200": 112,
+  "2023:SD:200": 127,
+  "2023:SM:200": 127,
+  "2024:QD:200": 112,
+  "2024:QM:200": 111,
+  "2024:QM:200:cached": 1,
+  "2024:SD:200": 127,
+  "2024:SM:200": 126,
+  "2024:SM:200:cached": 1,
+  "2025:QD:200": 112,
+  "2025:QM:200": 111,
+  "2025:QM:200:cached": 1,
+  "2025:SD:200": 127,
+  "2025:SM:200": 127
+ },
+ "families_given_up": [],
+ "staged": {
+  "answers": {
+   "ok": 3290,
+   "absent": 56
+  },
+  "matches.parquet": {
+   "rows": 3346,
+   "bytes": 268849
+  },
+  "statistics.parquet": {
+   "rows": 136760,
+   "bytes": 878732
+  }
+ },
+ "receipts": {
+  "2019:200": 450,
+  "2019:absent": 28,
+  "2020:200": 450,
+  "2020:absent": 28,
+  "2021:200": 478,
+  "2022:200": 478,
+  "2023:200": 478,
+  "2024:200": 478,
+  "2025:200": 478
+ },
+ "receipts_with_errors": 0,
+ "error_examples": [],
+ "finished_at": "2026-10-09T17:52:39+00:00",
+ "seconds": 8359.7
+}

@@ -1,26 +1,32 @@
 {
  "source": "infosys_atp",
- "started_at": "2026-10-08T16:55:29+00:00",
+ "started_at": "2026-10-08T23:09:28+00:00",
  "args": {
-  "years": "2016",
+  "years": "2020,2019,2018,2017,2016,2015,2021",
   "since": "20150101",
   "until": "20211017",
   "events": null,
   "routes": null,
   "phase": "all",
-  "max_requests": 6000,
+  "max_requests": 15000,
   "min_interval": 2.0,
   "jitter": 1.0,
   "timeout": 60,
   "skip_after": 8,
   "refresh": false,
-  "inventory_only": false
+  "inventory_only": true
  },
  "instruction": "Owner, 8 Oct 2026: \"Acquire this speed data and download it. DO NOT DECRYPT IT. I just want the encrypted files on my computer.\"",
  "decision": "docs/decisions/2026-10-08-scraping-approved.md",
  "decrypted": false,
  "years": [
-  2016
+  2020,
+  2019,
+  2018,
+  2017,
+  2016,
+  2015,
+  2021
  ],
  "routes": [
   "keystats",
@@ -28,33 +34,115 @@
   "rally-analysis",
   "court-vision"
  ],
- "events_selected": 62,
- "matches_selected": 2868,
- "rows_without_a_code": 95,
- "events_with_files_found": 0,
- "client": {
-  "impersonate": "chrome",
-  "requests": 372,
-  "retried": 0,
-  "slept_seconds": 737.1,
-  "min_interval": 2.0,
-  "jitter": 1.0,
-  "not_found_answers": 372
- },
- "fetch_outcomes": {
-  "2016:court-vision:absent": 124,
-  "2016:keystats:absent": 124,
-  "2016:match-beats:absent": 62,
-  "2016:rally-analysis:absent": 62
- },
+ "events_selected": 400,
+ "matches_selected": 18693,
+ "rows_without_a_code": 750,
+ "fetch_outcomes": {},
  "families_given_up": [],
  "events_by_state": {
+  "2015": {
+   "empty": 62
+  },
   "2016": {
    "empty": 62
+  },
+  "2017": {
+   "empty": 64,
+   "no codes": 1
+  },
+  "2018": {
+   "files": 1,
+   "empty": 63,
+   "no codes": 1
+  },
+  "2019": {
+   "files": 2,
+   "empty": 61,
+   "no codes": 1
+  },
+  "2020": {
+   "files": 4,
+   "empty": 25,
+   "no codes": 1
+  },
+  "2021": {
+   "files": 52
   }
  },
- "events_with_files": [],
+ "events_with_files": [
+  "2020/337 Vienna: keystats 38, match-beats 38, rally-analysis 38",
+  "2020/352 ATP Masters 1000 Paris: keystats 72, match-beats 72, rally-analysis 72",
+  "2020/7434 Sofia: keystats 39, match-beats 38, rally-analysis 39",
+  "2020/605 Nitto ATP Finals: keystats 15, match-beats 15, rally-analysis 15",
+  "2019/7696 Next Gen ATP Finals: keystats 15, match-beats 15, rally-analysis 15",
+  "2019/605 Nitto ATP Finals: keystats 15, match-beats 15, rally-analysis 15",
+  "2018/605 Nitto ATP Finals: keystats 15, match-beats 15, rally-analysis 15, court-vision 14",
+  "2021/499 Delray Beach: match-beats 27, rally-analysis 27",
+  "2021/9426 Antalya: match-beats 28, rally-analysis 28",
+  "2021/8998 Melbourne 1: match-beats 54, rally-analysis 54",
+  "2021/9428 Melbourne 2: match-beats 53, rally-analysis 53",
+  "2021/8888 ATP Cup: match-beats 29, rally-analysis 29",
+  "2021/375 Montpellier: match-beats 27, rally-analysis 27",
+  "2021/9158 Cordoba: match-beats 27, rally-analysis 27",
+  "2021/9460 Singapore: match-beats 27, rally-analysis 27",
+  "2021/407 Rotterdam: match-beats 31, rally-analysis 31",
+  "2021/506 Buenos Aires: match-beats 27, rally-analysis 27",
+  "2021/451 Doha: match-beats 25, rally-analysis 25",
+  "2021/496 Marseille: match-beats 25, rally-analysis 25",
+  "2021/8996 Santiago: match-beats 27, rally-analysis 27",
+  "2021/495 Dubai: match-beats 43, rally-analysis 43",
+  "2021/807 Acapulco: match-beats 29, rally-analysis 29",
+  "2021/403 ATP Masters 1000 Miami: match-beats 92, rally-analysis 92",
+  "2021/9462 Marbella: match-beats 27, rally-analysis 27",
+  "2021/9481 Cagliari: match-beats 27, rally-analysis 27",
+  "2021/410 ATP Masters 1000 Monte Carlo: match-beats 52, rally-analysis 52",
+  "2021/425 Barcelona: match-beats 45, rally-analysis 45",
+  "2021/5053 Belgrade: match-beats 27, rally-analysis 27",
+  "2021/308 Munich: match-beats 24, rally-analysis 24",
+  "2021/7290 Estoril: match-beats 25, rally-analysis 25",
+  "2021/1536 ATP Masters 1000 Madrid: match-beats 53, rally-analysis 53",
+  "2021/416 ATP Masters 1000 Rome: match-beats 53, rally-analysis 53",
+  "2021/322 Geneva: match-beats 26, rally-analysis 26",
+  "2021/7694 Lyon: match-beats 27, rally-analysis 27",
+  "2021/9510 Parma: match-beats 26, rally-analysis 26",
+  "2021/9512 Belgrade 2: match-beats 26, rally-analysis 26",
+  "2021/321 Stuttgart: match-beats 25, rally-analysis 25",
+  "2021/311 London / Queen's Club: match-beats 31, rally-analysis 31",
+  "2021/500 Halle: match-beats 30, rally-analysis 30",
+  "2021/8994 Mallorca: keystats 1, match-beats 25, rally-analysis 25",
+  "2021/741 Eastbourne: match-beats 26, rally-analysis 26",
+  "2021/315 Newport: keystats 38, match-beats 38, rally-analysis 38",
+  "2021/316 Bastad: match-beats 26, rally-analysis 26",
+  "2021/414 Hamburg: match-beats 25, rally-analysis 25",
+  "2021/314 Gstaad: match-beats 25, rally-analysis 25",
+  "2021/439 Umag: match-beats 26, rally-analysis 26",
+  "2021/7480 Los Cabos: match-beats 26, rally-analysis 26",
+  "2021/319 Kitzbuhel: match-beats 27, rally-analysis 27",
+  "2021/6116 Atlanta: match-beats 26, rally-analysis 26",
+  "2021/418 Washington: keystats 63, match-beats 63, rally-analysis 63, court-vision 45",
+  "2021/421 ATP Masters 1000 Canada: match-beats 46, rally-analysis 46",
+  "2021/422 ATP Masters 1000 Cincinnati: match-beats 55, rally-analysis 55",
+  "2021/6242 Winston-Salem: match-beats 46, rally-analysis 47",
+  "2021/341 Metz: keystats 39, match-beats 39, rally-analysis 39",
+  "2021/9410 Nur-Sultan: keystats 36, match-beats 36, rally-analysis 36",
+  "2021/9210 Laver Cup: keystats 6, match-beats 6, rally-analysis 6",
+  "2021/7434 Sofia: keystats 38, match-beats 38, rally-analysis 38",
+  "2021/9569 San Diego: keystats 39, match-beats 39, rally-analysis 39, court-vision 26",
+  "2021/404 ATP Masters 1000 Indian Wells: keystats 105, match-beats 127, rally-analysis 127, court-vision 105"
+ ],
  "by_year_route": {
+  "2015|court-vision": {
+   "absent": 124
+  },
+  "2015|keystats": {
+   "absent": 124
+  },
+  "2015|match-beats": {
+   "absent": 62
+  },
+  "2015|rally-analysis": {
+   "absent": 62
+  },
   "2016|court-vision": {
    "absent": 124
   },
@@ -145,6 +233,30 @@
    "bytes": 9699756,
    "stored_bytes": 7352672
   },
+  "2021|court-vision": {
+   "absent": 788,
+   "files": 176,
+   "bytes": 123958032,
+   "stored_bytes": 93901202
+  },
+  "2021|keystats": {
+   "absent": 717,
+   "files": 365,
+   "bytes": 10922688,
+   "stored_bytes": 8283976
+  },
+  "2021|match-beats": {
+   "files": 1860,
+   "bytes": 32896892,
+   "stored_bytes": 25005163,
+   "absent": 328
+  },
+  "2021|rally-analysis": {
+   "files": 1861,
+   "bytes": 23752736,
+   "stored_bytes": 18078995,
+   "absent": 327
+  },
   "2022|court-vision": {
    "files": 1,
    "bytes": 566636,
@@ -166,14 +278,14 @@
    "stored_bytes": 24005
   }
  },
- "files_held": 644,
- "files_held_in_plan": 640,
- "bytes_served": 42333452,
- "bytes_stored": 32088110,
+ "files_held": 4906,
+ "files_held_in_plan": 4902,
+ "bytes_served": 233863800,
+ "bytes_stored": 177357446,
  "files_not_whole_aes_blocks": 0,
- "receipts": 2368,
+ "receipts": 9162,
  "receipts_with_errors": 0,
  "error_examples": [],
- "finished_at": "2026-10-08T17:10:50+00:00",
- "seconds": 921.6
+ "finished_at": "2026-10-08T23:09:30+00:00",
+ "seconds": 2.4
 }

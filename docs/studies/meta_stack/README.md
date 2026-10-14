@@ -6,6 +6,16 @@
 
 **Keys.** Results are in milli-log-loss per match. **Positive = the second-named forecast has the lower log loss (better)**. A 95% interval that spans 0 is a **tie**. **Observed** = computed here; **inferred** = reasoning; **proposal** = not decided.
 
+**Note for reviewers (9 Oct 2026): a flaw in this study's intervals, found after it ran. The study was not re-run.**
+* **The flaw.** The model-against-model intervals add both forecasts' seed-to-seed variance as if their seed noise were independent (`score.py`'s `seed_var`, the surface-IOS rule). The forecasts come from the same TabPFN seeds (random states 0–3; each meta-model is also fitted per seed), so most of that noise is shared and cancels in the difference. Adding both counts it twice. `score.py`'s docstring already calls the rule "conservative where two forecasts share a model's seeds".
+  * Found by the adoption framework's statistics review ([finding 1](../adoption_framework/review_statistics.md)), in another study's code that adds the seed variances the same way. With that code, a model compared with itself got ±0.087 mLL instead of 0.
+* **What it does.** Those intervals are too wide; the estimates are right. Here the seed term is tiny beside the blocks' (the primary's SE: 0.011 from the seeds against 0.30 from the blocks), so the widening is negligible. Rows against the price are not affected.
+  * S2 against S3lit shows the flaw plainly: identical forecasts got ±0.014 instead of exactly 0.
+* **What it can change.** A corrected interval is never narrower than the block-only one, which `results.csv` holds beside it (`lo_block`, `hi_block`).
+  * Every reading in the tables below reads the same at its narrowest, the primary −1.15 included.
+  * Two season cells of the slope-window sensitivity could come to clear 0: the current best with its slope fitted from 2014, against the current best, 2025, men (+0.11, block-only [+0.02, +0.20]) and both tours (+0.19, [+0.00, +0.38]).
+* **Not re-run, and the code is unchanged.** `score.py` still adds both variances: item 1 of the [checklist](../adoption_framework/checklist.md) fixed only the shared function `serve_speed_tabpfn/score.paired_stats`. A re-run would read 2014–2026 results, including 2025–2026, the proposed clean holdout.
+
 ## In short
 
 * **Observed. The meta-model is worse than the current best.** The primary test, fixed before the test seasons were scored: both tours, 2022–2026, 23,819 matches, the current best against the meta-model:

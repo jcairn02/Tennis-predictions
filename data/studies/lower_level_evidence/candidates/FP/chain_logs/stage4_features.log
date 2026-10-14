@@ -1,0 +1,130 @@
+[   0.0s] candidates.md sha256 504c729a356cdb5f1ee06c01081ce3ee4f065714f5aac4028f7be7b8d7290b0a
+[  13.2s] player-matches: 1,746,874
+[  15.0s] point-by-point player-matches linked: 19,705
+[  17.5s]   constant rpw_first
+[  19.9s]   constant rpw_second
+[  22.2s]   constant bp_over
+[  24.6s]   constant win
+[  26.9s]   constant deciding
+[  53.9s] weighted Elo passes done
+[translate_hooks] rates spw: verified; 411,036 lower-level rows of 574,472 admitted; scale 1.0
+[translate_hooks] rates rpw: verified; 411,036 lower-level rows of 574,472 admitted; scale 1.0
+[  83.8s]   history sums: columns 0-24 of 63
+[  97.2s]   history sums: columns 24-48 of 63
+[ 107.0s]   history sums: columns 48-63 of 63
+[ 107.0s]   history sums done
+[ 116.9s]   meetings done
+[ 304.1s] features built: 165 columns
+[ 307.3s] wrote stage4_features.parquet: 255,832 matches x 176 columns
+[ 315.6s] coverage checked against the plan
+[translate_hooks] rates spw: read; 140,480 lower-level rows of 158,528 admitted; scale 1.0
+[translate_hooks] rates rpw: read; 140,480 lower-level rows of 158,528 admitted; scale 1.0
+[ 319.3s]   history sums: columns 0-24 of 63
+[ 320.5s]   history sums: columns 24-48 of 63
+[ 321.2s]   history sums: columns 48-63 of 63
+[ 321.2s]   history sums done
+[ 321.9s]   meetings done
+[translate_hooks] rates spw: read; 140,480 lower-level rows of 158,528 admitted; scale 1.0
+[translate_hooks] rates rpw: read; 140,480 lower-level rows of 158,528 admitted; scale 1.0
+[ 341.7s]   history sums: columns 0-24 of 63
+[ 342.9s]   history sums: columns 24-48 of 63
+[ 343.7s]   history sums: columns 48-63 of 63
+[ 343.7s]   history sums done
+[ 344.4s]   meetings done
+[translate_hooks] rates spw: read; 140,132 lower-level rows of 158,196 admitted; scale 1.0
+[translate_hooks] rates rpw: read; 140,132 lower-level rows of 158,196 admitted; scale 1.0
+[ 364.3s]   history sums: columns 0-24 of 63
+[ 365.4s]   history sums: columns 24-48 of 63
+[ 366.2s]   history sums: columns 48-63 of 63
+[ 366.2s]   history sums done
+[ 366.9s]   meetings done
+C:\Users\zerom\tnr_lle\src\eda\predictability_diagnostic\stage4_features.py:1119: RuntimeWarning: divide by zero encountered in log
+  out["rank|single"] = np.log(rk_l[Bi]) - np.log(rk_l[A])
+C:\Users\zerom\tnr_lle\src\eda\predictability_diagnostic\stage4_features.py:1284: RuntimeWarning: divide by zero encountered in log
+  lr = np.log(rk)
+[ 383.5s]   probe cut 1 (plan): protected changed 0, later changed 5713, control caught at 4, largest protected difference 5.88e-15
+[translate_hooks] rates spw: read; 140,132 lower-level rows of 158,196 admitted; scale 1.0
+[translate_hooks] rates rpw: read; 140,132 lower-level rows of 158,196 admitted; scale 1.0
+[ 387.0s]   history sums: columns 0-24 of 63
+[ 388.1s]   history sums: columns 24-48 of 63
+[ 389.0s]   history sums: columns 48-63 of 63
+[ 389.0s]   history sums done
+[ 389.8s]   meetings done
+C:\Users\zerom\tnr_lle\src\eda\predictability_diagnostic\stage4_features.py:1119: RuntimeWarning: divide by zero encountered in log
+  out["rank|single"] = np.log(rk_l[Bi]) - np.log(rk_l[A])
+C:\Users\zerom\tnr_lle\src\eda\predictability_diagnostic\stage4_features.py:1284: RuntimeWarning: divide by zero encountered in log
+  lr = np.log(rk)
+[ 406.0s]   probe cut 1 (recorded_format): protected changed 0, later changed 5713, control caught at 4, largest protected difference 5.88e-15
+[translate_hooks] rates spw: read; 139,462 lower-level rows of 157,898 admitted; scale 1.0
+[translate_hooks] rates rpw: read; 139,462 lower-level rows of 157,898 admitted; scale 1.0
+[ 409.9s]   history sums: columns 0-24 of 63
+[ 410.9s]   history sums: columns 24-48 of 63
+[ 411.9s]   history sums: columns 48-63 of 63
+[ 411.9s]   history sums done
+[ 412.8s]   meetings done
+C:\Users\zerom\tnr_lle\src\eda\predictability_diagnostic\stage4_features.py:1119: RuntimeWarning: divide by zero encountered in log
+  out["rank|single"] = np.log(rk_l[Bi]) - np.log(rk_l[A])
+C:\Users\zerom\tnr_lle\src\eda\predictability_diagnostic\stage4_features.py:1284: RuntimeWarning: divide by zero encountered in log
+  lr = np.log(rk)
+[ 428.9s]   probe cut 2 (plan): protected changed 0, later changed 14625, control caught at 8, largest protected difference 5.88e-15
+[translate_hooks] rates spw: read; 139,462 lower-level rows of 157,898 admitted; scale 1.0
+[translate_hooks] rates rpw: read; 139,462 lower-level rows of 157,898 admitted; scale 1.0
+[ 433.0s]   history sums: columns 0-24 of 63
+[ 434.1s]   history sums: columns 24-48 of 63
+[ 434.9s]   history sums: columns 48-63 of 63
+[ 434.9s]   history sums done
+[ 435.7s]   meetings done
+C:\Users\zerom\tnr_lle\src\eda\predictability_diagnostic\stage4_features.py:1119: RuntimeWarning: divide by zero encountered in log
+  out["rank|single"] = np.log(rk_l[Bi]) - np.log(rk_l[A])
+C:\Users\zerom\tnr_lle\src\eda\predictability_diagnostic\stage4_features.py:1284: RuntimeWarning: divide by zero encountered in log
+  lr = np.log(rk)
+[ 452.5s]   probe cut 2 (recorded_format): protected changed 0, later changed 14625, control caught at 8, largest protected difference 5.88e-15
+[translate_hooks] rates spw: read; 140,266 lower-level rows of 158,280 admitted; scale 1.0
+[translate_hooks] rates rpw: read; 140,266 lower-level rows of 158,280 admitted; scale 1.0
+[ 456.5s]   history sums: columns 0-24 of 63
+[ 457.5s]   history sums: columns 24-48 of 63
+[ 458.3s]   history sums: columns 48-63 of 63
+[ 458.3s]   history sums done
+[ 459.1s]   meetings done
+C:\Users\zerom\tnr_lle\src\eda\predictability_diagnostic\stage4_features.py:1119: RuntimeWarning: divide by zero encountered in log
+  out["rank|single"] = np.log(rk_l[Bi]) - np.log(rk_l[A])
+C:\Users\zerom\tnr_lle\src\eda\predictability_diagnostic\stage4_features.py:1284: RuntimeWarning: divide by zero encountered in log
+  lr = np.log(rk)
+[ 475.5s]   probe cut 3 (plan): protected changed 0, later changed 18021, control caught at 9, largest protected difference 5.88e-15
+[translate_hooks] rates spw: read; 140,266 lower-level rows of 158,280 admitted; scale 1.0
+[translate_hooks] rates rpw: read; 140,266 lower-level rows of 158,280 admitted; scale 1.0
+[ 479.1s]   history sums: columns 0-24 of 63
+[ 480.1s]   history sums: columns 24-48 of 63
+[ 481.0s]   history sums: columns 48-63 of 63
+[ 481.0s]   history sums done
+[ 481.8s]   meetings done
+C:\Users\zerom\tnr_lle\src\eda\predictability_diagnostic\stage4_features.py:1119: RuntimeWarning: divide by zero encountered in log
+  out["rank|single"] = np.log(rk_l[Bi]) - np.log(rk_l[A])
+C:\Users\zerom\tnr_lle\src\eda\predictability_diagnostic\stage4_features.py:1284: RuntimeWarning: divide by zero encountered in log
+  lr = np.log(rk)
+[ 498.2s]   probe cut 3 (recorded_format): protected changed 0, later changed 18021, control caught at 9, largest protected difference 5.88e-15
+[translate_hooks] rates spw: read; 138,762 lower-level rows of 157,148 admitted; scale 1.0
+[translate_hooks] rates rpw: read; 138,762 lower-level rows of 157,148 admitted; scale 1.0
+[ 502.1s]   history sums: columns 0-24 of 63
+[ 503.1s]   history sums: columns 24-48 of 63
+[ 503.9s]   history sums: columns 48-63 of 63
+[ 503.9s]   history sums done
+[ 504.7s]   meetings done
+C:\Users\zerom\tnr_lle\src\eda\predictability_diagnostic\stage4_features.py:1119: RuntimeWarning: divide by zero encountered in log
+  out["rank|single"] = np.log(rk_l[Bi]) - np.log(rk_l[A])
+C:\Users\zerom\tnr_lle\src\eda\predictability_diagnostic\stage4_features.py:1284: RuntimeWarning: divide by zero encountered in log
+  lr = np.log(rk)
+[ 521.1s]   probe cut 4 (plan): protected changed 0, later changed 30875, control caught at 13, largest protected difference 6.30e-15
+[translate_hooks] rates spw: read; 138,762 lower-level rows of 157,148 admitted; scale 1.0
+[translate_hooks] rates rpw: read; 138,762 lower-level rows of 157,148 admitted; scale 1.0
+[ 524.8s]   history sums: columns 0-24 of 63
+[ 525.8s]   history sums: columns 24-48 of 63
+[ 526.6s]   history sums: columns 48-63 of 63
+[ 526.6s]   history sums done
+[ 527.3s]   meetings done
+C:\Users\zerom\tnr_lle\src\eda\predictability_diagnostic\stage4_features.py:1119: RuntimeWarning: divide by zero encountered in log
+  out["rank|single"] = np.log(rk_l[Bi]) - np.log(rk_l[A])
+C:\Users\zerom\tnr_lle\src\eda\predictability_diagnostic\stage4_features.py:1284: RuntimeWarning: divide by zero encountered in log
+  lr = np.log(rk)
+[ 543.7s]   probe cut 4 (recorded_format): protected changed 0, later changed 30875, control caught at 13, largest protected difference 6.30e-15
+[ 543.7s] wrote stage4_features_summary.json

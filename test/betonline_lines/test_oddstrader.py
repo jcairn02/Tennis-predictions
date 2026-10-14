@@ -26,10 +26,48 @@ def test_lines_query_asks_every_book_and_market():
     assert "o131: openingLines(paid: [131]" in q
 
 
+def test_books_query_asks_every_book_and_pinnacles_opening():
+    q = O.books_query([4746024, 4799158])
+    ids = ",".join(str(b) for b in range(1, 201))
+    assert f"cur: currentLines(paid: [{ids}], eid: [4746024,4799158], mtid: [126])" in q
+    assert 'o20: openingLines(paid: [20], eid: [4746024,4799158], mtid: [126], marketTypeLayout: "PARTICIPANTS")' in q
+    assert q.startswith("{ ") and q.endswith(" }") and q.count("openingLines") == 1
+
+
+def test_stage_books_keeps_the_newest_copy_and_names_books(tmp_path, monkeypatch):
+    monkeypatch.setattr(O, "RAW", tmp_path / "raw")
+    monkeypatch.setattr(O, "DUMP", tmp_path / "dump")
+    (tmp_path / "dump").mkdir()
+    line = {"mtid": 126, "eid": 1, "paid": 20, "partid": 7, "adj": 0, "ap": -110, "pri": 1.9091, "tim": "1000",
+            "iof": False}
+    for k, (ap, when) in enumerate(((-110, "2026-10-09T10:00:00+00:00"), (-120, "2026-10-09T11:00:00+00:00"))):
+        path = tmp_path / "raw" / "books" / "23" / "2018-01" / f"{k:02d}.json"
+        path.parent.mkdir(parents=True, exist_ok=True)
+        doc = {"data": {"cur": [dict(line, ap=ap), dict(line, paid=3, partid=8)], "o20": [dict(line, ap=-105)]}}
+        path.write_text(json.dumps(doc), encoding="utf-8")
+    latest = {"books/23/2018-01/00": {"retrieved_at": "2026-10-09T10:00:00+00:00"},
+              "books/23/2018-01/01": {"retrieved_at": "2026-10-09T11:00:00+00:00"}}
+    assert O.stage_books(latest) == 3      # Pinnacle last, book 3 last, Pinnacle opening; one copy each
+    staged = O.pd.read_parquet(tmp_path / "dump" / "books_lines.parquet")
+    pin = staged[(staged["paid"] == 20) & (staged["kind"] == "last")]
+    assert pin["ap"].tolist() == [-120] and pin["book"].tolist() == ["Pinnacle"]   # the newer copy
+    assert staged.loc[staged["paid"] == 3, "book"].isna().all()                    # unnamed id
+    assert staged.loc[staged["kind"] == "open", "ap"].tolist() == [-105]
+
+
 def test_singles_are_told_from_doubles_by_event_group():
     assert O.is_singles({"eventGroup": {"nam": "French Open Men Singles"}})
     assert not O.is_singles({"eventGroup": {"nam": "US Open Women Doubles"}})
     assert not O.is_singles({"eventGroup": None})
+
+
+def test_older_venue_named_singles_groups_count():
+    # until mid-2019 tour-level singles groups carry the venue alone; doubles say so and pair players with "/"
+    assert O.is_singles({"eventGroup": {"nam": "Rotterdam, Netherlands"}, "des": "Wawrinka S@Federer R"})
+    assert O.is_singles({"eventGroup": {"nam": "Miami, USA, Qualifying"}, "des": "Kudla D@Ymer M"})
+    assert not O.is_singles({"eventGroup": {"nam": "Rio de Janeiro, Brazil, Double"}, "des": "A B@C D"})
+    assert not O.is_singles({"eventGroup": {"nam": "Dubai, UAE"}, "des": "Matkowski M / Qureshi A@Sharan D / Sugita Y"})
+    assert not O.is_singles({"eventGroup": {"nam": "US Open Mixed"}, "des": "A B@C D"})
 
 
 EVENTS_DOC = {"data": {"eventsByDateNew": {"events": [{

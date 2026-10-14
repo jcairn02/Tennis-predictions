@@ -22,14 +22,16 @@ Code is in `src/eda/feature_universe/`:
 
 Tests are in `test/feature_universe/`.
 
+**Added 8 Oct 2026, at the owner's request:** U-330, the share of each player's last-year matches below the main tour, from the [event-levels study](../event_levels/README.md) (section 2, "Event-levels study"). Every earlier column, catalogue row, menu row and coverage figure is unchanged (section 8).
+
 **Validation (observed, `validation.json`).**
-* Every one of the store's 776 columns is referenced by a catalogue row, directly or through a copy, and every name in `store_columns` exists.
+* Every one of the store's 779 columns is referenced by a catalogue row, directly or through a copy, and every name in `store_columns` exists.
 * All 58 model inputs are covered, by 56 rows: the two pair inputs (`surf_season_a/_b`, `surf_layoff_a/_b`) are one row each.
 * 71 rows have no store column: features held only in other tables, or not built. Their `source` names the table and column.
 
 ## 0. The store and the menu
 
-**What the store holds** (observed). One row per match of the model population (63,737), keyed by `match_id` with `tour`, `season`, `tournament_date` and `debut_season`. It has 776 feature columns and no result column.
+**What the store holds** (observed). One row per match of the model population (63,737), keyed by `match_id` with `tour`, `season`, `tournament_date` and `debut_season`. It has 779 feature columns and no result column.
 
 | Prefix | What | Columns | On the menu |
 |---|---|---:|---:|
@@ -46,7 +48,8 @@ Tests are in `test/feature_universe/`.
 | `ds__` | pre-declared descriptive columns | 8 | 7 |
 | `kn__` | known-null placebos | 13 | 2 |
 | `ctx__` | match context: the model's six, plus draw size, week and month | 9 | 3 |
-| **All** | | **776** | **603** |
+| `el__` | the event-levels study's history composition: each player's share of last year's matches below the main tour, and A − B (added 8 Oct) | 3 | 3 |
+| **All** | | **779** | **606** |
 
 **Kinds and sides.**
 * `diff` is A − B and flips sign when the players swap.
@@ -63,7 +66,7 @@ Side A is Stage 0's `player_a_id` (the pre-rebuild copy), as in the model frame.
   * The profile and serve-speed tables' market log-odds equal the model's price exactly.
 * **No result is read.** The panel is loaded without its result column, and table reads refuse result columns by name.
 
-**Copies and the menu.** The builders share intermediates, so one series often sits under several names. The registry marks each column's representative, chosen by group in the order m, alt, pp, rt, ad, sl, mk, lv, ctx, fi, fp, ds, kn:
+**Copies and the menu.** The builders share intermediates, so one series often sits under several names. The registry marks each column's representative, chosen by group in the order m, alt, pp, rt, ad, sl, mk, lv, ctx, fi, fp, el, ds, kn:
 * 142 exact copies and 2 negated copies (`canonical`, `dup_sign`);
 * 28 near copies (`near_dup_of`): |r| ≥ 0.999 on common rows, adding at most 0.5% of rows the representative lacks, so the both-tours indoor flag is not a copy of the men-only one;
 * 3 columns constant within each tour (`degenerate`), two of them also copies;
@@ -71,7 +74,7 @@ Side A is Stage 0's `player_a_id` (the pre-rebuild copy), as in the model frame.
   * `f07_k3`, `h2hn` and `bd9b_mpp` are the same for both players, so they are context;
   * `f08_bigpt` and `h2hres` are split differences (+d/2, −d/2), so they are diffs.
 
-The remaining 603 columns form the menu (`menu = 1`). Three copies worth knowing:
+The remaining 606 columns form the menu (`menu = 1`). Three copies worth knowing:
 * The model's two-week form inputs are exactly the decayed opponent-adjusted forms. 28 of the 30 `ad__…_decayed` columns are copies; only the serve-points-won pair is new.
 * `fi__I-084__s` is `lv__elo` rescaled.
 * The KN placebos equal their `alt__` twins.
@@ -90,9 +93,9 @@ The remaining 603 columns form the menu (`menu = 1`). Three copies worth knowing
 * its copies (`aliases`) and its coverage.
 
 Counts:
-* priority: high 141 (mostly the incumbents and their per-player pairs), medium 74, low 370, exclude 18;
+* priority: high 141 (mostly the incumbents and their per-player pairs), medium 77, low 370, exclude 18;
 * near-miss tier: A 20, B 15, C 53, D 33;
-* seen on 2025–2026: yes 367, no 236.
+* seen on 2025–2026: yes 367, no 239.
 
 **What is not in the store.** 71 catalogue rows:
 * 39 built features left in their own study tables, all suggested low or exclude (Stage 4 aggregates, shot-level families, the frontier, splits, weekly Glicko-2);
@@ -103,13 +106,16 @@ Counts:
 
 ```
 ./python.sh src/eda/feature_universe/perplayer_2026.py             # about 1 minute
+./python.sh src/eda/event_levels/universe_columns.py               # seconds (the el__ source; needs the event-levels
+                                                                   # study's history.parquet and an existing store)
 ./python.sh src/eda/feature_universe/build_store.py                # about 8 minutes
 ./python.sh src/eda/feature_universe/catalogue/coverage.py         # a few minutes
+./python.sh src/eda/feature_universe/catalogue/duplicates.py       # seconds
 ./python.sh src/eda/feature_universe/catalogue/build_universe.py   # seconds
 ./python.sh -m pytest test/feature_universe -q
 ```
 
-`build_store.py --registry-only` re-annotates the registry from an existing store in seconds.
+`build_store.py --registry-only` re-annotates the registry from an existing store in seconds. `build_store.py --append-el` adds the three `el__` columns to an existing store without touching the others (how they were added on 8 Oct).
 
 ## 1. How the universe is organised
 
@@ -123,7 +129,7 @@ There are two exceptions.
 
 | Column | Content |
 |---|---|
-| `feature_id` | U-001 … U-329, in family order |
+| `feature_id` | U-001 … U-330, in family order (the event-levels family, added later, comes last so no earlier id moved) |
 | `name`, `family`, `subfamily`, `definition` | what it is (subfamily = the study's block id for its members) |
 | `kind` | diff (A − B, flips sign when A and B swap), pair (A's and B's values), context (symmetric) |
 | `source` | table and column, or builder module and function |
@@ -167,13 +173,14 @@ Round 0 warned that almost every earlier result was read on windows that include
 | shot and point level | 0 | 10 | 6 | 1 | 1 | 0 | 18 |
 | level sums | 0 | 19 | 0 | 0 | 0 | 0 | 19 |
 | feature-interactions study | 0 | 89 | 6 | 0 | 0 | 0 | 95 |
-| **All** | **56** | **235** | **21** | **4** | **6** | **7** | **329** |
+| event-levels study | 0 | 1 | 0 | 0 | 0 | 0 | 1 |
+| **All** | **56** | **236** | **21** | **4** | **6** | **7** | **330** |
 
 **Priority suggestions.**
 * 59 high: 53 incumbents and 6 new rows (section 7).
-* 39 medium, 198 low, 33 exclude.
+* 40 medium, 198 low, 33 exclude.
 
-**Seen on 2025–2026.** 160 yes and 169 no.
+**Seen on 2025–2026.** 160 yes and 170 no.
 * Of the feature-interactions rows, five are seen: B-INJ's four, and I-084 (U-256), through the pair-strength study.
 * Of the level sums, only the Elo sum (U-231) is seen, through the same study.
 
@@ -423,6 +430,13 @@ IDs refer to `universe.csv`. ★ marks a near miss (tier in brackets). "Store" n
 
 **Gate-dropped members** (U-324–U-329, buildable, never screened): B4's I-018, I-019 and I-021; I-009; I-028 and I-029 (B5); I-068. They failed pre-declared result-free reliability gates, so they are listed as "exclude".
 
+### Event-levels study (U-330, added 8 Oct 2026)
+
+* **U-330 share of the last year's matches below the main tour** (`el__low_share_diff`, A − B; per player `el__low_share_a/_b`). Each player's share of their played matches in the previous 365 days that were in tour or Slam qualifying, at Challengers or WTA 125s (main draw or qualifying), or at ITF events. Built from each player's own earlier matches: safe by construction. Coverage 99.9% (2013–2024), 99.4% (2025–2026).
+* **Why it is here.** The [event-levels study](../event_levels/README.md) found that the average close and Pinnacle under-rate players arriving from lower levels. Beside the price's log-odds its coefficient is +0.18 [+0.09, +0.27] on 2020–2024, where it was found, and +0.09 [+0.02, +0.16] on 2013–2019, which replicates it. It is not match volume.
+* **What tied.** As a 59th TabPFN input it gained +0.06 [−0.10, +0.23] mLL over the current best (both stages, 2020–2024); as a third walk-forward stage-2 term, +0.08 [−0.35, +0.50]. Both were tested on the seasons where the lead was found.
+* **For a selection process.** Unseen on 2025–2026. Test it beside last year's win share (with both in, the share's coefficient rises to +0.18 and win share's is −0.25 [−0.45, −0.05], 2013–2024; the win share is not yet in the universe), and as a stage-2 term the way the serve speed is used. Its value differs by level: the price's coefficient is largest at the 500s (+0.41) and zero at the 1000s.
+
 **Status.** The study's rows are `built_not_in_model`, except the six gate-dropped members, which are `buildable_from_disk`. Every block member is now stored apart as `fi__<hid>__m_<member>`; where a member equals a deployment column, the registry marks it a copy.
 * None is seen on 2025–2026 except B-INJ and its three members, and I-084 (the pair-strength study).
 * Every stored `fi__` column is built for 2013–2026, except the base-dependent ones (section 0).
@@ -448,7 +462,7 @@ Read them with their base rate: about 11 of 34 members would reach |z| ≥ 1 by 
 ## 4. Built, buildable, or needs new data
 
 * **In the model (56 rows, 58 inputs)**: all stored as `m__`. Their per-player parts are stored as `pp__`, except elo_games, ios_points_short and points_52w, whose builders keep only A − B.
-* **Built, not in the model (235 rows).** 196 of them are in the store. That includes the near-miss raw blocks this study added on 7 Oct:
+* **Built, not in the model (236 rows).** 197 of them are in the store, U-330 (8 Oct) included. That includes the near-miss raw blocks this study added on 7 Oct:
   * matches since the return (U-134) and the break's length;
   * venue pace (U-192), Slam proximity (U-191) and women's indoor (U-185);
   * the members I-085, I-055, C-2 and B-FLB's two;
@@ -489,7 +503,7 @@ Exclusion is a suggestion. None of these was killed for a result on 2025–2026.
 
 ## 6. What a selection process must handle specially
 
-1. **Copies.** Select from `menu.csv` (or the registry's `menu = 1`), not from the raw store: 776 columns hold 603 distinct usable ones (section 0). Examples:
+1. **Copies.** Select from `menu.csv` (or the registry's `menu = 1`), not from the raw store: 779 columns hold 606 distinct usable ones (section 0). Examples:
    * `m__` equals `ctx__` for the six context inputs.
    * The fatigue kernel has eight copies, the imputed share six, off-site load four, rest four.
    * The on-site, rank, fame, height and salience intermediates are copied across modules.
@@ -503,7 +517,7 @@ Exclusion is a suggestion. None of these was killed for a result on 2025–2026.
 3. **Base-dependent columns** (ten, flagged in the store). Recompute them with the new model's own out-of-sample forecast. Eight are missing in 2013 and 2025–2026, and B-ANCHOR's and B-REPUTE's sums change meaning there (section 0).
 4. **Price-slope modulators** (`fi__…__s`, `lv__elo`, `mk__dispersion`) are symmetric. They act only through the price, so they must enter beside `m__odds_logit`. In a linear screen the candidate is s × price, with neither s × price among the controls nor s alone as a main effect (the study's builders.md rule).
 5. **Market-internal inputs** help a model benchmarked on the average close. Polymarket is as sharp as Pinnacle, so judge them on the betting venue's price, or leave them out. Pinnacle covers only 59% of 2025–2026 (it ends in January 2026).
-6. **Clean test seasons.** 160 rows were seen on 2025–2026: every incumbent and most earlier-study features. In `menu.csv`, 367 of the 603 columns are seen.
+6. **Clean test seasons.** 160 rows were seen on 2025–2026: every incumbent and most earlier-study features. In `menu.csv`, 367 of the 606 columns are seen.
    * Seen among the near misses: the rust rows (B-INJ's U-315–U-318, and the raw blocks U-132–U-135, through B-INJ and Stage 4's days_since), C-1 (U-002, U-003), KN-TTTLOGIT (U-036), and pair strength (U-231, U-256: the pair-strength study's one-shot test, 7 Oct 2026).
    * Unseen: On, venue pace, B-MOTIV, B-OVERREACT and the tier C–D members (I-036 included; only its close relative, the Elo sum, was tested). For them, 2025–2026 is still a valid single test after a pre-registration chosen on 2014–2024 alone (next_candidates).
 7. **Coverage holes by tour.**
@@ -540,7 +554,7 @@ Exclusion is a suggestion. None of these was killed for a result on 2025–2026.
 
   The pair's Elo sum (U-231) and I-084's modulator (U-256) were high until the pair-strength study tested them on 2025–2026 (ties). They are now low.
 
-Medium-priority rows (39) include the decided-TTT and offset-TTT swaps, the B-MOTIV and B-OVERREACT members, past fatigue and the odometer, women's indoor, Slam proximity, serve speed, ranking, the Stage 3 uncertainties, the spw IOS and the decayed serve-points-won form.
+Medium-priority rows (40) include the decided-TTT and offset-TTT swaps, the B-MOTIV and B-OVERREACT members, past fatigue and the odometer, women's indoor, Slam proximity, serve speed, ranking, the Stage 3 uncertainties, the spw IOS, the decayed serve-points-won form and, since 8 Oct, the history composition (U-330).
 
 ## 8. Notes
 
@@ -552,4 +566,39 @@ Medium-priority rows (39) include the decided-TTT and offset-TTT swaps, the B-MO
     * `data/studies/feature_universe/build/__pycache__/`, left when the catalogue scripts moved to `src/eda/`;
     * the feature-interactions math audit's panel cache, `round1/math_audit/panel_le2021_noresult.parquet`. Today's panel reproduces all 281 of its columns exactly; its rebuild adds the later `eta_model` column, which no audit script reads. The audit rewrites it on first use.
   * Kept, because they are not reproducible: `round1/_history_feats_2010_2024.parquet` (35 of its 37 columns differ on a rebuild) and `round1/_panel_aug.parquet`, which is built from the same history quantities (inferred).
+* **U-330 added, 8 Oct 2026** (the owner: "add this feature to the feature universe we will potentially feature select for"):
+  * the three `el__` columns were appended with `build_store.py --append-el`, from `event_levels/universe_columns.py` on the same pre-rebuild Stage 0. Its side A equals the store's on all 63,737 rows, and its 2013–2024 values equal the study's own table;
+  * the row sits in its own spec module (`catalogue/spec_event_levels.py`), last, so U-001 … U-329 kept their ids;
+  * unchanged, checked against copies taken before: all 776 earlier store columns (byte for byte), every earlier registry field (one near-duplicate correlation differs by 1.6 × 10⁻¹³, float rounding of the larger matrix), all 1,793 earlier coverage keys, `duplicates.json`, U-001 … U-329, and the 603 earlier menu rows;
+  * the store grew to 779 columns, the menu to 606 (`el__` 3), the catalogue to 330 rows. Two documents that describe the menu as it was (603) were left as written: [clean_holdout_rebuild](../clean_holdout_rebuild/README.md) and the feature-provenance study.
+
+## 9. The pool: admissions (since 9 Oct 2026)
+
+**The universe is the pool** ([decision](../../decisions/2026-10-09-adoption-by-change-class.md), point 6; [adoption framework](../adoption_framework/README.md) § 11).
+* A study of a new feature no longer asks "should this go into the model?". It ends with an admission verdict here.
+* A selection round decides what enters the model, by cluster.
+
+**The verdicts:**
+* **admitted;**
+* **admitted as a lead:** it has read results. The seasons it read are recorded, so that a round confirms it on others;
+* **not admitted,** with the reason;
+* **a repair:** it fixes an input already in the model, and goes to the framework's repair lane, not here.
+
+**The admission card.** Each item rests mostly on what needs no result:
+* **Definition and encodings:** a `universe.csv` row, or rows, with its store columns.
+* **Stable measurement:** defined the same way in every season. Its coverage by tour and season, from `store_registry.csv`. Its own reliability where it applies (it predicts its own next value).
+* **Timing:** safe by construction, or the match clock with `probe.py` passed (section 6, item 10).
+* **Available at bet time:** its source and publication lag.
+* **Not a near-copy:** its largest |r| with the menu, which `build/duplicates.json` lists for exact groups.
+* **A mechanism:** why the market would misprice it.
+* **Its cluster:** the node of the selection round's tree (the [rebuild](../clean_holdout_rebuild/03_rebuild_stages.md), § 5, item 4).
+* **Results read, if any:** the seasons, the prices, the reading, and where it is logged.
+
+**How to admit.**
+* Add the row with `catalogue/spec_*.py` and `build_store.py`, keeping earlier ids, as U-330 was added (section 8).
+* Record the verdict and card in that row's notes, and in the study's report.
+
+**Re-filed on 9 Oct 2026:**
+* **U-330, the lower-level share:** admitted as a lead. It read 2013–2024 results in the event-levels study: the mispricing, and the 59th-input test (+0.06 [−0.10, +0.23] mLL, + = with the share better). [Checklist](../adoption_framework/checklist.md) item 9 is no longer an adoption decision.
+* **The two box-score share differences** (`in_box_low_share_h2w_diff`, `in_box_low_share_365d_diff`; the lower-level study's R_S2): to be admitted as a lead. They read 2020–2024 results; they are not yet in the store.
 

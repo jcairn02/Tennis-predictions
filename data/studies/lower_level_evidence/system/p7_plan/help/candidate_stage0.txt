@@ -1,0 +1,98 @@
+usage: candidate_stage0.py [-h] --label LABEL [--sources SOURCES]
+                           [--revisions] [--sofascore-skip SOFASCORE_SKIP]
+                           [--out OUT] [--checks] [--ready]
+                           [--derive-from DERIVE_FROM] [--until UNTIL]
+                           [--round-union]
+
+Role F of the level-evidence system: the candidate Stage 0 that holds the lower-level data the owner's rule of 8 Oct
+2026 keeps out (data/studies/lower_level_evidence/system/preregistration_addition_1.md; SPEC.md section 12).
+
+What it builds. The FROZEN Stage 0 of the reference of 8 Oct 2026 (common.STAGE0_DIR), unchanged, plus:
+    new matches     lower-level singles (TQ, GSQ, CH, CHQ, ITF, ITFQ) that the frozen Stage 0 lacks, from the sources on
+                    disk, each player given a resolved id (the source's id mapped to Stage 0's through the matches both
+                    hold, or a new id in the source's own namespace)
+    completions     box scores for reference matches Stage 0 holds as results only (lower levels): an override layer,
+                    on by default, that changes no fact of the match (players, date, round, score, result)
+    revisions       other box scores for reference matches that already have one: counted always, applied only with
+                    --revisions (a separate layer, off by default)
+and the timeline that goes with it: the frozen reference's timeline row for every reference match, unchanged, and a
+cautious window for every new match (match_timing's es / lf: a result counts from lf + 1, a match reads the state as of
+es): the source's own day where it gives one, widened by the clock error measured against the frozen timeline's exact
+days, else the frozen timeline's class window from the tournament date (timing.py's rules), never a guessed day.
+
+The sources, in the order they are wired (a later source's rows are linked against Stage 0 plus every match an earlier
+source added, so a match two sources hold is added once, by the first):
+    wta_api      the WTA API's match lists and box scores (WTA tour, WTA 125, Slams 2024-26, qualifying; 2019-2026),
+                 data/dump/points/wta/ (staged by src/ingest/point_sources/wta.py; batches finished 2-3 Oct 2026)
+    wta_site     the WTA website's records (Kaggle bwandowando v29, 24 Sep 2026; women's results at every level, ITF and
+                 qualifying included, since 1975), data/raw/gap_sources/bwandowando/
+    tennislive   P4, TennisLive's event listings (every level, both tours, 2018 - 4 Oct 2026; results),
+                 data/dump/points/tennislive/listed.parquet
+    itf_live     P1, the ITF live-data API (ITF and ITFQ, both tours, from 15 Sep 2026; statistics), data/dump/points/itf_live/.
+                 After TennisLive: its players are then identified through the matches both list (15 Sep - 4 Oct), by
+                 TennisLive ids that the reference's own matches validate, rather than by name alone
+    sofascore    the three SofaScore collections (P6 so far; P7 once staged): box scores, and the few matches they add
+    tennislive_pages  TennisLive match pages (P5 once staged, P8): box scores only, never a new match
+Box scores of matches the candidate holds go to the box layers (one source per match: BOX_PRIORITY).
+
+Linking: src/eda/match_timing/srcc_common.link (the timeline's identity linker: both names in the window, confirmed by
+identical set scores or by the same round on a plausible day; a third pass by the source's own player ids), run per
+tour and season. Then:
+    event map    each source event -> the Stage 0 tournament most of its linked rows (with identical set scores) sit in
+    weekly venue a link into another tournament than the row's own mapped event stands only with identical set scores
+                 (Monastir and Antalya hold real rematches a week apart: a pair is never deduplicated across events)
+    ids          a source id is keyed by its tour (TennisLive numbers its ATP and WTA players separately) and maps to
+                 the Stage 0 id the linked matches agree on (>= 80% of a source id's links, no Stage 0 id claimed twice
+                 unless the names agree: srcc_common.crosswalk's rule, over every season); else the one Stage 0 player
+                 of the tour with the same exact name key (repair_data.name_key) and no contradicting country, if no
+                 other source id maps to him; else a new id "<tour>:<tag>:<source id>" (tags wtaid, itf, tl, sofa),
+                 which no Stage 0 id uses; a new match whose player id is of the other tour stops the build
+    new          a row neither linked nor clashing: no Stage 0 match (or earlier addition) of the same resolved pair in
+                 the same tournament (or, for a tournament Stage 0 lacks, within 3 days); a player never plays twice in
+                 one round of one tournament; walkovers and byes are left out; retirements keep their marker
+Left out, and counted (left_out.csv.gz): ambiguous rows, rows whose players or event cannot be placed, main-tour and team
+matches (the rule concerns lower-level data; a new main-tour row could also enter the model frame itself), clashes,
+unknown rounds.
+
+No outcome of a 2025-2026 match is read for any choice: the rules above are fixed in this file; set scores are compared
+only to confirm that two records are one match (the timeline's linker does the same).
+
+Outputs, data/studies/lower_level_evidence/system/stage0/<label>/:
+    stage0_matches.parquet, stage0_match_players.parquet   the candidate Stage 0 (Stage 0's schema; chronological order)
+    timing.parquet                                         its timeline (match_timing's schema)
+    additions.parquet          one row per new match: source, source key, how each player was resolved
+    box_layers.parquet         completions and revisions: the reference match, the source, old and new counts, applied?
+    left_out.csv.gz            every source row not wired, with why
+    links_<source>.parquet, crosswalk_<source>.csv         evidence of the linking
+    inventory.csv              source x kind x tour x level x year: counts, and how many touch the model's players
+    checks.json, manifest.json, READY.txt (written by --ready after the checks pass)
+
+Run:
+    ./python.sh src/eda/lower_level_evidence/candidate_stage0.py --label C0_now
+    ./python.sh src/eda/lower_level_evidence/candidate_stage0.py --label C0_now --checks        (checks, history.py, dose)
+    ./python.sh src/eda/lower_level_evidence/candidate_stage0.py --label C0_now --ready         (READY.txt + manifest)
+    ./python.sh src/eda/lower_level_evidence/candidate_stage0.py --label C0_pre --derive-from C0_now --until 2024-12-29
+        (a READY candidate's additions dated up to a day: same ids, windows and box scores; then --checks, --ready)
+Options: --sources wta_api,wta_site,tennislive,itf_live,sofascore,tennislive_pages  --revisions
+         --sofascore-skip "ITF Men,ITF Women"  --out <folder>
+
+options:
+  -h, --help            show this help message and exit
+  --label LABEL         the candidate's name (C0_now, C0_P7 ...)
+  --sources SOURCES     sources of new matches, in wiring order
+  --revisions           apply the revisions layer (off by default)
+  --sofascore-skip SOFASCORE_SKIP
+                        SofaScore categories to leave out, comma-separated
+                        ('ITF Men,ITF Women': the same day's candidate without
+                        P7's ITF box scores)
+  --out OUT             output folder (default system/stage0/<label>)
+  --checks              run the checks on a built candidate
+  --ready               write the manifest and READY.txt after the checks pass
+  --derive-from DERIVE_FROM
+                        make the candidate from a built one's additions dated
+                        up to --until (a label under system/stage0/, or a
+                        folder)
+  --until UNTIL         the last tournament date --derive-from keeps
+  --round-union         apply the round-union rule to a built candidate's
+                        timeline (withdraws READY; run --checks and --ready
+                        again)

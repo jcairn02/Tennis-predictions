@@ -1,0 +1,48 @@
+{
+ "started_utc": "2026-10-09T20:30:56+00:00",
+ "method_version": "A-classify-2026-10-09.2",
+ "thresholds_sha256": "d8eb62d2c499b5571427cf00dce655a46aaf1c2992a60959a9439f586052861f",
+ "strength": {
+  "written_at_utc": "2026-10-09T20:18:11+00:00",
+  "source": "C:\\Users\\zerom\\tnr_lle\\data\\studies\\predictability_diagnostic\\stage1_baselines.parquet",
+  "source_sha256": "72284b3b9bb5d589fda467fcde7478f287dd7e33b1fd3890cd27aa5b1f5f747c",
+  "columns": [
+   "match_id",
+   "elo_a_ret",
+   "elo_b_ret",
+   "n_a_ret",
+   "n_b_ret"
+  ],
+  "rows": 873437,
+  "copy_sha256": "4fa9a573e7d0fbc34ab95f5f6c5efc97b835471a0f676bb5f14c182321c34d0d",
+  "what": "Stage 1's pre-match overall Elo (retirements counted), every Stage 0 match of the frozen tables; the chain's build in the first run's sandbox (tnr_lle), on the frozen tables",
+  "check": {
+   "frame": "C:\\Users\\zerom\\Documents\\Tennis-predictions\\data\\studies\\current_best_model\\reference_2026-10-08\\frozen\\instance\\model_frame.parquet",
+   "frame_matches": 67226,
+   "max_abs_diff_logodds": 1.402419671503452e-06,
+   "rule": "in_elo_overall == ln(10)/400 * (elo_a_ret - elo_b_ret), same orientation",
+   "passed": true
+  }
+ },
+ "rows": {
+  "player_rows": 414876,
+  "matches": 207438,
+  "max_tournament_date": "2024-12-09",
+  "max_year": 2024
+ },
+ "stage3_source_sha256": "bcc8d38467a15193ecd5fc7392f65047a00bb9001c7732b39c72f3cbeb15f618",
+ "finished_utc": "2026-10-09T20:32:32+00:00",
+ "seconds": 96.2,
+ "outputs": {
+  "classes.csv": "58e7862273bfaf8bfbe6283c72b54e80f219ff36c0f83df795076d52ae940c26",
+  "counter_skill.csv": "06ea3f4bb30eb217237953612ab9f713d3cdeb838e38a220861168503930e220",
+  "gamma_by_season.csv": "922b78d7b49106fb29d4e903059cd1a6e67930551b4c6ea39c35d0576c90c580",
+  "gamma_main.csv": "1f9a6b0d5e7d5cc3c6c8ca5bbb9ddaa12d7ce9caa9a2c6dd712bf9c6701536a8",
+  "gamma_robust.csv": "49956d993b1f22b01547f87e558a8cf73f49fa96fa228b0a9d4275c83addc230",
+  "level_decomposition.csv": "81b2228bc4bccdadd319fead2b1a29d9b4ba5f4e017c0eafe1a7d30e41cf64ec",
+  "level_decomposition_stage3.csv": "79655d7f090f2ec31314908b9cc802f410c66fed961b24166572ff09baa05ed4",
+  "level_opponent_gaps.csv": "d1cc0367a780642dc458a8dc585a93d6065ee3351823a43a60fd1f10f542dc06",
+  "results_check.csv": "a3ac475a7e943f50cadc53bccec1adb2320bebcbbd351f4b27f359e1d97cee52",
+  "stat_classes_detail.csv": "0ca1bc26762138691052222c53dbda810127a301091f1cea8e6a4d17f8c28610"
+ }
+}

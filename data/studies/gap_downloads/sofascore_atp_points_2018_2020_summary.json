@@ -1,0 +1,282 @@
+{
+ "source": "sofascore_editions",
+ "gap": "atp_points_2018_2020",
+ "targets_from": "frozen in data/studies/gap_downloads/sofascore_atp_points_2018_2020_matches.csv",
+ "started_at": "2026-10-11T18:06:24+00:00",
+ "args": {
+  "gap": "atp_points_2018_2020",
+  "refresh_targets": false,
+  "skip": [
+   "statistics"
+  ],
+  "limit": null,
+  "max_requests": 40000,
+  "min_interval": 2.0,
+  "jitter": 1.0,
+  "stage_only": false,
+  "no_stage": false,
+  "browser": "http://localhost:9222"
+ },
+ "fetch_outcomes": {
+  "point-by-point:200": 472,
+  "point-by-point:200:cached": 409,
+  "point-by-point:404": 1743,
+  "point-by-point:404:cached": 45
+ },
+ "client": {
+  "impersonate": "browser:155.0.8059.39",
+  "requests": 2435,
+  "retried": 0,
+  "slept_seconds": 5516.2,
+  "min_interval": 2.0,
+  "transport": "browser",
+  "cdp_url": "http://localhost:9222",
+  "page_reloads": 0,
+  "token_renewals": 0,
+  "renewals_failed": 0,
+  "site_data_resets": 0
+ },
+ "staged": {
+  "events": {
+   "rows": 78557,
+   "dest": "data/dump/points/sofascore_editions/events.parquet",
+   "bytes": 8247022
+  },
+  "points": {
+   "rows": 2667908,
+   "dest": "data/dump/points/sofascore_editions/points.parquet",
+   "bytes": 15517840
+  },
+  "statistics": {
+   "rows": 1162119,
+   "dest": "data/dump/points/sofascore_editions/statistics.parquet",
+   "bytes": 9978493
+  }
+ },
+ "all": {
+  "targets": 2685,
+  "listed": 2669,
+  "points_any": 881,
+  "points_complete": 837,
+  "points_absent": 1788,
+  "points_not_fetched": 0,
+  "full_box_score": 403,
+  "stats_any": 424
+ },
+ "editions": 184,
+ "editions_located": 184,
+ "by_year_level": {
+  "2018|FIN": {
+   "targets": 13,
+   "listed": 13,
+   "points_any": 13,
+   "points_complete": 13,
+   "points_absent": 0,
+   "points_not_fetched": 0,
+   "full_box_score": 0,
+   "stats_any": 0
+  },
+  "2018|T1000": {
+   "targets": 95,
+   "listed": 95,
+   "points_any": 88,
+   "points_complete": 85,
+   "points_absent": 7,
+   "points_not_fetched": 0,
+   "full_box_score": 0,
+   "stats_any": 0
+  },
+  "2018|T250": {
+   "targets": 274,
+   "listed": 274,
+   "points_any": 194,
+   "points_complete": 187,
+   "points_absent": 80,
+   "points_not_fetched": 0,
+   "full_box_score": 0,
+   "stats_any": 0
+  },
+  "2018|T500": {
+   "targets": 83,
+   "listed": 83,
+   "points_any": 69,
+   "points_complete": 68,
+   "points_absent": 14,
+   "points_not_fetched": 0,
+   "full_box_score": 0,
+   "stats_any": 0
+  },
+  "2018|TQ": {
+   "targets": 758,
+   "listed": 758,
+   "points_any": 41,
+   "points_complete": 38,
+   "points_absent": 717,
+   "points_not_fetched": 0,
+   "full_box_score": 0,
+   "stats_any": 0
+  },
+  "2019|FIN": {
+   "targets": 7,
+   "listed": 7,
+   "points_any": 7,
+   "points_complete": 7,
+   "points_absent": 0,
+   "points_not_fetched": 0,
+   "full_box_score": 5,
+   "stats_any": 7
+  },
+  "2019|T1000": {
+   "targets": 73,
+   "listed": 73,
+   "points_any": 72,
+   "points_complete": 72,
+   "points_absent": 1,
+   "points_not_fetched": 0,
+   "full_box_score": 71,
+   "stats_any": 73
+  },
+  "2019|T250": {
+   "targets": 183,
+   "listed": 183,
+   "points_any": 163,
+   "points_complete": 155,
+   "points_absent": 20,
+   "points_not_fetched": 0,
+   "full_box_score": 160,
+   "stats_any": 169
+  },
+  "2019|T500": {
+   "targets": 59,
+   "listed": 59,
+   "points_any": 58,
+   "points_complete": 57,
+   "points_absent": 1,
+   "points_not_fetched": 0,
+   "full_box_score": 56,
+   "stats_any": 59
+  },
+  "2019|TQ": {
+   "targets": 668,
+   "listed": 653,
+   "points_any": 53,
+   "points_complete": 52,
+   "points_absent": 600,
+   "points_not_fetched": 0,
+   "full_box_score": 0,
+   "stats_any": 0
+  },
+  "2020|FIN": {
+   "targets": 1,
+   "listed": 1,
+   "points_any": 1,
+   "points_complete": 1,
+   "points_absent": 0,
+   "points_not_fetched": 0,
+   "full_box_score": 1,
+   "stats_any": 1
+  },
+  "2020|T1000": {
+   "targets": 15,
+   "listed": 15,
+   "points_any": 14,
+   "points_complete": 9,
+   "points_absent": 1,
+   "points_not_fetched": 0,
+   "full_box_score": 14,
+   "stats_any": 15
+  },
+  "2020|T250": {
+   "targets": 77,
+   "listed": 77,
+   "points_any": 64,
+   "points_complete": 58,
+   "points_absent": 13,
+   "points_not_fetched": 0,
+   "full_box_score": 68,
+   "stats_any": 70
+  },
+  "2020|T500": {
+   "targets": 31,
+   "listed": 31,
+   "points_any": 30,
+   "points_complete": 26,
+   "points_absent": 1,
+   "points_not_fetched": 0,
+   "full_box_score": 28,
+   "stats_any": 30
+  },
+  "2020|TQ": {
+   "targets": 348,
+   "listed": 347,
+   "points_any": 14,
+   "points_complete": 9,
+   "points_absent": 333,
+   "points_not_fetched": 0,
+   "full_box_score": 0,
+   "stats_any": 0
+  }
+ },
+ "pbp_verdicts": {
+  "nan": 1804,
+  "complete": 798,
+  "short": 43,
+  "complete to retirement": 39,
+  "other": 1
+ },
+ "editions_not_located": [],
+ "matches_selected": 2669,
+ "receipts_with_errors": 12,
+ "error_examples": [
+  {
+   "name": "day/72/2022-02-05",
+   "error": "RuntimeError: TargetClosedError: Page.evaluate: Target page, context or browser has been closed for https://api.sofascore.com/api/v1/category/72/scheduled-events/2022-02-05 after 4 attempts"
+  },
+  {
+   "name": "day/72/2022-01-27",
+   "error": "RuntimeError: TargetClosedError: Page.evaluate: Target page, context or browser has been closed for https://api.sofascore.com/api/v1/category/72/scheduled-events/2022-01-27 after 4 attempts"
+  },
+  {
+   "name": "day/72/2022-01-25",
+   "error": "RuntimeError: TargetClosedError: Page.evaluate: Target page, context or browser has been closed for https://api.sofascore.com/api/v1/category/72/scheduled-events/2022-01-25 after 4 attempts"
+  },
+  {
+   "name": "day/72/2022-01-19",
+   "error": "RuntimeError: TargetClosedError: Page.evaluate: Target page, context or browser has been closed for https://api.sofascore.com/api/v1/category/72/scheduled-events/2022-01-19 after 4 attempts"
+  },
+  {
+   "name": "day/72/2022-01-16",
+   "error": "RuntimeError: TargetClosedError: Page.evaluate: Target page, context or browser has been closed for https://api.sofascore.com/api/v1/category/72/scheduled-events/2022-01-16 after 4 attempts"
+  },
+  {
+   "name": "day/72/2022-01-12",
+   "error": "RuntimeError: TargetClosedError: Page.evaluate: Target page, context or browser has been closed for https://api.sofascore.com/api/v1/category/72/scheduled-events/2022-01-12 after 4 attempts"
+  },
+  {
+   "name": "day/72/2022-01-09",
+   "error": "RuntimeError: TargetClosedError: Page.evaluate: Target page, context or browser has been closed for https://api.sofascore.com/api/v1/category/72/scheduled-events/2022-01-09 after 4 attempts"
+  },
+  {
+   "name": "day/72/2022-01-07",
+   "error": "RuntimeError: TargetClosedError: Page.evaluate: Target page, context or browser has been closed for https://api.sofascore.com/api/v1/category/72/scheduled-events/2022-01-07 after 4 attempts"
+  },
+  {
+   "name": "day/72/2022-01-06",
+   "error": "RuntimeError: TargetClosedError: Page.evaluate: Target page, context or browser has been closed for https://api.sofascore.com/api/v1/category/72/scheduled-events/2022-01-06 after 4 attempts"
+  },
+  {
+   "name": "day/72/2022-01-04",
+   "error": "RuntimeError: TargetClosedError: Page.evaluate: Target page, context or browser has been closed for https://api.sofascore.com/api/v1/category/72/scheduled-events/2022-01-04 after 4 attempts"
+  },
+  {
+   "name": "day/72/2021-12-31",
+   "error": "RuntimeError: TargetClosedError: Page.evaluate: Target page, context or browser has been closed for https://api.sofascore.com/api/v1/category/72/scheduled-events/2021-12-31 after 4 attempts"
+  },
+  {
+   "name": "day/72/2021-12-29",
+   "error": "RuntimeError: TargetClosedError: Page.evaluate: Target page, context or browser has been closed for https://api.sofascore.com/api/v1/category/72/scheduled-events/2021-12-29 after 4 attempts"
+  }
+ ],
+ "finished_at": "2026-10-11T19:48:56+00:00",
+ "seconds": 6152.0
+}

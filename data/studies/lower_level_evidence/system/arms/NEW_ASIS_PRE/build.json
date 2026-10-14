@@ -1,0 +1,336 @@
+{
+ "runs": [
+  {
+   "arm": "NEW_ASIS_PRE",
+   "sandbox": "C:\\Users\\zerom\\tnr_sys2",
+   "config": "C:\\Users\\zerom\\Documents\\Tennis-predictions\\data\\studies\\lower_level_evidence\\system\\arms\\NEW_ASIS_PRE\\layer_config.json",
+   "config_sha256": "082eeee40f71e2aaafa248798bc76d1567ade881e2eaebfaac04458e8868c4c5",
+   "IOS_CONSTANTS_VERSION": "2026-10-08_reference",
+   "lanes": "0123",
+   "plan": {
+    "lane0": [
+     "stage1_odds",
+     "timing_features"
+    ],
+    "lane1a": [
+     "stage1_baselines",
+     "stage3_ratings",
+     "stage4_features",
+     "ufc_stageA_ratings",
+     "ufc_stageA_features",
+     "ufc_stageC_fatigue",
+     "ufc_stageC_sos",
+     "ufc_stageC_rundown",
+     "ufc_stageB_adjperf",
+     "ufc_stageB_ios",
+     "ios_constants_check",
+     "ufc_stageB_split",
+     "ufc_stageB_rundown",
+     "ufc_stageD_profile",
+     "ufc_stageD_rundown",
+     "thinking_frame",
+     "leakproof_frame",
+     "elo_pieces",
+     "elo_frames"
+    ],
+    "ios_part": false,
+    "lane1b": [],
+    "ios_on": true,
+    "c2_in": true,
+    "candidate": true,
+    "reused": []
+   },
+   "started_at": "2026-10-10T10:08:27+00:00",
+   "level_layer_sha256": "26e21291822f42e4c9e7771f518149d1cb85116bdeb5196285fa22eeca37411f",
+   "level_layer_sha256_in_sandbox": "26e21291822f42e4c9e7771f518149d1cb85116bdeb5196285fa22eeca37411f",
+   "level_layer_ios_sha256_in_sandbox": "3fa5f69e592118fc204809ce0ec6afa627e5b979af3e33752e91e89f154c05c3",
+   "cp1_addition": null,
+   "lane2_runs_dir": {
+    "path": "C:\\Users\\zerom\\tnr_sys2\\data\\studies\\surface_ios\\full_runs\\lle_NEW_ASIS_PRE_b02aba56a2f0",
+    "fingerprint": "b02aba56a2f0b8958890bcf6167d701fceeab812334b0bf7bf1404402d668f45",
+    "hooked": true,
+    "existed_before_build": false
+   },
+   "validated_code": {
+    "snapshot_manifest_sha256": "1e95dbfe176efbc750a79c268059465378a5784b5e384838375c41809e17b5e5",
+    "files": 1070,
+    "restored": [],
+    "patched_checked": {
+     "src/eda/match_timing/rebuild.py": true,
+     "src/eda/predictability_diagnostic/stage4_features.py": true,
+     "src/eda/surface_ios/arms.py": true,
+     "src/eda/surface_ios/build_cache.py": true,
+     "src/eda/surface_ios/build_features.py": true,
+     "src/eda/surface_ios/probe.py": true,
+     "src/eda/tabpfn_leakproof/build_frame.py": true,
+     "src/eda/ufc_ideas/stageB_adjperf.py": true
+    }
+   },
+   "sandbox_record": {
+    "sandbox": "C:\\Users\\zerom\\tnr_sys2",
+    "IOS_CONSTANTS_VERSION": "2026-10-08_reference",
+    "ios_version_file_sha256": "c25f9868c4c49c717863d1930ef97cd82e420816a170e6616730b6ca2c6d9efc",
+    "candidate_stage0": {
+     "source": "data\\studies\\lower_level_evidence\\system\\stage0\\C0_pre",
+     "files": {
+      "data/studies/predictability_diagnostic/stage0_matches.parquet": {
+       "source_sha256": "6a0c55ee760a641a513068db812b11065e1e594615289679e80557b3abe4485d",
+       "replaced_sha256": "07bc2d34f6655fdb27426bbf348d5ed1cda35cf4e9a187bd5cd22a81108ab00f",
+       "sandbox_sha256": "6a0c55ee760a641a513068db812b11065e1e594615289679e80557b3abe4485d"
+      },
+      "data/studies/predictability_diagnostic/stage0_match_players.parquet": {
+       "source_sha256": "1002a82dcb2c4f0a288f1b566a70fab441f9bf73b7151be8a08128f2e16a5cbb",
+       "replaced_sha256": "9b712648ed28dc7267c6bac03c051f6dc823145a2eebf74078b798083bb9f860",
+       "sandbox_sha256": "1002a82dcb2c4f0a288f1b566a70fab441f9bf73b7151be8a08128f2e16a5cbb"
+      },
+      "data/studies/match_timing/timing.parquet": {
+       "source_sha256": "b69102141c693c85088dbee3c87dde4bd2029ba9d2a3bd89647a4500c58629fa",
+       "replaced_sha256": "f602943d5ea0a66771d54063fa3501c426b2c60f60d1eeb294f93785a00c6bcc",
+       "sandbox_sha256": "b69102141c693c85088dbee3c87dde4bd2029ba9d2a3bd89647a4500c58629fa"
+      }
+     },
+     "timing": true,
+     "manifest.json": "57a093481181f144b9e032c7ec7371b13b4910fc9e53e8f004ee5da0c5b1159e",
+     "READY.txt": "6f3e53b250b8ccc618b91fd14bd95cfddff7ecb43304c7720c7e7bf78c829058"
+    },
+    "c1": {
+     "copied": {
+      "src/eda/lower_level_evidence/level_layer.py": "26e21291822f42e4c9e7771f518149d1cb85116bdeb5196285fa22eeca37411f",
+      "src/eda/lower_level_evidence/common.py": "0e1ff56cae28cc0ed5d67f8e3b0d2202d815bef4ab112a895648f2de60d06bec"
+     },
+     "patched": {
+      "src/eda/predictability_diagnostic/stage1_baselines.py": {
+       "repository_sha256": "4ce00d8abd372f5ccc9f95e6d8d245c029712c1bfe452dc73b356ddca87edb76",
+       "sandbox_sha256": "f2d7283dfb2511217265c2e1e75db071de76fcbbca4b331e8d624c307516b890",
+       "lines_changed": 21
+      },
+      "src/eda/surface_elo_pieces/pieces.py": {
+       "repository_sha256": "f906564d42260426d15afad2a401a3438342157d37bdc34c7f93c66b37e68b88",
+       "sandbox_sha256": "47714edac9f19a7b955a5b9efdb6085cd53a091b7d62390dccc1794b6462f6fe",
+       "lines_changed": 30
+      },
+      "src/eda/predictability_diagnostic/stage4_features.py": {
+       "repository_sha256": "19208ccf5a01e54fc879ce420a1ebabefa436be4ff8da5e908502ea9d1e5777a",
+       "sandbox_sha256": "599216c0fa22ed3741228afc67b0a2c46fe08161dce9302240623e677f11026c",
+       "lines_changed": 14
+      },
+      "src/eda/predictability_diagnostic/stage3_ratings.py": {
+       "repository_sha256": "4a0c899ee9f1517d813246e6573d388a0903bfd761ab76b6cefe860227c8d336",
+       "sandbox_sha256": "d961cfa1cdb7f3ad4e4c6df19ba90c88f0b99a43d7e8fea46d00d6c385a46a6d",
+       "lines_changed": 2
+      },
+      "src/eda/ufc_ideas/stageB_adjperf.py": {
+       "repository_sha256": "58aa0e2c28975d5d12cce1238d6091760ca8454883945186f9e2009f182f131d",
+       "sandbox_sha256": "c13731df6296bf96d1bfc022a7cf4fd0a6017127e5456714fd33a04b042b1a0f",
+       "lines_changed": 5
+      }
+     }
+    },
+    "c1_check": {
+     "files": {
+      "src/eda/predictability_diagnostic/stage1_baselines.py": {
+       "equals_patched_repository_file": true,
+       "replacements_present_once": true
+      },
+      "src/eda/surface_elo_pieces/pieces.py": {
+       "equals_patched_repository_file": true,
+       "replacements_present_once": true
+      },
+      "src/eda/predictability_diagnostic/stage4_features.py": {
+       "equals_patched_repository_file": true,
+       "replacements_present_once": true
+      },
+      "src/eda/predictability_diagnostic/stage3_ratings.py": {
+       "equals_patched_repository_file": true,
+       "replacements_present_once": true
+      },
+      "src/eda/ufc_ideas/stageB_adjperf.py": {
+       "equals_patched_repository_file": true,
+       "replacements_present_once": true
+      }
+     },
+     "copied_equal": {
+      "src/eda/lower_level_evidence/level_layer.py": true,
+      "src/eda/lower_level_evidence/common.py": true
+     },
+     "pass": true
+    },
+    "c2": {
+     "module": "src/eda/lower_level_evidence/level_layer_ios.py",
+     "module_sha256": "3fa5f69e592118fc204809ce0ec6afa627e5b979af3e33752e91e89f154c05c3",
+     "ready_file": true,
+     "apply": {
+      "sandbox": "C:\\Users\\zerom\\tnr_sys2",
+      "copied": [
+       "src/eda/lower_level_evidence/level_layer_ios.py",
+       "src/eda/lower_level_evidence/level_layer.py",
+       "src/eda/lower_level_evidence/common.py"
+      ],
+      "files": {
+       "src/eda/match_timing/rebuild.py": [
+        "already patched",
+        "already patched",
+        "already patched",
+        "already patched"
+       ],
+       "src/eda/surface_ios/build_cache.py": [
+        "already patched",
+        "already patched"
+       ],
+       "src/eda/surface_ios/build_features.py": [
+        "already patched",
+        "already patched",
+        "already patched",
+        "already patched"
+       ],
+       "src/eda/tabpfn_leakproof/build_frame.py": [
+        "already patched"
+       ],
+       "src/eda/surface_ios/arms.py": [
+        "already patched"
+       ],
+       "src/eda/surface_ios/probe.py": [
+        "already patched",
+        "already patched",
+        "already patched"
+       ]
+      },
+      "diff": "C:\\Users\\zerom\\Documents\\Tennis-predictions\\data\\studies\\lower_level_evidence\\system\\ios_layer\\sandbox_patch_ios.diff"
+     },
+     "check": {
+      "sandbox": "C:\\Users\\zerom\\tnr_sys2",
+      "ok": true,
+      "problems": [],
+      "files": {
+       "src/eda/match_timing/rebuild.py": [
+        "present",
+        "present",
+        "present",
+        "present"
+       ],
+       "src/eda/surface_ios/build_cache.py": [
+        "present",
+        "present"
+       ],
+       "src/eda/surface_ios/build_features.py": [
+        "present",
+        "present",
+        "present",
+        "present"
+       ],
+       "src/eda/tabpfn_leakproof/build_frame.py": [
+        "present"
+       ],
+       "src/eda/surface_ios/arms.py": [
+        "present"
+       ],
+       "src/eda/surface_ios/probe.py": [
+        "present",
+        "present",
+        "present"
+       ]
+      },
+      "pass": true
+     }
+    },
+    "c1_check_after_c2": {
+     "files": {
+      "src/eda/predictability_diagnostic/stage1_baselines.py": {
+       "equals_patched_repository_file": true,
+       "replacements_present_once": true
+      },
+      "src/eda/surface_elo_pieces/pieces.py": {
+       "equals_patched_repository_file": true,
+       "replacements_present_once": true
+      },
+      "src/eda/predictability_diagnostic/stage4_features.py": {
+       "equals_patched_repository_file": true,
+       "replacements_present_once": true
+      },
+      "src/eda/predictability_diagnostic/stage3_ratings.py": {
+       "equals_patched_repository_file": true,
+       "replacements_present_once": true
+      },
+      "src/eda/ufc_ideas/stageB_adjperf.py": {
+       "equals_patched_repository_file": true,
+       "replacements_present_once": true
+      }
+     },
+     "copied_equal": {
+      "src/eda/lower_level_evidence/level_layer.py": true,
+      "src/eda/lower_level_evidence/common.py": true
+     },
+     "pass": true
+    },
+    "patched_at": "2026-10-10T10:08:25+00:00",
+    "pins": {
+     "module": "src/eda/lower_level_evidence/level_pins.py",
+     "patched": {
+      "src/eda/predictability_diagnostic/stage1_baselines.py": "becee2ce355be834c1a8de3a0bcafd4d7744af7d8d95ad30e67118bcb7325f7a",
+      "src/eda/surface_elo_pieces/pieces.py": "0b4fe8cb95536df6c60f1e0ad05ccd30e6ab8f21a883040578d1c6c3e600f36c",
+      "src/eda/predictability_diagnostic/stage3_ratings.py": "e012d64e99df854c8110445858bb787f45812c524632dea4119cb2980d2fa246"
+     },
+     "module_sha256": "381c8596a5a2f339c2149b4a8557b453dc881a593ecafb7d338c2d5ab3db4a5f"
+    },
+    "pins_check": {
+     "files": {
+      "src/eda/predictability_diagnostic/stage1_baselines.py": {
+       "equals_pinned_c1_text": true,
+       "pins_present_once": true
+      },
+      "src/eda/surface_elo_pieces/pieces.py": {
+       "equals_pinned_c1_text": true,
+       "pins_present_once": true
+      },
+      "src/eda/predictability_diagnostic/stage4_features.py": {
+       "equals_patched_repository_file": true,
+       "replacements_present_once": true
+      },
+      "src/eda/predictability_diagnostic/stage3_ratings.py": {
+       "equals_pinned_c1_text": true,
+       "pins_present_once": true
+      },
+      "src/eda/ufc_ideas/stageB_adjperf.py": {
+       "equals_patched_repository_file": true,
+       "replacements_present_once": true
+      }
+     },
+     "copied_equal": {
+      "src/eda/lower_level_evidence/level_layer.py": true,
+      "src/eda/lower_level_evidence/common.py": true,
+      "src/eda/lower_level_evidence/level_pins.py": true
+     },
+     "pass": true
+    }
+   },
+   "reused": null,
+   "steps": [
+    {
+     "lane 0": 0,
+     "seconds": 1233.3
+    },
+    {
+     "lane 0 check": true
+    },
+    {
+     "lane 1": 0,
+     "seconds": 9229.8
+    },
+    {
+     "lane 2": 0,
+     "seconds": 10465.4
+    },
+    {
+     "lane 3": 0,
+     "seconds": 11.6
+    },
+    {
+     "collect": 0
+    }
+   ],
+   "finished_at": "2026-10-10T13:03:05+00:00",
+   "seconds": 10477.2,
+   "ok": true
+  }
+ ]
+}

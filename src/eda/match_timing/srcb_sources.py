@@ -28,6 +28,7 @@ import pandas as pd
 from src.eda.match_timing import srcb_common as X
 from src.eda.merge_feasibility import scan as S
 from src.eda.predictability_diagnostic import common as C
+from src.ingest.public_dump import live_tennis_api_zenodo as LTA
 
 HANDOFF = X.RAW / "atp_pipeline_handoff"
 API_TYPES = ("Atp Singles", "Challenger Men Singles", "Itf Men Singles")
@@ -35,8 +36,15 @@ API_TYPES = ("Atp Singles", "Challenger Men Singles", "Itf Men Singles")
 # zone its fetcher asked for, so this is checked against tennis-data and the Live Tennis API in the summary
 API_TZ = "Europe/Berlin"
 # Live Tennis API v1.0.0 'scheduled_time_utc' was written in Israel local time (Zenodo v1.0.2 note,
-# 28 Sep 2026, docs/research/gap-sources/README.md); checked in the summary
+# 28 Sep 2026, docs/research/gap-sources/README.md); checked in the summary. v1.0.2, staged since 8 Oct 2026,
+# holds the same rows in UTC: lta_zone() reads which version the staged index is.
 LTA_TZ = "Asia/Jerusalem"
+LTA_MATCHES = X.DUMP / "matches" / "live_tennis_api_zenodo" / "matches.parquet"
+
+
+def lta_zone() -> str:
+    """The zone the staged index's 'scheduled_time_utc' is written in: Asia/Jerusalem (v1.0.0) or UTC (v1.0.2)."""
+    return LTA.staged_time_zone(LTA_MATCHES)
 LTA_TIERS = {"265": "atp", "265_inferred": "atp", "270": "atp", "281": "atp",
              "266": "wta", "266_inferred": "wta", "271": "wta", "272": "wta"}
 
@@ -129,7 +137,8 @@ def load_api_tennis() -> tuple[pd.DataFrame, dict]:
 
 
 # ------------------------------------------------------------------------------------------------
-# 2. live_tennis_api (Zenodo v1.0.0, staged): match index Jan 2023 - 13 Aug 2026, every level
+# 2. live_tennis_api (Zenodo, staged: v1.0.0 until 8 Oct 2026, then v1.0.2): match index Jan 2023 - 13 Aug 2026,
+#    every level
 
 def compatible(a, b) -> bool:
     """Two spellings of one player: equal full keys, or one's last word is a word of the other."""
@@ -142,7 +151,7 @@ def compatible(a, b) -> bool:
 
 
 def load_lta(s0_names: pd.Series) -> tuple[pd.DataFrame, dict]:
-    lm = pd.read_parquet(X.DUMP / "matches" / "live_tennis_api_zenodo" / "matches.parquet")
+    lm = pd.read_parquet(LTA_MATCHES)
     lp = pd.read_parquet(X.DUMP / "players" / "live_tennis_api_zenodo" / "players.parquet",
                          columns=["player_id", "name", "tour", "sackmann_id", "birthday"])
     info = {"rows_read": int(len(lm)), "left_out": {}}
@@ -166,10 +175,13 @@ def load_lta(s0_names: pd.Series) -> tuple[pd.DataFrame, dict]:
     lo["unreadable_time"] = int((keep & local.isna()).sum())
     keep &= local.notna()
     lm, tour, n1, n2, local = lm[keep], tour[keep], n1[keep], n2[keep], local[keep]
-    utc, amb = to_utc(local, LTA_TZ)
+    zone = lta_zone()
+    utc, amb = to_utc(local, zone)
+    info["scheduled_time_utc_read_as"] = zone
     info["times_in_repeated_dst_hour_read_as_summer_time"] = amb
-    shift = ((local - utc.dt.tz_localize(None)) / pd.Timedelta(hours=1)).round()
-    info["hours_moved_back_israel_to_utc"] = {str(int(k)): int(v) for k, v in shift.value_counts().items()}
+    if zone == LTA_TZ:
+        shift = ((local - utc.dt.tz_localize(None)) / pd.Timedelta(hours=1)).round()
+        info["hours_moved_back_israel_to_utc"] = {str(int(k)): int(v) for k, v in shift.value_counts().items()}
     # Sackmann crosswalk, kept only where Stage 0 knows the id under a compatible name
     sid = lp.set_index("player_id")["sackmann_id"].fillna("")
     stour = lp.set_index("player_id")["tour"]

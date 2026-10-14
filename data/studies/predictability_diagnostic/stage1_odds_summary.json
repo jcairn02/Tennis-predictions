@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-07T00:08:14+00:00",
+  "generated_at": "2026-10-14T04:14:30+00:00",
   "window_days": [
     -7,
     20
@@ -107,7 +107,7 @@
   },
   "td_rows_linked": 83183,
   "td_rows_linked_pct": 99.93,
-  "stage0_candidate_matches": 92994,
+  "stage0_candidate_matches": 93115,
   "stage0_candidates_by_level_and_link": [
     {
       "tour": "atp",
@@ -129,7 +129,7 @@
       "tour": "atp",
       "level": "T1000",
       "name_pair": 9359,
-      "none": 6,
+      "none": 90,
       "one_player_anchor": 283,
       "winner_swapped": 0
     },
@@ -177,7 +177,7 @@
       "tour": "wta",
       "level": "T1000",
       "name_pair": 9438,
-      "none": 92,
+      "none": 129,
       "one_player_anchor": 433,
       "winner_swapped": 0
     },
@@ -418,8 +418,8 @@
       "links": 79920,
       "same_set_scores": 79038,
       "round_agrees": 79899,
-      "both_ranks_known": 79646,
-      "both_ranks_agree": 78753
+      "both_ranks_known": 79647,
+      "both_ranks_agree": 78754
     },
     {
       "link": "one_player_anchor",
@@ -805,9 +805,9 @@
       "tour": "atp",
       "level": "T1000",
       "year": 2026,
-      "matches": 620,
+      "matches": 703,
       "with_odds": 620,
-      "pct": 100.0
+      "pct": 88.2
     },
     {
       "tour": "atp",
@@ -1349,9 +1349,9 @@
       "tour": "wta",
       "level": "T1000",
       "year": 2026,
-      "matches": 757,
+      "matches": 794,
       "with_odds": 672,
-      "pct": 88.8
+      "pct": 84.6
     },
     {
       "tour": "wta",
@@ -1581,14 +1581,14 @@
   "capture_weeks_from": "2026-07-27",
   "evaluation_tour_level_with_market": {
     "atp": {
-      "matches": 34949,
+      "matches": 35032,
       "with_odds": 34719,
-      "pct": 99.3
+      "pct": 99.1
     },
     "wta": {
-      "matches": 32960,
+      "matches": 32997,
       "with_odds": 32631,
-      "pct": 99.0
+      "pct": 98.9
     }
   },
   "evaluation_tour_level_with_market_inside_coverage": {
@@ -1604,8 +1604,8 @@
     }
   },
   "evaluation_tour_level_after_capture": {
-    "atp": 535,
-    "wta": 595
+    "atp": 618,
+    "wta": 632
   },
   "evaluation_atp_2018_tour_level": 2639,
   "evaluation_events_without_any_odds": [
@@ -1963,6 +1963,46 @@
         "month": "2026-09",
         "linked": 200,
         "with_pinnacle": 0
+      }
+    ]
+  },
+  "odds_corrections": {
+    "file": "data/studies/input_data_audit/fixes/odds_corrections.csv",
+    "rows": [
+      {
+        "td_file": "data/dump/odds/tennis_data_couk/atp/atp250/2013.parquet",
+        "td_row": 51,
+        "books": "avg max"
+      },
+      {
+        "td_file": "data/dump/odds/tennis_data_couk/atp/grand_slam/2016.parquet",
+        "td_row": 380,
+        "books": "avg max"
+      },
+      {
+        "td_file": "data/dump/odds/tennis_data_couk/wta/wta500/2022.parquet",
+        "td_row": 34,
+        "books": "avg"
+      },
+      {
+        "td_file": "data/dump/odds/tennis_data_couk/wta/wta250/2025.parquet",
+        "td_row": 278,
+        "books": "avg"
+      },
+      {
+        "td_file": "data/dump/odds/tennis_data_couk/atp/grand_slam/2010.parquet",
+        "td_row": 506,
+        "books": "avg max"
+      },
+      {
+        "td_file": "data/dump/odds/tennis_data_couk/atp/grand_slam/2011.parquet",
+        "td_row": 253,
+        "books": "avg max"
+      },
+      {
+        "td_file": "data/dump/odds/tennis_data_couk/wta/international/2017.parquet",
+        "td_row": 553,
+        "books": "avg b365 max ps"
       }
     ]
   }

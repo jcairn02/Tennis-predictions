@@ -34,6 +34,7 @@ Decided by Claude the same day under those conditions. Recorded on 6 October 202
 3. **The source watch** (`canary.py`) runs every Monday from the same task. It notifies only on a flag it has not shown before.
 4. **Each Slam's official feed is collected after the event:** the Australian Open, Wimbledon and the US Open.
    * Roland Garros has no official feed held.
+   * **Updated 9 Oct 2026:** Roland Garros's records are held and collected too. The Infosys statistics and point files of both Slams, and rolandgarros.com's statistics, are now their box-score source, and the scheduler reminds for each ([decision](2026-10-09-ao-rg-box-scores-from-feeds.md)).
    * The task does not scrape the feeds unattended. Each adapter needs that year's settings: the Australian Open's event ids, and Wimbledon's and the US Open's hosts. The [official-feeds decision](2026-09-24-official-point-feeds.md) also asks for someone present to stop on a block.
    * Once an event has finished and its year is missing from `data/raw/point_sources/`, the task notifies once a week until a Claude session collects it.
    * About 15–20 MB per event.
@@ -59,6 +60,36 @@ Decided by Claude the same day under those conditions. Recorded on 6 October 202
   * An offline source watch stays silent.
   * A Slam reminder repeats weekly.
   * Canary flags are compared by their first word.
+
+
+## Amendment, 8 October 2026: the daily serve-speed job
+
+**The owner:** "id love to get the speed data daily :)" (recorded in the [speed-nudge amendment](2026-10-07-speed-nudge.md)). Decryption is allowed for the current season's ATP files ([scraping approval](2026-10-08-scraping-approved.md), "Clarified").
+
+* **The job `speeds`** runs every day right after `tml`, because it plans from Tennis My Life's list of played matches. It runs `src/ingest/speed_daily.py --max-requests 200` and stops after 15 minutes.
+* **Each run:**
+  1. **On Mondays,** ManTennisData's weekly refresh, the no-decryption fallback.
+  2. **Yesterday's ATP keystats,** current season only, through the `/prod/api/` routes. About 2 seconds plus jitter between requests, a receipt for every answer, and a stop on any block.
+  3. **Decryption and staging.**
+  4. **Linking** to the project's ids.
+  5. **The live panel.**
+  6. **Each ATP player's 28-day speed form,** in `data/studies/serve_speed_tabpfn/live/`.
+* **Alerts.** A block alerts at once. Any other failure alerts the second time in a row.
+* **The first live test** (8 Oct 2026, Shanghai's round of 128): 60 requests, 30 matches served, 30 empty draw slots (404), no block. The decrypted first-serve averages were 171–210 km/h, and 29 of the 30 matches linked.
+
+## Amendment, 14 October 2026: the WTA API's point records and the WTA website's records, weekly
+
+**The owner**, on the report of work package P2 (which listed "Rerun both parts after the season" as still to do): "Set this up for this data to come in automatically with the other repeating data acquisition".
+
+* **Two jobs join the weekly task** ("Tennis predictions - lower-level feed", `src/ingest/scheduled.py --weekly`, daily at 12:00, 3 hours), so the post-season rerun needs no session:
+  * **`wta_points`, Mondays:** the WTA API's five per-match documents of the tour, WTA 125 and Finals editions of the last five weeks, staged: the umpire's point log, box score, advanced statistics, win probability and point-by-point. About 800-1,800 requests, at most 100 minutes. Match lists and 404s answered before their edition ended are asked again, so the WTA Finals and the December WTA 125s settle by themselves.
+  * **`wta_site`, Tuesdays:** the WTA website's records, staged for Wednesday's lower-level feed. Each player's list of the year is asked again when it shows a match in the last six weeks; one in six of the rest is asked each week; new opponents are followed. About 2,400 requests, at most 110 minutes. Until mid-February the previous year's lists are refreshed too, and a new year starts from the previous year's players.
+* **Both** check that no other WTA collector is running, pause on a block and alert, and alert on a failure the second time in a row. They run on the next day the task runs when their day was missed, but never on Wednesday, the feed's day. A run cut short by its time limit stages what it fetched.
+* **One new alert:** the newest ITF edition the website lists more than six weeks old (it lists a week's ITF results one or two weeks late), repeated every four weeks while it lasts.
+* **Tested** on 14 Oct 2026:
+  * `wta_points` ran live through the scheduler: exit 0, 174 requests, 11 minutes, staging included, no alert.
+  * `wta_site`'s crawl had run in full hours earlier with the same flags; its job logic is tested offline (`test/data_continuity/test_rebuild_and_schedule.py`).
+* **Reported in** [official_point_feeds](../studies/official_point_feeds/README.md#the-catch-up-of-11-and-13-october-2026-work-package-p2a) and [gap_downloads](../studies/gap_downloads/README.md#wta-website-records-after-early-september-work-package-p2b).
 
 ## How to pause or remove it
 

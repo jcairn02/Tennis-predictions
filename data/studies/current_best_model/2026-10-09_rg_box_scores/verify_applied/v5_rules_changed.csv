@@ -1,0 +1,20 @@
+rule_id,rule,after,before,change
+C05,TML row dated apart from its event's main draw (qualifying dated the day before or after it; matches of 2026 and Davis Cup rubbers dated by the day played): given the main draw's first date,6187,6171,16
+C10,"walkover (no point played): kept, never evaluated",4096,4095,1
+C20,box score blank for both players: missing,573970,574225,-255
+C23,box score with some counts blank (other than service games): missing,100,103,-3
+C24,"service games blank, the other eight counts present: kept, service-game rates missing",17597,17930,-333
+C25,service games recorded as 0 with serve points played: service games treated as missing,1521,1742,-221
+C33,box score check: second-serve points won exceed second serves; box score dropped,2,7,-5
+C34,box score check: break points saved exceed break points faced; box score dropped,0,12,-12
+C35,"box score check: service games disagree with the games in the score by more than one, whether tiebreaks count as service games or not; service games dropped, the other counts kept",1537,1547,-10
+C36,box score check (added): double faults exceed second serves; box score dropped,1,2,-1
+C38,box score check (added): breaks conceded exceed service games (checked where service games pass B5); box score dropped,24,30,-6
+C39,box score check (added): fewer than 4.5 serve points per game in the score (a game has at least 4 points): the counts cover part of the match; box score dropped,1036,1044,-8
+C50,minutes blank or zero: missing,600712,600711,1
+E2,"box scores exchanged between winner and loser (confirmed by the WTA's own statistics, an official feed or the score): the nine counts exchanged back (decision 2026-10-08)",82,78,4
+E3,service-game counts exchanged between winner and loser: exchanged back (decision 2026-10-08),810,1,809
+E7,"second serves booked as first serves (Roland Garros 2022-2025, Paris Olympics 2024): first serves in and points won on each serve from the official record (decision 2026-10-08)",58,0,58
+E8,"service games the score disproves or leaves blank (Australian Open, Roland Garros): both set from the score's alternation of serve, from the Slam's own record of who served first (decision 2026-10-08)",558,0,558
+O1,box score taken from the official Slam feed (decision 2026-10-06; data/studies/data_continuity/slam_box_overrides.csv),0,731,-731
+O1,box score taken from the official Slam feed (decision 2026-10-06; data/studies/rg_first_serve_recount/followup/confirmed/candidate/slam_box_overrides.csv),2272,0,2272

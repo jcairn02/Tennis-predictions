@@ -196,3 +196,40 @@ def test_render_embeds_the_data_once():
     assert full.startswith("<!doctype html>") and "<title>Tennis Data Map</title>" in full
     assert "/*__DATA__*/" not in full and '"x":"<\\/script>"' in full
     assert "<!doctype" not in fragment.lower() and "<head>" not in fragment
+
+
+def test_wta_site_reads_the_newest_copy_and_adds_each_api_match_once(tmp_path, monkeypatch):
+    """P2(b): the WTA API's player-matches results join the Kaggle copy's rows; a match both hold is kept once."""
+    root, api = tmp_path / "bwandowando", tmp_path / "player_results"
+    root.mkdir()
+    api.mkdir()
+    monkeypatch.setattr(M, "WTA_SITE", root)
+    monkeypatch.setattr(M, "WTA_SITE_API", api)
+    monkeypatch.setattr(M, "CACHE", tmp_path / "cache")
+    tournaments = pd.DataFrame({"pseudo_tournament_id": [11, 12], "title": ["WTT W50 - LEIRIA, PORTUGAL", "OLD"],
+                                "startDate": ["2026-08-31", "2026-01-05"], "level": ["ITF", "ITF"],
+                                "tournamentGroupId": [4826, 2403]})
+    matches = pd.DataFrame({"pseudo_match_id": [1, 2], "pseudo_tournament_id": [11, 11], "reason_code": ["W", "W"],
+                            "round_name": ["R32", "R32"], "qpm_flag": ["Q", "M"],
+                            "team_name_1": ["WALKER,  BRANDY  USA", "MORTENSEN,  REBECCA MUNK  DEN"],
+                            "team_name_2": ["MORTENSEN,  REBECCA MUNK  DEN", "KINOSHITA,  HAYU  JPN"],
+                            "scores": ["7-6(3)  6-1", "6-0  7-5"]})
+    tournaments.to_csv(root / "tournaments.csv", index=False)
+    matches.to_csv(root / "matches.csv", index=False)
+    assert len(M.load_wta_site(refresh=True)) == 2
+    results = pd.DataFrame({"tournament_group_id": ["4826", "4826", "9999"],
+                            "start_date": ["2026-08-31", "2026-08-31", "2026-09-21"],
+                            "title": ["WTT W50 - LEIRIA, PORTUGAL"] * 2 + ["WTT W35 - YECLA, SPAIN"],
+                            "level": ["ITF"] * 3, "qpm_flag": ["M", "Q", "M"], "round_name": ["R32", "R16", "R32"],
+                            "winner_name": ["Hayu Kinoshita", "Rebecca Munk Mortensen", "Sofia Rojas"],
+                            "loser_name": ["Rebecca Munk Mortensen", "Maria Toma", "Rebecca Munk Mortensen"]})
+    results.to_parquet(api / "2026.parquet", index=False)
+    out = M.load_wta_site()  # the API file changes the signature: the cache is rebuilt
+    assert len(out) == 4     # Leiria's main-draw R32 is the copy's; its qualifying R16 and Yecla are new
+    assert sorted(out["round"]) == ["Q1", "Q2", "R32", "R32"]  # the R16 is Leiria's second qualifying round
+    assert sorted(out["level"]) == ["ITF", "ITF", "ITFQ", "ITFQ"]
+    v30 = root / "v30"
+    v30.mkdir()
+    tournaments.to_csv(v30 / "tournaments.csv", index=False)
+    matches.iloc[:1].to_csv(v30 / "matches.csv", index=False)
+    assert M.wta_site_folder() == v30 and len(M.load_wta_site()) == 4  # the API row now fills the main-draw match

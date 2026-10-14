@@ -51,7 +51,9 @@ GRAINS = {"shot", "point", "stats", "result", "market", "reference"}
 MEASURED_IDS = {"tml", "sackmann", "wta_lists", "wimbledon", "usopen", "ausopen", "ausopen_wayback", "slam_draws",
                 "api_tennis", "tdi", "tdi_listing", "slam_pbp", "infosys", "court_vision", "mcp", "ta_charts",
                 "sofascore", "sofascore_editions", "sirgenkii", "tennislive", "lta_sample", "wta_events",
-                "wta_box", "slam_ball_tracking", "sofascore_tournaments", "infosys_slams", "marcosjn2", "wta_site"}
+                "wta_box", "slam_ball_tracking", "sofascore_tournaments", "infosys_slams", "infosys_atp", "marcosjn2",
+                "wta_site",
+                "itf_live", "tennislive_listed", "tennislive_samples", "tennislive_gaps", "flashscore_points"}
 
 
 # --------------------------------------------------------------------------------------------

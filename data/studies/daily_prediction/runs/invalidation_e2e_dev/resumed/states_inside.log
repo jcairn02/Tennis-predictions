@@ -1,0 +1,220 @@
+[level_layer] ratings_iid atp: 154,866 lower-level rating matches; w at zero 28,901
+[level_layer] ratings_iid wta: 50,715 lower-level rating matches; w at zero 0
+[  29.2s]   constant rpw_first
+[  31.3s]   constant rpw_second
+[  33.4s]   constant bp_over
+[  35.6s]   constant win
+[  37.5s]   constant deciding
+[level_layer] points_52w spw: 17,526 lower-level rows of 31,056 admitted; translated 14,140; w at zero 322
+[level_layer] points_52w rpw: 17,526 lower-level rows of 31,056 admitted; translated 14,140; w at zero 322
+[  62.8s]   history sums: columns 0-24 of 63
+[  63.1s]   history sums: columns 24-48 of 63
+[  63.4s]   history sums: columns 48-63 of 63
+[  63.4s]   history sums done
+[  63.6s]   meetings done
+[    0.1s] loading matches, players and odds; applying the repair's data corrections
+[   60.0s] rows: 1,750,240 player-matches; box history eligible 1,675,196; ITF/team own-score standard 1,218,772
+{
+ "checkpoint": "C:\\Users\\zerom\\Documents\\Tennis-predictions\\data\\studies\\daily_prediction\\state\\template_2026-10-10\\2026-06-22",
+ "record": {
+  "checkpoint": "C:\\Users\\zerom\\Documents\\Tennis-predictions\\data\\studies\\daily_prediction\\state\\template_2026-10-10\\2026-06-22",
+  "d0": "2026-06-22",
+  "targets": 23,
+  "parts": {
+   "elo:atp": "resumed",
+   "elo:wta": "resumed",
+   "stage3:atp": "resumed",
+   "stage3:wta": "resumed",
+   "weighted:atp": "resumed",
+   "weighted:wta": "resumed",
+   "forms:": "resumed",
+   "ios:atp_ace": "slice changed: recomputed in full",
+   "ios:atp_df": "slice changed: recomputed in full",
+   "ios:atp_first_in": "slice changed: recomputed in full",
+   "ios:atp_first_won": "slice changed: recomputed in full",
+   "ios:atp_second_won": "slice changed: recomputed in full",
+   "ios:atp_hold": "slice changed: recomputed in full",
+   "ios:atp_bp_saved": "slice changed: recomputed in full",
+   "ios:wta_ace": "resumed",
+   "ios:wta_df": "resumed",
+   "ios:wta_first_in": "resumed",
+   "ios:wta_first_won": "resumed",
+   "ios:wta_second_won": "resumed",
+   "ios:wta_hold": "resumed",
+   "ios:wta_bp_saved": "resumed"
+  },
+  "seconds": {
+   "offset": 6.3,
+   "stage3": 6.4,
+   "stage4_rows": 41.0,
+   "weighted": 6.4,
+   "stage4_inputs": 4.1,
+   "forms_context": 28.6,
+   "forms": 9.7,
+   "pieces": 3.2,
+   "ios_cache": 83.2,
+   "ios_runs": 784.3,
+   "context": 9.6,
+   "total": 983.4
+  },
+  "stage3_table": "written to C:\\Users\\zerom\\tnr_daily\\data\\studies\\predictability_diagnostic\\stage3_ratings.parquet",
+  "stage4": {
+   "players": 46,
+   "subset_matches": 23214,
+   "seconds": 4.1
+  },
+  "forms_new_box_rows": 9078,
+  "ios_runs": {
+   "atp_ace": {
+    "mode": "full",
+    "record": {
+     "days": 5806,
+     "seconds": 748.44,
+     "not_converged": 0
+    },
+    "seconds": 749.02
+   },
+   "atp_df": {
+    "mode": "full",
+    "record": {
+     "days": 5806,
+     "seconds": 660.45,
+     "not_converged": 0
+    },
+    "seconds": 661.21
+   },
+   "atp_first_in": {
+    "mode": "full",
+    "record": {
+     "days": 5806,
+     "seconds": 647.02,
+     "not_converged": 0
+    },
+    "seconds": 647.85
+   },
+   "atp_first_won": {
+    "mode": "full",
+    "record": {
+     "days": 5806,
+     "seconds": 752.91,
+     "not_converged": 0
+    },
+    "seconds": 753.44
+   },
+   "atp_second_won": {
+    "mode": "full",
+    "record": {
+     "days": 5806,
+     "seconds": 680.45,
+     "not_converged": 0
+    },
+    "seconds": 681.16
+   },
+   "atp_hold": {
+    "mode": "full",
+    "record": {
+     "days": 5806,
+     "seconds": 758.41,
+     "not_converged": 0
+    },
+    "seconds": 758.92
+   },
+   "atp_bp_saved": {
+    "mode": "full",
+    "record": {
+     "days": 5806,
+     "seconds": 471.55,
+     "not_converged": 0
+    },
+    "seconds": 472.41
+   },
+   "wta_ace": {
+    "mode": "resume",
+    "record": {
+     "days": 21,
+     "seconds": 1.54,
+     "not_converged": 0
+    },
+    "seconds": 4.39
+   },
+   "wta_df": {
+    "mode": "resume",
+    "record": {
+     "days": 21,
+     "seconds": 1.49,
+     "not_converged": 0
+    },
+    "seconds": 4.29
+   },
+   "wta_first_in": {
+    "mode": "resume",
+    "record": {
+     "days": 21,
+     "seconds": 1.53,
+     "not_converged": 0
+    },
+    "seconds": 4.58
+   },
+   "wta_first_won": {
+    "mode": "resume",
+    "record": {
+     "days": 21,
+     "seconds": 1.63,
+     "not_converged": 0
+    },
+    "seconds": 4.58
+   },
+   "wta_second_won": {
+    "mode": "resume",
+    "record": {
+     "days": 21,
+     "seconds": 1.33,
+     "not_converged": 0
+    },
+    "seconds": 4.16
+   },
+   "wta_hold": {
+    "mode": "resume",
+    "record": {
+     "days": 21,
+     "seconds": 1.38,
+     "not_converged": 0
+    },
+    "seconds": 4.17
+   },
+   "wta_bp_saved": {
+    "mode": "resume",
+    "record": {
+     "days": 21,
+     "seconds": 1.26,
+     "not_converged": 0
+    },
+    "seconds": 4.26
+   }
+  }
+ },
+ "parts_summary": {
+  "resumed": 14,
+  "slice changed: recomputed in full": 7
+ },
+ "seconds": {
+  "offset": 6.3,
+  "stage3": 6.4,
+  "stage4_rows": 41.0,
+  "weighted": 6.4,
+  "stage4_inputs": 4.1,
+  "forms_context": 28.6,
+  "forms": 9.7,
+  "pieces": 3.2,
+  "ios_cache": 83.2,
+  "ios_runs": 784.3,
+  "context": 9.6,
+  "total": 983.4
+ },
+ "layer_config": "C:\\Users\\zerom\\tnr_daily\\data\\studies\\current_best_model\\level_layer\\this_build\\build_config.json",
+ "layer_config_sha256": "524e5caa9f52732425631d2c22e724926ea722764489fa3f335d6492771fa737",
+ "gate": {
+  "live_matches": 23,
+  "complete": 20
+ }
+}

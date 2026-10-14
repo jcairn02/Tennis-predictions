@@ -1,0 +1,82 @@
+usage: relationship.py [-h] [--steps STEPS] [--stage0-dir STAGE0_DIR]
+                       [--timing TIMING] [--strength STRENGTH]
+                       [--through THROUGH] [--first-season FIRST_SEASON]
+                       [--last-season LAST_SEASON] [--stats STATS]
+                       [--h-grid H_GRID] [--workers WORKERS] [--boot BOOT]
+                       [--out OUT] [--work WORK] [--method METHOD] [--freeze]
+                       [--mechanical]
+
+The relationship's numbers (role B of the level-evidence system, SPEC section 3 and 6.2).
+
+The question. What does a lower-level match (tour qualifying TQ, Slam qualifying GSQ, Challenger / WTA 125 main draws
+CH, their qualifying CHQ; ITF and ITFQ once their box scores can be fitted) tell us about a player's main-tour level,
+statistic by statistic? Three parts, per statistic s, tour g and level L, all fitted walk-forward on the match clock:
+    translation   a lower-level observation's logit rate is shifted by T = gamma_s,g * (opponent's Elo - E_ref) +
+                  delta_s,g,L (gamma: the statistic's opponent dependence inside the main tour, role A's; delta: the
+                  residual level effect);
+    exchange rate a translated lower-level observation counts w_s,g,L times a main-tour observation;
+    prior         a player's prior mean is the average main-tour newcomer of his home tier (kept only if it predicts
+                  better).
+
+The predictor (the statistic-level testbed). For a player's main-tour match (the target), his statistic is predicted
+from his own earlier box scores within WINDOW_DAYS, every level, as a recency-weighted credibility average on the logit
+scale:
+    eta_t = s[surf_t] + gamma * (E_opp,t - E_ref)
+            + [k mu_tier(t) + sum_main v_i (y_i - s[surf_i] - gamma g_i)
+               + sum_L w_L sum_{i in L} v_i (y_i - s[surf_i] - T_i)] / [k + sum_main v_i + sum_L w_L sum_{i in L} v_i]
+with y_i = logit((x_i + 1/2) / (d_i + 1)) (log((x_i + 1/2)/(d_i + 1/2)) for a count per game), v_i = d_i *
+2^(-(obs_t - obs_i) / h), g_i = E_opp,i - E_ref, s the main tour's surface offsets. The target's binomial (or Poisson)
+log-likelihood per opportunity scores it. Everything that is a sum over a player's history is a set of per-target
+sufficient statistics, so every fit is a few-parameter optimisation over arrays (seconds, not minutes).
+
+The formulations (scored on main-tour matches, both players, walk-forward):
+    F0   lower rows pooled as equivalent: raw (today)
+    F1   main tour only (w = 0)
+    F2   constant same-season level offsets (role 08's rule, refitted walk-forward)
+    F2b  constant level offsets fitted by maximum likelihood (no opponent gap)
+    F3g  opponent-gap translation only (delta = 0)
+    F3   opponent-gap translation plus a residual delta_L
+    F4   F3 plus the exchange rate w (per statistic, shrunk across statistics within a level)
+    F5   F4 plus the newcomer prior (mu by home tier)
+    F6   the formulation chosen on 2015-2018 walk-forward scores, with the recency half-life chosen per season on the
+         fit window
+Every formulation shares the main-tour treatment: main rows and the target opponent-adjusted by gamma, surface-centred.
+
+Walk-forward. Parameters for season Y use only main-tour targets with lf + 1 <= the season's first es (the match
+clock), in the trailing FIT_SEASONS seasons (from 2011), and only histories before those targets. A level enters a
+season's fit only when the fit window holds at least MIN_LEVEL_SEASONS seasons with MIN_SEASON_MATCHES box-score
+matches at that level (ITF and ITFQ: none before 2025 in the frozen tables, so w = 0).
+
+The holdout. Seasons up to 2024 are read with common.assert_no_holdout_outcomes. The rows for seasons 2025 and 2026
+are produced only by `--mechanical`, which refuses to run unless this file's sha256 equals the frozen hash in
+method_freeze.json, writes parameter rows only, and prints no diagnostic.
+
+Results channel. The reference's Elo (stage1_baselines.elo_pass, its K schedule per tour, retirements counted) with K
+multiplied by w_results for lower-level results (counts advance by w_results), scored on main-tour results.
+
+Run (from the repository root):
+    ./python.sh src/eda/lower_level_evidence/relationship.py --steps dev          # formulations, dose, era, h grid
+    ./python.sh src/eda/lower_level_evidence/relationship.py --steps elo
+    ./python.sh src/eda/lower_level_evidence/relationship.py --steps params       # 2013-2024 rows + bootstrap
+    ./python.sh src/eda/lower_level_evidence/relationship.py --freeze             # hash the code and the rows
+    ./python.sh src/eda/lower_level_evidence/relationship.py --mechanical         # 2025, 2026 rows (frozen code)
+
+options:
+  -h, --help            show this help message and exit
+  --steps STEPS
+  --stage0-dir STAGE0_DIR
+  --timing TIMING
+  --strength STRENGTH   pre-match Elo per match (a P7 candidate: its own copy)
+  --through THROUGH
+  --first-season FIRST_SEASON
+  --last-season LAST_SEASON
+  --stats STATS
+  --h-grid H_GRID
+  --workers WORKERS
+  --boot BOOT
+  --out OUT
+  --work WORK
+  --method METHOD       the frozen method: F4 or F5, or per tour
+                        'atp=F5,wta=F4'
+  --freeze
+  --mechanical

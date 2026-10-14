@@ -1,0 +1,61 @@
+{
+ "arm": "NEW_ASIS",
+ "written_at": "2026-10-10T14:01:19Z",
+ "what": "compare.py part 1 (input_drift, season_profile, coverage) on the arm against the frozen reference; no result read",
+ "expected_change": "the template on the candidate Stage 0 C0_now: the newly wired lower-level matches and box scores enter as equivalent, so box-score inputs, Elo and workload counts move for players with new lower-level history, both tours; market and context inputs identical on the matches both frames hold; the frame may hold extra matches (role F writes the expected unevenness)",
+ "inputs_changed": 49,
+ "inputs_flagged": [
+  {
+   "input": "adjperf_tpw_2w",
+   "flag": "uneven",
+   "flagged_tour_seasons": 1,
+   "flagged": "wta 2026"
+  },
+  {
+   "input": "form_ace",
+   "flag": "uneven",
+   "flagged_tour_seasons": 1,
+   "flagged": "wta 2026"
+  },
+  {
+   "input": "form_first_in",
+   "flag": "uneven",
+   "flagged_tour_seasons": 1,
+   "flagged": "wta 2026"
+  },
+  {
+   "input": "form_rpw_first",
+   "flag": "uneven",
+   "flagged_tour_seasons": 1,
+   "flagged": "wta 2026"
+  },
+  {
+   "input": "form_rpw_second",
+   "flag": "uneven",
+   "flagged_tour_seasons": 1,
+   "flagged": "wta 2026"
+  },
+  {
+   "input": "formdef_first_in",
+   "flag": "uneven",
+   "flagged_tour_seasons": 1,
+   "flagged": "wta 2026"
+  },
+  {
+   "input": "surf_layoff_a",
+   "flag": "uneven",
+   "flagged_tour_seasons": 1,
+   "flagged": "wta 2026"
+  },
+  {
+   "input": "surf_layoff_b",
+   "flag": "uneven",
+   "flagged_tour_seasons": 1,
+   "flagged": "wta 2026"
+  }
+ ],
+ "only_in_one": [],
+ "coverage": {
+  "both": 67226
+ }
+}

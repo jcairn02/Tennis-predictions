@@ -1,0 +1,143 @@
+{
+ "source": "wta",
+ "mode": "player-matches",
+ "started_at": "2026-10-13T23:06:49+00:00",
+ "args": {
+  "batch": null,
+  "player_matches": true,
+  "players": null,
+  "player_year": 2026,
+  "refresh_seeds": false,
+  "refresh_before": "2026-10-13T22:45:00",
+  "refresh_active_since": "2026-08-01",
+  "player_since": "2026-09-07",
+  "years": null,
+  "after_pid": null,
+  "calendar_only": false,
+  "sample": false,
+  "seed": 20260924,
+  "tiers": null,
+  "draws": null,
+  "endpoints": null,
+  "from_date": null,
+  "limit": null,
+  "max_requests": 6000,
+  "min_interval": 2.0,
+  "jitter": 1.0,
+  "stop_after_failures": 5,
+  "stop_after_absences": null,
+  "pause_after_errors": 600,
+  "max_pauses": 12,
+  "refresh": false,
+  "refresh_calendar": false,
+  "stage_only": false,
+  "no_stage": false
+ },
+ "decision": "docs/decisions/2026-10-08-scraping-approved.md",
+ "year": 2026,
+ "page_size": 100,
+ "receipts_unreadable_lines": 0,
+ "seeds": {
+  "file": "data/studies/gap_downloads/wta_player_seeds_2026.csv",
+  "frozen_at": "2026-10-11T15:59:59+00:00",
+  "kaggle_folder": "data/raw/gap_sources/bwandowando",
+  "players": 2113
+ },
+ "pauses": [],
+ "fetch_outcomes": {
+  "page:200": 2366,
+  "page:200:cached": 2165
+ },
+ "client": {
+  "impersonate": "requests",
+  "requests": 2366,
+  "retried": 0,
+  "slept_seconds": 5214.6,
+  "min_interval": 2.0,
+  "jitter": 1.0,
+  "not_found_answers": 0
+ },
+ "players_asked": 4467,
+ "staged": {
+  "player_matches": {
+   "rows": 99787,
+   "dest": "data/dump/points/wta/player_matches/2026.parquet",
+   "bytes": 5143243
+  },
+  "player_results": {
+   "rows": 32465,
+   "dest": "data/dump/points/wta/player_results/2026.parquet",
+   "bytes": 1539629
+  }
+ },
+ "evidence": {
+  "players_file": "data/studies/gap_downloads/wta_player_players_2026.csv.gz",
+  "players_asked": 4467,
+  "players_by_wave": {
+   "0": 2113,
+   "1": 2058,
+   "2": 286,
+   "3": 10
+  },
+  "players_by_outcome": {
+   "ok": 4465,
+   "absent": 2
+  },
+  "pages": 4529,
+  "players_with_two_pages_or_more": 64,
+  "rows_served": 99787,
+  "last_start_by_players": {
+   "": 2,
+   "2025-12": 15,
+   "2026-01": 91,
+   "2026-02": 96,
+   "2026-03": 210,
+   "2026-04": 187,
+   "2026-05": 355,
+   "2026-06": 563,
+   "2026-07": 646,
+   "2026-08": 672,
+   "2026-09": 1372,
+   "2026-10": 258
+  },
+  "results": 32465,
+  "results_by_level_draw": {
+   "Grand Slam|M": 507,
+   "Grand Slam|Q": 448,
+   "ITF|M": 14378,
+   "ITF|Q": 12436,
+   "WTA 1000|M": 768,
+   "WTA 1000|Q": 279,
+   "WTA 125|M": 1635,
+   "WTA 125|Q": 503,
+   "WTA 250|M": 551,
+   "WTA 250|Q": 279,
+   "WTA 500|M": 465,
+   "WTA 500|Q": 216
+  },
+  "results_rows_per_match": {
+   "1": 252,
+   "2": 32211,
+   "3": 2
+  },
+  "results_winners_disagree": 1,
+  "results_without_loser_id": 28,
+  "results_without_winner_id": 0,
+  "itf_after": "2026-09-07",
+  "itf_after_main": 994,
+  "itf_after_qualifying": 770,
+  "itf_after_by_iso_week": {
+   "38|M": 248,
+   "38|Q": 188,
+   "39|M": 309,
+   "39|Q": 268,
+   "40|M": 328,
+   "40|Q": 256,
+   "41|M": 109,
+   "41|Q": 58
+  },
+  "itf_after_last_start": "2026-10-05"
+ },
+ "finished_at": "2026-10-14T00:45:46+00:00",
+ "seconds": 5937.3
+}

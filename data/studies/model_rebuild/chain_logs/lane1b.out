@@ -1,0 +1,26 @@
+--> stage4_features: src/eda/predictability_diagnostic/stage4_features.py
+    exit 0 in 503.5 s
+--> ufc_stageB_adjperf: src/eda/ufc_ideas/stageB_adjperf.py
+    exit 0 in 924.4 s
+--> ufc_stageB_ios: src/eda/ufc_ideas/stageB_ios.py
+    exit 0 in 552.1 s
+--> ufc_stageB_split: src/eda/ufc_ideas/stageB_split.py
+    exit 0 in 123.4 s
+--> ufc_stageB_rundown: src/eda/ufc_ideas/stageB_rundown.py
+    exit 0 in 440.5 s
+--> ufc_stageD_profile: src/eda/ufc_ideas/stageD_profile.py
+    exit 0 in 258.7 s
+--> ufc_stageD_rundown: src/eda/ufc_ideas/stageD_rundown.py
+    exit 1 in 1.6 s
+Traceback (most recent call last):
+  File "C:\Users\zerom\tnr_sb\src\eda\ufc_ideas\stageD_rundown.py", line 217, in <module>
+    sys.exit(main())
+             ^^^^^^
+  File "C:\Users\zerom\tnr_sb\src\eda\ufc_ideas\stageD_rundown.py", line 181, in main
+    f, missing = assemble()
+                 ^^^^^^^^^^
+  File "C:\Users\zerom\tnr_sb\src\eda\ufc_ideas\stageD_rundown.py", line 76, in assemble
+    assert (f["match_id"].to_numpy() == pool["match_id"].to_numpy()).all(), f"stage {s} frame is not the pool"
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ValueError: operands could not be broadcast together with shapes (255123,) (255832,) 
+

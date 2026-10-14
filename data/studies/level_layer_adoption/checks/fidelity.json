@@ -1,0 +1,42 @@
+{
+ "check": "fidelity",
+ "what": "ON's chain frame (the official config) against the study's SYS frame, on the frozen reference's tables",
+ "matches": 67226,
+ "identifiers_equal": {
+  "match_id": true,
+  "tour": true,
+  "season": true,
+  "tournament_date": true,
+  "tabpfn_split": true,
+  "debut_season": true
+ },
+ "inputs_compared": 56,
+ "exact": 56,
+ "bit_exact": 56,
+ "within_tolerance_only": [],
+ "not_exact": [],
+ "indoor": {
+  "equal_where_it_had_a_value": true,
+  "filled": 32634,
+  "still_missing": 0,
+  "filled_by_tour": {
+   "atp": 127,
+   "wta": 32507
+  }
+ },
+ "ios_points_short_switched_off_equals_reference": {
+  "largest_difference": 0.0,
+  "same_missing": true,
+  "rows_changed": 0,
+  "rows": 67226,
+  "exact": true
+ },
+ "ios_points_short_vs_sys": {
+  "largest_difference": 2.710078623293658,
+  "same_missing": true,
+  "rows_changed": 34718,
+  "rows": 67226,
+  "exact": false
+ },
+ "pass": true
+}

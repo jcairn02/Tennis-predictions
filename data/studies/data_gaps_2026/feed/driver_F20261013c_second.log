@@ -1,0 +1,15 @@
+[feed 18:15:23] checks: src/eda/lower_level_evidence/candidate_stage0.py --label F20261013c --out data\studies\data_gaps_2026\feed\candidates\F20261013c --checks --status-log C:\Users\zerom\Documents\Tennis-predictions\data\studies\data_gaps_2026\feed\status.log
+[feed 18:20:58] checks: exit 0
+[feed 18:20:58] ready: src/eda/lower_level_evidence/candidate_stage0.py --label F20261013c --out data\studies\data_gaps_2026\feed\candidates\F20261013c --ready --status-log C:\Users\zerom\Documents\Tennis-predictions\data\studies\data_gaps_2026\feed\status.log
+[feed 18:21:00] ready: exit 0
+[feed 18:21:00] derive: src/eda/lower_level_evidence/candidate_stage0.py --label F20261013c_gaps --out data\studies\data_gaps_2026\feed\candidates\F20261013c_gaps --derive-from data\studies\data_gaps_2026\feed\candidates\F20261013c --keep-since atp:CH:2026-01-01:2026-10-05,atp:CHQ:2026-01-01,atp:ITF:2026-06-01,wta:CH:2026-06-01,wta:CHQ:2026-06-01,wta:ITF:2026-06-01,wta:TQ:2026-05-18,wta:GSQ:2026-01-19,wta:ITFQ:2024-12-16 --results-only wta:ITFQ,wta:GSQ --status-log C:\Users\zerom\Documents\Tennis-predictions\data\studies\data_gaps_2026\feed\status.log
+[feed 18:22:08] derive: exit 0
+[feed 18:22:08] derive checks: src/eda/lower_level_evidence/candidate_stage0.py --label F20261013c_gaps --out data\studies\data_gaps_2026\feed\candidates\F20261013c_gaps --checks --status-log C:\Users\zerom\Documents\Tennis-predictions\data\studies\data_gaps_2026\feed\status.log
+[feed 18:26:21] derive checks: exit 0
+[feed 18:26:21] derive ready: src/eda/lower_level_evidence/candidate_stage0.py --label F20261013c_gaps --out data\studies\data_gaps_2026\feed\candidates\F20261013c_gaps --ready --status-log C:\Users\zerom\Documents\Tennis-predictions\data\studies\data_gaps_2026\feed\status.log
+[feed 18:26:26] derive ready: exit 0
+[feed 18:26:26] snapshot: src/eda/current_best_model/additions.py --package data\studies\data_gaps_2026\feed\candidates\F20261013c_gaps --name lower_level_feed/20261013c --decision docs/decisions/2026-10-13-lower-level-feed.md
+[feed 18:26:52] snapshot: exit 0
+[feed 18:26:52] check: src/eda/current_best_model/additions.py --check-against data\studies\data_gaps_2026\feed\candidates\F20261013c_gaps --only lower_level_feed/20261013c
+[feed 18:27:38] check: exit 0
+[feed 18:27:38] done: exit 0 (written, not advanced)

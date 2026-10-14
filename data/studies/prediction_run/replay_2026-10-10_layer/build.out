@@ -1,0 +1,30 @@
+[    0.1s] --> stage0: src/eda/predictability_diagnostic/stage0_build.py --live-rows run/live_rows.parquet
+[  135.3s]     exit 0 in 135.2 s
+[  135.3s] --> additions: src/eda/current_best_model/additions.py --apply
+[  151.6s]     exit 0 in 16.3 s
+[  151.6s] --> check: src/eda/prediction_run/inject.py --meta run/live_meta.parquet --step check
+[  152.2s]     exit 0 in 0.6 s
+[  152.2s] --> stage0_checks: src/eda/predictability_diagnostic/stage0_checks.py 
+[  168.7s]     exit 0 in 16.5 s
+[  168.7s] --> lle_layer: src/eda/current_best_model/layer_config.py --resolve --official C:\Users\zerom\Documents\Tennis-predictions\data\studies\current_best_model\level_layer\official.json
+[  183.2s]     exit 0 in 14.5 s
+[  183.2s] the level layer: LLE_LAYER=C:\Users\zerom\tnr_lyr_rp\data\studies\current_best_model\level_layer\this_build\build_config.json
+[  183.2s] --> odds: src/eda/predictability_diagnostic/stage1_odds.py 
+[  190.3s]     exit 0 in 7.1 s
+[  190.3s] --> live_odds: src/eda/prediction_run/inject.py --meta run/live_meta.parquet --step odds
+[  191.0s]     exit 0 in 0.7 s
+[  191.0s] --> remap: src/eda/prediction_run/inject.py --meta run/live_meta.parquet --step remap
+[  197.1s]     exit 0 in 6.1 s
+[  197.1s] --> links: src/eda/match_timing/link_sources_c.py --sources tennis_data,wta_api,sofascore,slam_feeds,tdi
+[  221.3s]     exit 0 in 24.2 s
+[  221.3s] --> live_links: src/eda/prediction_run/inject.py --meta run/live_meta.parquet --step links
+[  225.4s]     exit 0 in 4.1 s
+[  225.4s] --> timing: src/eda/match_timing/timing.py 
+[  270.6s]     exit 0 in 45.3 s
+[  270.6s] --> timing_check: src/eda/match_timing/timing_check.py 
+[  457.2s]     exit 0 in 186.6 s
+[  457.2s] --> live_window: src/eda/prediction_run/inject.py --meta run/live_meta.parquet --step pin
+[  457.7s]     exit 0 in 0.5 s
+[  457.7s] --> additions_window: src/eda/current_best_model/additions.py --pin-timing
+[  463.8s]     exit 0 in 6.1 s
+[  463.8s] --> timing_features: src/eda/match_timing/rebuild.py 

@@ -1,0 +1,75 @@
+usage: system_fits.py [-h]
+                      (--prepare-r-s2 | --verify VERIFY | --part1 PART1 | --fit FIT | --queue QUEUE | --build-placebo | --build-s2 | --repro-ref-noitf | --status | --poll | --write-expectations | --check-fits CHECK_FITS | --fit-times)
+                      [--seasons SEASONS] [--seeds SEEDS] [--minutes MINUTES]
+
+Role D's fit queue for the level-evidence system: every arm's TabPFN fits, seasons 2019-2026, seeds 0-3, one fit at a
+time on the shared card. The binding plan: docs/studies/lower_level_evidence/system/SPEC.md (sections 6.4, 7 and 8) and
+the frozen pre-registration data/studies/lower_level_evidence/system/preregistration.md.
+
+Fitting reads training outcomes only: season Y trains on the arm's matches of 2013 .. Y - 1 (the model's own walk-forward,
+serve_speed_tabpfn/arms.job_data). The 2025-2026 holdout forbids reading SCORES; nothing here scores a forecast, and the
+only use of a 2025 result outside the fit itself is the training-label integrity check (a hash equality, below).
+
+The runners (reused, never edited):
+    58 inputs   src/eda/model_rebuild/fits.py --out <arm> --seeds 0-3 --seasons 2019-2026 --wait-memory-only
+    60 inputs   src/eda/lower_level_evidence/candidate_fits.run: fits.py line for line, plus R_S2's registered pair of
+                share inputs (kind diff). This file's --fit60 calls it inside the local env, because candidate_fits.py's
+                own command line refuses seasons after 2024 (a guard of the first run's pre-registration; the owner has
+                since agreed to fit and, once, score the holdout under SPEC section 8). --fit60 keeps candidate_fits'
+                precondition: the first run's G5 check (it refitted the reference's 2019 seed 0 exactly) must have passed.
+Both run through ./python_tabpfn_local.sh. Each fit waits for 12 GB free on the card (--wait-memory-only): another
+session's runner (lean_review/fits.py) keeps a local-env process alive for hours and itself waits for memory only, so
+waiting for every other local-env process to exit would stall this queue. One of our fits runs at a time.
+
+Where the arms are:
+    system/arms/<ARM>/           C1 builds them and writes READY.txt when built and gated; D writes only fits/ and
+                                 vs_reference_2026-10-08/ inside (fit logs go to system/results/fit_logs/)
+    system/results/arms/<ARM>/   D builds them: R_S2 (a hashed copy of candidates/R_S2 with its 24 fits of 2019-2024, plus
+                                 2025-2026), SYS_PLACEBO and SYS_S2 (from SYS's frame, SPEC section 7)
+
+Commands (CPU work runs in ./python.sh; the fits are launched through ./python_tabpfn_local.sh):
+    --prepare-r-s2         copy candidates/R_S2 (frame, inputs, 24 fits) into results/arms/R_S2, hashes checked
+    --verify ARM           the frame check (no score): 67,226 matches in the reference's ids and order, identifiers
+                           equal, training labels equal (a hash), inputs per model_inputs.json, which inputs moved for
+                           which tour and seasons against what the arm's definition allows
+    --part1 ARM            compare.py's part 1 (the input check, no result read) into <arm>/vs_reference_2026-10-08/,
+                           after the arm's expected broad change is written down (results/expected_changes.json)
+    --fit ARM [--seasons 2019-2026] [--seeds 0-3]     the arm's fits, logged to results/fits_queue.log
+    --queue ARM,ARM,...    --fit for each, in order
+    --build-placebo        SYS_PLACEBO: SYS's per-match change (every changed input together) permuted within tour x
+                           season, default_rng(20261009)
+    --build-s2             SYS_S2: SYS plus R_S2's two share inputs
+    --repro-ref-noitf      REF_noITF: refit season 2024 seed 0 from REF_noITF's frame; only if it equals the reference's
+                           stored fit exactly (and the inputs to 2024 are the reference's) are the reference's 2019-2024
+                           fits copied
+    --status               each arm's fits present and missing
+    --check-fits ARM       every fit file against its frame (load_fit's checks, frame hash, configuration, window)
+    --fit-times            results/fit_times.csv and fit_times_by_season.csv (the lead's forecasts)
+    --poll [--minutes 20]  the continuous queue: the highest-priority arm with work goes next (FIT_ORDER, the lead's
+                           order of 9 Oct): verify, part 1, REF_noITF's repro or the ITFASIS reuse, fit (2019-2024 then
+                           2025-2026 of the same arm), fit-file checks, fit times; one poller at a time
+                           (results/poller.json); it stops after --minutes without work
+Addition 1 (preregistration_addition_1.md): SYS_ITFASIS and SYS_BOTH_ITFASIS take SYS's and SYS_BOTH's 2019-2024 fits
+when their input frames are identical through 2024 (results/checks/<ARM>_reuse.json), else every season is fitted;
+NEW_ASIS and NEW_SYS_BOTH (on the candidate Stage 0 C0_now) may hold extra matches: their frame check reads the matches
+both frames hold, and they are fitted 2019-2026 on their own frames.
+Run: ./python.sh src/eda/lower_level_evidence/system_fits.py <command>
+
+options:
+  -h, --help            show this help message and exit
+  --prepare-r-s2
+  --verify VERIFY
+  --part1 PART1
+  --fit FIT
+  --queue QUEUE
+  --build-placebo
+  --build-s2
+  --repro-ref-noitf
+  --status
+  --poll
+  --write-expectations
+  --check-fits CHECK_FITS
+  --fit-times
+  --seasons SEASONS
+  --seeds SEEDS
+  --minutes MINUTES

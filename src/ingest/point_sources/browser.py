@@ -201,6 +201,15 @@ class PageSession:
             return self.page.evaluate(FETCH_JS, {"url": target, "headers": sent})
         except Exception as err:  # the tab was reloading (the site does that after storing a token)
             message = str(err)
+            if "has been closed" in message:
+                # the tab or the whole window was closed (observed 10 Oct 2026: the run then failed every request for
+                # 34 hours). A tab closed alone is replaced by a new one on the site; a closed window stops the run.
+                try:
+                    self.page = self._find_page()
+                except Exception:
+                    raise P.Blocked("the Chrome window with the debugging port was closed: reopen it "
+                                    "(docs/studies/gap_downloads/README.md, browser mode) and rerun") from err
+                return self.page.evaluate(FETCH_JS, {"url": target, "headers": sent})
             if "Execution context was destroyed" in message or "Target closed" in message or "navigation" in message:
                 self.page = self._find_page()
                 self.page.wait_for_load_state("domcontentloaded", timeout=timeout * 1000)

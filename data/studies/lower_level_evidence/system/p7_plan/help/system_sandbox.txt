@@ -1,0 +1,46 @@
+usage: system_sandbox.py [-h] (--setup | --patch | --check | --tables)
+                         [--sandbox SANDBOX] [--n N] [--stage0 STAGE0]
+
+Sandboxes of the lower-level-evidence system (role C1): set one up, patch its builders with the level layer (C1's
+hooks and the joint-solve engineer's), pin the IOS constants, and check the patches. Never the repository.
+
+    --setup [--n K]        MODEL_REBUILD_SANDBOX=C:/Users/zerom/tnr_sys<K> run_chain.py --setup --candidate (K: the next
+                           free number when omitted). The copy's tables are checked against the frozen reference first
+                           (run_chain's history gate; check_tables() below re-hashes Stage 0, the odds and the timeline)
+    --patch --sandbox D    copies level_layer.py (and common.py) into D, applies C1's patches (each anchor must be found
+                           exactly once; a file already patched is left as it is), then C2's level_layer_ios.apply_patch(D)
+                           when C2's module exists; writes the unified diffs against the repository's files to
+                           data/studies/lower_level_evidence/system/arms/patches/ and D/LLE_SYSTEM.json (what was applied,
+                           with hashes, and the pinned IOS_CONSTANTS_VERSION)
+    --check --sandbox D    check_patch(D) for C1 and C2: every patch present once, the layer file the repository's
+    --tables               check_tables(): the repository's live tables against the frozen reference's hashes
+    --patch --sandbox D --stage0 F   phase 3: role F's candidate Stage 0 (its stage0_matches, stage0_match_players and
+                           timing.parquet) copied over D's tables first, recorded with hashes; the build then runs lane 0
+                           (Stage 1's odds link and the full leak-proof rebuild; the timeline step only when F brings no
+                           timing.parquet) before lanes 1-3. Lane 0 is "not yet exercised" (run_chain.py:35-37)
+
+C1's patches (each a few lines; the hooks do nothing unless LLE_LAYER is set):
+    predictability_diagnostic/stage1_baselines.py   elo_pass: K x upd[i], count + upd[i] (booleans: the original pass);
+                                                    tune: the frozen pass re-run with the layer's weights; main: the
+                                                    probe's passes with the weights
+    surface_elo_pieces/pieces.py                    elo_pass_ext as above; main: the final passes with the weights, the
+                                                    offset's tuning on the unweighted flags (the reference's kd)
+    predictability_diagnostic/stage4_features.py    history_sums: spw and rpw counts translated and weighted
+                                                    (points_52w); weighted_elo_pass and elo_variants: elo_games
+    predictability_diagnostic/stage3_ratings.py     main: the final pass's arrays translated and weighted (ratings_iid)
+    ufc_ideas/stageB_adjperf.py                     build: the 17 forms' z recomputed with the layer, step 3 weighted;
+                                                    main: the tuned constants pinned to the reference build's
+Run: ./python.sh src/eda/lower_level_evidence/system_sandbox.py --setup | --patch --sandbox C:/Users/zerom/tnr_sys1 |
+     --check --sandbox ... | --tables
+
+options:
+  -h, --help         show this help message and exit
+  --setup
+  --patch
+  --check
+  --tables
+  --sandbox SANDBOX
+  --n N
+  --stage0 STAGE0    with --patch: a candidate Stage 0 folder (role F's
+                     system/stage0/<name>/) copied over the sandbox's tables
+                     first (phase 3)

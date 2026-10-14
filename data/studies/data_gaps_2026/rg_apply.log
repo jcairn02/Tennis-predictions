@@ -1,0 +1,79 @@
+21:12:16 adopt --apply
+applied; kept copies and adoption.json in data/studies/rg_first_serve_recount/adoption/20261013T211216
+next: rebuild_stage0.py (coordinated), then history.py
+adopt exit 0
+21:12:16 rebuild_stage0
+[  305.8s]   IOS atp bp_saved (tuned): 58.4s, 5,892 daily snapshots, mean PCG iterations 10.8, not converged 0
+[  305.8s]   IOS wta ace (tuned): 27.4s, 5,878 daily snapshots, mean PCG iterations 14.6, not converged 0
+[  305.8s]   IOS wta df (tuned): 25.8s, 5,878 daily snapshots, mean PCG iterations 12.2, not converged 0
+[  326.4s]   IOS wta first_in (tuned): 25.5s, 5,878 daily snapshots, mean PCG iterations 12.3, not converged 0
+[  329.1s]   IOS wta first_won (tuned): 26.0s, 5,878 daily snapshots, mean PCG iterations 12.4, not converged 0
+[  329.1s]   IOS wta second_won (tuned): 23.3s, 5,878 daily snapshots, mean PCG iterations 10.5, not converged 0
+[  329.1s]   IOS wta hold (tuned): 15.9s, 5,878 daily snapshots, mean PCG iterations 9.7, not converged 0
+[  340.3s]   IOS wta bp_saved (tuned): 18.6s, 5,878 daily snapshots, mean PCG iterations 9.1, not converged 0
+[  377.4s]   IOS atp spw (short): 51.0s, 5,892 daily snapshots, mean PCG iterations 18.2, not converged 0
+[  377.4s]   IOS wta spw (short): 25.1s, 5,878 daily snapshots, mean PCG iterations 15.9, not converged 0
+[  379.4s] wrote ios_features.parquet
+[  380.8s] wrote leakproof_features.parquet: 256,030 pool matches, 46 inputs
+--> [ttt] src/eda/match_timing/ttt_timed.py
+tour             window base     model  matches   gain     lo     hi  log_loss_model
+ atp 2013-2018 (tuning)  elo       ttt    64208  2.649  1.956  3.342           0.584
+ atp 2013-2018 (tuning)  elo  ttt_hold    64208  2.511  1.819  3.203           0.584
+ atp 2013-2018 (tuning)  elo ttt_timed    64208  2.595  1.901  3.289           0.584
+ atp 2013-2018 (tuning)  ttt ttt_timed    64208 -0.054 -0.103 -0.005           0.584
+ atp          2019-2026  elo       ttt    90922  2.648  1.894  3.403           0.614
+ atp          2019-2026  elo  ttt_hold    90922  2.591  1.829  3.353           0.614
+ atp          2019-2026  elo ttt_timed    90922  2.762  1.994  3.530           0.614
+ atp          2019-2026  ttt ttt_timed    90922  0.113 -0.038  0.264           0.614
+ atp          2022-2026  elo       ttt    64887  2.901  2.059  3.744           0.612
+ atp          2022-2026  elo  ttt_hold    64887  2.778  1.921  3.635           0.612
+ atp          2022-2026  elo ttt_timed    64887  3.065  2.205  3.925           0.612
+ atp          2022-2026  ttt ttt_timed    64887  0.164 -0.048  0.376           0.612
+ wta 2013-2018 (tuning)  elo       ttt    25676  2.527  1.642  3.412           0.597
+ wta 2013-2018 (tuning)  elo  ttt_hold    25676  2.528  1.623  3.432           0.597
+ wta 2013-2018 (tuning)  elo ttt_timed    25676  2.510  1.619  3.400           0.597
+ wta 2013-2018 (tuning)  ttt ttt_timed    25676 -0.017 -0.106  0.071           0.597
+ wta          2019-2026  elo       ttt    34645  2.999  1.671  4.328           0.598
+ wta          2019-2026  elo  ttt_hold    34645  2.752  1.408  4.096           0.598
+ wta          2019-2026  elo ttt_timed    34645  3.416  1.855  4.976           0.598
+ wta          2019-2026  ttt ttt_timed    34645  0.417 -0.465  1.299           0.598
+ wta          2022-2026  elo       ttt    23998  2.292  0.916  3.669           0.599
+ wta          2022-2026  elo  ttt_hold    23998  1.907  0.524  3.291           0.599
+ wta          2022-2026  elo ttt_timed    23998  2.916  1.065  4.768           0.598
+ wta          2022-2026  ttt ttt_timed    23998  0.624 -0.661  1.909           0.598
+[ 1065.3s] done in 1065s
+{"ok": true, "matches": {"before": 873437, "after": 873636}, "ids": {"changed": 39, "left_without_partner": ["atp|2022-2781|QF|atp:111805|atp:209182", "atp|2022-2781|R16|atp:200647|atp:209182", "atp|2022-2781|R32|atp:111805|atpcode:B0S5", "atp|2025-637|QF|atp:200473|atp:207415", "atp|2025-637|R16|atp:105613|atp:144972", "atp|2025-637|R16|atp:105911|atp:208343", "atp|2025-637|R16|atp:200473|atp:209849"], "left_without_partner_count": 7}, "remapped_rows": {"api_tennis.parquet": 0, "flashscore.parquet": 21, "flashscore_ambiguous.parquet": 0, "flashscore_daily_board.parquet": 0, "flashscore_unlinked.parquet": 15, "infosys.parquet": 0, "live_tennis_api.parquet": 9, "match_charting.parquet": 0, "open_tennis_data.parquet": 0, "pbp_copy.parquet": 5, "tml_days.parquet": 1}, "expect": null}
+rebuild exit 0
+21:48:27 history
+     "tour": "atp",
+     "map_level": "CH",
+     "year": 2026,
+     "matches": 18
+    },
+    {
+     "source": "tml",
+     "tour": "atp",
+     "map_level": "TQ",
+     "year": 2026,
+     "matches": 2
+    }
+   ],
+   "examples": [
+    "atp|2026-7316|R32|atp:133297|atp:210318",
+    "atp|2026-315|R32|atp:200677|atp:210318",
+    "atp|2026-315|R16|atp:106281|atp:210318",
+    "atp|2026-2941|R32|atp:210318|atp:212256",
+    "atp|2026-7542|R32|atp:133297|atp:210318",
+    "atp|2026-418|Q1|atp:200329|atpcode:I0A0",
+    "atp|2026-418|Q2|atp:106218|atpcode:I0A0",
+    "atp|2026-586|R32|atp:200748|atp:210318",
+    "atp|2026-586|R16|atp:126952|atp:210318",
+    "atp|2026-586|QF|atp:210318|atp:210478"
+   ]
+  }
+ },
+ "template_ok": true
+}
+history vs the reference of 2026-10-08: future 205 and updated 6 (allowed); accepted lower-level additions 2,964 (allowed); main-tour changes 9 (allowed, listed: new past 1, dropped 1, revised 7); Tennis My Life's own lower-level changes 104 (allowed, decided 13 Oct: new past 39, dropped 45, revised 20); lower-level new past 0, dropped 0, revised 0 -> the template may be built
+history exit 0
+21:49:32 done

@@ -1,0 +1,393 @@
+{
+ "SYS": {
+  "families": [
+   "raw_rates",
+   "forms",
+   "joint_solves",
+   "products",
+   "ratings_iid",
+   "elo"
+  ],
+  "tours": [
+   "atp"
+  ],
+  "seasons": [
+   2013,
+   2026
+  ],
+  "broad": "men's box-score inputs (points_52w, the 17 forms, the joint solves and products, ratings_iid) and Elo (w_results) move in every season for players with lower-level evidence; lower-level-heavy players' skill inputs fall towards main-tour terms; in 2025-2026 also where ITF box scores are excluded; women's inputs identical",
+  "written_at": "2026-10-09T20:16:13Z"
+ },
+ "SYS_w0": {
+  "families": [
+   "raw_rates",
+   "forms",
+   "joint_solves",
+   "products",
+   "ratings_iid",
+   "elo"
+  ],
+  "tours": [
+   "atp"
+  ],
+  "seasons": [
+   2013,
+   2026
+  ],
+  "broad": "as SYS, larger: lower-level box scores carry no weight in any statistic, so players with little main-tour evidence lose most of theirs (missing values may appear); Elo as SYS; women identical",
+  "written_at": "2026-10-09T20:16:13Z"
+ },
+ "SYS_w50": {
+  "families": [
+   "raw_rates",
+   "forms",
+   "joint_solves",
+   "products",
+   "ratings_iid",
+   "elo"
+  ],
+  "tours": [
+   "atp"
+  ],
+  "seasons": [
+   2013,
+   2026
+  ],
+  "broad": "as SYS with w = 0.5 everywhere; between SYS_w0 and SYS_w100; women identical",
+  "written_at": "2026-10-09T20:16:13Z"
+ },
+ "SYS_w100": {
+  "families": [
+   "raw_rates",
+   "forms",
+   "joint_solves",
+   "products",
+   "ratings_iid",
+   "elo"
+  ],
+  "tours": [
+   "atp"
+  ],
+  "seasons": [
+   2013,
+   2026
+  ],
+  "broad": "as SYS with w = 1: translation only, no discount; women identical",
+  "written_at": "2026-10-09T20:16:13Z"
+ },
+ "SYS_w25": {
+  "families": [
+   "raw_rates",
+   "forms",
+   "joint_solves",
+   "products",
+   "ratings_iid",
+   "elo"
+  ],
+  "tours": [
+   "atp"
+  ],
+  "seasons": [
+   2013,
+   2026
+  ],
+  "broad": "as SYS with w = 0.25; women identical",
+  "written_at": "2026-10-09T20:16:13Z"
+ },
+ "SYS_w75": {
+  "families": [
+   "raw_rates",
+   "forms",
+   "joint_solves",
+   "products",
+   "ratings_iid",
+   "elo"
+  ],
+  "tours": [
+   "atp"
+  ],
+  "seasons": [
+   2013,
+   2026
+  ],
+  "broad": "as SYS with w = 0.75; women identical",
+  "written_at": "2026-10-09T20:16:13Z"
+ },
+ "SYS_NOCLASS": {
+  "families": [
+   "raw_rates",
+   "forms",
+   "joint_solves",
+   "products",
+   "ratings_iid",
+   "elo"
+  ],
+  "tours": [
+   "atp"
+  ],
+  "seasons": [
+   2013,
+   2026
+  ],
+  "broad": "as SYS, every statistic translated by its own gamma and delta (classes ignored): style statistics move too; women identical",
+  "written_at": "2026-10-09T20:16:13Z"
+ },
+ "SEP_ALL": {
+  "families": [
+   "raw_rates",
+   "forms",
+   "joint_solves",
+   "products",
+   "ratings_iid",
+   "elo"
+  ],
+  "tours": [
+   "atp"
+  ],
+  "seasons": [
+   2013,
+   2026
+  ],
+  "broad": "no lower-level observation in any box-score input or in Elo: the largest change of all arms, every season, men only; missing values may appear",
+  "written_at": "2026-10-09T20:16:13Z"
+ },
+ "SYS_BOTH": {
+  "families": [
+   "raw_rates",
+   "forms",
+   "joint_solves",
+   "products",
+   "ratings_iid",
+   "elo"
+  ],
+  "tours": [
+   "atp",
+   "wta"
+  ],
+  "seasons": [
+   2013,
+   2026
+  ],
+  "broad": "SYS on both tours: men as SYS; women's box-score inputs and Elo move with women's parameters",
+  "written_at": "2026-10-09T20:16:13Z"
+ },
+ "REF_noITF": {
+  "families": [
+   "raw_rates",
+   "forms",
+   "joint_solves",
+   "products",
+   "ratings_iid"
+  ],
+  "tours": [
+   "atp",
+   "wta"
+  ],
+  "seasons": {
+   "atp": [
+    2025,
+    2026
+   ],
+   "wta": [
+    2022,
+    2026
+   ]
+  },
+  "broad": "ITF and ITFQ box scores out of every box-score family. Men's exist only from 30 Dec 2024, so men's inputs to 2024 equal the reference's; women's start with 31 matches from 2 May 2022 (Stage 0 count), so women's inputs may move from 2022 (365-day and career windows carry it on). In 2025-2026 women move far more than men (42% and 7% of model matches reached); Elo unchanged",
+  "written_at": "2026-10-09T20:52:30Z",
+  "amended_because": "Stage 0 count (no outcome): women have 31 ITF/ITFQ box-score matches in 2022 (first 2 May 2022), men none before 30 Dec 2024; the earlier text allowed moves only in 2025-2026 and would have held a correct REF_noITF. Amended at 20:5x UTC, before REF_noITF exists",
+  "earlier": {
+   "families": [
+    "raw_rates",
+    "forms",
+    "joint_solves",
+    "products",
+    "ratings_iid"
+   ],
+   "tours": [
+    "atp",
+    "wta"
+   ],
+   "seasons": [
+    2025,
+    2026
+   ],
+   "broad": "ITF and ITFQ box scores out of every box-score family; ITF box scores exist only from January 2025, so inputs to 2024 equal the reference's; in 2025-2026 women move far more than men (42% and 7% of model matches reached); Elo unchanged",
+   "written_at": "2026-10-09T20:16:13Z"
+  },
+  "arm_frame_existed": false
+ },
+ "SYS_PLACEBO": {
+  "families": [
+   "raw_rates",
+   "forms",
+   "joint_solves",
+   "products",
+   "ratings_iid",
+   "elo"
+  ],
+  "tours": [
+   "atp"
+  ],
+  "seasons": [
+   2013,
+   2026
+  ],
+  "broad": "the inputs SYS changes, by a permuted copy of SYS's change: the same size per tour-season, no alignment with the players' evidence; women identical",
+  "written_at": "2026-10-09T20:16:13Z"
+ },
+ "SYS_S2": {
+  "families": [
+   "raw_rates",
+   "forms",
+   "joint_solves",
+   "products",
+   "ratings_iid",
+   "elo"
+  ],
+  "tours": [
+   "atp"
+  ],
+  "seasons": [
+   2013,
+   2026
+  ],
+  "extras": [
+   "box_low_share_h2w_diff",
+   "box_low_share_365d_diff"
+  ],
+  "broad": "SYS's inputs exactly, plus the two share inputs of R_S2",
+  "written_at": "2026-10-09T20:16:13Z"
+ },
+ "R_S2": {
+  "families": [],
+  "tours": [],
+  "seasons": [
+   2013,
+   2026
+  ],
+  "extras": [
+   "box_low_share_h2w_diff",
+   "box_low_share_365d_diff"
+  ],
+  "broad": "the reference's 58 inputs exactly, plus the two share inputs",
+  "written_at": "2026-10-09T20:16:13Z"
+ },
+ "SYS_ITFASIS": {
+  "families": [
+   "raw_rates",
+   "forms",
+   "joint_solves",
+   "products",
+   "ratings_iid",
+   "elo"
+  ],
+  "tours": [
+   "atp"
+  ],
+  "seasons": [
+   2013,
+   2026
+  ],
+  "broad": "as SYS against the reference, but ITF and ITFQ box scores enter as the reference has them: identical to SYS to 2024 (men have no ITF box score before 30 Dec 2024); in 2025-2026 its men's inputs sit between SYS's and the reference's where players have ITF box scores; women identical",
+  "written_at": "2026-10-09T21:01:54Z"
+ },
+ "SYS_BOTH_ITFASIS": {
+  "families": [
+   "raw_rates",
+   "forms",
+   "joint_solves",
+   "products",
+   "ratings_iid",
+   "elo"
+  ],
+  "tours": [
+   "atp",
+   "wta"
+  ],
+  "seasons": [
+   2013,
+   2026
+  ],
+  "broad": "as SYS_BOTH with ITF box scores as-is: men identical to SYS_BOTH to 2024; women may differ from SYS_BOTH from 2022 (31 women's ITF box-score matches in 2022), so the reuse of SYS_BOTH's 2019-2024 fits may not apply",
+  "written_at": "2026-10-09T21:01:54Z"
+ },
+ "NEW_ASIS": {
+  "families": [
+   "raw_rates",
+   "forms",
+   "joint_solves",
+   "products",
+   "ratings_iid",
+   "elo",
+   "workload_intrinsic"
+  ],
+  "tours": [
+   "atp",
+   "wta"
+  ],
+  "seasons": [
+   2013,
+   2026
+  ],
+  "broad": "the template on the candidate Stage 0 C0_now: the newly wired lower-level matches and box scores enter as equivalent, so box-score inputs, Elo and workload counts move for players with new lower-level history, both tours; market and context inputs identical on the matches both frames hold; the frame may hold extra matches (role F writes the expected unevenness)",
+  "written_at": "2026-10-09T21:01:54Z"
+ },
+ "NEW_SYS_BOTH": {
+  "families": [
+   "raw_rates",
+   "forms",
+   "joint_solves",
+   "products",
+   "ratings_iid",
+   "elo",
+   "workload_intrinsic"
+  ],
+  "tours": [
+   "atp",
+   "wta"
+  ],
+  "seasons": [
+   2013,
+   2026
+  ],
+  "broad": "the SYS_BOTH configuration on C0_now: both tours move, as SYS_BOTH plus the new data through the layer; market and context identical on the shared matches",
+  "written_at": "2026-10-09T21:01:54Z"
+ },
+ "RES_ONLY": {
+  "families": [
+   "elo"
+  ],
+  "tours": [
+   "atp",
+   "wta"
+  ],
+  "seasons": [
+   2013,
+   2026
+  ],
+  "broad": "the reference plus B's fitted w_results at every lower level, ITF and ITFQ included: only elo_overall, elo_surf_offset and elo_games move, in every season, for players with lower-level results (men's ITF x0.25-0.5 and ITF qualifying x0 in B's choices); no box-score input moves; men's Elo inputs should equal SYS's; women's identical to the reference's if the arm is men-only, as SYS is",
+  "written_at": "2026-10-10T00:48:22Z"
+ },
+ "NEW_ASIS_PRE": {
+  "families": [
+   "raw_rates",
+   "forms",
+   "joint_solves",
+   "products",
+   "ratings_iid",
+   "elo",
+   "workload_intrinsic"
+  ],
+  "tours": [
+   "atp",
+   "wta"
+  ],
+  "seasons": [
+   2013,
+   2026
+  ],
+  "broad": "the template on C0_pre (C0_now's additions dated up to 2024-12-29 only): as NEW_ASIS before 2025; in 2025-2026 only through history windows reaching back past the cut; market and context identical on the shared matches; extra matches possible",
+  "written_at": "2026-10-10T00:48:22Z"
+ }
+}

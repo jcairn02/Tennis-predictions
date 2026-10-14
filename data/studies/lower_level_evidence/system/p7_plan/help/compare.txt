@@ -1,0 +1,56 @@
+usage: compare.py [-h] --candidate CANDIDATE [--speed SPEED]
+                  [--through THROUGH] [--out OUT]
+
+Compare a candidate build of the current best model with the frozen reference of 8 Oct 2026, both stages.
+
+The owner's rule (8 Oct 2026; docs/decisions/2026-10-08-current-best-model.md, amendment): new data, new features and
+rebuilds are compared against the frozen reference (reference.py) before they change the current best model. If they
+harm it, the data is ignored, down-weighted or transformed, and compared again.
+
+The candidate. A built instance in the layout run_chain.py --collect and model_rebuild/fits.py write: a folder with
+model_frame.parquet, model_inputs.json and fits/model__<Y>__seed<k>.npz for seasons 2019 .. --through and seeds 0-3, and
+optionally speed_columns.parquet (match_id, spd_L_B: its own stage-2 column; without it the reference's column is used,
+which is right when only the tables under stage 1 changed). Or by name: "previous" (the frozen 30 Sep model) or
+"reference" (the reference itself: every difference must come out exactly 0).
+
+Part 1, the inputs. No result is read. On the matches both frames hold, all seasons 2013-2026, per input, tour and
+season:
+    * the share of rows changed, the correlation, and the median and 99th-percentile change in reference SDs;
+    * the SCALE RATIO: the candidate's SD over the reference's, that tour and season;
+    * the LEVEL SHIFT: the change of the mean, in reference SDs.
+A tour-season is flagged when its scale ratio is off 1 by more than 10% or its level moves by more than 0.10 SD. An
+input is "uneven" when some of its tour-seasons are flagged and others not. That is the shape of the input-data audit's
+finding #6, where ITF box scores widened the IOS products in 2025-2026 only. Also written: each frame's own season
+profile (each tour-season's SD and mean against its 2013-2021 training seasons), and the matches one frame holds and the
+other lacks.
+
+Part 2, the scores. Results of seasons <= --through only. The default 2024 keeps 2025-2026 out: they are the proposed
+clean holdout (docs/studies/clean_holdout_rebuild/). Each model goes through the decided recipe on its own forecasts:
+    * the seed mean of seeds 0-3;
+    * the per-tour calibration slopes and stage 2's b, fitted walk-forward on 2019 .. Y - 1, debut seasons out, b
+      shrunk with tau 0.05 (serve_speed_tabpfn/score.nudge_parameters' fit, as model_rebuild/compare.py runs it);
+    * scored on 2020 .. --through, on the matches both frames hold.
+Paired log loss in milli-log-loss per match. POSITIVE = THE CANDIDATE HAS THE LOWER LOG LOSS (better). Intervals:
+serve_speed_tabpfn/score.paired_stats, 4-week blocks plus the seeds' variance (t on blocks - 1). Both models use seeds
+0-3, so their seed term is paired by seed: the variance over seeds of the per-seed difference, over 4 (matched_seeds,
+since 9 Oct 2026). A model compared with itself gets exactly 0 with a zero-width interval. The rows against a closing
+price keep the unpaired term (the price has no seeds). The unpaired interval, as read before 9 Oct 2026, is kept as
+se_unpaired, lo_unpaired and hi_unpaired. Reading: "better" if the interval lies above 0, "worse" if below, otherwise
+"unresolved", with p_better = P(better), the t CDF of estimate / se on blocks - 1 degrees of freedom: the flat-prior
+reading of this one test, undefined for identical forecasts (docs/studies/adoption_framework/README.md, section 7).
+    primary   both stages: both tours, men, women
+    also      stage 1 alone; both stages by level and by season; each model against its own calibrated close
+
+Writes <out>/inputs.csv, inputs_by_season.csv, season_profile.csv, coverage.csv, scores.csv and summary.json. <out>
+defaults to <candidate>/vs_reference_2026-10-08 (a named candidate: the reference's comparisons/<name>/).
+Run: ./python.sh src/eda/current_best_model/compare.py --candidate <folder>|previous|reference [--speed <parquet>]
+                                                        [--through 2024] [--out <folder>]
+
+options:
+  -h, --help            show this help message and exit
+  --candidate CANDIDATE
+                        a built folder, or previous / reference
+  --speed SPEED         the candidate's stage-2 column (parquet: match_id,
+                        spd_L_B)
+  --through THROUGH     the last season whose results are read
+  --out OUT             the output folder

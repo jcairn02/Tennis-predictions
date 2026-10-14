@@ -1,0 +1,174 @@
+{
+ "reference": "2026-10-08",
+ "created_at": "2026-10-08T23:52:22+00:00",
+ "owner": "I want to freeze the template of current model and its data locations as comparisons so the new data thats coming, if it harms results we will want to make some modifications, Either to ignore data, lower its weight, or find a way to mathematically change and integrate it so its useful. I dont want to lose sight of the current model",
+ "decision": "docs/decisions/2026-10-08-current-best-model.md",
+ "what": "the current best model's build of 8 Oct 2026 (data/studies/model_rebuild/) and the tables of the Stage 0 rebuild 2026-10-08T1853Z it was built on, copied and hashed; frozen/ holds the copies (read-only, gitignored), frozen/files.csv.gz lists each with its SHA-256",
+ "configuration": {
+  "stage 1": "local TabPFN-3.5 (non-thinking) on the 58 inputs of instance/model_inputs.json; season Y trained on 2013 .. Y - 1; config {\"n_estimators\": 8, \"softmax_temperature\": 0.9, \"ignore_pretraining_limits\": true, \"random_state\": 0}; each match predicted as stored and with A and B swapped, symmetrised; eta = log-odds of the seed mean",
+  "stage 2": "logit q = s_tour,Y eta + b_Y spd_L (28-day speed form; 0 for women); s and b fitted on 2019 .. Y - 1 from seeds 0-3, debut seasons out, b shrunk with tau 0.05; the speed column on the corrected history: instance/speed_columns_corrected.parquet (spd_L_B, the weekly feed)",
+  "coefficients_2026 (s_atp, s_wta, b_shrunk, b, se_b)": [
+   0.8956080965721794,
+   0.9189314985187037,
+   0.03418231656125034,
+   0.03990469684366863,
+   0.020457738181973818
+  ],
+  "versions": {
+   "tabpfn": "9.1.0",
+   "torch": "2.11.0+cu128"
+  },
+  "checkpoint": "C:\\Users\\zerom\\AppData\\Roaming\\tabpfn\\tabpfn-v3.5-20260909.safetensors",
+  "device": "NVIDIA GeForce RTX 5090"
+ },
+ "key_files": {
+  "instance/model_frame.parquet": {
+   "source": "data/studies/model_rebuild/model_frame.parquet",
+   "sha256": "3b8b0decc123c19ed537fba4382b54d6cfbbaaa8936648e618956858e1ec8052",
+   "bytes": 28521630
+  },
+  "instance/model_inputs.json": {
+   "source": "data/studies/model_rebuild/model_inputs.json",
+   "sha256": "c0abddb15c289c81017bb7f0ed32cbb4586323380c04cf5f0c7ce3329853f69e",
+   "bytes": 10244
+  },
+  "instance/speed_columns_corrected.parquet": {
+   "source": "data/studies/model_rebuild/speed_columns_corrected.parquet",
+   "sha256": "4ede729fc978a5e51ea11441e3a84df1d47a96d1137a9b6fb87de55c504a88a3",
+   "bytes": 3174371
+  },
+  "tables/data/studies/predictability_diagnostic/stage0_matches.parquet": {
+   "source": "data/studies/predictability_diagnostic/stage0_matches.parquet",
+   "sha256": "07bc2d34f6655fdb27426bbf348d5ed1cda35cf4e9a187bd5cd22a81108ab00f",
+   "bytes": 26468745
+  },
+  "tables/data/studies/predictability_diagnostic/stage0_match_players.parquet": {
+   "source": "data/studies/predictability_diagnostic/stage0_match_players.parquet",
+   "sha256": "9b712648ed28dc7267c6bac03c051f6dc823145a2eebf74078b798083bb9f860",
+   "bytes": 62338612
+  },
+  "tables/data/studies/predictability_diagnostic/stage1_odds.parquet": {
+   "source": "data/studies/predictability_diagnostic/stage1_odds.parquet",
+   "sha256": "4a802e173ea87284ea2357bdbaa662726adc3dc04414c530b72c4958c55d7e21",
+   "bytes": 3386140
+  },
+  "previous/model_frame.parquet": {
+   "source": "data/studies/surface_rating_race/model/model_frame.parquet",
+   "sha256": "6113966fd8286cb41738eb7b52e0d6d9e2d7631c980c3aec7be6e4bbbaaab06b",
+   "bytes": 26976565
+  },
+  "env/tabpfn-v3.5-20260909.safetensors": {
+   "source": "C:/Users/zerom/AppData/Roaming/tabpfn/tabpfn-v3.5-20260909.safetensors",
+   "sha256": "ece4d67eadfea42eb0e610df5189bea60cb7f31073d81e9c7a019b76eacf0be3",
+   "bytes": 876027932
+  }
+ },
+ "instance": {
+  "matches": 67226,
+  "seasons": [
+   2013,
+   2026
+  ],
+  "fits": 32,
+  "fit seasons": [
+   2019,
+   2026
+  ],
+  "fit seeds": [
+   0,
+   3
+  ]
+ },
+ "tables": {
+  "exact": 54,
+  "later version": 18,
+  "note": "tables/ holds the files of the 8 Oct rebuild (2026-10-08T1853Z) as the instance's build read them, Stage 0 and Stage 1's odds among them. The instance's sandbox copied data/studies at about 20:00 UTC; a TDI refresh then rewrote the timeline, its TDI links and the leak-proof IOS and features in place (20:12-20:30 UTC) without keeping the earlier files, and no backup holds them. Those files are in tables_later/ as they stood at the freeze: NOT the versions the instance was built on (the SHA-256 its builders recorded for the leak-proof table and the timeline are in preconditions, and match nothing on disk). The instance's frame and fits are unaffected. The earlier versions could be rebuilt from TDI's raw files received before 19:22 UTC (untested)"
+ },
+ "previous": {
+  "what": "the 30 Sep build (data/studies/surface_rating_race/model/), on which every study up to 8 Oct was scored; its fits of seeds 0-3 in their reuse folders",
+  "tables": "data/studies/data_continuity/rebuilds/2026-10-07T0005Z/replaced (kept by the 7 Oct rebuild; hashed in the inventory)"
+ },
+ "counts": {
+  "code": {
+   "files": 1385,
+   "bytes": 22061871
+  },
+  "env": {
+   "files": 5,
+   "bytes": 876044521
+  },
+  "instance": {
+   "files": 77,
+   "bytes": 62880860
+  },
+  "previous": {
+   "files": 37,
+   "bytes": 55425716
+  },
+  "speed": {
+   "files": 5,
+   "bytes": 5603698
+  },
+  "tables": {
+   "files": 54,
+   "bytes": 216320381
+  },
+  "tables, later version": {
+   "files": 18,
+   "bytes": 167622861
+  }
+ },
+ "read_only_files": 1583,
+ "files_csv": {
+  "path": "frozen/files.csv.gz",
+  "rows": 1581,
+  "sha256": "075d24f160bdc0b9cfa6419332657a59326d7d6c3ac730e0d2d65e0b28c7e914"
+ },
+ "inventory": {
+  "path": "frozen/inventory.csv.gz",
+  "files": 7356,
+  "bytes": 17400409805,
+  "unreadable": 0,
+  "sha256": "08f8fc1eba3cfe1e55b8eb774f313cd2a7f874992d5e2bcc4fda624586f62773"
+ },
+ "preconditions": {
+  "rebuild": "2026-10-08T1853Z",
+  "rebuild_ok": true,
+  "tables": 72,
+  "stage0_matches.parquet is the rebuild's": true,
+  "stage0_match_players.parquet is the rebuild's": true,
+  "tables written again after the rebuild ended": [
+   "data/studies/match_timing/timing.parquet",
+   "data/studies/match_timing/timing_summary.json",
+   "data/studies/match_timing/timing_classes.csv",
+   "data/studies/match_timing/source_calibration.csv",
+   "data/studies/match_timing/undated_matches.parquet",
+   "data/studies/match_timing/undated_matches.csv.gz",
+   "data/studies/match_timing/undated_summary.csv",
+   "data/studies/match_timing/timing_check.json",
+   "data/studies/match_timing/timing_check_classes.csv",
+   "data/studies/match_timing/timing_check_siblings.csv",
+   "data/studies/match_timing/ios_features.parquet",
+   "data/studies/match_timing/ios_features_summary.json",
+   "data/studies/match_timing/leakproof_features.parquet",
+   "data/studies/match_timing/leakproof_features_summary.json",
+   "data/studies/match_timing/links/sources_c_link_counts.csv",
+   "data/studies/match_timing/links/sources_c_summary.json",
+   "data/studies/match_timing/links/tdi.csv",
+   "data/studies/match_timing/links/tdi.parquet"
+  ],
+  "leakproof_features: SHA-256 the instance's builders recorded": "b8d897478dcfec7003c131bb5b7b56f0fa92f981296352aee6426a1e563b8176",
+  "leakproof_features: on disk now": false,
+  "timing: SHA-256 the instance's builders recorded": "9f0cce4615e1a31642c54d974001a22d935856e22cc6375a68197e521b65b77a",
+  "timing: on disk now": false,
+  "instance frame sha256": "3b8b0decc123c19ed537fba4382b54d6cfbbaaa8936648e618956858e1ec8052",
+  "instance fits": 32,
+  "instance fits on another frame": [],
+  "ok": true
+ },
+ "git": {
+  "head": "677a63f5d780357d67ec2a2efe1328e639bb17da",
+  "status_lines": 183,
+  "untracked_lines": 86
+ }
+}

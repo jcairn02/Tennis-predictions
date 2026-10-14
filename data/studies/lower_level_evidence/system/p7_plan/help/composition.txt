@@ -1,0 +1,83 @@
+usage: composition.py [-h] [--stage0-dir STAGE0_DIR] [--frame FRAME]
+                      [--timing TIMING] [--label LABEL] [--out OUT]
+                      [--model MODEL] [--no-scores] [--spot SPOT]
+
+Evidence dose and exposure: how much of each model input's evidence comes from lower levels, for which players and
+matches, and where the current best model is weakest against the closing price (lower_level_evidence, role 02).
+
+THE RENEWABLE PART. Everything below reruns unchanged on a candidate Stage 0 that carries new lower-level data:
+    ./python.sh src/eda/lower_level_evidence/composition.py --stage0-dir <candidate Stage 0 folder> --label <name>
+The counts are recomputed from that Stage 0; the frame (--frame) still names the model's matches; the scores (part 5)
+use the model given by --model (default: the frozen reference's fits; a candidate's built folder in compare.py's layout
+also works). Nothing here reads an outcome of a 2025-2026 match (the proposed holdout): parts 1-4 read no outcome at all,
+and part 5 reads results of seasons <= 2024 only (season <= 2024 is checked to mean events before 30 Dec 2024 first).
+
+WHAT IS COUNTED. For every model-frame match (67,226 main-tour matches of 2013-2026) and each side, that player's
+earlier matches in Stage 0, by the study's bucket (common.bucket: MAIN, TQ, GSQ, CH, CHQ, ITF, ITFQ, TEAM), in two
+channels:
+    res   the results channel: every completed or retired match (walkovers and "other" left out)
+    box   the box-score channel: the same with a box score (Stage 0's has_box)
+and in these windows (days between tournament dates, the way the per-player inputs measure time):
+    14d, 28d, 91d, 365d   events that started up to W days before this one (t_i - t_j <= W, inclusive, as Stage 4's
+                          sets_14d and 52-week windows: stage4_features.py:838-839), plus this event's earlier rounds
+    career                every earlier match since Stage 0 begins (2010)
+    h2w, h4w, h13w, h52w  effective counts: each earlier match weighted 2^(-age / h weeks), age from tournament dates
+                          (Stage 3's lookback_sums convention, stage3_traits.py:556-564). h = 2 weeks is the two-week
+                          form (form_*, formdef_*, adjperf_tpw_2w: Stage B's h3 = 2); 4 and 13 weeks the short-memory
+                          IOS points matchup (men, women); 52 weeks the typical long memory of the IOS profile
+                          (its half-lives run 26-208 weeks by statistic, ios_constants registry)
+
+"EARLIER" (the choice, and why not the strict match clock). A player's own earlier matches are those of events with an
+earlier tournament date, plus earlier rounds of the same event (same tournament id and date). Other events of the same
+week and other matches of the same round (round robin) never count. This is Stage 0's as-of rule
+(predictability_diagnostic/common.py:161-181), the rule every per-player input and the leak-proof IOS's own-match step
+follow (match_timing/ios_time.py:14-18). It is "surely finished before" for a player's own matches because nobody
+plays two matches at once (the match-clock decision, point 1). The strict match clock (a result counts from lf + 1, read
+at es) is the right rule for OTHER players' results; applied to a player's own matches it would drop the same event's
+earlier rounds whenever their day windows overlap, which the inputs do count. Its error against this choice is measured,
+pair by pair, on the 365-day window (clock_check.csv): matches this rule counts that the clock cannot place before the
+target, contradictions (the clock says the earlier-counted match started after the target surely finished), and
+same-week matches of other events that the clock shows surely finished first (which this rule leaves out).
+
+OUTPUTS (data/studies/lower_level_evidence/composition/<label>/):
+    sides.parquet           one row per model match and side: tour, season, level, rank and band, and every count
+                            (<channel>_<window>_<bucket>; hard windows int16, effective counts rounded to 0.001),
+                            zstd-compressed, gitignored like every parquet (rebuilt by this script in under a minute)
+    shares_full.csv.gz      the lower-level share of evidence per channel and window, by tour x season x target level x
+                            rank band, with each bucket's share (task 2)
+    shares.csv              the same at the margins: tour; tour x era; tour x era x level; tour x era x band; tour x
+                            season
+    inputs_dose.csv         each input family's mirrored channel and window, its lower-level share by tour, era, level
+                            and band
+    itf_regime.csv          ITF's share of box-score evidence by tour and quarter; itf_any.csv: players and matches with
+                            any ITF box score in their 365-day window (task 3)
+    itf_preview.csv         what ITF box scores of 2018-2024 (collection plan P7) would add to the 2019-2024 model
+                            matches' 365-day windows, by tour and rank band; itf_preview_unique.csv: distinct matches;
+                            itf_p7_scenario.csv: the box-score channel recounted exactly with those box scores in place,
+                            by tour and season (does the shift touch some seasons only?)
+    exposure.csv, exposure_cross.csv   main-tour exposure per side and the less-exposed side (task 4)
+    scores.csv              part 5: model (both stages; stage 1) against the recalibrated close, 2020-2024, by
+                            pre-chosen exposure and dose strata, with 95% intervals and calibration slopes;
+                            scores_heterogeneity.csv: per family, a Wald test that its strata's gains are equal
+    clock_check.csv, summary.json   the ordering rule's error against the match clock; headline numbers, input hashes,
+                            the brute-force spot check of the counts
+
+The strata of part 5 were fixed in this file (STRATA) before any score was computed; they are descriptive, not a model
+choice. Positive gains = the model has the lower log loss (better) than the recalibrated close, in mLL per match.
+
+Run: ./python.sh src/eda/lower_level_evidence/composition.py [--stage0-dir DIR] [--frame PARQUET] [--timing PARQUET]
+                                                           [--label NAME] [--out DIR] [--model reference|FOLDER]
+                                                           [--no-scores]
+
+options:
+  -h, --help            show this help message and exit
+  --stage0-dir STAGE0_DIR
+                        folder with stage0_matches/_match_players
+  --frame FRAME         the model frame naming the model's matches
+  --timing TIMING       the match timeline (es, lf), or '' to skip the check
+  --label LABEL
+  --out OUT             default
+                        data/studies/lower_level_evidence/composition/<label>
+  --model MODEL         part 5's forecasts: reference, or a built folder
+  --no-scores           skip part 5
+  --spot SPOT           sides recounted by brute force

@@ -7,7 +7,9 @@ event STARTED before the snapshot, so an event still running (a Grand Slam's sec
 same week) reaches other players' matches played before it. The leak-proof solver is src/eda/match_timing/ios_time.py
 (run_timed: a result enters the solve the day after its latest possible finish; a match reads the solve of its
 earliest possible start), fed by src/eda/match_timing/timing.parquet; rebuild.py builds the inputs with it. This file
-is kept as the record of the studies that used it (its pcg solver and tuned constants are reused).
+is kept as the record of the studies that used it (its pcg solver and tuned constants are reused). The tuned constants
+reach the builders through the IOS constants registry (src/eda/ios_constants/registry.py), not from this file's summary:
+a re-run writes a new stageB_ios_summary.json, which changes no input until it is added as a version and activated.
 
 For each serve-side statistic s (spw, ace, df, first_in, first_won, second_won, hold, bp_saved; the return side is the
 same observations seen from the returner: return points won is one minus the server's spw, breaks one minus holds,

@@ -1,0 +1,1097 @@
+{
+ "generated_at": "2026-10-08T19:31:13+00:00",
+ "decision": "docs/decisions/2026-10-08-corrupt-data-fixes.md",
+ "frozen_panel_sha256": "f774eb50a0874469cb5a30101549b576c03c48a073de32d7966d5eadcdcaff39",
+ "records_sha256": "2961a7a3cd9a5bee7f552cf7f60f288683faa42df55ccf79d858296cc8ed712a",
+ "exclusions_sha256": "4f45463db5841c8672d3cbfb07676b2b2143dea843ede07a0be2cb79039683e3",
+ "corrected_sha256": "5f5bf596777589fad249050b4ea0f2a9a2bd18c1f918d7222f20f187b07a16b2",
+ "built_on": {
+  "stage0": "data/studies/data_continuity/rebuilds/2026-10-08T1853Z/replaced/data/studies/predictability_diagnostic/stage0_matches.parquet",
+  "timing": "data/studies/data_continuity/rebuilds/2026-10-08T1853Z/replaced/data/studies/match_timing/timing.parquet"
+ },
+ "excluded_records": 130,
+ "excluded_already_invalid": 0,
+ "player_matches_with_an_excluded_record": 107,
+ "excluded_record_was_the_chosen_value": 107,
+ "rows_whose_value_changed": 107,
+ "now_from": {
+  "infosys": 77,
+  "handoff_ks": 18,
+  "mantennisdata": 12
+ },
+ "use_before": 105,
+ "use_after": 77,
+ "outlier_flag_changes_on_the_same_players": 3,
+ "changes": [
+  {
+   "match_id": "atp|2021-337|R32|atp:100644|atp:105936",
+   "side": "B",
+   "source_before": "mantennisdata",
+   "y_before": 231.5,
+   "use_before": true,
+   "source_after": "infosys",
+   "y_after": 212.14285714285714,
+   "use_after": true
+  },
+  {
+   "match_id": "atp|2021-404|Q2|atp:111153|atp:111578",
+   "side": "B",
+   "source_before": "handoff_ks",
+   "y_before": 256.5,
+   "use_before": true,
+   "source_after": "infosys",
+   "y_after": 199.39473684210526,
+   "use_after": true
+  },
+  {
+   "match_id": "atp|2021-404|R64|atp:105577|atp:133430",
+   "side": "B",
+   "source_before": "handoff_ks",
+   "y_before": 209.5,
+   "use_before": false,
+   "source_after": "handoff_ks",
+   "y_after": 209.5,
+   "use_after": false
+  },
+  {
+   "match_id": "atp|2021-568|Q1|atp:117360|atp:122298",
+   "side": "A",
+   "source_before": "handoff_ks",
+   "y_before": 202.5,
+   "use_before": true,
+   "source_after": "handoff_ks",
+   "y_after": 202.5,
+   "use_after": false
+  },
+  {
+   "match_id": "atp|2021-7485|Q2|atp:105967|atp:106148",
+   "side": "B",
+   "source_before": "handoff_ks",
+   "y_before": 212.5,
+   "use_before": true,
+   "source_after": "infosys",
+   "y_after": 197.20833333333334,
+   "use_after": true
+  },
+  {
+   "match_id": "atp|2021-7485|R32|atp:111442|atp:200221",
+   "side": "A",
+   "source_before": "mantennisdata",
+   "y_before": 171.5,
+   "use_before": true,
+   "source_after": "mantennisdata",
+   "y_after": 171.5,
+   "use_after": false
+  },
+  {
+   "match_id": "atp|2022-2273|R32|atp:105967|atp:145001",
+   "side": "B",
+   "source_before": "mantennisdata",
+   "y_before": 201.5,
+   "use_before": true,
+   "source_after": "infosys",
+   "y_after": 190.75,
+   "use_after": true
+  },
+  {
+   "match_id": "atp|2022-337|QF|atp:105777|atp:106218",
+   "side": "A",
+   "source_before": "mantennisdata",
+   "y_before": 210.5,
+   "use_before": true,
+   "source_after": "infosys",
+   "y_after": 187.3,
+   "use_after": true
+  },
+  {
+   "match_id": "atp|2022-352|Q1|atp:105676|atp:111513",
+   "side": "B",
+   "source_before": "mantennisdata",
+   "y_before": 200.5,
+   "use_before": true,
+   "source_after": "mantennisdata",
+   "y_after": 200.5,
+   "use_after": false
+  },
+  {
+   "match_id": "atp|2022-352|R64|atp:104545|atp:106214",
+   "side": "A",
+   "source_before": "mantennisdata",
+   "y_before": 198.5,
+   "use_before": true,
+   "source_after": "mantennisdata",
+   "y_after": 198.5,
+   "use_after": false
+  },
+  {
+   "match_id": "atp|2022-403|Q2|atp:104269|atp:126409",
+   "side": "A",
+   "source_before": "mantennisdata",
+   "y_before": 215.5,
+   "use_before": true,
+   "source_after": "mantennisdata",
+   "y_after": 215.5,
+   "use_after": false
+  },
+  {
+   "match_id": "atp|2022-403|R128|atp:105948|atp:202385",
+   "side": "A",
+   "source_before": "handoff_ks",
+   "y_before": 202.5,
+   "use_before": true,
+   "source_after": "infosys",
+   "y_after": 172.24,
+   "use_after": true
+  },
+  {
+   "match_id": "atp|2022-403|R128|atp:200221|atp:200624",
+   "side": "B",
+   "source_before": "handoff_ks",
+   "y_before": 220.5,
+   "use_before": true,
+   "source_after": "infosys",
+   "y_after": 179.4814814814815,
+   "use_after": true
+  },
+  {
+   "match_id": "atp|2022-403|R16|atp:106401|atp:206173",
+   "side": "A",
+   "source_before": "handoff_ks",
+   "y_before": 223.5,
+   "use_before": true,
+   "source_after": "infosys",
+   "y_after": 189.9268292682927,
+   "use_after": true
+  },
+  {
+   "match_id": "atp|2022-404|QF|atp:104745|atp:106401",
+   "side": "B",
+   "source_before": "handoff_ks",
+   "y_before": 254.5,
+   "use_before": true,
+   "source_after": "infosys",
+   "y_after": 201.36111111111111,
+   "use_after": true
+  },
+  {
+   "match_id": "atp|2022-407|Q1|atp:105967|atp:106000",
+   "side": "A",
+   "source_before": "handoff_ks",
+   "y_before": 223.5,
+   "use_before": true,
+   "source_after": "handoff_ks",
+   "y_after": 223.5,
+   "use_after": false
+  },
+  {
+   "match_id": "atp|2022-407|Q2|atp:126523|atp:200384",
+   "side": "B",
+   "source_before": "handoff_ks",
+   "y_before": 200.5,
+   "use_before": true,
+   "source_after": "handoff_ks",
+   "y_after": 200.5,
+   "use_after": false
+  },
+  {
+   "match_id": "atp|2022-407|R32|atp:105932|atp:111456",
+   "side": "B",
+   "source_before": "mantennisdata",
+   "y_before": 170.5,
+   "use_before": true,
+   "source_after": "mantennisdata",
+   "y_after": 170.5,
+   "use_after": false
+  },
+  {
+   "match_id": "atp|2022-4140|R32|atp:105554|atp:106415",
+   "side": "A",
+   "source_before": "handoff_ks",
+   "y_before": 214.5,
+   "use_before": true,
+   "source_after": "infosys",
+   "y_after": 182.7111111111111,
+   "use_after": true
+  },
+  {
+   "match_id": "atp|2022-416|Q2|atp:105583|atp:105916",
+   "side": "A",
+   "source_before": "handoff_ks",
+   "y_before": 206.5,
+   "use_before": false,
+   "source_after": "infosys",
+   "y_after": 184.1,
+   "use_after": true
+  },
+  {
+   "match_id": "atp|2022-416|R16|atp:111575|atp:126774",
+   "side": "A",
+   "source_before": "handoff_ks",
+   "y_before": 230.5,
+   "use_before": true,
+   "source_after": "infosys",
+   "y_after": 202.02439024390245,
+   "use_after": true
+  },
+  {
+   "match_id": "atp|2022-421|QF|atp:105807|atp:207733",
+   "side": "A",
+   "source_before": "handoff_ks",
+   "y_before": 214.5,
+   "use_before": true,
+   "source_after": "infosys",
+   "y_after": 190.73529411764707,
+   "use_after": true
+  },
+  {
+   "match_id": "atp|2022-429|Q2|atp:106000|atp:106186",
+   "side": "A",
+   "source_before": "mantennisdata",
+   "y_before": 197.5,
+   "use_before": true,
+   "source_after": "mantennisdata",
+   "y_after": 197.5,
+   "use_after": false
+  },
+  {
+   "match_id": "atp|2022-451|R32|atp:106075|atp:122330",
+   "side": "A",
+   "source_before": "handoff_ks",
+   "y_before": 244.5,
+   "use_before": true,
+   "source_after": "infosys",
+   "y_after": 205.46875,
+   "use_after": true
+  },
+  {
+   "match_id": "atp|2022-499|Q1|atp:105877|atp:210098",
+   "side": "B",
+   "source_before": "handoff_ks",
+   "y_before": 203.5,
+   "use_before": true,
+   "source_after": "infosys",
+   "y_after": 188.33333333333334,
+   "use_after": true
+  },
+  {
+   "match_id": "atp|2022-6242|R32|atp:105932|atp:106329",
+   "side": "B",
+   "source_before": "handoff_ks",
+   "y_before": 212.5,
+   "use_before": true,
+   "source_after": "infosys",
+   "y_after": 189.3793103448276,
+   "use_after": true
+  },
+  {
+   "match_id": "atp|2022-7434|R32|atp:104926|atp:126846",
+   "side": "A",
+   "source_before": "handoff_ks",
+   "y_before": 212.5,
+   "use_before": true,
+   "source_after": "handoff_ks",
+   "y_after": 212.5,
+   "use_after": false
+  },
+  {
+   "match_id": "atp|2022-7485|R32|atp:131905|atp:144972",
+   "side": "A",
+   "source_before": "handoff_ks",
+   "y_before": 207.5,
+   "use_before": true,
+   "source_after": "infosys",
+   "y_after": 187.33928571428572,
+   "use_after": true
+  },
+  {
+   "match_id": "atp|2022-8994|Q1|atp:106045|atp:209404",
+   "side": "A",
+   "source_before": "mantennisdata",
+   "y_before": 207.5,
+   "use_before": true,
+   "source_after": "infosys",
+   "y_after": 192.52941176470588,
+   "use_after": true
+  },
+  {
+   "match_id": "atp|2023-1536|Q1|atp:111200|atp:124116",
+   "side": "A",
+   "source_before": "handoff_ks",
+   "y_before": 220.5,
+   "use_before": true,
+   "source_after": "infosys",
+   "y_after": 197.46153846153845,
+   "use_after": true
+  },
+  {
+   "match_id": "atp|2023-1536|R16|atp:100644|atp:207989",
+   "side": "B",
+   "source_before": "handoff_ks",
+   "y_before": 235.5,
+   "use_before": true,
+   "source_after": "infosys",
+   "y_after": 214.21428571428572,
+   "use_after": true
+  },
+  {
+   "match_id": "atp|2023-301|R16|atp:105676|atp:111153",
+   "side": "B",
+   "source_before": "handoff_ks",
+   "y_before": 228.5,
+   "use_before": true,
+   "source_after": "handoff_ks",
+   "y_after": 228.5,
+   "use_after": false
+  },
+  {
+   "match_id": "atp|2023-3503|QF|atp:104755|atp:126127",
+   "side": "B",
+   "source_before": "handoff_ks",
+   "y_before": 221.5,
+   "use_before": true,
+   "source_after": "infosys",
+   "y_after": 199.46153846153845,
+   "use_after": true
+  },
+  {
+   "match_id": "atp|2023-3503|R16|atp:104755|atp:131905",
+   "side": "B",
+   "source_before": "handoff_ks",
+   "y_before": 213.5,
+   "use_before": true,
+   "source_after": "infosys",
+   "y_after": 191.11428571428573,
+   "use_after": true
+  },
+  {
+   "match_id": "atp|2023-3503|R16|atp:106296|atp:208279",
+   "side": "A",
+   "source_before": "handoff_ks",
+   "y_before": 208.5,
+   "use_before": true,
+   "source_after": "infosys",
+   "y_after": 184.0,
+   "use_after": true
+  },
+  {
+   "match_id": "atp|2023-3503|R32|atp:131911|atp:210120",
+   "side": "B",
+   "source_before": "handoff_ks",
+   "y_before": 261.5,
+   "use_before": true,
+   "source_after": "infosys",
+   "y_after": 168.84615384615384,
+   "use_after": true
+  },
+  {
+   "match_id": "atp|2023-3503|R32|atp:200385|atp:208169",
+   "side": "A",
+   "source_before": "handoff_ks",
+   "y_before": 213.5,
+   "use_before": true,
+   "source_after": "infosys",
+   "y_after": 184.6530612244898,
+   "use_after": true
+  },
+  {
+   "match_id": "atp|2023-3945|SF|atp:105332|atp:126214",
+   "side": "B",
+   "source_before": "mantennisdata",
+   "y_before": 203.5,
+   "use_before": true,
+   "source_after": "infosys",
+   "y_after": 190.59375,
+   "use_after": true
+  },
+  {
+   "match_id": "atp|2023-403|R128|atp:105916|atp:106398",
+   "side": "B",
+   "source_before": "mantennisdata",
+   "y_before": 205.5,
+   "use_before": true,
+   "source_after": "infosys",
+   "y_after": 194.1578947368421,
+   "use_after": true
+  },
+  {
+   "match_id": "atp|2023-403|R128|atp:111460|atp:124079",
+   "side": "B",
+   "source_before": "mantennisdata",
+   "y_before": 218.5,
+   "use_before": true,
+   "source_after": "infosys",
+   "y_after": 201.0,
+   "use_after": true
+  },
+  {
+   "match_id": "atp|2023-403|R32|atp:200000|atp:202103",
+   "side": "A",
+   "source_before": "handoff_ks",
+   "y_before": 203.5,
+   "use_before": true,
+   "source_after": "infosys",
+   "y_after": 186.56666666666666,
+   "use_after": true
+  },
+  {
+   "match_id": "atp|2023-403|R64|atp:111456|atp:126610",
+   "side": "A",
+   "source_before": "handoff_ks",
+   "y_before": 233.5,
+   "use_before": true,
+   "source_after": "infosys",
+   "y_after": 214.79545454545453,
+   "use_after": true
+  },
+  {
+   "match_id": "atp|2023-404|Q1|atp:105526|atp:144972",
+   "side": "B",
+   "source_before": "handoff_ks",
+   "y_before": 228.5,
+   "use_before": true,
+   "source_after": "infosys",
+   "y_after": 203.47826086956522,
+   "use_after": true
+  },
+  {
+   "match_id": "atp|2023-404|R64|atp:105173|atp:207518",
+   "side": "A",
+   "source_before": "handoff_ks",
+   "y_before": 224.5,
+   "use_before": true,
+   "source_after": "infosys",
+   "y_after": 192.5,
+   "use_after": true
+  },
+  {
+   "match_id": "atp|2023-404|R64|atp:105916|atp:200282",
+   "side": "A",
+   "source_before": "mantennisdata",
+   "y_before": 211.5,
+   "use_before": true,
+   "source_after": "mantennisdata",
+   "y_after": 211.5,
+   "use_after": false
+  },
+  {
+   "match_id": "atp|2023-407|R32|atp:134868|atp:144707",
+   "side": "B",
+   "source_before": "mantennisdata",
+   "y_before": 210.5,
+   "use_before": true,
+   "source_after": "infosys",
+   "y_after": 193.72222222222223,
+   "use_after": true
+  },
+  {
+   "match_id": "atp|2023-410|R32|atp:106421|atp:132283",
+   "side": "A",
+   "source_before": "handoff_ks",
+   "y_before": 218.5,
+   "use_before": true,
+   "source_after": "infosys",
+   "y_after": 188.58333333333334,
+   "use_after": true
+  },
+  {
+   "match_id": "atp|2023-410|SF|atp:126094|atp:126203",
+   "side": "A",
+   "source_before": "mantennisdata",
+   "y_before": 218.5,
+   "use_before": true,
+   "source_after": "infosys",
+   "y_after": 200.5121951219512,
+   "use_after": true
+  },
+  {
+   "match_id": "atp|2023-416|Q1|atp:105870|atp:132842",
+   "side": "B",
+   "source_before": "handoff_ks",
+   "y_before": 213.5,
+   "use_before": true,
+   "source_after": "infosys",
+   "y_after": 189.37142857142857,
+   "use_after": true
+  },
+  {
+   "match_id": "atp|2023-416|Q1|atp:106075|atp:127157",
+   "side": "B",
+   "source_before": "handoff_ks",
+   "y_before": 188.5,
+   "use_before": true,
+   "source_after": "infosys",
+   "y_after": 174.77142857142857,
+   "use_after": true
+  },
+  {
+   "match_id": "atp|2023-416|Q1|atp:109303|atp:206499",
+   "side": "A",
+   "source_before": "handoff_ks",
+   "y_before": 211.5,
+   "use_before": true,
+   "source_after": "infosys",
+   "y_after": 186.64,
+   "use_after": true
+  },
+  {
+   "match_id": "atp|2023-416|Q1|atp:144642|atp:208233",
+   "side": "A",
+   "source_before": "mantennisdata",
+   "y_before": 194.5,
+   "use_before": true,
+   "source_after": "infosys",
+   "y_after": 189.86111111111111,
+   "use_after": true
+  },
+  {
+   "match_id": "atp|2023-416|R128|atp:144895|atp:206681",
+   "side": "B",
+   "source_before": "handoff_ks",
+   "y_before": 196.5,
+   "use_before": true,
+   "source_after": "infosys",
+   "y_after": 179.54166666666666,
+   "use_after": true
+  },
+  {
+   "match_id": "atp|2023-416|R64|atp:105554|atp:106148",
+   "side": "A",
+   "source_before": "mantennisdata",
+   "y_before": 207.5,
+   "use_before": true,
+   "source_after": "mantennisdata",
+   "y_after": 207.5,
+   "use_after": false
+  },
+  {
+   "match_id": "atp|2023-416|R64|atp:106186|atp:126523",
+   "side": "A",
+   "source_before": "handoff_ks",
+   "y_before": 203.5,
+   "use_before": true,
+   "source_after": "infosys",
+   "y_after": 187.4090909090909,
+   "use_after": true
+  },
+  {
+   "match_id": "atp|2023-418|Q1|atp:111569|atp:209992",
+   "side": "A",
+   "source_before": "mantennisdata",
+   "y_before": 194.5,
+   "use_before": true,
+   "source_after": "infosys",
+   "y_after": 169.06896551724137,
+   "use_after": true
+  },
+  {
+   "match_id": "atp|2023-418|R64|atp:144750|atp:200647",
+   "side": "B",
+   "source_before": "handoff_ks",
+   "y_before": 211.5,
+   "use_before": true,
+   "source_after": "handoff_ks",
+   "y_after": 211.5,
+   "use_after": false
+  },
+  {
+   "match_id": "atp|2023-422|Q1|atp:106423|atp:111513",
+   "side": "A",
+   "source_before": "mantennisdata",
+   "y_before": 203.5,
+   "use_before": true,
+   "source_after": "infosys",
+   "y_after": 193.62790697674419,
+   "use_after": true
+  },
+  {
+   "match_id": "atp|2023-424|Q1|atp:126206|atp:207797",
+   "side": "B",
+   "source_before": "mantennisdata",
+   "y_before": 149.5,
+   "use_before": true,
+   "source_after": "mantennisdata",
+   "y_after": 149.5,
+   "use_after": false
+  },
+  {
+   "match_id": "atp|2023-500|Q1|atp:202260|atp:209414",
+   "side": "B",
+   "source_before": "handoff_ks",
+   "y_before": 206.5,
+   "use_before": true,
+   "source_after": "infosys",
+   "y_after": 191.83333333333334,
+   "use_after": true
+  },
+  {
+   "match_id": "atp|2023-5014|Q1|atp:105841|atp:111761",
+   "side": "B",
+   "source_before": "handoff_ks",
+   "y_before": 241.5,
+   "use_before": true,
+   "source_after": "handoff_ks",
+   "y_after": 241.5,
+   "use_after": false
+  },
+  {
+   "match_id": "atp|2023-5014|Q1|atp:105902|atp:144915",
+   "side": "A",
+   "source_before": "handoff_ks",
+   "y_before": 236.5,
+   "use_before": true,
+   "source_after": "infosys",
+   "y_after": 177.65217391304347,
+   "use_after": true
+  },
+  {
+   "match_id": "atp|2023-5014|Q1|atp:111454|atp:124040",
+   "side": "B",
+   "source_before": "handoff_ks",
+   "y_before": 245.5,
+   "use_before": true,
+   "source_after": "handoff_ks",
+   "y_after": 245.5,
+   "use_after": false
+  },
+  {
+   "match_id": "atp|2023-5014|Q1|atp:117360|atp:208230",
+   "side": "A",
+   "source_before": "handoff_ks",
+   "y_before": 242.5,
+   "use_before": true,
+   "source_after": "infosys",
+   "y_after": 177.95,
+   "use_after": true
+  },
+  {
+   "match_id": "atp|2023-5014|Q1|atp:200309|atp:208014",
+   "side": "B",
+   "source_before": "handoff_ks",
+   "y_before": 214.5,
+   "use_before": true,
+   "source_after": "infosys",
+   "y_after": 187.78571428571428,
+   "use_after": true
+  },
+  {
+   "match_id": "atp|2023-5014|Q1|atp:206499|atp:207609",
+   "side": "B",
+   "source_before": "handoff_ks",
+   "y_before": 213.5,
+   "use_before": true,
+   "source_after": "infosys",
+   "y_after": 187.3918918918919,
+   "use_after": true
+  },
+  {
+   "match_id": "atp|2023-5014|Q1|atp:208013|atp:209918",
+   "side": "B",
+   "source_before": "handoff_ks",
+   "y_before": 269.5,
+   "use_before": true,
+   "source_after": "infosys",
+   "y_after": 174.3,
+   "use_after": true
+  },
+  {
+   "match_id": "atp|2023-5014|Q1|atp:209038|atp:210317",
+   "side": "A",
+   "source_before": "handoff_ks",
+   "y_before": 245.5,
+   "use_before": true,
+   "source_after": "handoff_ks",
+   "y_after": 245.5,
+   "use_after": false
+  },
+  {
+   "match_id": "atp|2023-5014|QF|atp:126094|atp:200005",
+   "side": "A",
+   "source_before": "handoff_ks",
+   "y_before": 228.5,
+   "use_before": true,
+   "source_after": "infosys",
+   "y_after": 196.32,
+   "use_after": true
+  },
+  {
+   "match_id": "atp|2023-5014|R128|atp:105916|atp:106187",
+   "side": "B",
+   "source_before": "handoff_ks",
+   "y_before": 199.5,
+   "use_before": true,
+   "source_after": "infosys",
+   "y_after": 187.76666666666668,
+   "use_after": true
+  },
+  {
+   "match_id": "atp|2023-5014|R128|atp:106218|atp:123755",
+   "side": "B",
+   "source_before": "handoff_ks",
+   "y_before": 204.5,
+   "use_before": true,
+   "source_after": "infosys",
+   "y_after": 192.94117647058823,
+   "use_after": true
+  },
+  {
+   "match_id": "atp|2023-5014|R64|atp:105526|atp:208286",
+   "side": "A",
+   "source_before": "handoff_ks",
+   "y_before": 267.5,
+   "use_before": true,
+   "source_after": "handoff_ks",
+   "y_after": 267.5,
+   "use_after": false
+  },
+  {
+   "match_id": "atp|2023-5014|R64|atp:106421|atp:106426",
+   "side": "B",
+   "source_before": "handoff_ks",
+   "y_before": 238.5,
+   "use_before": true,
+   "source_after": "infosys",
+   "y_after": 183.52631578947367,
+   "use_after": true
+  },
+  {
+   "match_id": "atp|2023-5014|R64|atp:111815|atp:200670",
+   "side": "A",
+   "source_before": "handoff_ks",
+   "y_before": 225.5,
+   "use_before": true,
+   "source_after": "handoff_ks",
+   "y_after": 225.5,
+   "use_after": false
+  },
+  {
+   "match_id": "atp|2023-5014|R64|atp:124116|atp:126205",
+   "side": "B",
+   "source_before": "handoff_ks",
+   "y_before": 219.5,
+   "use_before": true,
+   "source_after": "infosys",
+   "y_after": 185.5,
+   "use_after": true
+  },
+  {
+   "match_id": "atp|2023-5014|R64|atp:126207|atp:132283",
+   "side": "B",
+   "source_before": "handoff_ks",
+   "y_before": 248.5,
+   "use_before": true,
+   "source_after": "infosys",
+   "y_after": 197.7826086956522,
+   "use_after": true
+  },
+  {
+   "match_id": "atp|2023-5014|R64|atp:126774|atp:208014",
+   "side": "A",
+   "source_before": "handoff_ks",
+   "y_before": 236.5,
+   "use_before": true,
+   "source_after": "infosys",
+   "y_after": 176.96153846153845,
+   "use_after": true
+  },
+  {
+   "match_id": "atp|2023-6242|Q1|atp:105985|atp:200265",
+   "side": "B",
+   "source_before": "mantennisdata",
+   "y_before": 216.5,
+   "use_before": true,
+   "source_after": "infosys",
+   "y_after": 198.16666666666666,
+   "use_after": true
+  },
+  {
+   "match_id": "atp|2023-7480|R32|atp:126214|atp:200335",
+   "side": "B",
+   "source_before": "handoff_ks",
+   "y_before": 210.5,
+   "use_before": true,
+   "source_after": "infosys",
+   "y_after": 181.85714285714286,
+   "use_after": true
+  },
+  {
+   "match_id": "atp|2023-7696|RR|atp:208134|atp:209950",
+   "side": "B",
+   "source_before": "handoff_ks",
+   "y_before": 215.5,
+   "use_before": true,
+   "source_after": "handoff_ks",
+   "y_after": 215.5,
+   "use_after": false
+  },
+  {
+   "match_id": "atp|2024-301|Q1|atp:124186|atp:126120",
+   "side": "A",
+   "source_before": "handoff_ks",
+   "y_before": 218.5,
+   "use_before": true,
+   "source_after": "infosys",
+   "y_after": 202.1764705882353,
+   "use_after": true
+  },
+  {
+   "match_id": "atp|2024-311|Q1|atp:200615|atp:202261",
+   "side": "A",
+   "source_before": "handoff_ks",
+   "y_before": 229.5,
+   "use_before": true,
+   "source_after": "infosys",
+   "y_after": 205.06451612903226,
+   "use_after": true
+  },
+  {
+   "match_id": "atp|2024-328|R16|atp:200000|atp:208659",
+   "side": "B",
+   "source_before": "handoff_ks",
+   "y_before": 249.5,
+   "use_before": true,
+   "source_after": "infosys",
+   "y_after": 227.02941176470588,
+   "use_after": true
+  },
+  {
+   "match_id": "atp|2024-403|R128|atp:127760|atp:210506",
+   "side": "A",
+   "source_before": "mantennisdata",
+   "y_before": 201.5,
+   "use_before": true,
+   "source_after": "infosys",
+   "y_after": 191.07142857142858,
+   "use_after": true
+  },
+  {
+   "match_id": "atp|2024-404|Q1|atp:106281|atp:117360",
+   "side": "B",
+   "source_before": "mantennisdata",
+   "y_before": 189.5,
+   "use_before": true,
+   "source_after": "mantennisdata",
+   "y_after": 189.5,
+   "use_after": false
+  },
+  {
+   "match_id": "atp|2024-404|Q1|atp:109739|atp:127760",
+   "side": "A",
+   "source_before": "handoff_ks",
+   "y_before": 203.5,
+   "use_before": true,
+   "source_after": "handoff_ks",
+   "y_after": 203.5,
+   "use_after": false
+  },
+  {
+   "match_id": "atp|2024-407|F|atp:200282|atp:206173",
+   "side": "B",
+   "source_before": "handoff_ks",
+   "y_before": 214.5,
+   "use_before": true,
+   "source_after": "infosys",
+   "y_after": 197.2,
+   "use_after": true
+  },
+  {
+   "match_id": "atp|2024-407|QF|atp:134868|atp:200325",
+   "side": "B",
+   "source_before": "handoff_ks",
+   "y_before": 220.5,
+   "use_before": true,
+   "source_after": "infosys",
+   "y_after": 202.45454545454547,
+   "use_after": true
+  },
+  {
+   "match_id": "atp|2024-407|SF|atp:105777|atp:200282",
+   "side": "B",
+   "source_before": "handoff_ks",
+   "y_before": 216.5,
+   "use_before": true,
+   "source_after": "infosys",
+   "y_after": 195.47222222222223,
+   "use_after": true
+  },
+  {
+   "match_id": "atp|2024-410|R64|atp:126203|atp:207518",
+   "side": "B",
+   "source_before": "handoff_ks",
+   "y_before": 228.5,
+   "use_before": true,
+   "source_after": "handoff_ks",
+   "y_after": 228.5,
+   "use_after": false
+  },
+  {
+   "match_id": "atp|2024-414|R16|atp:111190|atp:207925",
+   "side": "B",
+   "source_before": "handoff_ks",
+   "y_before": 225.5,
+   "use_before": true,
+   "source_after": "infosys",
+   "y_after": 206.31034482758622,
+   "use_after": true
+  },
+  {
+   "match_id": "atp|2024-416|R64|atp:200303|atp:210097",
+   "side": "A",
+   "source_before": "handoff_ks",
+   "y_before": 237.5,
+   "use_before": true,
+   "source_after": "handoff_ks",
+   "y_after": 237.5,
+   "use_after": false
+  },
+  {
+   "match_id": "atp|2024-421|Q1|atp:106148|atp:106423",
+   "side": "B",
+   "source_before": "handoff_ks",
+   "y_before": 221.5,
+   "use_before": true,
+   "source_after": "infosys",
+   "y_after": 197.5909090909091,
+   "use_after": true
+  },
+  {
+   "match_id": "atp|2024-421|Q1|atp:126845|atp:209070",
+   "side": "A",
+   "source_before": "handoff_ks",
+   "y_before": 226.5,
+   "use_before": true,
+   "source_after": "infosys",
+   "y_after": 199.609375,
+   "use_after": true
+  },
+  {
+   "match_id": "atp|2024-439|Q1|atp:122554|atp:200572",
+   "side": "B",
+   "source_before": "handoff_ks",
+   "y_before": 196.5,
+   "use_before": true,
+   "source_after": "handoff_ks",
+   "y_after": 196.5,
+   "use_after": false
+  },
+  {
+   "match_id": "atp|2024-451|Q1|atp:104926|atp:106000",
+   "side": "A",
+   "source_before": "mantennisdata",
+   "y_before": 183.5,
+   "use_before": true,
+   "source_after": "infosys",
+   "y_after": 166.82926829268294,
+   "use_after": true
+  },
+  {
+   "match_id": "atp|2024-451|Q2|atp:106000|atp:206748",
+   "side": "B",
+   "source_before": "handoff_ks",
+   "y_before": 226.5,
+   "use_before": true,
+   "source_after": "infosys",
+   "y_after": 185.86111111111111,
+   "use_after": true
+  },
+  {
+   "match_id": "atp|2024-451|Q2|atp:124186|atp:127760",
+   "side": "B",
+   "source_before": "handoff_ks",
+   "y_before": 218.5,
+   "use_before": true,
+   "source_after": "infosys",
+   "y_after": 175.5,
+   "use_after": true
+  },
+  {
+   "match_id": "atp|2024-4713|Q1|atp:106283|atp:200711",
+   "side": "A",
+   "source_before": "handoff_ks",
+   "y_before": 199.5,
+   "use_before": true,
+   "source_after": "infosys",
+   "y_after": 186.55172413793105,
+   "use_after": true
+  },
+  {
+   "match_id": "atp|2024-5014|R64|atp:100644|atp:208233",
+   "side": "A",
+   "source_before": "handoff_ks",
+   "y_before": 234.5,
+   "use_before": true,
+   "source_after": "infosys",
+   "y_after": 206.97058823529412,
+   "use_after": true
+  },
+  {
+   "match_id": "atp|2024-6116|Q1|atp:106187|atp:208233",
+   "side": "B",
+   "source_before": "handoff_ks",
+   "y_before": 266.5,
+   "use_before": true,
+   "source_after": "handoff_ks",
+   "y_after": 266.5,
+   "use_after": false
+  },
+  {
+   "match_id": "atp|2024-6116|QF|atp:106415|atp:126207",
+   "side": "B",
+   "source_before": "handoff_ks",
+   "y_before": 255.5,
+   "use_before": true,
+   "source_after": "infosys",
+   "y_after": 194.72972972972974,
+   "use_after": true
+  },
+  {
+   "match_id": "atp|2024-741|R32|atp:106218|atp:202103",
+   "side": "B",
+   "source_before": "handoff_ks",
+   "y_before": 200.5,
+   "use_before": true,
+   "source_after": "infosys",
+   "y_after": 184.9787234042553,
+   "use_after": true
+  },
+  {
+   "match_id": "atp|2024-8994|R16|atp:105173|atp:210506",
+   "side": "A",
+   "source_before": "handoff_ks",
+   "y_before": 204.5,
+   "use_before": true,
+   "source_after": "infosys",
+   "y_after": 181.69387755102042,
+   "use_after": true
+  },
+  {
+   "match_id": "atp|2024-8998|R16|atp:132283|atp:200624",
+   "side": "B",
+   "source_before": "handoff_ks",
+   "y_before": 214.5,
+   "use_before": true,
+   "source_after": "infosys",
+   "y_after": 203.44117647058823,
+   "use_after": true
+  },
+  {
+   "match_id": "atp|2025-5014|Q1|atp:209262|atp:210317",
+   "side": "A",
+   "source_before": "mantennisdata",
+   "y_before": 229.5,
+   "use_before": true,
+   "source_after": "mantennisdata",
+   "y_after": 229.5,
+   "use_after": false
+  },
+  {
+   "match_id": "atp|2026-1536|R128|atp:200443|atp:212021",
+   "side": "A",
+   "source_before": "mantennisdata",
+   "y_before": 215.5,
+   "use_before": true,
+   "source_after": "mantennisdata",
+   "y_after": 215.5,
+   "use_after": false
+  }
+ ]
+}

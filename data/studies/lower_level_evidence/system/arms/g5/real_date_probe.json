@@ -1,0 +1,138 @@
+{
+ "what": "G5 real-date probe of the layer's cross-player changes (probe.py's design)",
+ "slice": [
+  "2023-01-01",
+  "2024-12-31"
+ ],
+ "cuts": [
+  "2023-09-06",
+  "2024-01-24",
+  "2024-07-10",
+  "2024-08-14"
+ ],
+ "atol": 1e-09,
+ "params": "C:\\Users\\zerom\\Documents\\Tennis-predictions\\data\\studies\\lower_level_evidence\\system\\arms\\g5\\synthetic_params.parquet",
+ "params_sha256": "49994cb325e84a965e505be29db34cac0ddfe5d00b350e26b0689c06d06ac4aa",
+ "configs": {
+  "DROP": {
+   "cuts": [
+    {
+     "cut": "2023-09-06",
+     "later_matches_flipped": 93429,
+     "protected_pool_matches": 13758,
+     "protected_moved": 0,
+     "protected_moved_by_input": {},
+     "unprotected_moved": 13020
+    },
+    {
+     "cut": "2024-01-24",
+     "later_matches_flipped": 70292,
+     "protected_pool_matches": 19744,
+     "protected_moved": 0,
+     "protected_moved_by_input": {},
+     "unprotected_moved": 10103
+    },
+    {
+     "cut": "2024-07-10",
+     "later_matches_flipped": 34371,
+     "protected_pool_matches": 29141,
+     "protected_moved": 0,
+     "protected_moved_by_input": {},
+     "unprotected_moved": 4256
+    },
+    {
+     "cut": "2024-08-14",
+     "later_matches_flipped": 25822,
+     "protected_pool_matches": 31163,
+     "protected_moved": 0,
+     "protected_moved_by_input": {},
+     "unprotected_moved": 2989
+    }
+   ],
+   "pass": true
+  },
+  "REWEIGHT": {
+   "cuts": [
+    {
+     "cut": "2023-09-06",
+     "later_matches_flipped": 93429,
+     "protected_pool_matches": 13758,
+     "protected_moved": 0,
+     "protected_moved_by_input": {},
+     "unprotected_moved": 22602
+    },
+    {
+     "cut": "2024-01-24",
+     "later_matches_flipped": 70292,
+     "protected_pool_matches": 19744,
+     "protected_moved": 0,
+     "protected_moved_by_input": {},
+     "unprotected_moved": 16921
+    },
+    {
+     "cut": "2024-07-10",
+     "later_matches_flipped": 34371,
+     "protected_pool_matches": 29141,
+     "protected_moved": 0,
+     "protected_moved_by_input": {},
+     "unprotected_moved": 7787
+    },
+    {
+     "cut": "2024-08-14",
+     "later_matches_flipped": 25822,
+     "protected_pool_matches": 31163,
+     "protected_moved": 0,
+     "protected_moved_by_input": {},
+     "unprotected_moved": 5787
+    }
+   ],
+   "pass": true
+  },
+  "TRANSLATE": {
+   "cuts": [
+    {
+     "cut": "2023-09-06",
+     "later_matches_flipped": 93429,
+     "protected_pool_matches": 13758,
+     "protected_moved": 0,
+     "protected_moved_by_input": {},
+     "unprotected_moved": 22602
+    },
+    {
+     "cut": "2024-01-24",
+     "later_matches_flipped": 70292,
+     "protected_pool_matches": 19744,
+     "protected_moved": 0,
+     "protected_moved_by_input": {},
+     "unprotected_moved": 16921
+    },
+    {
+     "cut": "2024-07-10",
+     "later_matches_flipped": 34371,
+     "protected_pool_matches": 29141,
+     "protected_moved": 0,
+     "protected_moved_by_input": {},
+     "unprotected_moved": 7787
+    },
+    {
+     "cut": "2024-08-14",
+     "later_matches_flipped": 25822,
+     "protected_pool_matches": 31163,
+     "protected_moved": 0,
+     "protected_moved_by_input": {},
+     "unprotected_moved": 5787
+    }
+   ],
+   "pass": true
+  }
+ },
+ "control": {
+  "what": "TRANSLATE with each player's end-of-slice rating (a leak by construction): protected inputs must move",
+  "cut": "2024-08-14",
+  "protected_moved": 28958,
+  "caught": true
+ },
+ "tree": "C:\\Users\\zerom\\tnr_sys2",
+ "pass": true,
+ "seconds": 1011.6
+}

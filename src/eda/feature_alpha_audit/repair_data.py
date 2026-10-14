@@ -23,14 +23,18 @@ def name_key(value):
     return " ".join(re.sub(r"[^a-z0-9 ]", " ", s).split())
 
 
-def plain_match_tiebreak(score, level, status="completed", short=False):
+def plain_match_tiebreak(score, level, status="completed", short=False, event_rule=False):
     """Bracket a certain deciding match tiebreak; preserve possible advantage sets.
 
     An unbracketed 10-4 cannot be an ordinary completed set. A 10-8 or 12-10
     can be an advantage set, including in older ITF events: without independent
-    rule evidence it is never rewritten. Retirements and incomplete scores are
-    left unchanged. ``level`` is retained for call compatibility, not inference.
-    This function describes an observed historical score, never forecast format.
+    rule evidence it is never rewritten. ``event_rule`` is such evidence: the
+    event plays a match tiebreak instead of its deciding set (stage0_build.
+    match_tiebreak_events, from its other deciders), so its 10-8 or 13-11 is
+    one too (the owner's go-ahead of 13 Oct 2026). Retirements and incomplete
+    scores are left unchanged. ``level`` is retained for call compatibility,
+    not inference. This function describes an observed historical score, never
+    forecast format.
     """
     s = str(score)
     if short or status != "completed":
@@ -51,7 +55,7 @@ def plain_match_tiebreak(score, level, status="completed", short=False):
     hi, lo = max(a, b), min(a, b)
     if hi < 10 or hi - lo < 2 or (hi > 10 and hi - lo != 2):
         return s
-    if hi - lo == 2:
+    if hi - lo == 2 and not event_rule:
         return s
     tokens[-1] = f"[{a}-{b}]"
     return " ".join(tokens)
@@ -59,11 +63,17 @@ def plain_match_tiebreak(score, level, status="completed", short=False):
 
 def repair_tables(matches, players):
     from src.eda.predictability_diagnostic import common as C
+    from src.eda.predictability_diagnostic.stage0_build import column_items, score_counts
     m, p = matches.copy().reset_index(drop=True), players.copy().reset_index(drop=True)
     if m.match_id.duplicated().any() or p.duplicated(["match_id", "side"]).any():
         raise ValueError("Repair inputs require unique matches and player sides")
-    sides = p.groupby("match_id").side.agg(set)
-    if set(sides.index) != set(m.match_id) or not sides.map(lambda s: s == {"A", "B"}).all():
+    # Each match's set of sides, as groupby(...).agg(set) gave it (a missing match id left out), in one loop over plain
+    # arrays: the group-by built a group for each of ~873,000 matches (11 Oct 2026, for speed; the same sets).
+    sides = {}
+    for mid, side in zip(column_items(p.match_id), column_items(p.side)):
+        if not pd.isna(mid):
+            sides.setdefault(mid, set()).add(side)
+    if set(sides) != set(m.match_id) or not all(s == {"A", "B"} for s in sides.values()):
         raise ValueError("Repair inputs require exactly A and B for every match")
     original_ids = p.player_id.copy()
     attr = m.set_index("match_id")[["tour", "source", "tournament_date"]]
@@ -73,9 +83,19 @@ def repair_tables(matches, players):
     q["birth_year_approx"] = pd.to_datetime(q.tournament_date).dt.year - pd.to_numeric(q.age, errors="coerce")
     trusted = q[q.source.eq("sackmann") & q.name_key.ne("")]
     groups = trusted.groupby(["tour", "name_key"], sort=False)
-    ids = groups.player_id.agg(lambda s: tuple(sorted(set(s))))
     years = groups.birth_year_approx.median()
-    countries = groups.country.agg(lambda s: set(s.dropna().astype(str)))
+    # Per (tour, name) as the group-by's Python functions gave them (a missing key left out): the sorted tuple of the
+    # player ids and the set of known countries, in one loop over plain arrays (11 Oct 2026, for speed; read only
+    # through .get below, so a dict serves as the Series did).
+    id_sets, countries = {}, {}
+    for tour, key, pid, country in zip(*(column_items(trusted[c]) for c in ("tour", "name_key", "player_id", "country"))):
+        if pd.isna(tour) or pd.isna(key):
+            continue
+        id_sets.setdefault((tour, key), set()).add(pid)
+        known = countries.setdefault((tour, key), set())
+        if not pd.isna(country):
+            known.add(str(country))
+    ids = {k: tuple(sorted(v)) for k, v in id_sets.items()}
     aliases, conflicts, proposed = [], [], []
     for (tour, pid, key), rows in q[q.source.ne("sackmann")].groupby(["tour", "player_id", "name_key"], sort=False):
         names = ids.get((tour, key), ())
@@ -114,9 +134,10 @@ def repair_tables(matches, players):
     aliases = [a for a in aliases if a["rows"]]
     p["opponent_id"] = np.where(p.side.eq("A"), p.match_id.map(pairs.B), p.match_id.map(pairs.A))
     m["player_a_id"], m["player_b_id"] = m.match_id.map(pairs.A), m.match_id.map(pairs.B)
-    # Correct historical score aggregates only where notation is unambiguous.
-    from src.eda.predictability_diagnostic.stage0_build import score_counts
-    repaired_score = [plain_match_tiebreak(r.score, r.level, r.status, r.format == "short_sets") for r in m.itertuples()]
+    # Correct historical score aggregates only where notation is unambiguous. (The four columns read as plain arrays
+    # rather than through itertuples, which read every column of every row: 11 Oct 2026, for speed; the same values.)
+    repaired_score = [plain_match_tiebreak(score, level, status, fmt == "short_sets") for score, level, status, fmt in
+                      zip(*(column_items(m[c]) for c in ("score", "level", "status", "format")))]
     changed = np.asarray(repaired_score) != m.score.astype(str).to_numpy()
     counts = {}
     for idx in np.flatnonzero(changed):

@@ -1,0 +1,226 @@
+{
+ "source": "sofascore_editions",
+ "gap": "wta_2018_points",
+ "targets_from": "frozen in data/studies/gap_downloads/sofascore_wta_2018_points_matches.csv",
+ "started_at": "2026-10-11T19:53:12+00:00",
+ "args": {
+  "gap": "wta_2018_points",
+  "refresh_targets": false,
+  "skip": [
+   "statistics"
+  ],
+  "limit": null,
+  "max_requests": 40000,
+  "min_interval": 2.0,
+  "jitter": 1.0,
+  "stage_only": false,
+  "no_stage": false,
+  "browser": "http://localhost:9222"
+ },
+ "fetch_outcomes": {
+  "point-by-point:200": 533,
+  "point-by-point:200:cached": 20,
+  "point-by-point:404": 1419,
+  "point-by-point:404:cached": 30
+ },
+ "client": {
+  "impersonate": "browser:155.0.8059.39",
+  "requests": 2231,
+  "retried": 0,
+  "slept_seconds": 5080.1,
+  "min_interval": 2.0,
+  "transport": "browser",
+  "cdp_url": "http://localhost:9222",
+  "page_reloads": 0,
+  "token_renewals": 0,
+  "renewals_failed": 0,
+  "site_data_resets": 0
+ },
+ "staged": {
+  "events": {
+   "rows": 82158,
+   "dest": "data/dump/points/sofascore_editions/events.parquet",
+   "bytes": 8552679
+  },
+  "points": {
+   "rows": 2734117,
+   "dest": "data/dump/points/sofascore_editions/points.parquet",
+   "bytes": 15901887
+  },
+  "statistics": {
+   "rows": 1162119,
+   "dest": "data/dump/points/sofascore_editions/statistics.parquet",
+   "bytes": 9978493
+  }
+ },
+ "all": {
+  "targets": 2079,
+  "listed": 2004,
+  "points_any": 553,
+  "points_complete": 534,
+  "points_absent": 1451,
+  "points_not_fetched": 0,
+  "full_box_score": 0,
+  "stats_any": 0
+ },
+ "editions": 82,
+ "editions_located": 76,
+ "by_year_level": {
+  "2018|CH": {
+   "targets": 286,
+   "listed": 279,
+   "points_any": 155,
+   "points_complete": 152,
+   "points_absent": 124,
+   "points_not_fetched": 0,
+   "full_box_score": 0,
+   "stats_any": 0
+  },
+  "2018|CHQ": {
+   "targets": 132,
+   "listed": 129,
+   "points_any": 5,
+   "points_complete": 5,
+   "points_absent": 124,
+   "points_not_fetched": 0,
+   "full_box_score": 0,
+   "stats_any": 0
+  },
+  "2018|FIN": {
+   "targets": 11,
+   "listed": 11,
+   "points_any": 10,
+   "points_complete": 10,
+   "points_absent": 1,
+   "points_not_fetched": 0,
+   "full_box_score": 0,
+   "stats_any": 0
+  },
+  "2018|T1000": {
+   "targets": 127,
+   "listed": 127,
+   "points_any": 100,
+   "points_complete": 99,
+   "points_absent": 27,
+   "points_not_fetched": 0,
+   "full_box_score": 0,
+   "stats_any": 0
+  },
+  "2018|T250": {
+   "targets": 302,
+   "listed": 271,
+   "points_any": 164,
+   "points_complete": 153,
+   "points_absent": 107,
+   "points_not_fetched": 0,
+   "full_box_score": 0,
+   "stats_any": 0
+  },
+  "2018|T500": {
+   "targets": 101,
+   "listed": 99,
+   "points_any": 85,
+   "points_complete": 82,
+   "points_absent": 14,
+   "points_not_fetched": 0,
+   "full_box_score": 0,
+   "stats_any": 0
+  },
+  "2018|TQ": {
+   "targets": 1120,
+   "listed": 1088,
+   "points_any": 34,
+   "points_complete": 33,
+   "points_absent": 1054,
+   "points_not_fetched": 0,
+   "full_box_score": 0,
+   "stats_any": 0
+  }
+ },
+ "pbp_verdicts": {
+  "nan": 1526,
+  "complete": 503,
+  "complete to retirement": 31,
+  "short": 19
+ },
+ "editions_not_located": [
+  {
+   "edition": "W||2018|w01",
+   "locate_tried": "6/2019-01-02:23;6/2019-01-04:37;6/2019-01-01:39;6/2019-01-06:35;6/2018-12-31:50;6/2018-12-30:48;6/2018-12-28:49;6/2018-12-26:0"
+  },
+  {
+   "edition": "W|Toray Pan Pacific Open - Tokyo, Japan|2018|w38",
+   "locate_tried": "6/2018-09-19:30;6/2018-09-21:50;6/2018-09-18:45;6/2018-09-23:41;6/2018-09-17:52;6/2018-09-16:38;6/2018-09-14:52;6/2018-09-12:22"
+  },
+  {
+   "edition": "W|Bucharest|2018|w29",
+   "locate_tried": "6/2018-07-18:15;6/2018-07-20:21;6/2018-07-17:15;6/2018-07-22:46;6/2018-07-16:11;6/2018-07-15:16;6/2018-07-13:10;6/2018-07-11:6"
+  },
+  {
+   "edition": "W|2018 Kunming Open - Anning, China|2018|w18",
+   "locate_tried": "871/2018-04-30:16;871/2018-04-29:12;871/2018-05-01:16;871/2018-05-02:12;6/2018-04-27:45;6/2018-04-25:28"
+  },
+  {
+   "edition": "W|2018 Zhengzhou Women's Tennis Open - Zhengzhou, CHN|2018|w16",
+   "locate_tried": "871/2018-04-16:18;871/2018-04-15:12;871/2018-04-17:14;871/2018-04-18:8;6/2018-04-13:26;6/2018-04-11:21"
+  },
+  {
+   "edition": "W||2018|w14",
+   "locate_tried": "6/2018-04-04:38;6/2018-04-06:23;6/2018-04-03:46;6/2018-04-08:39;6/2018-04-02:40;6/2018-04-01:49;6/2018-03-30:2;6/2018-03-28:4"
+  }
+ ],
+ "matches_selected": 2004,
+ "receipts_with_errors": 12,
+ "error_examples": [
+  {
+   "name": "day/72/2022-02-05",
+   "error": "RuntimeError: TargetClosedError: Page.evaluate: Target page, context or browser has been closed for https://api.sofascore.com/api/v1/category/72/scheduled-events/2022-02-05 after 4 attempts"
+  },
+  {
+   "name": "day/72/2022-01-27",
+   "error": "RuntimeError: TargetClosedError: Page.evaluate: Target page, context or browser has been closed for https://api.sofascore.com/api/v1/category/72/scheduled-events/2022-01-27 after 4 attempts"
+  },
+  {
+   "name": "day/72/2022-01-25",
+   "error": "RuntimeError: TargetClosedError: Page.evaluate: Target page, context or browser has been closed for https://api.sofascore.com/api/v1/category/72/scheduled-events/2022-01-25 after 4 attempts"
+  },
+  {
+   "name": "day/72/2022-01-19",
+   "error": "RuntimeError: TargetClosedError: Page.evaluate: Target page, context or browser has been closed for https://api.sofascore.com/api/v1/category/72/scheduled-events/2022-01-19 after 4 attempts"
+  },
+  {
+   "name": "day/72/2022-01-16",
+   "error": "RuntimeError: TargetClosedError: Page.evaluate: Target page, context or browser has been closed for https://api.sofascore.com/api/v1/category/72/scheduled-events/2022-01-16 after 4 attempts"
+  },
+  {
+   "name": "day/72/2022-01-12",
+   "error": "RuntimeError: TargetClosedError: Page.evaluate: Target page, context or browser has been closed for https://api.sofascore.com/api/v1/category/72/scheduled-events/2022-01-12 after 4 attempts"
+  },
+  {
+   "name": "day/72/2022-01-09",
+   "error": "RuntimeError: TargetClosedError: Page.evaluate: Target page, context or browser has been closed for https://api.sofascore.com/api/v1/category/72/scheduled-events/2022-01-09 after 4 attempts"
+  },
+  {
+   "name": "day/72/2022-01-07",
+   "error": "RuntimeError: TargetClosedError: Page.evaluate: Target page, context or browser has been closed for https://api.sofascore.com/api/v1/category/72/scheduled-events/2022-01-07 after 4 attempts"
+  },
+  {
+   "name": "day/72/2022-01-06",
+   "error": "RuntimeError: TargetClosedError: Page.evaluate: Target page, context or browser has been closed for https://api.sofascore.com/api/v1/category/72/scheduled-events/2022-01-06 after 4 attempts"
+  },
+  {
+   "name": "day/72/2022-01-04",
+   "error": "RuntimeError: TargetClosedError: Page.evaluate: Target page, context or browser has been closed for https://api.sofascore.com/api/v1/category/72/scheduled-events/2022-01-04 after 4 attempts"
+  },
+  {
+   "name": "day/72/2021-12-31",
+   "error": "RuntimeError: TargetClosedError: Page.evaluate: Target page, context or browser has been closed for https://api.sofascore.com/api/v1/category/72/scheduled-events/2021-12-31 after 4 attempts"
+  },
+  {
+   "name": "day/72/2021-12-29",
+   "error": "RuntimeError: TargetClosedError: Page.evaluate: Target page, context or browser has been closed for https://api.sofascore.com/api/v1/category/72/scheduled-events/2021-12-29 after 4 attempts"
+  }
+ ],
+ "finished_at": "2026-10-11T21:29:33+00:00",
+ "seconds": 5781.2
+}

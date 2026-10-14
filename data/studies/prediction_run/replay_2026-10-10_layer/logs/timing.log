@@ -1,0 +1,22 @@
+[    1.1s] links: 952,289 rows from 13 sources: {'flashscore': 413616, 'live_tennis_api': 126876, 'api_tennis': 108269, 'tennis_data': 83131, 'pbp_copy': 52234, 'sofascore': 51409, 'infosys': 37203, 'wta_api': 28737, 'open_tennis_data': 26581, 'match_charting': 9164, 'slam_feeds': 7682, 'tdi': 4939, 'tml_days': 2448}
+[   28.2s] source calibration (extra days before / after, tier):
+                     cal_class   tier  overlaps  before  after  share_inside_base  share_inside_calibrated
+              api_tennis:local   gold      1459       2      0           0.957505                 1.000000
+              flashscore:local   gold     24424       1      0           0.986898                 0.999345
+         live_tennis_api:local   gold     19704       1      0           0.984267                 0.999188
+          match_charting:local   gold      2346       1      0           0.997442                 0.998295
+        open_tennis_data:local   gold      7011       2      1           0.974326                 0.999857
+     open_tennis_data:utc_date   gold      5304       0      0           0.999811                 0.999811
+               sofascore:local   gold      8436       1      0           0.991702                 0.999881
+             tennis_data:local   gold      7365       2      1           0.970401                 0.999864
+        tennis_data:local:east   gold      3441       1      0           0.996222                 1.000000
+        tennis_data:local:west   gold      5768       0      0           0.999653                 0.999653
+                tml_days:local   gold       466       4      1           0.976395                 1.000000
+             tml_days:utc_date   gold       495       3      4           0.941414                 1.000000
+wta_api:listing_schedule:local   gold      1072       1      0           0.997201                 0.999067
+                 infosys:local silver      3645       0      0           0.999451                 0.999451
+             pbp_copy:utc_date silver      5919       0      0           1.000000                 1.000000
+[   29.1s] dated days not trusted alone: {"dated outside its round's other dated days": 33, 'its sources disagree by more than a week': 7}
+[   38.9s] undated windows widened by their event's shift: 624
+[   41.3s] draw guard: {'moved': 68877, 'contradictory_events': 2, 'contradictory_event_matches': 142, 'events_left_unnarrowed': 0}
+[   44.7s] timing: 482,525 of 875,120 matches have a trusted exact day; 584 conflicts; draw narrowing moved 68,877 bounds; 2 events contradicted the draw order

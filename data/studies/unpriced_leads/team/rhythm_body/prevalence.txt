@@ -1,0 +1,134 @@
+frame rows 67226
+
+A. men 2013-2020: share of frame matches where player A / either / exactly one is in the same event's doubles draw
+       a_dbl  any_dbl  one_dbl     n
+level                               
+FIN    0.000    0.000    0.000   119
+GS     0.357    0.566    0.431  3918
+T1000  0.350    0.572    0.450  4082
+T250   0.390    0.611    0.446  8229
+T500   0.354    0.583    0.446  3137
+by season: {2013: 0.645, 2014: 0.616, 2015: 0.65, 2016: 0.634, 2017: 0.597, 2018: 0.551, 2019: 0.595, 2020: 0.197}
+
+B. TennisLive doubles rows 170241 played values {'TRUE': 162681, 'FALSE': 7560} state {'finished': 170241}
+doubles member-rows 680962 mapped to a Stage 0 id: 0.958
+
+B. 2018-2026 frame matches: share where either player played doubles in the 7 days before (days -7..-1), exactly one did, either in days -2..-1, or a doubles match the same day
+             any7  diff7   any2  same_day     n
+tour level                                     
+atp  FIN    0.000  0.000  0.000     0.000   120
+     GS     0.197  0.179  0.098     0.020  4420
+     T1000  0.395  0.320  0.210     0.075  5070
+     T250   0.448  0.367  0.260     0.107  8531
+     T500   0.473  0.387  0.230     0.088  3559
+wta  FIN    0.200  0.193  0.147     0.040   150
+     GS     0.343  0.283  0.173     0.060  4424
+     T1000  0.431  0.356  0.230     0.106  5144
+     T250   0.481  0.381  0.277     0.158  6958
+     T500   0.436  0.359  0.260     0.125  3487
+              any7  diff7   any2     n
+tour season                           
+atp  2018    0.471  0.379  0.256  2620
+     2019    0.488  0.379  0.273  2587
+     2020    0.412  0.347  0.216  1259
+     2021    0.430  0.352  0.225  2466
+     2022    0.409  0.327  0.232  2606
+     2023    0.367  0.311  0.191  2676
+     2024    0.351  0.297  0.187  2676
+     2025    0.281  0.245  0.156  2620
+     2026    0.266  0.237  0.139  2190
+wta  2018    0.410  0.332  0.228  2450
+     2019    0.430  0.352  0.244  2458
+     2020    0.446  0.341  0.271  1046
+     2021    0.475  0.383  0.257  2289
+     2022    0.451  0.369  0.251  2339
+     2023    0.425  0.341  0.239  2464
+     2024    0.426  0.348  0.229  2465
+     2025    0.433  0.357  0.239  2485
+     2026    0.362  0.300  0.205  2167
+
+C. rest in hours: share of frame matches with both players' rest in hours; both under 72 h; any / exactly one under 20 h; rest gap of 12 h or more (both under 72 h); the same, with equal rest in days
+                n  both_hours  both_lt72h  short_any  short_one  gap12  gap12_same_days
+tour season                                                                            
+atp  2013    2611       0.929       0.431      0.072      0.063  0.105            0.000
+     2014    2574       0.936       0.424      0.063      0.052  0.098            0.000
+     2015    2619       0.903       0.423      0.060      0.048  0.088            0.000
+     2016    2603       0.945       0.431      0.062      0.053  0.092            0.000
+     2017    2612       0.908       0.426      0.067      0.059  0.091            0.000
+     2018    2620       0.940       0.439      0.066      0.054  0.102            0.000
+     2019    2587       0.959       0.440      0.064      0.057  0.094            0.000
+     2020    1259       0.913       0.457      0.064      0.059  0.094            0.001
+     2021    2466       0.952       0.432      0.067      0.056  0.082            0.000
+     2022    2606       0.974       0.440      0.067      0.056  0.099            0.000
+     2023    2676       0.973       0.428      0.061      0.050  0.086            0.000
+     2024    2676       0.963       0.420      0.053      0.045  0.089            0.000
+     2025    2620       0.922       0.400      0.040      0.036  0.072            0.000
+     2026    2190       0.947       0.419      0.046      0.041  0.072            0.000
+wta  2013    2417       0.368       0.191      0.048      0.041  0.048            0.000
+     2014    2449       0.379       0.185      0.040      0.038  0.043            0.000
+     2015    2495       0.370       0.182      0.043      0.040  0.037            0.000
+     2016    2498       0.366       0.175      0.051      0.044  0.035            0.000
+     2017    2485       0.385       0.197      0.044      0.039  0.051            0.000
+     2018    2450       0.808       0.418      0.075      0.064  0.118            0.002
+     2019    2458       0.892       0.456      0.092      0.077  0.106            0.000
+     2020    1046       0.704       0.402      0.055      0.050  0.085            0.001
+     2021    2289       0.850       0.416      0.066      0.055  0.091            0.001
+     2022    2339       0.917       0.454      0.080      0.073  0.109            0.000
+     2023    2464       0.944       0.453      0.071      0.063  0.113            0.001
+     2024    2465       0.948       0.435      0.071      0.058  0.088            0.000
+     2025    2485       0.968       0.426      0.060      0.052  0.077            0.000
+     2026    2167       0.866       0.383      0.051      0.048  0.076            0.000
+rest-hours quantiles (all player-matches with hours): {0.01: 17.7, 0.05: 20.4, 0.1: 22.1, 0.25: 28.9, 0.5: 49.8}
+within 72 h: n 68888 share < 16 h 0.008 < 20 h 0.067 < 24 h 0.283
+rest gap (both < 72 h) quantiles: {0.5: 2.8, 0.75: 6.8, 0.9: 23.2, 0.95: 26.0}
+
+D. share of frame matches with a qualifier or lucky loser
+                n  q_any
+tour level              
+atp  FIN      194  0.000
+     GS      6946  0.192
+     T1000   7872  0.235
+     T250   14087  0.273
+     T500    5620  0.246
+wta  FIN      285  0.000
+     GS      6957  0.119
+     T1000   8035  0.262
+     T250   11910  0.304
+     T500    5320  0.309
+qualifier/LL rest-hours quantiles: {0.1: 21.5, 0.25: 24.1, 0.5: 40.8, 0.75: 48.6} n 15774
+
+E. Flashscore exhibition records by year: {2009: 12, 2010: 13, 2011: 24, 2012: 32, 2013: 38, 2014: 38, 2015: 45, 2016: 45, 2017: 47, 2018: 45, 2019: 42, 2020: 9780, 2021: 873, 2022: 40, 2023: 28, 2024: 39, 2025: 70, 2026: 22}
+tournament_name
+Others matches                        6007
+UTR Pro Match Series                  3316
+International Tennis Series            632
+Boodles Challenge                      146
+Kooyong                                128
+Exo-Tennis (USA)                       108
+Tennis Point Exhibition Series         104
+Liga MAPFRE de Tenis                    99
+Exo-Tennis (Germany)                    97
+World Tennis Challenge                  84
+MatchPlay 120                           70
+UTS Championship                        64
+Tie Break Tens                          58
+World Tennis League                     53
+Challenge Elite FFT 2                   36
+Challenge Elite FFT 3                   35
+Challenge Elite FFT                     34
+Battle of the Brits 2                   22
+Diriyah Tennis Cup                      20
+Credit One Bank Invitational            15
+Battle of the Brits                     14
+UTS Championship 2                      14
+Masters France                          12
+Six Kings Slam                          12
+Adria Tour (Serbia)                     11
+Adria Tour (Croatia)                     9
+Young Kings Scholarship                  8
+World Tennis Championship                8
+Altec Styslinger Tennis Exhibition       7
+A Day at the Drive                       5
+
+wrote C:\Users\zerom\Documents\Tennis-predictions\data\studies\unpriced_leads\team\rhythm_body\prevalence.json
+wrote C:\Users\zerom\Documents\Tennis-predictions\data\studies\unpriced_leads\team\rhythm_body\scratch_features.parquet 67226

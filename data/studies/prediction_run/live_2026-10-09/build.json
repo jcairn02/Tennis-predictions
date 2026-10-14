@@ -1,0 +1,463 @@
+{
+ "steps": [
+  {
+   "step": "stage0",
+   "script": "src/eda/predictability_diagnostic/stage0_build.py",
+   "args": [
+    "--live-rows",
+    "run/live_rows.parquet"
+   ],
+   "exit": 0,
+   "seconds": 566.2,
+   "finished_at": "2026-10-09T0544Z",
+   "log": "C:\\Users\\zerom\\tnr_live3\\logs\\stage0.log"
+  },
+  {
+   "step": "check",
+   "script": "src/eda/prediction_run/inject.py",
+   "args": [
+    "--meta",
+    "run/live_meta.parquet",
+    "--step",
+    "check"
+   ],
+   "exit": 0,
+   "seconds": 18.0,
+   "finished_at": "2026-10-09T0544Z",
+   "log": "C:\\Users\\zerom\\tnr_live3\\logs\\check.log"
+  },
+  {
+   "step": "stage0_checks",
+   "script": "src/eda/predictability_diagnostic/stage0_checks.py",
+   "args": [],
+   "exit": 0,
+   "seconds": 108.7,
+   "finished_at": "2026-10-09T0546Z",
+   "log": "C:\\Users\\zerom\\tnr_live3\\logs\\stage0_checks.log"
+  },
+  {
+   "step": "odds",
+   "script": "src/eda/predictability_diagnostic/stage1_odds.py",
+   "args": [],
+   "exit": 0,
+   "seconds": 48.1,
+   "finished_at": "2026-10-09T0547Z",
+   "log": "C:\\Users\\zerom\\tnr_live3\\logs\\odds.log"
+  },
+  {
+   "step": "live_odds",
+   "script": "src/eda/prediction_run/inject.py",
+   "args": [
+    "--meta",
+    "run/live_meta.parquet",
+    "--step",
+    "odds"
+   ],
+   "exit": 0,
+   "seconds": 9.9,
+   "finished_at": "2026-10-09T0547Z",
+   "log": "C:\\Users\\zerom\\tnr_live3\\logs\\live_odds.log"
+  },
+  {
+   "step": "remap",
+   "script": "src/eda/prediction_run/inject.py",
+   "args": [
+    "--meta",
+    "run/live_meta.parquet",
+    "--step",
+    "remap"
+   ],
+   "exit": 0,
+   "seconds": 11.0,
+   "finished_at": "2026-10-09T0547Z",
+   "log": "C:\\Users\\zerom\\tnr_live3\\logs\\remap.log"
+  },
+  {
+   "step": "links",
+   "script": "src/eda/match_timing/link_sources_c.py",
+   "args": [
+    "--sources",
+    "tennis_data,wta_api,sofascore,slam_feeds,tdi"
+   ],
+   "exit": 0,
+   "seconds": 54.5,
+   "finished_at": "2026-10-09T0548Z",
+   "log": "C:\\Users\\zerom\\tnr_live3\\logs\\links.log"
+  },
+  {
+   "step": "live_links",
+   "script": "src/eda/prediction_run/inject.py",
+   "args": [
+    "--meta",
+    "run/live_meta.parquet",
+    "--step",
+    "links"
+   ],
+   "exit": 0,
+   "seconds": 5.3,
+   "finished_at": "2026-10-09T0548Z",
+   "log": "C:\\Users\\zerom\\tnr_live3\\logs\\live_links.log"
+  },
+  {
+   "step": "timing",
+   "script": "src/eda/match_timing/timing.py",
+   "args": [],
+   "exit": 0,
+   "seconds": 41.0,
+   "finished_at": "2026-10-09T0549Z",
+   "log": "C:\\Users\\zerom\\tnr_live3\\logs\\timing.log"
+  },
+  {
+   "step": "timing_check",
+   "script": "src/eda/match_timing/timing_check.py",
+   "args": [],
+   "exit": 0,
+   "seconds": 242.5,
+   "finished_at": "2026-10-09T0553Z",
+   "log": "C:\\Users\\zerom\\tnr_live3\\logs\\timing_check.log"
+  },
+  {
+   "step": "live_window",
+   "script": "src/eda/prediction_run/inject.py",
+   "args": [
+    "--meta",
+    "run/live_meta.parquet",
+    "--step",
+    "pin"
+   ],
+   "exit": 1,
+   "seconds": 1.2,
+   "finished_at": "2026-10-09T0553Z",
+   "log": "C:\\Users\\zerom\\tnr_live3\\logs\\live_window.log"
+  },
+  {
+   "step": "live_window",
+   "script": "src/eda/prediction_run/inject.py",
+   "args": [
+    "--meta",
+    "run/live_meta.parquet",
+    "--step",
+    "pin"
+   ],
+   "exit": 0,
+   "seconds": 2.5,
+   "finished_at": "2026-10-09T0553Z",
+   "log": "C:\\Users\\zerom\\tnr_live3\\logs\\live_window.log"
+  },
+  {
+   "step": "timing_features",
+   "script": "src/eda/match_timing/rebuild.py",
+   "args": [],
+   "exit": 0,
+   "seconds": 1408.9,
+   "finished_at": "2026-10-09T0617Z",
+   "log": "C:\\Users\\zerom\\tnr_live3\\logs\\timing_features.log"
+  },
+  {
+   "step": "surface_ios_cache",
+   "script": "src/eda/surface_ios/build_cache.py",
+   "args": [],
+   "exit": 0,
+   "seconds": 90.4,
+   "finished_at": "2026-10-09T0618Z",
+   "log": "C:\\Users\\zerom\\tnr_live3\\logs\\surface_ios_cache.log"
+  },
+  {
+   "step": "surface_ios_features",
+   "script": "src/eda/surface_ios/build_features.py",
+   "args": [],
+   "exit": 0,
+   "seconds": 1384.5,
+   "finished_at": "2026-10-09T0641Z",
+   "log": "C:\\Users\\zerom\\tnr_live3\\logs\\surface_ios_features.log"
+  },
+  {
+   "step": "stage1_baselines",
+   "script": "src/eda/predictability_diagnostic/stage1_baselines.py",
+   "args": [],
+   "exit": 0,
+   "seconds": 1528.5,
+   "finished_at": "2026-10-09T0642Z",
+   "log": "C:\\Users\\zerom\\tnr_live3\\logs\\stage1_baselines.log"
+  },
+  {
+   "step": "stage3_ratings",
+   "script": "src/eda/predictability_diagnostic/stage3_ratings.py",
+   "args": [],
+   "exit": 0,
+   "seconds": 196.3,
+   "finished_at": "2026-10-09T0646Z",
+   "log": "C:\\Users\\zerom\\tnr_live3\\logs\\stage3_ratings.log"
+  },
+  {
+   "step": "stage4_features",
+   "script": "src/eda/predictability_diagnostic/stage4_features.py",
+   "args": [],
+   "exit": 0,
+   "seconds": 917.5,
+   "finished_at": "2026-10-09T0701Z",
+   "log": "C:\\Users\\zerom\\tnr_live3\\logs\\stage4_features.log"
+  },
+  {
+   "step": "ufc_stageA_ratings",
+   "script": "src/eda/ufc_ideas/stageA_ratings.py",
+   "args": [
+    "--reuse-grid"
+   ],
+   "exit": 0,
+   "seconds": 1157.5,
+   "finished_at": "2026-10-09T0720Z",
+   "log": "C:\\Users\\zerom\\tnr_live3\\logs\\ufc_stageA_ratings.log"
+  },
+  {
+   "step": "ufc_stageA_features",
+   "script": "src/eda/ufc_ideas/stageA_features.py",
+   "args": [],
+   "exit": 0,
+   "seconds": 4.1,
+   "finished_at": "2026-10-09T0720Z",
+   "log": "C:\\Users\\zerom\\tnr_live3\\logs\\ufc_stageA_features.log"
+  },
+  {
+   "step": "ufc_stageC_fatigue",
+   "script": "src/eda/ufc_ideas/stageC_fatigue.py",
+   "args": [],
+   "exit": 0,
+   "seconds": 91.2,
+   "finished_at": "2026-10-09T0722Z",
+   "log": "C:\\Users\\zerom\\tnr_live3\\logs\\ufc_stageC_fatigue.log"
+  },
+  {
+   "step": "ufc_stageC_sos",
+   "script": "src/eda/ufc_ideas/stageC_sos.py",
+   "args": [],
+   "exit": 0,
+   "seconds": 231.7,
+   "finished_at": "2026-10-09T0726Z",
+   "log": "C:\\Users\\zerom\\tnr_live3\\logs\\ufc_stageC_sos.log"
+  },
+  {
+   "step": "ufc_stageC_rundown",
+   "script": "src/eda/ufc_ideas/stageC_rundown.py",
+   "args": [],
+   "exit": 0,
+   "seconds": 97.0,
+   "finished_at": "2026-10-09T0727Z",
+   "log": "C:\\Users\\zerom\\tnr_live3\\logs\\ufc_stageC_rundown.log"
+  },
+  {
+   "step": "ufc_stageB_adjperf",
+   "script": "src/eda/ufc_ideas/stageB_adjperf.py",
+   "args": [],
+   "exit": 0,
+   "seconds": 1824.9,
+   "finished_at": "2026-10-09T0758Z",
+   "log": "C:\\Users\\zerom\\tnr_live3\\logs\\ufc_stageB_adjperf.log"
+  },
+  {
+   "step": "ufc_stageB_ios",
+   "script": "src/eda/ufc_ideas/stageB_ios.py",
+   "args": [],
+   "exit": 0,
+   "seconds": 788.9,
+   "finished_at": "2026-10-09T0811Z",
+   "log": "C:\\Users\\zerom\\tnr_live3\\logs\\ufc_stageB_ios.log"
+  },
+  {
+   "step": "ios_constants_check",
+   "script": "src/eda/ios_constants/registry.py",
+   "args": [
+    "--check"
+   ],
+   "exit": 0,
+   "seconds": 1.5,
+   "finished_at": "2026-10-09T0811Z",
+   "log": "C:\\Users\\zerom\\tnr_live3\\logs\\ios_constants_check.log"
+  },
+  {
+   "step": "ufc_stageB_split",
+   "script": "src/eda/ufc_ideas/stageB_split.py",
+   "args": [],
+   "exit": 0,
+   "seconds": 236.3,
+   "finished_at": "2026-10-09T0815Z",
+   "log": "C:\\Users\\zerom\\tnr_live3\\logs\\ufc_stageB_split.log"
+  },
+  {
+   "step": "ufc_stageB_rundown",
+   "script": "src/eda/ufc_ideas/stageB_rundown.py",
+   "args": [],
+   "exit": 0,
+   "seconds": 459.1,
+   "finished_at": "2026-10-09T0822Z",
+   "log": "C:\\Users\\zerom\\tnr_live3\\logs\\ufc_stageB_rundown.log"
+  },
+  {
+   "step": "ufc_stageD_profile",
+   "script": "src/eda/ufc_ideas/stageD_profile.py",
+   "args": [],
+   "exit": 0,
+   "seconds": 235.2,
+   "finished_at": "2026-10-09T0826Z",
+   "log": "C:\\Users\\zerom\\tnr_live3\\logs\\ufc_stageD_profile.log"
+  },
+  {
+   "step": "ufc_stageD_rundown",
+   "script": "src/eda/ufc_ideas/stageD_rundown.py",
+   "args": [],
+   "exit": 0,
+   "seconds": 54.3,
+   "finished_at": "2026-10-09T0827Z",
+   "log": "C:\\Users\\zerom\\tnr_live3\\logs\\ufc_stageD_rundown.log"
+  },
+  {
+   "step": "thinking_frame",
+   "script": "src/eda/tabpfn_thinking/build_frame.py",
+   "args": [],
+   "exit": 0,
+   "seconds": 3.8,
+   "finished_at": "2026-10-09T0827Z",
+   "log": "C:\\Users\\zerom\\tnr_live3\\logs\\thinking_frame.log"
+  },
+  {
+   "step": "leakproof_frame",
+   "script": "src/eda/tabpfn_leakproof/build_frame.py",
+   "args": [],
+   "exit": 0,
+   "seconds": 2.2,
+   "finished_at": "2026-10-09T0827Z",
+   "log": "C:\\Users\\zerom\\tnr_live3\\logs\\leakproof_frame.log"
+  },
+  {
+   "step": "elo_pieces",
+   "script": "src/eda/surface_elo_pieces/pieces.py",
+   "args": [],
+   "exit": 0,
+   "seconds": 411.4,
+   "finished_at": "2026-10-09T0834Z",
+   "log": "C:\\Users\\zerom\\tnr_live3\\logs\\elo_pieces.log"
+  },
+  {
+   "step": "elo_frames",
+   "script": "src/eda/surface_elo_pieces/build_frames.py",
+   "args": [],
+   "exit": 0,
+   "seconds": 9.6,
+   "finished_at": "2026-10-09T0834Z",
+   "log": "C:\\Users\\zerom\\tnr_live3\\logs\\elo_frames.log"
+  },
+  {
+   "step": "surface_ios_frames",
+   "script": "src/eda/surface_ios/frames.py",
+   "args": [],
+   "exit": 0,
+   "seconds": 1.7,
+   "finished_at": "2026-10-09T0834Z",
+   "log": "C:\\Users\\zerom\\tnr_live3\\logs\\surface_ios_frames.log"
+  },
+  {
+   "step": "surface_ios_arms",
+   "script": "src/eda/surface_ios/arms.py",
+   "args": [],
+   "exit": 0,
+   "seconds": 5.5,
+   "finished_at": "2026-10-09T0835Z",
+   "log": "C:\\Users\\zerom\\tnr_live3\\logs\\surface_ios_arms.log"
+  },
+  {
+   "step": "model_frame",
+   "script": "src/eda/surface_rating_race/model_frame.py",
+   "args": [],
+   "exit": 0,
+   "seconds": 2.7,
+   "finished_at": "2026-10-09T0835Z",
+   "log": "C:\\Users\\zerom\\tnr_live3\\logs\\model_frame.log"
+  }
+ ],
+ "sandbox": "C:\\Users\\zerom\\tnr_live3",
+ "folder": "C:\\Users\\zerom\\Documents\\Tennis-predictions\\data\\studies\\prediction_run\\live_2026-10-09",
+ "history": {
+  "checked": "C:\\Users\\zerom\\tnr_live3\\data\\studies\\predictability_diagnostic",
+  "reference": "2026-10-08",
+  "freeze": "2026-10-08",
+  "since": "2026-10-05",
+  "matches": 873456,
+  "reference_matches": 873437,
+  "future": {
+   "matches": 19,
+   "by": [
+    {
+     "source": "tml",
+     "tour": "atp",
+     "map_level": "CH",
+     "year": 2026,
+     "matches": 15
+    },
+    {
+     "source": "tml",
+     "tour": "atp",
+     "map_level": "T1000",
+     "year": 2026,
+     "matches": 2
+    },
+    {
+     "source": "tml",
+     "tour": "wta",
+     "map_level": "T1000",
+     "year": 2026,
+     "matches": 2
+    }
+   ]
+  },
+  "updated": {
+   "matches": 6,
+   "revised": 6,
+   "dropped": 0,
+   "by": [
+    {
+     "source": "tml",
+     "tour": "wta",
+     "map_level": "T1000",
+     "year": 2026,
+     "matches": 6
+    }
+   ],
+   "examples": [
+    "wta|2026-1020|R16|wta:216347|wta:260300",
+    "wta|2026-1020|R16|wta:210722|wta:221103",
+    "wta|2026-1020|R16|wta:221012|wta:221406",
+    "wta|2026-1020|R16|wta:202494|wta:215983",
+    "wta|2026-1020|QF|wta:214096|wta:223360",
+    "wta|2026-1020|QF|wta:206420|wta:259799"
+   ]
+  },
+  "new_past": {
+   "matches": 0,
+   "by": [],
+   "examples": []
+  },
+  "dropped": {
+   "matches": 0,
+   "by": [],
+   "examples": []
+  },
+  "revised": {
+   "matches": 0,
+   "by": [],
+   "examples": []
+  },
+  "template_ok": true
+ },
+ "gate": {
+  "checked_at": "2026-10-09T0835Z",
+  "stage0": "C:\\Users\\zerom\\tnr_live3\\data\\studies\\predictability_diagnostic",
+  "live_matches": 2,
+  "complete": 2,
+  "incomplete": []
+ },
+ "collected": {
+  "live_matches": 2,
+  "in_frame": 2,
+  "missing_from_frame": []
+ }
+}

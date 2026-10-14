@@ -1,0 +1,24 @@
+--- repository/src/eda/ufc_ideas/stageB_adjperf.py
++++ sandbox/src/eda/ufc_ideas/stageB_adjperf.py
+@@ -395,6 +395,8 @@
+                                    "z_sd": float(zt[m & ok].std()) if (m & ok).any() else None}
+         Z[(s, ch)] = z
+     del mom
++    from src.eda.lower_level_evidence import translate_hooks as _LLE   # lower_level_evidence role 08 (sandbox only)
++    Z = _LLE.translate_forms(ctx.rows, ctx.box_idx, Z)                   # off unless LLE_TRANSLATE is set
+     feats = {}
+     tour_pool = ctx.rows["tour"].to_numpy()[ctx.A]
+     for s, ch in specs:
+--- repository/src/eda/predictability_diagnostic/stage4_features.py
++++ sandbox/src/eda/predictability_diagnostic/stage4_features.py
+@@ -567,8 +567,10 @@
+     (x, d). One call of the as-of helper per block of columns."""
+     st = {}
+     cols, names = [], []
++    from src.eda.lower_level_evidence import translate_hooks as _LLE   # lower_level_evidence role 08 (sandbox only)
+     for s in HIST:
+         x, d, ok = xd[s]
++        x = _LLE.translate_counts(rows, s, x, d, ok)                     # off unless LLE_TRANSLATE is set
+         mu = mu_of_rows(rows, ctx["means"][s])
+         mua = mu_of_rows(rows, ctx["means"][f"{s}_adj"])
+         xc = np.where(ok, x - d * mu, 0.0)

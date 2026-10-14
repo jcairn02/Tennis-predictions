@@ -1,0 +1,12 @@
+[   4.8s] cutoff(2024) = 19721.0 (B/A: 19721)
+[  62.7s] valid spw rows (atp, years <= 2023): 274,044; by level {'CH': 131648, 'MAIN': 71168, 'CHQ': 35824, 'TQ': 27064, 'GSQ': 8340}
+[  62.7s] fit targets: 27,772 (B: 27,772)
+[  62.7s] E_ref = 2212.941 (B: 2212.941)
+[  62.7s] surface offsets {'Hard': np.float64(0.025724418952224326), 'Clay': np.float64(-0.08380685896502987), 'Grass': np.float64(0.09083085068166052), 'Carpet': 0.0, 'other': 0.0}
+[  64.3s] window sums done
+[  70.5s] (1) free fit: {'k': 78.68653834103992, 'mu': 0.1629187265436452, 'delta_CH': -0.08119418417178316, 'delta_CHQ': -0.03235744199145858, 'w_TQ': 1.1251185683849463, 'w_GSQ': 1.0115720681475402, 'w_CH': 0.575159852576032, 'w_CHQ': 0.8328419183903731, 'nll_per_unit_x1e4': 6527.436707230749, 'converged': True}
+[ 105.9s] profile LR 95% for w_CH (iid targets, not player-clustered): [0.5, 0.7]
+[ 106.3s] (2) simple delta CH: {'player_seasons': 887, 'delta': -0.039421063758047166, 'se': 0.004922681027585526, 'lo': -0.04906951857211479, 'hi': -0.029772608943979536}
+[ 109.5s] (3) simple w grid best: {'w_CH': 0.6, 'nll_per_unit_x1e4': 6527.534040409619, 'k': 62.59428201560111, 'dev_total_vs_best': 0.0}
+[ 113.7s] (4) tier-prior fit: {'k': 122.00287586442062, 'mu_by_tier': {'MT': 0.34392686341538836, 'Q': 0.16692079151370995, 'CH': 0.26564148896027734, 'ITF': 0.12094528412801005, 'none': 0.1441808169938416}, 'delta_CH': -0.07997636475880401, 'delta_CHQ': -0.0428921151400708, 'w_TQ': 1.1748446061559032, 'w_GSQ': 1.046337782756519, 'w_CH': 0.581085716601313, 'w_CHQ': 0.8424640156498474, 'tier_counts': {'MT': 20601, 'CH': 6439, 'Q': 362, 'ITF': 350, 'none': 20}}
+[ 113.7s] wrote C:\Users\zerom\Documents\Tennis-predictions\data\studies\lower_level_evidence\system\audit\rederive_spw_atp_2024.json

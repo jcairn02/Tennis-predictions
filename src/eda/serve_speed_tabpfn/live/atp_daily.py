@@ -195,20 +195,27 @@ def fetch_daily(day: str, plan: list, max_requests: int = MAX_REQUESTS_FIRST_RUN
     from src.ingest.point_sources import common as P
     from src.ingest.point_sources import feeds as FD
     from src.ingest.point_sources import infosys_slams as I
-    headers = A.site_headers() if callable(getattr(A, "site_headers", None)) else site_headers()
-    client = A.make_client() if callable(getattr(A, "make_client", None)) else FD.FeedClient(
-        max_requests=max_requests)
+    # The backfill adapter's make_client(args, cal) needs its own argparse namespace and S3 calibration, so the client
+    # is built here with the same impersonation, headers and pacing (2 s plus up to 1 s of jitter) instead.
+    headers = dict(getattr(A, "HEADERS", None) or site_headers())
+    client = FD.FeedClient(getattr(A, "IMPERSONATE", "chrome"), min_interval=2.0, jitter=1.0,
+                           max_requests=max_requests, timeout=60)
     receipts = P.receipts_for(SOURCE)
-    got = []
+    got, budget_hit = [], False
     for year, event, mid, rnd in plan:
         guard(year)
         dest = raw_path(year, event, mid)
         url = HOST + ROUTES["keystats-api"].format(year=year, event=event, mid=mid)
         # refresh: a code answered "absent" earlier (its match not yet played) is asked again when its round is played
-        rec = P.fetch(client, url, dest, receipts, name=f"{year}/{event}/keystats-api/{mid}", refresh=True,
-                      validator=I.envelope_validator, compress=True, headers=headers,
-                      extra={"year": year, "event": event, "match_id": mid, "round": rnd})
+        try:
+            rec = P.fetch(client, url, dest, receipts, name=f"{year}/{event}/keystats-api/{mid}", refresh=True,
+                          validator=I.envelope_validator, compress=True, headers=headers,
+                          extra={"year": year, "event": event, "match_id": mid, "round": rnd})
+        except P.BudgetExhausted:
+            # the run's request budget is spent: stop asking and keep what was fetched (a block still raises)
+            budget_hit = True
+            break
         if rec.get("status") == 200 and not rec.get("error"):
             got.append(dest)
-    return {"day": day, "planned": len(plan), "files": [str(p) for p in got],
+    return {"day": day, "planned": len(plan), "files": [str(p) for p in got], "budget_exhausted": budget_hit,
             "client": client.stats() if hasattr(client, "stats") else None}

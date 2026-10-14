@@ -1,0 +1,60 @@
+============================= test session starts =============================
+platform win32 -- Python 3.11.16, pytest-9.1.1, pluggy-1.6.0 -- C:\Users\zerom\miniforge3\envs\tennis\python.exe
+rootdir: C:\Users\zerom\Documents\Tennis-predictions
+plugins: anyio-4.15.1
+collecting ... collected 17 items / 6 deselected / 11 selected
+
+test/daily_prediction/test_daily_prediction.py::test_slice_hash_sees_every_change PASSED [  9%]
+test/daily_prediction/test_daily_prediction.py::test_replay_reproduces_the_57_inputs PASSED [ 18%]
+test/daily_prediction/test_daily_prediction.py::test_price_grid_matches_direct_prediction PASSED [ 27%]
+test/daily_prediction/test_daily_prediction.py::test_fit_cache_key_sees_every_change PASSED [ 36%]
+test/daily_prediction/test_daily_prediction.py::test_fit_cache_equals_decided_path FAILED [ 45%]
+test/daily_prediction/test_daily_prediction.py::test_history_check_recorded PASSED [ 54%]
+test/daily_prediction/test_daily_prediction.py::test_side_names_follow_stage0_sides PASSED [ 63%]
+test/daily_prediction/test_daily_prediction.py::test_quote_times_follow_csv_rows PASSED [ 72%]
+test/daily_prediction/test_daily_prediction.py::test_run_day_never_deletes_another_runs_work_tree PASSED [ 81%]
+test/daily_prediction/test_daily_prediction.py::test_prediction_names_are_stage0_sides PASSED [ 90%]
+test/daily_prediction/test_daily_prediction.py::test_states_ran_in_three_processes PASSED [100%]
+
+================================== FAILURES ===================================
+_____________________ test_fit_cache_equals_decided_path ______________________
+
+replay_run = WindowsPath('C:/Users/zerom/Documents/Tennis-predictions/data/studies/daily_prediction/runs/pytest_replay_2026-07-13_R16_20261011T175056Z')
+tmp_path_factory = TempPathFactory(_given_basetemp=None, _trace=<pluggy._tracing.TagTracerSub object at 0x0000019CCAD92990>, _basetemp=WindowsPath('C:/Users/zerom/AppData/Local/Temp/pytest-of-zerom/pytest-1205'), _retention_count=3, _retention_policy='all')
+
+    @needs_tree
+    @needs_gpu_env
+    def test_fit_cache_equals_decided_path(replay_run, tmp_path_factory):
+        """The replay's fit came from TabPFN's training caches (run_day's default). (a) The decided path itself
+        (fit_preprocessors) on the same live rows, seeds 0 and 1 with their separate own-price calls: every array bit for
+        bit. (b) Seed 2's cache built from scratch in a state folder of its own: bit for bit with the replay's seed 2, so
+        both a built and a loaded cache are checked whichever the replay used (its own cache, 3.6 GB, is removed after)."""
+        import datetime as dt
+        import shutil
+        fit = read(replay_run / "fit.json")
+        assert fit.get("path", "").startswith("training cache"), fit.get("path")
+        stamp = dt.datetime.now(dt.timezone.utc).strftime("%Y%m%dT%H%M%SZ")
+        out = OUT / "checks" / "pytest_fit_cache_off.json"
+        done = run_py([str(PKG / "dp_selftest.py"), "fit_cache", "--src", str(replay_run), "--seeds", "0,1", "--mode",
+                       "off", "--tag", f"off_{stamp}", "--direct-seeds", "0,1", "--out", str(out)], timeout=3600,
+                      log=OUT / "checks" / "pytest_fit_cache_off.log")
+>       assert done.returncode == 0, done.stdout[-5000:]
+E       AssertionError: fit failed: C:\Users\zerom\Documents\Tennis-predictions\data\studies\daily_prediction\runs\pytest_replay_2026-07-13_R16_20261011T175056Z_fitcache_off_20261011T175627Z\fit.log
+E         
+E       assert 1 == 0
+E        +  where 1 = CompletedProcess(args=['C:\\Users\\zerom\\miniforge3\\envs\\tennis\\python.exe', 'C:\\Users\\zerom\\Documents\\Tennis-predictions\\src\\eda\\daily_prediction\\dp_selftest.py', 'fit_cache', '--src', 'C:\\Users\\zerom\\Documents\\Tennis-predictions\\data\\studies\\daily_prediction\\runs\\pytest_replay_2026-07-13_R16_20261011T175056Z', '--seeds', '0,1', '--mode', 'off', '--tag', 'off_20261011T175627Z', '--direct-seeds', '0,1', '--out', 'C:\\Users\\zerom\\Documents\\Tennis-predictions\\data\\studies\\daily_prediction\\checks\\pytest_fit_cache_off.json'], returncode=1, stdout='fit failed: C:\\Users\\zerom\\Documents\\Tennis-predictions\\data\\studies\\daily_prediction\\runs\\pytest_replay_2026-07-13_R16_20261011T175056Z_fitcache_off_20261011T175627Z\\fit.log\n', stderr='').returncode
+
+test\daily_prediction\test_daily_prediction.py:246: AssertionError
+============================== slowest durations ==============================
+330.16s setup    test/daily_prediction/test_daily_prediction.py::test_replay_reproduces_the_57_inputs
+1.46s call     test/daily_prediction/test_daily_prediction.py::test_prediction_names_are_stage0_sides
+0.99s call     test/daily_prediction/test_daily_prediction.py::test_fit_cache_equals_decided_path
+0.90s call     test/daily_prediction/test_daily_prediction.py::test_replay_reproduces_the_57_inputs
+0.48s call     test/daily_prediction/test_daily_prediction.py::test_price_grid_matches_direct_prediction
+0.46s call     test/daily_prediction/test_daily_prediction.py::test_run_day_never_deletes_another_runs_work_tree
+0.01s call     test/daily_prediction/test_daily_prediction.py::test_side_names_follow_stage0_sides
+
+(26 durations < 0.005s hidden.  Use -vv to show these durations.)
+=========================== short test summary info ===========================
+FAILED test/daily_prediction/test_daily_prediction.py::test_fit_cache_equals_decided_path
+=========== 1 failed, 10 passed, 6 deselected in 334.69s (0:05:34) ============

@@ -23,7 +23,7 @@ STORE = OUT / "store.parquet"
 MODEL = ROOT / "data" / "studies" / "surface_rating_race" / "model" / "model_frame.parquet"
 KEYS = ["match_id", "tour", "season", "tournament_date", "debut_season"]
 RESULTS = {"a_won", "won", "y", "winner", "result"}
-GROUPS = {"m", "alt", "pp", "rt", "ad", "sl", "mk", "fi", "fp", "lv", "kn", "ds", "ctx"}
+GROUPS = {"m", "alt", "pp", "rt", "ad", "sl", "mk", "fi", "fp", "lv", "kn", "ds", "ctx", "el"}
 
 pytestmark = pytest.mark.skipif(not STORE.exists(), reason="the store is gitignored; build it first")
 
@@ -114,12 +114,29 @@ def test_per_player_pairs_reproduce_the_model_differences():
         assert ok.sum() > 50000 and np.max(np.abs(d[ok] - m[ok])) < 1e-5, n
 
 
+def test_event_levels_columns(reg):
+    """el__ (added 8 Oct 2026): a share in [0, 1] per player, the difference is A - B, the pair points at itself, and
+    all three are distinct menu columns."""
+    el = reg[reg["group"] == "el"].set_index("column")
+    assert set(el.index) == {"el__low_share_diff", "el__low_share_a", "el__low_share_b"}
+    assert el.at["el__low_share_diff", "kind"] == "diff" and el.at["el__low_share_a", "partner"] == "el__low_share_b"
+    assert (el["menu"] == 1).all()
+    s = pd.read_parquet(STORE, columns=list(el.index))
+    a, b, d = s["el__low_share_a"].to_numpy(float), s["el__low_share_b"].to_numpy(float), \
+        s["el__low_share_diff"].to_numpy(float)
+    assert np.allclose(d, a - b, rtol=0, atol=1e-12, equal_nan=True)
+    assert np.nanmin(np.r_[a, b]) >= 0 and np.nanmax(np.r_[a, b]) <= 1
+    assert np.isfinite(d).mean() > 0.99
+
+
 def test_build_checks_recorded():
     b = json.loads((OUT / "store_build.json").read_text(encoding="utf-8"))
     assert b["fi_swap_failures"] == [] and b["pairs_consistent"] and b["mk_ps_antisymmetric"]
     e = b["external"]
     assert e["ratings_side_a"] >= 0.999 and e["adj_equals_profile"]
     assert e["profile_side_a_max_gap"] <= 1e-9 and e["sides_side_a_max_gap"] <= 1e-9
+    el = b["event_levels"]
+    assert el["rows_found"] == 63737 and el["side_a_equals_stage0"] and el["diff_is_a_minus_b"]
 
 
 @pytest.mark.skipif(not (OUT / "universe.csv").exists(), reason="universe.csv not built")
@@ -144,3 +161,6 @@ def test_menu_csv_is_the_registry_menu(reg):
     # the owner's tier-A near misses are on the menu as their raw blocks
     for col in ("lv__elo", "fp__f09_venue__f09_ve", "fp__f26_impairment__ret_n_a", "pp__rest_days_a"):
         assert mt.at[col, "near_miss_tier"] == "A", col
+    # the history composition the owner added on 8 Oct 2026, unseen on 2025-2026
+    for col in ("el__low_share_diff", "el__low_share_a", "el__low_share_b"):
+        assert mt.at[col, "feature_id"] == "U-330" and mt.at[col, "seen_2025_2026"] == "no", col

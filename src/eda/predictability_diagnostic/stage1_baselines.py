@@ -56,6 +56,7 @@ ROOT = Path(__file__).resolve().parents[3]
 sys.path.insert(0, str(ROOT))
 
 from src.eda.predictability_diagnostic import common as C  # noqa: E402
+from src.eda.lower_level_evidence import level_layer as _LLE  # noqa: E402  level layer (LLE_LAYER)
 
 BASELINES = C.OUT / "stage1_baselines.parquet"
 TUNING = C.OUT / "stage1_elo_tuning.csv"
@@ -166,16 +167,16 @@ def elo_pass(week, event, rnd, a, b, a_won, surf, upd, n_players: int, k0: float
         if upd[i]:
             res = 1.0 if a_won[i] else 0.0
             surprise = res - 1.0 / (1.0 + 10.0 ** ((rb - ra) / 400.0))
-            xa[3] += k0 / (na + offset) ** shape * surprise
-            xb[3] -= k0 / (nb + offset) ** shape * surprise
-            xa[4] += 1
-            xb[4] += 1
+            xa[3] += upd[i] * k0 / (na + offset) ** shape * surprise   # level layer (LLE_LAYER): upd[i] True or w
+            xb[3] -= upd[i] * k0 / (nb + offset) ** shape * surprise
+            xa[4] += upd[i]
+            xb[4] += upd[i]
             if do_s:
                 surprise = res - 1.0 / (1.0 + 10.0 ** ((sb - sa) / 400.0))
-                ya[3] += k0 / (nsa + offset) ** shape * surprise
-                yb[3] -= k0 / (nsb + offset) ** shape * surprise
-                ya[4] += 1
-                yb[4] += 1
+                ya[3] += upd[i] * k0 / (nsa + offset) ** shape * surprise
+                yb[3] -= upd[i] * k0 / (nsb + offset) ** shape * surprise
+                ya[4] += upd[i]
+                yb[4] += upd[i]
     return out
 
 
@@ -246,6 +247,9 @@ def tune(m: pd.DataFrame) -> tuple[dict, pd.DataFrame, pd.DataFrame, dict]:
             chosen[(tour, rule)] = {**k, "w": w}
             out = run_elo(h, t["status"], rule, k, surface=True)                 # frozen: the whole history
             assert np.allclose(out[:len(early)], out_early, equal_nan=True)     # the tuning pass is its prefix
+            out = _LLE.elo_rerun(t, t["status"].isin(UPDATES[rule]).tolist(), out, lambda u, h=h, k=k: elo_pass(
+                h["week"], h["event"], h["rnd"], h["a"], h["b"], h["a_won"], h["surf"], u, h["n_players"],
+                k["k0"], k["offset"], k["shape"], surface=True))   # level layer (LLE_LAYER)
             passes[(tour, rule)] = out
             log(f"{tour} {rule}: K {k}, surface weight {w}")
     return chosen, pd.DataFrame(rows), pd.DataFrame(wrows), passes
@@ -289,8 +293,9 @@ def rank_models(m: pd.DataFrame) -> tuple[pd.DataFrame, pd.DataFrame, dict]:
     scope = m["level"].isin(C.EVAL_LEVELS) & m["status"].isin(C.EVAL_STATUSES)
     probs = pd.DataFrame(np.nan, index=m.index, columns=["p_rank", "p_points"])
     fits = []
+    seasons = sorted(set(C.EVAL_YEARS) | set(m.loc[m["evaluation"], "year"].astype(int)))   # and any later season held
     for tour in C.TOURS:
-        for year in C.EVAL_YEARS:
+        for year in seasons:
             train = scope & m["tour"].eq(tour) & (m["year"] < year)
             test = m["evaluation"] & m["tour"].eq(tour) & m["year"].eq(year)
             if not test.any():
@@ -388,6 +393,7 @@ def main() -> int:
         t = m[m["tour"].eq(tour)].reset_index(drop=True)
         h = history_arrays(t)
         upd, k = t["status"].isin(UPDATES[rule]).tolist(), chosen[(tour, rule)]
+        upd = _LLE.elo_weights(t, upd)   # level layer (LLE_LAYER)
 
         def ratings(hh, upd=upd, k=k):
             return elo_pass(hh["week"], hh["event"], hh["rnd"], hh["a"], hh["b"], hh["a_won"], hh["surf"], upd,

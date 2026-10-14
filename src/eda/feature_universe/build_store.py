@@ -28,6 +28,8 @@ Groups (column prefixes; the catalogue docs/studies/feature_universe/README.md d
     kn__    the six known-null placebos
     ds__    pre-declared descriptive columns (each module's SENSITIVITIES)
     ctx__   match context: tour, surface, level, indoor, best of, round, draw size, week of the year, month
+    el__    the event-levels study's history composition (added 8 Oct 2026 at the owner's request): each player's share
+            of the previous 365 days' played matches below the main tour, and A - B (event_levels/universe_columns.py)
 Kinds: diff (negated when A and B swap), pair (exchanged with its partner), context (unchanged). Swap behaviour is checked
 for every builder column. Reads no result: the panel is used without its result column. Builders that depend on the
 base model's forecast (x_of_eta) are stored at the model's 2014-2024 forecast only and flagged.
@@ -45,6 +47,8 @@ joined by "; " when both apply.
 Writes data/studies/feature_universe/store.parquet, store_registry.csv and store_build.json.
 Run: ./python.sh src/eda/feature_universe/build_store.py
      ./python.sh src/eda/feature_universe/build_store.py --registry-only   (re-annotates the registry from the store)
+     ./python.sh src/eda/feature_universe/build_store.py --append-el       (adds the el__ columns to the existing store,
+                                                                           every other column untouched)
 """
 from __future__ import annotations
 
@@ -75,8 +79,10 @@ OUT = ROOT / "data" / "studies" / "feature_universe"
 EPS = 1e-6
 T0 = time.time()
 KEYS = ["match_id", "tour", "season", "tournament_date", "debut_season"]
-PRIORITY = ["m", "alt", "pp", "rt", "ad", "sl", "mk", "lv", "ctx", "fi", "fp", "ds", "kn"]
+PRIORITY = ["m", "alt", "pp", "rt", "ad", "sl", "mk", "lv", "ctx", "fi", "fp", "el", "ds", "kn"]
 STUDIES = ROOT / "data" / "studies"
+EVENT_LEVELS = STUDIES / "event_levels" / "universe_columns.parquet"
+STAGE0_SIDES = OLD / "predictability_diagnostic" / "stage0_matches.parquet"      # side A's definition (pre-rebuild)
 RATINGS = STUDIES / "rating_systems" / "stageA_ratings.parquet"
 ADJ = STUDIES / "ufc_ideas" / "stageB_adj_features.parquet"
 PROFILE = STUDIES / "ufc_ideas" / "stageD_profile_features.parquet"
@@ -223,6 +229,81 @@ def return_history(S: Store, P: pd.DataFrame, L: pd.DataFrame) -> None:
         S.add_pair(f"fp__f26_impairment__{k}", a, b, "fp", "f26_impairment.layoffs", desc, "B-INJ")
 
 
+def event_levels(S: Store, ids: np.ndarray) -> dict:
+    """el__: the event-levels study's history composition (event_levels/universe_columns.parquet), after checking its
+    side A against the pre-rebuild Stage 0 that defines the store's sides, and that the difference is A - B."""
+    T = _read(EVENT_LEVELS, ["player_a_id", "player_b_id", "low_share_a", "low_share_b", "low_share_diff"], ids)
+    s0 = pd.read_parquet(STAGE0_SIDES, columns=["match_id", "player_a_id", "player_b_id"])
+    s0 = s0.assign(match_id=s0["match_id"].astype(str)).set_index("match_id").reindex(ids)
+    a, b, d = (T[c].to_numpy(float) for c in ("low_share_a", "low_share_b", "low_share_diff"))
+    checks = {"rows_found": int(T["player_a_id"].notna().sum()),
+              "side_a_equals_stage0": bool((T["player_a_id"].to_numpy() == s0["player_a_id"].to_numpy()).all()
+                                           and (T["player_b_id"].to_numpy() == s0["player_b_id"].to_numpy()).all()),
+              "diff_is_a_minus_b": bool(np.allclose(d, a - b, rtol=0.0, atol=1e-12, equal_nan=True)),
+              "source_sha256": C.sha256_file(EVENT_LEVELS)}
+    if checks["rows_found"] != len(ids) or not (checks["side_a_equals_stage0"] and checks["diff_is_a_minus_b"]):
+        raise ValueError(f"event levels: checks failed {checks}")
+    src = "event_levels/universe_columns"
+    S.add("el__low_share_diff", d, "diff", "el", src,
+          "A's share of the previous 365 days' played matches below the main tour (qualifying, Challenger / WTA 125, "
+          "ITF) minus B's")
+    S.add_pair("el__low_share", a, b, "el", src,
+               "the player's share of the previous 365 days' played matches below the main tour (qualifying, "
+               "Challenger / WTA 125, ITF); missing without a match in the window")
+    return checks
+
+
+def read_registry() -> pd.DataFrame:
+    """store_registry.csv as written, floats read exactly (round trip), so rewriting it leaves unchanged rows as they
+    were to the last digit."""
+    reg = pd.read_csv(OUT / "store_registry.csv", keep_default_na=False, float_precision="round_trip",
+                      dtype={"partner": str, "partner_built": str, "hid": str, "flag": str, "canonical": str,
+                             "near_dup_of": str, "degenerate": str})
+    for c in [c for c in reg.columns if c.startswith("cov_")] + ["dup_sign", "near_dup_r"]:
+        if c in reg.columns:
+            reg[c] = pd.to_numeric(reg[c], errors="coerce")
+    return reg
+
+
+def coverage(store: pd.DataFrame, reg: pd.DataFrame) -> pd.DataFrame:
+    seasons = store["season"].to_numpy()
+    for lo, hi, tag in ((2013, 2021, "cov_2013_2021"), (2022, 2024, "cov_2022_2024"), (2025, 2026, "cov_2025_2026")):
+        m = (seasons >= lo) & (seasons <= hi)
+        reg[tag] = [float(np.isfinite(store.loc[m, c].to_numpy(float)).mean()) for c in reg["column"]]
+    return reg
+
+
+def append_el() -> int:
+    """Add the el__ columns to the existing store and registry; every other column and registry row is kept as it is
+    (the registry's hygiene annotations are recomputed over all rows, as --registry-only does)."""
+    store = pd.read_parquet(OUT / "store.parquet")
+    reg = read_registry()
+    ids = store["match_id"].astype(str).to_numpy()
+    S = Store(ids)
+    el_checks = event_levels(S, ids)
+    clash = [c for c in S.cols if c in store.columns]
+    if clash:
+        same = all(np.array_equal(store[c].to_numpy(float), S.cols[c], equal_nan=True) for c in clash)
+        if same and len(clash) == len(S.cols):
+            log("el__ columns already in the store, unchanged")
+            return 0
+        raise ValueError(f"el__ columns already present with other values: {clash}")
+    new = coverage(store.assign(**S.cols), pd.DataFrame(S.meta))
+    new["kind_built"], new["partner_built"] = new["kind"], new["partner"]
+    store = pd.concat([store, pd.DataFrame(S.cols)], axis=1)
+    reg, hchecks = hygiene(store, pd.concat([reg, new], ignore_index=True))
+    checks = json.loads((OUT / "store_build.json").read_text(encoding="utf-8"))
+    checks.update({"hygiene": hchecks, "pairs_consistent": hchecks["pairs_consistent"], "columns": int(len(reg)),
+                   "by_group": reg["group"].value_counts().to_dict(), "event_levels": el_checks,
+                   "appended": {"el": {"at": pd.Timestamp.now(tz="UTC").isoformat(timespec="seconds"),
+                                       "columns": list(S.cols), "how": "build_store.py --append-el"}}})
+    store.to_parquet(OUT / "store.parquet", index=False)
+    reg.to_csv(OUT / "store_registry.csv", index=False)
+    C.write_json(OUT / "store_build.json", checks)
+    log(f"el__ appended: store {store.shape}; menu {hchecks['menu_columns']} columns; {el_checks}")
+    return 0
+
+
 def _key(v: np.ndarray) -> bytes:
     """The exact series, NaN and +-inf normalised, as bytes (equal bytes = equal columns)."""
     w = np.where(np.isfinite(v), v, np.nan) + 0.0                     # + 0.0 turns -0.0 into 0.0
@@ -331,12 +412,7 @@ def hygiene(store: pd.DataFrame, reg: pd.DataFrame) -> tuple[pd.DataFrame, dict]
 def registry_only() -> int:
     """Re-annotate store_registry.csv from the existing store (no rebuild)."""
     store = pd.read_parquet(OUT / "store.parquet")
-    reg = pd.read_csv(OUT / "store_registry.csv", keep_default_na=False,
-                      dtype={"partner": str, "partner_built": str, "hid": str, "flag": str, "canonical": str,
-                             "near_dup_of": str, "degenerate": str})
-    for c in [c for c in reg.columns if c.startswith("cov_")] + ["dup_sign", "near_dup_r"]:
-        if c in reg.columns:
-            reg[c] = pd.to_numeric(reg[c], errors="coerce")
+    reg = read_registry()
     reg, hchecks = hygiene(store, reg)
     checks = json.loads((OUT / "store_build.json").read_text(encoding="utf-8"))
     checks["hygiene"] = hchecks
@@ -352,6 +428,8 @@ def registry_only() -> int:
 def main() -> int:
     if "--registry-only" in sys.argv[1:]:
         return registry_only()
+    if "--append-el" in sys.argv[1:]:
+        return append_el()
     warnings.simplefilter("ignore")
     P = panel26()
     L = long_table()
@@ -556,15 +634,14 @@ def main() -> int:
     S.add("ctx__week", day.dt.isocalendar().week.astype(float), "context", "ctx", "Stage 0", "ISO week of the event")
     S.add("ctx__month", day.dt.month.astype(float), "context", "ctx", "Stage 0", "month of the event")
     log("lv__, kn__, ctx__ done")
+    # el__: the event-levels study's history composition (last, in the order --append-el gives them)
+    checks["event_levels"] = event_levels(S, ids)
+    log(f"el__ done: {checks['event_levels']}")
 
     # write
     keys = P[KEYS].reset_index(drop=True)
     store = pd.concat([keys, pd.DataFrame(S.cols)], axis=1)
-    reg = pd.DataFrame(S.meta)
-    seasons = store["season"].to_numpy()
-    for lo, hi, tag in ((2013, 2021, "cov_2013_2021"), (2022, 2024, "cov_2022_2024"), (2025, 2026, "cov_2025_2026")):
-        m = (seasons >= lo) & (seasons <= hi)
-        reg[tag] = [float(np.isfinite(store.loc[m, c].to_numpy(float)).mean()) for c in reg["column"]]
+    reg = coverage(store, pd.DataFrame(S.meta))
     # every pair must have its partner, and every pair partner must point back (again after hygiene)
     reg, checks["hygiene"] = hygiene(store, reg)
     checks["pairs_consistent"] = checks["hygiene"]["pairs_consistent"]

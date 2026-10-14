@@ -1,0 +1,245 @@
+{
+ "group_corr_disc": {
+  "G1": {
+   "G1": 1.0,
+   "G2": 0.0208,
+   "G3": -0.0108,
+   "G4": -0.038,
+   "G5": -0.0085
+  },
+  "G2": {
+   "G1": 0.0208,
+   "G2": 1.0,
+   "G3": -0.0028,
+   "G4": 0.0254,
+   "G5": -0.0454
+  },
+  "G3": {
+   "G1": -0.0108,
+   "G2": -0.0028,
+   "G3": 1.0,
+   "G4": 0.0029,
+   "G5": 0.0139
+  },
+  "G4": {
+   "G1": -0.038,
+   "G2": 0.0254,
+   "G3": 0.0029,
+   "G4": 1.0,
+   "G5": 0.084
+  },
+  "G5": {
+   "G1": -0.0085,
+   "G2": -0.0454,
+   "G3": 0.0139,
+   "G4": 0.084,
+   "G5": 1.0
+  }
+ },
+ "member_pairs_abs_gt_0.15_disc": {
+  "G4:rb__el__low_share_diff ~ G4:rb__fp__f12_salience__hasL_a-b": 0.412,
+  "G4:rb__el__low_share_diff ~ G4:rb__pp__seeded_a-b": 0.26,
+  "G4:rb__fp__f12_salience__hasL_a-b ~ G4:rb__pp__seeded_a-b": 0.301,
+  "G4:rb__fp__f12_salience__hasL_a-b ~ G4:rb__fp__f14_anchor__fame_a-b": 0.189,
+  "G4:rb__pp__seeded_a-b ~ G5:rb14_cold28": 0.286,
+  "G4:rb__fp__f14_anchor__fame_a-b ~ G4:rb__pp__seeded_a-b": 0.214
+ },
+ "group_corr_lookA": {
+  "G1": {
+   "G1": 1.0,
+   "G2": 0.0508,
+   "G3": 0.0018,
+   "G4": -0.08,
+   "G5": -0.0262
+  },
+  "G2": {
+   "G1": 0.0508,
+   "G2": 1.0,
+   "G3": -0.0121,
+   "G4": 0.0165,
+   "G5": -0.0508
+  },
+  "G3": {
+   "G1": 0.0018,
+   "G2": -0.0121,
+   "G3": 1.0,
+   "G4": -0.0186,
+   "G5": -0.027
+  },
+  "G4": {
+   "G1": -0.08,
+   "G2": 0.0165,
+   "G3": -0.0186,
+   "G4": 1.0,
+   "G5": 0.1215
+  },
+  "G5": {
+   "G1": -0.0262,
+   "G2": -0.0508,
+   "G3": -0.027,
+   "G4": 0.1215,
+   "G5": 1.0
+  }
+ },
+ "member_pairs_abs_gt_0.15_lookA": {
+  "G1:PS03_net ~ G4:rb__el__low_share_diff": -0.158,
+  "G4:rb__el__low_share_diff ~ G4:rb__fp__f12_salience__hasL_a-b": 0.389,
+  "G4:rb__el__low_share_diff ~ G4:rb__pp__seeded_a-b": 0.284,
+  "G4:rb__el__low_share_diff ~ G4:rb__fp__f14_anchor__fame_a-b": 0.158,
+  "G4:rb__fp__f12_salience__hasL_a-b ~ G4:rb__pp__seeded_a-b": 0.328,
+  "G4:rb__fp__f12_salience__hasL_a-b ~ G4:rb__fp__f14_anchor__fame_a-b": 0.242,
+  "G4:rb__pp__seeded_a-b ~ G5:rb14_cold28": 0.343,
+  "G4:rb__fp__f14_anchor__fame_a-b ~ G4:rb__pp__seeded_a-b": 0.267
+ },
+ "proxy_r2_cv_by_season": {
+  "omnibus": {
+   "gbm_inputs_context_price": 0.07015721097347127,
+   "linear_inputs_context_price": -0.002155627111847247,
+   "linear_inputs_only": -0.010674891207767434
+  },
+  "G1": {
+   "gbm_inputs_context_price": 0.003171365262564785,
+   "linear_inputs_context_price": -0.015023653853998287,
+   "linear_inputs_only": -0.019444900134738097
+  },
+  "G2": {
+   "gbm_inputs_context_price": 0.0038090062488417287,
+   "linear_inputs_context_price": -0.009276906993944234,
+   "linear_inputs_only": -0.00852287557183562
+  },
+  "G3": {
+   "gbm_inputs_context_price": 0.03726354863836778,
+   "linear_inputs_context_price": -0.008273568889144212,
+   "linear_inputs_only": -0.007989428741290938
+  },
+  "G4": {
+   "gbm_inputs_context_price": 0.15558144958069853,
+   "linear_inputs_context_price": 0.02737625639039354,
+   "linear_inputs_only": -0.016180377685054648
+  },
+  "G5": {
+   "gbm_inputs_context_price": 0.12252602216386721,
+   "linear_inputs_context_price": -0.002777410827566218,
+   "linear_inputs_only": -0.00446812243294481
+  },
+  "G1:PS03_net": {
+   "gbm_inputs_context_price": 0.0014104940122308118,
+   "linear_inputs_context_price": -0.015398101457349433,
+   "linear_inputs_only": -0.019989621988887762
+  },
+  "G1:PS06_close": {
+   "gbm_inputs_context_price": -0.00608341146813407,
+   "linear_inputs_context_price": -0.013613139911234695,
+   "linear_inputs_only": -0.014194144390225594
+  },
+  "G1:PS04_flat": {
+   "gbm_inputs_context_price": 0.002979361736727304,
+   "linear_inputs_context_price": -0.009311826097881948,
+   "linear_inputs_only": -0.011108968912530992
+  },
+  "G2:rb__fi__B-MOTIV__post_slam": {
+   "gbm_inputs_context_price": 0.0038090062488417287,
+   "linear_inputs_context_price": -0.009276906993944234,
+   "linear_inputs_only": -0.00852287557183562
+  },
+  "G3:rb__fi__B-VENUE__f09_venue_pace_x_ace": {
+   "gbm_inputs_context_price": 0.03726354863836778,
+   "linear_inputs_context_price": -0.008273568889144212,
+   "linear_inputs_only": -0.007989428741290938
+  },
+  "G4:rb__el__low_share_diff": {
+   "gbm_inputs_context_price": 0.10584146133195915,
+   "linear_inputs_context_price": 0.019627312451427015,
+   "linear_inputs_only": -0.0144245590296177
+  },
+  "G4:rb__fp__f12_salience__hasL_a-b": {
+   "gbm_inputs_context_price": 0.05443242312943619,
+   "linear_inputs_context_price": -0.0020211261044018602,
+   "linear_inputs_only": -0.013993615536458837
+  },
+  "G4:rb__pp__seeded_a-b": {
+   "gbm_inputs_context_price": 0.11233030996080484,
+   "linear_inputs_context_price": 0.014840701898586772,
+   "linear_inputs_only": -0.010899566831404472
+  },
+  "G4:rb__fp__f14_anchor__fame_a-b": {
+   "gbm_inputs_context_price": 0.07532231358593244,
+   "linear_inputs_context_price": -0.02089252076166459,
+   "linear_inputs_only": -0.025966819660787843
+  },
+  "G5:rb01_d7_else": {
+   "gbm_inputs_context_price": -0.0030781482299018226,
+   "linear_inputs_context_price": -0.004520688256688832,
+   "linear_inputs_only": -0.004486407836710837
+  },
+  "G5:rb14_cold28": {
+   "gbm_inputs_context_price": 0.5442831605025555,
+   "linear_inputs_context_price": -0.006856027253527408,
+   "linear_inputs_only": -0.006605695293376623
+  },
+  "G5:rb03_lt20": {
+   "gbm_inputs_context_price": 0.021118868400380353,
+   "linear_inputs_context_price": -0.0030711533501501798,
+   "linear_inputs_only": -0.0033262663327902064
+  },
+  "G5:rb__fp__f28_state__bdst_pastfat_a-b": {
+   "gbm_inputs_context_price": 0.06347002171194072,
+   "linear_inputs_context_price": 5.97193358381487e-05,
+   "linear_inputs_only": -0.006168617993392855
+  }
+ },
+ "raw_member_r2_on_48_inputs": {
+  "PS03_net": {
+   "atp": 0.44,
+   "wta": 0.184
+  },
+  "PS06_close": {
+   "atp": 0.16,
+   "wta": 0.054
+  },
+  "PS04_flat": {
+   "atp": 0.162,
+   "wta": 0.055
+  },
+  "rb__fi__B-MOTIV__post_slam": {
+   "atp": 0.049,
+   "wta": 0.036
+  },
+  "rb__fi__B-VENUE__f09_venue_pace_x_ace": {
+   "atp": 0.059,
+   "wta": 0.075
+  },
+  "rb__el__low_share_diff": {
+   "atp": 0.562,
+   "wta": 0.708
+  },
+  "rb__fp__f12_salience__hasL_a-b": {
+   "atp": 0.412,
+   "wta": 0.312
+  },
+  "rb__pp__seeded_a-b": {
+   "atp": 0.485,
+   "wta": 0.461
+  },
+  "rb__fp__f14_anchor__fame_a-b": {
+   "atp": 0.744,
+   "wta": 0.691
+  },
+  "rb01_d7_else": {
+   "atp": 0.026,
+   "wta": 0.022
+  },
+  "rb14_cold28": {
+   "atp": 0.319,
+   "wta": 0.219
+  },
+  "rb03_lt20": {
+   "atp": 0.007,
+   "wta": 0.008
+  },
+  "rb__fp__f28_state__bdst_pastfat_a-b": {
+   "atp": 0.638,
+   "wta": 0.682
+  }
+ }
+}

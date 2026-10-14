@@ -1,0 +1,115 @@
+Stage 0 (stage0_build.py --live-rows run/live_rows.parquet) under cProfile in the replay work tree C:/Users/zerom/tnr_daily, 11 Oct 2026 06:10-06:12 PDT (148 s under the profiler; 117 s without).
+Session d2d2331e-b87f-42fd-baa1-b5c3ddebe82c, docs/studies/daily_prediction/process_log.md part 2.
+
+Sun Oct 11 06:12:23 2026    C:/Users/zerom/AppData/Local/Temp/claude/c--Users-zerom-Documents-Tennis-predictions/d2d2331e-b87f-42fd-baa1-b5c3ddebe82c/scratchpad/stage0.prof
+
+         223853466 function calls (221045608 primitive calls) in 147.938 seconds
+
+   Ordered by: cumulative time
+   List reduced from 5051 to 45 due to restriction <45>
+
+   ncalls  tottime  percall  cumtime  percall filename:lineno(function)
+    467/1    0.003    0.000  147.939  147.939 {built-in method builtins.exec}
+        1    0.674    0.674  147.939  147.939 src/eda/predictability_diagnostic/stage0_build.py:1(<module>)
+        1    1.918    1.918  146.825  146.825 src/eda/predictability_diagnostic/stage0_build.py:1002(build)
+        1    0.646    0.646   64.009   64.009 C:\Users\zerom\tnr_daily\src\eda\feature_alpha_audit\repair_data.py:60(repair_tables)
+    43/22    0.004    0.000   36.916    1.678 C:\Users\zerom\miniforge3\envs\tennis\Lib\site-packages\pandas\core\groupby\generic.py:314(aggregate)
+       14    0.004    0.000   35.747    2.553 C:\Users\zerom\miniforge3\envs\tennis\Lib\site-packages\pandas\core\groupby\ops.py:972(agg_series)
+       10    0.001    0.000   35.688    3.569 C:\Users\zerom\miniforge3\envs\tennis\Lib\site-packages\pandas\core\groupby\generic.py:497(_python_agg_general)
+       14    0.845    0.060   35.563    2.540 C:\Users\zerom\miniforge3\envs\tennis\Lib\site-packages\pandas\core\groupby\ops.py:991(_aggregate_series_pure_python)
+ 59785239   32.778    0.000   33.088    0.000 C:\Users\zerom\miniforge3\envs\tennis\Lib\site-packages\pandas\core\arrays\arrow\array.py:875(__iter__)
+   945366    0.404    0.000   22.108    0.000 C:\Users\zerom\miniforge3\envs\tennis\Lib\site-packages\pandas\core\groupby\ops.py:1247(__iter__)
+   936267    0.966    0.000   20.583    0.000 C:\Users\zerom\miniforge3\envs\tennis\Lib\site-packages\pandas\core\groupby\ops.py:1267(_chop)
+        1    2.707    2.707   15.866   15.866 C:\Users\zerom\tnr_daily\src\eda\feature_alpha_audit\repair_data.py:119(<listcomp>)
+   936418    1.668    0.000   13.280    0.000 C:\Users\zerom\miniforge3\envs\tennis\Lib\site-packages\pandas\core\internals\managers.py:2174(get_slice)
+   936162    0.680    0.000   13.233    0.000 C:\Users\zerom\miniforge3\envs\tennis\Lib\site-packages\pandas\core\groupby\generic.py:498(<lambda>)
+        1    1.119    1.119   12.638   12.638 src/eda/predictability_diagnostic/stage0_build.py:920(progression)
+     8326    0.064    0.000   11.737    0.001 C:\Users\zerom\miniforge3\envs\tennis\Lib\site-packages\pandas\core\internals\managers.py:813(reindex_indexer)
+27793/26551    0.056    0.000   11.710    0.000 C:\Users\zerom\miniforge3\envs\tennis\Lib\site-packages\pandas\core\array_algos\take.py:57(take_nd)
+    25277    0.046    0.000   11.387    0.000 C:\Users\zerom\miniforge3\envs\tennis\Lib\site-packages\pandas\core\internals\blocks.py:995(take_nd)
+  1173151    2.496    0.000   10.937    0.000 C:\Users\zerom\miniforge3\envs\tennis\Lib\site-packages\pandas\core\arrays\arrow\array.py:778(__getitem__)
+    24475    0.254    0.000   10.421    0.000 C:\Users\zerom\miniforge3\envs\tennis\Lib\site-packages\pandas\core\arrays\arrow\array.py:1625(take)
+     7742    0.015    0.000   10.167    0.001 C:\Users\zerom\miniforge3\envs\tennis\Lib\site-packages\pandas\core\internals\managers.py:1065(take)
+    24555    9.706    0.000    9.714    0.000 C:\Users\zerom\miniforge3\envs\tennis\Lib\site-packages\pyarrow\compute.py:467(take)
+       73    0.001    0.000    9.704    0.133 C:\Users\zerom\miniforge3\envs\tennis\Lib\site-packages\pandas\core\series.py:4506(map)
+       73    0.001    0.000    9.614    0.132 C:\Users\zerom\miniforge3\envs\tennis\Lib\site-packages\pandas\core\base.py:996(_map_values)
+       73    0.952    0.013    9.554    0.131 C:\Users\zerom\miniforge3\envs\tennis\Lib\site-packages\pandas\core\algorithms.py:1637(map_array)
+    72522    0.166    0.000    8.229    0.000 C:\Users\zerom\miniforge3\envs\tennis\Lib\site-packages\pandas\core\internals\managers.py:399(apply)
+     7725    0.031    0.000    7.905    0.001 C:\Users\zerom\miniforge3\envs\tennis\Lib\site-packages\pandas\core\generic.py:3998(take)
+       36    0.000    0.000    7.546    0.210 C:\Users\zerom\miniforge3\envs\tennis\Lib\site-packages\pandas\core\arrays\arrow\array.py:1819(map)
+       36    0.057    0.002    7.545    0.210 C:\Users\zerom\miniforge3\envs\tennis\Lib\site-packages\pandas\core\arrays\base.py:2725(map)
+    30441    0.192    0.000    7.356    0.000 C:\Users\zerom\tnr_daily\src\eda\feature_alpha_audit\repair_data.py:78(<lambda>)
+    10165    0.030    0.000    7.233    0.001 C:\Users\zerom\miniforge3\envs\tennis\Lib\site-packages\pandas\core\frame.py:4337(__getitem__)
+     7576    0.016    0.000    6.966    0.001 C:\Users\zerom\miniforge3\envs\tennis\Lib\site-packages\pandas\core\frame.py:4406(_getitem_bool_array)
+15297/15291    0.073    0.000    6.738    0.000 C:\Users\zerom\miniforge3\envs\tennis\Lib\site-packages\pandas\core\algorithms.py:652(factorize)
+      827    6.454    0.008    6.457    0.008 C:\Users\zerom\miniforge3\envs\tennis\Lib\site-packages\pyarrow\compute.py:256(wrapper)
+       54    0.011    0.000    6.163    0.114 src/eda/predictability_diagnostic/stage0_build.py:309(num)
+1910/1866    0.266    0.000    5.879    0.003 C:\Users\zerom\miniforge3\envs\tennis\Lib\site-packages\pandas\core\indexes\base.py:3656(get_indexer)
+     2389    5.602    0.002    5.603    0.002 C:\Users\zerom\miniforge3\envs\tennis\Lib\site-packages\pyarrow\compute.py:246(wrapper)
+      142    4.524    0.032    5.588    0.039 C:\Users\zerom\miniforge3\envs\tennis\Lib\site-packages\pandas\core\tools\numeric.py:50(to_numeric)
+  1052977    0.584    0.000    5.162    0.000 C:\Users\zerom\miniforge3\envs\tennis\Lib\site-packages\pandas\core\arrays\string_arrow.py:162(_from_pyarrow_array)
+        1    0.159    0.159    4.942    4.942 src/eda/predictability_diagnostic/stage0_build.py:235(apply_id_aliases)
+  998/964    3.674    0.004    4.933    0.005 C:\Users\zerom\miniforge3\envs\tennis\Lib\site-packages\pandas\core\indexes\base.py:3798(_get_indexer)
+     4845    4.391    0.001    4.885    0.001 C:\Users\zerom\miniforge3\envs\tennis\Lib\site-packages\pandas\core\arrays\arrow\array.py:1757(to_numpy)
+        1    0.038    0.038    4.813    4.813 src/eda/predictability_diagnostic/stage0_build.py:669(link_tml)
+        1    0.026    0.026    4.761    4.761 src/eda/predictability_diagnostic/stage0_build.py:829(box_scores)
+        2    0.174    0.087    4.717    2.359 src/eda/predictability_diagnostic/stage0_build.py:509(drop_repeats)
+
+
+
+== callers of the element-by-element Arrow iteration ==
+   Ordered by: cumulative time
+   List reduced from 5051 to 1 due to restriction <'array.py:875\\(__iter__\\)'>
+
+Function                                                                                                 was called by...
+                                                                                                             ncalls  tottime  cumtime
+C:\Users\zerom\miniforge3\envs\tennis\Lib\site-packages\pandas\core\arrays\arrow\array.py:875(__iter__)  <-  223763    0.124    0.124  C:\Users\zerom\miniforge3\envs\tennis\Lib\site-packages\pandas\core\arrays\string_arrow.py:310(<listcomp>)
+                                                                                                                  2    0.000    0.000  C:\Users\zerom\miniforge3\envs\tennis\Lib\site-packages\pandas\core\dtypes\inference.py:259(is_nested_list_like)
+                                                                                                                  2    0.000    0.000  C:\Users\zerom\miniforge3\envs\tennis\Lib\site-packages\pandas\core\dtypes\inference.py:302(<genexpr>)
+                                                                                                              22486    0.021    0.023  C:\Users\zerom\miniforge3\envs\tennis\Lib\site-packages\pandas\core\frame.py:1484(items)
+                                                                                                                 56    0.000    0.000  C:\Users\zerom\miniforge3\envs\tennis\Lib\site-packages\pandas\core\frame.py:1591(itertuples)
+                                                                                                              45240    0.051    0.057  C:\Users\zerom\miniforge3\envs\tennis\Lib\site-packages\pandas\core\frame.py:7965(duplicated)
+                                                                                                            2620155    2.129    2.408  C:\Users\zerom\miniforge3\envs\tennis\Lib\site-packages\pandas\core\groupby\generic.py:498(<lambda>)
+                                                                                                                  9    0.000    0.000  C:\Users\zerom\miniforge3\envs\tennis\Lib\site-packages\pandas\core\groupby\ops.py:615(get_iterator)
+                                                                                                                663    0.001    0.001  C:\Users\zerom\miniforge3\envs\tennis\Lib\site-packages\pandas\core\indexes\base.py:6672(<listcomp>)
+                                                                                                                 78    0.000    0.000  C:\Users\zerom\miniforge3\envs\tennis\Lib\site-packages\pandas\core\internals\construction.py:375(dict_to_mgr)
+                                                                                                                 12    0.000    0.000  C:\Users\zerom\miniforge3\envs\tennis\Lib\site-packages\pandas\core\methods\to_dict.py:241(<listcomp>)
+                                                                                                                  5    0.000    0.000  C:\Users\zerom\miniforge3\envs\tennis\Lib\site-packages\pandas\core\methods\to_dict.py:247(<setcomp>)
+                                                                                                                 28    0.000    0.000  C:\Users\zerom\miniforge3\envs\tennis\Lib\site-packages\pandas\core\series.py:1756(to_dict)
+                                                                                                                501    0.000    0.000  C:\Users\zerom\miniforge3\envs\tennis\Lib\site-packages\pandas\core\tools\datetimes.py:156(should_cache)
+                                                                                                                 94    0.000    0.000  C:\Users\zerom\miniforge3\envs\tennis\Lib\site-packages\pyarrow\pandas_compat.py:387(_get_columns_to_convert)
+                                                                                                            1747411    0.973    0.973  C:\Users\zerom\tnr_daily\src\eda\feature_alpha_audit\repair_data.py:60(repair_tables)
+                                                                                                            1765023    0.923    0.932  C:\Users\zerom\tnr_daily\src\eda\feature_alpha_audit\repair_data.py:76(<lambda>)
+                                                                                                            1765010    0.978    0.990  C:\Users\zerom\tnr_daily\src\eda\feature_alpha_audit\repair_data.py:78(<lambda>)
+                                                                                                           16594334    9.260    9.260  C:\Users\zerom\tnr_daily\src\eda\feature_alpha_audit\repair_data.py:119(<listcomp>)
+                                                                                                                 57    0.000    0.000  C:\Users\zerom\tnr_daily\src\eda\feature_alpha_audit\repair_data.py:156(<listcomp>)
+                                                                                                               1431    0.001    0.001  C:\Users\zerom\tnr_daily\src\eda\input_data_audit\corrections.py:70(<listcomp>)
+                                                                                                               1523    0.001    0.001  C:\Users\zerom\tnr_daily\src\eda\input_data_audit\corrections.py:101(apply_row_corrections)
+                                                                                                                 31    0.000    0.000  C:\Users\zerom\tnr_daily\src\eda\input_data_audit\corrections.py:244(apply_id_aliases)
+                                                                                                              49143    0.029    0.029  C:\Users\zerom\tnr_daily\src\eda\merge_feasibility\scan.py:72(<dictcomp>)
+                                                                                                               1464    0.001    0.001  src/eda/predictability_diagnostic/stage0_build.py:170(apply_box_overrides)
+                                                                                                                732    0.000    0.000  src/eda/predictability_diagnostic/stage0_build.py:188(<listcomp>)
+                                                                                                            1746772    0.878    0.878  src/eda/predictability_diagnostic/stage0_build.py:235(apply_id_aliases)
+                                                                                                                 15    0.000    0.000  src/eda/predictability_diagnostic/stage0_build.py:242(<listcomp>)
+                                                                                                                 60    0.000    0.000  src/eda/predictability_diagnostic/stage0_build.py:267(add_live_rows)
+                                                                                                                124    0.000    0.000  src/eda/predictability_diagnostic/stage0_build.py:287(drop_replaced)
+                                                                                                              19485    0.012    0.012  src/eda/predictability_diagnostic/stage0_build.py:447(<dictcomp>)
+                                                                                                                  2    0.000    0.000  src/eda/predictability_diagnostic/stage0_build.py:453(score_columns)
+                                                                                                            2620156    1.406    1.406  src/eda/predictability_diagnostic/stage0_build.py:456(<listcomp>)
+                                                                                                                232    0.001    0.001  src/eda/predictability_diagnostic/stage0_build.py:473(rule_levels)
+                                                                                                              12312    0.007    0.007  src/eda/predictability_diagnostic/stage0_build.py:669(link_tml)
+                                                                                                              76056    0.042    0.042  src/eda/predictability_diagnostic/stage0_build.py:767(resolve_ids)
+                                                                                                                  2    0.000    0.000  src/eda/predictability_diagnostic/stage0_build.py:785(event_map)
+                                                                                                              21787    0.012    0.012  src/eda/predictability_diagnostic/stage0_build.py:791(<dictcomp>)
+                                                                                                            9607254    5.062    5.062  src/eda/predictability_diagnostic/stage0_build.py:920(progression)
+                                                                                                            2620156    1.343    1.343  src/eda/predictability_diagnostic/stage0_build.py:931(<listcomp>)
+                                                                                                            3493541    1.799    1.799  src/eda/predictability_diagnostic/stage0_build.py:932(<listcomp>)
+                                                                                                            3493541    1.783    1.783  src/eda/predictability_diagnostic/stage0_build.py:934(<listcomp>)
+                                                                                                            6866868    3.636    3.636  src/eda/predictability_diagnostic/stage0_build.py:1002(build)
+                                                                                                                  6    0.000    0.000  src/eda/predictability_diagnostic/stage0_build.py:1080(<genexpr>)
+                                                                                                            4367131    2.305    2.305  src/eda/predictability_diagnostic/stage0_build.py:1195(<listcomp>)
+                                                                                                                 57    0.000    0.000  src/eda/predictability_diagnostic/stage0_build.py:1309(<listcomp>)
+                                                                                                                 49    0.000    0.000  {built-in method builtins.sorted}
+                                                                                                                380    0.000    0.000  {method 'join' of 'str' objects}
+
+

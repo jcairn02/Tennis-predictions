@@ -1,0 +1,30 @@
+rows with a file: 1333 | linked rows: 1333
+cls        equal  no_count  other  swapped  unproven   All
+slam year                                                 
+RG   2016    190       195      3       43         2   433
+     2017    111       195    132       10         2   450
+     2018    195       193      6       52         4   450
+All          496       583    141      105         8  1333
+
+swapped by source: {('RG', 2016, 'sackmann'): 43, ('RG', 2017, 'sackmann'): 10, ('RG', 2018, 'sackmann'): 52}
+swapped rows equal to the winner-served-first reading: 85 of 105
+swapped rows with flags:     slam  year   code               score flags
+187   RG  2016  SM023             2-5 RET   RET
+324   RG  2016  SD070     5-7 6-3 2-0 RET   RET
+627   RG  2017  SM021  7-6(5) 5-7 4-3 RET   RET
+B8 fails after the exchange: 0 | before: 0
+proven rows where MatchBeats holds every game: its own count equals the truth on 1320 of 1320
+unproven by reason: {'p1_order': 5, 'p2_opens': 5, 'p3_alternation': 5, 'p4_sets': 0}
+
+rows Stage 0 keeps: 1350 | linked to a file: 1333 | rows without a file: 17
+swapped: 105 | excluded (decided corrections): []
+break identity on the swaps: completed 101 of 102 | retirements 3 of 3 | equal to the row as recorded: 1
+    slam  year   code       score  w_SvGms  l_SvGms   t_w   t_l  bp_sv_w  bp_sv_l  w_bpFaced  w_bpSaved  l_bpFaced  l_bpSaved
+381   RG  2016  SD014  7-6(0) 6-3     11.0     10.0  10.0  11.0     11.0     10.0        7.0        6.0        7.0        5.0
+links of the swaps: similarity < 1: 3 | winner disagrees: 3
+     slam  year   code      winner_name           mb_w_name         loser_name          mb_l_name  link_sim
+357    RG  2016  SD108    Kate Makarova  Ekaterina MAKAROVA  Varvara Lepchenko  Varvara LEPCHENKO       0.5
+1243   RG  2018  SD096  Kateryna Baindl    Kateryna KOZLOVA   Jelena Ostapenko   Jelena OSTAPENKO       0.5
+1245   RG  2018  SD098    Kate Makarova  Ekaterina MAKAROVA       Saisai Zheng       Saisai ZHENG       0.5
+B8 after the exchange fails on 0 | before: 0
+break identity on all proven completed rows: equals the truth on 724 of 725 | by edition misses: {('RG', 2016): 1}

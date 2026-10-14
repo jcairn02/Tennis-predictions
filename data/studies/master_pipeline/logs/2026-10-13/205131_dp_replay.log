@@ -1,0 +1,69 @@
+# DP_BASE_TREE=C:\Users\zerom\tnr_gaps DP_INSTANCE=template_2026-10-13 DP_WORK_TREE=C:/Users/zerom/tnr_daily_nb ./python.sh 'C:\Users\zerom\Documents\Tennis-predictions\src\eda\daily_prediction\dp.py' run_day --run 'C:\Users\zerom\Documents\Tennis-predictions\data\studies\daily_prediction\runs\replay_2026-07-13_R16_20261013T205131' --replay-week 2026-07-13 --replay-round R16 --checkpoint 2026-06-22
+# started 2026-10-13T20:51:31-07:00
+{
+ "created_at": "2026-10-14T035132Z",
+ "mode": "replay",
+ "replay": {
+  "week": "2026-07-13",
+  "round": "R16",
+  "winner": "A",
+  "dating": "training"
+ },
+ "matchups_csv": null,
+ "checkpoint": "2026-06-22",
+ "seeds": "0-15",
+ "work_tree": "C:\\Users\\zerom\\tnr_daily_nb",
+ "instance": "C:\\Users\\zerom\\Documents\\Tennis-predictions\\data\\studies\\current_best_model\\template_2026-10-13",
+ "base_tree": "C:\\Users\\zerom\\tnr_gaps"
+}
+[    0.3s] == worktree
+[   28.9s]    worktree: 28.6 s
+[   28.9s] == matchups
+[   31.7s]    matchups: 2.8 s
+[   31.7s] == prices
+[   31.8s]    prices: 0.1 s
+[   31.8s] == tables
+[   31.9s] --> stage0: src/eda/predictability_diagnostic/stage0_build.py --live-rows run/live_rows.parquet
+[  108.6s]     exit 0 in 76.8 s
+[  108.6s] --> additions: src/eda/current_best_model/additions.py --apply
+[  125.6s]     exit 0 in 16.9 s
+[  125.6s] --> check: src/eda/prediction_run/inject.py --meta run/live_meta.parquet --step check
+[  126.2s]     exit 0 in 0.6 s
+[  126.2s] --> lle_layer: src/eda/current_best_model/layer_config.py --resolve --official C:\Users\zerom\Documents\Tennis-predictions\data\studies\current_best_model\level_layer\official.json
+[  143.8s]     exit 0 in 17.7 s
+[  143.8s] --> odds: src/eda/predictability_diagnostic/stage1_odds.py 
+[  149.8s]     exit 0 in 5.9 s
+[  149.8s] --> live_odds: src/eda/prediction_run/inject.py --meta run/live_meta.parquet --step odds
+[  150.4s]     exit 0 in 0.7 s
+[  156.3s]    tables: 124.5 s
+[  156.3s] == states
+[  315.6s]    states: 159.3 s
+[  315.6s] == history
+[  315.6s]    history: 0.0 s
+[  315.7s] == fit
+[ 1068.5s]    fit: 752.8 s
+[ 1068.5s] == predict
+[ 1069.5s]    predict: 1.0 s
+{
+ "run": "C:\\Users\\zerom\\Documents\\Tennis-predictions\\data\\studies\\daily_prediction\\runs\\replay_2026-07-13_R16_20261013T205131",
+ "mode": "replay",
+ "started_at": "2026-10-14T035132Z",
+ "steps": {
+  "worktree": 28.6,
+  "matchups": 2.8,
+  "prices": 0.1,
+  "tables": 124.5,
+  "states": 159.3,
+  "history": 0.0,
+  "fit": 752.8,
+  "predict": 1.0,
+  "cleanup": 2.8
+ },
+ "finished_at": "2026-10-14T040921Z",
+ "cleanup": {
+  "deleted": true,
+  "seconds": 2.8
+ }
+}
+
+# ok, exit 0, 1072.7 s

@@ -1,0 +1,52 @@
+--- repository/src/eda/predictability_diagnostic/stage4_features.py
++++ sandbox/src/eda/predictability_diagnostic/stage4_features.py
+@@ -67,6 +67,7 @@
+ from src.eda.predictability_diagnostic import stage4_candidates as P  # noqa: E402
+ from src.eda.predictability_diagnostic import stage4_country as CTRY  # noqa: E402
+ from src.eda.predictability_diagnostic.scheduled_format import scheduled_format  # noqa: E402
++from src.eda.lower_level_evidence import level_layer as _LLE  # noqa: E402  lower_level_evidence C1 (sandbox only)
+ 
+ PLAN = C.DOCS / "candidates.md"
+ CANDIDATES = C.OUT / "stage4_candidates.csv"
+@@ -569,6 +570,7 @@
+     cols, names = [], []
+     for s in HIST:
+         x, d, ok = xd[s]
++        x, d = _LLE.points_counts(rows, s, x, d, ok)   # lower_level_evidence C1 (sandbox only)
+         mu = mu_of_rows(rows, ctx["means"][s])
+         mua = mu_of_rows(rows, ctx["means"][f"{s}_adj"])
+         xc = np.where(ok, x - d * mu, 0.0)
+@@ -671,19 +673,19 @@
+             sa, sb, nsa, nsb = RS[s][pa] + ya[0], RS[s][pb] + yb[0], NS[s][pa] + ya[1], NS[s][pb] + yb[1]
+             out[i, 4], out[i, 5], out[i, 6], out[i, 7] = sa, sb, nsa, nsb
+         if upd[i]:
+-            wgt = weight[i]
++            wgt = upd[i] * weight[i]   # lower_level_evidence C1 (sandbox only): upd[i] True or w
+             res = 1.0 if a_won[i] else 0.0
+             surprise = res - 1.0 / (1.0 + 10.0 ** ((rb - ra) / 400.0))
+             xa[3] += wgt * k0 / (na + offset) ** shape * surprise
+             xb[3] -= wgt * k0 / (nb + offset) ** shape * surprise
+-            xa[4] += 1
+-            xb[4] += 1
++            xa[4] += upd[i]   # lower_level_evidence C1 (sandbox only)
++            xb[4] += upd[i]
+             if do_s:
+                 surprise = res - 1.0 / (1.0 + 10.0 ** ((sb - sa) / 400.0))
+                 ya[3] += wgt * k0 / (nsa + offset) ** shape * surprise
+                 yb[3] -= wgt * k0 / (nsb + offset) ** shape * surprise
+-                ya[4] += 1
+-                yb[4] += 1
++                ya[4] += upd[i]   # lower_level_evidence C1 (sandbox only)
++                yb[4] += upd[i]
+     return out
+ 
+ 
+@@ -744,7 +746,7 @@
+             wgt = np.where(np.isfinite(sh), sh / scales[(kind, tour)], 1.0)
+             h = elo_inputs(t)
+             block[idx] = weighted_elo_pass(h["week"], h["event"], h["rnd"], h["a"], h["b"], h["a_won"], h["surf"],
+-                                           upd[idx].tolist(), wgt.tolist(), h["n_players"], k["k0"], k["offset"], k["shape"])
++                                           _LLE.elo_weights(t, upd[idx].tolist()), wgt.tolist(), h["n_players"], k["k0"], k["offset"], k["shape"])   # lower_level_evidence C1 (sandbox only)
+             out[(kind, tour, "w")] = k["w"]
+         out[kind] = block
+     return out

@@ -48,6 +48,7 @@ from src.eda.predictability_diagnostic import common as PC  # noqa: E402
 from src.eda.predictability_diagnostic import stage1_baselines as B  # noqa: E402
 from src.eda.predictability_diagnostic.stage4_features import prev_visible  # noqa: E402
 from src.eda.surface_elo_pieces import common as C  # noqa: E402
+from src.eda.lower_level_evidence import level_layer as _LLE  # noqa: E402  level layer (LLE_LAYER)
 
 START = B.START
 # A first grid (kd_off 2 and 10, kd_shape 0.4 and 0.6) put the best at its corner for both tours; this one reaches
@@ -127,24 +128,24 @@ def elo_pass_ext(week, event, rnd, a, b, a_won, surf, upd, n_players: int, k0: f
         if upd[i]:
             res = 1.0 if a_won[i] else 0.0
             surprise = res - 1.0 / (1.0 + 10.0 ** ((rb - ra) / 400.0))
-            xa[3] += k0 / (na + offset) ** shape * surprise
-            xb[3] -= k0 / (nb + offset) ** shape * surprise
-            xa[4] += 1
-            xb[4] += 1
+            xa[3] += upd[i] * k0 / (na + offset) ** shape * surprise   # level layer (LLE_LAYER): upd[i] True or w
+            xb[3] -= upd[i] * k0 / (nb + offset) ** shape * surprise
+            xa[4] += upd[i]
+            xb[4] += upd[i]
             if do_s:
                 surprise_s = res - 1.0 / (1.0 + 10.0 ** ((sb - sa) / 400.0))
-                ya[3] += k0 / (nsa + offset) ** shape * surprise_s
-                yb[3] -= k0 / (nsb + offset) ** shape * surprise_s
-                ya[4] += 1
-                yb[4] += 1
+                ya[3] += upd[i] * k0 / (nsa + offset) ** shape * surprise_s
+                yb[3] -= upd[i] * k0 / (nsb + offset) ** shape * surprise_s
+                ya[4] += upd[i]
+                yb[4] += upd[i]
                 if mode == "anchored":
                     surprise_x = res - 1.0 / (1.0 + 10.0 ** ((xb_s - xa_s) / 400.0))
-                    za[3] += k0 / (nsa + offset) ** shape * surprise_x
-                    zb[3] -= k0 / (nsb + offset) ** shape * surprise_x
+                    za[3] += upd[i] * k0 / (nsa + offset) ** shape * surprise_x
+                    zb[3] -= upd[i] * k0 / (nsb + offset) ** shape * surprise_x
                 elif mode == "offset":
                     surprise_c = res - 1.0 / (1.0 + 10.0 ** (((rb + xb_s) - (ra + xa_s)) / 400.0))
-                    za[3] += kd0 / (nsa + kd_off) ** kd_shape * surprise_c
-                    zb[3] -= kd0 / (nsb + kd_off) ** kd_shape * surprise_c
+                    za[3] += upd[i] * kd0 / (nsa + kd_off) ** kd_shape * surprise_c
+                    zb[3] -= upd[i] * kd0 / (nsb + kd_off) ** kd_shape * surprise_c
     return out
 
 
@@ -307,6 +308,7 @@ def main() -> int:
         t = m[sel].reset_index(drop=True)
         h = B.history_arrays(t)
         upd = t["status"].isin(B.UPDATES["ret"]).tolist()
+        upd0, upd = upd, _LLE.elo_weights(t, upd)   # level layer (LLE_LAYER): the passes read upd, the tuning upd0
         k = {kk: float(chosen[(tour, "ret")][kk]) for kk in ("k0", "offset", "shape")}
         meta["stage1_constants"][tour] = {**k, "w": chosen[(tour, "ret")]["w"]}
         o1 = run(h, upd, k, "stage1")
@@ -321,7 +323,7 @@ def main() -> int:
         C.log(f"{tour}: Stage 1 reproduced (max diff {err:.2e})")
         oa = run(h, upd, k, "anchored")
         assert np.allclose(oa[:, :8], o1[:, :8], equal_nan=True)
-        kd, grid = tune_offset(t, h, upd, k)
+        kd, grid = tune_offset(t, h, upd0, k)   # level layer (LLE_LAYER)
         meta["offset_constants"][tour] = kd
         meta["tuning"] += [{"tour": tour, **g} for g in grid]
         C.log(f"{tour}: offset constants {kd}")
@@ -330,7 +332,7 @@ def main() -> int:
         # the audit's control: the same offset with every known surface mapped to one code, so that it moves on every
         # match (a second, general correction of the overall rating); tuned on the same rows and grid
         h_gen = {**h, "surf": [0 if s >= 0 else -1 for s in h["surf"]]}
-        kd_gen, grid_gen = tune_offset(t, h_gen, upd, k)
+        kd_gen, grid_gen = tune_offset(t, h_gen, upd0, k)   # level layer (LLE_LAYER)
         meta["offset_surface_blind_constants"][tour] = kd_gen
         meta["tuning_surface_blind"] += [{"tour": tour, **g} for g in grid_gen]
         og = run(h_gen, upd, k, "offset", kd_gen)

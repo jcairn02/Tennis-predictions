@@ -38,7 +38,49 @@ This is an acquisition and organisation record, not a source selection or a deci
 
 **Pinnacle odds stop in January 2026.** In the 2026 files `PSW`/`PSL` are filled for 71 ATP and 101 WTA matches (3.2% and 4.7% of non-walkover rows), all played 4–14 January, and are empty afterwards. Bet365 (99%), the OddsPortal maximum and average (100%) and Betfair Exchange (95%; columns added in August 2025) continue through September. That the odds are the last before play starts is the provider's claim (its notes are unchanged), not verified.
 
-**Consequences.** Studies run before 5 October used the 3 August captures; those workbooks are kept in `superseded/`, and the studies' reports still describe them. A rerun reads the corrected and extended files. The manifest, coverage tables and download log in `data/studies/public_data_dump/` were rebuilt on 5 October, after a Polymarket trades download running at the same time had finished. They now also cover data other studies have staged in `data/dump/` since 22 September (point-by-point feeds, ball tracking, Polymarket trades), which this report does not describe. Two changes to `build_manifest.py` made that rebuild possible: it reads each file directly, because `pq.read_table` rejects an empty file that repeats a column name (11 WTA point files carry two `year` columns); and the download log counts, rather than lists, the receipts of sources with more than 1,000 objects, which keeps it at about 0.5 MB instead of 45 MB.
+**Consequences.** Studies run before 5 October used the 3 August captures; those workbooks are kept in `superseded/`, and the studies' reports still describe them.
+
+## Catch-ups of 8 October 2026: Match Charting and the Live Tennis API
+
+Work package P3 of the [collection plan](../gap_downloads/collection-plan.md).
+
+### Match Charting Project: already current
+
+* **The head [observed].** GitHub's API at about 19:40 UTC on 8 Oct 2026: `master`, the repository's only branch, is still `1813a13` ("thru 18 sep 2026", pushed 18 Sep 08:36 UTC). That commit is the one held. Women's charts still end on 9 Sep 2026, and men's on 21 May.
+* **The run** (`./python.sh -m src.ingest.public_dump.match_charting --mcp-commit master`).
+  * One request, to resolve `master`.
+  * The 40 held files were checked against the tree's git blob hashes, and all 40 equal them. Nothing was downloaded or re-staged.
+  * Four more read-only API requests, from the scratchpad: the commit list, the repository and its branches.
+* **The adapter now keeps every commit's files [observed in its tests].** Before, a new commit was skipped, because the files were already held under the same names, and `--refresh` would have overwritten them. Now:
+  * a file whose blob the new tree leaves unchanged is not fetched;
+  * a changed file is downloaded, checked against the tree's blob hash and re-staged, and the bytes it replaces are kept under `superseded/` with their receipts (the Tennis My Life pattern);
+  * a held file the new tree no longer lists stays, and the run names it (`not_in_this_commit`), since its staged table would then be stale.
+
+  Tests: `test/public_data_dump/test_match_charting_commits.py`.
+
+### Live Tennis API sample: v1.0.2, with the times in UTC
+
+* **What came [observed].** Zenodo record 23018680, v1.0.2 (28 Sep 2026; the same concept record as v1.0.0, CC BY-NC 4.0).
+  * 6 requests at 19:45 UTC: the record and its five files, 12 MB, every MD5 as the record lists it.
+  * The files are in `data/raw/public_dump/live_tennis_api_zenodo/record_23018680/`. v1.0.0 stays where it was, at the folder's root.
+  * `players.csv.gz` and `DATA_DICTIONARY.md` have the same MD5 as v1.0.0's; the README is updated.
+* **The provider's note, checked row by row** ([live_tennis_api_versions.json](../../../data/studies/public_data_dump/live_tennis_api_versions.json), from `src/eda/public_data_dump/lta_versions.py`):
+  * the same rows in the same order, the same columns, and every other column identical;
+  * `scheduled_time_utc` moves back 3 hours on 120,758 rows and 2 hours on 52,813, and the point sample's `timestamp_utc` 3 hours on all 951,064, exactly the note's counts;
+  * every corrected time equals v1.0.0's read as Israel wall-clock time and converted to UTC. The hour repeated when clocks go back is read as summer time in every case.
+* **Re-staged.** `data/dump/{matches,players,points}/live_tennis_api_zenodo/` now come from v1.0.2. Each row carries `_zenodo_record` and `_zenodo_version`.
+* **Its readers.** Three converted v1.0.0's times from Israel time, and would have shifted v1.0.2's a second time. They now read the zone from the staged version (`live_tennis_api_zenodo.staged_time_zone`):
+  * the leak-proof clock's loader (`src/eda/match_timing/srcb_sources.py`, with `srcb_report.py` and the notes in `link_sources_b.py`);
+  * the gap-sources scripts `itf_listing_counts.py` and `tennislive_itf_after_june.py`.
+
+  **Checked [observed]:** the clock's loader gives the same UTC start and day for all 148,039 rows it keeps, reading v1.0.2 as UTC, as it gave reading v1.0.0 as Israel time. Its link file is frozen and was not rebuilt, so the timeline is unchanged.
+* **Readers of the day only** (the data map, `merge_feasibility`, `lta_index_links`, `career_coverage`) now get the UTC day. That moves 7,317 rows (4.2%) back one day: matches scheduled 21:00–24:00 UTC, which v1.0.0 dated by the day in Israel. On the map, rebuilt at 20:17 UTC, 6 more of the sample's 4,250 matches link to a known match (3,126), and no cell changes.
+* **The adapter.**
+  * `--record` picks the version: 23018680 (v1.0.2, the default) or 22048731 (v1.0.0).
+  * The staged tables are rebuilt whenever they hold another record than the one asked for.
+  * A file whose MD5 is not the record's is never staged.
+
+  Tests: `test/public_data_dump/test_live_tennis_api_versions.py`, and `test/match_timing/test_link_sources_b.py` for the clock's loader. A rerun reads the corrected and extended files. The manifest, coverage tables and download log in `data/studies/public_data_dump/` were rebuilt on 5 October, after a Polymarket trades download running at the same time had finished. They now also cover data other studies have staged in `data/dump/` since 22 September (point-by-point feeds, ball tracking, Polymarket trades), which this report does not describe. Two changes to `build_manifest.py` made that rebuild possible: it reads each file directly, because `pq.read_table` rejects an empty file that repeats a column name (11 WTA point files carry two `year` columns); and the download log counts, rather than lists, the receipts of sources with more than 1,000 objects, which keeps it at about 0.5 MB instead of 45 MB.
 
 ## What was retrieved
 
@@ -49,7 +91,7 @@ Row counts are physical rows in the staged files (2010+ files unless stated). Da
 | Tennis My Life (PUB049) | ATP main tour, Challenger, ATP qualifying, WTA main tour season files; three ongoing-tournament files; ATP player database (12,903); ATP rankings of 2026-08-31 (2,298) | 2010–2026 (qualifying from 2007) | ATP main 2026-09-13, Challenger 2026-09-14, ATP qualifying 2026-08-28, WTA 2026-09-21, ongoing 2026-09-18 to 09-21 | 71 / 196,500 match rows (plus 33 pre-2010 files, 107,576 rows, fetched before the scope change) | live site manifest, fetched 2026-09-22 |
 | Sackmann archival mirror (PUB003) | ATP main, qualifying+Challenger, Futures, doubles (to 2020); WTA main, qualifying+ITF; ATP/WTA player tables (66,912 / 70,571); weekly rankings; Grand Slam point-by-point | 2010–2026; rankings 2010–2026-06-08; slam points 2011–2024 | main tours 2026-05-25, ATP qualifying/Challenger and Futures 2026-06-01, WTA qualifying/ITF 2026-06-02, rankings 2026-06-08, slam points 2024 US Open | matches 96 / 882,094; rankings 6 / 2,537,744; points 166 / 2,328,041; players 2 / 137,483 | commit `8373358` (2026-06-25 snapshot) |
 | Match Charting Project (PUB005) | chart metadata (men 7,566, women 4,264); shot-by-shot points 2010s and 2020s; 32 per-match aggregate stats files (all eras) | 2010–2026 (stats files include older matches) | women's charts 2026-09-09, men's 2026-05-21 | 38 / 4,537,499 (points 1,437,120; stats 3,088,549) | commit `1813a13` ("thru 18 sep 2026") |
-| Live Tennis API public sample (PUB010) | match index (no winner/score), players (partial Sackmann crosswalk), June 2026 observed score states | 2023–2026 | index 2026-08-13; states 2026-06-01 to 07-01 | 3 / 1,157,313 (173,571 + 32,678 + 951,064) | Zenodo record 22048731 v1.0.0, MD5 verified |
+| Live Tennis API public sample (PUB010) | match index (no winner/score), players (partial Sackmann crosswalk), June 2026 observed score states | 2023–2026 | index 2026-08-13; states 2026-06-01 to 07-01 | 3 / 1,157,313 (173,571 + 32,678 + 951,064) | Zenodo record 22048731 v1.0.0, MD5 verified; since 8 Oct 2026 record 23018680 v1.0.2 (the same rows, times in UTC; v1.0.0 kept beside it) |
 | Open Tennis Data (PUB013) | completed results with exact dates, fixtures, players, tournaments, provenance, quarantine, coverage, health, catalog, sources | 2020–2026 | 2026-08-29 | 11 / 111,478 (completed 26,619) | release `data-v3-20260905T083014Z`, SHA-256 verified; derivative of tennis-data.co.uk and Sackmann |
 | tennis-data.co.uk (PUB014, PUB015, tennis_data_odds) | ATP and WTA results with set scores and closing odds, partitioned by `Series`/`Tier` | 2010–2026 | ATP 2026-09-29, WTA 2026-09-27 (2026 files: 2,204 ATP and 2,191 WTA rows) | 183 / 83,243 (plus 51 pre-2010 files, 27,268 rows, fetched before the scope change) | live site, re-fetched 2026-10-05 (`route=live`); on 22 September every file came from Internet Archive captures of 3 August or earlier, without ATP 2018 |
 | Polymarket (poly_gamma, poly_clob_history) | event and market index (census of 2026-09-10 plus post-census extension of 2026-09-22); minute price history of the first outcome token of every moneyline | sporting dates 2025-09-10 to 2026-09-24 | catalog 2026-09-24 (scheduled); prices 2026-09-22 | index 2 / 34,197 + 3,483 events and 411,502 + 52,764 contracts; prices 84 / 62,218,248 minute rows for 36,270 markets (33,115 census and 3,155 extension moneylines; one market returned an empty history) | public Gamma and CLOB APIs; no account; 36,295 price requests, none failed |
@@ -153,6 +195,9 @@ Known defects surfaced by verbatim staging (for the cleaning phase; also listed 
 ./python.sh -m src.ingest.public_dump.polymarket_catalog --revisit   # results of events captured while their markets were open
 ./python.sh -m src.ingest.public_dump.polymarket_prices --buckets all --workers 10 --rps 8   # prices for markets without a stored body
 ./python.sh -m src.ingest.public_dump.build_manifest                 # manifest, coverage tables, download log
+./python.sh -m src.ingest.public_dump.match_charting --mcp-commit master   # the Match Charting head; keeps the earlier commit's files
+./python.sh -m src.ingest.public_dump.live_tennis_api_zenodo --record 23018680   # the Live Tennis API sample, v1.0.2
+./python.sh src/eda/public_data_dump/lta_versions.py                 # v1.0.2 against v1.0.0, row by row
 ./python.sh -m pytest test/public_data_dump -q                       # offline tests
 ./python.sh -m src.ingest.refresh_odds                               # all odds sources to today in one command (see below)
 ```

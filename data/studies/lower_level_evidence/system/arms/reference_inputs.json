@@ -1,0 +1,36 @@
+{
+ "written_at": "2026-10-09T20:30:26+00:00",
+ "what": "the reference inputs every arm of the system reads (no outcome read)",
+ "strength": {
+  "path": "C:\\Users\\zerom\\Documents\\Tennis-predictions\\data\\studies\\lower_level_evidence\\system\\arms\\strength\\reference_elo.parquet",
+  "sha256": "fbda8cdc6ac14aaab933169a9d336dfc654bbfa5790cf23b00698344d3b6a54d",
+  "source": "C:\\Users\\zerom\\tnr_lle\\data\\studies\\predictability_diagnostic\\stage1_baselines.parquet",
+  "source_sha256": "72284b3b9bb5d589fda467fcde7478f287dd7e33b1fd3890cd27aa5b1f5f747c",
+  "columns": [
+   "match_id",
+   "tour",
+   "year",
+   "elo_a_ret",
+   "elo_b_ret"
+  ],
+  "checks": {
+   "rows": 873437,
+   "stage0_rows": 873437,
+   "same_ids_in_order_as_frozen_stage0": true,
+   "missing_ratings": 0,
+   "frame_matches": 67226,
+   "frame_elo_overall_largest_gap": 1.402419671503452e-06,
+   "frame_elo_overall_reproduced": true
+  },
+  "note": "elo_overall in the frozen frame is ln(10)/400 x (R_A - R_B) of pieces.py's pass, which reproduces Stage 1's float32 ratings exactly (pieces_meta reproduction 0.0); the gap above is float32 rounding"
+ },
+ "stageB_pin": {
+  "path": "C:\\Users\\zerom\\Documents\\Tennis-predictions\\data\\studies\\lower_level_evidence\\system\\arms\\constants\\stageB_adj_summary_reference.json",
+  "sha256": "43429744425a89c43a1a119bc0e7620405d82ffd913a9f31c95bce3342ced271",
+  "equal_to_frozen_log": true
+ },
+ "reference_constants": {
+  "path": "C:\\Users\\zerom\\Documents\\Tennis-predictions\\data\\studies\\lower_level_evidence\\system\\arms\\constants\\reference_constants.json",
+  "sha256": "57bc438239160980723227d42a28ae152dd1fd83eecb8dc56efebdcd29adae6e"
+ }
+}

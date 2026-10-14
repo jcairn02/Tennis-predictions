@@ -1,0 +1,29 @@
+{
+ "variant": "default",
+ "a": "old",
+ "b": "new",
+ "seconds": {
+  "old": 141.3,
+  "new": 75.8
+ },
+ "code_differs": {
+  "src/eda/predictability_diagnostic/stage0_build.py": true,
+  "src/eda/feature_alpha_audit/repair_data.py": true
+ },
+ "files": {
+  "stage0_matches.parquet": "byte-identical",
+  "stage0_match_players.parquet": "byte-identical",
+  "stage0_cleaning_log.csv": "byte-identical",
+  "stage0_level_applied.csv": "byte-identical",
+  "stage0_cells.csv": "byte-identical",
+  "stage0_summary.json": "different"
+ },
+ "summary_byte_identical_but_generated_at": true,
+ "generated_at": {
+  "old": "2026-10-11T16:16:14+00:00",
+  "new": "2026-10-11T16:33:30+00:00"
+ },
+ "summary_fields_differing_but_generated_at": [],
+ "inputs_identical": true,
+ "identical": true
+}

@@ -1,0 +1,88 @@
+usage: translation.py [-h] [--stage0-dir STAGE0_DIR] [--timing TIMING]
+                      [--through THROUGH] [--label LABEL] [--out OUT]
+                      [--steps STEPS] [--workers WORKERS] [--systems SYSTEMS]
+                      [--boot BOOT] [--fit-window FIT_WINDOW] [--tune TUNE]
+                      [--validate VALIDATE]
+
+Level translation: what a lower-level match is worth as evidence about a player's main-tour performance
+(the lower-level-evidence study, specialist 03).
+
+The question, per statistic. By how much does a player's rate at a lower level (tour qualifying TQ, Slam qualifying
+GSQ, Challenger / WTA 125 main draws CH, their qualifying CHQ; ITF and ITFQ once box scores exist) differ from the same
+player's main-tour rate (the translation, delta_L)? How many lower-level units are worth one main-tour unit as evidence
+(the exchange rate, lambda_L: 1 = equivalent, infinity = useless)? Does the project's opponent adjustment (the IOS
+ridge ratings, solved over every level as if they were one) remove the level gap, or leave a bias that grows with a
+player's lower-level share?
+
+Steps (each writes small CSVs to <out>/<label>/):
+    gaps         task 1. Same player, same season, at least 3 box scores at MAIN and at level L: the mean of
+                 (rate at L - rate at MAIN) per statistic, with player-clustered intervals; and blend.level_shift's rule
+                 re-run as a reproduction check.
+    effects      task 2b. A batch opponent-adjusted fit per tour and serve statistic, on the IOS's per-match log-odds
+                 scale: player-SEASON serve (O) and return (D) ratings, ridge kappa (the IOS's), plus level fixed
+                 effects delta_L (MAIN = 0), unpenalised. Overall per window (2010-2018: the translation the arms use;
+                 2019-2024; five 2-3 season eras), by surface, and by the two players' home tiers. Intervals cluster by
+                 event.
+    ios          tasks 2a and 3, opponent-adjusted. The IOS's form on a leak-proof weekly timeline (a result enters the
+                 solve from the day after its latest possible finish; a match reads the last weekly solve on or before
+                 its earliest possible start), per tour and serve statistic, in arms:
+                     ios          every level as equivalent (the IOS as built)
+                     main_only    lower-level rows left out (lambda = infinity)
+                     translated   lower-level rows shifted by delta_L of the 2010-2018 batch fit (lambda = 1)
+                     tr_lamX      translated, and each lower-level row's weight divided by X
+                     lamX         weight divided by X, not translated
+                     tier_prior   every level as equivalent, but the ridge shrinks each player towards his home
+                                  tier's mean rating (from the fit window's batch fit) instead of the pool's zero
+                     kappa_x5, tier_prior_x5, tp_tr_lam2   the shrinkage five times stronger (towards the zero or the
+                                  tier's mean), and the tier prior with translation and a 2x discount
+                 Scored by the binomial log loss per unit of main-tour rows (tune 2013-2018, validate 2019-2024),
+                 overall and for low-exposure players (fewer than 10 main-tour matches in the previous 365 days). The
+                 bias diagnostics: per arm, how much players whose year was mostly below the main tour are overrated
+                 against main-tour-based players at the main tour (ios_arm_bias.csv); for the "ios" arm, main-tour
+                 residuals by home tier and evidence (residual_by_evidence.csv) and against the lower-level share of
+                 each rating's evidence, and same-player gaps (L - MAIN, selection-prone: see residual_gaps).
+    credibility  task 3, raw rates. The precision-weighted estimate of a player's next main-tour match,
+                     theta = (k mu + X_M + sum_L w_L (X_L - delta_L N_L)) / (k + N_M + sum_L w_L N_L),  w_L = 1/lambda_L,
+                 from the player's own box scores of the previous 365 days (X numerators, N units, per level). Arms:
+                 main_only (w = 0), pooled (w = 1, delta = 0: today's treatment of raw aggregates), translated (delta
+                 fitted, w = 1), discounted (w fitted, delta = 0), translated_discounted (both fitted); k fitted in each.
+                 Fitted on 2013-2018 targets, scored on 2019-2024.
+    elo          task 4 (results channel, brief). A plain Elo over every level with a K multiplier for Challenger and ITF
+                 results, scored on main-tour matches 2013-2024.
+    itf          task 5. ITF box-score coverage (counts only; the holdout's included, no outcome read) and what the
+                 results alone allow.
+
+Simplifications against the IOS as built (all levels are treated alike by each, so the level comparisons stand): the
+pooled IOS (no surface deviations), weekly snapshots and no incremental step (a match reads ratings up to a week older
+than the IOS's), and Stage 3's surface averages recomputed from the Stage 0 read (checked against
+stage4_constants.csv when it exists). h, kappa, tau and the typical units are the IOS constants registry's version
+2026-10-08_reference, which the frozen reference was built with.
+
+The holdout. Only matches of seasons up to --through (default 2024) and of events before 30 Dec 2024 are read: the
+player rows and outcomes of other matches are never loaded (a filtered read), and common.assert_no_holdout_outcomes
+guards each table with outcomes. Counting 2025-2026 matches and their box-score coverage (step itf) reads no outcome.
+
+Lower levels without box scores in the read data are skipped by the box-score steps and enter by themselves once a
+candidate Stage 0 carries them (--stage0-dir): every bucket with box scores gets its own delta and lambda.
+
+Run: ./python.sh src/eda/lower_level_evidence/translation.py [--steps gaps,effects,ios,credibility,elo,itf]
+     [--stage0-dir DIR] [--through 2024] [--label reference_2026-10-08] [--out DIR] [--workers 8] [--boot 30]
+     [--fit-window 2010-2018] [--tune 2013-2018] [--validate 2019-2024]
+About 4 minutes for effects and ios on 8 workers, 3 minutes for credibility with 30 bootstrap draws, 1 for the rest.
+
+options:
+  -h, --help            show this help message and exit
+  --stage0-dir STAGE0_DIR
+  --timing TIMING
+  --through THROUGH
+  --label LABEL
+  --out OUT
+  --steps STEPS
+  --workers WORKERS
+  --systems SYSTEMS     serve statistics for the effects/ios steps
+  --boot BOOT           player-bootstrap draws of the credibility parameters
+  --fit-window FIT_WINDOW
+                        seasons of the batch fit whose delta and home-tier
+                        means the weekly arms use
+  --tune TUNE           seasons the credibility arms are fitted on
+  --validate VALIDATE   seasons every arm is scored on

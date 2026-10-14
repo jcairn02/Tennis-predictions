@@ -13,7 +13,9 @@ return-only one), the one with the best vs_current gain over all surfaces; today
 runs at twice the half-life are reported as evidence about memory but never chosen, so that the surface arm differs
 from today's inputs only by its surface terms.
 
-Writes data/studies/surface_ios/tuning_summary.csv and tuning_choice.json.
+Writes data/studies/surface_ios/tuning_summary.csv and tuning_choice.json. build_features.py reads the IOS constants
+registry, not tuning_choice.json: a new choice changes no input until it is added as a version and activated
+(src/eda/ios_constants/registry.py --add ID --surface-from data/studies/surface_ios/tuning_choice.json).
 Run: ./python.sh src/eda/surface_ios/summarise_tuning.py
 """
 from __future__ import annotations

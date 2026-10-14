@@ -9,10 +9,17 @@ Sources
                    "1st Serve Average Speed", "2nd Serve Average Speed", "Max Speed", "First Serve" (in / total).
     mantennisdata  data/raw/public_dump/mantennisdata/atp/matches_2021-2026.csv: the ATP Stats Centre's key statistics
                    as atptour.com shows them: first- and second-serve averages, the maximum, first serves in.
+    infosys_atp    data/dump/points/infosys_atp/: the ATP Stats Centre's own Infosys files of 2018 to 17 Oct 2021,
+                   decrypted on 8 Oct 2026 (src/ingest/point_sources/infosys_atp_stage.py). From MatchBeats points and
+                   the key statistics as for the Slam files, with the ATP files' double-fault codes ("P" and "DF") left
+                   out of the second-serve mean. Every planned match is a row, timed or not (only the 2018 ATP Finals
+                   and Washington, San Diego and Indian Wells 2021 carry speeds).
 A speed outside 40-270 km/h counts as missing (the shot-level adapters' rule).
 
 Linking: shot_level.common.Stage0Linker (surname pair, tournament date, round, draw). The Slams take Stage 0's own
-tournament date for the edition and draw; ManTennisData takes its tournaments.csv start_dtm.
+tournament date for the edition and draw; ManTennisData takes its tournaments.csv start_dtm. The ATP files take the
+live speed pipeline's linker (serve_speed_tabpfn/live/link.py: ATP codes through its crosswalk; the id Stage 0 would
+give, else the event's match of the same pair, else the names), with each code's round from ManTennisData's stats link.
 
 Checks (observed; checks.json):
     1 sirgenkii_points   SirGenkii's rally analysis (decrypted ATP Stats Centre files, held) for its 14 AO 2025 men's
@@ -57,7 +64,9 @@ from src.eda.serve_speed_sources import flashscore_crawl as FC  # noqa: E402
 
 OUT = ROOT / "data" / "studies" / "serve_speed_acquisition"
 INFO = ROOT / "data" / "dump" / "points" / "infosys_slams"
+ATP = ROOT / "data" / "dump" / "points" / "infosys_atp"
 MANTD = ROOT / "data" / "raw" / "public_dump" / "mantennisdata" / "atp"
+MANTD_STAGED = ROOT / "data" / "dump" / "matches" / "mantennisdata"
 SIRG = ROOT / "data" / "dump" / "points" / "sirgenkii_infotennis"
 AO_DUMP = ROOT / "data" / "dump" / "points" / "ausopen"
 SHOT_STATS = ROOT / "data" / "studies" / "shot_level" / "stage1_match_stats.parquet"
@@ -67,6 +76,8 @@ MANTD_YEARS = range(2021, 2027)
 LO, HI = 40.0, 270.0
 KS = {"1st Serve Average Speed": "ks_spd1", "2nd Serve Average Speed": "ks_spd2", "Max Speed": "ks_max",
       "First Serve": "ks_first"}
+ATP_KS = {**{k: v for k, v in KS.items() if k != "First Serve"}, "1st Serve": "ks_first"}   # the ATP files' label
+ATP_DOUBLE_FAULTS = ("P", "DF")       # MatchBeats ends an ATP double fault with "P" (2018-20, most of 2021) or "DF"
 STATS_URL = re.compile(r"/archive/(\d{4})/(\d+)/([a-z]{2}\d{3})", re.I)
 FIRST_SERVE = re.compile(r"^\s*(\d+)\s*/\s*(\d+)")
 COLUMNS = ["source", "basis", "event", "year", "tour", "draw", "round", "source_key", "player_no", "player_name",
@@ -246,6 +257,103 @@ def mantd_players(linker) -> tuple[pd.DataFrame, pd.DataFrame]:
         "round": long["stadie_id"], "source_key": long["id"], "player_no": long["player_no"],
         "player_name": long["player_name"], "player_source_id": long["player_source_id"], "match_id": long["match_id_s0"],
         "side": side_of(long["a1"], long["player_no"])})
+    for c in COLUMNS:
+        if c not in out:
+            out[c] = long[c] if c in long else np.nan
+    return out[COLUMNS], m
+
+
+# ------------------------------------------------------------------------------------------------
+# the ATP Stats Centre's own Infosys files, 2018 to October 2021 (decrypted on 8 Oct 2026)
+# ------------------------------------------------------------------------------------------------
+ATP_KEYS = ["year", "event_id", "match_id"]
+
+
+def atp_rounds(years) -> pd.DataFrame:
+    """The round of each ATP match code (year, event, code), from ManTennisData's stats links: the plan's own source.
+    Identity only (no winner, loser or score is read)."""
+    from src.ingest.point_sources import infosys_atp as A
+    parts = [pd.read_parquet(p, columns=["stadie_id", "stats_url"]) for y in years
+             if (p := MANTD_STAGED / f"atp_matches_{y}.parquet").exists()]
+    if not parts:
+        return pd.DataFrame(columns=ATP_KEYS + ["round_mantd"])
+    m = pd.concat(parts, ignore_index=True)
+    code = m["stats_url"].map(A.code_of)
+    ok = code.notna().to_numpy()
+    out = pd.DataFrame({"year": [str(c[0]) for c in code[ok]], "event_id": [str(c[1]) for c in code[ok]],
+                        "match_id": [c[2] for c in code[ok]], "round_mantd": m.loc[ok, "stadie_id"].to_numpy()})
+    return out.drop_duplicates(ATP_KEYS)
+
+
+def atp_point_speeds() -> pd.DataFrame:
+    """As point_speeds, per (year, event, code, server); double faults ("P" or "DF") are not second serves in."""
+    p = pd.read_parquet(ATP / "points.parquet", columns=ATP_KEYS + ["server", "serve", "serveSpeed", "faultSrvSpd",
+                                                                    "result"])
+    p["spd"] = speed(p["serveSpeed"]).to_numpy()
+    p["fault"] = speed(p["faultSrvSpd"]).to_numpy()
+    dfl = p["result"].isin(ATP_DOUBLE_FAULTS)
+    p = p.assign(s1=p["spd"].where(p["serve"].eq("1")), s2=p["spd"].where(p["serve"].eq("2") & ~dfl),
+                 f1=p["fault"].where(p["serve"].eq("2")))
+    g = p.groupby(ATP_KEYS + ["server"])
+    out = g.agg(service_points=("serve", "size"), spd1_n=("s1", "count"), spd1_mean=("s1", "mean"),
+                spd2_n=("s2", "count"), spd2_mean=("s2", "mean"), fault1_n=("f1", "count"),
+                fault1_mean=("f1", "mean"), spd_max=("spd", "max")).reset_index()
+    out = out[out["server"].isin(["1", "2"])]
+    return out.rename(columns={"server": "player_no"})
+
+
+def atp_key_stats() -> pd.DataFrame:
+    """The ATP files' key statistics of the match ("set0"), one row per match and player."""
+    k = pd.read_parquet(ATP / "keystats.parquet", columns=ATP_KEYS + ["set_key", "name", "player1", "player2"])
+    k = k[k["set_key"].eq("set0") & k["name"].isin(ATP_KS)].drop_duplicates(ATP_KEYS + ["name"])
+    rows = []
+    for no in ("1", "2"):
+        w = k.pivot_table(index=ATP_KEYS, columns="name", values=f"player{no}", aggfunc="first").reset_index()
+        w["player_no"] = no
+        rows.append(w)
+    w = pd.concat(rows, ignore_index=True).rename(columns=ATP_KS)
+    for c in ("ks_spd1", "ks_spd2", "ks_max"):
+        w[c] = speed(w[c]).to_numpy() if c in w else np.nan
+    first = w["ks_first"].astype(str).str.extract(FIRST_SERVE) if "ks_first" in w else pd.DataFrame({0: [], 1: []})
+    w["ks_first_in"] = pd.to_numeric(first[0], errors="coerce")
+    w["ks_first_total"] = pd.to_numeric(first[1], errors="coerce")
+    return w.drop(columns=["ks_first"], errors="ignore")
+
+
+def infosys_atp_players() -> tuple[pd.DataFrame, pd.DataFrame]:
+    """One row per player of every planned ATP match code with a file (the four calibration files of 2022 and 2025 are
+    outside the window), linked by the live pipeline's linker on the current Stage 0."""
+    from src.eda.serve_speed_tabpfn.live import link as LK
+    m = pd.read_parquet(ATP / "matches.parquet")
+    m = m[m["purpose"].eq("plan")].reset_index(drop=True)
+    m = m.merge(atp_rounds(sorted(set(m["year"].astype(int)))), on=ATP_KEYS, how="left")
+    m["round"] = m["round_mantd"].fillna(m["round_from_code"])
+    m["name1"] = [full_name(f, l, n) for f, l, n in zip(m["p1_first_name"], m["p1_last_name"], m["p1_name"])]
+    m["name2"] = [full_name(f, l, n) for f, l, n in zip(m["p2_first_name"], m["p2_last_name"], m["p2_name"])]
+    staged = pd.DataFrame({"year": m["year"].astype(int), "event_id": m["event_id"], "match_code": m["match_id"],
+                           "round": m["round"], "p1_atp_id": m["p1_id"], "p1_name": m["name1"], "p2_atp_id": m["p2_id"],
+                           "p2_name": m["name2"]})
+    lk = LK.link(staged)
+    ins = lk["in_stage0"].astype(bool).to_numpy()
+    m["match_id_s0"] = np.where(ins, lk["match_id"], None)
+    m["side_p1"] = np.where(ins, lk["side_p1"], None)
+    m["link_method"] = np.where(ins, lk["link_method"], "unlinked")
+    m["round_s0"] = lk["round_s0"].to_numpy()
+    long = pd.concat([m.assign(player_no=no, player_name=m[f"name{no}"], player_source_id=m[f"p{no}_id"])
+                      for no in ("1", "2")], ignore_index=True)
+    long = long.merge(atp_point_speeds(), on=ATP_KEYS + ["player_no"], how="left")
+    long = long.merge(atp_key_stats(), on=ATP_KEYS + ["player_no"], how="left")
+    p1 = long["player_no"].eq("1")
+    side = np.where(p1, long["side_p1"], long["side_p1"].map({"A": "B", "B": "A"}))
+    basis = np.where(long["ks_spd1"].notna() & long["spd1_mean"].notna(), "points+keystats",
+                     np.where(long["ks_spd1"].notna(), "keystats", "points"))
+    out = pd.DataFrame({
+        "source": "infosys_atp", "basis": basis, "event": long["event_id"], "year": long["year"].astype(int),
+        "tour": "M", "draw": long["draw"], "round": long["round"],
+        "source_key": long["year"] + "_" + long["event_id"] + "_" + long["match_id"],
+        "player_no": long["player_no"].astype(int), "player_name": long["player_name"],
+        "player_source_id": long["player_source_id"], "match_id": long["match_id_s0"],
+        "side": pd.Series(side, dtype=object).where(pd.notna(long["match_id_s0"]).to_numpy(), None)})
     for c in COLUMNS:
         if c not in out:
             out[c] = long[c] if c in long else np.nan
@@ -485,8 +593,10 @@ def main() -> None:
     sl, sl_matches = infosys_players(linker)
     log(f"  {len(sl):,} player rows; ManTennisData")
     md, md_table = mantd_players(linker)
-    log(f"  {len(md):,} player rows")
-    players = pd.concat([sl, md], ignore_index=True)
+    log(f"  {len(md):,} player rows; the ATP's own Infosys files")
+    ia, _ = infosys_atp_players()
+    log(f"  {len(ia):,} player rows")
+    players = pd.concat([sl, md, ia], ignore_index=True)
     players["year"] = players["year"].astype("Int64")
     players.to_parquet(OUT / "speeds.parquet", index=False)
     links = link_summary(players)

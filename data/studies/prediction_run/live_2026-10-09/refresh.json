@@ -1,0 +1,66 @@
+{
+ "started_at": "2026-10-09T0528Z",
+ "steps": [
+  {
+   "step": "tml",
+   "args": [
+    "-m",
+    "src.ingest.public_dump.tennis_my_life",
+    "--start-year",
+    "2000"
+   ],
+   "exit": 0,
+   "seconds": 3.4,
+   "tail": "[tennis_my_life] catalog lists 207 files; 106 planned, 101 skipped\n[tennis_my_life] staged data/dump/players/tennis_my_life/ATP_Database.parquet rows=12903 short=0 long=0\n[tennis_my_life] challenger_ongoing_tourneys.csv changed; kept the replaced file as data/raw/public_dump/tennis_my_life/superseded/challenger_ongoing_tourneys.20261008143003.c915d0adbaa0.csv\n[tennis_my_life] staged data/dump/matches/tennis_my_life/ongoing/challenger_ongoing_tourneys.parquet rows=96 short=0 long=0\n[tennis_my_life] ongoing_tourneys.csv changed; kept the replaced file as data/raw/public_dump/tennis_my_life/superseded/ongoing_tourneys.20261008143004.8f0e263f6762.csv\n[tennis_my_life] staged data/dump/matches/tennis_my_life/ongoing/ongoing_tourneys.parquet rows=95 short=0 long=0\n[tennis_my_life] wta_ongoing_tourneys.csv changed; kept the replaced file as data/raw/public_dump/tennis_my_life/superseded/wta_ongoing_tourneys.20261008143004.5252e00ff0b6.csv\n[tennis_my_life] staged data/dump/matches/tennis_my_life/ongoing/wta_ongoing_tourneys.parquet rows=90 short=0 long=0\n[tennis_my_life] done: 4 staged files, 13,184 rows, 0 download errors, 0 held\n"
+  },
+  {
+   "step": "stage0",
+   "args": [
+    "src/eda/predictability_diagnostic/stage0_build.py",
+    "--out-dir",
+    "C:\\Users\\zerom\\Documents\\Tennis-predictions\\data\\studies\\prediction_run\\live_2026-10-09\\stage0"
+   ],
+   "exit": 0,
+   "seconds": 144.9,
+   "tail": "[   1.9s] loaded 1,066,030 rows from 10 file groups\n[   6.3s] box overrides: 731 TML rows take the official feed's box score (2 the score too)\n[   9.9s] row corrections: 1,522 source rows corrected\n[  23.6s] after repeats: Sackmann 867,297, TML 197,082\n[  32.3s] TML linked: exact_name_pair 183,926, one_player_anchor 6,285, unlinked 6,205, resolved_ids 553, same_event_other_round 113\n[  39.6s] TML-only rows appended: 6,205 (436 in events Sackmann also holds)\n[ 136.6s] id aliases: 4 second ids mapped (7 already merged by the repairs)\n[ 138.9s] wrote 873,454 matches and 1,746,908 player rows to C:\\Users\\zerom\\Documents\\Tennis-predictions\\data\\studies\\prediction_run\\live_2026-10-09\\stage0\n[ 139.6s] cleaning log: 2,329 rows, 33 cells over 1%\n[ 142.8s] done\n"
+  }
+ ],
+ "gaps": [
+  {
+   "class": "held",
+   "tour": "atp",
+   "level": "T1000",
+   "matches": 1
+  },
+  {
+   "class": "held",
+   "tour": "atp",
+   "level": "T500",
+   "matches": 1
+  },
+  {
+   "class": "held",
+   "tour": "atp",
+   "level": "TEAM",
+   "matches": 37
+  },
+  {
+   "class": "held",
+   "tour": "wta",
+   "level": "TEAM",
+   "matches": 1
+  }
+ ],
+ "fills": {
+  "filled": 0,
+  "notes": []
+ },
+ "live": {
+  "live_matches": 2,
+  "match_ids": [
+   "wta|2026-1020|QF|wta:202494|wta:221012",
+   "wta|2026-1020|QF|wta:210722|wta:216347"
+  ]
+ },
+ "finished_at": "2026-10-09T0530Z"
+}

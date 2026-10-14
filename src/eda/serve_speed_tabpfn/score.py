@@ -393,10 +393,19 @@ def cluster_se(values: np.ndarray, clusters: np.ndarray) -> tuple[float, int]:
     return float(np.sqrt(G / (G - 1) * np.dot(infl, infl)) / n), G
 
 
-def paired_stats(ll_base, ll_arm, seed_ll_base, seed_ll_arm, block, week) -> dict:
+def paired_stats(ll_base, ll_arm, seed_ll_base, seed_ll_arm, block, week, matched_seeds: bool = False) -> dict:
     """1000 x mean(loss_base - loss_arm), positive = the arm better, with the block interval plus the seeds' variance
     (lo, hi), the block-only interval and the calendar-week interval plus the seeds' variance. Any per-match loss (log
-    loss or Brier); the seed arrays are 1000 x each seed's mean loss on the same rows."""
+    loss or Brier); the seed arrays are 1000 x each seed's mean loss on the same rows.
+
+    The seed term. By default, both arms' seed variances (each over seeds, ddof 1, divided by its number of seeds),
+    added as if the arms' seed noise were independent. matched_seeds=True is for arms run with the same seed indices
+    (seed_ll_base[k] and seed_ll_arm[k] from the same TabPFN seed k): such arms share their seed noise, which the sum
+    counts twice, so a model compared with itself got +-0.087 mLL instead of 0 (docs/studies/adoption_framework/
+    review_statistics.md, finding 1). The seed term is then the variance over seeds of (seed_ll_base - seed_ll_arm),
+    ddof 1, divided by the number of seeds, in the block and the week intervals alike. v_seed is the term used. The
+    unpaired values are returned either way (se_unpaired, lo_unpaired, hi_unpaired, lo_week_unpaired,
+    hi_week_unpaired), so the readings made before 9 Oct 2026 reproduce."""
     d = 1000 * (np.asarray(ll_base) - np.asarray(ll_arm))
     g = float(d.mean())
     v_base = float(np.var(seed_ll_base, ddof=1) / len(seed_ll_base)) if len(seed_ll_base) > 1 else 0.0
@@ -404,12 +413,23 @@ def paired_stats(ll_base, ll_arm, seed_ll_base, seed_ll_arm, block, week) -> dic
     se_b, Gb = cluster_se(d, block)
     se_w, Gw = cluster_se(d, week)
     tb, tw = student_t.ppf(0.975, Gb - 1), student_t.ppf(0.975, Gw - 1)
-    se = np.sqrt(se_b ** 2 + v_base + v_arm)
-    sew = np.sqrt(se_w ** 2 + v_base + v_arm)
+    se_u = np.sqrt(se_b ** 2 + v_base + v_arm)
+    sew_u = np.sqrt(se_w ** 2 + v_base + v_arm)
+    se, sew, v_seed = se_u, sew_u, v_base + v_arm
+    if matched_seeds:
+        sb, sa = np.asarray(seed_ll_base, float), np.asarray(seed_ll_arm, float)
+        if sb.ndim != 1 or sb.shape != sa.shape:
+            raise ValueError(f"matched seeds need one loss per seed on each side, in the same seed order: {sb.shape} "
+                             f"against {sa.shape}")
+        v_seed = float(np.var(sb - sa, ddof=1) / len(sb)) if len(sb) > 1 else 0.0
+        se, sew = np.sqrt(se_b ** 2 + v_seed), np.sqrt(se_w ** 2 + v_seed)
     return {"matches": int(len(d)), "estimate": g, "lo": g - tb * se, "hi": g + tb * se, "se": float(se),
             "se_block": se_b, "v_seed_base": v_base, "v_seed_arm": v_arm, "blocks": Gb,
             "lo_block_only": g - tb * se_b, "hi_block_only": g + tb * se_b,
-            "lo_week": g - tw * sew, "hi_week": g + tw * sew, "weeks": Gw}
+            "lo_week": g - tw * sew, "hi_week": g + tw * sew, "weeks": Gw,
+            "seed_term": "paired" if matched_seeds else "unpaired", "v_seed": v_seed,
+            "se_unpaired": float(se_u), "lo_unpaired": g - tb * se_u, "hi_unpaired": g + tb * se_u,
+            "lo_week_unpaired": g - tw * sew_u, "hi_week_unpaired": g + tw * sew_u}
 
 
 # ------------------------------------------------------------------------------------------------

@@ -20,14 +20,22 @@ Leagues 23 ATP, 24 WTA. Books (paid) 8 BetOnline, 131 SportsBetting.ag. Markets 
 winner), tim (ms UTC), iof (the line is off the board; the site's isLiveLineOff) and partid: the player's side, or
 15143 Over and 15144 Under (the site's own constants).
 
+Every book (--books-eids, 9 Oct 2026, under the scraping approval of 8 Oct 2026): the service also holds the other
+books' lines. A probe of 32 French Open matches, 2018-2026, found 57 book ids with tennis lines (ids 3-131; about 30
+a match in 2018-2019, 25-30 in 2021-2025, 12 in 2026). This mode reads, for a given list of events, every book's last
+match-winner line and Pinnacle's opening line. Names: BOOK_NAMES below.
+
 Layout:
     data/raw/oddstrader/events/<lid>/<YYYY-MM>.json        one eventsByDateNew response per tour and month
     data/raw/oddstrader/lines/<lid>/<YYYY-MM>/<nn>.json    one line response per batch of up to 100 singles
+    data/raw/oddstrader/books/<lid>/<YYYY-MM>/<nn>.json    every book's lines for a batch of up to 100 listed events
+    data/raw/oddstrader/probe/                             the probes of 9 Oct 2026 (book ids, the site's book list)
     data/raw/oddstrader/_receipts.jsonl                    one receipt per request, with the query sent
     data/dump/odds/oddstrader/events.parquet               one row per listed event (singles and doubles)
     data/dump/odds/oddstrader/lines.parquet                one row per line: kind (open/last), book, market, side
     data/dump/odds/oddstrader/betonline_matches.parquet    one row per singles event: BetOnline's opening and
                                                            closing prices in both markets, with flags (matches_table)
+    data/dump/odds/oddstrader/books_lines.parquet          one row per line of the every-book pull (match winner)
 
 A month is listed whole, so the current month's listing and lines are a snapshot: matches still to be played
 carry a provisional last line (status `es` other than "complete"). Nothing is fetched twice; --refresh-month
@@ -35,6 +43,9 @@ fetches one month again.
 
 Usage:
     ./python.sh -m src.ingest.oddstrader --from 2024-01 --to 2026-10
+    ./python.sh -m src.ingest.oddstrader --from 2018-01 --to 2023-12 --max-requests 1200   # older seasons (8 Oct 2026,
+                                                       # under the scraping approval of that day; bet-timing study)
+    ./python.sh -m src.ingest.oddstrader --books-eids data/studies/odds_sources/oddstrader_eids.csv --max-requests 600
     ./python.sh -m src.ingest.oddstrader --stage-only
 """
 from __future__ import annotations
@@ -66,6 +77,14 @@ MARKETS = {126: "match_winner", 396: "total_games"}
 TOTAL_SIDES = {15143: "over", 15144: "under"}
 BATCH = 100
 PAUSE = 2.0  # seconds between requests, plus up to one second of jitter
+ALL_BOOKS = tuple(range(1, 201))  # every id asked for in the every-book mode; tennis ids seen 2018-2026 run 3-131
+PINNACLE = 20
+# The site's own book list on its ATP page [observed 9 Oct 2026, data/raw/oddstrader/probe/atp_page.html], and three
+# ids named by their prices [inferred]: on the probe's matches, 20's last line equals tennis-data's Pinnacle close on
+# 20 of 28 (margin 2.4%), 5's and 106's equal its Bet365 close on 14 of 16 and 19 of 20. Other ids are unnamed.
+BOOK_NAMES = {8: "BetOnline", 9: "Bovada", 10: "Bookmaker", 16: "JustBet", 29: "Everygame", 44: "Heritage",
+              82: "MyBookie", 122: "SBK", 123: "BetAnything", 130: "Bet105", 131: "SportsBetting.ag",
+              PINNACLE: "Pinnacle", 5: "Bet365", 106: "Bet365 (id 106)"}
 
 EVENT_FIELDS = (
     "eid es dt lid spid tvs ic des seid sta cit ven st cou "
@@ -113,8 +132,23 @@ def lines_query(eids, books=BOOKS, markets=MARKETS) -> str:
     return "{ " + " ".join(parts) + " }"
 
 
+def books_query(eids) -> str:
+    """Every book's current (for a finished match: last) match-winner line, and Pinnacle's opening line."""
+    e = ",".join(str(x) for x in eids)
+    p = ",".join(str(x) for x in ALL_BOOKS)
+    return (f"{{ cur: currentLines(paid: [{p}], eid: [{e}], mtid: [126]) "
+            f'o{PINNACLE}: openingLines(paid: [{PINNACLE}], eid: [{e}], mtid: [126], marketTypeLayout: "PARTICIPANTS") }}')
+
+
 def is_singles(event: dict) -> bool:
-    return "singles" in ((event.get("eventGroup") or {}).get("nam") or "").lower()
+    """A singles event. Until mid-2019 the site named most tour-level singles groups by the venue alone ("Rotterdam,
+    Netherlands"; the doubles groups say "Doubles" and their description pairs players with "/"), so a group without
+    the word "singles" counts when it is neither doubles nor mixed. On the saved 2024-2026 listings every such group
+    says "Singles": the wider rule adds no 2024-2026 event (checked 8 Oct 2026)."""
+    name = ((event.get("eventGroup") or {}).get("nam") or "").lower()
+    if "singles" in name:
+        return True
+    return bool(name) and "double" not in name and "mixed" not in name and "/" not in (event.get("des") or "")
 
 
 # --------------------------------------------------------------------------------------
@@ -199,6 +233,26 @@ def download(first: str, last: str, leagues, client: Client, refresh_month: str 
                            refresh=(tag == refresh_month))
         if doc is None:
             C.log(f"[{SOURCE}] request budget spent at lines {lid} {tag} batch {k}")
+            return {"requests": client.sent, "batches": len(batches), "stopped": "budget"}
+    return {"requests": client.sent, "batches": len(batches)}
+
+
+def download_books(eids, client: Client) -> dict:
+    """Every book's lines (books_query) for these listed events, in batches of up to 100 per tour and month of the
+    listed start. Returns counts; raises Stop."""
+    events = pd.read_parquet(DUMP / "events.parquet", columns=["eid", "lid", "dt_ms"])
+    events = events[events["eid"].isin({int(e) for e in eids})].copy()
+    events["tag"] = pd.to_datetime(events["dt_ms"], unit="ms", utc=True).dt.strftime("%Y-%m")
+    batches = []
+    for (lid, tag), group in events.sort_values("eid").groupby(["lid", "tag"]):
+        ids = [int(e) for e in group["eid"]]
+        batches += [(int(lid), tag, k // BATCH, ids[k:k + BATCH]) for k in range(0, len(ids), BATCH)]
+    C.log(f"[{SOURCE}] every book: {len(events)} of {len(set(eids))} events listed, {len(batches)} batches")
+    for lid, tag, k, ids in batches:
+        doc = client.fetch(f"books/{lid}/{tag}/{k:02d}", books_query(ids),
+                           RAW / "books" / str(lid) / tag / f"{k:02d}.json", {"lid": lid, "month": tag, "eids": ids})
+        if doc is None:
+            C.log(f"[{SOURCE}] request budget spent at books {lid} {tag} batch {k}")
             return {"requests": client.sent, "batches": len(batches), "stopped": "budget"}
     return {"requests": client.sent, "batches": len(batches)}
 
@@ -318,7 +372,24 @@ def stage(receipts: C.Receipts) -> dict:
     matches = matches_table(events, lines) if len(events) and len(lines) else pd.DataFrame()
     matches.to_parquet(DUMP / "betonline_matches.parquet", index=False)
     return {"events": len(events), "singles": int(events["singles"].sum()) if len(events) else 0,
-            "lines": len(lines), "betonline_matches": len(matches)}
+            "lines": len(lines), "betonline_matches": len(matches), "books_lines": stage_books(latest)}
+
+
+def stage_books(latest: dict) -> int:
+    """books_lines.parquet from the every-book responses: one row per line, the newest copy of each."""
+    rows = []
+    for path in sorted((RAW / "books").rglob("*.json")):
+        receipt = latest.get(path.relative_to(RAW).with_suffix("").as_posix()) or {}
+        provenance = {"_source": SOURCE, "_source_file": C.rel(path), "_sha256": receipt.get("sha256"),
+                      "_retrieved_at": receipt.get("retrieved_at")}
+        rows.extend(line_rows(json.loads(path.read_text(encoding="utf-8")), provenance))
+    if not rows:
+        return 0
+    lines = pd.DataFrame(rows)
+    lines["book"] = lines["paid"].map(BOOK_NAMES)
+    lines = lines.sort_values("_retrieved_at").drop_duplicates(["kind", "paid", "mtid", "eid", "partid"], keep="last")
+    lines.to_parquet(DUMP / "books_lines.parquet", index=False)
+    return len(lines)
 
 
 def main() -> int:
@@ -329,13 +400,18 @@ def main() -> int:
     ap.add_argument("--max-requests", type=int, default=400)
     ap.add_argument("--refresh-month", help="fetch this YYYY-MM again (listing and lines)")
     ap.add_argument("--stage-only", action="store_true", help="rebuild the tables from the raw responses")
+    ap.add_argument("--books-eids", type=Path, help="CSV with an eid column: fetch every book's lines for these "
+                                                    "listed events (instead of the monthly BetOnline pull)")
     args = ap.parse_args()
     receipts = C.Receipts(SOURCE, root=RAW.parent)
     if not args.stage_only:
         client = Client(receipts, args.max_requests)
         try:
-            counts = download(args.first, args.last, [int(x) for x in args.leagues.split(",")], client,
-                              args.refresh_month)
+            if args.books_eids:
+                counts = download_books(pd.read_csv(args.books_eids)["eid"].tolist(), client)
+            else:
+                counts = download(args.first, args.last, [int(x) for x in args.leagues.split(",")], client,
+                                  args.refresh_month)
         except Stop as err:
             C.log(f"[{SOURCE}] STOPPED after {client.sent} requests: {err}")
             C.log(f"[{SOURCE}] staged what was fetched: {stage(receipts)}")

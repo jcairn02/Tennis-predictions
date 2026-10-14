@@ -1,0 +1,136 @@
+{
+ "generated": "2026-10-13 09:35:46",
+ "seconds": 480.1,
+ "frame_rows_screened": 57731,
+ "frame_last_date": "2024-11-11",
+ "frame_rows_joined_to_store": 55111,
+ "candidates": 340,
+ "by_kind": {
+  "diff": 163,
+  "pair": 135,
+  "context": 42
+ },
+ "by_group": {
+  "fi": 91,
+  "fp": 66,
+  "pp": 61,
+  "alt": 46,
+  "ad": 21,
+  "lv": 17,
+  "rt": 11,
+  "ds": 7,
+  "sl": 7,
+  "mk": 5,
+  "ctx": 3,
+  "el": 2,
+  "kn": 2,
+  "m": 1
+ },
+ "orth_candidates": 298,
+ "flags": {
+  "market_internal": 8,
+  "base_dependent": 8,
+  "known_null": 13,
+  "dropped_from_model": 1
+ },
+ "now_in_model": [
+  "fp__f09_venue__f09_indoor"
+ ],
+ "near_context_input": [
+  "ctx__draw_size",
+  "fi__B-FLB__m_LIT-1_HP",
+  "fi__B-LEVER__s1"
+ ],
+ "unstable": [
+  "alt__prod_cur_df",
+  "fp__f17_info__bd11_sw_missing_a-b",
+  "pp__entry_ALT_a-b",
+  "pp__entry_PR_a-b"
+ ],
+ "not_identifiable_blanked": [
+  "fi__B-LEVER__s1 (wta)"
+ ],
+ "blas_threads": {
+  "OPENBLAS_NUM_THREADS": "1",
+  "OMP_NUM_THREADS": "1",
+  "MKL_NUM_THREADS": "1"
+ },
+ "eligible_candidates": 262,
+ "passing_rule_rows": {
+  "both": 43,
+  "atp": 16,
+  "wta": 35
+ },
+ "copy_of_input": [
+  "ad__adjperf_ace_52w",
+  "ad__adjperf_first_in_52w",
+  "alt__elo_logit",
+  "alt__iosD_cur_ace",
+  "alt__iosD_cur_bp_saved",
+  "alt__iosD_cur_first_won",
+  "alt__iosD_cur_hold",
+  "alt__iosD_cur_second_won",
+  "alt__iosO_cur_ace",
+  "alt__iosO_cur_bp_saved",
+  "alt__iosO_cur_df",
+  "alt__iosO_cur_first_in",
+  "alt__iosO_cur_first_won",
+  "alt__iosO_cur_hold",
+  "alt__iosO_cur_second_won",
+  "alt__prod_cur_ace",
+  "alt__prod_cur_bp_saved",
+  "alt__prod_cur_first_won",
+  "alt__prod_cur_hold",
+  "alt__prod_cur_second_won",
+  "alt__ttt_logit",
+  "alt__ttt_overall",
+  "pp__ios_curD_ace_a-b",
+  "pp__ios_curD_bp_saved_a-b",
+  "pp__ios_curD_first_won_a-b",
+  "pp__ios_curD_hold_a-b",
+  "pp__ios_curD_second_won_a-b",
+  "pp__ios_curO_ace_a-b",
+  "pp__ios_curO_bp_saved_a-b",
+  "pp__ios_curO_df_a-b",
+  "pp__ios_curO_first_in_a-b",
+  "pp__ios_curO_first_won_a-b",
+  "pp__ios_curO_hold_a-b",
+  "pp__ios_curO_second_won_a-b",
+  "pp__s3_p_serve_a-b",
+  "pp__ttt_mu_a-b",
+  "rt__glicko2m_logit",
+  "rt__glicko2m_mu_a-b",
+  "rt__glicko_cs_logit",
+  "rt__glicko_cs_mu_a-b",
+  "rt__trueskill_cs_logit",
+  "rt__trueskill_logit",
+  "rt__trueskill_mu_a-b"
+ ],
+ "clusters": {
+  "D": 182,
+  "C": 37
+ },
+ "design": {
+  "null_sd": 1.08,
+  "seed": 20261013,
+  "n_placebo": 3,
+  "cluster_r": 0.8,
+  "copy_r": 0.95,
+  "look_a_end": "2026-07-28",
+  "inputs_for_orth": 48,
+  "dropped": {
+   "m__ios_points_short": "dropped from the model by the owner on 9 Oct 2026 (the 57-input template)"
+  }
+ },
+ "inputs_sha256": {
+  "data\\studies\\feature_universe\\menu.csv": "42fcface84bfcfd18ce533a934839a8f08ceefa99e9d424719c89f8fdaf81a19",
+  "data\\studies\\feature_universe\\store_registry.csv": "214a214c9d6fdeadec90d89e5116c9d03f128b51cdf323ae9213162cf754f30a",
+  "data\\studies\\feature_universe\\universe.csv": "922a21ba7242dc96f91d7afbc8b60e9d9659f0966d76b0a7ddb0829341fac84b",
+  "data\\studies\\feature_universe\\store.parquet": "fa91ecc965a1e431202e64ad34054a8c16177908b9c9e6fe16bf5561a0796cf5",
+  "data\\studies\\current_best_model\\template_2026-10-10\\model_frame.parquet": "038cc68ed1e921006b0b3b342f02eda5eec0b1a0feea68ac7ce53fb6660d906f",
+  "data\\studies\\edge_anatomy\\analysis.parquet": "69b67a6bee62f625514e77e77837bf30d28e1731e418d2ef736cdd47a761a63a",
+  "data\\studies\\bet_timing\\frame.parquet": "257d9112b8a6a35fc9ef13949989089e7ccb80a73df1e7a49f41df39be0243ed",
+  "src\\eda\\unpriced_leads\\screen.py": "80e68949f4450da555552296536f1c96c511c4f452911c2e0bb682d18eb02286",
+  "src\\eda\\unpriced_leads\\pool_scan.py": "ca39b535502fae060c89092d55cbf7ebf22bfe80f0dcd3d8e8f9b38aed6c0313"
+ }
+}

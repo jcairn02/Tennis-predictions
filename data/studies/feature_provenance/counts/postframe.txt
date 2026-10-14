@@ -1,0 +1,77 @@
+Stage 0 rows: 873364  tournament_date max by tour:
+tour
+atp   2026-10-05
+wta   2026-09-30
+Name: tournament_date, dtype: datetime64[us]
+
+week of 27 Jul (dates 27-28 Jul), main tour, by tour x in_frame x status:
+status         completed  retired
+tour in_frame                    
+atp  True             55        3
+wta  True             56        2
+
+POST-FRAME (tournament_date > 2026-07-28), main-tour main draws: 1023 | in frame: 0
+status:
+ status  completed  other  retired  walkover   All
+tour                                             
+atp           464      1       13         2   480
+wta           522      0       15         6   543
+All           986      1       28         8  1023
+
+completed+retired by tour x level x month:
+month       2026-08  2026-09   All
+tour level                        
+atp  GS         127        0   127
+     T1000      188        0   188
+     T250        47       54   101
+     T500         0       61    61
+wta  GS         127        0   127
+     T1000      187       84   271
+     T250         0       62    62
+     T500        26       51    77
+All             702      312  1014
+
+last tournament_date by tour: {'atp': Timestamp('2026-09-30 00:00:00'), 'wta': Timestamp('2026-09-30 00:00:00')}
+events (tournament_name, date) after 28 Jul, by tour:
+tour  tournament_date  tournament_name     level
+atp   2026-08-02       Canada Masters      T1000     94
+      2026-08-14       Cincinnati Masters  T1000     94
+      2026-08-24       Winston-Salem       T250      47
+      2026-08-30       US Open             GS       127
+      2026-09-23       Chengdu             T250      27
+                       Hangzhou            T250      27
+      2026-09-30       Beijing             T500      30
+                       Tokyo               T500      31
+wta   2026-08-02       Toronto             T1000     93
+      2026-08-13       Cincinnati          T1000     94
+      2026-08-24       Monterrey           T500      26
+      2026-08-30       US Open             GS       127
+      2026-09-13       Guadalajara         T500      26
+      2026-09-15       Sao Paulo           T250      31
+      2026-09-21       Seoul               T250      31
+                       Singapore           T500      25
+      2026-09-30       Beijing             T1000     84
+
+has_box among completed+retired post-frame:
+has_box     True   All
+tour level            
+atp  GS      127   127
+     T1000   188   188
+     T250    101   101
+     T500     61    61
+wta  GS      127   127
+     T1000   271   271
+     T250     62    62
+     T500     77    77
+All         1014  1014
+
+tennis-data coherent average odds / Pinnacle / Bet365 among completed+retired post-frame:
+             td_avg      td_ps      td_b365     
+                sum size   sum size     sum size
+tour month                                      
+atp  2026-08    362  362     0  362     361  362
+     2026-09     54  115     0  115      54  115
+wta  2026-08    340  340     0  340     339  340
+     2026-09    113  197     0  197     113  197
+totals: {'td_avg': {'atp': 416, 'wta': 453}, 'td_ps': {'atp': 0, 'wta': 0}, 'td_b365': {'atp': 415, 'wta': 452}} of {'atp': 477, 'wta': 537}
+last td_date with avg odds: {'atp': Timestamp('2026-09-29 00:00:00'), 'wta': Timestamp('2026-09-27 00:00:00')}

@@ -13,7 +13,8 @@ Events (seeded draw, ``--seed``):
       quarterfinalists.
     * Week 27 (29 Jun - 5 Jul) is on Wikipedia's April-June page, which is not read. It comes from the Live
       Tennis API index (data/dump/matches/live_tennis_api_zenodo/, tier 270 = ITF men; its
-      scheduled_time_utc is Israel local time, taken as UTC+3) and its players table.
+      scheduled_time_utc is Israel local time in v1.0.0, taken as UTC+3, and UTC in v1.0.2, staged since
+      8 Oct 2026) and its players table.
 
 On TennisLive, for each event:
     1. **Find it.** The season listing of one of its players (winner first, then the others). The listing
@@ -65,6 +66,7 @@ from src.eda.gap_sources import tennislive_probe as T    # noqa: E402
 from src.ingest.point_sources import common as P         # noqa: E402
 from src.ingest.point_sources import tennislive as TL    # noqa: E402
 from src.ingest.public_dump import common as C           # noqa: E402
+from src.ingest.public_dump import live_tennis_api_zenodo as LTA    # noqa: E402
 
 WIKI = T.RAW / "wikipedia"
 WIKI_PAGES = {("M", "itf_men_2026_jul_sep"): "2026 ITF Men's World Tennis Tour (July–September)",
@@ -142,7 +144,8 @@ def index_events(week: int, tier: str = "270") -> pd.DataFrame:
     """Events of one ISO week in the Live Tennis API index, with the names of their players (most matches first)."""
     m = pd.read_parquet(LTA_MATCHES)
     m = m[m["tier_key"].astype(str).eq(tier)].copy()
-    m["utc"] = pd.to_datetime(m["scheduled_time_utc"], errors="coerce") - pd.Timedelta(hours=3)
+    naive = pd.to_datetime(m["scheduled_time_utc"], errors="coerce")
+    m["utc"] = naive if LTA.staged_time_zone(LTA_MATCHES) == "UTC" else naive - pd.Timedelta(hours=3)
     m = m[m["utc"].dt.year.eq(2026)]
     players_table = pd.read_parquet(LTA_PLAYERS)
     names = players_table.set_index(players_table["player_id"].astype(str))["name"]

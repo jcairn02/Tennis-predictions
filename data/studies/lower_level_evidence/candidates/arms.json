@@ -1,0 +1,43 @@
+{
+ "built_at": "2026-10-09T17:58:46+00:00",
+ "reference_frame_sha256": "3b8b0decc123c19ed537fba4382b54d6cfbbaaa8936648e618956858e1ec8052",
+ "fp_frame_sha256": "42e2dcab1a86017916d42f8fe4b4eef5f37dcc24c162e9a79c9d7837d879c6e4",
+ "low_share_sha256": "f6499206c5f21834928eb686d9ea3316b12357f8eadbb098b4c6b7b735ed96bc",
+ "arms": {
+  "F": {
+   "what": "the reference frame with FP's 17 forms",
+   "frame_sha256": "eb65ed0ce766226e9f7ddf2e0fa83ba71da488c92cd852c759e326f6c6f49b58",
+   "inputs": 58
+  },
+  "P": {
+   "what": "the reference frame with FP's points_52w",
+   "frame_sha256": "eafb2762e24d558ef3d508b8bbeaadd5000f037d05949f61a1c228d983a15b06",
+   "inputs": 58
+  },
+  "FP_placebo": {
+   "what": "the reference plus FP's per-match change vector permuted within tour x season (default_rng(20261009))",
+   "frame_sha256": "2dde5010c678c6f64693e119e10ac7cd237f066c24c8cd8aff1cd36a6ba170b1",
+   "inputs": 58
+  },
+  "R_L": {
+   "what": "the reference plus low_share_diff as a 59th input",
+   "frame_sha256": "db4ca08c33be975af27464095cc252a7c111221bd8c33822c399c79df6bb4383",
+   "inputs": 59
+  },
+  "FP_L": {
+   "what": "FP plus low_share_diff",
+   "frame_sha256": "08806956199661e3bbec1d48887974a0bb06e3a872cdd34ae047e67fadf10557",
+   "inputs": 59
+  },
+  "R_S2": {
+   "what": "the reference plus A's minus B's lower-level box-score share, two-week window and 365 days (the dated addition of 9 Oct 2026)",
+   "frame_sha256": "ebdf32c8f34d335a2d823a4fdb2d47f781f7bea60c61904da26a6782e6e589c8",
+   "inputs": 60
+  },
+  "FP_half": {
+   "what": "the reference plus half of FP's change: the 17 forms interpolated; points_52w the exact value at scale 0.5 (Stage 4's code; it reproduced the reference and FP at scales 0 and 1)",
+   "frame_sha256": "9b135e1b042e2e8a7bb3f7b52ae36411047e0d0e95ee2a507afd15460736c9d2",
+   "inputs": 58
+  }
+ }
+}

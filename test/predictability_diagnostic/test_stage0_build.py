@@ -278,3 +278,36 @@ def test_side_depends_on_the_match_id_only():
     low = np.array([C.side_is_low(x) for x in ids])
     assert low.dtype == bool and 0.46 < low.mean() < 0.54
     assert [C.side_is_low(x) for x in ids[:50]] == list(low[:50])    # deterministic
+
+
+# ------------------------------------------------------------------------------------------------
+# A match tiebreak read by its event's rule (the owner's go-ahead of 13 Oct 2026)
+
+def test_event_rule_reads_an_ambiguous_decider_as_a_match_tiebreak():
+    from src.eda.feature_alpha_audit.repair_data import plain_match_tiebreak
+    for score in ("6-7(4) 6-4 10-8", "6-3 4-6 13-11"):
+        assert plain_match_tiebreak(score, "TEAM") == score                    # no evidence: an advantage set
+        assert plain_match_tiebreak(score, "TEAM", event_rule=True).endswith("]")
+    assert plain_match_tiebreak("6-4 6-3 10-8", "TEAM", event_rule=True) == "6-4 6-3 10-8"   # not a decider
+    assert plain_match_tiebreak("6-4 3-6 7-5", "TEAM", event_rule=True) == "6-4 3-6 7-5"     # an ordinary set
+    rows = pd.DataFrame(dict(score=["6-7(4) 6-4 10-8"] * 2, level=["TEAM"] * 2, status=["completed"] * 2,
+                             short_event=[False] * 2, mtb_rule=[True, False]))
+    got = B.score_columns(rows)
+    np.testing.assert_array_equal(got.games_w + got.games_l, [23, 41])        # the tiebreak adds no games
+    np.testing.assert_array_equal(got.sets_w + got.sets_l, [3, 3])
+    assert list(got.has_bracket) == [True, False]
+
+
+def test_match_tiebreak_events_need_a_certain_one_and_every_decider_reaching_ten():
+    def ev(tid, level, scores, qualifying=False):
+        return [dict(tour="atp", tid=tid, level=level, qualifying=qualifying, score=s, short_event=False)
+                for s in scores]
+    df = pd.DataFrame(ev("laver", "TEAM", ["6-7(4) 6-4 10-8", "6-1 3-6 10-7", "6-2 6-3"])
+                      + ev("mixed", "T250", ["6-4 3-6 10-8", "6-1 3-6 10-7", "6-4 3-6 6-3"])  # an ordinary decider
+                      + ev("itf", "ITF", ["6-4 3-6 10-8", "6-1 3-6 10-7"])                    # lower level: frozen
+                      + ev("long", "GS", ["6-4 3-6 10-8", "4-6 6-3 12-10"])                   # no certain one
+                      + ev("qual", "T500", ["6-4 3-6 10-8", "6-1 3-6 10-7"], qualifying=True))
+    decider = df["score"].str.split().str.len().eq(3)
+    rule = B.match_tiebreak_events(df, decider, ["tour", "tid"])
+    assert rule.groupby(df["tid"]).all().to_dict() == {"itf": False, "laver": True, "long": False, "mixed": False,
+                                                       "qual": False}

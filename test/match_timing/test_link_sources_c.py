@@ -142,6 +142,29 @@ def test_zones_and_local_days():
     assert W.edition_zone("BUDAPEST", "HUNGARY") == "Europe/Budapest"
 
 
+def test_gap_links_read_every_gap_once(tmp_path):
+    cols = ["gap", "uid", "event_id", "tour", "d", "name1", "name2", "ss_round"]
+    files = {"atp_points_2025": [["atp_points_2025", "7", "11", "M", "2025-01-06", "Ann Bee", "Cid Dee", "Final"]],
+             "tour_points_rest": [["tour_points_rest", "7", "22", "W", "2019-01-07", "Eve Fox", "Gus Hil", "Round of 32"],
+                                  ["tour_points_rest", "8", None, "W", "2019-01-07", "Ivy Jo", "Kay Lu", None]],
+             # an overlapping gap lists the same target again
+             "atp_points_2018_2020": [["atp_points_2018_2020", "7", "22", "W", "2019-01-07", "Eve Fox", "Gus Hil",
+                                       "Round of 32"]]}
+    for gap, rows in files.items():
+        pd.DataFrame(rows, columns=cols).to_csv(tmp_path / f"sofascore_{gap}_matches.csv", index=False)
+    # a list frozen before its first run has no link columns yet
+    pd.DataFrame({"gap": ["wta_2018_points"], "uid": ["9"], "tour": ["W"], "d": ["2018-01-01"], "name1": ["A B"],
+                  "name2": ["C D"]}).to_csv(tmp_path / "sofascore_wta_2018_points_matches.csv", index=False)
+    g = SS.gap_links(tmp_path)
+    assert sorted(g["event_id"]) == ["11", "22"]
+    # uid 7 of two map builds stays two keys
+    assert sorted("uid:" + g["gap"] + ":" + g["uid"]) == ["uid:atp_points_2018_2020:7", "uid:atp_points_2025:7"]
+    # the ITF gaps' lists are gzipped
+    pd.DataFrame([["itf_detail", "3", "33", "W", "2024-01-01", "Ann Bee", "Cid Dee", "Final"]], columns=cols).to_csv(
+        tmp_path / "sofascore_itf_detail_matches.csv.gz", index=False)
+    assert sorted(SS.gap_links(tmp_path)["event_id"]) == ["11", "22", "33"]
+
+
 def test_source_place_parsers():
     assert SS.place("Australian Open, Melbourne, Australia, Qualifying") == ("AUS", "melbourne")
     assert SS.place("Manacor, Singles M-ITF-ESP-02A") == ("ESP", "manacor")

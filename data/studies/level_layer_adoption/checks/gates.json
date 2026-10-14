@@ -1,0 +1,279 @@
+{
+ "check": "gates",
+ "config": "C:\\Users\\zerom\\Documents\\Tennis-predictions\\data\\studies\\current_best_model\\level_layer_2026-10-10\\level_layer\\build_config.json",
+ "G2": {
+  "what": "G2: inputs the arm cannot reach do not move (exact; the 21 surface-solver inputs within 1e-12, rounding when players leave the solver's system)",
+  "reached_levels": [
+   "CH",
+   "CHQ",
+   "GSQ",
+   "ITF",
+   "ITFQ",
+   "TQ"
+  ],
+  "tours": [
+   "atp"
+  ],
+  "tour_first_reached_day": {
+   "atp": "2010-01-03"
+  },
+  "tour_first_reached_count_day": {
+   "atp": "2010-01-04"
+  },
+  "sets": {
+   "before the tour's first reached row: every input": 0,
+   "families switched off: their inputs, every match": 67226,
+   "forms: neither player reached (own rows or opponents' norms)": 0,
+   "points_52w: neither player with a reached box row in 364 days": 4139,
+   "tours outside the arm: every input": 32507,
+   "untouched inputs, every match": 67226
+  },
+  "checks": 149,
+  "checks_bit_exact": 149,
+  "within_rounding_tolerance_only": [],
+  "failed": [],
+  "inputs_moved_in_the_arm's_tours": {
+   "ratings_iid": 34706,
+   "elo_games": 34719,
+   "adjperf_tpw_2w": 34698,
+   "points_52w": 30519,
+   "form_ace": 34698,
+   "form_df": 34698,
+   "form_first_in": 34698,
+   "form_first_won": 34698,
+   "form_second_won": 34698,
+   "form_hold": 34698,
+   "form_bp_saved": 34698,
+   "form_bp_faced_pg": 34698,
+   "form_brk": 34698,
+   "form_bp_conv": 34693,
+   "form_rpw_first": 34698,
+   "form_rpw_second": 34698,
+   "formdef_ace": 34698,
+   "formdef_df": 34698,
+   "formdef_first_in": 34698,
+   "formdef_bp_faced_pg": 34698,
+   "iosO_ace": 34719,
+   "iosD_ace": 34719,
+   "iosO_df": 34719,
+   "iosD_df": 34719,
+   "iosO_first_in": 34719,
+   "iosD_first_in": 34719,
+   "iosO_first_won": 34719,
+   "iosD_first_won": 34719,
+   "iosO_second_won": 34719,
+   "iosD_second_won": 34719,
+   "iosO_hold": 34719,
+   "iosD_hold": 34719,
+   "iosO_bp_saved": 34719,
+   "iosD_bp_saved": 34719,
+   "prod_ace": 34698,
+   "prod_df": 34698,
+   "prod_first_in": 34698,
+   "prod_first_won": 34698,
+   "prod_second_won": 34698,
+   "prod_hold": 34698,
+   "prod_bp_saved": 34698,
+   "elo_overall": 34719,
+   "elo_surf_offset": 34719
+  },
+  "pass": true
+ },
+ "G3": {
+  "what": "G3: the changed box-score inputs against A's minus B's reached share of box-score evidence",
+  "reached_levels": [
+   "CH",
+   "CHQ",
+   "GSQ",
+   "ITF",
+   "ITFQ",
+   "TQ"
+  ],
+  "required_cells": 17,
+  "required_as_expected": 16,
+  "failed": [],
+  "env_rule": {
+   "form_first_in|atp": {
+    "input": "form_first_in",
+    "tour": "atp",
+    "class": "ENV",
+    "own": "first_in",
+    "norm_view": "def_first_in",
+    "norm_sign": 1.0,
+    "seasons": [
+     {
+      "season": 2013,
+      "weighted_delta_shift": 0.053874299876829616,
+      "correlation": -0.10815637650325703,
+      "required": true,
+      "sign_as_expected": true
+     },
+     {
+      "season": 2014,
+      "weighted_delta_shift": -0.006017704958895927,
+      "correlation": -0.057475126476997325,
+      "required": false,
+      "sign_as_expected": null
+     },
+     {
+      "season": 2015,
+      "weighted_delta_shift": -0.017074384327676707,
+      "correlation": -0.055508743859418265,
+      "required": false,
+      "sign_as_expected": null
+     },
+     {
+      "season": 2016,
+      "weighted_delta_shift": -0.0330988167773297,
+      "correlation": 0.02510238354005933,
+      "required": false,
+      "sign_as_expected": null
+     },
+     {
+      "season": 2017,
+      "weighted_delta_shift": -0.05615134402273307,
+      "correlation": 0.006494048891947594,
+      "required": true,
+      "sign_as_expected": true
+     },
+     {
+      "season": 2018,
+      "weighted_delta_shift": -0.058405311569770836,
+      "correlation": -0.05986396516750853,
+      "required": true,
+      "sign_as_expected": false
+     },
+     {
+      "season": 2019,
+      "weighted_delta_shift": -0.035476745543811646,
+      "correlation": -0.02069678900091444,
+      "required": false,
+      "sign_as_expected": null
+     },
+     {
+      "season": 2020,
+      "weighted_delta_shift": -0.008433274630549043,
+      "correlation": -0.062093930166837584,
+      "required": false,
+      "sign_as_expected": null
+     },
+     {
+      "season": 2021,
+      "weighted_delta_shift": -0.02979098203250444,
+      "correlation": 0.03826522308702014,
+      "required": false,
+      "sign_as_expected": null
+     },
+     {
+      "season": 2022,
+      "weighted_delta_shift": -0.024955384550548642,
+      "correlation": 0.045041439597306374,
+      "required": false,
+      "sign_as_expected": null
+     },
+     {
+      "season": 2023,
+      "weighted_delta_shift": -0.061280558155565115,
+      "correlation": 0.12252945583315698,
+      "required": true,
+      "sign_as_expected": true
+     },
+     {
+      "season": 2024,
+      "weighted_delta_shift": -0.0489238749028951,
+      "correlation": 0.17512770892035562,
+      "required": false,
+      "sign_as_expected": null
+     }
+    ],
+    "required_seasons": 4,
+    "seasons_against": [
+     2018
+    ],
+    "verdict": "not required under the lead's rule: against B's delta in season(s) [2018] of [2013, 2017, 2018, 2023]",
+    "pass": false
+   }
+  },
+  "note": "expected signs: the first run's level offsets (2010-2018; forms_offsets.csv), weighted by the frame's two-week box evidence at the reached levels; points_52w: negative (raw rates are higher below the main tour). Not required where the weighted shift is under 0.05 or the arm moves no box-score weight (REF-type arms report only). A failed cell of an ENV-class input (A's classes: delta only) in a translating arm follows the lead's ruling of 10 Oct (after SYS's form_first_in): it passes if its dev seasons' cells follow the sign of B's fitted delta (own rows minus the opponents' norm rows) wherever that season's weighted delta shift is 0.05 or more, and is otherwise not required; it is recorded (env_rule) and never holds the arm. Any other failed cell holds the arm",
+  "pass": true
+ },
+ "G5": {
+  "what": "G5: the builders' own leak probes in the arm's build, hooks on: no protected match moved",
+  "probes": {
+   "stage1_elo": {
+    "atp_ret": 0,
+    "atp_noret": 0,
+    "wta_ret": 0,
+    "wta_noret": 0
+   },
+   "stage3_ratings": {
+    "atp": 0,
+    "wta": 0
+   },
+   "stage4_features": {
+    "plan": 0,
+    "recorded_format": 0
+   },
+   "stage4_control_caught": {
+    "plan": 13,
+    "recorded_format": 13
+   },
+   "stageB_adjperf": 0,
+   "stageB_control_caught": 48,
+   "offset_elo": {
+    "atp": {
+     "anchored": 0,
+     "offset": 0,
+     "offset_surface_blind": 0
+    },
+    "wta": {
+     "anchored": 0,
+     "offset": 0,
+     "offset_surface_blind": 0
+    }
+   },
+   "surface_switch": 0
+  },
+  "protected_moved_total": 0,
+  "controls_caught": true,
+  "pass": true
+ },
+ "constants": {
+  "OFF": {
+   "stage1_chosen_equal": true,
+   "offset_constants_equal": true,
+   "stage3_chosen_equal": true,
+   "stageB_constants_used_equal_reference": true
+  },
+  "ON": {
+   "stage1_chosen_equal": true,
+   "offset_constants_equal": true,
+   "stage3_chosen_equal": true,
+   "stageB_constants_used_equal_reference": true
+  }
+ },
+ "pin": {
+  "pin_records": 1,
+  "tuned_equals_reference_in_this_build": {
+   "atp|spw": false,
+   "atp|rpw": false,
+   "atp|tpw": false,
+   "wta|spw": true,
+   "wta|rpw": true,
+   "wta|tpw": true
+  },
+  "hooks_recorded": [
+   "elo_weights",
+   "forms_step3",
+   "forms_z",
+   "pin",
+   "points_counts",
+   "ratings_arrays",
+   "weights"
+  ],
+  "layer_sha256_in_records": [
+   "6f97b915d80cf5f8affb3ee24b9e34feb90192c043d12c15bc7e9ab94880e06a"
+  ]
+ },
+ "pass": true
+}

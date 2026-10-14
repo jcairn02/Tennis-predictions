@@ -1,6 +1,7 @@
 """Lanes C3 and C4 of the gap-sources study: ITF listings already held locally (29 Sep 2026).
 
-C3, Live Tennis API public sample (Zenodo record 22048731 v1.0.0, data/dump/matches/live_tennis_api_zenodo/):
+C3, Live Tennis API public sample (data/dump/matches/live_tennis_api_zenodo/: Zenodo record 22048731 v1.0.0 when this
+ran on 29 Sep 2026, record 23018680 v1.0.2 since 8 Oct):
 ITF singles rows by month, tour and draw. ITF singles are tier_key 270 (men) and 271 (women); tiers 264 and
 287 and the untiered M/W rows are ITF doubles (every row has "/" pairs) and are left out. Qualifying rows
 are those whose round label reads "Qualifications" or "Qualification Round n" (is_qualifying is never true for
@@ -8,7 +9,7 @@ ITF). Two naming styles ("ITF M25 Aldershot Men" and "M25 Aldershot") list some 
 different player ids, so singles rows are de-duplicated on (tour, event name without the style marks,
 unordered pair of surnames) within 36 hours. The index has no winners or scores, and "Cancelled" rows are
 dropped. Its scheduled_time_utc is Israel local time in v1.0.0 (Zenodo v1.0.2, 28 Sep 2026, corrects this; same
-rows), so times are converted from Asia/Jerusalem to UTC here.
+rows), so times are converted from Asia/Jerusalem to UTC here; v1.0.2, staged since 8 Oct 2026, is read as UTC.
 
 C4, Polymarket (data/dump/odds/polymarket/, census snapshot 10 Sep 2026 plus extension of 22 Sep 2026):
 moneyline markets of events in the inferred ITF bucket, dated by gameStartTime (else the event's sporting
@@ -36,6 +37,11 @@ from pathlib import Path
 import pandas as pd
 
 ROOT = Path(__file__).resolve().parents[3]
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
+
+from src.ingest.public_dump import live_tennis_api_zenodo as LTA  # noqa: E402
+
 DUMP = ROOT / "data" / "dump"
 OUT = ROOT / "data" / "studies" / "gap_sources"
 COUNTS_CSV = OUT / "itf_listing_counts.csv"
@@ -66,12 +72,12 @@ def iso_week(ts: pd.Series) -> pd.Series:
 
 # ----------------------------------------------------------------------------------------------- C3
 def lta_itf_singles() -> tuple[pd.DataFrame, dict]:
-    m = pd.read_parquet(DUMP / "matches" / "live_tennis_api_zenodo" / "matches.parquet",
-                        columns=["match_id", "player1_id", "player2_id", "tournament", "tier_key", "round",
-                                 "scheduled_time_utc", "event_status", "is_qualifying"])
+    path = DUMP / "matches" / "live_tennis_api_zenodo" / "matches.parquet"
+    m = pd.read_parquet(path, columns=["match_id", "player1_id", "player2_id", "tournament", "tier_key", "round",
+                                       "scheduled_time_utc", "event_status", "is_qualifying"])
     p = pd.read_parquet(DUMP / "players" / "live_tennis_api_zenodo" / "players.parquet",
                         columns=["player_id", "name"]).set_index("player_id")["name"]
-    facts = {"rows_total": len(m),
+    facts = {"zenodo_version": LTA.staged_version(path), "rows_total": len(m),
              "rows_by_month_all_tiers": m["scheduled_time_utc"].str[:7].value_counts().sort_index().to_dict()}
     prefix = m["tournament"].str.extract(r"^(?:ITF )?([MW])\d+")[0]
     facts["itf_doubles_rows_left_out"] = int(m["tier_key"].isin(["264", "287"]).sum()
@@ -85,8 +91,11 @@ def lta_itf_singles() -> tuple[pd.DataFrame, dict]:
     s = s[~s["event_status"].eq("Cancelled")]
     # v1.0.0's scheduled_time_utc is Israel local time (corrected in Zenodo v1.0.2 of 28 Sep 2026): convert.
     naive = pd.to_datetime(s["scheduled_time_utc"])
-    local = naive.dt.tz_localize("Asia/Jerusalem", ambiguous="NaT", nonexistent="shift_forward")
-    s["t"] = local.dt.tz_convert("UTC").fillna((naive - pd.Timedelta(hours=2)).dt.tz_localize("UTC"))
+    if LTA.staged_time_zone(path) == "UTC":
+        s["t"] = naive.dt.tz_localize("UTC")
+    else:
+        local = naive.dt.tz_localize("Asia/Jerusalem", ambiguous="NaT", nonexistent="shift_forward")
+        s["t"] = local.dt.tz_convert("UTC").fillna((naive - pd.Timedelta(hours=2)).dt.tz_localize("UTC"))
     label = s["round"].fillna("").str.replace(r"^.* - ", "", regex=True)
     s["draw"] = label.str.contains("qualif", case=False).map({True: "qualifying", False: "main"})
     s["style_itf"] = s["tournament"].str.match(r"^ITF .* (Men|Women)$")
@@ -334,32 +343,33 @@ def main() -> int:
                      "period": period, "count": int(count), "note": note})
 
     lta, lta_facts = lta_itf_singles()
+    lta_source = f"live_tennis_api_zenodo_v{lta_facts['zenodo_version']}"
     lta["month"] = lta["t"].dt.strftime("%Y-%m")
     lta["week"] = iso_week(lta["t"])
     y = lta[lta["t"] >= pd.Timestamp("2025-01-01", tz="UTC")]
     for (month, tour, draw), n in y.groupby(["month", "tour", "draw"]).size().items():
-        add("live_tennis_api_zenodo_v1.0.0", f"itf_singles_{draw}_listed", tour, "month", month, n,
+        add(lta_source, f"itf_singles_{draw}_listed", tour, "month", month, n,
             "no winner or score in the index")
     itf_months = set(y["month"].unique())
     for month in pd.period_range("2025-01", "2026-08", freq="M").astype(str):
         for tour in ("M", "W"):
             for draw in ("qualifying", "main"):
                 if not ((y["month"] == month) & (y["tour"] == tour) & (y["draw"] == draw)).any():
-                    add("live_tennis_api_zenodo_v1.0.0", f"itf_singles_{draw}_listed", tour, "month", month, 0,
+                    add(lta_source, f"itf_singles_{draw}_listed", tour, "month", month, 0,
                         "no rows" + ("; no ITF singles rows of either tour this month although other tiers have "
                                      f"{lta_facts['rows_by_month_all_tiers'].get(month, 0):,}"
                                      if month not in itf_months else ""))
     after = lta[lta["t"] >= GAP_START]
     for (week, tour, draw), n in after.groupby(["week", "tour", "draw"]).size().items():
-        add("live_tennis_api_zenodo_v1.0.0", f"itf_singles_{draw}_listed", tour, "iso_week", week, n,
+        add(lta_source, f"itf_singles_{draw}_listed", tour, "iso_week", week, n,
             "index ends 2026-08-13 (week 33 partial)" if week == "2026-W33" else "")
     for tour in ("M", "W"):
         for draw in ("qualifying", "main"):
             sel = after[(after["tour"] == tour) & (after["draw"] == draw)]
-            add("live_tennis_api_zenodo_v1.0.0", f"itf_singles_{draw}_listed", tour, "total",
+            add(lta_source, f"itf_singles_{draw}_listed", tour, "total",
                 "2026-06-22..2026-08-13", len(sel))
             w27 = sel[sel["t"] >= pd.Timestamp("2026-06-29", tz="UTC")]
-            add("live_tennis_api_zenodo_v1.0.0", f"itf_singles_{draw}_listed", tour, "total",
+            add(lta_source, f"itf_singles_{draw}_listed", tour, "total",
                 "2026-W27..2026-W33 (to 2026-08-13)", len(w27))
 
     lists = name_gender_lists()

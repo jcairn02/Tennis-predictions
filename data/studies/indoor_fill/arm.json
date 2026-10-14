@@ -1,0 +1,196 @@
+{
+ "generated_at": "2026-10-10T01:05:58+00:00",
+ "base_frame": "data\\studies\\current_best_model\\pinnacle_first_2026-10-09\\model_frame.parquet",
+ "base_frame_sha256": "6996d41e67dd7ac5219846c999cd94b24f63273c41e3fa07c28707dd03ded7f2",
+ "base_inputs": "data\\studies\\lean_review\\arms\\A2\\model_inputs.json",
+ "frame_sha256": "b3777d6ac432881807d2ffb90aa7860d586ad216d141d8188c00e6143be0d47b",
+ "inputs": 57,
+ "checks": {
+  "men_known_unchanged": true,
+  "women_old_all_missing": true,
+  "unknown_after": 0,
+  "men_filled": 127,
+  "women_filled": 32507,
+  "men_filled_events": [
+   {
+    "season": "2026",
+    "tournament_date": "2026-08-30",
+    "source": "own",
+    "matches": "127"
+   }
+  ],
+  "other_columns_equal": true,
+  "chain_builder": {
+   "rule": {
+    "matches": 67226,
+    "equal": true,
+    "info": {
+     "rule": "src/eda/indoor_fill/status.py (Stage 0's flag for the men, the WTA's calendar for the women, tennis-data.co.uk's Court where those lack it)",
+     "stage1_odds_sha256": "4a802e173ea87284ea2357bdbaa662726adc3dc04414c530b72c4958c55d7e21",
+     "main_tour_rows_by_source": {
+      "atp|own": 127,
+      "atp|stage0": 34592,
+      "wta|calendar": 32044,
+      "wta|own": 463
+     },
+     "main_tour_rows_unknown": 0
+    }
+   },
+   "men_only": {
+    "matches": 67226,
+    "equal": true,
+    "info": {
+     "rule": "men only: Stage 0's flag (before 9 Oct 2026)"
+    }
+   }
+  }
+ },
+ "sources": {
+  "atp|own": 127,
+  "atp|stage0": 34592,
+  "wta|calendar": 32044,
+  "wta|own": 463
+ },
+ "indoor_share_by_tour_season": [
+  {
+   "tour": "atp",
+   "season": 2013,
+   "in_indoor": 0.1961
+  },
+  {
+   "tour": "atp",
+   "season": 2014,
+   "in_indoor": 0.1639
+  },
+  {
+   "tour": "atp",
+   "season": 2015,
+   "in_indoor": 0.1722
+  },
+  {
+   "tour": "atp",
+   "season": 2016,
+   "in_indoor": 0.1517
+  },
+  {
+   "tour": "atp",
+   "season": 2017,
+   "in_indoor": 0.1516
+  },
+  {
+   "tour": "atp",
+   "season": 2018,
+   "in_indoor": 0.1599
+  },
+  {
+   "tour": "atp",
+   "season": 2019,
+   "in_indoor": 0.1631
+  },
+  {
+   "tour": "atp",
+   "season": 2020,
+   "in_indoor": 0.2986
+  },
+  {
+   "tour": "atp",
+   "season": 2021,
+   "in_indoor": 0.1622
+  },
+  {
+   "tour": "atp",
+   "season": 2022,
+   "in_indoor": 0.1777
+  },
+  {
+   "tour": "atp",
+   "season": 2023,
+   "in_indoor": 0.1398
+  },
+  {
+   "tour": "atp",
+   "season": 2024,
+   "in_indoor": 0.1398
+  },
+  {
+   "tour": "atp",
+   "season": 2025,
+   "in_indoor": 0.1447
+  },
+  {
+   "tour": "atp",
+   "season": 2026,
+   "in_indoor": 0.0406
+  },
+  {
+   "tour": "wta",
+   "season": 2013,
+   "in_indoor": 0.1101
+  },
+  {
+   "tour": "wta",
+   "season": 2014,
+   "in_indoor": 0.0951
+  },
+  {
+   "tour": "wta",
+   "season": 2015,
+   "in_indoor": 0.0874
+  },
+  {
+   "tour": "wta",
+   "season": 2016,
+   "in_indoor": 0.0869
+  },
+  {
+   "tour": "wta",
+   "season": 2017,
+   "in_indoor": 0.1127
+  },
+  {
+   "tour": "wta",
+   "season": 2018,
+   "in_indoor": 0.1127
+  },
+  {
+   "tour": "wta",
+   "season": 2019,
+   "in_indoor": 0.0761
+  },
+  {
+   "tour": "wta",
+   "season": 2020,
+   "in_indoor": 0.0793
+  },
+  {
+   "tour": "wta",
+   "season": 2021,
+   "in_indoor": 0.1249
+  },
+  {
+   "tour": "wta",
+   "season": 2022,
+   "in_indoor": 0.0817
+  },
+  {
+   "tour": "wta",
+   "season": 2023,
+   "in_indoor": 0.0548
+  },
+  {
+   "tour": "wta",
+   "season": 2024,
+   "in_indoor": 0.0531
+  },
+  {
+   "tour": "wta",
+   "season": 2025,
+   "in_indoor": 0.0648
+  },
+  {
+   "tour": "wta",
+   "season": 2026,
+   "in_indoor": 0.0775
+  }
+ ]
+}

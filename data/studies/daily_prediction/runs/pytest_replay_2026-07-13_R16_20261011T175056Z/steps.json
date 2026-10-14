@@ -1,0 +1,164 @@
+{
+ "worktree": {
+  "seconds": 10.9,
+  "result": {
+   "work_tree": "C:\\Users\\zerom\\tnr_daily_pytest",
+   "replay": true,
+   "seconds": 10.9,
+   "constants_from": "C:\\Users\\zerom\\Documents\\Tennis-predictions\\data\\studies\\daily_prediction\\state\\template_2026-10-10\\2026-06-22",
+   "constants_replaced": {
+    "data/studies/predictability_diagnostic/stage1_baselines_summary.json": {
+     "before": "3c55a8bb29ed233d74826db6c6fc438a7317af3ce28c7c903257f7493896bbaf",
+     "after": "b5480e3ec04d5847adda11abedcc05327c70b026c7c734ba46e6e5e381d69a18"
+    },
+    "data/studies/predictability_diagnostic/stage3_ratings_summary.json": {
+     "before": "05209c18235f96b732b545c5d5c50bd4303d0d802ba11afa4039d18fc0544b7b",
+     "after": "3b461db7ddc630ae7bc38d91f9bc7a74731f022b9e2d2baccb2b6f8a7765c8c6"
+    },
+    "data/studies/predictability_diagnostic/stage4_constants.csv": {
+     "before": "775d71e473574078f10bb97f303baf60a9f6ae9448b529c9a40672b98806224e",
+     "after": "16cf465532a8dd83691db8f124ec1060266617b5048a2598c38db0598a0e8bf3"
+    },
+    "data/studies/surface_elo_pieces/pieces_meta.json": {
+     "before": "766589ccfff670729915ce2f86db543ae46fba930b75332a4cb84c3c4858d714",
+     "after": "276770dd92429b907bea2ba0430da59a3423531d7f3341d9c785bdbafd5f5e54"
+    }
+   }
+  }
+ },
+ "matchups": {
+  "seconds": 2.9,
+  "result": {
+   "kind": "replay",
+   "week": "2026-07-13",
+   "round": "R16",
+   "placeholder_winner": "A",
+   "dating": "training",
+   "targets": 23,
+   "left_out_later": 52,
+   "placeholder_reverses_result": 10,
+   "by_event": [
+    {
+     "tour": "atp",
+     "tournament_name": "Bastad",
+     "matches": 4
+    },
+    {
+     "tour": "atp",
+     "tournament_name": "Gstaad",
+     "matches": 3
+    },
+    {
+     "tour": "atp",
+     "tournament_name": "Umag",
+     "matches": 8
+    },
+    {
+     "tour": "wta",
+     "tournament_name": "Athens",
+     "matches": 4
+    },
+    {
+     "tour": "wta",
+     "tournament_name": "Iasi",
+     "matches": 4
+    }
+   ],
+   "base_tree": "C:\\Users\\zerom\\tnr_lyr_new",
+   "frame": "C:\\Users\\zerom\\Documents\\Tennis-predictions\\data\\studies\\current_best_model\\template_2026-10-10\\model_frame.parquet"
+  }
+ },
+ "prices": {
+  "seconds": 0.1,
+  "result": {
+   "priced": 23,
+   "sources": {
+    "instance frame p_mkt (betonline)": 19,
+    "instance frame p_mkt (average)": 4
+   },
+   "quoted_at_given": 0
+  }
+ },
+ "tables": {
+  "seconds": 128.0,
+  "result": {
+   "steps": {
+    "stage0": 84.0,
+    "additions": 16.1,
+    "check": 0.6,
+    "lle_layer": 13.9,
+    "odds": 6.3,
+    "live_odds": 0.7
+   },
+   "history": "run beside the states step (history.json)",
+   "timeline_held": {
+    "rows": 875120,
+    "of_instance_rows": 875172,
+    "sha256": "1134403e44af6fa02f783c39cb569f012d9388f4c16ad6fa50cc243816aeb7fb",
+    "source": "C:\\Users\\zerom\\tnr_lyr_new\\data\\studies\\match_timing\\timing.parquet"
+   }
+  }
+ },
+ "history": {
+  "seconds": 0.0,
+  "result": {
+   "history": "history vs the reference of 2026-10-08: future 0 and updated 0 (allowed); accepted lower-level additions 1,736 (allowed); main-tour changes 75 (allowed, listed: new past 0, dropped 52, revised 23); lower-level new past 0, dropped 0, revised 0 -> the template may be built",
+   "ran_seconds": 65.5
+  }
+ },
+ "states": {
+  "seconds": 99.7,
+  "result": {
+   "checkpoint": "C:\\Users\\zerom\\Documents\\Tennis-predictions\\data\\studies\\daily_prediction\\state\\template_2026-10-10\\2026-06-22",
+   "parts_summary": {
+    "resumed": 21
+   },
+   "seconds": {
+    "offset": 7.9,
+    "stage3": 8.5,
+    "stage4_rows": 53.5,
+    "weighted": 8.3,
+    "stage4_inputs": 5.0,
+    "pieces": 4.5,
+    "context": 5.4,
+    "waited_for_forms_and_ios": 0.3,
+    "forms_rows": 16.8,
+    "forms_context": 43.5,
+    "forms": 12.7,
+    "forms_family": 73.0,
+    "ios_cache": 40.3,
+    "ios_runs": 12.1,
+    "ios_family": 52.5,
+    "total": 94.1
+   },
+   "gate": {
+    "live_matches": 23,
+    "complete": 20
+   }
+  }
+ },
+ "fit": {
+  "seconds": 84.1,
+  "result": {
+   "matches": 23,
+   "seeds": 16,
+   "inside_grid": 23,
+   "interpolated_vs_own_max_abs": 0.0005025848737711391,
+   "interpolated_vs_own_mean_abs": 0.00022376626877172734,
+   "falling_steps": 14,
+   "steps": 2070,
+   "separate_vs_in_batch_max_abs": 5.622208118438721e-05
+  }
+ },
+ "predict": {
+  "seconds": 0.9,
+  "result": {
+   "matches": 23,
+   "q_range": [
+    0.05010545263940656,
+    0.8259636924304279
+   ],
+   "grid_read_back_vs_own_max_abs": 0.0005025848737711391
+  }
+ }
+}

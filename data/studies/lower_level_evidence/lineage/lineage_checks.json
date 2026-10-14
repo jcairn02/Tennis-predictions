@@ -1,0 +1,43 @@
+{
+ "generated_at": "2026-10-09T16:42:37+00:00",
+ "stage0_dir": "C:\\Users\\zerom\\Documents\\Tennis-predictions\\data\\studies\\current_best_model\\reference_2026-10-08\\frozen\\tables\\data\\studies\\predictability_diagnostic",
+ "holdout_start": "2024-12-30",
+ "weightings": {
+  "results_career": "played matches (completed or retired) since 2010: Elo's whole-history memory",
+  "results_365d": "played matches in the last 364 days: the same, last year only",
+  "box_52w_servepts": "serve points of box-score matches in the last 364 days: points_52w",
+  "box_2w_decay": "box-score matches, weight 2^(-age/2 weeks): the two-week form (form_*, formdef_*, adjperf_tpw_2w)",
+  "ios_long_servepts": "serve points, weight 2^(-age/52 weeks): the long-memory IOS on serve points (h 52, tau 1)",
+  "ios_short_servepts": "serve points, weight 2^(-age/h), h 4 weeks men, 13 women: ios_points_short",
+  "played_14d": "played matches in the last 14 days: sets_14d"
+ },
+ "groups": {
+  "MAIN": [
+   "MAIN"
+  ],
+  "TEAM": [
+   "TEAM"
+  ],
+  "Q": [
+   "TQ",
+   "GSQ"
+  ],
+  "CH": [
+   "CH",
+   "CHQ"
+  ],
+  "ITF": [
+   "ITF",
+   "ITFQ"
+  ]
+ },
+ "files": {
+  "pools": "data\\studies\\lower_level_evidence\\lineage\\pool_composition.csv",
+  "tuning": "data\\studies\\lower_level_evidence\\lineage\\tuning_pools.csv",
+  "evidence": "data\\studies\\lower_level_evidence\\lineage\\evidence_shares.csv",
+  "evidence_rows": "data\\studies\\lower_level_evidence\\lineage\\evidence_shares_rows.parquet",
+  "adj_shift": "data\\studies\\lower_level_evidence\\lineage\\adj_level_shift.csv",
+  "s3_resid": "data\\studies\\lower_level_evidence\\lineage\\stage3_residuals.csv",
+  "ios_resid": "data\\studies\\lower_level_evidence\\lineage\\ios_residuals.csv"
+ }
+}

@@ -1,0 +1,341 @@
+{
+ "generated_at": "2026-10-13T18:11:40+00:00",
+ "code": {
+  "path": "C:\\Users\\zerom\\Documents\\Tennis-predictions\\src\\eda\\unpriced_leads\\rebuild_pool.py",
+  "sha256": "e43a74316e2ba044f7b314970de53fc602b18395167434a753426e2ab22a9b7d",
+  "bytes": 63619,
+  "modified": "2026-10-13T18:11:18+00:00"
+ },
+ "variants": {
+  "V1": {
+   "tables": {
+    "name": "V1",
+    "desc": "registered: the 8 Oct Stage 0, the clock as on disk, the instance's surface IOS and Stage B; the current frame",
+    "stage0_m": "C:\\Users\\zerom\\Documents\\Tennis-predictions\\data\\studies\\predictability_diagnostic\\stage0_matches.parquet",
+    "stage0_p": "C:\\Users\\zerom\\Documents\\Tennis-predictions\\data\\studies\\predictability_diagnostic\\stage0_match_players.parquet",
+    "timing": "C:\\Users\\zerom\\Documents\\Tennis-predictions\\data\\studies\\match_timing\\timing.parquet",
+    "odds": "C:\\Users\\zerom\\Documents\\Tennis-predictions\\data\\studies\\predictability_diagnostic\\stage1_odds.parquet",
+    "ios": "instance",
+    "stageb": "instance",
+    "frame": "current"
+   },
+   "long_table": {
+    "counted": "rows with a tournament date before 29 Jul 2026",
+    "rows": 1740940,
+    "players": 30748,
+    "rows_without_clock": 0,
+    "rows_with_z": 568880
+   },
+   "counted": "panel matches dated before 29 Jul 2026",
+   "panel_rows": 66357,
+   "panel_without_clock": 0,
+   "panel_without_sides": 0,
+   "seconds": 104.1,
+   "ios_reproduces_frame_iosO_ace_max_abs_diff": 0.0,
+   "ios_rows_compared": 66357
+  },
+  "V0": {
+   "tables": {
+    "name": "V0",
+    "desc": "the store's inputs: the 30 Sep Stage 0 and clock, the repository's surface IOS and Stage B; the store's frame",
+    "stage0_m": "C:\\Users\\zerom\\Documents\\Tennis-predictions\\data\\studies\\data_continuity\\rebuilds\\2026-10-07T0005Z\\replaced\\data\\studies\\predictability_diagnostic\\stage0_matches.parquet",
+    "stage0_p": "C:\\Users\\zerom\\Documents\\Tennis-predictions\\data\\studies\\data_continuity\\rebuilds\\2026-10-07T0005Z\\replaced\\data\\studies\\predictability_diagnostic\\stage0_match_players.parquet",
+    "timing": "C:\\Users\\zerom\\Documents\\Tennis-predictions\\data\\studies\\data_continuity\\rebuilds\\2026-10-07T0005Z\\replaced\\data\\studies\\match_timing\\timing.parquet",
+    "odds": "C:\\Users\\zerom\\Documents\\Tennis-predictions\\data\\studies\\data_continuity\\rebuilds\\2026-10-07T0005Z\\replaced\\data\\studies\\predictability_diagnostic\\stage1_odds.parquet",
+    "ios": "repo",
+    "stageb": "repo",
+    "frame": "store"
+   },
+   "long_table": {
+    "counted": "rows with a tournament date before 29 Jul 2026",
+    "rows": 1740940,
+    "players": 30886,
+    "rows_without_clock": 0,
+    "rows_with_z": 568926
+   },
+   "counted": "panel matches dated before 29 Jul 2026",
+   "panel_rows": 63737,
+   "panel_without_clock": 0,
+   "panel_without_sides": 0,
+   "seconds": 80.9
+  },
+  "Vk": {
+   "tables": {
+    "name": "Vk",
+    "desc": "V0 with the clock as on disk",
+    "stage0_m": "C:\\Users\\zerom\\Documents\\Tennis-predictions\\data\\studies\\data_continuity\\rebuilds\\2026-10-07T0005Z\\replaced\\data\\studies\\predictability_diagnostic\\stage0_matches.parquet",
+    "stage0_p": "C:\\Users\\zerom\\Documents\\Tennis-predictions\\data\\studies\\data_continuity\\rebuilds\\2026-10-07T0005Z\\replaced\\data\\studies\\predictability_diagnostic\\stage0_match_players.parquet",
+    "timing": "C:\\Users\\zerom\\Documents\\Tennis-predictions\\data\\studies\\match_timing\\timing.parquet",
+    "odds": "C:\\Users\\zerom\\Documents\\Tennis-predictions\\data\\studies\\data_continuity\\rebuilds\\2026-10-07T0005Z\\replaced\\data\\studies\\predictability_diagnostic\\stage1_odds.parquet",
+    "ios": "repo",
+    "stageb": "repo",
+    "frame": "store"
+   },
+   "long_table": {
+    "counted": "rows with a tournament date before 29 Jul 2026",
+    "rows": 1740940,
+    "players": 30886,
+    "rows_without_clock": 84,
+    "rows_with_z": 568850
+   },
+   "counted": "panel matches dated before 29 Jul 2026",
+   "panel_rows": 63737,
+   "panel_without_clock": 40,
+   "panel_without_sides": 0,
+   "seconds": 89.7
+  },
+  "Vs": {
+   "tables": {
+    "name": "Vs",
+    "desc": "V1 with the repository's (30 Sep tables) surface IOS and Stage B",
+    "stage0_m": "C:\\Users\\zerom\\Documents\\Tennis-predictions\\data\\studies\\predictability_diagnostic\\stage0_matches.parquet",
+    "stage0_p": "C:\\Users\\zerom\\Documents\\Tennis-predictions\\data\\studies\\predictability_diagnostic\\stage0_match_players.parquet",
+    "timing": "C:\\Users\\zerom\\Documents\\Tennis-predictions\\data\\studies\\match_timing\\timing.parquet",
+    "odds": "C:\\Users\\zerom\\Documents\\Tennis-predictions\\data\\studies\\predictability_diagnostic\\stage1_odds.parquet",
+    "ios": "repo",
+    "stageb": "repo",
+    "frame": "current"
+   },
+   "long_table": {
+    "counted": "rows with a tournament date before 29 Jul 2026",
+    "rows": 1740940,
+    "players": 30748,
+    "rows_without_clock": 0,
+    "rows_with_z": 568640
+   },
+   "counted": "panel matches dated before 29 Jul 2026",
+   "panel_rows": 66357,
+   "panel_without_clock": 0,
+   "panel_without_sides": 0,
+   "seconds": 82.1
+  },
+  "Vz": {
+   "tables": {
+    "name": "Vz",
+    "desc": "V1 with Stage B rebuilt on the same 8 Oct Stage 0 without the level layer (the layer-off build's)",
+    "stage0_m": "C:\\Users\\zerom\\Documents\\Tennis-predictions\\data\\studies\\predictability_diagnostic\\stage0_matches.parquet",
+    "stage0_p": "C:\\Users\\zerom\\Documents\\Tennis-predictions\\data\\studies\\predictability_diagnostic\\stage0_match_players.parquet",
+    "timing": "C:\\Users\\zerom\\Documents\\Tennis-predictions\\data\\studies\\match_timing\\timing.parquet",
+    "odds": "C:\\Users\\zerom\\Documents\\Tennis-predictions\\data\\studies\\predictability_diagnostic\\stage1_odds.parquet",
+    "ios": "instance",
+    "stageb": "layer_off",
+    "frame": "current"
+   },
+   "long_table": {
+    "counted": "rows with a tournament date before 29 Jul 2026",
+    "rows": 1740940,
+    "players": 30748,
+    "rows_without_clock": 0,
+    "rows_with_z": 568878
+   },
+   "counted": "panel matches dated before 29 Jul 2026",
+   "panel_rows": 66357,
+   "panel_without_clock": 0,
+   "panel_without_sides": 0,
+   "seconds": 64.8
+  },
+  "V2": {
+   "tables": {
+    "name": "V2",
+    "desc": "the instance's own tables: its Stage 0 (8 Oct + the accepted men's 2026 Challenger package) and its clock (10 Oct), with its surface IOS and Stage B; the current frame",
+    "stage0_m": "C:\\Users\\zerom\\tnr_lyr_new\\data\\studies\\predictability_diagnostic\\stage0_matches.parquet",
+    "stage0_p": "C:\\Users\\zerom\\tnr_lyr_new\\data\\studies\\predictability_diagnostic\\stage0_match_players.parquet",
+    "timing": "C:\\Users\\zerom\\tnr_lyr_new\\data\\studies\\match_timing\\timing.parquet",
+    "odds": "C:\\Users\\zerom\\Documents\\Tennis-predictions\\data\\studies\\predictability_diagnostic\\stage1_odds.parquet",
+    "ios": "instance",
+    "stageb": "instance",
+    "frame": "current"
+   },
+   "long_table": {
+    "counted": "rows with a tournament date before 29 Jul 2026",
+    "rows": 1742632,
+    "players": 30840,
+    "rows_without_clock": 0,
+    "rows_with_z": 568912
+   },
+   "counted": "panel matches dated before 29 Jul 2026",
+   "panel_rows": 66357,
+   "panel_without_clock": 0,
+   "panel_without_sides": 0,
+   "seconds": 62.0
+  }
+ },
+ "tables": {
+  "V1": {
+   "name": "V1",
+   "desc": "registered: the 8 Oct Stage 0, the clock as on disk, the instance's surface IOS and Stage B; the current frame",
+   "stage0_m": "C:\\Users\\zerom\\Documents\\Tennis-predictions\\data\\studies\\predictability_diagnostic\\stage0_matches.parquet",
+   "stage0_p": "C:\\Users\\zerom\\Documents\\Tennis-predictions\\data\\studies\\predictability_diagnostic\\stage0_match_players.parquet",
+   "timing": "C:\\Users\\zerom\\Documents\\Tennis-predictions\\data\\studies\\match_timing\\timing.parquet",
+   "odds": "C:\\Users\\zerom\\Documents\\Tennis-predictions\\data\\studies\\predictability_diagnostic\\stage1_odds.parquet",
+   "ios": "instance",
+   "stageb": "instance",
+   "frame": "current"
+  },
+  "V0": {
+   "name": "V0",
+   "desc": "the store's inputs: the 30 Sep Stage 0 and clock, the repository's surface IOS and Stage B; the store's frame",
+   "stage0_m": "C:\\Users\\zerom\\Documents\\Tennis-predictions\\data\\studies\\data_continuity\\rebuilds\\2026-10-07T0005Z\\replaced\\data\\studies\\predictability_diagnostic\\stage0_matches.parquet",
+   "stage0_p": "C:\\Users\\zerom\\Documents\\Tennis-predictions\\data\\studies\\data_continuity\\rebuilds\\2026-10-07T0005Z\\replaced\\data\\studies\\predictability_diagnostic\\stage0_match_players.parquet",
+   "timing": "C:\\Users\\zerom\\Documents\\Tennis-predictions\\data\\studies\\data_continuity\\rebuilds\\2026-10-07T0005Z\\replaced\\data\\studies\\match_timing\\timing.parquet",
+   "odds": "C:\\Users\\zerom\\Documents\\Tennis-predictions\\data\\studies\\data_continuity\\rebuilds\\2026-10-07T0005Z\\replaced\\data\\studies\\predictability_diagnostic\\stage1_odds.parquet",
+   "ios": "repo",
+   "stageb": "repo",
+   "frame": "store"
+  },
+  "Vk": {
+   "name": "Vk",
+   "desc": "V0 with the clock as on disk",
+   "stage0_m": "C:\\Users\\zerom\\Documents\\Tennis-predictions\\data\\studies\\data_continuity\\rebuilds\\2026-10-07T0005Z\\replaced\\data\\studies\\predictability_diagnostic\\stage0_matches.parquet",
+   "stage0_p": "C:\\Users\\zerom\\Documents\\Tennis-predictions\\data\\studies\\data_continuity\\rebuilds\\2026-10-07T0005Z\\replaced\\data\\studies\\predictability_diagnostic\\stage0_match_players.parquet",
+   "timing": "C:\\Users\\zerom\\Documents\\Tennis-predictions\\data\\studies\\match_timing\\timing.parquet",
+   "odds": "C:\\Users\\zerom\\Documents\\Tennis-predictions\\data\\studies\\data_continuity\\rebuilds\\2026-10-07T0005Z\\replaced\\data\\studies\\predictability_diagnostic\\stage1_odds.parquet",
+   "ios": "repo",
+   "stageb": "repo",
+   "frame": "store"
+  },
+  "Vs": {
+   "name": "Vs",
+   "desc": "V1 with the repository's (30 Sep tables) surface IOS and Stage B",
+   "stage0_m": "C:\\Users\\zerom\\Documents\\Tennis-predictions\\data\\studies\\predictability_diagnostic\\stage0_matches.parquet",
+   "stage0_p": "C:\\Users\\zerom\\Documents\\Tennis-predictions\\data\\studies\\predictability_diagnostic\\stage0_match_players.parquet",
+   "timing": "C:\\Users\\zerom\\Documents\\Tennis-predictions\\data\\studies\\match_timing\\timing.parquet",
+   "odds": "C:\\Users\\zerom\\Documents\\Tennis-predictions\\data\\studies\\predictability_diagnostic\\stage1_odds.parquet",
+   "ios": "repo",
+   "stageb": "repo",
+   "frame": "current"
+  },
+  "Vz": {
+   "name": "Vz",
+   "desc": "V1 with Stage B rebuilt on the same 8 Oct Stage 0 without the level layer (the layer-off build's)",
+   "stage0_m": "C:\\Users\\zerom\\Documents\\Tennis-predictions\\data\\studies\\predictability_diagnostic\\stage0_matches.parquet",
+   "stage0_p": "C:\\Users\\zerom\\Documents\\Tennis-predictions\\data\\studies\\predictability_diagnostic\\stage0_match_players.parquet",
+   "timing": "C:\\Users\\zerom\\Documents\\Tennis-predictions\\data\\studies\\match_timing\\timing.parquet",
+   "odds": "C:\\Users\\zerom\\Documents\\Tennis-predictions\\data\\studies\\predictability_diagnostic\\stage1_odds.parquet",
+   "ios": "instance",
+   "stageb": "layer_off",
+   "frame": "current"
+  },
+  "V2": {
+   "name": "V2",
+   "desc": "the instance's own tables: its Stage 0 (8 Oct + the accepted men's 2026 Challenger package) and its clock (10 Oct), with its surface IOS and Stage B; the current frame",
+   "stage0_m": "C:\\Users\\zerom\\tnr_lyr_new\\data\\studies\\predictability_diagnostic\\stage0_matches.parquet",
+   "stage0_p": "C:\\Users\\zerom\\tnr_lyr_new\\data\\studies\\predictability_diagnostic\\stage0_match_players.parquet",
+   "timing": "C:\\Users\\zerom\\tnr_lyr_new\\data\\studies\\match_timing\\timing.parquet",
+   "odds": "C:\\Users\\zerom\\Documents\\Tennis-predictions\\data\\studies\\predictability_diagnostic\\stage1_odds.parquet",
+   "ios": "instance",
+   "stageb": "instance",
+   "frame": "current"
+  }
+ },
+ "values": {
+  "rows": 67226,
+  "columns": 46,
+  "sha256": "037bb2a060e736371530f168740d847a299ac33f7e1a28fd74d8451c131df18f"
+ },
+ "screen": {
+  "frame_rows": 57731,
+  "last_date": "2024-11-11",
+  "max_season": 2024,
+  "candidates": 15
+ },
+ "inputs": {
+  "stage0_matches": {
+   "path": "C:\\Users\\zerom\\Documents\\Tennis-predictions\\data\\studies\\predictability_diagnostic\\stage0_matches.parquet",
+   "sha256": "07bc2d34f6655fdb27426bbf348d5ed1cda35cf4e9a187bd5cd22a81108ab00f",
+   "bytes": 26468745,
+   "modified": "2026-10-08T18:54:57+00:00"
+  },
+  "stage0_players": {
+   "path": "C:\\Users\\zerom\\Documents\\Tennis-predictions\\data\\studies\\predictability_diagnostic\\stage0_match_players.parquet",
+   "sha256": "9b712648ed28dc7267c6bac03c051f6dc823145a2eebf74078b798083bb9f860",
+   "bytes": 62338612,
+   "modified": "2026-10-08T18:54:58+00:00"
+  },
+  "timing": {
+   "path": "C:\\Users\\zerom\\Documents\\Tennis-predictions\\data\\studies\\match_timing\\timing.parquet",
+   "sha256": "3fad9fb6ba5a5a1897cbec7f79ea2261d0223eedd4ca5fef514394efd2959846",
+   "bytes": 10815232,
+   "modified": "2026-10-12T14:24:11+00:00"
+  },
+  "stage1_odds": {
+   "path": "C:\\Users\\zerom\\Documents\\Tennis-predictions\\data\\studies\\predictability_diagnostic\\stage1_odds.parquet",
+   "sha256": "4a802e173ea87284ea2357bdbaa662726adc3dc04414c530b72c4958c55d7e21",
+   "bytes": 3386140,
+   "modified": "2026-10-08T18:55:27+00:00"
+  },
+  "frame": {
+   "path": "C:\\Users\\zerom\\Documents\\Tennis-predictions\\data\\studies\\current_best_model\\template_2026-10-10\\model_frame.parquet",
+   "sha256": "038cc68ed1e921006b0b3b342f02eda5eec0b1a0feea68ac7ce53fb6660d906f",
+   "bytes": 28713802,
+   "modified": "2026-10-10T22:08:09+00:00"
+  },
+  "store": {
+   "path": "C:\\Users\\zerom\\Documents\\Tennis-predictions\\data\\studies\\feature_universe\\store.parquet",
+   "sha256": "fa91ecc965a1e431202e64ad34054a8c16177908b9c9e6fe16bf5561a0796cf5",
+   "bytes": 318075343,
+   "modified": "2026-10-08T22:57:18+00:00"
+  },
+  "pool_summary": {
+   "path": "C:\\Users\\zerom\\Documents\\Tennis-predictions\\data\\studies\\unpriced_leads\\pool_scan\\summary.csv",
+   "sha256": "06f30fab27acfc28ba67f7a6b8009f8d06d2fc9a57e40beaa3241c4a5651db97",
+   "bytes": 1073428,
+   "modified": "2026-10-13T16:35:38+00:00"
+  },
+  "repo_surface_ios": {
+   "path": "C:\\Users\\zerom\\Documents\\Tennis-predictions\\data\\studies\\surface_ios\\surface_features.parquet",
+   "sha256": "ba8514e8e514f95881275f192a340f0a3ee5954d61b24b6976e63e1c10f66365",
+   "bytes": 293512304,
+   "modified": "2026-10-06T19:40:04+00:00"
+  },
+  "repo_stageB": {
+   "path": "C:\\Users\\zerom\\Documents\\Tennis-predictions\\data\\studies\\ufc_ideas\\stageB_adj.parquet",
+   "sha256": "5ac0d4f94b2e845d90754495845aec2801deebc3afff11b1727cd5fc5ea4c81e",
+   "bytes": 84347473,
+   "modified": "2026-10-02T21:03:26+00:00"
+  },
+  "instance_ios_extract": {
+   "path": "C:\\Users\\zerom\\Documents\\Tennis-predictions\\data\\studies\\unpriced_leads\\candidates\\pool_rebuilt\\inputs\\instance_surface_ios.parquet",
+   "sha256": "3383ecc442f9150ee401e529c835478782815ed5751dca510eb22b375e90df7d",
+   "bytes": 21650095,
+   "modified": "2026-10-13T17:37:43+00:00"
+  },
+  "instance_stageB_extract": {
+   "path": "C:\\Users\\zerom\\Documents\\Tennis-predictions\\data\\studies\\unpriced_leads\\candidates\\pool_rebuilt\\inputs\\instance_stageB_z.parquet",
+   "sha256": "e19c6e859069abc0ee2e40a7f8234865b1f8eed4ce10f6dd46bdd1b829579b16",
+   "bytes": 9110669,
+   "modified": "2026-10-13T17:38:08+00:00"
+  },
+  "layer_off_stageB_extract": {
+   "path": "C:\\Users\\zerom\\Documents\\Tennis-predictions\\data\\studies\\unpriced_leads\\candidates\\pool_rebuilt\\inputs\\layer_off_stageB_z.parquet",
+   "sha256": "ad801ac78a5085fb5271142e92f5746762f18fd97e3a9cb2ec6ae850024713e1",
+   "bytes": 9114164,
+   "modified": "2026-10-13T17:57:33+00:00"
+  },
+  "old_stage0_matches": {
+   "path": "C:\\Users\\zerom\\Documents\\Tennis-predictions\\data\\studies\\data_continuity\\rebuilds\\2026-10-07T0005Z\\replaced\\data\\studies\\predictability_diagnostic\\stage0_matches.parquet",
+   "sha256": "271d2561f31d0c8cc407e5fb9b73d572115173e329e272c337f8daddda4662af",
+   "bytes": 26426965,
+   "modified": "2026-09-30T17:30:51+00:00"
+  },
+  "old_timing": {
+   "path": "C:\\Users\\zerom\\Documents\\Tennis-predictions\\data\\studies\\data_continuity\\rebuilds\\2026-10-07T0005Z\\replaced\\data\\studies\\match_timing\\timing.parquet",
+   "sha256": "ad4370627a21db43372e5ed38eacdf84d19d25a2021dbbc8977bee9a8df47c0b",
+   "bytes": 10830652,
+   "modified": "2026-10-06T01:36:25+00:00"
+  },
+  "instance_stage0_matches": {
+   "path": "C:\\Users\\zerom\\tnr_lyr_new\\data\\studies\\predictability_diagnostic\\stage0_matches.parquet",
+   "sha256": "dc6a79f7c4789c28cbbd184e658f7045c4979134bacd5f4446081f2f8542255b",
+   "bytes": 26553443,
+   "modified": "2026-10-10T17:41:35+00:00"
+  },
+  "instance_timing": {
+   "path": "C:\\Users\\zerom\\tnr_lyr_new\\data\\studies\\match_timing\\timing.parquet",
+   "sha256": "4f082dc8f43a66025865fd993c491c4f4af4fc9e15214ac9fc7c4f457c6437dc",
+   "bytes": 10859008,
+   "modified": "2026-10-10T17:41:36+00:00"
+  }
+ },
+ "seconds": 1930.9
+}

@@ -1,0 +1,62 @@
+usage: run_chain.py [-h] (--setup | --lane {0,1,2,3} | --collect | --cleanup)
+                    [--from START] [--out OUT] [--candidate]
+
+Build the current best model's inputs on the current tables, in a sandbox copy of the repository.
+
+The current best model is a TEMPLATE (docs/decisions/2026-10-08-current-best-model.md): the recipe below, built on the
+tables of the day when a task needs it. This driver builds its 58-input frame. Its first run (8 Oct 2026) built the frame
+of the model_rebuild study (docs/studies/model_rebuild/README.md).
+
+Why a sandbox. Every builder of the chain writes into its own study's folder, which holds earlier models' evidence, and
+none takes an output folder. So the chain runs unchanged in a copy of the repository (SANDBOX, a short path: Windows'
+260-character limit): its own copy of src/, docs/ (Stage 4 hashes its plan there) and data/studies/, the root config
+files, and links (junctions) to the read-only data/dump/ and data/raw/. Each builder resolves its paths from its own
+location, so everything it reads and writes is the sandbox's.
+
+The chain, the builders of the 58 inputs in their documented order:
+    lane 1   Stage 1 (Elo baselines; its constants re-tuned on 2013-2018), Stage 3 (serve and return ratings:
+             ratings_iid), Stage 4 (games Elo, points over 52 weeks, workload, age); the ufc_ideas Stages A and C (no input
+             reads them, but Stage D's rundown requires every stage on the same matches; Stage A reads its tuning grids
+             back, --reuse-grid), Stage B (opponent-adjusted form and points, IOS points; its IOS tuning re-runs on the
+             day's tables, but the inputs read the IOS constants registry, so the next step only reports what that
+             re-tune would change: src/eda/ios_constants/registry.py --check) and Stage D (the inputs' tables);
+             the base frame (tabpfn_thinking), the leak-proof IOS swap (tabpfn_leakproof); the offset Elo
+             (surface_elo_pieces: pieces, which reproduces Stage 1 and re-tunes K on 2013-2018, and the frame)
+    lane 2   the surface IOS solver runs (surface_ios: cache and full runs); independent of lane 1, run beside it
+    lane 3   after both: the surface IOS frames and arms, then the model frame (surface_rating_race/model_frame.py, whose
+             checks tie every input to its source)
+Not rebuilt (no input reads them): Stage 2, rating_systems.
+
+Before it: Stage 0, Stage 1's odds and the match timeline on the day's data (src/eda/data_continuity/rebuild_stage0.py
+builds all three, with the decided overrides and corrections).
+
+The training history (the owner, 8 Oct 2026; the decision's amendment). The template trains on the frozen reference's
+history plus the matches played since, from the feeds that fed it; new lower-level data (Challenger, ITF), even of past
+dates, never enters it by itself. --setup therefore checks the live Stage 0 against the reference's
+(src/eda/current_best_model/history.py) and refuses when its history differs. A build meant to test new data is made
+with --setup --candidate (its own --out folder) and compared with the reference (src/eda/current_best_model/compare.py).
+    lane 0   a candidate only, after its new data is put into the sandbox's Stage 0: rebuild_stage0.py's steps after
+             the build (Stage 1's odds link, the timeline, the leak-proof IOS and features), so that lanes 1-3 read
+             tables in line with the candidate's Stage 0. A template build never needs it. Not yet exercised
+
+Commands (the out folder holds the records; default data/studies/model_rebuild):
+    --setup              create the sandbox from the repository (fails if it exists)
+    --lane {0,1,2,3}     run a lane; --from <step> resumes; each step's log is SANDBOX/logs/<step>.log and its exit code
+                         and seconds go to <out>/chain_lane<lane>.json
+    --collect            copy the model frame, its input list, the builders' manifests and the logs to <out>
+    --cleanup            remove the links first (rmdir: the link only, never its target), check none is left, delete the
+                         sandbox
+Run: ./python.sh src/eda/model_rebuild/run_chain.py --setup | --lane 1 | --lane 2 | --lane 3 | --collect | --cleanup
+     [--out data/studies/current_best_model/<date>]
+
+options:
+  -h, --help        show this help message and exit
+  --setup
+  --lane {0,1,2,3}
+  --collect
+  --cleanup
+  --from START      resume a lane at this step
+  --out OUT         the records' folder (default data/studies/model_rebuild)
+  --candidate       with --setup: a build whose training history may differ
+                    from the frozen reference (new data under test); compare
+                    it with the reference before anything is accepted

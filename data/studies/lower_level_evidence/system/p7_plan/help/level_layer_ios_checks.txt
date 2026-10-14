@@ -1,0 +1,30 @@
+Extra checks of the IOS-family level layer (role C2), beside level_layer_ios.py's gates. Each reads inputs, solver
+outputs or a sandbox's tables; none reads an outcome of 2025-2026 (the form (b) demo stops its history at 29 Dec 2024).
+Outputs go to data/studies/lower_level_evidence/system/ios_layer/gates/ (and fe_demo/).
+
+    --mapping SB LABEL          lane 3's mapping check (surface_ios/arms.py:83-91) on a sandbox's hooked outputs, on the
+                                reference frame's matches: lane 2's "current" runs against the IOS part's pooled IOS, to
+                                1e-12 -> gates/mapping_<LABEL>.json
+    --products LABEL            each IOS-family input's SD by tour and season, the reference against a config's inputs
+                                (inputs/<LABEL>.parquet), as a ratio to 2024 (input audit finding #6)
+                                -> gates/products_spread_<LABEL>.csv
+    --decided-active-set SB TOUR STAT
+                                the decided ios_surface.run on the full history against itself without ITF/ITFQ rows,
+                                single-threaded, on the rows before the tour's first ITF box score
+                                -> gates/decided_active_set_<TOUR>_<STAT>.json
+    --hooked-path SB            run FROM the sandbox (its own copies are imported): the patched rebuild.ios_features on
+                                Jan-Jun 2023 with LLE_LAYER against the decided code -> gates/hooked_path_<config>.json
+    --fe-demo SB TOUR STAT      form (b) on real rows: the level effects at the last 2024 snapshot and the change of
+                                main-tour ratings 2019-2024 -> fe_demo/<TOUR>_<STAT>.json
+    --fe-surfzero SB TOUR STAT RUNS
+                                run FROM the sandbox, as --hooked-path: one lane-2 pooled run (kappa_s = inf) of the
+                                sandbox's build with the rows' surfaces zeroed, against the stored lane-2 run in
+                                full_runs/RUNS and against the IOS part's inputs (leakproof_features.parquet), on the tour's
+                                pool matches -> gates/fe_surfzero_<TOUR>_<STAT>.json. First run 10 Oct 2026 00:55 UTC on the
+                                SYS build (module 077c760a, whose run_surface split the pooled form-(b) run by surface): the
+                                diagnosis behind run_surface's zeroed surfaces in 3fa5f69e
+
+Run (repository root): ./python.sh src/eda/lower_level_evidence/level_layer_ios_checks.py --mapping C:/Users/zerom/tnr_sys_ios SEP_ALL
+--hooked-path imports the sandbox's modules, so it runs with the sandbox's python path:
+    cd SB && LLE_LAYER=<config> python <repo>/src/eda/lower_level_evidence/level_layer_ios_checks.py --hooked-path SB
+

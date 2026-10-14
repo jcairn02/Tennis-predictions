@@ -1,0 +1,115 @@
+{
+ "reviewer": "A3-referee",
+ "lens": "referee",
+ "candidates": {
+  "F1": {
+   "vote": "confirm",
+   "corrupt_beyond_doubt": true,
+   "fix_clear_and_correct": true,
+   "scope": "The candidate's rows exactly: 2,382 Stage 0 player rows (1,191 matches) with a box score in the main draws of the 30 WTA tour events of 23 Feb - 24 Aug 2015 flagged in_fault in box_wta2015_events.csv (Acapulco ... New Haven; Doha excluded). Live 7 Oct Stage 0 holds the same 2,382 rows.",
+   "scope_file": "data/studies/input_data_audit/fixes/A3-referee/f1_scope.csv",
+   "fix": "svpt := svpt + df on each listed player row (Sackmann raw w_svpt or l_svpt of the listed _source_file/_row/raw_side); every other count unchanged.",
+   "reasons": "MCP referee: 174 scope rows are charted. With df > 0, 141 equal MCP's serve points only as svpt + df, 2 equal svpt alone and 17 match neither (charts that differ on several counts); 14 rows have df = 0 and agree either way. After the fix svpt equals MCP on 155/174 rows, against 16/174 before. The audit's '12% svpt alone' is 14 df = 0 rows plus 8 df > 0 rows, 6 of them Doha's R32/R16 (Doha is excluded). The 2 in-scope df > 0 rows are 1-2 point chart differences: Rome F Suarez Navarro (df 1; her opponent Sharapova's row in the same match is exclusive, 101 + 6 = MCP 107) and Birmingham F Pliskova (df 2; the same chart is 6 points short on Kerber). Outside the window (2014-16, 548 df > 0 rows) svpt alone matches 86%, svpt + df 0.4%. Every round from R128 to F has MCP-confirmed exclusive rows. Same-player test (each player's own matches outside the window): each of the 30 events reads +4.3 to +11.4 points of second-serve points won (clean events mean +0.1, SD 1.7, n = 130) and first serves in +4.0 on average; Kuala Lumpur +5.5 / +4.1, its R32 (no definition failure, no chart) +4.8 / +6.2, far outside the clean spread on both. Edges: Doha is mixed (MCP: R32 and R16 inclusive, 6 rows; SF and F exclusive, 4 rows; same-player R32 0.0, R16 -2.1, QF -3.5, SF +5.3, F +10.0), so leaving it out is right; Acapulco (same week) is exclusive in every round (R32 +9.6, 2 definition failures); Dubai and Rio (16 Feb) and the 2015 Slams are normal (0 definition failures; Slams -0.8 to +1.2); New Haven is exclusive (MCP 9 of 10). 2015 qualifying and Fed Cup rows carry no box scores. TML's 2015 file equals Sackmann's (99.5%), so it is a copy, not a referee. Outside the proposed scope but the same fault and fix: 3 matches (6 rows) that Stage 0 drops only for B6 and that pass every check after the fix, and Doha's SF and F rows (4, MCP-confirmed); listed in f1_extension_rows.csv, not voted here.",
+   "checks": [
+    "MCP: svpt + df equals MCP on 155/174 scope rows after the fix vs 16/174 before (f1_mcp_rows.csv, f1_mcp_by_event.csv)",
+    "MCP per event (window, df>0 exclusive / inclusive / df0 / neither): Indian Wells 17/0/0/5, Miami 12/0/1/1, Charleston 7/0/3/0, Katowice 6/0/0/0, Stuttgart 11/0/1/0, Madrid 8/0/0/0, Rome 9/1/0/0, 's-Hertogenbosch 7/0/1/0, Nottingham 1/0/1/2, Birmingham 12/1/2/1, Eastbourne 6/0/1/1, Bastad 1/0/1/2, Baku 4/0/0/0, Stanford 6/0/2/2, Toronto 7/0/1/2, Cincinnati 10/0/0/0, New Haven 9/0/0/1, Monterrey 2/0/0/0, Marrakech 2/0/0/0, Prague 4/0/0/0; Doha 4/6/0/0 (excluded); no chart at Acapulco, Kuala Lumpur, Bogota, Nuremberg, Strasbourg, Bucharest, Bad Gastein, Istanbul, Florianopolis, Washington",
+    "Same-player edition effect per event and round (f1_event_round_baseline.csv): all 30 events +4.3 to +11.4 pp second-serve won; clean events mean +0.1 SD 1.7",
+    "Simulation: all 1,191 matches pass B0-B9 before and after (replica equals stage0_build.box_scores on every match); B5 drops service games on 1 match as before",
+    "Definition test (second_won + df <= svpt - first_in): 100 failing player rows before, 0 after",
+    "Serve points per non-tiebreak game, median 6.28 before, 6.62 after (clean WTA 2010-16 median 6.57)",
+    "Stage 0 counts equal Sackmann's raw counts on 2,380 of 2,382 rows (the 2 others: one match whose service games Stage 0 dropped by B5)",
+    "Qualifying 2015 (wta_matches_qual_itf_2015) and Fed Cup 2015: no box scores; 2015 Slams: 0 definition failures"
+   ]
+  },
+  "F2": {
+   "vote": "confirm_narrowed",
+   "corrupt_beyond_doubt": true,
+   "fix_clear_and_correct": true,
+   "scope": "58 of the 88 matches (116 player rows): 55 where an independent record holds each player's counts on the other player's row (WTA API 52: Abu Dhabi 2021 all 28, Phillip Island 2021 all 18, San Jose 2022, Linz 2023 Q2, Hua Hin 2024, Charleston 2024, Saint-Malo 2025 x2; US Open official statistics: US Open 2022 Q1 Seppi-Horansky; Wimbledon official statistics and Slam point-by-point: Wimbledon 2019 R128 Wang-Martincova; ATP Infosys key statistics: Miami 2025 R64 Bergs-Rublev) and 3 on internal evidence alone (Roanne CH 2021 R32 Debru-Pellegrino, Barletta CH 2025 R16 Dodig-Sultanov, W50 Indian Harbour Beach 2025 R32 Karatancheva-Kononova). The other 30 are rejected; f2_matches.csv gives all 88 with verdict and reason.",
+   "scope_file": "data/studies/input_data_audit/fixes/A3-referee/f2_scope.csv",
+   "fix": "Exchange all nine counts between the two players of each listed match (Sackmann raw w_* <-> l_* of the listed _source_file/_row).",
+   "reasons": "Confirmed with a record: the WTA API equals the exchanged box on all 9 counts for both players (18/18) in each of the 52 WTA matches, and its result string names the recorded winner with the same score; US Open 2022 Q1: the official statistics equal the exchanged box on 16/16 counts (TML, a different source, 15/18); Wimbledon 2019: the official statistics and Sackmann's Slam point-by-point equal the exchanged box (Martincova exactly; Wang within one point); Miami 2025: the ATP's own key statistics for Bergs equal the box recorded under Rublev on 7/7 rates and its total-points share fits the box under Bergs; Sofascore disagrees with both boxes there. Every exchanged box passes B0-B9 and every recorded winner advanced or is the record's winner. Residual in 2 confirmed matches (Wimbledon 2019, US Open 2022 Q1): Sackmann's service-game count is one short for one player; the exchange moves that one-game error to the other player and fixes the other 8 counts. Confirmed internally: no record, but as recorded each player's box gives the OTHER player's games (identity off by 5, 5 and 9 games), B != 0 and D != 0 so neither an exchange of service games alone nor of break points alone explains it, the exchange makes the identity exact for both players and turns the points from 82-97, 48-58, 29-56 to the winner's side (29 points cannot win 6-2 6-1), and the winner advanced; the same pattern occurs in 18 refereed matches and the record confirmed the exchange in all 18 (all 51 refereed matches with an identity miss of 3+ games were exchanges). Rejected (30): 7 where a record shows the box AS RECORDED, so the exchange would corrupt it: AO 2012 R32 Kukushkin-Monfils and Wimbledon 2016 R128 Bellucci-Bemelmans (Slam point-by-point), AO 2022 Q1 De Vroome-Radwanska (MCP 16/16), AO 2022 R128 Paire-Monteiro (Sofascore), Palermo 2022 R32 Sorribes Tormo-Bogdan (WTA API 18/18), AO 2025 Q2 Garin-Djere and AO 2025 R128 Blinkova-Saville (AO official point-by-point); in several only the service games are exchanged. All 7 have B = 0, where the identity cannot tell a whole-box exchange from a service-games exchange; of the 8 refereed B = 0 matches 7 are as recorded. 23 have no record and ambiguous evidence: B = 0 (18, incl. every Davis Cup / Fed Cup rubber), an identity miss of one game (3), the exchanged box still failing the identity (Antalya, Tenerife), and the W35 Timaru final, whose raw row (score 1-6 2-6, box giving the 'winner' 3 games) is consistent with the recorded winner having LOST: the winner label, not the box, may be wrong. The audit's one-sided identity test passes Palermo and the two residual cases; the two-sided test used here does not.",
+   "checks": [
+    "Independent records searched per match: WTA API, MCP, Sackmann Slam point-by-point, US Open and Wimbledon official statistics, AO/RG Infosys point-by-point and key statistics, ATP Infosys key statistics 2025, Sofascore, Tennislive, TDI, and TML's copy (f2_referee_rows.csv)",
+    "WTA API winner check: result strings name the recorded winner with the recorded score in all 53 WTA API matches looked up (52 confirmed + Palermo)",
+    "Simulation of the exchange: B0-B9 pass on all 88 (replica equals stage0_build.box_scores); games identity on BOTH players exact for 56 of the 58 confirmed (2 residual one-game service-game misses)",
+    "Minimum-points rule (4 points per game won, 7 per tiebreak): as recorded it fails in 22 matches, after the exchange in none",
+    "Progression: the recorded winner plays a later round in every confirmed match without a WTA API result string (6); 11 of the 30 rejected are finals or team rubbers with no later round",
+    "TML holds 63 of the 88 and equals Sackmann's row (16-18 of 18 counts) in 61, so it is a copy and not used as a referee; where it differs (US Open 2022 Q1) it backs the exchange"
+   ]
+  },
+  "F3a": {
+   "vote": "confirm",
+   "corrupt_beyond_doubt": true,
+   "fix_clear_and_correct": true,
+   "scope": "38 Adelaide 2 2022 matches (76 player rows), not the '~19 matches, 38 player rows' of the candidate: box_raw_copies.csv's 38 rows are 38 matches. Every one has a box equal, all 18 counts, to one Adelaide 2021 match on other players. The other 11 Adelaide 2 2022 matches are left: 4 hold their own box (equal to the WTA API on 18/18) and 7 have no box.",
+   "scope_file": "data/studies/input_data_audit/fixes/A3-referee/f3a_scope.csv",
+   "fix": "Blank all nine counts of both players on each listed raw row (box missing, as Stage 0 treats a failed box).",
+   "reasons": "Verbatim 18-count equality with a 2021 match of other players, mapped match number for match number; the WTA API holds 37 of the 38 and its box differs from the copied one on 11-18 of 18 counts in every one; the 38th is a walkover (SF Riske-Zidansek W/O) that carries Swiatek-Teichmann's 2021 box; the QF 3-3 retirement carries Swiatek-Collins's. 35 of the 38 currently pass Stage 0's checks and feed the averages.",
+   "checks": [
+    "Copy test: 38 of the 42 Adelaide 2 2022 matches with a raw box equal an Adelaide 2021 box (and no other 2019-21 row); 4 do not and equal the WTA API exactly",
+    "WTA API contradicts all 37 copies it holds (0-7 of 18 counts equal)",
+    "Blanking leaves nothing to check; Stage 0 currently keeps 35 of these boxes"
+   ]
+  },
+  "F3b": {
+   "vote": "confirm",
+   "corrupt_beyond_doubt": true,
+   "fix_clear_and_correct": true,
+   "scope": "The same 38 matches: 37 take the WTA API's box (74 player rows, counts in the file); the walkover SF Riske-Zidansek has no API statistics and is blanked (2 rows).",
+   "scope_file": "data/studies/input_data_audit/fixes/A3-referee/f3b_scope.csv",
+   "fix": "Replace the nine counts of each player row with the WTA API's whole-match (setnum 0) counts for that player: ace = aces, df = dblflt, svpt = totservplayed, first_in = ptsplayed1stserv, first_won = ptswon1stserv, second_won = ptstotwonserv - ptswon1stserv, sv_gms = servgamesplayed, bp_faced = opponent's breakptsplayed, bp_saved = that - opponent's breakptsconv (new_* columns of f3b_scope.csv); blank the walkover.",
+   "reasons": "The precondition holds: on 12,762 player rows of clean WTA events of 2021-2022 (Abu Dhabi and Phillip Island 2021, Adelaide 2 2022 and the 88 F2 matches removed; 136 events) the WTA API equals Sackmann exactly on ace 99.84%, df 99.77%, svpt 99.72%, first_in 99.71%, first_won 99.71%, second_won 99.73%, sv_gms 99.86%, bp_saved 99.74%, bp_faced 99.73%; all nine at once 99.69% (lowest event 93.5%, Istanbul 2021). Sackmann's WTA box scores of these years are the WTA's own numbers, so the API box is what Sackmann would have recorded. The API holds all 37 played copies, each passes B0-B9.",
+   "checks": [
+    "WTA API vs Sackmann, clean 2021-22: per-count exact agreement 99.71-99.86%, all nine 99.69% (f3_wta_api_agreement.csv, by event in f3_wta_api_agreement_by_event.csv)",
+    "Replacement simulated: 37/37 pass B0-B9 (replica and stage0_build.box_scores), games identity exact on both players in 36/37 (the exception is the 3-3 retirement), winner wins more points in 35/37 (two close matches with tiebreak sets)",
+    "API name aliases needed and checked by result string: Alison Riske = Alison Riske Amritraj, Storm Sanders = Storm Hunter, Tina Smith = Tina Nadine Smith",
+    "API result strings name the recorded winners with the recorded scores"
+   ]
+  },
+  "F4": {
+   "vote": "confirm_narrowed",
+   "corrupt_beyond_doubt": true,
+   "fix_clear_and_correct": true,
+   "scope": "30 rows whose box cannot be their own (f4_scope.csv): the 2 Dusseldorf 2012 final rubbers; 26 rows of same-pair pairs; and both rows of Kudryavtseva d. Parra Santonja (Marrakech Q1 / Birmingham Q2 2013), whose box fits neither score. The copy is NOT always the later row: Acapulco 2010 Q1, AO 2011 Q1, Hobart 2010 Q1, Marbella 2010 Q1, Montreal 2010 F, Nanchang 2014, Nuremberg 2014 and Wimbledon 2014 QF are the earlier rows. Not clear and left: 7 pairs decided only by a one-break identity miss and 5 pairs where both rows fit.",
+   "scope_file": "data/studies/input_data_audit/fixes/A3-referee/f4_scope.csv",
+   "fix": "Blank all nine counts of both players on each listed raw row.",
+   "reasons": "A row is judged a copy only on evidence one miscounted break cannot produce: service games in the box 2+ away from the row's games (B5: all 13 copies of 2012 and 2015, where the box's service games equal the genuine match's games exactly), serve points per game beyond every clean match of its kind (conditional tail < 0.1% among clean WTA tour/Slam matches 2010-19; e.g. 21.6, 14.8, 14.0, 12.9, 12.3, 11.5, 11.35, 9.67, 9.41, 4.61, 4.56, 2.93), the minimum-points rule broken, a games-identity miss of 4+ (two breaks), or MCP's chart contradicting the box (US Open 2015 R16 Serena-Keys 0/16, R32 Azarenka-Kerber 1/16, R32 Venus-Bencic 1/16, QF Serena-Venus 0/16, RG 2014 R64 Ivanovic-Svitolina 0/16, Wimbledon 2014 QF Kvitova-Strycova 1/16) while it agrees on the genuine row (Doha 15/16, Indian Wells 15/16, Wimbledon 2015 16/16). 5 of the 30 are already without a Stage 0 box (they fail B9); blanking at source still removes them.",
+   "checks": [
+    "Pairs deduplicated: 39 same-player rows + Dusseldorf = 39 groups, 80 rows (Koukalova-Vekic is a triple: Florianopolis copy, Shenzhen/Istanbul undecided)",
+    "Clean reference for points per game: WTA completed tour/Slam matches, 0.1%-99.9% = 4.84-9.19 (2010-16); conditional tails by sets and +-1 games from 2010-19",
+    "Approximate identity without service games (games_w - games_l = D - 2B, |D|<=1): passes 99.3% of clean matches",
+    "Verdict per row in f4_verdict_rows.csv: copy_confirmed 30, genuine 28, not_clear 22"
+   ]
+  },
+  "F5": {
+   "vote": "reject",
+   "corrupt_beyond_doubt": true,
+   "fix_clear_and_correct": false,
+   "scope": "None voted for execution.",
+   "scope_file": null,
+   "fix": "Not confirmed: whole-box replacement by counts derived from RG's key statistics.",
+   "reasons": "The fault is real and the official numbers are right where they differ: RG's key statistics equal RG's own point-by-point on 99.3-99.95% of player rows for svpt, aces, double faults, first serves in and first- and second-serve points won; in Sackmann's rows with extra first serves the moved points were won 51.8% (men's qualifying), 47.6% (women's), 53.3% / 45.8% (main draws), second-serve rates; MCP, independent, backs the key statistics over Sackmann in 79.5% vs 5.1% of disputed first-in rows and 100% vs 0% of disputed serve-point rows. Sofascore equals Sackmann at RG 2022-25 on 95.5-100% of rows, so it is the same faulty source, not a referee. But the proposed fix is not clear: (1) the key statistics do not give service games; derived from the opponent's 'Break Points Converted Games' denominator, the two players' total equals the games played in 416 of 467 matches and exceeds it by 1-3 in 51, and it equals Sackmann's service games in only 68% (men's main draw) and 84% (women's) of rows; with it the games identity holds in 325 of 455 matches; (2) unlike Wimbledon and the US Open, the feed cannot be shown to match Sackmann's measurement on clean rows: no clean RG overlap exists (the 2025 main draw itself has the fault in about 19% of rows and its svpt differs in 6-8%); aces and break points do match 100%; (3) the 6 Oct decision lists Sackmann's RG men's qualifying 2022-2025 under 'Not decided', 'left unchanged until a study measures its effect': not a bar on paper, but changing 2025 alone while F6 leaves 2022-24 as they are pre-empts that study and mixes conventions across seasons. A narrower fix (eight point counts from the key statistics, service games from RG's point-by-point under Sackmann's tiebreak convention) looks supportable but is a different operation and needs the owner's call.",
+   "checks": [
+    "RG key statistics vs RG point-by-point (1,882 player rows, 2025-26): svpt 99.26%, ace 99.95%, df 99.84%, first_in 99.36%, first_won 99.57%, second_won 99.79%; service games 79.7% (tiebreak convention)",
+    "Sackmann RG 2025 vs key statistics, exact (f5_agreement.csv): main draw ace 100%, bp 100%, svpt 92-94%, first_in 75-76%; qualifying first_in 34% (men) / 38% (women), svpt 92%",
+    "TML RG 2026 men's qualifying vs key statistics: svpt 74%, first_in 67%, service games 11% (TML's own 2026 rows are faulty, so this is not a fault-free comparison)",
+    "MCP vs key statistics vs Sackmann on disputed rows (f5_third_records.csv)",
+    "Key-statistics boxes through Stage 0's checks: 455/455 pass B0-B9; games identity 325/455 (f5_keystats_box_checks.csv)"
+   ]
+  },
+  "F6": {
+   "vote": "confirm_exclusion",
+   "corrupt_beyond_doubt": false,
+   "fix_clear_and_correct": false,
+   "scope": "Excluded: RG 2022-2024 qualifying and main draw, Paris Olympics 2024. Nothing executed.",
+   "scope_file": null,
+   "fix": "None (exclusion confirmed).",
+   "reasons": "The fault is shown at the edition level, not per match: no official RG feed is held for 2022-24; Sofascore equals Sackmann at RG 2022-24 on 95.5-100% of rows (same source, not a referee); MCP charts only part of each draw (RG main draws 36-82 rows a year, qualifying 2-6) and agrees with Sackmann on first serves in in 37-64% of RG rows against 65-93% at the AO of the same years, which confirms the fault but is a hand chart, not a per-match official record; the Olympics have 72 MCP rows. Which fix (blank the first/second split, blank the box, or wait for a feed) is a choice, so there is no clear, unique fix.",
+   "checks": [
+    "Sofascore vs Sackmann, all 8 counts, RG main draws 2022-25: 95.5-100% of rows; AO main draws 2022-25 only 22-70% (there Sofascore is a different source)",
+    "MCP vs Sackmann first_in exact: RG 2022-25 main 37-64%, AO 2022-25 main 65-93%, Olympics 2024 44-55%"
+   ]
+  }
+ }
+}

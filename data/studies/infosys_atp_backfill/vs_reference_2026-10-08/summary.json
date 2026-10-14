@@ -1,0 +1,198 @@
+{
+ "generated_at": "2026-10-09T00:10:51+00:00",
+ "reference": "2026-10-08",
+ "candidate": "reference",
+ "candidate_frame": "data/studies/current_best_model/reference_2026-10-08/frozen/instance/model_frame.parquet",
+ "candidate_frame_sha256": "3b8b0decc123c19ed537fba4382b54d6cfbbaaa8936648e618956858e1ec8052",
+ "speed_column": "data/studies/infosys_atp_backfill/speed_columns_augmented.parquet",
+ "results_read_through": 2024,
+ "scored_seasons": [
+  2020,
+  2024
+ ],
+ "unit": "mLL per match; positive = the candidate has the lower log loss (better); 'tie' = the 95% interval spans 0",
+ "primary": [
+  {
+   "group": "primary",
+   "population": "both tours",
+   "comparison": "both stages: candidate vs reference",
+   "matches": 22265,
+   "estimate": 0.014225822418742338,
+   "lo": -0.07321003102677617,
+   "hi": 0.10166167586426086,
+   "lo_week": -0.0715127223900657,
+   "hi_week": 0.09996436722755037,
+   "reading": "tie"
+  },
+  {
+   "group": "primary",
+   "population": "both tours",
+   "comparison": "stage 1: candidate vs reference",
+   "matches": 22265,
+   "estimate": 0.0,
+   "lo": -0.08730236231782412,
+   "hi": 0.08730236231782412,
+   "lo_week": -0.085940850027053,
+   "hi_week": 0.085940850027053,
+   "reading": "tie"
+  },
+  {
+   "group": "primary",
+   "population": "both tours",
+   "comparison": "for scale: reference vs its calibrated close",
+   "matches": 22265,
+   "estimate": 1.3744563925777173,
+   "lo": 0.6677271339575777,
+   "hi": 2.081185651197857,
+   "lo_week": 0.7431920231056708,
+   "hi_week": 2.005720762049764,
+   "reading": "better"
+  },
+  {
+   "group": "primary",
+   "population": "both tours",
+   "comparison": "for scale: candidate vs its calibrated close",
+   "matches": 22265,
+   "estimate": 1.3886822149964597,
+   "lo": 0.6798044626965469,
+   "hi": 2.0975599672963723,
+   "lo_week": 0.754169561363401,
+   "hi_week": 2.0231948686295187,
+   "reading": "better"
+  },
+  {
+   "group": "primary",
+   "population": "men",
+   "comparison": "both stages: candidate vs reference",
+   "matches": 11672,
+   "estimate": 0.027136560671118765,
+   "lo": -0.07335291718137729,
+   "hi": 0.12762603852361482,
+   "lo_week": -0.07075009304400207,
+   "hi_week": 0.1250232143862396,
+   "reading": "tie"
+  },
+  {
+   "group": "primary",
+   "population": "men",
+   "comparison": "stage 1: candidate vs reference",
+   "matches": 11672,
+   "estimate": 0.0,
+   "lo": -0.09770138875252522,
+   "hi": 0.09770138875252522,
+   "lo_week": -0.09622702417545553,
+   "hi_week": 0.09622702417545553,
+   "reading": "tie"
+  },
+  {
+   "group": "primary",
+   "population": "men",
+   "comparison": "for scale: reference vs its calibrated close",
+   "matches": 11672,
+   "estimate": 1.4833155913039506,
+   "lo": 0.601846477359273,
+   "hi": 2.364784705248628,
+   "lo_week": 0.6637736644778942,
+   "hi_week": 2.302857518130007,
+   "reading": "better"
+  },
+  {
+   "group": "primary",
+   "population": "men",
+   "comparison": "for scale: candidate vs its calibrated close",
+   "matches": 11672,
+   "estimate": 1.5104521519750695,
+   "lo": 0.6200177335110523,
+   "hi": 2.400886570439087,
+   "lo_week": 0.6823683279582209,
+   "hi_week": 2.338535975991918,
+   "reading": "better"
+  },
+  {
+   "group": "primary",
+   "population": "women",
+   "comparison": "both stages: candidate vs reference",
+   "matches": 10593,
+   "estimate": 0.0,
+   "lo": -0.08933709169931825,
+   "hi": 0.08933709169931825,
+   "lo_week": -0.08799394018181174,
+   "hi_week": 0.08799394018181174,
+   "reading": "tie"
+  },
+  {
+   "group": "primary",
+   "population": "women",
+   "comparison": "stage 1: candidate vs reference",
+   "matches": 10593,
+   "estimate": 0.0,
+   "lo": -0.08933709169931825,
+   "hi": 0.08933709169931825,
+   "lo_week": -0.08799394018181174,
+   "hi_week": 0.08799394018181174,
+   "reading": "tie"
+  },
+  {
+   "group": "primary",
+   "population": "women",
+   "comparison": "for scale: reference vs its calibrated close",
+   "matches": 10593,
+   "estimate": 1.2545088264932662,
+   "lo": 0.3868112011031496,
+   "hi": 2.122206451883383,
+   "lo_week": 0.38250779672023416,
+   "hi_week": 2.1265098562662983,
+   "reading": "better"
+  },
+  {
+   "group": "primary",
+   "population": "women",
+   "comparison": "for scale: candidate vs its calibrated close",
+   "matches": 10593,
+   "estimate": 1.2545088264932662,
+   "lo": 0.3868112011031496,
+   "hi": 2.122206451883383,
+   "lo_week": 0.38250779672023416,
+   "hi_week": 2.1265098562662983,
+   "reading": "better"
+  }
+ ],
+ "inputs_flagged": [],
+ "inputs_changed": 0,
+ "inputs_only_in_one": [],
+ "coverage": {
+  "both": 67226,
+  "reference only": 0,
+  "candidate only": 0
+ },
+ "coefficients_last_season": {
+  "reference stage 1": [
+   0.8957957425947172,
+   0.9322035111478328,
+   0.0,
+   0.0,
+   0.0
+  ],
+  "candidate stage 1": [
+   0.8957957425947172,
+   0.9322035111478328,
+   0.0,
+   0.0,
+   0.0
+  ],
+  "reference": [
+   0.8944941099340749,
+   0.9322035111478328,
+   0.027602565093728267,
+   0.03666404973052969,
+   0.02864804315405617
+  ],
+  "candidate": [
+   0.894317178135666,
+   0.9322035111478328,
+   0.030342252229683616,
+   0.04006629519269939,
+   0.028305415327800048
+  ]
+ }
+}

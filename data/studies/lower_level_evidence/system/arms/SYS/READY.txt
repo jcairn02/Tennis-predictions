@@ -1,0 +1,7 @@
+READY: arm SYS (role C1), 2026-10-10T05:12:14+00:00
+frame       C:\Users\zerom\Documents\Tennis-predictions\data\studies\lower_level_evidence\system\arms\SYS\model_frame.parquet  sha256 ecffa119359345bf5fde5829d1b09fe969bbb8381d81b216572388156e5a4499
+inputs      C:\Users\zerom\Documents\Tennis-predictions\data\studies\lower_level_evidence\system\arms\SYS\model_inputs.json
+config      C:\Users\zerom\Documents\Tennis-predictions\data\studies\lower_level_evidence\system\arms\SYS\layer_config.json  sha256 8bcc8cc9606a65fe18e8ff6ccc5cff0f05e799f7017872d89faaf150df03acf9
+gates       C:\Users\zerom\Documents\Tennis-predictions\data\studies\lower_level_evidence\system\arms\SYS\gates : G2 pass, G3 pass, constants pass, G5_builder_probes pass, IDENTITY_ALL G1 pass; G3 with ruled exceptions: G3 form_first_in atp judged by the lead's ENV rule: not required under the lead's rule: against B's delta in season(s) [2018] of [2013, 2017, 2018, 2023]
+changed     34719 matches; every input to 2024 equal to the reference's: {'atp': False, 'wta': True}; first changed season {'atp': 2013, 'wta': None}
+the result column is the reference's (checked through 2024 by a filtered read for the identity arms; the frame's a_won is copied by the chain, never read here)

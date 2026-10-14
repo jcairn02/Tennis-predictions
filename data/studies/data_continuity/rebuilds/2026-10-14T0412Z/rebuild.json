@@ -1,0 +1,107 @@
+{
+ "started_at": "2026-10-14T04:12:17+00:00",
+ "steps": [
+  {
+   "step": "keep",
+   "files": 72,
+   "bytes": 386752354,
+   "seconds": 1.5
+  },
+  {
+   "step": "build",
+   "command": "src/eda/predictability_diagnostic/stage0_build.py",
+   "exit": 0,
+   "seconds": 107.8
+  },
+  {
+   "step": "checks",
+   "command": "src/eda/predictability_diagnostic/stage0_checks.py",
+   "exit": 0,
+   "seconds": 18.6
+  },
+  {
+   "step": "odds",
+   "command": "src/eda/predictability_diagnostic/stage1_odds.py",
+   "exit": 0,
+   "seconds": 7.4
+  },
+  {
+   "step": "remap",
+   "pairs": 39,
+   "rows": 51
+  },
+  {
+   "step": "refresh",
+   "command": "src/eda/match_timing/refresh.py --skip-ios",
+   "exit": 0,
+   "seconds": 581.1
+  },
+  {
+   "step": "features",
+   "command": "src/eda/match_timing/rebuild.py",
+   "exit": 0,
+   "seconds": 381.7
+  },
+  {
+   "step": "ttt",
+   "command": "src/eda/match_timing/ttt_timed.py",
+   "exit": 0,
+   "seconds": 1066.0
+  }
+ ],
+ "ids": {
+  "changed": 39,
+  "left_without_partner": [
+   "atp|2022-2781|QF|atp:111805|atp:209182",
+   "atp|2022-2781|R16|atp:200647|atp:209182",
+   "atp|2022-2781|R32|atp:111805|atpcode:B0S5",
+   "atp|2025-637|QF|atp:200473|atp:207415",
+   "atp|2025-637|R16|atp:105613|atp:144972",
+   "atp|2025-637|R16|atp:105911|atp:208343",
+   "atp|2025-637|R16|atp:200473|atp:209849"
+  ],
+  "left_without_partner_count": 7
+ },
+ "remapped_rows": {
+  "api_tennis.parquet": 0,
+  "flashscore.parquet": 21,
+  "flashscore_ambiguous.parquet": 0,
+  "flashscore_daily_board.parquet": 0,
+  "flashscore_unlinked.parquet": 15,
+  "infosys.parquet": 0,
+  "live_tennis_api.parquet": 9,
+  "match_charting.parquet": 0,
+  "open_tennis_data.parquet": 0,
+  "pbp_copy.parquet": 5,
+  "tml_days.parquet": 1
+ },
+ "matches": {
+  "before": 873437,
+  "after": 873636
+ },
+ "sha256_after": {
+  "stage0_matches.parquet": "b3ca7aeca7e89b844851a541e1b7d10cb5d6aa3d760965f15fd3f7bf517367df",
+  "stage0_match_players.parquet": "f71ccc1f2bd68b694b0406f768d99dee180d8beccf200a544188433fdff460f7"
+ },
+ "stage0_summary_overrides": {
+  "file": "data/studies/data_continuity/slam_box_overrides.csv",
+  "rows": 2272,
+  "scores_replaced": 2,
+  "by_source": {
+   "rolandgarros": 1541,
+   "wimbledon_feed": 366,
+   "usopen_feed": 365
+  }
+ },
+ "timing_check": {
+  "tested_matches": 483266,
+  "missed_share": 0.0004552358328539562,
+  "after_window_share": 0.00010553194307068985,
+  "before_window_share": 0.00034970388978326636,
+  "multi_source_matches": 280027,
+  "multi_source_same_day_share": 0.9652176397275977,
+  "multi_source_within_1_day_share": 0.9992393590618047
+ },
+ "finished_at": "2026-10-14T04:48:27+00:00",
+ "ok": true
+}

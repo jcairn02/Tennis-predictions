@@ -1,0 +1,54 @@
+{
+ "instance": "data\\studies\\current_best_model\\template_2026-10-10",
+ "season": 2026,
+ "seed": 0,
+ "config": {
+  "n_estimators": 8,
+  "softmax_temperature": 0.9,
+  "ignore_pretraining_limits": true
+ },
+ "train_rows": 62869,
+ "matches": 23,
+ "versions": {
+  "tabpfn": "9.1.0",
+  "torch": "2.11.0+cu128"
+ },
+ "hypothesis": "kv_cache_precision None = int8 for TabPFN-3; 'auto' keeps the computed dtype and should equal the decided path to about 1e-4",
+ "gpu_free_gb_before": 30.3,
+ "A": {
+  "fit_s": 0.8,
+  "predict_s": 40.91
+ },
+ "C_int8": {
+  "kv_cache_precision": null,
+  "fit_s": 41.08,
+  "predict_s": [
+   1.031,
+   1.016
+  ],
+  "max_abs_diff_vs_A": 0.1793476864695549,
+  "mean_abs_diff_vs_A": 0.07565228608639343,
+  "repeat_max_abs_diff": 0.0,
+  "peak_gpu_gb": 8.2
+ },
+ "C_auto": {
+  "kv_cache_precision": "auto",
+  "fit_s": 41.31,
+  "predict_s": [
+   0.969,
+   0.953
+  ],
+  "max_abs_diff_vs_A": 0.17927638441324234,
+  "mean_abs_diff_vs_A": 0.07562284203975098,
+  "repeat_max_abs_diff": 0.0,
+  "price_grid": {
+   "prices": 91,
+   "rows": 4186,
+   "predict_s": 3.98,
+   "interpolated_at_own_price_max_abs_diff_vs_A": 0.1797513000938336,
+   "falling_steps": 124,
+   "steps": 2070
+  },
+  "peak_gpu_gb": 11.53
+ }
+}

@@ -1,0 +1,228 @@
+{
+ "F1x": [
+  {
+   "match_id": "wta|2015-W-PR-QAT-1A-2015|SF|wta:201425|wta:201521",
+   "vote": "confirm",
+   "fix": "svpt := svpt + df for both players (raw row wta_matches_2015.csv _row 2058: w_svpt 53 -> 55, l_svpt 53 -> 54); nothing else",
+   "reasons": "MCP charts this match: Lucie Safarova: MCP serve points 55 (svpt 53 + df 2 = 55); first_in 42/42, first_won 28/28, second_won 9/9, aces 2/2, df 2/2; Carla Suarez Navarro: MCP serve points 54 (svpt 53 + df 1 = 54); first_in 38/38, first_won 18/18, second_won 7/7, aces 0/0, df 1/1. Both rows equal MCP's serve points only as svpt + df while every other count agrees, so this match is recorded without double faults although Doha's R32 and R16 are not (MCP). After the fix: B0-B9 pass (replica and stage0_build.box_scores), games identity exact for both players, definition test passes."
+  },
+  {
+   "match_id": "wta|2015-W-PR-QAT-1A-2015|F|wta:201425|wta:201458",
+   "vote": "confirm",
+   "fix": "svpt := svpt + df for both players (raw row wta_matches_2015.csv _row 2060: w_svpt 63 -> 65, l_svpt 52 -> 54); nothing else",
+   "reasons": "MCP charts this match: Lucie Safarova: MCP serve points 65 (svpt 63 + df 2 = 65); first_in 46/47, first_won 33/33, second_won 9/9, aces 7/7, df 2/2; Victoria Azarenka: MCP serve points 54 (svpt 52 + df 2 = 54); first_in 32/32, first_won 19/19, second_won 11/11, aces 6/6, df 2/2. Both rows equal MCP's serve points only as svpt + df while every other count agrees, so this match is recorded without double faults although Doha's R32 and R16 are not (MCP). After the fix: B0-B9 pass (replica and stage0_build.box_scores), games identity exact for both players, definition test passes."
+  }
+ ],
+ "F1y": [
+  {
+   "match_id": "wta|2015-W-INT-AUT-1A-2015|R16|wta:201325|wta:201344",
+   "vote": "confirm",
+   "fix": "svpt := svpt + df for both players (raw row wta_matches_2015.csv _row 185: w_svpt 46 -> 51, l_svpt 21 -> 30); nothing else",
+   "reasons": "Bad Gastein 2015 is one of the 30 events confirmed in F1 (MCP and the same-player test). Stage 0 drops this box only for B6, double faults exceeding svpt - first_in, which cannot happen when serve points include double faults: the row itself shows the fault. After the fix every check passes (B0-B9 in the replica and stage0_build.box_scores, games identity on both players, definition test); points won 57-24 for the recorded winner. No MCP chart of this match."
+  },
+  {
+   "match_id": "wta|2015-W-INT-AZE-1A-2015|R32|wta:201377|wta:206107",
+   "vote": "confirm",
+   "fix": "svpt := svpt + df for both players (raw row wta_matches_2015.csv _row 234: w_svpt 26 -> 32, l_svpt 22 -> 23); nothing else",
+   "reasons": "Baku 2015 is one of the 30 events confirmed in F1 (MCP and the same-player test). Stage 0 drops this box only for B6, double faults exceeding svpt - first_in, which cannot happen when serve points include double faults: the row itself shows the fault. After the fix every check passes (B0-B9 in the replica and stage0_build.box_scores, games identity on both players, definition test); points won 33-22 for the recorded winner. No MCP chart of this match."
+  },
+  {
+   "match_id": "wta|2015-W-INT-BRA-2A-2015|R16|wta:203518|wta:206194",
+   "vote": "confirm",
+   "fix": "svpt := svpt + df for both players (raw row wta_matches_2015.csv _row 306: w_svpt 72 -> 80, l_svpt 80 -> 84); nothing else",
+   "reasons": "Florianopolis 2015 is one of the 30 events confirmed in F1 (MCP and the same-player test). Stage 0 drops this box only for B6, double faults exceeding svpt - first_in, which cannot happen when serve points include double faults: the row itself shows the fault. After the fix every check passes (B0-B9 in the replica and stage0_build.box_scores, games identity on both players, definition test); points won 90-74 for the recorded winner. No MCP chart of this match."
+  }
+ ],
+ "F2x": [
+  {
+   "match_id": "wta|2019-1052|R16|wta:201662|wta:201697",
+   "vote": "reject",
+   "fix": "none (the box is as recorded)",
+   "reasons": "Kristyna Pliskova v Karolina Pliskova: the two players share a surname. Joined by full first and last name (and checked against the API's player ids and seeds), the WTA API's statistics for each named player equal Sackmann's box AS RECORDED on all 18 counts (K. Pliskova d [3]K. Pliskova 6-2,3-6,7-6(7)), so an exchange would put each sister's statistics on the other. The 'exchange' match comes from joining by surname or initial."
+  },
+  {
+   "match_id": "wta|2020-M004|R32|wta:206374|wta:216016",
+   "vote": "reject",
+   "fix": "none (the box is as recorded)",
+   "reasons": "Xiyu Wang v Yafan Wang: the two players share a surname. Joined by full first and last name (and checked against the API's player ids and seeds), the WTA API's statistics for each named player equal Sackmann's box AS RECORDED on all 18 counts (X. Wang d [2]Y. Wang 6-4,7-6(8)), so an exchange would put each sister's statistics on the other. The 'exchange' match comes from joining by surname or initial."
+  },
+  {
+   "match_id": "wta|2021-2028|Q1|wta:206107|wta:206363",
+   "vote": "confirm",
+   "fix": "exchange all nine counts between the two players (w_* <-> l_* on raw row wta_matches_qual_itf_2021.csv _row 22871)",
+   "reasons": "WTA API 2028/2021/RS029 Abu Dhabi WTA Women's Tennis Open - Abu Dhabi, United Arab Emirates: its statistics for each player equal Sackmann's box only once exchanged (18/18 exchanged, 2/18 as recorded); its result 'Z. Yang d [9]A. Danilina 3-6,7-6(4),6-4' names the recorded winner. The precondition from F3b holds (API = Sackmann on 99.69% of clean 2021-22 rows, all nine counts). After the exchange B0-B9 pass (replica and stage0_build.box_scores), games identity exact for both players."
+  },
+  {
+   "match_id": "wta|2021-2028|Q2|wta:213620|wta:214388",
+   "vote": "confirm",
+   "fix": "exchange all nine counts between the two players (w_* <-> l_* on raw row wta_matches_qual_itf_2021.csv _row 22855)",
+   "reasons": "WTA API 2028/2021/RS013 Abu Dhabi WTA Women's Tennis Open - Abu Dhabi, United Arab Emirates: its statistics for each player equal Sackmann's box only once exchanged (18/18 exchanged, 4/18 as recorded); its result '[6]A. Bondar d [13]J. Pieri 4-6,7-5,7-5' names the recorded winner. The precondition from F3b holds (API = Sackmann on 99.69% of clean 2021-22 rows, all nine counts). After the exchange B0-B9 pass (replica and stage0_build.box_scores); Sackmann's score 4-6 6-4 7-5 differs from the API's 4-6 7-5 7-5; with the API's score the exchanged box fits the games identity for both players (the score, a separate fault, is not changed by this fix)."
+  },
+  {
+   "match_id": "wta|2021-2028|Q2|wta:201556|wta:203475",
+   "vote": "confirm",
+   "fix": "exchange all nine counts between the two players (w_* <-> l_* on raw row wta_matches_qual_itf_2021.csv _row 22854)",
+   "reasons": "WTA API 2028/2021/RS012 Abu Dhabi WTA Women's Tennis Open - Abu Dhabi, United Arab Emirates: its statistics for each player equal Sackmann's box only once exchanged (18/18 exchanged, 0/18 as recorded); its result 'L. Hradecka d C. Zhao 7-6(7),6-1' names the recorded winner. The precondition from F3b holds (API = Sackmann on 99.69% of clean 2021-22 rows, all nine counts). After the exchange B0-B9 pass (replica and stage0_build.box_scores), games identity exact for both players."
+  },
+  {
+   "match_id": "wta|2021-2028|Q2|wta:213584|wta:214593",
+   "vote": "confirm",
+   "fix": "exchange all nine counts between the two players (w_* <-> l_* on raw row wta_matches_qual_itf_2021.csv _row 22850)",
+   "reasons": "WTA API 2028/2021/RS008 Abu Dhabi WTA Women's Tennis Open - Abu Dhabi, United Arab Emirates: its statistics for each player equal Sackmann's box only once exchanged (18/18 exchanged, 4/18 as recorded); its result 'L. Stefanini d [15]I. Fetecau 1-6,6-2,7-6(3)' names the recorded winner. The precondition from F3b holds (API = Sackmann on 99.69% of clean 2021-22 rows, all nine counts). After the exchange B0-B9 pass (replica and stage0_build.box_scores), games identity exact for both players."
+  },
+  {
+   "match_id": "wta|2021-2028|R64|wta:201548|wta:202684",
+   "vote": "confirm",
+   "fix": "exchange all nine counts between the two players (w_* <-> l_* on raw row wta_matches_2021.csv _row 40)",
+   "reasons": "WTA API 2028/2021/LS041 Abu Dhabi WTA Women's Tennis Open - Abu Dhabi, United Arab Emirates: its statistics for each player equal Sackmann's box only once exchanged (18/18 exchanged, 2/18 as recorded); its result 'A. Tomljanovic d L. Zhu 6-2,7-6(1)' names the recorded winner. The precondition from F3b holds (API = Sackmann on 99.69% of clean 2021-22 rows, all nine counts). After the exchange B0-B9 pass (replica and stage0_build.box_scores), games identity exact for both players."
+  },
+  {
+   "match_id": "wta|2021-2028|R64|wta:201555|wta:214544",
+   "vote": "confirm",
+   "fix": "exchange all nine counts between the two players (w_* <-> l_* on raw row wta_matches_2021.csv _row 39)",
+   "reasons": "WTA API 2028/2021/LS040 Abu Dhabi WTA Women's Tennis Open - Abu Dhabi, United Arab Emirates: its statistics for each player equal Sackmann's box only once exchanged (18/18 exchanged, 4/18 as recorded); its result '[4]A. Sabalenka d P. Hercog 7-6(5),6-2' names the recorded winner. The precondition from F3b holds (API = Sackmann on 99.69% of clean 2021-22 rows, all nine counts). After the exchange B0-B9 pass (replica and stage0_build.box_scores), games identity exact for both players."
+  },
+  {
+   "match_id": "wta|2021-2028|R64|wta:206107|wta:213550",
+   "vote": "confirm",
+   "fix": "exchange all nine counts between the two players (w_* <-> l_* on raw row wta_matches_2021.csv _row 31)",
+   "reasons": "WTA API 2028/2021/LS032 Abu Dhabi WTA Women's Tennis Open - Abu Dhabi, United Arab Emirates: its statistics for each player equal Sackmann's box only once exchanged (18/18 exchanged, 0/18 as recorded); its result '[1]S. Kenin d Z. Yang 7-6(4),6-3' names the recorded winner. The precondition from F3b holds (API = Sackmann on 99.69% of clean 2021-22 rows, all nine counts). After the exchange B0-B9 pass (replica and stage0_build.box_scores); Sackmann's score 7-6(4) 6-2 differs from the API's 7-6(4) 6-3; the exchanged box equals the API's own box, which itself misses the identity under the API's score (as at Palermo 2022)."
+  },
+  {
+   "match_id": "wta|2021-2028|R32|wta:201586|wta:206420",
+   "vote": "confirm",
+   "fix": "exchange all nine counts between the two players (w_* <-> l_* on raw row wta_matches_2021.csv _row 29)",
+   "reasons": "WTA API 2028/2021/LS030 Abu Dhabi WTA Women's Tennis Open - Abu Dhabi, United Arab Emirates: its statistics for each player equal Sackmann's box only once exchanged (18/18 exchanged, 0/18 as recorded); its result '[17]E. Alexandrova d H. Watson 7-5,6-7(7),6-3' names the recorded winner. The precondition from F3b holds (API = Sackmann on 99.69% of clean 2021-22 rows, all nine counts). After the exchange B0-B9 pass (replica and stage0_build.box_scores), games identity exact for both players."
+  },
+  {
+   "match_id": "wta|2021-2028|R32|wta:201465|wta:213550",
+   "vote": "confirm",
+   "fix": "exchange all nine counts between the two players (w_* <-> l_* on raw row wta_matches_2021.csv _row 15)",
+   "reasons": "WTA API 2028/2021/LS016 Abu Dhabi WTA Women's Tennis Open - Abu Dhabi, United Arab Emirates: its statistics for each player equal Sackmann's box only once exchanged (18/18 exchanged, 2/18 as recorded); its result '[1]S. Kenin d K. Flipkens 5-7,5-4 Ret'd' names the recorded winner. The precondition from F3b holds (API = Sackmann on 99.69% of clean 2021-22 rows, all nine counts). After the exchange B0-B9 pass (replica and stage0_build.box_scores); retirement (API: 5-7 5-4 Ret'd), so the games identity is not testable."
+  },
+  {
+   "match_id": "wta|2021-2028|R16|wta:201709|wta:213550",
+   "vote": "confirm",
+   "fix": "exchange all nine counts between the two players (w_* <-> l_* on raw row wta_matches_2021.csv _row 7)",
+   "reasons": "WTA API 2028/2021/LS008 Abu Dhabi WTA Women's Tennis Open - Abu Dhabi, United Arab Emirates: its statistics for each player equal Sackmann's box only once exchanged (18/18 exchanged, 4/18 as recorded); its result '[1]S. Kenin d [13]Y. Putintseva 3-6,7-6(5),6-4' names the recorded winner. The precondition from F3b holds (API = Sackmann on 99.69% of clean 2021-22 rows, all nine counts). After the exchange B0-B9 pass (replica and stage0_build.box_scores), games identity exact for both players."
+  },
+  {
+   "match_id": "wta|2021-2028|QF|wta:202494|wta:206368",
+   "vote": "confirm",
+   "fix": "exchange all nine counts between the two players (w_* <-> l_* on raw row wta_matches_2021.csv _row 6)",
+   "reasons": "WTA API 2028/2021/LS007 Abu Dhabi WTA Women's Tennis Open - Abu Dhabi, United Arab Emirates: its statistics for each player equal Sackmann's box only once exchanged (18/18 exchanged, 4/18 as recorded); its result 'V. Kudermetova d [2]E. Svitolina 5-7,6-3,7-6(3)' names the recorded winner. The precondition from F3b holds (API = Sackmann on 99.69% of clean 2021-22 rows, all nine counts). After the exchange B0-B9 pass (replica and stage0_build.box_scores), games identity exact for both players."
+  },
+  {
+   "match_id": "wta|2021-2027|Q1|wta:215337|wta:215872",
+   "vote": "confirm",
+   "fix": "exchange all nine counts between the two players (w_* <-> l_* on raw row wta_matches_qual_itf_2021.csv _row 22990)",
+   "reasons": "WTA API 2027/2021/RS012 Phillip Island Trophy - Melbourne, Australia: its statistics for each player equal Sackmann's box only once exchanged (18/18 exchanged, 2/18 as recorded); its result '[5]K. Rakhimova d O. Danilovic 7-6(7),6-2' names the recorded winner. The precondition from F3b holds (API = Sackmann on 99.69% of clean 2021-22 rows, all nine counts). After the exchange B0-B9 pass (replica and stage0_build.box_scores); Sackmann's score 7-6(7) 6-4 differs from the API's 7-6(7) 6-2; with the API's score the exchanged box fits the identity for both players (separate score fault, not changed here)."
+  },
+  {
+   "match_id": "wta|2021-2027|R64|wta:201492|wta:215020",
+   "vote": "confirm",
+   "fix": "exchange all nine counts between the two players (w_* <-> l_* on raw row wta_matches_2021.csv _row 370)",
+   "reasons": "WTA API 2027/2021/LS058 Phillip Island Trophy - Melbourne, Australia: its statistics for each player equal Sackmann's box only once exchanged (18/18 exchanged, 2/18 as recorded); its result 'A. Blinkova d A. Petkovic 4-6,7-6(3),6-4' names the recorded winner. The precondition from F3b holds (API = Sackmann on 99.69% of clean 2021-22 rows, all nine counts). After the exchange B0-B9 pass (replica and stage0_build.box_scores), games identity exact for both players."
+  },
+  {
+   "match_id": "wta|2021-2027|R64|wta:201478|wta:211702",
+   "vote": "confirm",
+   "fix": "exchange all nine counts between the two players (w_* <-> l_* on raw row wta_matches_2021.csv _row 356)",
+   "reasons": "WTA API 2027/2021/LS038 Phillip Island Trophy - Melbourne, Australia: its statistics for each player equal Sackmann's box only once exchanged (18/18 exchanged, 6/18 as recorded); its result 'V. Lepchenko d N. Hibino 6-3,3-0 Ret'd' names the recorded winner. The precondition from F3b holds (API = Sackmann on 99.69% of clean 2021-22 rows, all nine counts). After the exchange B0-B9 pass (replica and stage0_build.box_scores), games identity exact for both players."
+  },
+  {
+   "match_id": "wta|2021-2027|R64|wta:204427|wta:214643",
+   "vote": "confirm",
+   "fix": "exchange all nine counts between the two players (w_* <-> l_* on raw row wta_matches_2021.csv _row 355)",
+   "reasons": "WTA API 2027/2021/LS037 Phillip Island Trophy - Melbourne, Australia: its statistics for each player equal Sackmann's box only once exchanged (18/18 exchanged, 2/18 as recorded); its result 'S. Sorribes Tormo d L. Samsonova 6-7(6),6-1,7-6(4)' names the recorded winner. The precondition from F3b holds (API = Sackmann on 99.69% of clean 2021-22 rows, all nine counts). After the exchange B0-B9 pass (replica and stage0_build.box_scores), games identity exact for both players."
+  },
+  {
+   "match_id": "wta|2021-2027|R16|wta:206255|wta:213525",
+   "vote": "confirm",
+   "fix": "exchange all nine counts between the two players (w_* <-> l_* on raw row wta_matches_2021.csv _row 331)",
+   "reasons": "WTA API 2027/2021/LS012 Phillip Island Trophy - Melbourne, Australia: its statistics for each player equal Sackmann's box only once exchanged (18/18 exchanged, 8/18 as recorded); its result 'J. Teichmann d P. Tig 6-3,4-3 Ret'd' names the recorded winner. The precondition from F3b holds (API = Sackmann on 99.69% of clean 2021-22 rows, all nine counts). After the exchange B0-B9 pass (replica and stage0_build.box_scores); Sackmann's score 6-3 3-3 RET differs from the API's 6-3 4-3 RET; with the API's score the exchanged box fits the identity for both players (separate score fault, not changed here)."
+  },
+  {
+   "match_id": "wta|2021-2027|SF|wta:213631|wta:215370",
+   "vote": "confirm",
+   "fix": "exchange all nine counts between the two players (w_* <-> l_* on raw row wta_matches_2021.csv _row 322)",
+   "reasons": "WTA API 2027/2021/LS003 Phillip Island Trophy - Melbourne, Australia: its statistics for each player equal Sackmann's box only once exchanged (18/18 exchanged, 2/18 as recorded); its result '[13]M. Bouzkova d [2]B. Andreescu 6-7(9),6-2,7-5' names the recorded winner. The precondition from F3b holds (API = Sackmann on 99.69% of clean 2021-22 rows, all nine counts). After the exchange B0-B9 pass (replica and stage0_build.box_scores), games identity exact for both players."
+  },
+  {
+   "match_id": "wta|2021-1052|Q1|wta:202916|wta:206391",
+   "vote": "reject",
+   "fix": "none (the box is as recorded)",
+   "reasons": "Georgina Garcia Perez v Ellen Perez: the two players share a surname. Joined by full first and last name (and checked against the API's player ids and seeds), the WTA API's statistics for each named player equal Sackmann's box AS RECORDED on all 18 counts ([10]G. Garcia Perez d E. Perez 7-6(5),7-5), so an exchange would put each sister's statistics on the other. The 'exchange' match comes from joining by surname or initial."
+  },
+  {
+   "match_id": "wta|2023-2062|R16|wta:206007|wta:221905",
+   "vote": "confirm",
+   "fix": "exchange all nine counts between the two players (w_* <-> l_* on raw row wta_matches_qual_itf_2023.csv _row 289)",
+   "reasons": "WTA API 2062/2023/LS012 Veneto Open promoted by Confindustria Veneto Est - Gaiba, ITA: its statistics for each player equal Sackmann's box only once exchanged (18/18 exchanged, 2/18 as recorded); its result 'R. Montgomery d L. Pigossi 6-0,6-7(3),6-0' names the recorded winner. The precondition from F3b holds (API = Sackmann on 99.69% of clean 2021-22 rows, all nine counts). After the exchange B0-B9 pass (replica and stage0_build.box_scores), games identity exact for both players."
+  },
+  {
+   "match_id": "wta|2024-1049|R16|wta:216016|wta:216133",
+   "vote": "reject",
+   "fix": "none (the box is as recorded)",
+   "reasons": "Xiyu Wang v Xin Yu Wang: the two players share a surname. Joined by full first and last name (and checked against the API's player ids and seeds), the WTA API's statistics for each named player equal Sackmann's box AS RECORDED on all 18 counts (API LS012 Auckland 2024, Xinyu Wang = Sackmann Xin Yu Wang), so an exchange would put each sister's statistics on the other. The 'exchange' match comes from joining by surname or initial."
+  },
+  {
+   "match_id": "wta|2024-1096|R32|wta:202492|wta:216016",
+   "vote": "reject",
+   "fix": "none (the box is as recorded)",
+   "reasons": "Xiyu Wang v Qiang Wang: the two players share a surname. Joined by full first and last name (and checked against the API's player ids and seeds), the WTA API's statistics for each named player equal Sackmann's box AS RECORDED on all 18 counts ([5]X. Wang d Q. Wang 6-1,6-1), so an exchange would put each sister's statistics on the other. The 'exchange' match comes from joining by surname or initial."
+  },
+  {
+   "match_id": "wta|2024-1075|R32|wta:222965|wta:259799",
+   "vote": "reject",
+   "fix": "none (the box is as recorded)",
+   "reasons": "Erika Andreeva v Mirra Andreeva: the two players share a surname. Joined by full first and last name (and checked against the API's player ids and seeds), the WTA API's statistics for each named player equal Sackmann's box AS RECORDED on all 18 counts (E. Andreeva d [16]M. Andreeva 6-3,6-1), so an exchange would put each sister's statistics on the other. The 'exchange' match comes from joining by surname or initial."
+  },
+  {
+   "match_id": "wta|2025-1038|R128|wta:206368|wta:221236",
+   "vote": "reject",
+   "fix": "none (the box is as recorded)",
+   "reasons": "Veronika Kudermetova v Polina Kudermetova: the two players share a surname. Joined by full first and last name (and checked against the API's player ids and seeds), the WTA API's statistics for each named player equal Sackmann's box AS RECORDED on all 18 counts (V. Kudermetova d P. Kudermetova 6-2,6-2), so an exchange would put each sister's statistics on the other. The 'exchange' match comes from joining by surname or initial."
+  },
+  {
+   "match_id": "wta|2025-2034|R32|wta:213889|wta:215219",
+   "vote": "confirm",
+   "fix": "exchange all nine counts between the two players (w_* <-> l_* on raw row wta_matches_qual_itf_2025.csv _row 271)",
+   "reasons": "WTA API 2034/2025/LS023 L'Open 35 de Saint Malo - Saint Malo, FRA: its statistics for each player equal Sackmann's box only once exchanged (18/18 exchanged, 2/18 as recorded); its result 'K. Juvan d [5]G. Minnen 6-1,6-7(2),6-3' names the recorded winner. The precondition from F3b holds (API = Sackmann on 99.69% of clean 2021-22 rows, all nine counts). After the exchange B0-B9 pass (replica and stage0_build.box_scores), games identity exact for both players."
+  },
+  {
+   "match_id": "wta|2025-2034|R32|wta:214319|wta:232447",
+   "vote": "confirm",
+   "fix": "exchange all nine counts between the two players (w_* <-> l_* on raw row wta_matches_qual_itf_2025.csv _row 270)",
+   "reasons": "WTA API 2034/2025/LS022 L'Open 35 de Saint Malo - Saint Malo, FRA: its statistics for each player equal Sackmann's box only once exchanged (18/18 exchanged, 4/18 as recorded); its result 'C. Naef d S. Cakarevic 6-3,6-7(2),6-3' names the recorded winner. The precondition from F3b holds (API = Sackmann on 99.69% of clean 2021-22 rows, all nine counts). After the exchange B0-B9 pass (replica and stage0_build.box_scores), games identity exact for both players."
+  },
+  {
+   "match_id": "wta|2025-822|R32|wta:206368|wta:221236",
+   "vote": "reject",
+   "fix": "none (the box is as recorded)",
+   "reasons": "Veronika Kudermetova v Polina Kudermetova: the two players share a surname. Joined by full first and last name (and checked against the API's player ids and seeds), the WTA API's statistics for each named player equal Sackmann's box AS RECORDED on all 18 counts ([8]V. Kudermetova d P. Kudermetova 6-3,6-3), so an exchange would put each sister's statistics on the other. The 'exchange' match comes from joining by surname or initial."
+  },
+  {
+   "match_id": "wta|2026-1156|R16|wta:216055|wta:221164",
+   "vote": "reject",
+   "fix": "none (the box is as recorded)",
+   "reasons": "Francisca Jorge v Matilde Jorge: the two players share a surname. Joined by full first and last name (and checked against the API's player ids and seeds), the WTA API's statistics for each named player equal Sackmann's box AS RECORDED on all 18 counts (F. Jorge d M. Jorge 6-0,0-0 Ret'd), so an exchange would put each sister's statistics on the other. The 'exchange' match comes from joining by surname or initial."
+  }
+ ],
+ "F2y": [
+  {
+   "match_id": "atp|2022-580|R128|atp:105332|atp:106329",
+   "vote": "confirm",
+   "fix": "exchange the two players' sv_gms only (raw row atp_matches_2022.csv _row 208: w_SvGms 26 -> 25, l_SvGms 25 -> 26); every other count unchanged",
+   "reasons": "AO 2022 ball tracking (2022_MS146, the AO's own point records): Monteiro serves first and serves 26 games, Paire 25 (no tiebreak, 51 games); every other count equals Sackmann's as recorded (Paire 156 serve points, 30 aces, 13 double faults, 82 first in, 70 / 35 won; Monteiro 158, 13, 3, 109, 77 / 26). Sofascore (a different source at the AO) gives the same: Paire 25, Monteiro 26, the rest as recorded. Sackmann has 26 and 25. After the exchange the games identity is exact for both players (25 = 25 - 4 + 4, 26 = 26 - 4 + 4) and B0-B9 pass."
+  }
+ ],
+ "F4x": [
+  {
+   "match_id": "wta|2012-W-SL-AUS-1A-2012|R128|wta:201419|wta:201584",
+   "vote": "confirm",
+   "fix": "blank the box (all nine counts of both players) on raw row wta_matches_2012.csv _row 2342",
+   "reasons": "Sackmann's AO 2012 R128 and Wimbledon 2012 R128 rows of Li d. Pervak have the same score (6-3 6-1, which is why the audit's copy scan took them for one match listed twice) and the same box: Li 50 serve points, 3 aces, 1 double fault, break points 0/1; Pervak 46, 0, 8, 0/5. Sackmann's Slam point-by-point gives exactly that box for Wimbledon 2012 (Li 50, 3, 1, 0/1; Pervak 46, 0, 8, 0/5) and a different one for the AO 2012 match (Li 41, 0, 0, 0/2; Pervak 56, 0, 5, 8/14), which MCP's independent chart of the AO match confirms (Li 41, 0, 0, 0/2; Pervak 56, 0, 5, 8/14). So the AO 2012 row carries Wimbledon's box; Stage 0 keeps it today (service games blank)."
+  }
+ ]
+}

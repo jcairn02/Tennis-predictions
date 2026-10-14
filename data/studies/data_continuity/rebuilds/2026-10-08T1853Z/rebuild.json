@@ -1,0 +1,141 @@
+{
+ "started_at": "2026-10-08T18:53:10+00:00",
+ "steps": [
+  {
+   "step": "keep",
+   "files": 72,
+   "bytes": 383825338,
+   "seconds": 1.0
+  },
+  {
+   "step": "build",
+   "command": "src/eda/predictability_diagnostic/stage0_build.py",
+   "exit": 0,
+   "seconds": 111.8
+  },
+  {
+   "step": "checks",
+   "command": "src/eda/predictability_diagnostic/stage0_checks.py",
+   "exit": 0,
+   "seconds": 13.8
+  },
+  {
+   "step": "odds",
+   "command": "src/eda/predictability_diagnostic/stage1_odds.py",
+   "exit": 0,
+   "seconds": 5.7
+  },
+  {
+   "step": "remap",
+   "pairs": 0,
+   "rows": 0
+  },
+  {
+   "step": "refresh",
+   "command": "src/eda/match_timing/refresh.py --skip-ios",
+   "exit": 0,
+   "seconds": 214.3
+  },
+  {
+   "step": "features",
+   "command": "src/eda/match_timing/rebuild.py",
+   "exit": 0,
+   "seconds": 413.6
+  },
+  {
+   "step": "ttt",
+   "command": "src/eda/match_timing/ttt_timed.py",
+   "exit": 0,
+   "seconds": 973.0
+  }
+ ],
+ "expect": {
+  "folder": "C:/Users/zerom/AppData/Local/Temp/claude/c--Users-zerom-Documents-Tennis-predictions/6a2c00c2-76fc-4179-a6fa-f816c61187b3/scratchpad/dryrun2/corrected",
+  "matches_equal": true,
+  "players_equal": true,
+  "same_bytes": true
+ },
+ "ids": {
+  "changed": 0,
+  "left_without_partner": [
+   "atp|2026-5014|Q1|atp:102093|atp:200303",
+   "atp|2026-5014|Q1|atp:105932|atp:210318",
+   "atp|2026-5014|Q1|atp:106071|atp:209279",
+   "atp|2026-5014|Q1|atp:106109|atp:144750",
+   "atp|2026-5014|Q1|atp:106121|atp:208278",
+   "atp|2026-5014|Q1|atp:106293|atp:210460",
+   "atp|2026-5014|Q1|atp:106415|atp:207686",
+   "atp|2026-5014|Q1|atp:111200|atp:208233",
+   "atp|2026-5014|Q1|atp:111805|atp:210536",
+   "atp|2026-5014|Q1|atp:124186|atp:200677",
+   "atp|2026-5014|Q1|atp:126128|atp:200008",
+   "atp|2026-5014|Q1|atp:126129|atp:207494",
+   "atp|2026-5014|Q1|atp:126846|atp:200666",
+   "atp|2026-5014|Q1|atp:132283|atp:144826",
+   "atp|2026-5014|Q1|atp:144751|atp:200443",
+   "atp|2026-5014|Q1|atp:144870|atp:210116",
+   "atp|2026-5014|Q1|atp:200384|atp:208119",
+   "atp|2026-5014|Q1|atp:200711|atp:202358",
+   "atp|2026-5014|Q1|atp:202146|atp:209899",
+   "atp|2026-5014|Q1|atp:207608|atp:208852",
+   "atp|2026-5014|Q1|atp:208013|atp:209262",
+   "atp|2026-5014|Q1|atp:208021|atp:212221",
+   "atp|2026-5014|Q1|atp:209038|atp:210748",
+   "atp|2026-5014|Q1|atp:209409|atp:213178",
+   "atp|2026-5014|Q2|atp:105932|atp:208119",
+   "atp|2026-5014|Q2|atp:106071|atp:207608",
+   "atp|2026-5014|Q2|atp:106293|atp:208013",
+   "atp|2026-5014|Q2|atp:106415|atp:207494",
+   "atp|2026-5014|Q2|atp:124186|atp:208233",
+   "atp|2026-5014|Q2|atp:126128|atp:208278",
+   "atp|2026-5014|Q2|atp:126846|atp:200303",
+   "atp|2026-5014|Q2|atp:144750|atp:209409",
+   "atp|2026-5014|Q2|atp:144751|atp:209899",
+   "atp|2026-5014|Q2|atp:144826|atp:210748",
+   "atp|2026-5014|Q2|atp:200711|atp:210116",
+   "atp|2026-5014|Q2|atp:208021|atp:210536"
+  ],
+  "left_without_partner_count": 36
+ },
+ "remapped_rows": {
+  "api_tennis.parquet": 0,
+  "flashscore.parquet": 0,
+  "flashscore_ambiguous.parquet": 0,
+  "flashscore_daily_board.parquet": 0,
+  "flashscore_unlinked.parquet": 0,
+  "infosys.parquet": 0,
+  "live_tennis_api.parquet": 0,
+  "match_charting.parquet": 0,
+  "open_tennis_data.parquet": 0,
+  "pbp_copy.parquet": 0,
+  "tml_days.parquet": 0
+ },
+ "matches": {
+  "before": 873364,
+  "after": 873437
+ },
+ "sha256_after": {
+  "stage0_matches.parquet": "07bc2d34f6655fdb27426bbf348d5ed1cda35cf4e9a187bd5cd22a81108ab00f",
+  "stage0_match_players.parquet": "9b712648ed28dc7267c6bac03c051f6dc823145a2eebf74078b798083bb9f860"
+ },
+ "stage0_summary_overrides": {
+  "file": "data/studies/data_continuity/slam_box_overrides.csv",
+  "rows": 731,
+  "scores_replaced": 2,
+  "by_source": {
+   "wimbledon_feed": 366,
+   "usopen_feed": 365
+  }
+ },
+ "timing_check": {
+  "tested_matches": 473716,
+  "missed_share": 0.0004601913382701872,
+  "after_window_share": 0.0001034375026387118,
+  "before_window_share": 0.0003567538356314754,
+  "multi_source_matches": 258939,
+  "multi_source_same_day_share": 0.9642077863898447,
+  "multi_source_within_1_day_share": 0.9992585126226641
+ },
+ "finished_at": "2026-10-08T19:22:12+00:00",
+ "ok": true
+}

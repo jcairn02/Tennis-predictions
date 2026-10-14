@@ -1,0 +1,189 @@
+{
+ "tour": "atp",
+ "stat": "hold",
+ "tree": "C:\\Users\\zerom\\tnr_lyr_new",
+ "layer_config": "C:\\Users\\zerom\\Documents\\Tennis-predictions\\data\\studies\\prediction_pipeline\\layer_config_verify.json",
+ "setup": {
+  "mode": "fe",
+  "n_fe": 2,
+  "h": 104.0,
+  "kappa": 1.0,
+  "kappa_s": 30.0,
+  "tau": 1,
+  "typ": 11.453623558350545,
+  "observations": 337017,
+  "players": 5229,
+  "triples": 262836,
+  "days": 5891
+ },
+ "d0": "2026-03-02",
+ "last_day": "2026-10-08",
+ "days_after_d0": 219,
+ "full_run": {
+  "days": 5891,
+  "seconds": 149.79,
+  "not_converged": 0,
+  "iterations_mean": 19.182312001358003,
+  "seconds_total": 151.7
+ },
+ "A_fidelity": {
+  "O_eff": {
+   "rows": 936900,
+   "nan_pattern_equal": true,
+   "bitwise_equal": 936900,
+   "max_abs_diff": 0.0,
+   "max_rel_diff": 0.0
+  },
+  "D_eff": {
+   "rows": 936900,
+   "nan_pattern_equal": true,
+   "bitwise_equal": 936900,
+   "max_abs_diff": 0.0,
+   "max_rel_diff": 0.0
+  },
+  "O": {
+   "rows": 936900,
+   "nan_pattern_equal": true,
+   "bitwise_equal": 936900,
+   "max_abs_diff": 0.0,
+   "max_rel_diff": 0.0
+  },
+  "D": {
+   "rows": 936900,
+   "nan_pattern_equal": true,
+   "bitwise_equal": 936900,
+   "max_abs_diff": 0.0,
+   "max_rel_diff": 0.0
+  },
+  "E": {
+   "rows": 936900,
+   "nan_pattern_equal": true,
+   "bitwise_equal": 936900,
+   "max_abs_diff": 0.0,
+   "max_rel_diff": 0.0
+  },
+  "F": {
+   "rows": 936900,
+   "nan_pattern_equal": true,
+   "bitwise_equal": 936900,
+   "max_abs_diff": 0.0,
+   "max_rel_diff": 0.0
+  },
+  "stored_file": "C:\\Users\\zerom\\tnr_lyr_new\\data\\studies\\surface_ios\\full_runs\\lle_official_7801e4338001\\atp_hold_surface.npz"
+ },
+ "B_checkpoint": {
+  "inflight_rows": 366,
+  "bytes": 6748524
+ },
+ "B_same_table": {
+  "seconds_resume": 5.22,
+  "resume": {
+   "days": 219,
+   "seconds": 4.55,
+   "not_converged": 0
+  },
+  "target_rows": 31084,
+  "O_eff": {
+   "rows": 31084,
+   "nan_pattern_equal": true,
+   "bitwise_equal": 31084,
+   "max_abs_diff": 0.0,
+   "max_rel_diff": 0.0
+  },
+  "D_eff": {
+   "rows": 31084,
+   "nan_pattern_equal": true,
+   "bitwise_equal": 31084,
+   "max_abs_diff": 0.0,
+   "max_rel_diff": 0.0
+  }
+ },
+ "C_older_table": {
+  "table_day_T": "2026-03-23",
+  "rows_old": 909480,
+  "rows_new": 936900,
+  "setup_old": {
+   "mode": "fe",
+   "n_fe": 2,
+   "h": 104.0,
+   "kappa": 1.0,
+   "kappa_s": 30.0,
+   "tau": 1,
+   "typ": 11.453623558350545,
+   "observations": 322034,
+   "players": 5108,
+   "triples": 250990,
+   "days": 5692
+  },
+  "old_days_on_or_before_d0": 5672,
+  "new_days_on_or_before_d0": 5672,
+  "same_snapshot_days_to_d0": true,
+  "seconds_old_run_to_d0": 91.2,
+  "rows_queried_by_d0_missing_from_old_table": 0,
+  "seconds_resume": 4.05,
+  "O_eff": {
+   "rows": 31084,
+   "nan_pattern_equal": true,
+   "bitwise_equal": 3016,
+   "max_abs_diff": 2.4032025036646587e-08,
+   "max_rel_diff": 7.419495595215697e-06
+  },
+  "D_eff": {
+   "rows": 31084,
+   "nan_pattern_equal": true,
+   "bitwise_equal": 3014,
+   "max_abs_diff": 5.261447835747113e-08,
+   "max_rel_diff": 6.489992182638149e-07
+  },
+  "main_tour_rows": {
+   "O_eff": {
+    "rows": 5258,
+    "nan_pattern_equal": true,
+    "bitwise_equal": 16,
+    "max_abs_diff": 9.937001332893658e-09,
+    "max_rel_diff": 1.800684876763101e-08
+   },
+   "D_eff": {
+    "rows": 5258,
+    "nan_pattern_equal": true,
+    "bitwise_equal": 14,
+    "max_abs_diff": 4.705330958199028e-09,
+    "max_rel_diff": 8.650558089799452e-08
+   }
+  }
+ },
+ "D_cold_start": {
+  "day": "2026-10-08",
+  "iterations_warm": 20,
+  "iterations_cold": 26,
+  "O": {
+   "rows": 5229,
+   "nan_pattern_equal": true,
+   "bitwise_equal": 0,
+   "max_abs_diff": 1.1912050790208184e-07,
+   "max_rel_diff": 1.132745671766474e-05
+  },
+  "D": {
+   "rows": 5229,
+   "nan_pattern_equal": true,
+   "bitwise_equal": 0,
+   "max_abs_diff": 6.444922995285651e-08,
+   "max_rel_diff": 5.719492729739302e-05
+  },
+  "E": {
+   "rows": 20916,
+   "nan_pattern_equal": true,
+   "bitwise_equal": 11767,
+   "max_abs_diff": 9.592147907563908e-09,
+   "max_rel_diff": 0.00020404480515955032
+  },
+  "F": {
+   "rows": 20916,
+   "nan_pattern_equal": true,
+   "bitwise_equal": 11767,
+   "max_abs_diff": 5.776105458515923e-09,
+   "max_rel_diff": 0.00021343330584996188
+  }
+ },
+ "seconds_task": 254.6
+}

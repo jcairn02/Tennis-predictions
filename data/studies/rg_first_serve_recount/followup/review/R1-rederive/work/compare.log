@@ -1,0 +1,184 @@
+C:\Users\zerom\Documents\Tennis-predictions\src\eda\rg_first_serve_recount\review_followup\R1-rederive\compare.py:76: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  sd["match_id"] = sd["s0_match_id"]
+C:\Users\zerom\Documents\Tennis-predictions\src\eda\rg_first_serve_recount\review_followup\R1-rederive\compare.py:77: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  x = wb.merge(sd, left_on=["match_id", "raw_side"], right_on=["match_id", "side"], how="outer",
+C:\Users\zerom\Documents\Tennis-predictions\src\eda\rg_first_serve_recount\review_followup\R1-rederive\compare.py:77: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  x = wb.merge(sd, left_on=["match_id", "raw_side"], right_on=["match_id", "side"], how="outer",
+{
+ "lead": 1509,
+ "mine": 1509,
+ "same_feed_keys": 1509,
+ "lead_only": [],
+ "mine_only": [],
+ "same_stage0_match_id": 1509,
+ "same_source": 1509,
+ "same_tour": 1509,
+ "same_tid": 1509,
+ "same_round": 1509,
+ "same_winner_key": 1509,
+ "same_loser_key": 1509,
+ "values_compared": 27162,
+ "values_differing": 13,
+ "matches_with_a_difference": 12,
+ "differences_by_column": {
+  "w_SvGms": 9,
+  "l_SvGms": 4
+ }
+}
+                   feed_key                          stage0_match_id   column lead mine my_sv_gms_from                   winner                    loser               row_score
+0   rolandgarros:2022/QM041    atp|2022-520|Q2|atp:124014|atp:200116  w_SvGms    3    2        derived     Camilo Ugo Carabelli         Ernesto Escobedo                 4-1 RET
+1   rolandgarros:2022/SM038   atp|2022-520|R64|atp:104926|atp:122298  w_SvGms   14   13        derived  Botic Van De Zandschulp            Fabio Fognini      6-4 7-6(2) 3-2 RET
+2   rolandgarros:2024/QM044    atp|2024-520|Q2|atp:126523|atp:208353  w_SvGms    4    3        derived     Francesco Maestrelli  Bernabe Zapata Miralles                 6-1 RET
+3   rolandgarros:2025/SM115  atp|2025-520|R128|atp:106415|atp:200615  w_SvGms   13   12        derived           Alexei Popyrin       Yoshihito Nishioka         7-5 6-4 1-2 RET
+4   rolandgarros:2026/QM080    atp|2026-520|Q1|atp:200677|atp:208353  w_SvGms        14        derived     Francesco Maestrelli              Rio Noguchi             3-6 7-6 6-2
+5   rolandgarros:2026/SM077  atp|2026-520|R128|atp:124186|atp:126774  w_SvGms    6    5        derived       Stefanos Tsitsipas         Alexandre Muller             6-2 3-0 RET
+6   rolandgarros:2022/SD073  wta|2022-520|R128|wta:211843|wta:221024  w_SvGms    4    3        derived        Anhelina Kalinina          Hailey Baptiste                 5-2 RET
+7   rolandgarros:2023/SD081  wta|2023-520|R128|wta:203575|wta:222328  w_SvGms    7    6        derived            Linda Noskova            Danka Kovinic             6-3 2-1 RET
+8   rolandgarros:2026/SD062   wta|2026-520|R64|wta:216016|wta:221024  w_SvGms    5    4        derived                Xiyu Wang          Hailey Baptiste                 5-4 RET
+9   rolandgarros:2023/QM117    atp|2023-520|Q1|atp:106044|atp:123828  l_SvGms   10    9        derived             Jan Choinski           Nicolas Kicker         2-6 6-3 2-0 RET
+10  rolandgarros:2024/SM038   atp|2024-520|R64|atp:126239|atp:144869  l_SvGms   18   17        derived  Tomas Martin Etcheverry       Arthur Rinderknech  3-6 6-7(8) 6-1 5-0 RET
+11  rolandgarros:2026/QM080    atp|2026-520|Q1|atp:200677|atp:208353  l_SvGms        15        derived     Francesco Maestrelli              Rio Noguchi             3-6 7-6 6-2
+12  rolandgarros:2026/SM084  atp|2026-520|R128|atp:111815|atp:209226  l_SvGms    8    7        derived    Adolfo Daniel Vallejo           Cameron Norrie          7-6(7) 2-0 RET
+{
+ "lead": 4556,
+ "mine": 4556,
+ "joined": 4556,
+ "lead_only": 0,
+ "mine_only": 0,
+ "class_equal": 4556,
+ "class_crosstab_where_different": {},
+ "column_differences": {
+  "off_ace": {
+   "differ": 2,
+   "lead_blank_mine_not": 2,
+   "mine_blank_lead_not": 0
+  },
+  "off_df": {
+   "differ": 2,
+   "lead_blank_mine_not": 2,
+   "mine_blank_lead_not": 0
+  },
+  "off_svpt": {
+   "differ": 2,
+   "lead_blank_mine_not": 2,
+   "mine_blank_lead_not": 0
+  },
+  "off_first_in": {
+   "differ": 2,
+   "lead_blank_mine_not": 2,
+   "mine_blank_lead_not": 0
+  },
+  "off_first_won": {
+   "differ": 2,
+   "lead_blank_mine_not": 2,
+   "mine_blank_lead_not": 0
+  },
+  "off_second_won": {
+   "differ": 2,
+   "lead_blank_mine_not": 2,
+   "mine_blank_lead_not": 0
+  },
+  "off_bp_saved": {
+   "differ": 2,
+   "lead_blank_mine_not": 2,
+   "mine_blank_lead_not": 0
+  },
+  "off_bp_faced": {
+   "differ": 2,
+   "lead_blank_mine_not": 2,
+   "mine_blank_lead_not": 0
+  },
+  "off_sv_gms": {
+   "differ": 32,
+   "lead_blank_mine_not": 16,
+   "mine_blank_lead_not": 0
+  },
+  "mb_svpt": {
+   "differ": 3,
+   "lead_blank_mine_not": 2,
+   "mine_blank_lead_not": 0
+  },
+  "mb_first_in": {
+   "differ": 3,
+   "lead_blank_mine_not": 2,
+   "mine_blank_lead_not": 0
+  },
+  "mb_first_won": {
+   "differ": 2,
+   "lead_blank_mine_not": 2,
+   "mine_blank_lead_not": 0
+  },
+  "mb_second_won": {
+   "differ": 2,
+   "lead_blank_mine_not": 2,
+   "mine_blank_lead_not": 0
+  },
+  "mb_ace": {
+   "differ": 2,
+   "lead_blank_mine_not": 2,
+   "mine_blank_lead_not": 0
+  },
+  "mb_df": {
+   "differ": 2,
+   "lead_blank_mine_not": 2,
+   "mine_blank_lead_not": 0
+  },
+  "mb_sv_gms_regular": {
+   "differ": 23,
+   "lead_blank_mine_not": 2,
+   "mine_blank_lead_not": 0
+  },
+  "mcp_svpt": {
+   "differ": 6,
+   "lead_blank_mine_not": 0,
+   "mine_blank_lead_not": 6
+  },
+  "mcp_first_in": {
+   "differ": 6,
+   "lead_blank_mine_not": 0,
+   "mine_blank_lead_not": 6
+  },
+  "mcp_first_won": {
+   "differ": 6,
+   "lead_blank_mine_not": 0,
+   "mine_blank_lead_not": 6
+  },
+  "mcp_second_won": {
+   "differ": 6,
+   "lead_blank_mine_not": 0,
+   "mine_blank_lead_not": 6
+  },
+  "mcp_ace": {
+   "differ": 6,
+   "lead_blank_mine_not": 0,
+   "mine_blank_lead_not": 6
+  },
+  "mcp_df": {
+   "differ": 6,
+   "lead_blank_mine_not": 0,
+   "mine_blank_lead_not": 6
+  }
+ }
+}
+service games source (lead rows x mine columns):
+ sv_from      derived  row
+sv_gms_from              
+matchbeats      2976    0
+none               2    0
+row               24   16
+proposed rows whose service games differ (lead vs mine):
+                                     match_id raw_side              player_name                   score sv_gms_from  sv_from  raw_sv_gms_lead  off_sv_gms_lead  off_sv_gms_mine  mb_sv_gms_regular  mb_sv_gms_reg_done  der_sv  mb_svpt_lead  off_svpt_lead
+181     atp|2022-520|Q2|atp:124014|atp:200116        w     Camilo Ugo Carabelli                 4-1 RET  matchbeats  derived              2.0              3.0              2.0                3.0                 2.0     2.0          11.0           11.0
+425    atp|2022-520|R64|atp:104926|atp:122298        w  Botic Van De Zandschulp      6-4 7-6(2) 3-2 RET  matchbeats  derived             13.0             14.0             13.0               14.0                13.0    13.0          86.0           86.0
+518     atp|2023-520|Q1|atp:106044|atp:123828        l           Nicolas Kicker         2-6 6-3 2-0 RET  matchbeats  derived              9.0             10.0              9.0               10.0                 9.0     9.0          70.0           70.0
+1127    atp|2024-520|Q2|atp:126523|atp:208353        w     Francesco Maestrelli                 6-1 RET  matchbeats  derived              3.0              4.0              3.0                4.0                 3.0     3.0          20.0           20.0
+1404   atp|2024-520|R64|atp:126239|atp:144869        l       Arthur Rinderknech  3-6 6-7(8) 6-1 5-0 RET  matchbeats  derived             17.0             18.0             17.0               18.0                17.0    17.0         108.0          108.0
+1711  atp|2025-520|R128|atp:106415|atp:200615        w           Alexei Popyrin         7-5 6-4 1-2 RET  matchbeats  derived             12.0             13.0             12.0               13.0                12.0    12.0          63.0           63.0
+2012    atp|2026-520|Q1|atp:200677|atp:208353        l              Rio Noguchi             3-6 7-6 6-2        none  derived              0.0              NaN             15.0               15.0                15.0    15.0         114.0          114.0
+2013    atp|2026-520|Q1|atp:200677|atp:208353        w     Francesco Maestrelli             3-6 7-6 6-2        none  derived              0.0              NaN             14.0               13.0                13.0    14.0          73.0           91.0
+2194  atp|2026-520|R128|atp:111815|atp:209226        l           Cameron Norrie          7-6(7) 2-0 RET  matchbeats  derived              NaN              8.0              7.0                8.0                 7.0     7.0          56.0           56.0
+2201  atp|2026-520|R128|atp:124186|atp:126774        w       Stefanos Tsitsipas             6-2 3-0 RET  matchbeats  derived              NaN              6.0              5.0                6.0                 5.0     5.0          28.0           28.0
+2737  wta|2022-520|R128|wta:211843|wta:221024        w        Anhelina Kalinina                 5-2 RET  matchbeats  derived              3.0              4.0              3.0                4.0                 3.0     3.0          22.0           22.0
+3171  wta|2023-520|R128|wta:203575|wta:222328        w            Linda Noskova             6-3 2-1 RET  matchbeats  derived              6.0              7.0              6.0                7.0                 6.0     6.0          43.0           43.0
+4543   wta|2026-520|R64|wta:216016|wta:221024        w                Xiyu Wang                 5-4 RET  matchbeats  derived              NaN              5.0              4.0                5.0                 4.0     4.0          36.0           36.0
+{"lead": 4, "mine": 4, "same": 4, "exchange_rows_equal_to_mine": "8 of 8"}

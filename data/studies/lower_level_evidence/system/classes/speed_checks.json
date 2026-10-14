@@ -1,0 +1,157 @@
+{
+ "challenger_rows_by_year_usable": {
+  "2022": 167,
+  "2023": 92,
+  "2024": 94,
+  "2025": 89,
+  "2026": 940
+ },
+ "constants": {
+  "tau2": 22.0,
+  "s": 12.4,
+  "spd_L_standardiser_kmh": 1.9496051535048338
+ },
+ "gradient_main_tour": {
+  "y": {
+   "gamma_kmh_per_100_elo": 0.3382933400546268,
+   "lo": 0.27075714708830323,
+   "hi": 0.4058295330209504,
+   "n_rows": 16500,
+   "partial_r2": 0.00894069813496372
+  },
+  "y_c": {
+   "gamma_kmh_per_100_elo": 0.2861335902049476,
+   "lo": 0.2203528666857677,
+   "hi": 0.3519143137241275,
+   "n_rows": 16500,
+   "partial_r2": 0.007029547530400476
+  },
+  "y_c_level_round": {
+   "gamma_kmh_per_100_elo": 0.30301312734261737,
+   "lo": 0.22694277718804556,
+   "hi": 0.3790834774971892,
+   "n_rows": 16500,
+   "partial_r2": 0.005312709312177636
+  },
+  "sd_match_kmh": 10.873440029408846,
+  "sd_between_player_seasons_kmh": 9.358432255691516
+ },
+ "challenger_vs_main_same_player_season": {
+  "CH": {
+   "min_1_rows_each": {
+    "player_seasons": 69,
+    "players": 61,
+    "raw_kmh": {
+     "mean": 1.289862058488276,
+     "lo": -0.8522000274639041,
+     "hi": 3.4319241444404565,
+     "p_positive": 0.8810459681609272
+    },
+    "centred_kmh": {
+     "mean": 1.0039174550463106,
+     "lo": -1.0082929107193441,
+     "hi": 3.016127820811965,
+     "p_positive": 0.8359304495335865
+    },
+    "opp_elo_gap_points": {
+     "mean": -216.29592950961057,
+     "lo": -242.15251186572652,
+     "hi": -190.43934715349462,
+     "p_positive": 0.0
+    }
+   },
+   "min_2_rows_each": {
+    "player_seasons": 34,
+    "players": 29,
+    "raw_kmh": {
+     "mean": -0.054626364852635216,
+     "lo": -3.4113442777281837,
+     "hi": 3.3020915480229136,
+     "p_positive": 0.4872772803919407
+    },
+    "centred_kmh": {
+     "mean": -0.7675376404498233,
+     "lo": -3.7680308863037664,
+     "hi": 2.2329556054041197,
+     "p_positive": 0.3080534425713424
+    },
+    "opp_elo_gap_points": {
+     "mean": -234.65030780069617,
+     "lo": -262.72031139665233,
+     "hi": -206.58030420473997,
+     "p_positive": 0.0
+    }
+   }
+  },
+  "CH+CHQ": {
+   "min_1_rows_each": {
+    "player_seasons": 69,
+    "players": 61,
+    "raw_kmh": {
+     "mean": 1.3121432432091646,
+     "lo": -0.8290301189921241,
+     "hi": 3.4533166054104534,
+     "p_positive": 0.8851471836653024
+    },
+    "centred_kmh": {
+     "mean": 1.0249472811585891,
+     "lo": -0.9847396631625622,
+     "hi": 3.0346342254797403,
+     "p_positive": 0.8412495767243882
+    },
+    "opp_elo_gap_points": {
+     "mean": -217.1682392966813,
+     "lo": -242.89284331679676,
+     "hi": -191.44363527656583,
+     "p_positive": 0.0
+    }
+   },
+   "min_2_rows_each": {
+    "player_seasons": 34,
+    "players": 29,
+    "raw_kmh": {
+     "mean": -0.054626364852635216,
+     "lo": -3.4113442777281837,
+     "hi": 3.3020915480229136,
+     "p_positive": 0.4872772803919407
+    },
+    "centred_kmh": {
+     "mean": -0.7675376404498233,
+     "lo": -3.7680308863037664,
+     "hi": 2.2329556054041197,
+     "p_positive": 0.3080534425713424
+    },
+    "opp_elo_gap_points": {
+     "mean": -234.65030780069617,
+     "lo": -262.72031139665233,
+     "hi": -206.58030420473997,
+     "p_positive": 0.0
+    }
+   }
+  }
+ },
+ "challenger_edition_offsets": {
+  "rows": 353,
+  "mean_gamma_ed_kmh": -1.9274658259439963,
+  "mean_raw_kmh": 183.20798523865855,
+  "mean_centred_kmh": 185.13545106460253,
+  "main_mean_raw_kmh": 187.57092801083292,
+  "main_mean_centred_kmh": 188.6420191545357
+ },
+ "verdict": {
+  "materiality_kmh": 0.1949605153504834,
+  "opponent_dependent": true,
+  "level_problem": false,
+  "gamma": 0.2861335902049476,
+  "gamma_lo": 0.2203528666857677,
+  "gamma_hi": 0.3519143137241275,
+  "opp_part_ref_gap_kmh": 0.701362026016535,
+  "opp_part_in_between_player_sd": 0.07494439312631533,
+  "centred_shift_CH": 1.0039174550463106,
+  "centred_shift_CH_lo": -1.0082929107193441,
+  "centred_shift_CH_hi": 3.016127820811965,
+  "centred_shift_CH_p_reads_high": 0.8359304495335865,
+  "class": "OPP",
+  "rule": "untouched by the layer: stage 2's edition centring removes each edition's average opponent strength (the level part); no residual level shift resolved"
+ }
+}

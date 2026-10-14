@@ -1,0 +1,18 @@
+# ./python_tabpfn.sh -m src.pipeline.thinking_api quote --folder 'C:\Users\zerom\Documents\Tennis-predictions\data\studies\master_pipeline\thinking\template_2026-10-10\season2026' --daily-matches 5
+# started 2026-10-13T17:55:53-07:00
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "C:\Users\zerom\Documents\Tennis-predictions\src\pipeline\thinking_api.py", line 196, in <module>
+    raise SystemExit(main())
+                     ^^^^^^
+  File "C:\Users\zerom\Documents\Tennis-predictions\src\pipeline\thinking_api.py", line 186, in main
+    quote(a.folder, a.daily_matches)
+  File "C:\Users\zerom\Documents\Tennis-predictions\src\pipeline\thinking_api.py", line 69, in quote
+    account = backend.preflight()
+              ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\zerom\Documents\Tennis-predictions\src\eda\tabpfn_thinking58\guard.py", line 175, in preflight
+    raise RuntimeError("TabPFN authentication is not accepted; no model call made")
+RuntimeError: TabPFN authentication is not accepted; no model call made
+
+# failed, exit 1, 3.4 s

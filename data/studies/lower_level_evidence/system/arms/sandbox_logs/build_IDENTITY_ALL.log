@@ -1,0 +1,37 @@
+IDENTITY ended 01:02:19; IDENTITY_ALL starts
+C:\Users\zerom\tnr_sys4: C2's patch is not in place: ["src/eda/lower_level_evidence/level_layer_ios.py: the sandbox's copy differs from the repository's (re-run apply_patch)"]
+exit 1
+attempt 2 at 01:02:59 (attempt 1 at 01:02:19 refused: C2's module changed to 3fa5f69e; sandbox re-patched 01:02:53)
+--> stage1_baselines: src/eda/predictability_diagnostic/stage1_baselines.py
+[level_layer_ios] --> lle_ios_part: match_timing/rebuild.py --part ios
+    exit 0 in 1897.8 s
+--> stage3_ratings: src/eda/predictability_diagnostic/stage3_ratings.py
+[level_layer_ios]     exit 0 in 1998.4 s
+[level_layer_ios] --> lle_ios_merge: match_timing/rebuild.py --part merge
+[level_layer_ios]     exit 0 in 97.9 s
+    exit 0 in 774.1 s
+--> stage4_features: src/eda/predictability_diagnostic/stage4_features.py
+    exit 0 in 1664.4 s
+--> ufc_stageB_adjperf: src/eda/ufc_ideas/stageB_adjperf.py
+    exit 0 in 2971.7 s
+--> ufc_stageB_ios: src/eda/ufc_ideas/stageB_ios.py
+    exit 0 in 719.7 s
+--> ios_constants_check: src/eda/ios_constants/registry.py --check
+    exit 0 in 3.3 s
+--> ufc_stageB_split: src/eda/ufc_ideas/stageB_split.py
+    exit 0 in 371.9 s
+--> ufc_stageB_rundown: src/eda/ufc_ideas/stageB_rundown.py
+    exit 0 in 799.7 s
+--> ufc_stageD_profile: src/eda/ufc_ideas/stageD_profile.py
+    exit 0 in 447.0 s
+--> ufc_stageD_rundown: src/eda/ufc_ideas/stageD_rundown.py
+    exit 0 in 87.6 s
+--> thinking_frame: src/eda/tabpfn_thinking/build_frame.py
+    exit 0 in 5.0 s
+--> leakproof_frame: src/eda/tabpfn_leakproof/build_frame.py
+    exit 0 in 3.1 s
+--> elo_pieces: src/eda/surface_elo_pieces/pieces.py
+    exit 0 in 1128.1 s
+--> elo_frames: src/eda/surface_elo_pieces/build_frames.py
+    exit 0 in 37.5 s
+exit 0

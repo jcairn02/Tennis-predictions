@@ -44,6 +44,30 @@ The owner chose to pull opening and last lines without asking first ([decision](
 * **Line history was not pulled.** It would take about 1,200 requests for the 587 flagged matches, and picking their close would still need actual start times.
 * **Against Pinnacle** (study of 8 Oct 2026): BetOnline's 2024–2025 closes are as sharp as Pinnacle's, a tie at +0.3 milli-log-loss. Its margin is 3.75% against 2.79%. [Report](../../studies/betonline_lines/README.md).
 
+## Pulled from OddsTrader, 8 October 2026 (UTC): 2018–2023
+
+Pulled for the [bet-timing study](../../studies/bet_timing/README.md) under the owner's [scraping approval](../../decisions/2026-10-08-scraping-approved.md) of the same day: the same opening and last lines, January 2018 to December 2023. **643 requests, every one HTTP 200, no block** (21:06–21:43 UTC), with the adapter's pacing and receipts; same layout and gitignored folders as above. A first run was stopped after 49 month listings, before any line request, to fix the rule below; its listings were reused.
+* **A fix first.** Until mid-2019 OddsTrader named most tour-level singles groups by the venue alone ("Rotterdam, Netherlands"), so the adapter's rule ("singles" in the group name) would have kept only ITF singles. Tour-level singles carried the word in 3% of 2018's groups and 49% of 2019's. The rule now also keeps a group that is neither doubles nor mixed and whose description pairs no players with "/". It classifies every saved 2024–2026 event exactly as before (`src/ingest/oddstrader.py`, `is_singles`; tests in `test/betonline_lines/`).
+* **What came in** [observed]: 42,836 singles events of 2018–2023, 39,068 with an opening and a last match-winner line.
+* **The 2024–2026 rows are unchanged**: value for value, checked against a copy taken before the restage. The participant-id columns are now stored as floats, because 14 and 25 older events lack an id.
+* **Linked to the project's main tour** (the model frame's matches; frame counts in `data/studies/bet_timing/frame_counts.json`): 71% of 2018's frame matches and 79% of 2019's have a clean opening line, then 91–98% from 2020. Openings came a median 33–38 hours before the listed start in 2018–2023, against 24–31 hours in 2024–2026.
+* **Eleven early-January 2024 matches** gained a price: OddsTrader listed them in its December 2023 window, which only this pull fetched. The earlier 2024 studies lacked them.
+
+## Pulled from OddsTrader, 9 October 2026 (UTC): every book's last line, 2018–2026
+
+Pulled for the [odds-sources study](../../studies/odds_sources/README.md) under the [scraping approval](../../decisions/2026-10-08-scraping-approved.md). The adapter's new mode (`--books-eids`) asks for books 1–200 at once, plus Pinnacle's opening line, match winner only.
+* **The pull:** 491 requests (14:42–15:15 UTC), every one HTTP 200, no block. Same pacing, receipts and gitignored folders as above. Raw responses are in `data/raw/oddstrader/books/` (590 MB); the staged table is `data/dump/odds/oddstrader/books_lines.parquet` (2,156,371 lines).
+* **What was asked for:** the 39,666 OddsTrader events linked to tennis-data's 2018–2026 rows (39,666 of 42,378), with the BetOnline study's linker.
+* **What came in** [observed]:
+  * 60 book ids have at least 500 coherent last lines on the model's matches.
+  * The median match has 30–33 books in 2018–2021, 28 in 2022–2023, 23–24 in 2024–2025, and 11 in 2026.
+* **Names.** The site's ATP page lists 11 books by id (`data/raw/oddstrader/probe/atp_page.html`), and three more ids are named from their prices [inferred]:
+  * id 20 is Pinnacle: January 2018 to 7 September 2025, then nothing;
+  * ids 5 (to mid-2023) and 106 (2020–2025) are Bet365.
+  * The rest stay numbered: the site's script keys them differently.
+* **A caution for every use** [observed]: some books' "last line" is an in-play price, recorded hours after the start. Drop lines stamped more than 30 minutes after the listed start, as the adapter already does for BetOnline's closes. One id (88) is not a match-winner line at all. Details are in the [study](../../studies/odds_sources/README.md#23-in-play-prices-in-oddstraders-last-lines).
+* **The other tables are unchanged.** The pull wrote only to `books/`; the run's restaging rebuilt `events`, `lines` and `betonline_matches` from their untouched raw files.
+
 ## 1. OddsTrader
 
 OddsTrader's ATP and WTA pages load their prices from the site's own odds service. It answered without a login or a challenge on 6 October 2026. For each match and bookmaker it serves:

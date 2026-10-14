@@ -1,0 +1,147 @@
+{"scenario": "same_event", "removed": 23}
+>>> C:\Users\zerom\tnr_gate_review\src\eda\current_best_model\layer_config.py --resolve --official C:\Users\zerom\Documents\Tennis-predictions\data\studies\current_best_model\level_layer\official.json
+[layer_config] atp: 476,523 matches, K {'k0': 600.0, 'offset': 2.0, 'shape': 0.6}, 2 s
+[layer_config] wta: 445,434 matches, K {'k0': 600.0, 'offset': 1.0, 'shape': 0.6}, 2 s
+[layer_config] strength: re-centred (option c); equal to the frozen on the reference's matches: False (48,673 differ; 48,572 new matches)
+C:\Users\zerom\tnr_gate_review\data\studies\current_best_model\level_layer\this_build\build_config.json
+{"scenario": "same_event", "strength_sha256_before": "4cd73af86165962a3cb0ca50cae005d3cd65158a13aa1793d8c9cb77526b366c", "strength_sha256_after": "4cd73af86165962a3cb0ca50cae005d3cd65158a13aa1793d8c9cb77526b366c", "strength_unchanged": true, "stage0_sha256": "f0d53ee8db214e3519e8ff6f74b9bf78ebe5ebbf7faf5438c4fd761f14ac712d"}
+>>> C:\Users\zerom\Documents\Tennis-predictions\src\eda\daily_prediction\dp.py states --run C:\Users\zerom\Documents\Tennis-predictions\data\studies\box_score_gate_review\replay\same_event
+{
+ "checkpoint": "C:\\Users\\zerom\\Documents\\Tennis-predictions\\data\\studies\\daily_prediction\\state\\template_2026-10-13\\2026-06-22",
+ "parts_summary": {
+  "slice changed: recomputed in full": 19,
+  "resumed": 2
+ },
+ "seconds": {
+  "offset": 24.6,
+  "stage3": 33.7,
+  "stage4_rows": 127.6,
+  "weighted": 72.9,
+  "stage4_inputs": 19.6,
+  "pieces": 16.9,
+  "context": 36.2,
+  "waited_for_forms_and_ios": 722.9,
+  "forms_rows": 38.2,
+  "forms_context": 105.1,
+  "forms": 486.5,
+  "forms_family": 629.8,
+  "ios_cache": 100.3,
+  "ios_runs": 955.2,
+  "ios_family": 1055.4,
+  "total": 1057.6
+ },
+ "gate": {
+  "live_matches": 23,
+  "complete": 0
+ }
+}
+>>> C:\Users\zerom\Documents\Tennis-predictions\src\eda\daily_prediction\dp.py fit --run C:\Users\zerom\Documents\Tennis-predictions\data\studies\box_score_gate_review\replay\same_event --seeds 0-15
+{
+ "matches": 23,
+ "seeds": 16,
+ "inside_grid": 23,
+ "interpolated_vs_own_max_abs": 0.0005435701422550343,
+ "interpolated_vs_own_mean_abs": 0.00021153618312662084,
+ "falling_steps": 14,
+ "steps": 2070
+}
+{"scenario": "other_event", "removed": 20}
+>>> C:\Users\zerom\tnr_gate_review\src\eda\current_best_model\layer_config.py --resolve --official C:\Users\zerom\Documents\Tennis-predictions\data\studies\current_best_model\level_layer\official.json
+[layer_config] atp: 476,523 matches, K {'k0': 600.0, 'offset': 2.0, 'shape': 0.6}, 1 s
+[layer_config] wta: 445,434 matches, K {'k0': 600.0, 'offset': 1.0, 'shape': 0.6}, 1 s
+[layer_config] strength: re-centred (option c); equal to the frozen on the reference's matches: False (48,673 differ; 48,572 new matches)
+C:\Users\zerom\tnr_gate_review\data\studies\current_best_model\level_layer\this_build\build_config.json
+{"scenario": "other_event", "strength_sha256_before": "4cd73af86165962a3cb0ca50cae005d3cd65158a13aa1793d8c9cb77526b366c", "strength_sha256_after": "4cd73af86165962a3cb0ca50cae005d3cd65158a13aa1793d8c9cb77526b366c", "strength_unchanged": true, "stage0_sha256": "733c85474c67bd19ca66542db4e78fdef694779dc82dffc8425192d7760234dc"}
+>>> C:\Users\zerom\Documents\Tennis-predictions\src\eda\daily_prediction\dp.py states --run C:\Users\zerom\Documents\Tennis-predictions\data\studies\box_score_gate_review\replay\other_event
+{
+ "checkpoint": "C:\\Users\\zerom\\Documents\\Tennis-predictions\\data\\studies\\daily_prediction\\state\\template_2026-10-13\\2026-06-22",
+ "parts_summary": {
+  "slice changed: recomputed in full": 19,
+  "resumed": 2
+ },
+ "seconds": {
+  "offset": 7.9,
+  "stage3": 12.7,
+  "stage4_rows": 75.4,
+  "weighted": 56.9,
+  "stage4_inputs": 14.2,
+  "pieces": 12.2,
+  "context": 18.7,
+  "waited_for_forms_and_ios": 368.4,
+  "forms_rows": 17.0,
+  "forms_context": 65.7,
+  "forms": 226.9,
+  "forms_family": 309.6,
+  "ios_cache": 45.1,
+  "ios_runs": 522.5,
+  "ios_family": 567.6,
+  "total": 568.6
+ },
+ "gate": {
+  "live_matches": 23,
+  "complete": 1
+ }
+}
+>>> C:\Users\zerom\Documents\Tennis-predictions\src\eda\daily_prediction\dp.py fit --run C:\Users\zerom\Documents\Tennis-predictions\data\studies\box_score_gate_review\replay\other_event --seeds 0-15
+{
+ "matches": 23,
+ "seeds": 16,
+ "inside_grid": 23,
+ "interpolated_vs_own_max_abs": 0.0005531939910097261,
+ "interpolated_vs_own_mean_abs": 0.00021363765825116484,
+ "falling_steps": 16,
+ "steps": 2070
+}
+{"scenario": "all_window", "removed": 94}
+>>> C:\Users\zerom\tnr_gate_review\src\eda\current_best_model\layer_config.py --resolve --official C:\Users\zerom\Documents\Tennis-predictions\data\studies\current_best_model\level_layer\official.json
+[layer_config] atp: 476,523 matches, K {'k0': 600.0, 'offset': 2.0, 'shape': 0.6}, 1 s
+[layer_config] wta: 445,434 matches, K {'k0': 600.0, 'offset': 1.0, 'shape': 0.6}, 1 s
+[layer_config] strength: re-centred (option c); equal to the frozen on the reference's matches: False (48,673 differ; 48,572 new matches)
+C:\Users\zerom\tnr_gate_review\data\studies\current_best_model\level_layer\this_build\build_config.json
+{"scenario": "all_window", "strength_sha256_before": "4cd73af86165962a3cb0ca50cae005d3cd65158a13aa1793d8c9cb77526b366c", "strength_sha256_after": "4cd73af86165962a3cb0ca50cae005d3cd65158a13aa1793d8c9cb77526b366c", "strength_unchanged": true, "stage0_sha256": "847743e73aff323f67867d31782e2f239a0310eeeb390fb99ed06d6ff0ba188e"}
+>>> C:\Users\zerom\Documents\Tennis-predictions\src\eda\daily_prediction\dp.py states --run C:\Users\zerom\Documents\Tennis-predictions\data\studies\box_score_gate_review\replay\all_window
+{
+ "checkpoint": "C:\\Users\\zerom\\Documents\\Tennis-predictions\\data\\studies\\daily_prediction\\state\\template_2026-10-13\\2026-06-22",
+ "parts_summary": {
+  "slice changed: recomputed in full": 19,
+  "resumed": 2
+ },
+ "seconds": {
+  "offset": 9.3,
+  "stage3": 13.7,
+  "stage4_rows": 77.1,
+  "weighted": 56.5,
+  "stage4_inputs": 14.0,
+  "pieces": 12.3,
+  "context": 19.4,
+  "waited_for_forms_and_ios": 373.5,
+  "forms_rows": 17.8,
+  "forms_context": 66.8,
+  "forms": 223.4,
+  "forms_family": 308.0,
+  "ios_cache": 47.6,
+  "ios_runs": 529.4,
+  "ios_family": 577.0,
+  "total": 577.9
+ },
+ "gate": {
+  "live_matches": 23,
+  "complete": 0
+ }
+}
+>>> C:\Users\zerom\Documents\Tennis-predictions\src\eda\daily_prediction\dp.py fit --run C:\Users\zerom\Documents\Tennis-predictions\data\studies\box_score_gate_review\replay\all_window --seeds 0-15
+{
+ "matches": 23,
+ "seeds": 16,
+ "inside_grid": 23,
+ "interpolated_vs_own_max_abs": 0.0006796600511008721,
+ "interpolated_vs_own_mean_abs": 0.00025383875875625004,
+ "falling_steps": 23,
+ "steps": 2070
+}
+>>> C:\Users\zerom\tnr_gate_review\src\eda\current_best_model\layer_config.py --resolve --official C:\Users\zerom\Documents\Tennis-predictions\data\studies\current_best_model\level_layer\official.json
+[layer_config] atp: 476,523 matches, K {'k0': 600.0, 'offset': 2.0, 'shape': 0.6}, 1 s
+[layer_config] wta: 445,434 matches, K {'k0': 600.0, 'offset': 1.0, 'shape': 0.6}, 1 s
+[layer_config] strength: re-centred (option c); equal to the frozen on the reference's matches: False (48,673 differ; 48,572 new matches)
+C:\Users\zerom\tnr_gate_review\data\studies\current_best_model\level_layer\this_build\build_config.json
+python exit 0

@@ -1,0 +1,330 @@
+<title>Five Patterns Plan</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600&family=Barlow+Semi+Condensed:wght@600;700&family=Public+Sans:ital,wght@0,400;0,600;1,400&display=swap">
+<style>
+/* Layout: one reading column. Each stage is a band under a heavy rule, with a scoreboard-style label and a status chip saying when it can happen. Steps keep one running number, because the order is the plan. */
+:root {
+  --bg: #f3f6f4;
+  --surface: #ffffff;
+  --ink: #15211b;
+  --muted: #56645c;
+  --rule: #d3dcd6;
+  --court: #1d5a45;
+  --court-soft: #e1ede7;
+  --go: #8f520c;
+  --go-soft: #f6ead8;
+  --ball: #d8eb3a;
+  --display: "Barlow Semi Condensed", "Arial Narrow", "Helvetica Neue", Arial, sans-serif;
+  --label: "Barlow Condensed", "Arial Narrow", "Helvetica Neue", Arial, sans-serif;
+  --body: "Public Sans", "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0e1613; --surface: #15201b; --ink: #e5ece8; --muted: #a2afa8; --rule: #2a3832;
+    --court: #7cc6a7; --court-soft: #1b2d26; --go: #efb566; --go-soft: #2d2316; --ball: #c8db2c;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0e1613; --surface: #15201b; --ink: #e5ece8; --muted: #a2afa8; --rule: #2a3832;
+  --court: #7cc6a7; --court-soft: #1b2d26; --go: #efb566; --go-soft: #2d2316; --ball: #c8db2c;
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+body { background: var(--bg); color: var(--ink); font-family: var(--body); font-size: 1rem; line-height: 1.62; margin: 0; }
+.page {
+  max-width: 46rem; margin: 0 auto;
+  padding-inline: clamp(16px, 4vw, 32px);
+  padding-block: clamp(28px, 6vw, 56px) 48px;
+  display: grid; gap: clamp(30px, 5vw, 46px);
+}
+p { margin: 0; }
+strong { font-weight: 600; }
+
+.masthead { display: grid; gap: .55rem; }
+.eyebrow {
+  font-family: var(--label); font-weight: 600; font-size: .92rem; letter-spacing: .13em; text-transform: uppercase;
+  color: var(--court); display: flex; align-items: center; gap: .55rem;
+}
+.eyebrow::before {
+  content: ""; width: .72rem; height: .72rem; border-radius: 50%; background: var(--ball);
+  box-shadow: inset 0 0 0 1px var(--court);
+}
+h1 { font-family: var(--display); font-weight: 700; font-size: clamp(2rem, 5.6vw, 2.9rem); line-height: 1.07; letter-spacing: -.01em; margin: 0; text-wrap: balance; }
+h2 { font-family: var(--display); font-weight: 700; font-size: clamp(1.4rem, 3.4vw, 1.75rem); line-height: 1.15; margin: 0; text-wrap: balance; }
+h3 { font-family: var(--display); font-weight: 600; font-size: 1.24rem; line-height: 1.25; margin: 0; text-wrap: balance; }
+
+.about { display: grid; gap: 1rem; }
+.patterns { margin: 0; display: grid; border-top: 1px solid var(--rule); }
+.patterns > div {
+  display: grid; grid-template-columns: minmax(8.5rem, 11rem) 1fr; gap: .2rem 1.25rem;
+  padding-block: .8rem; border-bottom: 1px solid var(--rule);
+}
+.patterns dt { font-family: var(--display); font-weight: 600; font-size: 1.1rem; color: var(--court); }
+.patterns dd { margin: 0; min-width: 0; }
+@media (max-width: 560px) { .patterns > div { grid-template-columns: 1fr; } }
+
+.stage { display: grid; gap: 1.15rem; padding-top: 1.35rem; border-top: 3px solid var(--ink); }
+.stage-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: .3rem .8rem; }
+.stage-num {
+  flex-basis: 100%; font-family: var(--label); font-weight: 600; font-size: .95rem;
+  letter-spacing: .15em; text-transform: uppercase; color: var(--muted);
+}
+.stage-head h2 { flex: 1 1 17rem; min-width: 0; }
+.chip {
+  font-family: var(--label); font-weight: 600; font-size: .9rem; letter-spacing: .08em; text-transform: uppercase;
+  padding: .12rem .62rem; border-radius: 999px; white-space: nowrap;
+}
+.chip-now { background: var(--court-soft); color: var(--court); }
+.chip-go { background: var(--go-soft); color: var(--go); }
+.chip-plain { color: var(--muted); box-shadow: inset 0 0 0 1px var(--rule); }
+
+.steps { list-style: none; margin: 0; padding: 0; display: grid; gap: 1.6rem; }
+.step { display: grid; grid-template-columns: 2.7rem 1fr; gap: 0 1rem; }
+.n {
+  font-family: var(--display); font-weight: 700; font-size: 1.95rem; line-height: 1;
+  color: var(--court); font-variant-numeric: tabular-nums; padding-top: .08rem;
+}
+.step-body { display: grid; gap: .6rem; min-width: 0; }
+.step ul, .who ul { margin: 0; padding-left: 1.15rem; display: grid; gap: .45rem; }
+.step li::marker, .who li::marker { color: var(--court); }
+.note { font-size: .93rem; color: var(--muted); font-style: italic; }
+.today {
+  background: var(--court-soft); border-radius: 8px; padding: .7rem .9rem;
+}
+
+.who { display: grid; grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr)); gap: 1rem; }
+.who section {
+  background: var(--surface); border: 1px solid var(--rule); border-radius: 10px;
+  padding: 1.05rem 1.2rem; display: grid; gap: .6rem; align-content: start; min-width: 0;
+}
+.who .me h3 { color: var(--court); }
+.who .you h3 { color: var(--go); }
+
+.now { background: var(--surface); border: 1px solid var(--rule); border-radius: 12px; padding: 1.2rem 1.25rem;
+  display: grid; gap: .9rem; }
+.now h2 { font-size: clamp(1.3rem, 3vw, 1.55rem); }
+.verdict { display: flex; flex-wrap: wrap; align-items: baseline; gap: .4rem .9rem; }
+.verdict .big { font-family: var(--display); font-weight: 700; font-size: clamp(2.2rem, 7vw, 3rem); line-height: 1;
+  color: var(--court); font-variant-numeric: tabular-nums; }
+.status { list-style: none; margin: 0; padding: 0; display: grid; gap: .5rem; }
+.status li { display: grid; grid-template-columns: 7.5rem 1fr; gap: .2rem .8rem; align-items: baseline; }
+.status li > span:last-child { min-width: 0; }
+@media (max-width: 480px) { .status li { grid-template-columns: 1fr; } }
+.chip-done { background: var(--court-soft); color: var(--court); }
+footer { font-size: .86rem; color: var(--muted); border-top: 1px solid var(--rule); padding-top: 1rem; }
+@media (prefers-reduced-motion: reduce) { * { animation: none !important; transition: none !important; } }
+</style>
+
+<main class="page">
+  <header class="masthead">
+    <p class="eyebrow">Tennis model · plan in plain words</p>
+    <h1>Five patterns the closing odds may miss</h1>
+  </header>
+
+  <section class="now" aria-labelledby="now">
+    <h2 id="now">Where things stand (14 October)</h2>
+    <div class="verdict">
+      <span class="big">+3.8</span>
+      <span>standard errors on 9,457 matches since January 2025. The pass mark was +1.0. <strong>The check passed.</strong></span>
+    </div>
+    <p>The closing line did not price these patterns in 2025–26: against the closing odds alone the reading is +3.85. About 78% of the old strength survived; about 45% was expected. It holds in the Pinnacle months and the BetOnline months alike. Fast courts and rhythm carry most of it; reputation shows nothing.</p>
+    <ul class="status">
+      <li><span class="chip chip-done">Done</span><span>Step 1: the rules, written before looking, which you OK'd.</span></li>
+      <li><span class="chip chip-done">Done</span><span>Step 2: built into the daily predictions, switched off. Proven to change nothing while off.</span></li>
+      <li><span class="chip chip-done">Done</span><span>Step 3: live numbers match the historical ones exactly on a replayed day (23 matches). Two gaps for upcoming matches: short rest needs scheduled start times, and the court-speed part uses ratings data that end at the last model rebuild.</span></li>
+      <li><span class="chip chip-done">Done</span><span>Step 6: the check, which passed.</span></li>
+      <li><span class="chip chip-done">Done</span><span>Switched on (13 October). Every prediction file shows the chance with and without the patterns, and the bet sheet flags bets that exist only because of them.</span></li>
+      <li><span class="chip chip-go">Your call</span><span>How to stake bets that exist only because of the patterns. Then steps 4 and 5 (data and Pinnacle odds), and steps 7–9 before staking more.</span></li>
+    </ul>
+  </section>
+
+  <section class="about" aria-labelledby="about">
+    <h2 id="about">What this is about</h2>
+    <p>The study found five patterns in 2013–2024 matches that the closing odds seemed to miss:</p>
+    <dl class="patterns">
+      <div><dt>Luck</dt><dd>Players whose recent results were luckier than their play (for example, on break points or in close sets) are overrated.</dd></div>
+      <div><dt>Post-Slam slump</dt><dd>Players who reached a Grand Slam quarter-final or better do worse than expected for about three weeks afterwards.</dd></div>
+      <div><dt>Big servers on fast courts</dt><dd>They are underrated.</dd></div>
+      <div><dt>Reputation</dt><dd>Seeded and famous players are overrated. Players coming up with good results from lower-level events are underrated.</dd></div>
+      <div><dt>Rhythm</dt><dd>The odds don't fully count doubles played the week before, very short rest, or a heavy recent workload.</dd></div>
+    </dl>
+    <p>The idea is to add these as one small adjustment on top of the model's prediction, the same way the serve-speed adjustment works now. The main model stays as it is. Below are the steps needed before that adjustment can be trusted with real money.</p>
+  </section>
+
+  <section class="stage" aria-labelledby="s1">
+    <div class="stage-head">
+      <span class="stage-num">Stage 1</span>
+      <h2 id="s1">Before we look at any 2025–26 results</h2>
+      <span class="chip chip-now">Can start now</span>
+    </div>
+    <ol class="steps">
+      <li class="step">
+        <span class="n">1</span>
+        <div class="step-body">
+          <h3>Write the rules down before we look.</h3>
+          <p>Once we've seen the results, we'd be tempted to bend the rules to fit them. So we decide now:</p>
+          <ul>
+            <li><strong>One adjustment, not five.</strong> Each pattern alone is too weak to judge. Combined, they have a fair chance of giving a clear answer.</li>
+            <li><strong>Size it from the 2025–26 results, not the old ones.</strong> The old numbers overstate the patterns. We picked the best five out of about 500, so part of their strength was luck. Sized from the old numbers, the adjustment would do more harm than good, even if the patterns are as real as we expect.</li>
+            <li><strong>Put a limit on it.</strong> The post-Slam slump affects only about 2 matches in 100, but strongly. A limit stops one pattern from swinging a single prediction too far.</li>
+            <li><strong>The pass mark.</strong> Use the adjustment only if the 2025–26 results still lean clearly the right way. A real pattern passes about 7 times in 10. A dead one passes by luck about 1 time in 6.</li>
+          </ul>
+        </div>
+      </li>
+      <li class="step">
+        <span class="n">2</span>
+        <div class="step-body">
+          <h3>Build it into the prediction code.</h3>
+          <ul>
+            <li>It goes next to the serve-speed adjustment, and both are worked out together.</li>
+            <li>If a pattern can't be calculated for a match because data is missing, it adds nothing.</li>
+            <li>We check that it doesn't double-count serve speed. The fast-court pattern is about serving, so the two may overlap.</li>
+            <li>We do a test run on 2020–24 only to make sure the code works. Those seasons were used to find the patterns, so any gain there proves nothing.</li>
+          </ul>
+        </div>
+      </li>
+      <li class="step">
+        <span class="n">3</span>
+        <div class="step-body">
+          <h3>Make sure the live numbers match the historical ones.</h3>
+          <ul>
+            <li>Right now, study code calculates the patterns on past matches. The daily prediction run has to calculate them for upcoming matches.</li>
+            <li>To prove the daily version is right, we replay some past days as if they were live and check the numbers come out exactly the same. The project already does this check for the model's other inputs.</li>
+            <li>The fast-court pattern estimates court speed from other players' aces at the same event. It must use only matches that had definitely finished before the match being predicted. This is the project's existing rule against peeking at later results.</li>
+          </ul>
+        </div>
+      </li>
+      <li class="step">
+        <span class="n">4</span>
+        <div class="step-body">
+          <h3>Fix the data gaps.</h3>
+          <p>Without these, only part of the adjustment can run:</p>
+          <ul>
+            <li><strong>Match statistics at every level dropped sharply from mid-2026.</strong> In July they were at 40% of the year before for men and 19% for women. The luck pattern needs them, so it stays off until they're back.</li>
+            <li><strong>Lower-level results are missing:</strong> women's ITF qualifying since 2025, and most lower-level events since June 2026. The "coming up from lower levels" half of the reputation pattern needs them. Without them, that half is off for about 70% of women's matches. Adding this data needs your OK, because the project's rule is that new lower-level data is tested before it's accepted.</li>
+            <li><strong>Live doubles results and match start times.</strong> The rhythm pattern needs them at the time we bet. We already have a collector that can be extended.</li>
+          </ul>
+          <p class="today">Today, only the post-Slam slump, big servers on fast courts, and the "seeded and famous" half of the reputation pattern could run.</p>
+        </div>
+      </li>
+      <li class="step">
+        <span class="n">5</span>
+        <div class="step-body">
+          <h3>Optional, costs money (your call): Pinnacle's closing odds from August 2025.</h3>
+          <ul>
+            <li>From September 2025, the only closing odds we have are BetOnline's. Those are softer than Pinnacle's, especially for women's matches.</li>
+            <li>So a pattern can look like it beats the odds just because BetOnline's odds are soft.</li>
+            <li>The free alternative: the check reports the months with Pinnacle odds separately. That shows whether the patterns also beat the sharper odds.</li>
+          </ul>
+        </div>
+      </li>
+    </ol>
+  </section>
+
+  <section class="stage" aria-labelledby="s2">
+    <div class="stage-head">
+      <span class="stage-num">Stage 2</span>
+      <h2 id="s2">The check</h2>
+      <span class="chip chip-go">Needs your go</span>
+    </div>
+    <ol class="steps">
+      <li class="step">
+        <span class="n">6</span>
+        <div class="step-body">
+          <h3>Run the check on every match since January 2025.</h3>
+          <p>That's about 9,500 matches, and it takes minutes. We apply the rules from step 1 and look at three things:</p>
+          <ul>
+            <li>How much of the patterns' old strength is still there.</li>
+            <li>How much they add on top of our model's own predictions, not just on top of the odds.</li>
+            <li>Whether they hold in the months with Pinnacle odds, not just the BetOnline months.</li>
+          </ul>
+          <p class="note">The old list ran this only on matches up to 28 July 2026 and saved the rest for 2027.</p>
+        </div>
+      </li>
+    </ol>
+  </section>
+
+  <section class="stage" aria-labelledby="s3">
+    <div class="stage-head">
+      <span class="stage-num">Stage 3</span>
+      <h2 id="s3">After the check, before real bets</h2>
+      <span class="chip chip-plain">Before real money</span>
+    </div>
+    <ol class="steps">
+      <li class="step">
+        <span class="n">7</span>
+        <div class="step-body">
+          <h3>Measure it against the odds you actually bet at.</h3>
+          <ul>
+            <li>The check compares against the closing odds, but you bet earlier, at a specific venue.</li>
+            <li>The odds move during the day: toward some of these patterns and away from others. So the edge when you bet isn't the same as the edge at the close.</li>
+            <li>Part of the luck pattern's effect comes from matches where a player retired. If your venue cancels bets when a player retires, that part doesn't pay. In that case, size the luck pattern on finished matches only.</li>
+          </ul>
+        </div>
+      </li>
+      <li class="step">
+        <span class="n">8</span>
+        <div class="step-body">
+          <h3>Run the project's standard before-and-after comparison, as a safety check only.</h3>
+          <p>The expected gain is too small for this comparison to detect, but it can catch real damage.</p>
+        </div>
+      </li>
+      <li class="step">
+        <span class="n">9</span>
+        <div class="step-body">
+          <h3>Keep stakes small at first.</h3>
+          <p>Until the adjustment has proven itself on new matches, it shouldn't raise bet sizes much. For example, bets that exist only because of the adjustment get smaller stakes. This is a standing project rule.</p>
+        </div>
+      </li>
+    </ol>
+  </section>
+
+  <section class="stage" aria-labelledby="s4">
+    <div class="stage-head">
+      <span class="stage-num">Stage 4</span>
+      <h2 id="s4">Once it's live</h2>
+      <span class="chip chip-plain">Every month</span>
+    </div>
+    <ol class="steps">
+      <li class="step">
+        <span class="n">10</span>
+        <div class="step-body">
+          <h3>Re-check every month.</h3>
+          <p>As new results come in, we update the size. It grows if the patterns keep working and shrinks toward zero if they don't. Markets learn, and two patterns (luck and the post-Slam slump) were already fading in 2023–24, so watch those two closely.</p>
+          <p class="note">The old list had two steps about waiting until August 2027. This monthly re-check replaces them.</p>
+        </div>
+      </li>
+    </ol>
+  </section>
+
+  <section class="stage" aria-labelledby="who">
+    <div class="stage-head">
+      <h2 id="who">Who does what</h2>
+    </div>
+    <div class="who">
+      <section class="me" aria-labelledby="who-me">
+        <h3 id="who-me">I can do now</h3>
+        <ul>
+          <li>Draft the rules in step 1 for your OK.</li>
+          <li>Build the code (step 2).</li>
+          <li>Check that the live numbers match (step 3).</li>
+          <li>Set up the live data collection (step 4).</li>
+        </ul>
+      </section>
+      <section class="you" aria-labelledby="who-you">
+        <h3 id="who-you">Needs you</h3>
+        <ul>
+          <li>OK the rules.</li>
+          <li>OK adding the women's lower-level data.</li>
+          <li>Decide whether to pay for Pinnacle odds.</li>
+          <li>Give the go for the check.</li>
+        </ul>
+      </section>
+    </div>
+  </section>
+
+  <footer>Plan written 13 October 2026; status added the same evening.</footer>
+</main>

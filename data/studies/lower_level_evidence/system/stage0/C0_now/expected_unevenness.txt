@@ -1,0 +1,78 @@
+Expected unevenness of the C0 arms' inputs, written by role F before any NEW arm (NEW_ASIS, NEW_SYS_BOTH, or an arm
+on C0_pre) is built or scored. Written 2026-10-10 about 00:45 UTC. Its SHA-256 is in expected_unevenness.sha256.
+
+The test (compare.py part 1): a tour-season is flagged when its scale ratio is off 1 by more than 10% or its level moves
+by more than 0.10 SD; an input is "uneven" when some tour-seasons are flagged and others not.
+
+The basis (counts and dates only, no outcome): the dose of the build of 23:17 UTC (C0_now attempt 4; dose.csv of that
+build), i.e. per tour and season the model-frame matches with a player whose previous 365 (28) days gain new matches or
+new box scores, and the mean share of a player's previous-year history those make up. The READY build's own dose.csv
+re-measures it (the tour fix moves about 6,000 men's rows from women's ids back to men's: men's exposure rises a little,
+women's falls a little). The expectation below is fixed now and is not revised after any arm exists.
+
+                     frame matches with a new match     mean share of        frame matches with a new box score
+                     in a player's previous 365 / 28 d  previous-year matches  in the previous 365 / 28 d (share of box history)
+  men   2013-2017    0 / 0                              0                    8-22 / 1-2 (0.0%)  [ten SofaScore careers' ITF]
+  men   2018-2024    1-6% / under 1%                    0.03-0.33%           1-2% / 0-3 matches (0.02-0.11%)
+  men   2025         6% / 1%                            0.18%                2% / 0 (0.03%)
+  men   2026         9% / 3%                            0.42%                1% / 0 (0.01%)
+  women 2013-2016    25-53% / 2-13%                     1.2-2.2%             0
+  women 2017-2018    20-27% / 3-6%                      1.2-1.4%             0
+  women 2019-2024    14-38% / 1-6%                      0.4-1.6%             4-40% / 0-7% (0.06-1.4%)
+  women 2025         38% / 5%                           1.4%                 26% / 2% (0.5%)
+  women 2026         59% / 27%                          4.3%                 47% / 24% (2.5%)
+
+What moves, and how much (Inferred from the dose and from what each family reads; 01_lineage.md maps the families):
+
+MEN (NEW_ASIS against REF)
+* Results family (elo_overall, elo_surf_offset, elo_games; sets_14d; surf_season_a/b, surf_layoff_a/b). The additions are
+  mostly ITF qualifying from 2018 (none before 2018), far from the frame's players. Elo changes spread through opponents,
+  so many rows from 2018 on change, each by very little: level shifts under 0.02 SD, scale within 2%. sets_14d and the
+  surface counts move in under 1% of rows (2018-2025) and about 3% (2026). Expected: no tour-season flagged.
+  One exception to watch: the template re-tunes Stage 1's Elo constants and the offset Elo's K on 2013-2018, and C0_now
+  changes 2018 (men's ITF qualifying). If the re-tune picks another constant, every season's Elo inputs move, 2013 on
+  ("every season", not "uneven"), still by little. C1 records which constants were used.
+* Box family (points_52w, the 17 two-week forms, ratings_iid, the 14 IOS ratings, the 7 products, ios_points_short):
+  essentially unchanged: new men's box scores are about 1,500 completions for the ten SofaScore careers' ITF matches of
+  2015-2024 and the ITF live API's from 15 September 2026. Under 1% of rows change per season; the joint solves (IOS,
+  products) move every pool match very slightly from 2015 because the pool gains those rows. Expected: no flag.
+* Untouched: odds_logit, tour, surface, level, indoor, best_of, round, age, age_sq.
+* So: men's NEW_ASIS inputs are close to REF's in every season; a men's reading of NEW_ASIS against REF should be near
+  0 (Inferred).
+
+WOMEN (NEW_ASIS against REF)
+* Results family. Rows change in every season: ITF qualifying of 2010-2018 (Stage 0 had almost none), women's ITF and
+  qualifying of 2025-2026 (Stage 0's lower tiers end in June 2026) and the WTA's 2026 tour and Slam qualifying.
+  - Elo family: level shifts under 0.05 SD in every season; scale within 5%. Not flagged.
+  - sets_14d, surf_season_a/b, surf_layoff_a/b: these count recent matches. In 2026, 27% of frame matches have a player
+    with a new match in the 28 days before (mostly the same event's qualifying: tour qualifying 353 and Slam
+    qualifying 336 new matches in 2026), adding 2-3 matches (4-6 sets) to one side. Expected: flagged in 2026 (sets_14d
+    scale ratio about 1.05-1.20; surf_season level shift 0.05-0.20 SD), so "uneven" (2026 only). 2014 may also be
+    flagged for the same reason (Slam and tour qualifying 2014: 105 and 156 new matches, 13% of frame matches within
+    28 days). 2013, 2015-2025: not flagged.
+* Box family. New box scores reach 2019-2024 lightly (the WTA API's WTA 125 and qualifying matches Stage 0 lacked:
+  0.1-1.4% of box history; 117 completions, mostly WTA 125 2023), 2025 a little (0.5%), 2026 more (2.5% of box
+  history; 24% of frame matches have a new box score within 28 days: the WTA 125s since June and the 2026
+  qualifying).
+  - The two-week forms (form_*, formdef_*, adjperf_tpw_2w): possibly flagged in 2026 only (level shift up to about
+    0.10 SD, scale 0.95-1.10); not before.
+  - points_52w, ratings_iid: shifts under 0.05 SD; not flagged.
+  - The IOS products (prod_*) and to a lesser degree the IOS ratings: the joint solves' pool gains about 1,700 lower-level
+    women's box scores in 2026, which moves the products' scale (the mechanism of the input audit's finding #6).
+    Possibly flagged in 2026 (scale ratio off by 5-15%); not before.
+* So the expected shape is: women, 2026, the workload counts (sets_14d, surf_season, surf_layoff), possibly the two-week
+  forms and the products; perhaps 2014 for the workload counts; nothing on the dev seasons 2020-2024 above threshold;
+  nothing for men.
+
+NEW_SYS_BOTH against SYS_BOTH: the same additions through the layer. B's fitted w_results for ITF qualifying is 0 (E S9),
+so most men's additions drop out of Elo by construction; expected even smaller changes than NEW_ASIS for men, and for
+women the results families' changes scaled by w_results at ITFQ / ITF.
+
+C0_PRE (the frozen Stage 0 plus the additions dated up to 29 December 2024; the lead's request of 10 Oct 00:4x UTC)
+* It keeps the historical backfill (women's ITF qualifying 2010-2018; men's ITF qualifying 2018-2024; the WTA API's and
+  the WTA website's 2019-2024 WTA 125 and qualifying matches; the 2015-2024 box completions) and drops the 2025-2026
+  additions (the fill of the reference's 2026 publication lag, ITF live, the 2025-2026 WTA 125 and qualifying).
+* Expected: the same as C0_now for 2013-2024 (men: nothing flagged; women: perhaps 2014's workload counts); for
+  2025-2026 only the carry-over of pre-2025 history (frame matches of early 2025 whose previous year holds 2024
+  additions): no flag in 2025 or 2026. Differences between C0_now and C0_pre arms therefore sit in 2025-2026 (the
+  holdout) by construction.

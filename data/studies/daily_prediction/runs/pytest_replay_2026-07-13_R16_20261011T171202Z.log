@@ -1,0 +1,65 @@
+{
+ "created_at": "2026-10-11T171202Z",
+ "mode": "replay",
+ "replay": {
+  "week": "2026-07-13",
+  "round": "R16",
+  "winner": "A",
+  "dating": "training"
+ },
+ "matchups_csv": null,
+ "checkpoint": "2026-06-22",
+ "seeds": "0-15",
+ "work_tree": "C:\\Users\\zerom\\tnr_daily_pytest",
+ "instance": "C:\\Users\\zerom\\Documents\\Tennis-predictions\\data\\studies\\current_best_model\\template_2026-10-10",
+ "base_tree": "C:\\Users\\zerom\\tnr_lyr_new"
+}
+[    0.3s] == worktree
+[   10.8s]    worktree: 10.4 s
+[   10.8s] == matchups
+[   13.5s]    matchups: 2.7 s
+[   13.5s] == prices
+[   13.5s]    prices: 0.1 s
+[   13.5s] == tables
+[   13.6s] --> stage0: src/eda/predictability_diagnostic/stage0_build.py --live-rows run/live_rows.parquet
+[   96.2s]     exit 0 in 82.6 s
+[   96.2s] --> additions: src/eda/current_best_model/additions.py --apply
+[  111.5s]     exit 0 in 15.4 s
+[  111.5s] --> check: src/eda/prediction_run/inject.py --meta run/live_meta.parquet --step check
+[  112.0s]     exit 0 in 0.5 s
+[  112.0s] --> lle_layer: src/eda/current_best_model/layer_config.py --resolve --official C:\Users\zerom\Documents\Tennis-predictions\data\studies\current_best_model\level_layer\official.json
+[  126.2s]     exit 0 in 14.2 s
+[  126.2s] --> odds: src/eda/predictability_diagnostic/stage1_odds.py 
+[  132.5s]     exit 0 in 6.3 s
+[  132.5s] --> live_odds: src/eda/prediction_run/inject.py --meta run/live_meta.parquet --step odds
+[  133.1s]     exit 0 in 0.6 s
+[  138.7s]    tables: 125.1 s
+[  138.7s] == states
+[  237.1s]    states: 98.4 s
+[  237.1s] == history
+[  237.1s]    history: 0.0 s
+[  237.1s] == fit
+[  320.7s]    fit: 83.6 s
+[  320.7s] == predict
+[  321.5s]    predict: 0.8 s
+{
+ "run": "C:\\Users\\zerom\\Documents\\Tennis-predictions\\data\\studies\\daily_prediction\\runs\\pytest_replay_2026-07-13_R16_20261011T171202Z",
+ "mode": "replay",
+ "started_at": "2026-10-11T171202Z",
+ "steps": {
+  "worktree": 10.4,
+  "matchups": 2.7,
+  "prices": 0.1,
+  "tables": 125.1,
+  "states": 98.4,
+  "history": 0.0,
+  "fit": 83.6,
+  "predict": 0.8,
+  "cleanup": 2.9
+ },
+ "finished_at": "2026-10-11T171724Z",
+ "cleanup": {
+  "deleted": true,
+  "seconds": 2.9
+ }
+}

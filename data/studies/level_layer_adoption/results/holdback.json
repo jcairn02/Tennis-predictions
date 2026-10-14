@@ -1,0 +1,120 @@
+{
+ "check": "holdback",
+ "first": "TEMPLATE",
+ "second": "CONTROL",
+ "positive": "TEMPLATE better",
+ "test_seasons": [
+  2020,
+  2021,
+  2022,
+  2023,
+  2024
+ ],
+ "fit_seasons": [
+  2019,
+  2020,
+  2021,
+  2022,
+  2023,
+  2024
+ ],
+ "primary_both_tours_both_stages": {
+  "period": "2020-2024",
+  "group": "harm check",
+  "comparison": "TEMPLATE vs CONTROL",
+  "first": "TEMPLATE",
+  "second": "CONTROL",
+  "stage": "both stages",
+  "tour": "both tours",
+  "population": "all",
+  "matches": 22265,
+  "estimate": 0.017739241531165344,
+  "lo": -0.12528085198802538,
+  "hi": 0.16075933505035608,
+  "se": 0.07133601227854848,
+  "p_better": 0.5981925972230033,
+  "p_better_t": 0.5977209287588797,
+  "p_two_sided": 0.8036148055539932,
+  "blocks": 55,
+  "reading": "unresolved"
+ },
+ "harm_rule": "worse by more than 0.10 mLL with the whole 95% interval below 0",
+ "harm": false,
+ "half_width": 0.14302009351919073,
+ "plausible": 0.1,
+ "below_resolution": true,
+ "blind": true,
+ "decision_by_the_rule": "below resolution: the control cannot see this batch",
+ "speed": {
+  "rule": "zero",
+  "gap_matches": 0,
+  "gap_men": 0
+ },
+ "price_differs_on": {
+  "REF": 0,
+  "TEMPLATE": 27214,
+  "CONTROL": 27214
+ },
+ "others": [
+  {
+   "tour": "both tours",
+   "stage": "both stages",
+   "matches": 22265,
+   "estimate": 0.017739241531165344,
+   "lo": -0.12528085198802538,
+   "hi": 0.16075933505035608,
+   "p_better": 0.5981925972230033,
+   "reading": "unresolved"
+  },
+  {
+   "tour": "both tours",
+   "stage": "stage 1 alone",
+   "matches": 22265,
+   "estimate": 0.015508976383160367,
+   "lo": -0.1280876606867483,
+   "hi": 0.15910561345306903,
+   "p_better": 0.5857144307685901,
+   "reading": "unresolved"
+  },
+  {
+   "tour": "men",
+   "stage": "both stages",
+   "matches": 11672,
+   "estimate": -0.010051129979918687,
+   "lo": -0.1860948304257772,
+   "hi": 0.16599257046593982,
+   "p_better": 0.4544335590198549,
+   "reading": "unresolved"
+  },
+  {
+   "tour": "men",
+   "stage": "stage 1 alone",
+   "matches": 11672,
+   "estimate": -0.014305486861372632,
+   "lo": -0.19098976026571346,
+   "hi": 0.16237878654296822,
+   "p_better": 0.4355238509194539,
+   "reading": "unresolved"
+  },
+  {
+   "tour": "women",
+   "stage": "both stages",
+   "matches": 10593,
+   "estimate": 0.04836033246644075,
+   "lo": -0.15088904439941558,
+   "hi": 0.2476097093322971,
+   "p_better": 0.6868069836872006,
+   "reading": "unresolved"
+  },
+  {
+   "tour": "women",
+   "stage": "stage 1 alone",
+   "matches": 10593,
+   "estimate": 0.04836033246644075,
+   "lo": -0.15088904439941558,
+   "hi": 0.2476097093322971,
+   "p_better": 0.6868069836872006,
+   "reading": "unresolved"
+  }
+ ]
+}

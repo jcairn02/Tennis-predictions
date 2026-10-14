@@ -1,0 +1,106 @@
+{
+ "F14": {
+  "rows": 108,
+  "by_source": {
+   "handoff_ks": 79,
+   "mantennisdata": 29
+  },
+  "strict_gt": 79,
+  "ge": 96,
+  "max_equals_y": 17,
+  "verdicts": {
+   "average_wrong": 86,
+   "unclear": 18,
+   "max_wrong_average_normal": 2,
+   "average_normal": 2
+  },
+  "verdict_by_source": {
+   "handoff_ks|average_wrong": 72,
+   "handoff_ks|unclear": 7,
+   "mantennisdata|average_normal": 2,
+   "mantennisdata|average_wrong": 14,
+   "mantennisdata|max_wrong_average_normal": 2,
+   "mantennisdata|unclear": 11
+  },
+  "n_matches_box": {
+   "True": 101,
+   "False": 7
+  },
+  "fallback_use": {
+   "True": 86,
+   "False": 22
+  },
+  "fallback_source": {
+   "infosys": 61,
+   "handoff_ks": 43,
+   "mantennisdata": 4
+  },
+  "fallback_minus_norm_abs_le_8": 50,
+  "fallback_minus_norm_abs_gt_15": 15,
+  "verdict_by_rule": {
+   "rule_strict_gt": {
+    "average_wrong": 72,
+    "unclear": 7
+   },
+   "rule_ge": {
+    "average_wrong": 79,
+    "unclear": 15,
+    "max_wrong_average_normal": 1,
+    "average_normal": 1
+   }
+  },
+  "verdict_within_1_only": {
+   "average_wrong": 7,
+   "unclear": 3,
+   "max_wrong_average_normal": 1,
+   "average_normal": 1
+  }
+ },
+ "F15": {
+  "use_rows_men_ge_240": 14,
+  "of_which_in_f14": 14,
+  "by_source": {
+   "handoff_ks": 14
+  },
+  "y_range": [
+   241.5,
+   269.5
+  ],
+  "y_minus_norm_min": 33.0,
+  "fallback_use": {
+   "True": 9,
+   "False": 5
+  },
+  "fallback_minus_norm": [
+   5.9,
+   -2.0,
+   2.9,
+   -41.7,
+   58.0,
+   64.0,
+   -8.6,
+   6.8,
+   50.0,
+   83.0,
+   0.3,
+   78.0,
+   1.2,
+   10.5
+  ],
+  "all_records_men_ge240_or_women_ge210": 14,
+  "all_records_by_source_valid": {
+   "handoff_ks|True": 14
+  },
+  "use_rows_men_230_240": 9,
+  "max_use_y_men_excl_ge240": 238.5
+ },
+ "F16": {
+  "same_player_two_matches_rows": 10,
+  "pairs": 5,
+  "both_sides_identical_matches": 12,
+  "n_matches_box": {
+   "both_sides_identical|True": 24,
+   "same_player_two_matches|True": 10
+  }
+ }
+}

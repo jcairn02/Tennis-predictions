@@ -19,7 +19,11 @@ here for the main tour only so that this study does not import a module under ed
 best of five, everything else on the main tour best of three; the Next Gen Finals (short no-ad sets) and the three
 Melbourne 2021 WTA events (a mid-event format change) are left out, as the audit leaves them out.
 
-Run: ./python.sh src/eda/tabpfn_thinking/build_frame.py    (about a minute)
+Indoor or outdoor (since 9 Oct 2026, src/eda/indoor_fill/status.py; docs/studies/indoor_fill/README.md): Stage 0's flag
+for the men, the WTA's calendar for the women, tennis-data.co.uk's Court where those lack it. Before, the input was
+Stage 0's flag for the men only, every women's row missing; --indoor-men-only builds it that way again.
+
+Run: ./python.sh src/eda/tabpfn_thinking/build_frame.py [--indoor-men-only]    (about a minute)
 """
 from __future__ import annotations
 
@@ -33,6 +37,7 @@ from scipy.special import logit
 ROOT = Path(__file__).resolve().parents[3]
 sys.path.insert(0, str(ROOT))
 
+from src.eda.indoor_fill import status as IF  # noqa: E402
 from src.eda.tabpfn_thinking import common as T  # noqa: E402
 
 MELBOURNE_2021 = ("yarra valley classic", "gippsland trophy", "grampians trophy")
@@ -67,7 +72,38 @@ def scheduled_best_of(m: pd.DataFrame) -> tuple[np.ndarray, np.ndarray]:
     return bo, supported
 
 
-def build() -> tuple[pd.DataFrame, dict]:
+def split_of(year: np.ndarray, keep: np.ndarray) -> np.ndarray:
+    """"train" for the kept rows of TRAIN_YEARS, "test" from TEST_YEARS[0] on (no last season since 10 Oct 2026; it
+    was TEST_YEARS[1]), else ""."""
+    split = np.full(len(year), "", dtype=object)
+    split[keep & (year >= T.TRAIN_YEARS[0]) & (year <= T.TRAIN_YEARS[1])] = "train"
+    split[keep & (year >= T.TEST_YEARS[0])] = "test"
+    return split
+
+
+def indoor_codes(f: pd.DataFrame, m: pd.DataFrame, men_only: bool) -> tuple[np.ndarray, np.ndarray, dict]:
+    """The indoor input per pool row and where it came from: the rule of src/eda/indoor_fill/status.py, or (men_only)
+    Stage 0's flag for the men and missing for every women's row, as the frames before 9 Oct 2026 were built."""
+    tour = f["tour"].to_numpy()
+    if men_only:
+        ind = m["indoor"].map({True: 1.0, False: 0.0}).astype("float64").to_numpy()
+        return (np.where(tour == "atp", ind, np.nan), np.full(len(f), "men_only", dtype=object),
+                {"rule": "men only: Stage 0's flag (before 9 Oct 2026)"})
+    stage1 = T.sha256_file(IF.STAGE1)
+    v, src = IF.for_matches(f["match_id"])
+    if T.sha256_file(IF.STAGE1) != stage1:
+        raise RuntimeError("Stage 1's odds table changed while the indoor rule read it; rerun when it is stable")
+    main = f["group"].isin(T.MAIN_GROUPS).to_numpy()
+    counts = pd.DataFrame({"tour": tour[main], "source": src.to_numpy()[main]}).value_counts().sort_index()
+    return v, src.to_numpy(dtype=object), {
+        "rule": "src/eda/indoor_fill/status.py (Stage 0's flag for the men, the WTA's calendar for the women, "
+                "tennis-data.co.uk's Court where those lack it)",
+        "stage1_odds_sha256": stage1,
+        "main_tour_rows_by_source": {f"{t}|{s}": int(n) for (t, s), n in counts.items()},
+        "main_tour_rows_unknown": int((~np.isfinite(v[main])).sum())}
+
+
+def build(indoor_men_only: bool = False) -> tuple[pd.DataFrame, dict]:
     before = source_hashes()
     pool = pd.read_parquet(T.SOURCES["stage4"], columns=POOL_COLS)
     tables = {}
@@ -113,10 +149,10 @@ def build() -> tuple[pd.DataFrame, dict]:
     f["tour_code"] = f["tour"].map(T.CODES["tour"]).astype("float64")
     f["surface_code"] = m["surface"].map(T.CODES["surface"]).astype("float64").to_numpy()
     f["level_code"] = f["group"].map(T.CODES["level"]).astype("float64")
-    # Stage 0 records indoor/outdoor for the men only (and for 17% of the women's 2026 matches): kept as a men's
-    # context column and left missing for every women's row, so that no test row shows a pattern absent in training
-    ind = m["indoor"].map({True: 1.0, False: 0.0}).astype("float64").to_numpy()
-    f["indoor_code"] = np.where(tour == "atp", ind, np.nan)
+    # Stage 0 records indoor/outdoor for the men only (and for 17% of the women's 2026 matches). Until 9 Oct 2026 the
+    # input was kept for the men only, so that no test row showed a pattern absent in training; since then the women's
+    # comes from the WTA's calendar and tennis-data's Court (indoor_codes)
+    f["indoor_code"], f["indoor_source"], indoor_info = indoor_codes(f, m, indoor_men_only)
     f["best_of_sched"] = bo
     f["round_code"] = m["round_order"].astype("float64").to_numpy()
     f["best_of_raw"] = m["best_of"].astype("float64").to_numpy()
@@ -125,12 +161,10 @@ def build() -> tuple[pd.DataFrame, dict]:
         f[f"x_{name}"] = f[src]
     year = f["year"].to_numpy()
     keep = main & supported & np.isin(f["status"].to_numpy(), ["completed", "retired"])
-    split = np.full(len(f), "", dtype=object)
-    split[keep & (year >= T.TRAIN_YEARS[0]) & (year <= T.TRAIN_YEARS[1])] = "train"
-    split[keep & (year >= T.TEST_YEARS[0]) & (year <= T.TEST_YEARS[1])] = "test"
-    f["split"] = split
+    f["split"] = split_of(year, keep)
     f = f[main].reset_index(drop=True)                      # the frame holds the main tour only
     return f, {"before": before, "after": after, "indoor_values": m["indoor"].astype(str).value_counts().to_dict(),
+               "indoor": indoor_info,
                "excluded_unsupported": f.loc[~f["format_supported"]].groupby(["tour", "year", "tournament_name"])
                                        .size().reset_index(name="matches").to_dict("records")}
 
@@ -144,9 +178,14 @@ def model_matrix(f: pd.DataFrame, names: list[str]) -> pd.DataFrame:
 
 
 def main() -> int:
+    import argparse
+    ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
+    ap.add_argument("--indoor-men-only", action="store_true",
+                    help="the indoor input as built before 9 Oct 2026: Stage 0's flag for the men, missing for the women")
+    a = ap.parse_args()
     T.OUT.mkdir(parents=True, exist_ok=True)
     T.UPLOAD.mkdir(parents=True, exist_ok=True)
-    f, info = build()
+    f, info = build(a.indoor_men_only)
     X = model_matrix(f, T.TABPFN_NAMES)
     f = pd.concat([f, X.add_prefix("in_")], axis=1)          # the exact model inputs, kept beside the sources
     has = np.isfinite(f["odds_logit"].to_numpy())
@@ -194,6 +233,7 @@ def main() -> int:
         "counts": counts, "test_with_odds": with_odds,
         "excluded_unsupported_format": info["excluded_unsupported"],
         "indoor_values_in_stage0": info["indoor_values"],
+        "indoor": info["indoor"],
         "coverage": coverage,
         "best_of_raw_vs_scheduled_disagreements": int((np.isfinite(f["best_of_raw"]) &
                                                        (f["best_of_raw"] != f["best_of_sched"]) &

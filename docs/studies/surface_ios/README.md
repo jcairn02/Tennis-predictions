@@ -10,6 +10,20 @@
 
 **Documents.** The evidence, the strategy and the locked plan, written before the test: [strategy.md](strategy.md). The independent audit, verbatim: [audit.md](audit.md).
 
+**Note for reviewers (9 Oct 2026): a flaw in this study's intervals, found after it ran. The study was not re-run.**
+* **The flaw.** The arm-against-arm intervals add both arms' seed-to-seed variance as if their seed noise were independent (`score.py`'s `seed_var`, summed over the two arms). Every arm used the same TabPFN seeds (random states 0–3), so much of that noise is shared and cancels in the difference. Adding both counts it twice.
+  * Found by the adoption framework's statistics review ([finding 1](../adoption_framework/review_statistics.md)), in another study's code that adds the seed variances the same way. With that code, a model compared with itself got ±0.087 mLL instead of 0.
+* **What it does.** Those intervals are too wide; the estimates are right. Here the seed term was small beside the blocks' (the primary's SE: 0.015 from the seeds against 0.057 from the blocks), so they are only a little too wide. Not affected: each arm against the price, and the linear residual check.
+* **What it can change.** A corrected interval is never narrower than the block-only one, which `results.csv` holds beside it (`lo`, `hi`; the version with the seed term is `lo_seed`, `hi_seed`).
+  * **No headline reading changes.** Each reads the same at its narrowest, block-only interval:
+    * the primary +0.01 [−0.10, +0.13], men +0.07 [−0.11, +0.26], women −0.05 [−0.18, +0.08];
+    * without the odds, men +0.83 [+0.40, +1.26] and both tours +0.27 [−0.02, +0.56];
+    * the validation that chose R1: +0.15 [−0.04, +0.34].
+
+    So the readings behind the [6 Oct decision](../../decisions/2026-10-06-surface-ios-profile.md) stand.
+  * **14 secondary cells could come to clear 0,** all with positive estimates. They are single seasons (men 2024, R1: +0.27, block-only [+0.04, +0.50]), raw forecasts, and the 2019–2021 validation of P1 (+0.10, block-only [+0.04, +0.16]) and of its shuffled placebo (women).
+* **Not re-run, and the code is unchanged.** `score.py` still adds both variances: item 1 of the [checklist](../adoption_framework/checklist.md) fixed only the shared function `serve_speed_tabpfn/score.paired_stats`. A re-run would read 2019–2026 results, including 2025–2026, the proposed clean holdout.
+
 ## In short
 
 * **Observed. The idea is right about tennis.** Built per surface, with IOS's opponent adjustment and heavy shrinkage towards each player's all-surface value, the profile forecasts every serve and return statistic better, on both tours, out of sample. Men's holds and breaks gain +0.40 [+0.34, +0.46] milli per service game in 2019–2026, and +0.88 on grass. Surface specialisation is durable: a man's clay return deviation in one three-year period correlates 0.40–0.49 with the next.

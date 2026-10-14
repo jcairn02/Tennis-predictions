@@ -1,0 +1,87 @@
+== start_utc samples and time-of-day share per link source
+api_tennis.parquet           rows= 108269 start_utc non-null=1.000 time-of-day share=0.998 sample: [Timestamp('2021-01-06 13:50:00+0000', tz='UTC'), Timestamp('2021-01-06 12:25:00+0000', tz='UTC')] {'utc_date': 61371, 'local': 46898}
+flashscore.parquet           rows= 413616 start_utc non-null=1.000 time-of-day share=0.997 sample: [Timestamp('2010-05-16 16:40:00+0000', tz='UTC'), Timestamp('2010-05-08 11:15:00+0000', tz='UTC')] {'local': 408055, 'utc_date': 5561}
+infosys.parquet              rows=  37203 start_utc non-null=0.000 time-of-day share=nan sample: [] {'local': 37203}
+live_tennis_api.parquet      rows= 126876 start_utc non-null=1.000 time-of-day share=0.998 sample: [Timestamp('2023-01-03 03:35:00+0000', tz='UTC'), Timestamp('2023-01-03 02:35:00+0000', tz='UTC')] {'local': 66265, 'utc_date': 60611}
+match_charting.parquet       rows=   9164 start_utc non-null=0.456 time-of-day share=0.991 sample: [Timestamp('2010-01-18 04:00:00+0000', tz='UTC'), Timestamp('2010-01-21 08:10:00+0000', tz='UTC')] {'local': 9164}
+open_tennis_data.parquet     rows=  26581 start_utc non-null=0.000 time-of-day share=nan sample: [] {'local': 15457, 'utc_date': 11124}
+pbp_copy.parquet             rows=  52234 start_utc non-null=0.000 time-of-day share=nan sample: [] {'utc_date': 52234}
+slam_feeds.parquet           rows=   7682 start_utc non-null=0.710 time-of-day share=1.000 sample: [Timestamp('2019-06-24 10:06:08+0000', tz='UTC'), Timestamp('2019-06-25 16:23:24+0000', tz='UTC')] {'local': 7682}
+sofascore.parquet            rows= 108433 start_utc non-null=0.996 time-of-day share=0.992 sample: [Timestamp('2013-10-10 10:00:00+0000', tz='UTC'), Timestamp('2013-10-23 14:00:00+0000', tz='UTC')] {'local': 108353, 'utc_date': 80}
+tdi.parquet                  rows=   3622 start_utc non-null=1.000 time-of-day share=0.999 sample: [Timestamp('2025-05-12 17:09:42.083000+0000', tz='UTC'), Timestamp('2025-05-13 17:58:27.278000+0000', tz='UTC')] {'local': 3622}
+tennis_data.parquet          rows=  83183 start_utc non-null=0.000 time-of-day share=nan sample: [] {'local': 83183}
+tml_days.parquet             rows=   2448 start_utc non-null=0.000 time-of-day share=nan sample: [] {'local': 1393, 'utc_date': 1055}
+wta_api.parquet              rows=  28759 start_utc non-null=0.894 time-of-day share=1.000 sample: [Timestamp('2019-04-01 13:25:33.103000+0000', tz='UTC'), Timestamp('2019-04-01 13:44:07.220000+0000', tz='UTC')] {'local': 27923, 'utc_date': 836}
+
+== flashscore_records
+is_doubles: {False: 458452, True: 2287}
+is_exhibition: {False: 449506, True: 11233}
+category: {nan: 356507, 'atp-singles': 54365, 'challenger-men-singles': 43144, 'itf-women-singles': 1966, 'itf-men-singles': 1756, 'itf-men-doubles': 829, 'itf-women-doubles': 819, 'wta-singles': 405, 'challenger-men-doubles': 273, 'challenger-women-singles': 165, 'atp-doubles': 134, 'wta-doubles': 125, 'girls-singles': 72, 'boys-singles': 72, 'challenger-women-doubles': 38, 'mixed-doubles': 29, 'girls-doubles': 20, 'boys-doubles': 20}
+status: {'finished': 434893, 'retired': 15593, nan: 8141, 'walkover': 2057, 'awarded': 55}
+                n end_nn
+is_doubles  False  False
+year                    
+2009.0         73  1.000
+2010.0      10852  0.997
+2011.0      17905  0.996
+2012.0      32631  0.999
+2013.0      23316  0.997
+2014.0      16788  0.996
+2015.0      17512  0.989
+2016.0      17660  0.996
+2017.0      16275  0.997
+2018.0      15919  0.995
+2019.0      17498  0.997
+2020.0      24468  0.996
+2021.0      30168  0.992
+2022.0      38686  0.993
+2023.0      45209  0.997
+2024.0      51641  0.990
+2025.0      60255  0.917
+2026.0      15742  0.936
+
+doubles sample:
+       start_utc end_utc                category         tournament_name              home_name     away_name home_fs_id away_fs_id
+452603       NaT     NaT             wta-doubles             French Open        Selekhmeteva O.  Fernandez L.        NaN        NaN
+452605       NaT     NaT         itf-men-doubles          M15 Hurghada 5             Dakhane R.   Frydrych V.        NaN        NaN
+452606       NaT     NaT         itf-men-doubles           M25 Kutaisi 2          Ovcharenko D.       Neos E.        NaN        NaN
+452616       NaT     NaT         itf-men-doubles         M15 Monastir 18    Hallquist Lithen J.     Elamin A.        NaN        NaN
+452620       NaT     NaT         itf-men-doubles           M15 Bucharest          Dumitru A. C.       Gima S.        NaN        NaN
+452624       NaT     NaT       itf-women-doubles  W15 Kursumlijska Banja  Higuita Barraza M. I.   Jankovic M.        NaN        NaN
+452627       NaT     NaT  challenger-men-doubles             Bengaluru 3           Kalyanpur A.      Barry C.        NaN        NaN
+452629       NaT     NaT       itf-women-doubles              W75 Kurume               Ishii S.        Lee Y.        NaN        NaN
+doubles by category x year (counts):
+Empty DataFrame
+Columns: []
+Index: []
+
+doubles: share with end_utc 0.0
+singles duration minutes (end - start) describe:
+count    4.446260e+05
+mean     2.229543e+03
+std      1.099561e+05
+min     -1.139995e+04
+25%      0.000000e+00
+50%      7.195000e+01
+75%      1.072167e+02
+max      8.479467e+06
+dtype: float64
+
+== frame matches: flashscore start time-of-day and end_utc coverage by tour x season
+       fs_tod        fs_end        any_tod       
+tour      atp    wta    atp    wta     atp    wta
+season                                           
+2013    0.994  0.712  0.982  0.713   0.994  0.712
+2014    0.996  0.692  0.982  0.693   0.996  0.692
+2015    0.992  0.689  0.956  0.689   0.992  0.689
+2016    0.997  0.683  0.977  0.683   0.997  0.683
+2017    0.985  0.678  0.976  0.678   0.985  0.678
+2018    0.980  0.698  0.961  0.699   0.992  0.944
+2019    0.986  0.737  0.973  0.738   1.000  0.976
+2020    0.983  0.712  0.929  0.713   0.998  0.924
+2021    0.979  0.731  0.901  0.731   1.000  0.962
+2022    0.980  0.758  0.926  0.759   0.999  0.995
+2023    0.985  0.806  0.949  0.808   1.000  1.000
+2024    0.987  0.856  0.931  0.856   0.999  1.000
+2025    0.991  0.991  0.156  0.993   0.999  1.000
+2026    0.410  0.385  0.115  0.386   0.999  1.000

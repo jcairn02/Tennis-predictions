@@ -26,7 +26,17 @@
 > "The daily collector we NEED to decrypt them. The do not decrypt only applie to the 2015-2021 session"
 
 * **The daily ATP speed collector decrypts** the current season's ATP Stats Centre (Infosys) files and stages their speeds. It is built for the serve-speed adjustment ([speed-nudge amendment](2026-10-07-speed-nudge.md)).
-* **The 2015–2021 backfill stays encrypted.** Session `tennis-predictions-74` was told "DO NOT DECRYPT IT. I just want the encrypted files on my computer." Its files (`data/raw/point_sources/infosys_atp/`, years 2015–2021) are not decrypted until the owner says otherwise.
+* **The 2015–2021 backfill was initially kept encrypted.** Session `tennis-predictions-74` was told "DO NOT DECRYPT IT. I just want the encrypted files on my computer." That restriction applied until the owner's subsequent instruction below.
+
+## Backfill decryption authorized subsequently on 8 October 2026
+
+After the local download finished, the owner instructed:
+
+> "Your task is to decrypt them (verify they are the tennis serve files that I am saying too)."
+
+This authorizes offline decryption of every downloaded file in `data/raw/point_sources/infosys_atp/`, superseding the backfill's earlier instruction to keep only encrypted copies. Preserve the raw envelopes and write the decoded JSON separately, under `data/dump/points/infosys_atp/decrypted/`. The exporter is `src/ingest/point_sources/infosys_atp_decrypt.py`; its file-level verification report belongs in `data/studies/serve_speed_acquisition/infosys_atp_decryption/`.
+
+**Staged, checked and integrated the same evening** at the owner's word ("Integrate it as well into our pipeline like all the analogous data"): [the ATP backfill study](../studies/infosys_atp_backfill/README.md).
 
 ## How collection is run (good practice, not permission)
 

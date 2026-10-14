@@ -1,0 +1,45 @@
+usage: incoming.py [-h] [--stage0-dir STAGE0_DIR] [--out OUT]
+                   [--skip-progress] [--timing TIMING]
+
+Role 04 of the lower_level_evidence team: the incoming lower-level data, and how much of it touches the players the
+current best model forecasts.
+
+The question (docs/studies/lower_level_evidence/team/04_incoming.md): what lower-level data is coming, in what grain,
+how much of it touches the model's players, and what must happen before it can reach a model input.
+
+What it computes, all on the frozen reference's Stage 0 (common.STAGE0_DIR; --stage0-dir for a candidate):
+    census       tour x bucket x year, 2018-2026: matches, with a box score, results only; and how many are "relevant":
+                   main365    a player also played a MAIN match within +-365 days (the brief's definition)
+                   frame365   a player plays a model-frame match in the 365 days after it (long-memory inputs)
+                   frame28    a player plays a model-frame match in the 28 days after it (two-week form inputs)
+                 (the 28/365-day windows are the input-data audit's, docs/studies/input_data_audit/README.md:229)
+    targets      the gap downloads' frozen target lists (data/studies/gap_downloads/*_matches.csv[.gz]) plus the P7
+                 gaps not yet frozen (itf_detail, itf_points_2025_2026), derived from the data map's match table with
+                 the gap select of src/ingest/point_sources/sofascore_editions.py:235; each target linked to Stage 0 by
+                 tour, surname pair and nearest tournament date (<= 10 days; <= 45 days for TML's misdated rows), the
+                 surname rule of src/eda/data_map/measure.py:96
+    cells        the data map's coverage cells (data/studies/data_map/coverage.json) against Stage 0, matched on
+                 (tour, level, year): what the map holds that Stage 0 does not read
+    newresults   the map's matches with no Stage 0 counterpart at the lower levels (TennisLive listings, WTA site,
+                 API-Tennis), with their players matched to Stage 0 ids by full name where the name is unique
+    dose         model-frame rows (2013-2026) by tour and season: how much of each player's previous-365-day (and
+                 28-day) box-score history the ITF box scores of P7 would add
+    translation  player-seasons with three or more matches at two levels (ITF and MAIN, ITF and CH, CH and MAIN),
+                 today and once P7 lands: the anchors a same-player level translation could be estimated on
+    progress     the running collectors' state, read from their receipts and run logs (no HTTP)
+
+No outcome is read: no winner, score or box-score value; `has_box` (coverage) and dates only. Walkovers are counted
+as matches (their status is not read). Holdout matches (2025-2026) are counted, never their outcomes.
+
+Writes data/studies/lower_level_evidence/incoming/: census.csv, targets.csv, cells.csv, newresults.csv, dose.csv,
+translation_sample.csv, clock.csv, packages_2026-10-09.csv (a dated snapshot written by hand), progress.json, summary.json.
+
+Run: ./python.sh src/eda/lower_level_evidence/incoming.py [--stage0-dir <folder>] [--out <folder>] [--skip-progress]
+
+options:
+  -h, --help            show this help message and exit
+  --stage0-dir STAGE0_DIR
+  --out OUT
+  --skip-progress
+  --timing TIMING       the match timeline that goes with the Stage 0
+                        (default: the frozen reference's)

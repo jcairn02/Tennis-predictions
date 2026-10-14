@@ -2,19 +2,28 @@
 per-match aggregate statistics for volunteer-charted ATP/WTA matches.
 
 Source: https://github.com/JeffSackmann/tennis_MatchChartingProject (CC BY-NC-SA 4.0). Pinned to
-the commit "thru 18 sep 2026"; pass ``--mcp-commit master`` to follow the branch. Points before
-2010 are skipped unless ``--mcp-all-eras`` is set (recency priority); the aggregate stats files
-cover every era and are always fetched.
+the commit "thru 18 sep 2026" (still the head of master, its only branch, on 8 Oct 2026); pass
+``--mcp-commit master`` to follow the branch. Points before 2010 are skipped unless ``--mcp-all-eras``
+is set (recency priority); the aggregate stats files cover every era and are always fetched.
+
+Another commit: each file is checked against the tree's git blob SHA-1. A file the commit leaves unchanged is
+not fetched again; a changed one is downloaded, checked against the tree and re-staged, and the bytes it
+replaces are kept under superseded/ with their receipts (common.keep_replaced), so every commit's files stay.
+A file held from an earlier commit that the new tree no longer has stays on disk and staged, and is listed
+in the summary (``not_in_this_commit``).
 
 Usage:
     ./python.sh -m src.ingest.public_dump.match_charting
+    ./python.sh -m src.ingest.public_dump.match_charting --mcp-commit master
 """
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
 import re
 import sys
+from collections import Counter
 from pathlib import Path
 
 if not __package__:
@@ -63,6 +72,25 @@ def resolve_commit(ref: str) -> str:
     return C.fetch_json(COMMIT_URL.format(repo=REPO, ref=ref))["sha"]
 
 
+def git_blob_sha1(data: bytes) -> str:
+    return hashlib.sha1(b"blob %d\0" % len(data) + data).hexdigest()
+
+
+def held_blob(previous: dict | None, dest: Path) -> str | None:
+    """The git blob SHA-1 of the copy held: from its receipt, else (receipts written before 8 Oct 2026 carry none)
+    hashed from the file; None when nothing usable is held."""
+    if not dest.exists() or not previous or previous.get("error"):
+        return None
+    return previous.get("git_blob_sha1") or git_blob_sha1(dest.read_bytes())
+
+
+def blob_check(validator, blob: str):
+    """``validator``, then the body's git blob SHA-1 against the tree's."""
+    def check(body: bytes):
+        return validator(body) or (None if git_blob_sha1(body) == blob else "git blob SHA-1 differs from the tree")
+    return check
+
+
 def run(args) -> dict:
     receipts = C.Receipts(SOURCE)
     commit = resolve_commit(getattr(args, "mcp_commit", PINNED_COMMIT) or PINNED_COMMIT)
@@ -73,19 +101,26 @@ def run(args) -> dict:
     if receipt.get("error"):
         raise RuntimeError(f"could not list repository tree: {receipt['error']}")
     tree = json.loads(tree_dest.read_text(encoding="utf-8"))
-    paths = [item["path"] for item in tree["tree"] if item["type"] == "blob"]
-    selected, skipped = plan(paths, getattr(args, "mcp_all_eras", False))
+    if tree.get("truncated"):
+        raise RuntimeError("the tree listing is truncated")
+    blobs = {item["path"]: item["sha"] for item in tree["tree"] if item["type"] == "blob"}
+    selected, skipped = plan(list(blobs), getattr(args, "mcp_all_eras", False))
     C.log(f"[{SOURCE}] {len(selected)} files planned, {len(skipped)} skipped")
-    staged = []
+    staged, outcomes = [], Counter()
     for subdir, path in selected:
         url = RAW_URL.format(repo=REPO, commit=commit, path=path)
         dest = C.raw_path(SOURCE, path)
-        validator = C.not_html if subdir == "docs" else CHART_HEADER
-        receipt = C.download(url, dest, receipts, name=path, refresh=args.refresh, validator=validator,
-                             extra={"commit": commit})
+        validator = blob_check(C.not_html if subdir == "docs" else CHART_HEADER, blobs[path])
+        current = held_blob(receipts.get(path), dest) == blobs[path]
+        receipt = C.download(url, dest, receipts, name=path, refresh=args.refresh or not current, validator=validator,
+                             extra={"commit": commit, "git_blob_sha1": blobs[path]}, keep_superseded=True)
+        outcomes["error" if receipt.get("error") else "held, unchanged" if receipt.get("skipped") else
+                 "changed, previous kept" if receipt.get("superseded") else "downloaded"] += 1
         if receipt.get("error"):
             C.log(f"[{SOURCE}] FAIL {path}: {receipt['error']}")
             continue
+        if receipt.get("superseded") and not receipt.get("skipped"):
+            C.log(f"[{SOURCE}] {path} changed; kept the replaced file as {receipt['superseded']}")
         if subdir == "docs":
             continue
         out = C.dump_path("points", SOURCE, subdir, Path(path).stem + ".parquet")
@@ -96,6 +131,11 @@ def run(args) -> dict:
         C.log(f"[{SOURCE}] staged {meta['dest']} rows={meta['rows']} short={meta['short_rows']} long={meta['long_rows']}")
     summary = C.summarize(receipts, staged, skipped)
     summary["commit"] = commit
+    summary["files"] = dict(outcomes)
+    summary["not_in_this_commit"] = sorted(name for name, r in receipts.all().items()
+                                           if not name.startswith("_tree_") and name not in blobs and not r.get("error"))
+    for name in summary["not_in_this_commit"]:
+        C.log(f"[{SOURCE}] WARNING {name} is held (and staged) from an earlier commit but not in {commit[:12]}'s tree")
     return summary
 
 
@@ -109,8 +149,8 @@ def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     add_arguments(parser)
     summary = run(parser.parse_args())
-    C.log(f"[{SOURCE}] done: {summary['staged_files']} staged files, {summary['staged_rows']:,} rows, "
-          f"{len(summary['errors'])} download errors")
+    C.log(f"[{SOURCE}] done at {summary['commit'][:12]}: {summary['files']}; {summary['staged_files']} staged files, "
+          f"{summary['staged_rows']:,} rows, {len(summary['errors'])} download errors")
     return 1 if summary["errors"] else 0
 
 

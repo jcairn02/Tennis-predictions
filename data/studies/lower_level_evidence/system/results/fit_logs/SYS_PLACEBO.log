@@ -1,0 +1,42 @@
+=== 2026-10-10T06:01:51Z C:\Users\zerom\Documents\Tennis-predictions\python_tabpfn_local.sh src/eda/model_rebuild/fits.py --out C:\Users\zerom\Documents\Tennis-predictions\data\studies\lower_level_evidence\system\results\arms\SYS_PLACEBO --seeds 0-3 --seasons 2019-2026 --wait-memory-only
+[    3.1s] input list: built (58 inputs)
+[   25.3s] model__2019__seed0.npz: 19 s, train (30433, 58), queries {'td': 10090}
+[   43.8s] model__2019__seed1.npz: 18 s, train (30433, 58), queries {'td': 10090}
+[   61.8s] model__2019__seed2.npz: 18 s, train (30433, 58), queries {'td': 10090}
+[   79.8s] model__2019__seed3.npz: 18 s, train (30433, 58), queries {'td': 10090}
+[  100.2s] model__2020__seed0.npz: 20 s, train (35478, 58), queries {'td': 4610}
+[  120.1s] model__2020__seed1.npz: 20 s, train (35478, 58), queries {'td': 4610}
+[  139.8s] model__2020__seed2.npz: 19 s, train (35478, 58), queries {'td': 4610}
+[  159.6s] model__2020__seed3.npz: 20 s, train (35478, 58), queries {'td': 4610}
+[  183.3s] model__2021__seed0.npz: 24 s, train (37783, 58), queries {'td': 9510}
+[  206.1s] model__2021__seed1.npz: 23 s, train (37783, 58), queries {'td': 9510}
+[  229.1s] model__2021__seed2.npz: 23 s, train (37783, 58), queries {'td': 9510}
+[  252.2s] model__2021__seed3.npz: 23 s, train (37783, 58), queries {'td': 9510}
+[  278.9s] model__2022__seed0.npz: 27 s, train (42538, 58), queries {'td': 9890}
+[  305.2s] model__2022__seed1.npz: 26 s, train (42538, 58), queries {'td': 9890}
+[  331.8s] model__2022__seed2.npz: 26 s, train (42538, 58), queries {'td': 9890}
+[  358.5s] model__2022__seed3.npz: 26 s, train (42538, 58), queries {'td': 9890}
+[  390.1s] model__2023__seed0.npz: 31 s, train (47483, 58), queries {'td': 10280}
+[  421.5s] model__2023__seed1.npz: 31 s, train (47483, 58), queries {'td': 10280}
+[  453.6s] model__2023__seed2.npz: 32 s, train (47483, 58), queries {'td': 10280}
+[  485.3s] model__2023__seed3.npz: 32 s, train (47483, 58), queries {'td': 10280}
+[  524.0s] model__2024__seed0.npz: 38 s, train (52623, 58), queries {'td': 10282}
+[  562.8s] model__2024__seed1.npz: 38 s, train (52623, 58), queries {'td': 10282}
+[  600.9s] model__2024__seed2.npz: 38 s, train (52623, 58), queries {'td': 10282}
+[  639.5s] model__2024__seed3.npz: 38 s, train (52623, 58), queries {'td': 10282}
+[  684.4s] model__2025__seed0.npz: 45 s, train (57764, 58), queries {'td': 10210, 'early': 796, 'late': 796}
+[  729.2s] model__2025__seed1.npz: 45 s, train (57764, 58), queries {'td': 10210, 'early': 796, 'late': 796}
+[  773.9s] model__2025__seed2.npz: 44 s, train (57764, 58), queries {'td': 10210, 'early': 796, 'late': 796}
+[  818.8s] model__2025__seed3.npz: 45 s, train (57764, 58), queries {'td': 10210, 'early': 796, 'late': 796}
+C:\Users\zerom\Documents\Tennis-predictions\src\eda\serve_speed_tabpfn\local_fits.py:101: FutureWarning: Downcasting object dtype arrays on .fillna, .ffill, .bfill is deprecated and will change in a future version. Call result.infer_objects(copy=False) instead. To opt-in to the future behavior, set `pd.set_option('future.no_silent_downcasting', True)`
+  ok = e["has_early"].fillna(False).to_numpy(bool)
+[  874.1s] model__2026__seed0.npz: 55 s, train (62869, 58), queries {'td': 8714, 'early': 4550, 'late': 4550}
+C:\Users\zerom\Documents\Tennis-predictions\src\eda\serve_speed_tabpfn\local_fits.py:101: FutureWarning: Downcasting object dtype arrays on .fillna, .ffill, .bfill is deprecated and will change in a future version. Call result.infer_objects(copy=False) instead. To opt-in to the future behavior, set `pd.set_option('future.no_silent_downcasting', True)`
+  ok = e["has_early"].fillna(False).to_numpy(bool)
+[  928.8s] model__2026__seed1.npz: 54 s, train (62869, 58), queries {'td': 8714, 'early': 4550, 'late': 4550}
+C:\Users\zerom\Documents\Tennis-predictions\src\eda\serve_speed_tabpfn\local_fits.py:101: FutureWarning: Downcasting object dtype arrays on .fillna, .ffill, .bfill is deprecated and will change in a future version. Call result.infer_objects(copy=False) instead. To opt-in to the future behavior, set `pd.set_option('future.no_silent_downcasting', True)`
+  ok = e["has_early"].fillna(False).to_numpy(bool)
+[  983.4s] model__2026__seed2.npz: 54 s, train (62869, 58), queries {'td': 8714, 'early': 4550, 'late': 4550}
+C:\Users\zerom\Documents\Tennis-predictions\src\eda\serve_speed_tabpfn\local_fits.py:101: FutureWarning: Downcasting object dtype arrays on .fillna, .ffill, .bfill is deprecated and will change in a future version. Call result.infer_objects(copy=False) instead. To opt-in to the future behavior, set `pd.set_option('future.no_silent_downcasting', True)`
+  ok = e["has_early"].fillna(False).to_numpy(bool)
+[ 1038.0s] model__2026__seed3.npz: 54 s, train (62869, 58), queries {'td': 8714, 'early': 4550, 'late': 4550}

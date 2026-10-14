@@ -1,0 +1,4204 @@
+{
+ "written_at": "2026-10-10T01:58:41+00:00",
+ "what": "every arm's layer config, frozen by the lead's CP1 addition; build_gate refuses a gated arm unless the addition quotes this file's sha256",
+ "files": {
+  "IDENTITY.json": "f5ccee3cbb29a9bf7fe39af431ce765b0c5a16cf5ce89eeba67cf8b54094a5d4",
+  "IDENTITY_ALL.json": "212b859c272224b568cea497c64865a8381c7b47ef979d74bb7b511f511d77c4",
+  "SEP_ALL.json": "3603811e7e04b355179110360f8c10f860f624028ee12ab79dfde22b9a17b41e",
+  "REF_noITF.json": "da460900e618aef41757d61d6911af30dc82141461b4fb17f0a148332dd75bbc",
+  "SYS.json": "8bcc8cc9606a65fe18e8ff6ccc5cff0f05e799f7017872d89faaf150df03acf9",
+  "capped_cells_SYS.csv": "73a9c563b45b9516eb5a9ea00fd928fc84355f191663ea568d4185b7f1f4ee89",
+  "SYS_w0.json": "138f2333e1f5685d1e8fe87f5a18572710f172a33da4262a4907157375f081c1",
+  "capped_cells_SYS_w0.csv": "77803c061627e398a46f7cb4e2bbe00dbf7d99920aaac7bb061ee73ef093eba8",
+  "SYS_w100.json": "f4303b7f20689c7b96121257cf918b6cc202d9d9c798a530d2d67f586f4fca1e",
+  "capped_cells_SYS_w100.csv": "77803c061627e398a46f7cb4e2bbe00dbf7d99920aaac7bb061ee73ef093eba8",
+  "SYS_w50.json": "8435c17695ea8690649d51d6d0ec05f2b717f2830a001e6c0ef9eea03d753405",
+  "capped_cells_SYS_w50.csv": "77803c061627e398a46f7cb4e2bbe00dbf7d99920aaac7bb061ee73ef093eba8",
+  "SYS_NOCLASS.json": "31e39fd361ec5b159104fe4f1022eeffc07b768dde5112b8f20b5954badb529e",
+  "capped_cells_SYS_NOCLASS.csv": "e54d1e2dccccdff45f28b505948ac9fa614ed71ffff2357d0384267395b9edb3",
+  "SYS_BOTH.json": "425c4fc56a8089d4d858efbd97a2844e8fbd9502b591e007ff334692502ff0d9",
+  "capped_cells_SYS_BOTH.csv": "db04b7f5b6aabbc3ae29eeebc7e53a9157d56b3cd62ede76040e988be2940de0",
+  "SYS_w25.json": "7e5af32925b97973c3ab05fd77d3fa655b365598bce8bd47b3e5731416338c86",
+  "capped_cells_SYS_w25.csv": "77803c061627e398a46f7cb4e2bbe00dbf7d99920aaac7bb061ee73ef093eba8",
+  "SYS_w75.json": "bcb2a6ae1900fff402ca553ae58be5868b27eab3970c73fc8e9916f7fbf045ed",
+  "capped_cells_SYS_w75.csv": "77803c061627e398a46f7cb4e2bbe00dbf7d99920aaac7bb061ee73ef093eba8",
+  "SYS_ITFASIS.json": "b3d4b725946770866befe5c62ffe8ee00628648d57d0951c34dae762c9ae8839",
+  "capped_cells_SYS_ITFASIS.csv": "73a9c563b45b9516eb5a9ea00fd928fc84355f191663ea568d4185b7f1f4ee89",
+  "SYS_BOTH_ITFASIS.json": "8547ac7fa99552ed20359a4987c646ea6cd349420c0e756d30d12dc2966fa475",
+  "capped_cells_SYS_BOTH_ITFASIS.csv": "db04b7f5b6aabbc3ae29eeebc7e53a9157d56b3cd62ede76040e988be2940de0",
+  "RES_ONLY.json": "45ba85e1d169ca37adbfb4b845f2e385440e20570d1a5336270585a4f0009a56",
+  "capped_cells_RES_ONLY.csv": "77803c061627e398a46f7cb4e2bbe00dbf7d99920aaac7bb061ee73ef093eba8"
+ },
+ "arms": {
+  "IDENTITY": {
+   "config": "IDENTITY.json",
+   "built_already": true,
+   "describe": {
+    "name": "IDENTITY",
+    "tours": [
+     "atp",
+     "wta"
+    ],
+    "translate": false,
+    "weight": 1.0,
+    "weight_results": 1.0,
+    "prior": "pool",
+    "itf_box": "as_is",
+    "families": {
+     "points_52w": true,
+     "forms": true,
+     "ios": true,
+     "ios_points_short": true,
+     "ratings_iid": true,
+     "elo": true
+    },
+    "classes": null,
+    "params": null,
+    "elo_count": "weighted",
+    "forms_norm_weight": true,
+    "forms_own_delta": true,
+    "fitted_cap": 1.0,
+    "fitted_cap_results": 1.0,
+    "solve_w": "w_joint",
+    "ratings_level_term": "none",
+    "missing_params": "error",
+    "params_season_floor": null,
+    "form_views": {
+     "form_ace": {
+      "norm": [
+       "def_ace",
+       1.0
+      ],
+      "own": [
+       "ace",
+       1.0
+      ],
+      "step3": [
+       "ace",
+       1.0
+      ]
+     },
+     "form_df": {
+      "norm": [
+       "def_df",
+       1.0
+      ],
+      "own": [
+       "df",
+       1.0
+      ],
+      "step3": [
+       "df",
+       1.0
+      ]
+     },
+     "form_first_in": {
+      "norm": [
+       "def_first_in",
+       1.0
+      ],
+      "own": [
+       "first_in",
+       1.0
+      ],
+      "step3": [
+       "first_in",
+       1.0
+      ]
+     },
+     "form_first_won": {
+      "norm": [
+       "rpw_first",
+       -1.0
+      ],
+      "own": [
+       "first_won",
+       1.0
+      ],
+      "step3": [
+       "first_won",
+       1.0
+      ]
+     },
+     "form_second_won": {
+      "norm": [
+       "rpw_second",
+       -1.0
+      ],
+      "own": [
+       "second_won",
+       1.0
+      ],
+      "step3": [
+       "second_won",
+       1.0
+      ]
+     },
+     "form_hold": {
+      "norm": [
+       "brk",
+       -1.0
+      ],
+      "own": [
+       "hold",
+       1.0
+      ],
+      "step3": [
+       "hold",
+       1.0
+      ]
+     },
+     "form_bp_saved": {
+      "norm": [
+       "bp_conv",
+       -1.0
+      ],
+      "own": [
+       "bp_saved",
+       1.0
+      ],
+      "step3": [
+       "bp_saved",
+       1.0
+      ]
+     },
+     "form_bp_faced_pg": {
+      "norm": [
+       "def_bp_faced_pg",
+       1.0
+      ],
+      "own": [
+       "bp_faced_pg",
+       1.0
+      ],
+      "step3": [
+       "bp_faced_pg",
+       1.0
+      ]
+     },
+     "form_brk": {
+      "norm": [
+       "hold",
+       -1.0
+      ],
+      "own": [
+       "brk",
+       1.0
+      ],
+      "step3": [
+       "brk",
+       1.0
+      ]
+     },
+     "form_bp_conv": {
+      "norm": [
+       "bp_saved",
+       -1.0
+      ],
+      "own": [
+       "bp_conv",
+       1.0
+      ],
+      "step3": [
+       "bp_conv",
+       1.0
+      ]
+     },
+     "form_rpw_first": {
+      "norm": [
+       "first_won",
+       -1.0
+      ],
+      "own": [
+       "rpw_first",
+       1.0
+      ],
+      "step3": [
+       "rpw_first",
+       1.0
+      ]
+     },
+     "form_rpw_second": {
+      "norm": [
+       "second_won",
+       -1.0
+      ],
+      "own": [
+       "rpw_second",
+       1.0
+      ],
+      "step3": [
+       "rpw_second",
+       1.0
+      ]
+     },
+     "adjperf_tpw_2w": {
+      "norm": [
+       "tpw",
+       -1.0
+      ],
+      "own": [
+       "tpw",
+       1.0
+      ],
+      "step3": [
+       "tpw",
+       1.0
+      ]
+     },
+     "formdef_ace": {
+      "norm": [
+       "ace",
+       1.0
+      ],
+      "own": [
+       "ace",
+       1.0
+      ],
+      "step3": [
+       "def_ace",
+       1.0
+      ]
+     },
+     "formdef_df": {
+      "norm": [
+       "df",
+       1.0
+      ],
+      "own": [
+       "df",
+       1.0
+      ],
+      "step3": [
+       "def_df",
+       1.0
+      ]
+     },
+     "formdef_first_in": {
+      "norm": [
+       "first_in",
+       1.0
+      ],
+      "own": [
+       "first_in",
+       1.0
+      ],
+      "step3": [
+       "def_first_in",
+       1.0
+      ]
+     },
+     "formdef_bp_faced_pg": {
+      "norm": [
+       "bp_faced_pg",
+       1.0
+      ],
+      "own": [
+       "bp_faced_pg",
+       1.0
+      ],
+      "step3": [
+       "def_bp_faced_pg",
+       1.0
+      ]
+     }
+    }
+   }
+  },
+  "IDENTITY_ALL": {
+   "config": "IDENTITY_ALL.json",
+   "built_already": true,
+   "describe": {
+    "name": "IDENTITY_ALL",
+    "tours": [
+     "atp",
+     "wta"
+    ],
+    "translate": false,
+    "weight": 1.0,
+    "weight_results": 1.0,
+    "prior": "pool",
+    "itf_box": "as_is",
+    "families": {
+     "points_52w": true,
+     "forms": true,
+     "ios": true,
+     "ios_points_short": true,
+     "ratings_iid": true,
+     "elo": true
+    },
+    "classes": null,
+    "params": null,
+    "elo_count": "weighted",
+    "forms_norm_weight": true,
+    "forms_own_delta": true,
+    "fitted_cap": 1.0,
+    "fitted_cap_results": 1.0,
+    "solve_w": "w_joint",
+    "ratings_level_term": "none",
+    "missing_params": "error",
+    "params_season_floor": null,
+    "form_views": {
+     "form_ace": {
+      "norm": [
+       "def_ace",
+       1.0
+      ],
+      "own": [
+       "ace",
+       1.0
+      ],
+      "step3": [
+       "ace",
+       1.0
+      ]
+     },
+     "form_df": {
+      "norm": [
+       "def_df",
+       1.0
+      ],
+      "own": [
+       "df",
+       1.0
+      ],
+      "step3": [
+       "df",
+       1.0
+      ]
+     },
+     "form_first_in": {
+      "norm": [
+       "def_first_in",
+       1.0
+      ],
+      "own": [
+       "first_in",
+       1.0
+      ],
+      "step3": [
+       "first_in",
+       1.0
+      ]
+     },
+     "form_first_won": {
+      "norm": [
+       "rpw_first",
+       -1.0
+      ],
+      "own": [
+       "first_won",
+       1.0
+      ],
+      "step3": [
+       "first_won",
+       1.0
+      ]
+     },
+     "form_second_won": {
+      "norm": [
+       "rpw_second",
+       -1.0
+      ],
+      "own": [
+       "second_won",
+       1.0
+      ],
+      "step3": [
+       "second_won",
+       1.0
+      ]
+     },
+     "form_hold": {
+      "norm": [
+       "brk",
+       -1.0
+      ],
+      "own": [
+       "hold",
+       1.0
+      ],
+      "step3": [
+       "hold",
+       1.0
+      ]
+     },
+     "form_bp_saved": {
+      "norm": [
+       "bp_conv",
+       -1.0
+      ],
+      "own": [
+       "bp_saved",
+       1.0
+      ],
+      "step3": [
+       "bp_saved",
+       1.0
+      ]
+     },
+     "form_bp_faced_pg": {
+      "norm": [
+       "def_bp_faced_pg",
+       1.0
+      ],
+      "own": [
+       "bp_faced_pg",
+       1.0
+      ],
+      "step3": [
+       "bp_faced_pg",
+       1.0
+      ]
+     },
+     "form_brk": {
+      "norm": [
+       "hold",
+       -1.0
+      ],
+      "own": [
+       "brk",
+       1.0
+      ],
+      "step3": [
+       "brk",
+       1.0
+      ]
+     },
+     "form_bp_conv": {
+      "norm": [
+       "bp_saved",
+       -1.0
+      ],
+      "own": [
+       "bp_conv",
+       1.0
+      ],
+      "step3": [
+       "bp_conv",
+       1.0
+      ]
+     },
+     "form_rpw_first": {
+      "norm": [
+       "first_won",
+       -1.0
+      ],
+      "own": [
+       "rpw_first",
+       1.0
+      ],
+      "step3": [
+       "rpw_first",
+       1.0
+      ]
+     },
+     "form_rpw_second": {
+      "norm": [
+       "second_won",
+       -1.0
+      ],
+      "own": [
+       "rpw_second",
+       1.0
+      ],
+      "step3": [
+       "rpw_second",
+       1.0
+      ]
+     },
+     "adjperf_tpw_2w": {
+      "norm": [
+       "tpw",
+       -1.0
+      ],
+      "own": [
+       "tpw",
+       1.0
+      ],
+      "step3": [
+       "tpw",
+       1.0
+      ]
+     },
+     "formdef_ace": {
+      "norm": [
+       "ace",
+       1.0
+      ],
+      "own": [
+       "ace",
+       1.0
+      ],
+      "step3": [
+       "def_ace",
+       1.0
+      ]
+     },
+     "formdef_df": {
+      "norm": [
+       "df",
+       1.0
+      ],
+      "own": [
+       "df",
+       1.0
+      ],
+      "step3": [
+       "def_df",
+       1.0
+      ]
+     },
+     "formdef_first_in": {
+      "norm": [
+       "first_in",
+       1.0
+      ],
+      "own": [
+       "first_in",
+       1.0
+      ],
+      "step3": [
+       "def_first_in",
+       1.0
+      ]
+     },
+     "formdef_bp_faced_pg": {
+      "norm": [
+       "bp_faced_pg",
+       1.0
+      ],
+      "own": [
+       "bp_faced_pg",
+       1.0
+      ],
+      "step3": [
+       "def_bp_faced_pg",
+       1.0
+      ]
+     }
+    }
+   }
+  },
+  "SEP_ALL": {
+   "config": "SEP_ALL.json",
+   "built_already": true,
+   "describe": {
+    "name": "SEP_ALL",
+    "tours": [
+     "atp"
+    ],
+    "translate": false,
+    "weight": 0.0,
+    "weight_results": 0.0,
+    "prior": "pool",
+    "itf_box": "exclude",
+    "families": {
+     "points_52w": true,
+     "forms": true,
+     "ios": true,
+     "ios_points_short": true,
+     "ratings_iid": true,
+     "elo": true
+    },
+    "classes": null,
+    "params": null,
+    "elo_count": "weighted",
+    "forms_norm_weight": true,
+    "forms_own_delta": true,
+    "fitted_cap": 1.0,
+    "fitted_cap_results": 1.0,
+    "solve_w": "w_joint",
+    "ratings_level_term": "none",
+    "missing_params": "error",
+    "params_season_floor": null,
+    "form_views": {
+     "form_ace": {
+      "norm": [
+       "def_ace",
+       1.0
+      ],
+      "own": [
+       "ace",
+       1.0
+      ],
+      "step3": [
+       "ace",
+       1.0
+      ]
+     },
+     "form_df": {
+      "norm": [
+       "def_df",
+       1.0
+      ],
+      "own": [
+       "df",
+       1.0
+      ],
+      "step3": [
+       "df",
+       1.0
+      ]
+     },
+     "form_first_in": {
+      "norm": [
+       "def_first_in",
+       1.0
+      ],
+      "own": [
+       "first_in",
+       1.0
+      ],
+      "step3": [
+       "first_in",
+       1.0
+      ]
+     },
+     "form_first_won": {
+      "norm": [
+       "rpw_first",
+       -1.0
+      ],
+      "own": [
+       "first_won",
+       1.0
+      ],
+      "step3": [
+       "first_won",
+       1.0
+      ]
+     },
+     "form_second_won": {
+      "norm": [
+       "rpw_second",
+       -1.0
+      ],
+      "own": [
+       "second_won",
+       1.0
+      ],
+      "step3": [
+       "second_won",
+       1.0
+      ]
+     },
+     "form_hold": {
+      "norm": [
+       "brk",
+       -1.0
+      ],
+      "own": [
+       "hold",
+       1.0
+      ],
+      "step3": [
+       "hold",
+       1.0
+      ]
+     },
+     "form_bp_saved": {
+      "norm": [
+       "bp_conv",
+       -1.0
+      ],
+      "own": [
+       "bp_saved",
+       1.0
+      ],
+      "step3": [
+       "bp_saved",
+       1.0
+      ]
+     },
+     "form_bp_faced_pg": {
+      "norm": [
+       "def_bp_faced_pg",
+       1.0
+      ],
+      "own": [
+       "bp_faced_pg",
+       1.0
+      ],
+      "step3": [
+       "bp_faced_pg",
+       1.0
+      ]
+     },
+     "form_brk": {
+      "norm": [
+       "hold",
+       -1.0
+      ],
+      "own": [
+       "brk",
+       1.0
+      ],
+      "step3": [
+       "brk",
+       1.0
+      ]
+     },
+     "form_bp_conv": {
+      "norm": [
+       "bp_saved",
+       -1.0
+      ],
+      "own": [
+       "bp_conv",
+       1.0
+      ],
+      "step3": [
+       "bp_conv",
+       1.0
+      ]
+     },
+     "form_rpw_first": {
+      "norm": [
+       "first_won",
+       -1.0
+      ],
+      "own": [
+       "rpw_first",
+       1.0
+      ],
+      "step3": [
+       "rpw_first",
+       1.0
+      ]
+     },
+     "form_rpw_second": {
+      "norm": [
+       "second_won",
+       -1.0
+      ],
+      "own": [
+       "rpw_second",
+       1.0
+      ],
+      "step3": [
+       "rpw_second",
+       1.0
+      ]
+     },
+     "adjperf_tpw_2w": {
+      "norm": [
+       "tpw",
+       -1.0
+      ],
+      "own": [
+       "tpw",
+       1.0
+      ],
+      "step3": [
+       "tpw",
+       1.0
+      ]
+     },
+     "formdef_ace": {
+      "norm": [
+       "ace",
+       1.0
+      ],
+      "own": [
+       "ace",
+       1.0
+      ],
+      "step3": [
+       "def_ace",
+       1.0
+      ]
+     },
+     "formdef_df": {
+      "norm": [
+       "df",
+       1.0
+      ],
+      "own": [
+       "df",
+       1.0
+      ],
+      "step3": [
+       "def_df",
+       1.0
+      ]
+     },
+     "formdef_first_in": {
+      "norm": [
+       "first_in",
+       1.0
+      ],
+      "own": [
+       "first_in",
+       1.0
+      ],
+      "step3": [
+       "def_first_in",
+       1.0
+      ]
+     },
+     "formdef_bp_faced_pg": {
+      "norm": [
+       "bp_faced_pg",
+       1.0
+      ],
+      "own": [
+       "bp_faced_pg",
+       1.0
+      ],
+      "step3": [
+       "def_bp_faced_pg",
+       1.0
+      ]
+     }
+    }
+   }
+  },
+  "REF_noITF": {
+   "config": "REF_noITF.json",
+   "built_already": true,
+   "describe": {
+    "name": "REF_noITF",
+    "tours": [
+     "atp",
+     "wta"
+    ],
+    "translate": false,
+    "weight": 1.0,
+    "weight_results": 1.0,
+    "prior": "pool",
+    "itf_box": "exclude",
+    "families": {
+     "points_52w": true,
+     "forms": true,
+     "ios": true,
+     "ios_points_short": true,
+     "ratings_iid": true,
+     "elo": false
+    },
+    "classes": null,
+    "params": null,
+    "elo_count": "weighted",
+    "forms_norm_weight": true,
+    "forms_own_delta": true,
+    "fitted_cap": 1.0,
+    "fitted_cap_results": 1.0,
+    "solve_w": "w_joint",
+    "ratings_level_term": "none",
+    "missing_params": "error",
+    "params_season_floor": null,
+    "form_views": {
+     "form_ace": {
+      "norm": [
+       "def_ace",
+       1.0
+      ],
+      "own": [
+       "ace",
+       1.0
+      ],
+      "step3": [
+       "ace",
+       1.0
+      ]
+     },
+     "form_df": {
+      "norm": [
+       "def_df",
+       1.0
+      ],
+      "own": [
+       "df",
+       1.0
+      ],
+      "step3": [
+       "df",
+       1.0
+      ]
+     },
+     "form_first_in": {
+      "norm": [
+       "def_first_in",
+       1.0
+      ],
+      "own": [
+       "first_in",
+       1.0
+      ],
+      "step3": [
+       "first_in",
+       1.0
+      ]
+     },
+     "form_first_won": {
+      "norm": [
+       "rpw_first",
+       -1.0
+      ],
+      "own": [
+       "first_won",
+       1.0
+      ],
+      "step3": [
+       "first_won",
+       1.0
+      ]
+     },
+     "form_second_won": {
+      "norm": [
+       "rpw_second",
+       -1.0
+      ],
+      "own": [
+       "second_won",
+       1.0
+      ],
+      "step3": [
+       "second_won",
+       1.0
+      ]
+     },
+     "form_hold": {
+      "norm": [
+       "brk",
+       -1.0
+      ],
+      "own": [
+       "hold",
+       1.0
+      ],
+      "step3": [
+       "hold",
+       1.0
+      ]
+     },
+     "form_bp_saved": {
+      "norm": [
+       "bp_conv",
+       -1.0
+      ],
+      "own": [
+       "bp_saved",
+       1.0
+      ],
+      "step3": [
+       "bp_saved",
+       1.0
+      ]
+     },
+     "form_bp_faced_pg": {
+      "norm": [
+       "def_bp_faced_pg",
+       1.0
+      ],
+      "own": [
+       "bp_faced_pg",
+       1.0
+      ],
+      "step3": [
+       "bp_faced_pg",
+       1.0
+      ]
+     },
+     "form_brk": {
+      "norm": [
+       "hold",
+       -1.0
+      ],
+      "own": [
+       "brk",
+       1.0
+      ],
+      "step3": [
+       "brk",
+       1.0
+      ]
+     },
+     "form_bp_conv": {
+      "norm": [
+       "bp_saved",
+       -1.0
+      ],
+      "own": [
+       "bp_conv",
+       1.0
+      ],
+      "step3": [
+       "bp_conv",
+       1.0
+      ]
+     },
+     "form_rpw_first": {
+      "norm": [
+       "first_won",
+       -1.0
+      ],
+      "own": [
+       "rpw_first",
+       1.0
+      ],
+      "step3": [
+       "rpw_first",
+       1.0
+      ]
+     },
+     "form_rpw_second": {
+      "norm": [
+       "second_won",
+       -1.0
+      ],
+      "own": [
+       "rpw_second",
+       1.0
+      ],
+      "step3": [
+       "rpw_second",
+       1.0
+      ]
+     },
+     "adjperf_tpw_2w": {
+      "norm": [
+       "tpw",
+       -1.0
+      ],
+      "own": [
+       "tpw",
+       1.0
+      ],
+      "step3": [
+       "tpw",
+       1.0
+      ]
+     },
+     "formdef_ace": {
+      "norm": [
+       "ace",
+       1.0
+      ],
+      "own": [
+       "ace",
+       1.0
+      ],
+      "step3": [
+       "def_ace",
+       1.0
+      ]
+     },
+     "formdef_df": {
+      "norm": [
+       "df",
+       1.0
+      ],
+      "own": [
+       "df",
+       1.0
+      ],
+      "step3": [
+       "def_df",
+       1.0
+      ]
+     },
+     "formdef_first_in": {
+      "norm": [
+       "first_in",
+       1.0
+      ],
+      "own": [
+       "first_in",
+       1.0
+      ],
+      "step3": [
+       "def_first_in",
+       1.0
+      ]
+     },
+     "formdef_bp_faced_pg": {
+      "norm": [
+       "bp_faced_pg",
+       1.0
+      ],
+      "own": [
+       "bp_faced_pg",
+       1.0
+      ],
+      "step3": [
+       "def_bp_faced_pg",
+       1.0
+      ]
+     }
+    }
+   }
+  },
+  "SYS": {
+   "config": "SYS.json",
+   "built_already": false,
+   "describe": {
+    "name": "SYS",
+    "tours": [
+     "atp"
+    ],
+    "translate": true,
+    "weight": "fitted",
+    "weight_results": "fitted",
+    "prior": "pool",
+    "itf_box": "exclude",
+    "families": {
+     "points_52w": true,
+     "forms": true,
+     "ios": true,
+     "ios_points_short": true,
+     "ratings_iid": true,
+     "elo": true
+    },
+    "classes": "C:\\Users\\zerom\\Documents\\Tennis-predictions\\data\\studies\\lower_level_evidence\\system\\classes\\classes.csv",
+    "params": "C:\\Users\\zerom\\Documents\\Tennis-predictions\\data\\studies\\lower_level_evidence\\system\\relationship\\params.parquet",
+    "elo_count": "weighted",
+    "forms_norm_weight": true,
+    "forms_own_delta": true,
+    "fitted_cap": 1.0,
+    "fitted_cap_results": 1.0,
+    "solve_w": "w_joint",
+    "ratings_level_term": "none",
+    "missing_params": "error",
+    "params_season_floor": 2013,
+    "form_views": {
+     "form_ace": {
+      "norm": [
+       "def_ace",
+       1.0
+      ],
+      "own": [
+       "ace",
+       1.0
+      ],
+      "step3": [
+       "ace",
+       1.0
+      ]
+     },
+     "form_df": {
+      "norm": [
+       "def_df",
+       1.0
+      ],
+      "own": [
+       "df",
+       1.0
+      ],
+      "step3": [
+       "df",
+       1.0
+      ]
+     },
+     "form_first_in": {
+      "norm": [
+       "def_first_in",
+       1.0
+      ],
+      "own": [
+       "first_in",
+       1.0
+      ],
+      "step3": [
+       "first_in",
+       1.0
+      ]
+     },
+     "form_first_won": {
+      "norm": [
+       "rpw_first",
+       -1.0
+      ],
+      "own": [
+       "first_won",
+       1.0
+      ],
+      "step3": [
+       "first_won",
+       1.0
+      ]
+     },
+     "form_second_won": {
+      "norm": [
+       "rpw_second",
+       -1.0
+      ],
+      "own": [
+       "second_won",
+       1.0
+      ],
+      "step3": [
+       "second_won",
+       1.0
+      ]
+     },
+     "form_hold": {
+      "norm": [
+       "brk",
+       -1.0
+      ],
+      "own": [
+       "hold",
+       1.0
+      ],
+      "step3": [
+       "hold",
+       1.0
+      ]
+     },
+     "form_bp_saved": {
+      "norm": [
+       "bp_conv",
+       -1.0
+      ],
+      "own": [
+       "bp_saved",
+       1.0
+      ],
+      "step3": [
+       "bp_saved",
+       1.0
+      ]
+     },
+     "form_bp_faced_pg": {
+      "norm": [
+       "def_bp_faced_pg",
+       1.0
+      ],
+      "own": [
+       "bp_faced_pg",
+       1.0
+      ],
+      "step3": [
+       "bp_faced_pg",
+       1.0
+      ]
+     },
+     "form_brk": {
+      "norm": [
+       "hold",
+       -1.0
+      ],
+      "own": [
+       "brk",
+       1.0
+      ],
+      "step3": [
+       "brk",
+       1.0
+      ]
+     },
+     "form_bp_conv": {
+      "norm": [
+       "bp_saved",
+       -1.0
+      ],
+      "own": [
+       "bp_conv",
+       1.0
+      ],
+      "step3": [
+       "bp_conv",
+       1.0
+      ]
+     },
+     "form_rpw_first": {
+      "norm": [
+       "first_won",
+       -1.0
+      ],
+      "own": [
+       "rpw_first",
+       1.0
+      ],
+      "step3": [
+       "rpw_first",
+       1.0
+      ]
+     },
+     "form_rpw_second": {
+      "norm": [
+       "second_won",
+       -1.0
+      ],
+      "own": [
+       "rpw_second",
+       1.0
+      ],
+      "step3": [
+       "rpw_second",
+       1.0
+      ]
+     },
+     "adjperf_tpw_2w": {
+      "norm": [
+       "tpw",
+       -1.0
+      ],
+      "own": [
+       "tpw",
+       1.0
+      ],
+      "step3": [
+       "tpw",
+       1.0
+      ]
+     },
+     "formdef_ace": {
+      "norm": [
+       "ace",
+       1.0
+      ],
+      "own": [
+       "ace",
+       1.0
+      ],
+      "step3": [
+       "def_ace",
+       1.0
+      ]
+     },
+     "formdef_df": {
+      "norm": [
+       "df",
+       1.0
+      ],
+      "own": [
+       "df",
+       1.0
+      ],
+      "step3": [
+       "def_df",
+       1.0
+      ]
+     },
+     "formdef_first_in": {
+      "norm": [
+       "first_in",
+       1.0
+      ],
+      "own": [
+       "first_in",
+       1.0
+      ],
+      "step3": [
+       "def_first_in",
+       1.0
+      ]
+     },
+     "formdef_bp_faced_pg": {
+      "norm": [
+       "bp_faced_pg",
+       1.0
+      ],
+      "own": [
+       "bp_faced_pg",
+       1.0
+      ],
+      "step3": [
+       "def_bp_faced_pg",
+       1.0
+      ]
+     }
+    }
+   },
+   "capped_cells_dev_seasons": {
+    "w|box": 199,
+    "w|results": 25,
+    "w_joint|box": 208
+   }
+  },
+  "SYS_w0": {
+   "config": "SYS_w0.json",
+   "built_already": false,
+   "describe": {
+    "name": "SYS_w0",
+    "tours": [
+     "atp"
+    ],
+    "translate": true,
+    "weight": 0.0,
+    "weight_results": "fitted",
+    "prior": "pool",
+    "itf_box": "exclude",
+    "families": {
+     "points_52w": true,
+     "forms": true,
+     "ios": true,
+     "ios_points_short": true,
+     "ratings_iid": true,
+     "elo": true
+    },
+    "classes": "C:\\Users\\zerom\\Documents\\Tennis-predictions\\data\\studies\\lower_level_evidence\\system\\classes\\classes.csv",
+    "params": "C:\\Users\\zerom\\Documents\\Tennis-predictions\\data\\studies\\lower_level_evidence\\system\\relationship\\params.parquet",
+    "elo_count": "weighted",
+    "forms_norm_weight": true,
+    "forms_own_delta": true,
+    "fitted_cap": 1.0,
+    "fitted_cap_results": 1.0,
+    "solve_w": "w_joint",
+    "ratings_level_term": "none",
+    "missing_params": "error",
+    "params_season_floor": 2013,
+    "form_views": {
+     "form_ace": {
+      "norm": [
+       "def_ace",
+       1.0
+      ],
+      "own": [
+       "ace",
+       1.0
+      ],
+      "step3": [
+       "ace",
+       1.0
+      ]
+     },
+     "form_df": {
+      "norm": [
+       "def_df",
+       1.0
+      ],
+      "own": [
+       "df",
+       1.0
+      ],
+      "step3": [
+       "df",
+       1.0
+      ]
+     },
+     "form_first_in": {
+      "norm": [
+       "def_first_in",
+       1.0
+      ],
+      "own": [
+       "first_in",
+       1.0
+      ],
+      "step3": [
+       "first_in",
+       1.0
+      ]
+     },
+     "form_first_won": {
+      "norm": [
+       "rpw_first",
+       -1.0
+      ],
+      "own": [
+       "first_won",
+       1.0
+      ],
+      "step3": [
+       "first_won",
+       1.0
+      ]
+     },
+     "form_second_won": {
+      "norm": [
+       "rpw_second",
+       -1.0
+      ],
+      "own": [
+       "second_won",
+       1.0
+      ],
+      "step3": [
+       "second_won",
+       1.0
+      ]
+     },
+     "form_hold": {
+      "norm": [
+       "brk",
+       -1.0
+      ],
+      "own": [
+       "hold",
+       1.0
+      ],
+      "step3": [
+       "hold",
+       1.0
+      ]
+     },
+     "form_bp_saved": {
+      "norm": [
+       "bp_conv",
+       -1.0
+      ],
+      "own": [
+       "bp_saved",
+       1.0
+      ],
+      "step3": [
+       "bp_saved",
+       1.0
+      ]
+     },
+     "form_bp_faced_pg": {
+      "norm": [
+       "def_bp_faced_pg",
+       1.0
+      ],
+      "own": [
+       "bp_faced_pg",
+       1.0
+      ],
+      "step3": [
+       "bp_faced_pg",
+       1.0
+      ]
+     },
+     "form_brk": {
+      "norm": [
+       "hold",
+       -1.0
+      ],
+      "own": [
+       "brk",
+       1.0
+      ],
+      "step3": [
+       "brk",
+       1.0
+      ]
+     },
+     "form_bp_conv": {
+      "norm": [
+       "bp_saved",
+       -1.0
+      ],
+      "own": [
+       "bp_conv",
+       1.0
+      ],
+      "step3": [
+       "bp_conv",
+       1.0
+      ]
+     },
+     "form_rpw_first": {
+      "norm": [
+       "first_won",
+       -1.0
+      ],
+      "own": [
+       "rpw_first",
+       1.0
+      ],
+      "step3": [
+       "rpw_first",
+       1.0
+      ]
+     },
+     "form_rpw_second": {
+      "norm": [
+       "second_won",
+       -1.0
+      ],
+      "own": [
+       "rpw_second",
+       1.0
+      ],
+      "step3": [
+       "rpw_second",
+       1.0
+      ]
+     },
+     "adjperf_tpw_2w": {
+      "norm": [
+       "tpw",
+       -1.0
+      ],
+      "own": [
+       "tpw",
+       1.0
+      ],
+      "step3": [
+       "tpw",
+       1.0
+      ]
+     },
+     "formdef_ace": {
+      "norm": [
+       "ace",
+       1.0
+      ],
+      "own": [
+       "ace",
+       1.0
+      ],
+      "step3": [
+       "def_ace",
+       1.0
+      ]
+     },
+     "formdef_df": {
+      "norm": [
+       "df",
+       1.0
+      ],
+      "own": [
+       "df",
+       1.0
+      ],
+      "step3": [
+       "def_df",
+       1.0
+      ]
+     },
+     "formdef_first_in": {
+      "norm": [
+       "first_in",
+       1.0
+      ],
+      "own": [
+       "first_in",
+       1.0
+      ],
+      "step3": [
+       "def_first_in",
+       1.0
+      ]
+     },
+     "formdef_bp_faced_pg": {
+      "norm": [
+       "bp_faced_pg",
+       1.0
+      ],
+      "own": [
+       "bp_faced_pg",
+       1.0
+      ],
+      "step3": [
+       "def_bp_faced_pg",
+       1.0
+      ]
+     }
+    }
+   },
+   "capped_cells_dev_seasons": {
+    "w|results": 25
+   }
+  },
+  "SYS_w100": {
+   "config": "SYS_w100.json",
+   "built_already": false,
+   "describe": {
+    "name": "SYS_w100",
+    "tours": [
+     "atp"
+    ],
+    "translate": true,
+    "weight": 1.0,
+    "weight_results": "fitted",
+    "prior": "pool",
+    "itf_box": "exclude",
+    "families": {
+     "points_52w": true,
+     "forms": true,
+     "ios": true,
+     "ios_points_short": true,
+     "ratings_iid": true,
+     "elo": true
+    },
+    "classes": "C:\\Users\\zerom\\Documents\\Tennis-predictions\\data\\studies\\lower_level_evidence\\system\\classes\\classes.csv",
+    "params": "C:\\Users\\zerom\\Documents\\Tennis-predictions\\data\\studies\\lower_level_evidence\\system\\relationship\\params.parquet",
+    "elo_count": "weighted",
+    "forms_norm_weight": true,
+    "forms_own_delta": true,
+    "fitted_cap": 1.0,
+    "fitted_cap_results": 1.0,
+    "solve_w": "w_joint",
+    "ratings_level_term": "none",
+    "missing_params": "error",
+    "params_season_floor": 2013,
+    "form_views": {
+     "form_ace": {
+      "norm": [
+       "def_ace",
+       1.0
+      ],
+      "own": [
+       "ace",
+       1.0
+      ],
+      "step3": [
+       "ace",
+       1.0
+      ]
+     },
+     "form_df": {
+      "norm": [
+       "def_df",
+       1.0
+      ],
+      "own": [
+       "df",
+       1.0
+      ],
+      "step3": [
+       "df",
+       1.0
+      ]
+     },
+     "form_first_in": {
+      "norm": [
+       "def_first_in",
+       1.0
+      ],
+      "own": [
+       "first_in",
+       1.0
+      ],
+      "step3": [
+       "first_in",
+       1.0
+      ]
+     },
+     "form_first_won": {
+      "norm": [
+       "rpw_first",
+       -1.0
+      ],
+      "own": [
+       "first_won",
+       1.0
+      ],
+      "step3": [
+       "first_won",
+       1.0
+      ]
+     },
+     "form_second_won": {
+      "norm": [
+       "rpw_second",
+       -1.0
+      ],
+      "own": [
+       "second_won",
+       1.0
+      ],
+      "step3": [
+       "second_won",
+       1.0
+      ]
+     },
+     "form_hold": {
+      "norm": [
+       "brk",
+       -1.0
+      ],
+      "own": [
+       "hold",
+       1.0
+      ],
+      "step3": [
+       "hold",
+       1.0
+      ]
+     },
+     "form_bp_saved": {
+      "norm": [
+       "bp_conv",
+       -1.0
+      ],
+      "own": [
+       "bp_saved",
+       1.0
+      ],
+      "step3": [
+       "bp_saved",
+       1.0
+      ]
+     },
+     "form_bp_faced_pg": {
+      "norm": [
+       "def_bp_faced_pg",
+       1.0
+      ],
+      "own": [
+       "bp_faced_pg",
+       1.0
+      ],
+      "step3": [
+       "bp_faced_pg",
+       1.0
+      ]
+     },
+     "form_brk": {
+      "norm": [
+       "hold",
+       -1.0
+      ],
+      "own": [
+       "brk",
+       1.0
+      ],
+      "step3": [
+       "brk",
+       1.0
+      ]
+     },
+     "form_bp_conv": {
+      "norm": [
+       "bp_saved",
+       -1.0
+      ],
+      "own": [
+       "bp_conv",
+       1.0
+      ],
+      "step3": [
+       "bp_conv",
+       1.0
+      ]
+     },
+     "form_rpw_first": {
+      "norm": [
+       "first_won",
+       -1.0
+      ],
+      "own": [
+       "rpw_first",
+       1.0
+      ],
+      "step3": [
+       "rpw_first",
+       1.0
+      ]
+     },
+     "form_rpw_second": {
+      "norm": [
+       "second_won",
+       -1.0
+      ],
+      "own": [
+       "rpw_second",
+       1.0
+      ],
+      "step3": [
+       "rpw_second",
+       1.0
+      ]
+     },
+     "adjperf_tpw_2w": {
+      "norm": [
+       "tpw",
+       -1.0
+      ],
+      "own": [
+       "tpw",
+       1.0
+      ],
+      "step3": [
+       "tpw",
+       1.0
+      ]
+     },
+     "formdef_ace": {
+      "norm": [
+       "ace",
+       1.0
+      ],
+      "own": [
+       "ace",
+       1.0
+      ],
+      "step3": [
+       "def_ace",
+       1.0
+      ]
+     },
+     "formdef_df": {
+      "norm": [
+       "df",
+       1.0
+      ],
+      "own": [
+       "df",
+       1.0
+      ],
+      "step3": [
+       "def_df",
+       1.0
+      ]
+     },
+     "formdef_first_in": {
+      "norm": [
+       "first_in",
+       1.0
+      ],
+      "own": [
+       "first_in",
+       1.0
+      ],
+      "step3": [
+       "def_first_in",
+       1.0
+      ]
+     },
+     "formdef_bp_faced_pg": {
+      "norm": [
+       "bp_faced_pg",
+       1.0
+      ],
+      "own": [
+       "bp_faced_pg",
+       1.0
+      ],
+      "step3": [
+       "def_bp_faced_pg",
+       1.0
+      ]
+     }
+    }
+   },
+   "capped_cells_dev_seasons": {
+    "w|results": 25
+   }
+  },
+  "SYS_w50": {
+   "config": "SYS_w50.json",
+   "built_already": false,
+   "describe": {
+    "name": "SYS_w50",
+    "tours": [
+     "atp"
+    ],
+    "translate": true,
+    "weight": 0.5,
+    "weight_results": "fitted",
+    "prior": "pool",
+    "itf_box": "exclude",
+    "families": {
+     "points_52w": true,
+     "forms": true,
+     "ios": true,
+     "ios_points_short": true,
+     "ratings_iid": true,
+     "elo": true
+    },
+    "classes": "C:\\Users\\zerom\\Documents\\Tennis-predictions\\data\\studies\\lower_level_evidence\\system\\classes\\classes.csv",
+    "params": "C:\\Users\\zerom\\Documents\\Tennis-predictions\\data\\studies\\lower_level_evidence\\system\\relationship\\params.parquet",
+    "elo_count": "weighted",
+    "forms_norm_weight": true,
+    "forms_own_delta": true,
+    "fitted_cap": 1.0,
+    "fitted_cap_results": 1.0,
+    "solve_w": "w_joint",
+    "ratings_level_term": "none",
+    "missing_params": "error",
+    "params_season_floor": 2013,
+    "form_views": {
+     "form_ace": {
+      "norm": [
+       "def_ace",
+       1.0
+      ],
+      "own": [
+       "ace",
+       1.0
+      ],
+      "step3": [
+       "ace",
+       1.0
+      ]
+     },
+     "form_df": {
+      "norm": [
+       "def_df",
+       1.0
+      ],
+      "own": [
+       "df",
+       1.0
+      ],
+      "step3": [
+       "df",
+       1.0
+      ]
+     },
+     "form_first_in": {
+      "norm": [
+       "def_first_in",
+       1.0
+      ],
+      "own": [
+       "first_in",
+       1.0
+      ],
+      "step3": [
+       "first_in",
+       1.0
+      ]
+     },
+     "form_first_won": {
+      "norm": [
+       "rpw_first",
+       -1.0
+      ],
+      "own": [
+       "first_won",
+       1.0
+      ],
+      "step3": [
+       "first_won",
+       1.0
+      ]
+     },
+     "form_second_won": {
+      "norm": [
+       "rpw_second",
+       -1.0
+      ],
+      "own": [
+       "second_won",
+       1.0
+      ],
+      "step3": [
+       "second_won",
+       1.0
+      ]
+     },
+     "form_hold": {
+      "norm": [
+       "brk",
+       -1.0
+      ],
+      "own": [
+       "hold",
+       1.0
+      ],
+      "step3": [
+       "hold",
+       1.0
+      ]
+     },
+     "form_bp_saved": {
+      "norm": [
+       "bp_conv",
+       -1.0
+      ],
+      "own": [
+       "bp_saved",
+       1.0
+      ],
+      "step3": [
+       "bp_saved",
+       1.0
+      ]
+     },
+     "form_bp_faced_pg": {
+      "norm": [
+       "def_bp_faced_pg",
+       1.0
+      ],
+      "own": [
+       "bp_faced_pg",
+       1.0
+      ],
+      "step3": [
+       "bp_faced_pg",
+       1.0
+      ]
+     },
+     "form_brk": {
+      "norm": [
+       "hold",
+       -1.0
+      ],
+      "own": [
+       "brk",
+       1.0
+      ],
+      "step3": [
+       "brk",
+       1.0
+      ]
+     },
+     "form_bp_conv": {
+      "norm": [
+       "bp_saved",
+       -1.0
+      ],
+      "own": [
+       "bp_conv",
+       1.0
+      ],
+      "step3": [
+       "bp_conv",
+       1.0
+      ]
+     },
+     "form_rpw_first": {
+      "norm": [
+       "first_won",
+       -1.0
+      ],
+      "own": [
+       "rpw_first",
+       1.0
+      ],
+      "step3": [
+       "rpw_first",
+       1.0
+      ]
+     },
+     "form_rpw_second": {
+      "norm": [
+       "second_won",
+       -1.0
+      ],
+      "own": [
+       "rpw_second",
+       1.0
+      ],
+      "step3": [
+       "rpw_second",
+       1.0
+      ]
+     },
+     "adjperf_tpw_2w": {
+      "norm": [
+       "tpw",
+       -1.0
+      ],
+      "own": [
+       "tpw",
+       1.0
+      ],
+      "step3": [
+       "tpw",
+       1.0
+      ]
+     },
+     "formdef_ace": {
+      "norm": [
+       "ace",
+       1.0
+      ],
+      "own": [
+       "ace",
+       1.0
+      ],
+      "step3": [
+       "def_ace",
+       1.0
+      ]
+     },
+     "formdef_df": {
+      "norm": [
+       "df",
+       1.0
+      ],
+      "own": [
+       "df",
+       1.0
+      ],
+      "step3": [
+       "def_df",
+       1.0
+      ]
+     },
+     "formdef_first_in": {
+      "norm": [
+       "first_in",
+       1.0
+      ],
+      "own": [
+       "first_in",
+       1.0
+      ],
+      "step3": [
+       "def_first_in",
+       1.0
+      ]
+     },
+     "formdef_bp_faced_pg": {
+      "norm": [
+       "bp_faced_pg",
+       1.0
+      ],
+      "own": [
+       "bp_faced_pg",
+       1.0
+      ],
+      "step3": [
+       "def_bp_faced_pg",
+       1.0
+      ]
+     }
+    }
+   },
+   "capped_cells_dev_seasons": {
+    "w|results": 25
+   }
+  },
+  "SYS_NOCLASS": {
+   "config": "SYS_NOCLASS.json",
+   "built_already": false,
+   "describe": {
+    "name": "SYS_NOCLASS",
+    "tours": [
+     "atp"
+    ],
+    "translate": true,
+    "weight": "fitted",
+    "weight_results": "fitted",
+    "prior": "pool",
+    "itf_box": "exclude",
+    "families": {
+     "points_52w": true,
+     "forms": true,
+     "ios": true,
+     "ios_points_short": true,
+     "ratings_iid": true,
+     "elo": true
+    },
+    "classes": null,
+    "params": "C:\\Users\\zerom\\Documents\\Tennis-predictions\\data\\studies\\lower_level_evidence\\system\\relationship\\params_noclass.parquet",
+    "elo_count": "weighted",
+    "forms_norm_weight": true,
+    "forms_own_delta": true,
+    "fitted_cap": 1.0,
+    "fitted_cap_results": 1.0,
+    "solve_w": "w_joint",
+    "ratings_level_term": "none",
+    "missing_params": "error",
+    "params_season_floor": 2013,
+    "form_views": {
+     "form_ace": {
+      "norm": [
+       "def_ace",
+       1.0
+      ],
+      "own": [
+       "ace",
+       1.0
+      ],
+      "step3": [
+       "ace",
+       1.0
+      ]
+     },
+     "form_df": {
+      "norm": [
+       "def_df",
+       1.0
+      ],
+      "own": [
+       "df",
+       1.0
+      ],
+      "step3": [
+       "df",
+       1.0
+      ]
+     },
+     "form_first_in": {
+      "norm": [
+       "def_first_in",
+       1.0
+      ],
+      "own": [
+       "first_in",
+       1.0
+      ],
+      "step3": [
+       "first_in",
+       1.0
+      ]
+     },
+     "form_first_won": {
+      "norm": [
+       "rpw_first",
+       -1.0
+      ],
+      "own": [
+       "first_won",
+       1.0
+      ],
+      "step3": [
+       "first_won",
+       1.0
+      ]
+     },
+     "form_second_won": {
+      "norm": [
+       "rpw_second",
+       -1.0
+      ],
+      "own": [
+       "second_won",
+       1.0
+      ],
+      "step3": [
+       "second_won",
+       1.0
+      ]
+     },
+     "form_hold": {
+      "norm": [
+       "brk",
+       -1.0
+      ],
+      "own": [
+       "hold",
+       1.0
+      ],
+      "step3": [
+       "hold",
+       1.0
+      ]
+     },
+     "form_bp_saved": {
+      "norm": [
+       "bp_conv",
+       -1.0
+      ],
+      "own": [
+       "bp_saved",
+       1.0
+      ],
+      "step3": [
+       "bp_saved",
+       1.0
+      ]
+     },
+     "form_bp_faced_pg": {
+      "norm": [
+       "def_bp_faced_pg",
+       1.0
+      ],
+      "own": [
+       "bp_faced_pg",
+       1.0
+      ],
+      "step3": [
+       "bp_faced_pg",
+       1.0
+      ]
+     },
+     "form_brk": {
+      "norm": [
+       "hold",
+       -1.0
+      ],
+      "own": [
+       "brk",
+       1.0
+      ],
+      "step3": [
+       "brk",
+       1.0
+      ]
+     },
+     "form_bp_conv": {
+      "norm": [
+       "bp_saved",
+       -1.0
+      ],
+      "own": [
+       "bp_conv",
+       1.0
+      ],
+      "step3": [
+       "bp_conv",
+       1.0
+      ]
+     },
+     "form_rpw_first": {
+      "norm": [
+       "first_won",
+       -1.0
+      ],
+      "own": [
+       "rpw_first",
+       1.0
+      ],
+      "step3": [
+       "rpw_first",
+       1.0
+      ]
+     },
+     "form_rpw_second": {
+      "norm": [
+       "second_won",
+       -1.0
+      ],
+      "own": [
+       "rpw_second",
+       1.0
+      ],
+      "step3": [
+       "rpw_second",
+       1.0
+      ]
+     },
+     "adjperf_tpw_2w": {
+      "norm": [
+       "tpw",
+       -1.0
+      ],
+      "own": [
+       "tpw",
+       1.0
+      ],
+      "step3": [
+       "tpw",
+       1.0
+      ]
+     },
+     "formdef_ace": {
+      "norm": [
+       "ace",
+       1.0
+      ],
+      "own": [
+       "ace",
+       1.0
+      ],
+      "step3": [
+       "def_ace",
+       1.0
+      ]
+     },
+     "formdef_df": {
+      "norm": [
+       "df",
+       1.0
+      ],
+      "own": [
+       "df",
+       1.0
+      ],
+      "step3": [
+       "def_df",
+       1.0
+      ]
+     },
+     "formdef_first_in": {
+      "norm": [
+       "first_in",
+       1.0
+      ],
+      "own": [
+       "first_in",
+       1.0
+      ],
+      "step3": [
+       "def_first_in",
+       1.0
+      ]
+     },
+     "formdef_bp_faced_pg": {
+      "norm": [
+       "bp_faced_pg",
+       1.0
+      ],
+      "own": [
+       "bp_faced_pg",
+       1.0
+      ],
+      "step3": [
+       "def_bp_faced_pg",
+       1.0
+      ]
+     }
+    }
+   },
+   "capped_cells_dev_seasons": {
+    "w|box": 238,
+    "w|results": 25,
+    "w_joint|box": 208
+   }
+  },
+  "SYS_BOTH": {
+   "config": "SYS_BOTH.json",
+   "built_already": false,
+   "describe": {
+    "name": "SYS_BOTH",
+    "tours": [
+     "atp",
+     "wta"
+    ],
+    "translate": true,
+    "weight": "fitted",
+    "weight_results": "fitted",
+    "prior": "pool",
+    "itf_box": "exclude",
+    "families": {
+     "points_52w": true,
+     "forms": true,
+     "ios": true,
+     "ios_points_short": true,
+     "ratings_iid": true,
+     "elo": true
+    },
+    "classes": "C:\\Users\\zerom\\Documents\\Tennis-predictions\\data\\studies\\lower_level_evidence\\system\\classes\\classes.csv",
+    "params": "C:\\Users\\zerom\\Documents\\Tennis-predictions\\data\\studies\\lower_level_evidence\\system\\relationship\\params.parquet",
+    "elo_count": "weighted",
+    "forms_norm_weight": true,
+    "forms_own_delta": true,
+    "fitted_cap": 1.0,
+    "fitted_cap_results": 1.0,
+    "solve_w": "w_joint",
+    "ratings_level_term": "none",
+    "missing_params": "untouched",
+    "params_season_floor": 2013,
+    "form_views": {
+     "form_ace": {
+      "norm": [
+       "def_ace",
+       1.0
+      ],
+      "own": [
+       "ace",
+       1.0
+      ],
+      "step3": [
+       "ace",
+       1.0
+      ]
+     },
+     "form_df": {
+      "norm": [
+       "def_df",
+       1.0
+      ],
+      "own": [
+       "df",
+       1.0
+      ],
+      "step3": [
+       "df",
+       1.0
+      ]
+     },
+     "form_first_in": {
+      "norm": [
+       "def_first_in",
+       1.0
+      ],
+      "own": [
+       "first_in",
+       1.0
+      ],
+      "step3": [
+       "first_in",
+       1.0
+      ]
+     },
+     "form_first_won": {
+      "norm": [
+       "rpw_first",
+       -1.0
+      ],
+      "own": [
+       "first_won",
+       1.0
+      ],
+      "step3": [
+       "first_won",
+       1.0
+      ]
+     },
+     "form_second_won": {
+      "norm": [
+       "rpw_second",
+       -1.0
+      ],
+      "own": [
+       "second_won",
+       1.0
+      ],
+      "step3": [
+       "second_won",
+       1.0
+      ]
+     },
+     "form_hold": {
+      "norm": [
+       "brk",
+       -1.0
+      ],
+      "own": [
+       "hold",
+       1.0
+      ],
+      "step3": [
+       "hold",
+       1.0
+      ]
+     },
+     "form_bp_saved": {
+      "norm": [
+       "bp_conv",
+       -1.0
+      ],
+      "own": [
+       "bp_saved",
+       1.0
+      ],
+      "step3": [
+       "bp_saved",
+       1.0
+      ]
+     },
+     "form_bp_faced_pg": {
+      "norm": [
+       "def_bp_faced_pg",
+       1.0
+      ],
+      "own": [
+       "bp_faced_pg",
+       1.0
+      ],
+      "step3": [
+       "bp_faced_pg",
+       1.0
+      ]
+     },
+     "form_brk": {
+      "norm": [
+       "hold",
+       -1.0
+      ],
+      "own": [
+       "brk",
+       1.0
+      ],
+      "step3": [
+       "brk",
+       1.0
+      ]
+     },
+     "form_bp_conv": {
+      "norm": [
+       "bp_saved",
+       -1.0
+      ],
+      "own": [
+       "bp_conv",
+       1.0
+      ],
+      "step3": [
+       "bp_conv",
+       1.0
+      ]
+     },
+     "form_rpw_first": {
+      "norm": [
+       "first_won",
+       -1.0
+      ],
+      "own": [
+       "rpw_first",
+       1.0
+      ],
+      "step3": [
+       "rpw_first",
+       1.0
+      ]
+     },
+     "form_rpw_second": {
+      "norm": [
+       "second_won",
+       -1.0
+      ],
+      "own": [
+       "rpw_second",
+       1.0
+      ],
+      "step3": [
+       "rpw_second",
+       1.0
+      ]
+     },
+     "adjperf_tpw_2w": {
+      "norm": [
+       "tpw",
+       -1.0
+      ],
+      "own": [
+       "tpw",
+       1.0
+      ],
+      "step3": [
+       "tpw",
+       1.0
+      ]
+     },
+     "formdef_ace": {
+      "norm": [
+       "ace",
+       1.0
+      ],
+      "own": [
+       "ace",
+       1.0
+      ],
+      "step3": [
+       "def_ace",
+       1.0
+      ]
+     },
+     "formdef_df": {
+      "norm": [
+       "df",
+       1.0
+      ],
+      "own": [
+       "df",
+       1.0
+      ],
+      "step3": [
+       "def_df",
+       1.0
+      ]
+     },
+     "formdef_first_in": {
+      "norm": [
+       "first_in",
+       1.0
+      ],
+      "own": [
+       "first_in",
+       1.0
+      ],
+      "step3": [
+       "def_first_in",
+       1.0
+      ]
+     },
+     "formdef_bp_faced_pg": {
+      "norm": [
+       "bp_faced_pg",
+       1.0
+      ],
+      "own": [
+       "bp_faced_pg",
+       1.0
+      ],
+      "step3": [
+       "def_bp_faced_pg",
+       1.0
+      ]
+     }
+    }
+   },
+   "capped_cells_dev_seasons": {
+    "w|box": 250,
+    "w|results": 61,
+    "w_joint|box": 258
+   }
+  },
+  "SYS_w25": {
+   "config": "SYS_w25.json",
+   "built_already": false,
+   "describe": {
+    "name": "SYS_w25",
+    "tours": [
+     "atp"
+    ],
+    "translate": true,
+    "weight": 0.25,
+    "weight_results": "fitted",
+    "prior": "pool",
+    "itf_box": "exclude",
+    "families": {
+     "points_52w": true,
+     "forms": true,
+     "ios": true,
+     "ios_points_short": true,
+     "ratings_iid": true,
+     "elo": true
+    },
+    "classes": "C:\\Users\\zerom\\Documents\\Tennis-predictions\\data\\studies\\lower_level_evidence\\system\\classes\\classes.csv",
+    "params": "C:\\Users\\zerom\\Documents\\Tennis-predictions\\data\\studies\\lower_level_evidence\\system\\relationship\\params.parquet",
+    "elo_count": "weighted",
+    "forms_norm_weight": true,
+    "forms_own_delta": true,
+    "fitted_cap": 1.0,
+    "fitted_cap_results": 1.0,
+    "solve_w": "w_joint",
+    "ratings_level_term": "none",
+    "missing_params": "error",
+    "params_season_floor": 2013,
+    "form_views": {
+     "form_ace": {
+      "norm": [
+       "def_ace",
+       1.0
+      ],
+      "own": [
+       "ace",
+       1.0
+      ],
+      "step3": [
+       "ace",
+       1.0
+      ]
+     },
+     "form_df": {
+      "norm": [
+       "def_df",
+       1.0
+      ],
+      "own": [
+       "df",
+       1.0
+      ],
+      "step3": [
+       "df",
+       1.0
+      ]
+     },
+     "form_first_in": {
+      "norm": [
+       "def_first_in",
+       1.0
+      ],
+      "own": [
+       "first_in",
+       1.0
+      ],
+      "step3": [
+       "first_in",
+       1.0
+      ]
+     },
+     "form_first_won": {
+      "norm": [
+       "rpw_first",
+       -1.0
+      ],
+      "own": [
+       "first_won",
+       1.0
+      ],
+      "step3": [
+       "first_won",
+       1.0
+      ]
+     },
+     "form_second_won": {
+      "norm": [
+       "rpw_second",
+       -1.0
+      ],
+      "own": [
+       "second_won",
+       1.0
+      ],
+      "step3": [
+       "second_won",
+       1.0
+      ]
+     },
+     "form_hold": {
+      "norm": [
+       "brk",
+       -1.0
+      ],
+      "own": [
+       "hold",
+       1.0
+      ],
+      "step3": [
+       "hold",
+       1.0
+      ]
+     },
+     "form_bp_saved": {
+      "norm": [
+       "bp_conv",
+       -1.0
+      ],
+      "own": [
+       "bp_saved",
+       1.0
+      ],
+      "step3": [
+       "bp_saved",
+       1.0
+      ]
+     },
+     "form_bp_faced_pg": {
+      "norm": [
+       "def_bp_faced_pg",
+       1.0
+      ],
+      "own": [
+       "bp_faced_pg",
+       1.0
+      ],
+      "step3": [
+       "bp_faced_pg",
+       1.0
+      ]
+     },
+     "form_brk": {
+      "norm": [
+       "hold",
+       -1.0
+      ],
+      "own": [
+       "brk",
+       1.0
+      ],
+      "step3": [
+       "brk",
+       1.0
+      ]
+     },
+     "form_bp_conv": {
+      "norm": [
+       "bp_saved",
+       -1.0
+      ],
+      "own": [
+       "bp_conv",
+       1.0
+      ],
+      "step3": [
+       "bp_conv",
+       1.0
+      ]
+     },
+     "form_rpw_first": {
+      "norm": [
+       "first_won",
+       -1.0
+      ],
+      "own": [
+       "rpw_first",
+       1.0
+      ],
+      "step3": [
+       "rpw_first",
+       1.0
+      ]
+     },
+     "form_rpw_second": {
+      "norm": [
+       "second_won",
+       -1.0
+      ],
+      "own": [
+       "rpw_second",
+       1.0
+      ],
+      "step3": [
+       "rpw_second",
+       1.0
+      ]
+     },
+     "adjperf_tpw_2w": {
+      "norm": [
+       "tpw",
+       -1.0
+      ],
+      "own": [
+       "tpw",
+       1.0
+      ],
+      "step3": [
+       "tpw",
+       1.0
+      ]
+     },
+     "formdef_ace": {
+      "norm": [
+       "ace",
+       1.0
+      ],
+      "own": [
+       "ace",
+       1.0
+      ],
+      "step3": [
+       "def_ace",
+       1.0
+      ]
+     },
+     "formdef_df": {
+      "norm": [
+       "df",
+       1.0
+      ],
+      "own": [
+       "df",
+       1.0
+      ],
+      "step3": [
+       "def_df",
+       1.0
+      ]
+     },
+     "formdef_first_in": {
+      "norm": [
+       "first_in",
+       1.0
+      ],
+      "own": [
+       "first_in",
+       1.0
+      ],
+      "step3": [
+       "def_first_in",
+       1.0
+      ]
+     },
+     "formdef_bp_faced_pg": {
+      "norm": [
+       "bp_faced_pg",
+       1.0
+      ],
+      "own": [
+       "bp_faced_pg",
+       1.0
+      ],
+      "step3": [
+       "def_bp_faced_pg",
+       1.0
+      ]
+     }
+    }
+   },
+   "capped_cells_dev_seasons": {
+    "w|results": 25
+   }
+  },
+  "SYS_w75": {
+   "config": "SYS_w75.json",
+   "built_already": false,
+   "describe": {
+    "name": "SYS_w75",
+    "tours": [
+     "atp"
+    ],
+    "translate": true,
+    "weight": 0.75,
+    "weight_results": "fitted",
+    "prior": "pool",
+    "itf_box": "exclude",
+    "families": {
+     "points_52w": true,
+     "forms": true,
+     "ios": true,
+     "ios_points_short": true,
+     "ratings_iid": true,
+     "elo": true
+    },
+    "classes": "C:\\Users\\zerom\\Documents\\Tennis-predictions\\data\\studies\\lower_level_evidence\\system\\classes\\classes.csv",
+    "params": "C:\\Users\\zerom\\Documents\\Tennis-predictions\\data\\studies\\lower_level_evidence\\system\\relationship\\params.parquet",
+    "elo_count": "weighted",
+    "forms_norm_weight": true,
+    "forms_own_delta": true,
+    "fitted_cap": 1.0,
+    "fitted_cap_results": 1.0,
+    "solve_w": "w_joint",
+    "ratings_level_term": "none",
+    "missing_params": "error",
+    "params_season_floor": 2013,
+    "form_views": {
+     "form_ace": {
+      "norm": [
+       "def_ace",
+       1.0
+      ],
+      "own": [
+       "ace",
+       1.0
+      ],
+      "step3": [
+       "ace",
+       1.0
+      ]
+     },
+     "form_df": {
+      "norm": [
+       "def_df",
+       1.0
+      ],
+      "own": [
+       "df",
+       1.0
+      ],
+      "step3": [
+       "df",
+       1.0
+      ]
+     },
+     "form_first_in": {
+      "norm": [
+       "def_first_in",
+       1.0
+      ],
+      "own": [
+       "first_in",
+       1.0
+      ],
+      "step3": [
+       "first_in",
+       1.0
+      ]
+     },
+     "form_first_won": {
+      "norm": [
+       "rpw_first",
+       -1.0
+      ],
+      "own": [
+       "first_won",
+       1.0
+      ],
+      "step3": [
+       "first_won",
+       1.0
+      ]
+     },
+     "form_second_won": {
+      "norm": [
+       "rpw_second",
+       -1.0
+      ],
+      "own": [
+       "second_won",
+       1.0
+      ],
+      "step3": [
+       "second_won",
+       1.0
+      ]
+     },
+     "form_hold": {
+      "norm": [
+       "brk",
+       -1.0
+      ],
+      "own": [
+       "hold",
+       1.0
+      ],
+      "step3": [
+       "hold",
+       1.0
+      ]
+     },
+     "form_bp_saved": {
+      "norm": [
+       "bp_conv",
+       -1.0
+      ],
+      "own": [
+       "bp_saved",
+       1.0
+      ],
+      "step3": [
+       "bp_saved",
+       1.0
+      ]
+     },
+     "form_bp_faced_pg": {
+      "norm": [
+       "def_bp_faced_pg",
+       1.0
+      ],
+      "own": [
+       "bp_faced_pg",
+       1.0
+      ],
+      "step3": [
+       "bp_faced_pg",
+       1.0
+      ]
+     },
+     "form_brk": {
+      "norm": [
+       "hold",
+       -1.0
+      ],
+      "own": [
+       "brk",
+       1.0
+      ],
+      "step3": [
+       "brk",
+       1.0
+      ]
+     },
+     "form_bp_conv": {
+      "norm": [
+       "bp_saved",
+       -1.0
+      ],
+      "own": [
+       "bp_conv",
+       1.0
+      ],
+      "step3": [
+       "bp_conv",
+       1.0
+      ]
+     },
+     "form_rpw_first": {
+      "norm": [
+       "first_won",
+       -1.0
+      ],
+      "own": [
+       "rpw_first",
+       1.0
+      ],
+      "step3": [
+       "rpw_first",
+       1.0
+      ]
+     },
+     "form_rpw_second": {
+      "norm": [
+       "second_won",
+       -1.0
+      ],
+      "own": [
+       "rpw_second",
+       1.0
+      ],
+      "step3": [
+       "rpw_second",
+       1.0
+      ]
+     },
+     "adjperf_tpw_2w": {
+      "norm": [
+       "tpw",
+       -1.0
+      ],
+      "own": [
+       "tpw",
+       1.0
+      ],
+      "step3": [
+       "tpw",
+       1.0
+      ]
+     },
+     "formdef_ace": {
+      "norm": [
+       "ace",
+       1.0
+      ],
+      "own": [
+       "ace",
+       1.0
+      ],
+      "step3": [
+       "def_ace",
+       1.0
+      ]
+     },
+     "formdef_df": {
+      "norm": [
+       "df",
+       1.0
+      ],
+      "own": [
+       "df",
+       1.0
+      ],
+      "step3": [
+       "def_df",
+       1.0
+      ]
+     },
+     "formdef_first_in": {
+      "norm": [
+       "first_in",
+       1.0
+      ],
+      "own": [
+       "first_in",
+       1.0
+      ],
+      "step3": [
+       "def_first_in",
+       1.0
+      ]
+     },
+     "formdef_bp_faced_pg": {
+      "norm": [
+       "bp_faced_pg",
+       1.0
+      ],
+      "own": [
+       "bp_faced_pg",
+       1.0
+      ],
+      "step3": [
+       "def_bp_faced_pg",
+       1.0
+      ]
+     }
+    }
+   },
+   "capped_cells_dev_seasons": {
+    "w|results": 25
+   }
+  },
+  "SYS_ITFASIS": {
+   "config": "SYS_ITFASIS.json",
+   "built_already": false,
+   "describe": {
+    "name": "SYS_ITFASIS",
+    "tours": [
+     "atp"
+    ],
+    "translate": true,
+    "weight": "fitted",
+    "weight_results": "fitted",
+    "prior": "pool",
+    "itf_box": "as_is",
+    "families": {
+     "points_52w": true,
+     "forms": true,
+     "ios": true,
+     "ios_points_short": true,
+     "ratings_iid": true,
+     "elo": true
+    },
+    "classes": "C:\\Users\\zerom\\Documents\\Tennis-predictions\\data\\studies\\lower_level_evidence\\system\\classes\\classes.csv",
+    "params": "C:\\Users\\zerom\\Documents\\Tennis-predictions\\data\\studies\\lower_level_evidence\\system\\relationship\\params.parquet",
+    "elo_count": "weighted",
+    "forms_norm_weight": true,
+    "forms_own_delta": true,
+    "fitted_cap": 1.0,
+    "fitted_cap_results": 1.0,
+    "solve_w": "w_joint",
+    "ratings_level_term": "none",
+    "missing_params": "error",
+    "params_season_floor": 2013,
+    "form_views": {
+     "form_ace": {
+      "norm": [
+       "def_ace",
+       1.0
+      ],
+      "own": [
+       "ace",
+       1.0
+      ],
+      "step3": [
+       "ace",
+       1.0
+      ]
+     },
+     "form_df": {
+      "norm": [
+       "def_df",
+       1.0
+      ],
+      "own": [
+       "df",
+       1.0
+      ],
+      "step3": [
+       "df",
+       1.0
+      ]
+     },
+     "form_first_in": {
+      "norm": [
+       "def_first_in",
+       1.0
+      ],
+      "own": [
+       "first_in",
+       1.0
+      ],
+      "step3": [
+       "first_in",
+       1.0
+      ]
+     },
+     "form_first_won": {
+      "norm": [
+       "rpw_first",
+       -1.0
+      ],
+      "own": [
+       "first_won",
+       1.0
+      ],
+      "step3": [
+       "first_won",
+       1.0
+      ]
+     },
+     "form_second_won": {
+      "norm": [
+       "rpw_second",
+       -1.0
+      ],
+      "own": [
+       "second_won",
+       1.0
+      ],
+      "step3": [
+       "second_won",
+       1.0
+      ]
+     },
+     "form_hold": {
+      "norm": [
+       "brk",
+       -1.0
+      ],
+      "own": [
+       "hold",
+       1.0
+      ],
+      "step3": [
+       "hold",
+       1.0
+      ]
+     },
+     "form_bp_saved": {
+      "norm": [
+       "bp_conv",
+       -1.0
+      ],
+      "own": [
+       "bp_saved",
+       1.0
+      ],
+      "step3": [
+       "bp_saved",
+       1.0
+      ]
+     },
+     "form_bp_faced_pg": {
+      "norm": [
+       "def_bp_faced_pg",
+       1.0
+      ],
+      "own": [
+       "bp_faced_pg",
+       1.0
+      ],
+      "step3": [
+       "bp_faced_pg",
+       1.0
+      ]
+     },
+     "form_brk": {
+      "norm": [
+       "hold",
+       -1.0
+      ],
+      "own": [
+       "brk",
+       1.0
+      ],
+      "step3": [
+       "brk",
+       1.0
+      ]
+     },
+     "form_bp_conv": {
+      "norm": [
+       "bp_saved",
+       -1.0
+      ],
+      "own": [
+       "bp_conv",
+       1.0
+      ],
+      "step3": [
+       "bp_conv",
+       1.0
+      ]
+     },
+     "form_rpw_first": {
+      "norm": [
+       "first_won",
+       -1.0
+      ],
+      "own": [
+       "rpw_first",
+       1.0
+      ],
+      "step3": [
+       "rpw_first",
+       1.0
+      ]
+     },
+     "form_rpw_second": {
+      "norm": [
+       "second_won",
+       -1.0
+      ],
+      "own": [
+       "rpw_second",
+       1.0
+      ],
+      "step3": [
+       "rpw_second",
+       1.0
+      ]
+     },
+     "adjperf_tpw_2w": {
+      "norm": [
+       "tpw",
+       -1.0
+      ],
+      "own": [
+       "tpw",
+       1.0
+      ],
+      "step3": [
+       "tpw",
+       1.0
+      ]
+     },
+     "formdef_ace": {
+      "norm": [
+       "ace",
+       1.0
+      ],
+      "own": [
+       "ace",
+       1.0
+      ],
+      "step3": [
+       "def_ace",
+       1.0
+      ]
+     },
+     "formdef_df": {
+      "norm": [
+       "df",
+       1.0
+      ],
+      "own": [
+       "df",
+       1.0
+      ],
+      "step3": [
+       "def_df",
+       1.0
+      ]
+     },
+     "formdef_first_in": {
+      "norm": [
+       "first_in",
+       1.0
+      ],
+      "own": [
+       "first_in",
+       1.0
+      ],
+      "step3": [
+       "def_first_in",
+       1.0
+      ]
+     },
+     "formdef_bp_faced_pg": {
+      "norm": [
+       "bp_faced_pg",
+       1.0
+      ],
+      "own": [
+       "bp_faced_pg",
+       1.0
+      ],
+      "step3": [
+       "def_bp_faced_pg",
+       1.0
+      ]
+     }
+    }
+   },
+   "capped_cells_dev_seasons": {
+    "w|box": 199,
+    "w|results": 25,
+    "w_joint|box": 208
+   }
+  },
+  "SYS_BOTH_ITFASIS": {
+   "config": "SYS_BOTH_ITFASIS.json",
+   "built_already": false,
+   "describe": {
+    "name": "SYS_BOTH_ITFASIS",
+    "tours": [
+     "atp",
+     "wta"
+    ],
+    "translate": true,
+    "weight": "fitted",
+    "weight_results": "fitted",
+    "prior": "pool",
+    "itf_box": "as_is",
+    "families": {
+     "points_52w": true,
+     "forms": true,
+     "ios": true,
+     "ios_points_short": true,
+     "ratings_iid": true,
+     "elo": true
+    },
+    "classes": "C:\\Users\\zerom\\Documents\\Tennis-predictions\\data\\studies\\lower_level_evidence\\system\\classes\\classes.csv",
+    "params": "C:\\Users\\zerom\\Documents\\Tennis-predictions\\data\\studies\\lower_level_evidence\\system\\relationship\\params.parquet",
+    "elo_count": "weighted",
+    "forms_norm_weight": true,
+    "forms_own_delta": true,
+    "fitted_cap": 1.0,
+    "fitted_cap_results": 1.0,
+    "solve_w": "w_joint",
+    "ratings_level_term": "none",
+    "missing_params": "untouched",
+    "params_season_floor": 2013,
+    "form_views": {
+     "form_ace": {
+      "norm": [
+       "def_ace",
+       1.0
+      ],
+      "own": [
+       "ace",
+       1.0
+      ],
+      "step3": [
+       "ace",
+       1.0
+      ]
+     },
+     "form_df": {
+      "norm": [
+       "def_df",
+       1.0
+      ],
+      "own": [
+       "df",
+       1.0
+      ],
+      "step3": [
+       "df",
+       1.0
+      ]
+     },
+     "form_first_in": {
+      "norm": [
+       "def_first_in",
+       1.0
+      ],
+      "own": [
+       "first_in",
+       1.0
+      ],
+      "step3": [
+       "first_in",
+       1.0
+      ]
+     },
+     "form_first_won": {
+      "norm": [
+       "rpw_first",
+       -1.0
+      ],
+      "own": [
+       "first_won",
+       1.0
+      ],
+      "step3": [
+       "first_won",
+       1.0
+      ]
+     },
+     "form_second_won": {
+      "norm": [
+       "rpw_second",
+       -1.0
+      ],
+      "own": [
+       "second_won",
+       1.0
+      ],
+      "step3": [
+       "second_won",
+       1.0
+      ]
+     },
+     "form_hold": {
+      "norm": [
+       "brk",
+       -1.0
+      ],
+      "own": [
+       "hold",
+       1.0
+      ],
+      "step3": [
+       "hold",
+       1.0
+      ]
+     },
+     "form_bp_saved": {
+      "norm": [
+       "bp_conv",
+       -1.0
+      ],
+      "own": [
+       "bp_saved",
+       1.0
+      ],
+      "step3": [
+       "bp_saved",
+       1.0
+      ]
+     },
+     "form_bp_faced_pg": {
+      "norm": [
+       "def_bp_faced_pg",
+       1.0
+      ],
+      "own": [
+       "bp_faced_pg",
+       1.0
+      ],
+      "step3": [
+       "bp_faced_pg",
+       1.0
+      ]
+     },
+     "form_brk": {
+      "norm": [
+       "hold",
+       -1.0
+      ],
+      "own": [
+       "brk",
+       1.0
+      ],
+      "step3": [
+       "brk",
+       1.0
+      ]
+     },
+     "form_bp_conv": {
+      "norm": [
+       "bp_saved",
+       -1.0
+      ],
+      "own": [
+       "bp_conv",
+       1.0
+      ],
+      "step3": [
+       "bp_conv",
+       1.0
+      ]
+     },
+     "form_rpw_first": {
+      "norm": [
+       "first_won",
+       -1.0
+      ],
+      "own": [
+       "rpw_first",
+       1.0
+      ],
+      "step3": [
+       "rpw_first",
+       1.0
+      ]
+     },
+     "form_rpw_second": {
+      "norm": [
+       "second_won",
+       -1.0
+      ],
+      "own": [
+       "rpw_second",
+       1.0
+      ],
+      "step3": [
+       "rpw_second",
+       1.0
+      ]
+     },
+     "adjperf_tpw_2w": {
+      "norm": [
+       "tpw",
+       -1.0
+      ],
+      "own": [
+       "tpw",
+       1.0
+      ],
+      "step3": [
+       "tpw",
+       1.0
+      ]
+     },
+     "formdef_ace": {
+      "norm": [
+       "ace",
+       1.0
+      ],
+      "own": [
+       "ace",
+       1.0
+      ],
+      "step3": [
+       "def_ace",
+       1.0
+      ]
+     },
+     "formdef_df": {
+      "norm": [
+       "df",
+       1.0
+      ],
+      "own": [
+       "df",
+       1.0
+      ],
+      "step3": [
+       "def_df",
+       1.0
+      ]
+     },
+     "formdef_first_in": {
+      "norm": [
+       "first_in",
+       1.0
+      ],
+      "own": [
+       "first_in",
+       1.0
+      ],
+      "step3": [
+       "def_first_in",
+       1.0
+      ]
+     },
+     "formdef_bp_faced_pg": {
+      "norm": [
+       "bp_faced_pg",
+       1.0
+      ],
+      "own": [
+       "bp_faced_pg",
+       1.0
+      ],
+      "step3": [
+       "def_bp_faced_pg",
+       1.0
+      ]
+     }
+    }
+   },
+   "capped_cells_dev_seasons": {
+    "w|box": 250,
+    "w|results": 61,
+    "w_joint|box": 258
+   }
+  },
+  "RES_ONLY": {
+   "config": "RES_ONLY.json",
+   "built_already": false,
+   "describe": {
+    "name": "RES_ONLY",
+    "tours": [
+     "atp"
+    ],
+    "translate": false,
+    "weight": 1.0,
+    "weight_results": "fitted",
+    "prior": "pool",
+    "itf_box": "as_is",
+    "families": {
+     "points_52w": false,
+     "forms": false,
+     "ios": false,
+     "ios_points_short": false,
+     "ratings_iid": false,
+     "elo": true
+    },
+    "classes": null,
+    "params": "C:\\Users\\zerom\\Documents\\Tennis-predictions\\data\\studies\\lower_level_evidence\\system\\relationship\\params.parquet",
+    "elo_count": "weighted",
+    "forms_norm_weight": true,
+    "forms_own_delta": true,
+    "fitted_cap": 1.0,
+    "fitted_cap_results": 1.0,
+    "solve_w": "w_joint",
+    "ratings_level_term": "none",
+    "missing_params": "error",
+    "params_season_floor": 2013,
+    "form_views": {
+     "form_ace": {
+      "norm": [
+       "def_ace",
+       1.0
+      ],
+      "own": [
+       "ace",
+       1.0
+      ],
+      "step3": [
+       "ace",
+       1.0
+      ]
+     },
+     "form_df": {
+      "norm": [
+       "def_df",
+       1.0
+      ],
+      "own": [
+       "df",
+       1.0
+      ],
+      "step3": [
+       "df",
+       1.0
+      ]
+     },
+     "form_first_in": {
+      "norm": [
+       "def_first_in",
+       1.0
+      ],
+      "own": [
+       "first_in",
+       1.0
+      ],
+      "step3": [
+       "first_in",
+       1.0
+      ]
+     },
+     "form_first_won": {
+      "norm": [
+       "rpw_first",
+       -1.0
+      ],
+      "own": [
+       "first_won",
+       1.0
+      ],
+      "step3": [
+       "first_won",
+       1.0
+      ]
+     },
+     "form_second_won": {
+      "norm": [
+       "rpw_second",
+       -1.0
+      ],
+      "own": [
+       "second_won",
+       1.0
+      ],
+      "step3": [
+       "second_won",
+       1.0
+      ]
+     },
+     "form_hold": {
+      "norm": [
+       "brk",
+       -1.0
+      ],
+      "own": [
+       "hold",
+       1.0
+      ],
+      "step3": [
+       "hold",
+       1.0
+      ]
+     },
+     "form_bp_saved": {
+      "norm": [
+       "bp_conv",
+       -1.0
+      ],
+      "own": [
+       "bp_saved",
+       1.0
+      ],
+      "step3": [
+       "bp_saved",
+       1.0
+      ]
+     },
+     "form_bp_faced_pg": {
+      "norm": [
+       "def_bp_faced_pg",
+       1.0
+      ],
+      "own": [
+       "bp_faced_pg",
+       1.0
+      ],
+      "step3": [
+       "bp_faced_pg",
+       1.0
+      ]
+     },
+     "form_brk": {
+      "norm": [
+       "hold",
+       -1.0
+      ],
+      "own": [
+       "brk",
+       1.0
+      ],
+      "step3": [
+       "brk",
+       1.0
+      ]
+     },
+     "form_bp_conv": {
+      "norm": [
+       "bp_saved",
+       -1.0
+      ],
+      "own": [
+       "bp_conv",
+       1.0
+      ],
+      "step3": [
+       "bp_conv",
+       1.0
+      ]
+     },
+     "form_rpw_first": {
+      "norm": [
+       "first_won",
+       -1.0
+      ],
+      "own": [
+       "rpw_first",
+       1.0
+      ],
+      "step3": [
+       "rpw_first",
+       1.0
+      ]
+     },
+     "form_rpw_second": {
+      "norm": [
+       "second_won",
+       -1.0
+      ],
+      "own": [
+       "rpw_second",
+       1.0
+      ],
+      "step3": [
+       "rpw_second",
+       1.0
+      ]
+     },
+     "adjperf_tpw_2w": {
+      "norm": [
+       "tpw",
+       -1.0
+      ],
+      "own": [
+       "tpw",
+       1.0
+      ],
+      "step3": [
+       "tpw",
+       1.0
+      ]
+     },
+     "formdef_ace": {
+      "norm": [
+       "ace",
+       1.0
+      ],
+      "own": [
+       "ace",
+       1.0
+      ],
+      "step3": [
+       "def_ace",
+       1.0
+      ]
+     },
+     "formdef_df": {
+      "norm": [
+       "df",
+       1.0
+      ],
+      "own": [
+       "df",
+       1.0
+      ],
+      "step3": [
+       "def_df",
+       1.0
+      ]
+     },
+     "formdef_first_in": {
+      "norm": [
+       "first_in",
+       1.0
+      ],
+      "own": [
+       "first_in",
+       1.0
+      ],
+      "step3": [
+       "def_first_in",
+       1.0
+      ]
+     },
+     "formdef_bp_faced_pg": {
+      "norm": [
+       "bp_faced_pg",
+       1.0
+      ],
+      "own": [
+       "bp_faced_pg",
+       1.0
+      ],
+      "step3": [
+       "def_bp_faced_pg",
+       1.0
+      ]
+     }
+    }
+   },
+   "capped_cells_dev_seasons": {
+    "w|results": 25
+   }
+  }
+ },
+ "rulings": {
+  "caps": {
+   "fitted_cap": 1.0,
+   "fitted_cap_results": 1.0
+  },
+  "params_season_floor": 2013,
+  "missing_params": "error (SYS_BOTH, SYS_BOTH_ITFASIS: untouched)",
+  "solve_w": "w_joint",
+  "ratings_level_term": "none",
+  "weight_results": "B's fitted value at every lower level, ITF and ITFQ included"
+ },
+ "layer_sha256": "26e21291822f42e4c9e7771f518149d1cb85116bdeb5196285fa22eeca37411f"
+}

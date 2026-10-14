@@ -1,0 +1,53 @@
+{
+ "what": "each player's share of the previous 365 days' played matches below the main tour, for the feature universe's store (63,737 matches, 2013-2026); no result read",
+ "generated_at": "2026-10-08T22:51:07+00:00",
+ "sources": {
+  "stage0_matches": {
+   "path": "data\\studies\\data_continuity\\rebuilds\\2026-10-07T0005Z\\replaced\\data\\studies\\predictability_diagnostic\\stage0_matches.parquet",
+   "sha256": "271d2561f31d0c8cc407e5fb9b73d572115173e329e272c337f8daddda4662af"
+  },
+  "stage0_players": {
+   "path": "data\\studies\\data_continuity\\rebuilds\\2026-10-07T0005Z\\replaced\\data\\studies\\predictability_diagnostic\\stage0_match_players.parquet",
+   "sha256": "f84ec8410140740e929fef2b57b44f28f8ddef2b6b6983c43345d213ee9a6e28"
+  },
+  "leakproof": {
+   "path": "data\\studies\\data_continuity\\rebuilds\\2026-10-07T0005Z\\replaced\\data\\studies\\match_timing\\leakproof_features.parquet",
+   "sha256": "229e9cc2a7a2e48c572a96c7c5accd9d599d9adc474d62abdf7af68f9ec1b861"
+  },
+  "stage4": {
+   "path": "data\\studies\\predictability_diagnostic\\stage4_features.parquet",
+   "sha256": "9a95b150a16456523aa38b045f1fc3cdbb8f7787218fb1c6dcd7e5011b0fa30d"
+  },
+  "stageD": {
+   "path": "data\\studies\\ufc_ideas\\stageD_features.parquet",
+   "sha256": "14accd570fce628cdf73e272bc2501ffd59de0355ab7837f80e47050abb250af"
+  },
+  "stageD_profile": {
+   "path": "data\\studies\\ufc_ideas\\stageD_profile_features.parquet",
+   "sha256": "30f672af9bc081247f765c3a3733230fc70e14acfb501abb199e9befc6648a2b"
+  },
+  "pieces": {
+   "path": "data\\studies\\surface_elo_pieces\\pieces.parquet",
+   "sha256": "40661ce97ee43f6fda8ff69f033c4799bb3e4fd4236efe6a44d95f6cd5e985e2"
+  },
+  "surface_features": {
+   "path": "data\\studies\\surface_ios\\surface_features.parquet",
+   "sha256": "ba8514e8e514f95881275f192a340f0a3ee5954d61b24b6976e63e1c10f66365"
+  }
+ },
+ "store_sha256": "665a2af0215701d015ef7e7884ebb23548852a5f00e77f556a39db8d7a9c91c2",
+ "checks": {
+  "store_rows": 63737,
+  "found_both_sides": 63737,
+  "player_a_is_the_side_a_row": true,
+  "share_in_0_1": true,
+  "rows_in_history_parquet": 55144,
+  "equal_history_parquet": true,
+  "coverage_both_sides": {
+   "2013-2021": 0.9987724835913623,
+   "2022-2024": 0.9987521345067647,
+   "2025-2026": 0.9944140579541487
+  }
+ },
+ "file_sha256": "f929d9ac9770417f2b317ecd97ed84d2661031011e71b7ba149fb1a4ac6558c2"
+}

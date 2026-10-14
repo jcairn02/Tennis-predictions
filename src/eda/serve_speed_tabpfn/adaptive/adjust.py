@@ -213,8 +213,10 @@ def write_coefficients(P: C.Paths = C.DEFAULT, y: pd.Series | None = None) -> di
     seasons = list(FIT_SEASONS)
     nxt = max(FIT_SEASONS) + 1
     ok, why = fittable(P, nxt)
-    if ok:
+    while ok:                                   # every later season the frame can fit (until 10 Oct 2026: 2027 only)
         seasons.append(nxt)
+        nxt += 1
+        ok, why = fittable(P, nxt)
     if not columns_path(P).exists():
         raise RuntimeError("adaptive/columns.parquet (spd_L_D) is needed for L_daily")
     info = history_info(P, with_daily=True)
@@ -235,7 +237,8 @@ def write_coefficients(P: C.Paths = C.DEFAULT, y: pd.Series | None = None) -> di
            "fit": "score.nudge_parameters: logit q = s_tour eta + b z on 2019 .. Y - 1, eta the base's seeds 0-3 mean, "
                   "debut seasons out; b_shrunk = b_mle tau^2 / (tau^2 + se_b^2)",
            "applied_with": "the 16-seed mean of the base's symmetrised forecasts; b_shrunk",
-           "agreement_with_published": agree, f"season_{nxt}": "fitted" if ok else f"not yet fittable: {why}"}
+           "agreement_with_published": agree, **{f"season_{s}": "fitted" for s in seasons if s > max(FIT_SEASONS)},
+           f"season_{nxt}": f"not yet fittable: {why}"}
     C.write_json(coefficients_path(P), out)
     return out
 

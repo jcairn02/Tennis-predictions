@@ -1,0 +1,504 @@
+{
+ "steps": [
+  {
+   "step": "timing_features",
+   "script": "src/eda/match_timing/rebuild.py",
+   "args": [],
+   "exit": 0,
+   "seconds": 481.2,
+   "finished_at": "2026-10-10T2226Z",
+   "log": "C:\\Users\\zerom\\tnr_lyr_rp\\logs\\timing_features.log"
+  },
+  {
+   "step": "surface_ios_cache",
+   "script": "src/eda/surface_ios/build_cache.py",
+   "args": [],
+   "exit": 0,
+   "seconds": 72.9,
+   "finished_at": "2026-10-10T2227Z",
+   "log": "C:\\Users\\zerom\\tnr_lyr_rp\\logs\\surface_ios_cache.log"
+  },
+  {
+   "step": "surface_ios_features",
+   "script": "src/eda/surface_ios/build_features.py",
+   "args": [],
+   "exit": 0,
+   "seconds": 924.9,
+   "finished_at": "2026-10-10T2242Z",
+   "log": "C:\\Users\\zerom\\tnr_lyr_rp\\logs\\surface_ios_features.log"
+  },
+  {
+   "step": "stage1_baselines",
+   "script": "src/eda/predictability_diagnostic/stage1_baselines.py",
+   "args": [],
+   "exit": 0,
+   "seconds": 1145.4,
+   "finished_at": "2026-10-10T2245Z",
+   "log": "C:\\Users\\zerom\\tnr_lyr_rp\\logs\\stage1_baselines.log"
+  },
+  {
+   "step": "stage3_ratings",
+   "script": "src/eda/predictability_diagnostic/stage3_ratings.py",
+   "args": [],
+   "exit": 0,
+   "seconds": 132.6,
+   "finished_at": "2026-10-10T2247Z",
+   "log": "C:\\Users\\zerom\\tnr_lyr_rp\\logs\\stage3_ratings.log"
+  },
+  {
+   "step": "stage4_features",
+   "script": "src/eda/predictability_diagnostic/stage4_features.py",
+   "args": [],
+   "exit": 0,
+   "seconds": 562.7,
+   "finished_at": "2026-10-10T2256Z",
+   "log": "C:\\Users\\zerom\\tnr_lyr_rp\\logs\\stage4_features.log"
+  },
+  {
+   "step": "ufc_stageA_ratings",
+   "script": "src/eda/ufc_ideas/stageA_ratings.py",
+   "args": [
+    "--reuse-grid"
+   ],
+   "exit": 0,
+   "seconds": 856.5,
+   "finished_at": "2026-10-10T2311Z",
+   "log": "C:\\Users\\zerom\\tnr_lyr_rp\\logs\\ufc_stageA_ratings.log"
+  },
+  {
+   "step": "ufc_stageA_features",
+   "script": "src/eda/ufc_ideas/stageA_features.py",
+   "args": [],
+   "exit": 0,
+   "seconds": 2.9,
+   "finished_at": "2026-10-10T2311Z",
+   "log": "C:\\Users\\zerom\\tnr_lyr_rp\\logs\\ufc_stageA_features.log"
+  },
+  {
+   "step": "ufc_stageC_fatigue",
+   "script": "src/eda/ufc_ideas/stageC_fatigue.py",
+   "args": [],
+   "exit": 0,
+   "seconds": 64.1,
+   "finished_at": "2026-10-10T2312Z",
+   "log": "C:\\Users\\zerom\\tnr_lyr_rp\\logs\\ufc_stageC_fatigue.log"
+  },
+  {
+   "step": "ufc_stageC_sos",
+   "script": "src/eda/ufc_ideas/stageC_sos.py",
+   "args": [],
+   "exit": 0,
+   "seconds": 124.4,
+   "finished_at": "2026-10-10T2314Z",
+   "log": "C:\\Users\\zerom\\tnr_lyr_rp\\logs\\ufc_stageC_sos.log"
+  },
+  {
+   "step": "ufc_stageC_rundown",
+   "script": "src/eda/ufc_ideas/stageC_rundown.py",
+   "args": [],
+   "exit": 0,
+   "seconds": 80.8,
+   "finished_at": "2026-10-10T2315Z",
+   "log": "C:\\Users\\zerom\\tnr_lyr_rp\\logs\\ufc_stageC_rundown.log"
+  },
+  {
+   "step": "ufc_stageB_adjperf",
+   "script": "src/eda/ufc_ideas/stageB_adjperf.py",
+   "args": [],
+   "exit": 0,
+   "seconds": 1056.9,
+   "finished_at": "2026-10-10T2333Z",
+   "log": "C:\\Users\\zerom\\tnr_lyr_rp\\logs\\ufc_stageB_adjperf.log"
+  },
+  {
+   "step": "ufc_stageB_ios",
+   "script": "src/eda/ufc_ideas/stageB_ios.py",
+   "args": [],
+   "exit": 0,
+   "seconds": 437.5,
+   "finished_at": "2026-10-10T2340Z",
+   "log": "C:\\Users\\zerom\\tnr_lyr_rp\\logs\\ufc_stageB_ios.log"
+  },
+  {
+   "step": "ios_constants_check",
+   "script": "src/eda/ios_constants/registry.py",
+   "args": [
+    "--check"
+   ],
+   "exit": 0,
+   "seconds": 1.3,
+   "finished_at": "2026-10-10T2340Z",
+   "log": "C:\\Users\\zerom\\tnr_lyr_rp\\logs\\ios_constants_check.log"
+  },
+  {
+   "step": "ufc_stageB_split",
+   "script": "src/eda/ufc_ideas/stageB_split.py",
+   "args": [],
+   "exit": 0,
+   "seconds": 120.4,
+   "finished_at": "2026-10-10T2342Z",
+   "log": "C:\\Users\\zerom\\tnr_lyr_rp\\logs\\ufc_stageB_split.log"
+  },
+  {
+   "step": "ufc_stageB_rundown",
+   "script": "src/eda/ufc_ideas/stageB_rundown.py",
+   "args": [],
+   "exit": 0,
+   "seconds": 430.1,
+   "finished_at": "2026-10-10T2349Z",
+   "log": "C:\\Users\\zerom\\tnr_lyr_rp\\logs\\ufc_stageB_rundown.log"
+  },
+  {
+   "step": "ufc_stageD_profile",
+   "script": "src/eda/ufc_ideas/stageD_profile.py",
+   "args": [],
+   "exit": 0,
+   "seconds": 225.9,
+   "finished_at": "2026-10-10T2353Z",
+   "log": "C:\\Users\\zerom\\tnr_lyr_rp\\logs\\ufc_stageD_profile.log"
+  },
+  {
+   "step": "ufc_stageD_rundown",
+   "script": "src/eda/ufc_ideas/stageD_rundown.py",
+   "args": [],
+   "exit": 0,
+   "seconds": 51.9,
+   "finished_at": "2026-10-10T2354Z",
+   "log": "C:\\Users\\zerom\\tnr_lyr_rp\\logs\\ufc_stageD_rundown.log"
+  },
+  {
+   "step": "thinking_frame",
+   "script": "src/eda/tabpfn_thinking/build_frame.py",
+   "args": [],
+   "exit": 0,
+   "seconds": 9.2,
+   "finished_at": "2026-10-10T2354Z",
+   "log": "C:\\Users\\zerom\\tnr_lyr_rp\\logs\\thinking_frame.log"
+  },
+  {
+   "step": "leakproof_frame",
+   "script": "src/eda/tabpfn_leakproof/build_frame.py",
+   "args": [],
+   "exit": 0,
+   "seconds": 2.1,
+   "finished_at": "2026-10-10T2354Z",
+   "log": "C:\\Users\\zerom\\tnr_lyr_rp\\logs\\leakproof_frame.log"
+  },
+  {
+   "step": "elo_pieces",
+   "script": "src/eda/surface_elo_pieces/pieces.py",
+   "args": [],
+   "exit": 0,
+   "seconds": 418.6,
+   "finished_at": "2026-10-11T0001Z",
+   "log": "C:\\Users\\zerom\\tnr_lyr_rp\\logs\\elo_pieces.log"
+  },
+  {
+   "step": "elo_frames",
+   "script": "src/eda/surface_elo_pieces/build_frames.py",
+   "args": [],
+   "exit": 0,
+   "seconds": 9.5,
+   "finished_at": "2026-10-11T0001Z",
+   "log": "C:\\Users\\zerom\\tnr_lyr_rp\\logs\\elo_frames.log"
+  },
+  {
+   "step": "surface_ios_frames",
+   "script": "src/eda/surface_ios/frames.py",
+   "args": [],
+   "exit": 0,
+   "seconds": 1.7,
+   "finished_at": "2026-10-11T0001Z",
+   "log": "C:\\Users\\zerom\\tnr_lyr_rp\\logs\\surface_ios_frames.log"
+  },
+  {
+   "step": "surface_ios_arms",
+   "script": "src/eda/surface_ios/arms.py",
+   "args": [],
+   "exit": 0,
+   "seconds": 5.5,
+   "finished_at": "2026-10-11T0001Z",
+   "log": "C:\\Users\\zerom\\tnr_lyr_rp\\logs\\surface_ios_arms.log"
+  },
+  {
+   "step": "model_frame",
+   "script": "src/eda/surface_rating_race/model_frame.py",
+   "args": [],
+   "exit": 0,
+   "seconds": 2.8,
+   "finished_at": "2026-10-11T0001Z",
+   "log": "C:\\Users\\zerom\\tnr_lyr_rp\\logs\\model_frame.log"
+  }
+ ],
+ "sandbox": "C:\\Users\\zerom\\tnr_lyr_rp",
+ "folder": "C:\\Users\\zerom\\Documents\\Tennis-predictions\\data\\studies\\prediction_run\\replay_2026-10-10_layer",
+ "lle_layer": {
+  "on": true,
+  "build_config": "C:\\Users\\zerom\\tnr_lyr_rp\\data\\studies\\current_best_model\\level_layer\\this_build\\build_config.json",
+  "sha256": "34e99972eb462225b1f3d304c097ffbfd9fe3a23970d8543a94c9b7acc8d419b"
+ },
+ "inputs": {
+  "folder": "C:\\Users\\zerom\\Documents\\Tennis-predictions\\data\\studies\\prediction_run\\replay_2026-10-10_layer",
+  "was": "built",
+  "inputs": 57,
+  "dropped": [
+   "ios_points_short"
+  ]
+ },
+ "history": {
+  "checked": "C:\\Users\\zerom\\tnr_lyr_rp\\data\\studies\\predictability_diagnostic",
+  "reference": "2026-10-08",
+  "freeze": "2026-10-08",
+  "since": "2026-10-05",
+  "matches": 875120,
+  "reference_matches": 873437,
+  "future": {
+   "matches": 0,
+   "by": []
+  },
+  "updated": {
+   "matches": 0,
+   "revised": 0,
+   "dropped": 0,
+   "by": [],
+   "examples": []
+  },
+  "new_past": {
+   "matches": 0,
+   "by": [],
+   "examples": []
+  },
+  "dropped": {
+   "matches": 52,
+   "by": [
+    {
+     "source": "tml",
+     "tour": "atp",
+     "map_level": "T250",
+     "year": 2026,
+     "matches": 30
+    },
+    {
+     "source": "tml",
+     "tour": "wta",
+     "map_level": "T250",
+     "year": 2026,
+     "matches": 22
+    }
+   ],
+   "examples": [
+    "atp|2026-314|R16|atp:134770|atp:210262",
+    "atp|2026-316|R16|atp:126094|atp:126504",
+    "atp|2026-314|R16|atp:200175|atp:207678",
+    "atp|2026-316|R16|atp:105932|atp:202058",
+    "atp|2026-314|R16|atp:126774|atp:208843",
+    "atp|2026-316|R16|atp:202104|atp:207411",
+    "atp|2026-316|R16|atp:126214|atp:210510",
+    "wta|2026-1175|R16|wta:215983|wta:252499",
+    "wta|2026-2063|R16|wta:210886|wta:259733",
+    "wta|2026-1175|R16|wta:205925|wta:238184"
+   ]
+  },
+  "revised": {
+   "matches": 23,
+   "by": [
+    {
+     "source": "tml",
+     "tour": "atp",
+     "map_level": "T250",
+     "year": 2026,
+     "matches": 15
+    },
+    {
+     "source": "tml",
+     "tour": "wta",
+     "map_level": "T250",
+     "year": 2026,
+     "matches": 8
+    }
+   ],
+   "examples": [
+    "atp|2026-314|R16|atp:132283|atp:209920",
+    "atp|2026-316|R16|atp:105777|atp:132686",
+    "atp|2026-439|R16|atp:208169|atp:209414",
+    "atp|2026-316|R16|atp:122298|atp:209226",
+    "atp|2026-439|R16|atp:207925|atp:208882",
+    "atp|2026-314|R16|atp:105870|atp:200473",
+    "atp|2026-316|R16|atp:127157|atp:209260",
+    "atp|2026-439|R16|atp:105477|atp:200221",
+    "atp|2026-314|R16|atp:126239|atp:202127",
+    "atp|2026-316|R16|atp:105882|atp:208363"
+   ]
+  },
+  "accepted": {
+   "matches": 1736,
+   "added": 1735,
+   "completed": 1,
+   "by": [
+    {
+     "source": "sofascore",
+     "tour": "atp",
+     "map_level": "CH",
+     "year": 2026,
+     "matches": 11
+    },
+    {
+     "source": "sofascore",
+     "tour": "atp",
+     "map_level": "CHQ",
+     "year": 2026,
+     "matches": 49
+    },
+    {
+     "source": "tennislive",
+     "tour": "atp",
+     "map_level": "CH",
+     "year": 2026,
+     "matches": 1
+    },
+    {
+     "source": "tennislive",
+     "tour": "atp",
+     "map_level": "CHQ",
+     "year": 2026,
+     "matches": 1674
+    },
+    {
+     "source": "tml",
+     "tour": "atp",
+     "map_level": "CH",
+     "year": 2026,
+     "matches": 1
+    }
+   ]
+  },
+  "gated": {
+   "new_past": {
+    "matches": 0,
+    "by": [],
+    "examples": []
+   },
+   "dropped": {
+    "matches": 0,
+    "by": [],
+    "examples": []
+   },
+   "revised": {
+    "matches": 0,
+    "by": [],
+    "examples": []
+   }
+  },
+  "allowed_main_tour": {
+   "new_past": {
+    "matches": 0,
+    "by": [],
+    "examples": []
+   },
+   "dropped": {
+    "matches": 52,
+    "by": [
+     {
+      "source": "tml",
+      "tour": "atp",
+      "map_level": "T250",
+      "year": 2026,
+      "matches": 30
+     },
+     {
+      "source": "tml",
+      "tour": "wta",
+      "map_level": "T250",
+      "year": 2026,
+      "matches": 22
+     }
+    ],
+    "examples": [
+     "atp|2026-314|R16|atp:134770|atp:210262",
+     "atp|2026-316|R16|atp:126094|atp:126504",
+     "atp|2026-314|R16|atp:200175|atp:207678",
+     "atp|2026-316|R16|atp:105932|atp:202058",
+     "atp|2026-314|R16|atp:126774|atp:208843",
+     "atp|2026-316|R16|atp:202104|atp:207411",
+     "atp|2026-316|R16|atp:126214|atp:210510",
+     "wta|2026-1175|R16|wta:215983|wta:252499",
+     "wta|2026-2063|R16|wta:210886|wta:259733",
+     "wta|2026-1175|R16|wta:205925|wta:238184"
+    ]
+   },
+   "revised": {
+    "matches": 23,
+    "by": [
+     {
+      "source": "tml",
+      "tour": "atp",
+      "map_level": "T250",
+      "year": 2026,
+      "matches": 15
+     },
+     {
+      "source": "tml",
+      "tour": "wta",
+      "map_level": "T250",
+      "year": 2026,
+      "matches": 8
+     }
+    ],
+    "examples": [
+     "atp|2026-314|R16|atp:132283|atp:209920",
+     "atp|2026-316|R16|atp:105777|atp:132686",
+     "atp|2026-439|R16|atp:208169|atp:209414",
+     "atp|2026-316|R16|atp:122298|atp:209226",
+     "atp|2026-439|R16|atp:207925|atp:208882",
+     "atp|2026-314|R16|atp:105870|atp:200473",
+     "atp|2026-316|R16|atp:127157|atp:209260",
+     "atp|2026-439|R16|atp:105477|atp:200221",
+     "atp|2026-314|R16|atp:126239|atp:202127",
+     "atp|2026-316|R16|atp:105882|atp:208363"
+    ]
+   }
+  },
+  "template_ok": true
+ },
+ "indoor": {
+  "recorded": true,
+  "unknown": 0,
+  "by_source": [
+   {
+    "tour": "atp",
+    "indoor_source": "stage0",
+    "matches": 15
+   },
+   {
+    "tour": "wta",
+    "indoor_source": "calendar",
+    "matches": 8
+   }
+  ]
+ },
+ "gate": {
+  "checked_at": "2026-10-11T0002Z",
+  "stage0": "C:\\Users\\zerom\\tnr_lyr_rp\\data\\studies\\predictability_diagnostic",
+  "live_matches": 23,
+  "complete": 20,
+  "incomplete": [
+   {
+    "match_id": "wta|2026-1175|R16|wta:221012|wta:330920",
+    "reason": "Elena Micic: entered through qualifying, but no qualifying match in Stage 0"
+   },
+   {
+    "match_id": "wta|2026-1175|R16|wta:239383|wta:260172",
+    "reason": "Lilli Tagger: entered through qualifying, but no qualifying match in Stage 0"
+   },
+   {
+    "match_id": "wta|2026-2063|R16|wta:220589|wta:238075",
+    "reason": "Elina Avanesyan: entered through qualifying, but no qualifying match in Stage 0"
+   }
+  ]
+ },
+ "collected": {
+  "live_matches": 23,
+  "in_frame": 23,
+  "missing_from_frame": []
+ }
+}

@@ -1,0 +1,1259 @@
+{
+ "tables": "V1",
+ "cuts": [
+  "2016-06-01",
+  "2019-03-01",
+  "2022-09-01"
+ ],
+ "how": "screen.timing_probe, run on a panel of every match of the long table (so every history row carries a value): results and box scores (Stage B's z included, as the long table's zB) of the matches that may start on or after the cut are scrambled; for an own-sequence builder the rows that surely finished before the cut (future) and each player's first scrambled row (own) must not move; the leaky controls must. `harness` is the harness's own count (all the group's real columns jointly; NaN = NaN counts as unchanged), `breakdown` the same rows per column: the value changed, lost (the row left the population) or gained",
+ "history": "long table rows dated before 29 Jul 2026",
+ "panel_all_matches": 870470,
+ "hist": {
+  "harness": {
+   "2016-06-01": {
+    "future_rows_compared": 626336,
+    "future_rows_changed": 0,
+    "own_rows_compared": 21691,
+    "own_rows_changed": 387,
+    "columns_scrambled": 28
+   },
+   "2019-03-01": {
+    "future_rows_compared": 915928,
+    "future_rows_changed": 0,
+    "own_rows_compared": 17660,
+    "own_rows_changed": 367,
+    "columns_scrambled": 28
+   },
+   "2022-09-01": {
+    "future_rows_compared": 1249302,
+    "future_rows_changed": 0,
+    "own_rows_compared": 12778,
+    "own_rows_changed": 477,
+    "columns_scrambled": 28
+   }
+  },
+  "harness_leaky_controls": {
+   "2016-06-01": {
+    "future_rows_compared": 626336,
+    "future_rows_changed": 2577,
+    "own_rows_compared": 21691,
+    "own_rows_changed": 14254,
+    "columns_scrambled": 28
+   },
+   "2019-03-01": {
+    "future_rows_compared": 915928,
+    "future_rows_changed": 2627,
+    "own_rows_compared": 17660,
+    "own_rows_changed": 11947,
+    "columns_scrambled": 28
+   },
+   "2022-09-01": {
+    "future_rows_compared": 1249302,
+    "future_rows_changed": 3659,
+    "own_rows_compared": 12778,
+    "own_rows_changed": 9999,
+    "columns_scrambled": 28
+   }
+  },
+  "breakdown": {
+   "post": {
+    "2016-06-01": {
+     "future": {
+      "rows": 626336,
+      "with_value": 626336,
+      "value_changed": 0,
+      "value_changed_beyond_1e-9": 0,
+      "max_abs_change": 0.0,
+      "lost_value": 0,
+      "gained_value": 0
+     },
+     "own": {
+      "rows": 21691,
+      "with_value": 21691,
+      "value_changed": 0,
+      "value_changed_beyond_1e-9": 0,
+      "max_abs_change": 0.0,
+      "lost_value": 0,
+      "gained_value": 0
+     }
+    },
+    "2019-03-01": {
+     "future": {
+      "rows": 915928,
+      "with_value": 915928,
+      "value_changed": 0,
+      "value_changed_beyond_1e-9": 0,
+      "max_abs_change": 0.0,
+      "lost_value": 0,
+      "gained_value": 0
+     },
+     "own": {
+      "rows": 17660,
+      "with_value": 17660,
+      "value_changed": 0,
+      "value_changed_beyond_1e-9": 0,
+      "max_abs_change": 0.0,
+      "lost_value": 0,
+      "gained_value": 0
+     }
+    },
+    "2022-09-01": {
+     "future": {
+      "rows": 1249302,
+      "with_value": 1249302,
+      "value_changed": 0,
+      "value_changed_beyond_1e-9": 0,
+      "max_abs_change": 0.0,
+      "lost_value": 0,
+      "gained_value": 0
+     },
+     "own": {
+      "rows": 12778,
+      "with_value": 12778,
+      "value_changed": 0,
+      "value_changed_beyond_1e-9": 0,
+      "max_abs_change": 0.0,
+      "lost_value": 0,
+      "gained_value": 0
+     }
+    }
+   },
+   "elite": {
+    "2016-06-01": {
+     "future": {
+      "rows": 626336,
+      "with_value": 626336,
+      "value_changed": 0,
+      "value_changed_beyond_1e-9": 0,
+      "max_abs_change": 0.0,
+      "lost_value": 0,
+      "gained_value": 0
+     },
+     "own": {
+      "rows": 21691,
+      "with_value": 21691,
+      "value_changed": 0,
+      "value_changed_beyond_1e-9": 0,
+      "max_abs_change": 0.0,
+      "lost_value": 0,
+      "gained_value": 0
+     }
+    },
+    "2019-03-01": {
+     "future": {
+      "rows": 915928,
+      "with_value": 915928,
+      "value_changed": 0,
+      "value_changed_beyond_1e-9": 0,
+      "max_abs_change": 0.0,
+      "lost_value": 0,
+      "gained_value": 0
+     },
+     "own": {
+      "rows": 17660,
+      "with_value": 17660,
+      "value_changed": 0,
+      "value_changed_beyond_1e-9": 0,
+      "max_abs_change": 0.0,
+      "lost_value": 0,
+      "gained_value": 0
+     }
+    },
+    "2022-09-01": {
+     "future": {
+      "rows": 1249302,
+      "with_value": 1249302,
+      "value_changed": 0,
+      "value_changed_beyond_1e-9": 0,
+      "max_abs_change": 0.0,
+      "lost_value": 0,
+      "gained_value": 0
+     },
+     "own": {
+      "rows": 12778,
+      "with_value": 12778,
+      "value_changed": 0,
+      "value_changed_beyond_1e-9": 0,
+      "max_abs_change": 0.0,
+      "lost_value": 0,
+      "gained_value": 0
+     }
+    }
+   },
+   "fame": {
+    "2016-06-01": {
+     "future": {
+      "rows": 626336,
+      "with_value": 626336,
+      "value_changed": 0,
+      "value_changed_beyond_1e-9": 0,
+      "max_abs_change": 0.0,
+      "lost_value": 0,
+      "gained_value": 0
+     },
+     "own": {
+      "rows": 21691,
+      "with_value": 21691,
+      "value_changed": 0,
+      "value_changed_beyond_1e-9": 0,
+      "max_abs_change": 0.0,
+      "lost_value": 0,
+      "gained_value": 0
+     }
+    },
+    "2019-03-01": {
+     "future": {
+      "rows": 915928,
+      "with_value": 915928,
+      "value_changed": 0,
+      "value_changed_beyond_1e-9": 0,
+      "max_abs_change": 0.0,
+      "lost_value": 0,
+      "gained_value": 0
+     },
+     "own": {
+      "rows": 17660,
+      "with_value": 17660,
+      "value_changed": 0,
+      "value_changed_beyond_1e-9": 0,
+      "max_abs_change": 0.0,
+      "lost_value": 0,
+      "gained_value": 0
+     }
+    },
+    "2022-09-01": {
+     "future": {
+      "rows": 1249302,
+      "with_value": 1249302,
+      "value_changed": 0,
+      "value_changed_beyond_1e-9": 0,
+      "max_abs_change": 0.0,
+      "lost_value": 0,
+      "gained_value": 0
+     },
+     "own": {
+      "rows": 12778,
+      "with_value": 12778,
+      "value_changed": 0,
+      "value_changed_beyond_1e-9": 0,
+      "max_abs_change": 0.0,
+      "lost_value": 0,
+      "gained_value": 0
+     }
+    }
+   },
+   "salL": {
+    "2016-06-01": {
+     "future": {
+      "rows": 626336,
+      "with_value": 626336,
+      "value_changed": 0,
+      "value_changed_beyond_1e-9": 0,
+      "max_abs_change": 0.0,
+      "lost_value": 0,
+      "gained_value": 0
+     },
+     "own": {
+      "rows": 21691,
+      "with_value": 21691,
+      "value_changed": 387,
+      "value_changed_beyond_1e-9": 0,
+      "max_abs_change": 2.220446049250313e-16,
+      "lost_value": 0,
+      "gained_value": 0
+     }
+    },
+    "2019-03-01": {
+     "future": {
+      "rows": 915928,
+      "with_value": 915928,
+      "value_changed": 0,
+      "value_changed_beyond_1e-9": 0,
+      "max_abs_change": 0.0,
+      "lost_value": 0,
+      "gained_value": 0
+     },
+     "own": {
+      "rows": 17660,
+      "with_value": 17660,
+      "value_changed": 367,
+      "value_changed_beyond_1e-9": 0,
+      "max_abs_change": 3.3306690738754696e-16,
+      "lost_value": 0,
+      "gained_value": 0
+     }
+    },
+    "2022-09-01": {
+     "future": {
+      "rows": 1249302,
+      "with_value": 1249302,
+      "value_changed": 0,
+      "value_changed_beyond_1e-9": 0,
+      "max_abs_change": 0.0,
+      "lost_value": 0,
+      "gained_value": 0
+     },
+     "own": {
+      "rows": 12778,
+      "with_value": 12778,
+      "value_changed": 477,
+      "value_changed_beyond_1e-9": 0,
+      "max_abs_change": 2.220446049250313e-16,
+      "lost_value": 0,
+      "gained_value": 0
+     }
+    }
+   },
+   "hasL": {
+    "2016-06-01": {
+     "future": {
+      "rows": 626336,
+      "with_value": 626336,
+      "value_changed": 0,
+      "value_changed_beyond_1e-9": 0,
+      "max_abs_change": 0.0,
+      "lost_value": 0,
+      "gained_value": 0
+     },
+     "own": {
+      "rows": 21691,
+      "with_value": 21691,
+      "value_changed": 0,
+      "value_changed_beyond_1e-9": 0,
+      "max_abs_change": 0.0,
+      "lost_value": 0,
+      "gained_value": 0
+     }
+    },
+    "2019-03-01": {
+     "future": {
+      "rows": 915928,
+      "with_value": 915928,
+      "value_changed": 0,
+      "value_changed_beyond_1e-9": 0,
+      "max_abs_change": 0.0,
+      "lost_value": 0,
+      "gained_value": 0
+     },
+     "own": {
+      "rows": 17660,
+      "with_value": 17660,
+      "value_changed": 0,
+      "value_changed_beyond_1e-9": 0,
+      "max_abs_change": 0.0,
+      "lost_value": 0,
+      "gained_value": 0
+     }
+    },
+    "2022-09-01": {
+     "future": {
+      "rows": 1249302,
+      "with_value": 1249302,
+      "value_changed": 0,
+      "value_changed_beyond_1e-9": 0,
+      "max_abs_change": 0.0,
+      "lost_value": 0,
+      "gained_value": 0
+     },
+     "own": {
+      "rows": 12778,
+      "with_value": 12778,
+      "value_changed": 0,
+      "value_changed_beyond_1e-9": 0,
+      "max_abs_change": 0.0,
+      "lost_value": 0,
+      "gained_value": 0
+     }
+    }
+   },
+   "leak_own_points": {
+    "2016-06-01": {
+     "future": {
+      "rows": 626336,
+      "with_value": 159736,
+      "value_changed": 0,
+      "value_changed_beyond_1e-9": 0,
+      "max_abs_change": 0.0,
+      "lost_value": 0,
+      "gained_value": 0
+     },
+     "own": {
+      "rows": 21691,
+      "with_value": 3113,
+      "value_changed": 1231,
+      "value_changed_beyond_1e-9": 1231,
+      "max_abs_change": 251.0,
+      "lost_value": 1874,
+      "gained_value": 7138
+     }
+    },
+    "2019-03-01": {
+     "future": {
+      "rows": 915928,
+      "with_value": 250290,
+      "value_changed": 0,
+      "value_changed_beyond_1e-9": 0,
+      "max_abs_change": 0.0,
+      "lost_value": 0,
+      "gained_value": 0
+     },
+     "own": {
+      "rows": 17660,
+      "with_value": 2516,
+      "value_changed": 1013,
+      "value_changed_beyond_1e-9": 1013,
+      "max_abs_change": 247.0,
+      "lost_value": 1499,
+      "gained_value": 6268
+     }
+    },
+    "2022-09-01": {
+     "future": {
+      "rows": 1249302,
+      "with_value": 344386,
+      "value_changed": 0,
+      "value_changed_beyond_1e-9": 0,
+      "max_abs_change": 0.0,
+      "lost_value": 0,
+      "gained_value": 0
+     },
+     "own": {
+      "rows": 12778,
+      "with_value": 2746,
+      "value_changed": 1354,
+      "value_changed_beyond_1e-9": 1354,
+      "max_abs_change": 345.0,
+      "lost_value": 1383,
+      "gained_value": 5098
+     }
+    }
+   },
+   "leak_next_points": {
+    "2016-06-01": {
+     "future": {
+      "rows": 626336,
+      "with_value": 159634,
+      "value_changed": 389,
+      "value_changed_beyond_1e-9": 389,
+      "max_abs_change": 204.0,
+      "lost_value": 603,
+      "gained_value": 1585
+     },
+     "own": {
+      "rows": 21691,
+      "with_value": 2503,
+      "value_changed": 918,
+      "value_changed_beyond_1e-9": 918,
+      "max_abs_change": 247.0,
+      "lost_value": 1579,
+      "gained_value": 5766
+     }
+    },
+    "2019-03-01": {
+     "future": {
+      "rows": 915928,
+      "with_value": 249642,
+      "value_changed": 328,
+      "value_changed_beyond_1e-9": 328,
+      "max_abs_change": 163.0,
+      "lost_value": 515,
+      "gained_value": 1784
+     },
+     "own": {
+      "rows": 17660,
+      "with_value": 2125,
+      "value_changed": 871,
+      "value_changed_beyond_1e-9": 871,
+      "max_abs_change": 198.0,
+      "lost_value": 1249,
+      "gained_value": 4808
+     }
+    },
+    "2022-09-01": {
+     "future": {
+      "rows": 1249302,
+      "with_value": 343942,
+      "value_changed": 561,
+      "value_changed_beyond_1e-9": 561,
+      "max_abs_change": 345.0,
+      "lost_value": 578,
+      "gained_value": 2520
+     },
+     "own": {
+      "rows": 12778,
+      "with_value": 2218,
+      "value_changed": 1121,
+      "value_changed_beyond_1e-9": 1121,
+      "max_abs_change": 260.0,
+      "lost_value": 1090,
+      "gained_value": 4024
+     }
+    }
+   }
+  },
+  "builds": 4,
+  "seconds": 169.6
+ },
+ "f20": {
+  "harness": {
+   "2016-06-01": {
+    "future_rows_compared": 626336,
+    "future_rows_changed": 0,
+    "own_rows_compared": 21691,
+    "own_rows_changed": 1,
+    "columns_scrambled": 28
+   },
+   "2019-03-01": {
+    "future_rows_compared": 915928,
+    "future_rows_changed": 0,
+    "own_rows_compared": 17660,
+    "own_rows_changed": 1,
+    "columns_scrambled": 28
+   },
+   "2022-09-01": {
+    "future_rows_compared": 1249302,
+    "future_rows_changed": 0,
+    "own_rows_compared": 12778,
+    "own_rows_changed": 1,
+    "columns_scrambled": 28
+   }
+  },
+  "harness_leaky_controls": {
+   "2016-06-01": {
+    "future_rows_compared": 626336,
+    "future_rows_changed": 5032,
+    "own_rows_compared": 21691,
+    "own_rows_changed": 21678,
+    "columns_scrambled": 28
+   },
+   "2019-03-01": {
+    "future_rows_compared": 915928,
+    "future_rows_changed": 5099,
+    "own_rows_compared": 17660,
+    "own_rows_changed": 17650,
+    "columns_scrambled": 28
+   },
+   "2022-09-01": {
+    "future_rows_compared": 1249302,
+    "future_rows_changed": 6028,
+    "own_rows_compared": 12778,
+    "own_rows_changed": 12769,
+    "columns_scrambled": 28
+   }
+  },
+  "breakdown": {
+   "on_n": {
+    "2016-06-01": {
+     "future": {
+      "rows": 626336,
+      "with_value": 626336,
+      "value_changed": 0,
+      "value_changed_beyond_1e-9": 0,
+      "max_abs_change": 0.0,
+      "lost_value": 0,
+      "gained_value": 0
+     },
+     "own": {
+      "rows": 21691,
+      "with_value": 21691,
+      "value_changed": 0,
+      "value_changed_beyond_1e-9": 0,
+      "max_abs_change": 0.0,
+      "lost_value": 0,
+      "gained_value": 0
+     }
+    },
+    "2019-03-01": {
+     "future": {
+      "rows": 915928,
+      "with_value": 915928,
+      "value_changed": 0,
+      "value_changed_beyond_1e-9": 0,
+      "max_abs_change": 0.0,
+      "lost_value": 0,
+      "gained_value": 0
+     },
+     "own": {
+      "rows": 17660,
+      "with_value": 17660,
+      "value_changed": 0,
+      "value_changed_beyond_1e-9": 0,
+      "max_abs_change": 0.0,
+      "lost_value": 0,
+      "gained_value": 0
+     }
+    },
+    "2022-09-01": {
+     "future": {
+      "rows": 1249302,
+      "with_value": 1249302,
+      "value_changed": 0,
+      "value_changed_beyond_1e-9": 0,
+      "max_abs_change": 0.0,
+      "lost_value": 0,
+      "gained_value": 0
+     },
+     "own": {
+      "rows": 12778,
+      "with_value": 12778,
+      "value_changed": 0,
+      "value_changed_beyond_1e-9": 0,
+      "max_abs_change": 0.0,
+      "lost_value": 0,
+      "gained_value": 0
+     }
+    }
+   },
+   "nov": {
+    "2016-06-01": {
+     "future": {
+      "rows": 626336,
+      "with_value": 626336,
+      "value_changed": 0,
+      "value_changed_beyond_1e-9": 0,
+      "max_abs_change": 0.0,
+      "lost_value": 0,
+      "gained_value": 0
+     },
+     "own": {
+      "rows": 21691,
+      "with_value": 21691,
+      "value_changed": 0,
+      "value_changed_beyond_1e-9": 0,
+      "max_abs_change": 0.0,
+      "lost_value": 0,
+      "gained_value": 0
+     }
+    },
+    "2019-03-01": {
+     "future": {
+      "rows": 915928,
+      "with_value": 915928,
+      "value_changed": 0,
+      "value_changed_beyond_1e-9": 0,
+      "max_abs_change": 0.0,
+      "lost_value": 0,
+      "gained_value": 0
+     },
+     "own": {
+      "rows": 17660,
+      "with_value": 17660,
+      "value_changed": 0,
+      "value_changed_beyond_1e-9": 0,
+      "max_abs_change": 0.0,
+      "lost_value": 0,
+      "gained_value": 0
+     }
+    },
+    "2022-09-01": {
+     "future": {
+      "rows": 1249302,
+      "with_value": 1249302,
+      "value_changed": 0,
+      "value_changed_beyond_1e-9": 0,
+      "max_abs_change": 0.0,
+      "lost_value": 0,
+      "gained_value": 0
+     },
+     "own": {
+      "rows": 12778,
+      "with_value": 12778,
+      "value_changed": 0,
+      "value_changed_beyond_1e-9": 0,
+      "max_abs_change": 0.0,
+      "lost_value": 0,
+      "gained_value": 0
+     }
+    }
+   },
+   "trav": {
+    "2016-06-01": {
+     "future": {
+      "rows": 626336,
+      "with_value": 598804,
+      "value_changed": 0,
+      "value_changed_beyond_1e-9": 0,
+      "max_abs_change": 0.0,
+      "lost_value": 0,
+      "gained_value": 0
+     },
+     "own": {
+      "rows": 21691,
+      "with_value": 5891,
+      "value_changed": 0,
+      "value_changed_beyond_1e-9": 0,
+      "max_abs_change": 0.0,
+      "lost_value": 0,
+      "gained_value": 0
+     }
+    },
+    "2019-03-01": {
+     "future": {
+      "rows": 915928,
+      "with_value": 880938,
+      "value_changed": 0,
+      "value_changed_beyond_1e-9": 0,
+      "max_abs_change": 0.0,
+      "lost_value": 0,
+      "gained_value": 0
+     },
+     "own": {
+      "rows": 17660,
+      "with_value": 5659,
+      "value_changed": 0,
+      "value_changed_beyond_1e-9": 0,
+      "max_abs_change": 0.0,
+      "lost_value": 0,
+      "gained_value": 0
+     }
+    },
+    "2022-09-01": {
+     "future": {
+      "rows": 1249302,
+      "with_value": 1204558,
+      "value_changed": 0,
+      "value_changed_beyond_1e-9": 0,
+      "max_abs_change": 0.0,
+      "lost_value": 0,
+      "gained_value": 0
+     },
+     "own": {
+      "rows": 12778,
+      "with_value": 6481,
+      "value_changed": 0,
+      "value_changed_beyond_1e-9": 0,
+      "max_abs_change": 0.0,
+      "lost_value": 0,
+      "gained_value": 0
+     }
+    }
+   },
+   "pastfat": {
+    "2016-06-01": {
+     "future": {
+      "rows": 626336,
+      "with_value": 500693,
+      "value_changed": 0,
+      "value_changed_beyond_1e-9": 0,
+      "max_abs_change": 0.0,
+      "lost_value": 0,
+      "gained_value": 0
+     },
+     "own": {
+      "rows": 21691,
+      "with_value": 974,
+      "value_changed": 1,
+      "value_changed_beyond_1e-9": 0,
+      "max_abs_change": 3.774758283725532e-14,
+      "lost_value": 0,
+      "gained_value": 0
+     }
+    },
+    "2019-03-01": {
+     "future": {
+      "rows": 915928,
+      "with_value": 733928,
+      "value_changed": 0,
+      "value_changed_beyond_1e-9": 0,
+      "max_abs_change": 0.0,
+      "lost_value": 0,
+      "gained_value": 0
+     },
+     "own": {
+      "rows": 17660,
+      "with_value": 820,
+      "value_changed": 1,
+      "value_changed_beyond_1e-9": 0,
+      "max_abs_change": 7.105427357601002e-15,
+      "lost_value": 0,
+      "gained_value": 0
+     }
+    },
+    "2022-09-01": {
+     "future": {
+      "rows": 1249302,
+      "with_value": 1002923,
+      "value_changed": 0,
+      "value_changed_beyond_1e-9": 0,
+      "max_abs_change": 0.0,
+      "lost_value": 0,
+      "gained_value": 0
+     },
+     "own": {
+      "rows": 12778,
+      "with_value": 1138,
+      "value_changed": 1,
+      "value_changed_beyond_1e-9": 0,
+      "max_abs_change": 2.842170943040401e-14,
+      "lost_value": 0,
+      "gained_value": 0
+     }
+    }
+   },
+   "leak_own_load": {
+    "2016-06-01": {
+     "future": {
+      "rows": 626336,
+      "with_value": 626336,
+      "value_changed": 0,
+      "value_changed_beyond_1e-9": 0,
+      "max_abs_change": 0.0,
+      "lost_value": 0,
+      "gained_value": 0
+     },
+     "own": {
+      "rows": 21691,
+      "with_value": 21691,
+      "value_changed": 21584,
+      "value_changed_beyond_1e-9": 21584,
+      "max_abs_change": 317.05281103197456,
+      "lost_value": 0,
+      "gained_value": 0
+     }
+    },
+    "2019-03-01": {
+     "future": {
+      "rows": 915928,
+      "with_value": 915928,
+      "value_changed": 0,
+      "value_changed_beyond_1e-9": 0,
+      "max_abs_change": 0.0,
+      "lost_value": 0,
+      "gained_value": 0
+     },
+     "own": {
+      "rows": 17660,
+      "with_value": 17660,
+      "value_changed": 17548,
+      "value_changed_beyond_1e-9": 17548,
+      "max_abs_change": 280.6583120977546,
+      "lost_value": 0,
+      "gained_value": 0
+     }
+    },
+    "2022-09-01": {
+     "future": {
+      "rows": 1249302,
+      "with_value": 1249302,
+      "value_changed": 0,
+      "value_changed_beyond_1e-9": 0,
+      "max_abs_change": 0.0,
+      "lost_value": 0,
+      "gained_value": 0
+     },
+     "own": {
+      "rows": 12778,
+      "with_value": 12778,
+      "value_changed": 12705,
+      "value_changed_beyond_1e-9": 12705,
+      "max_abs_change": 257.7362198470511,
+      "lost_value": 0,
+      "gained_value": 0
+     }
+    }
+   },
+   "leak_next_load": {
+    "2016-06-01": {
+     "future": {
+      "rows": 626336,
+      "with_value": 617300,
+      "value_changed": 5032,
+      "value_changed_beyond_1e-9": 5032,
+      "max_abs_change": 244.5872101833611,
+      "lost_value": 0,
+      "gained_value": 0
+     },
+     "own": {
+      "rows": 21691,
+      "with_value": 17189,
+      "value_changed": 17110,
+      "value_changed_beyond_1e-9": 17110,
+      "max_abs_change": 307.13575271729314,
+      "lost_value": 0,
+      "gained_value": 0
+     }
+    },
+    "2019-03-01": {
+     "future": {
+      "rows": 915928,
+      "with_value": 902848,
+      "value_changed": 5099,
+      "value_changed_beyond_1e-9": 5099,
+      "max_abs_change": 260.1447083530044,
+      "lost_value": 0,
+      "gained_value": 0
+     },
+     "own": {
+      "rows": 17660,
+      "with_value": 14149,
+      "value_changed": 14053,
+      "value_changed_beyond_1e-9": 14053,
+      "max_abs_change": 223.00399557935899,
+      "lost_value": 0,
+      "gained_value": 0
+     }
+    },
+    "2022-09-01": {
+     "future": {
+      "rows": 1249302,
+      "with_value": 1231339,
+      "value_changed": 6028,
+      "value_changed_beyond_1e-9": 6028,
+      "max_abs_change": 251.0612298395643,
+      "lost_value": 0,
+      "gained_value": 0
+     },
+     "own": {
+      "rows": 12778,
+      "with_value": 10241,
+      "value_changed": 10186,
+      "value_changed_beyond_1e-9": 10186,
+      "max_abs_change": 263.0,
+      "lost_value": 0,
+      "gained_value": 0
+     }
+    }
+   }
+  },
+  "builds": 4,
+  "seconds": 541.0
+ },
+ "u330": {
+  "harness": {
+   "2016-06-01": {
+    "future_rows_compared": 626336,
+    "future_rows_changed": 0,
+    "own_rows_compared": 21691,
+    "own_rows_changed": 5,
+    "columns_scrambled": 28
+   },
+   "2019-03-01": {
+    "future_rows_compared": 915928,
+    "future_rows_changed": 0,
+    "own_rows_compared": 17660,
+    "own_rows_changed": 3,
+    "columns_scrambled": 28
+   },
+   "2022-09-01": {
+    "future_rows_compared": 1249302,
+    "future_rows_changed": 0,
+    "own_rows_compared": 12778,
+    "own_rows_changed": 5,
+    "columns_scrambled": 28
+   }
+  },
+  "breakdown": {
+   "low_share": {
+    "2016-06-01": {
+     "future": {
+      "rows": 626336,
+      "with_value": 172553,
+      "value_changed": 0,
+      "value_changed_beyond_1e-9": 0,
+      "max_abs_change": 0.0,
+      "lost_value": 0,
+      "gained_value": 0
+     },
+     "own": {
+      "rows": 21691,
+      "with_value": 860,
+      "value_changed": 0,
+      "value_changed_beyond_1e-9": 0,
+      "max_abs_change": 0.0,
+      "lost_value": 4,
+      "gained_value": 1
+     }
+    },
+    "2019-03-01": {
+     "future": {
+      "rows": 915928,
+      "with_value": 262981,
+      "value_changed": 0,
+      "value_changed_beyond_1e-9": 0,
+      "max_abs_change": 0.0,
+      "lost_value": 0,
+      "gained_value": 0
+     },
+     "own": {
+      "rows": 17660,
+      "with_value": 677,
+      "value_changed": 0,
+      "value_changed_beyond_1e-9": 0,
+      "max_abs_change": 0.0,
+      "lost_value": 3,
+      "gained_value": 0
+     }
+    },
+    "2022-09-01": {
+     "future": {
+      "rows": 1249302,
+      "with_value": 355060,
+      "value_changed": 0,
+      "value_changed_beyond_1e-9": 0,
+      "max_abs_change": 0.0,
+      "lost_value": 0,
+      "gained_value": 0
+     },
+     "own": {
+      "rows": 12778,
+      "with_value": 892,
+      "value_changed": 0,
+      "value_changed_beyond_1e-9": 0,
+      "max_abs_change": 0.0,
+      "lost_value": 3,
+      "gained_value": 2
+     }
+    }
+   }
+  },
+  "builds": 4,
+  "seconds": 167.4
+ },
+ "venue_scramble": {
+  "harness": {
+   "2016-06-01": {
+    "future_rows_compared": 626336,
+    "future_rows_changed": 0,
+    "own_rows_compared": 21691,
+    "own_rows_changed": 530,
+    "columns_scrambled": 28
+   },
+   "2019-03-01": {
+    "future_rows_compared": 915928,
+    "future_rows_changed": 0,
+    "own_rows_compared": 17660,
+    "own_rows_changed": 455,
+    "columns_scrambled": 28
+   },
+   "2022-09-01": {
+    "future_rows_compared": 1249302,
+    "future_rows_changed": 0,
+    "own_rows_compared": 12778,
+    "own_rows_changed": 453,
+    "columns_scrambled": 28
+   }
+  },
+  "harness_leaky_controls": {
+   "2016-06-01": {
+    "future_rows_compared": 626336,
+    "future_rows_changed": 428,
+    "own_rows_compared": 21691,
+    "own_rows_changed": 1595,
+    "columns_scrambled": 28
+   },
+   "2019-03-01": {
+    "future_rows_compared": 915928,
+    "future_rows_changed": 650,
+    "own_rows_compared": 17660,
+    "own_rows_changed": 1057,
+    "columns_scrambled": 28
+   },
+   "2022-09-01": {
+    "future_rows_compared": 1249302,
+    "future_rows_changed": 968,
+    "own_rows_compared": 12778,
+    "own_rows_changed": 1198,
+    "columns_scrambled": 28
+   }
+  },
+  "breakdown": {
+   "venue_pace": {
+    "2016-06-01": {
+     "future": {
+      "rows": 626336,
+      "with_value": 626336,
+      "value_changed": 0,
+      "value_changed_beyond_1e-9": 0,
+      "max_abs_change": 0.0,
+      "lost_value": 0,
+      "gained_value": 0
+     },
+     "own": {
+      "rows": 21691,
+      "with_value": 21691,
+      "value_changed": 530,
+      "value_changed_beyond_1e-9": 530,
+      "max_abs_change": 1.2113493869863785,
+      "lost_value": 0,
+      "gained_value": 0
+     }
+    },
+    "2019-03-01": {
+     "future": {
+      "rows": 915928,
+      "with_value": 915928,
+      "value_changed": 0,
+      "value_changed_beyond_1e-9": 0,
+      "max_abs_change": 0.0,
+      "lost_value": 0,
+      "gained_value": 0
+     },
+     "own": {
+      "rows": 17660,
+      "with_value": 17660,
+      "value_changed": 455,
+      "value_changed_beyond_1e-9": 455,
+      "max_abs_change": 1.4484645023832505,
+      "lost_value": 0,
+      "gained_value": 0
+     }
+    },
+    "2022-09-01": {
+     "future": {
+      "rows": 1249302,
+      "with_value": 1249302,
+      "value_changed": 0,
+      "value_changed_beyond_1e-9": 0,
+      "max_abs_change": 0.0,
+      "lost_value": 0,
+      "gained_value": 0
+     },
+     "own": {
+      "rows": 12778,
+      "with_value": 12778,
+      "value_changed": 453,
+      "value_changed_beyond_1e-9": 453,
+      "max_abs_change": 1.1425550589523004,
+      "lost_value": 0,
+      "gained_value": 0
+     }
+    }
+   },
+   "leak_release_9_days_early": {
+    "2016-06-01": {
+     "future": {
+      "rows": 626336,
+      "with_value": 626336,
+      "value_changed": 428,
+      "value_changed_beyond_1e-9": 428,
+      "max_abs_change": 0.057911503681027515,
+      "lost_value": 0,
+      "gained_value": 0
+     },
+     "own": {
+      "rows": 21691,
+      "with_value": 21691,
+      "value_changed": 1595,
+      "value_changed_beyond_1e-9": 1595,
+      "max_abs_change": 1.6201354941821398,
+      "lost_value": 0,
+      "gained_value": 0
+     }
+    },
+    "2019-03-01": {
+     "future": {
+      "rows": 915928,
+      "with_value": 915928,
+      "value_changed": 650,
+      "value_changed_beyond_1e-9": 650,
+      "max_abs_change": 0.011553186294662898,
+      "lost_value": 0,
+      "gained_value": 0
+     },
+     "own": {
+      "rows": 17660,
+      "with_value": 17660,
+      "value_changed": 1057,
+      "value_changed_beyond_1e-9": 1057,
+      "max_abs_change": 1.6372369077480604,
+      "lost_value": 0,
+      "gained_value": 0
+     }
+    },
+    "2022-09-01": {
+     "future": {
+      "rows": 1249302,
+      "with_value": 1249302,
+      "value_changed": 968,
+      "value_changed_beyond_1e-9": 968,
+      "max_abs_change": 0.04357059350680656,
+      "lost_value": 0,
+      "gained_value": 0
+     },
+     "own": {
+      "rows": 12778,
+      "with_value": 12778,
+      "value_changed": 1198,
+      "value_changed_beyond_1e-9": 1198,
+      "max_abs_change": 1.9259813706080064,
+      "lost_value": 0,
+      "gained_value": 0
+     }
+    }
+   }
+  },
+  "builds": 4,
+  "seconds": 316.7
+ },
+ "venue_probe_equivalent": {
+  "how": "f01_structure_lib.probe_check: every match that surely started after the cut has its result and box score reversed between its two players; no frame match starting by the cut may move",
+  "pace": {
+   "2016-09-07": {
+    "earlier_rows": 19365,
+    "earlier_max_abs_change": 0.0,
+    "later_rows": 46992,
+    "later_rows_moved": 46313
+   },
+   "2019-07-10": {
+    "earlier_rows": 33579,
+    "earlier_max_abs_change": 0.0,
+    "later_rows": 32778,
+    "later_rows_moved": 32523
+   },
+   "2021-01-27": {
+    "earlier_rows": 37902,
+    "earlier_max_abs_change": 0.0,
+    "later_rows": 28455,
+    "later_rows_moved": 28069
+   },
+   "2023-09-06": {
+    "earlier_rows": 51675,
+    "earlier_max_abs_change": 0.0,
+    "later_rows": 14682,
+    "later_rows_moved": 14558
+   },
+   "2024-07-10": {
+    "earlier_rows": 55842,
+    "earlier_max_abs_change": 0.0,
+    "later_rows": 10515,
+    "later_rows_moved": 10414
+   },
+   "passed": true
+  },
+  "leaky_release_9_days_early": {
+   "2016-09-07": {
+    "earlier_rows": 19365,
+    "earlier_max_abs_change": 0.0021869985380125953,
+    "later_rows": 46992,
+    "later_rows_moved": 46992
+   },
+   "2019-07-10": {
+    "earlier_rows": 33579,
+    "earlier_max_abs_change": 0.001586704597667396,
+    "later_rows": 32778,
+    "later_rows_moved": 32778
+   },
+   "2021-01-27": {
+    "earlier_rows": 37902,
+    "earlier_max_abs_change": 0.0,
+    "later_rows": 28455,
+    "later_rows_moved": 28455
+   },
+   "2023-09-06": {
+    "earlier_rows": 51675,
+    "earlier_max_abs_change": 0.0018779046798337376,
+    "later_rows": 14682,
+    "later_rows_moved": 14682
+   },
+   "2024-07-10": {
+    "earlier_rows": 55842,
+    "earlier_max_abs_change": 0.0015240165047254034,
+    "later_rows": 10515,
+    "later_rows_moved": 10515
+   },
+   "passed": false
+  },
+  "builds": 6,
+  "seconds": 173.8
+ }
+}

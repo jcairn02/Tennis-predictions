@@ -1,0 +1,19 @@
+strict 2019-24: RE mean +0.0240 SE 0.0407 posterior 0.0144 -> E[gain] at b=posterior +0.025; at b=.032 -0.012
+2019-26 as documented: RE mean +0.0449 SE 0.0311 posterior 0.0323 -> E[gain] at b=posterior +0.125; at b=.032 +0.125
+2019-26, 2025-26 cut by 0.01 (memory pick): RE mean +0.0416 SE 0.0311 posterior 0.0300 -> E[gain] at b=posterior +0.108; at b=.032 +0.108
+2019-26, 2025-26 cut by 0.03: RE mean +0.0352 SE 0.0311 posterior 0.0254 -> E[gain] at b=posterior +0.077; at b=.032 +0.072
+r 1.0: mu_post 0.0300 E[gain] at b=mu +0.108
+r 0.75: mu_post 0.0225 E[gain] at b=mu +0.061
+r 0.5: mu_post 0.0150 E[gain] at b=mu +0.027
+r 0.4: mu_post 0.0120 E[gain] at b=mu +0.017
+r 0.25: mu_post 0.0075 E[gain] at b=mu +0.007
+profile: tau 0.1 s 0.05 c 0.05: B 0.80, remove iff est > -0.062
+profile: tau 0.1 s 0.08 c 0.05: B 0.61, remove iff est > -0.082
+short: tau 0.03 s 0.02 c 0.01: B 0.69, remove iff est > -0.014
+short: tau 0.03 s 0.03 c 0.01: B 0.50, remove iff est > -0.020
+both: tau 0.1 s 0.08 c 0.06: B 0.61, remove iff est > -0.098
+surface keep (c +0.01): tau 0.05 s 0.06 c -0.01: B 0.41, remove iff est > +0.024
+P(better)<=0.2 fires at est <= -0.017 (SE 0.02)
+P(better)<=0.2 fires at est <= -0.025 (SE 0.03)
+P(better)<=0.2 fires at est <= -0.042 (SE 0.05)
+P(better)<=0.2 fires at est <= -0.067 (SE 0.08)

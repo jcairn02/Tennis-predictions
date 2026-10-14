@@ -1,0 +1,34 @@
+{
+ "tour": "wta",
+ "season": 2021,
+ "train_seasons": [
+  2013,
+  2020
+ ],
+ "n_own": 18298,
+ "n_other": 19485,
+ "auc_out_of_fold": 0.8824065040404134,
+ "kappa": 1.1121075271995973,
+ "expected_borrowed": 9742.5,
+ "share_pi_one": 0.22134975622273545,
+ "share_at_floor": 0.0,
+ "effective_n": 12225.880374599998,
+ "features": [
+  "abs_odds_logit",
+  "abs_elo_games",
+  "abs_elo_overall",
+  "abs_ratings_iid",
+  "abs_elo_surf_offset",
+  "abs_age",
+  "abs_sets_14d",
+  "min_surf_season",
+  "max_surf_season",
+  "min_surf_layoff",
+  "max_surf_layoff",
+  "surface",
+  "level",
+  "best_of",
+  "round"
+ ],
+ "classifier": "HistGradientBoostingClassifier(max_iter=200, learning_rate=0.1, max_leaf_nodes=31, l2_regularization=1.0, random_state=0), 5-fold StratifiedKFold(shuffle, random_state=0)"
+}

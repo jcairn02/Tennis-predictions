@@ -102,6 +102,6 @@ def load_tour(tour: str) -> dict:
 
 def ios_constants() -> tuple[dict, dict]:
     """Stage B's tuned (h, kappa, tau) per (tour, statistic) and the typical units, as the leak-proof rebuild uses
-    them (match_timing/rebuild.ios_constants)."""
-    from src.eda.match_timing import rebuild as RB
-    return RB.ios_constants()
+    them: the IOS constants registry's version in effect (src/eda/ios_constants/registry.py)."""
+    from src.eda.ios_constants import registry as IC
+    return IC.ios_constants()

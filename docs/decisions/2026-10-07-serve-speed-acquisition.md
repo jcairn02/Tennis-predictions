@@ -33,6 +33,7 @@ The owner's words:
 * **What happened:** Claude stopped before any collection. Six test requests were made, all for one match, the 2018 ATP Finals final; their decrypted copies sit only in the session scratchpad. Nothing was staged.
 * **What was kept:** ManTennisData's plain seasons 2015–2020 were downloaded (the same repository and commit as decision 1). They carry no speeds.
 * **What remains open:** a licensed route to ATP 2015–20 speeds, through the vendors in the research's section 4.
+* **Carried out on 8 October 2026, encrypted only.** The owner said: "DO NOT DECRYPT IT. I just want the encrypted files on my computer." The host has no file for 2015–17, few for 2018–20 and every 2021 event: 4,902 files for 2,070 matches, none decrypted ([study, section 8](../studies/serve_speed_acquisition/README.md)).
 
 ## Limits
 

@@ -1,0 +1,133 @@
+{
+ "source": "sofascore_editions",
+ "gap": "challenger_points_2025",
+ "targets_from": "frozen in data/studies/gap_downloads/sofascore_challenger_points_2025_matches.csv",
+ "started_at": "2026-10-09T18:36:59+00:00",
+ "args": {
+  "gap": "challenger_points_2025",
+  "refresh_targets": false,
+  "skip": null,
+  "limit": null,
+  "max_requests": 400,
+  "min_interval": 2.0,
+  "jitter": 1.0,
+  "stage_only": false,
+  "no_stage": false,
+  "browser": "http://localhost:9222"
+ },
+ "fetch_outcomes": {
+  "point-by-point:200": 31,
+  "point-by-point:200:cached": 14569,
+  "point-by-point:404:cached": 7,
+  "statistics:200": 31,
+  "statistics:200:cached": 14560,
+  "statistics:404:cached": 16
+ },
+ "client": {
+  "impersonate": "browser:154.0.8037.98",
+  "requests": 65,
+  "retried": 0,
+  "slept_seconds": 138.0,
+  "min_interval": 2.0,
+  "transport": "browser",
+  "cdp_url": "http://localhost:9222",
+  "page_reloads": 0,
+  "token_renewals": 0,
+  "renewals_failed": 0,
+  "site_data_resets": 0
+ },
+ "staged": {
+  "events": {
+   "rows": 22532,
+   "dest": "data/dump/points/sofascore_editions/events.parquet",
+   "bytes": 3467921
+  },
+  "points": {
+   "rows": 2214259,
+   "dest": "data/dump/points/sofascore_editions/points.parquet",
+   "bytes": 12888727
+  },
+  "statistics": {
+   "rows": 1092164,
+   "dest": "data/dump/points/sofascore_editions/statistics.parquet",
+   "bytes": 9344500
+  }
+ },
+ "all": {
+  "targets": 14675,
+  "listed": 14608,
+  "points_any": 14601,
+  "points_complete": 14485,
+  "points_absent": 7,
+  "points_not_fetched": 0,
+  "full_box_score": 14541,
+  "stats_any": 14592
+ },
+ "editions": 673,
+ "editions_located": 671,
+ "by_year_level": {
+  "2025|CH": {
+   "targets": 6306,
+   "listed": 6244,
+   "points_any": 6240,
+   "points_complete": 6184,
+   "points_absent": 4,
+   "points_not_fetched": 0,
+   "full_box_score": 6222,
+   "stats_any": 6242
+  },
+  "2025|CHQ": {
+   "targets": 3439,
+   "listed": 3437,
+   "points_any": 3435,
+   "points_complete": 3408,
+   "points_absent": 2,
+   "points_not_fetched": 0,
+   "full_box_score": 3412,
+   "stats_any": 3437
+  },
+  "2026|CH": {
+   "targets": 3214,
+   "listed": 3213,
+   "points_any": 3213,
+   "points_complete": 3192,
+   "points_absent": 0,
+   "points_not_fetched": 0,
+   "full_box_score": 3206,
+   "stats_any": 3210
+  },
+  "2026|CHQ": {
+   "targets": 1716,
+   "listed": 1714,
+   "points_any": 1713,
+   "points_complete": 1701,
+   "points_absent": 1,
+   "points_not_fetched": 0,
+   "full_box_score": 1701,
+   "stats_any": 1703
+  }
+ },
+ "pbp_verdicts": {
+  "complete": 14203,
+  "complete to retirement": 282,
+  "short": 83,
+  "nan": 74,
+  "other": 26,
+  "no score to compare": 7
+ },
+ "editions_not_located": [
+  {
+   "edition": "M|Manama|2025|w48",
+   "locate_tried": "72/2025-11-26:98;72/2025-11-28:56;72/2025-11-25:144;72/2025-11-29:39;72/2025-11-23:117;72/2025-11-21:55;72/2025-11-19:93"
+  },
+  {
+   "edition": "M|Nottingham|2025|w28",
+   "locate_tried": "72/2025-07-09:108;72/2025-07-11:49;72/2025-07-08:133;72/2025-07-12:64;72/2025-07-06:100;72/2025-07-04:31;72/2025-07-02:54"
+  }
+ ],
+ "matches_selected": 14608,
+ "receipts_with_errors": 0,
+ "error_examples": [],
+ "finished_at": "2026-10-09T18:40:56+00:00",
+ "seconds": 237.6
+}

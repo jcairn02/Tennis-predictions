@@ -1,0 +1,597 @@
+C:\Users\zerom\Documents\Tennis-predictions\src\eda\rg_first_serve_recount\consensus_followup.py:114: RuntimeWarning: invalid value encountered in scalar divide
+  rec.update({f"{p}_rows": int(len(h)), f"{p}_first_in_pct": round(100 * h[f"{p}_first_in"].sum() / sv, 2),
+C:\Users\zerom\Documents\Tennis-predictions\src\eda\rg_first_serve_recount\consensus_followup.py:115: RuntimeWarning: invalid value encountered in scalar divide
+  f"{p}_ace_pct": round(100 * h[f"{p}_ace"].sum() / sv, 2),
+C:\Users\zerom\Documents\Tennis-predictions\src\eda\rg_first_serve_recount\consensus_followup.py:116: RuntimeWarning: invalid value encountered in scalar divide
+  f"{p}_df_pct": round(100 * h[f"{p}_df"].sum() / sv, 2)})
+[  57.5s] box overrides: 2,272 rows take the official feed's box score (2 the score too; 1441 of them Sackmann rows)
+{
+ "proposed_overrides": {
+  "W22": 1190,
+  "W26": 351
+ },
+ "proposed_exchanges": 4,
+ "proposed_swaps": 810,
+ "proposed_sets": 558,
+ "per_reviewer": {
+  "R1-rederive": {
+   "groups": {
+    "RGX": "confirm",
+    "W22": "narrow",
+    "W26": "narrow"
+   },
+   "overrides_named": 1541,
+   "of_proposed_with_the_same_values": {
+    "W22": 1190,
+    "W26": 351
+   },
+   "named_with_other_values": 0,
+   "outside_the_proposal": 0,
+   "exchanges_confirmed": 4,
+   "swaps_confirmed": 810,
+   "swaps_outside_the_proposal": 0,
+   "sets_confirmed_with_the_same_values": 558,
+   "sets_named_with_other_values": 0
+  },
+  "R2-skeptic": {
+   "groups": {
+    "RGX": "confirm",
+    "W22": "narrow",
+    "W26": "narrow",
+    "addendum": "narrow",
+    "extension": "confirm",
+    "SVX": "confirm",
+    "SVX_addendum": "confirm",
+    "SVX_addendum2": "narrow",
+    "SVS": "confirm"
+   },
+   "overrides_named": 1541,
+   "of_proposed_with_the_same_values": {
+    "W22": 1190,
+    "W26": 351
+   },
+   "named_with_other_values": 0,
+   "outside_the_proposal": 0,
+   "exchanges_confirmed": 4,
+   "swaps_confirmed": 809,
+   "swaps_outside_the_proposal": 0,
+   "sets_confirmed_with_the_same_values": 558,
+   "sets_named_with_other_values": 0
+  },
+  "R3-referee": {
+   "groups": {
+    "RGX": "confirm",
+    "W22": "confirm",
+    "W26": "confirm"
+   },
+   "overrides_named": 1541,
+   "of_proposed_with_the_same_values": {
+    "W22": 1190,
+    "W26": 351
+   },
+   "named_with_other_values": 0,
+   "outside_the_proposal": 0,
+   "exchanges_confirmed": 4,
+   "swaps_confirmed": 809,
+   "swaps_outside_the_proposal": 0,
+   "sets_confirmed_with_the_same_values": 558,
+   "sets_named_with_other_values": 0
+  }
+ },
+ "confirmed_overrides": {
+  "W22": 1190,
+  "W26": 351
+ },
+ "confirmed_overrides_by_year_and_source": [
+  {
+   "year": 2022,
+   "source": "sackmann",
+   "matches": 356
+  },
+  {
+   "year": 2023,
+   "source": "sackmann",
+   "matches": 272
+  },
+  {
+   "year": 2024,
+   "source": "sackmann",
+   "matches": 273
+  },
+  {
+   "year": 2025,
+   "source": "sackmann",
+   "matches": 289
+  },
+  {
+   "year": 2026,
+   "source": "sackmann",
+   "matches": 251
+  },
+  {
+   "year": 2026,
+   "source": "tml",
+   "matches": 100
+  }
+ ],
+ "dropped_overrides": {},
+ "confirmed_exchanges": [
+  {
+   "match_id": "wta|2021-520|R128|wta:201492|wta:214096",
+   "winner_name": "Karolina Muchova",
+   "loser_name": "Andrea Petkovic"
+  },
+  {
+   "match_id": "wta|2021-520|R128|wta:201603|wta:202490",
+   "winner_name": "Rebecca Peterson",
+   "loser_name": "Shelby Rogers"
+  },
+  {
+   "match_id": "wta|2021-520|R32|wta:202536|wta:211651",
+   "winner_name": "Paula Badosa",
+   "loser_name": "Ana Bogdan"
+  },
+  {
+   "match_id": "wta|2021-520|R32|wta:211701|wta:214461",
+   "winner_name": "Tamara Zidansek",
+   "loser_name": "Katerina Siniakova"
+  }
+ ],
+ "confirmed_swaps": 809,
+ "confirmed_swaps_by_slam_year": [
+  {
+   "slam": "AO",
+   "year": "2019",
+   "matches": 36
+  },
+  {
+   "slam": "AO",
+   "year": "2020",
+   "matches": 32
+  },
+  {
+   "slam": "AO",
+   "year": "2021",
+   "matches": 48
+  },
+  {
+   "slam": "AO",
+   "year": "2022",
+   "matches": 46
+  },
+  {
+   "slam": "AO",
+   "year": "2023",
+   "matches": 83
+  },
+  {
+   "slam": "AO",
+   "year": "2024",
+   "matches": 70
+  },
+  {
+   "slam": "AO",
+   "year": "2025",
+   "matches": 81
+  },
+  {
+   "slam": "AO",
+   "year": "2026",
+   "matches": 66
+  },
+  {
+   "slam": "RG",
+   "year": "2015",
+   "matches": 1
+  },
+  {
+   "slam": "RG",
+   "year": "2016",
+   "matches": 42
+  },
+  {
+   "slam": "RG",
+   "year": "2017",
+   "matches": 10
+  },
+  {
+   "slam": "RG",
+   "year": "2018",
+   "matches": 52
+  },
+  {
+   "slam": "RG",
+   "year": "2019",
+   "matches": 71
+  },
+  {
+   "slam": "RG",
+   "year": "2020",
+   "matches": 79
+  },
+  {
+   "slam": "RG",
+   "year": "2021",
+   "matches": 92
+  }
+ ],
+ "dropped_swaps": 1,
+ "confirmed_sets": 558,
+ "dropped_sets": 0,
+ "not_unanimous": [],
+ "candidate": {
+  "folder": "data/studies/rg_first_serve_recount/followup/confirmed/candidate",
+  "override_rows": {
+   "decided": 731,
+   "rolandgarros": 1541
+  },
+  "correction_rows": {
+   "decided": 1522,
+   "step2_split_rows_kept": {
+    "OGFSB": 32,
+    "OGFSA": 14,
+    "RGFSA": 10,
+    "RGFSB": 2
+   },
+   "step2_split_rows_left_to_the_overrides": 875,
+   "exchanges": 4,
+   "service_game_swaps": 809,
+   "service_game_sets": 558
+  },
+  "sha256": {
+   "data/studies/data_continuity/slam_box_overrides.csv": "f2870e5c7195a655ea57405a59ee6c4564a4b4830c7fa55758eaa99894adf1a7",
+   "data/studies/input_data_audit/fixes/row_corrections.csv": "563c69335f8ac5e1423bd4d4cbb290bc351b4122cee62b5954525ce0407f974e",
+   "data/studies/input_data_audit/fixes/id_aliases.csv": "846cde8d49aaf0842fc9124864f672ca0ea576643321dd65e4593b6207cfc382",
+   "data/studies/rg_first_serve_recount/confirmed/confirmed_corrections.csv": "cb7c0298ba8eca925be424e9f9461c8edfad27349ed4935ab6c43fe68cb903d5"
+  }
+ },
+ "editions_after": [
+  {
+   "year": 2022,
+   "tour": "M",
+   "draw": "main",
+   "raw_rows": 254,
+   "raw_first_in_pct": 66.09,
+   "raw_ace_pct": 5.28,
+   "raw_df_pct": 3.04,
+   "after_rows": 254,
+   "after_first_in_pct": 63.33,
+   "after_ace_pct": 5.31,
+   "after_df_pct": 3.08,
+   "off_rows": 254,
+   "off_first_in_pct": 63.35,
+   "off_ace_pct": 5.31,
+   "off_df_pct": 3.08
+  },
+  {
+   "year": 2022,
+   "tour": "M",
+   "draw": "qual",
+   "raw_rows": 224,
+   "raw_first_in_pct": 68.55,
+   "raw_ace_pct": 5.13,
+   "raw_df_pct": 3.69,
+   "after_rows": 224,
+   "after_first_in_pct": 62.5,
+   "after_ace_pct": 5.18,
+   "after_df_pct": 3.79,
+   "off_rows": 224,
+   "off_first_in_pct": 62.5,
+   "off_ace_pct": 5.18,
+   "off_df_pct": 3.79
+  },
+  {
+   "year": 2022,
+   "tour": "W",
+   "draw": "main",
+   "raw_rows": 250,
+   "raw_first_in_pct": 65.64,
+   "raw_ace_pct": 2.87,
+   "raw_df_pct": 4.46,
+   "after_rows": 250,
+   "after_first_in_pct": 63.58,
+   "after_ace_pct": 2.87,
+   "after_df_pct": 4.56,
+   "off_rows": 250,
+   "off_first_in_pct": 63.55,
+   "off_ace_pct": 2.87,
+   "off_df_pct": 4.56
+  },
+  {
+   "year": 2022,
+   "tour": "W",
+   "draw": "qual",
+   "raw_rows": 224,
+   "raw_first_in_pct": 69.98,
+   "raw_ace_pct": 2.47,
+   "raw_df_pct": 4.74,
+   "after_rows": 224,
+   "after_first_in_pct": 65.06,
+   "after_ace_pct": 2.52,
+   "after_df_pct": 4.81,
+   "off_rows": 224,
+   "off_first_in_pct": 65.06,
+   "off_ace_pct": 2.52,
+   "off_df_pct": 4.81
+  },
+  {
+   "year": 2023,
+   "tour": "M",
+   "draw": "main",
+   "raw_rows": 252,
+   "raw_first_in_pct": 62.29,
+   "raw_ace_pct": 4.82,
+   "raw_df_pct": 3.79,
+   "after_rows": 252,
+   "after_first_in_pct": 61.24,
+   "after_ace_pct": 4.84,
+   "after_df_pct": 3.81,
+   "off_rows": 252,
+   "off_first_in_pct": 61.24,
+   "off_ace_pct": 4.84,
+   "off_df_pct": 3.81
+  },
+  {
+   "year": 2023,
+   "tour": "M",
+   "draw": "qual",
+   "raw_rows": 222,
+   "raw_first_in_pct": 65.29,
+   "raw_ace_pct": 3.6,
+   "raw_df_pct": 3.47,
+   "after_rows": 224,
+   "after_first_in_pct": 61.45,
+   "after_ace_pct": 3.63,
+   "after_df_pct": 3.5,
+   "off_rows": 224,
+   "off_first_in_pct": 61.45,
+   "off_ace_pct": 3.63,
+   "off_df_pct": 3.5
+  },
+  {
+   "year": 2023,
+   "tour": "W",
+   "draw": "main",
+   "raw_rows": 252,
+   "raw_first_in_pct": 62.62,
+   "raw_ace_pct": 2.41,
+   "raw_df_pct": 5.57,
+   "after_rows": 252,
+   "after_first_in_pct": 61.48,
+   "after_ace_pct": 2.41,
+   "after_df_pct": 5.61,
+   "off_rows": 252,
+   "off_first_in_pct": 61.47,
+   "off_ace_pct": 2.41,
+   "off_df_pct": 5.61
+  },
+  {
+   "year": 2023,
+   "tour": "W",
+   "draw": "qual",
+   "raw_rows": 224,
+   "raw_first_in_pct": 68.08,
+   "raw_ace_pct": 1.43,
+   "raw_df_pct": 4.57,
+   "after_rows": 224,
+   "after_first_in_pct": 64.7,
+   "after_ace_pct": 1.43,
+   "after_df_pct": 4.6,
+   "off_rows": 224,
+   "off_first_in_pct": 64.7,
+   "off_ace_pct": 1.43,
+   "off_df_pct": 4.6
+  },
+  {
+   "year": 2024,
+   "tour": "M",
+   "draw": "main",
+   "raw_rows": 252,
+   "raw_first_in_pct": 63.09,
+   "raw_ace_pct": 5.45,
+   "raw_df_pct": 3.09,
+   "after_rows": 252,
+   "after_first_in_pct": 62.25,
+   "after_ace_pct": 5.47,
+   "after_df_pct": 3.11,
+   "off_rows": 252,
+   "off_first_in_pct": 62.25,
+   "off_ace_pct": 5.47,
+   "off_df_pct": 3.11
+  },
+  {
+   "year": 2024,
+   "tour": "M",
+   "draw": "qual",
+   "raw_rows": 224,
+   "raw_first_in_pct": 65.19,
+   "raw_ace_pct": 5.3,
+   "raw_df_pct": 3.23,
+   "after_rows": 224,
+   "after_first_in_pct": 61.49,
+   "after_ace_pct": 5.38,
+   "after_df_pct": 3.36,
+   "off_rows": 222,
+   "off_first_in_pct": 61.16,
+   "off_ace_pct": 5.43,
+   "off_df_pct": 3.37
+  },
+  {
+   "year": 2024,
+   "tour": "W",
+   "draw": "main",
+   "raw_rows": 254,
+   "raw_first_in_pct": 64.75,
+   "raw_ace_pct": 2.66,
+   "raw_df_pct": 4.37,
+   "after_rows": 254,
+   "after_first_in_pct": 62.87,
+   "after_ace_pct": 2.67,
+   "after_df_pct": 4.41,
+   "off_rows": 254,
+   "off_first_in_pct": 62.86,
+   "off_ace_pct": 2.67,
+   "off_df_pct": 4.41
+  },
+  {
+   "year": 2024,
+   "tour": "W",
+   "draw": "qual",
+   "raw_rows": 224,
+   "raw_first_in_pct": 67.64,
+   "raw_ace_pct": 2.23,
+   "raw_df_pct": 4.71,
+   "after_rows": 224,
+   "after_first_in_pct": 63.89,
+   "after_ace_pct": 2.25,
+   "after_df_pct": 4.85,
+   "off_rows": 224,
+   "off_first_in_pct": 63.59,
+   "off_ace_pct": 2.25,
+   "off_df_pct": 4.86
+  },
+  {
+   "year": 2025,
+   "tour": "M",
+   "draw": "main",
+   "raw_rows": 250,
+   "raw_first_in_pct": 62.78,
+   "raw_ace_pct": 5.77,
+   "raw_df_pct": 3.28,
+   "after_rows": 250,
+   "after_first_in_pct": 62.34,
+   "after_ace_pct": 5.77,
+   "after_df_pct": 3.29,
+   "off_rows": 250,
+   "off_first_in_pct": 62.34,
+   "off_ace_pct": 5.77,
+   "off_df_pct": 3.29
+  },
+  {
+   "year": 2025,
+   "tour": "M",
+   "draw": "qual",
+   "raw_rows": 222,
+   "raw_first_in_pct": 68.6,
+   "raw_ace_pct": 4.21,
+   "raw_df_pct": 3.15,
+   "after_rows": 222,
+   "after_first_in_pct": 63.4,
+   "after_ace_pct": 4.27,
+   "after_df_pct": 3.39,
+   "off_rows": 222,
+   "off_first_in_pct": 63.31,
+   "off_ace_pct": 4.27,
+   "off_df_pct": 3.39
+  },
+  {
+   "year": 2025,
+   "tour": "W",
+   "draw": "main",
+   "raw_rows": 254,
+   "raw_first_in_pct": 63.34,
+   "raw_ace_pct": 3.03,
+   "raw_df_pct": 4.9,
+   "after_rows": 254,
+   "after_first_in_pct": 62.65,
+   "after_ace_pct": 3.02,
+   "after_df_pct": 4.9,
+   "off_rows": 254,
+   "off_first_in_pct": 62.65,
+   "off_ace_pct": 3.02,
+   "off_df_pct": 4.9
+  },
+  {
+   "year": 2025,
+   "tour": "W",
+   "draw": "qual",
+   "raw_rows": 224,
+   "raw_first_in_pct": 68.59,
+   "raw_ace_pct": 1.99,
+   "raw_df_pct": 4.61,
+   "after_rows": 224,
+   "after_first_in_pct": 63.55,
+   "after_ace_pct": 2.1,
+   "after_df_pct": 4.81,
+   "off_rows": 224,
+   "off_first_in_pct": 63.55,
+   "off_ace_pct": 2.1,
+   "off_df_pct": 4.81
+  },
+  {
+   "year": 2026,
+   "tour": "M",
+   "draw": "main",
+   "raw_rows": 0,
+   "raw_first_in_pct": NaN,
+   "raw_ace_pct": NaN,
+   "raw_df_pct": NaN,
+   "after_rows": 248,
+   "after_first_in_pct": 62.23,
+   "after_ace_pct": 6.88,
+   "after_df_pct": 3.35,
+   "off_rows": 248,
+   "off_first_in_pct": 62.23,
+   "off_ace_pct": 6.88,
+   "off_df_pct": 3.35
+  },
+  {
+   "year": 2026,
+   "tour": "M",
+   "draw": "qual",
+   "raw_rows": 222,
+   "raw_first_in_pct": 63.24,
+   "raw_ace_pct": 4.55,
+   "raw_df_pct": 3.06,
+   "after_rows": 222,
+   "after_first_in_pct": 63.11,
+   "after_ace_pct": 4.56,
+   "after_df_pct": 3.07,
+   "off_rows": 222,
+   "off_first_in_pct": 63.11,
+   "off_ace_pct": 4.56,
+   "off_df_pct": 3.07
+  },
+  {
+   "year": 2026,
+   "tour": "W",
+   "draw": "main",
+   "raw_rows": 0,
+   "raw_first_in_pct": NaN,
+   "raw_ace_pct": NaN,
+   "raw_df_pct": NaN,
+   "after_rows": 254,
+   "after_first_in_pct": 63.03,
+   "after_ace_pct": 2.67,
+   "after_df_pct": 4.99,
+   "off_rows": 254,
+   "off_first_in_pct": 63.03,
+   "off_ace_pct": 2.67,
+   "off_df_pct": 4.99
+  }
+ ],
+ "dry_run": {
+  "override_rows": 2272,
+  "override_rows_rg": 1541,
+  "override_rows_also_corrected": 0,
+  "rg_override_rows_reading_the_table_after": 1541,
+  "decided_override_rows_reading_the_table_after": 731,
+  "correction_rows": 2951,
+  "corrections_by_action": {
+   "add_df_to_svpt": 1196,
+   "exchange_box": 82,
+   "exchange_svgms": 810,
+   "blank_box": 19,
+   "replace_box": 34,
+   "replace_split": 58,
+   "set_svgms": 558,
+   "set_age": 194
+  },
+  "exchanges_read_exchanged_after": true,
+  "service_game_swaps_read_exchanged_after_nothing_else_changed": true,
+  "service_game_sets_read_the_table_after_nothing_else_changed": true,
+  "rows_changed": 4664,
+  "rows_changed_outside_the_tables": 0,
+  "rg_rows_without_a_box_before_given_one": 252
+ }
+}

@@ -1,0 +1,27 @@
+usage: system_g5.py [-h] --tree TREE [--cuts CUTS] [--only ONLY]
+
+G5 of the lower-level-evidence system (role C1), the real-date probe for the layer's cross-player changes: the
+translation by the opponent's strength and the opponents' re-referenced norms.
+
+The design is match_timing/probe.py's: on a slice of history (every level, 2023-2024, history inside the slice), for each
+cut day D (probe.py's: the second Wednesday of US Open 2023, Australian Open 2024 and Wimbledon 2024, and Cincinnati 2024's
+third day), every match that surely started after D (earliest possible start es > D) has its result reversed and the
+two players' box-score counts exchanged; the strength the layer reads (Stage 1's pre-match Elo, retirements counted, the
+reference's constants) is recomputed on the flipped history; points_52w and the 17 one-step forms are rebuilt with the
+layer on; and no input of a pool match that surely finished by D (latest possible finish lf <= D) may move (atol 1e-9).
+
+The configs (not arms): DROP (men, w = 0: the norms and forms lose their lower-level rows), REWEIGHT (both tours, w = 0.5,
+ITF excluded), TRANSLATE (both tours, A's classes, gamma from A's class table per statistic, delta 0.1 at every level A
+allows, w = 0.7, strength_ref 1700: synthetic parameters in SPEC 6.2's schema, written to a scratch folder, because B's
+are not frozen yet). The positive control: TRANSLATE with a leaky strength, each player's rating at the END of the slice
+for every match (it contains the flipped results): protected inputs must move.
+
+Run inside a built sandbox's code and tables (its src first on sys.path; nothing is written into the sandbox):
+    ./python.sh src/eda/lower_level_evidence/system_g5.py --tree C:/Users/zerom/tnr_sys1 [--cuts 2024-07-10,...]
+Writes data/studies/lower_level_evidence/system/arms/g5/real_date_probe.json and its configs/params.
+
+options:
+  -h, --help   show this help message and exit
+  --tree TREE
+  --cuts CUTS
+  --only ONLY  comma list of configs

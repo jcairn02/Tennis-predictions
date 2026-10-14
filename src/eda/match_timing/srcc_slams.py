@@ -45,6 +45,17 @@ ST_QUAL = {"1": "Q1", "2": "Q2", "3": "Q3"}
 EPOCH_OK = (pd.Timestamp("2018-01-01", tz="UTC").timestamp(), pd.Timestamp("2027-01-01", tz="UTC").timestamp())
 
 
+def epoch_hi(year) -> np.ndarray:
+    """Per row, the latest plausible Unix time: EPOCH_OK's end for seasons to 2026 (the bound for every row before
+    10 Oct 2026), the 1 January after the row's season for a later one."""
+    y = pd.to_numeric(pd.Series(np.asarray(year)), errors="coerce").to_numpy(dtype=float)
+    hi = np.full(len(y), EPOCH_OK[1])
+    later = np.isfinite(y) & (y >= 2027)
+    for v in np.unique(y[later]):
+        hi[later & (y == v)] = pd.Timestamp(f"{int(v) + 1}-01-01", tz="UTC").timestamp()
+    return hi
+
+
 def ao_sets(t1: str, t2: str) -> tuple:
     """'7 4 6 7(7)' / '5 6 4 6(3)' -> ((7, 5), (4, 6), (6, 4), (7, 6))."""
     a = [re.sub(r"\(.*?\)", "", x) for x in str(t1 or "").split()]
@@ -70,7 +81,8 @@ def ausopen() -> pd.DataFrame:
     m = pq.read_table(PTS / "ausopen" / "matches.parquet").to_pandas()
     p = pq.read_table(PTS / "ausopen" / "points.parquet", columns=["record_key", "type", "timestamp"]).to_pandas()
     p["timestamp"] = pd.to_numeric(p["timestamp"], errors="coerce")
-    p = p[(p["timestamp"] > EPOCH_OK[0]) & (p["timestamp"] < EPOCH_OK[1])]
+    season = p["record_key"].map(m.drop_duplicates("record_key").set_index("record_key")["year"])
+    p = p[(p["timestamp"] > EPOCH_OK[0]) & (p["timestamp"] < epoch_hi(season))]
     first = p.groupby("record_key")["timestamp"].min()
     last = p[p["type"].eq("match")].groupby("record_key")["timestamp"].min()   # the match-ending entry
     m["year"] = m["year"].astype(int)
@@ -124,10 +136,10 @@ def slamtracker(site: str) -> pd.DataFrame:
     p["pn"] = p["PointNumber"].astype(int)
     p["ts"] = pd.to_numeric(p["EpochTimeStart"], errors="coerce")
     p["te"] = pd.to_numeric(p["EpochTimeEnd"], errors="coerce")
-    p = p[p["te"].between(*EPOCH_OK)]
+    p = p[(p["te"] >= EPOCH_OK[0]) & (p["te"] <= epoch_hi(p["year"]))]
     p["year"] = p["year"].astype(int)
     f = p.sort_values(["year", "event", "match_id", "pn", "row"]).drop_duplicates(["year", "event", "match_id"])
-    ok = f["ts"].between(*EPOCH_OK) & (f["te"] - f["ts"]).between(0, 900)
+    ok = (f["ts"] >= EPOCH_OK[0]) & (f["ts"] <= epoch_hi(f["year"])) & (f["te"] - f["ts"]).between(0, 900)
     f["t0"] = pd.to_datetime(np.where(ok, f["ts"], f["te"]), unit="s", utc=True)
     f["t0_basis"] = np.where(ok, "first_point_start", "first_point_end")
     last = p.groupby(["year", "event", "match_id"])["te"].max().rename("te_last").reset_index()
@@ -149,7 +161,8 @@ def slamtracker(site: str) -> pd.DataFrame:
         "sets": m["entry.score_text"].map(text_sets),
         "round_name": m["entry.roundCode"], "status": m["entry.statusCode"], "t0": m["t0"], "t0_basis": m["t0_basis"],
         "t1": m["t1"], "day_jump": m["day_jump"].fillna(False).astype(bool),
-        "listed_day": pd.NaT, "end_ts": pd.to_datetime(epoch.where(epoch.between(*EPOCH_OK)), unit="s", utc=True),
+        "listed_day": pd.NaT, "end_ts": pd.to_datetime(epoch.where((epoch >= EPOCH_OK[0])
+                                                                    & (epoch <= epoch_hi(m["year"]))), unit="s", utc=True),
         "event_day": pd.to_numeric(m["entry.eventDay"], errors="coerce")})
     out["rnd"] = [(ST_QUAL if qq else ST_MAIN).get(str(r)) for r, qq in zip(out["round_name"], q)]
     out["walkover"] = out["status"].eq("F")

@@ -1,0 +1,754 @@
+{
+ "preregistration_sha256": "5c84fcc759b5e0ea3114f34182d75d6ee4da6a1a70f192b3c7238a6a9de816d0",
+ "gates": {
+  "g1_reference.json": true,
+  "g2_products.json": true,
+  "g3_probe.json": true,
+  "g4_repro.json": true,
+  "g6_symmetry.json": true,
+  "g5_stage2.json": true
+ },
+ "direction": "positive = the centred arm (cprod) has the lower log loss (better) than the current model",
+ "seeds": [
+  0,
+  1,
+  2,
+  3
+ ],
+ "comparisons": [
+  {
+   "cid": "P",
+   "population": "both",
+   "seasons": [
+    2025,
+    2026
+   ],
+   "kind": "both",
+   "direction": "positive = the centred arm (cprod) has the lower log loss (better) than the current model",
+   "unit": "mLL",
+   "verdict": "tie",
+   "matches": 8520,
+   "estimate": -0.06040086987079221,
+   "lo": -0.33382322368617434,
+   "hi": 0.2130214839445899,
+   "se": 0.13107725074174484,
+   "se_block": 0.09283213685651781,
+   "v_seed_base": 0.003943474234707586,
+   "v_seed_arm": 0.004619965793959407,
+   "blocks": 21,
+   "lo_block_only": -0.2540453140850706,
+   "hi_block_only": 0.13324357434348613,
+   "lo_week": -0.32876387753579295,
+   "hi_week": 0.20796213779420855,
+   "weeks": 63
+  },
+  {
+   "cid": "S1",
+   "population": "both",
+   "seasons": [
+    2022,
+    2023,
+    2024
+   ],
+   "kind": "both",
+   "direction": "positive = the centred arm (cprod) has the lower log loss (better) than the current model",
+   "unit": "mLL",
+   "verdict": "tie",
+   "matches": 15207,
+   "estimate": -0.05242359182273463,
+   "lo": -0.21242417258013177,
+   "hi": 0.10757698893466253,
+   "se": 0.07881382981213926,
+   "se_block": 0.04403431661868146,
+   "v_seed_base": 0.002000999682772803,
+   "v_seed_arm": 0.0022715990468097614,
+   "blocks": 36,
+   "lo_block_only": -0.14181800710540568,
+   "hi_block_only": 0.03697082345993643,
+   "lo_week": -0.20373311976994918,
+   "hi_week": 0.09888593612447993,
+   "weeks": 115
+  },
+  {
+   "cid": "S2",
+   "population": "both",
+   "seasons": [
+    2022,
+    2023,
+    2024,
+    2025,
+    2026
+   ],
+   "kind": "both",
+   "direction": "positive = the centred arm (cprod) has the lower log loss (better) than the current model",
+   "unit": "mLL",
+   "verdict": "tie",
+   "matches": 23727,
+   "estimate": -0.055288109417434776,
+   "lo": -0.21546323327577765,
+   "hi": 0.10488701444090809,
+   "se": 0.07995800122836198,
+   "se_block": 0.04319193249417013,
+   "v_seed_base": 0.0018738304683827624,
+   "v_seed_arm": 0.0026539084594710237,
+   "blocks": 57,
+   "lo_block_only": -0.1418119473154849,
+   "hi_block_only": 0.03123572848061535,
+   "lo_week": -0.21283327703614086,
+   "hi_week": 0.10225705820127129,
+   "weeks": 178
+  },
+  {
+   "cid": "S3_2022",
+   "population": "both",
+   "seasons": [
+    2022
+   ],
+   "kind": "both",
+   "direction": "positive = the centred arm (cprod) has the lower log loss (better) than the current model",
+   "unit": "mLL",
+   "verdict": "tie",
+   "matches": 4938,
+   "estimate": -0.0049167262229712965,
+   "lo": -0.19049994059903744,
+   "hi": 0.18066648815309486,
+   "se": 0.08431824881924208,
+   "se_block": 0.07016283199652283,
+   "v_seed_base": 0.00016402536787015265,
+   "v_seed_arm": 0.0020227187223011782,
+   "blocks": 12,
+   "lo_block_only": -0.15934407823732086,
+   "hi_block_only": 0.14951062579137828,
+   "lo_week": -0.18552318303301385,
+   "hi_week": 0.17568973058707127,
+   "weeks": 39
+  },
+  {
+   "cid": "S3_2023",
+   "population": "both",
+   "seasons": [
+    2023
+   ],
+   "kind": "both",
+   "direction": "positive = the centred arm (cprod) has the lower log loss (better) than the current model",
+   "unit": "mLL",
+   "verdict": "tie",
+   "matches": 5135,
+   "estimate": -0.043455544988539346,
+   "lo": -0.34099573892872237,
+   "hi": 0.25408464895164373,
+   "se": 0.1351850068483855,
+   "se_block": 0.07818029645377557,
+   "v_seed_base": 0.0060668658058155266,
+   "v_seed_arm": 0.006095961517182274,
+   "blocks": 12,
+   "lo_block_only": -0.21552921729486435,
+   "hi_block_only": 0.12861812731778566,
+   "lo_week": -0.30335301424208694,
+   "hi_week": 0.21644192426500822,
+   "weeks": 38
+  },
+  {
+   "cid": "S3_2024",
+   "population": "both",
+   "seasons": [
+    2024
+   ],
+   "kind": "both",
+   "direction": "positive = the centred arm (cprod) has the lower log loss (better) than the current model",
+   "unit": "mLL",
+   "verdict": "tie",
+   "matches": 5134,
+   "estimate": -0.10708658808787368,
+   "lo": -0.355687941159327,
+   "hi": 0.14151476498357968,
+   "se": 0.11295003600165243,
+   "se_block": 0.08071243774548009,
+   "v_seed_base": 0.003000864787914295,
+   "v_seed_arm": 0.003242348238042285,
+   "blocks": 12,
+   "lo_block_only": -0.28473346580049563,
+   "hi_block_only": 0.07056028962474827,
+   "lo_week": -0.3115394726153993,
+   "hi_week": 0.09736629643965196,
+   "weeks": 38
+  },
+  {
+   "cid": "S3_2025",
+   "population": "both",
+   "seasons": [
+    2025
+   ],
+   "kind": "both",
+   "direction": "positive = the centred arm (cprod) has the lower log loss (better) than the current model",
+   "unit": "mLL",
+   "verdict": "tie",
+   "matches": 5105,
+   "estimate": -0.11218517483668054,
+   "lo": -0.4667151525045106,
+   "hi": 0.2423448028311495,
+   "se": 0.16107785917696468,
+   "se_block": 0.13686672755253879,
+   "v_seed_base": 0.003383237168651857,
+   "v_seed_arm": 0.0038303384374413275,
+   "blocks": 12,
+   "lo_block_only": -0.41342681109012386,
+   "hi_block_only": 0.18905646141676274,
+   "lo_week": -0.41924797563105914,
+   "hi_week": 0.19487762595769803,
+   "weeks": 37
+  },
+  {
+   "cid": "S3_2026",
+   "population": "both",
+   "seasons": [
+    2026
+   ],
+   "kind": "both",
+   "direction": "positive = the centred arm (cprod) has the lower log loss (better) than the current model",
+   "unit": "mLL",
+   "verdict": "tie",
+   "matches": 3415,
+   "estimate": 0.01701022144717561,
+   "lo": -0.35990665793876203,
+   "hi": 0.3939271008331133,
+   "se": 0.1634502183373434,
+   "se_block": 0.11599967804550046,
+   "v_seed_base": 0.005573762647383993,
+   "v_seed_arm": 0.00768628592048148,
+   "blocks": 9,
+   "lo_block_only": -0.2504855158081003,
+   "hi_block_only": 0.28450595870245154,
+   "lo_week": -0.38310114202074297,
+   "hi_week": 0.4171215849150942,
+   "weeks": 26
+  },
+  {
+   "cid": "S4_men_2025-2026",
+   "population": "men",
+   "seasons": [
+    2025,
+    2026
+   ],
+   "kind": "both",
+   "direction": "positive = the centred arm (cprod) has the lower log loss (better) than the current model",
+   "unit": "mLL",
+   "verdict": "tie",
+   "matches": 4394,
+   "estimate": -0.08154199111499712,
+   "lo": -0.46144149572528537,
+   "hi": 0.29835751349529116,
+   "se": 0.18212184164024262,
+   "se_block": 0.14985915436933595,
+   "v_seed_base": 0.0046020817552204565,
+   "v_seed_arm": 0.006108517298920694,
+   "blocks": 21,
+   "lo_block_only": -0.39414270936760437,
+   "hi_block_only": 0.23105872713761016,
+   "lo_week": -0.41090436643530165,
+   "hi_week": 0.24782038420530744,
+   "weeks": 56
+  },
+  {
+   "cid": "S4_men_2022-2026",
+   "population": "men",
+   "seasons": [
+    2022,
+    2023,
+    2024,
+    2025,
+    2026
+   ],
+   "kind": "both",
+   "direction": "positive = the centred arm (cprod) has the lower log loss (better) than the current model",
+   "unit": "mLL",
+   "verdict": "tie",
+   "matches": 12341,
+   "estimate": -0.05483833645748914,
+   "lo": -0.27148261698552967,
+   "hi": 0.16180594407055138,
+   "se": 0.10814690340991052,
+   "se_block": 0.0630918017474497,
+   "v_seed_base": 0.0040842153167450915,
+   "v_seed_arm": 0.0036309619526679274,
+   "blocks": 57,
+   "lo_block_only": -0.1812264027434577,
+   "hi_block_only": 0.0715497298284794,
+   "lo_week": -0.2591979925983253,
+   "hi_week": 0.14952131968334706,
+   "weeks": 164
+  },
+  {
+   "cid": "S4_women_2025-2026",
+   "population": "women",
+   "seasons": [
+    2025,
+    2026
+   ],
+   "kind": "both",
+   "direction": "positive = the centred arm (cprod) has the lower log loss (better) than the current model",
+   "unit": "mLL",
+   "verdict": "tie",
+   "matches": 4126,
+   "estimate": -0.0378865492825623,
+   "lo": -0.45111394171503294,
+   "hi": 0.37534084314990834,
+   "se": 0.19809905728410554,
+   "se_block": 0.16143317041502048,
+   "v_seed_base": 0.006733971999076907,
+   "v_seed_arm": 0.006448595987529378,
+   "blocks": 21,
+   "lo_block_only": -0.3746302419445361,
+   "hi_block_only": 0.2988571433794115,
+   "lo_week": -0.4619564400470273,
+   "hi_week": 0.3861833414819027,
+   "weeks": 58
+  },
+  {
+   "cid": "S4_women_2022-2026",
+   "population": "women",
+   "seasons": [
+    2022,
+    2023,
+    2024,
+    2025,
+    2026
+   ],
+   "kind": "both",
+   "direction": "positive = the centred arm (cprod) has the lower log loss (better) than the current model",
+   "unit": "mLL",
+   "verdict": "tie",
+   "matches": 11386,
+   "estimate": -0.055775607054769125,
+   "lo": -0.25873952469630007,
+   "hi": 0.1471883105867618,
+   "se": 0.10131778758883356,
+   "se_block": 0.07154564292401794,
+   "v_seed_base": 0.0014967602043400967,
+   "v_seed_arm": 0.0036497548561448202,
+   "blocks": 57,
+   "lo_block_only": -0.19909875221631196,
+   "hi_block_only": 0.08754753810677372,
+   "lo_week": -0.2619993316471026,
+   "hi_week": 0.15044811753756432,
+   "weeks": 162
+  },
+  {
+   "cid": "S5",
+   "population": "both",
+   "seasons": [
+    2025,
+    2026
+   ],
+   "kind": "stage1",
+   "direction": "positive = the centred arm (cprod) has the lower log loss (better) than the current model",
+   "unit": "mLL",
+   "verdict": "tie",
+   "matches": 8520,
+   "estimate": -0.06849470844937004,
+   "lo": -0.3477194895374309,
+   "hi": 0.2107300726386908,
+   "se": 0.13385890412128235,
+   "se_block": 0.09473960347465453,
+   "v_seed_base": 0.004136297581587,
+   "v_seed_arm": 0.004806316164428888,
+   "blocks": 21,
+   "lo_block_only": -0.2661180583059614,
+   "hi_block_only": 0.12912864140722136,
+   "lo_week": -0.3396033644929731,
+   "hi_week": 0.202613947594233,
+   "weeks": 63
+  },
+  {
+   "cid": "S6",
+   "population": "both",
+   "seasons": [
+    2025,
+    2026
+   ],
+   "kind": "early",
+   "direction": "positive = the centred arm (cprod) has the lower log loss (better) than the current model",
+   "unit": "mLL",
+   "verdict": "tie",
+   "matches": 2648,
+   "estimate": -0.11032858491621783,
+   "lo": -0.49824553554814405,
+   "hi": 0.2775883657157084,
+   "se": 0.1762469632533893,
+   "se_block": 0.14065896555240076,
+   "v_seed_base": 0.004151845280170899,
+   "v_seed_arm": 0.0071262021855991965,
+   "blocks": 12,
+   "lo_block_only": -0.41991688073089295,
+   "hi_block_only": 0.1992597108984573,
+   "lo_week": -0.5440078539561586,
+   "hi_week": 0.32335068412372286,
+   "weeks": 34
+  }
+ ],
+ "context": [
+  {
+   "cid": "S7_model_2025-2026",
+   "arm": "model",
+   "population": "both",
+   "seasons": [
+    2025,
+    2026
+   ],
+   "kind": "both stages against the recalibrated close",
+   "unit": "mLL",
+   "direction": "positive = model (both stages) has the lower log loss (better) than the recalibrated close",
+   "matches": 8520,
+   "estimate": 1.936219363483905,
+   "lo": 0.9101136662959952,
+   "hi": 2.962325060671815,
+   "blocks": 21,
+   "verdict": "better"
+  },
+  {
+   "cid": "S7_model_2022-2026",
+   "arm": "model",
+   "population": "both",
+   "seasons": [
+    2022,
+    2023,
+    2024,
+    2025,
+    2026
+   ],
+   "kind": "both stages against the recalibrated close",
+   "unit": "mLL",
+   "direction": "positive = model (both stages) has the lower log loss (better) than the recalibrated close",
+   "matches": 23727,
+   "estimate": 1.3330913190574514,
+   "lo": 0.7014811938797284,
+   "hi": 1.9647014442351742,
+   "blocks": 57,
+   "verdict": "better"
+  },
+  {
+   "cid": "S7_cprod_2025-2026",
+   "arm": "cprod",
+   "population": "both",
+   "seasons": [
+    2025,
+    2026
+   ],
+   "kind": "both stages against the recalibrated close",
+   "unit": "mLL",
+   "direction": "positive = cprod (both stages) has the lower log loss (better) than the recalibrated close",
+   "matches": 8520,
+   "estimate": 1.8758184936131128,
+   "lo": 0.8367457926695279,
+   "hi": 2.9148911945566978,
+   "blocks": 21,
+   "verdict": "better"
+  },
+  {
+   "cid": "S7_cprod_2022-2026",
+   "arm": "cprod",
+   "population": "both",
+   "seasons": [
+    2022,
+    2023,
+    2024,
+    2025,
+    2026
+   ],
+   "kind": "both stages against the recalibrated close",
+   "unit": "mLL",
+   "direction": "positive = cprod (both stages) has the lower log loss (better) than the recalibrated close",
+   "matches": 23727,
+   "estimate": 1.2778032096400165,
+   "lo": 0.6525406939147294,
+   "hi": 1.9030657253653036,
+   "blocks": 57,
+   "verdict": "better"
+  }
+ ],
+ "stage2_parameters": {
+  "model": {
+   "2022": {
+    "s_atp": 0.8906772657807746,
+    "s_wta": 0.9699454009112219,
+    "b_mle": 0.022153688854446515,
+    "se_b": 0.07143008474683872,
+    "b_shrunk": 0.00728523412001892,
+    "rows": 12101
+   },
+   "2023": {
+    "s_atp": 0.9016080871752056,
+    "s_wta": 0.939521177674119,
+    "b_mle": 0.12170197973441431,
+    "se_b": 0.039081291972859596,
+    "b_shrunk": 0.07554723257190252,
+    "rows": 17039
+   },
+   "2024": {
+    "s_atp": 0.8994132786118072,
+    "s_wta": 0.9298880463961448,
+    "b_mle": 0.03736016265018907,
+    "se_b": 0.02839705412062579,
+    "b_shrunk": 0.028248431323154733,
+    "rows": 22174
+   },
+   "2025": {
+    "s_atp": 0.9117663289277699,
+    "s_wta": 0.9279789880564248,
+    "b_mle": 0.034810557244318356,
+    "se_b": 0.022879691585940713,
+    "b_shrunk": 0.028783515964377563,
+    "rows": 27308
+   },
+   "2026": {
+    "s_atp": 0.8995934886422011,
+    "s_wta": 0.9167523248680112,
+    "b_mle": 0.04378215420743318,
+    "se_b": 0.020230213949450862,
+    "b_shrunk": 0.03762308180103965,
+    "rows": 32413
+   }
+  },
+  "cprod": {
+   "2022": {
+    "s_atp": 0.8903676993115665,
+    "s_wta": 0.9716130954643555,
+    "b_mle": 0.022582632793199706,
+    "se_b": 0.07143340262299903,
+    "b_shrunk": 0.007425829206178287,
+    "rows": 12101
+   },
+   "2023": {
+    "s_atp": 0.9006615459952787,
+    "s_wta": 0.9415429693405006,
+    "b_mle": 0.12214190879497804,
+    "se_b": 0.039085810755232764,
+    "b_shrunk": 0.07581367190152045,
+    "rows": 17039
+   },
+   "2024": {
+    "s_atp": 0.8982979524016828,
+    "s_wta": 0.9319938074159966,
+    "b_mle": 0.038050020642230675,
+    "se_b": 0.028397899779071194,
+    "b_shrunk": 0.02876962265323751,
+    "rows": 22174
+   },
+   "2025": {
+    "s_atp": 0.9106496372196426,
+    "s_wta": 0.9298527019402908,
+    "b_mle": 0.03542622029230722,
+    "se_b": 0.022880038853817185,
+    "b_shrunk": 0.02929243019276894,
+    "rows": 27308
+   },
+   "2026": {
+    "s_atp": 0.8980437051792216,
+    "s_wta": 0.918121774589965,
+    "b_mle": 0.04448585948336885,
+    "se_b": 0.020229211283645163,
+    "b_shrunk": 0.03822832611303163,
+    "rows": 32413
+   }
+  }
+ },
+ "fits": [
+  {
+   "season": 2019,
+   "seed": 0,
+   "file": "cprod__2019__seed0.npz",
+   "fingerprint": "f50b6a1d52741513470b646825526145da5194b1194925ef21ab1d774136056a"
+  },
+  {
+   "season": 2019,
+   "seed": 1,
+   "file": "cprod__2019__seed1.npz",
+   "fingerprint": "f50b6a1d52741513470b646825526145da5194b1194925ef21ab1d774136056a"
+  },
+  {
+   "season": 2019,
+   "seed": 2,
+   "file": "cprod__2019__seed2.npz",
+   "fingerprint": "f50b6a1d52741513470b646825526145da5194b1194925ef21ab1d774136056a"
+  },
+  {
+   "season": 2019,
+   "seed": 3,
+   "file": "cprod__2019__seed3.npz",
+   "fingerprint": "f50b6a1d52741513470b646825526145da5194b1194925ef21ab1d774136056a"
+  },
+  {
+   "season": 2020,
+   "seed": 0,
+   "file": "cprod__2020__seed0.npz",
+   "fingerprint": "bd59cfec0b0d6405ae47eea8909139a8e2fa066dbf546a13316b12ae7fc82338"
+  },
+  {
+   "season": 2020,
+   "seed": 1,
+   "file": "cprod__2020__seed1.npz",
+   "fingerprint": "bd59cfec0b0d6405ae47eea8909139a8e2fa066dbf546a13316b12ae7fc82338"
+  },
+  {
+   "season": 2020,
+   "seed": 2,
+   "file": "cprod__2020__seed2.npz",
+   "fingerprint": "bd59cfec0b0d6405ae47eea8909139a8e2fa066dbf546a13316b12ae7fc82338"
+  },
+  {
+   "season": 2020,
+   "seed": 3,
+   "file": "cprod__2020__seed3.npz",
+   "fingerprint": "bd59cfec0b0d6405ae47eea8909139a8e2fa066dbf546a13316b12ae7fc82338"
+  },
+  {
+   "season": 2021,
+   "seed": 0,
+   "file": "cprod__2021__seed0.npz",
+   "fingerprint": "2f569d057570af4a1eb1521ad5815a683c4e5f69c4e3dd0ee9a86c396159bb2c"
+  },
+  {
+   "season": 2021,
+   "seed": 1,
+   "file": "cprod__2021__seed1.npz",
+   "fingerprint": "2f569d057570af4a1eb1521ad5815a683c4e5f69c4e3dd0ee9a86c396159bb2c"
+  },
+  {
+   "season": 2021,
+   "seed": 2,
+   "file": "cprod__2021__seed2.npz",
+   "fingerprint": "2f569d057570af4a1eb1521ad5815a683c4e5f69c4e3dd0ee9a86c396159bb2c"
+  },
+  {
+   "season": 2021,
+   "seed": 3,
+   "file": "cprod__2021__seed3.npz",
+   "fingerprint": "2f569d057570af4a1eb1521ad5815a683c4e5f69c4e3dd0ee9a86c396159bb2c"
+  },
+  {
+   "season": 2022,
+   "seed": 0,
+   "file": "cprod__2022__seed0.npz",
+   "fingerprint": "f08a90c8898dcf479eef61027603acac7479fc8f71dc727a89eac799aee908fb"
+  },
+  {
+   "season": 2022,
+   "seed": 1,
+   "file": "cprod__2022__seed1.npz",
+   "fingerprint": "f08a90c8898dcf479eef61027603acac7479fc8f71dc727a89eac799aee908fb"
+  },
+  {
+   "season": 2022,
+   "seed": 2,
+   "file": "cprod__2022__seed2.npz",
+   "fingerprint": "f08a90c8898dcf479eef61027603acac7479fc8f71dc727a89eac799aee908fb"
+  },
+  {
+   "season": 2022,
+   "seed": 3,
+   "file": "cprod__2022__seed3.npz",
+   "fingerprint": "f08a90c8898dcf479eef61027603acac7479fc8f71dc727a89eac799aee908fb"
+  },
+  {
+   "season": 2023,
+   "seed": 0,
+   "file": "cprod__2023__seed0.npz",
+   "fingerprint": "430c68a3f0772d498354624333b2816f933deae23e251cb9471393a4ef8adcd5"
+  },
+  {
+   "season": 2023,
+   "seed": 1,
+   "file": "cprod__2023__seed1.npz",
+   "fingerprint": "430c68a3f0772d498354624333b2816f933deae23e251cb9471393a4ef8adcd5"
+  },
+  {
+   "season": 2023,
+   "seed": 2,
+   "file": "cprod__2023__seed2.npz",
+   "fingerprint": "430c68a3f0772d498354624333b2816f933deae23e251cb9471393a4ef8adcd5"
+  },
+  {
+   "season": 2023,
+   "seed": 3,
+   "file": "cprod__2023__seed3.npz",
+   "fingerprint": "430c68a3f0772d498354624333b2816f933deae23e251cb9471393a4ef8adcd5"
+  },
+  {
+   "season": 2024,
+   "seed": 0,
+   "file": "cprod__2024__seed0.npz",
+   "fingerprint": "1e27b38986e4adb6772c0f4079e39f5d21e31bfba3e0e0b0c461de8cb6596070"
+  },
+  {
+   "season": 2024,
+   "seed": 1,
+   "file": "cprod__2024__seed1.npz",
+   "fingerprint": "1e27b38986e4adb6772c0f4079e39f5d21e31bfba3e0e0b0c461de8cb6596070"
+  },
+  {
+   "season": 2024,
+   "seed": 2,
+   "file": "cprod__2024__seed2.npz",
+   "fingerprint": "1e27b38986e4adb6772c0f4079e39f5d21e31bfba3e0e0b0c461de8cb6596070"
+  },
+  {
+   "season": 2024,
+   "seed": 3,
+   "file": "cprod__2024__seed3.npz",
+   "fingerprint": "1e27b38986e4adb6772c0f4079e39f5d21e31bfba3e0e0b0c461de8cb6596070"
+  },
+  {
+   "season": 2025,
+   "seed": 0,
+   "file": "cprod__2025__seed0.npz",
+   "fingerprint": "2b21d0d7798c30327b71ee19e38180ea19455acb29e766ad8809551bae89ec55"
+  },
+  {
+   "season": 2025,
+   "seed": 1,
+   "file": "cprod__2025__seed1.npz",
+   "fingerprint": "2b21d0d7798c30327b71ee19e38180ea19455acb29e766ad8809551bae89ec55"
+  },
+  {
+   "season": 2025,
+   "seed": 2,
+   "file": "cprod__2025__seed2.npz",
+   "fingerprint": "2b21d0d7798c30327b71ee19e38180ea19455acb29e766ad8809551bae89ec55"
+  },
+  {
+   "season": 2025,
+   "seed": 3,
+   "file": "cprod__2025__seed3.npz",
+   "fingerprint": "2b21d0d7798c30327b71ee19e38180ea19455acb29e766ad8809551bae89ec55"
+  },
+  {
+   "season": 2026,
+   "seed": 0,
+   "file": "cprod__2026__seed0.npz",
+   "fingerprint": "c738f36a543c8b0d839ec825d1a2a9186d1abc30395049ceb07dab64dfe34520"
+  },
+  {
+   "season": 2026,
+   "seed": 1,
+   "file": "cprod__2026__seed1.npz",
+   "fingerprint": "c738f36a543c8b0d839ec825d1a2a9186d1abc30395049ceb07dab64dfe34520"
+  },
+  {
+   "season": 2026,
+   "seed": 2,
+   "file": "cprod__2026__seed2.npz",
+   "fingerprint": "c738f36a543c8b0d839ec825d1a2a9186d1abc30395049ceb07dab64dfe34520"
+  },
+  {
+   "season": 2026,
+   "seed": 3,
+   "file": "cprod__2026__seed3.npz",
+   "fingerprint": "c738f36a543c8b0d839ec825d1a2a9186d1abc30395049ceb07dab64dfe34520"
+  }
+ ],
+ "frames": {
+  "model_frame_sha256": "6113966fd8286cb41738eb7b52e0d6d9e2d7631c980c3aec7be6e4bbbaaab06b",
+  "arm_frame_sha256": "7fb2fc96c88f85b823ab9029b772ebd07ae3325e1fc8f710f8480be5ed356f9b"
+ },
+ "results_read": "a_won of the model frame's 2019 - 28 Jul 2026 matches (serve_speed_tabpfn.score.labels)"
+}

@@ -19,7 +19,9 @@ form, sets over 14 days, first matches on a surface, age, the 52-week points mat
 Solved-together inputs (IOS offence/defence on seven statistics, their matchup products, the short-memory IOS points
 matchup)
     ios_time.run_timed on the leak-proof timeline of timing.parquet: a result enters the solve the day after its latest
-    possible finish; each match reads the solve of its earliest possible start.
+    possible finish; each match reads the solve of its earliest possible start. The constants (Stage B's h, kappa, tau,
+    the typical units, the short memory's half-lives) are the IOS constants registry's version in effect
+    (src/eda/ios_constants/registry.py), recorded in ios_features_summary.json.
 
 Match-probability conversions (serve/return ratings, the points matchups) use the scheduled format only.
 
@@ -48,6 +50,7 @@ from scipy.special import expit, logit
 ROOT = Path(__file__).resolve().parents[3]
 sys.path.insert(0, str(ROOT))
 
+from src.eda.ios_constants import registry as IC  # noqa: E402
 from src.eda.match_timing import common as MT  # noqa: E402
 from src.eda.match_timing import ios_time as IT  # noqa: E402
 from src.eda.feature_alpha_audit import repair_history as H  # noqa: E402
@@ -61,10 +64,10 @@ from src.eda.predictability_diagnostic.stage0_build import short_like, tokens_of
 from src.eda.ufc_ideas import stageB_adjperf as AP  # noqa: E402
 from src.eda.ufc_ideas import stageB_common as B  # noqa: E402
 from src.eda.ufc_ideas import stageB_ios as I  # noqa: E402
+from src.eda.lower_level_evidence import level_layer_ios as _LLEIOS  # noqa: E402   # level layer, joint solves (LLE_LAYER)
 
 WORKERS = int(os.environ.get("MATCH_TIMING_WORKERS", "4"))
 PROFILE_IOS = ("ace", "df", "first_in", "first_won", "second_won", "hold", "bp_saved")
-SHORT_H = {"atp": 4.0, "wta": 13.0}          # the short-memory IOS points matchup (Stage B's diagnostic rows)
 
 
 # ------------------------------------------------------------------------------------------------
@@ -163,24 +166,21 @@ def _ios_task(args):
     tour, stat, h, kappa, tau, label = args
     t0 = time.time()
     d = _INPUTS[tour]
-    r = IT.run_timed(d["td"], stat, h, kappa, tau, d["es"], d["lf"], d["obs"])
+    r = _LLEIOS.run_timed(d["td"], stat, h, kappa, tau, d["es"], d["lf"], d["obs"], label=label)  # level layer, joint solves (LLE_LAYER)
     return {"tour": tour, "stat": stat, "label": label, "O": r["O"], "D": r["D"], "solver": r["solver"],
             "seconds": round(time.time() - t0, 1)}
 
 
 def ios_constants() -> tuple[dict, dict]:
-    ios = json.loads(I.IOS_SUMMARY.read_text(encoding="utf-8"))
-    typ = {(r["stat"], r["tour"]): float(r["units"]) for r in ios["typical_units"]}
-
-    def hval(v):
-        return np.inf if v in (None, "inf", "Infinity") or (isinstance(v, float) and not np.isfinite(v)) else float(v)
-    chosen = {(r["tour"], r["stat"]): {"h": hval(r["h"]), "kappa": float(r["kappa"]), "tau": int(r["tau"])}
-              for r in ios["chosen"]}
-    return chosen, typ
+    """Stage B's (h, kappa, tau) per (tour, statistic) and the typical units per (statistic, tour): the IOS constants
+    registry's version in effect (no longer stageB_ios_summary.json, which a re-run of the study rewrites)."""
+    return IC.ios_constants()
 
 
 def ios_features(rows: pd.DataFrame, timing: pd.DataFrame) -> tuple[dict, dict]:
-    chosen, typ = ios_constants()
+    constants = IC.current()
+    chosen, typ = IC.ios_constants(constants)
+    short_h = IC.short_h(constants)      # the short-memory IOS points matchup (from Stage B's diagnostic rows)
     means = B.surface_means()
     stats = tuple(dict.fromkeys(("spw",) + PROFILE_IOS))
     sa = B.stat_arrays(rows, means, stats)
@@ -193,11 +193,12 @@ def ios_features(rows: pd.DataFrame, timing: pd.DataFrame) -> tuple[dict, dict]:
     inputs = {}
     for t in C.TOURS:
         td = IT.tour_inputs(rows, sa, typ, t, stats)
+        td = _LLEIOS.annotate_td(td, rows)  # level layer, joint solves (LLE_LAYER)
         idx = td["idx"]
         inputs[t] = {"td": td, "es": es[idx], "lf": lf[idx], "obs": obs[idx]}
     tasks = [(t, s, chosen[(t, s)]["h"], chosen[(t, s)]["kappa"], chosen[(t, s)]["tau"], "tuned")
              for t in C.TOURS for s in PROFILE_IOS]
-    tasks += [(t, "spw", SHORT_H[t], chosen[(t, "spw")]["kappa"], chosen[(t, "spw")]["tau"], "short") for t in C.TOURS]
+    tasks += [(t, "spw", short_h[t], chosen[(t, "spw")]["kappa"], chosen[(t, "spw")]["tau"], "short") for t in C.TOURS]
     res = {}
     with ProcessPoolExecutor(max_workers=WORKERS, initializer=_init, initargs=(inputs,)) as ex:
         for r in ex.map(_ios_task, tasks, chunksize=1):
@@ -275,13 +276,17 @@ def load_full_rows() -> tuple[pd.DataFrame, int, dict]:
 def part_ios() -> dict:
     """The solved-together inputs on the current timing.parquet (rerun whenever the timeline changes)."""
     start = time.time()
+    constants = IC.pin()                 # one version for the whole part, whatever the registry's pointer does meanwhile
+    MT.log(f"IOS constants {constants['id']} ({constants['sha256'][:12]}, {constants['selected_by']})")
     timing = pd.read_parquet(MT.TIMING, columns=["match_id", "es", "lf", "obs"])
     rows, _, _ = load_full_rows()
     A, _ = B.pool_rows(rows)
     ios, ios_meta = ios_features(rows, timing)
     frame = pd.DataFrame({"match_id": rows["match_id"].to_numpy()[A], **ios})
     frame.to_parquet(IOSFEAT, index=False, compression="zstd")
-    meta = {"ios": ios_meta, "timing_input_sha256": MT.sha256(MT.TIMING), "seconds": round(time.time() - start, 1)}
+    meta = {"ios": ios_meta, "ios_constants": IC.record(constants), "timing_input_sha256": MT.sha256(MT.TIMING),
+            "seconds": round(time.time() - start, 1)}
+    meta = _LLEIOS.stamp(meta)  # level layer, joint solves (LLE_LAYER)
     MT.jdump(meta, MT.OUT / "ios_features_summary.json")
     MT.log(f"wrote {IOSFEAT.name}")
     return meta

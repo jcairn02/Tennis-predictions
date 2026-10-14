@@ -1,0 +1,35 @@
+tree timeline trimmed: 873636 -> 873339 rows (873385 Stage 0 matches)
+>>> C:\Users\zerom\Documents\Tennis-predictions\src\eda\daily_prediction\dp.py tables --run C:\Users\zerom\Documents\Tennis-predictions\data\studies\box_score_gate_review\replay\base
+[    0.4s] --> stage0: src/eda/predictability_diagnostic/stage0_build.py --live-rows run/live_rows.parquet
+[  110.0s]     exit 0 in 109.5 s
+[  110.0s] --> additions: src/eda/current_best_model/additions.py --apply
+[  136.6s]     exit 0 in 26.7 s
+[  136.6s] --> check: src/eda/prediction_run/inject.py --meta run/live_meta.parquet --step check
+[  138.4s]     exit 0 in 1.7 s
+[  138.4s] --> lle_layer: src/eda/current_best_model/layer_config.py --resolve --official C:\Users\zerom\Documents\Tennis-predictions\data\studies\current_best_model\level_layer\official.json
+[  165.9s]     exit 0 in 27.5 s
+[  165.9s] --> odds: src/eda/predictability_diagnostic/stage1_odds.py 
+[  174.2s]     exit 0 in 8.3 s
+[  174.2s] --> live_odds: src/eda/prediction_run/inject.py --meta run/live_meta.parquet --step odds
+[  175.0s]     exit 0 in 0.9 s
+{
+ "steps": {
+  "stage0": 109.5,
+  "additions": 26.7,
+  "check": 1.7,
+  "lle_layer": 27.5,
+  "odds": 8.3,
+  "live_odds": 0.9
+ },
+ "history": "history vs the reference of 2026-10-08: future 0 and updated 0 (allowed); accepted 51,537 (allowed: lower-level additions 48,572, completions 1, decided repairs 2,964); main-tour changes 77 (allowed, listed: new past 0, dropped 52, revised 25); lower-level new past 0, dropped 0, revised 0 -> the template may be built",
+ "timeline_held": {
+  "rows": 921957,
+  "of_instance_rows": 922009,
+  "sha256": "236abad261dfce3eba155f89c300e200bf7a054c02902ce13ddbc55995ab33e2",
+  "source": "C:\\Users\\zerom\\tnr_gaps\\data\\studies\\match_timing\\timing.parquet"
+ }
+}
+scenario
+all_window     94
+other_event    20
+same_event     23

@@ -66,9 +66,14 @@ def test_new_rows_follow_the_key_statistic_basis():
     assert n.loc["A", "y"] == 189.5 and n.loc["A", "n"] == 8 and not n.loc["A", "use"] and n.loc["A", "drop_reason"] == "low_n"
     assert (n["basis"] == "ks").all() and (n["release"] == LC.day_of("2026-10-08")).all()
     assert (n["release"] >= n["lf"] + 1).all() and set(n["family"]) == {"tour|M"}
-    # a match collected the day it surely finished is still released only from lf + 1
-    late = LP.new_rows(lk.assign(lf=20734.0, es=20733.0, obs=20733.0))
-    assert (late["release"] == 20735).all()
+    # Lead's rule (8 Oct 2026, the first live run): data in hand that the source reports COMPLETED count from the
+    # collection day, even when the clock's cautious lf + 1 is later; a match NOT reported completed keeps lf + 1.
+    early = lk.assign(lf=20734.0, es=20733.0, obs=20733.0)
+    done = LP.new_rows(early.assign(match_completed=True))
+    assert (done["release"] == LC.day_of("2026-10-08")).all()             # 20734, before lf + 1 = 20735
+    open_ = LP.new_rows(early.assign(match_completed=False))
+    assert (open_["release"] == 20735).all()                              # held back to lf + 1
+    assert (LP.new_rows(early)["release"] == LC.day_of("2026-10-08")).all()   # no flag (ManTennisData): completed
 
 
 def test_runner_offline(tmp_path):
@@ -76,9 +81,11 @@ def test_runner_offline(tmp_path):
     the collector reports itself skipped."""
     frozen = {p: sha(p) for p in (P.PANEL, P.FRAME_KEYS)}
     rec = SD.run(LC.day_of("2026-10-08"), tmp_path, mantd="skip", network=False)
-    assert rec["collector"]["status"].startswith("skipped") and rec["collector"]["enabled"] is False
+    # without network the collector is skipped whatever the switch says (the real live/collector.json was enabled by
+    # the lead on 8 Oct 2026, so the reported flag follows the config, not a fixed False)
+    assert rec["collector"]["status"].startswith("skipped") and rec["collector"]["enabled"] is SD.AD.enabled()
     live = pd.read_parquet(tmp_path / LC.PANEL_LIVE.name)
-    fr = P.load_panel(use_only=False)
+    fr = LP.frozen_panel()        # the frozen panel without the audit's impossible records (decision 2026-10-08)
     head = live.iloc[:len(fr)][fr.columns]
     pd.testing.assert_frame_equal(head.reset_index(drop=True), fr.reset_index(drop=True), check_dtype=False)
     assert not live.duplicated(["match_id", "side"]).any()
@@ -93,3 +100,27 @@ def test_plan_only_sends_nothing_and_stages_nothing(tmp_path):
     rec = SD.run(LC.day_of("2026-10-08"), tmp_path, network=False, plan_only=True)
     assert "plan_requests" in rec["collector"] and not (tmp_path / "staging").exists()
     assert all(r[0] >= 2026 for r in rec["collector"]["plan"])
+
+
+def test_live_history_drops_the_audits_impossible_records():
+    """The live feed's history never uses a record of the audit's speed exclusions (a player-match left without a valid
+    record keeps an unused row, as the panel does): the corrected copy, and the history the live panel reads (since
+    8 Oct with the ATP backfill of 2018-21, docs/studies/infosys_atp_backfill/). The corrected copy differs from the
+    study's frozen panel only on the player-matches that had one (plus the players' own-outlier flags); the backfilled
+    history keeps every player-match of the corrected copy."""
+    from src.eda.input_data_audit import corrections as K
+    ex = pd.read_csv(K.SPEED_EXCLUSIONS, dtype=str, keep_default_na=False)
+    corrected, live, frozen = pd.read_parquet(LP.CORRECTED), LP.frozen_panel(), P.load_panel(use_only=False)
+    for fr in (corrected, live):
+        used = fr[fr["use"]]
+        chosen = set(zip(used["match_id"], used["side"], used["source"], used["source_key"].astype(str)))
+        assert not chosen & set(zip(ex["match_id"], ex["side"], ex["source"], ex["source_key"]))
+        left = fr[fr["drop_reason"].eq("audit_impossible")]
+        assert len(left) and not left["use"].any()
+    hit = set(zip(ex["match_id"], ex["side"]))
+    a = frozen.set_index(["match_id", "side"]).sort_index()
+    b = corrected.set_index(["match_id", "side"]).sort_index()
+    cols = [c for c in a.columns if c != "flag_own_outlier"]
+    moved = ~((a[cols] == b[cols]) | (a[cols].isna() & b[cols].isna())).all(axis=1)
+    assert set(moved[moved].index) <= hit and len(corrected) == len(frozen)
+    assert set(zip(corrected["match_id"], corrected["side"])) <= set(zip(live["match_id"], live["side"]))

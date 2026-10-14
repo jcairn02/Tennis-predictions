@@ -1,0 +1,66 @@
+{
+ "schema": "tennis-master-pipeline-thinking-season-v1",
+ "made_at": "2026-10-14T00:58:25.751500+00:00",
+ "summary": {
+  "season": 2026,
+  "training_rows": 62869,
+  "features": 57,
+  "fit_quote": {
+   "estimated_cost": 727604,
+   "pricing_version": "quota_v3",
+   "inputs": {
+    "train_rows": 62869,
+    "raw_columns": 57,
+    "test_rows": 0,
+    "model_version": "v3.5",
+    "operation": "thinking_fit",
+    "n_estimators": 8,
+    "thinking_effort": "high"
+   }
+  },
+  "daily_predict_quote": {
+   "estimated_cost": 126286,
+   "pricing_version": "quota_v3",
+   "inputs": {
+    "train_rows": 62869,
+    "raw_columns": 57,
+    "test_rows": 920,
+    "model_version": "v3.5",
+    "operation": "thinking_predict",
+    "n_estimators": 8,
+    "thinking_effort": null
+   }
+  },
+  "daily_matches": 5,
+  "daily_tokens_remaining": 5000000,
+  "monthly_tokens_remaining": 16238035,
+  "note": "past bills were 25% of the quote (4 of 4 runs, the Thinking studies); a quote is not a bill"
+ },
+ "usage": {
+  "daily_tokens_used": 0,
+  "daily_token_limit": 5000000,
+  "monthly_tokens_used": 3761965,
+  "monthly_token_limit": 20000000,
+  "current_usage": 3761965,
+  "usage_limit": 20000000,
+  "reset_time": "2026-11-01 00:00:00 UTC",
+  "monthly_usage": 3761965,
+  "monthly_limit": 20000000,
+  "monthly_reset_time": "2026-11-01 00:00:00 UTC",
+  "daily_usage": 0,
+  "daily_limit": 5000000,
+  "daily_reset_time": "2026-10-15 00:00:00 UTC",
+  "thinking_fit_count": 0,
+  "thinking_fit_limit": 0
+ },
+ "model_limits": {
+  "train_set_max_rows": 1000000,
+  "train_set_max_cells": 200000000,
+  "test_set_max_rows": 1000000,
+  "max_classes": 160,
+  "max_cols": 20000,
+  "test_set_max_rows_w_full_regression_output": 300000,
+  "predict_row_pairs_budget": 250000000000,
+  "test_set_max_cells": 200000000
+ }
+}

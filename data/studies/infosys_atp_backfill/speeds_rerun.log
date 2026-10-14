@@ -1,0 +1,568 @@
+[   0.0s] Stage 0 linker
+[   5.8s] Infosys Slam files
+[   6.5s]   2,834 player rows; ManTennisData
+[   8.2s]   20,412 player rows; the ATP's own Infosys files
+[  20.0s]   4,140 player rows
+[  20.1s] checks
+[  20.3s]   1 {'matches': 14, 'matches_in_matchbeats': 14, 'points_joined': 3368, 'only_matchbeats': 0, 'only_sirgenkii': 0, 'speed_equal': 3368, 'serve_number_equal': 3368, 'max_abs_speed_diff_kmh': 0.0}
+[  20.3s]   2 {'player_matches': 10, 'matches': 5, 'equal_to_rounded_mean': 10, 'within_1_kmh': 10}
+[  20.4s]   3 {'player_matches': 1452, 'by_year': {'2025': 690, '2026': 762}, 'diff_median': 0.0, 'diff_mean': 0.016, 'abs_diff_p90': 0.458, 'equal_to_rounded_mean': 1443, 'within_1_kmh': 1448, 'first_in_minus_timed_median': 0.0, 'note': 'positive diff = the key statistic is faster than the mean of first serves in from points'}
+[  71.0s]   4 {'matches': 256, 'by_edition': [{'edition': 'AO_2025', 'matches': 32, 'mean_diff_kmh': 0.004, 'median_player_err_kmh': 0.25, 'p90_player_err_kmh': 0.367}, {'edition': 'RG_2025', 'matches': 224, 'mean_diff_kmh': -0.108, 'median_player_err_kmh': 0.261, 'p90_player_err_kmh': 0.427}], 'note': 'positive diff = Flashscore faster; Flashscore prints whole km/h'}
+[ 162.1s]   5 {'sirgenkii_2025': {'player_matches_with_speed_in_sirgenkii': 336, 'with_speed_in_both': 333, 'equal': 333, 'sirgenkii_only': 3}, 'handoff_timed_records_by_year': {'2018': 10, '2021': 284, '2022': 1467, '2023': 1867, '2024': 2470, '2025': 24}, 'handoff_timed_before_2022_by_event': [{'year': '2021', 'tournament_id': '404', 'name': 'ATP Masters 1000 Indian Wells', 'matches': 62}, {'year': '2021', 'tournament_id': '352', 'name': 'ATP Masters 1000 Paris', 'matches': 49}, {'year': '2021', 'tournament_id': '418', 'name': 'Washington', 'matches': 37}, {'year': '2021', 'tournament_id': '7485', 'name': 'Antwerp', 'matches': 34}, {'year': '2021', 'tournament_id': '337', 'name': 'Vienna', 'matches': 30}, {'year': '2021', 'tournament_id': '568', 'name': 'St. Petersburg', 'matches': 29}, {'year': '2021', 'tournament_id': '429', 'name': 'Stockholm', 'matches': 24}, {'year': '2021', 'tournament_id': '7696', 'name': 'Intesa Sanpaolo Next Gen ATP Finals', 'matches': 15}, {'year': '2018', 'tournament_id': '605', 'name': 'Nitto ATP Finals', 'matches': 10}, {'year': '2021', 'tournament_id': '605', 'name': 'Nitto ATP Finals', 'matches': 4}], 'handoff_2021_24': {'mantd_rows': 48854, 'rows_with_a_handoff_keystats_record': 6283, 'timed_in_both': 5847, 'equal_both_players': 5847, 'timed_only_in_mantd': 164, 'timed_only_in_handoff': 194, 'timed_only_in_handoff_by_series': {'1000': 108, 'atp': 80, 'ch': 6}, 'timed_only_in_handoff_top_events': [{'k_year': '2021', 'name': 'ATP Masters 1000 Indian Wells', 'matches': 61}, {'k_year': '2021', 'name': 'Washington', 'matches': 37}, {'k_year': '2023', 'name': 'Rolex Shanghai Masters', 'matches': 17}, {'k_year': '2023', 'name': "Internazionali BNL d'Italia", 'matches': 6}, {'k_year': '2023', 'name': 'Open Blot Rennes', 'matches': 6}, {'k_year': '2023', 'name': 'Delray Beach Open', 'matches': 3}, {'k_year': '2023', 'name': 'BNP Paribas Open', 'matches': 3}, {'k_year': '2022', 'name': 'ATP Masters 1000 Miami', 'matches': 3}, {'k_year': '2024', 'name': 'Rotterdam', 'matches': 3}, {'k_year': '2024', 'name': 'ATP Masters 1000 Indian Wells', 'matches': 3}, {'k_year': '2023', 'name': 'ASB Classic', 'matches': 2}, {'k_year': '2024', 'name': 'Adelaide', 'matches': 2}, {'k_year': '2023', 'name': 'Miami Open presented by Itau', 'matches': 2}, {'k_year': '2023', 'name': 'Mutua Madrid Open', 'matches': 2}, {'k_year': '2024', 'name': 'ATP Masters 1000 Canada', 'matches': 2}]}}
+[ 162.3s]   6 AO atp 2021->2022: +0.53 (n=87); AO atp 2022->2023: +0.23 (n=83); AO atp 2023->2024: +3.49 (n=88); AO atp 2024->2025: -3.38 (n=111); AO atp 2020->2022: +1.51 (n=82); AO atp 2021->2023: +0.24 (n=71); AO atp 2022->2024: +2.11 (n=70); AO atp 2023->2025: +0.30 (n=92); AO wta 2021->2022: +0.06 (n=83); AO wta 2022->2023: +0.54 (n=84); AO wta 2023->2024: +2.38 (n=78); AO wta 2024->2025: -2.91 (n=103); AO wta 2020->2022: +0.90 (n=82); AO wta 2021->2023: -0.01 (n=67); AO wta 2022->2024: +2.16 (n=76); AO wta 2023->2025: -0.88 (n=95); RG atp 2021->2022: +0.90 (n=58); RG atp 2022->2023: +2.72 (n=39); RG atp 2023->2024: -0.84 (n=42); RG atp 2024->2025: +0.34 (n=62); RG atp 2025->2026: +0.76 (n=158); RG atp 2020->2022: +2.96 (n=50); RG atp 2021->2023: +4.99 (n=36); RG atp 2022->2024: +4.57 (n=38); RG atp 2023->2025: +1.56 (n=49); RG atp 2024->2026: -0.52 (n=48); RG wta 2021->2022: +0.68 (n=49); RG wta 2022->2023: +2.45 (n=36); RG wta 2023->2024: -0.55 (n=26); RG wta 2024->2025: +0.31 (n=59); RG wta 2025->2026: -0.57 (n=106); RG wta 2020->2022: +3.19 (n=49); RG wta 2021->2023: +2.46 (n=36); RG wta 2022->2024: +3.09 (n=35); RG wta 2023->2025: +1.85 (n=45); RG wta 2024->2026: -1.28 (n=40)
+[ 162.3s] links:
+{
+ "infosys_atp|1536|2021": {
+  "source_matches": 53,
+  "linked": 53,
+  "oriented": 53,
+  "player_matches_timed": 0,
+  "player_matches_timed_linked": 0
+ },
+ "infosys_atp|308|2021": {
+  "source_matches": 24,
+  "linked": 24,
+  "oriented": 24,
+  "player_matches_timed": 0,
+  "player_matches_timed_linked": 0
+ },
+ "infosys_atp|311|2021": {
+  "source_matches": 31,
+  "linked": 31,
+  "oriented": 31,
+  "player_matches_timed": 0,
+  "player_matches_timed_linked": 0
+ },
+ "infosys_atp|314|2021": {
+  "source_matches": 25,
+  "linked": 25,
+  "oriented": 25,
+  "player_matches_timed": 0,
+  "player_matches_timed_linked": 0
+ },
+ "infosys_atp|315|2021": {
+  "source_matches": 38,
+  "linked": 38,
+  "oriented": 38,
+  "player_matches_timed": 0,
+  "player_matches_timed_linked": 0
+ },
+ "infosys_atp|316|2021": {
+  "source_matches": 26,
+  "linked": 26,
+  "oriented": 26,
+  "player_matches_timed": 0,
+  "player_matches_timed_linked": 0
+ },
+ "infosys_atp|319|2021": {
+  "source_matches": 27,
+  "linked": 27,
+  "oriented": 27,
+  "player_matches_timed": 0,
+  "player_matches_timed_linked": 0
+ },
+ "infosys_atp|321|2021": {
+  "source_matches": 25,
+  "linked": 25,
+  "oriented": 25,
+  "player_matches_timed": 0,
+  "player_matches_timed_linked": 0
+ },
+ "infosys_atp|322|2021": {
+  "source_matches": 26,
+  "linked": 26,
+  "oriented": 26,
+  "player_matches_timed": 0,
+  "player_matches_timed_linked": 0
+ },
+ "infosys_atp|337|2020": {
+  "source_matches": 38,
+  "linked": 38,
+  "oriented": 38,
+  "player_matches_timed": 0,
+  "player_matches_timed_linked": 0
+ },
+ "infosys_atp|341|2021": {
+  "source_matches": 39,
+  "linked": 39,
+  "oriented": 39,
+  "player_matches_timed": 0,
+  "player_matches_timed_linked": 0
+ },
+ "infosys_atp|352|2020": {
+  "source_matches": 72,
+  "linked": 72,
+  "oriented": 72,
+  "player_matches_timed": 0,
+  "player_matches_timed_linked": 0
+ },
+ "infosys_atp|375|2021": {
+  "source_matches": 27,
+  "linked": 27,
+  "oriented": 27,
+  "player_matches_timed": 0,
+  "player_matches_timed_linked": 0
+ },
+ "infosys_atp|403|2021": {
+  "source_matches": 92,
+  "linked": 92,
+  "oriented": 92,
+  "player_matches_timed": 0,
+  "player_matches_timed_linked": 0
+ },
+ "infosys_atp|404|2021": {
+  "source_matches": 127,
+  "linked": 105,
+  "oriented": 105,
+  "player_matches_timed": 210,
+  "player_matches_timed_linked": 210
+ },
+ "infosys_atp|407|2021": {
+  "source_matches": 31,
+  "linked": 31,
+  "oriented": 31,
+  "player_matches_timed": 0,
+  "player_matches_timed_linked": 0
+ },
+ "infosys_atp|410|2021": {
+  "source_matches": 52,
+  "linked": 52,
+  "oriented": 52,
+  "player_matches_timed": 0,
+  "player_matches_timed_linked": 0
+ },
+ "infosys_atp|414|2021": {
+  "source_matches": 25,
+  "linked": 25,
+  "oriented": 25,
+  "player_matches_timed": 0,
+  "player_matches_timed_linked": 0
+ },
+ "infosys_atp|416|2021": {
+  "source_matches": 53,
+  "linked": 53,
+  "oriented": 53,
+  "player_matches_timed": 0,
+  "player_matches_timed_linked": 0
+ },
+ "infosys_atp|418|2021": {
+  "source_matches": 63,
+  "linked": 63,
+  "oriented": 63,
+  "player_matches_timed": 74,
+  "player_matches_timed_linked": 74
+ },
+ "infosys_atp|421|2021": {
+  "source_matches": 46,
+  "linked": 46,
+  "oriented": 46,
+  "player_matches_timed": 0,
+  "player_matches_timed_linked": 0
+ },
+ "infosys_atp|422|2021": {
+  "source_matches": 55,
+  "linked": 55,
+  "oriented": 55,
+  "player_matches_timed": 0,
+  "player_matches_timed_linked": 0
+ },
+ "infosys_atp|425|2021": {
+  "source_matches": 45,
+  "linked": 45,
+  "oriented": 45,
+  "player_matches_timed": 0,
+  "player_matches_timed_linked": 0
+ },
+ "infosys_atp|439|2021": {
+  "source_matches": 26,
+  "linked": 26,
+  "oriented": 26,
+  "player_matches_timed": 0,
+  "player_matches_timed_linked": 0
+ },
+ "infosys_atp|451|2021": {
+  "source_matches": 25,
+  "linked": 25,
+  "oriented": 25,
+  "player_matches_timed": 0,
+  "player_matches_timed_linked": 0
+ },
+ "infosys_atp|495|2021": {
+  "source_matches": 43,
+  "linked": 43,
+  "oriented": 43,
+  "player_matches_timed": 0,
+  "player_matches_timed_linked": 0
+ },
+ "infosys_atp|496|2021": {
+  "source_matches": 25,
+  "linked": 25,
+  "oriented": 25,
+  "player_matches_timed": 0,
+  "player_matches_timed_linked": 0
+ },
+ "infosys_atp|499|2021": {
+  "source_matches": 27,
+  "linked": 27,
+  "oriented": 27,
+  "player_matches_timed": 0,
+  "player_matches_timed_linked": 0
+ },
+ "infosys_atp|500|2021": {
+  "source_matches": 30,
+  "linked": 30,
+  "oriented": 30,
+  "player_matches_timed": 0,
+  "player_matches_timed_linked": 0
+ },
+ "infosys_atp|5053|2021": {
+  "source_matches": 27,
+  "linked": 27,
+  "oriented": 27,
+  "player_matches_timed": 0,
+  "player_matches_timed_linked": 0
+ },
+ "infosys_atp|506|2021": {
+  "source_matches": 27,
+  "linked": 27,
+  "oriented": 27,
+  "player_matches_timed": 0,
+  "player_matches_timed_linked": 0
+ },
+ "infosys_atp|605|2018": {
+  "source_matches": 15,
+  "linked": 15,
+  "oriented": 15,
+  "player_matches_timed": 30,
+  "player_matches_timed_linked": 30
+ },
+ "infosys_atp|605|2019": {
+  "source_matches": 15,
+  "linked": 15,
+  "oriented": 15,
+  "player_matches_timed": 0,
+  "player_matches_timed_linked": 0
+ },
+ "infosys_atp|605|2020": {
+  "source_matches": 15,
+  "linked": 15,
+  "oriented": 15,
+  "player_matches_timed": 0,
+  "player_matches_timed_linked": 0
+ },
+ "infosys_atp|6116|2021": {
+  "source_matches": 26,
+  "linked": 26,
+  "oriented": 26,
+  "player_matches_timed": 0,
+  "player_matches_timed_linked": 0
+ },
+ "infosys_atp|6242|2021": {
+  "source_matches": 47,
+  "linked": 47,
+  "oriented": 47,
+  "player_matches_timed": 0,
+  "player_matches_timed_linked": 0
+ },
+ "infosys_atp|7290|2021": {
+  "source_matches": 25,
+  "linked": 25,
+  "oriented": 25,
+  "player_matches_timed": 0,
+  "player_matches_timed_linked": 0
+ },
+ "infosys_atp|741|2021": {
+  "source_matches": 26,
+  "linked": 26,
+  "oriented": 26,
+  "player_matches_timed": 0,
+  "player_matches_timed_linked": 0
+ },
+ "infosys_atp|7434|2020": {
+  "source_matches": 39,
+  "linked": 39,
+  "oriented": 39,
+  "player_matches_timed": 0,
+  "player_matches_timed_linked": 0
+ },
+ "infosys_atp|7434|2021": {
+  "source_matches": 38,
+  "linked": 38,
+  "oriented": 38,
+  "player_matches_timed": 0,
+  "player_matches_timed_linked": 0
+ },
+ "infosys_atp|7480|2021": {
+  "source_matches": 26,
+  "linked": 26,
+  "oriented": 26,
+  "player_matches_timed": 0,
+  "player_matches_timed_linked": 0
+ },
+ "infosys_atp|7694|2021": {
+  "source_matches": 27,
+  "linked": 27,
+  "oriented": 27,
+  "player_matches_timed": 0,
+  "player_matches_timed_linked": 0
+ },
+ "infosys_atp|7696|2019": {
+  "source_matches": 15,
+  "linked": 15,
+  "oriented": 15,
+  "player_matches_timed": 0,
+  "player_matches_timed_linked": 0
+ },
+ "infosys_atp|807|2021": {
+  "source_matches": 29,
+  "linked": 29,
+  "oriented": 29,
+  "player_matches_timed": 0,
+  "player_matches_timed_linked": 0
+ },
+ "infosys_atp|8888|2021": {
+  "source_matches": 29,
+  "linked": 29,
+  "oriented": 29,
+  "player_matches_timed": 0,
+  "player_matches_timed_linked": 0
+ },
+ "infosys_atp|8994|2021": {
+  "source_matches": 25,
+  "linked": 25,
+  "oriented": 25,
+  "player_matches_timed": 0,
+  "player_matches_timed_linked": 0
+ },
+ "infosys_atp|8996|2021": {
+  "source_matches": 27,
+  "linked": 27,
+  "oriented": 27,
+  "player_matches_timed": 0,
+  "player_matches_timed_linked": 0
+ },
+ "infosys_atp|8998|2021": {
+  "source_matches": 54,
+  "linked": 54,
+  "oriented": 54,
+  "player_matches_timed": 0,
+  "player_matches_timed_linked": 0
+ },
+ "infosys_atp|9158|2021": {
+  "source_matches": 27,
+  "linked": 27,
+  "oriented": 27,
+  "player_matches_timed": 0,
+  "player_matches_timed_linked": 0
+ },
+ "infosys_atp|9210|2021": {
+  "source_matches": 6,
+  "linked": 6,
+  "oriented": 6,
+  "player_matches_timed": 0,
+  "player_matches_timed_linked": 0
+ },
+ "infosys_atp|9410|2021": {
+  "source_matches": 36,
+  "linked": 36,
+  "oriented": 36,
+  "player_matches_timed": 0,
+  "player_matches_timed_linked": 0
+ },
+ "infosys_atp|9426|2021": {
+  "source_matches": 28,
+  "linked": 28,
+  "oriented": 28,
+  "player_matches_timed": 0,
+  "player_matches_timed_linked": 0
+ },
+ "infosys_atp|9428|2021": {
+  "source_matches": 53,
+  "linked": 53,
+  "oriented": 53,
+  "player_matches_timed": 0,
+  "player_matches_timed_linked": 0
+ },
+ "infosys_atp|9460|2021": {
+  "source_matches": 27,
+  "linked": 27,
+  "oriented": 27,
+  "player_matches_timed": 0,
+  "player_matches_timed_linked": 0
+ },
+ "infosys_atp|9462|2021": {
+  "source_matches": 27,
+  "linked": 27,
+  "oriented": 27,
+  "player_matches_timed": 0,
+  "player_matches_timed_linked": 0
+ },
+ "infosys_atp|9481|2021": {
+  "source_matches": 27,
+  "linked": 27,
+  "oriented": 27,
+  "player_matches_timed": 0,
+  "player_matches_timed_linked": 0
+ },
+ "infosys_atp|9510|2021": {
+  "source_matches": 26,
+  "linked": 26,
+  "oriented": 26,
+  "player_matches_timed": 0,
+  "player_matches_timed_linked": 0
+ },
+ "infosys_atp|9512|2021": {
+  "source_matches": 26,
+  "linked": 26,
+  "oriented": 26,
+  "player_matches_timed": 0,
+  "player_matches_timed_linked": 0
+ },
+ "infosys_atp|9569|2021": {
+  "source_matches": 39,
+  "linked": 39,
+  "oriented": 39,
+  "player_matches_timed": 54,
+  "player_matches_timed_linked": 54
+ },
+ "infosys_slams|AO|2025": {
+  "source_matches": 469,
+  "linked": 469,
+  "oriented": 469,
+  "player_matches_timed": 938,
+  "player_matches_timed_linked": 938
+ },
+ "infosys_slams|RG|2025": {
+  "source_matches": 470,
+  "linked": 470,
+  "oriented": 470,
+  "player_matches_timed": 934,
+  "player_matches_timed_linked": 934
+ },
+ "infosys_slams|RG|2026": {
+  "source_matches": 478,
+  "linked": 366,
+  "oriented": 366,
+  "player_matches_timed": 948,
+  "player_matches_timed_linked": 724
+ },
+ "mantennisdata|1000|2021": {
+  "source_matches": 74,
+  "linked": 74,
+  "oriented": 74,
+  "player_matches_timed": 147,
+  "player_matches_timed_linked": 147
+ },
+ "mantennisdata|1000|2022": {
+  "source_matches": 586,
+  "linked": 586,
+  "oriented": 586,
+  "player_matches_timed": 1160,
+  "player_matches_timed_linked": 1160
+ },
+ "mantennisdata|1000|2023": {
+  "source_matches": 910,
+  "linked": 910,
+  "oriented": 910,
+  "player_matches_timed": 1785,
+  "player_matches_timed_linked": 1785
+ },
+ "mantennisdata|1000|2024": {
+  "source_matches": 922,
+  "linked": 922,
+  "oriented": 922,
+  "player_matches_timed": 1837,
+  "player_matches_timed_linked": 1837
+ },
+ "mantennisdata|1000|2025": {
+  "source_matches": 954,
+  "linked": 953,
+  "oriented": 953,
+  "player_matches_timed": 1892,
+  "player_matches_timed_linked": 1890
+ },
+ "mantennisdata|1000|2026": {
+  "source_matches": 811,
+  "linked": 811,
+  "oriented": 811,
+  "player_matches_timed": 1620,
+  "player_matches_timed_linked": 1620
+ },
+ "mantennisdata|atp|2021": {
+  "source_matches": 171,
+  "linked": 171,
+  "oriented": 171,
+  "player_matches_timed": 331,
+  "player_matches_timed_linked": 331
+ },
+ "mantennisdata|atp|2022": {
+  "source_matches": 882,
+  "linked": 882,
+  "oriented": 882,
+  "player_matches_timed": 1742,
+  "player_matches_timed_linked": 1742
+ },
+ "mantennisdata|atp|2023": {
+  "source_matches": 914,
+  "linked": 914,
+  "oriented": 914,
+  "player_matches_timed": 1813,
+  "player_matches_timed_linked": 1813
+ },
+ "mantennisdata|atp|2024": {
+  "source_matches": 1496,
+  "linked": 1495,
+  "oriented": 1495,
+  "player_matches_timed": 2973,
+  "player_matches_timed_linked": 2971
+ },
+ "mantennisdata|atp|2025": {
+  "source_matches": 730,
+  "linked": 729,
+  "oriented": 729,
+  "player_matches_timed": 1457,
+  "player_matches_timed_linked": 1455
+ },
+ "mantennisdata|atp|2026": {
+  "source_matches": 841,
+  "linked": 841,
+  "oriented": 841,
+  "player_matches_timed": 1681,
+  "player_matches_timed_linked": 1681
+ },
+ "mantennisdata|ch|2022": {
+  "source_matches": 86,
+  "linked": 86,
+  "oriented": 86,
+  "player_matches_timed": 165,
+  "player_matches_timed_linked": 165
+ },
+ "mantennisdata|ch|2023": {
+  "source_matches": 47,
+  "linked": 47,
+  "oriented": 47,
+  "player_matches_timed": 87,
+  "player_matches_timed_linked": 87
+ },
+ "mantennisdata|ch|2024": {
+  "source_matches": 47,
+  "linked": 46,
+  "oriented": 46,
+  "player_matches_timed": 94,
+  "player_matches_timed_linked": 92
+ },
+ "mantennisdata|ch|2025": {
+  "source_matches": 45,
+  "linked": 45,
+  "oriented": 45,
+  "player_matches_timed": 87,
+  "player_matches_timed_linked": 87
+ },
+ "mantennisdata|ch|2026": {
+  "source_matches": 690,
+  "linked": 472,
+  "oriented": 472,
+  "player_matches_timed": 1377,
+  "player_matches_timed_linked": 943
+ }
+}

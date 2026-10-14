@@ -1,0 +1,18 @@
+--- repository/src/eda/predictability_diagnostic/stage3_ratings.py
++++ sandbox/src/eda/predictability_diagnostic/stage3_ratings.py
+@@ -53,6 +53,7 @@
+ sys.path.insert(0, str(ROOT))
+ 
+ from src.eda.predictability_diagnostic import common as C  # noqa: E402
++from src.eda.lower_level_evidence import level_layer as _LLE  # noqa: E402  lower_level_evidence C1 (sandbox only)
+ 
+ RATINGS = C.OUT / "stage3_ratings.parquet"
+ TUNING = C.OUT / "stage3_rating_tuning.csv"
+@@ -334,6 +335,7 @@
+         idx = np.flatnonzero(m["tour"].eq(tour).to_numpy())
+         t = m.iloc[idx].reset_index(drop=True)
+         h = arrays(t, mu[idx])
++        h = _LLE.ratings_arrays(t, h)   # lower_level_evidence C1 (sandbox only)
+         block[idx] = run(h, chosen[tour])
+         log(f"{tour}: full pass done")
+         probes[tour] = probe_by_round(h, chosen[tour])

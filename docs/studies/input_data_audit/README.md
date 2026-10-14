@@ -1,6 +1,6 @@
 # Input-data audit of the current best model: the "4 km/h year" in serve speed, and errors like it
 
-8 October 2026 · Data-cleaning research, not a model, data or betting decision. **Nothing in the pipeline was changed;** every fix below is a suggestion.
+8 October 2026 · Data-cleaning research. The audit itself changed nothing. **Later the same day the owner asked for the undoubtedly corrupt rows with a clear fix to be corrected:** three independent reviewers per group voted, and only unanimous fixes were applied ([decision](../../decisions/2026-10-08-corrupt-data-fixes.md); §9). Every other fix below remains a suggestion.
 
 **The request** (owner, 8 Oct 2026): "I was told there was a potential bug in the serving speed data one year being 4km/hr higher on every serve? Search for similar errors. Our best tabpfn 3.5 non thinking model and the data used to feed it is the data I want analyzed, column for column, the input data that is used to build the advanced averages too."
 
@@ -317,7 +317,7 @@ So 7 of the 58 inputs reach the test seasons on a wider scale than training, whi
   * the agent's recomputation of `spd_L` equals `adaptive/columns.parquet` exactly.
 * **Surface-switch inputs and context columns:** no breaks beyond partial seasons.
 
-## 7. Suggested fixes (none applied)
+## 7. Suggested fixes (as written before the review; §9 says which were applied)
 
 1. **Stage 0 corrections table**, applied like the decided Slam box-score overrides:
    * WTA 2015 window: serve points + double faults;
@@ -352,8 +352,9 @@ So 7 of the 58 inputs reach the test seasons on a wider scale than training, whi
 
 | What | Where |
 |---|---|
-| Code | `src/eda/input_data_audit/`: `common.py` (paths, loaders, detectors), `box_checks.py`, `model_frame_checks.py`; the agents' exploratory scripts in `speed/` (a01–a21) and `odds/` (a01–a14) |
-| Tests (8) | `test/input_data_audit/test_detectors.py` |
+| Code | `src/eda/input_data_audit/`: `common.py` (paths, loaders, detectors), `box_checks.py`, `model_frame_checks.py`; the agents' exploratory scripts in `speed/` (a01–a21) and `odds/` (a01–a14). The corrections (§9): `consensus.py`, `corrections.py`, `fixes_dry_run.py`, `verify_after.py`; the reviewers' scripts in `review/<reviewer>/` |
+| Corrections (§9) | `data/studies/input_data_audit/fixes/`: `candidates.md`, each reviewer's votes and scope files, `consensus.json`, the four correction tables, `dry_run.json`, `after_rebuild.json` |
+| Tests (20) | `test/input_data_audit/test_detectors.py`, `test_corrections.py` |
 | Evidence | `data/studies/input_data_audit/`: `box_*` and `frame_*` tables and `box_summary.json`, `frame_summary.json`; the agents' tables in `speed/` and `odds/` |
 
 ```
@@ -363,4 +364,40 @@ So 7 of the 58 inputs reach the test seasons on a wider scale than training, whi
 ```
 
 * **The agents' scripts** are exploratory and run from the repo root in their numbered order (`./python.sh src/eda/input_data_audit/speed/a06_ao_paired.py`, and so on). They write to `data/studies/input_data_audit/speed/` and `odds/`. The large intermediate parquet files were not kept, and the first scripts rebuild them.
-* **Read-only.** No Stage 0, Stage 1, feature or model file was modified.
+* **The audit was read-only.** The corrections that followed (§9) changed `stage0_build.py` and `stage1_odds.py`, and rebuilt Stage 0 and the tables built on it; no model file was modified.
+
+## 9. The corrections the owner asked for
+
+**The request** (owner, 8 Oct 2026, after this report): "find all the corrupt data that is UNDOUBTABLY corrupt where the fix is CLEAR. Have review agents confirm the logic so we have consensus that the problem is clear and the fix is unanimous. Execute it after."
+
+**How it was decided.**
+* **Candidates.** The lead wrote 17 candidates with their rows, fixes and evidence ([candidates.md](../../../data/studies/input_data_audit/fixes/candidates.md)).
+* **Reviewers.** Six reviewers worked independently, in two groups of three:
+  * box scores (F1–F6);
+  * identities, ages, odds and speed (F7–F17).
+
+  Each group had three lenses: one recomputed every claim from the raw files, one tried to break it, and one checked it against independent records and simulated the fix.
+* **Round 2.** The reviewers voted on rows some of them had found outside the list.
+* **The rule.** A fix was applied only on the rows all three named, with the same operation and values.
+* **Code.** `consensus.py` writes the agreed tables; `corrections.py` applies them; `fixes_dry_run.py` checked them before the live rebuild.
+
+**What changed, what did not, and why:** see the [decision](../../decisions/2026-10-08-corrupt-data-fixes.md). In short:
+
+| Section | Applied |
+|---|---|
+| §3.1 WTA 2015 serve points | All 1,191 matches, plus the Doha 2015 semi-final and final, and 3 boxes Stage 0 had dropped for it |
+| §3.3 exchanged box scores | 78 of the candidates and extras (58 of the 88 listed, 20 found by the reviewers in the WTA's statistics). The other 30 of the 88 and 9 shared-surname pairs are not |
+| §3.4 copied box scores | Adelaide 2 2022: 34 replaced by the WTA's own statistics, 1 walkover blanked. 18 same-pair copies blanked; pairs whose direction was not agreed are not |
+| §3.2 Roland Garros and the Olympics | None: rejected (2025) or excluded (2022–24) unanimously |
+| §4 split ids | 11 of 13 |
+| §3.5 ages | 12 garbled 2026 ages and 182 stale 2020 Challenger ages; the "impossible" ages that are real are not |
+| §5 odds | 7 rows (6 reversed averages, the Nottingham names) |
+| §2 speed records | 130 confirmed; applied to the live speed feed at the owner's word (its corrected history, `live/speed_panel_frozen_corrected.parquet`); the study's frozen panel unchanged |
+
+**Applied** at the coordinated rebuild of 8 Oct 2026, 18:53 UTC; the tables of 7 Oct are kept in `data/studies/data_continuity/rebuilds/2026-10-08T1853Z/replaced/`, and the audit's snapshot "oct07" now points there ("oct08" is the corrected live folder). After it the audit's detectors read: exchanged-box fits 88 → 29, WTA 2015 definition-test failures 100 → 0, the 2015 window's second-serve points won 51.9% → 44.8%, Adelaide copies 20 → 0, split ids 13 → 2, ages of 100 or more 12 → 0 (`fixes/after_rebuild.json`). The model frame is still on the tables of 30 Sep. Rebuilt on the corrected tables and refitted, the model ties the current one ([model_rebuild](../model_rebuild/README.md)).
+
+**What the reviewers taught the audit.**
+* **The exchanged-box test fires by chance.** Among the ~1,700 matches that fail the games identity for other reasons, about 30 coincidental fits are expected. Nearly all of the 30 rejected candidates are close matches.
+* **A shared surname mimics an exchange.** Linking two sisters by surname alone makes a correct box look exchanged.
+* **A copy is not always the later match.** Its direction is decided by which score the box can belong to, or by a record.
+* **Corrections that look clean on aggregate can disagree row by row.** Roland Garros's own statistics match Sackmann's on all nine counts in only about half of clean main-draw rows.

@@ -1,0 +1,28 @@
+[  11.9s] player-matches: 1,844,330; BT file found: True
+[  12.9s] priors: {"atp": {"m_elo": 9.271797612072683, "m_rating": -0.11268533464329679, "strong_line_elo_points": 2001.7521545410154, "player_matches": 522348, "main_tour_player_matches": 47210, "m_bt": 1.2901667634147327}, "wta": {"m_elo": 9.829739605715227, "m_rating": -0.07997213488890287, "strong_line_elo_points": 2101.2137756347656, "player_matches": 375210, "main_tour_player_matches": 44396, "m_bt": 1.34000124072741}}
+[  19.1s] family 1 sums done
+[  42.6s] family 2 pairs done: 28,161,265 pairs
+[  43.3s]   tuned sos_elo|52 weeks: K = 0 (men), 20 (women)
+[  44.0s]   tuned sos_elo|decayed: K = 0 (men), 20 (women)
+[  44.8s]   tuned sos_rating|52 weeks: K = 0 (men), 20 (women)
+[  45.5s]   tuned sos_bt|52 weeks: K = 0 (men), 20 (women)
+[  46.3s]   tuned sos_won_elo|52 weeks: K = 0 (men), 5 (women)
+[  47.1s]   tuned sos_lost_elo|52 weeks: K = 2 (men), 20 (women)
+[  47.7s]   tuned over_elo|52 weeks: K = 0 (men), 0 (women)
+[  48.4s]   tuned over_elo_strong|52 weeks: K = 0 (men), 5 (women)
+[  48.5s]   tuned revalue|52 weeks: K = 20 (men), 20 (women)
+[  48.6s]   tuned revalue_won|52 weeks: K = 0 (men), 5 (women)
+[  48.7s]   tuned revalue_lost|52 weeks: K = 20 (men), 20 (women)
+[  48.9s]   tuned revalue_later|52 weeks: K = 2 (men), 20 (women)
+[  49.0s]   tuned revalue_won_later|52 weeks: K = 5 (men), 5 (women)
+[  49.1s]   tuned revalue_lost_later|52 weeks: K = 0 (men), 20 (women)
+[  83.1s] Elo update check: {"checked": 435964, "within_0.01_points": 0.651585910763274, "within_0.1_points": 0.651585910763274, "max_abs_error_points": 352.89519376566835, "median_abs_update_points": 19.05453396570578}
+[ 110.5s] row-by-row check of the revaluation: {"rows_checked": 300, "count_mismatches": 0, "largest_sum_difference": 1.220357148667972e-11}
+[ 111.0s] pairs: {"pairs": 28161265, "pairs_with_later_evidence": 26578414, "pairs_with_a_later_rematch_taken_out": 3075119, "pairs_an_earlier_date_rule_would_read_in_the_pool_week": 320061, "mean_encounters_per_pool_player_row": 54.20673280514941}
+[ 111.2s] wrote stageC_sos_part.parquet: (259758, 15)
+[ 111.5s] probe slice: 268,904 player-matches
+[ 118.2s]   probe cut 1: protected changed 0 of 21514, later changed 16865, control caught at 4
+[ 121.8s]   probe cut 2: protected changed 0 of 43054, later changed 33719, control caught at 11
+[ 125.5s]   probe cut 3: protected changed 0 of 81613, later changed 33752, control caught at 21
+[ 129.3s]   probe cut 4: protected changed 0 of 103601, later changed 50145, control caught at 21
+[ 129.3s] wrote stageC_sos_part.json

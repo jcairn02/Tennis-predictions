@@ -1,0 +1,63 @@
+{
+ "source": "rolandgarros",
+ "started_at": "2026-10-09T19:02:17+00:00",
+ "args": {
+  "years": "2026",
+  "families": null,
+  "max_requests": 600,
+  "min_interval": 2.0,
+  "jitter": 1.0,
+  "skip_family_after": 8,
+  "refresh": false,
+  "stage_only": false,
+  "no_stage": false,
+  "summary_dir": "data/studies/rg_first_serve_recount/followup/collection"
+ },
+ "decision": "docs/decisions/2026-10-08-scraping-approved.md",
+ "client": {
+  "impersonate": "chrome",
+  "requests": 478,
+  "retried": 0,
+  "slept_seconds": 948.9,
+  "min_interval": 2.0,
+  "jitter": 1.0,
+  "not_found_answers": 0
+ },
+ "fetch_outcomes": {
+  "2026:QD:200": 112,
+  "2026:QM:200": 112,
+  "2026:SD:200": 127,
+  "2026:SM:200": 127
+ },
+ "families_given_up": [],
+ "staged": {
+  "answers": {
+   "ok": 3768,
+   "absent": 56
+  },
+  "matches.parquet": {
+   "rows": 3824,
+   "bytes": 303857
+  },
+  "statistics.parquet": {
+   "rows": 156214,
+   "bytes": 1005943
+  }
+ },
+ "receipts": {
+  "2019:200": 450,
+  "2019:absent": 28,
+  "2020:200": 450,
+  "2020:absent": 28,
+  "2021:200": 478,
+  "2022:200": 478,
+  "2023:200": 478,
+  "2024:200": 478,
+  "2025:200": 478,
+  "2026:200": 478
+ },
+ "receipts_with_errors": 0,
+ "error_examples": [],
+ "finished_at": "2026-10-09T19:22:13+00:00",
+ "seconds": 1196.0
+}

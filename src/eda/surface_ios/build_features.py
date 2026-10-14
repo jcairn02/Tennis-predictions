@@ -3,7 +3,11 @@
 For every tour and statistic (spw and the model's seven) two leak-proof runs over all 872,704 matches:
 
     current   today's pooled IOS (Stage B's tuned h, kappa, tau; kappa_s = inf): reproduces the model's inputs
-    surface   the tuned surface model (tuning_choice.json: half-life multiplier and kappa_s chosen on 2013-2018)
+    surface   the tuned surface model (half-life multiplier and kappa_s chosen on 2013-2018 by summarise_tuning.py)
+
+Both read the IOS constants registry's version in effect (src/eda/ios_constants/registry.py), pinned at the start so
+every worker reads the same one, and recorded in build_features.json; tuning_choice.json is the study's output and
+reaches these runs only as a registry version.
 
 Out of sample (constants fixed on 2013-2018), each run forecasts the statistic in every evaluation-level box-score
 match of 2019-2026 and 2022-2026; the surface model's gain over the current one is reported in milli-log-loss per unit,
@@ -34,12 +38,14 @@ import pandas as pd
 ROOT = Path(__file__).resolve().parents[3]
 sys.path.insert(0, str(ROOT))
 
+from src.eda.ios_constants import registry as IC  # noqa: E402
 from src.eda.surface_ios import common as C  # noqa: E402
 from src.eda.surface_ios import ios_surface as IS  # noqa: E402
 from src.eda.surface_ios.summarise_tuning import BLOCK_ORIGIN, ratio_gain  # noqa: E402
+from src.eda.lower_level_evidence import level_layer_ios as _LLEIOS  # noqa: E402   # level layer, joint solves (LLE_LAYER)
 
 WORKERS = int(os.environ.get("SURFACE_IOS_WORKERS", "14"))
-RUNS = C.OUT / "full_runs"
+RUNS = _LLEIOS.runs_dir(C.OUT / "full_runs")  # level layer, joint solves (LLE_LAYER)
 WINDOWS = {"2019-2026": range(2019, 2027), "2022-2026": range(2022, 2027)}
 _TD: dict = {}
 
@@ -62,7 +68,7 @@ def task(args) -> dict:
     else:
         ks = c["kappa"] * ksm
     t0 = time.time()
-    res = IS.run(td, stat, h, c["kappa"], ks, c["tau"], typ[(stat, tour)])
+    res = _LLEIOS.run_surface(td, stat, h, c["kappa"], ks, c["tau"], typ[(stat, tour)])  # level layer, joint solves (LLE_LAYER)
     ll, _ = IS.row_logloss(td, stat, res)
     keep = ("O_eff", "D_eff", "O", "D", "E", "F")
     np.savez_compressed(RUNS / f"{tour}_{stat}_{kind}.npz", ll=ll, **{k: res[k] for k in keep})
@@ -98,7 +104,9 @@ def saved_and_current(tour, stat, kind, hm, ksm) -> bool:
 
 def main() -> int:
     RUNS.mkdir(parents=True, exist_ok=True)
-    choice = json.loads((C.OUT / "tuning_choice.json").read_text(encoding="utf-8"))
+    constants = IC.pin()              # the workers read this version, whatever the registry's pointer does meanwhile
+    C.log(f"IOS constants {constants['id']} ({constants['sha256'][:12]}, {constants['selected_by']})")
+    choice = IC.surface_choice(constants)
     tasks = []
     for t in ("atp", "wta"):
         for s in C.STATS:
@@ -164,7 +172,8 @@ def main() -> int:
     F.to_parquet(C.OUT / "surface_features.parquet", index=False)
     O = pd.DataFrame(oos)
     O.to_csv(C.OUT / "oos_scores.csv", index=False)
-    C.jdump({"choice": choice, "runs": meta}, C.OUT / "build_features.json")
+    C.jdump(_LLEIOS.stamp({"ios_constants": IC.record(constants), "choice": choice, "runs": meta}, ("ios",)),  # level layer, joint solves (LLE_LAYER)
+            C.OUT / "build_features.json")
     with pd.option_context("display.width", 250, "display.max_rows", 500):
         print(O[(O["scope"] == "all levels")].round(3).to_string(index=False))
     return 0

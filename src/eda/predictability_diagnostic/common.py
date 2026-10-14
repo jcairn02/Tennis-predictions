@@ -51,7 +51,9 @@ EVAL_STATUSES = ("completed", "retired")
 
 FIRST_YEAR = 2010                      # history (ratings and features) starts here
 WARMUP_YEARS = range(2010, 2013)       # history only
-EVAL_YEARS = range(2013, 2027)
+EVAL_YEARS = range(2013, 2027)         # the seasons the studies report
+EVAL_FROM = EVAL_YEARS[0]              # the evaluation scope (Stage 0's flag, Stage 4's pool): this season on, with no
+                                       # last season (since 10 Oct 2026: seasons after 2026 fell out of every frame)
 HEADLINE_YEARS = range(2022, 2027)
 ERAS = {"2013-16": range(2013, 2017), "2017-19": range(2017, 2020), "2020-21": range(2020, 2022),
         "2022-26": range(2022, 2027)}
@@ -101,7 +103,15 @@ def era_of(year: pd.Series) -> pd.Series:
     out = pd.Series(pd.NA, index=year.index, dtype="object")
     for name, years in ERAS.items():
         out[year.isin(list(years))] = name
+    name, years = list(ERAS.items())[-1]
+    out[year > years[-1]] = name                # a later season belongs to the last era (its label kept; since 10 Oct 2026)
     return out
+
+
+def in_evaluation(m: pd.DataFrame) -> pd.Series:
+    """The evaluation flag: an evaluation level, EVAL_FROM on (no last season since 10 Oct 2026), completed or
+    retired."""
+    return m["level"].isin(EVAL_LEVELS) & m["year"].ge(EVAL_FROM) & m["status"].isin(EVAL_STATUSES)
 
 
 def side_is_low(match_id: str) -> bool:

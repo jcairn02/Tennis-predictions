@@ -1,0 +1,119 @@
+{
+ "instance": "C:\\Users\\zerom\\Documents\\Tennis-predictions\\data\\studies\\current_best_model\\template_2026-10-10",
+ "frame_sha256": "038cc68ed1e921006b0b3b342f02eda5eec0b1a0feea68ac7ce53fb6660d906f",
+ "inputs": [
+  "odds_logit",
+  "ratings_iid",
+  "elo_games",
+  "adjperf_tpw_2w",
+  "points_52w",
+  "sets_14d",
+  "age",
+  "age_sq",
+  "form_ace",
+  "form_df",
+  "form_first_in",
+  "form_first_won",
+  "form_second_won",
+  "form_hold",
+  "form_bp_saved",
+  "form_bp_faced_pg",
+  "form_brk",
+  "form_bp_conv",
+  "form_rpw_first",
+  "form_rpw_second",
+  "formdef_ace",
+  "formdef_df",
+  "formdef_first_in",
+  "formdef_bp_faced_pg",
+  "iosO_ace",
+  "iosD_ace",
+  "iosO_df",
+  "iosD_df",
+  "iosO_first_in",
+  "iosD_first_in",
+  "iosO_first_won",
+  "iosD_first_won",
+  "iosO_second_won",
+  "iosD_second_won",
+  "iosO_hold",
+  "iosD_hold",
+  "iosO_bp_saved",
+  "iosD_bp_saved",
+  "prod_ace",
+  "prod_df",
+  "prod_first_in",
+  "prod_first_won",
+  "prod_second_won",
+  "prod_hold",
+  "prod_bp_saved",
+  "tour",
+  "surface",
+  "level",
+  "indoor",
+  "best_of",
+  "round",
+  "elo_overall",
+  "elo_surf_offset",
+  "surf_season_a",
+  "surf_season_b",
+  "surf_layoff_a",
+  "surf_layoff_b"
+ ],
+ "config": {
+  "n_estimators": 8,
+  "softmax_temperature": 0.9,
+  "ignore_pretraining_limits": true
+ },
+ "grid": {
+  "prices": 91,
+  "from_logit": -2.9444389791664403,
+  "to_logit": 2.9444389791664403
+ },
+ "versions": {
+  "tabpfn": "9.1.0",
+  "torch": "2.11.0+cu128"
+ },
+ "seasons": {
+  "2026": {
+   "matches": 23,
+   "train_rows": 62869,
+   "query_rows": 4232
+  }
+ },
+ "seeds": {
+  "2026_0": {
+   "seconds": 44.5,
+   "fit_seconds": 1.83,
+   "predict_seconds": 42.66,
+   "gpu_free_gb_before": 30.3,
+   "peak_gpu_gb": 8.1,
+   "checkpoint": "C:\\Users\\zerom\\AppData\\Roaming\\tabpfn\\tabpfn-v3.5-20260909.safetensors",
+   "how": "decided path",
+   "separate_seconds": 40.3,
+   "separate_vs_in_batch_max_abs": 3.999471664428711e-05
+  },
+  "2026_1": {
+   "seconds": 43.4,
+   "fit_seconds": 0.59,
+   "predict_seconds": 42.77,
+   "gpu_free_gb_before": 30.1,
+   "peak_gpu_gb": 8.1,
+   "checkpoint": "C:\\Users\\zerom\\AppData\\Roaming\\tabpfn\\tabpfn-v3.5-20260909.safetensors",
+   "how": "decided path",
+   "separate_seconds": 40.4,
+   "separate_vs_in_batch_max_abs": 5.622208118438721e-05
+  }
+ },
+ "path": "decided (fit_preprocessors)",
+ "summary": {
+  "matches": 23,
+  "seeds": 2,
+  "inside_grid": 23,
+  "interpolated_vs_own_max_abs": 0.0014382671357764387,
+  "interpolated_vs_own_mean_abs": 0.0004503251674563241,
+  "falling_steps": 31,
+  "steps": 2070,
+  "separate_vs_in_batch_max_abs": 5.622208118438721e-05
+ }
+}

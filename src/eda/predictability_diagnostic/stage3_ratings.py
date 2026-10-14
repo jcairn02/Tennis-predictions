@@ -53,6 +53,7 @@ ROOT = Path(__file__).resolve().parents[3]
 sys.path.insert(0, str(ROOT))
 
 from src.eda.predictability_diagnostic import common as C  # noqa: E402
+from src.eda.lower_level_evidence import level_layer as _LLE  # noqa: E402  level layer (LLE_LAYER)
 
 RATINGS = C.OUT / "stage3_ratings.parquet"
 TUNING = C.OUT / "stage3_rating_tuning.csv"
@@ -334,6 +335,7 @@ def main() -> int:
         idx = np.flatnonzero(m["tour"].eq(tour).to_numpy())
         t = m.iloc[idx].reset_index(drop=True)
         h = arrays(t, mu[idx])
+        h = _LLE.ratings_arrays(t, h)   # level layer (LLE_LAYER)
         block[idx] = run(h, chosen[tour])
         log(f"{tour}: full pass done")
         probes[tour] = probe_by_round(h, chosen[tour])

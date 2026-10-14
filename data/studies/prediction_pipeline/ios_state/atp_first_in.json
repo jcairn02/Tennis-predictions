@@ -1,0 +1,189 @@
+{
+ "tour": "atp",
+ "stat": "first_in",
+ "tree": "C:\\Users\\zerom\\tnr_lyr_new",
+ "layer_config": "C:\\Users\\zerom\\Documents\\Tennis-predictions\\data\\studies\\prediction_pipeline\\layer_config_verify.json",
+ "setup": {
+  "mode": "fe",
+  "n_fe": 2,
+  "h": 26.0,
+  "kappa": 3.0,
+  "kappa_s": 30.0,
+  "tau": 1,
+  "typ": 73.68464648570998,
+  "observations": 338478,
+  "players": 5229,
+  "triples": 263890,
+  "days": 5891
+ },
+ "d0": "2026-09-17",
+ "last_day": "2026-10-08",
+ "days_after_d0": 21,
+ "full_run": {
+  "days": 5891,
+  "seconds": 143.08,
+  "not_converged": 0,
+  "iterations_mean": 13.910202003055508,
+  "seconds_total": 145.6
+ },
+ "A_fidelity": {
+  "O_eff": {
+   "rows": 936900,
+   "nan_pattern_equal": true,
+   "bitwise_equal": 936900,
+   "max_abs_diff": 0.0,
+   "max_rel_diff": 0.0
+  },
+  "D_eff": {
+   "rows": 936900,
+   "nan_pattern_equal": true,
+   "bitwise_equal": 936900,
+   "max_abs_diff": 0.0,
+   "max_rel_diff": 0.0
+  },
+  "O": {
+   "rows": 936900,
+   "nan_pattern_equal": true,
+   "bitwise_equal": 936900,
+   "max_abs_diff": 0.0,
+   "max_rel_diff": 0.0
+  },
+  "D": {
+   "rows": 936900,
+   "nan_pattern_equal": true,
+   "bitwise_equal": 936900,
+   "max_abs_diff": 0.0,
+   "max_rel_diff": 0.0
+  },
+  "E": {
+   "rows": 936900,
+   "nan_pattern_equal": true,
+   "bitwise_equal": 936900,
+   "max_abs_diff": 0.0,
+   "max_rel_diff": 0.0
+  },
+  "F": {
+   "rows": 936900,
+   "nan_pattern_equal": true,
+   "bitwise_equal": 936900,
+   "max_abs_diff": 0.0,
+   "max_rel_diff": 0.0
+  },
+  "stored_file": "C:\\Users\\zerom\\tnr_lyr_new\\data\\studies\\surface_ios\\full_runs\\lle_official_7801e4338001\\atp_first_in_surface.npz"
+ },
+ "B_checkpoint": {
+  "inflight_rows": 250,
+  "bytes": 6744044
+ },
+ "B_same_table": {
+  "seconds_resume": 1.25,
+  "resume": {
+   "days": 21,
+   "seconds": 0.46,
+   "not_converged": 0
+  },
+  "target_rows": 1920,
+  "O_eff": {
+   "rows": 1920,
+   "nan_pattern_equal": true,
+   "bitwise_equal": 1920,
+   "max_abs_diff": 0.0,
+   "max_rel_diff": 0.0
+  },
+  "D_eff": {
+   "rows": 1920,
+   "nan_pattern_equal": true,
+   "bitwise_equal": 1920,
+   "max_abs_diff": 0.0,
+   "max_rel_diff": 0.0
+  }
+ },
+ "C_older_table": {
+  "table_day_T": "2026-10-08",
+  "rows_old": 936726,
+  "rows_new": 936900,
+  "setup_old": {
+   "mode": "fe",
+   "n_fe": 2,
+   "h": 26.0,
+   "kappa": 3.0,
+   "kappa_s": 30.0,
+   "tau": 1,
+   "typ": 73.68464648570998,
+   "observations": 338336,
+   "players": 5229,
+   "triples": 263776,
+   "days": 5890
+  },
+  "old_days_on_or_before_d0": 5870,
+  "new_days_on_or_before_d0": 5870,
+  "same_snapshot_days_to_d0": true,
+  "seconds_old_run_to_d0": 85.8,
+  "rows_queried_by_d0_missing_from_old_table": 0,
+  "seconds_resume": 0.47,
+  "O_eff": {
+   "rows": 1920,
+   "nan_pattern_equal": true,
+   "bitwise_equal": 1920,
+   "max_abs_diff": 0.0,
+   "max_rel_diff": 0.0
+  },
+  "D_eff": {
+   "rows": 1920,
+   "nan_pattern_equal": true,
+   "bitwise_equal": 1920,
+   "max_abs_diff": 0.0,
+   "max_rel_diff": 0.0
+  },
+  "main_tour_rows": {
+   "O_eff": {
+    "rows": 462,
+    "nan_pattern_equal": true,
+    "bitwise_equal": 462,
+    "max_abs_diff": 0.0,
+    "max_rel_diff": 0.0
+   },
+   "D_eff": {
+    "rows": 462,
+    "nan_pattern_equal": true,
+    "bitwise_equal": 462,
+    "max_abs_diff": 0.0,
+    "max_rel_diff": 0.0
+   }
+  }
+ },
+ "D_cold_start": {
+  "day": "2026-10-08",
+  "iterations_warm": 16,
+  "iterations_cold": 19,
+  "O": {
+   "rows": 5229,
+   "nan_pattern_equal": true,
+   "bitwise_equal": 0,
+   "max_abs_diff": 1.1479297842148517e-09,
+   "max_rel_diff": 1.437190186618113e-05
+  },
+  "D": {
+   "rows": 5229,
+   "nan_pattern_equal": true,
+   "bitwise_equal": 0,
+   "max_abs_diff": 1.5726528621029523e-09,
+   "max_rel_diff": 6.026137999579453e-05
+  },
+  "E": {
+   "rows": 20916,
+   "nan_pattern_equal": true,
+   "bitwise_equal": 11764,
+   "max_abs_diff": 2.891600908369596e-10,
+   "max_rel_diff": 3.04263538038533e-05
+  },
+  "F": {
+   "rows": 20916,
+   "nan_pattern_equal": true,
+   "bitwise_equal": 11764,
+   "max_abs_diff": 4.4829595678003153e-10,
+   "max_rel_diff": 0.0001474545819138374
+  }
+ },
+ "seconds_task": 235.9
+}

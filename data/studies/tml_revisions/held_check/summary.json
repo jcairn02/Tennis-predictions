@@ -1,0 +1,199 @@
+{
+ "checked": [
+  "2022_challenger.csv",
+  "2023_challenger.csv",
+  "2024_challenger.csv",
+  "2025_challenger.csv"
+ ],
+ "staged": {
+  "2022_challenger.csv": {
+   "sha256": "d95fa0a4bf8a1986394d4083a932ed6ca86eee14bfb741519a209a022ebcdc6d",
+   "rows": 5384
+  },
+  "2023_challenger.csv": {
+   "sha256": "ee3a2128d89a1946537102afbf779a0dd2953cc48488e43c7e663d2c2fae74a4",
+   "rows": 5688
+  },
+  "2024_challenger.csv": {
+   "sha256": "ca3a597f1a972ac2244f44f28a40175687b0d5a69d98bb710370ff77a0190a5f",
+   "rows": 5936
+  },
+  "2025_challenger.csv": {
+   "sha256": "78b86009de42e324d2af570eb646770f31afc978c6b2fdeddbdc5c9a05a270f8",
+   "rows": 6399
+  }
+ },
+ "validated": {
+  "2022_challenger.csv": {
+   "raw_sha256_equals_staged_meta": true,
+   "rows": 5391,
+   "equal": true
+  },
+  "2023_challenger.csv": {
+   "raw_sha256_equals_staged_meta": true,
+   "rows": 5693,
+   "equal": true
+  },
+  "2024_challenger.csv": {
+   "raw_sha256_equals_staged_meta": true,
+   "rows": 6063,
+   "equal": true
+  },
+  "2025_challenger.csv": {
+   "raw_sha256_equals_staged_meta": true,
+   "rows": 6411,
+   "equal": true
+  }
+ },
+ "builds": {
+  "A": {
+   "exit": 0,
+   "seconds": 152.7,
+   "log": "C:\\Users\\zerom\\tnr_tmlcheck\\logs\\build_A.log",
+   "out": "C:\\Users\\zerom\\tnr_tmlcheck\\out\\A"
+  },
+  "B": {
+   "exit": 0,
+   "seconds": 87.7,
+   "log": "C:\\Users\\zerom\\tnr_tmlcheck\\logs\\build_B.log",
+   "out": "C:\\Users\\zerom\\tnr_tmlcheck\\out\\B"
+  }
+ },
+ "matches": {
+  "A": 873642,
+  "B": 873636
+ },
+ "dropped": 15,
+ "new": 9,
+ "revised": 0,
+ "paired": {
+  "key": 8,
+  "event": 0,
+  "player": 0
+ },
+ "dropped_unpaired": 7,
+ "new_unpaired": 1,
+ "main_tour_changes": 0,
+ "main_tour_examples": [],
+ "by": [
+  {
+   "kind": "dropped",
+   "source": "tml",
+   "tour": "atp",
+   "map_level": "CH",
+   "year": 2022,
+   "matches": 3
+  },
+  {
+   "kind": "dropped",
+   "source": "tml",
+   "tour": "atp",
+   "map_level": "CH",
+   "year": 2025,
+   "matches": 4
+  },
+  {
+   "kind": "dropped",
+   "source": "tml",
+   "tour": "atp",
+   "map_level": "CH",
+   "year": 2026,
+   "matches": 8
+  },
+  {
+   "kind": "new",
+   "source": "tml",
+   "tour": "atp",
+   "map_level": "CH",
+   "year": 2023,
+   "matches": 1
+  },
+  {
+   "kind": "new",
+   "source": "tml",
+   "tour": "atp",
+   "map_level": "CH",
+   "year": 2026,
+   "matches": 8
+  }
+ ],
+ "revised_facts": {},
+ "players_touched": 23,
+ "reach": {
+  "frame": "data/studies/current_best_model/template_2026-10-10/model_frame_chain.parquet",
+  "training_rows": 62869,
+  "touched_players": 23,
+  "touched_players_in_training_rows": 9,
+  "rows_with_a_touched_player": 192,
+  "rows_after_the_players_first_change": 15,
+  "rows_after_by_season": {
+   "2022": 2,
+   "2023": 7,
+   "2024": 4,
+   "2025": 2
+  }
+ },
+ "cleaning_rules_changed": {
+  "C01|atp|CH|False|2024": {
+   "A": 124,
+   "B": 0
+  },
+  "C20|atp|CH|False|2022": {
+   "A": 70,
+   "B": 67
+  },
+  "C20|atp|CH|False|2023": {
+   "A": 34,
+   "B": 35
+  },
+  "C50|atp|CH|False|2022": {
+   "A": 71,
+   "B": 68
+  },
+  "C50|atp|CH|False|2023": {
+   "A": 33,
+   "B": 34
+  },
+  "C61|atp|CH|False|2022": {
+   "A": 5,
+   "B": 4
+  },
+  "C61|atp|CH|False|2023": {
+   "A": 3,
+   "B": 4
+  },
+  "C61|atp|CH|False|2026": {
+   "A": 137,
+   "B": 130
+  },
+  "D1_tml|atp|CH|False|2022": {
+   "A": 7,
+   "B": 0
+  },
+  "D1_tml|atp|CH|False|2023": {
+   "A": 5,
+   "B": 0
+  },
+  "D1_tml|atp|CH|False|2024": {
+   "A": 3,
+   "B": 0
+  },
+  "D6|atp|CH|False|2022": {
+   "A": 1,
+   "B": 0
+  },
+  "D6|atp|CH|False|2023": {
+   "A": 1,
+   "B": 2
+  },
+  "D6|atp|CH|False|2025": {
+   "A": 8,
+   "B": 0
+  }
+ },
+ "history": {
+  "A": "history vs the reference of 2026-10-08: future 200 and updated 6 (allowed); main-tour changes 14 (allowed, listed: new past 6, dropped 1, revised 7); lower-level new past 30, dropped 30, revised 20 -> the lower-level history changed: a template build is refused",
+  "B": "history vs the reference of 2026-10-08: future 200 and updated 6 (allowed); main-tour changes 14 (allowed, listed: new past 6, dropped 1, revised 7); lower-level new past 39, dropped 45, revised 20 -> the lower-level history changed: a template build is refused"
+ },
+ "written": "2026-10-14T01:47:52+00:00"
+}

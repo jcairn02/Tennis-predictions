@@ -1,0 +1,175 @@
+READY: the IOS-family hooks (role C2), 9 Oct 2026 22:10 UTC; updated 23:08 UTC; PHASE 2 (CP1) 10 Oct 00:29 UTC;
+the lead's cap 10 Oct 00:50 UTC; the pooled form-(b) fix 10 Oct 01:00 UTC.
+Report: docs/studies/lower_level_evidence/system/C_layer_ios.md
+
+FINAL MODULE, 10 Oct 01:00 UTC: level_layer_ios.py sha256
+    3fa5f69e592118fc204809ce0ec6afa627e5b979af3e33752e91e89f154c05c3   (replaces 077c760a; recorded in
+    system/preregistration_addition_3.md, 01:49 UTC)
+    One change since 077c760a, in run_surface: when a solve estimates a level effect (form b) in the POOLED model
+    (kappa_s infinite: lane 2's "current" runs), the rows' surfaces are zeroed before solve_fe, as run_timed zeroes them.
+    Why: lane 3's mapping check (surface_ios/arms.py:83-91) raises above 1e-12 between lane 2's "current" runs and the
+    IOS part's pooled IOS. On the SYS build (077c760a, pre-cap) it would have raised: 2.36e-12 (prod_hold), 1.37e-12
+    (ios_O/D_hold), 1.02e-12 (prod_ace) (gates/mapping_SYS.json). Both runs use solve_fe with the same PCG iterations
+    (men's holds: mean 17.9, max 24, in both), but lane 2 split each pair's weight by surface (262,802 triples against
+    the timed run's 234,264), and the level effects' coupling grew that rounding difference about 1,000-fold.
+    Evidence: men's holds and aces re-run in the SYS sandbox with the surfaces zeroed equal the IOS part's inputs BIT FOR
+    BIT on all 183,031 men's pool matches (0 cells differ; the stored split runs differ by up to 2.6e-12 and 3.3e-12):
+    gates/fe_surfzero_atp_hold.json, gates/fe_surfzero_atp_ace.json.
+    What moves: only lane 2's pooled runs of a solve with a level effect, by about 1e-12. Unchanged: every plain solve
+    (IDENTITY, SEP_ALL, REF_noITF, SYS_w0 and the statistics without a level effect), the surface model (finite kappa_s,
+    which is also the surface probe's path: surface_ios/probe.py:42,76), and the timed solves (match_timing/probe.py's
+    path). So the Phase 2 gates below carry over, except the SYS mapping check, which this fix answers.
+    Tests: 47 pass against C1's 26e21291 (01:00 UTC); the hook test now asserts the timed and pooled runs equal bit for
+    bit, and that the old arrangement does not.
+    Full-scale check, PASS (01:50 UTC): SYS_BOTH_cap = SYS_BOTH's config under a new name (same fingerprint
+    7ec4aabc5084, a fresh lane-2 folder), built in tnr_sys_ios with C1's 26e21291 (the cap) and 3fa5f69e (both recorded
+    by the IOS part and lane 2). Lane 3's mapping check on all 67,226 frame matches: largest gap 1.33e-15. 15 of the 21
+    columns are exactly 0, every statistic with a level effect on both tours among them. The rest is the plain solvers'
+    1e-15: bp_saved has no level effect on either tour, and women's ace has none (mapping_SYS_BOTH_cap.json). Each pooled
+    form-(b) run now has the timed run's pair count (men's holds 234,264).
+    C1: re-patch every sandbox before an arm (check_patch refuses the old copy). Arms with a level effect need this
+    version. Your SYS_BOTH arm's 22 IOS columns should equal system/ios_layer/inputs/SYS_BOTH_cap.parquet bit for bit
+    (if its IOS fingerprint is 7ec4aabc5084...).
+
+THE CAP (the lead's CP1 ruling: a fitted w above 1 is set to 1), 10 Oct 00:50 UTC: NO CHANGE NEEDED HERE
+    level_layer_ios.py reads w_joint only through C1's level_layer.weights (kind "box", column = the config's solve_w;
+    level_layer_ios.py:319-320), where C1 applies fitted_cap (default 1). The module did not change for the cap (it
+    changed at 01:00 for the fix above). Its docstring still says "as fitted (B's cap 3)": the cap is C1's, in weights().
+    Checked against C1's level_layer.py 26e21291822f42e4c9e7771f518149d1cb85116bdeb5196285fa22eeca37411f:
+      - tests: 47 pass (00:48 UTC).
+      - on B's params, dev seasons 2013-2024: all 756 (season, tour, key, level) cells of the solves' keys give
+        m = min(w_joint, 1) through level_arrays (96 were above 1, largest 1.476: men TQ 44, GSQ 24, CHQ 4, CH 2; women
+        GSQ 14, CH 5, TQ 3); with fitted_cap null, m = B's w_joint in all 756.
+    The Phase 2 gates below ran on C1's 0b99b046 (before the cap). SYS_w0 = SEP_ALL is unaffected (a numeric w is never
+    capped). The leak probes and the direction check ran the same code path; the cap changes only the value of m, so
+    those results carry over (inferred, not re-run). The level-effect values in the report are pre-cap.
+    Two cautions for the SYS-family builds:
+      - system/ios_layer/inputs/SYS.parquet (from tnr_sys_ios) is PRE-CAP: it is not your capped SYS arm. Only SYS_w0's
+        inputs remain a bit-for-bit reference for your arm.
+      - lane 2 reuses a saved run whose constants match (surface_ios/build_features.py:95-119), in the folder
+        full_runs/lle_<name>_<fingerprint>, and the fingerprint includes neither level_layer.py's version nor the cap.
+        A sandbox that built a fitted-w arm before 26e21291 would reuse those pre-cap runs for the capped arm of the
+        same name. The IOS part is rebuilt fresh, so lane 3's mapping check would then fail wherever the cap binds
+        (inferred): a wasted build, not a silent mix. Build each fitted-w arm in a sandbox that never built that name
+        before the cap (tnr_sys_ios holds pre-cap SYS runs), and run the IOS part for every arm, as below: a resume that
+        skips it after a level_layer.py change passes the guards with pre-cap values. Adding level_layer.py's hash and
+        fitted_cap to the fingerprint is a one-line change; not made, since the ruling was "no change" (the lead's call,
+        in a dated addition if wanted).
+
+PHASE 2 (CP1), 00:29 UTC (module superseded at 01:00 by 3fa5f69e: see FINAL MODULE above)
+    level_layer_ios.py sha256 077c760a3e6127c42ddf8f24a956a3b281824e0ac66f2f82644b23733412632c (any later change needs a
+    new dated addition). Tested against C1's level_layer.py 0b99b0466545c9762b3f43240b64a473703d5298c070d03413ff0dcc5192b9c5.
+    SYS-family arms (SYS, SYS_w0, SYS_w50, SYS_w100, SYS_NOCLASS, SYS_BOTH, SYS_ITFASIS, SYS_BOTH_ITFASIS) may be built with
+    these hooks, from C1's system_arms.phase2_config as it stands (no IOS key needed). Same steps as below: --patch, then
+    run_ios_part(sb, out, env=env) before leakproof_frame, lanes 1-3. Form (b) solves cost about 1.3-1.6x a plain solve.
+    Under those configs the hooks do:
+      - w: B's w_joint (your solve_w) for the solve's serve-side statistic (spw for ios_points_short), the row's level and
+        own season (floor 2013), as fitted, then capped at fitted_cap (1) by your weights() since 26e21291; missing_params
+        as the config says; ITF/ITFQ 0 under "exclude", 1 under "as_is"; a parameter is read only for rows that enter the
+        solve.
+      - translate true: form (b), the default ios_level_term: a level effect estimated inside every snapshot's solve, at
+        A's delta_levels of the statistic (classes.csv, kind "stat"); never ITF/ITFQ; classes null: TQ, GSQ, CH, CHQ.
+      - a solve left with no level effect (SYS_w0) runs the plain variant. Form (a) and the newcomer prior are refused.
+    Phase 2 gates, all inputs-only, on B's frozen params.parquet (4c559abd...) and A's classes.csv (58e78622...):
+      - w = 0: SYS_w0's 22 IOS inputs = SEP_ALL's bit for bit (67,226 matches; equivalence_SYS_w0_SEP_ALL.json).
+      - leaks: match_timing/probe.py and surface_ios/probe.py with SYS_BOTH (form b + fitted w, both tours): 0 earlier
+        matches moved at the four cuts; the probe's config is shown to run the layer in all 16 solves (hooked_path_SYS_BOTH).
+      - direction of form (b): 26 of 26 (13 solves x serve and return side, history to 29 Dec 2024): rating changes
+        correlate +0.91 to +0.97 with -beta x serve share / +beta x return share (direction_form_b.json).
+      - lane 3's mapping check: SYS_w0 2.2e-15 (pass); SYS 2.36e-12 (FAIL against 1e-12: answered by the 01:00 fix).
+      - tests: 47 pass.
+    Your SYS_w0 arm's 22 IOS columns should equal system/ios_layer/inputs/SYS_w0.parquet bit for bit (same fingerprint).
+    Not SYS: its inputs here are pre-cap (see THE CAP above).
+SCOPE: IDENTITY, SEP_ALL and REF_noITF may be built with these hooks (REF_noITF's gates passed at 23:07 UTC).
+Module sha256: level_layer_ios.py d49a2511... (23:07; since 22:10 only the gate code changed: gate_equal reports by solver
+family, and the CLI pins single-threaded BLAS for its workers; the hooks, solvers and patch are unchanged).
+Re-run system_sandbox --patch before a build so the sandbox's copies equal the repository's (check_patch requires it).
+
+WHAT C1 CALLS (src/eda/lower_level_evidence/level_layer_ios.py, imported from the repository)
+    apply_patch(sandbox) -> dict   system_sandbox.patch already calls it. Copies level_layer_ios.py, level_layer.py and
+                                   common.py into the sandbox; 16 anchored edits in 6 sandbox files: match_timing/rebuild.py,
+                                   surface_ios/build_cache.py, surface_ios/build_features.py, tabpfn_leakproof/build_frame.py,
+                                   surface_ios/arms.py, surface_ios/probe.py. Diff: system/ios_layer/sandbox_patch_ios.diff
+    check_patch(sandbox) -> dict   {"ok", "pass" (the same), "problems", "files"}; never raises. Fails when a copied module
+                                   differs from the repository's: after either of us edits level_layer*.py, re-run --patch
+    needs_ios_part(config_path) -> bool   True when families.ios or ios_points_short is on for some tour in the config
+    run_ios_part(sandbox, out=None, env=None) -> int   NEW STEP for system_arms.build: rebuild.py --part ios, then
+                                   --part merge, in the sandbox. Pass your env dict (the lanes'): env=env. 0 = done.
+                                   Record <out>/chain_lane_ios.json; logs SANDBOX/logs/lle_ios_part.log, lle_ios_merge.log
+    CLI: ./python.sh src/eda/lower_level_evidence/level_layer_ios.py --sandbox SB --apply-patch | --check-patch |
+         --run-ios-part --out D
+
+WHY THE EXTRA STEP
+    ios_points_short and the pooled leak-proof IOS reach the model STORED: lane 1's leakproof_frame and elo_frames and lane
+    3's frames.py read match_timing/leakproof_features.parquet, which no lane of run_chain rebuilds (only lane 0). Lane 2
+    rebuilds the surface IOS (the 21 iosO/iosD/prod inputs). So an arm that touches the joint solves rebuilds that table.
+
+THE ORDER, per arm (after system_sandbox --patch)
+    1. if needs_ios_part(cfg_path): rc = run_ios_part(sb, ARMS/<arm>, env=env); stop if rc != 0. Simplest: before
+       starting lanes 1 and 2. It must end before lane 1 reaches leakproof_frame (about 90 min into lane 1); if lane 1
+       gets there first, the guard raises and run_chain --lane 1 --from leakproof_frame resumes once the IOS part is done.
+    2. lanes 1 and 2 (beside each other), lane 3, collect: unchanged.
+    Guards: lane 1's leakproof_frame checks the IOS part and the merge; lane 3's surface_ios_arms checks lane 2 too. Each
+    compares the fingerprint the hooked step recorded with the arm config's. A config with both IOS families off uses the
+    stored tables, which are the reference's, and passes.
+    Lane 2 writes its runs to surface_ios/full_runs/lle_<name>_<fingerprint>/, so one sandbox can build several arms.
+
+A CANDIDATE STAGE 0 (addition 1's NEW_ASIS, NEW_SYS_BOTH: new matches in the sandbox's Stage 0)
+    run_ios_part is not enough: the merge joins the STORED per-player part, whose pool is the old Stage 0's (it refuses).
+    Run run_chain's lane 0 (stage1_odds, the timeline, timing_features = rebuild.py in full) with the arm's env: its IOS
+    part is hooked by this patch and stamped, so the guards accept it. With LLE_LAYER unset it is the decided rebuild.
+
+THE ENV (the lanes')
+    MODEL_REBUILD_SANDBOX=<sb>  LLE_LAYER=<arm's layer_config.json>  IOS_CONSTANTS_VERSION=2026-10-08_reference
+    optional: MATCH_TIMING_WORKERS (the IOS part's processes, default 4), SURFACE_IOS_WORKERS (lane 2's, default 14)
+
+THE CONFIG (your loader; SPEC 6.3)
+    families.ios: the 21 surface-profile inputs (lane 2) and the pooled IOS of the IOS part
+    families.ios_points_short: the short spw solve of the IOS part
+    Works now: tours; weight a number in [0, 1.5] (your weights(): MAIN/TEAM 1; ITF/ITFQ 0 under "exclude", untouched
+    under "as_is"); translate false; prior "pool". A row with w = 0 is DROPPED, exactly as if it had no box score.
+    C2's optional key ios_level_term: "supplied" (default) | "fixed_effect". translate true + "fixed_effect" estimates
+    the level effect inside each snapshot's solve (form b: built, tested, leak-probed; ITF/ITFQ never get one).
+    Refused until Phase 2 (NotImplementedError): translate true with "supplied" (B's delta), weight "fitted", prior
+    "newcomer".
+    Your IDENTITY, SEP_ALL and REF_noITF configs have the same IOS fingerprints as C2's gate configs
+    (system/ios_layer/configs/): your arms' 22 IOS columns should equal system/ios_layer/inputs/<ARM>.parquet bit for
+    bit (IDENTITY: the reference's). A cheap end-to-end check for your G-gates.
+
+TIMINGS (dev sandbox C:/Users/zerom/tnr_sys_ios; the machine shared with other builds, mostly at 100% CPU)
+    IOS part (16 timed solves, 4 workers): 739 s (IDENTITY), 328 s (SEP_ALL), 1,677 s (REF_noITF, heaviest load);
+        the reference's own record on an idle machine: 291 s
+    merge: 113 s, 17 s, 78 s
+    lane 2 (10 workers): IDENTITY 370 s cache + 1,294 s runs; SEP_ALL 108 s + 551 s; REF_noITF 239 s + 1,780 s. The
+        reference's (14 workers, idle): 70 s + 1,066 s
+    guards: under a second
+
+GATES (system/ios_layer/gates/)
+    IDENTITY: PASS. The 22 IOS-family inputs equal the reference frame's bit for bit on all 67,226 matches (0 cells
+        changed, same missing cells), every one of the 16 timed and 32 lane-2 solves through the layer's code path
+        (identity_IDENTITY_m1.json). The IOS part alone equals the stored ios_features.parquet bit for bit (255,832 x 22).
+    SEP_ALL: PASS. (1) the rows drop out: the decided rebuild.ios_features with the men's lower-level box scores removed
+        equals the hooked IOS part bit for bit (drop_timed_SEP_ALL.json); (2) everything else equal: women's 22 inputs
+        bit for bit on 32,507 matches (equal_SEP_ALL.json); (3) lane 3's mapping check replicated on the hooked outputs:
+        largest gap 2.2e-15 (mapping_SEP_ALL.json); no missing cell created.
+    SEP_ALL, lane 2: the hooked and decided systems identical for all 8 men's statistics; the full men's holds solve bit
+        for bit against the decided solver with those rows removed (drop_surface_SEP_ALL.json).
+    REF_noITF: PASS. (1) drop-out, timed: bit for bit (drop_timed_REF_noITF.json); (2) drop-out, lane 2: systems identical
+        for all 16 tour x statistic, full holds solves bit for bit, men and women (drop_surface_REF_noITF.json);
+        (3) everything else equal before each tour's first ITF box score (men 29 Dec 2024, women 2 May 2022):
+        ios_points_short bit for bit; the 21 surface-solver inputs within 4.0e-15 (men) and 1.8e-15 (women), same
+        missing cells (equal_REF_noITF.json). Why not bit for bit there: the surface solver's system holds only players
+        with a kept box score somewhere in the history; dropping ITF-only players shortens its vectors and changes the
+        BLAS reductions' last bits in every season. The decided solver does the same by itself
+        (decided_active_set_wta_hold.json: 1.6e-15). (4) lane 3's mapping check on the hooked outputs: 4.7e-15.
+    Two first lane-2 drop-gate runs failed on C2's harness (multi-threaded BLAS in the gate's workers, against runs made
+        single-threaded), not on the hooks; the CLI now pins one thread, as rebuild.py and build_features.py do.
+    Leaks: PASS. match_timing/probe.py with the hooks on, configs PROBE_FE (form b) and SEP_ALL; surface_ios/probe.py
+        with PROBE_FE: 0 earlier matches moved at every cut (probe_*.json).
+    Tests: test/lower_level_evidence/test_level_layer_ios.py, 45 pass.
+
+OPEN (for the lead / C1)
+    - Phase 2: which w a joint-solve observation takes (one observation is both sides' statistic: hold and break, spw
+      and rpw); the newcomer prior as tier means estimated in the solve (main-tour tier at 0), which also fixes the
+      products' zero point (finding #6); B's prior needs a home-tier rule.
+    - Addition 2 freezes level_layer_ios.py's hash at CP1: tell C2 before then if anything must change.

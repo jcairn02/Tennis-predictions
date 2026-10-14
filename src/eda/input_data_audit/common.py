@@ -24,9 +24,10 @@ import pandas as pd
 
 ROOT = Path(__file__).resolve().parents[3]
 OUT = ROOT / "data" / "studies" / "input_data_audit"
-SNAPSHOTS = {
+SNAPSHOTS = {   # the 7 Oct tables were replaced by the corrections' rebuild of 8 Oct (decision 2026-10-08) and kept
     "sep30": ROOT / "data/studies/data_continuity/rebuilds/2026-10-07T0005Z/replaced/data/studies/predictability_diagnostic",
-    "oct07": ROOT / "data/studies/predictability_diagnostic",
+    "oct07": ROOT / "data/studies/data_continuity/rebuilds/2026-10-08T1853Z/replaced/data/studies/predictability_diagnostic",
+    "oct08": ROOT / "data/studies/predictability_diagnostic",
 }
 MODEL_FRAME = ROOT / "data/studies/surface_rating_race/model/model_frame.parquet"
 SACKMANN = ROOT / "data/dump/matches/sackmann_archive"

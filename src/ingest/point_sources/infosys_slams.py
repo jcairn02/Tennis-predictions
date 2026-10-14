@@ -26,6 +26,21 @@ Editions and routes (the only routes that serve these years; probes of 24 Sep an
     RG 2026  prod/api/match-beats/data/year/2026/eventId/520/matchId/<MID>          MatchBeats
              prod/api/stats-plus/v1/keystats/year/2026/eventId/520/matchId/<MID>    key statistics
 
+    RG 2019-2024  static/prod/match-beats/<year>/520/<MID>/data.json     MatchBeats. Raw only (RAW_ONLY below)
+
+RG 2019-2024 were found served on 9 Oct 2026 (probes of each final on the match-centre, match-beats and API routes;
+2022-2024 also serve the API routes and 2024 the match-centre file) and are collected under the owner's decision of
+8 Oct 2026 (docs/decisions/2026-10-08-scraping-approved.md: every RG edition) for the Roland-Garros first-serve
+recount (docs/studies/rg_first_serve_recount/). They are fetched with --no-stage and read from the raw files by that
+study. They are never staged into the shared tables: the serve-speed panel reads points.parquet and prefers this
+source, so new rows there would change its speeds. A run that names them without --no-stage is refused.
+
+    AO 2013-2024, AO 2026, RG 2013-2018   match-beats, then match-beats-api: raw only, likewise
+
+These are probed (each final) and fetched where served, for the service-game fix of the owner's decision of 9 Oct 2026
+(docs/decisions/2026-10-09-roland-garros-box-scores.md, point 3): a match's MatchBeats file names who served first,
+which settles whose service games Sackmann's rows give the wrong player.
+
 Matches: singles only, main draw and qualifying, the final round first (the final calibrates a route: it always has
 a file):
     AO  MS/WS 701, 601-602, 501-504, 401-408, 301-316, 201-232, 101-164;  MQ/WQ 301-316, 201-232, 101-164
@@ -52,6 +67,8 @@ Usage:
     ./python.sh -m src.ingest.point_sources.infosys_slams --editions AO2025 --families MS --max-requests 10
     ./python.sh -m src.ingest.point_sources.infosys_slams --matches SM001,SM002 --editions RG2025
     ./python.sh -m src.ingest.point_sources.infosys_slams --stage-only                     # rebuild from raw
+    ./python.sh -m src.ingest.point_sources.infosys_slams --editions RG2019,RG2020,RG2021,RG2022,RG2023,RG2024 \
+        --no-stage --summary-dir data/studies/rg_first_serve_recount/collection           # the recount's raw files
 """
 from __future__ import annotations
 
@@ -89,7 +106,21 @@ EDITIONS = {  # "<slam><year>": (slam, year, routes in fetch order)
     "AO2025": ("AO", 2025, ("match-beats",)),
     "RG2025": ("RG", 2025, ("match-centre",)),
     "RG2026": ("RG", 2026, ("match-beats-api", "keystats-api")),
+    **{f"RG{y}": ("RG", y, ("match-beats",)) for y in range(2019, 2025)},
+    # for the service-game fix of 9 Oct 2026 (module docstring): probed, and fetched where served
+    **{f"AO{y}": ("AO", y, ("match-beats", "match-beats-api")) for y in range(2013, 2025)},
+    "AO2026": ("AO", 2026, ("match-beats", "match-beats-api", "keystats-api")),
+    **{f"RG{y}": ("RG", y, ("match-beats", "match-beats-api")) for y in range(2013, 2019)},
+    # the box-score source of later editions (decision of 9 Oct 2026, docs/decisions/2026-10-09-ao-rg-box-scores-from-
+    # feeds.md): the key statistics and the point file; a year's routes are probed on its final before a run
+    **{f"{s}{y}": (s, y, ("match-beats", "match-beats-api", "keystats-api")) for s in ("AO", "RG")
+       for y in range(2027, 2031)},
 }
+# fetched raw, never staged into the shared tables: the RG first-serve recount, its service-game fix, and the later
+# editions' box scores (slam_infosys_overrides.py reads their raw files)
+RAW_ONLY = frozenset({f"RG{y}" for y in (*range(2013, 2025), *range(2027, 2031))}
+                     | {f"AO{y}" for y in (*range(2013, 2025), 2026, *range(2027, 2031))})
+DEFAULT_EDITIONS = [e for e in EDITIONS if e not in RAW_ONLY]
 FAMILIES = {"AO": ("MS", "WS", "MQ", "WQ"), "RG": ("SM", "SD", "QM", "QD")}
 # (round digit, matches, round) at the AO; (first number, matches, round) at RG
 AO_MAIN = ((7, 1, "F"), (6, 2, "SF"), (5, 4, "QF"), (4, 8, "R16"), (3, 16, "R32"), (2, 32, "R64"), (1, 64, "R128"))
@@ -479,12 +510,18 @@ def summarize(editions: list[str]) -> dict:
 def run(args) -> dict:
     P.configure_stdout()
     started = time.time()
-    editions = [e.strip().upper() for e in args.editions.split(",")] if args.editions else list(EDITIONS)
+    editions = [e.strip().upper() for e in args.editions.split(",")] if args.editions else list(DEFAULT_EDITIONS)
     unknown = [e for e in editions if e not in EDITIONS]
     if unknown:
         raise SystemExit(f"unknown editions {unknown}; known: {', '.join(EDITIONS)}")
+    raw_only = sorted(set(editions) & RAW_ONLY)
+    if raw_only and not args.no_stage:
+        raise SystemExit(f"{', '.join(raw_only)} are fetched raw only (module docstring): add --no-stage")
     families = {f.strip().upper() for f in args.families.split(",")} if args.families else None
     wanted = {m.strip().upper() for m in args.matches.split(",")} if args.matches else None
+    only_routes = {r.strip() for r in args.routes.split(",")} if args.routes else None
+    if only_routes and not only_routes <= set(ROUTES):
+        raise SystemExit(f"unknown routes {sorted(only_routes - set(ROUTES))}; known: {', '.join(ROUTES)}")
     receipts = P.receipts_for(SOURCE)
     summary = {"source": SOURCE, "started_at": P.utc_now_iso(), "args": vars(args), "decision": DECISION}
     client = None
@@ -501,6 +538,8 @@ def run(args) -> dict:
                         continue
                     codes = [(m, r) for m, r in match_codes(slam, family) if wanted is None or m in wanted]
                     for route in routes:
+                        if only_routes and route not in only_routes:
+                            continue
                         note = fetch_family(client, receipts, cal, slam, year, route, family, codes, args, outcomes)
                         if note:
                             skipped.append(note)
@@ -528,7 +567,8 @@ def run(args) -> dict:
     summary["error_examples"] = [{"name": r["name"], "error": r["error"]} for r in errors[:20]]
     summary["finished_at"] = P.utc_now_iso()
     summary["seconds"] = round(time.time() - started, 1)
-    path = P.write_summary("infosys_slams_summary.json", summary, root=STUDY_ROOT)
+    path = P.write_summary("infosys_slams_summary.json", summary,
+                           root=Path(args.summary_dir) if args.summary_dir else STUDY_ROOT)
     P.log(f"[{SOURCE}] summary written to {P.rel(path)}")
     return summary
 
@@ -537,6 +577,8 @@ def add_arguments(parser: argparse.ArgumentParser) -> None:
     parser.add_argument("--editions", help=f"comma list (default: all of {','.join(EDITIONS)})")
     parser.add_argument("--families", help="comma list of match families, e.g. MS,WS or SM,SD (default: all)")
     parser.add_argument("--matches", help="comma list of match ids (default: every code of the families)")
+    parser.add_argument("--routes", help=f"comma list of routes to fetch (default: each edition's own; known: "
+                                         f"{', '.join(ROUTES)})")
     parser.add_argument("--max-requests", type=int, default=2400, help="stop after this many HTTP requests")
     parser.add_argument("--min-interval", type=float, default=2.0, help="seconds between requests (plus jitter)")
     parser.add_argument("--jitter", type=float, default=1.0, help="up to this many extra seconds, drawn at random")
@@ -545,6 +587,7 @@ def add_arguments(parser: argparse.ArgumentParser) -> None:
     parser.add_argument("--refresh", action="store_true", help="fetch files already held (and absences) again")
     parser.add_argument("--stage-only", action="store_true", help="no HTTP; decrypt the raw files and rebuild the tables")
     parser.add_argument("--no-stage", action="store_true", help="fetch only")
+    parser.add_argument("--summary-dir", help=f"folder for the run summary (default: {P.rel(STUDY_ROOT)})")
 
 
 def main() -> int:

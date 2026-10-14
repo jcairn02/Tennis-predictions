@@ -1,0 +1,682 @@
+{
+ "label": "F20261013c",
+ "written_at": "2026-10-14T01:21:00+00:00",
+ "builder": "src/eda/lower_level_evidence/candidate_stage0.py",
+ "builder_sha256_at_build": "c5d5580fd07cf5aa2a5ca6407da52cb65cd967cd296dd725c0806b3fc05496aa",
+ "builder_sha256_at_ready": "c5d5580fd07cf5aa2a5ca6407da52cb65cd967cd296dd725c0806b3fc05496aa",
+ "reference": "data/studies/current_best_model/reference_2026-10-08/frozen",
+ "inputs": {
+  "data/dump/points/wta/matches/2019.parquet": {
+   "sha256": "934c97a948e2efd9cfba865cf75f7865dafb7153de79faccad9d72e6d3df1cda",
+   "bytes": 1435825,
+   "modified_utc": "2026-10-03T05:07:26+00:00"
+  },
+  "data/dump/points/wta/matches/2020.parquet": {
+   "sha256": "eb83ea4849c5ffcf4ae7cb686c4b464aca4307f0675a83c3dc9d36e54c149456",
+   "bytes": 750095,
+   "modified_utc": "2026-10-03T05:07:35+00:00"
+  },
+  "data/dump/points/wta/matches/2021.parquet": {
+   "sha256": "1f624d31e48af9ce8ba619131dc0f02020c3da3d5c67d5473eac2ea358cd2416",
+   "bytes": 1636823,
+   "modified_utc": "2026-10-03T05:07:43+00:00"
+  },
+  "data/dump/points/wta/matches/2022.parquet": {
+   "sha256": "16ed94d5a7d7b6d68ae3532ba503a3819889f3af193ae2a20250b03e69da5664",
+   "bytes": 1812105,
+   "modified_utc": "2026-10-03T05:14:44+00:00"
+  },
+  "data/dump/points/wta/matches/2023.parquet": {
+   "sha256": "fe907796e743b2828acb28952cffcde36f65669c209a3b31062a312894c69ae5",
+   "bytes": 1922164,
+   "modified_utc": "2026-10-03T05:15:11+00:00"
+  },
+  "data/dump/points/wta/matches/2024.parquet": {
+   "sha256": "e373ef9b002c9fc1e51f9fadb25614441698d862d06ba2a3621613802194c817",
+   "bytes": 2058097,
+   "modified_utc": "2026-10-03T05:09:07+00:00"
+  },
+  "data/dump/points/wta/matches/2025.parquet": {
+   "sha256": "91b80d110ca5dd5d2b378205842d0a76ad10445227f6a65b4645ee090ffda686",
+   "bytes": 1303226,
+   "modified_utc": "2026-10-03T05:09:43+00:00"
+  },
+  "data/dump/points/wta/matches/2026.parquet": {
+   "sha256": "dffb2347cf2916a6f0b53cce259d5affb283081ddcfc30056e4539638780ede2",
+   "bytes": 543880,
+   "modified_utc": "2026-10-13T23:07:05+00:00"
+  },
+  "data/dump/points/wta/stats/2019.parquet": {
+   "sha256": "bdcd78b9ae610dc9fbd6b5235fb8ae6bf021ae79c31c84a456eaca757b05808b",
+   "bytes": 254175,
+   "modified_utc": "2026-10-03T05:07:34+00:00"
+  },
+  "data/dump/points/wta/stats/2020.parquet": {
+   "sha256": "d22187b57ff721e35d03facb71342979da57e530df176d2d5ce5f9403819331e",
+   "bytes": 144810,
+   "modified_utc": "2026-10-03T05:07:42+00:00"
+  },
+  "data/dump/points/wta/stats/2021.parquet": {
+   "sha256": "03626b30facfc4b6fab9f0e79b70d0879334d09f0bacc8b2cd4f316000c284f6",
+   "bytes": 318242,
+   "modified_utc": "2026-10-03T05:07:59+00:00"
+  },
+  "data/dump/points/wta/stats/2022.parquet": {
+   "sha256": "7fa22c4f7c634b5b6911a10952ea5655c13b113a144c7420594f6acff7dc562c",
+   "bytes": 338150,
+   "modified_utc": "2026-10-03T05:15:05+00:00"
+  },
+  "data/dump/points/wta/stats/2023.parquet": {
+   "sha256": "feaaeba8eddfa380e153dad162a604c60542a1370c9ed8df49e46692551c11aa",
+   "bytes": 376877,
+   "modified_utc": "2026-10-03T05:15:42+00:00"
+  },
+  "data/dump/points/wta/stats/2024.parquet": {
+   "sha256": "11181d3cd963fc1bc473f15d5226b519d2f5b0724c7dd6f7bfc09beaa4873fd5",
+   "bytes": 412393,
+   "modified_utc": "2026-10-03T05:09:35+00:00"
+  },
+  "data/dump/points/wta/stats/2025.parquet": {
+   "sha256": "7078ec78731e107dcfc861d05f12528d6582c11791603ab1d95933df65ad8a36",
+   "bytes": 489732,
+   "modified_utc": "2026-10-03T05:10:12+00:00"
+  },
+  "data/dump/points/wta/stats/2026.parquet": {
+   "sha256": "b6dbbc831547a133278828e691a1c47cc6c488838fa64af55128d8e4d51a6246",
+   "bytes": 499683,
+   "modified_utc": "2026-10-13T23:08:27+00:00"
+  },
+  "data/dump/points/wta/editions.parquet": {
+   "sha256": "47f630798c99b2c31fd767eec134d9336bc8855e2f6a0597c3d267a060164e84",
+   "bytes": 47123,
+   "modified_utc": "2026-10-13T23:07:01+00:00"
+  },
+  "data/raw/gap_sources/bwandowando/matches.csv": {
+   "sha256": "310177acf84b2906d03642b2e76c597a403fc47e7d982010b77a3398d584528b",
+   "bytes": 278480366,
+   "modified_utc": "2026-09-29T18:31:22+00:00"
+  },
+  "data/raw/gap_sources/bwandowando/tournaments.csv": {
+   "sha256": "dbff8b721f41c32338c4b7dfe3824e4feb97e6ca9ea111bf14faf57fd3cd2301",
+   "bytes": 2501442,
+   "modified_utc": "2026-09-29T18:31:25+00:00"
+  },
+  "data/dump/points/wta/player_results/2026.parquet": {
+   "sha256": "bc87d1f6f155eb3a44fc78f077cf9b64ccb18855a1e5f79ab92a9e3f4ea6d68b",
+   "bytes": 1480116,
+   "modified_utc": "2026-10-13T22:30:06+00:00"
+  },
+  "data/dump/points/tennislive/listed.parquet": {
+   "sha256": "b4349a417cb7d9d4c256c2bffb8fbc99c518399f9f144af1e799f34dd277fc8b",
+   "bytes": 71570326,
+   "modified_utc": "2026-10-13T23:58:48+00:00"
+  },
+  "data/dump/points/tennislive/events.parquet": {
+   "sha256": "f7f41f36b0c03fe81ce921796c7393d5cd6b0e719421ab0e69bbc9b6a2b49f42",
+   "bytes": 1273350,
+   "modified_utc": "2026-10-13T23:58:48+00:00"
+  },
+  "data/dump/points/itf_live/matches.parquet": {
+   "sha256": "549053a372130184d5d9b09705eccc1806cf5aa2fc79e4a859df793cdb121262",
+   "bytes": 2017755,
+   "modified_utc": "2026-10-13T15:08:47+00:00"
+  },
+  "data/dump/points/itf_live/events.parquet": {
+   "sha256": "fe73e7c1da4af32863f14da255ba5a230565ee99fc6aebb45b698a837d1a8c75",
+   "bytes": 36732,
+   "modified_utc": "2026-10-13T15:08:47+00:00"
+  },
+  "data/dump/points/itf_live/statistics.parquet": {
+   "sha256": "c742311c8739dde8e48cedc43791e35353dcc15b4f7331f5024882ba355c2919",
+   "bytes": 32123192,
+   "modified_utc": "2026-10-13T15:09:03+00:00"
+  },
+  "data/dump/points/sofascore/events.parquet": {
+   "sha256": "8f20003cfc1fc838cd9d2d86c195a7f16a7b9bd9276cdcfcf4a765f9f5d26051",
+   "bytes": 899702,
+   "modified_utc": "2026-09-24T19:10:44+00:00"
+  },
+  "data/dump/points/sofascore/statistics.parquet": {
+   "sha256": "bbc8ac767f5c9d726bf19101279a09a86947aa9dc382d6016fd567a0337f66f8",
+   "bytes": 1540907,
+   "modified_utc": "2026-09-24T19:10:50+00:00"
+  },
+  "data/dump/points/sofascore_editions/events.parquet": {
+   "sha256": "587064e5cfad1227e4e8a078094f6b6b3a66c2947e92240d5e75ddae6de863ca",
+   "bytes": 11311021,
+   "modified_utc": "2026-10-12T15:18:51+00:00"
+  },
+  "data/dump/points/sofascore_editions/statistics.parquet": {
+   "sha256": "959dbc372adc552a36bdff89a2a9418060a3b9046d202ee4a399d37a59bc09bd",
+   "bytes": 10016677,
+   "modified_utc": "2026-10-12T15:18:46+00:00"
+  },
+  "data/dump/points/sofascore_tournaments/events.parquet": {
+   "sha256": "e81e064a1d57fa5666a3539b6ce5718a8ef39ed0997e5072c4d6cf615006be81",
+   "bytes": 537494,
+   "modified_utc": "2026-09-30T14:56:30+00:00"
+  },
+  "data/dump/points/sofascore_tournaments/statistics.parquet": {
+   "sha256": "bfe5f0fead13c6e79a93d942d3d1bcf1979930aac312696b537cfe8deccf9706",
+   "bytes": 1137275,
+   "modified_utc": "2026-09-30T14:56:34+00:00"
+  },
+  "data/dump/points/tennislive/matches.parquet": {
+   "sha256": "9401c74d82520c6debee07d3595f57ffd3625fb93114171cc5b93a62edb71160",
+   "bytes": 4352654,
+   "modified_utc": "2026-10-10T18:17:29+00:00"
+  },
+  "data/dump/points/tennislive/statistics.parquet": {
+   "sha256": "6b9e30031a146c661682dbbd3fd6ce37d64d18966c16f69078294f1cc870e213",
+   "bytes": 4401119,
+   "modified_utc": "2026-10-10T18:19:14+00:00"
+  },
+  "data/dump/points/tdi/matches.parquet": {
+   "sha256": "42cb6621ae7845dc1538e8400e5ed5e00b15d83dc35e08e55011393d3365a437",
+   "bytes": 1788913,
+   "modified_utc": "2026-10-12T15:25:57+00:00"
+  },
+  "data/dump/points/tdi/statistics.parquet": {
+   "sha256": "2142eebdc3657e624f86fd1dee5750c44b1a5c4b9ad5790460f844e9037a0da0",
+   "bytes": 3203900,
+   "modified_utc": "2026-10-12T15:25:59+00:00"
+  },
+  "data/dump/points/tdi/points.parquet": {
+   "sha256": "f88fed3d127db15aa419b21d853a057176f2dae48f00c632d25e86034da205df",
+   "bytes": 21879383,
+   "modified_utc": "2026-10-12T15:25:57+00:00"
+  },
+  "data/studies/current_best_model/reference_2026-10-08/frozen/tables/data/studies/predictability_diagnostic/stage0_matches.parquet": {
+   "sha256": "07bc2d34f6655fdb27426bbf348d5ed1cda35cf4e9a187bd5cd22a81108ab00f"
+  },
+  "data/studies/current_best_model/reference_2026-10-08/frozen/tables/data/studies/predictability_diagnostic/stage0_match_players.parquet": {
+   "sha256": "9b712648ed28dc7267c6bac03c051f6dc823145a2eebf74078b798083bb9f860"
+  },
+  "data/studies/current_best_model/reference_2026-10-08/frozen/tables_later/data/studies/match_timing/timing.parquet": {
+   "sha256": "f602943d5ea0a66771d54063fa3501c426b2c60f60d1eeb294f93785a00c6bcc"
+  }
+ },
+ "files": {
+  "additions.parquet": {
+   "sha256": "18b5b851d86bfc220cb46ecf13e1198412668e5f0a208cf0cb066f2ea88f48b9",
+   "bytes": 13851614
+  },
+  "box_layers.parquet": {
+   "sha256": "32d99e8ceba4083016c6131bf4dc6314fd3cb4666271ebf956bff709a61d003c",
+   "bytes": 3049266
+  },
+  "build_record.json": {
+   "sha256": "d4123b8519aaccff4d79138073583a93c49a92cace21a7011d915876538742db",
+   "bytes": 25324
+  },
+  "checks.json": {
+   "sha256": "1e8f75b4deb6de056371218682c65ece81f39646d5b1d71c67973dee1c6a3f84",
+   "bytes": 35056
+  },
+  "dose.csv": {
+   "sha256": "2cf6c13273eff3a0f90703cbc8f91b7bdc10f3f736e52cddab6e371a1dead4c8",
+   "bytes": 1614
+  },
+  "evidence/crosswalk_itf_live.csv": {
+   "sha256": "2d76bbf168edde32faf03390a180baedbd8bff4b762deb14b20a60564b5f5979",
+   "bytes": 299152
+  },
+  "evidence/crosswalk_sofascore.csv": {
+   "sha256": "5334380edb7780cdda98d61ec5f0dd90238bd93e508121a2bdfe6aa99b229cfe",
+   "bytes": 379839
+  },
+  "evidence/crosswalk_tdi.csv": {
+   "sha256": "f753be804d41198571ea07cb7d469c08159958e0bf13499fb2590c51dceb35b2",
+   "bytes": 81409
+  },
+  "evidence/crosswalk_tennislive.csv": {
+   "sha256": "16e311f72a48ceb659fa270c1d7a814bed9411f46930bdedf443054d361d298c",
+   "bytes": 1363285
+  },
+  "evidence/crosswalk_tennislive_pages.csv": {
+   "sha256": "98929dc8f0b69404010f30f317cf03e34272ea2fb1ca1f3e1925f8c2f876694f",
+   "bytes": 257387
+  },
+  "evidence/crosswalk_wta_api.csv": {
+   "sha256": "3669f4974d33db36c9f97dfd1f9a2419cd3e1de8821accf694a9e61880089524",
+   "bytes": 100632
+  },
+  "evidence/crosswalk_wta_site.csv": {
+   "sha256": "73e86bc52102893efa3b05217c2722bed3115f521e95fce43e857fcb11acd9cd",
+   "bytes": 934598
+  },
+  "evidence/links_itf_live.parquet": {
+   "sha256": "94301dcd94d134846d1b1b40f32343af5be8ea80252373927daeea34ffd0f378",
+   "bytes": 266610
+  },
+  "evidence/links_sofascore.parquet": {
+   "sha256": "526deb6bb5b4f14ecd98516f025979ad1dcec35450cee1c3a597fe4f6958fa53",
+   "bytes": 2137535
+  },
+  "evidence/links_tdi.parquet": {
+   "sha256": "0000bf9824da7c53befe6c07dcd4b9b6bcce380db8b83ed1ccaade3de4b22ed6",
+   "bytes": 271790
+  },
+  "evidence/links_tennislive.parquet": {
+   "sha256": "6bb7da75a8c069ec6b02b37e6ed9ae3b6d47af2b6ebf2cf85afd730d4a407d68",
+   "bytes": 15109419
+  },
+  "evidence/links_tennislive_pages.parquet": {
+   "sha256": "4b29f9f899e04e39b209b578dbc4df359b264b96b7c5fe6a915fc13dcdcd83e6",
+   "bytes": 1248266
+  },
+  "evidence/links_wta_api.parquet": {
+   "sha256": "e03eb3de0962c86aaa2413d3d6ca3c15e781e09f53c1d330b13bdbbbb1e42463",
+   "bytes": 579866
+  },
+  "evidence/links_wta_site.parquet": {
+   "sha256": "52f48ccde9cbf06f3d5d0dea152eb5320c349ef25f9cfa1b29b71c1066bea45b",
+   "bytes": 10158504
+  },
+  "evidence/weekly_venue_unlinked_itf_live.csv": {
+   "sha256": "9b925bcca6de4e74fff4c4efc19f25ca90db3ceb06ccc73c98f42090e8208124",
+   "bytes": 35
+  },
+  "evidence/weekly_venue_unlinked_sofascore.csv": {
+   "sha256": "9b925bcca6de4e74fff4c4efc19f25ca90db3ceb06ccc73c98f42090e8208124",
+   "bytes": 35
+  },
+  "evidence/weekly_venue_unlinked_tdi.csv": {
+   "sha256": "9b925bcca6de4e74fff4c4efc19f25ca90db3ceb06ccc73c98f42090e8208124",
+   "bytes": 35
+  },
+  "evidence/weekly_venue_unlinked_tennislive.csv": {
+   "sha256": "9b925bcca6de4e74fff4c4efc19f25ca90db3ceb06ccc73c98f42090e8208124",
+   "bytes": 35
+  },
+  "evidence/weekly_venue_unlinked_tennislive_pages.csv": {
+   "sha256": "9b925bcca6de4e74fff4c4efc19f25ca90db3ceb06ccc73c98f42090e8208124",
+   "bytes": 35
+  },
+  "evidence/weekly_venue_unlinked_wta_api.csv": {
+   "sha256": "9b925bcca6de4e74fff4c4efc19f25ca90db3ceb06ccc73c98f42090e8208124",
+   "bytes": 35
+  },
+  "evidence/weekly_venue_unlinked_wta_site.csv": {
+   "sha256": "9b925bcca6de4e74fff4c4efc19f25ca90db3ceb06ccc73c98f42090e8208124",
+   "bytes": 35
+  },
+  "history.json": {
+   "sha256": "54a199f4aeb85cd1c050858a1e2cd4ac8c6b3f39af3cad87625e38d2ddcac281",
+   "bytes": 46001
+  },
+  "identity_precision.csv": {
+   "sha256": "88f49d9aa9ce5e9cfbb7f6473084ae90910bd9b98450d5a43b6d5e0259b044f0",
+   "bytes": 978
+  },
+  "identity_sample_links.csv": {
+   "sha256": "845070e5ab3d0f477e0c965604da8bf1585856087bc1e09c1080c29779fdd971",
+   "bytes": 31818
+  },
+  "identity_sample_new_ids.csv": {
+   "sha256": "12e634053cd37c4f21239e9709b2a3a1c6d65cf83b41ed2dbe3f109c879a6913",
+   "bytes": 5081
+  },
+  "identity_sample_players.csv": {
+   "sha256": "63fb8dfe70bf265da839238bb1734863769fb8233cdf4192a7ee2edb87e1a587",
+   "bytes": 44785
+  },
+  "identity_sample_repair_moves.csv": {
+   "sha256": "b87825d4c6d51b1230c03e772af895bff7460b67341095c8685720f1298e7297",
+   "bytes": 2950
+  },
+  "identity_verdicts.csv": {
+   "sha256": "3625abe52523f776f3820d14354ab6d183adaa1a5c284c19cbd3982d6283c95e",
+   "bytes": 43187
+  },
+  "inventory.csv": {
+   "sha256": "ee5c4ac535a745033fb969b90abe9a8d8bba9c92a97c2354bde245c928514ca5",
+   "bytes": 84850
+  },
+  "left_out.csv.gz": {
+   "sha256": "ef7d176782785ea637640d1b71e384cb0dc46ff8a09980dcdb4645793ad12bc1",
+   "bytes": 26835909
+  },
+  "stage0_match_players.parquet": {
+   "sha256": "129e3c61ac70548440f0f457c1188c1b022b3288834a01af0810580237cf9c22",
+   "bytes": 75292489
+  },
+  "stage0_matches.parquet": {
+   "sha256": "d22b1ca8e5ee82647038f9422ba09bcb51eba9bc68634ae4a7c8231f4a6767fa",
+   "bytes": 42984541
+  },
+  "timing.parquet": {
+   "sha256": "712b8c9147f4a08fcd46bfd58b4ace489e2e497b5e9ad6e903cf36818c47352f",
+   "bytes": 14316108
+  }
+ },
+ "counts": {
+  "matches": 1172736,
+  "new_matches": 299299,
+  "reference_matches": 873437,
+  "by_tour_level": [
+   {
+    "tour": "atp",
+    "map_level": "CH",
+    "matches": 88551
+   },
+   {
+    "tour": "atp",
+    "map_level": "CHQ",
+    "matches": 30458
+   },
+   {
+    "tour": "atp",
+    "map_level": "FIN",
+    "matches": 362
+   },
+   {
+    "tour": "atp",
+    "map_level": "GS",
+    "matches": 8509
+   },
+   {
+    "tour": "atp",
+    "map_level": "GSQ",
+    "matches": 7394
+   },
+   {
+    "tour": "atp",
+    "map_level": "ITF",
+    "matches": 287992
+   },
+   {
+    "tour": "atp",
+    "map_level": "ITFQ",
+    "matches": 160625
+   },
+   {
+    "tour": "atp",
+    "map_level": "T1000",
+    "matches": 9679
+   },
+   {
+    "tour": "atp",
+    "map_level": "T250",
+    "matches": 17742
+   },
+   {
+    "tour": "atp",
+    "map_level": "T500",
+    "matches": 6893
+   },
+   {
+    "tour": "atp",
+    "map_level": "TEAM",
+    "matches": 5067
+   },
+   {
+    "tour": "atp",
+    "map_level": "TQ",
+    "matches": 17265
+   },
+   {
+    "tour": "wta",
+    "map_level": "CH",
+    "matches": 8428
+   },
+   {
+    "tour": "wta",
+    "map_level": "CHQ",
+    "matches": 2106
+   },
+   {
+    "tour": "wta",
+    "map_level": "FIN",
+    "matches": 359
+   },
+   {
+    "tour": "wta",
+    "map_level": "GS",
+    "matches": 8509
+   },
+   {
+    "tour": "wta",
+    "map_level": "GSQ",
+    "matches": 6676
+   },
+   {
+    "tour": "wta",
+    "map_level": "ITF",
+    "matches": 269427
+   },
+   {
+    "tour": "wta",
+    "map_level": "ITFQ",
+    "matches": 182146
+   },
+   {
+    "tour": "wta",
+    "map_level": "T1000",
+    "matches": 9969
+   },
+   {
+    "tour": "wta",
+    "map_level": "T250",
+    "matches": 15129
+   },
+   {
+    "tour": "wta",
+    "map_level": "T500",
+    "matches": 6574
+   },
+   {
+    "tour": "wta",
+    "map_level": "TEAM",
+    "matches": 4239
+   },
+   {
+    "tour": "wta",
+    "map_level": "TQ",
+    "matches": 18637
+   }
+  ]
+ },
+ "history": "history vs the reference of 2026-10-08: future 0 and updated 1 (allowed); accepted lower-level additions 1,729 (allowed); main-tour changes 0 (allowed, listed: new past 0, dropped 0, revised 0); lower-level new past 297,571, dropped 0, revised 532 -> the lower-level history changed: a template build is refused",
+ "checks_pass": true,
+ "identity_precision": [
+  {
+   "kind": "links",
+   "source": "itf_live",
+   "checked": 20,
+   "wrong": 0,
+   "unsure": 0,
+   "error_rate": 0.0,
+   "error_rate_unsure_as_wrong": 0.0,
+   "upper95": 0.1684,
+   "upper95_unsure_as_wrong": 0.1684
+  },
+  {
+   "kind": "links",
+   "source": "sofascore",
+   "checked": 20,
+   "wrong": 0,
+   "unsure": 0,
+   "error_rate": 0.0,
+   "error_rate_unsure_as_wrong": 0.0,
+   "upper95": 0.1684,
+   "upper95_unsure_as_wrong": 0.1684
+  },
+  {
+   "kind": "links",
+   "source": "tdi",
+   "checked": 20,
+   "wrong": 0,
+   "unsure": 0,
+   "error_rate": 0.0,
+   "error_rate_unsure_as_wrong": 0.0,
+   "upper95": 0.1684,
+   "upper95_unsure_as_wrong": 0.1684
+  },
+  {
+   "kind": "links",
+   "source": "tennislive",
+   "checked": 20,
+   "wrong": 0,
+   "unsure": 0,
+   "error_rate": 0.0,
+   "error_rate_unsure_as_wrong": 0.0,
+   "upper95": 0.1684,
+   "upper95_unsure_as_wrong": 0.1684
+  },
+  {
+   "kind": "links",
+   "source": "tennislive_pages",
+   "checked": 20,
+   "wrong": 0,
+   "unsure": 0,
+   "error_rate": 0.0,
+   "error_rate_unsure_as_wrong": 0.0,
+   "upper95": 0.1684,
+   "upper95_unsure_as_wrong": 0.1684
+  },
+  {
+   "kind": "links",
+   "source": "wta_api",
+   "checked": 20,
+   "wrong": 0,
+   "unsure": 0,
+   "error_rate": 0.0,
+   "error_rate_unsure_as_wrong": 0.0,
+   "upper95": 0.1684,
+   "upper95_unsure_as_wrong": 0.1684
+  },
+  {
+   "kind": "links",
+   "source": "wta_site",
+   "checked": 20,
+   "wrong": 0,
+   "unsure": 0,
+   "error_rate": 0.0,
+   "error_rate_unsure_as_wrong": 0.0,
+   "upper95": 0.1684,
+   "upper95_unsure_as_wrong": 0.1684
+  },
+  {
+   "kind": "new_ids",
+   "source": "itf_live",
+   "checked": 15,
+   "wrong": 1,
+   "unsure": 1,
+   "error_rate": 0.0667,
+   "error_rate_unsure_as_wrong": 0.1333,
+   "upper95": 0.3195,
+   "upper95_unsure_as_wrong": 0.4046
+  },
+  {
+   "kind": "new_ids",
+   "source": "tennislive",
+   "checked": 15,
+   "wrong": 1,
+   "unsure": 1,
+   "error_rate": 0.0667,
+   "error_rate_unsure_as_wrong": 0.1333,
+   "upper95": 0.3195,
+   "upper95_unsure_as_wrong": 0.4046
+  },
+  {
+   "kind": "new_ids",
+   "source": "wta_api",
+   "checked": 15,
+   "wrong": 3,
+   "unsure": 0,
+   "error_rate": 0.2,
+   "error_rate_unsure_as_wrong": 0.2,
+   "upper95": 0.4809,
+   "upper95_unsure_as_wrong": 0.4809
+  },
+  {
+   "kind": "new_ids",
+   "source": "wta_site",
+   "checked": 15,
+   "wrong": 0,
+   "unsure": 2,
+   "error_rate": 0.0,
+   "error_rate_unsure_as_wrong": 0.1333,
+   "upper95": 0.218,
+   "upper95_unsure_as_wrong": 0.4046
+  },
+  {
+   "kind": "players",
+   "source": "itf_live",
+   "checked": 40,
+   "wrong": 0,
+   "unsure": 0,
+   "error_rate": 0.0,
+   "error_rate_unsure_as_wrong": 0.0,
+   "upper95": 0.0881,
+   "upper95_unsure_as_wrong": 0.0881
+  },
+  {
+   "kind": "players",
+   "source": "sofascore",
+   "checked": 8,
+   "wrong": 0,
+   "unsure": 0,
+   "error_rate": 0.0,
+   "error_rate_unsure_as_wrong": 0.0,
+   "upper95": 0.3694,
+   "upper95_unsure_as_wrong": 0.3694
+  },
+  {
+   "kind": "players",
+   "source": "tennislive",
+   "checked": 60,
+   "wrong": 8,
+   "unsure": 4,
+   "error_rate": 0.1333,
+   "error_rate_unsure_as_wrong": 0.2,
+   "upper95": 0.2459,
+   "upper95_unsure_as_wrong": 0.3233
+  },
+  {
+   "kind": "players",
+   "source": "wta_api",
+   "checked": 60,
+   "wrong": 0,
+   "unsure": 0,
+   "error_rate": 0.0,
+   "error_rate_unsure_as_wrong": 0.0,
+   "upper95": 0.0596,
+   "upper95_unsure_as_wrong": 0.0596
+  },
+  {
+   "kind": "players",
+   "source": "wta_site",
+   "checked": 60,
+   "wrong": 1,
+   "unsure": 0,
+   "error_rate": 0.0167,
+   "error_rate_unsure_as_wrong": 0.0167,
+   "upper95": 0.0894,
+   "upper95_unsure_as_wrong": 0.0894
+  },
+  {
+   "kind": "repair_moves",
+   "source": "tennislive",
+   "checked": 19,
+   "wrong": 0,
+   "unsure": 2,
+   "error_rate": 0.0,
+   "error_rate_unsure_as_wrong": 0.1053,
+   "upper95": 0.1765,
+   "upper95_unsure_as_wrong": 0.3314
+  },
+  {
+   "kind": "repair_moves",
+   "source": "wta_site",
+   "checked": 1,
+   "wrong": 0,
+   "unsure": 0,
+   "error_rate": 0.0,
+   "error_rate_unsure_as_wrong": 0.0,
+   "upper95": 0.975,
+   "upper95_unsure_as_wrong": 0.975
+  }
+ ]
+}

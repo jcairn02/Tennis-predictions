@@ -69,6 +69,8 @@ def recipe(name: str, sf: pd.DataFrame) -> np.ndarray:
 
 
 def main() -> int:
+    from src.eda.lower_level_evidence import level_layer_ios as _LLEIOS  # level layer, joint solves (LLE_LAYER)
+    _LLEIOS.require_consistent(ROOT, "both")  # level layer, joint solves (LLE_LAYER)
     base = pd.read_parquet(C.OUT / "base_frame.parquet")
     checks = {}
     if "--base-only" in sys.argv:                            # the base arm needs no surface input (pipeline checks)

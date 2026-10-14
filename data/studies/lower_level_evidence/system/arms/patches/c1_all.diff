@@ -1,0 +1,231 @@
+--- repository/src/eda/predictability_diagnostic/stage1_baselines.py
++++ sandbox/src/eda/predictability_diagnostic/stage1_baselines.py
+@@ -56,6 +56,7 @@
+ sys.path.insert(0, str(ROOT))
+ 
+ from src.eda.predictability_diagnostic import common as C  # noqa: E402
++from src.eda.lower_level_evidence import level_layer as _LLE  # noqa: E402  lower_level_evidence C1 (sandbox only)
+ 
+ BASELINES = C.OUT / "stage1_baselines.parquet"
+ TUNING = C.OUT / "stage1_elo_tuning.csv"
+@@ -166,16 +167,16 @@
+         if upd[i]:
+             res = 1.0 if a_won[i] else 0.0
+             surprise = res - 1.0 / (1.0 + 10.0 ** ((rb - ra) / 400.0))
+-            xa[3] += k0 / (na + offset) ** shape * surprise
+-            xb[3] -= k0 / (nb + offset) ** shape * surprise
+-            xa[4] += 1
+-            xb[4] += 1
++            xa[3] += upd[i] * k0 / (na + offset) ** shape * surprise   # lower_level_evidence C1 (sandbox only): upd[i] True or w
++            xb[3] -= upd[i] * k0 / (nb + offset) ** shape * surprise
++            xa[4] += upd[i]
++            xb[4] += upd[i]
+             if do_s:
+                 surprise = res - 1.0 / (1.0 + 10.0 ** ((sb - sa) / 400.0))
+-                ya[3] += k0 / (nsa + offset) ** shape * surprise
+-                yb[3] -= k0 / (nsb + offset) ** shape * surprise
+-                ya[4] += 1
+-                yb[4] += 1
++                ya[3] += upd[i] * k0 / (nsa + offset) ** shape * surprise
++                yb[3] -= upd[i] * k0 / (nsb + offset) ** shape * surprise
++                ya[4] += upd[i]
++                yb[4] += upd[i]
+     return out
+ 
+ 
+@@ -246,6 +247,9 @@
+             chosen[(tour, rule)] = {**k, "w": w}
+             out = run_elo(h, t["status"], rule, k, surface=True)                 # frozen: the whole history
+             assert np.allclose(out[:len(early)], out_early, equal_nan=True)     # the tuning pass is its prefix
++            out = _LLE.elo_rerun(t, t["status"].isin(UPDATES[rule]).tolist(), out, lambda u, h=h, k=k: elo_pass(
++                h["week"], h["event"], h["rnd"], h["a"], h["b"], h["a_won"], h["surf"], u, h["n_players"],
++                k["k0"], k["offset"], k["shape"], surface=True))   # lower_level_evidence C1 (sandbox only)
+             passes[(tour, rule)] = out
+             log(f"{tour} {rule}: K {k}, surface weight {w}")
+     return chosen, pd.DataFrame(rows), pd.DataFrame(wrows), passes
+@@ -388,6 +392,7 @@
+         t = m[m["tour"].eq(tour)].reset_index(drop=True)
+         h = history_arrays(t)
+         upd, k = t["status"].isin(UPDATES[rule]).tolist(), chosen[(tour, rule)]
++        upd = _LLE.elo_weights(t, upd)   # lower_level_evidence C1 (sandbox only)
+ 
+         def ratings(hh, upd=upd, k=k):
+             return elo_pass(hh["week"], hh["event"], hh["rnd"], hh["a"], hh["b"], hh["a_won"], hh["surf"], upd,
+--- repository/src/eda/surface_elo_pieces/pieces.py
++++ sandbox/src/eda/surface_elo_pieces/pieces.py
+@@ -48,6 +48,7 @@
+ from src.eda.predictability_diagnostic import stage1_baselines as B  # noqa: E402
+ from src.eda.predictability_diagnostic.stage4_features import prev_visible  # noqa: E402
+ from src.eda.surface_elo_pieces import common as C  # noqa: E402
++from src.eda.lower_level_evidence import level_layer as _LLE  # noqa: E402  lower_level_evidence C1 (sandbox only)
+ 
+ START = B.START
+ # A first grid (kd_off 2 and 10, kd_shape 0.4 and 0.6) put the best at its corner for both tours; this one reaches
+@@ -127,24 +128,24 @@
+         if upd[i]:
+             res = 1.0 if a_won[i] else 0.0
+             surprise = res - 1.0 / (1.0 + 10.0 ** ((rb - ra) / 400.0))
+-            xa[3] += k0 / (na + offset) ** shape * surprise
+-            xb[3] -= k0 / (nb + offset) ** shape * surprise
+-            xa[4] += 1
+-            xb[4] += 1
++            xa[3] += upd[i] * k0 / (na + offset) ** shape * surprise   # lower_level_evidence C1 (sandbox only): upd[i] True or w
++            xb[3] -= upd[i] * k0 / (nb + offset) ** shape * surprise
++            xa[4] += upd[i]
++            xb[4] += upd[i]
+             if do_s:
+                 surprise_s = res - 1.0 / (1.0 + 10.0 ** ((sb - sa) / 400.0))
+-                ya[3] += k0 / (nsa + offset) ** shape * surprise_s
+-                yb[3] -= k0 / (nsb + offset) ** shape * surprise_s
+-                ya[4] += 1
+-                yb[4] += 1
++                ya[3] += upd[i] * k0 / (nsa + offset) ** shape * surprise_s
++                yb[3] -= upd[i] * k0 / (nsb + offset) ** shape * surprise_s
++                ya[4] += upd[i]
++                yb[4] += upd[i]
+                 if mode == "anchored":
+                     surprise_x = res - 1.0 / (1.0 + 10.0 ** ((xb_s - xa_s) / 400.0))
+-                    za[3] += k0 / (nsa + offset) ** shape * surprise_x
+-                    zb[3] -= k0 / (nsb + offset) ** shape * surprise_x
++                    za[3] += upd[i] * k0 / (nsa + offset) ** shape * surprise_x
++                    zb[3] -= upd[i] * k0 / (nsb + offset) ** shape * surprise_x
+                 elif mode == "offset":
+                     surprise_c = res - 1.0 / (1.0 + 10.0 ** (((rb + xb_s) - (ra + xa_s)) / 400.0))
+-                    za[3] += kd0 / (nsa + kd_off) ** kd_shape * surprise_c
+-                    zb[3] -= kd0 / (nsb + kd_off) ** kd_shape * surprise_c
++                    za[3] += upd[i] * kd0 / (nsa + kd_off) ** kd_shape * surprise_c
++                    zb[3] -= upd[i] * kd0 / (nsb + kd_off) ** kd_shape * surprise_c
+     return out
+ 
+ 
+@@ -307,6 +308,7 @@
+         t = m[sel].reset_index(drop=True)
+         h = B.history_arrays(t)
+         upd = t["status"].isin(B.UPDATES["ret"]).tolist()
++        upd0, upd = upd, _LLE.elo_weights(t, upd)   # lower_level_evidence C1 (sandbox only): the passes read upd, the tuning upd0
+         k = {kk: float(chosen[(tour, "ret")][kk]) for kk in ("k0", "offset", "shape")}
+         meta["stage1_constants"][tour] = {**k, "w": chosen[(tour, "ret")]["w"]}
+         o1 = run(h, upd, k, "stage1")
+@@ -321,7 +323,7 @@
+         C.log(f"{tour}: Stage 1 reproduced (max diff {err:.2e})")
+         oa = run(h, upd, k, "anchored")
+         assert np.allclose(oa[:, :8], o1[:, :8], equal_nan=True)
+-        kd, grid = tune_offset(t, h, upd, k)
++        kd, grid = tune_offset(t, h, upd0, k)   # lower_level_evidence C1 (sandbox only)
+         meta["offset_constants"][tour] = kd
+         meta["tuning"] += [{"tour": tour, **g} for g in grid]
+         C.log(f"{tour}: offset constants {kd}")
+@@ -330,7 +332,7 @@
+         # the audit's control: the same offset with every known surface mapped to one code, so that it moves on every
+         # match (a second, general correction of the overall rating); tuned on the same rows and grid
+         h_gen = {**h, "surf": [0 if s >= 0 else -1 for s in h["surf"]]}
+-        kd_gen, grid_gen = tune_offset(t, h_gen, upd, k)
++        kd_gen, grid_gen = tune_offset(t, h_gen, upd0, k)   # lower_level_evidence C1 (sandbox only)
+         meta["offset_surface_blind_constants"][tour] = kd_gen
+         meta["tuning_surface_blind"] += [{"tour": tour, **g} for g in grid_gen]
+         og = run(h_gen, upd, k, "offset", kd_gen)
+--- repository/src/eda/predictability_diagnostic/stage4_features.py
++++ sandbox/src/eda/predictability_diagnostic/stage4_features.py
+@@ -67,6 +67,7 @@
+ from src.eda.predictability_diagnostic import stage4_candidates as P  # noqa: E402
+ from src.eda.predictability_diagnostic import stage4_country as CTRY  # noqa: E402
+ from src.eda.predictability_diagnostic.scheduled_format import scheduled_format  # noqa: E402
++from src.eda.lower_level_evidence import level_layer as _LLE  # noqa: E402  lower_level_evidence C1 (sandbox only)
+ 
+ PLAN = C.DOCS / "candidates.md"
+ CANDIDATES = C.OUT / "stage4_candidates.csv"
+@@ -569,6 +570,7 @@
+     cols, names = [], []
+     for s in HIST:
+         x, d, ok = xd[s]
++        x, d = _LLE.points_counts(rows, s, x, d, ok)   # lower_level_evidence C1 (sandbox only)
+         mu = mu_of_rows(rows, ctx["means"][s])
+         mua = mu_of_rows(rows, ctx["means"][f"{s}_adj"])
+         xc = np.where(ok, x - d * mu, 0.0)
+@@ -671,19 +673,19 @@
+             sa, sb, nsa, nsb = RS[s][pa] + ya[0], RS[s][pb] + yb[0], NS[s][pa] + ya[1], NS[s][pb] + yb[1]
+             out[i, 4], out[i, 5], out[i, 6], out[i, 7] = sa, sb, nsa, nsb
+         if upd[i]:
+-            wgt = weight[i]
++            wgt = upd[i] * weight[i]   # lower_level_evidence C1 (sandbox only): upd[i] True or w
+             res = 1.0 if a_won[i] else 0.0
+             surprise = res - 1.0 / (1.0 + 10.0 ** ((rb - ra) / 400.0))
+             xa[3] += wgt * k0 / (na + offset) ** shape * surprise
+             xb[3] -= wgt * k0 / (nb + offset) ** shape * surprise
+-            xa[4] += 1
+-            xb[4] += 1
++            xa[4] += upd[i]   # lower_level_evidence C1 (sandbox only)
++            xb[4] += upd[i]
+             if do_s:
+                 surprise = res - 1.0 / (1.0 + 10.0 ** ((sb - sa) / 400.0))
+                 ya[3] += wgt * k0 / (nsa + offset) ** shape * surprise
+                 yb[3] -= wgt * k0 / (nsb + offset) ** shape * surprise
+-                ya[4] += 1
+-                yb[4] += 1
++                ya[4] += upd[i]   # lower_level_evidence C1 (sandbox only)
++                yb[4] += upd[i]
+     return out
+ 
+ 
+@@ -744,7 +746,7 @@
+             wgt = np.where(np.isfinite(sh), sh / scales[(kind, tour)], 1.0)
+             h = elo_inputs(t)
+             block[idx] = weighted_elo_pass(h["week"], h["event"], h["rnd"], h["a"], h["b"], h["a_won"], h["surf"],
+-                                           upd[idx].tolist(), wgt.tolist(), h["n_players"], k["k0"], k["offset"], k["shape"])
++                                           _LLE.elo_weights(t, upd[idx].tolist()), wgt.tolist(), h["n_players"], k["k0"], k["offset"], k["shape"])   # lower_level_evidence C1 (sandbox only)
+             out[(kind, tour, "w")] = k["w"]
+         out[kind] = block
+     return out
+--- repository/src/eda/predictability_diagnostic/stage3_ratings.py
++++ sandbox/src/eda/predictability_diagnostic/stage3_ratings.py
+@@ -53,6 +53,7 @@
+ sys.path.insert(0, str(ROOT))
+ 
+ from src.eda.predictability_diagnostic import common as C  # noqa: E402
++from src.eda.lower_level_evidence import level_layer as _LLE  # noqa: E402  lower_level_evidence C1 (sandbox only)
+ 
+ RATINGS = C.OUT / "stage3_ratings.parquet"
+ TUNING = C.OUT / "stage3_rating_tuning.csv"
+@@ -334,6 +335,7 @@
+         idx = np.flatnonzero(m["tour"].eq(tour).to_numpy())
+         t = m.iloc[idx].reset_index(drop=True)
+         h = arrays(t, mu[idx])
++        h = _LLE.ratings_arrays(t, h)   # lower_level_evidence C1 (sandbox only)
+         block[idx] = run(h, chosen[tour])
+         log(f"{tour}: full pass done")
+         probes[tour] = probe_by_round(h, chosen[tour])
+--- repository/src/eda/ufc_ideas/stageB_adjperf.py
++++ sandbox/src/eda/ufc_ideas/stageB_adjperf.py
+@@ -69,6 +69,7 @@
+ from src.eda.predictability_diagnostic import common as C  # noqa: E402
+ from src.eda.ufc_ideas import common as H  # noqa: E402
+ from src.eda.ufc_ideas import stageB_common as B  # noqa: E402
++from src.eda.lower_level_evidence import level_layer as _LLE  # noqa: E402  lower_level_evidence C1 (sandbox only)
+ 
+ ADJ_PARQUET = B.OUT / "stageB_adj.parquet"
+ ADJ_FEATURES = B.OUT / "stageB_adj_features.parquet"
+@@ -394,6 +395,7 @@
+                                    "z_mean": float(zt[m & ok].mean()) if (m & ok).any() else None,
+                                    "z_sd": float(zt[m & ok].std()) if (m & ok).any() else None}
+         Z[(s, ch)] = z
++    Z = _LLE.forms_z(ctx, chosen, Z)   # lower_level_evidence C1 (sandbox only)
+     del mom
+     feats = {}
+     tour_pool = ctx.rows["tour"].to_numpy()[ctx.A]
+@@ -401,7 +403,7 @@
+         units, ok = ctx.step3_units(s, ch)
+         for t in C.TOURS:
+             c = constants_for(chosen, s, ch, t)
+-            sums = ctx.step3([Z[(s, ch)]], units, ok & (ctx.tour_box == t), c["tau"], (c["h3"],))
++            sums = _LLE.forms_step3(ctx, s, ch, [Z[(s, ch)]], units, ok & (ctx.tour_box == t), c["tau"], (c["h3"],))   # lower_level_evidence C1 (sandbox only)
+             kref = ctx.pool_kref(s, c["K3"], c["tau"])
+             mt = tour_pool == t
+             for form in FORMS:
+@@ -523,6 +525,7 @@
+ 
+     t0 = time.time()
+     grid, chosen, brief = tune(ctx)
++    chosen = _LLE.pin("stageB_adjperf", chosen)   # lower_level_evidence C1 (sandbox only)
+     grid.to_csv(ADJ_TUNING, index=False)
+     timings["tuning"] = round(time.time() - t0, 1)
+     for (t, s), c in chosen.items():

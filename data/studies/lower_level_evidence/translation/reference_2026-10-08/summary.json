@@ -1,0 +1,1624 @@
+{
+ "run": {
+  "stage0_dir": "C:\\Users\\zerom\\Documents\\Tennis-predictions\\data\\studies\\current_best_model\\reference_2026-10-08\\frozen\\tables\\data\\studies\\predictability_diagnostic",
+  "timing": "C:\\Users\\zerom\\Documents\\Tennis-predictions\\data\\studies\\current_best_model\\reference_2026-10-08\\frozen\\tables_later\\data\\studies\\match_timing\\timing.parquet",
+  "through": 2024,
+  "label": "reference_2026-10-08",
+  "steps": [
+   "credibility",
+   "effects",
+   "elo",
+   "gaps",
+   "ios",
+   "itf"
+  ],
+  "ios_constants": "2026-10-08_reference",
+  "fit_window": [
+   2010,
+   2018
+  ],
+  "tune": [
+   2013,
+   2018
+  ],
+  "validate": [
+   2019,
+   2024
+  ],
+  "boot": 30,
+  "started": "2026-10-09T08:44:46",
+  "finished": "2026-10-09T08:51:35"
+ },
+ "data": {
+  "matches": 787039,
+  "player_rows": 1574078,
+  "timing_fallback_rows": 0,
+  "years": [
+   2010,
+   2024
+  ],
+  "last_event": "2024-12-18",
+  "box_rows_by_tour_bucket": {
+   "atp|CH": 143862,
+   "atp|CHQ": 42480,
+   "atp|GSQ": 9220,
+   "atp|MAIN": 73422,
+   "atp|TEAM": 3540,
+   "atp|TQ": 28812,
+   "wta|CH": 8646,
+   "wta|CHQ": 1432,
+   "wta|GSQ": 7368,
+   "wta|ITF": 58,
+   "wta|MAIN": 64766,
+   "wta|TEAM": 3328,
+   "wta|TQ": 27942
+  }
+ },
+ "levels_with_box_scores": [
+  "TQ",
+  "GSQ",
+  "CH",
+  "CHQ",
+  "TEAM"
+ ],
+ "surface_means_check": {
+  "checked": true,
+  "cells": 120,
+  "max_abs_diff": 0.003298345414371573
+ },
+ "delta_used": {
+  "atp|spw": {
+   "TQ": -0.013231617900022566,
+   "GSQ": -0.029966339757267944,
+   "CH": -0.008109264811304945,
+   "CHQ": -0.032331262323990625,
+   "TEAM": -0.0037319173910646073
+  },
+  "atp|ace": {
+   "TQ": -0.12795275808661224,
+   "GSQ": -0.20734828831349766,
+   "CH": -0.09106712976092583,
+   "CHQ": -0.1983994646477164,
+   "TEAM": -0.11226836104792602
+  },
+  "atp|df": {
+   "TQ": 0.030980217100927417,
+   "GSQ": -0.03008450219444059,
+   "CH": 0.03487055376925849,
+   "CHQ": 0.10193042623951974,
+   "TEAM": -0.06953150086908023
+  },
+  "atp|first_in": {
+   "TQ": 0.0002880477264793784,
+   "GSQ": 0.00027142389835290077,
+   "CH": 0.0031336416926984164,
+   "CHQ": -0.009811456741913109,
+   "TEAM": 0.04217111441167708
+  },
+  "atp|first_won": {
+   "TQ": -0.015928070794992734,
+   "GSQ": -0.04447730327290851,
+   "CH": 0.00020962919175283003,
+   "CHQ": -0.026448376208489492,
+   "TEAM": -0.011916371923901967
+  },
+  "atp|second_won": {
+   "TQ": -0.012473356395672703,
+   "GSQ": -0.012316518410318868,
+   "CH": -0.01857950372889844,
+   "CHQ": -0.040178338379154736,
+   "TEAM": -0.013589344206622656
+  },
+  "atp|hold": {
+   "TQ": -0.034541813482415105,
+   "GSQ": -0.04994940195502814,
+   "CH": -0.022671872585153283,
+   "CHQ": -0.08357453126261043,
+   "TEAM": -0.010615995336524641
+  },
+  "atp|bp_saved": {
+   "TQ": -0.0308476394373868,
+   "GSQ": -0.006268245096435522,
+   "CH": -0.010481993691598714,
+   "CHQ": -0.07302657572440527,
+   "TEAM": -0.04640700253808499
+  },
+  "wta|spw": {
+   "TQ": -0.012309775439614663,
+   "GSQ": -0.009591013870874262,
+   "CH": 0.005460934653183532,
+   "CHQ": -0.05183992433963762,
+   "TEAM": -0.001506756540168641
+  },
+  "wta|ace": {
+   "TQ": -0.07896328217622678,
+   "GSQ": -0.024868835785146527,
+   "CH": -0.046878354738475285,
+   "CHQ": -0.226706617859519,
+   "TEAM": -0.08195721631270964
+  },
+  "wta|df": {
+   "TQ": 0.040082855987844224,
+   "GSQ": -0.02185134573057499,
+   "CH": -0.07014836215620104,
+   "CHQ": -0.03752856935235388,
+   "TEAM": -0.013952156836872794
+  },
+  "wta|first_in": {
+   "TQ": -0.007008261442312659,
+   "GSQ": 0.017238185995603613,
+   "CH": 0.0368719027978798,
+   "CHQ": 0.014950320801672811,
+   "TEAM": 0.025943564431195998
+  },
+  "wta|first_won": {
+   "TQ": -0.011249967872758821,
+   "GSQ": -0.018032712000686173,
+   "CH": -0.005261380985103218,
+   "CHQ": -0.051585374454145023,
+   "TEAM": -0.022582192109251352
+  },
+  "wta|second_won": {
+   "TQ": -0.020849433098395605,
+   "GSQ": -0.006148740635089912,
+   "CH": -0.002876906750573335,
+   "CHQ": -0.06901541021887148,
+   "TEAM": -0.03557420278314136
+  },
+  "wta|hold": {
+   "TQ": -0.028450983491011116,
+   "CH": -0.004191548562511582,
+   "CHQ": -0.1713838882962902,
+   "TEAM": -0.08069982414105645
+  },
+  "wta|bp_saved": {
+   "TQ": -0.029634494347575934,
+   "GSQ": -0.019858925311211917,
+   "CH": -0.058926526989117094,
+   "CHQ": -0.07343683727692349,
+   "TEAM": -0.06075768025019566
+  }
+ },
+ "solver": {
+  "atp|spw": {
+   "ios": {
+    "snapshots": 705,
+    "rows_in_solve": 301336,
+    "pairs": 211242,
+    "players": 5295,
+    "iterations_mean": 15.506382978723405,
+    "not_converged": 0
+   },
+   "main_only": {
+    "snapshots": 705,
+    "rows_in_solve": 73422,
+    "pairs": 41406,
+    "players": 5295,
+    "iterations_mean": 11.638297872340425,
+    "not_converged": 0
+   },
+   "translated": {
+    "snapshots": 705,
+    "rows_in_solve": 301336,
+    "pairs": 211242,
+    "players": 5295,
+    "iterations_mean": 15.509219858156028,
+    "not_converged": 0
+   },
+   "tr_lam2": {
+    "snapshots": 705,
+    "rows_in_solve": 301336,
+    "pairs": 211242,
+    "players": 5295,
+    "iterations_mean": 14.154609929078013,
+    "not_converged": 0
+   },
+   "lam2": {
+    "snapshots": 705,
+    "rows_in_solve": 301336,
+    "pairs": 211242,
+    "players": 5295,
+    "iterations_mean": 14.150354609929078,
+    "not_converged": 0
+   },
+   "tr_lam4": {
+    "snapshots": 705,
+    "rows_in_solve": 301336,
+    "pairs": 211242,
+    "players": 5295,
+    "iterations_mean": 12.879432624113475,
+    "not_converged": 0
+   },
+   "lam4": {
+    "snapshots": 705,
+    "rows_in_solve": 301336,
+    "pairs": 211242,
+    "players": 5295,
+    "iterations_mean": 12.8822695035461,
+    "not_converged": 0
+   },
+   "tier_prior": {
+    "snapshots": 705,
+    "rows_in_solve": 301336,
+    "pairs": 211242,
+    "players": 5295,
+    "iterations_mean": 15.507801418439715,
+    "not_converged": 0
+   },
+   "kappa_x5": {
+    "snapshots": 705,
+    "rows_in_solve": 301336,
+    "pairs": 211242,
+    "players": 5295,
+    "iterations_mean": 12.609929078014185,
+    "not_converged": 0
+   },
+   "tier_prior_x5": {
+    "snapshots": 705,
+    "rows_in_solve": 301336,
+    "pairs": 211242,
+    "players": 5295,
+    "iterations_mean": 12.608510638297872,
+    "not_converged": 0
+   },
+   "tp_tr_lam2": {
+    "snapshots": 705,
+    "rows_in_solve": 301336,
+    "pairs": 211242,
+    "players": 5295,
+    "iterations_mean": 14.174468085106383,
+    "not_converged": 0
+   }
+  },
+  "atp|ace": {
+   "ios": {
+    "snapshots": 705,
+    "rows_in_solve": 301336,
+    "pairs": 211242,
+    "players": 5295,
+    "iterations_mean": 15.382978723404255,
+    "not_converged": 0
+   },
+   "main_only": {
+    "snapshots": 705,
+    "rows_in_solve": 73422,
+    "pairs": 41406,
+    "players": 5295,
+    "iterations_mean": 11.487943262411347,
+    "not_converged": 0
+   },
+   "translated": {
+    "snapshots": 705,
+    "rows_in_solve": 301336,
+    "pairs": 211242,
+    "players": 5295,
+    "iterations_mean": 15.428368794326241,
+    "not_converged": 0
+   },
+   "tr_lam2": {
+    "snapshots": 705,
+    "rows_in_solve": 301336,
+    "pairs": 211242,
+    "players": 5295,
+    "iterations_mean": 14.106382978723405,
+    "not_converged": 0
+   },
+   "lam2": {
+    "snapshots": 705,
+    "rows_in_solve": 301336,
+    "pairs": 211242,
+    "players": 5295,
+    "iterations_mean": 14.083687943262412,
+    "not_converged": 0
+   },
+   "tr_lam4": {
+    "snapshots": 705,
+    "rows_in_solve": 301336,
+    "pairs": 211242,
+    "players": 5295,
+    "iterations_mean": 12.832624113475177,
+    "not_converged": 0
+   },
+   "lam4": {
+    "snapshots": 705,
+    "rows_in_solve": 301336,
+    "pairs": 211242,
+    "players": 5295,
+    "iterations_mean": 12.821276595744681,
+    "not_converged": 0
+   },
+   "tier_prior": {
+    "snapshots": 705,
+    "rows_in_solve": 301336,
+    "pairs": 211242,
+    "players": 5295,
+    "iterations_mean": 15.377304964539007,
+    "not_converged": 0
+   },
+   "kappa_x5": {
+    "snapshots": 705,
+    "rows_in_solve": 301336,
+    "pairs": 211242,
+    "players": 5295,
+    "iterations_mean": 12.063829787234043,
+    "not_converged": 0
+   },
+   "tier_prior_x5": {
+    "snapshots": 705,
+    "rows_in_solve": 301336,
+    "pairs": 211242,
+    "players": 5295,
+    "iterations_mean": 12.052482269503546,
+    "not_converged": 0
+   },
+   "tp_tr_lam2": {
+    "snapshots": 705,
+    "rows_in_solve": 301336,
+    "pairs": 211242,
+    "players": 5295,
+    "iterations_mean": 14.121985815602837,
+    "not_converged": 0
+   }
+  },
+  "atp|df": {
+   "ios": {
+    "snapshots": 705,
+    "rows_in_solve": 301336,
+    "pairs": 211242,
+    "players": 5295,
+    "iterations_mean": 13.357446808510637,
+    "not_converged": 0
+   },
+   "main_only": {
+    "snapshots": 705,
+    "rows_in_solve": 73422,
+    "pairs": 41406,
+    "players": 5295,
+    "iterations_mean": 9.790070921985816,
+    "not_converged": 0
+   },
+   "translated": {
+    "snapshots": 705,
+    "rows_in_solve": 301336,
+    "pairs": 211242,
+    "players": 5295,
+    "iterations_mean": 13.323404255319149,
+    "not_converged": 0
+   },
+   "tr_lam2": {
+    "snapshots": 705,
+    "rows_in_solve": 301336,
+    "pairs": 211242,
+    "players": 5295,
+    "iterations_mean": 12.13191489361702,
+    "not_converged": 0
+   },
+   "lam2": {
+    "snapshots": 705,
+    "rows_in_solve": 301336,
+    "pairs": 211242,
+    "players": 5295,
+    "iterations_mean": 12.161702127659574,
+    "not_converged": 0
+   },
+   "tr_lam4": {
+    "snapshots": 705,
+    "rows_in_solve": 301336,
+    "pairs": 211242,
+    "players": 5295,
+    "iterations_mean": 11.072340425531914,
+    "not_converged": 0
+   },
+   "lam4": {
+    "snapshots": 705,
+    "rows_in_solve": 301336,
+    "pairs": 211242,
+    "players": 5295,
+    "iterations_mean": 11.079432624113474,
+    "not_converged": 0
+   },
+   "tier_prior": {
+    "snapshots": 705,
+    "rows_in_solve": 301336,
+    "pairs": 211242,
+    "players": 5295,
+    "iterations_mean": 13.356028368794327,
+    "not_converged": 0
+   },
+   "kappa_x5": {
+    "snapshots": 705,
+    "rows_in_solve": 301336,
+    "pairs": 211242,
+    "players": 5295,
+    "iterations_mean": 10.453900709219859,
+    "not_converged": 0
+   },
+   "tier_prior_x5": {
+    "snapshots": 705,
+    "rows_in_solve": 301336,
+    "pairs": 211242,
+    "players": 5295,
+    "iterations_mean": 10.435460992907801,
+    "not_converged": 0
+   },
+   "tp_tr_lam2": {
+    "snapshots": 705,
+    "rows_in_solve": 301336,
+    "pairs": 211242,
+    "players": 5295,
+    "iterations_mean": 12.11631205673759,
+    "not_converged": 0
+   }
+  },
+  "atp|first_in": {
+   "ios": {
+    "snapshots": 705,
+    "rows_in_solve": 301336,
+    "pairs": 211242,
+    "players": 5295,
+    "iterations_mean": 13.458156028368794,
+    "not_converged": 0
+   },
+   "main_only": {
+    "snapshots": 705,
+    "rows_in_solve": 73422,
+    "pairs": 41406,
+    "players": 5295,
+    "iterations_mean": 10.360283687943262,
+    "not_converged": 0
+   },
+   "translated": {
+    "snapshots": 705,
+    "rows_in_solve": 301336,
+    "pairs": 211242,
+    "players": 5295,
+    "iterations_mean": 13.46241134751773,
+    "not_converged": 0
+   },
+   "tr_lam2": {
+    "snapshots": 705,
+    "rows_in_solve": 301336,
+    "pairs": 211242,
+    "players": 5295,
+    "iterations_mean": 12.153191489361703,
+    "not_converged": 0
+   },
+   "lam2": {
+    "snapshots": 705,
+    "rows_in_solve": 301336,
+    "pairs": 211242,
+    "players": 5295,
+    "iterations_mean": 12.15177304964539,
+    "not_converged": 0
+   },
+   "tr_lam4": {
+    "snapshots": 705,
+    "rows_in_solve": 301336,
+    "pairs": 211242,
+    "players": 5295,
+    "iterations_mean": 11.164539007092198,
+    "not_converged": 0
+   },
+   "lam4": {
+    "snapshots": 705,
+    "rows_in_solve": 301336,
+    "pairs": 211242,
+    "players": 5295,
+    "iterations_mean": 11.160283687943263,
+    "not_converged": 0
+   },
+   "tier_prior": {
+    "snapshots": 705,
+    "rows_in_solve": 301336,
+    "pairs": 211242,
+    "players": 5295,
+    "iterations_mean": 13.446808510638299,
+    "not_converged": 0
+   },
+   "kappa_x5": {
+    "snapshots": 705,
+    "rows_in_solve": 301336,
+    "pairs": 211242,
+    "players": 5295,
+    "iterations_mean": 9.961702127659574,
+    "not_converged": 0
+   },
+   "tier_prior_x5": {
+    "snapshots": 705,
+    "rows_in_solve": 301336,
+    "pairs": 211242,
+    "players": 5295,
+    "iterations_mean": 9.95886524822695,
+    "not_converged": 0
+   },
+   "tp_tr_lam2": {
+    "snapshots": 705,
+    "rows_in_solve": 301336,
+    "pairs": 211242,
+    "players": 5295,
+    "iterations_mean": 12.154609929078013,
+    "not_converged": 0
+   }
+  },
+  "atp|first_won": {
+   "ios": {
+    "snapshots": 705,
+    "rows_in_solve": 301336,
+    "pairs": 211242,
+    "players": 5295,
+    "iterations_mean": 15.556028368794326,
+    "not_converged": 0
+   },
+   "main_only": {
+    "snapshots": 705,
+    "rows_in_solve": 73422,
+    "pairs": 41406,
+    "players": 5295,
+    "iterations_mean": 11.74468085106383,
+    "not_converged": 0
+   },
+   "translated": {
+    "snapshots": 705,
+    "rows_in_solve": 301336,
+    "pairs": 211242,
+    "players": 5295,
+    "iterations_mean": 15.553191489361701,
+    "not_converged": 0
+   },
+   "tr_lam2": {
+    "snapshots": 705,
+    "rows_in_solve": 301336,
+    "pairs": 211242,
+    "players": 5295,
+    "iterations_mean": 14.185815602836879,
+    "not_converged": 0
+   },
+   "lam2": {
+    "snapshots": 705,
+    "rows_in_solve": 301336,
+    "pairs": 211242,
+    "players": 5295,
+    "iterations_mean": 14.185815602836879,
+    "not_converged": 0
+   },
+   "tr_lam4": {
+    "snapshots": 705,
+    "rows_in_solve": 301336,
+    "pairs": 211242,
+    "players": 5295,
+    "iterations_mean": 12.91063829787234,
+    "not_converged": 0
+   },
+   "lam4": {
+    "snapshots": 705,
+    "rows_in_solve": 301336,
+    "pairs": 211242,
+    "players": 5295,
+    "iterations_mean": 12.913475177304965,
+    "not_converged": 0
+   },
+   "tier_prior": {
+    "snapshots": 705,
+    "rows_in_solve": 301336,
+    "pairs": 211242,
+    "players": 5295,
+    "iterations_mean": 15.567375886524824,
+    "not_converged": 0
+   },
+   "kappa_x5": {
+    "snapshots": 705,
+    "rows_in_solve": 301336,
+    "pairs": 211242,
+    "players": 5295,
+    "iterations_mean": 12.609929078014185,
+    "not_converged": 0
+   },
+   "tier_prior_x5": {
+    "snapshots": 705,
+    "rows_in_solve": 301336,
+    "pairs": 211242,
+    "players": 5295,
+    "iterations_mean": 12.597163120567377,
+    "not_converged": 0
+   },
+   "tp_tr_lam2": {
+    "snapshots": 705,
+    "rows_in_solve": 301336,
+    "pairs": 211242,
+    "players": 5295,
+    "iterations_mean": 14.202836879432624,
+    "not_converged": 0
+   }
+  },
+  "atp|second_won": {
+   "ios": {
+    "snapshots": 705,
+    "rows_in_solve": 301330,
+    "pairs": 211239,
+    "players": 5295,
+    "iterations_mean": 13.629787234042553,
+    "not_converged": 0
+   },
+   "main_only": {
+    "snapshots": 705,
+    "rows_in_solve": 73422,
+    "pairs": 41406,
+    "players": 5295,
+    "iterations_mean": 10.25531914893617,
+    "not_converged": 0
+   },
+   "translated": {
+    "snapshots": 705,
+    "rows_in_solve": 301330,
+    "pairs": 211239,
+    "players": 5295,
+    "iterations_mean": 13.625531914893617,
+    "not_converged": 0
+   },
+   "tr_lam2": {
+    "snapshots": 705,
+    "rows_in_solve": 301330,
+    "pairs": 211239,
+    "players": 5295,
+    "iterations_mean": 12.487943262411347,
+    "not_converged": 0
+   },
+   "lam2": {
+    "snapshots": 705,
+    "rows_in_solve": 301330,
+    "pairs": 211239,
+    "players": 5295,
+    "iterations_mean": 12.487943262411347,
+    "not_converged": 0
+   },
+   "tr_lam4": {
+    "snapshots": 705,
+    "rows_in_solve": 301330,
+    "pairs": 211239,
+    "players": 5295,
+    "iterations_mean": 11.456737588652482,
+    "not_converged": 0
+   },
+   "lam4": {
+    "snapshots": 705,
+    "rows_in_solve": 301330,
+    "pairs": 211239,
+    "players": 5295,
+    "iterations_mean": 11.456737588652482,
+    "not_converged": 0
+   },
+   "tier_prior": {
+    "snapshots": 705,
+    "rows_in_solve": 301330,
+    "pairs": 211239,
+    "players": 5295,
+    "iterations_mean": 13.639716312056738,
+    "not_converged": 0
+   },
+   "kappa_x5": {
+    "snapshots": 705,
+    "rows_in_solve": 301330,
+    "pairs": 211239,
+    "players": 5295,
+    "iterations_mean": 10.865248226950355,
+    "not_converged": 0
+   },
+   "tier_prior_x5": {
+    "snapshots": 705,
+    "rows_in_solve": 301330,
+    "pairs": 211239,
+    "players": 5295,
+    "iterations_mean": 10.899290780141843,
+    "not_converged": 0
+   },
+   "tp_tr_lam2": {
+    "snapshots": 705,
+    "rows_in_solve": 301330,
+    "pairs": 211239,
+    "players": 5295,
+    "iterations_mean": 12.5177304964539,
+    "not_converged": 0
+   }
+  },
+  "atp|hold": {
+   "ios": {
+    "snapshots": 705,
+    "rows_in_solve": 300184,
+    "pairs": 210616,
+    "players": 5295,
+    "iterations_mean": 15.182978723404256,
+    "not_converged": 0
+   },
+   "main_only": {
+    "snapshots": 705,
+    "rows_in_solve": 73400,
+    "pairs": 41396,
+    "players": 5295,
+    "iterations_mean": 11.506382978723405,
+    "not_converged": 0
+   },
+   "translated": {
+    "snapshots": 705,
+    "rows_in_solve": 300184,
+    "pairs": 210616,
+    "players": 5295,
+    "iterations_mean": 15.16595744680851,
+    "not_converged": 0
+   },
+   "tr_lam2": {
+    "snapshots": 705,
+    "rows_in_solve": 300184,
+    "pairs": 210616,
+    "players": 5295,
+    "iterations_mean": 13.90354609929078,
+    "not_converged": 0
+   },
+   "lam2": {
+    "snapshots": 705,
+    "rows_in_solve": 300184,
+    "pairs": 210616,
+    "players": 5295,
+    "iterations_mean": 13.916312056737588,
+    "not_converged": 0
+   },
+   "tr_lam4": {
+    "snapshots": 705,
+    "rows_in_solve": 300184,
+    "pairs": 210616,
+    "players": 5295,
+    "iterations_mean": 12.785815602836879,
+    "not_converged": 0
+   },
+   "lam4": {
+    "snapshots": 705,
+    "rows_in_solve": 300184,
+    "pairs": 210616,
+    "players": 5295,
+    "iterations_mean": 12.795744680851064,
+    "not_converged": 0
+   },
+   "tier_prior": {
+    "snapshots": 705,
+    "rows_in_solve": 300184,
+    "pairs": 210616,
+    "players": 5295,
+    "iterations_mean": 15.195744680851064,
+    "not_converged": 0
+   },
+   "kappa_x5": {
+    "snapshots": 705,
+    "rows_in_solve": 300184,
+    "pairs": 210616,
+    "players": 5295,
+    "iterations_mean": 12.553191489361701,
+    "not_converged": 0
+   },
+   "tier_prior_x5": {
+    "snapshots": 705,
+    "rows_in_solve": 300184,
+    "pairs": 210616,
+    "players": 5295,
+    "iterations_mean": 12.609929078014185,
+    "not_converged": 0
+   },
+   "tp_tr_lam2": {
+    "snapshots": 705,
+    "rows_in_solve": 300184,
+    "pairs": 210616,
+    "players": 5295,
+    "iterations_mean": 13.948936170212766,
+    "not_converged": 0
+   }
+  },
+  "atp|bp_saved": {
+   "ios": {
+    "snapshots": 705,
+    "rows_in_solve": 287490,
+    "pairs": 203361,
+    "players": 5295,
+    "iterations_mean": 10.746099290780142,
+    "not_converged": 0
+   },
+   "main_only": {
+    "snapshots": 705,
+    "rows_in_solve": 69896,
+    "pairs": 40123,
+    "players": 5295,
+    "iterations_mean": 7.826950354609929,
+    "not_converged": 0
+   },
+   "translated": {
+    "snapshots": 705,
+    "rows_in_solve": 287490,
+    "pairs": 203361,
+    "players": 5295,
+    "iterations_mean": 10.731914893617022,
+    "not_converged": 0
+   },
+   "tr_lam2": {
+    "snapshots": 705,
+    "rows_in_solve": 287490,
+    "pairs": 203361,
+    "players": 5295,
+    "iterations_mean": 9.804255319148936,
+    "not_converged": 0
+   },
+   "lam2": {
+    "snapshots": 705,
+    "rows_in_solve": 287490,
+    "pairs": 203361,
+    "players": 5295,
+    "iterations_mean": 9.805673758865249,
+    "not_converged": 0
+   },
+   "tr_lam4": {
+    "snapshots": 705,
+    "rows_in_solve": 287490,
+    "pairs": 203361,
+    "players": 5295,
+    "iterations_mean": 9.092198581560284,
+    "not_converged": 0
+   },
+   "lam4": {
+    "snapshots": 705,
+    "rows_in_solve": 287490,
+    "pairs": 203361,
+    "players": 5295,
+    "iterations_mean": 9.0822695035461,
+    "not_converged": 0
+   },
+   "tier_prior": {
+    "snapshots": 705,
+    "rows_in_solve": 287490,
+    "pairs": 203361,
+    "players": 5295,
+    "iterations_mean": 10.733333333333333,
+    "not_converged": 0
+   },
+   "kappa_x5": {
+    "snapshots": 705,
+    "rows_in_solve": 287490,
+    "pairs": 203361,
+    "players": 5295,
+    "iterations_mean": 7.897872340425532,
+    "not_converged": 0
+   },
+   "tier_prior_x5": {
+    "snapshots": 705,
+    "rows_in_solve": 287490,
+    "pairs": 203361,
+    "players": 5295,
+    "iterations_mean": 7.974468085106383,
+    "not_converged": 0
+   },
+   "tp_tr_lam2": {
+    "snapshots": 705,
+    "rows_in_solve": 287490,
+    "pairs": 203361,
+    "players": 5295,
+    "iterations_mean": 9.825531914893617,
+    "not_converged": 0
+   }
+  },
+  "wta|spw": {
+   "ios": {
+    "snapshots": 678,
+    "rows_in_solve": 113540,
+    "pairs": 77628,
+    "players": 2237,
+    "iterations_mean": 14.328908554572271,
+    "not_converged": 0
+   },
+   "main_only": {
+    "snapshots": 678,
+    "rows_in_solve": 64766,
+    "pairs": 39546,
+    "players": 2237,
+    "iterations_mean": 12.073746312684365,
+    "not_converged": 0
+   },
+   "translated": {
+    "snapshots": 678,
+    "rows_in_solve": 113540,
+    "pairs": 77628,
+    "players": 2237,
+    "iterations_mean": 14.333333333333334,
+    "not_converged": 0
+   },
+   "tr_lam2": {
+    "snapshots": 678,
+    "rows_in_solve": 113540,
+    "pairs": 77628,
+    "players": 2237,
+    "iterations_mean": 12.644542772861357,
+    "not_converged": 0
+   },
+   "lam2": {
+    "snapshots": 678,
+    "rows_in_solve": 113540,
+    "pairs": 77628,
+    "players": 2237,
+    "iterations_mean": 12.63716814159292,
+    "not_converged": 0
+   },
+   "tr_lam4": {
+    "snapshots": 678,
+    "rows_in_solve": 113540,
+    "pairs": 77628,
+    "players": 2237,
+    "iterations_mean": 11.811209439528023,
+    "not_converged": 0
+   },
+   "lam4": {
+    "snapshots": 678,
+    "rows_in_solve": 113540,
+    "pairs": 77628,
+    "players": 2237,
+    "iterations_mean": 11.812684365781712,
+    "not_converged": 0
+   },
+   "tier_prior": {
+    "snapshots": 678,
+    "rows_in_solve": 113540,
+    "pairs": 77628,
+    "players": 2237,
+    "iterations_mean": 14.337758112094395,
+    "not_converged": 0
+   },
+   "kappa_x5": {
+    "snapshots": 678,
+    "rows_in_solve": 113540,
+    "pairs": 77628,
+    "players": 2237,
+    "iterations_mean": 10.787610619469026,
+    "not_converged": 0
+   },
+   "tier_prior_x5": {
+    "snapshots": 678,
+    "rows_in_solve": 113540,
+    "pairs": 77628,
+    "players": 2237,
+    "iterations_mean": 10.797935103244837,
+    "not_converged": 0
+   },
+   "tp_tr_lam2": {
+    "snapshots": 678,
+    "rows_in_solve": 113540,
+    "pairs": 77628,
+    "players": 2237,
+    "iterations_mean": 12.662241887905605,
+    "not_converged": 0
+   }
+  },
+  "wta|ace": {
+   "ios": {
+    "snapshots": 678,
+    "rows_in_solve": 113540,
+    "pairs": 77628,
+    "players": 2237,
+    "iterations_mean": 13.805309734513274,
+    "not_converged": 0
+   },
+   "main_only": {
+    "snapshots": 678,
+    "rows_in_solve": 64766,
+    "pairs": 39546,
+    "players": 2237,
+    "iterations_mean": 11.415929203539823,
+    "not_converged": 0
+   },
+   "translated": {
+    "snapshots": 678,
+    "rows_in_solve": 113540,
+    "pairs": 77628,
+    "players": 2237,
+    "iterations_mean": 13.830383480825958,
+    "not_converged": 0
+   },
+   "tr_lam2": {
+    "snapshots": 678,
+    "rows_in_solve": 113540,
+    "pairs": 77628,
+    "players": 2237,
+    "iterations_mean": 12.14749262536873,
+    "not_converged": 0
+   },
+   "lam2": {
+    "snapshots": 678,
+    "rows_in_solve": 113540,
+    "pairs": 77628,
+    "players": 2237,
+    "iterations_mean": 12.128318584070797,
+    "not_converged": 0
+   },
+   "tr_lam4": {
+    "snapshots": 678,
+    "rows_in_solve": 113540,
+    "pairs": 77628,
+    "players": 2237,
+    "iterations_mean": 11.26401179941003,
+    "not_converged": 0
+   },
+   "lam4": {
+    "snapshots": 678,
+    "rows_in_solve": 113540,
+    "pairs": 77628,
+    "players": 2237,
+    "iterations_mean": 11.272861356932154,
+    "not_converged": 0
+   },
+   "tier_prior": {
+    "snapshots": 678,
+    "rows_in_solve": 113540,
+    "pairs": 77628,
+    "players": 2237,
+    "iterations_mean": 13.812684365781712,
+    "not_converged": 0
+   },
+   "kappa_x5": {
+    "snapshots": 678,
+    "rows_in_solve": 113540,
+    "pairs": 77628,
+    "players": 2237,
+    "iterations_mean": 10.21386430678466,
+    "not_converged": 0
+   },
+   "tier_prior_x5": {
+    "snapshots": 678,
+    "rows_in_solve": 113540,
+    "pairs": 77628,
+    "players": 2237,
+    "iterations_mean": 10.230088495575222,
+    "not_converged": 0
+   },
+   "tp_tr_lam2": {
+    "snapshots": 678,
+    "rows_in_solve": 113540,
+    "pairs": 77628,
+    "players": 2237,
+    "iterations_mean": 12.14749262536873,
+    "not_converged": 0
+   }
+  },
+  "wta|df": {
+   "ios": {
+    "snapshots": 678,
+    "rows_in_solve": 113540,
+    "pairs": 77628,
+    "players": 2237,
+    "iterations_mean": 11.541297935103245,
+    "not_converged": 0
+   },
+   "main_only": {
+    "snapshots": 678,
+    "rows_in_solve": 64766,
+    "pairs": 39546,
+    "players": 2237,
+    "iterations_mean": 9.964601769911505,
+    "not_converged": 0
+   },
+   "translated": {
+    "snapshots": 678,
+    "rows_in_solve": 113540,
+    "pairs": 77628,
+    "players": 2237,
+    "iterations_mean": 11.545722713864306,
+    "not_converged": 0
+   },
+   "tr_lam2": {
+    "snapshots": 678,
+    "rows_in_solve": 113540,
+    "pairs": 77628,
+    "players": 2237,
+    "iterations_mean": 10.584070796460177,
+    "not_converged": 0
+   },
+   "lam2": {
+    "snapshots": 678,
+    "rows_in_solve": 113540,
+    "pairs": 77628,
+    "players": 2237,
+    "iterations_mean": 10.579646017699115,
+    "not_converged": 0
+   },
+   "tr_lam4": {
+    "snapshots": 678,
+    "rows_in_solve": 113540,
+    "pairs": 77628,
+    "players": 2237,
+    "iterations_mean": 10.125368731563421,
+    "not_converged": 0
+   },
+   "lam4": {
+    "snapshots": 678,
+    "rows_in_solve": 113540,
+    "pairs": 77628,
+    "players": 2237,
+    "iterations_mean": 10.123893805309734,
+    "not_converged": 0
+   },
+   "tier_prior": {
+    "snapshots": 678,
+    "rows_in_solve": 113540,
+    "pairs": 77628,
+    "players": 2237,
+    "iterations_mean": 11.547197640117995,
+    "not_converged": 0
+   },
+   "kappa_x5": {
+    "snapshots": 678,
+    "rows_in_solve": 113540,
+    "pairs": 77628,
+    "players": 2237,
+    "iterations_mean": 8.799410029498524,
+    "not_converged": 0
+   },
+   "tier_prior_x5": {
+    "snapshots": 678,
+    "rows_in_solve": 113540,
+    "pairs": 77628,
+    "players": 2237,
+    "iterations_mean": 8.815634218289086,
+    "not_converged": 0
+   },
+   "tp_tr_lam2": {
+    "snapshots": 678,
+    "rows_in_solve": 113540,
+    "pairs": 77628,
+    "players": 2237,
+    "iterations_mean": 10.5929203539823,
+    "not_converged": 0
+   }
+  },
+  "wta|first_in": {
+   "ios": {
+    "snapshots": 678,
+    "rows_in_solve": 113540,
+    "pairs": 77628,
+    "players": 2237,
+    "iterations_mean": 11.5929203539823,
+    "not_converged": 0
+   },
+   "main_only": {
+    "snapshots": 678,
+    "rows_in_solve": 64766,
+    "pairs": 39546,
+    "players": 2237,
+    "iterations_mean": 10.289085545722713,
+    "not_converged": 0
+   },
+   "translated": {
+    "snapshots": 678,
+    "rows_in_solve": 113540,
+    "pairs": 77628,
+    "players": 2237,
+    "iterations_mean": 11.594395280235988,
+    "not_converged": 0
+   },
+   "tr_lam2": {
+    "snapshots": 678,
+    "rows_in_solve": 113540,
+    "pairs": 77628,
+    "players": 2237,
+    "iterations_mean": 10.668141592920353,
+    "not_converged": 0
+   },
+   "lam2": {
+    "snapshots": 678,
+    "rows_in_solve": 113540,
+    "pairs": 77628,
+    "players": 2237,
+    "iterations_mean": 10.669616519174042,
+    "not_converged": 0
+   },
+   "tr_lam4": {
+    "snapshots": 678,
+    "rows_in_solve": 113540,
+    "pairs": 77628,
+    "players": 2237,
+    "iterations_mean": 10.300884955752212,
+    "not_converged": 0
+   },
+   "lam4": {
+    "snapshots": 678,
+    "rows_in_solve": 113540,
+    "pairs": 77628,
+    "players": 2237,
+    "iterations_mean": 10.29646017699115,
+    "not_converged": 0
+   },
+   "tier_prior": {
+    "snapshots": 678,
+    "rows_in_solve": 113540,
+    "pairs": 77628,
+    "players": 2237,
+    "iterations_mean": 11.604719764011799,
+    "not_converged": 0
+   },
+   "kappa_x5": {
+    "snapshots": 678,
+    "rows_in_solve": 113540,
+    "pairs": 77628,
+    "players": 2237,
+    "iterations_mean": 8.507374631268437,
+    "not_converged": 0
+   },
+   "tier_prior_x5": {
+    "snapshots": 678,
+    "rows_in_solve": 113540,
+    "pairs": 77628,
+    "players": 2237,
+    "iterations_mean": 8.533923303834808,
+    "not_converged": 0
+   },
+   "tp_tr_lam2": {
+    "snapshots": 678,
+    "rows_in_solve": 113540,
+    "pairs": 77628,
+    "players": 2237,
+    "iterations_mean": 10.679941002949853,
+    "not_converged": 0
+   }
+  },
+  "wta|first_won": {
+   "ios": {
+    "snapshots": 678,
+    "rows_in_solve": 113540,
+    "pairs": 77628,
+    "players": 2237,
+    "iterations_mean": 11.665191740412979,
+    "not_converged": 0
+   },
+   "main_only": {
+    "snapshots": 678,
+    "rows_in_solve": 64766,
+    "pairs": 39546,
+    "players": 2237,
+    "iterations_mean": 10.154867256637168,
+    "not_converged": 0
+   },
+   "translated": {
+    "snapshots": 678,
+    "rows_in_solve": 113540,
+    "pairs": 77628,
+    "players": 2237,
+    "iterations_mean": 11.660766961651918,
+    "not_converged": 0
+   },
+   "tr_lam2": {
+    "snapshots": 678,
+    "rows_in_solve": 113540,
+    "pairs": 77628,
+    "players": 2237,
+    "iterations_mean": 10.755162241887906,
+    "not_converged": 0
+   },
+   "lam2": {
+    "snapshots": 678,
+    "rows_in_solve": 113540,
+    "pairs": 77628,
+    "players": 2237,
+    "iterations_mean": 10.759587020648967,
+    "not_converged": 0
+   },
+   "tr_lam4": {
+    "snapshots": 678,
+    "rows_in_solve": 113540,
+    "pairs": 77628,
+    "players": 2237,
+    "iterations_mean": 10.265486725663717,
+    "not_converged": 0
+   },
+   "lam4": {
+    "snapshots": 678,
+    "rows_in_solve": 113540,
+    "pairs": 77628,
+    "players": 2237,
+    "iterations_mean": 10.269911504424778,
+    "not_converged": 0
+   },
+   "tier_prior": {
+    "snapshots": 678,
+    "rows_in_solve": 113540,
+    "pairs": 77628,
+    "players": 2237,
+    "iterations_mean": 11.68141592920354,
+    "not_converged": 0
+   },
+   "kappa_x5": {
+    "snapshots": 678,
+    "rows_in_solve": 113540,
+    "pairs": 77628,
+    "players": 2237,
+    "iterations_mean": 8.948377581120944,
+    "not_converged": 0
+   },
+   "tier_prior_x5": {
+    "snapshots": 678,
+    "rows_in_solve": 113540,
+    "pairs": 77628,
+    "players": 2237,
+    "iterations_mean": 8.983775811209439,
+    "not_converged": 0
+   },
+   "tp_tr_lam2": {
+    "snapshots": 678,
+    "rows_in_solve": 113540,
+    "pairs": 77628,
+    "players": 2237,
+    "iterations_mean": 10.784660766961652,
+    "not_converged": 0
+   }
+  },
+  "wta|second_won": {
+   "ios": {
+    "snapshots": 678,
+    "rows_in_solve": 113539,
+    "pairs": 77627,
+    "players": 2237,
+    "iterations_mean": 9.868731563421829,
+    "not_converged": 0
+   },
+   "main_only": {
+    "snapshots": 678,
+    "rows_in_solve": 64766,
+    "pairs": 39546,
+    "players": 2237,
+    "iterations_mean": 8.799410029498524,
+    "not_converged": 0
+   },
+   "translated": {
+    "snapshots": 678,
+    "rows_in_solve": 113539,
+    "pairs": 77627,
+    "players": 2237,
+    "iterations_mean": 9.871681415929203,
+    "not_converged": 0
+   },
+   "tr_lam2": {
+    "snapshots": 678,
+    "rows_in_solve": 113539,
+    "pairs": 77627,
+    "players": 2237,
+    "iterations_mean": 9.244837758112094,
+    "not_converged": 0
+   },
+   "lam2": {
+    "snapshots": 678,
+    "rows_in_solve": 113539,
+    "pairs": 77627,
+    "players": 2237,
+    "iterations_mean": 9.237463126843657,
+    "not_converged": 0
+   },
+   "tr_lam4": {
+    "snapshots": 678,
+    "rows_in_solve": 113539,
+    "pairs": 77627,
+    "players": 2237,
+    "iterations_mean": 8.938053097345133,
+    "not_converged": 0
+   },
+   "lam4": {
+    "snapshots": 678,
+    "rows_in_solve": 113539,
+    "pairs": 77627,
+    "players": 2237,
+    "iterations_mean": 8.938053097345133,
+    "not_converged": 0
+   },
+   "tier_prior": {
+    "snapshots": 678,
+    "rows_in_solve": 113539,
+    "pairs": 77627,
+    "players": 2237,
+    "iterations_mean": 9.876106194690266,
+    "not_converged": 0
+   },
+   "kappa_x5": {
+    "snapshots": 678,
+    "rows_in_solve": 113539,
+    "pairs": 77627,
+    "players": 2237,
+    "iterations_mean": 7.514749262536873,
+    "not_converged": 0
+   },
+   "tier_prior_x5": {
+    "snapshots": 678,
+    "rows_in_solve": 113539,
+    "pairs": 77627,
+    "players": 2237,
+    "iterations_mean": 7.556047197640118,
+    "not_converged": 0
+   },
+   "tp_tr_lam2": {
+    "snapshots": 678,
+    "rows_in_solve": 113539,
+    "pairs": 77627,
+    "players": 2237,
+    "iterations_mean": 9.25811209439528,
+    "not_converged": 0
+   }
+  },
+  "wta|hold": {
+   "ios": {
+    "snapshots": 454,
+    "rows_in_solve": 76794,
+    "pairs": 54874,
+    "players": 1691,
+    "iterations_mean": 11.71806167400881,
+    "not_converged": 0
+   },
+   "main_only": {
+    "snapshots": 454,
+    "rows_in_solve": 42476,
+    "pairs": 27758,
+    "players": 1691,
+    "iterations_mean": 10.081497797356828,
+    "not_converged": 0
+   },
+   "translated": {
+    "snapshots": 454,
+    "rows_in_solve": 76794,
+    "pairs": 54874,
+    "players": 1691,
+    "iterations_mean": 11.70704845814978,
+    "not_converged": 0
+   },
+   "tr_lam2": {
+    "snapshots": 454,
+    "rows_in_solve": 76794,
+    "pairs": 54874,
+    "players": 1691,
+    "iterations_mean": 10.843612334801762,
+    "not_converged": 0
+   },
+   "lam2": {
+    "snapshots": 454,
+    "rows_in_solve": 76794,
+    "pairs": 54874,
+    "players": 1691,
+    "iterations_mean": 10.85022026431718,
+    "not_converged": 0
+   },
+   "tr_lam4": {
+    "snapshots": 454,
+    "rows_in_solve": 76794,
+    "pairs": 54874,
+    "players": 1691,
+    "iterations_mean": 10.341409691629956,
+    "not_converged": 0
+   },
+   "lam4": {
+    "snapshots": 454,
+    "rows_in_solve": 76794,
+    "pairs": 54874,
+    "players": 1691,
+    "iterations_mean": 10.352422907488986,
+    "not_converged": 0
+   },
+   "tier_prior": {
+    "snapshots": 454,
+    "rows_in_solve": 76794,
+    "pairs": 54874,
+    "players": 1691,
+    "iterations_mean": 11.73568281938326,
+    "not_converged": 0
+   },
+   "kappa_x5": {
+    "snapshots": 454,
+    "rows_in_solve": 76794,
+    "pairs": 54874,
+    "players": 1691,
+    "iterations_mean": 8.896475770925111,
+    "not_converged": 0
+   },
+   "tier_prior_x5": {
+    "snapshots": 454,
+    "rows_in_solve": 76794,
+    "pairs": 54874,
+    "players": 1691,
+    "iterations_mean": 8.892070484581497,
+    "not_converged": 0
+   },
+   "tp_tr_lam2": {
+    "snapshots": 454,
+    "rows_in_solve": 76794,
+    "pairs": 54874,
+    "players": 1691,
+    "iterations_mean": 10.845814977973568,
+    "not_converged": 0
+   }
+  },
+  "wta|bp_saved": {
+   "ios": {
+    "snapshots": 678,
+    "rows_in_solve": 111410,
+    "pairs": 76400,
+    "players": 2237,
+    "iterations_mean": 8.747787610619469,
+    "not_converged": 0
+   },
+   "main_only": {
+    "snapshots": 678,
+    "rows_in_solve": 63570,
+    "pairs": 39014,
+    "players": 2237,
+    "iterations_mean": 7.982300884955753,
+    "not_converged": 0
+   },
+   "translated": {
+    "snapshots": 678,
+    "rows_in_solve": 111410,
+    "pairs": 76400,
+    "players": 2237,
+    "iterations_mean": 8.755162241887906,
+    "not_converged": 0
+   },
+   "tr_lam2": {
+    "snapshots": 678,
+    "rows_in_solve": 111410,
+    "pairs": 76400,
+    "players": 2237,
+    "iterations_mean": 8.165191740412979,
+    "not_converged": 0
+   },
+   "lam2": {
+    "snapshots": 678,
+    "rows_in_solve": 111410,
+    "pairs": 76400,
+    "players": 2237,
+    "iterations_mean": 8.160766961651918,
+    "not_converged": 0
+   },
+   "tr_lam4": {
+    "snapshots": 678,
+    "rows_in_solve": 111410,
+    "pairs": 76400,
+    "players": 2237,
+    "iterations_mean": 8.036873156342184,
+    "not_converged": 0
+   },
+   "lam4": {
+    "snapshots": 678,
+    "rows_in_solve": 111410,
+    "pairs": 76400,
+    "players": 2237,
+    "iterations_mean": 8.035398230088495,
+    "not_converged": 0
+   },
+   "tier_prior": {
+    "snapshots": 678,
+    "rows_in_solve": 111410,
+    "pairs": 76400,
+    "players": 2237,
+    "iterations_mean": 8.755162241887906,
+    "not_converged": 0
+   },
+   "kappa_x5": {
+    "snapshots": 678,
+    "rows_in_solve": 111410,
+    "pairs": 76400,
+    "players": 2237,
+    "iterations_mean": 6.268436578171092,
+    "not_converged": 0
+   },
+   "tier_prior_x5": {
+    "snapshots": 678,
+    "rows_in_solve": 111410,
+    "pairs": 76400,
+    "players": 2237,
+    "iterations_mean": 6.31858407079646,
+    "not_converged": 0
+   },
+   "tp_tr_lam2": {
+    "snapshots": 678,
+    "rows_in_solve": 111410,
+    "pairs": 76400,
+    "players": 2237,
+    "iterations_mean": 8.174041297935103,
+    "not_converged": 0
+   }
+  }
+ }
+}

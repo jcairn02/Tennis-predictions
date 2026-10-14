@@ -1,0 +1,38 @@
+usage: system_gates.py [-h] [--arm ARM] [--sandbox SANDBOX] [--ready] [--dose]
+
+The gates of the lower-level-evidence system's arms (role C1): every arm passes them before it is marked READY for role
+D. Results go to data/studies/lower_level_evidence/system/arms/<ARM>/gates/.
+
+    G1 identity      (IDENTITY, IDENTITY_ALL) the arm's frame against the frozen reference's: the same matches in the same
+                     order, the same identifiers, the same result column through 2024 (a filtered read: later seasons'
+                     results are never read), and every one of the 58 inputs exactly (largest difference 0, the same
+                     missing cells); and the tuned constants the reference's (Stage 1, the offset, Stage 3, Stage B)
+    G2 invariance    inputs no reached observation can reach do not move. "Reached": the levels the arm changes (SEP_ALL:
+                     every lower level, men; REF_noITF: ITF and ITFQ box rows, both tours). Exact (difference 0, the same
+                     missing cells) on: every input of a tour outside the arm; the untouched inputs (odds, context, age,
+                     sets, the surface pairs) everywhere; the inputs of the families the arm switches off, everywhere;
+                     points_52w where neither player has a reached box row in the 364 days to the match; the 17 forms
+                     where neither player has a reached box row, nor one played against an opponent holding a reached box
+                     row before it; every input of matches before the tour's first reached row, by event date and by the
+                     match clock (es before that row's lf + 1: the joint solves and Elo reach no earlier match; an
+                     event's late rounds start after its date). Box rows are Stage 0's has_box rows (a superset of the
+                     builders', so the sets are conservative). One tolerance, fixed before it was used: the 21 surface-solver inputs within
+                     1e-12 (rounding when players leave the solver's system; C2's evidence), their bit-exact count kept
+    G3 direction     the changed box-score inputs move toward the player with less reached evidence: the change's
+                     correlation with A's minus B's reached share of box-score evidence (two-week window for the forms,
+                     365 days for points_52w) has the sign the level shifts imply (the first run's offsets, 2010-2018).
+                     Required where the evidence-weighted shift is 0.05 or more; the rest reported
+    G4 dose          monotone in w across the dose arms (--dose; needs SYS_w0, SYS_w50, SYS, SYS_w100): each box-score
+                     input's change from SYS_w0 is smaller at w = 0.5 than at w = 1 and in the same direction; SYS's
+                     reported. Across arms, so not one arm's READY condition
+    G5 leaks         the builders' own probes, run inside the arm's build with the hooks on (Stage 1, Stage 3, Stage 4,
+                     Stage B, the offset Elo and the surface switches): no protected match moved
+    G6 level         the same-player Challenger minus main-tour gap after translation against B's residual target: phase 2
+Run: ./python.sh src/eda/lower_level_evidence/system_gates.py --arm ARM [--sandbox D]
+
+options:
+  -h, --help         show this help message and exit
+  --arm ARM
+  --sandbox SANDBOX
+  --ready            write READY.txt if every gate of the arm passed
+  --dose             G4 across SYS_w0, SYS_w50, SYS and SYS_w100

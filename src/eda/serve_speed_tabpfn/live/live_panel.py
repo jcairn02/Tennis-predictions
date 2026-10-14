@@ -1,6 +1,16 @@
-"""The live speed panel: the study's frozen speed_panel.parquet, unchanged, plus the new daily rows. Reads no match result.
+"""The live speed panel: the study's frozen speed_panel.parquet, corrected, plus the new daily rows. Reads no match result.
 
-    frozen rows   every row of speed_panel.parquet as it is, plus `release`: the day the row may enter features. That is
+    frozen rows   every row of speed_panel.parquet, with the 130 serve-speed records the input-data audit's reviewers
+                  confirmed impossible no longer chosen: their 107 player-matches take their next valid record by the
+                  panel's own precedence, or none (docs/decisions/2026-10-08-corrupt-data-fixes.md, applied to the live
+                  feed at the owner's word, 8 Oct 2026). The corrected copy is live/speed_panel_frozen_corrected.parquet,
+                  built by src/eda/input_data_audit/speed_live_panel.py; it is read only while the frozen panel's SHA-256
+                  equals the one it was built from. With the ATP Stats Centre's decrypted files of 2018 to Oct 2021
+                  added (the owner, 8 Oct 2026: "Integrate it as well into our pipeline like all the analogous data"),
+                  when live/speed_panel_backfilled.parquet is present: the same history with that source added by the
+                  panel's own precedence (src/eda/infosys_atp_backfill/history.py; +225 usable player-matches of 2018
+                  and 2021, none newer than 17 Oct 2021, so no live form changes), read only while the corrected copy's
+                  SHA-256 equals the one it was built from. Plus `release`: the day the row may enter features. That is
                   the scenario's release (default B, the weekly feed through which these rows came:
                   latency/availability.parquet), capped at FROZEN_IN_HAND (7 Oct 2026, when every frozen row was in
                   hand) but never before lf + 1, and live_source = "frozen"
@@ -8,7 +18,7 @@
                   key-statistic basis: y = first-serve average - 0.5 (the ceiling rule), n = first serves in,
                   basis "ks"; release = the collection day; drops as panel.py's (no clock, men < 120 km/h, n < 10)
                   give use = False. A match two collections bring is kept from the first
-The frozen file is only read; the live panel is written to live/speed_panel_live.parquet.
+The frozen file is only read (the study's evidence stays as run); the live panel is written to live/speed_panel_live.parquet.
 """
 from __future__ import annotations
 
@@ -21,15 +31,41 @@ import pandas as pd
 from src.eda.serve_speed_tabpfn.live import common as LC
 
 FROZEN_IN_HAND = "2026-10-07"
+CORRECTED = LC.OUT / "speed_panel_frozen_corrected.parquet"
+CORRECTED_META = LC.OUT / "speed_panel_frozen_corrected.json"
+BACKFILLED = LC.OUT / "speed_panel_backfilled.parquet"
+BACKFILLED_META = LC.OUT / "speed_panel_backfilled.json"
 KS_SHIFT = -0.5
 MEN_MIN, MIN_N = 120.0, 10
 TOUR_LEVELS = ("T250", "T500", "T1000", "FIN")
 
 
-def frozen_rows(scenario: str = "B") -> pd.DataFrame:
+def frozen_panel() -> pd.DataFrame:
+    """The frozen panel as the live feed uses it: the audit's corrected copy, checked against the frozen file it was
+    built from (a changed frozen panel stops the run: rebuild the copy); with the ATP backfill when its file is present,
+    checked against the corrected copy it was built from (a changed copy stops the run: rebuild the backfill)."""
+    import hashlib
     from src.eda.serve_speed_tabpfn import panel as P
+    meta = json.loads(CORRECTED_META.read_text(encoding="utf-8"))
+    if hashlib.sha256(P.PANEL.read_bytes()).hexdigest() != meta["frozen_panel_sha256"]:
+        raise SystemExit(f"{P.PANEL} changed since {CORRECTED.name} was built; rebuild it "
+                         "(src/eda/input_data_audit/speed_live_panel.py)")
+    if hashlib.sha256(CORRECTED.read_bytes()).hexdigest() != meta["corrected_sha256"]:
+        raise SystemExit(f"{CORRECTED} does not match its record {CORRECTED_META.name}")
+    if not BACKFILLED.exists():
+        return pd.read_parquet(CORRECTED)
+    bm = json.loads(BACKFILLED_META.read_text(encoding="utf-8"))
+    if bm["corrected_sha256"] != meta["corrected_sha256"]:
+        raise SystemExit(f"{CORRECTED.name} changed since {BACKFILLED.name} was built; rebuild it "
+                         "(src/eda/infosys_atp_backfill/history.py)")
+    if hashlib.sha256(BACKFILLED.read_bytes()).hexdigest() != bm["backfilled_sha256"]:
+        raise SystemExit(f"{BACKFILLED} does not match its record {BACKFILLED_META.name}")
+    return pd.read_parquet(BACKFILLED)
+
+
+def frozen_rows(scenario: str = "B") -> pd.DataFrame:
     from src.eda.serve_speed_tabpfn.latency import availability as AV
-    p = P.load_panel(use_only=False)
+    p = frozen_panel()
     col = AV.SCENARIOS[scenario]
     av = AV.load(["match_id", "side", col])
     p = p.merge(av, on=["match_id", "side"], how="left", validate="one_to_one")
@@ -87,7 +123,11 @@ def new_rows(linked: pd.DataFrame) -> pd.DataFrame:
             "basis": "ks", "kind": "keystat", "y_raw": spd1, "y": spd1 + KS_SHIFT, "n": first_in, "f1": first_in,
             "spd2_raw": spd2, "spd2": spd2 + KS_SHIFT, "n2": first_tot - first_in, "spd_max": pick("max").astype(float),
             "collected_on": lk["collected_on"].to_numpy(), "link_method": lk["link_method"].to_numpy(),
-            "in_stage0": lk["in_stage0"].to_numpy(), "live_source": "daily"})
+            "in_stage0": lk["in_stage0"].to_numpy(), "live_source": "daily",
+            # the source's own completion flag: ManTennisData publishes finished matches only (no flag: completed)
+            "match_completed": (lk["match_completed"] if "match_completed" in lk.columns
+                                else pd.Series(np.nan, index=lk.index)).astype(object).where(
+                                    lambda s: s.notna(), True).astype(bool).to_numpy()})
         out.append(d)
     n = pd.concat(out, ignore_index=True)
     n = n[np.isfinite(n["y_raw"])].copy()
@@ -106,8 +146,12 @@ def new_rows(linked: pd.DataFrame) -> pd.DataFrame:
     reason[(reason == "") & (n["n"] < MIN_N)] = "low_n"
     n["drop_reason"] = reason
     n["use"] = reason.eq("")
-    # never before the match surely finished
-    n["release"] = np.maximum(n["release"], (n["lf"].fillna(-10**6) + 1).astype("int64"))
+    # Live rows are data in hand: a match the source itself reports completed has finished by the collection day, so
+    # it counts from that day (the clock's lf is a cautious upper bound for backtests, where completion is unknown).
+    # A match not reported completed keeps the clock's guard: never before the match surely finished.
+    guard = ~n["match_completed"].astype(bool).to_numpy()
+    lf1 = (n["lf"].fillna(-10**6) + 1).astype("int64").to_numpy()
+    n["release"] = np.where(guard, np.maximum(n["release"].to_numpy(np.int64), lf1), n["release"].to_numpy(np.int64))
     return n
 
 

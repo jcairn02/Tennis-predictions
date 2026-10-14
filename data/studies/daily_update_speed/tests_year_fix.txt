@@ -1,0 +1,50 @@
+== test/daily_update_speed
+.....                                                                    [100%]
+5 passed in 1.13s
+== test/lower_level_evidence
+........................................................................ [ 26%]
+.......................................................................x [ 53%]
+xxxxx................................................................... [ 79%]
+.......................................................                  [100%]
+265 passed, 6 xfailed in 27.98s
+== test/current_best_model
+........................................................................ [ 80%]
+..................                                                       [100%]
+90 passed in 62.74s (0:01:02)
+== test/prediction_run
+...........                                                              [100%]
+11 passed in 0.63s
+== test/model_rebuild (absent)
+== test/match_timing
+.................................................................        [100%]
+65 passed in 23.64s
+== test/tabpfn_thinking
+..................s                                                      [100%]
+18 passed, 1 skipped in 2.81s
+== test/surface_ios
+..............                                                           [100%]
+14 passed in 6.82s
+== test/surface_elo_pieces
+...........                                                              [100%]
+11 passed in 1.42s
+== test/serve_speed_tabpfn
+FAILED test/serve_speed_tabpfn/test_ssp_adaptive.py::test_ssp_adapt_check_and_date_read_no_result
+FAILED test/serve_speed_tabpfn/test_ssp_adaptive.py::test_ssp_adapt_coefficient_sets_and_the_date_default
+FAILED test/serve_speed_tabpfn/test_ssp_latency_availability.py::test_one_row_per_stage0_player_match_and_every_panel_row
+FAILED test/serve_speed_tabpfn/test_ssp_latency_features.py::test_ssp_lat_flip_negates
+FAILED test/serve_speed_tabpfn/test_ssp_panel.py::test_tp4_presence_reproduces_n2
+6 failed, 134 passed in 93.48s (0:01:33)
+== test/predictability_diagnostic
+test\predictability_diagnostic\test_stage4.py:403: AssertionError
+=========================== short test summary info ===========================
+FAILED test/predictability_diagnostic/test_stage1.py::test_built_baselines_table
+FAILED test/predictability_diagnostic/test_stage3.py::test_built_ratings_table
+FAILED test/predictability_diagnostic/test_stage4.py::test_every_evaluation_event_name_is_in_the_country_table
+3 failed, 238 passed in 25.25s
+== test/ufc_ideas
+src\eda\predictability_diagnostic\stage4_rundown.py:281: ValueError
+=========================== short test summary info ===========================
+FAILED test/ufc_ideas/test_common.py::test_any_base_column - ValueError: Ever...
+ERROR test/ufc_ideas/test_common.py::test_reproduces_stage4_scores - ValueErr...
+ERROR test/ufc_ideas/test_common.py::test_score_plain_matches_rundown - Value...
+1 failed, 58 passed, 2 errors in 13.97s

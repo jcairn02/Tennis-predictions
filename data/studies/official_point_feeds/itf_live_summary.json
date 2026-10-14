@@ -1,0 +1,162 @@
+{
+ "source": "itf_live",
+ "run": "20261013T143022Z",
+ "started_at": "2026-10-13T14:30:22+00:00",
+ "decision": "docs/decisions/2026-10-08-scraping-approved.md",
+ "argv": [
+  "--max-requests",
+  "1500"
+ ],
+ "client": {
+  "impersonate": "chrome",
+  "requests": 922,
+  "retried": 0,
+  "slept_seconds": 2069.5,
+  "min_interval": 2.0
+ },
+ "outcomes": {
+  "day:200": 8,
+  "day:settled": 7,
+  "points:200": 457,
+  "stats:200": 457
+ },
+ "days": [
+  {
+   "day": "2026-09-29",
+   "decision": "settled",
+   "latest_capture": "20261008T191637Z"
+  },
+  {
+   "day": "2026-09-30",
+   "decision": "settled",
+   "latest_capture": "20261008T191637Z"
+  },
+  {
+   "day": "2026-10-01",
+   "decision": "fetch",
+   "state": "200",
+   "bytes": 1444406,
+   "matches": 260,
+   "absent": null,
+   "error": null
+  },
+  {
+   "day": "2026-10-02",
+   "decision": "settled",
+   "latest_capture": "20261008T191637Z"
+  },
+  {
+   "day": "2026-10-03",
+   "decision": "fetch",
+   "state": "200",
+   "bytes": 361071,
+   "matches": 61,
+   "absent": null,
+   "error": null
+  },
+  {
+   "day": "2026-10-04",
+   "decision": "fetch",
+   "state": "200",
+   "bytes": 1725167,
+   "matches": 368,
+   "absent": null,
+   "error": null
+  },
+  {
+   "day": "2026-10-05",
+   "decision": "settled",
+   "latest_capture": "20261008T191637Z"
+  },
+  {
+   "day": "2026-10-06",
+   "decision": "settled",
+   "latest_capture": "20261008T191637Z"
+  },
+  {
+   "day": "2026-10-07",
+   "decision": "fetch",
+   "state": "200",
+   "bytes": 1940137,
+   "matches": 368,
+   "absent": null,
+   "error": null
+  },
+  {
+   "day": "2026-10-08",
+   "decision": "fetch",
+   "state": "200",
+   "bytes": 1757985,
+   "matches": 315,
+   "absent": null,
+   "error": null
+  },
+  {
+   "day": "2026-10-09",
+   "decision": "settled",
+   "latest_capture": "20261011T143026Z"
+  },
+  {
+   "day": "2026-10-10",
+   "decision": "settled",
+   "latest_capture": "20261012T143107Z"
+  },
+  {
+   "day": "2026-10-11",
+   "decision": "fetch",
+   "state": "200",
+   "bytes": 1694293,
+   "matches": 357,
+   "absent": null,
+   "error": null
+  },
+  {
+   "day": "2026-10-12",
+   "decision": "fetch",
+   "state": "200",
+   "bytes": 1846185,
+   "matches": 393,
+   "absent": null,
+   "error": null
+  },
+  {
+   "day": "2026-10-13",
+   "decision": "fetch",
+   "state": "200",
+   "bytes": 2016473,
+   "matches": 392,
+   "absent": null,
+   "error": null
+  }
+ ],
+ "selection": {
+  "matches_listed": 7566,
+  "wanted": 5929,
+  "wanted_by_reason": {
+   "over": 5914,
+   "stale": 15
+  },
+  "events_with_wanted_matches": 119,
+  "selected": 5929,
+  "to_ask": 457
+ },
+ "stopped": null,
+ "fetch_outcomes": {
+  "day:200": 8,
+  "day:settled": 7,
+  "points:200": 457,
+  "stats:200": 457
+ },
+ "staged": {
+  "matches": 20532,
+  "events": 119,
+  "documents": 11898,
+  "statistics": 975121,
+  "points": 527144,
+  "documents_parsed": 914,
+  "day_captures": 78,
+  "list_days": 29
+ },
+ "finished_at": "2026-10-13T15:09:05+00:00",
+ "seconds": 2323.0
+}

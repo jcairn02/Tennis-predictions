@@ -387,7 +387,7 @@ def test_old_pages_count_as_documents_so_a_run_of_them_is_not_stopped(tmp_path, 
     client = FakeClient({i: FakeResponse(404, old.replace(IDS[MATCH_404].encode(), i.encode())) for i in ids})
     report, outcomes = {}, Counter()
     T.fetch_pages(client, receipts, F.FailureStreak(5), ids, "test", outcomes, report)
-    assert report == {"source": "test", "ids": 6, "done_before": 0, "fetched": 6, "remaining": 0}
+    assert report == {"source": "test", "ids": 6, "done_before": 0, "fetched": 6, "remaining": 0, "asked_again": 0}
     assert outcomes == {"match:404_with_points": 6}
     gone = [f"{n:08x}-1111-4111-8111-111111111111" for n in range(5)]
     report = {}
@@ -517,3 +517,123 @@ def test_games_compare_across_sources_whichever_side_the_player_is_on():
     assert tl[(1, 1)] == {"points": 5, "winner": "me", "server": "me",
                           "states": [("15", "0"), ("30", "0"), ("30", "15"), ("40", "15")]}
     assert V.norm_state("AD") == V.norm_state("Av") == "A"
+
+
+# --------------------------------------------------------------------------------------------- the weekly job
+def test_scheduled_tdi_job_pauses_on_a_block_skips_a_held_lock_and_alerts_on_repeat_failures(tmp_path, monkeypatch):
+    from src.ingest import scheduled as S
+
+    monkeypatch.setattr(S, "ROOT", tmp_path)
+    monkeypatch.setattr(S, "TDI_SUMMARY", tmp_path / "tdi_summary.json")
+    runs, calls = iter([(0, None, ""), (1, "Stopped: 5 fetches in a row without a document", ""),
+                        (1, None, "another TDI run is fetching (it holds data/raw/point_sources/tdi/_run.lock)"),
+                        (1, "Stopped: 5 fetches in a row without a document", ""), (1, "Blocked: HTTP 403", ""),
+                        (0, None, "")]), []
+
+    def child(name, argv, timeout):
+        code, stopped, text = next(runs)
+        calls.append(argv)
+        if text == "":   # the adapter wrote this run's summary (it does not when another run holds the lock)
+            (tmp_path / "tdi_summary.json").write_text(json.dumps({"started_at": S.now(), "stopped": stopped}),
+                                                       encoding="utf-8")
+        (tmp_path / "tdi.log").write_text(f"=== {S.now()} tdi\n{text}\n", encoding="utf-8")
+        return {"exit": code, "seconds": 1.0, "log": "tdi.log"}
+
+    monkeypatch.setattr(S, "child", child)
+    state = {}
+    assert S.job_tdi(state, asked=False)[1] == [] and state["tdi_failed"] is False      # exit 0
+    assert S.job_tdi(state, asked=False)[1] == [] and state["tdi_failed"] is True       # one failure: no alert
+    out, alerts = S.job_tdi(state, asked=False)                                         # another run holds the lock
+    assert out["skipped"].startswith("another TDI run") and alerts == [] and state["tdi_failed"] is True
+    assert "two runs in a row" in S.job_tdi(state, asked=False)[1][0]                    # the second failure
+    assert "refused the weekly collector" in S.job_tdi(state, asked=False)[1][0]          # a block
+    assert "tdi_blocked" in state and len(calls) == 5
+    out, alerts = S.job_tdi(state, asked=False)                                         # paused: nothing asked
+    assert out["skipped"].startswith("paused") and "still paused" in alerts[0] and len(calls) == 5
+    assert S.job_tdi(state, asked=True)[1] == [] and "tdi_blocked" not in state          # asked by name: lifted
+    assert calls[-1] == ["-m", "src.ingest.point_sources.tdi", "--recent", "10", "--max-requests", "1000"]
+
+
+def test_scheduled_tdi_job_is_due_on_its_weekday_or_by_name(monkeypatch, capsys):
+    from src.ingest import scheduled as S
+
+    monkeypatch.setattr(sys, "argv", ["scheduled", "--dry-run"])
+    S.main()
+    due = json.loads(capsys.readouterr().out)["due"]
+    assert ("tdi" in due) == (S.dt.date.today().weekday() == S.TDI_WEEKDAY) and due[-1] in ("slams", "tdi")
+    monkeypatch.setattr(sys, "argv", ["scheduled", "--dry-run", "--only", "tdi"])
+    S.main()
+    assert json.loads(capsys.readouterr().out)["due"] == ["tdi"]
+
+
+def test_scheduled_tdi_job_fits_inside_the_tasks_two_hours(tmp_path, monkeypatch):
+    from src.ingest import scheduled as S
+
+    monkeypatch.setattr(S, "ROOT", tmp_path)
+    monkeypatch.setattr(S, "TDI_SUMMARY", tmp_path / "tdi_summary.json")
+    timeouts = []
+
+    def child(name, argv, timeout):
+        timeouts.append(timeout)
+        (tmp_path / "tdi_summary.json").write_text(json.dumps({"started_at": S.now()}), encoding="utf-8")
+        (tmp_path / "tdi.log").write_text("=== x\n", encoding="utf-8")
+        return {"exit": 0, "seconds": 1.0, "log": "tdi.log"}
+
+    monkeypatch.setattr(S, "child", child)
+    state = {}
+    S.job_tdi(state, asked=False)                                      # a quiet Monday: the whole 45 minutes
+    S.job_tdi(state, asked=False, left=40 * 60)                         # 30 minutes, ten kept for the record
+    assert timeouts == [S.TDI_TIMEOUT, 30 * 60] and state["tdi_failed"] is False
+    out, alerts = S.job_tdi(state, asked=False, left=20 * 60)           # under 15 minutes for it: next Monday
+    assert out["skipped"].startswith("only 20 minutes") and alerts == [] and len(timeouts) == 2
+    assert "two Mondays in a row" in S.job_tdi(state, asked=False, left=20 * 60)[1][0]
+
+
+# --------------------------------------------------------------------------------------------- pages asked again
+def test_a_page_saved_without_points_is_asked_again_only_after_a_later_card_shows_a_score(tmp_path, monkeypatch):
+    monkeypatch.setattr(P, "RAW_ROOT", tmp_path)
+    receipts = C.Receipts("tdi", root=tmp_path)
+    empty, full, never = ("33333333-3333-4333-8333-333333333333", IDS[MATCH_2026], "44444444-4444-4444-8444-444444444444")
+    blank = b"<!DOCTYPE html><html>" + b'self.__next_f.push([1,"0:[]\n"])' + b"</html>"
+    client = FakeClient({empty: FakeResponse(200, blank), full: FakeResponse(200, (FIXTURES / MATCH_2026).read_bytes()),
+                         never: FakeResponse(200, blank)})
+    for m in (empty, full, never):
+        T.fetch_match(client, receipts, m)
+    saved = receipts.get(T.match_name(empty))["retrieved_at"]
+    card = lambda m, when, scores: {"match_id": m, "retrieved_at": when, "team1_scores": scores,  # noqa: E731
+                                    "team2_scores": scores}
+    cards = [card(empty, "2026-10-01T00:00:00+00:00", "1:6 2:6"),           # read before the page: no
+             card(never, "2099-01-01T00:00:00+00:00", None),                # never scored: no
+             card(full, "2099-01-01T00:00:00+00:00", "1:6 2:6")]            # its page has points: no
+    assert T.waiting_pages(receipts, cards) == []
+    cards.append(card(empty, "2099-01-01T00:00:00+00:00", "1:6 2:6"))      # a later card shows a score: yes
+    assert T.waiting_pages(receipts, cards) == [empty]
+
+    # the answer has the points now: it replaces the saved page, whose bytes are kept
+    client.answers[empty] = FakeResponse(200, (FIXTURES / MATCH_2026).read_bytes().replace(IDS[MATCH_2026].encode(),
+                                                                                             empty.encode()))
+    again = T.fetch_match(client, receipts, empty, again=True)
+    assert again["document"] and again["point_ids"] > 0 and again["asked_again"]
+    kept = Path(again["superseded"])
+    stamp = "".join(ch for ch in saved if ch.isdigit())[:14]
+    assert kept.name == f"{empty}.{stamp}.html.gz" and gzip.decompress(kept.read_bytes()) == blank
+    assert T.waiting_pages(receipts, cards) == []                                  # it has points now
+
+
+def test_a_failed_second_ask_leaves_the_saved_page_and_is_not_repeated_without_a_newer_card(tmp_path, monkeypatch):
+    monkeypatch.setattr(P, "RAW_ROOT", tmp_path)
+    receipts = C.Receipts("tdi", root=tmp_path)
+    empty = "33333333-3333-4333-8333-333333333333"
+    blank = b"<!DOCTYPE html><html>" + b'self.__next_f.push([1,"0:[]\n"])' + b"</html>"
+    client = FakeClient({empty: FakeResponse(200, blank)})
+    clock = iter(["2026-10-08T20:00:00+00:00", "2026-10-12T15:00:00+00:00"])
+    monkeypatch.setattr(P, "utc_now_iso", lambda: next(clock))
+    first = T.fetch_match(client, receipts, empty)                                 # 8 Oct: no points yet
+    cards = [{"match_id": empty, "retrieved_at": "2026-10-12T14:00:00+00:00", "team1_scores": "1:6", "team2_scores": "1:4"}]
+    client.answers[empty] = FakeResponse(500, b"")
+    failed = T.fetch_match(client, receipts, empty, again=True)                    # 12 Oct, after the card
+    assert failed["name"] == f"again/{T.match_name(empty)}" and failed["error"] == "HTTP 500"
+    assert receipts.get(T.match_name(empty)) == first and gzip.decompress(T.match_dest(empty).read_bytes()) == blank
+    assert T.waiting_pages(receipts, cards) == []                                  # tried after the card was read
+    cards.append({**cards[0], "retrieved_at": "2100-01-01T00:00:00+00:00"})
+    assert T.waiting_pages(receipts, cards) == [empty]                             # a newer card: once more

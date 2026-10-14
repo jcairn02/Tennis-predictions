@@ -1,0 +1,143 @@
+{
+  "started_at_utc": "2026-10-08T23:31:36.674840+00:00",
+  "finished_at_utc": "2026-10-08T23:32:20.468068+00:00",
+  "raw_folder": "data/raw/point_sources/infosys_atp",
+  "decrypted_folder": "data/dump/points/infosys_atp/decrypted",
+  "files": 4906,
+  "raw_stored_bytes": 177357446,
+  "decrypted_bytes": 366892254,
+  "originals_unchanged": true,
+  "all_checks_passed": true,
+  "counts": {
+    "was_encrypted": 4906,
+    "decrypted_ok": 4906,
+    "output_roundtrip_ok": 4906,
+    "tennis_schema_ok": 4906,
+    "identity_ok": 4906,
+    "receipt_sha256_ok": 4906,
+    "files_with_positive_speeds": 731,
+    "files_without_positive_speeds": 4175,
+    "files_with_errors": 0,
+    "speed_values_outside_50_300": 124
+  },
+  "unique_matches_with_positive_speeds": 186,
+  "by_year_route": {
+    "2018/court-vision": {
+      "files": 14,
+      "files_with_positive_speeds": 14,
+      "positive_speed_values": 2329,
+      "errors": 0
+    },
+    "2018/keystats": {
+      "files": 15,
+      "files_with_positive_speeds": 15,
+      "positive_speed_values": 274,
+      "errors": 0
+    },
+    "2018/match-beats": {
+      "files": 15,
+      "files_with_positive_speeds": 15,
+      "positive_speed_values": 1751,
+      "errors": 0
+    },
+    "2018/rally-analysis": {
+      "files": 15,
+      "files_with_positive_speeds": 15,
+      "positive_speed_values": 1751,
+      "errors": 0
+    },
+    "2019/keystats": {
+      "files": 30,
+      "files_with_positive_speeds": 0,
+      "positive_speed_values": 0,
+      "errors": 0
+    },
+    "2019/match-beats": {
+      "files": 30,
+      "files_with_positive_speeds": 0,
+      "positive_speed_values": 0,
+      "errors": 0
+    },
+    "2019/rally-analysis": {
+      "files": 30,
+      "files_with_positive_speeds": 0,
+      "positive_speed_values": 0,
+      "errors": 0
+    },
+    "2020/keystats": {
+      "files": 164,
+      "files_with_positive_speeds": 0,
+      "positive_speed_values": 0,
+      "errors": 0
+    },
+    "2020/match-beats": {
+      "files": 163,
+      "files_with_positive_speeds": 0,
+      "positive_speed_values": 0,
+      "errors": 0
+    },
+    "2020/rally-analysis": {
+      "files": 164,
+      "files_with_positive_speeds": 0,
+      "positive_speed_values": 0,
+      "errors": 0
+    },
+    "2021/match-beats": {
+      "files": 1860,
+      "files_with_positive_speeds": 169,
+      "positive_speed_values": 23247,
+      "errors": 0
+    },
+    "2021/rally-analysis": {
+      "files": 1861,
+      "files_with_positive_speeds": 169,
+      "positive_speed_values": 23247,
+      "errors": 0
+    },
+    "2021/keystats": {
+      "files": 365,
+      "files_with_positive_speeds": 169,
+      "positive_speed_values": 3359,
+      "errors": 0
+    },
+    "2021/court-vision": {
+      "files": 176,
+      "files_with_positive_speeds": 161,
+      "positive_speed_values": 30751,
+      "errors": 0
+    },
+    "2022/court-vision": {
+      "files": 1,
+      "files_with_positive_speeds": 1,
+      "positive_speed_values": 143,
+      "errors": 0
+    },
+    "2022/match-beats": {
+      "files": 1,
+      "files_with_positive_speeds": 1,
+      "positive_speed_values": 110,
+      "errors": 0
+    },
+    "2022/rally-analysis": {
+      "files": 1,
+      "files_with_positive_speeds": 1,
+      "positive_speed_values": 110,
+      "errors": 0
+    },
+    "2025/keystats": {
+      "files": 1,
+      "files_with_positive_speeds": 1,
+      "positive_speed_values": 18,
+      "errors": 0
+    }
+  },
+  "errors": [],
+  "notes": [
+    "Entire local folder processed, including the four calibration files of 2022/2025.",
+    "Valid tennis files can contain missing, zero or empty speed fields.",
+    "All decoded fields retained; Court Vision's a-number field names remain as served.",
+    "Counts of speed values include multiple routes and per-set aggregates, not unique serves.",
+    "50-300 is an audit flag only; unusual values are preserved and not cleaned.",
+    "Player metadata is present in source payloads; cross-source identity reconciliation is separate."
+  ]
+}

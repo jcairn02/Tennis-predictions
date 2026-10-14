@@ -1,0 +1,47 @@
+The pooled record: 26 readings in data\studies\adoption_framework\class_record.csv (mLL per match).
+Each row's own direction key applies; pooled rows all read '+ = the change better'.
+
+== expansion (2 readings)
+   speed_backfill                   +0.014 [-0.006, +0.035]  2020-2024, the close (books' average input); + = with the backfill better  (pooled; seeds paired: yes)
+   men_2026_ch_chq                  +0.058 [-0.048, +0.164]  2026, the close (Pinnacle-first input); + = with the data better  (holdout seasons; seeds paired: yes)
+   pooled over 1 (one or two readings: an anecdote, not a prior): fixed +0.014 [-0.007, +0.035]; tau 0.000; random effects +0.014 [-0.007, +0.035]
+
+== repair (8 readings)
+   indoor_fill_open                 +0.007 [-0.014, +0.029]  2020-2024, Pinnacle's opening line; + = the fill better  (pooled; seeds paired: yes)
+   indoor_fill_close                -0.002 [-0.016, +0.013]  2020-2024, the close; + = the fill better  (seeds paired: yes)
+   lower_level_translation          +0.024 [-0.047, +0.096]  2020-2024, the close (books' average input); + = translated better  (pooled; seeds paired: yes)
+   ios_product_centring_dev         -0.050 [-0.210, +0.110]  2022-2024, the close (books' average input); + = centred better  (pooled; seeds paired: no)
+   ios_product_centring_primary     -0.060 [-0.330, +0.210]  2025-2026, the close (books' average input); + = centred better  (holdout seasons; seeds paired: no)
+   corrected_tables_rebuild         +0.030 [-0.130, +0.200]  2022-2026, the close (books' average input); + = rebuilt better  (holdout seasons; seeds paired: no)
+   rg_box_scores                    -0.026 [-0.076, +0.023]  2020-2024, the close (books' average input); + = the candidate better  (pooled; seeds paired: yes)
+   level_layer_men                  -0.014 [-0.162, +0.134]  2020-2024, the close (Pinnacle-first input); + = with the layer better  (pooled; seeds paired: yes)
+   pooled over 5: fixed +0.002 [-0.016, +0.021]; tau 0.000; random effects +0.002 [-0.016, +0.021]
+
+== structural (6 readings)
+   pinnacle_first                   +0.010 [-0.290, +0.310]  2020-2024, the close (each model's own input); + = Pinnacle first better  (pooled; seeds paired: yes)
+   challenger_rows                  -0.480 [-1.090, +0.140]  2022-2024, the close (books' average input); + = with Challenger rows better  (pooled; seeds paired: no)
+   training_window_last5            -0.090 [-0.500, +0.320]  2020-2024, the close (books' average input); + = last 5 seasons better  (pooled; seeds paired: no)
+   training_window_last3            -0.380 [-0.990, +0.220]  2020-2024, the close (books' average input); + = last 3 seasons better  (seeds paired: no)
+   training_window_rand5            -0.070 [-0.310, +0.180]  2020-2024, the close (books' average input); + = the smaller draw better  (seeds paired: no)
+   walk_forward_calibration         +0.100 [-0.030, +0.230]  2022-2026, the close (books' average input); + = walk-forward better  (holdout seasons; seeds paired: unknown)
+   pooled over 3: fixed -0.086 [-0.311, +0.139]; tau 0.000; random effects -0.086 [-0.311, +0.139]
+
+== feature (6 readings)
+   lower_level_share_C1             +0.060 [-0.100, +0.230]  2020-2024, the close (books' average input); + = with the share better  (seeds paired: no)
+   two_share_inputs_R_S2            +0.027 [-0.128, +0.182]  2020-2024, the close (books' average input); + = with the shares better  (seeds paired: unknown)
+   ios_points_short_removal         -0.030 [-0.110, +0.060]  2020-2024, Pinnacle's opening line; + = without it better  (seeds paired: yes)
+   long_memory_profile_removal      -0.180 [-0.560, +0.190]  2020-2024, Pinnacle's opening line; + = without it better  (seeds paired: yes)
+   stage2_outside_choosing_seasons  -0.260 [-0.590, +0.060]  2020-2024, the close (books' average input); + = the adjustment helps  (seeds paired: yes)
+   feature_screen_28                -0.028  2022-2024, the close (books' average input); + = the addition better  (seeds paired: unknown)
+   pooled: none
+
+== tuning (3 readings)
+   per_surface_vs_pooled            +0.055 [-0.054, +0.163]  2020-2024, Pinnacle's opening line; + = per surface better  (seeds paired: yes)
+   speed_memory_28_vs_14            +0.130 [+0.050, +0.210]  2024-2026, the close (books' average input); + = 28 days better  (holdout seasons; seeds paired: unknown)
+   offset_elo_close                 -0.050 [-0.240, +0.140]  2022-2026, the close (books' average input); + = offset Elo better  (holdout seasons; seeds paired: unknown)
+   pooled: none
+
+== holdback (1 readings)
+   holdback_2026_10_10              +0.018 [-0.125, +0.161]  2020-2024, the close (Pinnacle-first input); + = the template better  (seeds paired: yes)
+   pooled: none
+

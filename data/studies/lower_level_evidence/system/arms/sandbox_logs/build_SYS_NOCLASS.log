@@ -1,0 +1,33 @@
+--> stage1_baselines: src/eda/predictability_diagnostic/stage1_baselines.py
+[level_layer_ios] --> lle_ios_part: match_timing/rebuild.py --part ios
+[level_layer_ios]     exit 0 in 1587.2 s
+[level_layer_ios] --> lle_ios_merge: match_timing/rebuild.py --part merge
+    exit 0 in 1594.2 s
+--> stage3_ratings: src/eda/predictability_diagnostic/stage3_ratings.py
+[level_layer_ios]     exit 0 in 21.2 s
+    exit 0 in 370.1 s
+--> stage4_features: src/eda/predictability_diagnostic/stage4_features.py
+    exit 0 in 874.0 s
+--> ufc_stageB_adjperf: src/eda/ufc_ideas/stageB_adjperf.py
+    exit 0 in 1835.2 s
+--> ufc_stageB_ios: src/eda/ufc_ideas/stageB_ios.py
+    exit 0 in 993.3 s
+--> ios_constants_check: src/eda/ios_constants/registry.py --check
+    exit 0 in 2.3 s
+--> ufc_stageB_split: src/eda/ufc_ideas/stageB_split.py
+    exit 0 in 168.0 s
+--> ufc_stageB_rundown: src/eda/ufc_ideas/stageB_rundown.py
+    exit 0 in 487.8 s
+--> ufc_stageD_profile: src/eda/ufc_ideas/stageD_profile.py
+    exit 0 in 263.7 s
+--> ufc_stageD_rundown: src/eda/ufc_ideas/stageD_rundown.py
+    exit 0 in 63.0 s
+--> thinking_frame: src/eda/tabpfn_thinking/build_frame.py
+    exit 0 in 4.2 s
+--> leakproof_frame: src/eda/tabpfn_leakproof/build_frame.py
+    exit 0 in 2.8 s
+--> elo_pieces: src/eda/surface_elo_pieces/pieces.py
+    exit 0 in 786.1 s
+--> elo_frames: src/eda/surface_elo_pieces/build_frames.py
+    exit 0 in 22.2 s
+exit 0

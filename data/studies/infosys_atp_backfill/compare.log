@@ -1,0 +1,111 @@
+  population                                                                     comparison  matches  estimate        lo       hi
+both_2022_24                           the backfill: augmented against current, both stages    15207  0.016466 -0.126967 0.159899
+both_2022_24   for scale: the adjustment on the current history against the calibrated base    15207 -0.193703 -0.482511 0.095105
+both_2022_24 for scale: the adjustment on the augmented history against the calibrated base    15207 -0.177237 -0.481730 0.127257
+ men_2022_24                           the backfill: augmented against current, both stages     7947  0.031509 -0.176390 0.239407
+ men_2022_24   for scale: the adjustment on the current history against the calibrated base     7947 -0.370660 -0.890845 0.149524
+ men_2022_24 for scale: the adjustment on the augmented history against the calibrated base     7947 -0.339152 -0.891285 0.212982
+    men_2020                           the backfill: augmented against current, both stages     1259 -0.001188 -0.371329 0.368953
+    men_2020   for scale: the adjustment on the current history against the calibrated base     1259 -0.026544 -0.497058 0.443970
+    men_2020 for scale: the adjustment on the augmented history against the calibrated base     1259 -0.027732 -0.508569 0.453105
+current {2020: (0.8832, 0.9672, 0.0213, 0.1961, 0.1434), 2021: (0.9006, 0.9572, 0.0187, 0.1052, 0.1077), 2022: (0.8841, 0.9728, 0.0061, 0.0186, 0.0717), 2023: (0.8956, 0.9418, 0.0696, 0.1124, 0.0392), 2024: (0.8945, 0.9322, 0.0276, 0.0367, 0.0286), 2025: (0.9074, 0.9302, 0.0241, 0.0293, 0.0232)}
+augmented {2020: (0.8832, 0.9672, 0.0225, 0.2059, 0.1427), 2021: (0.9006, 0.9572, 0.0198, 0.1113, 0.1074), 2022: (0.8839, 0.9728, 0.0134, 0.0371, 0.0665), 2023: (0.8953, 0.9418, 0.0726, 0.1153, 0.0383), 2024: (0.8943, 0.9322, 0.0303, 0.0401, 0.0283), 2025: (0.9073, 0.9302, 0.0261, 0.0316, 0.023)}
+  seasons   history  matches  estimate        lo       hi  p_two_sided  nonzero_share
+     2019   current     2586  0.195276 -0.220068 0.610620     0.322976       0.967131
+     2019 augmented     2586  0.204934 -0.208699 0.618567     0.298815       0.967131
+     2020   current     1259 -0.013288 -0.462471 0.435895     0.944647       0.962669
+     2020 augmented     1259 -0.013288 -0.462471 0.435895     0.944647       0.962669
+     2021   current     2466 -0.047932 -0.218013 0.122149     0.547709       0.972019
+     2021 augmented     2466 -0.006714 -0.178364 0.164936     0.932943       0.972019
+     2022   current     2601  0.152840  0.032774 0.272906     0.017220       0.996540
+     2022 augmented     2601  0.154433  0.036701 0.272165     0.014782       0.996540
+     2023   current     2672 -0.050877 -0.139951 0.038198     0.234741       1.000000
+     2023 augmented     2672 -0.050877 -0.139951 0.038198     0.234741       1.000000
+     2024   current     2674  0.016019 -0.059393 0.091431     0.649247       0.998878
+     2024 augmented     2674  0.016019 -0.059393 0.091431     0.649247       0.998878
+2019-2024   current    14258  0.029772 -0.020257 0.079802     0.239037       0.985061
+2019-2024 augmented    14258  0.032138 -0.016786 0.081062     0.194222       0.985061
+2019-2023   current    11584  0.036639 -0.024819 0.098097     0.237214       0.981872
+2019-2023 augmented    11584  0.040055 -0.018642 0.098753     0.176933       0.981872
+{
+ "current": {
+  "seasons": [
+   "2019",
+   "2020",
+   "2021",
+   "2022",
+   "2023",
+   "2024"
+  ],
+  "fixed_effect_mean": 0.01532150112726426,
+  "fixed_effect_se": 0.02222964358677394,
+  "Q": 10.634729547215226,
+  "df": 5,
+  "p_heterogeneity": 0.05912297613912732,
+  "I2": 0.5298422984993273,
+  "tau_between_seasons": 0.0632073202791414,
+  "random_effects_mean": 0.023645651465180422,
+  "random_effects_se": 0.038733287993058405,
+  "prediction_interval_next_season": [
+   -0.16691463215104557,
+   0.2142059350814064
+  ],
+  "share_of_new_seasons_below_0": 0.3813218319383767,
+  "next_season": {
+   "season": 2025,
+   "b_shrunk": 0.024091592812971168,
+   "k_mean_pq_z2": 0.21225104564317246,
+   "k_from_seasons": [
+    2022,
+    2024
+   ],
+   "expected_gain_mll_at_mean_effect": 0.059315461730444975,
+   "gain_mll_if_effect_at_prediction_bounds": [
+    -0.9151080248551515,
+    1.0337389483160413
+   ],
+   "probability_the_season_loses": 0.4378283680900278,
+   "note": "men; mLL per match, positive = the adjustment helps; normal approximation"
+  }
+ },
+ "augmented": {
+  "seasons": [
+   "2019",
+   "2020",
+   "2021",
+   "2022",
+   "2023",
+   "2024"
+  ],
+  "fixed_effect_mean": 0.0200858402773477,
+  "fixed_effect_se": 0.022171440133432363,
+  "Q": 10.515387522210935,
+  "df": 5,
+  "p_heterogeneity": 0.06188159183230286,
+  "I2": 0.5245063494389682,
+  "tau_between_seasons": 0.06231818951445999,
+  "random_effects_mean": 0.03097557847425893,
+  "random_effects_se": 0.03836055523950826,
+  "prediction_interval_next_season": [
+   -0.15713567554174293,
+   0.2190868324902608
+  ],
+  "share_of_new_seasons_below_0": 0.3448375389248442,
+  "next_season": {
+   "season": 2025,
+   "b_shrunk": 0.02608515063041985,
+   "k_mean_pq_z2": 0.21213145362457841,
+   "k_from_seasons": [
+    2022,
+    2024
+   ],
+   "expected_gain_mll_at_mean_effect": 0.09923193084126078,
+   "gain_mll_if_effect_at_prediction_bounds": [
+    -0.9416781043281433,
+    1.1401419660106649
+   ],
+   "probability_the_season_loses": 0.4032055874288092,
+   "note": "men; mLL per match, positive = the adjustment helps; normal approximation"
+  }
+ }
+}

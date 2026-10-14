@@ -1,0 +1,1174 @@
+{
+ "generated_at": "2026-10-10T06:20:09+00:00",
+ "sources": {
+  "stage4": {
+   "path": "data\\studies\\predictability_diagnostic\\stage4_features.parquet",
+   "sha256": "166582ec138fdfe801605a1c9e40f175626193dc0b0f59277d8b55ff9b2df917",
+   "bytes": 197896098,
+   "mtime": "2026-10-10T03:06:12.380938292+00:00"
+  },
+  "stage0_matches": {
+   "path": "data\\studies\\predictability_diagnostic\\stage0_matches.parquet",
+   "sha256": "ec151867eee0b3e7291ff558cb6ff4b26c080ffe7fe475ba00fa18687ec1d568",
+   "bytes": 26468529,
+   "mtime": "2026-10-10T01:52:16.766242743+00:00"
+  },
+  "stageD": {
+   "path": "data\\studies\\ufc_ideas\\stageD_features.parquet",
+   "sha256": "0edffad7ed969e1f788890d2e97586a33ce14e086ba0cb7c239f4104853288be",
+   "bytes": 43791070,
+   "mtime": "2026-10-10T05:48:55.281601667+00:00"
+  },
+  "stageD_profile": {
+   "path": "data\\studies\\ufc_ideas\\stageD_profile_features.parquet",
+   "sha256": "c4a4d1342d60702e47a1985238dfdd8e02735ace67332446fd6093e963da7376",
+   "bytes": 111079806,
+   "mtime": "2026-10-10T05:37:54.324824810+00:00"
+  }
+ },
+ "design": {
+  "population": "main tour (GS, FIN, T1000, T500, T250), completed or retired, supported pre-match format",
+  "train_years": [
+   2013,
+   2021
+  ],
+  "test_years": [
+   2022,
+   2026
+  ],
+  "pooled_tours": true,
+  "market_is_input": true,
+  "paid_fit_rows": "training and test matches with closing odds (the men's 2018 season has none)",
+  "query": "test rows as stored, then the same rows with A and B swapped"
+ },
+ "features": [
+  {
+   "name": "odds_logit",
+   "src": "pool",
+   "col": "p_mkt",
+   "group": "odds",
+   "kind": "diff",
+   "desc": "the closing odds' log-odds that A wins (the average of the books in tennis-data.co.uk, de-vigged; Stage 1's market probability)"
+  },
+  {
+   "name": "elo_logit",
+   "src": "pool",
+   "col": "p_elo",
+   "group": "elo",
+   "kind": "diff",
+   "desc": "surface Elo's log-odds that A wins (Stage 1)"
+  },
+  {
+   "name": "ratings_iid",
+   "src": "stageD",
+   "col": "rating_matchup|single",
+   "group": "ratings",
+   "kind": "diff",
+   "desc": "serve and return strength ratings through the iid point model, log-odds (Stage 3)"
+  },
+  {
+   "name": "elo_games",
+   "src": "stageD",
+   "col": "elo_games|single",
+   "group": "ratings",
+   "kind": "diff",
+   "desc": "games-weighted Elo difference (Stage 4)"
+  },
+  {
+   "name": "adjperf_tpw_2w",
+   "src": "stageD",
+   "col": "adjperf_tpw|decayed",
+   "group": "points",
+   "kind": "diff",
+   "desc": "opponent-adjusted total points won, 2-week half-life (Stage B)"
+  },
+  {
+   "name": "ios_points_short",
+   "src": "stageD",
+   "col": {
+    "atp": "ios_matchup_points|diagnostic: h 4 weeks",
+    "wta": "ios_matchup_points|diagnostic: h 13 weeks"
+   },
+   "group": "points",
+   "kind": "diff",
+   "desc": "IOS points matchup with a short memory (4 weeks men, 13 women), log-odds (Stage B)"
+  },
+  {
+   "name": "points_52w",
+   "src": "stageD",
+   "col": "mu_points|52 weeks",
+   "group": "points",
+   "kind": "diff",
+   "desc": "points-won matchup over the last 52 weeks (Stage 4)"
+  },
+  {
+   "name": "sets_14d",
+   "src": "stageD",
+   "col": "sets_14d|single",
+   "group": "player",
+   "kind": "diff",
+   "desc": "sets played in the last 14 days (Stage 4)"
+  },
+  {
+   "name": "surface_first",
+   "src": "stageD",
+   "col": "surface_first|single",
+   "group": "player",
+   "kind": "diff",
+   "desc": "first matches on this surface this season (Stage 4)"
+  },
+  {
+   "name": "age",
+   "src": "stageD",
+   "col": "age|single",
+   "group": "player",
+   "kind": "diff",
+   "desc": "age difference (Stage 4)"
+  },
+  {
+   "name": "age_sq",
+   "src": "stageD",
+   "col": "age|single|2",
+   "group": "player",
+   "kind": "diff",
+   "desc": "difference of squared ages around 25 (Stage 4)"
+  },
+  {
+   "name": "form_ace",
+   "src": "stageD_profile",
+   "col": "adjperf_ace|decayed",
+   "group": "profile_form",
+   "kind": "diff",
+   "desc": "adjperf of ace, 2-week half-life (Stage B; the Stage D profile)"
+  },
+  {
+   "name": "form_df",
+   "src": "stageD_profile",
+   "col": "adjperf_df|decayed",
+   "group": "profile_form",
+   "kind": "diff",
+   "desc": "adjperf of df, 2-week half-life (Stage B; the Stage D profile)"
+  },
+  {
+   "name": "form_first_in",
+   "src": "stageD_profile",
+   "col": "adjperf_first_in|decayed",
+   "group": "profile_form",
+   "kind": "diff",
+   "desc": "adjperf of first_in, 2-week half-life (Stage B; the Stage D profile)"
+  },
+  {
+   "name": "form_first_won",
+   "src": "stageD_profile",
+   "col": "adjperf_first_won|decayed",
+   "group": "profile_form",
+   "kind": "diff",
+   "desc": "adjperf of first_won, 2-week half-life (Stage B; the Stage D profile)"
+  },
+  {
+   "name": "form_second_won",
+   "src": "stageD_profile",
+   "col": "adjperf_second_won|decayed",
+   "group": "profile_form",
+   "kind": "diff",
+   "desc": "adjperf of second_won, 2-week half-life (Stage B; the Stage D profile)"
+  },
+  {
+   "name": "form_hold",
+   "src": "stageD_profile",
+   "col": "adjperf_hold|decayed",
+   "group": "profile_form",
+   "kind": "diff",
+   "desc": "adjperf of hold, 2-week half-life (Stage B; the Stage D profile)"
+  },
+  {
+   "name": "form_bp_saved",
+   "src": "stageD_profile",
+   "col": "adjperf_bp_saved|decayed",
+   "group": "profile_form",
+   "kind": "diff",
+   "desc": "adjperf of bp_saved, 2-week half-life (Stage B; the Stage D profile)"
+  },
+  {
+   "name": "form_bp_faced_pg",
+   "src": "stageD_profile",
+   "col": "adjperf_bp_faced_pg|decayed",
+   "group": "profile_form",
+   "kind": "diff",
+   "desc": "adjperf of bp_faced_pg, 2-week half-life (Stage B; the Stage D profile)"
+  },
+  {
+   "name": "form_brk",
+   "src": "stageD_profile",
+   "col": "adjperf_brk|decayed",
+   "group": "profile_form",
+   "kind": "diff",
+   "desc": "adjperf of brk, 2-week half-life (Stage B; the Stage D profile)"
+  },
+  {
+   "name": "form_bp_conv",
+   "src": "stageD_profile",
+   "col": "adjperf_bp_conv|decayed",
+   "group": "profile_form",
+   "kind": "diff",
+   "desc": "adjperf of bp_conv, 2-week half-life (Stage B; the Stage D profile)"
+  },
+  {
+   "name": "form_rpw_first",
+   "src": "stageD_profile",
+   "col": "adjperf_rpw_first|decayed",
+   "group": "profile_form",
+   "kind": "diff",
+   "desc": "adjperf of rpw_first, 2-week half-life (Stage B; the Stage D profile)"
+  },
+  {
+   "name": "form_rpw_second",
+   "src": "stageD_profile",
+   "col": "adjperf_rpw_second|decayed",
+   "group": "profile_form",
+   "kind": "diff",
+   "desc": "adjperf of rpw_second, 2-week half-life (Stage B; the Stage D profile)"
+  },
+  {
+   "name": "formdef_ace",
+   "src": "stageD_profile",
+   "col": "adjdef_ace|decayed",
+   "group": "profile_form",
+   "kind": "diff",
+   "desc": "adjdef of ace, 2-week half-life (Stage B; the Stage D profile)"
+  },
+  {
+   "name": "formdef_df",
+   "src": "stageD_profile",
+   "col": "adjdef_df|decayed",
+   "group": "profile_form",
+   "kind": "diff",
+   "desc": "adjdef of df, 2-week half-life (Stage B; the Stage D profile)"
+  },
+  {
+   "name": "formdef_first_in",
+   "src": "stageD_profile",
+   "col": "adjdef_first_in|decayed",
+   "group": "profile_form",
+   "kind": "diff",
+   "desc": "adjdef of first_in, 2-week half-life (Stage B; the Stage D profile)"
+  },
+  {
+   "name": "formdef_bp_faced_pg",
+   "src": "stageD_profile",
+   "col": "adjdef_bp_faced_pg|decayed",
+   "group": "profile_form",
+   "kind": "diff",
+   "desc": "adjdef of bp_faced_pg, 2-week half-life (Stage B; the Stage D profile)"
+  },
+  {
+   "name": "iosO_ace",
+   "src": "stageD_profile",
+   "col": "ios_O_ace|single",
+   "group": "profile_traits",
+   "kind": "diff",
+   "desc": "IOS offence rating of ace, long memory (Stage B)"
+  },
+  {
+   "name": "iosD_ace",
+   "src": "stageD_profile",
+   "col": "ios_D_ace|single",
+   "group": "profile_traits",
+   "kind": "diff",
+   "desc": "IOS defence rating of ace, long memory (Stage B)"
+  },
+  {
+   "name": "iosO_df",
+   "src": "stageD_profile",
+   "col": "ios_O_df|single",
+   "group": "profile_traits",
+   "kind": "diff",
+   "desc": "IOS offence rating of df, long memory (Stage B)"
+  },
+  {
+   "name": "iosD_df",
+   "src": "stageD_profile",
+   "col": "ios_D_df|single",
+   "group": "profile_traits",
+   "kind": "diff",
+   "desc": "IOS defence rating of df, long memory (Stage B)"
+  },
+  {
+   "name": "iosO_first_in",
+   "src": "stageD_profile",
+   "col": "ios_O_first_in|single",
+   "group": "profile_traits",
+   "kind": "diff",
+   "desc": "IOS offence rating of first_in, long memory (Stage B)"
+  },
+  {
+   "name": "iosD_first_in",
+   "src": "stageD_profile",
+   "col": "ios_D_first_in|single",
+   "group": "profile_traits",
+   "kind": "diff",
+   "desc": "IOS defence rating of first_in, long memory (Stage B)"
+  },
+  {
+   "name": "iosO_first_won",
+   "src": "stageD_profile",
+   "col": "ios_O_first_won|single",
+   "group": "profile_traits",
+   "kind": "diff",
+   "desc": "IOS offence rating of first_won, long memory (Stage B)"
+  },
+  {
+   "name": "iosD_first_won",
+   "src": "stageD_profile",
+   "col": "ios_D_first_won|single",
+   "group": "profile_traits",
+   "kind": "diff",
+   "desc": "IOS defence rating of first_won, long memory (Stage B)"
+  },
+  {
+   "name": "iosO_second_won",
+   "src": "stageD_profile",
+   "col": "ios_O_second_won|single",
+   "group": "profile_traits",
+   "kind": "diff",
+   "desc": "IOS offence rating of second_won, long memory (Stage B)"
+  },
+  {
+   "name": "iosD_second_won",
+   "src": "stageD_profile",
+   "col": "ios_D_second_won|single",
+   "group": "profile_traits",
+   "kind": "diff",
+   "desc": "IOS defence rating of second_won, long memory (Stage B)"
+  },
+  {
+   "name": "iosO_hold",
+   "src": "stageD_profile",
+   "col": "ios_O_hold|single",
+   "group": "profile_traits",
+   "kind": "diff",
+   "desc": "IOS offence rating of hold, long memory (Stage B)"
+  },
+  {
+   "name": "iosD_hold",
+   "src": "stageD_profile",
+   "col": "ios_D_hold|single",
+   "group": "profile_traits",
+   "kind": "diff",
+   "desc": "IOS defence rating of hold, long memory (Stage B)"
+  },
+  {
+   "name": "iosO_bp_saved",
+   "src": "stageD_profile",
+   "col": "ios_O_bp_saved|single",
+   "group": "profile_traits",
+   "kind": "diff",
+   "desc": "IOS offence rating of bp_saved, long memory (Stage B)"
+  },
+  {
+   "name": "iosD_bp_saved",
+   "src": "stageD_profile",
+   "col": "ios_D_bp_saved|single",
+   "group": "profile_traits",
+   "kind": "diff",
+   "desc": "IOS defence rating of bp_saved, long memory (Stage B)"
+  },
+  {
+   "name": "prod_ace",
+   "src": "stageD_profile",
+   "col": "prod_ace|single",
+   "group": "profile_traits",
+   "kind": "diff",
+   "desc": "IOS matchup product of ace: A's offence x B's lack of defence minus the reverse (Stage D)"
+  },
+  {
+   "name": "prod_df",
+   "src": "stageD_profile",
+   "col": "prod_df|single",
+   "group": "profile_traits",
+   "kind": "diff",
+   "desc": "IOS matchup product of df: A's offence x B's lack of defence minus the reverse (Stage D)"
+  },
+  {
+   "name": "prod_first_in",
+   "src": "stageD_profile",
+   "col": "prod_first_in|single",
+   "group": "profile_traits",
+   "kind": "diff",
+   "desc": "IOS matchup product of first_in: A's offence x B's lack of defence minus the reverse (Stage D)"
+  },
+  {
+   "name": "prod_first_won",
+   "src": "stageD_profile",
+   "col": "prod_first_won|single",
+   "group": "profile_traits",
+   "kind": "diff",
+   "desc": "IOS matchup product of first_won: A's offence x B's lack of defence minus the reverse (Stage D)"
+  },
+  {
+   "name": "prod_second_won",
+   "src": "stageD_profile",
+   "col": "prod_second_won|single",
+   "group": "profile_traits",
+   "kind": "diff",
+   "desc": "IOS matchup product of second_won: A's offence x B's lack of defence minus the reverse (Stage D)"
+  },
+  {
+   "name": "prod_hold",
+   "src": "stageD_profile",
+   "col": "prod_hold|single",
+   "group": "profile_traits",
+   "kind": "diff",
+   "desc": "IOS matchup product of hold: A's offence x B's lack of defence minus the reverse (Stage D)"
+  },
+  {
+   "name": "prod_bp_saved",
+   "src": "stageD_profile",
+   "col": "prod_bp_saved|single",
+   "group": "profile_traits",
+   "kind": "diff",
+   "desc": "IOS matchup product of bp_saved: A's offence x B's lack of defence minus the reverse (Stage D)"
+  },
+  {
+   "name": "tour",
+   "src": "match",
+   "col": "tour",
+   "group": "context",
+   "kind": "context",
+   "desc": "0 men (ATP), 1 women (WTA); categorical"
+  },
+  {
+   "name": "surface",
+   "src": "match",
+   "col": "surface",
+   "group": "context",
+   "kind": "context",
+   "desc": "0 hard, 1 clay, 2 grass, 3 carpet; categorical"
+  },
+  {
+   "name": "level",
+   "src": "match",
+   "col": "group",
+   "group": "context",
+   "kind": "context",
+   "desc": "0 Grand Slam, 1 Tour Finals, 2 1000, 3 500, 4 250; categorical"
+  },
+  {
+   "name": "indoor",
+   "src": "match",
+   "col": "indoor",
+   "group": "context",
+   "kind": "context",
+   "desc": "1 indoor, 0 outdoor (since 9 Oct 2026, src/eda/indoor_fill/status.py: Stage 0's event metadata for the men, the WTA's calendar for the women, tennis-data.co.uk's Court where those lack it; before, the men only)"
+  },
+  {
+   "name": "best_of",
+   "src": "match",
+   "col": "best_of",
+   "group": "context",
+   "kind": "context",
+   "desc": "scheduled best of 3 or 5 (the audit's pre-match rule, not the score)"
+  },
+  {
+   "name": "round",
+   "src": "match",
+   "col": "round_order",
+   "group": "context",
+   "kind": "context",
+   "desc": "round order within the event (Stage 0's round_order)"
+  }
+ ],
+ "names": [
+  "odds_logit",
+  "elo_logit",
+  "ratings_iid",
+  "elo_games",
+  "adjperf_tpw_2w",
+  "ios_points_short",
+  "points_52w",
+  "sets_14d",
+  "surface_first",
+  "age",
+  "age_sq",
+  "form_ace",
+  "form_df",
+  "form_first_in",
+  "form_first_won",
+  "form_second_won",
+  "form_hold",
+  "form_bp_saved",
+  "form_bp_faced_pg",
+  "form_brk",
+  "form_bp_conv",
+  "form_rpw_first",
+  "form_rpw_second",
+  "formdef_ace",
+  "formdef_df",
+  "formdef_first_in",
+  "formdef_bp_faced_pg",
+  "iosO_ace",
+  "iosD_ace",
+  "iosO_df",
+  "iosD_df",
+  "iosO_first_in",
+  "iosD_first_in",
+  "iosO_first_won",
+  "iosD_first_won",
+  "iosO_second_won",
+  "iosD_second_won",
+  "iosO_hold",
+  "iosD_hold",
+  "iosO_bp_saved",
+  "iosD_bp_saved",
+  "prod_ace",
+  "prod_df",
+  "prod_first_in",
+  "prod_first_won",
+  "prod_second_won",
+  "prod_hold",
+  "prod_bp_saved",
+  "tour",
+  "surface",
+  "level",
+  "indoor",
+  "best_of",
+  "round"
+ ],
+ "categorical": [
+  "tour",
+  "surface",
+  "level"
+ ],
+ "categorical_indices": [
+  48,
+  49,
+  50
+ ],
+ "groups": {
+  "odds": [
+   "odds_logit"
+  ],
+  "elo": [
+   "elo_logit"
+  ],
+  "ratings": [
+   "ratings_iid",
+   "elo_games"
+  ],
+  "points": [
+   "adjperf_tpw_2w",
+   "ios_points_short",
+   "points_52w"
+  ],
+  "player": [
+   "sets_14d",
+   "surface_first",
+   "age",
+   "age_sq"
+  ],
+  "profile_form": [
+   "form_ace",
+   "form_df",
+   "form_first_in",
+   "form_first_won",
+   "form_second_won",
+   "form_hold",
+   "form_bp_saved",
+   "form_bp_faced_pg",
+   "form_brk",
+   "form_bp_conv",
+   "form_rpw_first",
+   "form_rpw_second",
+   "formdef_ace",
+   "formdef_df",
+   "formdef_first_in",
+   "formdef_bp_faced_pg"
+  ],
+  "profile_traits": [
+   "iosO_ace",
+   "iosD_ace",
+   "iosO_df",
+   "iosD_df",
+   "iosO_first_in",
+   "iosD_first_in",
+   "iosO_first_won",
+   "iosD_first_won",
+   "iosO_second_won",
+   "iosD_second_won",
+   "iosO_hold",
+   "iosD_hold",
+   "iosO_bp_saved",
+   "iosD_bp_saved",
+   "prod_ace",
+   "prod_df",
+   "prod_first_in",
+   "prod_first_won",
+   "prod_second_won",
+   "prod_hold",
+   "prod_bp_saved"
+  ],
+  "context": [
+   "tour",
+   "surface",
+   "level",
+   "indoor",
+   "best_of",
+   "round"
+  ]
+ },
+ "shapes": {
+  "X_train": [
+   42538,
+   54
+  ],
+  "X_query": [
+   49376,
+   54
+  ]
+ },
+ "label_mean_train": 0.49830739574027927,
+ "counts": {
+  "split": [
+   {
+    "split": "test",
+    "tour": "atp",
+    "year": 2022,
+    "matches": 2614
+   },
+   {
+    "split": "test",
+    "tour": "atp",
+    "year": 2023,
+    "matches": 2683
+   },
+   {
+    "split": "test",
+    "tour": "atp",
+    "year": 2024,
+    "matches": 2682
+   },
+   {
+    "split": "test",
+    "tour": "atp",
+    "year": 2025,
+    "matches": 2622
+   },
+   {
+    "split": "test",
+    "tour": "atp",
+    "year": 2026,
+    "matches": 2282
+   },
+   {
+    "split": "test",
+    "tour": "wta",
+    "year": 2022,
+    "matches": 2342
+   },
+   {
+    "split": "test",
+    "tour": "wta",
+    "year": 2023,
+    "matches": 2468
+   },
+   {
+    "split": "test",
+    "tour": "wta",
+    "year": 2024,
+    "matches": 2472
+   },
+   {
+    "split": "test",
+    "tour": "wta",
+    "year": 2025,
+    "matches": 2487
+   },
+   {
+    "split": "test",
+    "tour": "wta",
+    "year": 2026,
+    "matches": 2260
+   },
+   {
+    "split": "train",
+    "tour": "atp",
+    "year": 2013,
+    "matches": 2614
+   },
+   {
+    "split": "train",
+    "tour": "atp",
+    "year": 2014,
+    "matches": 2575
+   },
+   {
+    "split": "train",
+    "tour": "atp",
+    "year": 2015,
+    "matches": 2621
+   },
+   {
+    "split": "train",
+    "tour": "atp",
+    "year": 2016,
+    "matches": 2608
+   },
+   {
+    "split": "train",
+    "tour": "atp",
+    "year": 2017,
+    "matches": 2619
+   },
+   {
+    "split": "train",
+    "tour": "atp",
+    "year": 2018,
+    "matches": 2623
+   },
+   {
+    "split": "train",
+    "tour": "atp",
+    "year": 2019,
+    "matches": 2588
+   },
+   {
+    "split": "train",
+    "tour": "atp",
+    "year": 2020,
+    "matches": 1260
+   },
+   {
+    "split": "train",
+    "tour": "atp",
+    "year": 2021,
+    "matches": 2468
+   },
+   {
+    "split": "train",
+    "tour": "wta",
+    "year": 2013,
+    "matches": 2426
+   },
+   {
+    "split": "train",
+    "tour": "wta",
+    "year": 2014,
+    "matches": 2455
+   },
+   {
+    "split": "train",
+    "tour": "wta",
+    "year": 2015,
+    "matches": 2501
+   },
+   {
+    "split": "train",
+    "tour": "wta",
+    "year": 2016,
+    "matches": 2534
+   },
+   {
+    "split": "train",
+    "tour": "wta",
+    "year": 2017,
+    "matches": 2549
+   },
+   {
+    "split": "train",
+    "tour": "wta",
+    "year": 2018,
+    "matches": 2455
+   },
+   {
+    "split": "train",
+    "tour": "wta",
+    "year": 2019,
+    "matches": 2492
+   },
+   {
+    "split": "train",
+    "tour": "wta",
+    "year": 2020,
+    "matches": 1078
+   },
+   {
+    "split": "train",
+    "tour": "wta",
+    "year": 2021,
+    "matches": 2321
+   }
+  ],
+  "tabpfn_split": [
+   {
+    "tabpfn_split": "test",
+    "tour": "atp",
+    "year": 2022,
+    "matches": 2606
+   },
+   {
+    "tabpfn_split": "test",
+    "tour": "atp",
+    "year": 2023,
+    "matches": 2676
+   },
+   {
+    "tabpfn_split": "test",
+    "tour": "atp",
+    "year": 2024,
+    "matches": 2676
+   },
+   {
+    "tabpfn_split": "test",
+    "tour": "atp",
+    "year": 2025,
+    "matches": 2620
+   },
+   {
+    "tabpfn_split": "test",
+    "tour": "atp",
+    "year": 2026,
+    "matches": 2190
+   },
+   {
+    "tabpfn_split": "test",
+    "tour": "wta",
+    "year": 2022,
+    "matches": 2339
+   },
+   {
+    "tabpfn_split": "test",
+    "tour": "wta",
+    "year": 2023,
+    "matches": 2464
+   },
+   {
+    "tabpfn_split": "test",
+    "tour": "wta",
+    "year": 2024,
+    "matches": 2465
+   },
+   {
+    "tabpfn_split": "test",
+    "tour": "wta",
+    "year": 2025,
+    "matches": 2485
+   },
+   {
+    "tabpfn_split": "test",
+    "tour": "wta",
+    "year": 2026,
+    "matches": 2167
+   },
+   {
+    "tabpfn_split": "train",
+    "tour": "atp",
+    "year": 2013,
+    "matches": 2611
+   },
+   {
+    "tabpfn_split": "train",
+    "tour": "atp",
+    "year": 2014,
+    "matches": 2574
+   },
+   {
+    "tabpfn_split": "train",
+    "tour": "atp",
+    "year": 2015,
+    "matches": 2619
+   },
+   {
+    "tabpfn_split": "train",
+    "tour": "atp",
+    "year": 2016,
+    "matches": 2603
+   },
+   {
+    "tabpfn_split": "train",
+    "tour": "atp",
+    "year": 2017,
+    "matches": 2612
+   },
+   {
+    "tabpfn_split": "train",
+    "tour": "atp",
+    "year": 2018,
+    "matches": 2620
+   },
+   {
+    "tabpfn_split": "train",
+    "tour": "atp",
+    "year": 2019,
+    "matches": 2587
+   },
+   {
+    "tabpfn_split": "train",
+    "tour": "atp",
+    "year": 2020,
+    "matches": 1259
+   },
+   {
+    "tabpfn_split": "train",
+    "tour": "atp",
+    "year": 2021,
+    "matches": 2466
+   },
+   {
+    "tabpfn_split": "train",
+    "tour": "wta",
+    "year": 2013,
+    "matches": 2417
+   },
+   {
+    "tabpfn_split": "train",
+    "tour": "wta",
+    "year": 2014,
+    "matches": 2449
+   },
+   {
+    "tabpfn_split": "train",
+    "tour": "wta",
+    "year": 2015,
+    "matches": 2495
+   },
+   {
+    "tabpfn_split": "train",
+    "tour": "wta",
+    "year": 2016,
+    "matches": 2498
+   },
+   {
+    "tabpfn_split": "train",
+    "tour": "wta",
+    "year": 2017,
+    "matches": 2485
+   },
+   {
+    "tabpfn_split": "train",
+    "tour": "wta",
+    "year": 2018,
+    "matches": 2450
+   },
+   {
+    "tabpfn_split": "train",
+    "tour": "wta",
+    "year": 2019,
+    "matches": 2458
+   },
+   {
+    "tabpfn_split": "train",
+    "tour": "wta",
+    "year": 2020,
+    "matches": 1046
+   },
+   {
+    "tabpfn_split": "train",
+    "tour": "wta",
+    "year": 2021,
+    "matches": 2289
+   }
+  ]
+ },
+ "test_with_odds": {
+  "atp": 12768,
+  "wta": 11920
+ },
+ "excluded_unsupported_format": [
+  {
+   "tour": "atp",
+   "year": 2017,
+   "tournament_name": "NextGen Finals",
+   "matches": 15
+  },
+  {
+   "tour": "atp",
+   "year": 2018,
+   "tournament_name": "NextGen Finals",
+   "matches": 16
+  },
+  {
+   "tour": "atp",
+   "year": 2019,
+   "tournament_name": "NextGen Finals",
+   "matches": 15
+  },
+  {
+   "tour": "atp",
+   "year": 2021,
+   "tournament_name": "NextGen Finals",
+   "matches": 15
+  },
+  {
+   "tour": "atp",
+   "year": 2022,
+   "tournament_name": "NextGen Finals",
+   "matches": 15
+  },
+  {
+   "tour": "atp",
+   "year": 2023,
+   "tournament_name": "NextGen Finals",
+   "matches": 15
+  },
+  {
+   "tour": "atp",
+   "year": 2024,
+   "tournament_name": "Next Gen Finals",
+   "matches": 15
+  },
+  {
+   "tour": "atp",
+   "year": 2025,
+   "tournament_name": "Next Gen Finals",
+   "matches": 15
+  },
+  {
+   "tour": "wta",
+   "year": 2021,
+   "tournament_name": "Gippsland Trophy",
+   "matches": 49
+  },
+  {
+   "tour": "wta",
+   "year": 2021,
+   "tournament_name": "Grampians Trophy",
+   "matches": 25
+  },
+  {
+   "tour": "wta",
+   "year": 2021,
+   "tournament_name": "Yarra Valley Classic",
+   "matches": 52
+  }
+ ],
+ "indoor_values_in_stage0": {
+  "False": 72510,
+  "True": 13132
+ },
+ "indoor": {
+  "rule": "men only: Stage 0's flag (before 9 Oct 2026)"
+ },
+ "coverage": {
+  "train": {
+   "odds_logit": 1.0,
+   "elo_logit": 1.0,
+   "ratings_iid": 1.0,
+   "elo_games": 1.0,
+   "adjperf_tpw_2w": 0.9943109690159387,
+   "ios_points_short": 1.0,
+   "points_52w": 0.9901970003291175,
+   "sets_14d": 0.9998354412525271,
+   "surface_first": 1.0,
+   "age": 1.0,
+   "age_sq": 1.0,
+   "form_ace": 0.9943109690159387,
+   "form_df": 0.9943109690159387,
+   "form_first_in": 0.9943109690159387,
+   "form_first_won": 0.9943109690159387,
+   "form_second_won": 0.9943109690159387,
+   "form_hold": 0.9437679251492783,
+   "form_bp_saved": 0.9942874606234425,
+   "form_bp_faced_pg": 0.9437679251492783,
+   "form_brk": 0.9437679251492783,
+   "form_bp_conv": 0.9941699186609619,
+   "form_rpw_first": 0.9943109690159387,
+   "form_rpw_second": 0.9943109690159387,
+   "formdef_ace": 0.9943109690159387,
+   "formdef_df": 0.9943109690159387,
+   "formdef_first_in": 0.9943109690159387,
+   "formdef_bp_faced_pg": 0.9437679251492783,
+   "iosO_ace": 1.0,
+   "iosD_ace": 1.0,
+   "iosO_df": 1.0,
+   "iosD_df": 1.0,
+   "iosO_first_in": 1.0,
+   "iosD_first_in": 1.0,
+   "iosO_first_won": 1.0,
+   "iosD_first_won": 1.0,
+   "iosO_second_won": 1.0,
+   "iosD_second_won": 1.0,
+   "iosO_hold": 1.0,
+   "iosD_hold": 1.0,
+   "iosO_bp_saved": 1.0,
+   "iosD_bp_saved": 1.0,
+   "prod_ace": 1.0,
+   "prod_df": 1.0,
+   "prod_first_in": 1.0,
+   "prod_first_won": 1.0,
+   "prod_second_won": 1.0,
+   "prod_hold": 1.0,
+   "prod_bp_saved": 1.0,
+   "tour": 1.0,
+   "surface": 1.0,
+   "level": 1.0,
+   "indoor": 0.5160327236823546,
+   "best_of": 1.0,
+   "round": 1.0
+  },
+  "test": {
+   "odds_logit": 1.0,
+   "elo_logit": 1.0,
+   "ratings_iid": 1.0,
+   "elo_games": 1.0,
+   "adjperf_tpw_2w": 0.9988658457550227,
+   "ios_points_short": 1.0,
+   "points_52w": 0.9969620868438107,
+   "sets_14d": 0.9985823071937784,
+   "surface_first": 1.0,
+   "age": 0.9950583279325989,
+   "age_sq": 0.9950583279325989,
+   "form_ace": 0.9988658457550227,
+   "form_df": 0.9988658457550227,
+   "form_first_in": 0.9988658457550227,
+   "form_first_won": 0.9988658457550227,
+   "form_second_won": 0.9988658457550227,
+   "form_hold": 0.9988253402462735,
+   "form_bp_saved": 0.9988658457550227,
+   "form_bp_faced_pg": 0.9988253402462735,
+   "form_brk": 0.9988253402462735,
+   "form_bp_conv": 0.9987848347375243,
+   "form_rpw_first": 0.9988658457550227,
+   "form_rpw_second": 0.9988658457550227,
+   "formdef_ace": 0.9988658457550227,
+   "formdef_df": 0.9988658457550227,
+   "formdef_first_in": 0.9988658457550227,
+   "formdef_bp_faced_pg": 0.9988253402462735,
+   "iosO_ace": 1.0,
+   "iosD_ace": 1.0,
+   "iosO_df": 1.0,
+   "iosD_df": 1.0,
+   "iosO_first_in": 1.0,
+   "iosD_first_in": 1.0,
+   "iosO_first_won": 1.0,
+   "iosD_first_won": 1.0,
+   "iosO_second_won": 1.0,
+   "iosD_second_won": 1.0,
+   "iosO_hold": 1.0,
+   "iosD_hold": 1.0,
+   "iosO_bp_saved": 1.0,
+   "iosD_bp_saved": 1.0,
+   "prod_ace": 1.0,
+   "prod_df": 1.0,
+   "prod_first_in": 1.0,
+   "prod_first_won": 1.0,
+   "prod_second_won": 1.0,
+   "prod_hold": 1.0,
+   "prod_bp_saved": 1.0,
+   "tour": 1.0,
+   "surface": 1.0,
+   "level": 1.0,
+   "indoor": 0.5120301360985094,
+   "best_of": 1.0,
+   "round": 1.0
+  }
+ },
+ "best_of_raw_vs_scheduled_disagreements": 4,
+ "fit_description": "Professional tennis singles, ATP and WTA main tour (Grand Slams, Tour Finals, 1000, 500, 250 events), seasons 2013-2021; one row per match; player A is assigned at random, so the task is symmetric: swapping A and B negates the odds column and every difference column and flips the label. Target: 1 if player A won. Inputs are pre-match only: odds_logit, the bookmakers' closing log-odds that A wins (de-vigged average of the books), which is by far the strongest input; differences (A minus B) of rating systems (surface Elo log-odds, serve/return strength ratings, games-weighted Elo), opponent-adjusted serve/return statistics over a two-week memory, long-memory offence/defence ratings per statistic, recent load, age and surface familiarity; plus match context (tour, surface, indoor, level, best-of, round). The question is whether these inputs improve on the odds. Predictions will be for the later seasons 2022-2026 and are scored by log loss, so calibration matters.",
+ "upload_sha256": {
+  "query_ids.parquet": "9c35a75a8b55b27550028065dd440f3e6441f69d2453ff74921a832e23c481ed",
+  "X_query.parquet": "6c434e6c2acd29f9ae28f23786eea27172d5f2072cdf86b458255056b24d518e",
+  "X_train.parquet": "34d352d6a5eca70b05e5e969b78b52055f2a7c4d9346e1cdb92bac7466957b78",
+  "y_train.npy": "ba0e0b3a94fdb5b1a4c36cfd4a4a8673f4c97d0d65b6ce0d90a9a810cdd5b32d"
+ },
+ "input_fingerprint": "3818098a352967884b188b423923ebd9ec4356da7e5637aabd58e99d023f40fe"
+}

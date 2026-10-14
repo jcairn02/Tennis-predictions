@@ -591,7 +591,7 @@ fi__B11__x,fi,diff,,B11,f24_onsite,B11's screen column,,diff,,,,,,,1,1.0,1.0,1.0
 fi__B11__bd11_on,fi,diff,,B11,f24_onsite,B11's TabPFN deployment column,,diff,,,,,,,1,1.0,1.0,1.0
 fi__B11__bd11_on_x_nov,fi,diff,,B11,f24_onsite,B11's TabPFN deployment column,,diff,,,,,,,1,1.0,1.0,1.0
 fi__B11__bd11_rhythm_vs_cold,fi,diff,,B11,f24_onsite,B11's TabPFN deployment column,,diff,,,,,,,1,1.0,1.0,1.0
-ds__B11_member_On,ds,diff,,B11,f24_onsite,descriptive: B11 member On,,diff,,,,,fi__B11__bd11_on,0.999843731150685,0,1.0,1.0,1.0
+ds__B11_member_On,ds,diff,,B11,f24_onsite,descriptive: B11 member On,,diff,,,,,fi__B11__bd11_on,0.9998437311505298,0,1.0,1.0,1.0
 ds__B11_member_I_075,ds,diff,,B11,f24_onsite,descriptive: B11 member I-075,,diff,,,,,,,1,1.0,1.0,1.0
 ds__B11_member_I_076,ds,diff,,B11,f24_onsite,descriptive: B11 member I-076,,diff,,,,,,,1,1.0,1.0,1.0
 fp__f25_switch__bdsw_in_a,fp,pair,fp__f25_switch__bdsw_in_b,B-SWITCH,f25_switch.prepare,per-player intermediate of B-SWITCH,,pair,fp__f25_switch__bdsw_in_b,,,,,,1,1.0,1.0,1.0
@@ -775,3 +775,6 @@ ctx__round,ctx,context,,,model frame,match context: round (the model's coding),,
 ctx__draw_size,ctx,context,,,Stage 0,draw size,,context,,,,,,,1,1.0,1.0,1.0
 ctx__week,ctx,context,,,Stage 0,ISO week of the event,,context,,,,,,,1,1.0,1.0,1.0
 ctx__month,ctx,context,,,Stage 0,month of the event,,context,,,,,,,1,1.0,1.0,1.0
+el__low_share_diff,el,diff,,,event_levels/universe_columns,"A's share of the previous 365 days' played matches below the main tour (qualifying, Challenger / WTA 125, ITF) minus B's",,diff,,,,,,,1,0.9987724835913623,0.9987521345067647,0.9944140579541487
+el__low_share_a,el,pair,el__low_share_b,,event_levels/universe_columns,"the player's share of the previous 365 days' played matches below the main tour (qualifying, Challenger / WTA 125, ITF); missing without a match in the window",,pair,el__low_share_b,,,,,,1,0.9993987674733203,0.9990805201628793,0.996392412428721
+el__low_share_b,el,pair,el__low_share_a,,event_levels/universe_columns,"the player's share of the previous 365 days' played matches below the main tour (qualifying, Challenger / WTA 125, ITF); missing without a match in the window",,pair,el__low_share_a,,,,,,1,0.9993737161180419,0.9996716143438854,0.9956941696729896

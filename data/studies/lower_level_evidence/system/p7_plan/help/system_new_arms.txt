@@ -1,0 +1,36 @@
+usage: system_new_arms.py [-h]
+                          (--patch | --check | --lane0-check | --strength)
+                          [--sandbox SANDBOX] [--stage0 STAGE0]
+                          [--from SOURCE] [--name NAME]
+
+The NEW arms of pre-registration addition 1 (role C1), as the lead's addition 3 (section 4) builds them, on role F's
+candidate Stage 0s (system/stage0/C0_now, C0_pre). New code only: the frozen layer (level_layer.py), C2's module and C1's
+SYS-family patches (system_sandbox.py) keep addition 3's hashes.
+
+    NEW_ASIS      the identity config on C0_now, every tuned constant pinned to the reference's: Stage 1's Elo K and
+                  surface weight, the offset Elo's kd (both kinds), Stage 3's constants (level_pins.py), Stage B's
+                  (the layer's pin), IOS_CONSTANTS_VERSION=2026-10-08_reference (the environment)
+    NEW_ASIS_PRE  the same on C0_pre
+    NEW_SYS_BOTH  SYS_BOTH's config on C0_now (B's frozen parameters, ITF box rows excluded, the caps), the constants
+                  pinned likewise, the opponent strength from the unweighted pre-match Elo on C0_now under the reference
+                  K (written by --strength from NEW_ASIS's Stage 1, in strength_elo.parquet's format, hashed)
+
+    --patch --sandbox D --stage0 F   system_sandbox.patch(D, F) (F's tables over D's, C1's and C2's patches), then the
+                  pins: level_pins.py copied in and three anchored edits on top of C1's (PIN_SPECS); LLE_SYSTEM.json
+                  gains "pins"
+    --check --sandbox D              C1's patches with the pins, C2's, the copied modules
+    --lane0-check --sandbox D        after lane 0's stage1_odds, before lane 1 (F's notes): the odds table against the
+                  frozen file, and the 67,226 frame matches unchanged in the candidate's Stage 0
+    --strength --from D --name N     the strength file arms/strength/<N>.parquet (+ .sha256) from D's Stage 1
+Run: ./python.sh src/eda/lower_level_evidence/system_new_arms.py --patch --sandbox C:/Users/zerom/tnr_sysK --stage0 <F>
+
+options:
+  -h, --help         show this help message and exit
+  --patch
+  --check
+  --lane0-check
+  --strength
+  --sandbox SANDBOX
+  --stage0 STAGE0
+  --from SOURCE
+  --name NAME

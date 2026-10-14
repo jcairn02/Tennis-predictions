@@ -1,0 +1,69 @@
+--- c1/src/eda/predictability_diagnostic/stage1_baselines.py
++++ pinned/src/eda/predictability_diagnostic/stage1_baselines.py
+@@ -57,6 +57,7 @@
+ 
+ from src.eda.predictability_diagnostic import common as C  # noqa: E402
+ from src.eda.lower_level_evidence import level_layer as _LLE  # noqa: E402  lower_level_evidence C1 (sandbox only)
++from src.eda.lower_level_evidence import level_pins as _LLEPIN  # noqa: E402  lower_level_evidence C1 pins (sandbox only)
+ 
+ BASELINES = C.OUT / "stage1_baselines.parquet"
+ TUNING = C.OUT / "stage1_elo_tuning.csv"
+@@ -238,12 +239,14 @@
+             g = pd.DataFrame([r for r in rows if r["tour"] == tour and r["rule"] == rule])
+             best = g.loc[g["log_loss_2013_2018"].idxmin()]
+             k = {c: float(best[c]) for c in ("k0", "offset", "shape")}
++            k = _LLEPIN.stage1_k(tour, rule, k)   # lower_level_evidence C1 pins (sandbox only)
+             out_early = run_elo(he, early["status"], rule, k, surface=True)
+             for w in SURFACE_WEIGHTS:
+                 wrows.append({"tour": tour, "rule": rule, "w": w,
+                               "log_loss_2013_2018": log_loss(blend(out_early[tune_rows], w), y), "matches": int(tune_rows.sum())})
+             wg = pd.DataFrame([r for r in wrows if r["tour"] == tour and r["rule"] == rule])
+             w = float(wg.loc[wg["log_loss_2013_2018"].idxmin(), "w"])
++            w = _LLEPIN.stage1_w(tour, rule, w)   # lower_level_evidence C1 pins (sandbox only)
+             chosen[(tour, rule)] = {**k, "w": w}
+             out = run_elo(h, t["status"], rule, k, surface=True)                 # frozen: the whole history
+             assert np.allclose(out[:len(early)], out_early, equal_nan=True)     # the tuning pass is its prefix
+--- c1/src/eda/surface_elo_pieces/pieces.py
++++ pinned/src/eda/surface_elo_pieces/pieces.py
+@@ -49,6 +49,7 @@
+ from src.eda.predictability_diagnostic.stage4_features import prev_visible  # noqa: E402
+ from src.eda.surface_elo_pieces import common as C  # noqa: E402
+ from src.eda.lower_level_evidence import level_layer as _LLE  # noqa: E402  lower_level_evidence C1 (sandbox only)
++from src.eda.lower_level_evidence import level_pins as _LLEPIN  # noqa: E402  lower_level_evidence C1 pins (sandbox only)
+ 
+ START = B.START
+ # A first grid (kd_off 2 and 10, kd_shape 0.4 and 0.6) put the best at its corner for both tours; this one reaches
+@@ -324,6 +325,7 @@
+         oa = run(h, upd, k, "anchored")
+         assert np.allclose(oa[:, :8], o1[:, :8], equal_nan=True)
+         kd, grid = tune_offset(t, h, upd0, k)   # lower_level_evidence C1 (sandbox only)
++        kd = _LLEPIN.offset_kd("offset", tour, kd)   # lower_level_evidence C1 pins (sandbox only)
+         meta["offset_constants"][tour] = kd
+         meta["tuning"] += [{"tour": tour, **g} for g in grid]
+         C.log(f"{tour}: offset constants {kd}")
+@@ -333,6 +335,7 @@
+         # match (a second, general correction of the overall rating); tuned on the same rows and grid
+         h_gen = {**h, "surf": [0 if s >= 0 else -1 for s in h["surf"]]}
+         kd_gen, grid_gen = tune_offset(t, h_gen, upd0, k)   # lower_level_evidence C1 (sandbox only)
++        kd_gen = _LLEPIN.offset_kd("offset_surface_blind", tour, kd_gen)   # lower_level_evidence C1 pins (sandbox only)
+         meta["offset_surface_blind_constants"][tour] = kd_gen
+         meta["tuning_surface_blind"] += [{"tour": tour, **g} for g in grid_gen]
+         og = run(h_gen, upd, k, "offset", kd_gen)
+--- c1/src/eda/predictability_diagnostic/stage3_ratings.py
++++ pinned/src/eda/predictability_diagnostic/stage3_ratings.py
+@@ -54,6 +54,7 @@
+ 
+ from src.eda.predictability_diagnostic import common as C  # noqa: E402
+ from src.eda.lower_level_evidence import level_layer as _LLE  # noqa: E402  lower_level_evidence C1 (sandbox only)
++from src.eda.lower_level_evidence import level_pins as _LLEPIN  # noqa: E402  lower_level_evidence C1 pins (sandbox only)
+ 
+ RATINGS = C.OUT / "stage3_ratings.parquet"
+ TUNING = C.OUT / "stage3_rating_tuning.csv"
+@@ -325,6 +326,7 @@
+     means = surface_means(m)
+     mu = mu_of(m, means)
+     chosen, grid = tune(m, mu)
++    chosen = _LLEPIN.stage3(chosen)   # lower_level_evidence C1 pins (sandbox only)
+     grid.to_csv(TUNING, index=False)
+ 
+     cols = ["serve_a", "serve_b", "return_a", "return_b", "var_serve_a", "var_serve_b", "var_return_a",

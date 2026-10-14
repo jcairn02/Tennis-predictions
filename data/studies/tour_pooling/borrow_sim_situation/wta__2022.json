@@ -1,0 +1,34 @@
+{
+ "tour": "wta",
+ "season": 2022,
+ "train_seasons": [
+  2013,
+  2021
+ ],
+ "n_own": 20587,
+ "n_other": 21951,
+ "auc_out_of_fold": 0.877562335043265,
+ "kappa": 1.0631228943465423,
+ "expected_borrowed": 10975.500000000002,
+ "share_pi_one": 0.21944330554416655,
+ "share_at_floor": 0.0,
+ "effective_n": 13786.107130836099,
+ "features": [
+  "abs_odds_logit",
+  "abs_elo_games",
+  "abs_elo_overall",
+  "abs_ratings_iid",
+  "abs_elo_surf_offset",
+  "abs_age",
+  "abs_sets_14d",
+  "min_surf_season",
+  "max_surf_season",
+  "min_surf_layoff",
+  "max_surf_layoff",
+  "surface",
+  "level",
+  "best_of",
+  "round"
+ ],
+ "classifier": "HistGradientBoostingClassifier(max_iter=200, learning_rate=0.1, max_leaf_nodes=31, l2_regularization=1.0, random_state=0), 5-fold StratifiedKFold(shuffle, random_state=0)"
+}

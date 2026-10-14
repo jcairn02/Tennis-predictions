@@ -1,0 +1,60 @@
+{
+ "what": "how the levels blend (descriptive); seasons 2013-2024, completed and retired matches, the model frame's snapshot (30 Sep 2026 Stage 0)",
+ "sources": {
+  "stage0_matches": {
+   "path": "data\\studies\\data_continuity\\rebuilds\\2026-10-07T0005Z\\replaced\\data\\studies\\predictability_diagnostic\\stage0_matches.parquet",
+   "sha256": "271d2561f31d0c8cc407e5fb9b73d572115173e329e272c337f8daddda4662af"
+  },
+  "stage0_players": {
+   "path": "data\\studies\\data_continuity\\rebuilds\\2026-10-07T0005Z\\replaced\\data\\studies\\predictability_diagnostic\\stage0_match_players.parquet",
+   "sha256": "f84ec8410140740e929fef2b57b44f28f8ddef2b6b6983c43345d213ee9a6e28"
+  },
+  "leakproof": {
+   "path": "data\\studies\\data_continuity\\rebuilds\\2026-10-07T0005Z\\replaced\\data\\studies\\match_timing\\leakproof_features.parquet",
+   "sha256": "229e9cc2a7a2e48c572a96c7c5accd9d599d9adc474d62abdf7af68f9ec1b861"
+  },
+  "stage4": {
+   "path": "data\\studies\\predictability_diagnostic\\stage4_features.parquet",
+   "sha256": "9a95b150a16456523aa38b045f1fc3cdbb8f7787218fb1c6dcd7e5011b0fa30d"
+  },
+  "stageD": {
+   "path": "data\\studies\\ufc_ideas\\stageD_features.parquet",
+   "sha256": "14accd570fce628cdf73e272bc2501ffd59de0355ab7837f80e47050abb250af"
+  },
+  "stageD_profile": {
+   "path": "data\\studies\\ufc_ideas\\stageD_profile_features.parquet",
+   "sha256": "30f672af9bc081247f765c3a3733230fc70e14acfb501abb199e9befc6648a2b"
+  },
+  "pieces": {
+   "path": "data\\studies\\surface_elo_pieces\\pieces.parquet",
+   "sha256": "40661ce97ee43f6fda8ff69f033c4799bb3e4fd4236efe6a44d95f6cd5e985e2"
+  },
+  "surface_features": {
+   "path": "data\\studies\\surface_ios\\surface_features.parquet",
+   "sha256": "ba8514e8e514f95881275f192a340f0a3ee5954d61b24b6976e63e1c10f66365"
+  }
+ },
+ "tables": {
+  "ladder": "data/studies/event_levels/blend/ladder.csv",
+  "band_mix": "data/studies/event_levels/blend/band_mix.csv",
+  "moves": "data/studies/event_levels/blend/moves.csv",
+  "history": "data/studies/event_levels/blend/history.csv",
+  "overlap": "data/studies/event_levels/blend/overlap.csv",
+  "level_shift": "data/studies/event_levels/blend/level_shift.csv",
+  "elo_levels": "data/studies/event_levels/blend/elo_levels.csv",
+  "elo_climbers": "data/studies/event_levels/blend/elo_climbers.csv",
+  "coverage_box": "data/studies/event_levels/blend/coverage_box.csv",
+  "coverage_cells": "data/studies/event_levels/blend/coverage_cells.csv"
+ },
+ "coverage_cells": {
+  "path": "data\\studies\\data_map\\coverage_cells.csv",
+  "sha256": "25bd608b977a63434884754f9a63cb7b2d08fb59f54cde009ebdb41fbe6e24a1"
+ },
+ "history_rows": 361884,
+ "window_days": 365,
+ "history_spot_check": {
+  "rows_checked": 300,
+  "rows_wrong": 0,
+  "passed": true
+ }
+}

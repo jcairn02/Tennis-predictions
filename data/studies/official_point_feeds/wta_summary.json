@@ -1,25 +1,33 @@
 {
  "source": "wta",
  "mode": "bulk",
- "batch": "B8",
- "started_at": "2026-10-03T05:14:37+00:00",
+ "batch": null,
+ "started_at": "2026-10-14T01:09:35+00:00",
  "args": {
-  "batch": "B8",
-  "years": "2022,2023",
+  "batch": null,
+  "player_matches": false,
+  "players": null,
+  "player_year": 2026,
+  "refresh_seeds": false,
+  "refresh_before": null,
+  "refresh_active_since": null,
+  "refresh_rotation": 0,
+  "player_since": "2026-09-07",
+  "years": "2026",
   "after_pid": null,
   "calendar_only": false,
   "sample": false,
   "seed": 20260924,
   "tiers": "1000,500,250,125,finals",
   "draws": null,
-  "endpoints": "point-by-point",
-  "from_date": "2022-03-14",
+  "endpoints": "events,stats,advanced-stats,win-probability-momentum,point-by-point",
+  "from_date": "2026-09-08",
   "limit": null,
-  "max_requests": 20,
+  "max_requests": 2500,
   "min_interval": 2.0,
   "jitter": 1.0,
   "stop_after_failures": 5,
-  "stop_after_absences": 0,
+  "stop_after_absences": 400,
   "pause_after_errors": 600,
   "max_pauses": 12,
   "refresh": false,
@@ -29,134 +37,120 @@
  },
  "decision": "docs/decisions/2026-09-24-official-point-feeds.md",
  "years": [
-  2022,
-  2023
+  2026
  ],
  "receipts_unreadable_lines": 0,
  "calendar": [
   {
-   "year": 2022,
-   "pages": 1,
-   "entries": 79,
-   "errors": []
-  },
-  {
-   "year": 2023,
-   "pages": 1,
-   "entries": 90,
+   "year": 2026,
+   "pages": 2,
+   "entries": 124,
    "errors": []
   }
  ],
  "editions": {
-  "2022|1000": 8,
-  "2022|125": 24,
-  "2022|250": 30,
-  "2022|500": 11,
-  "2022|finals": 1,
-  "2022|slam": 4,
-  "2023|1000": 9,
-  "2023|125": 31,
-  "2023|250": 30,
-  "2023|500": 11,
-  "2023|finals": 2,
-  "2023|slam": 4,
-  "2023|team": 1
+  "2026|1000": 10,
+  "2026|125": 69,
+  "2026|250": 22,
+  "2026|500": 17,
+  "2026|finals": 1,
+  "2026|slam": 4,
+  "2026|team": 1
  },
  "pauses": [],
- "editions_selected": 145,
- "matches_selected": 8951,
+ "editions_selected": 39,
+ "matches_selected": 1078,
  "fetch_outcomes": {
-  "listing:200:cached": 145,
-  "point-by-point:200": 3,
-  "point-by-point:200:cached": 8747,
-  "point-by-point:404:cached": 201
+  "advanced-stats:200:cached": 1078,
+  "events:200:cached": 1078,
+  "listing:200": 24,
+  "listing:200:cached": 15,
+  "point-by-point:200:cached": 763,
+  "point-by-point:404:cached": 315,
+  "stats:200:cached": 1078,
+  "win-probability-momentum:200:cached": 796,
+  "win-probability-momentum:404": 148,
+  "win-probability-momentum:404:cached": 134
  },
  "client": {
   "impersonate": "requests",
-  "requests": 3,
+  "requests": 174,
   "retried": 0,
-  "slept_seconds": 2.9,
+  "slept_seconds": 202.8,
   "min_interval": 2.0,
   "jitter": 1.0,
   "not_found_answers": 0
  },
  "staged": {
   "editions": {
-   "rows": 828,
+   "rows": 1250,
    "dest": "data/dump/points/wta/editions.parquet",
-   "bytes": 35639
+   "bytes": 47123
   },
-  "matches/2022": {
-   "rows": 4749,
-   "dest": "data/dump/points/wta/matches/2022.parquet",
-   "bytes": 1812105
+  "matches/2026": {
+   "rows": 7481,
+   "dest": "data/dump/points/wta/matches/2026.parquet",
+   "bytes": 543879
   },
-  "points/2022": {
-   "rows": 476448,
-   "dest": "data/dump/points/wta/points/2022.parquet",
-   "bytes": 4453466
+  "points/2026": {
+   "rows": 509164,
+   "dest": "data/dump/points/wta/points/2026.parquet",
+   "bytes": 4692101
   },
-  "events/2022": {
-   "rows": 976708,
-   "dest": "data/dump/points/wta/events/2022.parquet",
-   "bytes": 43325986
+  "events/2026": {
+   "rows": 1273535,
+   "dest": "data/dump/points/wta/events/2026.parquet",
+   "bytes": 56485707
   },
-  "stats/2022": {
-   "rows": 15584,
-   "dest": "data/dump/points/wta/stats/2022.parquet",
-   "bytes": 338150
+  "stats/2026": {
+   "rows": 21669,
+   "dest": "data/dump/points/wta/stats/2026.parquet",
+   "bytes": 499683
   },
-  "advanced/2022": {
-   "rows": 1376802,
-   "dest": "data/dump/points/wta/advanced/2022.parquet",
-   "bytes": 4982682
+  "advanced/2026": {
+   "rows": 2119250,
+   "dest": "data/dump/points/wta/advanced/2026.parquet",
+   "bytes": 8473624
   },
-  "momentum/2022": {
-   "rows": 0,
-   "dest": "data/dump/points/wta/momentum/2022.parquet",
-   "bytes": 1316
-  },
-  "matches/2023": {
-   "rows": 5244,
-   "dest": "data/dump/points/wta/matches/2023.parquet",
-   "bytes": 1922164
-  },
-  "points/2023": {
-   "rows": 697806,
-   "dest": "data/dump/points/wta/points/2023.parquet",
-   "bytes": 6542888
-  },
-  "events/2023": {
-   "rows": 1088157,
-   "dest": "data/dump/points/wta/events/2023.parquet",
-   "bytes": 48357068
-  },
-  "stats/2023": {
-   "rows": 17272,
-   "dest": "data/dump/points/wta/stats/2023.parquet",
-   "bytes": 376877
-  },
-  "advanced/2023": {
-   "rows": 1524594,
-   "dest": "data/dump/points/wta/advanced/2023.parquet",
-   "bytes": 5515367
-  },
-  "momentum/2023": {
-   "rows": 0,
-   "dest": "data/dump/points/wta/momentum/2023.parquet",
-   "bytes": 1316
+  "momentum/2026": {
+   "rows": 7899931,
+   "dest": "data/dump/points/wta/momentum/2026.parquet",
+   "bytes": 37860385
   }
  },
  "receipts": {
-  "calendar:200": 12,
-  "matches:200": 140195,
-  "matches:404": 7143,
-  "probe:200": 1,
+  "calendar:200": 19,
+  "matches:200": 141755,
+  "matches:404": 7442,
+  "players:200": 4537,
+  "players:error": 5,
+  "probe:200": 9,
   "tournaments:200": 679,
   "tournaments:404": 15
  },
- "receipts_with_errors": 0,
- "error_examples": [],
- "finished_at": "2026-10-03T05:15:49+00:00",
- "seconds": 73.6
+ "receipts_with_errors": 5,
+ "error_examples": [
+  {
+   "name": "players/2/2026/matches/0",
+   "error": "response is not JSON"
+  },
+  {
+   "name": "players/3/2026/matches/0",
+   "error": "response is not JSON"
+  },
+  {
+   "name": "players/4/2026/matches/0",
+   "error": "response is not JSON"
+  },
+  {
+   "name": "players/5/2026/matches/0",
+   "error": "response is not JSON"
+  },
+  {
+   "name": "players/6/2026/matches/0",
+   "error": "response is not JSON"
+  }
+ ],
+ "finished_at": "2026-10-14T01:20:12+00:00",
+ "seconds": 638.5
 }

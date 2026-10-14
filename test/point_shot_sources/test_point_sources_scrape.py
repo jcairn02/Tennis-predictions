@@ -262,6 +262,38 @@ def test_client_stops_at_once_on_a_rejected_token_and_after_one_challenge_retry(
     assert challenged._session.calls == 2 and challenged.slept == 60
 
 
+def test_a_closed_chrome_window_stops_the_run():
+    import pytest
+    from src.ingest.point_sources import browser as B
+
+    class ClosedPage:
+        url = "https://www.sofascore.com/tennis"
+
+        def evaluate(self, *args):
+            raise RuntimeError("Page.evaluate: Target page, context or browser has been closed")
+
+    class LivePage(ClosedPage):
+        def evaluate(self, js, arg):
+            return {"status": 200, "headers": {}, "body": "{}", "url": arg["url"]}
+
+    class Browser:
+        def __init__(self, pages):
+            self.contexts = [type("Context", (), {"pages": pages})()] if pages else []
+
+    session = B.PageSession.__new__(B.PageSession)
+    session.origin, session.url_map, session.token_key = "https://www.sofascore.com", {}, None
+    session.page, session._browser = ClosedPage(), Browser([LivePage()])   # the tab alone was closed: a new one
+    assert session._evaluate("https://www.sofascore.com/api/v1/x", {}, 5)["status"] == 200
+    session.page, session._browser = ClosedPage(), Browser([])             # the whole window was closed: stop
+    with pytest.raises(P.Blocked, match="window with the debugging port was closed"):
+        session._evaluate("https://www.sofascore.com/api/v1/x", {}, 5)
+    client = _client([])
+    client._session = session                                              # the client lets the stop through
+    with pytest.raises(P.Blocked, match="window with the debugging port was closed"):
+        client.get("https://api.sofascore.com/api/v1/x")
+    assert client.requests == 1 and client.slept == 0
+
+
 def test_browser_transport_pure_parts():
     from src.ingest.point_sources import browser as B
 

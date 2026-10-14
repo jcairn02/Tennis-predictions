@@ -1,0 +1,419 @@
+{
+ "runs": [
+  {
+   "arm": "SYS",
+   "sandbox": "C:\\Users\\zerom\\tnr_sys2",
+   "config": "C:\\Users\\zerom\\Documents\\Tennis-predictions\\data\\studies\\lower_level_evidence\\system\\arms\\SYS\\layer_config.json",
+   "config_sha256": "8bcc8cc9606a65fe18e8ff6ccc5cff0f05e799f7017872d89faaf150df03acf9",
+   "IOS_CONSTANTS_VERSION": "2026-10-08_reference",
+   "lanes": "0123",
+   "plan": {
+    "lane0": [],
+    "lane1a": [
+     "stage1_baselines",
+     "stage3_ratings",
+     "stage4_features",
+     "ufc_stageB_adjperf",
+     "ufc_stageB_ios",
+     "ios_constants_check",
+     "ufc_stageB_split",
+     "ufc_stageB_rundown",
+     "ufc_stageD_profile",
+     "ufc_stageD_rundown",
+     "thinking_frame"
+    ],
+    "ios_part": true,
+    "lane1b": [
+     "leakproof_frame",
+     "elo_pieces",
+     "elo_frames"
+    ],
+    "ios_on": true,
+    "c2_in": true,
+    "candidate": false,
+    "reused": [
+     "ufc_stageA_ratings",
+     "ufc_stageA_features",
+     "ufc_stageC_fatigue",
+     "ufc_stageC_sos",
+     "ufc_stageC_rundown"
+    ]
+   },
+   "started_at": "2026-10-10T02:00:35+00:00",
+   "level_layer_sha256": "26e21291822f42e4c9e7771f518149d1cb85116bdeb5196285fa22eeca37411f",
+   "level_layer_sha256_in_sandbox": "26e21291822f42e4c9e7771f518149d1cb85116bdeb5196285fa22eeca37411f",
+   "level_layer_ios_sha256_in_sandbox": "3fa5f69e592118fc204809ce0ec6afa627e5b979af3e33752e91e89f154c05c3",
+   "cp1_addition": {
+    "path": "C:/Users/zerom/Documents/Tennis-predictions/data/studies/lower_level_evidence/system/preregistration_addition_3.md",
+    "sha256": "f206343347895152cf1ddb70bc0229e6c3d1831d4545bf4ee91d5b52225a27ca",
+    "input_code": {
+     "src/eda/lower_level_evidence/level_layer.py": "26e21291822f42e4c9e7771f518149d1cb85116bdeb5196285fa22eeca37411f",
+     "src/eda/lower_level_evidence/level_layer_ios.py": "3fa5f69e592118fc204809ce0ec6afa627e5b979af3e33752e91e89f154c05c3",
+     "src/eda/lower_level_evidence/system_sandbox.py": "ebf4520a9a4a26309c3da89bd0b3ba5b8a731548b09a2dd46d891584500b264b"
+    },
+    "build_code_and_configs": {
+     "src/eda/lower_level_evidence/system_gates.py": {
+      "sha256": "955ad27ab7c0aa53e38bd574ea37d4735a9679d1f3bcf4f5e9221781845c9d65",
+      "quoted_in_addition": false
+     },
+     "src/eda/lower_level_evidence/system_arms.py": {
+      "sha256": "eeb276aa72e652bc769a5d91a48f70c6f1e63980e281716d2a9bafd77e2d06a8",
+      "quoted_in_addition": false
+     },
+     "configs/MANIFEST.json": {
+      "sha256": "5bb50f1ae34230965fc044c8b123ad8666180f61ee3b5d4779496ce5cd5a70f0",
+      "quoted_in_addition": false
+     }
+    }
+   },
+   "lane2_runs_dir": {
+    "path": "C:\\Users\\zerom\\tnr_sys2\\data\\studies\\surface_ios\\full_runs\\lle_SYS_24795056aa30",
+    "fingerprint": "24795056aa301685ff8d1c5cf76a28c44ea28e4d6b233385143a54ae66cf5c44",
+    "hooked": true,
+    "existed_before_build": false
+   },
+   "sandbox_record": {
+    "sandbox": "C:\\Users\\zerom\\tnr_sys2",
+    "IOS_CONSTANTS_VERSION": "2026-10-08_reference",
+    "ios_version_file_sha256": "c25f9868c4c49c717863d1930ef97cd82e420816a170e6616730b6ca2c6d9efc",
+    "c1": {
+     "copied": {
+      "src/eda/lower_level_evidence/level_layer.py": "26e21291822f42e4c9e7771f518149d1cb85116bdeb5196285fa22eeca37411f",
+      "src/eda/lower_level_evidence/common.py": "0e1ff56cae28cc0ed5d67f8e3b0d2202d815bef4ab112a895648f2de60d06bec"
+     },
+     "patched": {
+      "src/eda/predictability_diagnostic/stage1_baselines.py": {
+       "repository_sha256": "4ce00d8abd372f5ccc9f95e6d8d245c029712c1bfe452dc73b356ddca87edb76",
+       "sandbox_sha256": "f2d7283dfb2511217265c2e1e75db071de76fcbbca4b331e8d624c307516b890",
+       "lines_changed": 21
+      },
+      "src/eda/surface_elo_pieces/pieces.py": {
+       "repository_sha256": "f906564d42260426d15afad2a401a3438342157d37bdc34c7f93c66b37e68b88",
+       "sandbox_sha256": "47714edac9f19a7b955a5b9efdb6085cd53a091b7d62390dccc1794b6462f6fe",
+       "lines_changed": 30
+      },
+      "src/eda/predictability_diagnostic/stage4_features.py": {
+       "repository_sha256": "19208ccf5a01e54fc879ce420a1ebabefa436be4ff8da5e908502ea9d1e5777a",
+       "sandbox_sha256": "599216c0fa22ed3741228afc67b0a2c46fe08161dce9302240623e677f11026c",
+       "lines_changed": 14
+      },
+      "src/eda/predictability_diagnostic/stage3_ratings.py": {
+       "repository_sha256": "4a0c899ee9f1517d813246e6573d388a0903bfd761ab76b6cefe860227c8d336",
+       "sandbox_sha256": "d961cfa1cdb7f3ad4e4c6df19ba90c88f0b99a43d7e8fea46d00d6c385a46a6d",
+       "lines_changed": 2
+      },
+      "src/eda/ufc_ideas/stageB_adjperf.py": {
+       "repository_sha256": "58aa0e2c28975d5d12cce1238d6091760ca8454883945186f9e2009f182f131d",
+       "sandbox_sha256": "c13731df6296bf96d1bfc022a7cf4fd0a6017127e5456714fd33a04b042b1a0f",
+       "lines_changed": 5
+      }
+     }
+    },
+    "c1_check": {
+     "files": {
+      "src/eda/predictability_diagnostic/stage1_baselines.py": {
+       "equals_patched_repository_file": true,
+       "replacements_present_once": true
+      },
+      "src/eda/surface_elo_pieces/pieces.py": {
+       "equals_patched_repository_file": true,
+       "replacements_present_once": true
+      },
+      "src/eda/predictability_diagnostic/stage4_features.py": {
+       "equals_patched_repository_file": true,
+       "replacements_present_once": true
+      },
+      "src/eda/predictability_diagnostic/stage3_ratings.py": {
+       "equals_patched_repository_file": true,
+       "replacements_present_once": true
+      },
+      "src/eda/ufc_ideas/stageB_adjperf.py": {
+       "equals_patched_repository_file": true,
+       "replacements_present_once": true
+      }
+     },
+     "copied_equal": {
+      "src/eda/lower_level_evidence/level_layer.py": true,
+      "src/eda/lower_level_evidence/common.py": true
+     },
+     "pass": true
+    },
+    "c2": {
+     "module": "src/eda/lower_level_evidence/level_layer_ios.py",
+     "module_sha256": "3fa5f69e592118fc204809ce0ec6afa627e5b979af3e33752e91e89f154c05c3",
+     "ready_file": true,
+     "apply": {
+      "sandbox": "C:\\Users\\zerom\\tnr_sys2",
+      "copied": [
+       "src/eda/lower_level_evidence/level_layer_ios.py",
+       "src/eda/lower_level_evidence/level_layer.py",
+       "src/eda/lower_level_evidence/common.py"
+      ],
+      "files": {
+       "src/eda/match_timing/rebuild.py": [
+        "already patched",
+        "already patched",
+        "already patched",
+        "already patched"
+       ],
+       "src/eda/surface_ios/build_cache.py": [
+        "already patched",
+        "already patched"
+       ],
+       "src/eda/surface_ios/build_features.py": [
+        "already patched",
+        "already patched",
+        "already patched",
+        "already patched"
+       ],
+       "src/eda/tabpfn_leakproof/build_frame.py": [
+        "already patched"
+       ],
+       "src/eda/surface_ios/arms.py": [
+        "already patched"
+       ],
+       "src/eda/surface_ios/probe.py": [
+        "already patched",
+        "already patched",
+        "already patched"
+       ]
+      },
+      "diff": "C:\\Users\\zerom\\Documents\\Tennis-predictions\\data\\studies\\lower_level_evidence\\system\\ios_layer\\sandbox_patch_ios.diff"
+     },
+     "check": {
+      "sandbox": "C:\\Users\\zerom\\tnr_sys2",
+      "ok": true,
+      "problems": [],
+      "files": {
+       "src/eda/match_timing/rebuild.py": [
+        "present",
+        "present",
+        "present",
+        "present"
+       ],
+       "src/eda/surface_ios/build_cache.py": [
+        "present",
+        "present"
+       ],
+       "src/eda/surface_ios/build_features.py": [
+        "present",
+        "present",
+        "present",
+        "present"
+       ],
+       "src/eda/tabpfn_leakproof/build_frame.py": [
+        "present"
+       ],
+       "src/eda/surface_ios/arms.py": [
+        "present"
+       ],
+       "src/eda/surface_ios/probe.py": [
+        "present",
+        "present",
+        "present"
+       ]
+      },
+      "pass": true
+     }
+    },
+    "c1_check_after_c2": {
+     "files": {
+      "src/eda/predictability_diagnostic/stage1_baselines.py": {
+       "equals_patched_repository_file": true,
+       "replacements_present_once": true
+      },
+      "src/eda/surface_elo_pieces/pieces.py": {
+       "equals_patched_repository_file": true,
+       "replacements_present_once": true
+      },
+      "src/eda/predictability_diagnostic/stage4_features.py": {
+       "equals_patched_repository_file": true,
+       "replacements_present_once": true
+      },
+      "src/eda/predictability_diagnostic/stage3_ratings.py": {
+       "equals_patched_repository_file": true,
+       "replacements_present_once": true
+      },
+      "src/eda/ufc_ideas/stageB_adjperf.py": {
+       "equals_patched_repository_file": true,
+       "replacements_present_once": true
+      }
+     },
+     "copied_equal": {
+      "src/eda/lower_level_evidence/level_layer.py": true,
+      "src/eda/lower_level_evidence/common.py": true
+     },
+     "pass": true
+    },
+    "patched_at": "2026-10-10T02:00:28+00:00"
+   },
+   "reused": {
+    "source": "C:\\Users\\zerom\\tnr_lle",
+    "files": {
+     "data/studies/ufc_ideas/stageA_bt.parquet": {
+      "step": "ufc_stageA_ratings",
+      "from": "C:\\Users\\zerom\\tnr_lle",
+      "sha256": "ee4973f5f7e1dce577cb3a9454e1e8a8c43d56fd42e5ac44e7e374ea845a8348",
+      "source_sha256": "ee4973f5f7e1dce577cb3a9454e1e8a8c43d56fd42e5ac44e7e374ea845a8348"
+     },
+     "data/studies/ufc_ideas/stageA_mesr.parquet": {
+      "step": "ufc_stageA_ratings",
+      "from": "C:\\Users\\zerom\\tnr_lle",
+      "sha256": "45b137197826056dafa82fc7c6f81f4c5a5ab315cbff1a7687fd9e824a93135f",
+      "source_sha256": "45b137197826056dafa82fc7c6f81f4c5a5ab315cbff1a7687fd9e824a93135f"
+     },
+     "data/studies/ufc_ideas/stageA_bt_tuning.csv": {
+      "step": "ufc_stageA_ratings",
+      "from": "C:\\Users\\zerom\\tnr_lle",
+      "sha256": "7e9f504b93dc94ef437584182d6e60a16f942574b31b9279e11d5e5b001fabdf",
+      "source_sha256": "7e9f504b93dc94ef437584182d6e60a16f942574b31b9279e11d5e5b001fabdf"
+     },
+     "data/studies/ufc_ideas/stageA_mesr_tuning.csv": {
+      "step": "ufc_stageA_ratings",
+      "from": "C:\\Users\\zerom\\tnr_lle",
+      "sha256": "6814a075fef692815831a7cc663dd9b0cd4e8b408f30b4e22803ea0bac8ed19e",
+      "source_sha256": "6814a075fef692815831a7cc663dd9b0cd4e8b408f30b4e22803ea0bac8ed19e"
+     },
+     "data/studies/ufc_ideas/stageA_bt_summary.json": {
+      "step": "ufc_stageA_ratings",
+      "from": "C:\\Users\\zerom\\tnr_lle",
+      "sha256": "c4330da128deb8ba36e155078b87e121ed8df4835659767421ae1e7402aba794",
+      "source_sha256": "c4330da128deb8ba36e155078b87e121ed8df4835659767421ae1e7402aba794"
+     },
+     "data/studies/ufc_ideas/stageA_features.parquet": {
+      "step": "ufc_stageA_features",
+      "from": "C:\\Users\\zerom\\tnr_lle",
+      "sha256": "8fa4d80d52bb86154392f093b42165ea9378ea1afae812ee4c01ae44fa7b2b69",
+      "source_sha256": "8fa4d80d52bb86154392f093b42165ea9378ea1afae812ee4c01ae44fa7b2b69"
+     },
+     "data/studies/ufc_ideas/stageA_features_summary.json": {
+      "step": "ufc_stageA_features",
+      "from": "C:\\Users\\zerom\\tnr_lle",
+      "sha256": "e515f5cf4189dd754501bf19a69f653e0ffd4c73a9a659827fe1348b714d5ad2",
+      "source_sha256": "e515f5cf4189dd754501bf19a69f653e0ffd4c73a9a659827fe1348b714d5ad2"
+     },
+     "data/studies/ufc_ideas/stageC_fatigue_part.parquet": {
+      "step": "ufc_stageC_fatigue",
+      "from": "C:\\Users\\zerom\\tnr_lle",
+      "sha256": "0170861b284857ff83fade87a2add4ee5f70f0fd4830eddf37c32634188401d8",
+      "source_sha256": "0170861b284857ff83fade87a2add4ee5f70f0fd4830eddf37c32634188401d8"
+     },
+     "data/studies/ufc_ideas/stageC_fatigue_part.json": {
+      "step": "ufc_stageC_fatigue",
+      "from": "C:\\Users\\zerom\\tnr_lle",
+      "sha256": "d755e27b7e73c742acf0a6b5d6bd1888ac69bb1d73b8d4172b96192121da2918",
+      "source_sha256": "d755e27b7e73c742acf0a6b5d6bd1888ac69bb1d73b8d4172b96192121da2918"
+     },
+     "data/studies/ufc_ideas/stageC_fatigue_players.csv": {
+      "step": "ufc_stageC_fatigue",
+      "from": "C:\\Users\\zerom\\tnr_lle",
+      "sha256": "2198b2235f72fcfef665dfaa34e780c66ea53fc797ff412627adc7c2f7632fe6",
+      "source_sha256": "2198b2235f72fcfef665dfaa34e780c66ea53fc797ff412627adc7c2f7632fe6"
+     },
+     "data/studies/ufc_ideas/stageC_sos_part.parquet": {
+      "step": "ufc_stageC_sos",
+      "from": "C:\\Users\\zerom\\tnr_lle",
+      "sha256": "219459a17a49375ea34052fd2ac997279bbda97dad44b37d03550ec94172fd5e",
+      "source_sha256": "219459a17a49375ea34052fd2ac997279bbda97dad44b37d03550ec94172fd5e"
+     },
+     "data/studies/ufc_ideas/stageC_sos_part.json": {
+      "step": "ufc_stageC_sos",
+      "from": "C:\\Users\\zerom\\tnr_lle",
+      "sha256": "e8b936dd9c95082741815895ffd9b98d6a6a09e87cc82b801de43885b612132f",
+      "source_sha256": "e8b936dd9c95082741815895ffd9b98d6a6a09e87cc82b801de43885b612132f"
+     },
+     "data/studies/ufc_ideas/stageC_features.parquet": {
+      "step": "ufc_stageC_rundown",
+      "from": "C:\\Users\\zerom\\tnr_lle",
+      "sha256": "1b61de5ea8a87b0ca6de049a637bcbc685f023ab84cd73b4dc81ea135ee8347d",
+      "source_sha256": "1b61de5ea8a87b0ca6de049a637bcbc685f023ab84cd73b4dc81ea135ee8347d"
+     },
+     "data/studies/ufc_ideas/stageC_catalog.json": {
+      "step": "ufc_stageC_rundown",
+      "from": "C:\\Users\\zerom\\tnr_lle",
+      "sha256": "434286c29eda3146946eabfdcc1b09eb3c78869caca02e7847e9781ae1267c9b",
+      "source_sha256": "434286c29eda3146946eabfdcc1b09eb3c78869caca02e7847e9781ae1267c9b"
+     },
+     "data/studies/ufc_ideas/stageC_null_copies.csv": {
+      "step": "ufc_stageC_rundown",
+      "from": "C:\\Users\\zerom\\tnr_lle",
+      "sha256": "39742d34ef4ff108dd2abc735aab0ba2cd1e82f8e89a5089ef598ed1febac08a",
+      "source_sha256": "39742d34ef4ff108dd2abc735aab0ba2cd1e82f8e89a5089ef598ed1febac08a"
+     },
+     "data/studies/ufc_ideas/stageC_ranking.csv": {
+      "step": "ufc_stageC_rundown",
+      "from": "C:\\Users\\zerom\\tnr_lle",
+      "sha256": "0bd7d4e638ec7639f177682becee75066137a62065f90f38a7b3517e6e007c91",
+      "source_sha256": "0bd7d4e638ec7639f177682becee75066137a62065f90f38a7b3517e6e007c91"
+     },
+     "data/studies/ufc_ideas/stageC_ratings_null_copies.csv": {
+      "step": "ufc_stageC_rundown",
+      "from": "C:\\Users\\zerom\\tnr_lle",
+      "sha256": "bd89bf5fd8e2d81eed746726e4407433b70612685b2a99218097d8c54cc63e9f",
+      "source_sha256": "bd89bf5fd8e2d81eed746726e4407433b70612685b2a99218097d8c54cc63e9f"
+     },
+     "data/studies/ufc_ideas/stageC_ratings_ranking.csv": {
+      "step": "ufc_stageC_rundown",
+      "from": "C:\\Users\\zerom\\tnr_lle",
+      "sha256": "026290128194fc02395a82fa48e6939bb7262cbe2c0aa2bc59c6f6f2727ab325",
+      "source_sha256": "026290128194fc02395a82fa48e6939bb7262cbe2c0aa2bc59c6f6f2727ab325"
+     },
+     "data/studies/ufc_ideas/stageC_ratings_results.csv": {
+      "step": "ufc_stageC_rundown",
+      "from": "C:\\Users\\zerom\\tnr_lle",
+      "sha256": "fd65387a5310269244d0629386a05f0f2dea1425a2cc11f9e50a8e91d8a83023",
+      "source_sha256": "fd65387a5310269244d0629386a05f0f2dea1425a2cc11f9e50a8e91d8a83023"
+     },
+     "data/studies/ufc_ideas/stageC_ratings_results.json": {
+      "step": "ufc_stageC_rundown",
+      "from": "C:\\Users\\zerom\\tnr_lle",
+      "sha256": "37fad5741c05f52abbe98ca23e7e1af96f3cb7594c20bd27e4a26705f5a7f432",
+      "source_sha256": "37fad5741c05f52abbe98ca23e7e1af96f3cb7594c20bd27e4a26705f5a7f432"
+     },
+     "data/studies/ufc_ideas/stageC_results.csv": {
+      "step": "ufc_stageC_rundown",
+      "from": "C:\\Users\\zerom\\tnr_lle",
+      "sha256": "0d9b93bfbbadb2a5e700d60fab238b524bc52cde078255354d60dba428a8ffed",
+      "source_sha256": "0d9b93bfbbadb2a5e700d60fab238b524bc52cde078255354d60dba428a8ffed"
+     },
+     "data/studies/ufc_ideas/stageC_results.json": {
+      "step": "ufc_stageC_rundown",
+      "from": "C:\\Users\\zerom\\tnr_lle",
+      "sha256": "aed8c65e12cc319f7eaaff7fa22e19916ba4049d54f401fa334ffa5f2dcc5790",
+      "source_sha256": "aed8c65e12cc319f7eaaff7fa22e19916ba4049d54f401fa334ffa5f2dcc5790"
+     },
+     "data/studies/ufc_ideas/stageC_summary.json": {
+      "step": "ufc_stageC_rundown",
+      "from": "C:\\Users\\zerom\\tnr_lle",
+      "sha256": "761f98df51dcaab6529f1536369ae8cfd28fd32754d3b10391d3b57dad45e32c",
+      "source_sha256": "761f98df51dcaab6529f1536369ae8cfd28fd32754d3b10391d3b57dad45e32c"
+     }
+    }
+   },
+   "steps": [
+    {
+     "C2 IOS part": 0,
+     "seconds": 1523.6
+    },
+    {
+     "lane 1": 0,
+     "seconds": 10463.3
+    },
+    {
+     "lane 2": 0,
+     "seconds": 10463.3
+    },
+    {
+     "lane 3": 0,
+     "seconds": 21.7
+    },
+    {
+     "collect": 0
+    }
+   ],
+   "finished_at": "2026-10-10T04:55:20+00:00",
+   "seconds": 10485.5,
+   "ok": true
+  }
+ ]
+}

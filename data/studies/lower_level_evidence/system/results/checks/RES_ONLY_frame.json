@@ -1,0 +1,77 @@
+{
+ "arm": "RES_ONLY",
+ "checked_at": "2026-10-10T08:09:30Z",
+ "frame": "data/studies/lower_level_evidence/system/arms/RES_ONLY/model_frame.parquet",
+ "frame_sha256": "4ba92d8a873fd19b2c25110a0c895a34e1fdc6f237fb7cb63c498b8a280429a9",
+ "rows": 67226,
+ "rows_ok": true,
+ "same_ids_in_order": true,
+ "identifiers_equal": {
+  "tour": true,
+  "season": true,
+  "tournament_date": true,
+  "p_mkt": true,
+  "tabpfn_split": true,
+  "debut_season": true
+ },
+ "training_labels_equal_to_2025": true,
+ "inputs": 58,
+ "base_inputs_equal": true,
+ "extras": [],
+ "extras_as_defined": true,
+ "columns_are_the_inputs": true,
+ "moved": [
+  {
+   "input": "elo_games",
+   "family": "elo",
+   "tour": "atp",
+   "rows_changed": 34719,
+   "rows_tour": 34719,
+   "first_season": 2013,
+   "last_season": 2026,
+   "largest_change": 2.290105164051056,
+   "missing_reference": 0,
+   "missing_candidate": 0,
+   "allowed": true
+  },
+  {
+   "input": "elo_overall",
+   "family": "elo",
+   "tour": "atp",
+   "rows_changed": 34719,
+   "rows_tour": 34719,
+   "first_season": 2013,
+   "last_season": 2026,
+   "largest_change": 2.467472230137749,
+   "missing_reference": 0,
+   "missing_candidate": 0,
+   "allowed": true
+  },
+  {
+   "input": "elo_surf_offset",
+   "family": "elo",
+   "tour": "atp",
+   "rows_changed": 34719,
+   "rows_tour": 34719,
+   "first_season": 2013,
+   "last_season": 2026,
+   "largest_change": 0.32583902462267966,
+   "missing_reference": 0,
+   "missing_candidate": 0,
+   "allowed": true
+  }
+ ],
+ "moved_inputs": [
+  "elo_games",
+  "elo_overall",
+  "elo_surf_offset"
+ ],
+ "unexpected_moves": [],
+ "reference_inputs_to_2024_identical": false,
+ "elo_inputs_equal_to_SYS": {
+  "elo_overall": true,
+  "elo_surf_offset": true,
+  "elo_games": true
+ },
+ "pass": true
+}

@@ -1,0 +1,36 @@
+usage: classify.py [-h] [--strength] [--demo] [--analysis]
+
+Role A of the level-evidence system: which statistics depend on the opponent, by how much (gamma), and whether the
+level effect is an opponent effect. Spec: docs/studies/lower_level_evidence/system/SPEC.md (§3, §4, §6.1).
+
+The owner (9 Oct 2026): "identify wheter a statistic is independent of its opponent or dependent to figure out if it
+qualifies for an offset depending on level of skill."
+
+The measurement, per base statistic s and tour g:
+
+    value     y = logit((x + 1/2) / (d + 1)) per box-score player-match (log for break points faced per service game),
+              the builders' own scale (src/eda/ufc_ideas/stageB_common.py: stat_arrays, to_scale); x and d from Stage 0's
+              player rows, the builders' definitions (stage4_features.stat_xd): own rates <s>_n / <s>_d; the return points
+              against each serve from the opponent's first_won / second_won; the defence statistics (what servers do
+              against this player) from the opponent's own row
+    rows      main-tour main draws (bucket MAIN), completed, standard format, box score, units > 0
+    strength  the opponent's pre-match overall Elo (Stage 1, retirements counted: the frozen reference's elo_overall);
+              in 100s of Elo points
+    model     y = gamma * opp_elo/100 + surface + player x season fixed effect, weighted by the units d;
+              intervals clustered by player (CR1)
+
+gamma(...) is the walk-forward version role B calls: rows whose result is in by `through` on the match clock
+(lf + 1 <= through). It refuses to read an outcome of the 2025-2026 holdout unless allow_holdout=True (the SPEC's
+mechanical fits for seasons 2025-2026, diagnostics unread).
+
+Run:
+    ./python.sh src/eda/lower_level_evidence/classify.py --strength      copy and check the strength file
+    ./python.sh src/eda/lower_level_evidence/classify.py --demo          one gamma() call, timed
+    ./python.sh src/eda/lower_level_evidence/classify.py --analysis      every table of the report, then the classes
+Writes data/studies/lower_level_evidence/system/classes/.
+
+options:
+  -h, --help  show this help message and exit
+  --strength  copy and check the strength file
+  --demo      one gamma() call, timed
+  --analysis  every table of the report, then the classes

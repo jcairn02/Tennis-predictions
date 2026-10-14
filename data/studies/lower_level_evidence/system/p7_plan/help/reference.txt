@@ -1,0 +1,45 @@
+usage: reference.py [-h] (--freeze | --verify)
+
+The frozen reference of the current best model: the template's build of 8 Oct 2026 and the tables it was built on,
+copied, hashed and kept read-only, so that new data, new features and rebuilds are compared against a fixed point.
+
+The owner (8 Oct 2026; docs/decisions/2026-10-08-current-best-model.md, amendment): "I want to freeze the template of
+current model and its data locations as comparisons so the new data thats coming, if it harms results we will want to
+make some modifications, Either to ignore data, lower its weight, or find a way to mathematically change and integrate it
+so its useful. I dont want to lose sight of the current model"
+
+What is frozen, in data/studies/current_best_model/reference_2026-10-08/frozen/ (gitignored; manifest.json is tracked):
+    instance/   the current best model as built on 8 Oct: data/studies/model_rebuild/, whole. The 58-input frame
+                (67,226 matches), its input list, its 32 fits (seasons 2019-2026, seeds 0-3), the stage-2 speed column on
+                the corrected speed history, the chain's records and its comparison with the previous model
+    speed/      stage 2's speed history (the live feed's corrected panel) and the adaptive columns and coefficients
+    tables/     the tables it was built on: the files the coordinated Stage 0 rebuild of 8 Oct (18:53 UTC) wrote, at
+                their repository paths (Stage 0, Stage 1's odds, the match timeline and its links, the leak-proof IOS
+                and features, TrueSkill Through Time), as the instance's build read them
+    tables_later/  the ones of those files a TDI refresh rewrote in place after the build had copied them (20:12-20:30
+                UTC), as they stood at the freeze: not the build's versions, which no copy on disk holds
+    previous/   the previous model, the 30 Sep build every study up to 8 Oct was scored on: its frame and input list,
+                its fits of seeds 0-3 in their three folders, the two checks its reused fits require, and the frame of
+                Polymarket's early prices. (Its tables are kept by the 7 Oct rebuild in data_continuity/rebuilds/
+                2026-10-07T0005Z/replaced/; recorded in the inventory, not copied again)
+    code/       src/, docs/, test/ and the root files (CLAUDE.md, the environments, the shims), and git's HEAD and status:
+                much of the code is not committed
+    env/        the TabPFN-3.5 checkpoint the fits used (it lives outside the repository, where a package upgrade could
+                replace it) and pip freeze of both environments
+    files.csv.gz       every frozen file: role, source, frozen path, bytes, SHA-256
+    inventory.csv.gz   every file under data/studies at the freeze (path, bytes, mtime, SHA-256), the rebuilds' kept
+                       copies and this folder excepted: what a builder could have read, for a later exact rebuild
+
+Commands:
+    --freeze   build the reference, once (it refuses if the manifest or a partial copy exists). First it checks that
+               the tables are the 8 Oct rebuild's (Stage 0's SHA-256 as rebuild.json recorded it, none of the 72 files
+               written since) and that every fit of the instance was fitted on its frame. Every copy is hashed against
+               its source, and every copy is made read-only
+    --verify   re-hash every frozen file against files.csv.gz, and report which sources have moved on since the freeze;
+               writes verify.json beside the manifest. Exit 1 if a frozen file is missing or differs
+Run: ./python.sh src/eda/current_best_model/reference.py --freeze | --verify
+
+options:
+  -h, --help  show this help message and exit
+  --freeze
+  --verify

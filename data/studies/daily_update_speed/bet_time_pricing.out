@@ -1,0 +1,48 @@
+{
+ "instance": "data\\studies\\current_best_model\\template_2026-10-10",
+ "season": 2026,
+ "seed": 0,
+ "config": {
+  "n_estimators": 8,
+  "softmax_temperature": 0.9,
+  "ignore_pretraining_limits": true
+ },
+ "train_rows": 62869,
+ "inputs": 57,
+ "matches": 23,
+ "versions": {
+  "tabpfn": "9.1.0",
+  "torch": "2.11.0+cu128"
+ },
+ "device": "NVIDIA GeForce RTX 5090",
+ "gpu_free_gb_before": 30.3,
+ "A_today": {
+  "fit_s": 0.75,
+  "predict_s": 41.34,
+  "second_predict_s": 41.23,
+  "second_predict_max_abs_diff": 0.0
+ },
+ "B_stored_vs_A_max_abs_diff": 3.692507743835449e-05,
+ "C_cached": {
+  "fit_s": 42.45,
+  "predict_23_s": [
+   1.062,
+   1.032,
+   1.031
+  ],
+  "predict_1_s": 1.031,
+  "max_abs_diff_vs_A": 0.1793476864695549,
+  "peak_gpu_gb": 8.2
+ },
+ "D_price_grid": {
+  "prices": 91,
+  "rows": 4186,
+  "predict_s": 4.22,
+  "on": "cached",
+  "interpolated_at_own_price_max_abs_diff_vs_A": 0.17980037395038634,
+  "own_price_inside_grid": 23,
+  "falling_steps": 121,
+  "steps": 2070,
+  "largest_step": 0.006700873374938965
+ }
+}

@@ -1,0 +1,130 @@
+{
+ "worktree": {
+  "seconds": 62.1,
+  "result": {
+   "work_tree": "C:\\Users\\zerom\\tnr_daily",
+   "replay": true,
+   "seconds": 62.0,
+   "constants_from": "C:\\Users\\zerom\\Documents\\Tennis-predictions\\data\\studies\\daily_prediction\\state\\template_2026-10-10\\2026-06-22",
+   "constants_replaced": {
+    "data/studies/predictability_diagnostic/stage1_baselines_summary.json": {
+     "before": "3c55a8bb29ed233d74826db6c6fc438a7317af3ce28c7c903257f7493896bbaf",
+     "after": "b5480e3ec04d5847adda11abedcc05327c70b026c7c734ba46e6e5e381d69a18"
+    },
+    "data/studies/predictability_diagnostic/stage3_ratings_summary.json": {
+     "before": "05209c18235f96b732b545c5d5c50bd4303d0d802ba11afa4039d18fc0544b7b",
+     "after": "3b461db7ddc630ae7bc38d91f9bc7a74731f022b9e2d2baccb2b6f8a7765c8c6"
+    },
+    "data/studies/predictability_diagnostic/stage4_constants.csv": {
+     "before": "775d71e473574078f10bb97f303baf60a9f6ae9448b529c9a40672b98806224e",
+     "after": "16cf465532a8dd83691db8f124ec1060266617b5048a2598c38db0598a0e8bf3"
+    },
+    "data/studies/surface_elo_pieces/pieces_meta.json": {
+     "before": "766589ccfff670729915ce2f86db543ae46fba930b75332a4cb84c3c4858d714",
+     "after": "276770dd92429b907bea2ba0430da59a3423531d7f3341d9c785bdbafd5f5e54"
+    }
+   }
+  }
+ },
+ "matchups": {
+  "seconds": 2.9,
+  "result": {
+   "kind": "replay",
+   "week": "2026-07-13",
+   "round": "R16",
+   "placeholder_winner": "A",
+   "dating": "live",
+   "targets": 23,
+   "left_out_later": 52,
+   "placeholder_reverses_result": 10,
+   "by_event": [
+    {
+     "tour": "atp",
+     "tournament_name": "Bastad",
+     "matches": 4
+    },
+    {
+     "tour": "atp",
+     "tournament_name": "Gstaad",
+     "matches": 3
+    },
+    {
+     "tour": "atp",
+     "tournament_name": "Umag",
+     "matches": 8
+    },
+    {
+     "tour": "wta",
+     "tournament_name": "Athens",
+     "matches": 4
+    },
+    {
+     "tour": "wta",
+     "tournament_name": "Iasi",
+     "matches": 4
+    }
+   ],
+   "base_tree": "C:\\Users\\zerom\\tnr_lyr_new",
+   "frame": "C:\\Users\\zerom\\Documents\\Tennis-predictions\\data\\studies\\current_best_model\\template_2026-10-10\\model_frame.parquet"
+  }
+ },
+ "prices": {
+  "seconds": 0.1,
+  "result": {
+   "priced": 23,
+   "sources": {
+    "instance frame p_mkt (betonline)": 19,
+    "instance frame p_mkt (average)": 4
+   }
+  }
+ },
+ "tables": {
+  "seconds": 273.2,
+  "result": {
+   "steps": {
+    "stage0": 118.9,
+    "additions": 15.2,
+    "check": 0.6,
+    "lle_layer": 12.8,
+    "odds": 6.0,
+    "live_odds": 0.7,
+    "remap": 5.7,
+    "links": 20.2,
+    "live_links": 4.1,
+    "timing": 39.2,
+    "live_window": 2.0,
+    "additions_window": 5.5
+   },
+   "history": "history vs the reference of 2026-10-08: future 0 and updated 0 (allowed); accepted lower-level additions 1,736 (allowed); main-tour changes 75 (allowed, listed: new past 0, dropped 52, revised 23); lower-level new past 0, dropped 0, revised 0 -> the template may be built",
+   "timeline_held": false
+  }
+ },
+ "states": {
+  "seconds": 566.0,
+  "result": {
+   "checkpoint": "C:\\Users\\zerom\\Documents\\Tennis-predictions\\data\\studies\\daily_prediction\\state\\template_2026-10-10\\2026-06-22",
+   "parts_summary": {
+    "slice changed: recomputed in full": 14,
+    "resumed": 7
+   },
+   "seconds": {
+    "offset": 5.0,
+    "stage3": 5.8,
+    "stage4_rows": 34.9,
+    "weighted": 5.1,
+    "stage4_inputs": 3.3,
+    "forms_context": 26.7,
+    "forms": 9.3,
+    "pieces": 3.2,
+    "ios_cache": 51.2,
+    "ios_runs": 409.6,
+    "context": 5.4,
+    "total": 560.1
+   },
+   "gate": {
+    "live_matches": 23,
+    "complete": 20
+   }
+  }
+ }
+}

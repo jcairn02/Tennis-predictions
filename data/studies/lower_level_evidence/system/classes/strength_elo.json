@@ -1,0 +1,22 @@
+{
+ "written_at_utc": "2026-10-09T20:18:11+00:00",
+ "source": "C:\\Users\\zerom\\tnr_lle\\data\\studies\\predictability_diagnostic\\stage1_baselines.parquet",
+ "source_sha256": "72284b3b9bb5d589fda467fcde7478f287dd7e33b1fd3890cd27aa5b1f5f747c",
+ "columns": [
+  "match_id",
+  "elo_a_ret",
+  "elo_b_ret",
+  "n_a_ret",
+  "n_b_ret"
+ ],
+ "rows": 873437,
+ "copy_sha256": "4fa9a573e7d0fbc34ab95f5f6c5efc97b835471a0f676bb5f14c182321c34d0d",
+ "what": "Stage 1's pre-match overall Elo (retirements counted), every Stage 0 match of the frozen tables; the chain's build in the first run's sandbox (tnr_lle), on the frozen tables",
+ "check": {
+  "frame": "C:\\Users\\zerom\\Documents\\Tennis-predictions\\data\\studies\\current_best_model\\reference_2026-10-08\\frozen\\instance\\model_frame.parquet",
+  "frame_matches": 67226,
+  "max_abs_diff_logodds": 1.402419671503452e-06,
+  "rule": "in_elo_overall == ln(10)/400 * (elo_a_ret - elo_b_ret), same orientation",
+  "passed": true
+ }
+}

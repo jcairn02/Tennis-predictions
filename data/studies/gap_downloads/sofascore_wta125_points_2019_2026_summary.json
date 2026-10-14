@@ -1,0 +1,262 @@
+{
+ "source": "sofascore_editions",
+ "gap": "wta125_points_2019_2026",
+ "targets_from": "frozen in data/studies/gap_downloads/sofascore_wta125_points_2019_2026_matches.csv",
+ "started_at": "2026-10-09T18:51:48+00:00",
+ "args": {
+  "gap": "wta125_points_2019_2026",
+  "refresh_targets": false,
+  "skip": null,
+  "limit": null,
+  "max_requests": 40000,
+  "min_interval": 2.0,
+  "jitter": 1.0,
+  "stage_only": false,
+  "no_stage": false,
+  "browser": "http://localhost:9222"
+ },
+ "fetch_outcomes": {
+  "point-by-point:200": 195,
+  "point-by-point:200:cached": 18,
+  "point-by-point:404": 96,
+  "statistics:200": 152,
+  "statistics:200:cached": 18,
+  "statistics:404": 139
+ },
+ "client": {
+  "impersonate": "browser:154.0.8037.98",
+  "requests": 869,
+  "retried": 0,
+  "slept_seconds": 1979.2,
+  "min_interval": 2.0,
+  "transport": "browser",
+  "cdp_url": "http://localhost:9222",
+  "page_reloads": 0,
+  "token_renewals": 0,
+  "renewals_failed": 0,
+  "site_data_resets": 0
+ },
+ "staged": {
+  "events": {
+   "rows": 25797,
+   "dest": "data/dump/points/sofascore_editions/events.parquet",
+   "bytes": 3781855
+  },
+  "points": {
+   "rows": 2239790,
+   "dest": "data/dump/points/sofascore_editions/points.parquet",
+   "bytes": 13039476
+  },
+  "statistics": {
+   "rows": 1102114,
+   "dest": "data/dump/points/sofascore_editions/statistics.parquet",
+   "bytes": 9454510
+  }
+ },
+ "all": {
+  "targets": 377,
+  "listed": 312,
+  "points_any": 213,
+  "points_complete": 208,
+  "points_absent": 99,
+  "points_not_fetched": 0,
+  "full_box_score": 169,
+  "stats_any": 170
+ },
+ "editions": 91,
+ "editions_located": 84,
+ "by_year_level": {
+  "2019|CH": {
+   "targets": 135,
+   "listed": 129,
+   "points_any": 65,
+   "points_complete": 65,
+   "points_absent": 64,
+   "points_not_fetched": 0,
+   "full_box_score": 24,
+   "stats_any": 24
+  },
+  "2019|CHQ": {
+   "targets": 22,
+   "listed": 20,
+   "points_any": 1,
+   "points_complete": 1,
+   "points_absent": 19,
+   "points_not_fetched": 0,
+   "full_box_score": 0,
+   "stats_any": 0
+  },
+  "2020|CH": {
+   "targets": 13,
+   "listed": 12,
+   "points_any": 5,
+   "points_complete": 5,
+   "points_absent": 7,
+   "points_not_fetched": 0,
+   "full_box_score": 4,
+   "stats_any": 4
+  },
+  "2021|CH": {
+   "targets": 14,
+   "listed": 14,
+   "points_any": 14,
+   "points_complete": 14,
+   "points_absent": 0,
+   "points_not_fetched": 0,
+   "full_box_score": 13,
+   "stats_any": 14
+  },
+  "2021|CHQ": {
+   "targets": 2,
+   "listed": 2,
+   "points_any": 0,
+   "points_complete": 0,
+   "points_absent": 2,
+   "points_not_fetched": 0,
+   "full_box_score": 0,
+   "stats_any": 0
+  },
+  "2022|CH": {
+   "targets": 7,
+   "listed": 7,
+   "points_any": 7,
+   "points_complete": 7,
+   "points_absent": 0,
+   "points_not_fetched": 0,
+   "full_box_score": 7,
+   "stats_any": 7
+  },
+  "2022|CHQ": {
+   "targets": 4,
+   "listed": 4,
+   "points_any": 0,
+   "points_complete": 0,
+   "points_absent": 4,
+   "points_not_fetched": 0,
+   "full_box_score": 0,
+   "stats_any": 0
+  },
+  "2023|CH": {
+   "targets": 10,
+   "listed": 10,
+   "points_any": 10,
+   "points_complete": 10,
+   "points_absent": 0,
+   "points_not_fetched": 0,
+   "full_box_score": 10,
+   "stats_any": 10
+  },
+  "2023|CHQ": {
+   "targets": 2,
+   "listed": 2,
+   "points_any": 0,
+   "points_complete": 0,
+   "points_absent": 2,
+   "points_not_fetched": 0,
+   "full_box_score": 0,
+   "stats_any": 0
+  },
+  "2024|CH": {
+   "targets": 19,
+   "listed": 19,
+   "points_any": 19,
+   "points_complete": 19,
+   "points_absent": 0,
+   "points_not_fetched": 0,
+   "full_box_score": 19,
+   "stats_any": 19
+  },
+  "2024|CHQ": {
+   "targets": 6,
+   "listed": 6,
+   "points_any": 6,
+   "points_complete": 5,
+   "points_absent": 0,
+   "points_not_fetched": 0,
+   "full_box_score": 6,
+   "stats_any": 6
+  },
+  "2025|CH": {
+   "targets": 38,
+   "listed": 38,
+   "points_any": 38,
+   "points_complete": 36,
+   "points_absent": 0,
+   "points_not_fetched": 0,
+   "full_box_score": 38,
+   "stats_any": 38
+  },
+  "2025|CHQ": {
+   "targets": 16,
+   "listed": 16,
+   "points_any": 16,
+   "points_complete": 16,
+   "points_absent": 0,
+   "points_not_fetched": 0,
+   "full_box_score": 16,
+   "stats_any": 16
+  },
+  "2026|CH": {
+   "targets": 43,
+   "listed": 12,
+   "points_any": 12,
+   "points_complete": 11,
+   "points_absent": 0,
+   "points_not_fetched": 0,
+   "full_box_score": 12,
+   "stats_any": 12
+  },
+  "2026|CHQ": {
+   "targets": 46,
+   "listed": 21,
+   "points_any": 20,
+   "points_complete": 19,
+   "points_absent": 1,
+   "points_not_fetched": 0,
+   "full_box_score": 20,
+   "stats_any": 20
+  }
+ },
+ "pbp_verdicts": {
+  "complete": 205,
+  "nan": 164,
+  "other": 3,
+  "complete to retirement": 3,
+  "short": 2
+ },
+ "editions_not_located": [
+  {
+   "edition": "W|BBVA Open Internacional de Valencia - Valencia, ESP|2026|w38",
+   "locate_tried": "871/2026-09-16:38;871/2026-09-18:22;871/2026-09-15:60;871/2026-09-19:34;871/2026-09-13:41;871/2026-09-11:22;871/2026-09-09:38"
+  },
+  {
+   "edition": "W|Caldas da Rainha Ladies Open - Caldas Da Rainha, POR|2026|w38",
+   "locate_tried": "871/2026-09-16:38;871/2026-09-18:22;871/2026-09-15:60;871/2026-09-19:34;871/2026-09-13:41;871/2026-09-11:22;871/2026-09-09:38"
+  },
+  {
+   "edition": "W|Zavarovalnica Triglav Ljubljana - Ljubljana, SLO|2026|w38",
+   "locate_tried": "871/2026-09-16:38;871/2026-09-18:22;871/2026-09-15:60;871/2026-09-19:34;871/2026-09-13:41;871/2026-09-11:22;871/2026-09-09:38"
+  },
+  {
+   "edition": "W|ATIK Antalya Open - Antalya, TUR|2026|w37",
+   "locate_tried": "871/2026-09-09:38;871/2026-09-11:22;871/2026-09-08:54;871/2026-09-12:27;871/2026-09-06:30;6/2026-09-04:24;6/2026-09-02:38"
+  },
+  {
+   "edition": "W|Kia Open - Barranquilla, COL|2026|w37",
+   "locate_tried": "871/2026-09-09:38;871/2026-09-11:22;871/2026-09-08:54;871/2026-09-12:27;871/2026-09-06:30;6/2026-09-04:24;6/2026-09-02:38"
+  },
+  {
+   "edition": "W|Montreux Nestlé Open - Montreux, SUI|2026|w37",
+   "locate_tried": "871/2026-09-09:38;871/2026-09-11:22;871/2026-09-08:54;871/2026-09-12:27;871/2026-09-06:30;6/2026-09-04:24;6/2026-09-02:38"
+  },
+  {
+   "edition": "W||2019|w09",
+   "locate_tried": "871/2019-02-28:18;871/2019-03-02:6;871/2019-02-27:23;871/2019-03-03:3;871/2019-02-25:11;6/2019-02-23:21;6/2019-02-21:21"
+  }
+ ],
+ "matches_selected": 312,
+ "receipts_with_errors": 0,
+ "error_examples": [],
+ "finished_at": "2026-10-09T19:29:06+00:00",
+ "seconds": 2238.6
+}

@@ -8,8 +8,9 @@
 | Wimbledon scoring feeds, 2019 and 2021–2026 | 2 | Collected 24–25 Sep 2026: all 4,228 matches of the six events, 2,445 of them new to the dump ([below](#wimbledon-scoring-feeds-ibm-slamtracker)) |
 | US Open scoring feeds, 2022–2026 | 3 | Collected 24–25 Sep 2026: all 3,020 matches of the six events, 2,445 with points, 1,313 of them new to the dump ([below](#us-open-scoring-feeds-ibm-slamtracker)) |
 | IBM extras at the US Open and Wimbledon | 5 | Wimbledon: collected with its feeds, likelihood-to-win 2025–26 and TennisViz 2024–25 for the singles main draws ([below](#wimbledons-ibm-extras)). US Open: collected with its feeds, likelihood-to-win and pre-match likelihood 2025–26, limb tracking and key moments 2026, distance run 2022–26 ([below](#the-us-opens-ibm-extras)) |
-| WTA official API | 6 | Coverage measured 24 Sep 2026. Batch B1 (the umpire's point log, every draw, 2020–2026) done 25 Sep: 33,301 of 33,304 matches' logs. B2 (2019) done 26 Sep: the log holds points from 1 April 2019. B3–B9 (every other endpoint) approved 29 Sep and run one after the other from 17:20 UTC that day to 05:13 UTC on 3 Oct, every batch done: B3 (box scores, 2019–2026) done 30 Sep, 36,825 of 36,832 matches with one; B4 (advanced statistics, 2025–26) done 1 Oct, 11,902 of 12,068; B5 (win probability, 2026) done 1 Oct, 5,097 of 5,727; B6 (momentum, 2025) done 1 Oct after a PC restart, 5,896 of 6,341; B7 (advanced statistics, 2021–24) done 2 Oct after another, 19,518 of 19,581; B8 (point-by-point, 2022–26) done 3 Oct, 20,841 of 26,507; B9 (Slam box scores, 2024–26) done 3 Oct, all 3,020 listed. No error is left; one 2026 match finished after the last top-up and waits for the next 2026 refresh ([below](#wta-official-api)) |
+| WTA official API | 6 | Coverage measured 24 Sep 2026. Batch B1 (the umpire's point log, every draw, 2020–2026) done 25 Sep: 33,301 of 33,304 matches' logs. B2 (2019) done 26 Sep: the log holds points from 1 April 2019. B3–B9 (every other endpoint) approved 29 Sep and run one after the other from 17:20 UTC that day to 05:13 UTC on 3 Oct, every batch done: B3 (box scores, 2019–2026) done 30 Sep, 36,825 of 36,832 matches with one; B4 (advanced statistics, 2025–26) done 1 Oct, 11,902 of 12,068; B5 (win probability, 2026) done 1 Oct, 5,097 of 5,727; B6 (momentum, 2025) done 1 Oct after a PC restart, 5,896 of 6,341; B7 (advanced statistics, 2021–24) done 2 Oct after another, 19,518 of 19,581; B8 (point-by-point, 2022–26) done 3 Oct, 20,841 of 26,507; B9 (Slam box scores, 2024–26) done 3 Oct, all 3,020 listed. No error is left; one 2026 match finished after the last top-up and waits for the next 2026 refresh ([below](#wta-official-api)). Work package P2(a), 11 and 13 Oct 2026: every endpoint again over the 2026 editions from 1 Sep, 2,441 requests; all 1,225 played matches of their 22 editions have the log, box score and advanced statistics, and win probability stops on 8 Oct ([below](#the-catch-up-of-11-and-13-october-2026-work-package-p2a)) |
 | TDI Tennis Results (ATP Tour and Challenger) | 9 | Collected 25 Sep 2026: all 5,202 matches its listing held (23 Jun – 25 Sep 2026) and the 634 older matches whose ids the Wayback Machine kept, 795,162 points. Forward capture weekly: the last run, 29 Sep, added the 260 matches completed since, for 6,096 matches and 831,206 points ([below](#tdi-tennis-results-resultstennisdatacom)) |
+| ITF live-data API (ITF World Tennis Tour) | – | Work package P1 of the [collection plan](../gap_downloads/collection-plan.md), under the [8 Oct decision](../../decisions/2026-10-08-scraping-approved.md). Collected 8–9 Oct 2026: every day list the API still served (24 Sep – 9 Oct) and the research's of 15–23 Sep, 6,355 matches in 91 events; statistics and points asked for all 4,906 played singles matches, 3,531 with both, 459,477 points; 9,809 requests, all answered. A daily job carries it on ([below](#itf-live-data-api)) |
 
 ## Layout and rules shared by every source
 
@@ -1206,6 +1207,44 @@ After these, a 3-request smoke test of batch B1 (three 2020 match lists) at 21:1
 | B9 | 3 Oct 02:33–04:40 | 3,028 | 3,017 Slam box scores 200, nine match lists 200 (two of them empty: the 2024 Australian Open and Wimbledon) |
 | 2026 top-ups | 3 Oct 04:45–05:07 | 525 | 191 logs, 61 box scores, 57 advanced statistics, 57 win-probability documents and 2 point-by-point documents 200 (four of them answering requests that had failed), 2 answering 404; 29 refreshed 2026 match lists 200 at each of the five |
 | B8 retry, 2022–23 | 3 Oct about 05:20 | 3 | the three point-by-point documents that had failed with HTTP 504, now 200 |
+| P2(a), 11 Oct | 11 Oct 14:34–15:47 | 1,632 | 267 logs, 233 box scores, 268 advanced statistics, 161 win-probability and 177 point-by-point documents 200; 107 and 119 answering 404; 278 match lists and 22 calendar pages 200 (trials included) |
+| P2(a), 13 Oct | 13 Oct 22:32–23:07 | 809 | 105 logs, 105 box scores, 104 advanced statistics and 106 point-by-point documents 200; 199 win-probability and 57 point-by-point answers 404; 123 match lists and 10 calendar pages 200 |
+
+### The catch-up of 11 and 13 October 2026 (work package P2(a))
+
+[Work package P2(a)](../gap_downloads/collection-plan.md#p2-wta-api-the-2026-editions-since-the-batches-and-womens-itf-results-after-early-september) brought the collection up to date for the 2026 editions played since the batches: the five endpoints in the batches' order, each with its batch's 404 limit, over the 2026 editions of the five tiers starting from 1 September. It ran on 11 October and again on 13 October, after this session had been paused for two days. Process log: [gap_downloads/process_log.md](../gap_downloads/process_log.md).
+
+**Two defects of the adapter, found before they cost data [observed]:**
+* *Match lists cached before an edition's final.* The adapter asked a cached list again only while the calendar called its edition unfinished. Seven 2026 lists had been cached two days before their finals (Seoul, Tolentino, Porto, Singapore and Ankara on 25 Sep; Jingshan and Adana on 3 Oct), and their calendar now read "past". So their last rounds had never been asked for, and a plain rerun would not have asked either; the "one Beijing match pending" above undercounted. Now a list fetched before its edition's end date plus two days is asked again (`listing_stale`). The first run on 11 Oct asked for those lists again and fetched those editions' last rounds.
+* *404s answered while an edition is under way.* On 11 Oct, win probability answered 404 for the played qualifying of four editions starting the next day, and for matches at Beijing and the week's two WTA 125s. Point-by-point existed for the same qualifying matches. A 404 was final, so the planned post-season rerun would never have asked again. Now a 404 answered before its edition's end date plus two days is asked again on a later run (`absence_stale`). The prediction run's fills are unchanged.
+
+**What was fetched [observed]:** 2,441 requests in all (table above), at about 1,450 an hour (win probability about 1,280: larger documents), with no error, retry, pause, refusal or challenge. Trials of 60-80 requests preceded each endpoint on 11 Oct; a `--limit` trial would have asked for nothing new, because the oldest selected matches were cached.
+
+| Edition (from 1 Sep 2026) | Played | Log | Box | Advanced | Win probability | Point-by-point |
+|---|---:|---:|---:|---:|---:|---:|
+| Montreux, Antalya, Barranquilla (7 Sep) | 147 | 147 | 147 | 147 | 141 | 117 |
+| Guadalajara (13 Sep); Caldas da Rainha, São Paulo, Ljubljana, Valencia (14 Sep) | 263 | 263 | 263 | 263 | 195 | 196 |
+| Seoul, Tolentino, Porto, Singapore, Ankara (21 Sep) | 279 | 279 | 279 | 279 | 268 | 121 |
+| Jingshan, Adana (28 Sep); Beijing (30 Sep) | 276 | 276 | 276 | 276 | 256 | 212 |
+| Suzhou, Samsun (5 Oct) | 112 | 112 | 112 | 112 | 77 | 86 |
+| Wuhan, Mallorca, Rovereto, Lisbon (12 Oct; qualifying and first rounds by 13 Oct) | 148 | 148 | 148 | 148 | 0 | 148 |
+| **All 22 editions** | **1,225** | **1,225** | **1,225** | **1,225** | **937** | **880** |
+
+* **Against Expected:** the plan expected a point log for nearly every match of the late-2026 editions. Every one of the 1,225 played matches has one, with points, and a box score and advanced statistics.
+* **Win probability stops on 8 October.** It is present for 199 of the 205 matches played from 1 to 7 Oct, and for none of the 196 played from 8 to 13 Oct. Of the 107 answers of 404 of 11 Oct, the 93 at editions not yet over were asked again on 13 Oct, and none had appeared; the 106 matches first asked on 13 Oct all answered 404 too. Whether the WTA stopped serving it or serves it late is unknown; the post-season rerun will ask again.
+* **Point-by-point** is patchy at the editions of 21 Sep (23-28 of their 52-58 matches) and complete so far at those of 12 Oct.
+* **Checks** (`verify_wta.py --years 2019-2026` and `wta_todo.py`, rerun on 13 Oct after staging) [observed]:
+  * the complete logs number 35,491, the batches' 35,119 plus these 372;
+  * 34,939 replay to the listed score (98.4%), and 361 of the 372 new ones do;
+  * 2026: 6,020 of 6,153 (5,659 of 5,781 on 3 Oct);
+  * aces agree with the box score in 35,337 logs, double faults in 35,088;
+  * point-by-point documents number 21,129, and 17,647 replay;
+  * the to-do list leaves no batch with an error or a pending document (B1: 33,852 of 33,871 listed matches with a log, 18 empty, 1 absent).
+* **The timing clock** was refreshed afterwards (`refresh.py --sources wta_api`, 13 Oct 23:10-23:20 UTC; rule 10 of the collection plan) [observed]:
+  * 28,808 of the API's 31,328 singles rows linked to Stage 0 matches;
+  * the timeline gives 489,581 of 873,437 matches a trusted exact day;
+  * its out-of-sample check misses 0.0455% of windows;
+  * the IOS inputs were rebuilt (255,832 pool matches).
 
 ### Gaps and limits
 
@@ -1218,7 +1257,7 @@ After these, a 3-request smoke test of batch B1 (three 2020 match lists) at 21:1
 * **Corrections that undo several points are not read.** The checks drop a point before a correction only when the next record redoes it. Longer undo runs (most common in 2026) leave the undone points in, and such a log may fail to replay. The `InProgress` record after each correction, whose score shows what was restored, would be the way to read them.
 * **Not independent everywhere.** The games whose winners the log does not record (no-ad deciding points, unwritten tiebreaks) were resolved against the listing: in 10,631 of the 34,928 complete logs.
 * **Bare 2019 logs.** The 662 logs of April–May 2019 hold no winners, so they give only the number of points, faults and aces per game and their times.
-* **2026 is still being played.** The batches hold 2026's matches up to 3 October 2026 (one Beijing match pending); a refresh after the season adds the rest.
+* **2026 is still being played.** The batches held 2026's matches up to 3 October 2026; work package P2(a) brought them to 13 October (above). Wuhan, Mallorca, Rovereto and Lisbon were under way, and the rest of the season (to Limoges's WTA 125, 14-20 Dec), the WTA Finals (8-15 Nov) included, is still to come. **It comes by itself since 14 Oct 2026:** the weekly job `wta_points` of `src/ingest/scheduled.py` (Mondays, the lower-level feed's task) asks the five endpoints over the editions of the last five weeks and stages them, the owner having asked for "this data to come in automatically with the other repeating data acquisition" ([cadence decision, amendment of 14 Oct](../../decisions/2026-10-06-download-cadence.md)). Lists and 404s answered before their edition ended are asked again, so each edition settles within a week of its end. Its first run through the scheduler, on 14 Oct, made 174 requests in 11 minutes, staging included.
 * **Not collected:** Slam matches (no WTA point data), the United Cup, qualifying doubles (none listed), the 15 unlisted 2019 editions, and years before 2019.
 * **Terms.** wtatennis.com forbids automated access and harvesting; this was collected under the decision, whose limits it kept.
 
@@ -1236,6 +1275,34 @@ bash data/raw/point_sources/wta/_logs/chain_B3_B9_20260929.sh                   
 bash data/raw/point_sources/wta/_logs/chain_rest.sh "top-up B1 2026"                        # 2026 refresh: new matches, every endpoint, then checks
 ./python.sh -m pytest test/official_point_feeds/test_wta.py test/official_point_feeds/test_wta_todo.py -q
 ```
+
+**The weekly job** (since 14 Oct 2026; see the limit above) runs, every Monday:
+
+```
+./python.sh -m src.ingest.point_sources.wta --years <the last five weeks' years> --from-date <five weeks back> \
+    --tiers 1000,500,250,125,finals --endpoints events,stats,advanced-stats,win-probability-momentum,point-by-point \
+    --max-requests 2500 --stop-after-absences 400
+./python.sh -m src.ingest.scheduled --only wta_points          # the same, by hand, with the scheduler's record
+```
+
+It leaves the checks and the to-do list (`verify_wta.py`, `wta_todo.py`) and the timing refresh to sessions: model builds and prediction runs re-link the WTA API in their own sandboxes.
+
+**The 2026 catch-up (P2(a)) as it was run by hand on 11 and 13 Oct.** One command per endpoint, in the batches' order and with their 404 limits, then staging, the checks, the to-do list and the timing refresh:
+
+```
+A="--years 2026 --from-date 2026-09-01 --tiers 1000,500,250,125,finals --max-requests 3000 --no-stage"
+./python.sh -m src.ingest.point_sources.wta $A --endpoints events --stop-after-absences 150
+./python.sh -m src.ingest.point_sources.wta $A --endpoints stats --stop-after-absences 1500
+./python.sh -m src.ingest.point_sources.wta $A --endpoints advanced-stats --stop-after-absences 400
+./python.sh -m src.ingest.point_sources.wta $A --endpoints win-probability-momentum --stop-after-absences 1000
+./python.sh -m src.ingest.point_sources.wta $A --endpoints point-by-point --stop-after-absences 0
+./python.sh -m src.ingest.point_sources.wta --stage-only --years 2026
+./python.sh src/eda/official_point_feeds/verify_wta.py --years 2019-2026
+./python.sh src/eda/official_point_feeds/wta_todo.py
+./python.sh src/eda/match_timing/refresh.py --sources wta_api
+```
+
+`data/raw/point_sources/wta/_logs/P2_topup_20261013.sh` ran the five endpoints and then the player crawl of [P2(b)](../gap_downloads/README.md#wta-website-records-after-early-september-work-package-p2b) on 13 Oct, each step only if the one before ended cleanly. The weekly jobs `wta_points` and `wta_site` replace it; it stays as the record of that run.
 
 `--batch` sets the slice from the plan; `--years` can narrow it to some of its years. Without `--batch`, `--tiers`, `--draws`, `--endpoints` and `--from-date` select a slice by hand. Point-by-point asked of editions starting before mid-March 2022 would only return 404s.
 
@@ -1267,17 +1334,18 @@ bash data/raw/point_sources/wta/_logs/chain_rest.sh "top-up B1 2026"            
 * **The window is shorter than the research notes said, and runs by the day a match ended** ([below](#what-was-fetched-3)).
 * **About 1 match in 16 has a game whose points stop before anyone won it** (366 matches, 394 games), and 72 points in 62 matches carry a winner that contradicts the page's own score. The rest replay exactly to the result ([checks](#checks-4)).
 * **Where a match exists in SofaScore too, they agree in 99.9% of games** ([checks](#checks-4)).
-* **The level (tour or Challenger) comes from each tournament's 2025 edition,** and 9 new events are "unknown": 8 on 25 Sep, and Levante Open from the 29 Sep forward capture ([how it was staged](#how-it-was-staged-3)).
+* **The level (tour or Challenger) comes from each tournament's 2025 edition,** and 11 new events are "unknown": 8 on 25 Sep, Levante Open from the 29 Sep forward capture, and from the 8 Oct capture "WUNING OPEN 3" and "53^ CAMPIONATI INTERNAZIONALI DI SICILIA" ([how it was staged](#how-it-was-staged-3)).
+* **18 pages carry no point** (the 8 Oct capture): 4 doubles walkovers, and 14 Braga Open matches of 8 Oct that TDI listed without a score ([forward capture](#forward-capture)).
 
 | Item | Where |
 |---|---|
 | Adapter | `src/ingest/point_sources/tdi.py`: listing sweeps, match pages, forward capture, staging |
-| Raw pages | `data/raw/point_sources/tdi/`, all gzipped: `listings/` (`home/`, `date/`, `tournament/`, and the research session's imports), `matches/<first two characters>/<uuid>.html.gz`; `_receipts.jsonl`, `_sweeps.jsonl` (each sweep's plan and end), `_run.lock`. 269 MB on disk (3.40 GB of HTML), after the 29 Sep forward capture |
-| Staged tables | `data/dump/points/tdi/`: `matches` (6,096 rows), `points` (831,206), `statistics` (509,025, long form), `players` (1,504); from the listings `match_ids` (the id index, 5,462), `listing_cards` (11,984 sightings), `listing_pages` (203), `filter_tournaments` (94), `filter_players` (2,725). 24 MB, after the 29 Sep forward capture |
+| Raw pages | `data/raw/point_sources/tdi/`, all gzipped: `listings/` (`home/`, `date/`, `tournament/`, and the research session's imports), `matches/<first two characters>/<uuid>.html.gz`; `superseded/` (a page saved without points, when a later answer replaces it); `_receipts.jsonl`, `_sweeps.jsonl` (each sweep's plan and end), `_run.lock`, `_logs/`. 297 MB on disk (3.74 GB of HTML), after the 8 Oct forward capture |
+| Staged tables | `data/dump/points/tdi/`: `matches` (6,718 rows), `points` (913,480), `statistics` (560,050, long form), `players` (1,535); from the listings `match_ids` (the id index, 6,084), `listing_cards` (13,402 sightings), `listing_pages` (222), `filter_tournaments` (100), `filter_players` (2,734). 26 MB, after the 8 Oct forward capture |
 | Run summary | [tdi_summary.json](../../../data/studies/official_point_feeds/tdi_summary.json) (the last run, with the listing reports); every run in [runs.jsonl](../../../data/studies/official_point_feeds/runs.jsonl) |
 | Listing reports | [tdi_listing_days.csv](../../../data/studies/official_point_feeds/tdi_listing_days.csv) (every date listing read), [tdi_listing_tournaments.csv](../../../data/studies/official_point_feeds/tdi_listing_tournaments.csv) (every tournament listing) |
 | Checks | `src/eda/official_point_feeds/verify_tdi.py`: [tdi_verification.json](../../../data/studies/official_point_feeds/tdi_verification.json) (totals), [tdi_accounting.csv](../../../data/studies/official_point_feeds/tdi_accounting.csv) (every id: listed, fetched, parsed), [tdi_checks.csv](../../../data/studies/official_point_feeds/tdi_checks.csv) (every match), [tdi_field_fill.csv](../../../data/studies/official_point_feeds/tdi_field_fill.csv), [tdi_cross_source.csv](../../../data/studies/official_point_feeds/tdi_cross_source.csv) |
-| Tests | `test/official_point_feeds/test_tdi.py` (33 tests; fixtures `tdi_*`: two listings and four match pages cut from the pages the research session saved on 24 Sep) |
+| Tests | `test/official_point_feeds/test_tdi.py` (38 tests, the weekly job's and the pages asked again among them; fixtures `tdi_*`: two listings and four match pages cut from the pages the research session saved on 24 Sep) |
 
 ### What was fetched
 
@@ -1442,8 +1510,8 @@ SofaScore's point lists are the more complete. The disagreements with TennisLive
   * games whose points stop early;
   * winners that contradict the score;
   * a few matches with disordered times.
-* **Matches the site lacks.** Walkovers appear not to be listed [inference: no page lacks points, and a few rounds are one match short, such as the Canada Masters' round of 64, 31 of 32]. The Canada Masters listed 16 first-round qualifying matches and no second-round ones, where Cincinnati listed all 36. The site lacks the rest, since the date and tournament listings agree.
-* **Level:** as above, the 2025 edition's level, 9 unknown events (Levante Open since 29 Sep) and 2 uncertain.
+* **Matches the site lacks.** Walkovers appear not to be listed [inference: no page lacks points, and a few rounds are one match short, such as the Canada Masters' round of 64, 31 of 32]. Some are, though: the 8 Oct capture held 4 doubles walkovers (Wuning 3 and Sicily), each a page described "W/O" without a point [observed]. The Canada Masters listed 16 first-round qualifying matches and no second-round ones, where Cincinnati listed all 36. The site lacks the rest, since the date and tournament listings agree.
+* **Level:** as above, the 2025 edition's level, 11 unknown events (Levante Open since 29 Sep; Wuning 3 and Sicily since 8 Oct) and 2 uncertain.
 * **Terms.** TDI's terms forbid scraping and use for statistical models or betting. This was collected under the owner's decision of 25 September, within its limits.
 
 ### Receipts
@@ -1470,11 +1538,44 @@ The research session's six saved listings of 24 Sep were added without a request
 
 **Cost and cadence:** about 500 requests (25 minutes) a week. The listing keeps about 92 days by completion day, so a missed week is caught up by the next run. A gap of more than about 90 days between runs loses the matches that fell out.
 
+**The weekly job (proposed 8 Oct 2026; the [cadence decision](../../decisions/2026-10-06-download-cadence.md) does not list it yet).** Job `tdi` of `src/ingest/scheduled.py` runs the command above every Monday, in the daily task, after the other jobs.
+* *Its time.* It is stopped after 45 minutes, or sooner so that the task ends inside its 2-hour limit; with less than 15 minutes left it waits a week. A cut-short run loses nothing: the next one carries on.
+* *A block* pauses the job and raises a notification, then one each Monday while it stays paused. A run asked for by name (`--only tdi`) tries anyway and lifts the pause when it gets through. This follows the [TDI decision](../../decisions/2026-09-25-tdi-tennis-results.md): stop and report, never escalate.
+* *Other outcomes.* Another TDI run holding the lock is a skip. A failure, or a Monday that left too little time, notifies the second time in a row.
+* *Tests:* in `test/official_point_feeds/test_tdi.py`.
+
+The owner can strike the job: delete `"tdi"` from the job lists in `scheduled.py`'s `main()`.
+
 **Runs** (each also a line in [runs.jsonl](../../../data/studies/official_point_feeds/runs.jsonl)):
 * **29 Sep 2026, 17:23–17:41 UTC.** The default list and 22–29 Sep (19–21 Sep were settled, so not asked again), then 260 new pages: 269 requests, each answered, with no retry or block.
   * The 260 matches were completed between 25 Sep 20:11 and 29 Sep 17:01 UTC: 64 tour, 151 Challenger and 45 at events of unknown level. They hold 36,044 points.
   * They were checked with `verify_tdi.py`'s own functions, on these 260 only; its evidence files still cover the first 5,836. 240 replay exactly, 3 are retirements that match, and 17 have a game whose points stop early; 1 point's winner contradicts the score. Aces and double faults agree with the page's statistics in 514 of 520 counts. How each singles point ended is on 99–100% of points at both levels.
   * Levante Open (35 matches) is a ninth event of unknown level.
+* **8 Oct 2026, 19:34–20:05 UTC** (work package P3 of the [collection plan](../gap_downloads/collection-plan.md); `--recent 14 --max-requests 1500`, nine days after the last capture) [observed].
+  * *The requests.* 641 in all, every one answered 200, with no retry, block or challenge:
+    * a trial of 30 at 19:34: the default list, 26 Sep – 8 Oct (24–25 Sep were settled and held), and 16 pages;
+    * then the run of 611, 19:35–20:05: a new sweep re-read the default list and the four days still filling (5–8 Oct), then fetched the other 606 pages.
+  * *What came.* 622 new matches, completed 29 Sep 17:27 – 8 Oct 19:10 UTC, with 82,274 points:
+    * 162 tour: 94 singles main draw, 36 singles qualifying, 32 doubles;
+    * 328 Challenger: 183, 54 and 91;
+    * 132 at events of unknown level: 62, 34 and 36.
+
+    The tour events were Beijing, Tokyo and Shanghai. "WUNING OPEN 3" and "53^ CAMPIONATI INTERNAZIONALI DI SICILIA" are a tenth and eleventh event of unknown level.
+  * *Checks.* `verify_tdi.py`'s own functions, on these 622 only; its evidence files still cover the first 5,836.
+    * 604 pages hold points. 541 replay exactly, 15 are retirements that match where play stopped, 47 have a game whose points stop early (54 games), and 1 replays to another score.
+    * 9 points in 7 matches carry a winner that contradicts the score.
+    * Aces agree with the page's statistics in 601 of 604 matches, double faults in 594.
+    * How each singles point ended is on 99–100% of points at every level; doubles never carry it.
+  * *18 pages hold no point.*
+    * 4 are doubles walkovers, described "W/O" (so walkovers are listed after all).
+    * 14 are Braga Open round-of-16 matches of 8 Oct (started 09:09–17:16 UTC by the listing's stamps, completed 10:04–18:15 by the pages): without a score or a winner, on the listing and the page alike. The other 35 Braga pages hold points. TDI had not published these by 20:00 UTC; whether it will is unknown.
+  * *A change to the adapter for that case.* Before, a saved page was never asked again, so these 14 would have stayed empty. Now a page saved without points is asked once more when a listing card read after it shows the match with a score. The earlier copy is kept under `superseded/`, and a failed second ask is recorded as `again/match/<id>`. No card has a score yet, so nothing is asked now. The weekly run of 12 Oct reads 8 Oct as a settled day, and that read decides.
+  * *The match clock.* `./python.sh src/eda/match_timing/refresh.py --sources tdi` ran 20:13–20:30 UTC: the re-link, the timeline and its check, and the IOS inputs, with no failure.
+    * TDI now dates 3,622 Stage 0 matches. Of this capture's 463 singles, 268 linked: 170 of 183 Challenger main-draw matches, 62 of 94 tour, 36 of 62 at unknown-level events.
+    * No qualifying match linked: Stage 0 holds no results for these qualifying draws yet.
+    * The model's own inputs (the offset Elo, the surface IOS, the model frame) are not part of the refresh and were not rebuilt. The owner's rebuild of them (`src/eda/model_rebuild/`) was running in a sandbox copied at 18:53 UTC, before this capture.
+  * *The data map,* rebuilt at 20:17 UTC. TDI's own count of 2026 matches with points grew by 143 at Challengers, 60 at 500s, 4 at 250s and 111 in tour qualifying; another source may hold some of them too. Shanghai is not counted yet: its draw began on 5 Oct, after the map's window, which ends with the latest results on 4 Oct.
+  * *Backup.* These pages are not in the cold-storage copy of 16:05 UTC that day; the next `backup.py` run takes them. Until then they are the only copy.
 
 ### Rerunning
 
@@ -1488,8 +1589,198 @@ The research session's six saved listings of 24 Sep were added without a request
 ```
 
 **Interruptions:**
-* Every fetch has a receipt, and a page is written whole before it replaces anything. Nothing saved is asked for again, so an interrupted command is continued by running it again.
+* Every fetch has a receipt, and a page is written whole before it replaces anything. Nothing saved is asked for again, so an interrupted command is continued by running it again. The one exception: a page saved without points is asked once more when a listing read later shows its match with a score.
 * One run fetches at a time: the next waits for the OS lock on `_run.lock`, which is released if the process dies.
 * A run exits 1 only when it was stopped: a block, five fetches in a row without a document, or failed staging.
 
 **Backup.** The raw pages are the only copy of the matches that have left the window. They are gitignored (257 MB), so a backup outside the working tree is worth considering.
+
+## ITF live-data API
+
+**Every ITF World Tennis Tour match the API still listed on 8 October 2026 is collected, with statistics and points for every played singles match, and a daily job carries it on** (work package P1 of the [collection plan](../gap_downloads/collection-plan.md), under the [8 October decision](../../decisions/2026-10-08-scraping-approved.md); observed):
+* **The day lists of 24 Sep – 9 Oct 2026,** read from 19:16 UTC on 8 Oct. The API answers a day list only for the last 14 days, so these were read first.
+* **15–23 Sep** come from the gap-sources research's copies of 29 Sep, copied in. They are the only listing of those days left.
+* Together: **91 events and 6,355 matches** (5,086 singles, 1,269 doubles), main draw and qualifying, men's M15–M25 and women's W15–W100.
+* **Statistics and point-by-point were asked for all 4,906 played singles matches** (9,876 answers). 3,531 matches have both: 848,418 statistic rows and 459,477 points.
+* **9,809 requests, every one answered 200,** with no retry, refusal or challenge (8 Oct 19:16 – 9 Oct 02:17 UTC).
+
+**Coverage follows the umpire's scoring device** (observed):
+* **Main draw:** 99.2% of played matches (men 1,344 of 1,344, women 1,269 of 1,290).
+* **Qualifying:** 40.0%. The final qualifying round has 638 of 639; earlier rounds 16.6%. By grade, about 30% at M15, M25 and W15, 52% at W35, and every match at W50–W100.
+* **A match without the device has nothing but its result:** no statistics, no points, no end time or duration, only its day and its place in the order of play.
+
+**Things to know before using it:**
+* **No match is ever "Retired".** Every played match is "Complete" (or "COMPLETE"). A retirement shows as a set left at 0-0 (30 matches) or a short last set.
+* **About 2% of played matches (105) are listed "Complete" without a winner.** Their record stopped before the end, 55 of them on 22 Sep, and the statistics answer's copy of the match lacks the winner too. For 50 of them the points go on to the end, so the winner can be read from the points [inference].
+* **Times.** The day list's end time and duration exist only for device-scored matches. The statistics answer repeats the match with its start (100%) and end (98.6%): the only start time the API gives.
+* **Weekly venues share names.** The two W15 Maanshan events of consecutive weeks are W-ITF-CHN-2026-034 and -035. Use the ITF key (`tennisId`).
+* **Not on the leak-proof clock** (`src/eda/match_timing/`). Wiring this source in is separate work.
+
+| Item | Where |
+|---|---|
+| Adapter | `src/ingest/point_sources/itf_live.py`: day lists, statistics and points, the research import, staging |
+| Daily job | `src/ingest/scheduled.py`, job `itf` ([below](#the-daily-job)) |
+| Raw answers | `data/raw/point_sources/itf_live/`, 175 MB, all gzipped: `day/<date>@<run>.json.gz` (one file per capture), `match/<id>/stats.json.gz` and `points.json.gz` (4,938 matches), `_receipts.jsonl`, `_run.lock`, `_logs/`, and `_reference/wikipedia/` (the check's four pages) |
+| Staged tables | `data/dump/points/itf_live/`, 63 MB with its parse cache: `events` (91), `matches` (9,446 rows: every row of every capture), `documents` (9,876), `statistics` (848,418), `points` (459,477), `_cache/` |
+| Run summary | [itf_live_summary.json](../../../data/studies/official_point_feeds/itf_live_summary.json) (the last run); every run in [runs.jsonl](../../../data/studies/official_point_feeds/runs.jsonl) |
+| Checks | `src/eda/official_point_feeds/verify_itf_live.py`: [itf_live_verification.json](../../../data/studies/official_point_feeds/itf_live_verification.json) (totals), [itf_live_events.csv](../../../data/studies/official_point_feeds/itf_live_events.csv) (every event, with Wikipedia's week), [itf_live_rounds.csv](../../../data/studies/official_point_feeds/itf_live_rounds.csv), [itf_live_checks.csv.gz](../../../data/studies/official_point_feeds/itf_live_checks.csv.gz) (every played singles match) |
+| Tests | `test/official_point_feeds/test_itf_live.py` (21 tests; fixtures `itf_live_*`, cut from answers of 8 Oct) |
+
+### What was fetched
+
+**The API** is `https://api.itf-production.sports-data.stadion.io/`, behind the ITF's "World Tennis Tour Live" pages. It takes no credentials and has no robots.txt ([lane C](../../../data/studies/gap_sources/research_notes/C_itf_listings.md#the-itf-live-data-api-observed)).
+
+| Endpoint | Answer |
+|---|---|
+| `custom/wttCompleteMatchList/<date>` | The day's matches by event and court. HTTP 422 for a date more than 14 days back (the research saw 14 Sep refused on 29 Sep; 24 Sep was served on 8 Oct) |
+| `custom/widgetMatchStats/<id>` | The statistics; `"data": []` (212 bytes) when the match has none |
+| `custom/pointByPoint/<id>` | The points; `"data": []` (96 bytes) when none |
+
+The per-match answers are not date-limited.
+
+**The client** is `common.Client` (`curl_cffi` with the Chrome profile):
+* one request at a time, 2 s apart plus up to 1 s of jitter, within a `--max-requests` budget;
+* every answer kept gzipped with a receipt;
+* it stops on a block (HTTP 403, or 429 after its back-off, or a challenge) and after five fetches in a row without a document.
+
+**What a run asks, and when:**
+* **Day lists:** today − 14 to today (UTC), oldest first.
+  * A day is asked again on each run until it is 3 days old and every match on it is over.
+  * A resumed run skips a capture less than 6 hours old, and a day once refused with 422 is not asked again.
+  * Each capture is its own file, so a match's earlier states stay on disk. The plan's `day/<date>.json.gz` would have had to be overwritten.
+* **Documents:**
+  * every singles match whose latest listed state is over (stateType "post") and not a walkover, once it ended at least 2 hours before the run;
+  * every singles match on a day 3 or more days old that never reached an over status (scoring stopped, no status), since its partial record is the last.
+  * **Walkovers are never asked:** no point is played, and three probed walkovers gave empty answers to both. Doubles: the lists only.
+
+| Run | Requests | Time (UTC) |
+|---|---:|---|
+| The day lists, 24 Sep – 8 Oct | 15 | 8 Oct 19:16 |
+| Probe: three walkovers' documents | 6 | 19:18 |
+| Trial: three events of week 40 (W15 Monastir, M25 Darwin, W100 Templeton) | 390 | 19:18–19:35 |
+| The first run: every other played singles match | 5,860 | 19:37–23:44 |
+| The research import, then its matches' documents | 3,477 | 23:45 – 9 Oct 02:14 |
+| The daily job's first run, asked for by name | 61 | 9 Oct 02:14–02:18 |
+
+Also four MediaWiki API requests for the Wikipedia check.
+
+**The research import.** On 29 Sep the gap-sources study read the day lists of 15–29 Sep and some matches' documents from this API (`data/raw/gap_sources/itf/`).
+* `--import-research` copied in, gzipped: the 15 day lists, 59 statistics answers and 30 point answers. 29 more were already held from this collector's own fetch.
+* Each copy was hash-checked against the research's receipt, and its receipt is marked `imported`. The originals stay where they were.
+* Their 1,753 played singles matches of 15–23 Sep then had their documents fetched like any other match.
+
+### What a record holds
+
+**A day list** holds per event: name, ITF key, grade, dates, surface and venue country. Per match:
+* the draw, round and order in it, discipline and gender;
+* the status: name, stateType and update time;
+* `winnerSideId`, and the set scores with tiebreak points;
+* the times: `dateStartLocal`, `actualEndDate`, `duration`, `scheduleText` ("Starting at 14:00", "Followed By", "Not Before 14:30"), the order of play and the court;
+* whether it was streamed;
+* each side's players: names, the API's ids, country, WTT rank, seeding ranks, and the last part of the headshot URL (`POD1488593`), which looks like the ITF player code [inference].
+
+**The statistics** are 40 types per side, for each set and the match, as a value and a display value. M15 and W15 matches carry 34 types. Most M25 and W35+ matches carry 40; the extra six are forehand, backhand, net and total winners, and net and baseline points won.
+
+**The points** come by set and game, from each side's view:
+* the server, whether the point was won, and its outcome: POINT 91.5%, DOUBLE_FAULT 5.4%, ACE 3.2%;
+* the game score after it, and the set score before and after;
+* the game's annotation ("7 - 6 won by E Cook") and the players' ITF codes.
+
+A median match has 123 points. **No point carries a time,** a first or second serve, a rally length or a speed.
+
+### How it was staged
+
+All tables are strings with the dump's provenance columns, plus `source_file`, `sha256` and `retrieved_at` per row.
+* **`matches`:** every row of every capture, with its list date and capture. `latest` marks each match's latest state: its latest list day, then latest capture.
+* **`events`:** one row per ITF key, from its latest capture, with its list days and counts.
+* **`documents`:** one row per statistics or points answer: status, whether it holds data, counts, and the statistics answer's start and end.
+* **`statistics`:** one row per statistic, side and period ("match", "set 1" …).
+* **`points`:** one row per point, the two sides' views side by side. `consistent` says the views agree: one server, one winner, one outcome.
+
+**The parse cache.** Each answer is parsed once; its rows wait in `_cache/`, keyed by receipt name and SHA-256.
+* A staging parses only new answers: 7 seconds. Parsing all 6,500 answers took 141, and a full parse grows by about 2 minutes for every 3,000 matches.
+* Every table is written to a `.part` file and renamed into place, so a run stopped mid-staging leaves the previous table.
+
+### Checks
+
+`verify_itf_live.py` reads the staged tables. Wikipedia's event cells link each event's ITF draw page, whose last part is the ITF key, so the event check is by key.
+
+| The plan's "Expected" | Observed |
+|---|---|
+| Every event of a week, 23 of 23 against Wikipedia | Weeks 38–41, every one: men 10/10, 13/13, 12/12, 11/11; women 8/8, 10/10, 11/11, 16/16. No event on one side only. Week 40 (28 Sep – 4 Oct) is on Wikipedia's July–September pages; the October–December pages begin with week 41 |
+| About 1,500 singles matches a week | 1,416 listed in week 40 (1,398 played) |
+| Statistics and points on every main-draw match sampled (32 of 32) | 2,613 of 2,634 played main-draw matches (99.2%) |
+| On about two-thirds of qualifying matches, the final round always | 909 of 2,270 (40.0%); the final round 638 of 639. The research's two-thirds came from a sample that took each round equally; a whole draw is mostly early rounds |
+
+The trial reached every figure before the bulk run: main draw 92 of 92, qualifying 39% with the final round 24 of 24, and week 40's 23 events. That is above the plan's stop line of half.
+
+**The points against the list.** The games won in each set were counted from the points and set against the listed set scores (3,522 matches with points):
+
+| | Matches |
+|---|---:|
+| Agree exactly | 3,347 (95.0%) |
+| The point log stops early: it lacks games the list has | 119 |
+| The list stopped before the end: it lacks games the points have (44 of them with no winner listed) | 49 |
+| The third set is a tiebreak to 10, logged point by point as games (10-7) where the list writes a set; the winner agrees (qualifying, 22 Sep) | 6 |
+| Contradiction: one game credited to the other player (W50 Burgas, 6 Oct) | 1 |
+
+* **Aces and double faults** counted from the points equal the statistics in 3,435 of 3,522 matches (97.5%).
+* **The two sides' views agree on every point** in 3,433 (97.5%).
+
+**Done-when** (the plan; observed):
+* **Every finished singles match of the 14-day window, both documents asked:** 3,156 of the 3,158 played singles of 24 Sep – 9 Oct. The other two (W35 Wagga Wagga quarter-finals) ended at 00:42 and 01:02 UTC on 9 Oct, inside the two hours a match is left to settle before the 02:14 run; the next run asks them.
+* **A full week's events equal Wikipedia's lists:** yes.
+* **The tests pass:** 21 of 21.
+* **The daily job has run once:** yes, 9 Oct 02:14 UTC, asked for by name.
+
+**The map.** The data map now has the dataset `itf_live` (`on_disk`) and the loader `load_itf_live`. Its rebuild of 9 Oct, whose window ends on 4 Oct:
+* 4,052 of the map's 2026 ITF matches carry this source;
+* 2,763 have point detail from it (men's main draw 1,074, women's 902, qualifying 787), about half of the map's 2026 ITF matches with points;
+* it added 659 matches no other source listed, almost all qualifying;
+* the 2026 cells: men's ITF 14,857 matches (2,362 with points), men's ITFQ 17,646 (352), women's ITF 14,158 (2,175), women's ITFQ 12,499 (435).
+
+### Gaps and limits
+
+* **Forward only.** Nothing before 15 Sep 2026 is listed by this API any more.
+  * The six day lists the Wayback Machine kept (2025-01-30 to 2026-05-11) hold ids whose documents may still answer; the research found 5 of 6 sampled 2025 main-draw matches with them. Not fetched.
+  * itftennis.com's draws, if read in a browser, might give older ids ([P12](../gap_downloads/collection-plan.md#p12-itf-official-statistics-and-points-for-2025-2026-probe)).
+* **Qualifying** has statistics and points on 40% of matches.
+* **Per point, the API has none of:** a time, a serve number, a rally length, a speed.
+* **Record faults** (above): no winner on 2% of played matches, retirements listed as complete, and point logs that stop early on 3%.
+* **Doubles:** the lists only.
+* **Rights.** ITF regulations give its licensing arm the data rights and bar betting use. This was collected under the owner's decision of 8 October.
+* **Backup.** The raw folder is the only copy until the next `backup.py` run, and 15–23 Sep exist nowhere else in this form.
+
+### The daily job
+
+`src/ingest/scheduled.py` runs job `itf` every day in the Windows task (07:30 local, about 14:30 UTC):
+```
+./python.sh -m src.ingest.point_sources.itf_live --max-requests 1500
+```
+* **What a day costs:** about 450 requests and 20 minutes, then the tables (seconds). Days that keep a stuck match (28 Sep, 1, 3 and 4 Oct today) are asked once a day until they leave the window.
+* **Missed days** are caught up 1,500 requests a run, day lists first. A day is lost only if no run happens in the 14 days after it.
+* **Time.** The task as a whole stops after 2 hours. The job stops its run after at most 80 minutes, sooner when the jobs after it need the time (the canary on Mondays), and does not start with under 3 minutes left.
+* **Alerts:**
+  * a block pauses the job and raises a Windows notification at once, repeated every 3 days while paused; `--only itf` tries anyway and lifts the pause when it gets through;
+  * two failures in a row alert;
+  * another ITF run holding the lock is a skip.
+* **The download cadence decision** ([6 Oct](../../decisions/2026-10-06-download-cadence.md)) does not list this job yet. A line there is the owner's call.
+
+**Data volume:** about 30 KB per match gzipped (each statistics answer is about 1 MB of JSON), so about 2–3 GB a year.
+
+### Rerunning
+
+```
+./python.sh -m src.ingest.point_sources.itf_live --max-requests 1500                    # a run (the daily job's)
+./python.sh -m src.ingest.point_sources.itf_live --days-only --max-requests 30          # the day lists only
+./python.sh -m src.ingest.point_sources.itf_live --no-days --events <ITF keys> --max-requests 400   # a trial
+./python.sh -m src.ingest.point_sources.itf_live --stage-only                           # the tables, no HTTP
+./python.sh src/eda/official_point_feeds/verify_itf_live.py [--fetch-wikipedia]           # the checks
+./python.sh -m src.ingest.scheduled --only itf --no-notify                              # the daily job by hand
+./python.sh -m pytest test/official_point_feeds/test_itf_live.py -q
+```
+
+**Interruptions:**
+* Every fetch has a receipt, and a document is written whole before it replaces anything. Nothing saved is asked for again, so an interrupted command is continued by running it again.
+* One run fetches at a time, through the OS lock on `_run.lock`.
+* Exit codes: 0 when a run ends or uses up its budget, 2 on a block, 3 when another run holds the lock, 1 otherwise.

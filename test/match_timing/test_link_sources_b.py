@@ -205,3 +205,34 @@ def test_written_links():
         utc = lk["start_utc"].notna() & lk["date_basis"].eq("utc_date")
         if utc.any():   # a UTC day is the start's own day
             assert (lk.loc[utc, "start_utc"].dt.tz_convert("UTC").dt.date == lk.loc[utc, "date_local"]).all(), s
+
+
+# ------------------------------------------------------------------------------------------------
+# the Live Tennis API's versions
+
+def test_lta_times_give_the_same_utc_start_from_v1_0_0_and_v1_0_2(tmp_path, monkeypatch):
+    """v1.0.0 wrote Israel local time (summer UTC+3, winter UTC+2) and is converted; v1.0.2 writes UTC and is not."""
+    monkeypatch.setattr(X, "DUMP", tmp_path)
+    monkeypatch.setattr(SRC, "LTA_MATCHES", tmp_path / "matches.parquet")
+    (tmp_path / "players" / "live_tennis_api_zenodo").mkdir(parents=True)
+    pd.DataFrame({"player_id": ["p1", "p2"], "name": ["Ann Alpha", "Bob Beta"], "tour": ["atp", "atp"],
+                  "sackmann_id": ["", ""], "birthday": ["", ""]}).to_parquet(
+        tmp_path / "players" / "live_tennis_api_zenodo" / "players.parquet", index=False)
+
+    def stage(times, version=None):
+        frame = pd.DataFrame({"match_id": ["m1", "m2"], "tier_key": ["270", "270"], "player1_id": ["p1", "p1"],
+                              "player2_id": ["p2", "p2"], "event_status": ["Finished", "Finished"],
+                              "scheduled_time_utc": times, "is_qualifying": ["False", "False"], "round": ["R32", "R16"],
+                              "tournament": ["M25 X", "M25 Y"]})
+        if version:
+            frame["_zenodo_version"] = version
+        frame.to_parquet(tmp_path / "matches.parquet", index=False)
+        return SRC.load_lta(pd.Series(dtype=object))
+
+    old, old_info = stage(["2026-06-20 13:00:00", "2026-01-10 12:00:00"])            # staged before 8 Oct 2026
+    new, new_info = stage(["2026-06-20 10:00:00", "2026-01-10 10:00:00"], "1.0.2")
+    assert old_info["scheduled_time_utc_read_as"] == "Asia/Jerusalem" and new_info["scheduled_time_utc_read_as"] == "UTC"
+    assert list(new["start_utc"]) == list(old["start_utc"]) == [pd.Timestamp("2026-06-20 10:00", tz="UTC"),
+                                                                pd.Timestamp("2026-01-10 10:00", tz="UTC")]
+    assert list(new["date"]) == list(old["date"])
+    assert old_info["hours_moved_back_israel_to_utc"] == {"3": 1, "2": 1} and "hours_moved_back_israel_to_utc" not in new_info

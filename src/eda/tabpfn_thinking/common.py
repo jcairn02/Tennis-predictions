@@ -119,7 +119,8 @@ FEATURES += [
     {"name": "level", "src": "match", "col": "group", "group": "context", "kind": "context",
      "desc": "0 Grand Slam, 1 Tour Finals, 2 1000, 3 500, 4 250; categorical"},
     {"name": "indoor", "src": "match", "col": "indoor", "group": "context", "kind": "context",
-     "desc": "1 indoor, 0 outdoor (Stage 0's event metadata; the men only, missing for every women's match)"},
+     "desc": "1 indoor, 0 outdoor (since 9 Oct 2026, src/eda/indoor_fill/status.py: Stage 0's event metadata for the "
+             "men, the WTA's calendar for the women, tennis-data.co.uk's Court where those lack it; before, the men only)"},
     {"name": "best_of", "src": "match", "col": "best_of", "group": "context", "kind": "context",
      "desc": "scheduled best of 3 or 5 (the audit's pre-match rule, not the score)"},
     {"name": "round", "src": "match", "col": "round_order", "group": "context", "kind": "context",

@@ -3,12 +3,15 @@
 Decisions: docs/decisions/2026-10-07-speed-nudge.md (amended 8 Oct 2026: always the 28-day memory; "id love to get the
 speed data daily") and docs/decisions/2026-10-08-scraping-approved.md (collection and decryption approved; clarified the
 same day: the daily collector decrypts the CURRENT season's ATP Stats Centre files; the 2015-2021 backfill of session
-tennis-predictions-74 stays encrypted). Reads no match result.
+tennis-predictions-74 was kept encrypted, then decrypted offline later that day at the owner's instruction by
+src/ingest/point_sources/infosys_atp_decrypt.py, and its speeds enter the history through
+live/speed_panel_backfilled.parquet: docs/studies/infosys_atp_backfill/). Reads no match result.
 
 Layout:
     data/studies/serve_speed_tabpfn/live/staging/      staged per-match speeds, one file per source and collection day
     data/studies/serve_speed_tabpfn/live/linked.parquet the staged matches linked to project match and player ids
-    data/studies/serve_speed_tabpfn/live/speed_panel_live.parquet   the frozen panel plus the new rows
+    data/studies/serve_speed_tabpfn/live/speed_panel_live.parquet   the frozen panel (corrected, with the ATP backfill)
+                                                                    plus the new rows
     data/studies/serve_speed_tabpfn/live/speed_form_<date>.parquet  each ATP player's 28-day form as of that morning
     data/studies/serve_speed_tabpfn/live/collector.json  the ATP daily collector's switch (off until the lead enables it)
     data/studies/serve_speed_tabpfn/live/runs.jsonl      one line per runner run

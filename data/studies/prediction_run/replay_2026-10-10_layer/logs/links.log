@@ -1,0 +1,17 @@
+[    0.0s] running ['tennis_data', 'wta_api', 'sofascore', 'slam_feeds', 'tdi'] with 3 worker process(es)
+[    6.3s] [tennis_data] done: 83,108 linked in 6.3 s
+[    7.7s] [sofascore] 52,648 singles events to link against 702,252 Stage 0 matches
+[    8.0s] [slam_feeds] 7,911 singles matches with a day to link
+[    8.9s] [slam_feeds] done: 7,682 linked in 2.6 s
+[    9.2s] [tdi] 5,154 singles matches to link against 45,231 Stage 0 matches
+[   10.2s] [tdi] done: 4,939 linked in 1.4 s
+[   17.4s] [wta_api] 31,039 singles rows to link
+[   20.0s] [wta_api] done: 28,737 linked in 20.0 s
+[   20.2s] [sofascore] done: 51,409 linked in 20.2 s
+[   23.6s] wrote data\studies\match_timing\links\sources_c_summary.json and data\studies\match_timing\links\sources_c_link_counts.csv
+  tennis_data  read    83243 linked   83108 ambiguous    0 unlinked     135
+  wta_api      read    40364 linked   28737 ambiguous    0 unlinked    2302
+  sofascore    read    55475 linked   51409 ambiguous    0 unlinked    1239
+  slam_feeds   read     7931 linked    7682 ambiguous    0 unlinked     229
+  tdi          read     6718 linked    4939 ambiguous    0 unlinked     215
+  sirgenkii    read     1343 linked       0 ambiguous    0 unlinked    1343

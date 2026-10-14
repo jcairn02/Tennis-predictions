@@ -1,0 +1,122 @@
+[    0.0s] --through 2026 reads 2025-2026 results (H-exposed): the proposed clean holdout; recorded in the study's report
+  population                                                                     comparison  matches  estimate        lo       hi
+both_2022_26                           the backfill: augmented against current, both stages    23758  0.014804 -0.110379 0.139987
+both_2022_26   for scale: the adjustment on the current history against the calibrated base    23758 -0.033921 -0.251160 0.183318
+both_2022_26 for scale: the adjustment on the augmented history against the calibrated base    23758 -0.019117 -0.245307 0.207073
+ men_2022_26                           the backfill: augmented against current, both stages    12341  0.028499 -0.170078 0.227077
+ men_2022_26   for scale: the adjustment on the current history against the calibrated base    12341 -0.065302 -0.459566 0.328962
+ men_2022_26 for scale: the adjustment on the augmented history against the calibrated base    12341 -0.036803 -0.449463 0.375858
+ men_2024_26                           the backfill: augmented against current, both stages     7068  0.010419 -0.221950 0.242789
+ men_2024_26   for scale: the adjustment on the current history against the calibrated base     7068  0.304379 -0.033817 0.642574
+ men_2024_26 for scale: the adjustment on the augmented history against the calibrated base     7068  0.314798 -0.036271 0.665867
+current {2020: (0.8832, 0.9672, 0.0213, 0.1961, 0.1434), 2021: (0.9006, 0.9572, 0.0187, 0.1052, 0.1077), 2022: (0.8841, 0.9728, 0.0061, 0.0186, 0.0717), 2023: (0.8956, 0.9418, 0.0696, 0.1124, 0.0392), 2024: (0.8945, 0.9322, 0.0276, 0.0367, 0.0286), 2025: (0.9074, 0.9302, 0.0241, 0.0293, 0.0232), 2026: (0.8956, 0.9189, 0.0342, 0.0399, 0.0205), 2027: (0.8984, 0.9238, 0.0432, 0.0491, 0.0186)}
+augmented {2020: (0.8832, 0.9672, 0.0225, 0.2059, 0.1427), 2021: (0.9006, 0.9572, 0.0198, 0.1113, 0.1074), 2022: (0.8839, 0.9728, 0.0134, 0.0371, 0.0665), 2023: (0.8953, 0.9418, 0.0726, 0.1153, 0.0383), 2024: (0.8943, 0.9322, 0.0303, 0.0401, 0.0283), 2025: (0.9073, 0.9302, 0.0261, 0.0316, 0.023), 2026: (0.8955, 0.9189, 0.0357, 0.0416, 0.0203), 2027: (0.8984, 0.9238, 0.0444, 0.0505, 0.0185)}
+  seasons   history  matches  estimate        lo       hi  p_two_sided  nonzero_share
+     2019   current     2586  0.195276 -0.220068 0.610620     0.322976       0.967131
+     2019 augmented     2586  0.204934 -0.208699 0.618567     0.298815       0.967131
+     2020   current     1259 -0.013288 -0.462471 0.435895     0.944647       0.962669
+     2020 augmented     1259 -0.013288 -0.462471 0.435895     0.944647       0.962669
+     2021   current     2466 -0.047932 -0.218013 0.122149     0.547709       0.972019
+     2021 augmented     2466 -0.006714 -0.178364 0.164936     0.932943       0.972019
+     2022   current     2601  0.152840  0.032774 0.272906     0.017220       0.996540
+     2022 augmented     2601  0.154433  0.036701 0.272165     0.014782       0.996540
+     2023   current     2672 -0.050877 -0.139951 0.038198     0.234741       1.000000
+     2023 augmented     2672 -0.050877 -0.139951 0.038198     0.234741       1.000000
+     2024   current     2674  0.016019 -0.059393 0.091431     0.649247       0.998878
+     2024 augmented     2674  0.016019 -0.059393 0.091431     0.649247       0.998878
+     2025   current     2620  0.075748 -0.043299 0.194795     0.188948       1.000000
+     2025 augmented     2620  0.075748 -0.043299 0.194795     0.188948       1.000000
+     2026   current     1774  0.099042  0.001590 0.196494     0.047147       1.000000
+     2026 augmented     1774  0.099042  0.001590 0.196494     0.047147       1.000000
+2019-2026   current    18652  0.049500  0.013175 0.085825     0.008137       0.988580
+2019-2026 augmented    18652  0.050827  0.015380 0.086274     0.005457       0.988580
+2019-2023   current    11584  0.036639 -0.024819 0.098097     0.237214       0.981872
+2019-2023 augmented    11584  0.040055 -0.018642 0.098753     0.176933       0.981872
+2024-2026   current     7068  0.059132  0.014929 0.103336     0.010339       0.999576
+2024-2026 augmented     7068  0.059132  0.014929 0.103336     0.010339       0.999576
+{
+ "current": {
+  "seasons": [
+   "2019",
+   "2020",
+   "2021",
+   "2022",
+   "2023",
+   "2024",
+   "2025",
+   "2026"
+  ],
+  "fixed_effect_mean": 0.038406637880828653,
+  "fixed_effect_se": 0.018488725156351644,
+  "Q": 14.248521957409583,
+  "df": 7,
+  "p_heterogeneity": 0.04693363040291203,
+  "I2": 0.5087209732403277,
+  "tau_between_seasons": 0.0554900687955919,
+  "random_effects_mean": 0.04406814741574299,
+  "random_effects_se": 0.029515499649292298,
+  "prediction_interval_next_season": [
+   -0.10455206011099696,
+   0.19268835494248296
+  ],
+  "share_of_new_seasons_below_0": 0.25292204236987775,
+  "next_season": {
+   "season": 2027,
+   "b_shrunk": 0.043169989011612064,
+   "k_mean_pq_z2": 0.23662684202246959,
+   "k_from_seasons": [
+    2024,
+    2026
+   ],
+   "expected_gain_mll_at_mean_effect": 0.22966941279751632,
+   "gain_mll_if_effect_at_prediction_bounds": [
+    -1.2885124867449305,
+    1.7478513123399633
+   ],
+   "probability_the_season_loses": 0.36027696602848147,
+   "note": "men; mLL per match, positive = the adjustment helps; normal approximation"
+  }
+ },
+ "augmented": {
+  "seasons": [
+   "2019",
+   "2020",
+   "2021",
+   "2022",
+   "2023",
+   "2024",
+   "2025",
+   "2026"
+  ],
+  "fixed_effect_mean": 0.0416240404655371,
+  "fixed_effect_se": 0.01845519791251372,
+  "Q": 13.70314890839794,
+  "df": 7,
+  "p_heterogeneity": 0.056720159043337284,
+  "I2": 0.4891685081441341,
+  "tau_between_seasons": 0.05324979971860836,
+  "random_effects_mean": 0.048634952740813066,
+  "random_effects_se": 0.028817483130058635,
+  "prediction_interval_next_season": [
+   -0.0945369144098949,
+   0.191806819891521
+  ],
+  "share_of_new_seasons_below_0": 0.22411967638611055,
+  "next_season": {
+   "season": 2027,
+   "b_shrunk": 0.04438469453902497,
+   "k_mean_pq_z2": 0.23663698528638186,
+   "k_from_seasons": [
+    2024,
+    2026
+   ],
+   "expected_gain_mll_at_mean_effect": 0.27772827998084076,
+   "gain_mll_if_effect_at_prediction_bounds": [
+    -1.2260144751938753,
+    1.7814710351555567
+   ],
+   "probability_the_season_loses": 0.3311551639147022,
+   "note": "men; mLL per match, positive = the adjustment helps; normal approximation"
+  }
+ }
+}

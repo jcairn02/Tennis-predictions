@@ -67,6 +67,7 @@ from src.eda.predictability_diagnostic import stage3_traits as T  # noqa: E402
 from src.eda.predictability_diagnostic import stage4_candidates as P  # noqa: E402
 from src.eda.predictability_diagnostic import stage4_country as CTRY  # noqa: E402
 from src.eda.predictability_diagnostic.scheduled_format import scheduled_format  # noqa: E402
+from src.eda.lower_level_evidence import level_layer as _LLE  # noqa: E402  level layer (LLE_LAYER)
 
 PLAN = C.DOCS / "candidates.md"
 CANDIDATES = C.OUT / "stage4_candidates.csv"
@@ -569,6 +570,7 @@ def history_sums(rows: pd.DataFrame, xd: dict, ctx: dict) -> dict:
     cols, names = [], []
     for s in HIST:
         x, d, ok = xd[s]
+        x, d = _LLE.points_counts(rows, s, x, d, ok)   # level layer (LLE_LAYER)
         mu = mu_of_rows(rows, ctx["means"][s])
         mua = mu_of_rows(rows, ctx["means"][f"{s}_adj"])
         xc = np.where(ok, x - d * mu, 0.0)
@@ -671,19 +673,19 @@ def weighted_elo_pass(week, event, rnd, a, b, a_won, surf, upd, weight, n_player
             sa, sb, nsa, nsb = RS[s][pa] + ya[0], RS[s][pb] + yb[0], NS[s][pa] + ya[1], NS[s][pb] + yb[1]
             out[i, 4], out[i, 5], out[i, 6], out[i, 7] = sa, sb, nsa, nsb
         if upd[i]:
-            wgt = weight[i]
+            wgt = upd[i] * weight[i]   # level layer (LLE_LAYER): upd[i] True or w
             res = 1.0 if a_won[i] else 0.0
             surprise = res - 1.0 / (1.0 + 10.0 ** ((rb - ra) / 400.0))
             xa[3] += wgt * k0 / (na + offset) ** shape * surprise
             xb[3] -= wgt * k0 / (nb + offset) ** shape * surprise
-            xa[4] += 1
-            xb[4] += 1
+            xa[4] += upd[i]   # level layer (LLE_LAYER)
+            xb[4] += upd[i]
             if do_s:
                 surprise = res - 1.0 / (1.0 + 10.0 ** ((sb - sa) / 400.0))
                 ya[3] += wgt * k0 / (nsa + offset) ** shape * surprise
                 yb[3] -= wgt * k0 / (nsb + offset) ** shape * surprise
-                ya[4] += 1
-                yb[4] += 1
+                ya[4] += upd[i]   # level layer (LLE_LAYER)
+                yb[4] += upd[i]
     return out
 
 
@@ -744,7 +746,7 @@ def elo_variants(rows: pd.DataFrame, scales: dict) -> dict:
             wgt = np.where(np.isfinite(sh), sh / scales[(kind, tour)], 1.0)
             h = elo_inputs(t)
             block[idx] = weighted_elo_pass(h["week"], h["event"], h["rnd"], h["a"], h["b"], h["a_won"], h["surf"],
-                                           upd[idx].tolist(), wgt.tolist(), h["n_players"], k["k0"], k["offset"], k["shape"])
+                                           _LLE.elo_weights(t, upd[idx].tolist()), wgt.tolist(), h["n_players"], k["k0"], k["offset"], k["shape"])   # level layer (LLE_LAYER)
             out[(kind, tour, "w")] = k["w"]
         out[kind] = block
     return out
@@ -1475,10 +1477,11 @@ def probe(rows: pd.DataFrame, ctx: dict, cand: pd.DataFrame, pbp: pd.DataFrame, 
 # ------------------------------------------------------------------------------------------------
 
 def pool_mask(rows: pd.DataFrame) -> np.ndarray:
-    """Per match: an evaluation-level match of 2010-2026, completed or retired (the walk-forward fits' pool)."""
+    """Per match: an evaluation-level match of 2010 on, completed or retired (the walk-forward fits' pool). No last
+    season since 10 Oct 2026 (it was 2026)."""
     a = rows.iloc[0::2]
     return (a["level"].isin(C.EVAL_LEVELS) & a["status"].isin(C.EVAL_STATUSES)
-            & a["year"].between(C.FIRST_YEAR, C.EVAL_YEARS[-1])).to_numpy()
+            & a["year"].ge(C.FIRST_YEAR)).to_numpy()
 
 
 def build_all(rows: pd.DataFrame, ctx: dict, cand: pd.DataFrame, pbp: pd.DataFrame, pool: np.ndarray,

@@ -1,0 +1,186 @@
+{
+ "steps": [
+  {
+   "step": "stage1_baselines",
+   "script": "src/eda/predictability_diagnostic/stage1_baselines.py",
+   "exit": 0,
+   "seconds": 1421.1,
+   "finished_at": "2026-10-13T22:39:16",
+   "log": "C:\\Users\\zerom\\tnr_tpl1014\\logs\\stage1_baselines.log"
+  },
+  {
+   "step": "stage3_ratings",
+   "script": "src/eda/predictability_diagnostic/stage3_ratings.py",
+   "exit": 0,
+   "seconds": 183.6,
+   "finished_at": "2026-10-13T22:42:20",
+   "log": "C:\\Users\\zerom\\tnr_tpl1014\\logs\\stage3_ratings.log"
+  },
+  {
+   "step": "stage4_features",
+   "script": "src/eda/predictability_diagnostic/stage4_features.py",
+   "exit": 0,
+   "seconds": 1582.1,
+   "finished_at": "2026-10-13T23:08:42",
+   "log": "C:\\Users\\zerom\\tnr_tpl1014\\logs\\stage4_features.log"
+  },
+  {
+   "step": "ufc_stageA_ratings",
+   "script": "src/eda/ufc_ideas/stageA_ratings.py --reuse-grid",
+   "exit": 0,
+   "seconds": 1358.1,
+   "finished_at": "2026-10-13T23:31:20",
+   "log": "C:\\Users\\zerom\\tnr_tpl1014\\logs\\ufc_stageA_ratings.log"
+  },
+  {
+   "step": "ufc_stageA_features",
+   "script": "src/eda/ufc_ideas/stageA_features.py",
+   "exit": 0,
+   "seconds": 3.0,
+   "finished_at": "2026-10-13T23:31:23",
+   "log": "C:\\Users\\zerom\\tnr_tpl1014\\logs\\ufc_stageA_features.log"
+  },
+  {
+   "step": "ufc_stageC_fatigue",
+   "script": "src/eda/ufc_ideas/stageC_fatigue.py",
+   "exit": 0,
+   "seconds": 79.8,
+   "finished_at": "2026-10-13T23:32:43",
+   "log": "C:\\Users\\zerom\\tnr_tpl1014\\logs\\ufc_stageC_fatigue.log"
+  },
+  {
+   "step": "ufc_stageC_sos",
+   "script": "src/eda/ufc_ideas/stageC_sos.py",
+   "exit": 0,
+   "seconds": 130.7,
+   "finished_at": "2026-10-13T23:34:54",
+   "log": "C:\\Users\\zerom\\tnr_tpl1014\\logs\\ufc_stageC_sos.log"
+  },
+  {
+   "step": "ufc_stageC_rundown",
+   "script": "src/eda/ufc_ideas/stageC_rundown.py",
+   "exit": 0,
+   "seconds": 82.0,
+   "finished_at": "2026-10-13T23:36:16",
+   "log": "C:\\Users\\zerom\\tnr_tpl1014\\logs\\ufc_stageC_rundown.log"
+  },
+  {
+   "step": "ufc_stageB_adjperf",
+   "script": "src/eda/ufc_ideas/stageB_adjperf.py",
+   "exit": 0,
+   "seconds": 1096.7,
+   "finished_at": "2026-10-13T23:54:32",
+   "log": "C:\\Users\\zerom\\tnr_tpl1014\\logs\\ufc_stageB_adjperf.log"
+  },
+  {
+   "step": "ufc_stageB_ios",
+   "script": "src/eda/ufc_ideas/stageB_ios.py",
+   "exit": 0,
+   "seconds": 558.9,
+   "finished_at": "2026-10-14T00:03:51",
+   "log": "C:\\Users\\zerom\\tnr_tpl1014\\logs\\ufc_stageB_ios.log"
+  },
+  {
+   "step": "ios_constants_check",
+   "script": "src/eda/ios_constants/registry.py --check",
+   "exit": 0,
+   "seconds": 1.3,
+   "finished_at": "2026-10-14T00:03:53",
+   "log": "C:\\Users\\zerom\\tnr_tpl1014\\logs\\ios_constants_check.log"
+  },
+  {
+   "step": "ufc_stageB_split",
+   "script": "src/eda/ufc_ideas/stageB_split.py",
+   "exit": 0,
+   "seconds": 131.1,
+   "finished_at": "2026-10-14T00:06:04",
+   "log": "C:\\Users\\zerom\\tnr_tpl1014\\logs\\ufc_stageB_split.log"
+  },
+  {
+   "step": "ufc_stageB_rundown",
+   "script": "src/eda/ufc_ideas/stageB_rundown.py",
+   "exit": 0,
+   "seconds": 468.0,
+   "finished_at": "2026-10-14T00:13:52",
+   "log": "C:\\Users\\zerom\\tnr_tpl1014\\logs\\ufc_stageB_rundown.log"
+  },
+  {
+   "step": "ufc_stageD_profile",
+   "script": "src/eda/ufc_ideas/stageD_profile.py",
+   "exit": 0,
+   "seconds": 245.6,
+   "finished_at": "2026-10-14T00:17:57",
+   "log": "C:\\Users\\zerom\\tnr_tpl1014\\logs\\ufc_stageD_profile.log"
+  },
+  {
+   "step": "ufc_stageD_rundown",
+   "script": "src/eda/ufc_ideas/stageD_rundown.py",
+   "exit": 0,
+   "seconds": 55.2,
+   "finished_at": "2026-10-14T00:18:53",
+   "log": "C:\\Users\\zerom\\tnr_tpl1014\\logs\\ufc_stageD_rundown.log"
+  },
+  {
+   "step": "thinking_frame",
+   "script": "src/eda/tabpfn_thinking/build_frame.py",
+   "exit": 0,
+   "seconds": 9.7,
+   "finished_at": "2026-10-14T00:19:02",
+   "log": "C:\\Users\\zerom\\tnr_tpl1014\\logs\\thinking_frame.log"
+  },
+  {
+   "step": "lle_ios_part",
+   "script": "src/eda/match_timing/rebuild.py --part ios",
+   "exit": 0,
+   "seconds": 301.4,
+   "finished_at": "2026-10-14T00:24:04",
+   "log": "C:\\Users\\zerom\\tnr_tpl1014\\logs\\lle_ios_part.log"
+  },
+  {
+   "step": "lle_ios_merge",
+   "script": "src/eda/match_timing/rebuild.py --part merge",
+   "exit": 0,
+   "seconds": 2.7,
+   "finished_at": "2026-10-14T00:24:06",
+   "log": "C:\\Users\\zerom\\tnr_tpl1014\\logs\\lle_ios_merge.log"
+  },
+  {
+   "step": "leakproof_frame",
+   "script": "src/eda/tabpfn_leakproof/build_frame.py",
+   "exit": 0,
+   "seconds": 2.3,
+   "finished_at": "2026-10-14T00:24:09",
+   "log": "C:\\Users\\zerom\\tnr_tpl1014\\logs\\leakproof_frame.log"
+  },
+  {
+   "step": "elo_pieces",
+   "script": "src/eda/surface_elo_pieces/pieces.py",
+   "exit": 1073807364,
+   "seconds": 299.7,
+   "finished_at": "2026-10-14T00:29:08",
+   "log": "C:\\Users\\zerom\\tnr_tpl1014\\logs\\elo_pieces.log"
+  },
+  {
+   "step": "elo_pieces",
+   "script": "src/eda/surface_elo_pieces/pieces.py",
+   "exit": 0,
+   "seconds": 466.1,
+   "finished_at": "2026-10-14T07:09:02",
+   "log": "C:\\Users\\zerom\\tnr_tpl1014\\logs\\elo_pieces.log"
+  },
+  {
+   "step": "elo_frames",
+   "script": "src/eda/surface_elo_pieces/build_frames.py",
+   "exit": 0,
+   "seconds": 10.5,
+   "finished_at": "2026-10-14T07:09:12",
+   "log": "C:\\Users\\zerom\\tnr_tpl1014\\logs\\elo_frames.log"
+  }
+ ],
+ "sandbox": "C:\\Users\\zerom\\tnr_tpl1014",
+ "lane": "1",
+ "lle_layer": {
+  "config": "C:\\Users\\zerom\\tnr_tpl1014\\data\\studies\\current_best_model\\level_layer\\this_build\\build_config.json",
+  "via": "--layer"
+ }
+}

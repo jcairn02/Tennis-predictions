@@ -1,0 +1,188 @@
+{
+ "status": "final",
+ "selected": "SYS",
+ "step1_arm": "SYS",
+ "qualifying": [],
+ "missing_challengers": [],
+ "challengers": [
+  {
+   "challenger": "SYS_w0",
+   "scored": true,
+   "gain_over_SYS_mLL": -0.5778736374964005,
+   "lo": -1.0188849961690027,
+   "hi": -0.1368622788237982,
+   "se": 0.2199690331836256,
+   "reads_better_than_SYS": false,
+   "gain_after_winners_luck": -0.8748318322942952
+  },
+  {
+   "challenger": "SYS_w50",
+   "scored": true,
+   "gain_over_SYS_mLL": -0.1178711916404728,
+   "lo": -0.2579348188496147,
+   "hi": 0.022192435568669,
+   "se": 0.0698613767094809,
+   "reads_better_than_SYS": false,
+   "gain_after_winners_luck": -0.21218405019827202
+  },
+  {
+   "challenger": "SYS_w100",
+   "scored": true,
+   "gain_over_SYS_mLL": 0.0419170378136892,
+   "lo": -0.0718164482095388,
+   "hi": 0.1556505238369174,
+   "se": 0.0567283460372403,
+   "reads_better_than_SYS": false,
+   "gain_after_winners_luck": -0.03466622933658522
+  },
+  {
+   "challenger": "SEP_ALL",
+   "scored": true,
+   "gain_over_SYS_mLL": -0.5838676844046483,
+   "lo": -1.1562493833847152,
+   "hi": -0.0114859854245814,
+   "se": 0.2854943448976255,
+   "reads_better_than_SYS": false,
+   "gain_after_winners_luck": -0.9692850500164427
+  },
+  {
+   "challenger": "SYS_NOCLASS",
+   "scored": true,
+   "gain_over_SYS_mLL": -0.0145220033621418,
+   "lo": -0.0955045521678125,
+   "hi": 0.0664605454435288,
+   "se": 0.0403927305163893,
+   "reads_better_than_SYS": false,
+   "gain_after_winners_luck": -0.06905218955926735
+  }
+ ],
+ "step1_vs_REF_men_dev": {
+  "comparison": "SYS vs REF",
+  "tour": "men",
+  "population": "all",
+  "stage": "both stages",
+  "matches": 11672,
+  "estimate": -0.0083138108310925,
+  "lo": -0.1617268285770728,
+  "hi": 0.1450992069148878,
+  "se": 0.0765198277271994,
+  "p_better": 0.456740405375985,
+  "reading": "unresolved"
+ },
+ "step1_shows_harm_against_REF": false,
+ "winner_after_winners_luck": null,
+ "challenger_list": [
+  "SYS_w0",
+  "SYS_w50",
+  "SYS_w100",
+  "SEP_ALL",
+  "SYS_NOCLASS"
+ ],
+ "not_challengers": {
+  "R_S2": "lead evidence for the pool, seasons 2020-2024 (2025-2026 on the holdout)",
+  "SYS_S2": "lead evidence for the pool, seasons 2020-2024 (2025-2026 on the holdout)"
+ },
+ "rules": "the owner's decision of 9 Oct 2026 (sections 2-3) with erratum 1: SYS unless one of five challengers reads better than SYS (men, dev, both stages); of several, the largest gain; REF only if that arm shows harm against REF (worse by more than 0.10 mLL, whole 95% interval below 0); R_S2 and SYS_S2 reported, not challengers",
+ "decision_layer": "owner decision 2026-10-09 (adoption by change class), addition 4",
+ "sources": {
+  "decision": "docs/decisions/2026-10-09-adoption-by-change-class.md",
+  "applied": "data/studies/lower_level_evidence/system/owner_decision_2026-10-09.md (sections 1-5)",
+  "erratum": "data/studies/lower_level_evidence/system/owner_decision_2026-10-09_erratum_1.md (section 1: the challengers; R_S2 and SYS_S2 report-only)",
+  "adopted": "data/studies/lower_level_evidence/system/preregistration_addition_4.md (code: 4b, 4c)"
+ },
+ "period": "dev 2020-2024",
+ "registered_rules_outcome": {
+  "status": "final",
+  "selected": "SYS_S2",
+  "step1_arm": "SYS_S2",
+  "qualifying": [
+   "SYS_S2",
+   "R_S2"
+  ],
+  "step1_p_better_than_REF": 0.9006437758304048,
+  "t_cdf_check": {
+   "selected_with_t_cdf": "SYS_S2",
+   "qualifying_with_t_cdf": [
+    "SYS_S2",
+    "R_S2"
+   ],
+   "agrees": true
+  }
+ },
+ "agrees_with_registered_rules": false,
+ "sides_parquet_sha256": "ae232c73d5318c4151146ec6f6b23173da7cdad5099904f5bc4e449532affaca",
+ "arms_scored": [
+  "SYS",
+  "SYS_w0",
+  "SYS_w50",
+  "SYS_w100",
+  "SEP_ALL",
+  "SYS_NOCLASS",
+  "SYS_S2",
+  "R_S2",
+  "SYS_PLACEBO",
+  "REF_noITF"
+ ],
+ "arms_record": {
+  "absent": [
+   "SYS_BOTH",
+   "SYS_w25",
+   "SYS_w75",
+   "SYS_ITFASIS",
+   "SYS_BOTH_ITFASIS"
+  ],
+  "skipped": {
+   "RES_ONLY": [
+    "model__2019__seed0.npz: missing",
+    "model__2019__seed1.npz: missing",
+    "model__2019__seed2.npz: missing",
+    "model__2019__seed3.npz: missing",
+    "model__2020__seed0.npz: missing"
+   ]
+  },
+  "waived": [
+   "RES_ONLY",
+   "SYS_BOTH"
+  ]
+ },
+ "selection_registered_sha256": "22c6c63cf1dcbb28f7d8bbf883814a477f28d56e9e8c8097017ff250b8330376",
+ "dev_pairs_sha256": "2df5a0a1b37dd8add040ff4f65a5bd0fbfc5fb0f2810a86480a5b126b7649b0f",
+ "preregistration": {
+  "preregistration.md": "cc65bcd5eb402326814291156d30c8d7ff4318d7344dd1f636d174bfd6068ae9",
+  "preregistration_addition_1.md": "c718e6d0696448c7f2a5849cd6e5d2f4443f5e29173b71900f782048a0d48b8a",
+  "preregistration_addition_2.md": "3f5367969b39003aff28e9e5d29fa35027cf9362d7a4cc321c4eef7249e7a27b",
+  "preregistration_addition_3.md": "f206343347895152cf1ddb70bc0229e6c3d1831d4545bf4ee91d5b52225a27ca",
+  "preregistration_addition_4.md": "754e055cd6d9b31a3a6d60bd16165628b6a51c73c6f2944536a81b5774526870",
+  "preregistration_addition_4b.md": "f4e2e405d8f5875bf6e9576e2e7598e2b34bf0dcc51d56cf7597e142a47b848a",
+  "preregistration_addition_4c.md": "7c7ff69a670ffd51c9c91f0edaa18a652e26df05654441f5771840f050900c0a"
+ },
+ "freeze": {
+  "file": "preregistration_addition_3.md + preregistration_addition_4b.md + preregistration_addition_4c.md",
+  "held_in": {
+   "classes/classes.csv": "preregistration_addition_3.md",
+   "relationship/params.parquet": "preregistration_addition_3.md",
+   "relationship.py": "preregistration_addition_3.md",
+   "level_layer.py": "preregistration_addition_3.md",
+   "level_layer_ios.py": "preregistration_addition_3.md",
+   "system_pairs.py": "preregistration_addition_4b.md",
+   "system_fits.py": "preregistration_addition_3.md",
+   "system_decide.py": "preregistration_addition_4c.md"
+  },
+  "missing": [],
+  "recommended_missing": [
+   "compare.py",
+   "system_arms.py"
+  ],
+  "hashes": {
+   "classes/classes.csv": "58e7862273bfaf8bfbe6283c72b54e80f219ff36c0f83df795076d52ae940c26",
+   "relationship/params.parquet": "4c559abd356f7c9f0f53c958c5d8293ae55d0cdfa62c4e9da689c94c91a801fb",
+   "relationship.py": "06a85f00a2051a53063bdc706d06d360e80e2bd11bf2532aa2abb600df982575",
+   "level_layer.py": "26e21291822f42e4c9e7771f518149d1cb85116bdeb5196285fa22eeca37411f",
+   "level_layer_ios.py": "3fa5f69e592118fc204809ce0ec6afa627e5b979af3e33752e91e89f154c05c3",
+   "system_pairs.py": "a486aed9aa28cab1ef36dc3ae50be4d4cffa5a61a274606445039f33a5f4d898",
+   "system_fits.py": "e8831b1febd0e7987d20c0070335de6c1d93a8d628f463fa2c261f94234c5362",
+   "system_decide.py": "829560436830ee2543c7be88e25f31af53f38ca1605cf3d3c21c43dfd0948870"
+  }
+ },
+ "generated_at": "2026-10-10T08:25:55Z"
+}

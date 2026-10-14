@@ -12,7 +12,7 @@ Linking: identity (srcc_common.link) against Stage 0 of the event's tour (ATP, C
 WTA, ITF Women -> wta; exhibitions and juniors are out of scope), with SofaScore's team ids for the id pass. The earlier
 studies' links are then translated to Stage 0 by exact names and tournament week (their keys are the data map's uid or
 the career study's ref_id, not Stage 0 match ids) and compared with the identity links:
-    data/studies/gap_downloads/sofascore_atp_points_2025_matches.csv   (editions; map uid -> event_id)
+    data/studies/gap_downloads/sofascore_<gap>_matches.csv[.gz]         (editions, one file per gap; map uid -> event_id)
     data/studies/ao_rg_points/sofascore_links.csv                        (AO/RG main draws; map uid -> event_id)
     data/studies/point_shot_sources/sofascore_links.csv                  (careers; ref_id -> sofa_id)
 An event the identity pass leaves unlinked but a prior link places on a free Stage 0 match whose set scores or round
@@ -33,7 +33,7 @@ SOURCE = "sofascore"
 COLLECTIONS = ("sofascore", "sofascore_editions", "sofascore_tournaments")
 STUDIES = K.ROOT / "data" / "studies"
 PRIOR = {
-    "gap_downloads": STUDIES / "gap_downloads" / "sofascore_atp_points_2025_matches.csv",
+    "gap_downloads": STUDIES / "gap_downloads",          # sofascore_<gap>_matches.csv, one per gap (gap_links)
     "ao_rg_points": STUDIES / "ao_rg_points" / "sofascore_links.csv",
     "point_shot_sources": STUDIES / "point_shot_sources" / "sofascore_links.csv",
 }
@@ -101,13 +101,28 @@ def is_qual(tname, rnd) -> object:
     return None
 
 
+def gap_links(folder) -> pd.DataFrame:
+    """The by-edition adapter's links of every gap (sofascore_<gap>_matches.csv, gzipped for the ITF gaps): a list
+    frozen before its gap's first run has none yet, and a target in two overlapping gaps is kept once. Each gap keeps
+    the map uids of its own build, so a target is keyed by its gap and uid."""
+    cols = ["gap", "uid", "event_id", "tour", "d", "name1", "name2", "ss_round"]
+    frames = []
+    for path in sorted([*folder.glob("sofascore_*_matches.csv"), *folder.glob("sofascore_*_matches.csv.gz")]):
+        g = pd.read_csv(path, dtype=str)
+        if "event_id" in g:
+            frames.append(g.loc[g["event_id"].notna(), cols])
+    if not frames:
+        return pd.DataFrame(columns=cols)
+    return pd.concat(frames, ignore_index=True).drop_duplicates(["event_id", "tour", "d", "name1", "name2"])
+
+
 def prior_links(s0: pd.DataFrame) -> pd.DataFrame:
     """The earlier studies' event links, each translated to a Stage 0 match by exact full names (either order) and a
     tournament date within 7 days of the study's date. Returns (event_id, prior, prior_key, prior_mid)."""
     rows = []
-    g = pd.read_csv(PRIOR["gap_downloads"], dtype=str)
-    g = g[g["event_id"].notna()]
-    rows.append(pd.DataFrame({"event_id": g["event_id"], "prior": "gap_downloads", "prior_key": "uid:" + g["uid"],
+    g = gap_links(PRIOR["gap_downloads"])
+    rows.append(pd.DataFrame({"event_id": g["event_id"], "prior": "gap_downloads",
+                              "prior_key": "uid:" + g["gap"] + ":" + g["uid"],
                               "tour": g["tour"].map({"M": "atp", "W": "wta"}), "d": g["d"], "n1": g["name1"],
                               "n2": g["name2"], "rnd": g["ss_round"].map(K.round_code)}))
     a = pd.read_csv(PRIOR["ao_rg_points"], dtype=str)

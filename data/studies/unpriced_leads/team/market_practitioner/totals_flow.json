@@ -1,0 +1,44 @@
+{
+ "note": "outcome-free; BetOnline lines 2019-2024; no result read",
+ "n": 22086,
+ "bo3_open_r2": 0.6,
+ "bo3_open_resid_sd_games": 0.94,
+ "bo3_close_r2": 0.667,
+ "bo3_close_resid_sd_games": 0.88,
+ "bo5_open_r2": 0.448,
+ "bo5_open_resid_sd_games": 3.76,
+ "bo5_close_r2": 0.612,
+ "bo5_close_resid_sd_games": 2.78,
+ "bo3_fav_move_on_excess_open_per_sd": {
+  "coef": -0.01283,
+  "se": 0.00719,
+  "z": -1.78,
+  "n": 19565,
+  "reading": "negative = when the total says closer than the moneyline, the favourite drifts by the close"
+ },
+ "bo3_tg_move_on_fav_move_per_sd": {
+  "coef_games": -0.1278,
+  "se": 0.0075,
+  "z": -17.03,
+  "n": 19565,
+  "reading": "negative = the total falls when the favourite firms"
+ },
+ "bo3_share_tg_move_ge_1": 0.147,
+ "bo3_corr_excess_open_close": 0.27,
+ "bo5_fav_move_on_excess_open_per_sd": {
+  "coef": -0.01594,
+  "se": 0.01071,
+  "z": -1.49,
+  "n": 2521,
+  "reading": "negative = when the total says closer than the moneyline, the favourite drifts by the close"
+ },
+ "bo5_tg_move_on_fav_move_per_sd": {
+  "coef_games": -0.2977,
+  "se": 0.0654,
+  "z": -4.55,
+  "n": 2521,
+  "reading": "negative = the total falls when the favourite firms"
+ },
+ "bo5_share_tg_move_ge_1": 0.455,
+ "bo5_corr_excess_open_close": 0.135
+}

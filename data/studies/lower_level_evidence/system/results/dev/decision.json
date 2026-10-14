@@ -1,0 +1,427 @@
+{
+ "decision_layer": "owner decision 2026-10-09 (adoption by change class), addition 4",
+ "sources": {
+  "decision": "docs/decisions/2026-10-09-adoption-by-change-class.md",
+  "applied": "data/studies/lower_level_evidence/system/owner_decision_2026-10-09.md (sections 1-5)",
+  "erratum": "data/studies/lower_level_evidence/system/owner_decision_2026-10-09_erratum_1.md (section 1: the challengers; R_S2 and SYS_S2 report-only)",
+  "adopted": "data/studies/lower_level_evidence/system/preregistration_addition_4.md (code: 4b, 4c)"
+ },
+ "selection": {
+  "status": "final",
+  "selected": "SYS",
+  "step1_arm": "SYS",
+  "qualifying": [],
+  "challenger_list": [
+   "SYS_w0",
+   "SYS_w50",
+   "SYS_w100",
+   "SEP_ALL",
+   "SYS_NOCLASS"
+  ],
+  "winner_after_winners_luck": null,
+  "step1_shows_harm_against_REF": false,
+  "agrees_with_registered_rules": false
+ },
+ "rule_test_2018_2024": {
+  "period": "dev 2020-2024",
+  "tours": {
+   "both tours": {
+    "verdict": "reported (the rule is per tour)",
+    "NEW_SYS_BOTH vs SYS_BOTH": null,
+    "shows_harm": false,
+    "reported_not_decisive": {
+     "NEW_ASIS vs REF": null,
+     "NEW_ASIS_PRE vs REF": null,
+     "NEW_ASIS vs NEW_ASIS_PRE": null,
+     "NEW_SYS_BOTH vs NEW_ASIS": null,
+     "REF_noITF vs REF": {
+      "comparison": "REF_noITF vs REF",
+      "tour": "both tours",
+      "population": "all",
+      "stage": "both stages",
+      "matches": 22265,
+      "estimate": 0.0020233356396053,
+      "lo": -0.0078302967454817,
+      "hi": 0.0118769680246924,
+      "se": 0.0049148257668881,
+      "p_better": 0.6597130194834385,
+      "reading": "unresolved"
+     }
+    }
+   },
+   "men": {
+    "verdict": "not scored: NEW_SYS_BOTH or SYS_BOTH has no reading (the default cannot be applied yet)",
+    "NEW_SYS_BOTH vs SYS_BOTH": null,
+    "shows_harm": false,
+    "reported_not_decisive": {
+     "NEW_ASIS vs REF": null,
+     "NEW_ASIS_PRE vs REF": null,
+     "NEW_ASIS vs NEW_ASIS_PRE": null,
+     "NEW_SYS_BOTH vs NEW_ASIS": null,
+     "REF_noITF vs REF": {
+      "comparison": "REF_noITF vs REF",
+      "tour": "men",
+      "population": "all",
+      "stage": "both stages",
+      "matches": 11672,
+      "estimate": -0.0024491878243044,
+      "lo": -0.0067078338994934,
+      "hi": 0.0018094582508845,
+      "se": 0.0021241408898177,
+      "p_better": 0.1244500351212103,
+      "reading": "unresolved"
+     }
+    }
+   },
+   "women": {
+    "verdict": "waits for P7: women's treatment is decided then by the same rule; this reading and REF_noITF against REF are its harm evidence",
+    "NEW_SYS_BOTH vs SYS_BOTH": null,
+    "shows_harm": false,
+    "reported_not_decisive": {
+     "NEW_ASIS vs REF": null,
+     "NEW_ASIS_PRE vs REF": null,
+     "NEW_ASIS vs NEW_ASIS_PRE": null,
+     "NEW_SYS_BOTH vs NEW_ASIS": null,
+     "REF_noITF vs REF": {
+      "comparison": "REF_noITF vs REF",
+      "tour": "women",
+      "population": "all",
+      "stage": "both stages",
+      "matches": 10593,
+      "estimate": 0.0069514290853483,
+      "lo": -0.0137375425863984,
+      "hi": 0.027640400757095,
+      "se": 0.0103148512922584,
+      "p_better": 0.7498202834945168,
+      "reading": "unresolved"
+     }
+    }
+   }
+  },
+  "register_RES_ONLY_on_C0_now_next": false
+ },
+ "results_channel": {
+  "RES_ONLY vs REF, both tours": null,
+  "RES_ONLY vs REF, men": null,
+  "RES_ONLY vs REF, women": null,
+  "SYS vs RES_ONLY, both tours": null,
+  "SYS vs RES_ONLY, men": null,
+  "SYS vs RES_ONLY, women": null
+ },
+ "pool_lead_evidence": {
+  "label": "lead evidence for the pool, seasons 2020-2024 (2025-2026 on the holdout)",
+  "seasons_read": "2020-2024 (dev)",
+  "decides": "nothing (the owner's decision, point 6: a selection round outside the discovery seasons decides)",
+  "both tours": {
+   "R_S2 vs REF": {
+    "comparison": "R_S2 vs REF",
+    "tour": "both tours",
+    "population": "all",
+    "stage": "both stages",
+    "matches": 22265,
+    "estimate": 0.0268513784998892,
+    "lo": -0.1284695586707366,
+    "hi": 0.182172315670515,
+    "se": 0.0774714657813637,
+    "p_better": 0.6355529542290046,
+    "reading": "unresolved"
+   },
+   "SYS_S2 vs REF": {
+    "comparison": "SYS_S2 vs REF",
+    "tour": "both tours",
+    "population": "all",
+    "stage": "both stages",
+    "matches": 22265,
+    "estimate": 0.064293049885133,
+    "lo": -0.1223194357976192,
+    "hi": 0.2509055355678853,
+    "se": 0.0930791628115458,
+    "p_better": 0.7551340034664229,
+    "reading": "unresolved"
+   },
+   "SYS vs R_S2": {
+    "comparison": "SYS vs R_S2",
+    "tour": "both tours",
+    "population": "all",
+    "stage": "both stages",
+    "matches": 22265,
+    "estimate": -0.0486232170869194,
+    "lo": -0.2344091713568549,
+    "hi": 0.137162737183016,
+    "se": 0.0926669028726625,
+    "p_better": 0.2998925280343325,
+    "reading": "unresolved"
+   },
+   "SYS vs SYS_S2": {
+    "comparison": "SYS vs SYS_S2",
+    "tour": "both tours",
+    "population": "all",
+    "stage": "both stages",
+    "matches": 22265,
+    "estimate": -0.0860648884721632,
+    "lo": -0.2479861955768095,
+    "hi": 0.0758564186324829,
+    "se": 0.0807636190660562,
+    "p_better": 0.1432933577271478,
+    "reading": "unresolved"
+   },
+   "SYS_S2 vs SYS": {
+    "comparison": "SYS_S2 vs SYS",
+    "tour": "both tours",
+    "population": "all",
+    "stage": "both stages",
+    "matches": 22265,
+    "estimate": 0.0860648884721632,
+    "lo": -0.0758564186324829,
+    "hi": 0.2479861955768095,
+    "se": 0.0807636190660562,
+    "p_better": 0.8567066422728522,
+    "reading": "unresolved"
+   }
+  },
+  "men": {
+   "R_S2 vs REF": {
+    "comparison": "R_S2 vs REF",
+    "tour": "men",
+    "population": "all",
+    "stage": "both stages",
+    "matches": 11672,
+    "estimate": 0.1523698829541365,
+    "lo": -0.0519441602809983,
+    "hi": 0.3566839261892714,
+    "se": 0.1019084013879893,
+    "p_better": 0.9325643175202338,
+    "reading": "unresolved"
+   },
+   "SYS_S2 vs REF": {
+    "comparison": "SYS_S2 vs REF",
+    "tour": "men",
+    "population": "all",
+    "stage": "both stages",
+    "matches": 11672,
+    "estimate": 0.1587787669103374,
+    "lo": -0.0889065762211731,
+    "hi": 0.406464110041848,
+    "se": 0.1235412748242615,
+    "p_better": 0.9006437758304048,
+    "reading": "unresolved"
+   },
+   "SYS vs R_S2": {
+    "comparison": "SYS vs R_S2",
+    "tour": "men",
+    "population": "all",
+    "stage": "both stages",
+    "matches": 11672,
+    "estimate": -0.1606836937852291,
+    "lo": -0.4071800015893804,
+    "hi": 0.0858126140189221,
+    "se": 0.1229482040422126,
+    "p_better": 0.0956196279166383,
+    "reading": "unresolved"
+   },
+   "SYS vs SYS_S2": {
+    "comparison": "SYS vs SYS_S2",
+    "tour": "men",
+    "population": "all",
+    "stage": "both stages",
+    "matches": 11672,
+    "estimate": -0.1670925777414299,
+    "lo": -0.3690264862792679,
+    "hi": 0.0348413307964081,
+    "se": 0.1007212303142396,
+    "p_better": 0.0485618408899236,
+    "reading": "unresolved"
+   },
+   "SYS_S2 vs SYS": {
+    "comparison": "SYS_S2 vs SYS",
+    "tour": "men",
+    "population": "all",
+    "stage": "both stages",
+    "matches": 11672,
+    "estimate": 0.1670925777414299,
+    "lo": -0.0348413307964081,
+    "hi": 0.3690264862792679,
+    "se": 0.1007212303142396,
+    "p_better": 0.9514381591100765,
+    "reading": "unresolved"
+   }
+  },
+  "women": {
+   "R_S2 vs REF": {
+    "comparison": "R_S2 vs REF",
+    "tour": "women",
+    "population": "all",
+    "stage": "both stages",
+    "matches": 10593,
+    "estimate": -0.1114524055074717,
+    "lo": -0.3213536283184645,
+    "hi": 0.098448817303521,
+    "se": 0.1046499523374233,
+    "p_better": 0.1434375189034626,
+    "reading": "unresolved"
+   },
+   "SYS_S2 vs REF": {
+    "comparison": "SYS_S2 vs REF",
+    "tour": "women",
+    "population": "all",
+    "stage": "both stages",
+    "matches": 10593,
+    "estimate": -0.0398169556957396,
+    "lo": -0.2907040032817733,
+    "hi": 0.211070091890294,
+    "se": 0.1250841573019186,
+    "p_better": 0.37512060191836,
+    "reading": "unresolved"
+   },
+   "SYS vs R_S2": {
+    "comparison": "SYS vs R_S2",
+    "tour": "women",
+    "population": "all",
+    "stage": "both stages",
+    "matches": 10593,
+    "estimate": 0.0748517082432674,
+    "lo": -0.1787437896230846,
+    "hi": 0.3284472061096195,
+    "se": 0.1264345029023291,
+    "p_better": 0.7230812798572913,
+    "reading": "unresolved"
+   },
+   "SYS vs SYS_S2": {
+    "comparison": "SYS vs SYS_S2",
+    "tour": "women",
+    "population": "all",
+    "stage": "both stages",
+    "matches": 10593,
+    "estimate": 0.0032162584315354,
+    "lo": -0.2569862226040451,
+    "hi": 0.2634187394671159,
+    "se": 0.1297285307526409,
+    "p_better": 0.5098896521355265,
+    "reading": "unresolved"
+   },
+   "SYS_S2 vs SYS": {
+    "comparison": "SYS_S2 vs SYS",
+    "tour": "women",
+    "population": "all",
+    "stage": "both stages",
+    "matches": 10593,
+    "estimate": -0.0032162584315354,
+    "lo": -0.2634187394671159,
+    "hi": 0.2569862226040451,
+    "se": 0.1297285307526409,
+    "p_better": 0.4901103478644735,
+    "reading": "unresolved"
+   }
+  }
+ },
+ "input_flags_for_the_harm_reading": {
+  "SYS": {
+   "inputs_changed": 44,
+   "inputs_flagged": [
+    {
+     "input": "points_52w",
+     "flag": "uneven",
+     "flagged_tour_seasons": 13,
+     "flagged": "atp 2013; atp 2014; atp 2015; atp 2016; atp 2017; atp 2018; atp 2019; atp 2020; atp 2022; atp 2023; atp 2024; atp 2025; atp 2026"
+    },
+    {
+     "input": "form_first_in",
+     "flag": "uneven",
+     "flagged_tour_seasons": 1,
+     "flagged": "atp 2023"
+    },
+    {
+     "input": "form_bp_conv",
+     "flag": "uneven",
+     "flagged_tour_seasons": 1,
+     "flagged": "atp 2022"
+    },
+    {
+     "input": "form_rpw_second",
+     "flag": "uneven",
+     "flagged_tour_seasons": 1,
+     "flagged": "atp 2022"
+    },
+    {
+     "input": "prod_ace",
+     "flag": "uneven",
+     "flagged_tour_seasons": 6,
+     "flagged": "atp 2016; atp 2017; atp 2018; atp 2019; atp 2025; atp 2026"
+    },
+    {
+     "input": "prod_df",
+     "flag": "uneven",
+     "flagged_tour_seasons": 3,
+     "flagged": "atp 2016; atp 2017; atp 2018"
+    },
+    {
+     "input": "prod_first_won",
+     "flag": "uneven",
+     "flagged_tour_seasons": 8,
+     "flagged": "atp 2016; atp 2017; atp 2018; atp 2019; atp 2020; atp 2021; atp 2025; atp 2026"
+    },
+    {
+     "input": "prod_second_won",
+     "flag": "uneven",
+     "flagged_tour_seasons": 7,
+     "flagged": "atp 2017; atp 2018; atp 2019; atp 2020; atp 2021; atp 2025; atp 2026"
+    },
+    {
+     "input": "prod_hold",
+     "flag": "uneven",
+     "flagged_tour_seasons": 7,
+     "flagged": "atp 2017; atp 2018; atp 2019; atp 2020; atp 2021; atp 2025; atp 2026"
+    },
+    {
+     "input": "prod_bp_saved",
+     "flag": "uneven",
+     "flagged_tour_seasons": 9,
+     "flagged": "atp 2018; atp 2019; atp 2020; atp 2021; atp 2022; atp 2023; atp 2024; atp 2025; atp 2026"
+    }
+   ]
+  },
+  "REF_noITF": {
+   "inputs_changed": 41,
+   "inputs_flagged": [
+    {
+     "input": "ratings_iid",
+     "flag": "uneven",
+     "flagged_tour_seasons": 1,
+     "flagged": "wta 2026"
+    },
+    {
+     "input": "prod_ace",
+     "flag": "uneven",
+     "flagged_tour_seasons": 4,
+     "flagged": "atp 2025; atp 2026; wta 2025; wta 2026"
+    },
+    {
+     "input": "prod_first_won",
+     "flag": "uneven",
+     "flagged_tour_seasons": 4,
+     "flagged": "atp 2025; atp 2026; wta 2025; wta 2026"
+    },
+    {
+     "input": "prod_second_won",
+     "flag": "uneven",
+     "flagged_tour_seasons": 3,
+     "flagged": "atp 2026; wta 2025; wta 2026"
+    },
+    {
+     "input": "prod_hold",
+     "flag": "uneven",
+     "flagged_tour_seasons": 4,
+     "flagged": "atp 2025; atp 2026; wta 2025; wta 2026"
+    },
+    {
+     "input": "prod_bp_saved",
+     "flag": "uneven",
+     "flagged_tour_seasons": 1,
+     "flagged": "wta 2026"
+    }
+   ]
+  }
+ },
+ "registered_rule_test_interpretation": "results/dev/addition1.json (addition 1's, kept for the record)",
+ "generated_at": "2026-10-10T08:25:56Z"
+}

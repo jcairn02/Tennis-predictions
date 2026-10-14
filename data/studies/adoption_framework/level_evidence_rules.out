@@ -1,0 +1,34 @@
+SYS for men: P(the rule recommends SYS)
+ true gain | registered |  amended | amended's harm flags: dev / holdout / Holm
+    -0.200 |       0.00 |     0.00 | 0.998 / 0.888 / 0.962
+    -0.100 |       0.00 |     0.21 | 0.499 / 0.356 / 0.364
+    -0.050 |       0.00 |     0.72 | 0.075 / 0.122 / 0.109
+    +0.000 |       0.02 |     0.95 | 0.002 / 0.024 / 0.025
+    +0.040 |       0.17 |     0.99 | 0.000 / 0.005 / 0.009
+    +0.083 |       0.56 |     1.00 | 0.000 / 0.001 / 0.004
+    +0.120 |       0.83 |     1.00 | 0.000 / 0.000 / 0.004
+
+Selection on dev: P(switch away from SYS), 7 challengers (as registered), SE 0.035 each against SYS
+                             world |  rho | registered (P>=0.90) | amended ('better')
+       no challenger truly differs |  0.0 |                 0.52 | 0.16
+       no challenger truly differs |  0.5 |                 0.35 | 0.11
+       no challenger truly differs |  0.9 |                 0.19 | 0.06
+        one challenger truly +0.10 |  0.0 |                 0.97 | 0.84
+        one challenger truly +0.10 |  0.5 |                 0.94 | 0.82
+        one challenger truly +0.10 |  0.9 |                 0.94 | 0.82
+
+Selection on dev: P(switch away from SYS), 5 challengers (erratum 1: R_S2 and SYS_S2 report-only), SE 0.035 each against SYS
+                             world |  rho | registered (P>=0.90) | amended ('better')
+       no challenger truly differs |  0.0 |                 0.41 | 0.12
+       no challenger truly differs |  0.5 |                 0.29 | 0.09
+       no challenger truly differs |  0.9 |                 0.17 | 0.05
+        one challenger truly +0.10 |  0.0 |                 0.96 | 0.83
+        one challenger truly +0.10 |  0.5 |                 0.94 | 0.82
+        one challenger truly +0.10 |  0.9 |                 0.94 | 0.82
+
+New data through the system (NEW_SYS_BOTH vs SYS_BOTH), men, dev SE ~0.03: P(harm flag)
+  true +0.00: 0.000
+  true -0.05: 0.048
+  true -0.10: 0.499
+  true -0.15: 0.953
+  true -0.20: 0.999

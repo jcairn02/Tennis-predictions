@@ -140,6 +140,75 @@ def test_a_pair_met_twice_links_by_draw():
     assert E.best_event(a, b, D0, D0, events)[0]["id"] == 302   # no draw given: the one nearest the start
 
 
+def test_a_played_event_beats_a_cancelled_one_of_the_same_pair():
+    ghost = event(401, "Marat Sharipov", "Ivan Ivanov", "2026-03-30")   # nearer the start, but never played
+    ghost["status"] = {"code": 70, "type": "canceled", "description": "Canceled"}
+    played = event(402, "Ivan Ivanov", "Marat Sharipov", "2026-03-31")
+    events = E.singles([ghost, played])
+    assert E.best_event(E.words("Marat Sharipov"), E.words("Ivan Ivanov"), D0, D0, events, "main")[0]["id"] == 402
+
+
+def test_the_winner_decides_between_two_meetings_of_a_pair():
+    # ATP Finals 2021: Medvedev beat Zverev in the round robin, Zverev beat him in the final
+    group = event(701, "Daniil Medvedev", "Alexander Zverev", "2026-03-30")
+    final = event(702, "Alexander Zverev", "Daniil Medvedev", "2026-04-04")
+    events = E.singles([group, final])
+    a, b = E.words("Alexander Zverev"), E.words("Daniil Medvedev")
+    assert E.best_event(a, b, D0, D0, events, "main", winner=a)[0]["id"] == 702
+    assert E.best_event(a, b, D0, D0, events, "main")[0]["id"] == 701   # no winner known: the one nearest the start
+
+
+class CannedLister:
+    """Every day listing and season page answers with the same events (offline)."""
+
+    client = None
+
+    def __init__(self, events):
+        self.events = events
+
+    def day_events(self, category, day):
+        return [dict(e) for e in self.events]
+
+    def season_events(self, utid, sid):
+        return [dict(e) for e in self.events], 1
+
+
+def test_an_event_another_known_match_names_better_is_not_linked():
+    # Costa do Sauipe 2025: Gima v Hernandez Serrano is not listed, and Gima v Varillas shares 'juan' with it
+    varillas = event(501, "Sebastian Gima", "Juan Pablo Varillas", "2026-03-30")
+    t = targets_frame().iloc[:1].assign(name1="Sebastian Gima", name2="Juan Alejandro Hernandez Serrano")
+    t = t.assign(w1=t["name1"].map(E.words), w2=t["name2"].map(E.words))
+    known = pd.concat([t, t.assign(name2="Juan Pablo Varillas")])
+    known = known.assign(w1=known["name1"].map(E.words), w2=known["name2"].map(E.words))
+    _, rows, linked = E.list_and_link(CannedLister([varillas]), t, known)
+    assert not rows[0]["listed"] and linked == {}
+    assert rows[0]["link_note"] == "event 501 names another known match better"
+    _, rows, _ = E.list_and_link(CannedLister([varillas]), t, t)   # with no better claimant, the shared word links
+    assert rows[0]["listed"] and rows[0]["event_id"] == 501 and rows[0]["link_note"] is None
+
+
+class DayLister(CannedLister):
+    """Only one day's listing names the events; records the days asked for."""
+
+    def __init__(self, events, day):
+        super().__init__(events)
+        self.day, self.asked = day, []
+
+    def day_events(self, category, day):
+        self.asked.append(f"{category}/{day}")
+        return [dict(e) for e in self.events] if day == self.day else []
+
+
+def test_an_edition_dated_a_week_late_is_found_in_the_week_before():
+    played = [event(601, "Franco Agamenone", "Max Alcala Gurri", "2026-03-25", tname="Targu Mures, Romania")]
+    known = pd.DataFrame({"w1": [E.words("Franco Agamenone")], "w2": [E.words("Max Alcala Gurri")]})
+    lister = DayLister(played, "2026-03-25")
+    loc = E.locate(lister, "M", ["CH"], D0, D0, known)
+    assert (loc["utid"], loc["located_by"]) == (2409, "72/2026-03-25")
+    assert lister.asked == [f"72/{d}" for d in ("2026-04-01", "2026-04-03", "2026-03-31", "2026-04-04", "2026-03-29",
+                                                "2026-03-27", "2026-03-25")]
+
+
 def test_level_groups():
     assert E.level_group(["T250", "TQ"]) == "tour" and E.level_group(["CHQ"]) == "CHQ"
     assert E.level_group(["CH", "CHQ"]) == "CH" and E.level_group(["GS"]) == "GS" and E.level_group(["ITFQ"]) == "ITF"
@@ -193,6 +262,59 @@ def test_list_link_fetch_and_stage(folders):
     assert ev.loc["103", "doubles"] == "TRUE" and ev.loc["102", "listed_in_season"] == "2409_80801"
     pts = pd.read_parquet(P.dump_path(E.SOURCE, "points.parquet"))
     assert pts["point_description"].fillna("").tolist() == ["1", "", ""] and set(pts["event_id"]) == {"101"}
+    # streamed one table at a time: the events still carry each record's shape and the box score's periods
+    assert (ev.loc["101", "pbp_points"], ev.loc["101", "stats_periods"]) == ("3", "ALL")
+    assert ev.loc[["102", "103"], ["pbp_points", "stats_periods"]].isna().all().all()
+    assert list(staged) == ["events", "points", "statistics"]
+
+
+def test_the_itf_gaps_keep_their_tables_gzipped(folders):
+    assert E.targets_path("itf_detail").name == "sofascore_itf_detail_matches.csv.gz"
+    assert E.table_path("itf_points_2025_2026", "link_check").name == "sofascore_itf_points_2025_2026_link_check.csv.gz"
+    assert E.targets_path("atp_points_2025").name == "sofascore_atp_points_2025_matches.csv"
+    path = E.targets_path("itf_detail")
+    path.parent.mkdir(parents=True)
+    targets_frame().assign(gap="itf_detail").to_csv(path, index=False)
+    assert path.read_bytes()[:2] == b"\x1f\x8b"   # gzip
+    t, origin = E.load_targets("itf_detail", refresh=False)   # a frozen list is read back from the gzipped file
+    assert len(t) == 3 and origin.startswith("frozen in") and t["d"].dtype.kind == "M"
+
+
+def test_only_the_editions_named_are_tried(folders, monkeypatch):
+    client = FakeClient()
+    t = pd.concat([targets_frame(), targets_frame().assign(d=D0 + pd.Timedelta(days=7))], ignore_index=True)
+    t["edition"] = E.edition_key(t)   # Houston's week 14 and a week 15 that would be tried first (newest first)
+    t = t.assign(w1=t["name1"].map(E.words), w2=t["name2"].map(E.words))
+    lister = E.Lister(client, P.receipts_for(E.SOURCE), offline=False)
+    ed_rows, rows, linked = E.list_and_link(lister, t, t, limit=1, only={"M|Houston|2026|w14"})
+    assert {e["edition"]: e["locate_tried"] for e in ed_rows}["M|Houston|2026|w15"] == "not tried: not in --editions"
+    assert set(linked) == {101, 102} and sum(r["listed"] for r in rows) == 2
+    monkeypatch.setattr(E, "load_targets", lambda gap, refresh: (targets_frame(), "test targets"))
+    parser = argparse.ArgumentParser()
+    E.add_arguments(parser)
+    with pytest.raises(SystemExit, match="not editions of gap"):   # a mistyped key would make a trial of nothing
+        E.run(parser.parse_args(["--editions", "M|Nowhere|2026|w14"]))
+
+
+def test_defer_uncovered_leaves_flagged_events_for_later(folders, monkeypatch):
+    # SofaScore lists most ITF events of 2025 to February 2026 with coverage -1 and holds no record for them
+    monkeypatch.setattr(E, "load_targets", lambda gap, refresh: (targets_frame(), "test targets"))
+    monkeypatch.setattr(E, "known_matches", lambda targets: targets[["tour", "tname", "year", "d", "name1", "name2"]])
+    monkeypatch.setitem(ANSWERS, f"{API}/unique-tournament/2409/season/80801/events/last/1",
+                        {"events": [dict(STRUFF, coverage=-1)], "hasNextPage": False})
+    client = FakeClient()
+    monkeypatch.setattr(E, "make_client", lambda args: client)
+    parser = argparse.ArgumentParser()
+    E.add_arguments(parser)
+    summary = E.run(parser.parse_args(["--defer-uncovered", "--no-stage"]))
+    assert not any("/event/102/" in u for u in client.urls)   # the flagged event is not asked for
+    assert f"{API}/event/101/point-by-point" in client.urls and f"{API}/event/101/statistics" in client.urls
+    table = pd.read_csv(E.targets_path("atp_points_2025"))
+    flagged = table[table["event_id"].eq(102)].iloc[0]
+    assert (flagged["pbp_status"], flagged["stats_status"]) == (E.DEFERRED, E.DEFERRED)
+    assert summary["all"]["points_deferred"] == 1 and summary["all"]["points_not_fetched"] == 0
+    E.run(parser.parse_args(["--no-stage"]))   # a later run without the option asks for it
+    assert f"{API}/event/102/point-by-point" in client.urls
 
 
 def test_limit_leaves_later_editions_untried(folders):

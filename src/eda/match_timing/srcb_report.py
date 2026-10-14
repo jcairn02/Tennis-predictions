@@ -9,6 +9,7 @@ import numpy as np
 import pandas as pd
 
 from src.eda.match_timing import srcb_common as X
+from src.eda.match_timing import srcb_sources as SRC
 from src.eda.predictability_diagnostic import common as C
 
 ODDS = C.OUT / "stage1_odds.parquet"
@@ -224,13 +225,15 @@ def pair_offsets(api: pd.DataFrame, api_src: pd.DataFrame, lta: pd.DataFrame, lt
 
 
 def lta_whole_file_shifts() -> dict:
-    """Every row of the staged Live Tennis API index: hours between its written time and the same
-    wall-clock time in Israel converted to UTC (Zenodo v1.0.2: 120,758 rows move back 3 h, 52,813 2 h)."""
-    lm = pd.read_parquet(X.DUMP / "matches" / "live_tennis_api_zenodo" / "matches.parquet", columns=["scheduled_time_utc"])
+    """Every row of the staged Live Tennis API index: hours between its written time and the same time read in
+    the zone the staged version writes (Israel wall-clock for v1.0.0, so Zenodo v1.0.2's note applies: 120,758
+    rows move back 3 h, 52,813 2 h; UTC for v1.0.2, so none moves)."""
+    zone = SRC.lta_zone()
+    lm = pd.read_parquet(SRC.LTA_MATCHES, columns=["scheduled_time_utc"])
     local = pd.to_datetime(lm["scheduled_time_utc"], format="%Y-%m-%d %H:%M:%S", errors="coerce")
-    utc = local.dt.tz_localize("Asia/Jerusalem", ambiguous=np.ones(len(local), dtype=bool),
+    utc = local.dt.tz_localize(zone, ambiguous=np.ones(len(local), dtype=bool),
                                nonexistent="shift_forward").dt.tz_convert("UTC").dt.tz_localize(None)
     shift = ((local - utc) / pd.Timedelta(hours=1)).round()
-    return {"rows": int(len(lm)), "unreadable": int(local.isna().sum()),
+    return {"rows": int(len(lm)), "read_as": zone, "unreadable": int(local.isna().sum()),
             "hours_back": {str(int(k)): int(v) for k, v in shift.value_counts().items()},
             "zenodo_v1_0_2_note": {"3": 120758, "2": 52813}}

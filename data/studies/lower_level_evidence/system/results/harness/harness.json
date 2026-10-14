@@ -1,0 +1,82 @@
+{
+ "what": "the first run's FP and R_S2 (candidates/, read only) through system_pairs.py, against compare.py's FP scores.csv, the first run's pairs.csv (candidate_pairs.py) and the published readings",
+ "generated_at": "2026-10-10T03:07:08Z",
+ "vs_compare_py": {
+  "rows_compared": 6,
+  "largest_difference": 8.977193988179977e-17,
+  "equal": true
+ },
+ "vs_first_run_pairs": {
+  "rows_compared": 27,
+  "rows_in_file": 74,
+  "largest_difference": 4.440892098500626e-16,
+  "largest_difference_p_better_t": 1.1102230246251565e-16,
+  "equal": true
+ },
+ "vs_published": {
+  "FP vs REF, both tours": {
+   "published": [
+    0.024,
+    -0.047,
+    0.096
+   ],
+   "this_scorer": [
+    0.024,
+    -0.047,
+    0.096
+   ],
+   "exact": [
+    0.024246613227673276,
+    -0.047457980384588046,
+    0.0959512068399346
+   ],
+   "p_better": 0.7510956642888433,
+   "p_better_t": 0.7496483080165413,
+   "reading": "unresolved",
+   "equal": true
+  },
+  "FP vs REF, men": {
+   "published": [
+    0.083,
+    0.002,
+    0.164
+   ],
+   "this_scorer": [
+    0.083,
+    0.002,
+    0.164
+   ],
+   "exact": [
+    0.08299071828850325,
+    0.0016509468736104899,
+    0.16433048970339603
+   ],
+   "p_better": 0.9796007587423943,
+   "p_better_t": 0.9771585993781703,
+   "reading": "better",
+   "equal": true
+  },
+  "FP vs REF, women": {
+   "published": [
+    -0.04,
+    -0.154,
+    0.073
+   ],
+   "this_scorer": [
+    -0.04,
+    -0.154,
+    0.073
+   ],
+   "exact": [
+    -0.04048114984888741,
+    -0.1535033897187486,
+    0.0725410900209738
+   ],
+   "p_better": 0.23625608766926254,
+   "p_better_t": 0.2378336832212688,
+   "reading": "unresolved",
+   "equal": true
+  }
+ },
+ "pass": true
+}

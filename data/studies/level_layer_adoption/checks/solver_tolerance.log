@@ -1,0 +1,86 @@
+current decided ON 54.3
+current decided NEW 54.0
+current tight ON 73.0
+current tight NEW 73.4
+surface decided ON 133.2
+surface decided NEW 110.5
+surface tight ON 152.0
+surface tight NEW 156.1
+{
+ "what": "Are the candidate's tiny IOS differences before its first addition the solver's convergence tolerance, or information?",
+ "cut_day": "2025-12-31",
+ "current": {
+  "prefix_rows": 896084,
+  "prefix_identical_in_both_caches": true,
+  "ON_vs_NEW_decided": {
+   "O_eff": {
+    "largest_difference": 7.369660437461789e-13,
+    "rows_differing": 684544,
+    "rows": 896056
+   },
+   "D_eff": {
+    "largest_difference": 7.355296927080701e-13,
+    "rows_differing": 686580,
+    "rows": 896056
+   }
+  },
+  "ON_vs_NEW_tight": {
+   "O_eff": {
+    "largest_difference": 5.901057420487632e-12,
+    "rows_differing": 662811,
+    "rows": 896056
+   },
+   "D_eff": {
+    "largest_difference": 4.424238753131249e-12,
+    "rows_differing": 666377,
+    "rows": 896056
+   }
+  },
+  "ON_decided_vs_tight": {
+   "O_eff": 5.981473691907269e-07,
+   "D_eff": 8.183444569764831e-07
+  },
+  "NEW_decided_vs_tight": {
+   "O_eff": 5.981473689686823e-07,
+   "D_eff": 8.183444556442154e-07
+  },
+  "reading": "ON against NEW: 7.4e-13 at the decided tolerance, 5.9e-12 at 1e-13; each build's decided solve is 8.2e-07 from its tight one"
+ },
+ "surface": {
+  "prefix_rows": 896084,
+  "prefix_identical_in_both_caches": true,
+  "ON_vs_NEW_decided": {
+   "O_eff": {
+    "largest_difference": 4.200464520653924e-08,
+    "rows_differing": 690196,
+    "rows": 896056
+   },
+   "D_eff": {
+    "largest_difference": 1.6436341815362354e-08,
+    "rows_differing": 691089,
+    "rows": 896056
+   }
+  },
+  "ON_vs_NEW_tight": {
+   "O_eff": {
+    "largest_difference": 8.237854842718662e-12,
+    "rows_differing": 649751,
+    "rows": 896056
+   },
+   "D_eff": {
+    "largest_difference": 3.3474473193351173e-12,
+    "rows_differing": 653314,
+    "rows": 896056
+   }
+  },
+  "ON_decided_vs_tight": {
+   "O_eff": 5.080313460470443e-07,
+   "D_eff": 4.325192201892758e-07
+  },
+  "NEW_decided_vs_tight": {
+   "O_eff": 5.080313482674903e-07,
+   "D_eff": 4.325192255461019e-07
+  },
+  "reading": "ON against NEW: 4.2e-08 at the decided tolerance, 8.2e-12 at 1e-13; each build's decided solve is 5.1e-07 from its tight one"
+ }
+}

@@ -1,0 +1,73 @@
+{
+ "reviewer": "R2-skeptic",
+ "lens": "skeptic",
+ "date": "2026-10-09",
+ "recount_validated": {
+  "vote": "yes",
+  "reasons": "Every claim I could re-derive holds on my own parse of the raw files (my code; only the adapter's decrypt/blocks_of reused). C1: AO 2025, my MatchBeats recount vs Sackmann's AO rows (my link): on 733 sides whose point file holds every serve point, first serves in equal on 733, first- and second-serve points won on 732 and 733 (the one exception, MQ159, is a points-won difference, not a serve booking). Olympic play-by-play vs the Olympic statistics: 243 complete sides, first serves in 243/243, first-serve won 243/243, second-serve won 242/243 (the exception is Carle OG R32, the side the lead's veto already drops). C2: RG's MatchBeats (decrypted, my recount) vs RG's statistics (my parse of the match JSON) on complete sides: first serves in 100% in every year 2019-2025 (890-949 sides a year), first-serve won 100% (one side in 2024), second-serve won 100%, aces 100%, double faults 99.9-100%. C3: control 2019-2021 = 2,732 sides equal on all eight counts; the 24 others are 8 walkovers without statistics and 4 matches whose boxes Sackmann exchanged (equal once exchanged back, checked). C2 is not independence (both are Infosys' capture), so I did not rest on it: independent and physical referees (Court Vision 2022 recounted by me, radar fault speeds 2023-25, serve speeds, MCP) were used for the direction of every class. Comparability of the control: RG's record relates to Court Vision (2019/2020 per the lead's agree_cv_vs_api.csv; 2022 my own recount: 168 of 170 agreeing sides exact) and to MCP (2019-21 vs 2022-25, the lead's agree_mcp_vs_api.csv) the same way in both periods, and its pooled first-serve-in rates are stable (control 61.3-65.2%, official 2022-25 61.2-65.1%, Sackmann 2022-25 62.3-70.0%; my own pooling of my parsed rows)."
+ },
+ "classes": {
+  "RGFSA": {
+   "vote": "narrow",
+   "corrupt_beyond_doubt": true,
+   "fix_clear_and_correct": true,
+   "scope": "1,114 of 1,340 proposed sides (scope.csv, fix RGFSA). Tests, all required: T1 my parse of RG's raw match JSON gives the proposed values; T2 my own link (year, tour, draw, round from the code itself, full names, Sackmann's winner = RG's winner; 121 non-exact name pairs reviewed by hand) gives the same match and player; T3 guards = Sackmann's raw svpt/ace/df and serve points won unchanged; T4 RG's record passes its own checks for both players; T5 RG's MatchBeats, read point by point, holds every serve point of the side and gives exactly the proposed split (key statistics alone do not count); T6 the side is '+' (Sackmann's first serves in above RG's), or it is '-'/'0' AND my Court Vision 2022 recount holds every serve point and reads exactly RG's split, MCP not reading Sackmann's; T7 no independent record (MCP, Court Vision 2022) reads Sackmann's first serves in on the side unless Court Vision 2022 or the radar settles it for RG. Excluded: 202 '-'/'0' sides without a per-row physical referee (T6), 18 '+' sides whose MatchBeats is incomplete or absent (T5), 6 '+' sides contradicted by MCP with no physical settlement (T7: Goffin 2023 R128, Seyboth Wild 2023 R128, Djokovic 2024 R32, Ruud and Ramos 2025 R128, Andreescu 2023 R128).",
+   "reasons": "'+' sides are Sackmann's error beyond reasonable doubt, as a class and wherever a referee exists per row: (a) Court Vision 2022, my own recount (calibrated: on 170 agreeing sides it reads RG's first serves in on 168 and never one more): 204 of 209 '+' sides read RG's exact split, 0 read Sackmann's (61 of 62 at +1); (b) radar, 2023-25: MatchBeats stores the faulted first serve's speed on 77-96% of second-serve points and never on a first-serve point; on 566 of 901 proposed '+' sides (A and B) the measured faults exceed Sackmann's second-serve points, so Sackmann's first serves in are physically impossible (3,183 of his 4,602 extra first serves disproved); on 1,482 agreeing sides the radar never refutes the shared count; official second serves lacking a measured fault on '+' sides: 1,085 observed, 1,065.5 expected if RG is right, 1,340.5 if Sackmann is, so RG's opposite error (a first serve booked as second) is not detectable; (c) speeds: official second serves at first-serve pace on '+' sides, RG 2022 55 vs 56 expected if RG right vs 659 if Sackmann right, RG 2023-25 160 vs 158 vs 1,843; (d) MCP: 95 exact RG vs 2 exact Sackmann on both first-serve counts. '-' and '0' sides are a different matter: there RG's record is the one occasionally wrong (Court Vision 2022: 16 of 17 '-' and 6 of 6 '0' read RG, but one reads Sackmann; MCP reads Sackmann on 3 '-' sides), and the moved points are won at 45% (first serves at RG: 62%). That fingerprint cannot decide either way because Sackmann's errors depend on the point's outcome (RG 2024 main: 54% of '+' sides moved only lost points, share 29%), so only a per-row physical referee can clear a '-'/'0' side. Without one, doubt is reasonable (RG errs in roughly 5-15% of such disagreements by the referees' counts). Values: all 1,340 proposed sides equal my raw parse; 25 random scope sides re-read from the raw files by a separate minimal reader also equal.",
+   "checks": [
+    "raw_tables.py: my parse of 6,580 RG match JSONs, 3,750 decrypted MatchBeats files (623,798 points), 125 Olympic files, 3,546 Sackmann CSV rows",
+    "link_compare.py + classify_check.py: my link = the lead's for every proposed side (0 code/unit differences); my classes = the lead's on all 4,072 sides; 1,718/1,718 proposed values = raw official; guards and serve points won hold",
+    "c1_check.py: AO 2025 MatchBeats = Sackmann on 733/733 complete sides (first serves in); Olympic pbp = statistics 243/243",
+    "cv2022.py: Court Vision 2022 recount: '+' 204/209 = RG, 0 = Sackmann; '-' 16/17 = RG; '0' 6/6 = RG; never reads more first serves in than RG on agreeing sides",
+    "radar.py / radar_excess.py: Sackmann impossible on 566/901 '+' sides 2023-25; no excess of fault-less official second serves on '+' sides; 0 refutations on 1,482 agreeing sides",
+    "og_speed.py: no excess of first-serve-paced official second serves on '+' sides (RG 2022, RG 2023-25, OG)",
+    "moved_points.py: moved-point win shares by sign, size, edition; '+' 0.50, '-' 0.45, RG 2024 main '+' 0.29 (outcome-dependent errors)",
+    "build_scope.py: tests T1-T7; dry run with the build's own apply_row_corrections on Sackmann's raw rows: 935 rows changed, 1,449 sides read my values, no other count changed, per-side checks B1-B3/B6/B7 fail 0"
+   ]
+  },
+  "RGFSB": {
+   "vote": "narrow",
+   "corrupt_beyond_doubt": true,
+   "fix_clear_and_correct": true,
+   "scope": "261 of 282 proposed sides (scope.csv, fix RGFSB): the same tests T1-T7 as RGFSA. Excluded: 14 '-'/'0' sides (no per-row physical referee) and 7 '+' sides whose MatchBeats is incomplete or absent. The fix is the split only; I confirm no change to any other count.",
+   "reasons": "The split of a B side is wrong beyond doubt by the same evidence as class A ('+' share of moved points won 0.47; radar refutes Sackmann on 124 of 184 2023-25 B '+' sides; Court Vision 2022 and MCP read RG). Is it clear to correct the split and leave the other count? Yes, as a targeted fix (the 8 Oct precedent: F1 changed serve points only, F2y service games only), with a caveat the owner should see: the leftover counts are themselves Sackmann's errors, not convention differences. RG's two own records agree with each other on aces (100%) and double faults (99.95%) on all complete sides, and on every B side, against Sackmann. Mostly Sackmann's double faults are lower while his first serves in are higher (consistent with double faults booked as first serves in, lost). After the fix those points sit on the right serve but are still not counted as double faults. The correction therefore improves the row and introduces nothing. No per-side check (B1-B3, B6, B7) fails before or after on any B side, so no box is re-admitted with its leftover errors. But the row is not fully clean, and a separate decision could replace the aces and double faults from the same two records.",
+   "checks": [
+    "classify_check.py: 190 RG B sides; leftover differences df 130, ace 42, ace+df 16, break points 2",
+    "MatchBeats vs RG statistics on B sides with a complete point file: aces and double faults always RG's own value (never Sackmann's)",
+    "build_scope.py: per-side checks before and after the fix pass on every B side"
+   ]
+  },
+  "OGFSA": {
+   "vote": "narrow",
+   "corrupt_beyond_doubt": true,
+   "fix_clear_and_correct": true,
+   "scope": "21 of 39 proposed sides (scope.csv, fix OGFSA): '+' sides passing T1-T5 and T7 (the Olympic play-by-play is the point-level second record; there is no Court Vision or radar fault field at the Olympics, so no '-'/'0' side can be cleared). Excluded: 17 '-'/'0' sides, and Zheng SF (+1; MCP reads Sackmann's first serves in, nothing physical settles it).",
+   "reasons": "The Olympic results file is the right reference: 97 of 244 Olympic sides equal Sackmann on all eight counts (the same definitions where Sackmann's source was sound); the file passes its own checks; its play-by-play equals its statistics on 243/243 complete sides; its pooled first serves in (64.8% men, 62.2% women) sit with RG 2024's main draw (62.3%, 62.9%), Sackmann's (70.4%, 68.6%) do not. On '+' sides, the serve speeds settle it physically: official second serves at first-serve pace 3 observed vs 1.6 expected if the file is right vs about 109 if Sackmann is; MCP reads the file's exact split on 7 of 10 disputed '+' sides; Medvedev R32 is within one of the file (Sackmann +7), and Tauson R64 and Zheng SF read Sackmann's first serves in (both excluded, T7). Sackmann's Olympic rows are broadly broken beyond the split (41 'points' sides, partial boxes such as Alcaraz R32 with 32 of 69 serve points), none of which are in scope.",
+   "checks": [
+    "og_speed.py: Olympic '+' sides, fast official second serves 3 vs 1.6 vs ~109",
+    "c1_check.py: Olympic pbp = statistics on 243/243 complete sides",
+    "classify_check.py: OG classes equal 97, split 54, split_other 43, points 41, other 9, no_record 6"
+   ]
+  },
+  "OGFSB": {
+   "vote": "narrow",
+   "corrupt_beyond_doubt": true,
+   "fix_clear_and_correct": true,
+   "scope": "53 of 57 proposed sides (scope.csv, fix OGFSB): '+' sides passing T1-T5 and T7; the split only. Excluded: 3 '-'/'0' sides and Tauson R64 (+1; MCP reads Sackmann's first serves in, unsettled).",
+   "reasons": "As OGFSA for the split. As RGFSB for the leftover counts, but larger. In many Olympic B rows Sackmann's aces and double faults are near zero against the file's (Zverev R32: aces 0 vs 9, double faults 0 vs 4; Collins R32: 0 vs 7 and 0 vs 7), with almost every point booked as a first serve in. The split fix makes those rows look healthy while their ace and double-fault counts stay wrong. I confirm the split (it is right and introduces nothing), and flag that these boxes remain unreliable on aces and double faults.",
+   "checks": [
+    "classify_check.py: 43 OG B sides; leftover differences df 19, ace 8, ace+df 12, break points 3, all four 1",
+    "Olympic pbp vs statistics on B sides: aces and double faults always the file's own value"
+   ]
+  }
+ },
+ "scope_totals": {
+  "sides_confirmed": 1449,
+  "match_rows": 935,
+  "by_fix": {"RGFSA": 1114, "RGFSB": 261, "OGFSA": 21, "OGFSB": 53},
+  "minus_or_zero_sides_confirmed_by_court_vision_2022": 22,
+  "sides_excluded": 269,
+  "excluded_by_test": {"T6 only (sign, no per-row physical referee)": 228, "T5 only (point record incomplete/absent)": 25, "T7 only (contradicted by MCP, unsettled)": 8, "T5+T6": 4, "T6+T7": 3, "T5+T6+T7": 1},
+  "pooled_first_serves_in_on_confirmed_sides": "Sackmann 80,449 -> official 72,573 of 116,665 serve points (68.96% -> 62.21%)"
+ },
+ "other_findings": "1) C4's 'extra first serves won at second-serve rates' is a pooled coincidence, not a diagnostic. Sackmann's errors depend on the point's outcome: in RG 2024's main draw 54% of '+' sides moved only lost points (share won 29%). For example De Minaur 2024 R64 has +16 first serves with 0 extra wins, implying he won 25 of 27 second-serve points; Tiafoe 2024 R128 won 37 of 37. 2) RG's own record is not error-free: where '-'/'0' disagreements have a referee, Court Vision 2022 or MCP side with Sackmann on Botic van de Zandschulp 2022 R128, Arnaboldi 2025 Q3, Djokovic 2023 R64 (first serves in) and Fernandez OG R64. Its errors cluster where Sackmann's dominant '+' fault cannot explain the disagreement, hence my sign rule. 3) The lead's second channel counts RG's 2025 key statistics as agreement for 8 sides whose MatchBeats is incomplete; key statistics are not a point record, so I excluded them (T5). 4) Court Vision 2023-24 is unusable as a referee: per the lead's agree_cv_vs_api.csv it reads more first serves in than RG on 41-79% of rows, including agreeing ones. I recounted 2022 only. 5) The 7 sides whose RG per-set blocks do not sum to the match statistics are retirements whose unfinished set has no block; where blocks are complete they sum on every proposed side. 6) One proposed side Stage 0 drops today (Pigossi 2024 QD057: 55 first serves in of 58 with 6 second-serve points won, B3) comes back with the fix; it is in my scope. 7) Linking issues found, none in the proposal: Sackmann's 'T. Farquhar' is RG's Thomas FAUREL (2024 QM126, unlinked by the lead too); Sackmann's 2023 'Eduardo Nava' (4 rows) is RG's Emilio NAVA (brothers; an identity error for the id work, not this fix); RG's site names Tatsuma Ito 'Tatsuma MARTIN' (2020 QM115, counts equal); Sackmann's Olympic 'Struff d. Moutet W/O' contradicts the Olympic record (Moutet won and played Paul next). Married names and transliterations resolve (Saville/Gavrilova, Baindl/Kozlova, Hruncakova/Kuzmova, Hunter/Sanders, Stevanovic/Kostic, Andrei/Paar, Lee/Talaba, Soboleva/Sobolieva). Same-name pairs in the proposal share only first names (Ofner-Korda, Kulikova-Potapova, Klimovicova-Fruhvirtova) or Carle-Maria (OG), all resolved by full names. 8) C5 (SofaScore) was not re-tested. 9) A data-quality note for later: in class B the leftover aces and double faults are wrong by both RG records; replacing them would be a separate operation."
+}

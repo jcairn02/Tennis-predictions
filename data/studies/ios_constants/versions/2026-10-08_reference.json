@@ -1,0 +1,231 @@
+{
+ "id": "2026-10-08_reference",
+ "created_at": "2026-10-09T03:41:34+00:00",
+ "note": "The constants the current best model's frozen reference of 8 Oct 2026 was built with (data/studies/current_best_model/reference_2026-10-08/): Stage B's tuning of 2 Oct 2026 on 2013-2018 with its typical units (stageB_ios_summary.json) and the surface tuning of 6 Oct 2026 (tuning_choice.json), both files as the reference's inventory hashed them; and the short memory of 4 weeks (men) and 13 (women) that match_timing/rebuild.py hard-coded until this registry.",
+ "based_on": null,
+ "sources": {
+  "base": {
+   "path": "data/studies/ufc_ideas/stageB_ios_summary.json",
+   "sha256": "dde1c9201449478784a6c5625e4e7c3ffb266617ddf963449e973b0800272b01",
+   "generated_at": "2026-10-02T21:43:49+00:00"
+  },
+  "typical_units": {
+   "path": "data/studies/ufc_ideas/stageB_ios_summary.json",
+   "sha256": "dde1c9201449478784a6c5625e4e7c3ffb266617ddf963449e973b0800272b01",
+   "generated_at": "2026-10-02T21:43:49+00:00"
+  },
+  "surface": {
+   "path": "data/studies/surface_ios/tuning_choice.json",
+   "sha256": "2f43478b81f3c9fadf948b3ee790e6c2d0000fa3bf555a868eb88b8f3552a1cd"
+  },
+  "short_memory_h": {
+   "given": "--short-h, by whoever added the version (see its note)"
+  },
+  "surface_means_sha256": "f197470272b5df27ab8ca26a01fff71e229ecd0fc38f37a4cd3681ff1ea33bd1"
+ },
+ "constants": {
+  "base": {
+   "atp|spw": {
+    "h": 52.0,
+    "kappa": 1.0,
+    "tau": 1
+   },
+   "atp|ace": {
+    "h": 26.0,
+    "kappa": 1.0,
+    "tau": 0
+   },
+   "atp|df": {
+    "h": 52.0,
+    "kappa": 3.0,
+    "tau": 0
+   },
+   "atp|first_in": {
+    "h": 26.0,
+    "kappa": 3.0,
+    "tau": 1
+   },
+   "atp|first_won": {
+    "h": 52.0,
+    "kappa": 1.0,
+    "tau": 1
+   },
+   "atp|second_won": {
+    "h": 104.0,
+    "kappa": 3.0,
+    "tau": 1
+   },
+   "atp|hold": {
+    "h": 104.0,
+    "kappa": 1.0,
+    "tau": 1
+   },
+   "atp|bp_saved": {
+    "h": "inf",
+    "kappa": 30.0,
+    "tau": 1
+   },
+   "wta|spw": {
+    "h": 52.0,
+    "kappa": 1.0,
+    "tau": 1
+   },
+   "wta|ace": {
+    "h": 52.0,
+    "kappa": 1.0,
+    "tau": 0
+   },
+   "wta|df": {
+    "h": 52.0,
+    "kappa": 3.0,
+    "tau": 1
+   },
+   "wta|first_in": {
+    "h": 26.0,
+    "kappa": 3.0,
+    "tau": 1
+   },
+   "wta|first_won": {
+    "h": 104.0,
+    "kappa": 3.0,
+    "tau": 1
+   },
+   "wta|second_won": {
+    "h": 104.0,
+    "kappa": 10.0,
+    "tau": 1
+   },
+   "wta|hold": {
+    "h": 104.0,
+    "kappa": 3.0,
+    "tau": 1
+   },
+   "wta|bp_saved": {
+    "h": 208.0,
+    "kappa": 30.0,
+    "tau": 1
+   }
+  },
+  "typical_units": {
+   "atp|spw": 73.68464648570998,
+   "atp|ace": 73.68464648570998,
+   "atp|df": 73.68464648570998,
+   "atp|first_in": 73.68464648570998,
+   "atp|first_won": 44.786646045482456,
+   "atp|second_won": 28.89883741810662,
+   "atp|hold": 11.453623558350545,
+   "atp|bp_saved": 7.018725201431319,
+   "wta|spw": 70.59231691162556,
+   "wta|ace": 70.59231691162556,
+   "wta|df": 70.59231691162556,
+   "wta|first_in": 70.59231691162556,
+   "wta|first_won": 43.85398662713682,
+   "wta|second_won": 26.738751951554146,
+   "wta|hold": 10.655751378009864,
+   "wta|bp_saved": 8.576993569131833
+  },
+  "short_memory_h": {
+   "atp": 4.0,
+   "wta": 13.0
+  },
+  "surface": {
+   "atp|spw": {
+    "variant": "shared",
+    "h_mult": 1.0,
+    "kE_mult": 10.0,
+    "kF_mult": 10.0
+   },
+   "atp|ace": {
+    "variant": "shared",
+    "h_mult": 1.0,
+    "kE_mult": 10.0,
+    "kF_mult": 10.0
+   },
+   "atp|df": {
+    "variant": "shared",
+    "h_mult": 1.0,
+    "kE_mult": 10.0,
+    "kF_mult": 10.0
+   },
+   "atp|first_in": {
+    "variant": "shared",
+    "h_mult": 1.0,
+    "kE_mult": 10.0,
+    "kF_mult": 10.0
+   },
+   "atp|first_won": {
+    "variant": "shared",
+    "h_mult": 1.0,
+    "kE_mult": 30.0,
+    "kF_mult": 30.0
+   },
+   "atp|second_won": {
+    "variant": "shared",
+    "h_mult": 1.0,
+    "kE_mult": 30.0,
+    "kF_mult": 30.0
+   },
+   "atp|hold": {
+    "variant": "shared",
+    "h_mult": 1.0,
+    "kE_mult": 30.0,
+    "kF_mult": 30.0
+   },
+   "atp|bp_saved": {
+    "variant": "shared",
+    "h_mult": 1.0,
+    "kE_mult": 10.0,
+    "kF_mult": 10.0
+   },
+   "wta|spw": {
+    "variant": "shared",
+    "h_mult": 1.0,
+    "kE_mult": 30.0,
+    "kF_mult": 30.0
+   },
+   "wta|ace": {
+    "variant": "shared",
+    "h_mult": 1.0,
+    "kE_mult": 30.0,
+    "kF_mult": 30.0
+   },
+   "wta|df": {
+    "variant": "shared",
+    "h_mult": 1.0,
+    "kE_mult": 10.0,
+    "kF_mult": 10.0
+   },
+   "wta|first_in": {
+    "variant": "shared",
+    "h_mult": 1.0,
+    "kE_mult": 10.0,
+    "kF_mult": 10.0
+   },
+   "wta|first_won": {
+    "variant": "shared",
+    "h_mult": 1.0,
+    "kE_mult": 10.0,
+    "kF_mult": 10.0
+   },
+   "wta|second_won": {
+    "variant": "shared",
+    "h_mult": 1.0,
+    "kE_mult": 10.0,
+    "kF_mult": 10.0
+   },
+   "wta|hold": {
+    "variant": "shared",
+    "h_mult": 1.0,
+    "kE_mult": 10.0,
+    "kF_mult": 10.0
+   },
+   "wta|bp_saved": {
+    "variant": "shared",
+    "h_mult": 1.0,
+    "kE_mult": 10.0,
+    "kF_mult": 10.0
+   }
+  }
+ },
+ "sha256": "292787ba44850edec295a35b409c6364860077656cc6fbd48d2f7d88237ba6a6"
+}

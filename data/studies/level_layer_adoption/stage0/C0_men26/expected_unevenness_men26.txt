@@ -1,0 +1,25 @@
+C0_men26: the expected input changes, written 10 Oct 2026 about 17:40 UTC, before any build on it (no input or outcome
+of it read). Claude Opus 5.5, session d061329f-0568-4169-b891-1a461e96dc2d.
+
+What it adds (observed, checks.json and the derivation): 1,735 men's matches of 2026, all lower-level: 1,723 Challenger
+qualifying (1,674 TennisLive results from 5 Jan to 29 Sep, 49 SofaScore from 15 Jun to 5 Oct), 12 Challenger main draw
+(11 SofaScore of 5 Oct, 1 TennisLive of 21 Sep); 19 of them carry a box score; plus 1 box score completing a reference
+men's 2026 Challenger match. Women: nothing. Before 2026: nothing.
+
+Expected (inference):
+* Inputs of matches before 5 Jan 2026 (every season to 2025, and 2026's first days): identical to the template's, bit
+  for bit, the IOS inputs within the solver's rounding (1e-12). No addition is released before then.
+* Women's inputs: identical (the layer touches men only; the women's box scores and results are unchanged), except
+  where a cross-tour solve reads them: none does.
+* Men's 2026 inputs:
+  - the Elo family (elo_overall, elo_surf_offset, elo_games) moves for players with added results; under the layer a
+    Challenger-qualifying result counts at B's fitted w_results (about 1, capped at 1); the scale moves little
+    (new players start at 1500): under 0.05 SD, not flagged;
+  - the workload counts (sets_14d, surf_season, surf_layoff) move where a player played Challenger qualifying in the
+    14 / 28 days before a main-tour match: rare for main-tour players, a few percent of 2026 men's rows at most;
+  - the box-score families (points_52w, the forms, ratings_iid, the IOS solves) move very little: 19 added box scores
+    and one completion, all lower-level, entering translated and weighted;
+  - the opponent strength of the new rows comes from the plain Elo on C0_men26; if its 2026 main-tour scale shifts by
+    more than 1 Elo point, it is re-centred (option c) and every reference match keeps the frozen value.
+* So compare.py's input check should flag nothing, or at most 2026 men's workload counts as "uneven" (a 2026-only
+  change, by construction: the data fills June-October 2026, the publication lag).

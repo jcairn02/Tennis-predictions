@@ -1,0 +1,36 @@
+{
+ "written_by": "role A (classifier), lower-level-evidence system run",
+ "fixed_at_utc": "2026-10-09T20:12:50Z",
+ "status": "fixed before any gamma, level decomposition or speed check of this run was computed; never edited after",
+ "units": "logit of the statistic's rate per opportunity ((x + 1/2) / (d + 1)); log for break points faced per service game; km/h for first-serve speed; strength = the opponent's pre-match Elo in 100s of points",
+ "yardstick": {
+  "SD_signal": "per (statistic, tour): the between-player-season SD of the statistic's true value on main-tour main draws, 2013-2024, logit units. Computed as sqrt(max(0, weighted variance of player-season means - mean sampling variance of those means)) over player-seasons with at least 5 box scores. It is the spread of what the inputs try to rank.",
+  "why_not_per_match_SD": "the per-match SD is dominated by binomial noise for low-count statistics (about 5 break points a match), so a per-match threshold would call a large systematic bias immaterial for exactly the noisiest statistics. The inputs aggregate many matches; a bias that does not average out is judged against the spread of players' true values. Per-match SD units are reported beside, as asked.",
+  "why_0.10": "a bias of 0.10 between-player SD on a player whose evidence is wholly lower-level moves him about 4 percentile points at the median. For the average main-tour player row (23-35% lower-level evidence, role 01) it is about 0.03 SD, for qualifiers (about 75%) about 0.075 SD: the scale at which role 08's translated inputs (0.02-0.14 SD moves) changed the model measurably but little. Below it, translating or not changes the inputs by less than the first run could detect."
+ },
+ "reference_gap": "per tour: the volume-weighted mean of |Delta_L| over TQ, GSQ, CH and CHQ, weights = the level's box-score player rows of 2013-2024; Delta_L = the mean opponent pre-match Elo at level L minus at MAIN within the same player-seasons (at least 3 box scores at both levels). It reads Elo only, no statistic.",
+ "classes_box_statistics": {
+  "OPP": "gamma's 95% interval (clustered by player) excludes 0 AND |gamma| x reference gap >= 0.10 SD_signal",
+  "ENV": "every other box-score statistic (opponent dependence not material); delta only where real, else weight only"
+ },
+ "delta_real": "at level L (judged only with >= 100 qualifying player-seasons; otherwise 'not identified' and delta not allowed): the shift left after the class's translation (OPP: raw same-player shift - gamma x Delta_L; ENV: the raw shift) has a 95% interval excluding 0 AND |shift| >= 0.10 SD_signal",
+ "speed": {
+  "scale": "spd_L's standardiser, 1.9496 km/h (stage 2 reads speed only through spd_L); materiality = 0.10 x 1.9496 = 0.195 km/h",
+  "opponent_dependent": "gamma_speed's 95% interval excludes 0 AND |gamma_speed| x the men's reference gap >= 0.195 km/h",
+  "level_problem": "the same player's edition-centred Challenger speed minus his main-tour speed (same season) has a 95% interval excluding 0 AND |shift| >= 0.195 km/h; then stage 2 needs a guard"
+ },
+ "non_box_inputs": {
+  "INTR": "age, age_sq",
+  "WORK": "sets_14d, surf_season_a/b, surf_layoff_a/b",
+  "RES": "elo_overall, elo_surf_offset, elo_games",
+  "CTX": "odds_logit, tour, surface, level, indoor, best_of, round"
+ },
+ "rules_by_class_and_family": {
+  "OPP, raw rates or one-step forms": "translate: gamma x (opponent strength - reference) + delta_L at the levels where delta is real; weight w",
+  "ENV, raw rates or one-step forms": "delta_L only at the levels where it is real; weight w (weight only if no level is real)",
+  "OPP or ENV, joint solves (IOS, ios_points_short, products, ratings_iid)": "the solve handles the opponent: a level term (delta in the solve's own units) only at the levels where delta is real; weights w",
+  "RES": "w_results only",
+  "INTR, WORK, CTX": "untouched",
+  "multi-statistic inputs": "the input is OPP if any of its statistics is OPP; delta allowed at a level if it is real for any of its statistics"
+ }
+}

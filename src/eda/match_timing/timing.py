@@ -359,6 +359,8 @@ def era_of(year: pd.Series) -> pd.Series:
     out = pd.Series("", index=year.index, dtype=object)
     for a, b in ERAS:
         out[year.between(a, b)] = f"{a}-{b}"
+    a, b = ERAS[-1]
+    out[year > b] = f"{a}-{b}"          # a later season belongs to the last era (its label kept; since 10 Oct 2026)
     return out
 
 

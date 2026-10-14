@@ -1,0 +1,192 @@
+{
+ "generated_at": "2026-10-08T18:50:49+00:00",
+ "build_seconds": {
+  "baseline": 115.4,
+  "corrected": 123.9,
+  "odds_baseline": 6.0,
+  "odds_corrected": 5.9
+ },
+ "live_tables_unchanged": true,
+ "live_sha256": {
+  "stage0_matches.parquet": "1f9244f51747667b0c5930fc6cc06d553463a9eebf3285d642e38b153c19832d",
+  "stage0_match_players.parquet": "220bba432f28cd087a2066f365d8f6c4bca22850686fef79957296b6bd5b1164",
+  "stage1_odds.parquet": "cb8fea400ac77b8f841266b5b1b3084a472a6e366d4a3adb5e68a7c4531d5d60"
+ },
+ "baseline_equals_live": {
+  "same_match_ids": false,
+  "match_columns_changed": {
+   "match_num": 37,
+   "source_row": 45,
+   "order": 58
+  },
+  "player_columns_changed": {}
+ },
+ "same_match_ids_after_corrections": true,
+ "row_corrections": 1522,
+ "row_corrections_unresolved": 0,
+ "row_corrections_other_match_id": [],
+ "target_matches": 1438,
+ "matches_changed": 1433,
+ "match_columns_changed": {
+  "minutes": 1,
+  "has_box": 22,
+  "box_status": 49,
+  "player_a_id": 5,
+  "player_b_id": 15
+ },
+ "player_columns_changed": {
+  "player_id": 20,
+  "opponent_id": 20,
+  "age": 194,
+  "ace": 230,
+  "df": 225,
+  "svpt": 2452,
+  "first_in": 259,
+  "first_won": 257,
+  "second_won": 254,
+  "sv_gms": 138,
+  "bp_saved": 248,
+  "bp_faced": 253,
+  "has_box": 44,
+  "spw_n": 262,
+  "spw_d": 2452,
+  "rpw_n": 2446,
+  "rpw_d": 2452,
+  "tpw_n": 2457,
+  "tpw_d": 2486,
+  "hold_n": 217,
+  "hold_d": 138,
+  "brk_n": 245,
+  "brk_d": 138,
+  "ace_n": 230,
+  "ace_d": 2452,
+  "df_n": 225,
+  "df_d": 2452,
+  "first_in_n": 259,
+  "first_in_d": 2452,
+  "first_won_n": 257,
+  "first_won_d": 259,
+  "second_won_n": 254,
+  "second_won_d": 2455,
+  "bp_saved_n": 248,
+  "bp_saved_d": 253,
+  "bp_conv_n": 245,
+  "bp_conv_d": 253,
+  "bp_faced_pg_n": 253,
+  "bp_faced_pg_d": 138
+ },
+ "changed_outside_targets": [],
+ "changed_outside_targets_count": 0,
+ "targets_unchanged": [
+  "wta|2015-W-INT-FRA-1A-2015|R32|wta:201483|wta:201548",
+  "wta|2015-W-INT-GER-1A-2015|QF|wta:201311|wta:201597",
+  "wta|2015-W-INT-MAR-1A-2015|R32|wta:202395|wta:213634",
+  "wta|2015-W-P700-USA-1A-2015|R64|wta:201666|wta:202418",
+  "wta|2015-W-PM-ESP-1A-2015|R64|wta:201506|wta:211651"
+ ],
+ "targets_unchanged_count": 5,
+ "per_fix": {
+  "F1|add_df_to_svpt": {
+   "matches": 1191,
+   "as_expected": 1191,
+   "not_as_expected": [],
+   "unresolved_rows": 0
+  },
+  "F1x|add_df_to_svpt": {
+   "matches": 2,
+   "as_expected": 2,
+   "not_as_expected": [],
+   "unresolved_rows": 0
+  },
+  "F1y|add_df_to_svpt": {
+   "matches": 3,
+   "as_expected": 3,
+   "not_as_expected": [],
+   "unresolved_rows": 0
+  },
+  "F2|exchange_box": {
+   "matches": 58,
+   "as_expected": 58,
+   "not_as_expected": [],
+   "unresolved_rows": 0
+  },
+  "F2x|exchange_box": {
+   "matches": 20,
+   "as_expected": 20,
+   "not_as_expected": [],
+   "unresolved_rows": 0
+  },
+  "F2y|exchange_svgms": {
+   "matches": 1,
+   "as_expected": 1,
+   "not_as_expected": [],
+   "unresolved_rows": 0
+  },
+  "F3|blank_box": {
+   "matches": 1,
+   "as_expected": 1,
+   "not_as_expected": [],
+   "unresolved_rows": 0
+  },
+  "F3|replace_box": {
+   "matches": 34,
+   "as_expected": 34,
+   "not_as_expected": [],
+   "unresolved_rows": 0
+  },
+  "F4|blank_box": {
+   "matches": 17,
+   "as_expected": 17,
+   "not_as_expected": [],
+   "unresolved_rows": 0
+  },
+  "F4x|blank_box": {
+   "matches": 1,
+   "as_expected": 1,
+   "not_as_expected": [],
+   "unresolved_rows": 0
+  },
+  "F8b|set_age": {
+   "matches": 11,
+   "as_expected": 11,
+   "not_as_expected": [],
+   "unresolved_rows": 0
+  },
+  "F9|set_age": {
+   "matches": 91,
+   "as_expected": 91,
+   "not_as_expected": [],
+   "unresolved_rows": 0
+  }
+ },
+ "aliases": {
+  "pairs": 11,
+  "second_ids_left_after": 0,
+  "matches": 19
+ },
+ "detectors_after": {
+  "F1_definition_test_failures_after": 0,
+  "F2_swapped_fit_after": 0,
+  "F2_identity_fails_after": 2,
+  "F2_winner_fewer_points_after": 3
+ },
+ "odds": {
+  "rows_changed": 7,
+  "columns_changed": {
+   "avg_a": 7,
+   "avg_b": 7,
+   "ps_a": 1,
+   "ps_b": 1,
+   "max_a": 5,
+   "max_b": 5,
+   "b365_a": 1,
+   "b365_b": 1,
+   "p_avg_a": 7,
+   "p_ps_a": 1
+  },
+  "changed_outside_table": [],
+  "table_rows_unchanged": [],
+  "baseline_equals_live": {}
+ },
+ "pass": true
+}

@@ -1,0 +1,75 @@
+{
+ "what": "E's real-parameter leak probe (C1's G5 design, B's params <= 2024, final layer)",
+ "slice": [
+  "2023-01-01",
+  "2024-12-26"
+ ],
+ "cuts": [
+  "2023-09-06",
+  "2024-01-24",
+  "2024-07-10",
+  "2024-08-14"
+ ],
+ "atol": 1e-09,
+ "params": "C:\\Users\\zerom\\Documents\\Tennis-predictions\\data\\studies\\lower_level_evidence\\system\\audit\\g5_realparams\\params_dev_only.parquet",
+ "params_sha256": "67177ddd1f589870ad44e373da30782b568fe0c094fd65b6099bb5a29e2ea693",
+ "layer": "C:\\Users\\zerom\\Documents\\Tennis-predictions\\src\\eda\\lower_level_evidence\\level_layer.py",
+ "layer_sha256": "0b99b0466545c9762b3f43240b64a473703d5298c070d03413ff0dcc5192b9c5",
+ "tree": "C:\\Users\\zerom\\tnr_sys2",
+ "cuts_result": [
+  {
+   "cut": "2023-09-06",
+   "later_matches_flipped": 92862,
+   "protected_pool_matches": 13758,
+   "protected_moved": 0,
+   "protected_moved_by_input": {},
+   "unprotected_moved": 22156
+  },
+  {
+   "cut": "2024-01-24",
+   "later_matches_flipped": 69725,
+   "protected_pool_matches": 19744,
+   "protected_moved": 0,
+   "protected_moved_by_input": {},
+   "unprotected_moved": 16482
+  },
+  {
+   "cut": "2024-07-10",
+   "later_matches_flipped": 33804,
+   "protected_pool_matches": 29141,
+   "protected_moved": 0,
+   "protected_moved_by_input": {},
+   "unprotected_moved": 7382
+  },
+  {
+   "cut": "2024-08-14",
+   "later_matches_flipped": 25255,
+   "protected_pool_matches": 31163,
+   "protected_moved": 0,
+   "protected_moved_by_input": {},
+   "unprotected_moved": 5378
+  }
+ ],
+ "layer_moved_vs_off": {
+  "points_52w": 33331,
+  "form_ace": 34764,
+  "form_df": 34759,
+  "form_first_in": 34761,
+  "form_first_won": 34764,
+  "form_second_won": 34761,
+  "form_hold": 34756,
+  "form_bp_saved": 34709,
+  "form_bp_faced_pg": 34757,
+  "form_brk": 34750,
+  "form_bp_conv": 34650,
+  "form_rpw_first": 34758,
+  "form_rpw_second": 34757,
+  "adjperf_tpw_2w": 34760,
+  "formdef_ace": 34761,
+  "formdef_df": 34757,
+  "formdef_first_in": 34760,
+  "formdef_bp_faced_pg": 34755
+ },
+ "pass": true,
+ "seconds": 540.6
+}

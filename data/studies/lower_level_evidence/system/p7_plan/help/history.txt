@@ -1,0 +1,38 @@
+usage: history.py [-h] [--stage0 STAGE0] [--timing TIMING]
+
+Is the training history still the frozen reference's? The owner's rule (8 Oct 2026; docs/decisions/
+2026-10-08-current-best-model.md, amendment):
+
+    "I just want the same data as before for training + training updates from future dates frozen. But if we are
+    downloading new LOWER LEVEL data, challenger +ITF it doesnt get auto included in the model. I want a way to test
+    if this lower level skill data is harming our model (though the data is prior to the current date)."
+
+So the model trains on the reference's matches (the frozen Stage 0 of 8 Oct, reference.py) plus the matches played from
+then on, from the sources that were feeding it. Anything else that changes the history (new lower-level matches or box
+scores of past dates, a new source, a dropped or revised past match) is a CANDIDATE: built apart and compared with the
+reference (compare.py) before the owner accepts it.
+
+check() compares a Stage 0 (default: the live one) with the reference's, match by match:
+    future     a match the reference lacks, possibly played from FREEZE - GRACE_DAYS on, from a source, tour and level
+               that fed the reference in its last RECENT_DAYS days. These are the updates the rule lets in
+    updated    a reference match possibly played from FREEZE - GRACE_DAYS on, from such a feed, that changed (a box score
+               completed, a score corrected) or left the table: the feed completing a match it was still publishing at
+               the freeze. Allowed like a future match (the owner, 8 Oct 2026, docs/decisions/
+               2026-10-08-prediction-run-box-scores.md)
+    new past   every other match the reference lacks: new history (a backfill, a new source or a new level)
+    dropped    every other reference match the table lacks
+    revised    every other match in both whose facts (players, date, round, surface, format, status, score, minutes) or
+               box score (each player's serve and return counts, rank, age) differ
+"Possibly played from" a day: the match's latest possible finish (the timeline's lf; its tournament date when the
+timeline lacks it) falls on or after it. Undated matches carry wide windows (Shanghai 2026's first round starts its
+window on 3 Oct), so their earliest start would call matches of the events in progress at the freeze old. A new match
+is placed by the live timeline; a reference match by the reference's own, so no revision can move it into the window.
+The template may be built only when new past, dropped and revised are all empty. run_chain.py --setup enforces it; a
+build that changes the history is made with --candidate and compared with the reference.
+
+Run: ./python.sh src/eda/current_best_model/history.py [--stage0 <folder holding stage0_matches.parquet>]
+
+options:
+  -h, --help       show this help message and exit
+  --stage0 STAGE0  the folder holding stage0_matches.parquet
+  --timing TIMING  its timeline (timing.parquet)

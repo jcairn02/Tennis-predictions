@@ -1,5 +1,7 @@
 # The current best model includes the walk-forward serve-speed adjustment
 
+**Superseded as the definition of "the current best model" on 8 October 2026** by [the current best model is a template](2026-10-08-current-best-model.md). The two stages below carry over unchanged, but they are now built on the day's corrected tables. The instance built on the tables of 30 Sep, and its 2026 coefficients below, are the previous model.
+
 **Stated by the owner on 7 October 2026,** after the [serve-speed TabPFN study](../studies/serve_speed_tabpfn/README.md). Recorded the same day. The owner's words:
 * "Ok, the current best model will be the model + Speed as a walk-forward adjustment on the model's output (secondary)."
 * "When I refer to the current best model, it will also imply the addition of this walk-forward adjustment."

@@ -27,6 +27,7 @@ from src.eda.match_timing import common as MT  # noqa: E402
 from src.eda.match_timing import rebuild as RB  # noqa: E402
 from src.eda.predictability_diagnostic import common as PC  # noqa: E402
 from src.eda.ufc_ideas import stageB_common as B  # noqa: E402
+from src.eda.lower_level_evidence import level_layer_ios as _LLEIOS  # noqa: E402   # level layer, joint solves (LLE_LAYER)
 
 
 def main() -> int:
@@ -68,6 +69,7 @@ def main() -> int:
             arrays[f"{s}__d"] = a["d"][idx]
             arrays[f"{s}__y"] = a["c"][idx]
             arrays[f"{s}__mu"] = a["mu_scale"][idx]
+        arrays = _LLEIOS.annotate_cache(arrays, rows, idx)  # level layer, joint solves (LLE_LAYER)
         np.savez_compressed(C.CACHE / f"{t}.npz", **arrays)
         manifest["tours"][t] = {"rows": int(len(idx)), "players": int(pid.max() + 1),
                                 "surface_rows": {C.SURF_NAMES.get(k, "unknown"): int((surf[idx] == k).sum())

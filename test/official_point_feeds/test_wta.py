@@ -160,6 +160,48 @@ def test_documents_are_gzipped_404s_are_final_and_statuses_read_back(tmp_path, m
     assert W.endpoint_status(receipts, "1045", 2024, "LS001", "stats") is None
 
 
+def test_a_list_fetched_before_its_edition_ended_is_asked_again(tmp_path, monkeypatch):
+    # Seoul 2026 (21-27 Sep) was cached on 25 Sep and then read "past", so its last rounds were never asked (P2)
+    seoul = {"tournament_id": "1024", "year": 2026, "tier": "250", "status": "past", "end_date": "2026-09-27"}
+    assert W.listing_stale(seoul, {"retrieved_at": "2026-09-25T22:02:05+00:00"})
+    assert W.listing_stale(seoul, {"retrieved_at": "2026-09-28T09:00:00+00:00"})   # within the settling days
+    assert not W.listing_stale(seoul, {"retrieved_at": "2026-09-29T00:00:01+00:00"})
+    assert W.listing_stale({**seoul, "status": "live"}, {"retrieved_at": "2026-10-11T00:00:00+00:00"})
+    assert not W.listing_stale({**seoul, "end_date": None}, {"retrieved_at": "2026-09-25T22:02:05+00:00"})
+    assert not W.listing_stale(seoul, None)  # never fetched: fetch asks anyway
+    monkeypatch.setattr(P, "RAW_ROOT", tmp_path)
+    receipts = C.Receipts("wta", root=tmp_path)
+    client = FakeClient([FakeResponse(200, b'{"matches": []}'), FakeResponse(200, b'{"matches": [{"MatchID": "LS001"}]}')])
+    W.fetch_listing(client, receipts, seoul, refresh=False)       # first fetch
+    receipts.record({**receipts.get("tournaments/1024/2026/matches"), "retrieved_at": "2026-09-25T22:02:05+00:00"})
+    W.fetch_listing(client, receipts, seoul, refresh=False)       # stale: asked again
+    assert client.calls == 2 and W.load_listing("1024", 2026) == [{"MatchID": "LS001"}]
+    W.fetch_listing(client, receipts, seoul, refresh=False)       # now fetched after the end: final
+    assert client.calls == 2
+
+
+def test_a_404_answered_before_its_edition_ended_is_asked_again(tmp_path, monkeypatch):
+    # P2: win probability answered 404 for Wuhan 2026's qualifying (edition 12-18 Oct) on 11 Oct
+    wuhan = {"tournament_id": "1075", "year": 2026, "tier": "1000", "status": "future", "end_date": "2026-10-18"}
+    early = {"status": 404, "retrieved_at": "2026-10-11T15:25:00+00:00"}
+    assert W.absence_stale(wuhan, early)
+    assert not W.absence_stale(wuhan, {**early, "retrieved_at": "2026-10-20T00:00:00+00:00"})  # after: final
+    assert not W.absence_stale(wuhan, {**early, "status": 200})                                # a document stays
+    assert not W.absence_stale(wuhan, {**early, "error": "HTTP 504"})                          # errors retry anyway
+    assert not W.absence_stale({**wuhan, "end_date": None}, early) and not W.absence_stale(wuhan, None)
+    monkeypatch.setattr(P, "RAW_ROOT", tmp_path)
+    receipts = C.Receipts("wta", root=tmp_path)
+    client = FakeClient([FakeResponse(404), FakeResponse(200, b'{"points": [1]}')])
+    W.fetch_endpoint(client, receipts, "1075", 2026, "RS001", "win-probability-momentum", refresh=False, edition=wuhan)
+    name = "matches/1075/2026/RS001/win-probability-momentum"
+    receipts.record({**receipts.get(name), "retrieved_at": "2026-10-11T15:25:00+00:00"})
+    W.fetch_endpoint(client, receipts, "1075", 2026, "RS001", "win-probability-momentum", refresh=False)
+    assert client.calls == 1  # without the edition (the prediction run's fills), a 404 stays final
+    again = W.fetch_endpoint(client, receipts, "1075", 2026, "RS001", "win-probability-momentum", refresh=False,
+                             edition=wuhan)
+    assert client.calls == 2 and again["status"] == 200
+
+
 def test_a_receipt_line_cut_short_is_skipped_and_the_next_one_starts_fresh(tmp_path):
     path = tmp_path / "unit" / "_receipts.jsonl"
     path.parent.mkdir(parents=True)
@@ -264,6 +306,13 @@ def test_404s_count_as_absences_not_errors():
         W.note(errors, absences, {"name": "x", "status": 404})
     with pytest.raises(F.Stopped):
         W.note(errors, absences, {"name": "x", "status": 404})
+
+
+def test_an_answer_recorded_as_absent_counts_as_an_absence_not_an_error():
+    errors, absences = F.FailureStreak(2), F.FailureStreak(3)
+    for _ in range(2):  # --player-matches: an unknown player is HTTP 200 with an empty body, recorded as absent
+        W.note(errors, absences, {"name": "x", "status": 200, "absent": "empty answer: no such player"})
+    assert (errors.count, absences.count) == (0, 2)
 
 
 def test_every_networked_run_needs_a_budget_and_years():

@@ -1,0 +1,70 @@
+usage: refresh.py [-h] --label LABEL [--stage0-dir STAGE0_DIR]
+                  [--timing TIMING] [--frame FRAME] [--base BASE]
+                  [--steps STEPS] [--force] [--scores] [--model MODEL]
+                  [--boot BOOT] [--translation-args TRANSLATION_ARGS]
+                  [--scenario {p7}]
+
+Re-run the lower-level evidence review on a Stage 0 and compare it with the first run: the renewable part of the study.
+
+The review (docs/studies/lower_level_evidence/README.md) was first run on 9 Oct 2026 on the frozen reference of 8 Oct
+(label reference_2026-10-08). When new lower-level data lands (the dossier's re-review triggers), a session builds a
+candidate Stage 0 that carries it (run_chain.py --setup --candidate, lane 0) and runs this script on it with its own
+label and its own timeline:
+
+    ./python.sh src/eda/lower_level_evidence/refresh.py --label <name>         --stage0-dir <candidate>/data/studies/predictability_diagnostic         --timing <candidate>/data/studies/match_timing/timing.parquet
+
+The scripts it calls keep their own holdout guards (no outcome of 2025-2026 is read); this script reads their outputs.
+
+Steps (--steps, comma-separated; outputs under data/studies/lower_level_evidence/):
+    incoming      incoming.py     -> incoming/<label>/      what is held at each level: counts and coverage only (~25 s)
+    composition   composition.py  -> composition/<label>/   how much of each input's evidence is lower-level (~2 min;
+                                                             its part 5, the scores, only with --scores)
+    translation   translation.py  -> translation/<label>/   offsets, exchange rates, tier priors (~8 min with 30 draws).
+                                                             With ITF box scores of 2018-2024 in the Stage 0, move its
+                                                             windows (--translation-args "--fit-window 2018-2021 --tune
+                                                             2019-2021 --validate 2022-2024"): a statistic-level review
+                                                             only. Offsets fitted on 2018-2021 must not enter a model
+                                                             candidate scored on 2020-2024 (fit walk-forward instead)
+    snapshot      the three runs' headline numbers -> snapshots/<label>.json
+    diff          the snapshot against --base (default: the first run) -> snapshots/<label>_vs_<base>.md and .json
+
+Safety: --label is required; the first run's label is refused for any Stage 0 but the frozen reference's; a step whose
+output folder exists is refused without --force; a candidate Stage 0 must come with its own --timing.
+
+The diff's flags (it reads the composition and translation numbers; the incoming numbers are stored for reference):
+    MISSING          a section the base run has is absent from this run: its outputs were not found (never read as
+                     "nothing moved")
+    UNEVEN DOSE      per tour and memory, the season-by-season change of the lower-level share of box-score evidence
+                     spreads over >= 3 points (some seasons move more than others): the shape the input check calls
+                     "uneven" (the input-data audit's finding #6). It lists the seasons that moved by >= 3 points
+    FAMILY DOSE      an input family's lower-level share moves by >= 3 points in a tour-era
+    EXPOSURE         the share of model matches whose less-exposed side has under 10 main-tour results in 365 days moves
+                     by >= 2 points
+    NEW LEVEL        a level reaches translation.py's threshold of box-score rows (200) in the seasons it reads (to
+                     2024), so its own offset and weight are estimated
+    WINDOWS CHANGED  translation.py's fit, tune or validation window differs from the base run's; DRIFT is then not read
+    DRIFT            an offset or a weight leaves the base run's bootstrap 5-95% range (only the statistics that have
+                     bootstrap draws: 8 of 12 in the first run)
+
+--scenario p7 writes the flags of a construction, not of new data: the base run's own preview of the ITF box scores of
+2018-2024 (composition.py's itf_p7_scenario.csv, column "p7") fed in as if it were a candidate.
+
+options:
+  -h, --help            show this help message and exit
+  --label LABEL         this run's name (the first run is
+                        reference_2026-10-08)
+  --stage0-dir STAGE0_DIR
+  --timing TIMING       the match timeline built with the Stage 0 (required
+                        for a candidate Stage 0)
+  --frame FRAME         the model frame naming the model's matches
+  --base BASE           the snapshot to compare with
+  --steps STEPS
+  --force               allow a step to overwrite its existing output folder
+  --scores              also run composition's part 5 (reads 2019-2024
+                        results)
+  --model MODEL         part 5's forecasts: reference, or a built folder
+  --boot BOOT           translation.py's bootstrap draws (DRIFT needs them)
+  --translation-args TRANSLATION_ARGS
+                        extra arguments for translation.py, quoted
+  --scenario {p7}       only write the flags of a construction against the
+                        base (see the docstring)

@@ -1,0 +1,79 @@
+{
+ "records": 736,
+ "by_source": {
+  "infosys_atp": 370,
+  "infosys_atp_ks": 366
+ },
+ "valid": 728,
+ "invalid_reasons": {
+  "gate": 4,
+  "unlinked": 2,
+  "audit_impossible": 2
+ },
+ "audit_rule_hits": 2,
+ "generated_at": "2026-10-09T00:19:33+00:00",
+ "inputs": {
+  "frozen_records_sha256": "2961a7a3cd9a5bee7f552cf7f60f288683faa42df55ccf79d858296cc8ed712a",
+  "corrected_history_sha256": "5f5bf596777589fad249050b4ea0f2a9a2bd18c1f918d7222f20f187b07a16b2",
+  "exclusions_sha256": "4f45463db5841c8672d3cbfb07676b2b2143dea843ede07a0be2cb79039683e3",
+  "speeds_sha256": "eeb99f601ab36a545afdbd7e829ec8a8cab097d3f78ff946d36b15b4c8cae801",
+  "atp_points_sha256": "a5feae54d1263e8405ef6d30bf0ac88041632b3d3c52f96b2474fd9d9e4a4679",
+  "stage0": "data/studies/data_continuity/rebuilds/2026-10-08T1853Z/replaced/data/studies/predictability_diagnostic/stage0_matches.parquet",
+  "timing": "data/studies/data_continuity/rebuilds/2026-10-08T1853Z/replaced/data/studies/match_timing/timing.parquet"
+ },
+ "corrected_history_reproduced": true,
+ "rows_corrected": 43089,
+ "rows_augmented": 43315,
+ "use_corrected": 42872,
+ "use_augmented": 43098,
+ "added_player_matches": 226,
+ "added_use": 225,
+ "added_by_source": {
+  "infosys_atp_ks": 224,
+  "infosys_atp": 2
+ },
+ "added_drop_reasons": {
+  "gate": 1
+ },
+ "added_by_year_event": {
+  "2018|2018-605": 12,
+  "2021|2021-404": 86,
+  "2021|2021-418": 74,
+  "2021|2021-9569": 53
+ },
+ "changed_player_matches": 142,
+ "changed_source_before_after": {
+  "handoff_ks->handoff_ks": 139,
+  "handoff_ks->infosys_atp_ks": 1,
+  "infosys->infosys_atp": 2
+ },
+ "changed_y_abs_kmh": {
+  "median": 0.0,
+  "max": 2.0
+ },
+ "changed_use_before_after": {
+  "before": 141,
+  "after": 142
+ },
+ "own_outlier_flag_changes_on_the_same_players": 4,
+ "atp_use_rows_by_year": {
+  "corrected": {
+   "2017": 684,
+   "2018": 507,
+   "2019": 548,
+   "2020": 568,
+   "2021": 1439,
+   "2022": 3970
+  },
+  "augmented": {
+   "2017": 684,
+   "2018": 520,
+   "2019": 548,
+   "2020": 568,
+   "2021": 1652,
+   "2022": 3970
+  }
+ },
+ "augmented": "data/studies/serve_speed_tabpfn/live/speed_panel_backfilled.parquet",
+ "augmented_sha256": "56731cbab3bd439cffd578c515c911ea8a6792966acfa790ef58243f6ace4c51"
+}

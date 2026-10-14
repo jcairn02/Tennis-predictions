@@ -1,0 +1,21 @@
+{
+ "arm": "R_S2",
+ "written_at": "2026-10-09T20:24:47Z",
+ "what": "compare.py part 1 (input_drift, season_profile, coverage) on the arm against the frozen reference; no result read",
+ "expected_change": "the reference's 58 inputs exactly, plus the two share inputs",
+ "inputs_changed": 0,
+ "inputs_flagged": [],
+ "only_in_one": [
+  {
+   "input": "box_low_share_h2w_diff",
+   "flag": "only in the candidate"
+  },
+  {
+   "input": "box_low_share_365d_diff",
+   "flag": "only in the candidate"
+  }
+ ],
+ "coverage": {
+  "both": 67226
+ }
+}

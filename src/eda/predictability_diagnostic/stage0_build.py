@@ -26,10 +26,27 @@ data/studies/data_continuity/slam_box_overrides.csv (Wimbledon and the US Open 2
 and where given the score and minutes, of named TML rows with the official Slam feed's, right after the rows are
 read and before any score is parsed or box score checked. Every override must find exactly one TML row, or the
 build stops. --no-box-overrides builds without it. --box-overrides <csv> applies another table instead, which
-the live folder takes only with --confirm-live-overrides; --out-dir writes everything elsewhere.
+the live folder takes only with --confirm-live-overrides; --out-dir writes everything elsewhere. Another table may
+also name Sackmann rows, through a "source" column (the Roland-Garros candidate of 9 Oct 2026,
+docs/studies/rg_first_serve_recount/).
+
+Corrections of corrupt source rows (docs/decisions/2026-10-08-corrupt-data-fixes.md): every build also applies the
+tables in data/studies/input_data_audit/fixes/ (src/eda/input_data_audit/corrections.py): row_corrections.csv right
+after the overrides (serve points that leave out double faults, box scores exchanged between winner and loser, copied
+box scores blanked or replaced from the WTA's own statistics, impossible ages), and id_aliases.csv after the repairs
+(one player's second id). Each row must find its source row exactly, or the build stops. --no-corrections builds
+without them; --corrections-dir <folder> applies other tables, into the live folder only with
+--confirm-live-overrides.
+
+Live rows (docs/decisions/2026-10-08-prediction-run-box-scores.md): --live-rows <parquet> adds upcoming matches as
+Tennis My Life rows with a placeholder result and no box score, so that every builder after Stage 0 computes their
+inputs exactly as it does for played matches. A played row of the same event, round and players is dropped first (a
+replay of past matches). Only a prediction run's sandbox (src/eda/prediction_run/, marked by .prediction_run_sandbox at
+its root) or an --out-dir takes them: never the repository's Stage 0.
 
 Run: ./python.sh src/eda/predictability_diagnostic/stage0_build.py
      [--out-dir <folder>] [--no-box-overrides | --box-overrides <csv> [--confirm-live-overrides]]
+     [--no-corrections | --corrections-dir <folder>] [--live-rows <parquet>]
 """
 from __future__ import annotations
 
@@ -48,12 +65,34 @@ import pandas as pd
 ROOT = Path(__file__).resolve().parents[3]
 sys.path.insert(0, str(ROOT))
 
+from src.eda.input_data_audit import common as A  # noqa: E402
+from src.eda.input_data_audit import corrections as X  # noqa: E402
 from src.eda.merge_feasibility import scan as S  # noqa: E402
 from src.eda.predictability_diagnostic import common as C  # noqa: E402
 
 LEVEL_RULES = C.OUT / "stage0_level_rules.csv"
 DECIDED_OVERRIDES = ROOT / "data" / "studies" / "data_continuity" / "slam_box_overrides.csv"
+DECIDED_CORRECTIONS = X.FIXES      # row_corrections.csv and id_aliases.csv (decision 2026-10-08)
+CORRECTION_RULES = {  # action -> (rule id, words, cleaning-log action)
+    "add_df_to_svpt": ("E1", "serve points leave out double faults (Sackmann's WTA tour events of 23 Feb - 24 Aug "
+                             "2015): double faults added to serve points, both players", "fix_box"),
+    "exchange_box": ("E2", "box scores exchanged between winner and loser (confirmed by the WTA's own statistics, "
+                           "an official feed or the score): the nine counts exchanged back", "fix_box"),
+    "exchange_svgms": ("E3", "service-game counts exchanged between winner and loser: exchanged back", "fix_box"),
+    "blank_box": ("E4", "box score copied from another match (WTA Adelaide 2 2022 from Adelaide 2021; the same pair's "
+                        "other meeting): blanked", "drop_box"),
+    "replace_box": ("E5", "box score copied from another match, replaced by the WTA's own statistics of this match",
+                          "replace_box"),
+    "set_age": ("E6", "impossible or stale age (Tennis My Life's 2026 WTA ages written without their decimal point; "
+                      "ATP Challengers of 17 Aug 2020 aged at 16 Mar 2020): the age from the birth date", "fix"),
+    "replace_split": ("E7", "second serves booked as first serves (Roland Garros 2022-2025, Paris Olympics 2024): "
+                            "first serves in and points won on each serve from the official record", "fix_box"),
+    "set_svgms": ("E8", "service games the score disproves or leaves blank (Australian Open, Roland Garros): both set "
+                        "from the score's alternation of serve, from the Slam's own record of who served first",
+                  "fix_box"),
+}
 SACKMANN_END = pd.Timestamp("2026-05-25")      # Sackmann's last main-tour week (lower tiers: 1-2 June)
+SANDBOX_MARKER = ROOT / ".prediction_run_sandbox"   # the root of a prediction run's sandbox, the only home of live rows
 T0 = time.time()
 
 SOURCES = [  # (source, group, glob under data/dump/matches, tour)
@@ -129,25 +168,33 @@ OVERRIDE_COUNTS = [f"{side}_{c}" for side in ("w", "l") for c in C.BOX_SOURCE_NA
 
 
 def apply_box_overrides(df: pd.DataFrame, ov: pd.DataFrame, path: str, summary: dict) -> pd.DataFrame:
-    """Replace the box scores of the named TML rows with an official feed's, and the score and minutes where the
+    """Replace the box scores of the named rows with an official feed's, and the score and minutes where the
     override gives them (docs/decisions/2026-10-06-slam-box-scores.md).
 
-    An override names its row by tour, normalised tournament id, round and the name keys of TML's winner and
+    An override names its row by tour, normalised tournament id, round and the name keys of the row's winner and
     loser (as normalise() makes them), and gives the counts for that winner and loser in the source's own column
-    names. Every override must find exactly one TML row, or the build stops: a TML refresh that renames a player
-    or a round makes the table be rebuilt, never applied to the wrong match."""
-    tm = df[df["source"].eq("tml")]
-    key = tm["tour"] + "|" + tm["tid"] + "|" + tm["round"] + "|" + tm["wkey"] + "|" + tm["lkey"]
+    names. The row is a TML row, or a Sackmann row where the table's optional ``source`` column says "sackmann"
+    (the decided table has no such column: TML rows only). Every override must find exactly one row of its source,
+    or the build stops: a refresh that renames a player or a round makes the table be rebuilt, never applied to the
+    wrong match."""
+    src = ov["source"].fillna("").replace("", "tml") if "source" in ov else pd.Series("tml", index=ov.index)
+    if not set(src) <= {"tml", "sackmann"}:
+        raise SystemExit(f"box overrides: unknown sources {sorted(set(src) - {'tml', 'sackmann'})} in {path}")
+    tm = df[df["source"].isin(set(src))]
+    key = tm["source"] + "|" + tm["tour"] + "|" + tm["tid"] + "|" + tm["round"] + "|" + tm["wkey"] + "|" + tm["lkey"]
     counts = key.value_counts()
-    want = ov["tour"] + "|" + ov["tid"] + "|" + ov["round"] + "|" + ov["winner_key"] + "|" + ov["loser_key"]
+    want = (src + "|" + ov["tour"] + "|" + ov["tid"] + "|" + ov["round"] + "|" + ov["winner_key"] + "|"
+            + ov["loser_key"])
     bad = [k for k in want if counts.get(k, 0) != 1]
     if bad or want.duplicated().any():
-        raise SystemExit(f"box overrides: {len(bad)} of {len(want)} rows do not name exactly one TML row "
+        raise SystemExit(f"box overrides: {len(bad)} of {len(want)} rows do not name exactly one row of their source "
                          f"(first: {bad[:3]}); rebuild {path} from the current staged files")
     rows = pd.Series(tm.index, index=key.to_numpy()).loc[want.to_numpy()].to_numpy()
     df.loc[rows, OVERRIDE_COUNTS] = ov[OVERRIDE_COUNTS].to_numpy()
     for col in ("score", "minutes"):
-        given = ov[col].fillna("").ne("").to_numpy() if col in ov else np.zeros(len(ov), dtype=bool)
+        if col not in ov:                       # a table without the column replaces none
+            continue
+        given = ov[col].fillna("").ne("").to_numpy()
         df.loc[rows[given], col] = ov.loc[given, col].to_numpy()
     scored = ov["score"].fillna("").ne("").to_numpy() if "score" in ov else np.zeros(len(ov), dtype=bool)
     note("O1", "box score taken from the official Slam feed (decision 2026-10-06; " + path + ")", "replace_box",
@@ -156,8 +203,50 @@ def apply_box_overrides(df: pd.DataFrame, ov: pd.DataFrame, path: str, summary: 
          "replace_score", df.loc[rows[scored]])
     summary["box_overrides"] = {"file": path, "rows": int(len(rows)), "scores_replaced": int(scored.sum()),
                                 "by_source": ov.get("box_source", pd.Series(dtype=str)).value_counts().to_dict()}
-    log(f"box overrides: {len(rows):,} TML rows take the official feed's box score ({int(scored.sum())} the score too)")
+    log(f"box overrides: {len(rows):,} rows take the official feed's box score ({int(scored.sum())} the score too; "
+        f"{int(src.eq('sackmann').sum())} of them Sackmann rows)")
     return df
+
+
+def correction_table(folder: Path, name: str) -> pd.DataFrame:
+    path = Path(folder) / name
+    if not path.exists():
+        raise SystemExit(f"corrections: {path} is missing; rebuild it (src/eda/input_data_audit/consensus.py) or build "
+                         "with --no-corrections")
+    return pd.read_csv(path, dtype=str, keep_default_na=False)
+
+
+def apply_row_corrections(df: pd.DataFrame, folder: Path, summary: dict) -> pd.DataFrame:
+    """The audit's row corrections (src/eda/input_data_audit/corrections.py), logged as rules E1-E6."""
+    table = correction_table(folder, X.ROW_CORRECTIONS.name)
+    df, done = X.apply_row_corrections(df, table)
+    for action, rows in done.items():
+        if rows.empty:      # an action no row of the table uses leaves no rule in the log (E7 in the decided build)
+            continue
+        rid, words, act = CORRECTION_RULES[action]
+        note(rid, words + " (decision 2026-10-08)", act, df.loc[rows])
+    summary["row_corrections"] = {"file": (Path(folder) / X.ROW_CORRECTIONS.name).as_posix(),
+                                  "rows": int(len(table)), "by_fix_action": S.records(
+                                      table.groupby(["fix", "action"]).size().rename("rows").reset_index())}
+    log(f"row corrections: {len(table):,} source rows corrected")
+    return df
+
+
+def apply_id_aliases(m: pd.DataFrame, mp: pd.DataFrame, folder: Path, summary: dict) -> tuple[pd.DataFrame,
+                                                                                              pd.DataFrame]:
+    """The audit's id aliases: a second id of one player mapped to the established id. An alias whose second id the
+    repairs already merged has no rows left and is reported as such."""
+    aliases = correction_table(folder, X.ID_ALIASES.name)
+    present = aliases["from_id"].isin(set(column_items(mp["player_id"])))
+    merged = {(a["source_id"], a["canonical_id"]) for a in summary.get("data_repairs", {}).get("identity_aliases", [])}
+    lost = [(f, t) for f, t in zip(aliases.loc[~present, "from_id"], aliases.loc[~present, "to_id"]) if (f, t) not in merged]
+    if lost:
+        raise SystemExit(f"id aliases: {lost[:3]} have no rows and were not merged into the same id by the repairs; "
+                         "rebuild the table")
+    m, mp, report = X.apply_id_aliases(m, mp, aliases[present], A.name_key)
+    summary["id_aliases"] = {"applied": report, "already_merged": aliases.loc[~present, "from_id"].tolist()}
+    log(f"id aliases: {len(report)} second ids mapped ({int((~present).sum())} already merged by the repairs)")
+    return m, mp
 
 
 def load_raw() -> pd.DataFrame:
@@ -173,6 +262,44 @@ def load_raw() -> pd.DataFrame:
     raw = pd.concat(frames, ignore_index=True)
     raw["rid"] = np.arange(len(raw), dtype="int64")
     return raw
+
+
+def add_live_rows(raw: pd.DataFrame, live: pd.DataFrame) -> pd.DataFrame:
+    """Upcoming matches as Tennis My Life rows (group "live"), appended after every source file. Each row carries its
+    tour and TML's own columns; the result is a placeholder and the box score blank, so the row is history for no
+    match but its own players' later ones, which a prediction run never builds. A row whose ``live_role`` is "drop"
+    only names a played match to leave out (a replay's later rounds, which had not been played at its moment)."""
+    missing = {"tour", "tourney_id", "round", "winner_name", "loser_name", "score"} - set(live.columns)
+    if missing:
+        raise SystemExit(f"live rows: columns missing: {sorted(missing)}")
+    role = live["live_role"].fillna("live") if "live_role" in live.columns else pd.Series("live", index=live.index)
+    if not role.isin(["live", "drop"]).all():
+        raise SystemExit("live rows: live_role must be 'live' or 'drop'")
+    rows = live.reindex(columns=KEEP + ["tour"]).copy()
+    rows["source"], rows["group"], rows["file_season"] = "tml", "live", None
+    rows["live_role"] = role.to_numpy()
+    rows["_source_file"] = rows["_source_file"].fillna("live_rows")
+    out = pd.concat([raw, rows], ignore_index=True)
+    out["rid"] = np.arange(len(out), dtype="int64")
+    return out
+
+
+def drop_replaced(df: pd.DataFrame, summary: dict) -> pd.DataFrame:
+    """A played row of the same tour, event, round and players as a live row is dropped: the live row stands in for it
+    (a replay of past matches, the prediction run's parity check). Upcoming matches replace nothing. Rows that only name
+    a played match to leave out ("drop") go too, with that match."""
+    live = df["group"].eq("live")
+    ident = df["tour"] + "|" + df["tid"] + "|" + df["round"] + "|" + df["pair"]
+    replaced = ~live & ident.isin(set(ident[live]))
+    named = live & df["live_role"].eq("drop")
+    note("LV1", "a played match given again as a live row (a replay): its played row dropped, the live row (placeholder "
+                "result, no box score) stands in for it", "drop_row", df[replaced & ident.isin(set(ident[live & ~named]))])
+    note("LV2", "a played match a replay leaves out (played after its moment): dropped", "drop_row",
+         df[replaced & ~ident.isin(set(ident[live & ~named]))])
+    summary["live_rows"] = {"rows": int((live & ~named).sum()), "played_rows_replaced": int(replaced.sum()),
+                            "left_out_by_name": int(named.sum())}
+    log(f"live rows: {int((live & ~named).sum())} added, {int(replaced.sum())} played rows dropped")
+    return df[~replaced & ~named].drop(columns="live_role").copy()
 
 
 def text(s: pd.Series) -> pd.Series:
@@ -195,6 +322,16 @@ def lookup(series: pd.Series, frame: pd.DataFrame, keys: list[str]) -> pd.Series
     """``series`` (indexed by ``keys``) read off for each row of ``frame``."""
     idx = pd.MultiIndex.from_frame(frame[keys]) if len(keys) > 1 else pd.Index(frame[keys[0]])
     return pd.Series(series.reindex(idx).to_numpy(), index=frame.index)
+
+
+def column_items(s: pd.Series):
+    """The values a Python loop over ``s`` yields, as one array (11 Oct 2026, for speed: pandas reads an Arrow-backed
+    text column one element at a time when a loop iterates the Series, about half of Stage 0's time). For text,
+    object, bool and int64 columns the array holds the very objects iteration yields, a missing value included (it
+    matters for tuples in sets); any other dtype is iterated as before."""
+    if isinstance(s.dtype, pd.StringDtype) or s.dtype == object or s.dtype in (np.dtype(bool), np.dtype("int64")):
+        return s.to_numpy(dtype=object)
+    return list(s)
 
 
 def normalise(raw: pd.DataFrame) -> pd.DataFrame:
@@ -323,12 +460,42 @@ def parse_scores(df: pd.DataFrame) -> pd.DataFrame:
     return df
 
 
-def score_columns(df: pd.DataFrame) -> pd.DataFrame:
-    """Per-match counts from the score, once each event's format (short sets or not) is known."""
+# The main tour (current_best_model/history.MAIN_TOUR, never gated by the freeze of 8 Oct 2026). A rule that reads a
+# score anew applies there only: lower-level history changes through the candidate route (CLAUDE.md).
+MAIN_LEVELS = ("GS", "FIN", "T1000", "T500", "T250", "TEAM")
+
+
+def match_tiebreak_events(df: pd.DataFrame, decider: pd.Series, ev_key: list[str]) -> pd.Series:
+    """The rows of each main-tour event that plays a match tiebreak instead of its deciding set: one of its completed
+    deciders is certainly a match tiebreak (a 10-7 ends no set) and every decider's last "set" reaches 10. Such an
+    event's 10-8 or 13-11 is a match tiebreak too, which plain_match_tiebreak cannot tell from the score alone (the
+    owner's go-ahead of 13 Oct 2026: the Laver Cup 2026's two, read as sets of 18 and 24 games, had their box scores
+    dropped as covering part of the match; docs/studies/master_pipeline/process_log.md, Part 2). The bracketed share
+    (mtb_event) misses such events: Tennis My Life writes no brackets."""
     from src.eda.feature_alpha_audit.repair_data import plain_match_tiebreak
-    counted = [plain_match_tiebreak(s, lv, st, sh) for s, lv, st, sh in
-               zip(df["score"], df.get("level", pd.Series("", index=df.index)),
-                   df.get("status", pd.Series("completed", index=df.index)), df["short_event"])]
+    main = df["level"].isin(MAIN_LEVELS) & ~df["qualifying"].astype(bool)
+    d = df[decider & main]
+    if d.empty:
+        return pd.Series(False, index=df.index)
+    last = d["score"].astype(str).str.split().str[-1].str.extract(r"^\[?(\d+)-(\d+)")
+    reaches = last.apply(pd.to_numeric, errors="coerce").max(axis=1).ge(10)
+    certain = pd.Series([plain_match_tiebreak(s, lv, "completed", sh) != s for s, lv, sh in
+                         zip(column_items(d["score"].astype(str)), column_items(d["level"]),
+                             column_items(d["short_event"]))], index=d.index)
+    ev = d[ev_key].assign(reaches=reaches, certain=certain).groupby(ev_key).agg(
+        reaches=("reaches", "all"), certain=("certain", "any"))
+    return lookup(ev["reaches"] & ev["certain"], df, ev_key).fillna(False).astype(bool) & main
+
+
+def score_columns(df: pd.DataFrame) -> pd.DataFrame:
+    """Per-match counts from the score, once each event's format (short sets or not; a match tiebreak by the event's
+    rule: match_tiebreak_events, in ``mtb_rule``) is known."""
+    from src.eda.feature_alpha_audit.repair_data import plain_match_tiebreak
+    rule = df["mtb_rule"] if "mtb_rule" in df else pd.Series(False, index=df.index)
+    counted = [plain_match_tiebreak(s, lv, st, sh, mr) for s, lv, st, sh, mr in
+               zip(column_items(df["score"]), column_items(df.get("level", pd.Series("", index=df.index))),
+                   column_items(df.get("status", pd.Series("completed", index=df.index))),
+                   column_items(df["short_event"]), column_items(rule))]
     keys = list(zip(counted, df["short_event"]))
     vals = {k: score_counts(*k) for k in set(keys)}
     arr = np.array([vals[k] for k in keys], dtype="int64")
@@ -796,16 +963,16 @@ def progression(rows: pd.DataFrame) -> pd.Series:
     robins, the last qualifying round) and at team events, where a player's team can advance after a
     lost rubber. The Brief's rule is that the player who advanced won."""
     nxt = rows["round"].map(NEXT_ROUND)
+    tour, tid, rnd, pid_w, pid_l = (column_items(rows[c]) for c in ("tour", "tid", "round", "pid_w", "pid_l"))
+    nx = column_items(nxt)
     seen = set()
-    for pid in ("pid_w", "pid_l"):
-        seen |= set(zip(rows["tour"], rows["tid"], rows["round"], rows[pid]))
-    held = set(zip(rows["tour"], rows["tid"], rows["round"]))
+    for pid in (pid_w, pid_l):
+        seen |= set(zip(tour, tid, rnd, pid))
+    held = set(zip(tour, tid, rnd))
     check = nxt.notna() & rows["level"].ne("TEAM") & pd.Series(
-        [(a, b, c) in held for a, b, c in zip(rows["tour"], rows["tid"], nxt)], index=rows.index)
-    w_on = pd.Series([(a, b, c, d) in seen for a, b, c, d in zip(rows["tour"], rows["tid"], nxt, rows["pid_w"])],
-                     index=rows.index)
-    l_on = pd.Series([(a, b, c, d) in seen for a, b, c, d in zip(rows["tour"], rows["tid"], nxt, rows["pid_l"])],
-                     index=rows.index)
+        [(a, b, c) in held for a, b, c in zip(tour, tid, nx)], index=rows.index)
+    w_on = pd.Series([(a, b, c, d) in seen for a, b, c, d in zip(tour, tid, nx, pid_w)], index=rows.index)
+    l_on = pd.Series([(a, b, c, d) in seen for a, b, c, d in zip(tour, tid, nx, pid_l)], index=rows.index)
     out = np.select([w_on & ~l_on, l_on & ~w_on, w_on & l_on], ["winner", "loser", "both"], "neither")
     return pd.Series(np.where(check, out, ""), index=rows.index)
 
@@ -873,22 +1040,30 @@ def player_columns(df: pd.DataFrame, me: str, opp: str) -> pd.DataFrame:
 
 
 def build(out_dir: Path | str | None = None, box_overrides: Path | str | None = DECIDED_OVERRIDES,
-          confirm_live_overrides: bool = False) -> None:
+          confirm_live_overrides: bool = False, corrections: Path | str | None = DECIDED_CORRECTIONS,
+          live_rows: Path | str | None = None) -> None:
     """Build Stage 0. With no arguments it writes the live tables in data/studies/predictability_diagnostic/ with
-    the decided box-score overrides applied. ``out_dir`` writes all six outputs there instead; ``box_overrides=None``
-    builds without overrides; any other table (see apply_box_overrides) goes into the live folder only with
-    ``confirm_live_overrides``."""
+    the decided box-score overrides and corrections applied. ``out_dir`` writes all six outputs there instead;
+    ``box_overrides=None`` builds without overrides and ``corrections=None`` without corrections; any other table
+    (see apply_box_overrides, apply_row_corrections) goes into the live folder only with ``confirm_live_overrides``.
+    ``live_rows`` adds upcoming matches (add_live_rows), only in a prediction run's sandbox or an ``out_dir``."""
     out = Path(out_dir) if out_dir is not None else C.OUT
     other = box_overrides is not None and Path(box_overrides).resolve() != DECIDED_OVERRIDES.resolve()
+    other |= corrections is not None and Path(corrections).resolve() != DECIDED_CORRECTIONS.resolve()
     if other and out.resolve() == C.OUT.resolve() and not confirm_live_overrides:
-        raise SystemExit("an override table other than the decided one goes into the live Stage 0 tables only with "
-                         "--confirm-live-overrides; use --out-dir for a dry run")
+        raise SystemExit("an override or correction table other than the decided one goes into the live Stage 0 "
+                         "tables only with --confirm-live-overrides; use --out-dir for a dry run")
+    if live_rows is not None and out.resolve() == C.OUT.resolve() and not SANDBOX_MARKER.exists():
+        raise SystemExit("live rows (upcoming matches with placeholder results) go only into a prediction run's sandbox "
+                         "(src/eda/prediction_run/) or an --out-dir, never into the repository's Stage 0")
     if box_overrides is not None and not Path(box_overrides).exists():
         raise SystemExit(f"box overrides: {box_overrides} is missing; rebuild it (src/eda/data_continuity/"
                          "slam_overrides.py) or build with --no-box-overrides")
     summary: dict = {"generated_at": pd.Timestamp.now(tz="UTC").isoformat(timespec="seconds"),
                      "inputs": {}, "merge": {}, "cleaning": {}}
     raw = load_raw()
+    if live_rows is not None:
+        raw = add_live_rows(raw, pd.read_parquet(live_rows))
     log(f"loaded {len(raw):,} rows from {raw['group'].nunique()} file groups")
     summary["inputs"]["rows_by_source_group"] = S.records(
         raw.groupby(["source", "group"]).agg(files=("_source_file", "nunique"), rows=("rid", "size"),
@@ -896,10 +1071,15 @@ def build(out_dir: Path | str | None = None, box_overrides: Path | str | None = 
                                              last_week=("tourney_date", "max")).reset_index())
     summary["inputs"]["files"] = input_record()
     df = normalise(raw)
+    if live_rows is not None:
+        df = drop_replaced(df, summary)
+        summary["live_rows"]["file"] = Path(live_rows).as_posix()
     if box_overrides is not None:
         rel_path = Path(box_overrides).resolve()
         rel_path = rel_path.relative_to(ROOT).as_posix() if rel_path.is_relative_to(ROOT) else rel_path.as_posix()
         df = apply_box_overrides(df, pd.read_csv(box_overrides, dtype=str, keep_default_na=False), rel_path, summary)
+    if corrections is not None:
+        df = apply_row_corrections(df, Path(corrections), summary)
     df = parse_scores(df)
     df = rule_levels(df)
     snapshots = [df[["rid", "tour", "level", "qualifying", "season"]]]   # where each raw row sits, for the log
@@ -1050,10 +1230,12 @@ def build(out_dir: Path | str | None = None, box_overrides: Path | str | None = 
     # Sackmann match in the same event and round repeats that match under a misidentified opponent
     # (TML's Wimbledon 2025 lists Karolina Muchova against 'Xin Tong Wang' as well)
     sk = allrows[allrows["source"].eq("sackmann") & allrows["round"].ne("RR")]
-    held = set(zip(sk["tour"], sk["tid"], sk["round"], sk["pid_w"])) | set(zip(sk["tour"], sk["tid"], sk["round"], sk["pid_l"]))
+    s_tour, s_tid, s_rnd = (column_items(sk[c]) for c in ("tour", "tid", "round"))
+    held = (set(zip(s_tour, s_tid, s_rnd, column_items(sk["pid_w"])))
+            | set(zip(s_tour, s_tid, s_rnd, column_items(sk["pid_l"]))))
     tm = allrows["source"].eq("tml") & allrows["round"].ne("RR")
     clash = tm & pd.Series([(a, b, c, d) in held or (a, b, c, e) in held for a, b, c, d, e in
-                            zip(allrows["tour"], allrows["tid"], allrows["round"], allrows["pid_w"], allrows["pid_l"])],
+                            zip(*(column_items(allrows[c]) for c in ("tour", "tid", "round", "pid_w", "pid_l")))],
                            index=allrows.index)
     note("D6", "a TML-only match whose player already has a Sackmann match in the same event and round (a repeat "
          "with a misidentified opponent): dropped", "drop_row", allrows[clash])
@@ -1082,7 +1264,16 @@ def build(out_dir: Path | str | None = None, box_overrides: Path | str | None = 
     mtb_share = allrows[decider].groupby(ev_key)["_bracket"].mean()
     allrows["short_event"] = lookup(short_share, allrows, ev_key).fillna(0).ge(0.5)
     allrows["mtb_event"] = lookup(mtb_share, allrows, ev_key).fillna(0).ge(0.5)
+    allrows["mtb_rule"] = match_tiebreak_events(allrows, decider, ev_key)
+    plain_bracket = allrows["score"].map(lambda s: "[" in str(s))
     allrows = score_columns(allrows)
+    by_rule = allrows["mtb_rule"] & allrows["has_bracket"] & ~plain_bracket
+    if by_rule.any():                              # the rows the event's rule alone bracketed
+        from src.eda.feature_alpha_audit.repair_data import plain_match_tiebreak
+        sub = allrows[by_rule]
+        by_rule.loc[sub.index] = [plain_match_tiebreak(s, lv, st, sh) == s for s, lv, st, sh in
+                                  zip(column_items(sub["score"]), column_items(sub["level"]),
+                                      column_items(sub["status"]), column_items(sub["short_event"]))]
     allrows["format"] = np.select([allrows["short_event"] | (allrows["short_like"] & comp),
                                    allrows["mtb_event"] | allrows["has_bracket"]],
                                   ["short_sets", "match_tiebreak"], "standard")
@@ -1091,6 +1282,9 @@ def build(out_dir: Path | str | None = None, box_overrides: Path | str | None = 
          allrows[allrows["format"].eq("short_sets")])
     note("C41", "a match tiebreak replaces the deciding set (the Laver Cup, some Davis Cup ties, some women's ITF "
          "events of 2019): flagged", "flag", allrows[allrows["format"].eq("match_tiebreak")])
+    note("C42", "a 10-8, 11-9 or longer deciding score read as a match tiebreak by its main-tour event's rule (the "
+         "event's other deciders are certainly match tiebreaks; 13 Oct 2026): counted as one, not as a set", "flag",
+         allrows[by_rule])
     for d, rid, words in (("walkover", "C10", "walkover (no point played): kept, never evaluated"),
                           ("bye", "C11", "score says BYE for a two-player match: treated as a walkover"),
                           ("walkover_after_play", "C12", "walkover marker after games were played: treated as a retirement"),
@@ -1127,7 +1321,7 @@ def build(out_dir: Path | str | None = None, box_overrides: Path | str | None = 
     tml_box = lk[(num(lk["w_svpt"]).fillna(0) > 0) & (num(lk["l_svpt"]).fillna(0) > 0)]["link_rid"]
     gap = allrows[allrows["source"].eq("sackmann") & ~allrows["has_box"] & allrows["rid"].isin(set(tml_box))]
     summary["merge"]["sackmann_without_box_where_tml_has_one"] = S.records(
-        gap.assign(evaluated=gap["level"].isin(C.EVAL_LEVELS) & gap["year"].isin(list(C.EVAL_YEARS)))
+        gap.assign(evaluated=gap["level"].isin(C.EVAL_LEVELS) & gap["year"].ge(C.EVAL_FROM))
         .groupby(["tour", "evaluated", "box_status"]).size().rename("matches").reset_index())
     minutes = num(allrows["minutes"])
     allrows["minutes_clean"] = minutes.where(minutes > 0)
@@ -1135,8 +1329,7 @@ def build(out_dir: Path | str | None = None, box_overrides: Path | str | None = 
 
     # evaluation flag, sides, the order
     allrows["round_order"] = allrows["round"].map(C.ROUND_ORDER).astype("int64")
-    allrows["evaluation"] = (allrows["level"].isin(C.EVAL_LEVELS) & allrows["year"].isin(list(C.EVAL_YEARS))
-                             & allrows["status"].isin(C.EVAL_STATUSES))
+    allrows["evaluation"] = C.in_evaluation(allrows)
     low_a = allrows["match_id"].map(C.side_is_low)
     allrows["player_a_id"] = np.where(low_a, allrows["pid_lo"], allrows["pid_hi"])
     allrows["player_b_id"] = np.where(low_a, allrows["pid_hi"], allrows["pid_lo"])
@@ -1174,6 +1367,8 @@ def build(out_dir: Path | str | None = None, box_overrides: Path | str | None = 
     # or implausible workload. Match handles and A/B labels remain stable.
     from src.eda.feature_alpha_audit.repair_data import repair_tables
     m, mp, summary["data_repairs"] = repair_tables(m, mp)
+    if corrections is not None:
+        m, mp = apply_id_aliases(m, mp, Path(corrections), summary)
 
     out.mkdir(parents=True, exist_ok=True)
     m.to_parquet(out / C.MATCHES.name, index=False)
@@ -1254,7 +1449,7 @@ def write_summary(m: pd.DataFrame, mp: pd.DataFrame, summary: dict, out_dir: Pat
         .rename("matches").reset_index().to_dict(orient="records"),
         "side_a_won_pct": pct(m["a_won"]),
         "evaluation_scope_left_out_by_status": S.records(
-            m[m["level"].isin(C.EVAL_LEVELS) & m["year"].isin(list(C.EVAL_YEARS)) & ~m["evaluation"]]
+            m[m["level"].isin(C.EVAL_LEVELS) & m["year"].ge(C.EVAL_FROM) & ~m["evaluation"]]
             .groupby(["tour", "status", "status_detail"]).size().rename("matches").reset_index()),
         "status": S.records(m.groupby(["tour", "status", "status_detail"]).size().rename("matches").reset_index()),
         "format": S.records(m[m["nonstandard_format"]].groupby(["tour", "level", "format"]).size()
@@ -1313,6 +1508,13 @@ if __name__ == "__main__":
                        help="CSV of box-score overrides (default: the decided table; see apply_box_overrides)")
     which.add_argument("--no-box-overrides", action="store_true", help="build without any box-score overrides")
     ap.add_argument("--confirm-live-overrides", action="store_true",
-                    help="allow an override table other than the decided one into the live tables")
+                    help="allow an override or correction table other than the decided one into the live tables")
+    fixes = ap.add_mutually_exclusive_group()
+    fixes.add_argument("--corrections-dir", default=str(DECIDED_CORRECTIONS),
+                       help="folder of row_corrections.csv and id_aliases.csv (default: the decided tables)")
+    fixes.add_argument("--no-corrections", action="store_true", help="build without the audit's corrections")
+    ap.add_argument("--live-rows", default=None,
+                    help="parquet of upcoming matches as TML rows (a prediction run's sandbox or --out-dir only)")
     a = ap.parse_args()
-    build(a.out_dir, None if a.no_box_overrides else a.box_overrides, a.confirm_live_overrides)
+    build(a.out_dir, None if a.no_box_overrides else a.box_overrides, a.confirm_live_overrides,
+          None if a.no_corrections else a.corrections_dir, a.live_rows)

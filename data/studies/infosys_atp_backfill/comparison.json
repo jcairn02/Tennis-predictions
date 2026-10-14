@@ -1,0 +1,829 @@
+{
+ "generated_at": "2026-10-09T00:16:18+00:00",
+ "results_read_through": 2024,
+ "holdout": "none of the proposed holdout read",
+ "model": "the rebuilt current best model (data/studies/model_rebuild/fits, seeds 0-3)",
+ "matches": 27331,
+ "matches_non_debut": 27308,
+ "unit": "mLL per match; positive = the arm (second-named) has the lower log loss",
+ "coefficients": {
+  "base": {
+   "2020": {
+    "s_atp": 0.8846573439744364,
+    "s_wta": 0.9672076340214888,
+    "b_shrunk": 0.0,
+    "b_mle": 0.0,
+    "se_b": 0.0
+   },
+   "2021": {
+    "s_atp": 0.9017223881248291,
+    "s_wta": 0.9571932210010557,
+    "b_shrunk": 0.0,
+    "b_mle": 0.0,
+    "se_b": 0.0
+   },
+   "2022": {
+    "s_atp": 0.8843622547235142,
+    "s_wta": 0.9727736023269986,
+    "b_shrunk": 0.0,
+    "b_mle": 0.0,
+    "se_b": 0.0
+   },
+   "2023": {
+    "s_atp": 0.8974509582431945,
+    "s_wta": 0.9417545394839635,
+    "b_shrunk": 0.0,
+    "b_mle": 0.0,
+    "se_b": 0.0
+   },
+   "2024": {
+    "s_atp": 0.8957957425947172,
+    "s_wta": 0.9322035111478328,
+    "b_shrunk": 0.0,
+    "b_mle": 0.0,
+    "se_b": 0.0
+   },
+   "2025": {
+    "s_atp": 0.9082942626795261,
+    "s_wta": 0.9301549218562273,
+    "b_shrunk": 0.0,
+    "b_mle": 0.0,
+    "se_b": 0.0
+   }
+  },
+  "current": {
+   "2020": {
+    "s_atp": 0.8831763988167,
+    "s_wta": 0.9672076340214888,
+    "b_shrunk": 0.021263426946192668,
+    "b_mle": 0.19606311622530145,
+    "se_b": 0.1433585840344474
+   },
+   "2021": {
+    "s_atp": 0.9006309153093637,
+    "s_wta": 0.9571932210010557,
+    "b_shrunk": 0.018654625112800867,
+    "b_mle": 0.105193182446441,
+    "se_b": 0.10769153489761311
+   },
+   "2022": {
+    "s_atp": 0.8841246154924434,
+    "s_wta": 0.9727736023269986,
+    "b_shrunk": 0.006097572780245491,
+    "b_mle": 0.01863485834352549,
+    "se_b": 0.07169572602026253
+   },
+   "2023": {
+    "s_atp": 0.8956105656165115,
+    "s_wta": 0.9417545394839635,
+    "b_shrunk": 0.06961737106218233,
+    "b_mle": 0.11238884924583653,
+    "se_b": 0.039191178634930095
+   },
+   "2024": {
+    "s_atp": 0.8944941099340749,
+    "s_wta": 0.9322035111478328,
+    "b_shrunk": 0.027602565093728267,
+    "b_mle": 0.03666404973052969,
+    "se_b": 0.02864804315405617
+   },
+   "2025": {
+    "s_atp": 0.9073952855251975,
+    "s_wta": 0.9301549218562273,
+    "b_shrunk": 0.024091592812971168,
+    "b_mle": 0.029257566075113324,
+    "se_b": 0.023153322668712582
+   }
+  },
+  "augmented": {
+   "2020": {
+    "s_atp": 0.8831707126791152,
+    "s_wta": 0.9672076340214888,
+    "b_shrunk": 0.02250832662074282,
+    "b_mle": 0.20592364820384892,
+    "se_b": 0.14273030894048036
+   },
+   "2021": {
+    "s_atp": 0.900593794301128,
+    "s_wta": 0.9571932210010557,
+    "b_shrunk": 0.019810948339966116,
+    "b_mle": 0.11126785433215274,
+    "se_b": 0.10743001196397005
+   },
+   "2022": {
+    "s_atp": 0.8838538673578943,
+    "s_wta": 0.9727736023269986,
+    "b_shrunk": 0.01338147085649001,
+    "b_mle": 0.03708081600602084,
+    "se_b": 0.066540529276957
+   },
+   "2023": {
+    "s_atp": 0.8953446575164408,
+    "s_wta": 0.9417545394839635,
+    "b_shrunk": 0.07260751092202254,
+    "b_mle": 0.11526523029357945,
+    "se_b": 0.038324636674333265
+   },
+   "2024": {
+    "s_atp": 0.894317178135666,
+    "s_wta": 0.9322035111478328,
+    "b_shrunk": 0.030342252229683616,
+    "b_mle": 0.04006629519269939,
+    "se_b": 0.028305415327800048
+   },
+   "2025": {
+    "s_atp": 0.907287200431983,
+    "s_wta": 0.9301549218562273,
+    "b_shrunk": 0.02608515063041985,
+    "b_mle": 0.03159075692046839,
+    "se_b": 0.02297078863037095
+   }
+  }
+ },
+ "information_by_season": [
+  {
+   "matches": 2586,
+   "estimate": 0.1952756653324833,
+   "se": 0.188708282479318,
+   "lo": -0.22006846399087665,
+   "hi": 0.6106197946558433,
+   "df": 11,
+   "p_two_sided": 0.3229756155621257,
+   "blocks": 12,
+   "sd_z": 0.3025566777001872,
+   "unit": "log-odds per unit of spd_L_B",
+   "seasons": "2019",
+   "history": "current",
+   "nonzero_share": 0.9671307037896365
+  },
+  {
+   "matches": 2586,
+   "estimate": 0.2049340222855527,
+   "se": 0.1879309972018698,
+   "lo": -0.208699313676986,
+   "hi": 0.6185673582480914,
+   "df": 11,
+   "p_two_sided": 0.2988149872694732,
+   "blocks": 12,
+   "sd_z": 0.30405309011883064,
+   "unit": "log-odds per unit of spd_L_B",
+   "seasons": "2019",
+   "history": "augmented",
+   "nonzero_share": 0.9671307037896365
+  },
+  {
+   "matches": 1259,
+   "estimate": -0.013288159639948144,
+   "se": 0.18357138200364878,
+   "lo": -0.46247114979573833,
+   "hi": 0.4358948305158421,
+   "df": 6,
+   "p_two_sided": 0.9446467256166091,
+   "blocks": 7,
+   "sd_z": 0.3881874351512257,
+   "unit": "log-odds per unit of spd_L_B",
+   "seasons": "2020",
+   "history": "current",
+   "nonzero_share": 0.9626687847498014
+  },
+  {
+   "matches": 1259,
+   "estimate": -0.013288159639948144,
+   "se": 0.18357138200364878,
+   "lo": -0.46247114979573833,
+   "hi": 0.4358948305158421,
+   "df": 6,
+   "p_two_sided": 0.9446467256166091,
+   "blocks": 7,
+   "sd_z": 0.3881874351512257,
+   "unit": "log-odds per unit of spd_L_B",
+   "seasons": "2020",
+   "history": "augmented",
+   "nonzero_share": 0.9626687847498014
+  },
+  {
+   "matches": 2466,
+   "estimate": -0.047932000304104785,
+   "se": 0.0772748087995744,
+   "lo": -0.21801270772088682,
+   "hi": 0.12214870711267724,
+   "df": 11,
+   "p_two_sided": 0.547708741663517,
+   "blocks": 12,
+   "sd_z": 0.4633438597121922,
+   "unit": "log-odds per unit of spd_L_B",
+   "seasons": "2021",
+   "history": "current",
+   "nonzero_share": 0.9720194647201946
+  },
+  {
+   "matches": 2466,
+   "estimate": -0.006713832686390374,
+   "se": 0.07798795182331279,
+   "lo": -0.17836415731544347,
+   "hi": 0.16493649194266274,
+   "df": 11,
+   "p_two_sided": 0.9329434161887855,
+   "blocks": 12,
+   "sd_z": 0.5220200447330804,
+   "unit": "log-odds per unit of spd_L_B",
+   "seasons": "2021",
+   "history": "augmented",
+   "nonzero_share": 0.9720194647201946
+  },
+  {
+   "matches": 2601,
+   "estimate": 0.1528399333657669,
+   "se": 0.05455090757698237,
+   "lo": 0.03277419531929818,
+   "hi": 0.27290567141223565,
+   "df": 11,
+   "p_two_sided": 0.017219690237840538,
+   "blocks": 12,
+   "sd_z": 0.9383165448460753,
+   "unit": "log-odds per unit of spd_L_B",
+   "seasons": "2022",
+   "history": "current",
+   "nonzero_share": 0.9965397923875432
+  },
+  {
+   "matches": 2601,
+   "estimate": 0.15443260091392358,
+   "se": 0.05349057976990917,
+   "lo": 0.03670062863565547,
+   "hi": 0.27216457319219167,
+   "df": 11,
+   "p_two_sided": 0.014782359117772762,
+   "blocks": 12,
+   "sd_z": 0.936818600633018,
+   "unit": "log-odds per unit of spd_L_B",
+   "seasons": "2022",
+   "history": "augmented",
+   "nonzero_share": 0.9965397923875432
+  },
+  {
+   "matches": 2672,
+   "estimate": -0.05087658434862438,
+   "se": 0.040470220342792546,
+   "lo": -0.13995093874874953,
+   "hi": 0.03819777005150077,
+   "df": 11,
+   "p_two_sided": 0.2347411197945527,
+   "blocks": 12,
+   "sd_z": 1.0320451665404196,
+   "unit": "log-odds per unit of spd_L_B",
+   "seasons": "2023",
+   "history": "current",
+   "nonzero_share": 1.0
+  },
+  {
+   "matches": 2672,
+   "estimate": -0.05087658434862438,
+   "se": 0.040470220342792546,
+   "lo": -0.13995093874874953,
+   "hi": 0.03819777005150077,
+   "df": 11,
+   "p_two_sided": 0.2347411197945527,
+   "blocks": 12,
+   "sd_z": 1.0320451665404196,
+   "unit": "log-odds per unit of spd_L_B",
+   "seasons": "2023",
+   "history": "augmented",
+   "nonzero_share": 1.0
+  },
+  {
+   "matches": 2674,
+   "estimate": 0.016018948115468782,
+   "se": 0.034263011607671694,
+   "lo": -0.05939343197306418,
+   "hi": 0.09143132820400174,
+   "df": 11,
+   "p_two_sided": 0.6492469728646285,
+   "blocks": 12,
+   "sd_z": 1.0922564584175547,
+   "unit": "log-odds per unit of spd_L_B",
+   "seasons": "2024",
+   "history": "current",
+   "nonzero_share": 0.9988780852655198
+  },
+  {
+   "matches": 2674,
+   "estimate": 0.016018948115468782,
+   "se": 0.034263011607671694,
+   "lo": -0.05939343197306418,
+   "hi": 0.09143132820400174,
+   "df": 11,
+   "p_two_sided": 0.6492469728646285,
+   "blocks": 12,
+   "sd_z": 1.0922564584175547,
+   "unit": "log-odds per unit of spd_L_B",
+   "seasons": "2024",
+   "history": "augmented",
+   "nonzero_share": 0.9988780852655198
+  },
+  {
+   "matches": 14258,
+   "estimate": 0.029772212345880827,
+   "se": 0.025057858216137915,
+   "lo": -0.020257415783611978,
+   "hi": 0.07980184047537363,
+   "df": 66,
+   "p_two_sided": 0.23903674017779394,
+   "blocks": 67,
+   "sd_z": 0.8070588257918663,
+   "unit": "log-odds per unit of spd_L_B",
+   "seasons": "2019-2024",
+   "history": "current",
+   "nonzero_share": 0.9850610183756487
+  },
+  {
+   "matches": 14258,
+   "estimate": 0.03213812953317853,
+   "se": 0.024504224601740048,
+   "lo": -0.016786133420671534,
+   "hi": 0.0810623924870286,
+   "df": 66,
+   "p_two_sided": 0.19422154421562124,
+   "blocks": 67,
+   "sd_z": 0.8130341714145284,
+   "unit": "log-odds per unit of spd_L_B",
+   "seasons": "2019-2024",
+   "history": "augmented",
+   "nonzero_share": 0.9850610183756487
+  },
+  {
+   "matches": 11584,
+   "estimate": 0.03663912227297636,
+   "se": 0.030654052003430212,
+   "lo": -0.02481855168774047,
+   "hi": 0.09809679623369319,
+   "df": 54,
+   "p_two_sided": 0.23721393882032726,
+   "blocks": 55,
+   "sd_z": 0.7253686949961279,
+   "unit": "log-odds per unit of spd_L_B",
+   "seasons": "2019-2023",
+   "history": "current",
+   "nonzero_share": 0.981871546961326
+  },
+  {
+   "matches": 11584,
+   "estimate": 0.04005540896092692,
+   "se": 0.029277153281406183,
+   "lo": -0.018641749270071326,
+   "hi": 0.09875256719192517,
+   "df": 54,
+   "p_two_sided": 0.17693269829731353,
+   "blocks": 55,
+   "sd_z": 0.7335459849668226,
+   "unit": "log-odds per unit of spd_L_B",
+   "seasons": "2019-2023",
+   "history": "augmented",
+   "nonzero_share": 0.981871546961326
+  }
+ ],
+ "heterogeneity_across_seasons": {
+  "current": {
+   "seasons": [
+    "2019",
+    "2020",
+    "2021",
+    "2022",
+    "2023",
+    "2024"
+   ],
+   "fixed_effect_mean": 0.01532150112726426,
+   "fixed_effect_se": 0.02222964358677394,
+   "Q": 10.634729547215226,
+   "df": 5,
+   "p_heterogeneity": 0.05912297613912732,
+   "I2": 0.5298422984993273,
+   "tau_between_seasons": 0.0632073202791414,
+   "random_effects_mean": 0.023645651465180422,
+   "random_effects_se": 0.038733287993058405,
+   "prediction_interval_next_season": [
+    -0.16691463215104557,
+    0.2142059350814064
+   ],
+   "share_of_new_seasons_below_0": 0.3813218319383767,
+   "next_season": {
+    "season": 2025,
+    "b_shrunk": 0.024091592812971168,
+    "k_mean_pq_z2": 0.21225104564317246,
+    "k_from_seasons": [
+     2022,
+     2024
+    ],
+    "expected_gain_mll_at_mean_effect": 0.059315461730444975,
+    "gain_mll_if_effect_at_prediction_bounds": [
+     -0.9151080248551515,
+     1.0337389483160413
+    ],
+    "probability_the_season_loses": 0.4378283680900278,
+    "note": "men; mLL per match, positive = the adjustment helps; normal approximation"
+   }
+  },
+  "augmented": {
+   "seasons": [
+    "2019",
+    "2020",
+    "2021",
+    "2022",
+    "2023",
+    "2024"
+   ],
+   "fixed_effect_mean": 0.0200858402773477,
+   "fixed_effect_se": 0.022171440133432363,
+   "Q": 10.515387522210935,
+   "df": 5,
+   "p_heterogeneity": 0.06188159183230286,
+   "I2": 0.5245063494389682,
+   "tau_between_seasons": 0.06231818951445999,
+   "random_effects_mean": 0.03097557847425893,
+   "random_effects_se": 0.03836055523950826,
+   "prediction_interval_next_season": [
+    -0.15713567554174293,
+    0.2190868324902608
+   ],
+   "share_of_new_seasons_below_0": 0.3448375389248442,
+   "next_season": {
+    "season": 2025,
+    "b_shrunk": 0.02608515063041985,
+    "k_mean_pq_z2": 0.21213145362457841,
+    "k_from_seasons": [
+     2022,
+     2024
+    ],
+    "expected_gain_mll_at_mean_effect": 0.09923193084126078,
+    "gain_mll_if_effect_at_prediction_bounds": [
+     -0.9416781043281433,
+     1.1401419660106649
+    ],
+    "probability_the_season_loses": 0.4032055874288092,
+    "note": "men; mLL per match, positive = the adjustment helps; normal approximation"
+   }
+  }
+ },
+ "rows": [
+  {
+   "population": "both_2022_24",
+   "comparison": "the backfill: augmented against current, both stages",
+   "base": "current",
+   "arm": "augmented",
+   "matches": 15207,
+   "estimate": 0.016466044472977063,
+   "lo": -0.12696708473972884,
+   "hi": 0.15989917368568296,
+   "lo_week": -0.12303516552137006,
+   "hi_week": 0.15596725446732418
+  },
+  {
+   "population": "both_2022_24",
+   "comparison": "for scale: the adjustment on the current history against the calibrated base",
+   "base": "base",
+   "arm": "current",
+   "matches": 15207,
+   "estimate": -0.1937027732893102,
+   "lo": -0.4825108291630946,
+   "hi": 0.09510528258447418,
+   "lo_week": -0.44865426516268825,
+   "hi_week": 0.0612487185840678
+  },
+  {
+   "population": "both_2022_24",
+   "comparison": "for scale: the adjustment on the augmented history against the calibrated base",
+   "base": "base",
+   "arm": "augmented",
+   "matches": 15207,
+   "estimate": -0.17723672881633312,
+   "lo": -0.48173041796454336,
+   "hi": 0.1272569603318771,
+   "lo_week": -0.4442076043940609,
+   "hi_week": 0.08973414676139463
+  },
+  {
+   "population": "men_2022_24",
+   "comparison": "the backfill: augmented against current, both stages",
+   "base": "current",
+   "arm": "augmented",
+   "matches": 7947,
+   "estimate": 0.031508637007746594,
+   "lo": -0.17638968252692402,
+   "hi": 0.2394069565424172,
+   "lo_week": -0.17034262931861305,
+   "hi_week": 0.23335990333410622
+  },
+  {
+   "population": "men_2022_24",
+   "comparison": "for scale: the adjustment on the current history against the calibrated base",
+   "base": "base",
+   "arm": "current",
+   "matches": 7947,
+   "estimate": -0.3706603842217868,
+   "lo": -0.8908450373938855,
+   "hi": 0.1495242689503119,
+   "lo_week": -0.8247851141462336,
+   "hi_week": 0.08346434570265993
+  },
+  {
+   "population": "men_2022_24",
+   "comparison": "for scale: the adjustment on the augmented history against the calibrated base",
+   "base": "base",
+   "arm": "augmented",
+   "matches": 7947,
+   "estimate": -0.3391517472140402,
+   "lo": -0.8912854675610564,
+   "hi": 0.21298197313297607,
+   "lo_week": -0.8180120648350016,
+   "hi_week": 0.13970857040692125
+  },
+  {
+   "population": "men_2020",
+   "comparison": "the backfill: augmented against current, both stages",
+   "base": "current",
+   "arm": "augmented",
+   "matches": 1259,
+   "estimate": -0.0011881132318732116,
+   "lo": -0.3713288715536476,
+   "hi": 0.3689526450899011,
+   "lo_week": -0.31906933547488725,
+   "hi_week": 0.3166931090111408
+  },
+  {
+   "population": "men_2020",
+   "comparison": "for scale: the adjustment on the current history against the calibrated base",
+   "base": "base",
+   "arm": "current",
+   "matches": 1259,
+   "estimate": -0.02654387942479076,
+   "lo": -0.49705770136535676,
+   "hi": 0.44396994251577526,
+   "lo_week": -0.4408262657890885,
+   "hi_week": 0.387738506939507
+  },
+  {
+   "population": "men_2020",
+   "comparison": "for scale: the adjustment on the augmented history against the calibrated base",
+   "base": "base",
+   "arm": "augmented",
+   "matches": 1259,
+   "estimate": -0.027731992656663967,
+   "lo": -0.5085694077804761,
+   "hi": 0.45310542246714813,
+   "lo_week": -0.45222151757394485,
+   "hi_week": 0.3967575322606169
+  },
+  {
+   "population": "men_2021",
+   "comparison": "the backfill: augmented against current, both stages",
+   "base": "current",
+   "arm": "augmented",
+   "matches": 2466,
+   "estimate": 0.027507961237495673,
+   "lo": -0.32499158348309465,
+   "hi": 0.38000750595808597,
+   "lo_week": -0.2965989049981084,
+   "hi_week": 0.35161482747309974
+  },
+  {
+   "population": "men_2021",
+   "comparison": "for scale: the adjustment on the current history against the calibrated base",
+   "base": "base",
+   "arm": "current",
+   "matches": 2466,
+   "estimate": -0.04192680866426869,
+   "lo": -0.39589697221604536,
+   "hi": 0.312043354887508,
+   "lo_week": -0.3794048792253583,
+   "hi_week": 0.29555126189682096
+  },
+  {
+   "population": "men_2021",
+   "comparison": "for scale: the adjustment on the augmented history against the calibrated base",
+   "base": "base",
+   "arm": "augmented",
+   "matches": 2466,
+   "estimate": -0.014418847426772982,
+   "lo": -0.37266444905254975,
+   "hi": 0.3438267541990038,
+   "lo_week": -0.36400576312536154,
+   "hi_week": 0.3351680682718156
+  },
+  {
+   "population": "men_2022",
+   "comparison": "the backfill: augmented against current, both stages",
+   "base": "current",
+   "arm": "augmented",
+   "matches": 2601,
+   "estimate": 0.1856403548136841,
+   "lo": 0.0033773975225597497,
+   "hi": 0.3679033121048084,
+   "lo_week": 0.007137592038474,
+   "hi_week": 0.36414311758889417
+  },
+  {
+   "population": "men_2022",
+   "comparison": "for scale: the adjustment on the current history against the calibrated base",
+   "base": "base",
+   "arm": "current",
+   "matches": 2601,
+   "estimate": 0.15979537962051216,
+   "lo": -0.013169681663914384,
+   "hi": 0.3327604409049387,
+   "lo_week": -0.006689227519606433,
+   "hi_week": 0.32627998676063075
+  },
+  {
+   "population": "men_2022",
+   "comparison": "for scale: the adjustment on the augmented history against the calibrated base",
+   "base": "base",
+   "arm": "augmented",
+   "matches": 2601,
+   "estimate": 0.34543573443419623,
+   "lo": 0.11632581867701006,
+   "hi": 0.5745456501913824,
+   "lo_week": 0.1083412043815147,
+   "hi_week": 0.5825302644868777
+  },
+  {
+   "population": "men_2023",
+   "comparison": "the backfill: augmented against current, both stages",
+   "base": "current",
+   "arm": "augmented",
+   "matches": 2672,
+   "estimate": -0.07664083673981463,
+   "lo": -0.4772032403136101,
+   "hi": 0.3239215668339808,
+   "lo_week": -0.4458007203620958,
+   "hi_week": 0.2925190468824665
+  },
+  {
+   "population": "men_2023",
+   "comparison": "for scale: the adjustment on the current history against the calibrated base",
+   "base": "base",
+   "arm": "current",
+   "matches": 2672,
+   "estimate": -1.2623010885286725,
+   "lo": -2.6290233117011583,
+   "hi": 0.10442113464381331,
+   "lo_week": -2.432971383762429,
+   "hi_week": -0.09163079329491564
+  },
+  {
+   "population": "men_2023",
+   "comparison": "for scale: the adjustment on the augmented history against the calibrated base",
+   "base": "base",
+   "arm": "augmented",
+   "matches": 2672,
+   "estimate": -1.3389419252684873,
+   "lo": -2.760656449762771,
+   "hi": 0.0827725992257966,
+   "lo_week": -2.5553403659965204,
+   "hi_week": -0.12254348454045405
+  },
+  {
+   "population": "men_2024",
+   "comparison": "the backfill: augmented against current, both stages",
+   "base": "current",
+   "arm": "augmented",
+   "matches": 2674,
+   "estimate": -0.010346712341453025,
+   "lo": -0.29058166163691956,
+   "hi": 0.26988823695401354,
+   "lo_week": -0.2695929937617518,
+   "hi_week": 0.24889956907884575
+  },
+  {
+   "population": "men_2024",
+   "comparison": "for scale: the adjustment on the current history against the calibrated base",
+   "base": "base",
+   "arm": "current",
+   "matches": 2674,
+   "estimate": 0.00433906235793592,
+   "lo": -0.48401354515501865,
+   "hi": 0.49269166987089047,
+   "lo_week": -0.493515427691269,
+   "hi_week": 0.5021935524071408
+  },
+  {
+   "population": "men_2024",
+   "comparison": "for scale: the adjustment on the augmented history against the calibrated base",
+   "base": "base",
+   "arm": "augmented",
+   "matches": 2674,
+   "estimate": -0.006007649983517189,
+   "lo": -0.527971794311648,
+   "hi": 0.5159564943446135,
+   "lo_week": -0.5404540643869024,
+   "hi_week": 0.5284387644198679
+  },
+  {
+   "population": "both_2022",
+   "comparison": "the backfill: augmented against current, both stages",
+   "base": "current",
+   "arm": "augmented",
+   "matches": 4938,
+   "estimate": 0.09778261702519081,
+   "lo": 0.03091333159208448,
+   "hi": 0.16465190245829714,
+   "lo_week": 0.02885248999385702,
+   "hi_week": 0.1667127440565246
+  },
+  {
+   "population": "both_2022",
+   "comparison": "for scale: the adjustment on the current history against the calibrated base",
+   "base": "base",
+   "arm": "current",
+   "matches": 4938,
+   "estimate": 0.0841692552436112,
+   "lo": 0.024385585636590573,
+   "hi": 0.14395292485063182,
+   "lo_week": 0.023810898636129223,
+   "hi_week": 0.14452761185109317
+  },
+  {
+   "population": "both_2022",
+   "comparison": "for scale: the adjustment on the augmented history against the calibrated base",
+   "base": "base",
+   "arm": "augmented",
+   "matches": 4938,
+   "estimate": 0.18195187226880202,
+   "lo": 0.08073557970682373,
+   "hi": 0.28316816483078033,
+   "lo_week": 0.07349645859819609,
+   "hi_week": 0.29040728593940796
+  },
+  {
+   "population": "both_2023",
+   "comparison": "the backfill: augmented against current, both stages",
+   "base": "current",
+   "arm": "augmented",
+   "matches": 5135,
+   "estimate": -0.0398801004418276,
+   "lo": -0.3152337939346747,
+   "hi": 0.2354735930510195,
+   "lo_week": -0.29296575454543977,
+   "hi_week": 0.21320555366178456
+  },
+  {
+   "population": "both_2023",
+   "comparison": "for scale: the adjustment on the current history against the calibrated base",
+   "base": "base",
+   "arm": "current",
+   "matches": 5135,
+   "estimate": -0.6568390474291359,
+   "lo": -1.4112354531150548,
+   "hi": 0.09755735825678291,
+   "lo_week": -1.289246658601247,
+   "hi_week": -0.02443143625702482
+  },
+  {
+   "population": "both_2023",
+   "comparison": "for scale: the adjustment on the augmented history against the calibrated base",
+   "base": "base",
+   "arm": "augmented",
+   "matches": 5135,
+   "estimate": -0.6967191478709635,
+   "lo": -1.4803527783362034,
+   "hi": 0.08691448259427659,
+   "lo_week": -1.3522608564177827,
+   "hi_week": -0.041177439324144194
+  },
+  {
+   "population": "both_2024",
+   "comparison": "the backfill: augmented against current, both stages",
+   "base": "current",
+   "arm": "augmented",
+   "matches": 5134,
+   "estimate": -0.005388996649989358,
+   "lo": -0.23349919455054424,
+   "hi": 0.22272120125056555,
+   "lo_week": -0.21565519053689944,
+   "hi_week": 0.20487719723692074
+  },
+  {
+   "population": "both_2024",
+   "comparison": "for scale: the adjustment on the current history against the calibrated base",
+   "base": "base",
+   "arm": "current",
+   "matches": 5134,
+   "estimate": 0.0022599635265135387,
+   "lo": -0.306742931374668,
+   "hi": 0.3112628584276951,
+   "lo_week": -0.30264021748958325,
+   "hi_week": 0.3071601445426103
+  },
+  {
+   "population": "both_2024",
+   "comparison": "for scale: the adjustment on the augmented history against the calibrated base",
+   "base": "base",
+   "arm": "augmented",
+   "matches": 5134,
+   "estimate": -0.0031290331234758014,
+   "lo": -0.32664162912769307,
+   "hi": 0.3203835628807415,
+   "lo_week": -0.32438896178870513,
+   "hi_week": 0.31813089554175356
+  }
+ ]
+}

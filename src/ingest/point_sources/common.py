@@ -109,6 +109,8 @@ class Client:
             self._last = time.monotonic()
             try:
                 response = self._session.get(url, timeout=self.timeout, headers={**self._headers, **(headers or {})})
+            except (Blocked, BudgetExhausted):
+                raise  # a transport that cannot go on (browser.py: the Chrome window was closed)
             except Exception as err:  # curl_cffi raises its own RequestsError family
                 last_error = f"{type(err).__name__}: {err}"
                 self.retried += 1

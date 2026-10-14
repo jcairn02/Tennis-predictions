@@ -1,0 +1,57 @@
+{
+ "check": "identity",
+ "chain_vs_reference": {
+  "what": "OFF's chain frame (layer unset) against the frozen reference's frame",
+  "matches": 67226,
+  "identifiers_equal": {
+   "match_id": true,
+   "tour": true,
+   "season": true,
+   "tournament_date": true,
+   "tabpfn_split": true,
+   "debut_season": true
+  },
+  "inputs": 58,
+  "inputs_exact_but_indoor": 57,
+  "not_exact": [
+   {
+    "input": "indoor",
+    "rows_changed": 32634,
+    "largest_difference": 0.0
+   }
+  ],
+  "indoor": {
+   "equal_where_it_had_a_value": true,
+   "filled": 32634,
+   "still_missing": 0,
+   "filled_by_tour": {
+    "atp": 127,
+    "wta": 32507
+   }
+  },
+  "pass": true
+ },
+ "template_vs_current_template": {
+  "what": "OFF's template frame (Pinnacle-first odds, 57 inputs) against the current template's inputs on these tables (data/studies/indoor_fill/arm/: the Pinnacle-first instance's frame with the indoor fill, A2's 57-input list)",
+  "identifiers_equal": {
+   "match_id": true,
+   "tour": true,
+   "season": true,
+   "tournament_date": true,
+   "tabpfn_split": true,
+   "debut_season": true
+  },
+  "columns_in_both": 58,
+  "exact": 58,
+  "not_exact": [],
+  "price_columns_equal": {
+   "p_mkt": true,
+   "odds_input": true,
+   "p_mkt_avg": true
+  },
+  "input_lists_equal": true,
+  "inputs_listed": 57,
+  "pass": true
+ },
+ "pass": true
+}

@@ -1,28 +1,38 @@
 """TennisLive.net: a player's match list per season, then every match page's point-by-point and statistics.
 
-How the site is read (observed 24 Sep 2026):
-    GET /atp/<slug>/                                   the player page; its window.TENNISLIVE_RUNTIME JSON carries a
+How the site is read (observed 24 Sep 2026; the women's tour on 8 Oct 2026):
+    GET /<atp|wta>/<slug>/                             the player page; its window.TENNISLIVE_RUNTIME JSON carries a
                                                        per-session request token, the seasons of the career table and
                                                        the latest 50 matches
-    GET /api/player-matches?tour=atp&slug=<slug>&discipline=singles&year=<season>&surface=all&offset=<n>
+    GET /api/player-matches?tour=<atp|wta>&slug=<slug>&discipline=singles&year=<season>&surface=all&offset=<n>
                                                        one season's matches (limit 60 per page), with the token and the
                                                        same-origin fetch headers a browser sends; robots.txt disallows
                                                        this path (the owner chose to read it; see common.py)
-    GET /atp/match/<p1>-VS-<p2>/<tournament>-<year>/   the match page: metadata in its runtime JSON, then server-side
+    GET /<atp|wta>/match/<p1>-VS-<p2>/<tournament>-<year>/
+                                                       the match page: metadata in its runtime JSON, then server-side
                                                        HTML with every game's point states and the match statistics
 
+Players are named by slug; a women's player as ``wta:<slug>`` (or every bare slug with --tour wta).
+
 Raw layout under data/raw/point_sources/tennislive/:
-    players/<slug>/page.html.gz                        the player page of the latest run
+    players/<slug>/page.html.gz                        an ATP player's page of the latest run
     players/<slug>/matches_<season>_<offset>.json      API pages (the current season is refetched each run)
-    matches/<p1>-VS-<p2>/<tournament>-<year>.html.gz   match pages (HTTP 404 is recorded and not retried)
+    players/wta/<slug>/...                             the same for a WTA player
+    matches/<atp|wta>/<p1>-VS-<p2>/<tournament>-<year>.html.gz
+                                                       match pages (HTTP 404 is recorded and not retried)
+    calendar/, tournaments/, session/                  the event mode (tennislive_events.py)
     _receipts.jsonl
 
-Staged (data/dump/points/tennislive/): index.parquet (every listed match), matches.parquet, games.parquet,
-points.parquet, statistics.parquet, all strings. Summary: data/studies/point_shot_sources/scrape/tennislive_summary.json.
+Staged (data/dump/points/tennislive/): index.parquet (every match of every player listing on disk), matches.parquet
+(every match page on disk, whether a player listing, the event mode's samples or the gap mode asked for it;
+`sampled_in` and `gaps_in` name the sample and the gaps), games.parquet,
+points.parquet, statistics.parquet, all strings; events.parquet and listed.parquet come from tennislive_events.py.
+Summary: data/studies/point_shot_sources/scrape/tennislive_summary.json.
 
 Usage:
     ./python.sh -m src.ingest.point_sources.tennislive                       # the ten career-coverage players
     ./python.sh -m src.ingest.point_sources.tennislive --slugs brandon-holt --seasons 2022,2023 --limit 5
+    ./python.sh -m src.ingest.point_sources.tennislive --slugs wta:anna-siskova --seasons 2026 --skip-matches
     ./python.sh -m src.ingest.point_sources.tennislive --stage-only
 
 Point record shape: each game block shows the games score before and after, the server, the score states
@@ -57,8 +67,13 @@ STUDY_SLUGS = {"CH12": "jan-choinski", "G0BY": "daniil-glinka", "H09P": "brandon
                "S0GZ": "nikolas-sanchez-izquierdo", "V0F6": "nicolas-villalon", "W09E": "adam-walton"}
 REGULAR_POINTS = {"0", "15", "30", "40", "A", "AD"}
 MATCH_URL = re.compile(r"^/(?P<tour>atp|wta)/match/(?P<players>[^/]+)/(?P<tournament>[^/]+)/?$")
+TOURS = ("atp", "wta")
+# the event mode's frozen samples (tennislive_events.py): which sample asked for a page
+SAMPLES_CSV = P.PROJECT_ROOT / "data" / "studies" / "gap_downloads" / "tennislive_samples.csv"
+# the gap mode's per-target tables (tennislive_gaps.py, tennislive_<gap>_matches.csv.gz): which gaps want a page
+GAP_TABLES = P.PROJECT_ROOT / "data" / "studies" / "gap_downloads"
 
-INDEX_COLUMNS = ["slug", "season", "match_id", "url", "state", "doubles", "start_timestamp", "start_utc",
+INDEX_COLUMNS = ["slug", "player_tour", "season", "match_id", "url", "state", "doubles", "start_timestamp", "start_utc",
                  "start_times", "stage", "stage_code", "tournament_id", "tournament_name", "tournament_url",
                  "tournament_country", "surface", "surface_code", "tournament_rank", "round_id", "tour", "info",
                  "player1_id", "player1_name", "player1_url", "player1_seed", "player1_ranking", "player1_sets_won",
@@ -75,7 +90,7 @@ MATCH_COLUMNS = ["url", "players_slug", "tournament_slug", "tour", "page_status"
                  "start_shown", "round_shown",
                  "surface_shown", "tour_shown", "format_shown", "pbp_available", "pbp_unavailable_notice", "sets_listed",
                  "games_listed", "games_without_points", "points_listed", "first_server_index", "stats_available",
-                 "stats_rows", "listed_for_slugs"]
+                 "stats_rows", "listed_for_slugs", "sampled_in", "gaps_in"]
 GAME_COLUMNS = ["url", "set", "game", "before", "after", "server_index", "server_name", "outcome", "winner_index",
                 "label", "states", "markers", "points_listed", "tiebreak"]
 POINT_COLUMNS = ["url", "set", "game", "point", "state", "player1_point", "player2_point", "markers", "tiebreak",
@@ -101,7 +116,28 @@ def runtime_object(html: str) -> dict:
         return {}
 
 
-def index_rows(slug: str, season: str, payload: dict, index_file: str) -> list[dict]:
+def player_ref(spec: str, default_tour: str = "atp") -> tuple[str, str]:
+    """(tour, slug) of a player named on the command line: 'wta:anna-siskova' -> ('wta', 'anna-siskova'); a bare
+    slug takes ``default_tour``."""
+    tour, sep, slug = spec.strip().partition(":")
+    if sep and tour in TOURS:
+        return tour, slug.strip()
+    return default_tour, spec.strip()
+
+
+def player_key(tour: str, slug: str) -> str:
+    """How a player is written in the staged tables: the bare slug for the ATP (the ten careers' form), else
+    'wta:<slug>'."""
+    return slug if tour == "atp" else f"{tour}:{slug}"
+
+
+def player_parts(tour: str, slug: str) -> tuple[str, ...]:
+    """A player's raw folder below the source: players/<slug>/ for the ATP (the layout the ten careers were
+    collected in), players/wta/<slug>/ for the WTA. The same parts name the receipts."""
+    return ("players", slug) if tour == "atp" else ("players", tour, slug)
+
+
+def index_rows(slug: str, season: str, payload: dict, index_file: str, tour: str = "atp") -> list[dict]:
     """One row per match in a player-matches API page (or the page-embedded initial selection)."""
     rows = []
     data = payload.get("data") if "data" in payload else payload
@@ -113,7 +149,7 @@ def index_rows(slug: str, season: str, payload: dict, index_file: str) -> list[d
             ts = match.get("startTimestamp")
             start_times = group.get("startTimes") or []
             rows.append({
-                "slug": slug, "season": season, "match_id": match.get("id"), "url": match.get("url"),
+                "slug": slug, "player_tour": tour, "season": season, "match_id": match.get("id"), "url": match.get("url"),
                 "state": match.get("state"), "doubles": match.get("doubles"), "start_timestamp": ts,
                 "start_utc": _utc(ts), "start_times": ";".join(str(x) for x in start_times),
                 "stage": match.get("stage") or group.get("stage"), "stage_code": match.get("stageCode") or group.get("stageCode"),
@@ -347,31 +383,33 @@ def match_path_parts(url: str) -> tuple[str, str, str] | None:
 # fetching
 # --------------------------------------------------------------------------------------
 def fetch_player_index(client: P.Client, receipts, slug: str, *, seasons: list[str] | None, refresh: bool,
-                       this_year: int) -> dict:
+                       this_year: int, tour: str = "atp") -> dict:
     """The player page (fresh, for the session token) and one API page per season and offset."""
-    page_dest = P.raw_path(SOURCE, "players", slug, "page.html.gz")
-    receipt = P.fetch(client, f"{SITE}/atp/{slug}/", page_dest, receipts, name=f"players/{slug}/page", refresh=True,
-                      validator=P.html_validator, compress=True, extra={"slug": slug})
+    parts = player_parts(tour, slug)
+    folder = "/".join(parts)
+    page_dest = P.raw_path(SOURCE, *parts, "page.html.gz")
+    receipt = P.fetch(client, f"{SITE}/{tour}/{slug}/", page_dest, receipts, name=f"{folder}/page", refresh=True,
+                      validator=P.html_validator, compress=True, extra={"slug": slug, "tour": tour})
     if receipt.get("error") or receipt.get("status") != 200:
-        return {"slug": slug, "error": receipt.get("error") or f"HTTP {receipt.get('status')}", "pages": 0}
+        return {"slug": slug, "tour": tour, "error": receipt.get("error") or f"HTTP {receipt.get('status')}", "pages": 0}
     html = P.read_bytes(page_dest).decode("utf-8", errors="replace")
     rt = runtime_object(html)
     token = rt.get("playerLiveRequestToken") or ""
     career = ((rt.get("playerDetailStatisticsPreload") or {}).get("careerRows")) or []
     available = [str(row.get("year")) for row in career if str(row.get("year", "")).isdigit()]
     wanted = [s_ for s_ in (seasons or available) if s_ in available] if seasons else available
-    out = {"slug": slug, "name": rt.get("playerDetailName"), "seasons_available": available, "seasons_fetched": [],
-           "pages": 0, "matches_listed": 0, "errors": []}
-    headers = {**API_HEADERS, "X-TennisLive-Token": token, "Referer": f"{SITE}/atp/{slug}/"}
+    out = {"slug": slug, "tour": tour, "name": rt.get("playerDetailName"), "seasons_available": available,
+           "seasons_fetched": [], "pages": 0, "matches_listed": 0, "errors": []}
+    headers = {**API_HEADERS, "X-TennisLive-Token": token, "Referer": f"{SITE}/{tour}/{slug}/"}
     for season in wanted:
         offset, total = 0, None
         while True:
-            dest = P.raw_path(SOURCE, "players", slug, f"matches_{season}_{offset}.json")
-            url = (f"{SITE}/api/player-matches?tour=atp&slug={slug}&discipline=singles&year={season}"
+            dest = P.raw_path(SOURCE, *parts, f"matches_{season}_{offset}.json")
+            url = (f"{SITE}/api/player-matches?tour={tour}&slug={slug}&discipline=singles&year={season}"
                    f"&surface=all&offset={offset}")
-            receipt = P.fetch(client, url, dest, receipts, name=f"players/{slug}/matches_{season}_{offset}",
+            receipt = P.fetch(client, url, dest, receipts, name=f"{folder}/matches_{season}_{offset}",
                               refresh=refresh or int(season) >= this_year, validator=P.json_validator,
-                              headers=headers, extra={"slug": slug, "season": season, "offset": offset})
+                              headers=headers, extra={"slug": slug, "tour": tour, "season": season, "offset": offset})
             if receipt.get("error") or receipt.get("status") != 200:
                 out["errors"].append(f"{season}/{offset}: {receipt.get('error') or receipt.get('status')}")
                 break
@@ -392,17 +430,33 @@ def fetch_player_index(client: P.Client, receipts, slug: str, *, seasons: list[s
     return out
 
 
-def player_index_files(slug: str) -> list[Path]:
-    folder = P.raw_path(SOURCE, "players", slug)
+def player_index_files(slug: str, tour: str = "atp") -> list[Path]:
+    folder = P.raw_path(SOURCE, *player_parts(tour, slug))
     return sorted(folder.glob("matches_*_*.json")) if folder.exists() else []
 
 
-def load_index(slugs: list[str]) -> list[dict]:
+def players_on_disk() -> list[tuple[str, str]]:
+    """(tour, slug) of every player whose listing pages are on disk."""
+    out = []
+    root = P.raw_path(SOURCE, "players")
+    if not root.exists():
+        return out
+    for folder in sorted(p for p in root.iterdir() if p.is_dir()):
+        if folder.name in TOURS and folder.name != "atp":       # players/wta/<slug>/
+            out += [(folder.name, sub.name) for sub in sorted(folder.iterdir()) if player_index_files(sub.name, folder.name)]
+        elif player_index_files(folder.name):
+            out.append(("atp", folder.name))
+    return out
+
+
+def load_index(players: list) -> list[dict]:
+    """Every listed match of the given players, each a (tour, slug) pair or a slug as written on the command line."""
     rows = []
-    for slug in slugs:
-        for path in player_index_files(slug):
+    for player in players:
+        tour, slug = player if isinstance(player, tuple) else player_ref(player)
+        for path in player_index_files(slug, tour):
             season = path.stem.split("_")[1]
-            rows.extend(index_rows(slug, season, P.read_json(path), P.rel(path)))
+            rows.extend(index_rows(slug, season, P.read_json(path), P.rel(path), tour=tour))
     return rows
 
 
@@ -414,30 +468,73 @@ def match_dest(url: str) -> Path | None:
     return P.raw_path(SOURCE, "matches", tour, players, f"{tournament}.html.gz")
 
 
-def fetch_match(client: P.Client, receipts, url: str, *, refresh: bool) -> dict:
+def fetch_match(client: P.Client, receipts, url: str, *, refresh: bool, extra: dict | None = None) -> dict:
+    """A match page; ``extra`` goes into its receipt (the event mode names the sample that asked for it)."""
     dest = match_dest(url)
     if dest is None:
         return {"error": f"not a match url: {url}"}
     return P.fetch(client, SITE + url, dest, receipts, name=f"matches{url}", refresh=refresh,
-                   validator=P.html_validator, compress=True, extra={"match_url": url})
+                   validator=P.html_validator, compress=True, extra={"match_url": url, **(extra or {})})
+
+
+def page_receipts(receipts) -> dict[str, dict]:
+    """Match URL -> the receipt of its page, for every match page asked for (by a listing or a sample)."""
+    out = {}
+    for name, r in receipts.all().items():
+        if name.startswith("matches/") and r.get("match_url"):
+            out[r["match_url"]] = r
+    return out
+
+
+def sampled_pages() -> dict[str, str]:
+    """Match URL -> the event mode's sample that drew it (a page fetched earlier for a career keeps its receipt)."""
+    if not SAMPLES_CSV.exists():
+        return {}
+    import csv
+
+    with SAMPLES_CSV.open(encoding="utf-8", newline="") as handle:
+        return {row["url"]: row["sample"] for row in csv.DictReader(handle) if row.get("url")}
+
+
+def gap_pages() -> dict[str, str]:
+    """Match URL -> the gaps whose targets the gap mode (tennislive_gaps.py) linked to the page and asks it for,
+    from its per-target tables ('challenger_points_2018_2021', or two gaps joined by ';')."""
+    import csv
+    import gzip
+
+    out: dict[str, set] = {}
+    for path in sorted(GAP_TABLES.glob("tennislive_*_matches.csv.gz")):
+        with gzip.open(path, "rt", encoding="utf-8", newline="") as handle:
+            for row in csv.DictReader(handle):
+                if row.get("tl_url") and row.get("tl_selected") == "True":
+                    out.setdefault(row["tl_url"], set()).add(row["gap"])
+    return {url: ";".join(sorted(gaps)) for url, gaps in out.items()}
 
 
 # --------------------------------------------------------------------------------------
 # staging
 # --------------------------------------------------------------------------------------
-def stage(slugs: list[str], receipts) -> dict:
-    index = load_index(slugs)
+def stage(receipts, players: list | None = None) -> dict:
+    """Rebuild the staged tables: the listings of ``players`` (default: every player on disk) and every match
+    page a listing or a sample asked for."""
+    players = players_on_disk() if players is None else players
+    index = load_index(players)
     listed_for: dict[str, list[str]] = {}
     for row in index:
-        if row["url"] and row["slug"] not in listed_for.setdefault(row["url"], []):
-            listed_for[row["url"]].append(row["slug"])
+        key = player_key(row["player_tour"], row["slug"])
+        if row["url"] and key not in listed_for.setdefault(row["url"], []):
+            listed_for[row["url"]].append(key)
+    asked = page_receipts(receipts)
+    sampled = sampled_pages()
+    gaps = gap_pages()
     match_rows, game_rows, point_rows, stat_rows = [], [], [], []
-    for url in sorted(listed_for):
+    for url in sorted(set(listed_for) | set(asked)):
         receipt = receipts.get(f"matches{url}") or {}
         parts = match_path_parts(url) or (None, None, None)
         row = {"url": url, "tour": parts[0], "players_slug": parts[1], "tournament_slug": parts[2],
                "page_status": receipt.get("error") or receipt.get("status"), "page_sha256": receipt.get("sha256"),
-               "retrieved_at": receipt.get("retrieved_at"), "listed_for_slugs": ";".join(listed_for[url])}
+               "retrieved_at": receipt.get("retrieved_at"), "listed_for_slugs": ";".join(listed_for.get(url, [])) or None,
+               "sampled_in": receipt.get("sample") or sampled.get(url), "gaps_in": gaps.get(url)}
         dest = match_dest(url)
         if receipt.get("status") == 200 and not receipt.get("error") and dest and dest.exists():
             parsed = parse_match_page(P.read_bytes(dest).decode("utf-8", errors="replace"))
@@ -469,7 +566,7 @@ def stage(slugs: list[str], receipts) -> dict:
         dest = P.dump_path(SOURCE, f"{name}.parquet")
         table = [[P.s(r.get(c)) for c in columns] for r in rows]
         stats = P.stage_table(SOURCE, dest, columns, table, source_file=P.rel(P.raw_path(SOURCE)), retrieved_at=now,
-                              extra={"slugs": ";".join(slugs)})
+                              extra={"slugs": ";".join(player_key(t, s_) for t, s_ in players)})
         out[name] = {"rows": stats["rows"], "dest": stats["dest"], "bytes": stats["bytes"]}
         P.log(f"[{SOURCE}] staged {stats['dest']}: {stats['rows']:,} rows")
     return out
@@ -481,7 +578,8 @@ def stage(slugs: list[str], receipts) -> dict:
 def run(args) -> dict:
     P.configure_stdout()
     started = time.time()
-    slugs = [s_.strip() for s_ in args.slugs.split(",") if s_.strip()] if args.slugs else list(STUDY_SLUGS.values())
+    specs = [s_ for s_ in args.slugs.split(",") if s_.strip()] if args.slugs else list(STUDY_SLUGS.values())
+    players = [player_ref(s_, args.tour) for s_ in specs]
     seasons = [s_.strip() for s_ in args.seasons.split(",") if s_.strip()] if args.seasons else None
     receipts = P.receipts_for(SOURCE)
     summary = {"source": SOURCE, "started_at": P.utc_now_iso(), "args": vars(args), "players": {}}
@@ -493,13 +591,13 @@ def run(args) -> dict:
     selected: list[dict] = []
     try:
         if not args.stage_only and not args.skip_index:
-            for slug in slugs:
+            for tour, slug in players:
                 info = fetch_player_index(client, receipts, slug, seasons=seasons, refresh=args.refresh_index,
-                                          this_year=this_year)
-                summary["players"][slug] = info
-                P.log(f"[{SOURCE}] {slug}: {info.get('pages', 0)} index pages, {info.get('matches_listed', 0)} matches "
-                      f"({', '.join(info.get('errors') or []) or 'ok'})")
-        index = load_index(slugs)
+                                          this_year=this_year, tour=tour)
+                summary["players"][player_key(tour, slug)] = info
+                P.log(f"[{SOURCE}] {player_key(tour, slug)}: {info.get('pages', 0)} index pages, "
+                      f"{info.get('matches_listed', 0)} matches ({', '.join(info.get('errors') or []) or 'ok'})")
+        index = load_index(players)
         seen = set()
         for row in sorted(index, key=lambda r: -(int(r["start_timestamp"] or 0))):
             url = row["url"]
@@ -532,8 +630,8 @@ def run(args) -> dict:
     if client is not None:
         summary["client"] = client.stats()
     if not args.no_stage:
-        summary["staged"] = stage(slugs, receipts)
-        summary.update(summarize(slugs, receipts))
+        summary["staged"] = stage(receipts)
+        summary.update(summarize())
     errors = [r for r in receipts.all().values() if r.get("error")]
     summary["receipts_with_errors"] = len(errors)
     summary["error_examples"] = [{"name": r["name"], "error": r["error"]} for r in errors[:20]]
@@ -544,7 +642,7 @@ def run(args) -> dict:
     return summary
 
 
-def summarize(slugs: list[str], receipts) -> dict:
+def summarize() -> dict:
     """Listed matches by season and state, and page outcomes by season, from the staged files."""
     import pyarrow.parquet as pq
 
@@ -569,7 +667,9 @@ def summarize(slugs: list[str], receipts) -> dict:
 
 
 def add_arguments(parser: argparse.ArgumentParser) -> None:
-    parser.add_argument("--slugs", help="comma list of TennisLive player slugs (default: the ten study players)")
+    parser.add_argument("--slugs", help="comma list of TennisLive player slugs, a women's player as wta:<slug> "
+                                        "(default: the ten study players)")
+    parser.add_argument("--tour", choices=TOURS, default="atp", help="the tour of every bare slug (default atp)")
     parser.add_argument("--seasons", help="comma list of seasons to index and fetch (default: every season listed)")
     parser.add_argument("--states", default="finished", help="comma list of match states to fetch pages for")
     parser.add_argument("--doubles", action="store_true", help="also fetch doubles matches (default: singles only)")

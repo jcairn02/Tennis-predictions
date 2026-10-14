@@ -1,0 +1,65 @@
+{
+ "generated_at": "2026-10-13T22:37:02+00:00",
+ "ids": {
+  "event": "450e8ad4-7034-4a39-89df-d240d25ee4f4",
+  "event_key": "W-ITF-CRO-2025-001",
+  "match": "ca3cea83-c144-4576-936e-cbad91bd18a7",
+  "round": "d002cb77-b873-4403-93c6-d3d4b78603c6",
+  "draw": null
+ },
+ "stopped": null,
+ "client": {
+  "impersonate": "chrome",
+  "requests": 5,
+  "retried": 0,
+  "slept_seconds": 11.1,
+  "min_interval": 2.5
+ },
+ "asked": [
+  {
+   "label": "match with round, draw and event",
+   "path": "match/ca3cea83-c144-4576-936e-cbad91bd18a7?include=round.draw.event",
+   "status": 422,
+   "error": "HTTP 422",
+   "bytes": null,
+   "matches_found": 0,
+   "top_keys": null
+  },
+  {
+   "label": "round with matches",
+   "path": "round/d002cb77-b873-4403-93c6-d3d4b78603c6?include=matches",
+   "status": 404,
+   "error": null,
+   "bytes": null,
+   "matches_found": 0,
+   "top_keys": null
+  },
+  {
+   "label": "event with draws, rounds, matches",
+   "path": "event/450e8ad4-7034-4a39-89df-d240d25ee4f4?include=draws.rounds.matches",
+   "status": 404,
+   "error": null,
+   "bytes": null,
+   "matches_found": 0,
+   "top_keys": null
+  },
+  {
+   "label": "matches filtered by round",
+   "path": "match?filter[roundId]=d002cb77-b873-4403-93c6-d3d4b78603c6",
+   "status": 404,
+   "error": null,
+   "bytes": null,
+   "matches_found": 0,
+   "top_keys": null
+  },
+  {
+   "label": "event filtered by key",
+   "path": "event?filter[tennisId]=W-ITF-CRO-2025-001",
+   "status": 404,
+   "error": null,
+   "bytes": null,
+   "matches_found": 0,
+   "top_keys": null
+  }
+ ]
+}

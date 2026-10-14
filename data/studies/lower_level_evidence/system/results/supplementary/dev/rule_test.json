@@ -1,0 +1,166 @@
+{
+ "what": "supplementary readings (addition 5): pre-registered pairs of arms outside the selection set; never the selection, the primary or a selection arm's reading",
+ "period": "dev",
+ "preregistration": {
+  "preregistration.md": "cc65bcd5eb402326814291156d30c8d7ff4318d7344dd1f636d174bfd6068ae9",
+  "preregistration_addition_1.md": "c718e6d0696448c7f2a5849cd6e5d2f4443f5e29173b71900f782048a0d48b8a",
+  "preregistration_addition_2.md": "3f5367969b39003aff28e9e5d29fa35027cf9362d7a4cc321c4eef7249e7a27b",
+  "preregistration_addition_3.md": "f206343347895152cf1ddb70bc0229e6c3d1831d4545bf4ee91d5b52225a27ca",
+  "preregistration_addition_4.md": "754e055cd6d9b31a3a6d60bd16165628b6a51c73c6f2944536a81b5774526870",
+  "preregistration_addition_4b.md": "f4e2e405d8f5875bf6e9576e2e7598e2b34bf0dcc51d56cf7597e142a47b848a",
+  "preregistration_addition_4c.md": "7c7ff69a670ffd51c9c91f0edaa18a652e26df05654441f5771840f050900c0a",
+  "preregistration_addition_5.md": "f9d12ac4f9c9eb96eaf99aa831f46160dacc57ec7c53d1155af458c9bf8a9b1f",
+  "preregistration_addition_6.md": "20255b897520f55676786bca21412ff1c7c2b7d19b0eb62104c419f62c644236",
+  "preregistration_addition_7.md": "8e302da0677030e5cacc560d2203018cb65f3480cd16203ae70b4ffc8ff547a8",
+  "preregistration_addition_7b.md": "a1b544cd429a62cedfd261fa50ea19ce814a46f8ca2d93ca5c6e459b7e55da72"
+ },
+ "freeze": {
+  "file": "preregistration_addition_3.md + preregistration_addition_4b.md + preregistration_addition_4c.md + preregistration_addition_5.md",
+  "held_in": {
+   "classes/classes.csv": "preregistration_addition_3.md",
+   "relationship/params.parquet": "preregistration_addition_3.md",
+   "relationship.py": "preregistration_addition_3.md",
+   "level_layer.py": "preregistration_addition_3.md",
+   "level_layer_ios.py": "preregistration_addition_3.md",
+   "system_pairs.py": "preregistration_addition_4b.md",
+   "system_fits.py": "preregistration_addition_3.md",
+   "system_decide.py": "preregistration_addition_4c.md",
+   "system_supplementary.py": "preregistration_addition_5.md"
+  },
+  "missing": [],
+  "recommended_missing": [
+   "compare.py"
+  ],
+  "hashes": {
+   "classes/classes.csv": "58e7862273bfaf8bfbe6283c72b54e80f219ff36c0f83df795076d52ae940c26",
+   "relationship/params.parquet": "4c559abd356f7c9f0f53c958c5d8293ae55d0cdfa62c4e9da689c94c91a801fb",
+   "relationship.py": "06a85f00a2051a53063bdc706d06d360e80e2bd11bf2532aa2abb600df982575",
+   "level_layer.py": "26e21291822f42e4c9e7771f518149d1cb85116bdeb5196285fa22eeca37411f",
+   "level_layer_ios.py": "3fa5f69e592118fc204809ce0ec6afa627e5b979af3e33752e91e89f154c05c3",
+   "system_pairs.py": "a486aed9aa28cab1ef36dc3ae50be4d4cffa5a61a274606445039f33a5f4d898",
+   "system_fits.py": "e8831b1febd0e7987d20c0070335de6c1d93a8d628f463fa2c261f94234c5362",
+   "system_decide.py": "829560436830ee2543c7be88e25f31af53f38ca1605cf3d3c21c43dfd0948870",
+   "system_supplementary.py": "5dcefc1e6fa2135a4299de270ffbdf14b9d4e0b5aec1f7e34a00036bd3b97045"
+  }
+ },
+ "generated_at": "2026-10-10T15:51:46Z",
+ "speed_rule": "zero",
+ "rule_test": {
+  "dev 2020-2024": {
+   "period": "dev 2020-2024",
+   "tours": {
+    "both tours": {
+     "verdict": "reported (the rule is per tour)",
+     "NEW_SYS_BOTH vs SYS_BOTH": {
+      "comparison": "NEW_SYS_BOTH vs SYS_BOTH",
+      "tour": "both tours",
+      "population": "all",
+      "stage": "both stages",
+      "matches": 22265,
+      "estimate": -0.019738615458132703,
+      "lo": -0.05983361344996069,
+      "hi": 0.020356382533695285,
+      "se": 0.019998709262972397,
+      "p_better": 0.16182267469166717,
+      "reading": "unresolved"
+     },
+     "shows_harm": false,
+     "reported_not_decisive": {
+      "NEW_ASIS vs REF": null,
+      "NEW_ASIS_PRE vs REF": null,
+      "NEW_ASIS vs NEW_ASIS_PRE": null,
+      "NEW_SYS_BOTH vs NEW_ASIS": {
+       "comparison": "NEW_SYS_BOTH vs NEW_ASIS",
+       "tour": "both tours",
+       "population": "all",
+       "stage": "both stages",
+       "matches": 22265,
+       "estimate": -0.03396561806179793,
+       "lo": -0.1669075468801418,
+       "hi": 0.09897631075654595,
+       "se": 0.06630919357668281,
+       "p_better": 0.30424470895241484,
+       "reading": "unresolved"
+      },
+      "REF_noITF vs REF": null
+     }
+    },
+    "men": {
+     "verdict": "recommended for entry by the system's route (NEW_SYS_BOTH): no harm against SYS_BOTH",
+     "NEW_SYS_BOTH vs SYS_BOTH": {
+      "comparison": "NEW_SYS_BOTH vs SYS_BOTH",
+      "tour": "men",
+      "population": "all",
+      "stage": "both stages",
+      "matches": 11672,
+      "estimate": -0.02886216145306731,
+      "lo": -0.05499440631982539,
+      "hi": -0.0027299165863092292,
+      "se": 0.0130343233234633,
+      "p_better": 0.013403390491065946,
+      "reading": "worse"
+     },
+     "shows_harm": false,
+     "reported_not_decisive": {
+      "NEW_ASIS vs REF": null,
+      "NEW_ASIS_PRE vs REF": null,
+      "NEW_ASIS vs NEW_ASIS_PRE": null,
+      "NEW_SYS_BOTH vs NEW_ASIS": {
+       "comparison": "NEW_SYS_BOTH vs NEW_ASIS",
+       "tour": "men",
+       "population": "all",
+       "stage": "both stages",
+       "matches": 11672,
+       "estimate": 0.004839415361325132,
+       "lo": -0.17179371457631212,
+       "hi": 0.18147254529896237,
+       "se": 0.08810162835153652,
+       "p_better": 0.5219028522660671,
+       "reading": "unresolved"
+      },
+      "REF_noITF vs REF": null
+     }
+    },
+    "women": {
+     "verdict": "waits for P7: women's treatment is decided then by the same rule; this reading and REF_noITF against REF are its harm evidence",
+     "NEW_SYS_BOTH vs SYS_BOTH": {
+      "comparison": "NEW_SYS_BOTH vs SYS_BOTH",
+      "tour": "women",
+      "population": "all",
+      "stage": "both stages",
+      "matches": 10593,
+      "estimate": -0.009685747634770422,
+      "lo": -0.08958073693090136,
+      "hi": 0.07020924166136051,
+      "se": 0.039833054376094745,
+      "p_better": 0.40394128886747394,
+      "reading": "unresolved"
+     },
+     "shows_harm": false,
+     "reported_not_decisive": {
+      "NEW_ASIS vs REF": null,
+      "NEW_ASIS_PRE vs REF": null,
+      "NEW_ASIS vs NEW_ASIS_PRE": null,
+      "NEW_SYS_BOTH vs NEW_ASIS": {
+       "comparison": "NEW_SYS_BOTH vs NEW_ASIS",
+       "tour": "women",
+       "population": "all",
+       "stage": "both stages",
+       "matches": 10593,
+       "estimate": -0.07672332127285168,
+       "lo": -0.2780885276633216,
+       "hi": 0.12464188511761824,
+       "se": 0.10039417097704725,
+       "p_better": 0.22236781406368888,
+       "reading": "unresolved"
+      },
+      "REF_noITF vs REF": null
+     }
+    }
+   },
+   "register_RES_ONLY_on_C0_now_next": false,
+   "decides": "C0_now's additions of 2018-2024"
+  },
+  "men_recommendation_read": "SYS"
+ }
+}

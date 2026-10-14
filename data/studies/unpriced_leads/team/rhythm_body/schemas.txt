@@ -1,0 +1,314 @@
+====================================================================================================
+data/studies/match_timing/timing.parquet
+  rows=873,437  cols=28
+    match_id:large_string | tour:large_string | year:int64 | level:large_string | qualifying:bool | round:large_string
+    round_order:int64 | tournament_id:large_string | tournament_name:large_string | tournament_date:timestamp[us] | start:double | anchor:double
+    es:double | lf:double | obs:double | width_days:double | exact:bool | window_basis:large_string
+    best_source:large_string | sources:large_string | n_sources:double | conflict:bool | outvoted_source:large_string | wide_conflict:bool
+    conflict_span_days:double | rejected_links:int64 | demoted:large_string | contradictory_event:bool
+====================================================================================================
+data/studies/predictability_diagnostic/stage0_matches.parquet
+  rows=873,437  cols=36
+    match_id:large_string | tour:large_string | year:int64 | era:string | level:large_string | qualifying:bool
+    evaluation:bool | round:large_string | round_order:int64 | match_num:large_string | surface:large_string | indoor:bool
+    best_of:int64 | draw_size:int64 | tournament_id:large_string | tournament_name:large_string | tournament_date:timestamp[us] | status:large_string
+    status_detail:large_string | score:large_string | score_flag:large_string | minutes:double | format:large_string | nonstandard_format:bool
+    has_box:bool | box_status:string | sv_gms_incl_tb:bool | player_a_id:large_string | player_b_id:large_string | a_won:bool
+    source:large_string | tml_link:large_string | source_file:large_string | source_row:int64 | map_level:large_string | order:int64
+====================================================================================================
+data/studies/predictability_diagnostic/stage0_match_players.parquet
+  rows=1,746,874  cols=56
+    match_id:large_string | player_id:large_string | opponent_id:large_string | side:large_string | won:bool | player_name:large_string
+    rank:double | rank_points:double | seed:double | entry:large_string | age:double | height:double
+    hand:large_string | country:large_string | ace:double | df:double | svpt:double | first_in:double
+    first_won:double | second_won:double | sv_gms:double | bp_saved:double | bp_faced:double | has_box:bool
+    spw_n:double | spw_d:double | rpw_n:double | rpw_d:double | tpw_n:double | tpw_d:double
+    hold_n:double | hold_d:double | brk_n:double | brk_d:double | ace_n:double | ace_d:double
+    df_n:double | df_d:double | first_in_n:double | first_in_d:double | first_won_n:double | first_won_d:double
+    second_won_n:double | second_won_d:double | bp_saved_n:double | bp_saved_d:double | bp_conv_n:double | bp_conv_d:double
+    bp_faced_pg_n:double | bp_faced_pg_d:double | tb_won_n:double | tb_won_d:double | sets_won_n:double | sets_won_d:double
+    games_won_n:double | games_won_d:double
+====================================================================================================
+data/dump/points/tennislive/events.parquet
+  rows=12,395  cols=46
+    key:string | url:string | slug:string | tl_id:string | tour:string | info:string
+    rank:string | kind:string | name:string | display_name:string | label:string | menu_name:string
+    group_name:string | country:string | country_iso2:string | surface:string | surface_code:string | in_catalog:string
+    in_menu:string | weeks:string | first_week:string | last_week:string | wednesday_matches:string | section_status:string
+    section_retrieved_at:string | section_sha256:string | section_file:string | section_settled:string | total_singles:string | total_doubles:string
+    singles_main:string | singles_main_played:string | singles_qualifying:string | singles_qualifying_played:string | doubles:string | first_start_utc:string
+    last_start_utc:string | day_pages:string | _source:string | _source_file:string | _row:int64 | _width_ok:string
+    _extra:string | _sha256:string | _retrieved_at:string | mode:string
+====================================================================================================
+data/dump/points/tennislive/listed.parquet
+  rows=872,190  cols=76
+    event_key:string | event_url:string | event_id:string | event_name:string | event_kind:string | event_rank:string
+    tour:string | listed_from:string | group_id:string | stage:string | stage_code:string | round_id:string
+    round:string | draw:string | discipline:string | mixed:string | junior:string | match_id:string
+    identity:string | url:string | state:string | set_label:string | end_reason:string | played:string
+    winner_id:string | winner_side:string | set_winners:string | score:string | player1_id:string | player1_name:string
+    player1_url:string | player1_seed:string | player1_ranking:string | player1_flag:string | player1_sets_won:string | player1_sets:string
+    player1_members:string | player2_id:string | player2_name:string | player2_url:string | player2_seed:string | player2_ranking:string
+    player2_flag:string | player2_sets_won:string | player2_sets:string | player2_members:string | start_timestamp:string | start_utc:string
+    group_start_time:string | observed_started_at:string | observed_current_set_started_at:string | observed_finished_at:string | finished_at:string | interrupted_at:string
+    recently_finished_until:string | recently_interrupted_until:string | duration:string | draw_position:string | storage:string | favorite_key:string
+    current_set:string | points:string | server:string | break_point:string | point_markers:string | source_file:string
+    source_sha256:string | retrieved_at:string | _source:string | _source_file:string | _row:int64 | _width_ok:string
+    _extra:string | _sha256:string | _retrieved_at:string | mode:string
+====================================================================================================
+data/dump/points/tennislive/matches.parquet
+  rows=41,412  cols=68
+    url:string | players_slug:string | tournament_slug:string | tour:string | page_status:string | page_sha256:string
+    retrieved_at:string | state:string | status_label:string | end_reason:string | best_of:string | score:string
+    sets:string | tournament_rank:string | player1_id:string | player1_name:string | player1_url:string | player1_seed:string
+    player1_ranking:string | player1_ranking_date:string | player1_sets_won:string | player2_id:string | player2_name:string | player2_url:string
+    player2_seed:string | player2_ranking:string | player2_ranking_date:string | player2_sets_won:string | set_winners:string | winner_id:string
+    doubles:string | tournament_id:string | tournament_name:string | tournament_url:string | tournament_country:string | surface:string
+    surface_code:string | stage:string | stage_code:string | start_times:string | reference_timestamp:string | reference_utc:string
+    date_shown:string | start_shown:string | round_shown:string | surface_shown:string | tour_shown:string | format_shown:string
+    pbp_available:string | pbp_unavailable_notice:string | sets_listed:string | games_listed:string | games_without_points:string | points_listed:string
+    first_server_index:string | stats_available:string | stats_rows:string | listed_for_slugs:string | sampled_in:string | gaps_in:string
+    _source:string | _source_file:string | _row:int64 | _width_ok:string | _extra:string | _sha256:string
+    _retrieved_at:string | slugs:string
+====================================================================================================
+data/dump/points/tennislive/index.parquet
+  rows=4,349  cols=49
+    slug:string | player_tour:string | season:string | match_id:string | url:string | state:string
+    doubles:string | start_timestamp:string | start_utc:string | start_times:string | stage:string | stage_code:string
+    tournament_id:string | tournament_name:string | tournament_url:string | tournament_country:string | surface:string | surface_code:string
+    tournament_rank:string | round_id:string | tour:string | info:string | player1_id:string | player1_name:string
+    player1_url:string | player1_seed:string | player1_ranking:string | player1_sets_won:string | player1_sets:string | player2_id:string
+    player2_name:string | player2_url:string | player2_seed:string | player2_ranking:string | player2_sets_won:string | player2_sets:string
+    set_winners:string | winner_id:string | end_reason:string | focus_result:string | index_file:string | _source:string
+    _source_file:string | _row:int64 | _width_ok:string | _extra:string | _sha256:string | _retrieved_at:string
+    slugs:string
+====================================================================================================
+data/dump/points/usopen/distance.parquet
+  rows=11,468  cols=13
+    year:string | event:string | match_id:string | path:string | value:string | _source:string
+    _source_file:string | _row:int64 | _width_ok:string | _extra:string | _sha256:string | _retrieved_at:string
+    site:string
+====================================================================================================
+data/dump/points/usopen/matches.parquet
+  rows=3,020  cols=83
+    year:string | event:string | match_id:string | listed_in:string | stats_level:string | held_by_sackmann:string
+    history_outcome:string | history_bytes:string | stats_outcome:string | stats_bytes:string | distance_outcome:string | distance_bytes:string
+    livel2w_outcome:string | livel2w_bytes:string | limbtracking_outcome:string | limbtracking_bytes:string | keymoments_outcome:string | keymoments_bytes:string
+    prematch_l2w_outcome:string | prematch_l2w_bytes:string | history_rows:string | history_points:string | entry.match_id:string | entry.eventName:string
+    entry.shortEventName:string | entry.eventCode:string | entry.courtName:string | entry.shortCourtName:string | entry.courtId:string | entry.roundCode:string
+    entry.roundName:string | entry.roundNameShort:string | entry.eventDay:string | entry.duration:string | entry.statsLevel:string | entry.status:string
+    entry.statusCode:string | entry.winner:string | entry.epoch:string | entry.team1.firstNameA:string | entry.team1.lastNameA:string | entry.team1.displayNameA:string
+    entry.team1.idA:string | entry.team1.nationA:string | entry.team1.firstNameB:string | entry.team1.lastNameB:string | entry.team1.displayNameB:string | entry.team1.idB:string
+    entry.team1.nationB:string | entry.team1.seed:string | entry.team1.entryStatus:string | entry.team1.totalSetsWon:string | entry.team1.won:string | entry.team1.serve:string
+    entry.team2.firstNameA:string | entry.team2.lastNameA:string | entry.team2.displayNameA:string | entry.team2.idA:string | entry.team2.nationA:string | entry.team2.firstNameB:string
+    entry.team2.lastNameB:string | entry.team2.displayNameB:string | entry.team2.idB:string | entry.team2.nationB:string | entry.team2.seed:string | entry.team2.entryStatus:string
+    entry.team2.totalSetsWon:string | entry.team2.won:string | entry.team2.serve:string | entry.scores.setsWon:string | entry.scores.setDurations:string | entry.scores.sets:string
+    entry.scores.gameScore:string | entry.score_text:string | entry.flags.upset:string | _source:string | _source_file:string | _row:int64
+    _width_ok:string | _extra:string | _sha256:string | _retrieved_at:string | site:string
+====================================================================================================
+data/dump/points/wimbledon/matches.parquet
+  rows=4,228  cols=78
+    year:string | event:string | match_id:string | listed_in:string | stats_level:string | held_by_sackmann:string
+    history_outcome:string | history_bytes:string | stats_outcome:string | stats_bytes:string | livel2w_outcome:string | livel2w_bytes:string
+    tz_outcome:string | tz_bytes:string | history_rows:string | history_points:string | entry.match_id:string | entry.eventName:string
+    entry.shortEventName:string | entry.eventCode:string | entry.courtName:string | entry.shortCourtName:string | entry.courtId:string | entry.roundCode:string
+    entry.roundName:string | entry.roundNameShort:string | entry.eventDay:string | entry.duration:string | entry.statsLevel:string | entry.status:string
+    entry.statusCode:string | entry.winner:string | entry.epoch:string | entry.team1.firstNameA:string | entry.team1.lastNameA:string | entry.team1.displayNameA:string
+    entry.team1.idA:string | entry.team1.nationA:string | entry.team1.firstNameB:string | entry.team1.lastNameB:string | entry.team1.displayNameB:string | entry.team1.idB:string
+    entry.team1.nationB:string | entry.team1.seed:string | entry.team1.totalSetsWon:string | entry.team1.won:string | entry.team1.serve:string | entry.team2.firstNameA:string
+    entry.team2.lastNameA:string | entry.team2.displayNameA:string | entry.team2.idA:string | entry.team2.nationA:string | entry.team2.firstNameB:string | entry.team2.lastNameB:string
+    entry.team2.displayNameB:string | entry.team2.idB:string | entry.team2.nationB:string | entry.team2.seed:string | entry.team2.totalSetsWon:string | entry.team2.won:string
+    entry.team2.serve:string | entry.scores.setsWon:string | entry.scores.setDurations:string | entry.scores.sets:string | entry.scores.gameScore:string | entry.score_text:string
+    entry.team1.entryStatus:string | entry.team2.entryStatus:string | entry.flags.upset:string | entry.day_file:string | _source:string | _source_file:string
+    _row:int64 | _width_ok:string | _extra:string | _sha256:string | _retrieved_at:string | site:string
+====================================================================================================
+data/dump/points/wimbledon/tz.parquet
+  rows=53,324  cols=13
+    year:string | event:string | match_id:string | path:string | value:string | _source:string
+    _source_file:string | _row:int64 | _width_ok:string | _extra:string | _sha256:string | _retrieved_at:string
+    site:string
+====================================================================================================
+data/dump/points/ausopen/matches.parquet
+  rows=703  cols=60
+    record_key:string | route:string | year:string | event:string | event_name:string | event_nid:string
+    scoring_format:string | match_id:string | match_uuid:string | round_name:string | date:string | actual_start_time:string
+    duration:string | court_id:string | court_name:string | session:string | match_status:string | match_status_name:string
+    match_state:string | winner_team:string | team1_id:string | team1_names:string | team1_player_ids:string | team1_tour_ids:string
+    team1_seed:string | team1_entry_status:string | team1_score:string | team2_id:string | team2_names:string | team2_player_ids:string
+    team2_tour_ids:string | team2_seed:string | team2_entry_status:string | team2_score:string | record:string | record_reason:string
+    fetch_status:string | commentary_entries:string | serve_entries:string | points:string | sets_with_points:string | first_point_utc:string
+    last_point_utc:string | stats_sets:string | stats_rows:string | unexpected_entry_types:string | capture_timestamp:string | capture_url:string
+    draw_file:string | source_file:string | source_sha256:string | retrieved_at:string | _source:string | _source_file:string
+    _row:int64 | _width_ok:string | _extra:string | _sha256:string | _retrieved_at:string | events:string
+====================================================================================================
+data/dump/points/rolandgarros/matches.parquet
+  rows=3,824  cols=40
+    year:string | match_id:string | family:string | tour:string | draw:string | round_from_code:string
+    answer:string | type:string | type_label:string | round_label:string | court_name:string | duration_minutes:string
+    date_schedule:string | end_timestamp:string | status:string | status_label:string | a_ids:string | a_names:string
+    a_countries:string | b_ids:string | b_names:string | b_countries:string | a_sets:string | b_sets:string
+    a_winner:string | b_winner:string | a_end_cause:string | b_end_cause:string | has_statistics:string | source_file:string
+    source_sha256:string | retrieved_at:string | _source:string | _source_file:string | _row:int64 | _width_ok:string
+    _extra:string | _sha256:string | _retrieved_at:string | decision:string
+====================================================================================================
+data/dump/points/wta/events.parquet
+  rows=48,967  cols=33
+    tournament_id:string | year:string | match_id:string | index:string | name:string | type:string
+    reason:string | player:string | first_serve:string | server:string | receiver:string | score:string
+    set:string | game:string | game_score:string | match_score:string | match_state:string | match_time:string
+    timestamp:string | timestamp_local:string | player_id:string | umpire_id:string | court_id:string | last_updated:string
+    attributes:string | _source:string | _source_file:string | _row:int64 | _width_ok:string | _extra:string
+    _sha256:string | _retrieved_at:string | years:string
+====================================================================================================
+data/dump/points/wta/matches.parquet
+  rows=5,574  cols=77
+    tournament_id:string | year:string | match_id:string | tier:string | draw:string | walkover:string
+    MatchID:string | EventID:string | EventYear:string | DrawLevelType:string | DrawMatchType:string | RoundID:string
+    MatchState:string | ResultString:string | ScoreString:string | NumSets:string | ScoreSys:string | Winner:string
+    MatchTimeStamp:string | MatchTimeTotal:string | LastUpdated:string | DateSeq:string | CourtID:string | Serve:string
+    PointA:string | PointB:string | Message:string | PlayerIDA:string | PlayerNameFirstA:string | PlayerNameLastA:string
+    PlayerCountryA:string | EntryTypeA:string | SeedA:string | PlayerIDA2:string | PlayerNameFirstA2:string | PlayerNameLastA2:string
+    PlayerCountryA2:string | PlayerIDB:string | PlayerNameFirstB:string | PlayerNameLastB:string | PlayerCountryB:string | EntryTypeB:string
+    SeedB:string | PlayerIDB2:string | PlayerNameFirstB2:string | PlayerNameLastB2:string | PlayerCountryB2:string | ScoreSet1A:string
+    ScoreSet1B:string | ScoreSet2A:string | ScoreSet2B:string | ScoreSet3A:string | ScoreSet3B:string | ScoreSet4A:string
+    ScoreSet4B:string | ScoreSet5A:string | ScoreSet5B:string | ScoreTbSet1:string | ScoreTbSet2:string | ScoreTbSet3:string
+    ScoreTbSet4:string | BinPacketBase64:string | point_by_point_status:string | events_status:string | win_probability_momentum_status:string | advanced_stats_status:string
+    stats_status:string | listing_file:string | listing_retrieved_at:string | _source:string | _source_file:string | _row:int64
+    _width_ok:string | _extra:string | _sha256:string | _retrieved_at:string | years:string
+====================================================================================================
+data/dump/points/wta/editions.parquet
+  rows=828  cols=28
+    tournament_id:string | year:string | tier:string | level:string | group_level:string | group_name:string
+    title:string | start_date:string | end_date:string | surface:string | in_outdoor:string | city:string
+    country:string | singles_draw_size:string | doubles_draw_size:string | prize_money:string | prize_money_currency:string | live_scoring_id:string
+    status:string | calendar_file:string | _source:string | _source_file:string | _row:int64 | _width_ok:string
+    _extra:string | _sha256:string | _retrieved_at:string | years:string
+====================================================================================================
+data/dump/points/infosys_atp/matches.parquet
+  rows=2,072  cols=46
+    year:string | event_id:string | match_id:string | family:string | draw:string | round_from_code:string
+    purpose:string | routes:string | files:string | event_type:string | court_id:string | court_name:string
+    is_match_complete:string | match_status:string | match_winner:string | sets_completed:string | p1_id:string | p1_name:string
+    p1_first_name:string | p1_last_name:string | p1_country:string | p2_id:string | p2_name:string | p2_first_name:string
+    p2_last_name:string | p2_country:string | points:string | points_timed:string | first_serve_points_timed:string | points_classified:string
+    keystats_sets:string | keystats_speed:string | rally_entries:string | rally_timed:string | cv_points:string | cv_timed:string
+    last_modified_utc:string | source_files:string | _source:string | _source_file:string | _row:int64 | _width_ok:string
+    _extra:string | _sha256:string | _retrieved_at:string | decision:string
+====================================================================================================
+data/dump/points/infosys_atp/rally.parquet
+  rows=83,335  cols=32
+    year:string | event_id:string | match_id:string | route:string | category:string | list:string
+    pointId:string | set:string | score:string | serve:string | serveSpeed:string | serveDir:string
+    courtSide:string | pointEndType:string | shotType:string | hand:string | crucialPoint:string | t1BreakPoint:string
+    t2BreakPoint:string | t1NetPoint:string | t2NetPoint:string | tieBreak:string | setPoint:string | other_fields:string
+    _source:string | _source_file:string | _row:int64 | _width_ok:string | _extra:string | _sha256:string
+    _retrieved_at:string | decision:string
+====================================================================================================
+data/dump/points/infosys_slams/matches.parquet
+  rows=1,434  cols=46
+    slam:string | year:string | match_id:string | event_id:string | family:string | tour:string
+    draw:string | round_from_code:string | routes:string | route_status:string | files:string | blocks_ok:string
+    blocks_empty:string | blocks_failed:string | event_type:string | court_name:string | is_match_complete:string | match_status:string
+    match_winner:string | match_date:string | sets_completed:string | p1_id:string | p1_name:string | p1_first_name:string
+    p1_last_name:string | p1_country:string | p2_id:string | p2_name:string | p2_first_name:string | p2_last_name:string
+    p2_country:string | points:string | points_timed:string | first_serve_points_timed:string | keystats_sets:string | rally_entries:string
+    last_modified_utc:string | source_files:string | _source:string | _source_file:string | _row:int64 | _width_ok:string
+    _extra:string | _sha256:string | _retrieved_at:string | decision:string
+====================================================================================================
+data/dump/points/sofascore/events.parquet
+  rows=5,849  cols=95
+    event_id:string | custom_id:string | slug:string | start_timestamp:string | start_utc:string | tournament_id:string
+    tournament_name:string | unique_tournament_id:string | unique_tournament_name:string | category_id:string | category_name:string | category_slug:string
+    season_id:string | season_name:string | season_year:string | round:string | round_name:string | round_slug:string
+    cup_round_type:string | status_code:string | status_type:string | status_description:string | winner_code:string | first_to_serve:string
+    ground_type:string | final_result_only:string | feed_locked:string | filter_category:string | filter_tournament:string | filter_level:string
+    home_id:string | home_name:string | home_slug:string | home_type:string | home_country:string | home_ranking:string
+    home_seed:string | home_sub_ids:string | away_id:string | away_name:string | away_slug:string | away_type:string
+    away_country:string | away_ranking:string | away_seed:string | away_sub_ids:string | home_sets:string | away_sets:string
+    home_set1:string | away_set1:string | home_set2:string | away_set2:string | home_set3:string | away_set3:string
+    home_set4:string | away_set4:string | home_set5:string | away_set5:string | home_tb1:string | away_tb1:string
+    home_tb2:string | away_tb2:string | home_tb3:string | away_tb3:string | home_tb4:string | away_tb4:string
+    home_tb5:string | away_tb5:string | time_set1:string | time_set2:string | time_set3:string | time_set4:string
+    time_set5:string | listed_for_teams:string | listed_pages:string | doubles:string | pbp_status:string | pbp_sets:string
+    pbp_games:string | pbp_points:string | pbp_retrieved_at:string | pbp_sha256:string | stats_status:string | stats_periods:string
+    stats_retrieved_at:string | stats_sha256:string | listing_file:string | _source:string | _source_file:string | _row:int64
+    _width_ok:string | _extra:string | _sha256:string | _retrieved_at:string | teams:string
+====================================================================================================
+data/dump/points/itf_live/events.parquet
+  rows=118  cols=35
+    event_key:string | tennis_id:string | event_id:string | name:string | tour:string | grade:string
+    event_order:string | start_date:string | end_date:string | main_draw_week:string | surface:string | country:string
+    country_iso:string | first_list_date:string | last_list_date:string | list_dates:string | captures:string | latest_capture:string
+    matches:string | singles:string | doubles:string | singles_main:string | singles_qualifying:string | singles_over:string
+    event_json:string | source_file:string | sha256:string | retrieved_at:string | _source:string | _source_file:string
+    _row:int64 | _width_ok:string | _extra:string | _sha256:string | _retrieved_at:string
+====================================================================================================
+data/dump/matches/open_tennis_data/matches.parquet
+  rows=26,643  cols=28
+    date:string | match_id:string | tournament_id:string | tournament_name:string | tour:string | year:string
+    draw:string | round:string | format:string | player1_id:string | player1_name:string | player1_seed:string
+    player2_id:string | player2_name:string | player2_seed:string | winner_id:string | status:string | score:string
+    best_of:string | source:string | _source:string | _source_file:string | _row:int64 | _width_ok:string
+    _extra:string | _sha256:string | _retrieved_at:string | _release_tag:string
+====================================================================================================
+data/dump/matches/open_tennis_data/tournaments.parquet
+  rows=763  cols=20
+    tournament_id:string | tour:string | year:string | tournament_name:string | level:string | surface:string
+    indoor:string | start_date:string | end_date:string | city:string | country:string | source_url:string
+    _source:string | _source_file:string | _row:int64 | _width_ok:string | _extra:string | _sha256:string
+    _retrieved_at:string | _release_tag:string
+====================================================================================================
+data/studies/current_best_model/template_2026-10-10/model_frame.parquet
+  rows=67,226  cols=68
+    match_id:large_string | tour:large_string | season:int64 | tournament_date:timestamp[us] | a_won:bool | p_mkt:double
+    tabpfn_split:large_string | debut_season:bool | in_odds_logit:double | in_ratings_iid:double | in_elo_games:double | in_adjperf_tpw_2w:double
+    in_ios_points_short:double | in_points_52w:double | in_sets_14d:double | in_age:double | in_age_sq:double | in_form_ace:double
+    in_form_df:double | in_form_first_in:double | in_form_first_won:double | in_form_second_won:double | in_form_hold:double | in_form_bp_saved:double
+    in_form_bp_faced_pg:double | in_form_brk:double | in_form_bp_conv:double | in_form_rpw_first:double | in_form_rpw_second:double | in_formdef_ace:double
+    in_formdef_df:double | in_formdef_first_in:double | in_formdef_bp_faced_pg:double | in_iosO_ace:double | in_iosD_ace:double | in_iosO_df:double
+    in_iosD_df:double | in_iosO_first_in:double | in_iosD_first_in:double | in_iosO_first_won:double | in_iosD_first_won:double | in_iosO_second_won:double
+    in_iosD_second_won:double | in_iosO_hold:double | in_iosD_hold:double | in_iosO_bp_saved:double | in_iosD_bp_saved:double | in_prod_ace:double
+    in_prod_df:double | in_prod_first_in:double | in_prod_first_won:double | in_prod_second_won:double | in_prod_hold:double | in_prod_bp_saved:double
+    in_tour:double | in_surface:double | in_level:double | in_indoor:double | in_best_of:double | in_round:double
+    in_elo_overall:double | in_elo_surf_offset:double | in_surf_season_a:double | in_surf_season_b:double | in_surf_layoff_a:double | in_surf_layoff_b:double
+    p_mkt_avg:double | odds_input:large_string
+====================================================================================================
+data/studies/feature_universe/store.parquet
+  rows=63,737  cols=784
+  first 120 columns:
+    match_id:large_string | tour:large_string | season:int64 | tournament_date:timestamp[us] | debut_season:bool | m__odds_logit:double
+    m__ratings_iid:double | m__elo_games:double | m__adjperf_tpw_2w:double | m__ios_points_short:double | m__points_52w:double | m__sets_14d:double
+    m__age:double | m__age_sq:double | m__form_ace:double | m__form_df:double | m__form_first_in:double | m__form_first_won:double
+    m__form_second_won:double | m__form_hold:double | m__form_bp_saved:double | m__form_bp_faced_pg:double | m__form_brk:double | m__form_bp_conv:double
+    m__form_rpw_first:double | m__form_rpw_second:double | m__formdef_ace:double | m__formdef_df:double | m__formdef_first_in:double | m__formdef_bp_faced_pg:double
+    m__iosO_ace:double | m__iosD_ace:double | m__iosO_df:double | m__iosD_df:double | m__iosO_first_in:double | m__iosD_first_in:double
+    m__iosO_first_won:double | m__iosD_first_won:double | m__iosO_second_won:double | m__iosD_second_won:double | m__iosO_hold:double | m__iosD_hold:double
+    m__iosO_bp_saved:double | m__iosD_bp_saved:double | m__prod_ace:double | m__prod_df:double | m__prod_first_in:double | m__prod_first_won:double
+    m__prod_second_won:double | m__prod_hold:double | m__prod_bp_saved:double | m__tour:double | m__surface:double | m__level:double
+    m__indoor:double | m__best_of:double | m__round:double | m__elo_overall:double | m__elo_surf_offset:double | m__surf_season_a:double
+    m__surf_season_b:double | m__surf_layoff_a:double | m__surf_layoff_b:double | alt__elo_logit:double | alt__surface_first:double | alt__elo_surface:double
+    alt__iosO_cur_spw:double | alt__iosD_cur_spw:double | alt__prod_cur_spw:double | alt__sdevO_spw:double | alt__sdevD_spw:double | alt__iosO_cur_ace:double
+    alt__iosD_cur_ace:double | alt__prod_cur_ace:double | alt__sdevO_ace:double | alt__sdevD_ace:double | alt__iosO_cur_df:double | alt__iosD_cur_df:double
+    alt__prod_cur_df:double | alt__sdevO_df:double | alt__sdevD_df:double | alt__iosO_cur_first_in:double | alt__iosD_cur_first_in:double | alt__prod_cur_first_in:double
+    alt__sdevO_first_in:double | alt__sdevD_first_in:double | alt__iosO_cur_first_won:double | alt__iosD_cur_first_won:double | alt__prod_cur_first_won:double | alt__sdevO_first_won:double
+    alt__sdevD_first_won:double | alt__iosO_cur_second_won:double | alt__iosD_cur_second_won:double | alt__prod_cur_second_won:double | alt__sdevO_second_won:double | alt__sdevD_second_won:double
+    alt__iosO_cur_hold:double | alt__iosD_cur_hold:double | alt__prod_cur_hold:double | alt__sdevO_hold:double | alt__sdevD_hold:double | alt__iosO_cur_bp_saved:double
+    alt__iosD_cur_bp_saved:double | alt__prod_cur_bp_saved:double | alt__sdevO_bp_saved:double | alt__sdevD_bp_saved:double | alt__ttt_logit:double | alt__ttt_overall:double
+    alt__ttt_surf_offset:double | pp__ios_srfO_spw_a:double | pp__ios_srfO_spw_b:double | pp__ios_srfO_ace_a:double | pp__ios_srfO_ace_b:double | pp__ios_srfO_df_a:double
+    pp__ios_srfO_df_b:double | pp__ios_srfO_first_in_a:double | pp__ios_srfO_first_in_b:double | pp__ios_srfO_first_won_a:double | pp__ios_srfO_first_won_b:double | pp__ios_srfO_second_won_a:double
+====================================================================================================
+data/dump/matches/sackmann_archive/atp
+  124 entries; first 30: ['atp_matches_2010.parquet', 'atp_matches_2010.parquet.meta.json', 'atp_matches_2011.parquet', 'atp_matches_2011.parquet.meta.json', 'atp_matches_2012.parquet', 'atp_matches_2012.parquet.meta.json', 'atp_matches_2013.parquet', 'atp_matches_2013.parquet.meta.json', 'atp_matches_2014.parquet', 'atp_matches_2014.parquet.meta.json', 'atp_matches_2015.parquet', 'atp_matches_2015.parquet.meta.json', 'atp_matches_2016.parquet', 'atp_matches_2016.parquet.meta.json', 'atp_matches_2017.parquet', 'atp_matches_2017.parquet.meta.json', 'atp_matches_2018.parquet', 'atp_matches_2018.parquet.meta.json', 'atp_matches_2019.parquet', 'atp_matches_2019.parquet.meta.json', 'atp_matches_2020.parquet', 'atp_matches_2020.parquet.meta.json', 'atp_matches_2021.parquet', 'atp_matches_2021.parquet.meta.json', 'atp_matches_2022.parquet', 'atp_matches_2022.parquet.meta.json', 'atp_matches_2023.parquet', 'atp_matches_2023.parquet.meta.json', 'atp_matches_2024.parquet', 'atp_matches_2024.parquet.meta.json']
+  last 10: ['atp_matches_qual_chall_2022.parquet', 'atp_matches_qual_chall_2022.parquet.meta.json', 'atp_matches_qual_chall_2023.parquet', 'atp_matches_qual_chall_2023.parquet.meta.json', 'atp_matches_qual_chall_2024.parquet', 'atp_matches_qual_chall_2024.parquet.meta.json', 'atp_matches_qual_chall_2025.parquet', 'atp_matches_qual_chall_2025.parquet.meta.json', 'atp_matches_qual_chall_2026.parquet', 'atp_matches_qual_chall_2026.parquet.meta.json']
+====================================================================================================
+data/dump/matches/sackmann_archive/wta
+  68 entries; first 30: ['wta_matches_2010.parquet', 'wta_matches_2010.parquet.meta.json', 'wta_matches_2011.parquet', 'wta_matches_2011.parquet.meta.json', 'wta_matches_2012.parquet', 'wta_matches_2012.parquet.meta.json', 'wta_matches_2013.parquet', 'wta_matches_2013.parquet.meta.json', 'wta_matches_2014.parquet', 'wta_matches_2014.parquet.meta.json', 'wta_matches_2015.parquet', 'wta_matches_2015.parquet.meta.json', 'wta_matches_2016.parquet', 'wta_matches_2016.parquet.meta.json', 'wta_matches_2017.parquet', 'wta_matches_2017.parquet.meta.json', 'wta_matches_2018.parquet', 'wta_matches_2018.parquet.meta.json', 'wta_matches_2019.parquet', 'wta_matches_2019.parquet.meta.json', 'wta_matches_2020.parquet', 'wta_matches_2020.parquet.meta.json', 'wta_matches_2021.parquet', 'wta_matches_2021.parquet.meta.json', 'wta_matches_2022.parquet', 'wta_matches_2022.parquet.meta.json', 'wta_matches_2023.parquet', 'wta_matches_2023.parquet.meta.json', 'wta_matches_2024.parquet', 'wta_matches_2024.parquet.meta.json']
+  last 10: ['wta_matches_qual_itf_2022.parquet', 'wta_matches_qual_itf_2022.parquet.meta.json', 'wta_matches_qual_itf_2023.parquet', 'wta_matches_qual_itf_2023.parquet.meta.json', 'wta_matches_qual_itf_2024.parquet', 'wta_matches_qual_itf_2024.parquet.meta.json', 'wta_matches_qual_itf_2025.parquet', 'wta_matches_qual_itf_2025.parquet.meta.json', 'wta_matches_qual_itf_2026.parquet', 'wta_matches_qual_itf_2026.parquet.meta.json']
+====================================================================================================
+data/dump/points/wta/events
+  16 entries; first 30: ['2019.parquet', '2019.parquet.meta.json', '2020.parquet', '2020.parquet.meta.json', '2021.parquet', '2021.parquet.meta.json', '2022.parquet', '2022.parquet.meta.json', '2023.parquet', '2023.parquet.meta.json', '2024.parquet', '2024.parquet.meta.json', '2025.parquet', '2025.parquet.meta.json', '2026.parquet', '2026.parquet.meta.json']
+  last 10: ['2022.parquet', '2022.parquet.meta.json', '2023.parquet', '2023.parquet.meta.json', '2024.parquet', '2024.parquet.meta.json', '2025.parquet', '2025.parquet.meta.json', '2026.parquet', '2026.parquet.meta.json']
+====================================================================================================
+data/dump/points/wta/player_matches
+  2 entries; first 30: ['2026.parquet', '2026.parquet.meta.json']
+  last 10: ['2026.parquet', '2026.parquet.meta.json']

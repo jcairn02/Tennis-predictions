@@ -8,6 +8,24 @@
 
 **Follow-up, adaptive memory** ([adaptive.md](adaptive.md); exploratory). A switch (14-day memory when the speeds are in hand, 28-day when they are late) was built and audited. It was beaten by **always using the 28-day memory**, in every availability scenario, instant included: instant +0.54 against +0.41; today's sources +0.38; switch − always-28 = −0.09 to −0.13 mLL, 28-day better.
 
+**Note for reviewers (9 Oct 2026): a flaw in this study's intervals, found after the test ran. The study was not re-run.**
+* **The flaw.** Most comparison intervals here add each arm's seed-to-seed variance as if the two arms' seed noise were independent (§5). Both arms used the same TabPFN seeds (random states 0–15, or 0–7), so most of that noise is shared and cancels in the difference. Adding both counts it twice.
+  * Found by the adoption framework's statistics review ([finding 1](../adoption_framework/review_statistics.md)). With the same interval code (`score.paired_stats`), a model compared with itself got ±0.087 mLL instead of 0.
+* **What it does.** The affected intervals are too wide; the estimates are right.
+  * The verifier's null worlds already showed it. The registered interval rejected a true null in 0.35–0.75% of them, against a nominal 5% (§5). The block-only interval, which has no seed term, rejected at about its nominal rate: 1.0–3.4% one-sided against 2.5% (`data/studies/serve_speed_tabpfn/design/verifier_worlds/synthetic/w1_b0_*`). *Inferred:* the double count is the reason.
+* **What it can change.** A corrected (paired) interval is never narrower than the block-only one, which `results.csv` holds for every affected row, and is narrower than the registered one when the arms share seed noise.
+  * **Affected:** P2's registered and calendar-week intervals (S11), and S1–S5, S6a, S7, S8 and S14.
+  * **Only two readings could come to exclude 0** (positive = the speed arm better): S8's registered statistic as a column (A2) against the base, +0.10 [−0.07, +0.26], block-only [+0.01, +0.18]; and S8's arm with women's values (A3) against the base, +0.15 [−0.04, +0.34], block-only [+0.01, +0.28].
+  * Every other affected interval spans 0 even at its narrowest. That includes P2 (block-only +0.07 [−0.02, +0.15]).
+  * **Not affected:** S9, the nudge behind the owner's decision (+0.41 [+0.04, +0.78], a block-only interval); S11's block-only interval; S13; the coefficient tests S0, S6b and S12; and the latency and adaptive follow-ups (block-only intervals).
+* **Not re-run, on purpose.** The registered test ran once, and its results stand as registered.
+  * A paired re-read would be a new look at the 2024–26 results, including 2025–26, the proposed clean holdout. Log it in the [look ledger](look_ledger.md).
+  * The shared function now offers the paired term: `score.paired_stats(..., matched_seeds=True)` ([checklist](../adoption_framework/checklist.md), item 1). It is off by default, so this study's scorer still computes the registered interval.
+* **The code fingerprint changed.** The fix lives in `score.py`, so the harness's code hash (`common.code_hash()`) no longer equals the `SCORER_CODE_SHA256` that the pre-registration and `results.json` record.
+  * Every run that checks it had already run.
+  * `score.py --synthetic --arms real` now refuses, and the latency and adaptive `--check` modes report `scorer_code: false`. This fix is the reason, not tampering.
+  * The default path computes exactly what it did, so the registered numbers still reproduce.
+
 **Keys.**
 * **Gains are milli-log-loss (mLL) per match, paired.** **Positive = the speed model is better** (lower log loss) than the model without speed, unless a row says otherwise.
 * **Coefficients are log-odds per unit of the column.**

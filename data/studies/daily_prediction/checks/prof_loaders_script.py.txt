@@ -1,0 +1,20 @@
+"""Profile Stage 4's loader and Stage B's context on the build tree (read only)."""
+import cProfile, pstats, sys, time
+from pathlib import Path
+sys.path.insert(0, "C:/Users/zerom/Documents/Tennis-predictions/src/eda/daily_prediction")
+import dp_common as DC
+tree = Path("C:/Users/zerom/tnr_lyr_new")
+DC.enter_tree(tree, read_only=True)
+import dp_stage4 as S4, dp_forms as FM
+F = S4._F()
+t = {}
+pr = cProfile.Profile()
+pr.enable()
+t0 = time.time(); rows, typical = F.load_rows(); t["load_rows"] = time.time() - t0
+t0 = time.time(); xd = F.stat_xd(rows); t["stat_xd"] = time.time() - t0
+t0 = time.time(); pbp = F.pbp_history(rows); t["pbp_history"] = time.time() - t0
+t0 = time.time(); ctx, consts = F.constants(rows, xd, typical, pbp); t["constants"] = time.time() - t0
+t0 = time.time(); fctx = FM.context(rows); t["forms_context"] = time.time() - t0
+pr.disable()
+print({k: round(v, 1) for k, v in t.items()})
+pstats.Stats(pr).sort_stats("cumulative").print_stats(45)

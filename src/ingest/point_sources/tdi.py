@@ -45,6 +45,8 @@ Raw layout under data/raw/point_sources/tdi/ (every page gzipped):
     listings/tournament/<id>@<sweep>.html.gz          a tournament's listing: read once per sweep
     matches/<first two characters>/<match uuid>.html.gz   a match page, kept when it answered 200, or 404 with
                                                       points; a 404 without points is recorded as absent
+    superseded/matches/<first two>/<uuid>.<time>.html.gz  a page saved without points, kept when a later answer
+                                                      replaced it (see "Pages asked again" below)
     _receipts.jsonl                                   one line per fetch (URL, time, status, bytes, SHA-256)
     _sweeps.jsonl                                     one line when a sweep starts (its plan) and one when it ends
     _run.lock                                         held by the running process; the OS releases it if the
@@ -60,6 +62,12 @@ Match pages are fetched in batches, each a separate run with its own budget; the
 listings), the Wayback Machine's list (--wayback-ids) or --ids. A batch that is interrupted loses at most the
 page in flight: the next batch asks only for pages not yet saved. A run exits 0 when it ends normally or by using
 up its budget, and 1 when it was stopped (a block, a failure streak, or failed staging).
+
+Pages asked again: a saved page without points is asked once more when a listing card read after it shows its
+match with a score (waiting_pages; the forward capture and --pages runs). TDI lists a match before it publishes it
+at times: 14 Braga Open matches of 8 Oct 2026 were listed as completed without a score, and their pages carried no
+point. A page answered replaces the saved one, whose bytes are kept under superseded/; any other answer is recorded
+as again/match/<id>. Nothing is asked again without a newer card that shows a score.
 
 Staged (data/dump/points/tdi/, strings): listing_pages.parquet (one row per listing page read), listing_cards
 (one row per card seen), match_ids (one row per distinct match id: the id index), filter_tournaments and
@@ -1042,44 +1050,88 @@ def match_done(receipt: dict | None) -> bool:
     return bool(receipt.get("absent")) or match_saved(receipt)
 
 
-def fetch_match(client, receipts, match_id: str, extra: dict | None = None) -> dict:
+def fetch_match(client, receipts, match_id: str, extra: dict | None = None, again: bool = False) -> dict:
     """GET one match page. Unlike common.fetch, an HTTP 404 is kept when it carries this match's points (an old
     match outside the window is served that way); a 404 without them is recorded as absent and never asked
     again. A 200 is kept whether or not it has points; any other status is an error, retried by the next run.
-    Blocked and BudgetExhausted propagate so the run stops."""
+    Blocked and BudgetExhausted propagate so the run stops.
+
+    ``again`` asks once more for a page saved without points (waiting_pages): a page answered replaces it, its bytes
+    kept first under superseded/ (keep_page); any other answer is recorded as again/match/<id>, and the saved page
+    and its receipt stay as they were."""
     name, dest = match_name(match_id), match_dest(match_id)
     previous = receipts.get(name)
-    if match_done(previous):
+    if match_done(previous) and not again:
         return {**previous, "skipped": True}
     receipt = {"name": name, "url": match_url(match_id), "dest": P.rel(dest), "retrieved_at": P.utc_now_iso(),
                "match_id": match_id, **(extra or {})}
+    if again:
+        receipt["asked_again"] = "a listing read after the page shows the match with a score"
+    aside = (lambda r: {**r, "name": f"again/{name}"}) if again else (lambda r: r)
     try:
         response = client.get(receipt["url"])
     except (P.Blocked, P.BudgetExhausted):
         raise
     except Exception as err:
         receipt["error"] = f"{type(err).__name__}: {err}"
-        return receipts.record(receipt)
+        return receipts.record(aside(receipt))
     body = response.content
     receipt.update(status=response.status_code, content_type=response.headers.get("content-type"),
                    final_url=str(response.url))
     if response.status_code not in (200, 404):
         receipt["error"] = f"HTTP {response.status_code}"
-        return receipts.record(receipt)
+        return receipts.record(aside(receipt))
     points = point_ids_in(body, match_id)
     if response.status_code == 404 and not points:
         receipt["absent"] = "HTTP 404 without points"
-        return receipts.record(receipt)
+        return receipts.record(aside(receipt))
     problem = page_validator(body)
     if problem:
         receipt["error"] = problem
-        return receipts.record(receipt)
+        return receipts.record(aside(receipt))
     dest.parent.mkdir(parents=True, exist_ok=True)
+    if again and dest.exists():
+        receipt["superseded"] = keep_page(dest, previous)
     part = dest.with_name(dest.name + ".part")
     part.write_bytes(gzip.compress(body))
     os.replace(part, dest)
     receipt.update(bytes=len(body), sha256=P.sha256_bytes(body), compressed=True, document=True, point_ids=points)
     return receipts.record(receipt)
+
+
+def keep_page(dest: Path, previous: dict | None) -> str:
+    """Keep a saved page's bytes before a later answer replaces them: superseded/matches/<first two characters>/
+    <uuid>.<its retrieval time>.html.gz, written whole and never replaced. Returns the kept path."""
+    stamp = re.sub(r"\D", "", (previous or {}).get("retrieved_at") or "")[:14] or "unknown"
+    kept = P.raw_path(SOURCE, "superseded", "matches", dest.parent.name,
+                      dest.name.removesuffix(".html.gz") + f".{stamp}.html.gz")
+    if not kept.exists():
+        kept.parent.mkdir(parents=True, exist_ok=True)
+        part = kept.with_name(kept.name + ".part")
+        part.write_bytes(dest.read_bytes())
+        os.replace(part, kept)
+    return P.rel(kept)
+
+
+def waiting_pages(receipts, cards: list[dict]) -> list[str]:
+    """Saved pages without points whose match a listing card read after the page, and after any later try, shows
+    with a score: TDI had not published the match when its page was asked for. On 8 Oct 2026, 14 Braga Open matches
+    were listed as completed with no score and served without a point. Each such page is asked once for each newer
+    card with a score, so a match TDI never fills costs nothing."""
+    scored = {}
+    for c in cards:
+        if c.get("match_id") and (c.get("team1_scores") or c.get("team2_scores")):
+            scored[c["match_id"]] = max(scored.get(c["match_id"], ""), c.get("retrieved_at") or "")
+    out = []
+    for match_id, seen in sorted(scored.items()):
+        page = receipts.get(match_name(match_id))
+        if not match_saved(page) or page.get("point_ids"):
+            continue
+        tried = max(page.get("retrieved_at") or "",
+                    (receipts.get(f"again/{match_name(match_id)}") or {}).get("retrieved_at") or "")
+        if seen > tried:
+            out.append(match_id)
+    return out
 
 
 def match_state(receipt: dict) -> str:
@@ -1113,22 +1165,29 @@ def wayback_ids() -> list[str]:
     return list(dict.fromkeys(i for i in ids if UUID.match(i)))
 
 
-def fetch_pages(client, receipts, streak, ids: list[str], source: str, outcomes: Counter, report: dict) -> None:
-    """Fetch every page of ``ids`` not yet done, in order, keeping ``report`` current (it survives a stop). A page
-    kept from a 404 counts as a document for the failure streak."""
+def fetch_pages(client, receipts, streak, ids: list[str], source: str, outcomes: Counter, report: dict,
+                again: list[str] = ()) -> None:
+    """Fetch every page of ``ids`` not yet done, in order, then each page of ``again`` once more (waiting_pages),
+    keeping ``report`` current (it survives a stop). A page kept from a 404 counts as a document for the failure
+    streak."""
     todo = [m for m in ids if not match_done(receipts.get(match_name(m)))]
-    report.update(source=source, ids=len(ids), done_before=len(ids) - len(todo), fetched=0, remaining=len(todo))
-    P.log(f"[{SOURCE}] {len(ids)} match ids ({source}); {len(ids) - len(todo)} done before; {len(todo)} to fetch")
-    for n, match_id in enumerate(todo, 1):
-        receipt = fetch_match(client, receipts, match_id, {"id_source": source})
+    pending = set(todo)
+    again = [m for m in again if m not in pending]
+    report.update(source=source, ids=len(ids), done_before=len(ids) - len(todo), fetched=0, remaining=len(todo),
+                  asked_again=len(again))
+    P.log(f"[{SOURCE}] {len(ids)} match ids ({source}); {len(ids) - len(todo)} done before; {len(todo)} to fetch"
+          + (f"; {len(again)} saved without points to ask again" if again else ""))
+    for n, match_id in enumerate(todo + again, 1):
+        repeat = n > len(todo)
+        receipt = fetch_match(client, receipts, match_id, {"id_source": source}, again=repeat)
         if not receipt.get("skipped"):
             report["fetched"] += 1
-        if match_done(receipt):
+        if match_done(receipt) and not repeat:
             report["remaining"] -= 1
-        outcomes[f"match:{match_state(receipt)}"] += 1
+        outcomes[f"match{':again' if repeat else ''}:{match_state(receipt)}"] += 1
         streak.note({**receipt, "status": 200} if receipt.get("document") else receipt)
-        if n % 50 == 0 or n == len(todo):
-            P.log(f"[{SOURCE}] {n}/{len(todo)} pages; requests={client.requests}; " +
+        if n % 50 == 0 or n == len(todo) + len(again):
+            P.log(f"[{SOURCE}] {n}/{len(todo) + len(again)} pages; requests={client.requests}; " +
                   ", ".join(f"{k}={v}" for k, v in sorted(outcomes.items())))
 
 
@@ -1612,9 +1671,10 @@ def run(args) -> dict:
                 try:
                     if pages:
                         ids, source = page_ids(args)
+                        again = waiting_pages(receipts, read_table("listing_cards")) if args.pages else []
                         summary["matches_selected"] = len(ids)
                         summary["pages"] = {}
-                        fetch_pages(client, receipts, streak, ids, source, outcomes, summary["pages"])
+                        fetch_pages(client, receipts, streak, ids, source, outcomes, summary["pages"], again)
                     else:
                         sweep = open_sweep(args)
                         summary["sweep"] = sweep
@@ -1624,7 +1684,8 @@ def run(args) -> dict:
                             ids = index_ids()
                             summary["matches_selected"] = len(ids)
                             summary["pages"] = {}
-                            fetch_pages(client, receipts, streak, ids, "index", outcomes, summary["pages"])
+                            fetch_pages(client, receipts, streak, ids, "index", outcomes, summary["pages"],
+                                        waiting_pages(receipts, read_table("listing_cards")))
                 except P.BudgetExhausted as stop:  # the batch's end, not a fault: the next run carries on
                     summary["budget_used_up"] = str(stop)
                     P.log(f"[{SOURCE}] budget used up; run again to continue")

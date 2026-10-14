@@ -1,0 +1,34 @@
+{
+ "tour": "atp",
+ "season": 2025,
+ "train_seasons": [
+  2013,
+  2024
+ ],
+ "n_own": 29909,
+ "n_other": 27855,
+ "auc_out_of_fold": 0.8672073397965091,
+ "kappa": 0.9794949198014368,
+ "expected_borrowed": 13927.5,
+ "share_pi_one": 0.24185963022796625,
+ "share_at_floor": 0.0,
+ "effective_n": 16894.099069505934,
+ "features": [
+  "abs_odds_logit",
+  "abs_elo_games",
+  "abs_elo_overall",
+  "abs_ratings_iid",
+  "abs_elo_surf_offset",
+  "abs_age",
+  "abs_sets_14d",
+  "min_surf_season",
+  "max_surf_season",
+  "min_surf_layoff",
+  "max_surf_layoff",
+  "surface",
+  "level",
+  "best_of",
+  "round"
+ ],
+ "classifier": "HistGradientBoostingClassifier(max_iter=200, learning_rate=0.1, max_leaf_nodes=31, l2_regularization=1.0, random_state=0), 5-fold StratifiedKFold(shuffle, random_state=0)"
+}

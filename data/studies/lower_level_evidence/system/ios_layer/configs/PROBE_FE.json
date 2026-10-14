@@ -1,0 +1,29 @@
+{
+ "name": "PROBE_FE",
+ "tours": [
+  "atp",
+  "wta"
+ ],
+ "params": "C:\\Users\\zerom\\Documents\\Tennis-predictions\\data\\studies\\lower_level_evidence\\system\\classes\\strength_elo.parquet",
+ "params_sha256": "4fa9a573e7d0fbc34ab95f5f6c5efc97b835471a0f676bb5f14c182321c34d0d",
+ "strength": {
+  "path": "C:\\Users\\zerom\\Documents\\Tennis-predictions\\data\\studies\\lower_level_evidence\\system\\classes\\strength_elo.parquet",
+  "sha256": "4fa9a573e7d0fbc34ab95f5f6c5efc97b835471a0f676bb5f14c182321c34d0d"
+ },
+ "classes": null,
+ "translate": true,
+ "weight": 1,
+ "weight_results": 1,
+ "prior": "pool",
+ "itf_box": "exclude",
+ "ios_level_term": "fixed_effect",
+ "families": {
+  "points_52w": false,
+  "forms": false,
+  "ios": true,
+  "ios_points_short": true,
+  "ratings_iid": false,
+  "elo": false
+ },
+ "note": "C2's leak-probe config, not an arm: params and strength are stand-ins the fixed-effect form never reads"
+}

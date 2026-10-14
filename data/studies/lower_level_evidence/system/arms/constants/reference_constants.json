@@ -1,0 +1,115 @@
+{
+ "stage1_chosen": [
+  {
+   "tour": "atp",
+   "rule": "ret",
+   "k0": 600.0,
+   "offset": 2.0,
+   "shape": 0.6,
+   "w": 0.3
+  },
+  {
+   "tour": "atp",
+   "rule": "noret",
+   "k0": 1200.0,
+   "offset": 10.0,
+   "shape": 0.7,
+   "w": 0.3
+  },
+  {
+   "tour": "wta",
+   "rule": "ret",
+   "k0": 600.0,
+   "offset": 1.0,
+   "shape": 0.6,
+   "w": 0.25
+  },
+  {
+   "tour": "wta",
+   "rule": "noret",
+   "k0": 600.0,
+   "offset": 1.0,
+   "shape": 0.6,
+   "w": 0.25
+  }
+ ],
+ "offset_constants": {
+  "atp": {
+   "kd0": 80.0,
+   "kd_off": 10.0,
+   "kd_shape": 0.6
+  },
+  "wta": {
+   "kd0": 80.0,
+   "kd_off": 20.0,
+   "kd_shape": 0.6
+  }
+ },
+ "offset_surface_blind_constants": {
+  "atp": {
+   "kd0": 20.0,
+   "kd_off": 40.0,
+   "kd_shape": 0.8
+  },
+  "wta": {
+   "kd0": 20.0,
+   "kd_off": 2.0,
+   "kd_shape": 0.8
+  }
+ },
+ "stage3_chosen": {
+  "atp": "{'var_serve': 0.02, 'var_return': 0.005, 'drift': 0.0002, 'start_serve': -0.2, 'start_return': 0.0}",
+  "wta": "{'var_serve': 0.02, 'var_return': 0.005, 'drift': 5e-05, 'start_serve': -0.1, 'start_return': 0.0}"
+ },
+ "stageB_chosen": {
+  "atp|spw": {
+   "h1": 104.0,
+   "K1": 2.0,
+   "tau": 0,
+   "h3": 2.0,
+   "K3": 10.0
+  },
+  "atp|rpw": {
+   "h1": 52.0,
+   "K1": 2.0,
+   "tau": 0,
+   "h3": 2.0,
+   "K3": 160.0
+  },
+  "atp|tpw": {
+   "h1": 104.0,
+   "K1": 2.0,
+   "tau": 0,
+   "h3": 2.0,
+   "K3": 10.0
+  },
+  "wta|spw": {
+   "h1": 26.0,
+   "K1": 2.0,
+   "tau": 0,
+   "h3": 2.0,
+   "K3": 20.0
+  },
+  "wta|rpw": {
+   "h1": Infinity,
+   "K1": 20.0,
+   "tau": 0,
+   "h3": 2.0,
+   "K3": 160.0
+  },
+  "wta|tpw": {
+   "h1": Infinity,
+   "K1": 20.0,
+   "tau": 0,
+   "h3": 2.0,
+   "K3": 20.0
+  }
+ },
+ "sources": [
+  "frozen/instance/chain_outputs/stage1_baselines_summary.json",
+  "frozen/instance/chain_outputs/surface_elo_pieces_pieces_meta.json",
+  "frozen/instance/chain_logs/stage3_ratings.log",
+  "frozen/instance/chain_logs/ufc_stageB_adjperf.log"
+ ],
+ "written_at": "2026-10-09T20:30:27+00:00"
+}

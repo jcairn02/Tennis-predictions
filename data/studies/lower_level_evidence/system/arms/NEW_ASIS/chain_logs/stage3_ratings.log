@@ -1,0 +1,13 @@
+[   2.8s] matches: 1,171,445; moving ratings: 294,885
+[ 146.7s] atp: chosen {'var_serve': 0.02, 'var_return': 0.005, 'drift': 0.0002, 'start_serve': -0.2, 'start_return': 0.0} (log loss 0.66044 per serve point)
+[ 189.5s] wta: chosen {'var_serve': 0.02, 'var_return': 0.005, 'drift': 5e-05, 'start_serve': -0.1, 'start_return': 0.0} (log loss 0.68375 per serve point)
+[level_layer] pin stage3 atp: the reference's {'var_serve': 0.02, 'var_return': 0.005, 'drift': 0.0002, 'start_serve': -0.2, 'start_return': 0.0} (this build's tuning chose {'var_serve': 0.02, 'var_return': 0.005, 'drift': 0.0002, 'start_serve': -0.2, 'start_return': 0.0}; equal: True)
+[level_layer] pin stage3 wta: the reference's {'var_serve': 0.02, 'var_return': 0.005, 'drift': 5e-05, 'start_serve': -0.1, 'start_return': 0.0} (this build's tuning chose {'var_serve': 0.02, 'var_return': 0.005, 'drift': 5e-05, 'start_serve': -0.1, 'start_return': 0.0}; equal: True)
+[level_layer] ratings_iid atp: 158,160 lower-level rating matches; w at zero 0
+[ 200.4s] atp: full pass done
+[ 215.9s] atp: probe {'cuts': 4, 'protected_matches_checked': 2346930, 'protected_matches_changed': 0, 'later_matches_changed': 181785}
+[level_layer] ratings_iid wta: 54,788 lower-level rating matches; w at zero 0
+[ 220.0s] wta: full pass done
+[ 230.3s] wta: probe {'cuts': 4, 'protected_matches_checked': 1963866, 'protected_matches_changed': 0, 'later_matches_changed': 144481}
+[ 231.4s] wrote stage3_ratings.parquet
+[ 232.7s] wrote stage3_ratings_summary.json

@@ -1,0 +1,94 @@
+usage: level_layer_ios.py [-h] [--sandbox SANDBOX] [--apply-patch]
+                          [--check-patch] [--run-ios-part] [--out OUT]
+                          [--write-configs] [--collect-inputs LABEL]
+                          [--gate-identity LABEL] [--gate-equal LABEL CONFIG]
+                          [--gate-drop-timed CONFIG]
+                          [--gate-drop-surface CONFIG] [--stats STATS]
+                          [--kinds KINDS] [--workers WORKERS]
+
+The level layer inside the model's joint solves: role C2 of the level-evidence system (lower_level_evidence).
+
+The families (docs/studies/lower_level_evidence/system/SPEC.md §3, the "joint solves" row):
+    ios                the surface IOS: iosO_* and iosD_* on seven statistics (14 inputs), and the products prod_* (7),
+                       which follow from them (surface_ios/arms.py, recipe: prod = O_A (-D_B) - O_B (-D_A), on the
+                       surface-effective O and D). Also the pooled leak-proof IOS of match_timing/rebuild.py, an
+                       intermediate of the chain that lane 3's mapping check (surface_ios/arms.py) ties to lane 2's
+                       "current" runs, so both are hooked alike
+    ios_points_short   the short-memory IOS points matchup: ios_time.run_timed on spw with half-life 4 weeks (men) /
+                       13 (women), turned into a match probability by stageB_ios.matchup_points (rebuild.py:199-221)
+
+What the chain rebuilds (run_chain.py's lanes; checked 9 Oct 2026):
+    lane 2 rebuilds the surface IOS from Stage 0 (build_cache.py, then build_features.py: every "current" and "surface"
+    full-history run; the sandbox copy excludes full_runs/, so nothing is reused). Lane 3 turns them into the 21 inputs.
+    ios_points_short and the pooled IOS are READ STORED: lane 1's leakproof_frame (tabpfn_leakproof/build_frame.py),
+    elo_frames (surface_elo_pieces/build_frames.py) and lane 3's frames.py read match_timing/leakproof_features.parquet,
+    which only match_timing/rebuild.py writes (run_chain's lane 0, a candidate's step, "not yet exercised"). A build
+    whose layer touches this family therefore runs, in the sandbox, before lane 1's leakproof_frame:
+        rebuild.py --part ios     the timed solves (7 statistics "tuned" + spw "short", both tours), hooked
+        rebuild.py --part merge   leakproof_features.parquet = the stored per-player part + the new IOS part
+    (run_ios_part() below, or --run-ios-part). The guards make an out-of-order build fail instead of mixing configs.
+    A candidate Stage 0 with new matches runs run_chain's lane 0 instead (its timing_features step is rebuild.py in full,
+    whose IOS part this patch hooks): the merge alone would join the stored per-player part of the old pool.
+
+SWITCHED OFF BY DEFAULT. LLE_LAYER names the layer config (SPEC §6.3). Unset, every hook returns its input object
+unchanged and every solve is the decided builder's own function. Set, a solve of a tour the config names, in a family
+the config switches on, runs the solver variants below, which are the decided solvers (ios_time.run_timed,
+ios_surface.run) with two per-row arrays added:
+
+    m_k      the row's exchange rate: its weight is (d_k / d_typical)^tau 2^(-age/h) x m_k. MAIN and TEAM rows: 1.
+             A row with m_k = 0 is dropped, exactly as if it had no box score (it leaves the system, its pairs and
+             the incremental step), so "w = 0" is a physical exclusion, not a near-zero weight
+    delta_k  the level term in the solve's own units (the centred logit of the statistic's rate per opportunity, the
+             IOS's y): y_k <- y_k - delta_k, lower-level rows only. Form (a) of SPEC §3: a supplied delta
+
+With every m_k = 1 and delta_k = 0 the variants perform the decided solvers' floating-point operations in the same order
+(x * 1.0 and y - 0.0 are exact), so the identity config reproduces the reference bit for bit.
+
+The settings (the lead's rulings of 9 Oct 2026, Phase 2):
+    m_k        the arm's number, or with weight "fitted" role B's w_joint (relationship/params.parquet, method F4: the
+               mean of the serve statistic's and its receiving side's w) for the solve's serve-side statistic (spw for
+               ios_points_short), the row's level and its own season (params_season_floor 2013 for 2010-2012 rows),
+               as fitted (B's cap 3); missing_params "untouched" leaves a cell with no parameter at 1; ITF and ITFQ 0
+               under itf_box "exclude", untouched under "as_is". Read through C1's level_layer.weights
+    level term translate true: form (b), solve_fe below: a level effect estimated inside each snapshot's solve, at role
+               A's delta_levels of the solve's statistic (classes.csv, kind "stat"; "none": no term), every lower level
+               but ITF/ITFQ when the classes are null (SYS_NOCLASS). A solve with no level effect left (e.g. w = 0 at
+               every lower level) runs the plain variant. Form (a), a supplied delta, stays in the solvers, switched off
+               in the config path
+    prior      "pool" only: role B's method F4 did not keep the newcomer prior, and no tier means are in the solve
+
+The sandbox patch (apply_patch; never the repository), each edit anchored on text found exactly once:
+    match_timing/rebuild.py        import; ios_features: annotate_td(td, rows); _ios_task: run_timed(..., label=label);
+                                   part_ios: stamp(meta) into ios_features_summary.json
+    surface_ios/build_cache.py     import; annotate_cache(arrays, rows, idx) before each tour's npz
+    surface_ios/build_features.py  import; RUNS = runs_dir(...) (a folder per layer config, so a sandbox never reuses
+                                   another config's runs); task: run_surface(...); stamp(...) into build_features.json
+    tabpfn_leakproof/build_frame.py   require_consistent(ROOT, "ios_part") at the start of main()
+    surface_ios/arms.py            require_consistent(ROOT, "both") at the start of main()
+    surface_ios/probe.py           the probe's td gets its tour and levels; run_surface in place of IS.run
+
+Run (from the repository root):
+    ./python.sh src/eda/lower_level_evidence/level_layer_ios.py --sandbox SB --apply-patch | --check-patch
+    LLE_LAYER=<config> ./python.sh src/eda/lower_level_evidence/level_layer_ios.py --sandbox SB --run-ios-part [--out D]
+    ./python.sh src/eda/lower_level_evidence/level_layer_ios.py --write-configs
+    ./python.sh src/eda/lower_level_evidence/level_layer_ios.py --sandbox SB --collect-inputs LABEL [--config CFG]
+    ./python.sh src/eda/lower_level_evidence/level_layer_ios.py --gate-identity LABEL | --gate-drop CFG [...]
+
+options:
+  -h, --help            show this help message and exit
+  --sandbox SANDBOX
+  --apply-patch
+  --check-patch
+  --run-ios-part
+  --out OUT             with --run-ios-part: the records' folder (default
+                        SANDBOX/logs)
+  --write-configs
+  --collect-inputs LABEL
+  --gate-identity LABEL
+  --gate-equal LABEL CONFIG
+  --gate-drop-timed CONFIG
+  --gate-drop-surface CONFIG
+  --stats STATS         with --gate-drop-surface: the statistics solved in
+                        full
+  --kinds KINDS         with --gate-drop-surface: current, surface or both
+  --workers WORKERS

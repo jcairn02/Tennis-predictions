@@ -39,7 +39,12 @@ Writes, in data/studies/predictability_diagnostic/:
     stage1_odds_summary.json       link counts by pass, tour and season; scan.py's method on the same rows;
                                    coverage of evaluation matches; quotes, overrounds and Pinnacle's end
 
-Run: ./python.sh src/eda/predictability_diagnostic/stage1_odds.py
+Corrections of corrupt rows (docs/decisions/2026-10-08-corrupt-data-fixes.md): right after the rows are read, the
+named tennis-data rows of data/studies/input_data_audit/fixes/odds_corrections.csv take their books' winner and loser
+prices exchanged (the average and maximum reversed against every individual book; one row whose names are swapped).
+Each row must find its source row, with the same names and date, or the run stops. --no-corrections runs without them.
+
+Run: ./python.sh src/eda/predictability_diagnostic/stage1_odds.py [--out-dir <folder>] [--no-corrections]
 """
 from __future__ import annotations
 
@@ -54,6 +59,7 @@ import pandas as pd
 ROOT = Path(__file__).resolve().parents[3]
 sys.path.insert(0, str(ROOT))
 
+from src.eda.input_data_audit import corrections as X  # noqa: E402
 from src.eda.merge_feasibility import scan as S  # noqa: E402
 from src.eda.predictability_diagnostic import common as C  # noqa: E402
 from src.eda.predictability_diagnostic import stage0_build as B  # noqa: E402
@@ -468,9 +474,23 @@ def summary_of(o: pd.DataFrame, td: pd.DataFrame, reason: pd.Series, counts: dic
     return s
 
 
-def main() -> int:
+def main(argv: list[str] | None = None) -> int:
+    import argparse
+    ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
+    ap.add_argument("--out-dir", default=None, help="write the three outputs here instead of the live folder")
+    ap.add_argument("--no-corrections", action="store_true", help="run without the audit's odds corrections")
+    a = ap.parse_args(argv)
+    out = Path(a.out_dir) if a.out_dir else C.OUT
     td = load_td()
     log(f"tennis-data rows 2010 on: {len(td):,} ({int(td['td_redated'].sum())} re-dated to their file's season)")
+    fixed: list = []
+    if not a.no_corrections:
+        if not X.ODDS_CORRECTIONS.exists():
+            raise SystemExit(f"{X.ODDS_CORRECTIONS} is missing; rebuild it (src/eda/input_data_audit/consensus.py) "
+                             "or run with --no-corrections")
+        td, fixed = X.apply_odds_corrections(
+            td, pd.read_csv(X.ODDS_CORRECTIONS, dtype=str, keep_default_na=False), BOOKS)
+        log(f"odds corrections: {len(fixed)} rows with prices exchanged")
     m = stage0_side()
     log(f"Stage 0 main-draw matches at the linked levels: {len(m):,}")
     scan = scan_py_method(td, variants(m), m)
@@ -484,10 +504,12 @@ def main() -> int:
                                       "PSW", "PSL"]]
     un = un.assign(reason=reason[un.index].astype(str))
     summary = summary_of(o, td, reason, counts, scan)
-    o.to_parquet(ODDS, index=False)
-    un.to_parquet(UNLINKED, index=False)
-    SUMMARY.write_text(json.dumps(summary, indent=2, default=str), encoding="utf-8")
-    log(f"wrote {ODDS.name} ({len(o):,} rows), {UNLINKED.name} ({len(un):,} rows), {SUMMARY.name}")
+    summary["odds_corrections"] = {"file": X.ODDS_CORRECTIONS.relative_to(ROOT).as_posix(), "rows": fixed}         if not a.no_corrections else None
+    out.mkdir(parents=True, exist_ok=True)
+    o.to_parquet(out / ODDS.name, index=False)
+    un.to_parquet(out / UNLINKED.name, index=False)
+    (out / SUMMARY.name).write_text(json.dumps(summary, indent=2, default=str), encoding="utf-8")
+    log(f"wrote {ODDS.name} ({len(o):,} rows), {UNLINKED.name} ({len(un):,} rows), {SUMMARY.name} to {out}")
     return 0
 
 

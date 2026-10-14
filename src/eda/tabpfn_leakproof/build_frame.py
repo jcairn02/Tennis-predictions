@@ -51,6 +51,8 @@ def changes(old: pd.DataFrame, new: pd.DataFrame) -> pd.DataFrame:
 
 
 def main() -> int:
+    from src.eda.lower_level_evidence import level_layer_ios as _LLEIOS  # level layer, joint solves (LLE_LAYER)
+    _LLEIOS.require_consistent(ROOT, "ios_part")  # level layer, joint solves (LLE_LAYER)
     X0_train, y0_train, X0_query, manifest0 = OD.load_upload()
     ids0 = pd.read_parquet(T.UPLOAD / "query_ids.parquet")
     f = pd.read_parquet(T.OUT / "frame.parquet")

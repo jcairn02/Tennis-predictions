@@ -1,0 +1,29 @@
+G1 {'pass': True, 'inputs_exact': 58, 'inputs_not_exact': [], 'identifiers_equal': {'tour': True, 'season': True, 'tournament_date': True, 'p_mkt': True, 'tabpfn_split': True, 'debut_season': True, 'a_won_seasons_to_2024': True}}
+constants {'what': "the tuned constants of the arm's build equal the reference build's", 'stage1_chosen_equal': True, 'offset_constants_equal': True, 'offset_surface_blind_constants_equal': True, 'stage3_chosen_equal': {'atp': True, 'wta': True}, 'stageB_chosen_equal': True, 'stageB_tuned_equals_reference_in_this_build': {'atp|spw': True, 'atp|rpw': True, 'atp|tpw': True, 'wta|spw': True, 'wta|rpw': True, 'wta|tpw': True}, 'pass': True}
+season profile {'matches_changed': 0, 'every_input_to_2024_equal': {'atp': True, 'wta': True}, 'first_changed_season': {'atp': None, 'wta': None}}
+C2 end to end {'checked': True, 'file': 'C:\\Users\\zerom\\Documents\\Tennis-predictions\\data\\studies\\lower_level_evidence\\system\\ios_layer\\inputs\\IDENTITY_m1.parquet', 'inputs': 22, 'exact': 22, 'pass': True}
+G5 {'what': "G5: the builders' own leak probes in the arm's build, hooks on: no protected match moved", 'probes': {'stage1_elo': {'atp_ret': 0, 'atp_noret': 0, 'wta_ret': 0, 'wta_noret': 0}, 'stage3_ratings': {'atp': 0, 'wta': 0}, 'stage4_features': {'plan': 0, 'recorded_format': 0}, 'stage4_control_caught': {'plan': 13, 'recorded_format': 13}, 'stageB_adjperf': 0, 'stageB_control_caught': 48, 'offset_elo': {'atp': {'anchored': 0, 'offset': 0, 'offset_surface_blind': 0}, 'wta': {'anchored': 0, 'offset': 0, 'offset_surface_blind': 0}}, 'surface_switch': 0}, 'protected_moved_total': 0, 'controls_caught': True, 'pass': True}
+{
+ "arm": "IDENTITY",
+ "frame_sha256": "3b8b0decc123c19ed537fba4382b54d6cfbbaaa8936648e618956858e1ec8052",
+ "config_sha256": "f5ccee3cbb29a9bf7fe39af431ce765b0c5a16cf5ce89eeba67cf8b54094a5d4",
+ "checked_at": "2026-10-10T01:02:25+00:00",
+ "G1": true,
+ "constants": true,
+ "season_profile": {
+  "matches_changed": 0,
+  "every_input_to_2024_equal": {
+   "atp": true,
+   "wta": true
+  },
+  "first_changed_season": {
+   "atp": null,
+   "wta": null
+  }
+ },
+ "C2_end_to_end": true,
+ "G5_builder_probes": true,
+ "G4": "phase 2 (the dose arms)",
+ "G6": "phase 2 (B's residual target)"
+}
+gates exit 0

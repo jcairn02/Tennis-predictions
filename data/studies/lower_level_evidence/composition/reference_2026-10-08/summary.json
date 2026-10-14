@@ -1,0 +1,306 @@
+{
+ "generated_at": "2026-10-09T15:20:06+00:00",
+ "label": "reference_2026-10-08",
+ "stage0_dir": "data/studies/current_best_model/reference_2026-10-08/frozen/tables/data/studies/predictability_diagnostic",
+ "frame": "data/studies/current_best_model/reference_2026-10-08/frozen/instance/model_frame.parquet",
+ "timing": "data/studies/current_best_model/reference_2026-10-08/frozen/tables_later/data/studies/match_timing/timing.parquet",
+ "sha256": {
+  "stage0_matches": "07bc2d34f6655fdb27426bbf348d5ed1cda35cf4e9a187bd5cd22a81108ab00f",
+  "stage0_match_players": "9b712648ed28dc7267c6bac03c051f6dc823145a2eebf74078b798083bb9f860",
+  "frame": "3b8b0decc123c19ed537fba4382b54d6cfbbaaa8936648e618956858e1ec8052"
+ },
+ "stage0_matches": 873437,
+ "stage0_buckets": {
+  "ITF": 535654,
+  "CH": 95750,
+  "MAIN": 83725,
+  "ITFQ": 71147,
+  "TQ": 35239,
+  "CHQ": 29096,
+  "GSQ": 13520,
+  "TEAM": 9306
+ },
+ "history_rows": 1746874,
+ "players": 30762,
+ "origin": "2008-11-23",
+ "targets": {
+  "frame_matches": 67226,
+  "matches_found_in_stage0": 67226,
+  "frame_matches_missing_from_stage0": 0,
+  "target_sides": 134452,
+  "sides_per_match_not_two": 0,
+  "target_buckets": {
+   "MAIN": 134452
+  },
+  "target_not_played": 0,
+  "date_mismatch_frame_vs_stage0": 0
+ },
+ "spot_check": {
+  "sides_checked": 300,
+  "values_checked": 43200,
+  "wrong": 0,
+  "first_wrong": [],
+  "passed": true
+ },
+ "clock_check": {
+  "pairs_in_365d_ranges": 7783219,
+  "counted": 7668824,
+  "counted_not_placed_first_by_clock": 30417,
+  "share_counted_not_placed_first": 0.003966318695017646,
+  "of_which_same_event_earlier_rounds": 29213,
+  "contradictions_clock_says_after": 0,
+  "left_out_other_events_same_week": 6,
+  "left_out_but_clock_says_first": 2,
+  "matches_missing_from_timing": 0
+ },
+ "windows": [
+  "14d",
+  "28d",
+  "91d",
+  "365d",
+  "career",
+  "h2w",
+  "h4w",
+  "h13w",
+  "h52w"
+ ],
+ "itf_preview": {
+  "model_sides_2019_2024": 54662,
+  "itf_results_only_incidences": 230650,
+  "distinct_itf_matches_in_a_window": {
+   "atp": 9286,
+   "wta": 28048
+  },
+  "p7_scenario_player_rows_given_a_box_score": 408372
+ },
+ "exposure": {
+  "atp 2013-18": {
+   "matches": 15639,
+   "less_exposed_under_10_main_365d": 0.21817251742438776,
+   "less_exposed_zero_main_365d": 0.033761749472472666,
+   "median_less_exposed_main_365d": 28.0
+  },
+  "atp 2019-24": {
+   "matches": 14270,
+   "less_exposed_under_10_main_365d": 0.2393833216538192,
+   "less_exposed_zero_main_365d": 0.036510161177295025,
+   "median_less_exposed_main_365d": 24.0
+  },
+  "atp 2025-26": {
+   "matches": 4810,
+   "less_exposed_under_10_main_365d": 0.2180873180873181,
+   "less_exposed_zero_main_365d": 0.03264033264033264,
+   "median_less_exposed_main_365d": 28.0
+  },
+  "wta 2013-18": {
+   "matches": 14794,
+   "less_exposed_under_10_main_365d": 0.22975530620521833,
+   "less_exposed_zero_main_365d": 0.03325672569960795,
+   "median_less_exposed_main_365d": 25.0
+  },
+  "wta 2019-24": {
+   "matches": 13061,
+   "less_exposed_under_10_main_365d": 0.2780032156802695,
+   "less_exposed_zero_main_365d": 0.04065538626445142,
+   "median_less_exposed_main_365d": 20.0
+  },
+  "wta 2025-26": {
+   "matches": 4652,
+   "less_exposed_under_10_main_365d": 0.2577386070507309,
+   "less_exposed_zero_main_365d": 0.044067067927773,
+   "median_less_exposed_main_365d": 26.0
+  },
+  "all": {
+   "matches": 67226,
+   "less_exposed_under_10_main_365d": 0.23957992443399875
+  }
+ },
+ "holdout": "parts 1-4 read no outcome; part 5 reads results of seasons <= 2024 only",
+ "scores": {
+  "model": "reference",
+  "scored_seasons": [
+   2020,
+   2024
+  ],
+  "results_read_through": 2024,
+  "matches_scored": 22265,
+  "matches_without_composition": 0,
+  "harness_check_all_matches_gain_vs_close": [
+   1.3744563925777173,
+   0.6677271339575777,
+   2.081185651197857
+  ],
+  "reference_readme_value": "+1.37 [+0.67, +2.08] (comparisons/reference/scores.csv: 1.374456)",
+  "heterogeneity": [
+   {
+    "family": "exposure_365d",
+    "tour": "both",
+    "strata": 5,
+    "chi2": 2.529495071341261,
+    "df": 4,
+    "p_value": 0.6393621461649257
+   },
+   {
+    "family": "exposure_365d",
+    "tour": "atp",
+    "strata": 5,
+    "chi2": 0.9232250291878603,
+    "df": 4,
+    "p_value": 0.9212054210412616
+   },
+   {
+    "family": "exposure_365d",
+    "tour": "wta",
+    "strata": 5,
+    "chi2": 5.748741973779753,
+    "df": 4,
+    "p_value": 0.2187145851682512
+   },
+   {
+    "family": "exposure_career",
+    "tour": "both",
+    "strata": 5,
+    "chi2": 0.9075972108846895,
+    "df": 4,
+    "p_value": 0.9234683547076741
+   },
+   {
+    "family": "exposure_career",
+    "tour": "atp",
+    "strata": 5,
+    "chi2": 3.605245576158004,
+    "df": 4,
+    "p_value": 0.4620569628407287
+   },
+   {
+    "family": "exposure_career",
+    "tour": "wta",
+    "strata": 5,
+    "chi2": 2.7592169924086605,
+    "df": 4,
+    "p_value": 0.5988928852698404
+   },
+   {
+    "family": "dose_box_max",
+    "tour": "both",
+    "strata": 4,
+    "chi2": 1.3922378772561599,
+    "df": 3,
+    "p_value": 0.7073552205756573
+   },
+   {
+    "family": "dose_box_max",
+    "tour": "atp",
+    "strata": 4,
+    "chi2": 1.7279445360220267,
+    "df": 3,
+    "p_value": 0.6307390607890504
+   },
+   {
+    "family": "dose_box_max",
+    "tour": "wta",
+    "strata": 4,
+    "chi2": 3.610163994735337,
+    "df": 3,
+    "p_value": 0.30675277115025956
+   },
+   {
+    "family": "dose_box_absdiff",
+    "tour": "both",
+    "strata": 5,
+    "chi2": 2.0375363161444744,
+    "df": 4,
+    "p_value": 0.7288548643968181
+   },
+   {
+    "family": "dose_box_absdiff",
+    "tour": "atp",
+    "strata": 4,
+    "chi2": 1.7329136315110518,
+    "df": 3,
+    "p_value": 0.6296413034347588
+   },
+   {
+    "family": "dose_box_absdiff",
+    "tour": "wta",
+    "strata": 5,
+    "chi2": 5.42598616645345,
+    "df": 4,
+    "p_value": 0.2463123653016752
+   },
+   {
+    "family": "dose_res_max",
+    "tour": "both",
+    "strata": 4,
+    "chi2": 1.056766039436466,
+    "df": 3,
+    "p_value": 0.7875198235980435
+   },
+   {
+    "family": "dose_res_max",
+    "tour": "atp",
+    "strata": 4,
+    "chi2": 1.7412133626769792,
+    "df": 3,
+    "p_value": 0.6278103249454718
+   },
+   {
+    "family": "dose_res_max",
+    "tour": "wta",
+    "strata": 4,
+    "chi2": 3.4855736860735664,
+    "df": 3,
+    "p_value": 0.32263799100686286
+   },
+   {
+    "family": "dose_res_absdiff",
+    "tour": "both",
+    "strata": 4,
+    "chi2": 1.7763344529653986,
+    "df": 3,
+    "p_value": 0.6200983148152333
+   },
+   {
+    "family": "dose_res_absdiff",
+    "tour": "atp",
+    "strata": 4,
+    "chi2": 2.0849140454044988,
+    "df": 3,
+    "p_value": 0.554970778798435
+   },
+   {
+    "family": "dose_res_absdiff",
+    "tour": "wta",
+    "strata": 4,
+    "chi2": 4.6309070637259016,
+    "df": 3,
+    "p_value": 0.20090669558138527
+   },
+   {
+    "family": "exposure_x_dose",
+    "tour": "both",
+    "strata": 4,
+    "chi2": 2.9208634753461085,
+    "df": 3,
+    "p_value": 0.4039880928666717
+   },
+   {
+    "family": "exposure_x_dose",
+    "tour": "atp",
+    "strata": 4,
+    "chi2": 1.778290548000734,
+    "df": 3,
+    "p_value": 0.6196705122337236
+   },
+   {
+    "family": "exposure_x_dose",
+    "tour": "wta",
+    "strata": 4,
+    "chi2": 5.858013271825575,
+    "df": 3,
+    "p_value": 0.1187262784110244
+   }
+  ]
+ },
+ "seconds": 103.2
+}

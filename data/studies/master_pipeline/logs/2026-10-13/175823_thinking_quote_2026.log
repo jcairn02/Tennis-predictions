@@ -1,0 +1,39 @@
+# ./python_tabpfn.sh -m src.pipeline.thinking_api quote --folder 'C:\Users\zerom\Documents\Tennis-predictions\data\studies\master_pipeline\thinking\template_2026-10-10\season2026' --daily-matches 5
+# started 2026-10-13T17:58:23-07:00
+{
+ "season": 2026,
+ "training_rows": 62869,
+ "features": 57,
+ "fit_quote": {
+  "estimated_cost": 727604,
+  "pricing_version": "quota_v3",
+  "inputs": {
+   "train_rows": 62869,
+   "raw_columns": 57,
+   "test_rows": 0,
+   "model_version": "v3.5",
+   "operation": "thinking_fit",
+   "n_estimators": 8,
+   "thinking_effort": "high"
+  }
+ },
+ "daily_predict_quote": {
+  "estimated_cost": 126286,
+  "pricing_version": "quota_v3",
+  "inputs": {
+   "train_rows": 62869,
+   "raw_columns": 57,
+   "test_rows": 920,
+   "model_version": "v3.5",
+   "operation": "thinking_predict",
+   "n_estimators": 8,
+   "thinking_effort": null
+  }
+ },
+ "daily_matches": 5,
+ "daily_tokens_remaining": 5000000,
+ "monthly_tokens_remaining": 16238035,
+ "note": "past bills were 25% of the quote (4 of 4 runs, the Thinking studies); a quote is not a bill"
+}
+
+# ok, exit 0, 3.0 s

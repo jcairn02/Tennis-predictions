@@ -1,0 +1,120 @@
+timing: start non-null share 1.0
+count    873437.000000
+mean      17786.753411
+std        1755.358470
+min       14606.000000
+25%       16272.000000
+50%       17777.000000
+75%       19415.000000
+max       20733.000000
+Name: start, dtype: float64
+start fractional-day share > 0: 0.0
+sample starts: [20220.0, 19072.0, 16874.0, 16462.0, 18764.0, 20465.0, 18099.0, 17189.0]
+es sample: [20221.0, 19070.0, 16874.0, 16465.0, 18762.0]
+best_source
+flashscore          270116
+tennis_data          83183
+sofascore            79892
+api_tennis           14953
+pbp_copy             14609
+wta_api              13721
+live_tennis_api       7930
+slam_feeds            3242
+match_charting        1025
+tdi                    882
+tml_days               113
+open_tennis_data         1
+Name: count, dtype: int64
+
+Stage 0 level x tour counts
+tour      atp     wta
+level                
+CH     116167    8679
+FIN       362     359
+GS      15903   14635
+ITF    277637  329164
+T1000   13401   14153
+T250    28576   24428
+T500     9602   11065
+TEAM     5067    4239
+
+Stage 0 status counts
+status
+completed    838580
+retired       30242
+walkover       4102
+other           513
+Name: count, dtype: int64
+
+TEAM-like levels sample tournament names:
+tournament_name
+United Cup                     246
+Atp Cup                        170
+Olympics                       128
+Tokyo Olympics                 128
+Paris Olympics                 128
+BJK Cup Finals                  94
+BJK Cup Qualifiers              85
+Dusseldorf                      78
+Laver Cup                       70
+London Olympics                 64
+Rio Olympics                    64
+BJK Cup Playoffs                60
+Davis Cup G2 R1: MEX vs GUA     11
+Davis Cup G1 R1: DOM vs URU     11
+Davis Cup G2 R2: PHI vs PAK      9
+Davis Cup G2 R1: PER vs ESA      8
+Fed Cup WG SF: ITA vs CZE        8
+Davis Cup G2 R2: INA vs THA      8
+Davis Cup G2 R1: KOR vs SYR      8
+Davis Cup G2 R1: SRI vs THA      8
+Davis Cup WG R1: CAN vs FRA      8
+Davis Cup WG R1: SUI vs USA      8
+Davis Cup G2 R1: BAR vs PAR      8
+Davis Cup G1 R2: UZB vs IND      8
+Davis Cup G2 R1: KUW vs THA      8
+Name: count, dtype: int64
+
+entry codes
+entry
+NaN      1359007
+Q         213111
+WC        129669
+LL         17289
+ALT        10318
+SE          6049
+PR          5093
+SR          1768
+JE          1490
+IR           984
+JR           931
+ITF          747
+NG           161
+CO            87
+S             61
+P             52
+IP             9
+3)             8
+6)A            7
+6/ITF          6
+Name: count, dtype: int64
+
+frame: share with start / time of day / minutes, by tour x season
+       has_start      has_tod      has_min       
+tour         atp  wta     atp  wta     atp    wta
+season                                           
+2013         1.0  1.0     0.0  0.0   1.000  0.005
+2014         1.0  1.0     0.0  0.0   1.000  0.000
+2015         1.0  1.0     0.0  0.0   0.520  0.000
+2016         1.0  1.0     0.0  0.0   0.997  0.996
+2017         1.0  1.0     0.0  0.0   0.989  0.992
+2018         1.0  1.0     0.0  0.0   0.996  0.997
+2019         1.0  1.0     0.0  0.0   0.998  0.996
+2020         1.0  1.0     0.0  0.0   1.000  1.000
+2021         1.0  1.0     0.0  0.0   0.999  0.975
+2022         1.0  1.0     0.0  0.0   0.954  0.946
+2023         1.0  1.0     0.0  0.0   1.000  0.999
+2024         1.0  1.0     0.0  0.0   0.953  0.936
+2025         1.0  1.0     0.0  0.0   0.953  0.936
+2026         1.0  1.0     0.0  0.0   1.000  0.939
+frame level counts: {'T250': 25997, 'T1000': 15907, 'GS': 13903, 'T500': 10940, 'FIN': 479}

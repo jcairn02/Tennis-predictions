@@ -1,0 +1,58 @@
+READY: role B's parameters (src/eda/lower_level_evidence/relationship.py), 9 Oct 2026 23:15 UTC. For checkpoint CP1
+(lead + E). Report: docs/studies/lower_level_evidence/system/B_relationship.md.
+
+THE TABLES
+    relationship/params.parquet          sha256 4c559abd356f7c9f0f53c958c5d8293ae55d0cdfa62c4e9da689c94c91a801fb
+                                         (also params.sha256). 3,808 rows: season_used 2013-2026 x (atp, wta) x
+                                         (19 statistics x levels MAIN TQ GSQ CH CHQ ITF ITFQ; and stat "results" x
+                                         TQ GSQ CH CHQ ITF ITFQ). One row per (season_used, tour, stat, level).
+                                         Women's hold, brk, bp_faced_pg, def_bp_faced_pg have no rows for 2013-2015: no
+                                         women's box score of any level has service-game counts before 2015 (main tour)
+                                         or 2016 (lower levels), so no observation needs them.
+    relationship/params_noclass.parquet  sha256 4018747db6cbbd01bfb5591bb32a9f57ba47f1df853eb9d4d9d455543a1a4e94
+                                         (params_noclass.sha256): the SAME frozen table with the no-class fit
+                                         (SYS_NOCLASS) in the standard columns gamma, delta, w (a view written by
+                                         relationship_report.py; no interval columns). Point a SYS_NOCLASS config's
+                                         "params" at it; no loader change.
+
+THE METHOD (frozen; chosen on 2013-2024 evidence only)
+    F4 for both tours: a lower-level row's logit rate is translated by T = gamma/100 x (opponent's pre-match Elo -
+    strength_ref) + delta (gamma only for A's class OPP; delta only at A's delta_levels), weighted by w (per statistic,
+    tour, level; shrunk across statistics within the level), prior "pool" (the newcomer prior is NOT kept), recency
+    half-life chosen per season on the fit window. w_results per level from the Elo grid's walk-forward choice.
+    Every season Y fitted on main-tour targets of the trailing 6 seasons in by season_cutoff(Y) (lf + 1 <= es).
+
+FROZEN (relationship/method_freeze.json, sha256 5a60089732cb359b564ae8d1c9d093f059e42e7ab2e8d39ede3a41d863917461,
+written 23:02:20 UTC)
+    relationship.py      06a85f00a2051a53063bdc706d06d360e80e2bd11bf2532aa2abb600df982575  (= every row's code_sha256)
+    classify.py (A)      5eecfaf34fbaa573459af5629e09490ba55decbd54912ada219a98578a2fbb4d
+    common.py            0e1ff56cae28cc0ed5d67f8e3b0d2202d815bef4ab112a895648f2de60d06bec
+    classes/classes.csv  58e7862273bfaf8bfbe6283c72b54e80f219ff36c0f83df795076d52ae940c26
+    strength_elo.parquet 4fa9a573e7d0fbc34ab95f5f6c5efc97b835471a0f676bb5f14c182321c34d0d
+    params_dev.parquet   90d6dff1fd32353bda4a3fe9b90fb94504daa80ed482ec5a71b79cdcd2cdfad1  (the 2013-2024 rows)
+    elo_w_results.csv    8d824ff6cf5ef226ff86199557855dec7005a9a2f45166f8537f3197b5a292eb  (re-run with the frozen file:
+                         byte-identical)
+    The 2025 and 2026 rows: one run of `relationship.py --mechanical` (23:02-23:10 UTC), which refuses unless every
+    hash above matches; its output went to relationship/holdout_sealed/ (log, rows, draws) and was NOT read. Checked
+    only: exit 0, 556 rows, every one with code_sha256 06a85f00..., no duplicate key.
+
+FOR C1 (level_layer)
+    PARAM_COLS present; gamma per 100 Elo (gamma_scale 100); use params_season_floor 2013 for 2010-2012 rows.
+    w = 0 where `fitted` is false (ITF, ITFQ every season; men's CHQ before season_used 2018; women's WTA 125 before
+    2017; women's CHQ through 2024): under the own-season convention men's 2016-2017 CHQ rows get w = 0 (watch the input
+    check). Forms' norm rows: the mirror statistic's own row (def_* for ace/df/first_in/bp_faced_pg; rpw_first,
+    rpw_second, rpw, brk, bp_conv with the logit sign flipped) rather than producer_gamma = -1: A's measured mirrors are
+    not symmetric (men spw -0.060 vs rpw -0.076; ace -0.075 vs def_ace +0.101). Elo: K x w_results and the count
+    advances by w_results (counting a discounted result as a full one is worse: men -1.17 mLL).
+FOR C2 (joint solves)
+    The level term: a fixed effect estimated inside the solve (form b), not the supplied delta (residual after the Elo
+    gap, not after the solve). One weight per observation: column w_joint (mean of the two sides' w). Prior: pool.
+HOME-TIER RULE (should the newcomer prior be revisited): own_history (365 days, every level, ties to the higher tier),
+    newcomer = fewer than 5 main-tour box scores of the statistic in 730 days (B_relationship.md section 9).
+
+CHECKS
+    tests: test/lower_level_evidence/test_relationship.py, 19 pass (planted gamma/delta/w/prior recovered in 5 worlds;
+    window sums = brute force; walk-forward invariance to every result after the cutoff; the ITF/level rule; Elo pass
+    = Stage 1's; holdout refusals; the 2025-2026 rows carry the frozen hash).
+    dev: 21,852 fits, 0 unconverged; params: 0 unconverged, every point estimate inside its 60-draw interval;
+    season cutoffs = A's season_cutoff 2013-2026; Elo at w = 1 reproduces the reference to 1.2e-4 Elo.

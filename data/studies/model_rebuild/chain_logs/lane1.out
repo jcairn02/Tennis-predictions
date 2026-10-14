@@ -1,0 +1,24 @@
+--> stage1_baselines: src/eda/predictability_diagnostic/stage1_baselines.py
+    exit 0 in 1132.7 s
+--> stage3_ratings: src/eda/predictability_diagnostic/stage3_ratings.py
+    exit 0 in 166.0 s
+--> stage4_features: src/eda/predictability_diagnostic/stage4_features.py
+    exit 1 in 3.0 s
+Traceback (most recent call last):
+  File "C:\Users\zerom\tnr_sb\src\eda\predictability_diagnostic\stage4_features.py", line 1612, in <module>
+    sys.exit(main())
+             ^^^^^^
+  File "C:\Users\zerom\tnr_sb\src\eda\predictability_diagnostic\stage4_features.py", line 1555, in main
+    plan_hash, cand_hash = sha256(PLAN), sha256(CANDIDATES)
+                           ^^^^^^^^^^^^
+  File "C:\Users\zerom\tnr_sb\src\eda\predictability_diagnostic\stage4_features.py", line 122, in sha256
+    return hashlib.sha256(path.read_bytes()).hexdigest()
+                          ^^^^^^^^^^^^^^^^^
+  File "C:\Users\zerom\miniforge3\envs\tennis\Lib\pathlib.py", line 1050, in read_bytes
+    with self.open(mode='rb') as f:
+         ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\zerom\miniforge3\envs\tennis\Lib\pathlib.py", line 1044, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: 'C:\\Users\\zerom\\tnr_sb\\docs\\studies\\predictability_diagnostic\\candidates.md'
+

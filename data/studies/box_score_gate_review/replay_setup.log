@@ -1,0 +1,100 @@
+>>> C:\Users\zerom\Documents\Tennis-predictions\src\eda\daily_prediction\dp.py init --run C:\Users\zerom\Documents\Tennis-predictions\data\studies\box_score_gate_review\replay\base --replay-week 2026-07-13 --replay-round R16 --seeds 0-15
+{
+ "created_at": "2026-10-14T044631Z",
+ "mode": "replay",
+ "replay": {
+  "week": "2026-07-13",
+  "round": "R16",
+  "winner": "A",
+  "dating": "training"
+ },
+ "matchups_csv": null,
+ "checkpoint": "auto",
+ "seeds": "0-15",
+ "work_tree": "C:\\Users\\zerom\\tnr_gate_review",
+ "instance": "C:\\Users\\zerom\\Documents\\Tennis-predictions\\data\\studies\\current_best_model\\template_2026-10-13",
+ "base_tree": "C:\\Users\\zerom\\tnr_gaps"
+}
+>>> C:\Users\zerom\Documents\Tennis-predictions\src\eda\daily_prediction\dp.py worktree --run C:\Users\zerom\Documents\Tennis-predictions\data\studies\box_score_gate_review\replay\base
+{
+ "work_tree": "C:\\Users\\zerom\\tnr_gate_review",
+ "replay": true,
+ "seconds": 5.6,
+ "constants_from": "C:\\Users\\zerom\\Documents\\Tennis-predictions\\data\\studies\\daily_prediction\\state\\template_2026-10-13\\2026-09-21",
+ "constants_replaced": {
+  "data/studies/predictability_diagnostic/stage1_baselines_summary.json": {
+   "before": "3c55a8bb29ed233d74826db6c6fc438a7317af3ce28c7c903257f7493896bbaf",
+   "after": "fdbd7e76be042e82ab7a4c2358ab31a0bba1818072d979efccef88d8998b7cec"
+  },
+  "data/studies/predictability_diagnostic/stage3_ratings_summary.json": {
+   "before": "05209c18235f96b732b545c5d5c50bd4303d0d802ba11afa4039d18fc0544b7b",
+   "after": "39ce715918793d53d0a20179eac5ca8a817aedd385a8b2de08f4bced8aae435d"
+  },
+  "data/studies/predictability_diagnostic/stage4_constants.csv": {
+   "before": "775d71e473574078f10bb97f303baf60a9f6ae9448b529c9a40672b98806224e",
+   "after": "16cf465532a8dd83691db8f124ec1060266617b5048a2598c38db0598a0e8bf3"
+  },
+  "data/studies/surface_elo_pieces/pieces_meta.json": {
+   "before": "766589ccfff670729915ce2f86db543ae46fba930b75332a4cb84c3c4858d714",
+   "after": "078b0105b0dc3b9add2b3f7b75d5641b42e142eaa1a9255b7e085bc3c17add30"
+  }
+ }
+}
+>>> C:\Users\zerom\Documents\Tennis-predictions\src\eda\daily_prediction\dp.py matchups --run C:\Users\zerom\Documents\Tennis-predictions\data\studies\box_score_gate_review\replay\base
+{
+ "kind": "replay",
+ "week": "2026-07-13",
+ "round": "R16",
+ "placeholder_winner": "A",
+ "dating": "training",
+ "targets": 23,
+ "left_out_later": 52,
+ "placeholder_reverses_result": 10,
+ "by_event": [
+  {
+   "tour": "atp",
+   "tournament_name": "Bastad",
+   "matches": 4
+  },
+  {
+   "tour": "atp",
+   "tournament_name": "Gstaad",
+   "matches": 3
+  },
+  {
+   "tour": "atp",
+   "tournament_name": "Umag",
+   "matches": 8
+  },
+  {
+   "tour": "wta",
+   "tournament_name": "Athens",
+   "matches": 4
+  },
+  {
+   "tour": "wta",
+   "tournament_name": "Iasi",
+   "matches": 4
+  }
+ ],
+ "base_tree": "C:\\Users\\zerom\\tnr_gaps",
+ "frame": "C:\\Users\\zerom\\Documents\\Tennis-predictions\\data\\studies\\current_best_model\\template_2026-10-13\\model_frame.parquet"
+}
+>>> C:\Users\zerom\Documents\Tennis-predictions\src\eda\daily_prediction\dp.py prices --run C:\Users\zerom\Documents\Tennis-predictions\data\studies\box_score_gate_review\replay\base
+{
+ "priced": 23,
+ "sources": {
+  "instance frame p_mkt (betonline)": 19,
+  "instance frame p_mkt (average)": 4
+ },
+ "quoted_at_given": 0
+}
+>>> C:\Users\zerom\Documents\Tennis-predictions\src\eda\daily_prediction\dp.py tables --run C:\Users\zerom\Documents\Tennis-predictions\data\studies\box_score_gate_review\replay\base
+[    0.4s] --> stage0: src/eda/predictability_diagnostic/stage0_build.py --live-rows run/live_rows.parquet
+[  113.8s]     exit 0 in 113.4 s
+[  113.8s] --> additions: src/eda/current_best_model/additions.py --apply
+[  133.6s]     exit 1 in 19.8 s
+the merge made duplicate match ids, sides or timeline rows
+
+tables: step additions failed (its log: C:\Users\zerom\tnr_gate_review\logs)
+tables failed for C:\Users\zerom\Documents\Tennis-predictions\data\studies\box_score_gate_review\replay\base (exit 1)

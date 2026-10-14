@@ -1,0 +1,210 @@
+"""Tests of the prediction run (src/eda/prediction_run/; docs/decisions/2026-10-08-prediction-run-box-scores.md), offline:
+
+1. Stage 0 takes live rows only in a prediction run's sandbox or an --out-dir, and a live row replaces the played row of
+   the same match (a replay) while "drop" rows leave matches out; nothing else moves.
+2. A replay row is the match's own TML row less its outcome, the placeholder won by the player asked for.
+3. The WTA API's box score maps to Stage 0's counts with break points read on the returner's side, and a fill is kept
+   only when every set's games agree with TML's score.
+4. The gate passes a match whose players' earlier matches all have box scores, and fails one whose same-event earlier
+   round lacks one, or a qualifier without qualifying matches.
+
+Run: ./python.sh -m pytest test/prediction_run -q
+"""
+from __future__ import annotations
+
+import sys
+from pathlib import Path
+
+import numpy as np
+import pandas as pd
+import pytest
+
+ROOT = Path(__file__).resolve().parents[2]
+sys.path.insert(0, str(ROOT))
+
+from src.eda.prediction_run import fills as FL  # noqa: E402
+from src.eda.prediction_run import gate as G  # noqa: E402
+from src.eda.prediction_run import live_rows as LR  # noqa: E402
+from src.eda.predictability_diagnostic import stage0_build as B  # noqa: E402
+
+
+# ------------------------------------------------------------------------------------------------ 1. Stage 0's live rows
+
+def tml_row(tid="2026-321", name="Stuttgart", rnd="R16", w="Anna Alpha", lo="Bea Beta", score="6-3 6-4", **extra):
+    row = {c: "" for c in B.KEEP}
+    row.update({"tourney_id": tid, "tourney_name": name, "surface": "Grass", "draw_size": "32", "tourney_level": "A",
+                "tourney_date": "20260608", "match_num": "1", "score": score, "best_of": "3", "round": rnd,
+                "indoor": "O", "winner_name": w, "loser_name": lo, "winner_id": "1", "loser_id": "2",
+                "_source_file": "x.csv", "_row": "1"})
+    row.update(extra)
+    return row
+
+
+def raw_frame(rows):
+    raw = pd.DataFrame(rows).reindex(columns=B.KEEP)
+    raw["source"], raw["group"], raw["tour"], raw["file_season"] = "tml", "atp_main", "atp", 2026
+    raw["rid"] = np.arange(len(raw), dtype="int64")
+    return raw
+
+
+def test_live_rows_are_refused_in_the_repositorys_stage0(monkeypatch, tmp_path):
+    monkeypatch.setattr(B, "SANDBOX_MARKER", tmp_path / "no_marker")
+    with pytest.raises(SystemExit, match="sandbox"):
+        B.build(live_rows=tmp_path / "live.parquet")
+
+
+def test_a_live_row_replaces_its_played_row_and_drop_rows_leave_matches_out():
+    played = [tml_row(), tml_row(rnd="QF", w="Anna Alpha", lo="Cara Gamma"), tml_row(w="Dana Delta", lo="Eve Eps")]
+    live = pd.DataFrame([tml_row(w="Bea Beta", lo="Anna Alpha", score="6-4 6-4"),           # the R16, sides exchanged
+                         tml_row(rnd="QF", w="Anna Alpha", lo="Cara Gamma")]).assign(tour="atp")
+    live["live_role"] = ["live", "drop"]
+    df = B.normalise(B.add_live_rows(raw_frame(played), live))
+    summary: dict = {}
+    out = B.drop_replaced(df, summary)
+    assert summary["live_rows"] == {"rows": 1, "played_rows_replaced": 2, "left_out_by_name": 1}
+    kept = set(zip(out["round"], out["winner_name"], out["group"]))
+    assert kept == {("R16", "Bea Beta", "live"), ("R16", "Dana Delta", "atp_main")}
+    assert "live_role" not in out.columns
+
+
+def test_upcoming_matches_replace_nothing():
+    live = pd.DataFrame([tml_row(rnd="QF", w="Dana Delta", lo="Bea Beta", score="6-4 6-4")]).assign(tour="atp")
+    df = B.normalise(B.add_live_rows(raw_frame([tml_row(), tml_row(w="Dana Delta", lo="Eve Eps")]), live))
+    summary: dict = {}
+    out = B.drop_replaced(df, summary)
+    assert summary["live_rows"]["played_rows_replaced"] == 0 and len(out) == 3
+
+
+# ------------------------------------------------------------------------------------------------ 2. replay rows
+
+def test_a_replay_row_is_the_match_less_its_outcome():
+    box = {f"{s}_{c}": "5" for s in ("w", "l") for c in ("ace", "df", "svpt", "1stIn", "1stWon", "2ndWon", "SvGms",
+                                                          "bpSaved", "bpFaced")}
+    raw = pd.DataFrame([tml_row(minutes="95", winner_age="24.5", loser_age="30.1", winner_rank="10", loser_rank="40",
+                                **box)])
+    raw["_row"] = pd.array([1], dtype="Int64")
+    target = pd.DataFrame({"match_id": ["atp|2026-321|R16|atp:1|atp:2"], "tour": ["atp"], "source_file": ["x.csv"],
+                           "source_row": [1], "player_a_id": ["atp:2"], "player_b_id": ["atp:1"], "a_won": [False]})
+    players = pd.DataFrame({"match_id": [target["match_id"][0]] * 2, "player_id": ["atp:1", "atp:2"],
+                            "player_name": ["Anna Alpha", "Bea Beta"]})
+    rows = LR.replay_rows(target, target.iloc[0:0], raw, players, placeholder_winner="A")    # A is Bea, the loser
+    r = rows.iloc[0]
+    assert r["winner_name"] == "Bea Beta" and r["loser_name"] == "Anna Alpha"
+    assert (r["winner_age"], r["loser_age"], r["winner_rank"], r["loser_rank"]) == ("30.1", "24.5", "40", "10")
+    assert r["score"] == "6-4 6-4" and r["minutes"] == "" and all(r[c] == "" for c in LR.BOX)
+    assert r["tourney_id"] == "2026-321" and r["live_role"] == "live"
+
+
+# ------------------------------------------------------------------------------------------------ 3. WTA fills
+
+def test_the_wta_box_score_reads_break_points_on_the_returners_side():
+    total = {"acesa": "3", "acesb": "5", "dblflta": "2", "dblfltb": "4", "totservplayeda": "60", "totservplayedb": "70",
+             "ptsplayed1stserva": "40", "ptsplayed1stservb": "45", "ptswon1stserva": "30", "ptswon1stservb": "28",
+             "ptstotwonserva": "40", "ptstotwonservb": "41", "servgamesplayeda": "9", "servgamesplayedb": "9",
+             "breakptsplayeda": "6", "breakptsplayedb": "2", "breakptsconva": "3", "breakptsconvb": "1"}
+    a = FL.api_counts(total, "a")
+    assert (a["ace"], a["svpt"], a["first_in"], a["first_won"], a["second_won"]) == (3, 60, 40, 30, 10)
+    assert (a["bp_faced"], a["bp_saved"]) == (2, 1)       # B's chances on A's serve: 2, converted 1
+
+
+def test_set_scores_are_compared_from_the_winners_side():
+    m = {"ScoreSet1A": "4", "ScoreSet1B": "6", "ScoreSet2A": "7", "ScoreSet2B": "6", "ScoreSet3A": "3", "ScoreSet3B": "6"}
+    assert FL.api_games(m, "B") == FL.games("6-4 6-7(5) 6-3")
+    assert FL.api_games(m, "A") != FL.games("6-4 6-7(5) 6-3")
+
+
+# ------------------------------------------------------------------------------------------------ 3b. live windows
+
+def test_a_live_match_takes_its_tours_current_window(tmp_path, monkeypatch):
+    """ATP matches dated a day wide until June, exactly since July (as TDI's point logs began): a live match in October
+    takes the recent norm (0 days before its day); WTA, with too few recent matches, takes the year's (1)."""
+    from src.eda.match_timing import common as MTC
+    from src.eda.prediction_run import inject as I
+    from src.eda.predictability_diagnostic import common as C
+
+    rows, timing = [], []
+    day = lambda s: float((pd.Timestamp(s) - pd.Timestamp("1970-01-01")).days)  # noqa: E731
+    for i in range(400):
+        tour = "atp" if i < 300 else "wta"              # ATP: two a day back to May (120 in the last 60 days)
+        back = i % 150 if tour == "atp" else (i - 300) * 3    # WTA: one every three days (20 in the last 60)
+        when = pd.Timestamp("2026-10-07") - pd.Timedelta(days=back)
+        gap = 0 if (tour == "atp" and when >= pd.Timestamp("2026-07-01")) else 1
+        mid = f"m{i}"
+        rows.append({"match_id": mid, "level": "T250", "qualifying": False, "tournament_date": when})
+        # the timeline repeats Stage 0's level, qualifying and tournament date, as timing.parquet does
+        timing.append({"match_id": mid, "tour": tour, "level": "T250", "qualifying": False, "tournament_date": when,
+                       "es": day(when) - gap, "lf": day(when), "obs": day(when), "exact": True,
+                       "width_days": float(gap)})
+    rows += [{"match_id": "live_a", "level": "T500", "qualifying": False, "tournament_date": pd.Timestamp("2026-10-05")},
+             {"match_id": "live_w", "level": "T500", "qualifying": False, "tournament_date": pd.Timestamp("2026-10-05")}]
+    timing += [{"match_id": k, "tour": tour, "level": "T500", "qualifying": False,
+                "tournament_date": pd.Timestamp("2026-10-05"), "es": 0.0, "lf": 0.0, "obs": 0.0, "exact": False,
+                "width_days": 0.0} for k, tour in (("live_a", "atp"), ("live_w", "wta"))]
+    (tmp_path / "mt").mkdir()
+    pd.DataFrame(rows).to_parquet(tmp_path / "matches.parquet")
+    pd.DataFrame(timing).to_parquet(tmp_path / "mt" / "timing.parquet")
+    monkeypatch.setattr(C, "MATCHES", tmp_path / "matches.parquet")
+    monkeypatch.setattr(MTC, "OUT", tmp_path / "mt")
+    meta = pd.DataFrame({"match_id": ["live_a", "live_w"], "tour": ["atp", "wta"],
+                         "day": [pd.Timestamp("2026-10-08")] * 2})
+    out = I.pin(meta)
+    assert out["days_before"] == {"atp": 0.0, "wta": 1.0}
+    assert out["measured_on"]["atp"]["days"] == I.PIN_DAYS and out["measured_on"]["wta"]["days"] == I.PIN_FALLBACK
+    t = pd.read_parquet(tmp_path / "mt" / "timing.parquet").set_index("match_id")
+    assert t.loc["live_a", "es"] == day("2026-10-08") and t.loc["live_w", "es"] == day("2026-10-07")
+    assert bool(t.loc["live_a", "exact"])
+
+
+# ------------------------------------------------------------------------------------------------ 4. the gate
+
+def gate_tables(tmp_path, earlier_box=True, entry=""):
+    ms = pd.DataFrame([
+        {"match_id": "e1", "tour": "wta", "tournament_id": "2026-1", "tournament_name": "X", "round": "R32",
+         "round_order": 13, "status": "completed", "has_box": earlier_box, "qualifying": False,
+         "tournament_date": pd.Timestamp("2026-10-01")},
+        {"match_id": "e0", "tour": "wta", "tournament_id": "2026-0", "tournament_name": "W", "round": "R16",
+         "round_order": 14, "status": "retired", "has_box": False, "qualifying": False,
+         "tournament_date": pd.Timestamp("2026-09-24")},
+        {"match_id": "live", "tour": "wta", "tournament_id": "2026-1", "tournament_name": "X", "round": "R16",
+         "round_order": 14, "status": "completed", "has_box": False, "qualifying": False,
+         "tournament_date": pd.Timestamp("2026-10-01")}])
+    ps = pd.DataFrame([{"match_id": m, "player_id": pid, "player_name": n, "entry": e}
+                       for m, pid, n, e in (("e1", "p1", "One", ""), ("e1", "p3", "Three", ""), ("e0", "p2", "Two", ""),
+                                            ("e0", "p4", "Four", ""), ("live", "p1", "One", ""),
+                                            ("live", "p2", "Two", entry))])
+    folder = tmp_path / "s0"
+    folder.mkdir()
+    ms.to_parquet(folder / "stage0_matches.parquet")
+    ps.to_parquet(folder / "stage0_match_players.parquet")
+    day = lambda s: float((pd.Timestamp(s) - pd.Timestamp("1970-01-01")).days)  # noqa: E731
+    pd.DataFrame({"match_id": ["e1", "e0", "live"], "lf": [day("2026-10-02"), day("2026-09-27"),
+                                                           day("2026-10-04")]}).to_parquet(tmp_path / "timing.parquet")
+    meta = pd.DataFrame({"match_id": ["live"], "day": [pd.Timestamp("2026-10-04")]})
+    return folder, tmp_path / "timing.parquet", meta
+
+
+def test_the_gate_passes_complete_inputs(tmp_path):
+    table, missing = G.check(*gate_tables(tmp_path))
+    assert bool(table["complete"].iloc[0]) and table["earlier_matches_checked"].iloc[0] == 1 and missing.empty
+
+
+def test_the_gate_fails_a_missing_same_event_box_score(tmp_path):
+    table, missing = G.check(*gate_tables(tmp_path, earlier_box=False))
+    assert not bool(table["complete"].iloc[0]) and missing["match_id"].tolist() == ["e1"]
+    assert bool(missing["same_event"].iloc[0])
+
+
+def test_the_gate_fails_a_qualifier_without_qualifying_matches(tmp_path):
+    table, _ = G.check(*gate_tables(tmp_path, entry="Q"))
+    assert not bool(table["complete"].iloc[0]) and "through qualifying" in table["reason"].iloc[0]
+
+
+def test_a_qualifiers_matches_under_another_event_id_count(tmp_path):
+    # TML files some qualifying under an id of its own: the qualifying match of 1 Oct is found by its days
+    folder, timing, meta = gate_tables(tmp_path, entry="Q")
+    ms = pd.read_parquet(folder / "stage0_matches.parquet")
+    ms.loc[ms["match_id"].eq("e0"), ["qualifying", "status", "has_box", "tournament_id"]] = [True, "completed", True,
+                                                                                             "2026-1-q"]
+    ms.to_parquet(folder / "stage0_matches.parquet")
+    table, _ = G.check(folder, timing, meta)
+    assert bool(table["complete"].iloc[0])

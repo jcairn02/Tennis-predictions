@@ -1,0 +1,14 @@
+[   14.7s] atp: Stage 1 reproduced (max diff 0.00e+00)
+[level_layer] pin offset atp: the reference's {'kd0': 80.0, 'kd_off': 10.0, 'kd_shape': 0.6} (this build's tuning chose {'kd0': 80.0, 'kd_off': 10.0, 'kd_shape': 0.6}; equal: True)
+[  220.2s] atp: offset constants {'kd0': 80.0, 'kd_off': 10.0, 'kd_shape': 0.6}
+[level_layer] pin offset_surface_blind atp: the reference's {'kd0': 20.0, 'kd_off': 40.0, 'kd_shape': 0.8} (this build's tuning chose {'kd0': 20.0, 'kd_off': 20.0, 'kd_shape': 0.8}; equal: False)
+[  351.8s] atp: surface-blind offset constants {'kd0': 20.0, 'kd_off': 40.0, 'kd_shape': 0.8}
+[  510.8s] atp: Elo probes {'anchored': {'cuts': 4, 'protected_matches_checked': 2347620, 'protected_matches_changed': 0, 'later_matches_changed': 206067}, 'offset': {'cuts': 4, 'protected_matches_checked': 2347620, 'protected_matches_changed': 0, 'later_matches_changed': 206081}, 'offset_surface_blind': {'cuts': 4, 'protected_matches_checked': 2347620, 'protected_matches_changed': 0, 'later_matches_changed': 206077}}
+[  527.9s] wta: Stage 1 reproduced (max diff 0.00e+00)
+[level_layer] pin offset wta: the reference's {'kd0': 80.0, 'kd_off': 20.0, 'kd_shape': 0.6} (this build's tuning chose {'kd0': 80.0, 'kd_off': 20.0, 'kd_shape': 0.6}; equal: True)
+[  963.3s] wta: offset constants {'kd0': 80.0, 'kd_off': 20.0, 'kd_shape': 0.6}
+[level_layer] pin offset_surface_blind wta: the reference's {'kd0': 20.0, 'kd_off': 2.0, 'kd_shape': 0.8} (this build's tuning chose {'kd0': 40.0, 'kd_off': 2.0, 'kd_shape': 0.8}; equal: False)
+[ 1320.0s] wta: surface-blind offset constants {'kd0': 20.0, 'kd_off': 2.0, 'kd_shape': 0.8}
+[ 1442.0s] wta: Elo probes {'anchored': {'cuts': 4, 'protected_matches_checked': 1950873, 'protected_matches_changed': 0, 'later_matches_changed': 170796}, 'offset': {'cuts': 4, 'protected_matches_checked': 1950873, 'protected_matches_changed': 0, 'later_matches_changed': 170809}, 'offset_surface_blind': {'cuts': 4, 'protected_matches_checked': 1950873, 'protected_matches_changed': 0, 'later_matches_changed': 170802}}
+[ 1589.8s] leak probe: 0 protected rows moved
+[ 1592.1s] wrote pieces.parquet: 1,171,445 matches

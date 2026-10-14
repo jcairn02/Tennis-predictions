@@ -1,0 +1,20 @@
+[   0.1s] matches: 1,171,445
+[level_layer] pin stage1_k ret atp: the reference's {'k0': 600.0, 'offset': 2.0, 'shape': 0.6} (this build's tuning chose {'k0': 600.0, 'offset': 2.0, 'shape': 0.6}; equal: True)
+[level_layer] pin stage1_w ret atp: the reference's 0.3 (this build's tuning chose 0.3; equal: True)
+[ 230.3s] atp ret: K {'k0': 600.0, 'offset': 2.0, 'shape': 0.6}, surface weight 0.3
+[level_layer] pin stage1_k noret atp: the reference's {'k0': 1200.0, 'offset': 10.0, 'shape': 0.7} (this build's tuning chose {'k0': 1200.0, 'offset': 10.0, 'shape': 0.7}; equal: True)
+[level_layer] pin stage1_w noret atp: the reference's 0.3 (this build's tuning chose 0.3; equal: True)
+[ 577.1s] atp noret: K {'k0': 1200.0, 'offset': 10.0, 'shape': 0.7}, surface weight 0.3
+[level_layer] pin stage1_k ret wta: the reference's {'k0': 600.0, 'offset': 1.0, 'shape': 0.6} (this build's tuning chose {'k0': 600.0, 'offset': 1.0, 'shape': 0.6}; equal: True)
+[level_layer] pin stage1_w ret wta: the reference's 0.25 (this build's tuning chose 0.25; equal: True)
+[ 810.3s] wta ret: K {'k0': 600.0, 'offset': 1.0, 'shape': 0.6}, surface weight 0.25
+[level_layer] pin stage1_k noret wta: the reference's {'k0': 600.0, 'offset': 1.0, 'shape': 0.6} (this build's tuning chose {'k0': 600.0, 'offset': 1.0, 'shape': 0.6}; equal: True)
+[level_layer] pin stage1_w noret wta: the reference's 0.25 (this build's tuning chose 0.25; equal: True)
+[1184.7s] wta noret: K {'k0': 600.0, 'offset': 1.0, 'shape': 0.6}, surface weight 0.25
+[1218.7s] rank and points regressions fitted
+[1225.8s] wrote stage1_baselines.parquet
+[1309.4s] probe atp ret: {'cuts': 6, 'protected_matches_checked': 3535667, 'protected_matches_changed': 0, 'later_matches_changed': 263900}
+[1390.5s] probe atp noret: {'cuts': 6, 'protected_matches_checked': 3535667, 'protected_matches_changed': 0, 'later_matches_changed': 263455}
+[1458.0s] probe wta ret: {'cuts': 6, 'protected_matches_checked': 2937547, 'protected_matches_changed': 0, 'later_matches_changed': 244867}
+[1522.7s] probe wta noret: {'cuts': 6, 'protected_matches_checked': 2937547, 'protected_matches_changed': 0, 'later_matches_changed': 244726}
+[1525.8s] wrote stage1_baselines_summary.json

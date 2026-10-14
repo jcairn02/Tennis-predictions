@@ -30,7 +30,8 @@ OUT = HERE.parents[3] / "data" / "studies" / "feature_universe"
 BUILD = OUT / "build"
 sys.path.insert(0, str(HERE))
 SPECS = ["spec_market", "spec_ratings", "spec_profiles", "spec_form", "spec_load", "spec_background", "spec_context",
-         "spec_shot", "spec_levels", "spec_fi_a", "spec_fi_b"]
+         "spec_shot", "spec_levels", "spec_fi_a", "spec_fi_b",
+         "spec_event_levels"]       # added 8 Oct 2026, last so that the earlier rows keep their ids
 STATUS = {"IM": "in_model", "BN": "built_not_in_model", "BD": "buildable_from_disk", "NN": "needs_new_data",
           "XL": "excluded_leaky", "MI": "market_internal"}
 TIMING = {"SC": "safe by construction", "PP": "leak-proof clock + probe passed",

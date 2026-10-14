@@ -1,0 +1,94 @@
+usage: system_pairs.py [-h] (--dev | --holdout | --harness) [--run-compare]
+                       [--without-addition] [--allow-missing ALLOW_MISSING]
+
+Role D's scorer for the level-evidence system: every arm's pre-registered readings, both stages, with compare.py's own
+functions; the selection rule applied mechanically; the 2025-2026 holdout behind its lock.
+
+The plan, every file checked against its recorded SHA-256 before anything is read (a mismatch refuses):
+    data/studies/lower_level_evidence/system/preregistration.md (cc65bcd5...) and its dated additions beside it
+    (preregistration_addition_1.md: the rule of 8 October; _2: the evaluator's four questions; the checkpoint-1
+    addition, which freezes SYS's internals and this scorer); docs/studies/lower_level_evidence/system/SPEC.md 7-8.
+
+Modes
+    --dev       seasons 2020-2024 scored, fits 2019-2024, results of seasons <= 2024 only (compare.py's filtered read).
+                It never reads, computes or prints a number of a season after 2024. It refuses to run:
+                  * until the checkpoint-1 addition is on disk: a verified dated addition whose text holds the SHA-256,
+                    as on disk now, of every file in CP1_REQUIRED (the classes, the parameters, relationship.py,
+                    level_layer.py, level_layer_ios.py: addition 2 section 5; and this scorer and the fit queue: E's
+                    checkpoint 1, M4). Any of them changed since: refused again;
+                  * once system/holdout_unlock.json exists (the dev readings are written down before the unlock);
+                  * unless every pre-registered arm is built and every one of its fits passes the provenance check
+                    (REQUIRED_DEV; the lead may waive one with --allow-missing ARM, recorded in the outputs).
+    --holdout   refuses to read any season after 2024 unless system/holdout_unlock.json exists and holds the SHA-256 of
+                every pre-registration file on disk (each equal to the file and its recorded hash) and of the written
+                dev selection (results/selection.json); and it runs once: it refuses if results/holdout/readings.json
+                exists. It also needs the checkpoint-1 addition, a final selection, the same sides.parquet as dev
+                (the strata), and every pre-registered arm with all 32 fits passing the provenance check: a selected or
+                compared arm with a missing fit fails loudly, never a fall back to REF.
+    --harness   the first run's FP and R_S2 (candidates/, read only) through this scorer's code, against compare.py's
+                scores.csv, the first run's pairs.csv and the published readings. No arm of this run is read.
+    --run-compare   with --dev: also run compare.py itself on every main arm (its vs_reference_2026-10-08/) and check that
+                its primary rows equal this scorer's. Not on the holdout: compare.py has no rule for addition 2's speed gap.
+
+compare.py's recipe, unchanged (src/eda/current_best_model/compare.py): each model's seeds 0-3 forecasts (seed_table,
+with its file checks: ids in order, training window, input list); the per-tour calibration slopes and stage 2's b,
+fitted walk-forward on 2019 .. Y - 1, debut seasons out, b shrunk with tau 0.05 (walk_forward), on the reference's
+speed column unless an arm's folder holds its own speed_columns.parquet; forecasts; paired log loss (paired: four-week
+blocks plus the seeds' variance, paired by seed between two models; unpaired against a closing price); the matches every
+frame of a group holds; the reference's match facts; debut seasons out.
+Units: mLL per match. POSITIVE = THE FIRST-NAMED MODEL HAS THE LOWER LOG LOSS (better). "X vs Y" names X first.
+Readings: "better" or "worse" when the 95% interval (compare.py's: t on blocks - 1) clears 0, otherwise "unresolved".
+P(better) = Phi(estimate / se) (the pre-registration; addition 2 section 4); compare.py's t value is kept as p_better_t,
+and a selection or recommendation step on which the two would disagree is flagged.
+
+Fit provenance at scoring (E's checkpoint 1, S8): every fit file of a scored model must record the SHA-256 of the
+model's own frame, or be a copy registered by the fit queue (system_fits.copied_registry) whose bytes still have the
+recorded hash. Anything else refuses (a fit left from before a rebuild is never scored).
+
+The 2026 speed rule (addition 2 section 1; the lead's message of 10 Oct): the reference's stage-2 speed memory is missing
+for 909 matches of 2026 (416 men's). In every reading, a match without one gets no stage-2 nudge (b * spd_L = 0, the
+forecast s_tour * eta), identically in every arm. The sensitivity, written beside the primary under separate files and
+keys: the same readings with those 909 matches (both tours) left out.
+
+The pre-registered readings (dev; the holdout adds its own below), each for both tours, men and women:
+    every arm against REF (both stages; stage 1 alone overall), overall, in the strata and in each season; SYS against
+    each challenger (SYS_w0, SYS_w50, SYS_w100, SEP_ALL, SYS_NOCLASS, SYS_S2, R_S2), SYS_PLACEBO and RES_ONLY (and the
+    optional SYS_w25, SYS_w75), overall and by season; SYS_S2 against SYS; the dose curve (SYS_w0, [SYS_w25], SYS_w50,
+    [SYS_w75], SYS_w100, SYS: each against REF and against SYS); each model against its calibrated close (scale).
+    RES_ONLY (the checkpoint-1 addition; E's M3): RES_ONLY against REF (the Elo weighting alone) and SYS against
+    RES_ONLY (the box-score layer beyond it); neither enters the selection.
+    The strata (sides.parquet of role 02, counts only; the first run's definitions): the less-exposed side's main-tour
+    results in 365 days under 10 / 10 or more; the 365-day lower-level box-score share gap 0.5 or more / under 0.5 /
+    unknown (left out); falsification: both sides 20+ main-tour results and both shares under 0.10.
+The selection rule (pre-registration "Dev"), men, both stages, dev: SYS unless a challenger has P(better than SYS) >= 0.90;
+    of several, the largest point gain over SYS (a tie: the first in CHALLENGERS' order); then REF if that arm's
+    P(better than REF) < 0.50. Women: no selection.
+The holdout: the primary (SELECTED against REF, men); the decomposition, both tours and each tour: SELECTED against
+    REF_noITF = everything the system changes except the ITF box-score exclusion, Elo weights included (the lead's
+    relabelling of 10 Oct; not "the Challenger and qualifying part"), and REF_noITF against REF = the ITF box scores as-is;
+    every secondary; the pooled 2020-2026 primary and dose curve; and the recommendation, applied mechanically, where "no
+    secondary is worse" means (addition 2 section 3): none of eight men's holdout readings of SELECTED against REF (both
+    stages: seasons 2025 and 2026, the six strata but "unknown"; and stage 1 alone overall) is worse after a Holm
+    correction at a family-wise 5%: estimate < 0 and Holm-adjusted p < 0.05, p two-sided normal,
+    2 (1 - Phi(|estimate| / se)) (the lead's ruling of 10 Oct). The raw labels are reported too.
+Addition 1 (the rule of 8 October), apart from the selection, the Holm family and the recommendation: REF_noITF against
+    REF; SYS against SYS_ITFASIS and SYS_BOTH against SYS_BOTH_ITFASIS (holdout; on dev too where their inputs differ
+    before 2025: addition 2 section 2); NEW_ASIS against REF, NEW_SYS_BOTH against SYS_BOTH and against NEW_ASIS, and
+    the optional NEW_ASIS_PRE against REF and NEW_ASIS against NEW_ASIS_PRE (dev, holdout, pooled; the candidate-Stage-0
+    arms on the matches their frames, SYS_BOTH's and the reference's all hold); with the addition's guiding reading per
+    data set (protective / holding back / mixed / unresolved).
+Writes system/results/: selection.json; dev/; holdout/ (primary files and *_drop909 sensitivity files); harness/.
+Run: ./python.sh src/eda/lower_level_evidence/system_pairs.py --harness | --dev [--run-compare] | --holdout
+                                                               [--allow-missing ARM,ARM]
+
+options:
+  -h, --help            show this help message and exit
+  --dev
+  --holdout
+  --harness
+  --run-compare
+  --without-addition    the lead's word only: score without the checkpoint-1
+                        addition
+  --allow-missing ALLOW_MISSING
+                        the lead's word only: pre-registered arms waived,
+                        comma list (recorded in the outputs)

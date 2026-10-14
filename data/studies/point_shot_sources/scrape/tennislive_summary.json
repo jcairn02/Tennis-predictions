@@ -1,8 +1,9 @@
 {
  "source": "tennislive",
- "started_at": "2026-09-24T04:04:09+00:00",
+ "started_at": "2026-10-09T03:58:11+00:00",
  "args": {
   "slugs": null,
+  "tour": "atp",
   "seasons": null,
   "states": "finished",
   "doubles": false,
@@ -12,50 +13,40 @@
   "jitter": 1.0,
   "refresh": false,
   "refresh_index": false,
-  "skip_index": true,
+  "skip_index": false,
   "skip_matches": false,
-  "stage_only": false,
+  "stage_only": true,
   "no_stage": false
  },
  "players": {},
  "matches_listed": 4250,
  "matches_selected": 4250,
- "fetch_outcomes": {
-  "page:200": 2,
-  "page:200:cached": 4248
- },
- "client": {
-  "impersonate": "safari",
-  "requests": 2,
-  "retried": 0,
-  "slept_seconds": 1.3,
-  "min_interval": 1.5
- },
+ "fetch_outcomes": {},
  "staged": {
   "index": {
-   "rows": 4293,
+   "rows": 4349,
    "dest": "data/dump/points/tennislive/index.parquet",
-   "bytes": 353498
+   "bytes": 359577
   },
   "matches": {
-   "rows": 4250,
+   "rows": 4705,
    "dest": "data/dump/points/tennislive/matches.parquet",
-   "bytes": 586474
+   "bytes": 673199
   },
   "games": {
-   "rows": 76366,
+   "rows": 80814,
    "dest": "data/dump/points/tennislive/games.parquet",
-   "bytes": 803065
+   "bytes": 870157
   },
   "points": {
-   "rows": 372281,
+   "rows": 395385,
    "dest": "data/dump/points/tennislive/points.parquet",
-   "bytes": 1835876
+   "bytes": 1950705
   },
   "statistics": {
-   "rows": 31725,
+   "rows": 33853,
    "dest": "data/dump/points/tennislive/statistics.parquet",
-   "bytes": 433719
+   "bytes": 479894
   }
  },
  "listed_by_season_kind_state": {
@@ -71,7 +62,7 @@
   "2023|singles|finished": 644,
   "2024|singles|finished": 670,
   "2025|singles|finished": 660,
-  "2026|singles|finished": 513
+  "2026|singles|finished": 569
  },
  "pages_by_year_status_pbp": {
   "2014|200|no pbp": 12,
@@ -82,25 +73,29 @@
   "2017|200|pbp": 24,
   "2018|200|no pbp": 47,
   "2018|200|pbp": 155,
-  "2019|200|no pbp": 38,
-  "2019|200|pbp": 270,
-  "2020|200|no pbp": 27,
-  "2020|200|pbp": 138,
-  "2021|200|no pbp": 56,
-  "2021|200|pbp": 266,
-  "2022|200|no pbp": 51,
-  "2022|200|pbp": 523,
-  "2023|200|no pbp": 37,
-  "2023|200|pbp": 608,
-  "2024|200|no pbp": 25,
-  "2024|200|pbp": 637,
-  "2025|200|no pbp": 35,
-  "2025|200|pbp": 619,
-  "2026|200|no pbp": 3,
-  "2026|200|pbp": 507
+  "2019|200|no pbp": 59,
+  "2019|200|pbp": 275,
+  "2020|200|no pbp": 50,
+  "2020|200|pbp": 141,
+  "2021|200|no pbp": 75,
+  "2021|200|pbp": 273,
+  "2022|200|no pbp": 64,
+  "2022|200|pbp": 536,
+  "2023|200|no pbp": 47,
+  "2023|200|pbp": 622,
+  "2024|200|no pbp": 34,
+  "2024|200|pbp": 652,
+  "2025|200|no pbp": 51,
+  "2025|200|pbp": 627,
+  "2026|200|no pbp": 43,
+  "2026|200|pbp": 690,
+  "2026|not fetched": 45,
+  "26-1|not fetched": 1,
+  "26-2|not fetched": 5,
+  "26-9|not fetched": 5
  },
  "receipts_with_errors": 0,
  "error_examples": [],
- "finished_at": "2026-09-24T04:08:32+00:00",
- "seconds": 262.5
+ "finished_at": "2026-10-09T04:02:49+00:00",
+ "seconds": 277.9
 }

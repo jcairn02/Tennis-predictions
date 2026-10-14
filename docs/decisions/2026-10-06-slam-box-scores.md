@@ -93,7 +93,21 @@ The US Open part went beyond the question's wording, so it was put to the owner.
   * Stage 0's 127 men's main-draw matches have no box score, because Sackmann's blank rows take precedence over TML's.
   * TML's men's qualifying fails Stage 0's checks in 98 of 112 matches: 84 lose their service games and 14 their whole box score.
   * Left as it is.
+  * **Corrected 9 Oct 2026 (the facts only; nothing here is decided again):**
+    * **RG 2026's official feed has been held since 7 Oct:** the Infosys key statistics and point-by-point, in `data/raw/point_sources/infosys_slams/RG/2026/`. RG's own match statistics (rolandgarros.com) were added on 9 Oct, by `src/ingest/point_sources/rolandgarros.py`.
+    * **The women's 127 main-draw matches have no box score either,** for the same reason as the men's.
+    * **A candidate applies point 4's rule to Roland Garros** ([report § 8](../studies/rg_first_serve_recount/README.md)). Three reviewers confirmed RG's own box for:
+      * all 351 Stage 0 matches of RG 2026;
+      * 953 of 2022–2025.
+
+      It enters only as a candidate under the frozen-reference rule. Adopting it, and extending the rule to Sackmann's own 2022–2025 rows, are the owner's call.
+    * **Decided since:** the owner extended point 4 to Sackmann's Roland Garros 2022–2025 rows, with adoption on a harm check ([decision of 9 Oct](2026-10-09-roland-garros-box-scores.md)).
 * **Sackmann's Roland Garros men's qualifying of 2022–2025.** It has the same fault: 65.2–68.6% first serves in where TML has 61.2–63.3%, and the extra ones were won at 47.7–52.2%, second-serve rates. It is in the training data. It is flagged and left unchanged until a study measures its effect.
+  * **Update, 9 Oct 2026:** the study is item 6 of the [adoption checklist](../studies/adoption_framework/checklist.md). Its report is the [Roland Garros first-serve recount](../studies/rg_first_serve_recount/README.md).
+    * RG's own per-match records are now held for every edition.
+    * The fault is in every draw of 2022–2025, not only the men's qualifying.
+    * Its corrections enter only as candidates.
 * **Roland Garros 2022's men's main draw**, which reads about 66% first serves in in both sources against 62–64% in the other years. With no feed to check it, it goes with the item above.
+  * **Update, 9 Oct 2026:** RG's own statistics put it at 63.4%. Sackmann's 66.1% is the same fault (same report).
 * **The source order for other events** (the WTA API, TDI). Their disagreements with TML are not yet settled, so it waits.
 * **Women's qualifying and WTA 125 after the splice**, which TML does not publish and the WTA API and Slam feeds hold. That is a coverage decision.

@@ -36,6 +36,7 @@ from src.eda.feature_alpha_audit.repair_data import repair_tables  # noqa: E402
 from src.eda.predictability_diagnostic import common as PC  # noqa: E402
 from src.eda.predictability_diagnostic import stage1_baselines as E  # noqa: E402
 from src.eda.ufc_ideas import stageB_common as B  # noqa: E402
+from src.eda.lower_level_evidence import level_layer_ios as _LLEIOS  # noqa: E402   # level layer, joint solves (LLE_LAYER)
 
 STATS = ("spw", "hold", "first_won")
 KS_MULT = (1.0, 10.0)
@@ -64,6 +65,7 @@ def solve(matches, players, odds, timing) -> dict:
               "obs": rows["match_id"].map(tm["obs"]).to_numpy(dtype=float)[idx],
               "stats": {s: {"ok": sa[s]["ok"][idx], "x": sa[s]["x"][idx], "d": sa[s]["d"][idx], "y": sa[s]["c"][idx],
                             "mu": sa[s]["mu_scale"][idx]} for s in STATS}}
+        td = _LLEIOS.annotate_td(td, rows, idx=idx, tour=t)  # level layer, joint solves (LLE_LAYER)
         pos = np.full(len(rows), -1)
         pos[idx] = np.arange(len(idx))
         sel = rows["tour"].to_numpy()[A] == t
@@ -71,7 +73,7 @@ def solve(matches, players, odds, timing) -> dict:
         for s in STATS:
             c = chosen[(t, s)]
             for km in KS_MULT:
-                r = IS.run(td, s, c["h"], c["kappa"], c["kappa"] * km, c["tau"], typ[(s, t)])
+                r = _LLEIOS.run_surface(td, s, c["h"], c["kappa"], c["kappa"] * km, c["tau"], typ[(s, t)])  # level layer, joint solves (LLE_LAYER)
                 vals = np.full((len(A), 8), np.nan)
                 vals[sel] = np.column_stack([r["O_eff"][pa], r["O_eff"][pb], r["D_eff"][pa], r["D_eff"][pb],
                                              r["E"][pa], r["E"][pb], r["F"][pa], r["F"][pb]])

@@ -1,0 +1,521 @@
+{
+ "tables": {
+  "stage0": "C:\\Users\\zerom\\Documents\\Tennis-predictions\\data\\studies\\master_pipeline\\data_check\\stage0",
+  "packages_merged": [
+   "20261013c"
+  ]
+ },
+ "first_season": 2013,
+ "last_day": "2026-10-07",
+ "window_days": 14,
+ "targets": 65976,
+ "blocked": 10635,
+ "by_tour_year": [
+  {
+   "tour": "atp",
+   "year": 2013,
+   "matches": 2521,
+   "blocked": 346,
+   "same_event_gap": 41,
+   "qualifier_rule": 0,
+   "blocked_pct": 13.7
+  },
+  {
+   "tour": "atp",
+   "year": 2014,
+   "matches": 2488,
+   "blocked": 292,
+   "same_event_gap": 32,
+   "qualifier_rule": 0,
+   "blocked_pct": 11.7
+  },
+  {
+   "tour": "atp",
+   "year": 2015,
+   "matches": 2527,
+   "blocked": 554,
+   "same_event_gap": 255,
+   "qualifier_rule": 0,
+   "blocked_pct": 21.9
+  },
+  {
+   "tour": "atp",
+   "year": 2016,
+   "matches": 2527,
+   "blocked": 146,
+   "same_event_gap": 96,
+   "qualifier_rule": 1,
+   "blocked_pct": 5.8
+  },
+  {
+   "tour": "atp",
+   "year": 2017,
+   "matches": 2545,
+   "blocked": 202,
+   "same_event_gap": 103,
+   "qualifier_rule": 0,
+   "blocked_pct": 7.9
+  },
+  {
+   "tour": "atp",
+   "year": 2018,
+   "matches": 2571,
+   "blocked": 159,
+   "same_event_gap": 69,
+   "qualifier_rule": 0,
+   "blocked_pct": 6.2
+  },
+  {
+   "tour": "atp",
+   "year": 2019,
+   "matches": 2546,
+   "blocked": 80,
+   "same_event_gap": 4,
+   "qualifier_rule": 3,
+   "blocked_pct": 3.1
+  },
+  {
+   "tour": "atp",
+   "year": 2020,
+   "matches": 1237,
+   "blocked": 15,
+   "same_event_gap": 0,
+   "qualifier_rule": 0,
+   "blocked_pct": 1.2
+  },
+  {
+   "tour": "atp",
+   "year": 2021,
+   "matches": 2423,
+   "blocked": 138,
+   "same_event_gap": 0,
+   "qualifier_rule": 29,
+   "blocked_pct": 5.7
+  },
+  {
+   "tour": "atp",
+   "year": 2022,
+   "matches": 2562,
+   "blocked": 133,
+   "same_event_gap": 4,
+   "qualifier_rule": 1,
+   "blocked_pct": 5.2
+  },
+  {
+   "tour": "atp",
+   "year": 2023,
+   "matches": 2628,
+   "blocked": 182,
+   "same_event_gap": 2,
+   "qualifier_rule": 0,
+   "blocked_pct": 6.9
+  },
+  {
+   "tour": "atp",
+   "year": 2024,
+   "matches": 2621,
+   "blocked": 66,
+   "same_event_gap": 1,
+   "qualifier_rule": 0,
+   "blocked_pct": 2.5
+  },
+  {
+   "tour": "atp",
+   "year": 2025,
+   "matches": 2531,
+   "blocked": 139,
+   "same_event_gap": 1,
+   "qualifier_rule": 0,
+   "blocked_pct": 5.5
+  },
+  {
+   "tour": "atp",
+   "year": 2026,
+   "matches": 2277,
+   "blocked": 248,
+   "same_event_gap": 64,
+   "qualifier_rule": 14,
+   "blocked_pct": 10.9
+  },
+  {
+   "tour": "wta",
+   "year": 2013,
+   "matches": 2370,
+   "blocked": 1168,
+   "same_event_gap": 401,
+   "qualifier_rule": 0,
+   "blocked_pct": 49.3
+  },
+  {
+   "tour": "wta",
+   "year": 2014,
+   "matches": 2389,
+   "blocked": 896,
+   "same_event_gap": 214,
+   "qualifier_rule": 50,
+   "blocked_pct": 37.5
+  },
+  {
+   "tour": "wta",
+   "year": 2015,
+   "matches": 2420,
+   "blocked": 1559,
+   "same_event_gap": 822,
+   "qualifier_rule": 11,
+   "blocked_pct": 64.4
+  },
+  {
+   "tour": "wta",
+   "year": 2016,
+   "matches": 2468,
+   "blocked": 524,
+   "same_event_gap": 84,
+   "qualifier_rule": 1,
+   "blocked_pct": 21.2
+  },
+  {
+   "tour": "wta",
+   "year": 2017,
+   "matches": 2463,
+   "blocked": 496,
+   "same_event_gap": 92,
+   "qualifier_rule": 0,
+   "blocked_pct": 20.1
+  },
+  {
+   "tour": "wta",
+   "year": 2018,
+   "matches": 2379,
+   "blocked": 368,
+   "same_event_gap": 44,
+   "qualifier_rule": 1,
+   "blocked_pct": 15.5
+  },
+  {
+   "tour": "wta",
+   "year": 2019,
+   "matches": 2404,
+   "blocked": 389,
+   "same_event_gap": 4,
+   "qualifier_rule": 4,
+   "blocked_pct": 16.2
+  },
+  {
+   "tour": "wta",
+   "year": 2020,
+   "matches": 1060,
+   "blocked": 118,
+   "same_event_gap": 0,
+   "qualifier_rule": 0,
+   "blocked_pct": 11.1
+  },
+  {
+   "tour": "wta",
+   "year": 2021,
+   "matches": 2364,
+   "blocked": 455,
+   "same_event_gap": 35,
+   "qualifier_rule": 43,
+   "blocked_pct": 19.2
+  },
+  {
+   "tour": "wta",
+   "year": 2022,
+   "matches": 2256,
+   "blocked": 412,
+   "same_event_gap": 30,
+   "qualifier_rule": 3,
+   "blocked_pct": 18.3
+  },
+  {
+   "tour": "wta",
+   "year": 2023,
+   "matches": 2396,
+   "blocked": 493,
+   "same_event_gap": 9,
+   "qualifier_rule": 7,
+   "blocked_pct": 20.6
+  },
+  {
+   "tour": "wta",
+   "year": 2024,
+   "matches": 2389,
+   "blocked": 294,
+   "same_event_gap": 7,
+   "qualifier_rule": 12,
+   "blocked_pct": 12.3
+  },
+  {
+   "tour": "wta",
+   "year": 2025,
+   "matches": 2414,
+   "blocked": 223,
+   "same_event_gap": 4,
+   "qualifier_rule": 17,
+   "blocked_pct": 9.2
+  },
+  {
+   "tour": "wta",
+   "year": 2026,
+   "matches": 2200,
+   "blocked": 540,
+   "same_event_gap": 160,
+   "qualifier_rule": 2,
+   "blocked_pct": 24.5
+  }
+ ],
+ "gap_cause_by_level_of_missing_match": [
+  {
+   "target_tour": "atp",
+   "group": "Challenger / WTA 125",
+   "blocked_matches": 49
+  },
+  {
+   "target_tour": "atp",
+   "group": "ITF",
+   "blocked_matches": 301
+  },
+  {
+   "target_tour": "atp",
+   "group": "main tour",
+   "blocked_matches": 175
+  },
+  {
+   "target_tour": "atp",
+   "group": "qualifying",
+   "blocked_matches": 716
+  },
+  {
+   "target_tour": "atp",
+   "group": "team event",
+   "blocked_matches": 1474
+  },
+  {
+   "target_tour": "wta",
+   "group": "Challenger / WTA 125",
+   "blocked_matches": 192
+  },
+  {
+   "target_tour": "wta",
+   "group": "ITF",
+   "blocked_matches": 3982
+  },
+  {
+   "target_tour": "wta",
+   "group": "main tour",
+   "blocked_matches": 2226
+  },
+  {
+   "target_tour": "wta",
+   "group": "qualifying",
+   "blocked_matches": 1739
+  },
+  {
+   "target_tour": "wta",
+   "group": "team event",
+   "blocked_matches": 923
+  }
+ ],
+ "top_missing_events": [
+  {
+   "target_tour": "wta",
+   "tournament_name": "Tokyo",
+   "year": 2015,
+   "group": "main tour",
+   "box_status": "blank",
+   "blocked_matches": 148
+  },
+  {
+   "target_tour": "wta",
+   "tournament_name": "Wuhan",
+   "year": 2015,
+   "group": "main tour",
+   "box_status": "blank",
+   "blocked_matches": 136
+  },
+  {
+   "target_tour": "wta",
+   "tournament_name": "Beijing",
+   "year": 2015,
+   "group": "main tour",
+   "box_status": "blank",
+   "blocked_matches": 131
+  },
+  {
+   "target_tour": "wta",
+   "tournament_name": "Roland Garros",
+   "year": 2026,
+   "group": "main tour",
+   "box_status": "blank",
+   "blocked_matches": 121
+  },
+  {
+   "target_tour": "atp",
+   "tournament_name": "Roland Garros",
+   "year": 2026,
+   "group": "main tour",
+   "box_status": "blank",
+   "blocked_matches": 120
+  },
+  {
+   "target_tour": "wta",
+   "tournament_name": "Berlin",
+   "year": 2026,
+   "group": "main tour",
+   "box_status": "partial",
+   "blocked_matches": 96
+  },
+  {
+   "target_tour": "wta",
+   "tournament_name": "US Open",
+   "year": 2015,
+   "group": "main tour",
+   "box_status": "blank",
+   "blocked_matches": 93
+  },
+  {
+   "target_tour": "wta",
+   "tournament_name": "Nottingham",
+   "year": 2026,
+   "group": "main tour",
+   "box_status": "partial",
+   "blocked_matches": 91
+  },
+  {
+   "target_tour": "wta",
+   "tournament_name": "Cincinnati",
+   "year": 2014,
+   "group": "main tour",
+   "box_status": "blank",
+   "blocked_matches": 91
+  },
+  {
+   "target_tour": "wta",
+   "tournament_name": "Roland Garros",
+   "year": 2013,
+   "group": "main tour",
+   "box_status": "blank",
+   "blocked_matches": 64
+  },
+  {
+   "target_tour": "wta",
+   "tournament_name": "Miami",
+   "year": 2015,
+   "group": "qualifying",
+   "box_status": "blank",
+   "blocked_matches": 59
+  },
+  {
+   "target_tour": "wta",
+   "tournament_name": "Strasbourg",
+   "year": 2013,
+   "group": "main tour",
+   "box_status": "blank",
+   "blocked_matches": 59
+  },
+  {
+   "target_tour": "wta",
+   "tournament_name": "Seoul",
+   "year": 2015,
+   "group": "main tour",
+   "box_status": "blank",
+   "blocked_matches": 59
+  },
+  {
+   "target_tour": "wta",
+   "tournament_name": "New Haven",
+   "year": 2015,
+   "group": "qualifying",
+   "box_status": "blank",
+   "blocked_matches": 58
+  },
+  {
+   "target_tour": "wta",
+   "tournament_name": "Tokyo Olympics",
+   "year": 2021,
+   "group": "team event",
+   "box_status": "blank",
+   "blocked_matches": 57
+  },
+  {
+   "target_tour": "wta",
+   "tournament_name": "Guangzhou",
+   "year": 2015,
+   "group": "main tour",
+   "box_status": "blank",
+   "blocked_matches": 55
+  },
+  {
+   "target_tour": "wta",
+   "tournament_name": "Rome",
+   "year": 2015,
+   "group": "qualifying",
+   "box_status": "blank",
+   "blocked_matches": 54
+  },
+  {
+   "target_tour": "wta",
+   "tournament_name": "BJK Cup Qualifiers",
+   "year": 2025,
+   "group": "team event",
+   "box_status": "blank",
+   "blocked_matches": 53
+  },
+  {
+   "target_tour": "wta",
+   "tournament_name": "Eastbourne",
+   "year": 2015,
+   "group": "qualifying",
+   "box_status": "blank",
+   "blocked_matches": 52
+  },
+  {
+   "target_tour": "wta",
+   "tournament_name": "Tashkent",
+   "year": 2015,
+   "group": "main tour",
+   "box_status": "blank",
+   "blocked_matches": 51
+  },
+  {
+   "target_tour": "wta",
+   "tournament_name": "Roland Garros",
+   "year": 2014,
+   "group": "main tour",
+   "box_status": "blank",
+   "blocked_matches": 51
+  },
+  {
+   "target_tour": "wta",
+   "tournament_name": "Linz",
+   "year": 2015,
+   "group": "main tour",
+   "box_status": "blank",
+   "blocked_matches": 50
+  },
+  {
+   "target_tour": "atp",
+   "tournament_name": "Tokyo Olympics",
+   "year": 2021,
+   "group": "team event",
+   "box_status": "blank",
+   "blocked_matches": 50
+  },
+  {
+   "target_tour": "wta",
+   "tournament_name": "United Cup",
+   "year": 2026,
+   "group": "team event",
+   "box_status": "blank",
+   "blocked_matches": 50
+  },
+  {
+   "target_tour": "wta",
+   "tournament_name": "Doha",
+   "year": 2015,
+   "group": "qualifying",
+   "box_status": "blank",
+   "blocked_matches": 48
+  }
+ ]
+}

@@ -1,0 +1,55 @@
+rows with a file: 4018 | linked rows: 4018
+cls        equal  no_count  other  swapped  unproven   All
+slam year                                                 
+AO   2018    251         0      0        0         1   252
+     2019    211         0      7       36         0   254
+     2020    212         0      6       32         2   252
+     2021    201         0      3       48         1   253
+     2022    203         0      2       47         0   252
+     2023    381         0     10       83         3   477
+     2024    397         0      9       69         2   477
+     2026    400         0      8       66         2   476
+RG   2013    232       206      0        0        12   450
+     2014    234       186      0        0         5   425
+     2015    353        83      8        1         5   450
+All         3075       475     53      382        33  4018
+
+swapped by source: {('AO', 2019, 'sackmann'): 36, ('AO', 2020, 'sackmann'): 32, ('AO', 2021, 'sackmann'): 48, ('AO', 2022, 'sackmann'): 47, ('AO', 2023, 'sackmann'): 83, ('AO', 2024, 'sackmann'): 69, ('AO', 2026, 'sackmann'): 66, ('RG', 2015, 'sackmann'): 1}
+swapped rows equal to the winner-served-first reading: 323 of 382
+swapped rows with flags:      slam  year   code                   score flags
+267    AO  2019  MS111  4-6 7-6(6) 6-1 4-0 RET   RET
+587    AO  2020  MS306             6-4 4-1 RET   RET
+788    AO  2021  MS126         3-6 6-1 4-1 RET   RET
+839    AO  2021  MS306             6-0 1-0 RET   RET
+1248   AO  2022  WS220             6-4 1-0 RET   RET
+1268   AO  2023  MQ105             6-2 3-2 RET   RET
+1876   AO  2024  MS120     3-6 6-2 6-3 3-0 RET   RET
+1904   AO  2024  MS148     5-7 6-2 6-4 1-0 RET   RET
+1944   AO  2024  MS316         6-1 6-1 1-0 RET   RET
+2058   AO  2024  WQ215      6-3 6-7(5) 4-4 RET   RET
+2159   AO  2024  WS401                 3-0 RET   RET
+2239   AO  2026  MQ122          7-6(9) 1-0 RET   RET
+2320   AO  2026  MQ307         3-6 6-3 1-0 RET   RET
+2366   AO  2026  MS133  4-6 7-6(3) 7-5 3-2 RET   RET
+2422   AO  2026  MS202     3-6 6-1 6-3 2-0 RET   RET
+2466   AO  2026  WQ111         4-6 6-2 3-2 RET   RET
+2585   AO  2026  WS114         1-6 6-4 5-3 RET   RET
+2597   AO  2026  WS126             6-2 3-2 RET   RET
+B8 fails after the exchange: 0 | before: 4
+proven rows where MatchBeats holds every game: its own count equals the truth on 3959 of 3959
+unproven by reason: {'p1_order': 19, 'p2_opens': 16, 'p3_alternation': 17, 'p4_sets': 2}
+
+rows Stage 0 keeps: 4907 | linked to a file: 4018 | rows without a file: 889
+swapped: 382 | excluded (decided corrections): [{'slam': 'AO', 'year': 2022, 'code': 'MS146', 'winner_name': 'Benoit Paire', 'loser_name': 'Thiago Monteiro', 'decided_action': 'F2y:exchange_svgms'}]
+break identity on the swaps: completed 364 of 364 | retirements 18 of 18 | equal to the row as recorded: 0
+Empty DataFrame
+Columns: [slam, year, code, score, w_SvGms, l_SvGms, t_w, t_l, bp_sv_w, bp_sv_l, w_bpFaced, w_bpSaved, l_bpFaced, l_bpSaved]
+Index: []
+links of the swaps: similarity < 1: 4 | winner disagrees: 0
+     slam  year   code    winner_name          mb_w_name           loser_name            mb_l_name  link_sim
+657    AO  2020  WS122   Caty Mcnally  Catherine McNally      Samantha Stosur      Samantha Stosur       0.5
+890    AO  2021  WS102  Daria Saville    Daria Gavrilova  Sara Sorribes Tormo  Sara Sorribes Tormo       0.5
+1159   AO  2022  WS118      Xiyu Wang          Xiyu Wang  Viktoria Hruncakova     Viktoria Kuzmova       0.5
+1626   AO  2023  WS109   Caty Mcnally  Catherine McNally        Laura Pigossi        Laura Pigossi       0.5
+B8 after the exchange fails on 0 | before: 4
+break identity on all proven completed rows: equals the truth on 3759 of 3761 | by edition misses: {('AO', 2020): 1, ('RG', 2014): 1}

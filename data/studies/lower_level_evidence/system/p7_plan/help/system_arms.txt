@@ -1,0 +1,58 @@
+usage: system_arms.py [-h]
+                      (--prepare | --config CONFIG | --build BUILD | --status | --write-configs | --freeze-hashes)
+                      [--sandbox SANDBOX] [--lanes LANES] [--no-reuse]
+                      [--resume-from RESUME_FROM]
+
+The arms of the lower-level-evidence system (role C1): their layer configs, the reference inputs every arm reads, and
+the build of an arm through the decided chain in a patched sandbox (system_sandbox.py).
+
+    --prepare            the reference inputs, written once and hashed (no outcome is read):
+                           arms/strength/reference_elo.parquet   the reference build's pre-match overall Elo per match
+                                                                 (Stage 1 on the frozen tables, retirements counted;
+                                                                 from the first run's sandbox, read-only), checked
+                                                                 against the frozen frame's elo_overall
+                           arms/constants/stageB_adj_summary_reference.json   Stage B's tuned constants as the
+                                                                 reference build chose them (checked against the frozen
+                                                                 build's log), for the pin
+                           arms/constants/reference_constants.json  Stage 1's, the offset's and Stage 3's constants
+                                                                 (frozen chain outputs and logs), for the constants gate
+    --config ARM         writes arms/<ARM>/layer_config.json (a gated arm's comes from the frozen folder only)
+    --write-configs      every arm's config into arms/configs/ with MANIFEST.json (written once; the CP1 addition
+                         freezes it), and the dev seasons' cells the caps change per fitted arm
+    --freeze-hashes      the sha256 the CP1 addition records: level_layer.py, system_sandbox.py, system_gates.py,
+                         system_arms.py and arms/configs/MANIFEST.json
+    --build ARM --sandbox D   lanes 1 and 2 side by side, then lane 3 and collect, with LLE_LAYER = the arm's config,
+                         IOS_CONSTANTS_VERSION pinned; records in arms/<ARM>/ (chain_lane*.json, chain_logs/, build.json).
+                         A gated arm (below) needs LLE_CP1_ADDITION: the lead's addition quoting the frozen hashes
+    --status             each arm's state
+
+The arms (SPEC 7; the layer touches the men only unless stated):
+    IDENTITY   translate false, weights 1, prior pool, ITF box scores as they are, both tours, every family on: G1
+               (C1's patches only; the layer copy of 9 Oct 20:31 UTC)
+    IDENTITY_ALL  the same with C1's and C2's patches and the final modules: G1 at checkpoint 1
+    SEP_ALL    men: no translation; w = 0 and w_results = 0 for every lower-level observation; prior pool
+    REF_noITF  both tours: ITF and ITFQ box rows at w = 0 in every box-score family; nothing else
+    gated, after the lead's CP1 addition: the SYS family (SYS, SYS_w0, SYS_w50, SYS_w100, SYS_NOCLASS, SYS_BOTH,
+               SYS_w25, SYS_w75), addition 1's SYS_ITFASIS and SYS_BOTH_ITFASIS, and RES_ONLY (the reference plus
+               B's Elo weighting, men: E's M3)
+    the NEW arms (addition 3 section 4), on role F's candidate Stage 0 installed with system_new_arms.py --patch:
+               NEW_ASIS and NEW_ASIS_PRE (the identity config on C0_now, C0_pre) and NEW_SYS_BOTH (SYS_BOTH's frozen
+               config, the strength from NEW_ASIS's Stage 1), every tuned constant pinned to the reference's; lane 0
+               first, then F's lane-0 check
+Run: ./python.sh src/eda/lower_level_evidence/system_arms.py --prepare | --config ARM | --write-configs |
+     --freeze-hashes | --build ARM --sandbox D | --status
+
+options:
+  -h, --help            show this help message and exit
+  --prepare
+  --config CONFIG
+  --build BUILD
+  --status
+  --write-configs       every arm's config into arms/configs/ (frozen set)
+  --freeze-hashes       print what the CP1 addition records
+  --sandbox SANDBOX
+  --lanes LANES
+  --no-reuse            rebuild every lane-1 step (no reused outputs)
+  --resume-from RESUME_FROM
+                        with --build: finish an interrupted build from this
+                        lane-1 step

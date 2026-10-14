@@ -1,0 +1,51 @@
+READY: the class table (role A), 9 Oct 2026 20:43 UTC. Final for checkpoint CP0. Report:
+docs/studies/lower_level_evidence/system/A_classes.md (sections 3-6 hold the numbers behind every class).
+
+THE TABLE
+    classes/classes.csv   sha256 58e7862273bfaf8bfbe6283c72b54e80f219ff36c0f83df795076d52ae940c26 (also classes.sha256)
+    164 rows: per tour (atp, wta), 59 kind=input rows (the 58 frozen inputs + spd_L, each exactly once) and 23 kind=stat
+    rows (19 box-score statistics + results, age, workload, speed).
+    Read it with keep_default_na=False (or treat NaN as missing): numeric cells are blank where they do not apply.
+    Columns (SPEC 6.1, plus extras):
+      name, kind, tour, base_stat, side, family, class, gamma, gamma_lo, gamma_hi, gamma_unit,
+      level_shift_<L>, explained_share_<L>, residual_<L>  for L in TQ, GSQ, CH, CHQ   (logit; residual = raw - gamma x gap)
+      rule              the treatment the layer applies (text, below)
+      delta_levels      the levels where delta is allowed ("CH,CHQ" ...; "none" = no level; "n/a" = RES/INTR/WORK/CTX)
+      opp_part_in_sd_signal, sd_signal   the materiality measure behind the class
+      gamma_<stat>      for multi-statistic inputs (points_52w, ratings_iid, ios_points_short, prod_*)
+    base_stat for multi-statistic inputs is joined with "+" (e.g. "spw+rpw"); side then reads "serve+return" or
+    "serve+defence" (beyond the SPEC's four values). def_<s> = what servers do against the player (formdef_*, iosD_ace,
+    iosD_df, iosD_first_in); iosD_first_won/second_won/hold/bp_saved map to rpw_first/rpw_second/brk/bp_conv.
+
+THE CLASSES (fixed rule: classes/thresholds.json, sha256 d8eb62d2..., fixed 20:12:50 UTC before any gamma)
+    OPP if gamma's 95% interval excludes 0 AND |gamma| x the tour's reference gap (men 245 Elo, women 159) >= 0.10 x the
+    statistic's between-player-season SD. delta is allowed at a level where the shift left after the class's translation
+    clears 0 and reaches 0.10 SD (>= 100 player-seasons; women's CHQ is never identified).
+    Men:   OPP 17 of 19 statistics; ENV: df (borderline, 0.091), first_in.
+    Women: OPP 16 of 19; ENV: df, first_in, def_first_in (borderline, 0.095). Women's ace is OPP at 0.117 (borderline).
+
+THE RULES (column `rule`)
+    translate: gamma x (opponent Elo - reference) + delta at <levels>; weight w
+        men (16): points_52w, adjperf_tpw_2w, form_ace, form_first_won, form_second_won, form_hold, form_bp_saved,
+        form_bp_faced_pg, form_brk, form_bp_conv, form_rpw_first, form_rpw_second, formdef_ace, formdef_df,
+        formdef_first_in, formdef_bp_faced_pg. Women (15): the same without formdef_first_in.
+    delta only at <levels>; weight w      form_df, form_first_in; women's formdef_first_in
+    solve handles the opponent; level term delta at <levels>; weight w      the joint solves (iosO_*, iosD_*, prod_*,
+        ios_points_short, ratings_iid). No level term: iosO_bp_saved (both), men's iosD_df, women's iosO_ace.
+        The delta measured here is a residual after Elo's gamma, not after the solve: the class says WHERE a solve's
+        level term is allowed; its size is fitted in the solve's units (B, C2).
+    w_results only                         elo_overall, elo_surf_offset, elo_games
+    untouched                              age, age_sq, sets_14d, surf_season_*, surf_layoff_*, odds_logit, context,
+                                           spd_L (see speed below)
+
+GAMMA FOR THE LAYER: classify.gamma(season_cutoff(Y)), method A-classify-2026-10-09.2 (READY_gamma.txt). The analysis
+values (2013-2024) are in gamma_main.csv; B's walk-forward values come from the function, not from this table.
+
+SPEED (stage 2): +0.29 km/h per 100 Elo [+0.22, +0.35] inside the main tour (OPP by the speed rule, 0.195 km/h line), but
+stage 2's edition centring already removes each edition's average opponent: no translation. Same player, centred
+Challenger minus main-tour speed +1.0 [-1.0, +3.0] km/h (69 player-seasons, unresolved): no level guard by the rule.
+The 2026 Challenger dose (940 rows, 15% of men's speed rows) is a data-fix call for the owner (A_classes.md section 6).
+
+CHECKS: 12 tests in test/lower_level_evidence/test_classify.py pass; the whole folder test/lower_level_evidence: 143 pass.
+No 2025-2026 outcome read (asserted in code; tested). Reproduce: ./python.sh src/eda/lower_level_evidence/classify.py
+--analysis (about 100 s), after --strength.

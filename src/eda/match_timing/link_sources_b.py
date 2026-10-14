@@ -10,9 +10,9 @@ Sources (each written to data/studies/match_timing/links/<source>.parquet):
                       Challenger and ITF singles 2021-2024 with date, start time and status. Times are
                       read as Europe/Berlin wall-clock (the API's documented default zone; the handoff
                       does not say what its fetcher asked for) and checked in the summary.
-    live_tennis_api   the Live Tennis API's public match index (Zenodo v1.0.0, staged), 1 Jan 2023 -
-                      13 Aug 2026, every level, no scores. 'scheduled_time_utc' is Israel wall-clock
-                      time (Zenodo v1.0.2's correction) and is converted to UTC here.
+    live_tennis_api   the Live Tennis API's public match index (Zenodo, staged), 1 Jan 2023 - 13 Aug 2026,
+                      every level, no scores. 'scheduled_time_utc' is Israel wall-clock time in v1.0.0
+                      (staged until 8 Oct 2026; converted to UTC here) and UTC in v1.0.2 (staged since).
     open_tennis_data  Open Tennis Data's completed main-tour results 2020 - 29 Aug 2026 (a derivative of
                       tennis-data.co.uk and Sackmann; its days are not independent of tennis-data).
     match_charting    the Match Charting Project's charted matches, with the charter's date and,
@@ -226,9 +226,12 @@ def run_lta(s0: pd.DataFrame, names: pd.Series) -> dict:
     src["i1"] = src["i1"].where(src["i1"] != "", src["pid1"].map(learned).fillna(""))
     src["i2"] = src["i2"].where(src["i2"] != "", src["pid2"].map(learned).fillna(""))
     L.pair_pass("learned_player_ids", X.src_long_from(src, i1="i1", i2="i2"), ["I"], s0_long_=tl)
+    israel = info["scheduled_time_utc_read_as"] == SRC.LTA_TZ
     return package("live_tennis_api", L, src, s0, info, "utc_time",
                    ["scheduled_time_utc of v1.0.0 is Israel wall-clock time (Zenodo v1.0.2, 28 Sep 2026): converted "
-                    "from Asia/Jerusalem to UTC here. Scheduled, not actual, start.",
+                    "from Asia/Jerusalem to UTC here. Scheduled, not actual, start." if israel else
+                    "scheduled_time_utc is read as UTC: the staged index is Zenodo v1.0.2 (28 Sep 2026), which corrects "
+                    "v1.0.0's Israel wall-clock times. Scheduled, not actual, start.",
                     "No scores in the index: links are confirmed by round only (score_agrees is null).",
                     "The Sackmann crosswalk is used only where Stage 0 knows the id under a compatible name."])
 
@@ -379,8 +382,8 @@ def findings(per: dict, extra: dict) -> list:
                        "the Americas carry the next day there.")
     pair = g(extra, "tz_checks", "same_match_api_tennis_vs_live_tennis_api", "after_conversion_api_utc_minus_lta_utc")
     if pair:
-        out.append(f"api_tennis read as Europe/Berlin and the Live Tennis API read as Asia/Jerusalem give the same UTC start "
-                   f"to within 15 minutes for {pair['within_15_min_pct']}% of {pair['matches']:,} shared matches.")
+        out.append(f"api_tennis read as Europe/Berlin and the Live Tennis API read as {SRC.lta_zone()} give the same UTC "
+                   f"start to within 15 minutes for {pair['within_15_min_pct']}% of {pair['matches']:,} shared matches.")
     for n in ("tml_days", "match_charting", "infosys", "open_tennis_data"):
         a = g(per.get(n), "agreement_with_timed_sources_venue_day")
         if a and a.get("matches"):

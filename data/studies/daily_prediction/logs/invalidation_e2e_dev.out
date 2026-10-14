@@ -1,0 +1,13 @@
+[   22.6s] --> stage0: src/eda/predictability_diagnostic/stage0_build.py --live-rows run/live_rows.parquet
+[  200.2s]     exit 0 in 177.6 s
+[  200.2s] --> additions: src/eda/current_best_model/additions.py --apply
+[  216.2s]     exit 0 in 16.0 s
+[  216.2s] --> check: src/eda/prediction_run/inject.py --meta run/live_meta.parquet --step check
+[  216.8s]     exit 0 in 0.7 s
+[  216.8s] --> lle_layer: src/eda/current_best_model/layer_config.py --resolve --official C:\Users\zerom\Documents\Tennis-predictions\data\studies\current_best_model\level_layer\official.json
+[  231.1s]     exit 0 in 14.3 s
+[  231.1s] --> odds: src/eda/predictability_diagnostic/stage1_odds.py 
+[  238.7s]     exit 0 in 7.6 s
+[  238.7s] --> live_odds: src/eda/prediction_run/inject.py --meta run/live_meta.parquet --step odds
+[  239.4s]     exit 0 in 0.8 s
+{"runs": ["data\\studies\\daily_prediction\\runs\\invalidation_e2e_dev\\resumed", "data\\studies\\daily_prediction\\runs\\invalidation_e2e_dev\\full"], "checkpoint": "2026-06-22", "seconds": {"worktree": 13.7, "matchups": 7.7, "prices": 0.2, "tables": 268.1, "states_resumed": 989.9, "states_full": 725.6}, "changed": {"match_id": "atp|2026-425|F|atp:126094|atp:209950", "timeline_before": [{"es": 20561.0, "lf": 20562.0, "obs": 20562.0}], "timeline_after": [{"es": 20562.0, "lf": 20563.0, "obs": 20563.0}]}, "cleanup": {"deleted": true, "seconds": 5.5}, "parts": {"elo:atp": "resumed", "elo:wta": "resumed", "stage3:atp": "resumed", "stage3:wta": "resumed", "weighted:atp": "resumed", "weighted:wta": "resumed", "forms:": "resumed", "ios:atp_ace": "slice changed: recomputed in full", "ios:atp_df": "slice changed: recomputed in full", "ios:atp_first_in": "slice changed: recomputed in full", "ios:atp_first_won": "slice changed: recomputed in full", "ios:atp_second_won": "slice changed: recomputed in full", "ios:atp_hold": "slice changed: recomputed in full", "ios:atp_bp_saved": "slice changed: recomputed in full", "ios:wta_ace": "resumed", "ios:wta_df": "resumed", "ios:wta_first_in": "resumed", "ios:wta_first_won": "resumed", "ios:wta_second_won": "resumed", "ios:wta_hold": "resumed", "ios:wta_bp_saved": "resumed"}, "recomputed": ["ios:atp_ace", "ios:atp_bp_saved", "ios:atp_df", "ios:atp_first_in", "ios:atp_first_won", "ios:atp_hold", "ios:atp_second_won"], "inputs_bitwise": 57, "non_ios_bitwise": 36, "ios_max_abs_diff": 0.0, "ios_nan_pattern_equal": true, "matches": 23, "as_required": true}

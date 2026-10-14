@@ -1,0 +1,49 @@
+{
+ "arm": "REF_noITF",
+ "written_at": "2026-10-10T02:32:01Z",
+ "what": "compare.py part 1 (input_drift, season_profile, coverage) on the arm against the frozen reference; no result read",
+ "expected_change": "ITF and ITFQ box scores out of every box-score family. Men's exist only from 30 Dec 2024, so men's inputs to 2024 equal the reference's; women's start with 31 matches from 2 May 2022 (Stage 0 count), so women's inputs may move from 2022 (365-day and career windows carry it on). In 2025-2026 women move far more than men (42% and 7% of model matches reached); Elo unchanged",
+ "inputs_changed": 41,
+ "inputs_flagged": [
+  {
+   "input": "ratings_iid",
+   "flag": "uneven",
+   "flagged_tour_seasons": 1,
+   "flagged": "wta 2026"
+  },
+  {
+   "input": "prod_ace",
+   "flag": "uneven",
+   "flagged_tour_seasons": 4,
+   "flagged": "atp 2025; atp 2026; wta 2025; wta 2026"
+  },
+  {
+   "input": "prod_first_won",
+   "flag": "uneven",
+   "flagged_tour_seasons": 4,
+   "flagged": "atp 2025; atp 2026; wta 2025; wta 2026"
+  },
+  {
+   "input": "prod_second_won",
+   "flag": "uneven",
+   "flagged_tour_seasons": 3,
+   "flagged": "atp 2026; wta 2025; wta 2026"
+  },
+  {
+   "input": "prod_hold",
+   "flag": "uneven",
+   "flagged_tour_seasons": 4,
+   "flagged": "atp 2025; atp 2026; wta 2025; wta 2026"
+  },
+  {
+   "input": "prod_bp_saved",
+   "flag": "uneven",
+   "flagged_tour_seasons": 1,
+   "flagged": "wta 2026"
+  }
+ ],
+ "only_in_one": [],
+ "coverage": {
+  "both": 67226
+ }
+}

@@ -1,0 +1,59 @@
+READY: classify.gamma (role A). First written 9 Oct 2026 20:20 UTC (method A-classify-2026-10-09.1); revised 20:29 UTC
+(method A-classify-2026-10-09.2). Tested: test/lower_level_evidence/test_classify.py, 12 passed.
+
+CHANGE IN .2 (20:29 UTC): the default start moved from 2010-01-01 to 2011-01-01. Stage 1's Elo starts every player at
+1500 in January 2010; in 2010 its noise halves gamma (men's total points -0.031 per 100 Elo, against -0.053 to -0.061 in
+every season 2011-2024: classes/gamma_by_season.csv). With 2010 in, early walk-forward fits read about 13% low (men's
+tpw through 2016: -0.051 against -0.059). If you stored .1 values, call gamma() again. Nothing else changed.
+
+SIGNATURE (src/eda/lower_level_evidence/classify.py)
+    gamma(through, tours=("atp", "wta"), stats=None, start="2011-01-01",
+          stage0_dir=common.STAGE0_DIR, timing=common.TIMING,
+          strength_path=classify.STRENGTH, allow_holdout=False) -> pandas.DataFrame
+    season_cutoff(season) -> pandas.Timestamp     # earliest possible start (es) of season Y's first main-tour match
+
+WHAT IT FITS
+    Per (tour, base statistic): y = logit((x + 1/2) / (d + 1)) per main-tour main-draw box-score player-match
+    (log scale for bp_faced_pg and def_bp_faced_pg; the builders' scale), regressed on the OPPONENT's pre-match Elo / 100,
+    with player x season fixed effects and surface dummies, weighted by the units d; 95% intervals clustered by player.
+    Rows: bucket MAIN, completed, standard format, box score, tournament_date >= start, and lf + 1 <= through (the match
+    clock: a result is in at lf + 1). gamma for season Y: gamma(season_cutoff(Y)).
+    Stats (classify.STATS): ace df first_in first_won second_won spw hold bp_saved bp_faced_pg (serve);
+    rpw rpw_first rpw_second brk bp_conv (return); tpw (none); def_ace def_df def_first_in def_bp_faced_pg (defence:
+    what servers do against the player; the regressor is then the server's Elo).
+    A statistic with no within-player-season variation in the window (women's holds, breaks and break points per game
+    before 2015: no service-game counts) returns gamma NaN instead of failing.
+
+RETURNS one row per (tour, stat): gamma, se, gamma_lo, gamma_hi, gamma_unit ("logit" or "log", per 100 Elo), n_rows,
+    n_player_seasons, n_players, partial_r2, sd_match, side, through, start, last_result_day (latest lf + 1 used),
+    strength_source, method_version.
+    Sign: gamma < 0 means the statistic falls against stronger opponents (e.g. spw -0.060 per 100 Elo, men, through
+    2020). A lower-level match against an opponent 200 Elo weaker reads 0.12 logit too high on spw; T subtracts it.
+
+HOLDOUT
+    Refuses (PermissionError) when a 2025-2026 outcome would be read. Note: through=2024-12-30 already refuses (9 main-draw
+    matches of season-2025 events were played on 29 Dec 2024); season_cutoff(2025) = 2024-12-29 reads none (tested on the
+    frozen Stage 0). allow_holdout=True only for the SPEC's mechanical walk-forward fits of seasons 2025 and 2026
+    (diagnostics unread).
+
+EXAMPLE
+    from src.eda.lower_level_evidence import classify as A
+    g = A.gamma(A.season_cutoff(2020))                       # every stat, both tours, results in by 2020-01-05
+    g = A.gamma(A.season_cutoff(2026), allow_holdout=True)   # mechanical 2026 fit: do not read it
+    g = A.gamma("2018-12-31", tours=["atp"], stats=["spw", "rpw"], start="2013-01-01")
+
+RUNTIME
+    First call 8.4 s (loads and caches Stage 0, the clock, the strength file and the main-tour player rows); each later
+    call about 1.8 s for all 19 stats x 2 tours (fewer stats: faster). Measured: ./python.sh .../classify.py --demo.
+
+STRENGTH SOURCE
+    data/studies/lower_level_evidence/system/classes/strength_elo.parquet, columns elo_a_ret / elo_b_ret (n_a_ret,
+    n_b_ret: rated-match counts), keyed by match_id, sides as Stage 0's player_a_id / player_b_id. It is role A's copy of
+    C:/Users/zerom/tnr_lle/data/studies/predictability_diagnostic/stage1_baselines.parquet (Stage 1's pre-match overall
+    Elo, retirements counted; every one of the 873,437 Stage 0 matches, every level). Checked before copying:
+    ln(10)/400 x (elo_a_ret - elo_b_ret) equals the frozen frame's in_elo_overall on all 67,226 matches (max difference
+    1.4e-6 log-odds, float32 rounding). Hashes: strength_elo.json. Build: classify.py --strength.
+
+FOR THE TRANSLATION'S EARLY HISTORIES: lower-level observations of 2010-2011 (histories of 2013 inputs) have no
+walk-forward gamma (no clean data before them). Using the first available fit (through 2012) for them is the natural
+fallback; that is B's call.

@@ -126,13 +126,15 @@ def test_fetch_when_enabled_uses_the_routes_and_budget(tmp_path, monkeypatch):
         def stats(self):
             return {"requests": self.requests}
 
-    fake = types.SimpleNamespace(make_client=lambda: Client(), site_headers=lambda: {"Origin": "https://www.atptour.com"})
+    fake = types.SimpleNamespace(IMPERSONATE="chrome", HEADERS={"Origin": "https://www.atptour.com"})
     monkeypatch.setattr(AD, "_adapter", lambda: fake)
+    from src.ingest.point_sources import feeds as FD
+    monkeypatch.setattr(FD, "FeedClient", lambda *a, **kw: Client())
     monkeypatch.setattr(AD, "RAW_DIR", tmp_path / "raw")
     monkeypatch.setattr(P, "RAW_ROOT", tmp_path / "receipts")
     plan = [(2026, "5014", "MS064", "R128"), (2026, "5014", "MS065", "R128"), (2026, "5014", "MS066", "R128")]
-    with pytest.raises(P.BudgetExhausted):
-        AD.fetch_daily("2026-10-08", plan, cfg=cfg)
+    res = AD.fetch_daily("2026-10-08", plan, cfg=cfg)          # the budget stops the run; what was fetched is kept
+    assert res["budget_exhausted"] is True and len(res["files"]) == 2
     assert [u for u, _ in asked] == [
         "https://itp-atp-sls.infosys-platforms.com/prod/api/stats-plus/v1/keystats/year/2026/eventId/5014/matchId/MS064",
         "https://itp-atp-sls.infosys-platforms.com/prod/api/stats-plus/v1/keystats/year/2026/eventId/5014/matchId/MS065"]
@@ -161,9 +163,45 @@ def test_without_the_backfill_adapter_the_fetch_stays_off_unless_allowed(tmp_pat
     class NoNet(FD.FeedClient):
         def get(self, url, headers=None):
             raise RuntimeError(f"would request {url}")
-    monkeypatch.setattr(FD, "FeedClient", lambda **kw: NoNet(session=object(), **kw))
+    monkeypatch.setattr(FD, "FeedClient", lambda *a, **kw: NoNet(*a, session=object(), **kw))
     from src.ingest.point_sources import common as P
     monkeypatch.setattr(AD, "RAW_DIR", tmp_path / "raw")
     monkeypatch.setattr(P, "RAW_ROOT", tmp_path / "receipts")
     res = AD.fetch_daily("2026-10-08", [(2026, "5014", "MS064", "R128")], cfg=cfg)
     assert res["files"] == [] and res["planned"] == 1
+
+
+def test_fetch_with_the_real_backfill_adapter_builds_its_own_client(tmp_path, monkeypatch):
+    """Regression (8 Oct 2026, the first live run): infosys_atp.make_client(args, cal) needs the backfill's argparse
+    namespace and S3 calibration, so fetch_daily must not call it. With the real adapter module, the client is built
+    directly with the adapter's impersonation and headers and the standard pacing; no network (a 404 stand-in)."""
+    pytest.importorskip("src.ingest.point_sources.infosys_atp")
+    from src.ingest.point_sources import common as P
+    from src.ingest.point_sources import feeds as FD
+    from src.ingest.point_sources import infosys_atp as A
+    cfg = tmp_path / "collector.json"
+    cfg.write_text(json.dumps({"atp_daily_enabled": True, "require_backfill_adapter": True}), encoding="utf-8")
+    built, asked = {}, []
+
+    class NoNet:
+        requests = 0
+
+        def __init__(self, *a, **kw):
+            built.update(args=a, **kw)
+
+        def get(self, url, headers=None):
+            self.requests += 1
+            asked.append(headers)
+            return types.SimpleNamespace(status_code=404, headers={"content-type": "application/json"}, url=url,
+                                         content=b'{"message": "not found"}')
+
+        def stats(self):
+            return {"requests": self.requests}
+    monkeypatch.setattr(FD, "FeedClient", NoNet)
+    monkeypatch.setattr(AD, "RAW_DIR", tmp_path / "raw")
+    monkeypatch.setattr(P, "RAW_ROOT", tmp_path / "receipts")
+    res = AD.fetch_daily("2026-10-08", [(2026, "5014", "MS064", "R128")], max_requests=5, cfg=cfg)
+    assert res["files"] == [] and res["planned"] == 1
+    assert built["args"] == (A.IMPERSONATE,)
+    assert built["min_interval"] == 2.0 and built["jitter"] == 1.0 and built["max_requests"] == 5
+    assert asked and asked[0] == A.HEADERS

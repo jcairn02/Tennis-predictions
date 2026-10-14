@@ -1,0 +1,38 @@
+============================= test session starts =============================
+platform win32 -- Python 3.11.16, pytest-9.1.1, pluggy-1.6.0 -- C:\Users\zerom\miniforge3\envs\tennis\python.exe
+cachedir: .pytest_cache
+rootdir: C:\Users\zerom\Documents\Tennis-predictions
+plugins: anyio-4.15.1
+collecting ... collected 15 items
+
+test/daily_prediction/test_daily_prediction.py::test_slice_hash_sees_every_change PASSED [  6%]
+test/daily_prediction/test_daily_prediction.py::test_elo_passes_resume_bit_for_bit PASSED [ 13%]
+test/daily_prediction/test_daily_prediction.py::test_forms_resume_bit_for_bit PASSED [ 20%]
+test/daily_prediction/test_daily_prediction.py::test_ios_resume_within_tolerance PASSED [ 26%]
+test/daily_prediction/test_daily_prediction.py::test_stateless_families_equal_the_build PASSED [ 33%]
+test/daily_prediction/test_daily_prediction.py::test_replay_reproduces_the_57_inputs PASSED [ 40%]
+test/daily_prediction/test_daily_prediction.py::test_changed_past_row_invalidates PASSED [ 46%]
+test/daily_prediction/test_daily_prediction.py::test_changed_past_row_recomputes_through_the_steps PASSED [ 53%]
+test/daily_prediction/test_daily_prediction.py::test_price_grid_matches_direct_prediction PASSED [ 60%]
+test/daily_prediction/test_daily_prediction.py::test_fit_cache_key_sees_every_change PASSED [ 66%]
+test/daily_prediction/test_daily_prediction.py::test_fit_cache_equals_decided_path PASSED [ 73%]
+test/daily_prediction/test_daily_prediction.py::test_history_check_recorded PASSED [ 80%]
+test/daily_prediction/test_daily_prediction.py::test_side_names_follow_stage0_sides PASSED [ 86%]
+test/daily_prediction/test_daily_prediction.py::test_prediction_names_are_stage0_sides PASSED [ 93%]
+test/daily_prediction/test_daily_prediction.py::test_states_ran_in_three_processes PASSED [100%]
+
+============================== slowest durations ==============================
+1489.90s setup    test/daily_prediction/test_daily_prediction.py::test_elo_passes_resume_bit_for_bit
+1054.94s call     test/daily_prediction/test_daily_prediction.py::test_changed_past_row_recomputes_through_the_steps
+324.65s setup    test/daily_prediction/test_daily_prediction.py::test_replay_reproduces_the_57_inputs
+240.14s call     test/daily_prediction/test_daily_prediction.py::test_changed_past_row_invalidates
+221.59s call     test/daily_prediction/test_daily_prediction.py::test_fit_cache_equals_decided_path
+1.28s call     test/daily_prediction/test_daily_prediction.py::test_prediction_names_are_stage0_sides
+0.83s call     test/daily_prediction/test_daily_prediction.py::test_replay_reproduces_the_57_inputs
+0.58s call     test/daily_prediction/test_daily_prediction.py::test_price_grid_matches_direct_prediction
+0.01s call     test/daily_prediction/test_daily_prediction.py::test_side_names_follow_stage0_sides
+0.01s call     test/daily_prediction/test_daily_prediction.py::test_history_check_recorded
+0.01s call     test/daily_prediction/test_daily_prediction.py::test_fit_cache_key_sees_every_change
+
+(34 durations < 0.005s hidden.  Use -vv to show these durations.)
+======================= 15 passed in 3334.04s (0:55:34) =======================

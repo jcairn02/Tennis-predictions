@@ -1,0 +1,1626 @@
+{
+ "source": "tennislive",
+ "mode": "events",
+ "started_at": "2026-10-13T23:18:17+00:00",
+ "args": {
+  "weeks": null,
+  "kinds": "itf,challenger,wta125,tour,slam,finals",
+  "limit": null,
+  "only": null,
+  "pageless_days": false,
+  "max_requests": 20000,
+  "min_interval": 1.5,
+  "jitter": 1.0,
+  "skip_calendar": false,
+  "skip_results": false,
+  "skip_samples": true,
+  "seed": 20261008,
+  "per_tour": 100,
+  "stage_only": true,
+  "no_stage": false,
+  "no_pages": false
+ },
+ "weeks": "2018-01-01 .. 2026-10-05",
+ "fetch_outcomes": {},
+ "staged": {
+  "listed": {
+   "rows": 872482,
+   "dest": "data/dump/points/tennislive/listed.parquet",
+   "bytes": 71346097
+  },
+  "events": {
+   "rows": 12431,
+   "dest": "data/dump/points/tennislive/events.parquet",
+   "bytes": 1271015
+  },
+  "index": {
+   "rows": 4349,
+   "dest": "data/dump/points/tennislive/index.parquet",
+   "bytes": 359577
+  },
+  "matches": {
+   "rows": 41412,
+   "dest": "data/dump/points/tennislive/matches.parquet",
+   "bytes": 4352654
+  },
+  "games": {
+   "rows": 821647,
+   "dest": "data/dump/points/tennislive/games.parquet",
+   "bytes": 8417586
+  },
+  "points": {
+   "rows": 4169807,
+   "dest": "data/dump/points/tennislive/points.parquet",
+   "bytes": 20404241
+  },
+  "statistics": {
+   "rows": 325633,
+   "dest": "data/dump/points/tennislive/statistics.parquet",
+   "bytes": 4401119
+  }
+ },
+ "client": null,
+ "session_pages_opened": 0,
+ "calendar": {
+  "weeks": 458,
+  "pages_read": 458,
+  "weeks_without_page": [],
+  "dates_not_as_asked": []
+ },
+ "events": {
+  "by_kind_tour_page": {
+   "challenger|atp|no page": 4,
+   "challenger|atp|page": 1528,
+   "finals|atp|page": 15,
+   "finals|wta|page": 10,
+   "itf|atp|no page": 34,
+   "itf|atp|page": 4446,
+   "itf|wta|no page": 221,
+   "itf|wta|page": 4207,
+   "junior|atp|page": 35,
+   "junior|wta|page": 35,
+   "other|atp|page": 11,
+   "other|wta|page": 6,
+   "slam|atp|page": 36,
+   "slam|wta|page": 36,
+   "team|atp|page": 500,
+   "team|wta|page": 164,
+   "tour|atp|page": 493,
+   "tour|wta|page": 419,
+   "wta125|wta|page": 231
+  },
+  "examples_by_kind_tour_rank": {
+   "challenger|atp|1": [
+    "Bangkok Challenger",
+    "Noumea Challenger",
+    "Playford Challenger",
+    "Bangkok Challenger",
+    "Canberra Challenger",
+    "Koblenz Challenger",
+    "Newport Beach Challenger",
+    "Rennes Challenger"
+   ],
+   "finals|atp|2": [
+    "Next Gen ATP Finals - Milan",
+    "Next Gen ATP Finals - Milan",
+    "Next Gen ATP Finals - Milan",
+    "Next Gen ATP Finals - Milan",
+    "Next Gen ATP Finals - Jeddah",
+    "Next Gen ATP Finals - Jeddah",
+    "Next Gen ATP Finals - Jeddah"
+   ],
+   "finals|atp|3": [
+    "Nitto ATP Finals - London",
+    "Nitto ATP Finals - London",
+    "Nitto ATP Finals - London",
+    "Nitto ATP Finals - Turin",
+    "Nitto ATP Finals - Turin",
+    "Nitto ATP Finals - Turin",
+    "Nitto ATP Finals - Turin",
+    "Nitto ATP Finals - Turin"
+   ],
+   "finals|wta|2": [
+    "WTA Elite Trophy - Zhuhai",
+    "WTA Elite Trophy - Zhuhai"
+   ],
+   "finals|wta|3": [
+    "WTA Finals - Singapore",
+    "WTA Finals - Shenzhen",
+    "WTA Finals - Guadalajara",
+    "WTA Finals - Fort Worth",
+    "WTA Elite Trophy - Zhuhai",
+    "WTA Finals - Cancun",
+    "WTA Finals - Riyadh",
+    "WTA Finals - Riyadh"
+   ],
+   "itf|atp|0": [
+    "Hong Kong F6 (Hong Kong)",
+    "USA F1 (Los Angeles)",
+    "China F1 (Anning)",
+    "France F1 (Bagnoles-de-l'Orne)",
+    "Germany F1 (Schwieberdingen)",
+    "Tunisia F1 (Hammamet)",
+    "Turkey F1 (Antalya)",
+    "USA F2 (Long Beach)"
+   ],
+   "itf|wta|0": [
+    "Hong Kong",
+    "Antalya",
+    "Fort-De-France",
+    "Hammamet",
+    "Petit Bourg",
+    "Sharm El Sheikh",
+    "Antalya",
+    "Hammamet"
+   ],
+   "itf|wta|1": [
+    "Playford",
+    "Daytona Beach",
+    "Orlando",
+    "Andrezieux-Boutheon",
+    "Newport Beach",
+    "Wesley Chapel",
+    "Burnie",
+    "Glasgow"
+   ],
+   "junior|atp|0": [
+    "JUNIOR US Open",
+    "JUNIOR US Open"
+   ],
+   "junior|atp|6": [
+    "Australian Open (juniors)",
+    "French Open (juniors)",
+    "Wimbledon (juniors)",
+    "U.S. Open (juniors)",
+    "Australian Open (juniors)",
+    "French Open (juniors)",
+    "Wimbledon (juniors)",
+    "U.S. Open (juniors)"
+   ],
+   "junior|wta|0": [
+    "JUNIOR US Open",
+    "JUNIOR US Open"
+   ],
+   "junior|wta|6": [
+    "Australian Open (juniors)",
+    "French Open (juniors)",
+    "Wimbledon (juniors)",
+    "U.S. Open (juniors)",
+    "Australian Open (juniors)",
+    "French Open (juniors)",
+    "Wimbledon (juniors)",
+    "U.S. Open (juniors)"
+   ],
+   "other|atp|6": [
+    "Australian Open (Asia, Wildcard)",
+    "Australian Open (Australia, Wildcard)",
+    "Mubadala World Tennis Championship",
+    "Australian Open (Asia, Wildcard)",
+    "Australian Open (Australia, Wildcard)",
+    "Mubadala World Tennis Championship",
+    "All Lower level tournaments",
+    "A Day At The Drive - Adelaide"
+   ],
+   "other|wta|6": [
+    "Australian Open (Asia, Wildcard)",
+    "Australian Open (Australia, Wildcard)",
+    "Australian Open (Asia, Wildcard)",
+    "Australian Open (Australia, Wildcard)",
+    "All Lower level tournaments",
+    "A Day At The Drive - Adelaide"
+   ],
+   "slam|atp|4": [
+    "Australian Open - Melbourne",
+    "French Open - Paris",
+    "Wimbledon",
+    "U.S. Open - New York",
+    "Australian Open - Melbourne",
+    "French Open - Paris",
+    "Wimbledon - London",
+    "U.S. Open - New York"
+   ],
+   "slam|wta|4": [
+    "Australian Open - Melbourne",
+    "French Open - Paris",
+    "Wimbledon",
+    "U.S. Open - New York",
+    "Australian Open - Melbourne",
+    "French Open - Paris",
+    "Wimbledon - London",
+    "U.S. Open - New York"
+   ],
+   "team|atp|0": [
+    "ATP Davis Cup - World Group II"
+   ],
+   "team|atp|2": [
+    "Laver Cup - Chicago",
+    "Laver Cup - Geneva",
+    "ATP Cup - Brisbane, Perth, Sydney",
+    "ATP Cup - Melbourne",
+    "Olympics - Tokyo",
+    "Laver Cup - Boston",
+    "ATP Cup - Sydney",
+    "Laver Cup - London"
+   ],
+   "team|atp|5": [
+    "Davis Cup, Group I, 1R, AUT-BLR 5-0",
+    "Davis Cup, Group I, 1R, BAR-COL 0-4",
+    "Davis Cup, Group I, 1R, CHI-ECU 3-1",
+    "Davis Cup, Group I, 1R, CHN-NZL 3-1",
+    "Davis Cup, Group I, 1R, DOM-BRA 2-3",
+    "Davis Cup, Group I, 1R, PAK-KOR 4-0",
+    "Davis Cup, Group I, 1R, RSA-ISR 2-3",
+    "Davis Cup, Group I, 1R, UKR-SWE 2-3"
+   ],
+   "team|atp|6": [
+    "Hopman Cup - Perth",
+    "Hopman Cup - Perth",
+    "Hopman Cup - Nice"
+   ],
+   "team|wta|2": [
+    "Olympics - Tokyo",
+    "United Cup - Australia",
+    "United Cup - Australia",
+    "Olympics - Paris",
+    "United Cup - Australia",
+    "United Cup - Australia"
+   ],
+   "team|wta|5": [
+    "Fed Cup, Americas Zone Group I",
+    "Fed Cup, Asia/Oceania Zone Group I",
+    "Fed Cup, Europe/Africa Zone Group I",
+    "Fed Cup, Group I, 1R, BLR-GER 2-3",
+    "Fed Cup, Group I, 1R, CZE-SUI 3-1",
+    "Fed Cup, Group I, 1R, FRA-BEL 3-2",
+    "Fed Cup, Group I, 1R, USA-NED 3-1",
+    "Fed Cup, Group II, 1R, AUS-UKR 3-2"
+   ],
+   "team|wta|6": [
+    "Hopman Cup - Perth",
+    "Hopman Cup - Perth",
+    "Hopman Cup - Nice"
+   ],
+   "tour|atp|2": [
+    "Brisbane International - Brisbane",
+    "Maharashtra Open - Pune",
+    "Qatar ExxonMobil Open - Doha",
+    "ASB Classic - Auckland",
+    "Sydney International - Sydney",
+    "Ecuador Open - Quito",
+    "Garanti Koza Sofia Open - Sofia",
+    "Open Sud de France - Montpellier"
+   ],
+   "tour|atp|3": [
+    "BNP Paribas Open - Indian Wells",
+    "Miami Open - Miami",
+    "Monte-Carlo Rolex Masters - Monte-Carlo",
+    "Mutua Madrid Open - Madrid",
+    "Internazionali BNL d'Italia - Rome",
+    "Rogers Cup - Toronto",
+    "Western & Southern Open - Cincinnati",
+    "Shanghai Rolex Masters - Shanghai"
+   ],
+   "tour|wta|2": [
+    "ASB Classic - Auckland",
+    "Brisbane International - Brisbane",
+    "Shenzhen Open - Shenzhen",
+    "Hobart International - Hobart",
+    "Sydney International - Sydney",
+    "St. Petersburg Ladies Trophy - St. Petersburg",
+    "Taiwan Open - Taipei City",
+    "Dubai Duty Free Championships - Dubai"
+   ],
+   "tour|wta|3": [
+    "Qatar Total Open - Doha",
+    "BNP Paribas Open - Indian Wells",
+    "Miami Open - Miami",
+    "Mutua Madrid Open - Madrid",
+    "Internazionali BNL d'Italia - Rome",
+    "Rogers Cup - Montreal",
+    "Western & Southern Open - Cincinnati",
+    "Wuhan Tennis Open - Wuhan"
+   ],
+   "wta125|wta|1": [
+    "Riba - Roja De Turia",
+    "L&T Mumbai Open - Mumbai",
+    "Engie Open de Limoges - Limoges",
+    "Oracle Challenger Series - Houston",
+    "Taipei OEC Open - Taipei",
+    "Oracle Challenger Series - Newport Beach",
+    "Oracle Challenger Series - Indian Wells",
+    "Abierto De Zapopan - Guadalajara"
+   ]
+  },
+  "targets_by_year_tour_kind": {
+   "2018|atp|challenger": {
+    "events": 162,
+    "with_page": 159,
+    "listed": 162,
+    "singles_main_played": 5041,
+    "singles_qualifying_played": 3866
+   },
+   "2018|atp|finals": {
+    "events": 2,
+    "with_page": 2,
+    "listed": 2,
+    "singles_main_played": 30,
+    "singles_qualifying_played": 0
+   },
+   "2018|atp|itf": {
+    "events": 575,
+    "with_page": 575,
+    "listed": 575,
+    "singles_main_played": 17739,
+    "singles_qualifying_played": 23506
+   },
+   "2018|atp|slam": {
+    "events": 4,
+    "with_page": 4,
+    "listed": 4,
+    "singles_main_played": 508,
+    "singles_qualifying_played": 448
+   },
+   "2018|atp|tour": {
+    "events": 65,
+    "with_page": 65,
+    "listed": 65,
+    "singles_main_played": 2178,
+    "singles_qualifying_played": 887
+   },
+   "2018|wta|finals": {
+    "events": 2,
+    "with_page": 2,
+    "listed": 2,
+    "singles_main_played": 30,
+    "singles_qualifying_played": 0
+   },
+   "2018|wta|itf": {
+    "events": 536,
+    "with_page": 334,
+    "listed": 536,
+    "singles_main_played": 16482,
+    "singles_qualifying_played": 14458
+   },
+   "2018|wta|slam": {
+    "events": 4,
+    "with_page": 4,
+    "listed": 4,
+    "singles_main_played": 507,
+    "singles_qualifying_played": 364
+   },
+   "2018|wta|tour": {
+    "events": 55,
+    "with_page": 55,
+    "listed": 55,
+    "singles_main_played": 2009,
+    "singles_qualifying_played": 1241
+   },
+   "2018|wta|wta125": {
+    "events": 5,
+    "with_page": 5,
+    "listed": 5,
+    "singles_main_played": 155,
+    "singles_qualifying_played": 94
+   },
+   "2019|atp|challenger": {
+    "events": 155,
+    "with_page": 154,
+    "listed": 155,
+    "singles_main_played": 7257,
+    "singles_qualifying_played": 289
+   },
+   "2019|atp|finals": {
+    "events": 2,
+    "with_page": 2,
+    "listed": 2,
+    "singles_main_played": 30,
+    "singles_qualifying_played": 0
+   },
+   "2019|atp|itf": {
+    "events": 538,
+    "with_page": 504,
+    "listed": 538,
+    "singles_main_played": 16586,
+    "singles_qualifying_played": 12874
+   },
+   "2019|atp|slam": {
+    "events": 4,
+    "with_page": 4,
+    "listed": 4,
+    "singles_main_played": 506,
+    "singles_qualifying_played": 448
+   },
+   "2019|atp|tour": {
+    "events": 58,
+    "with_page": 58,
+    "listed": 58,
+    "singles_main_played": 1980,
+    "singles_qualifying_played": 803
+   },
+   "2019|wta|finals": {
+    "events": 2,
+    "with_page": 2,
+    "listed": 2,
+    "singles_main_played": 30,
+    "singles_qualifying_played": 0
+   },
+   "2019|wta|itf": {
+    "events": 554,
+    "with_page": 535,
+    "listed": 554,
+    "singles_main_played": 17058,
+    "singles_qualifying_played": 10465
+   },
+   "2019|wta|slam": {
+    "events": 4,
+    "with_page": 4,
+    "listed": 4,
+    "singles_main_played": 505,
+    "singles_qualifying_played": 419
+   },
+   "2019|wta|tour": {
+    "events": 49,
+    "with_page": 49,
+    "listed": 49,
+    "singles_main_played": 1833,
+    "singles_qualifying_played": 1096
+   },
+   "2019|wta|wta125": {
+    "events": 11,
+    "with_page": 11,
+    "listed": 11,
+    "singles_main_played": 405,
+    "singles_qualifying_played": 49
+   },
+   "2020|atp|challenger": {
+    "events": 59,
+    "with_page": 59,
+    "listed": 59,
+    "singles_main_played": 2243,
+    "singles_qualifying_played": 411
+   },
+   "2020|atp|finals": {
+    "events": 1,
+    "with_page": 1,
+    "listed": 1,
+    "singles_main_played": 15,
+    "singles_qualifying_played": 0
+   },
+   "2020|atp|itf": {
+    "events": 153,
+    "with_page": 153,
+    "listed": 153,
+    "singles_main_played": 4581,
+    "singles_qualifying_played": 5299
+   },
+   "2020|atp|slam": {
+    "events": 3,
+    "with_page": 3,
+    "listed": 3,
+    "singles_main_played": 380,
+    "singles_qualifying_played": 223
+   },
+   "2020|atp|tour": {
+    "events": 28,
+    "with_page": 28,
+    "listed": 28,
+    "singles_main_played": 864,
+    "singles_qualifying_played": 411
+   },
+   "2020|wta|itf": {
+    "events": 156,
+    "with_page": 156,
+    "listed": 156,
+    "singles_main_played": 4675,
+    "singles_qualifying_played": 3810
+   },
+   "2020|wta|slam": {
+    "events": 3,
+    "with_page": 3,
+    "listed": 3,
+    "singles_main_played": 380,
+    "singles_qualifying_played": 196
+   },
+   "2020|wta|tour": {
+    "events": 21,
+    "with_page": 21,
+    "listed": 21,
+    "singles_main_played": 697,
+    "singles_qualifying_played": 442
+   },
+   "2020|wta|wta125": {
+    "events": 3,
+    "with_page": 3,
+    "listed": 3,
+    "singles_main_played": 220,
+    "singles_qualifying_played": 4
+   },
+   "2021|atp|challenger": {
+    "events": 147,
+    "with_page": 147,
+    "listed": 147,
+    "singles_main_played": 4533,
+    "singles_qualifying_played": 1726
+   },
+   "2021|atp|finals": {
+    "events": 2,
+    "with_page": 2,
+    "listed": 2,
+    "singles_main_played": 29,
+    "singles_qualifying_played": 0
+   },
+   "2021|atp|itf": {
+    "events": 386,
+    "with_page": 386,
+    "listed": 386,
+    "singles_main_played": 11890,
+    "singles_qualifying_played": 15563
+   },
+   "2021|atp|slam": {
+    "events": 5,
+    "with_page": 5,
+    "listed": 5,
+    "singles_main_played": 505,
+    "singles_qualifying_played": 446
+   },
+   "2021|atp|tour": {
+    "events": 57,
+    "with_page": 57,
+    "listed": 57,
+    "singles_main_played": 1947,
+    "singles_qualifying_played": 841
+   },
+   "2021|wta|finals": {
+    "events": 1,
+    "with_page": 1,
+    "listed": 1,
+    "singles_main_played": 14,
+    "singles_qualifying_played": 0
+   },
+   "2021|wta|itf": {
+    "events": 373,
+    "with_page": 373,
+    "listed": 373,
+    "singles_main_played": 11628,
+    "singles_qualifying_played": 10788
+   },
+   "2021|wta|slam": {
+    "events": 5,
+    "with_page": 5,
+    "listed": 5,
+    "singles_main_played": 505,
+    "singles_qualifying_played": 447
+   },
+   "2021|wta|tour": {
+    "events": 53,
+    "with_page": 53,
+    "listed": 53,
+    "singles_main_played": 1927,
+    "singles_qualifying_played": 865
+   },
+   "2021|wta|wta125": {
+    "events": 15,
+    "with_page": 15,
+    "listed": 15,
+    "singles_main_played": 459,
+    "singles_qualifying_played": 83
+   },
+   "2022|atp|challenger": {
+    "events": 184,
+    "with_page": 184,
+    "listed": 184,
+    "singles_main_played": 5692,
+    "singles_qualifying_played": 3136
+   },
+   "2022|atp|finals": {
+    "events": 2,
+    "with_page": 2,
+    "listed": 2,
+    "singles_main_played": 29,
+    "singles_qualifying_played": 0
+   },
+   "2022|atp|itf": {
+    "events": 526,
+    "with_page": 526,
+    "listed": 526,
+    "singles_main_played": 16234,
+    "singles_qualifying_played": 19231
+   },
+   "2022|atp|slam": {
+    "events": 4,
+    "with_page": 4,
+    "listed": 4,
+    "singles_main_played": 504,
+    "singles_qualifying_played": 448
+   },
+   "2022|atp|tour": {
+    "events": 63,
+    "with_page": 63,
+    "listed": 63,
+    "singles_main_played": 2094,
+    "singles_qualifying_played": 867
+   },
+   "2022|wta|finals": {
+    "events": 1,
+    "with_page": 1,
+    "listed": 1,
+    "singles_main_played": 15,
+    "singles_qualifying_played": 0
+   },
+   "2022|wta|itf": {
+    "events": 533,
+    "with_page": 533,
+    "listed": 533,
+    "singles_main_played": 16728,
+    "singles_qualifying_played": 13818
+   },
+   "2022|wta|slam": {
+    "events": 4,
+    "with_page": 4,
+    "listed": 4,
+    "singles_main_played": 504,
+    "singles_qualifying_played": 447
+   },
+   "2022|wta|tour": {
+    "events": 50,
+    "with_page": 50,
+    "listed": 50,
+    "singles_main_played": 1821,
+    "singles_qualifying_played": 956
+   },
+   "2022|wta|wta125": {
+    "events": 24,
+    "with_page": 24,
+    "listed": 24,
+    "singles_main_played": 738,
+    "singles_qualifying_played": 135
+   },
+   "2023|atp|challenger": {
+    "events": 196,
+    "with_page": 196,
+    "listed": 196,
+    "singles_main_played": 6028,
+    "singles_qualifying_played": 3429
+   },
+   "2023|atp|finals": {
+    "events": 2,
+    "with_page": 2,
+    "listed": 2,
+    "singles_main_played": 30,
+    "singles_qualifying_played": 0
+   },
+   "2023|atp|itf": {
+    "events": 572,
+    "with_page": 572,
+    "listed": 572,
+    "singles_main_played": 17592,
+    "singles_qualifying_played": 21001
+   },
+   "2023|atp|slam": {
+    "events": 4,
+    "with_page": 4,
+    "listed": 4,
+    "singles_main_played": 506,
+    "singles_qualifying_played": 448
+   },
+   "2023|atp|tour": {
+    "events": 60,
+    "with_page": 60,
+    "listed": 60,
+    "singles_main_played": 2156,
+    "singles_qualifying_played": 886
+   },
+   "2023|wta|finals": {
+    "events": 2,
+    "with_page": 2,
+    "listed": 2,
+    "singles_main_played": 30,
+    "singles_qualifying_played": 0
+   },
+   "2023|wta|itf": {
+    "events": 564,
+    "with_page": 564,
+    "listed": 564,
+    "singles_main_played": 17780,
+    "singles_qualifying_played": 15588
+   },
+   "2023|wta|slam": {
+    "events": 4,
+    "with_page": 4,
+    "listed": 4,
+    "singles_main_played": 506,
+    "singles_qualifying_played": 447
+   },
+   "2023|wta|tour": {
+    "events": 51,
+    "with_page": 51,
+    "listed": 51,
+    "singles_main_played": 1933,
+    "singles_qualifying_played": 937
+   },
+   "2023|wta|wta125": {
+    "events": 31,
+    "with_page": 31,
+    "listed": 31,
+    "singles_main_played": 946,
+    "singles_qualifying_played": 177
+   },
+   "2024|atp|challenger": {
+    "events": 210,
+    "with_page": 210,
+    "listed": 210,
+    "singles_main_played": 6453,
+    "singles_qualifying_played": 3679
+   },
+   "2024|atp|finals": {
+    "events": 2,
+    "with_page": 2,
+    "listed": 2,
+    "singles_main_played": 28,
+    "singles_qualifying_played": 0
+   },
+   "2024|atp|itf": {
+    "events": 600,
+    "with_page": 600,
+    "listed": 600,
+    "singles_main_played": 18485,
+    "singles_qualifying_played": 21972
+   },
+   "2024|atp|slam": {
+    "events": 4,
+    "with_page": 4,
+    "listed": 4,
+    "singles_main_played": 505,
+    "singles_qualifying_played": 448
+   },
+   "2024|atp|tour": {
+    "events": 62,
+    "with_page": 62,
+    "listed": 62,
+    "singles_main_played": 2219,
+    "singles_qualifying_played": 923
+   },
+   "2024|wta|finals": {
+    "events": 1,
+    "with_page": 1,
+    "listed": 1,
+    "singles_main_played": 15,
+    "singles_qualifying_played": 0
+   },
+   "2024|wta|itf": {
+    "events": 604,
+    "with_page": 604,
+    "listed": 604,
+    "singles_main_played": 18910,
+    "singles_qualifying_played": 16428
+   },
+   "2024|wta|slam": {
+    "events": 4,
+    "with_page": 4,
+    "listed": 4,
+    "singles_main_played": 507,
+    "singles_qualifying_played": 447
+   },
+   "2024|wta|tour": {
+    "events": 52,
+    "with_page": 52,
+    "listed": 52,
+    "singles_main_played": 2023,
+    "singles_qualifying_played": 985
+   },
+   "2024|wta|wta125": {
+    "events": 37,
+    "with_page": 37,
+    "listed": 37,
+    "singles_main_played": 1140,
+    "singles_qualifying_played": 280
+   },
+   "2025|atp|challenger": {
+    "events": 214,
+    "with_page": 214,
+    "listed": 214,
+    "singles_main_played": 6557,
+    "singles_qualifying_played": 3696
+   },
+   "2025|atp|finals": {
+    "events": 2,
+    "with_page": 2,
+    "listed": 2,
+    "singles_main_played": 30,
+    "singles_qualifying_played": 0
+   },
+   "2025|atp|itf": {
+    "events": 634,
+    "with_page": 634,
+    "listed": 634,
+    "singles_main_played": 19522,
+    "singles_qualifying_played": 22753
+   },
+   "2025|atp|slam": {
+    "events": 4,
+    "with_page": 4,
+    "listed": 4,
+    "singles_main_played": 505,
+    "singles_qualifying_played": 447
+   },
+   "2025|atp|tour": {
+    "events": 53,
+    "with_page": 53,
+    "listed": 53,
+    "singles_main_played": 2039,
+    "singles_qualifying_played": 813
+   },
+   "2025|wta|finals": {
+    "events": 1,
+    "with_page": 1,
+    "listed": 1,
+    "singles_main_played": 15,
+    "singles_qualifying_played": 0
+   },
+   "2025|wta|itf": {
+    "events": 629,
+    "with_page": 629,
+    "listed": 629,
+    "singles_main_played": 19518,
+    "singles_qualifying_played": 16759
+   },
+   "2025|wta|slam": {
+    "events": 4,
+    "with_page": 4,
+    "listed": 4,
+    "singles_main_played": 507,
+    "singles_qualifying_played": 448
+   },
+   "2025|wta|tour": {
+    "events": 46,
+    "with_page": 46,
+    "listed": 46,
+    "singles_main_played": 1886,
+    "singles_qualifying_played": 888
+   },
+   "2025|wta|wta125": {
+    "events": 52,
+    "with_page": 52,
+    "listed": 52,
+    "singles_main_played": 1595,
+    "singles_qualifying_played": 414
+   },
+   "2026|atp|challenger": {
+    "events": 205,
+    "with_page": 205,
+    "listed": 200,
+    "singles_main_played": 6122,
+    "singles_qualifying_played": 3479
+   },
+   "2026|atp|itf": {
+    "events": 496,
+    "with_page": 496,
+    "listed": 484,
+    "singles_main_played": 14883,
+    "singles_qualifying_played": 17405
+   },
+   "2026|atp|slam": {
+    "events": 4,
+    "with_page": 4,
+    "listed": 4,
+    "singles_main_played": 504,
+    "singles_qualifying_played": 446
+   },
+   "2026|atp|tour": {
+    "events": 47,
+    "with_page": 47,
+    "listed": 46,
+    "singles_main_played": 1746,
+    "singles_qualifying_played": 701
+   },
+   "2026|wta|itf": {
+    "events": 479,
+    "with_page": 479,
+    "listed": 467,
+    "singles_main_played": 14313,
+    "singles_qualifying_played": 12431
+   },
+   "2026|wta|slam": {
+    "events": 4,
+    "with_page": 4,
+    "listed": 4,
+    "singles_main_played": 507,
+    "singles_qualifying_played": 448
+   },
+   "2026|wta|tour": {
+    "events": 42,
+    "with_page": 42,
+    "listed": 42,
+    "singles_main_played": 1753,
+    "singles_qualifying_played": 774
+   },
+   "2026|wta|wta125": {
+    "events": 53,
+    "with_page": 53,
+    "listed": 51,
+    "singles_main_played": 1575,
+    "singles_qualifying_played": 482
+   }
+  },
+  "section_status": {
+   "200": 11389,
+   "no tournament page": 259,
+   "not fetched": 32
+  },
+  "dates_inside_weeks": {
+   "events_with_dated_matches": 11639,
+   "inside": 11553,
+   "outside_examples": [
+    {
+     "key": "wta:11752",
+     "name": "ASB Classic - Auckland",
+     "first_week": "2018-01-01",
+     "last_week": "2018-01-01",
+     "first_start_utc": "2017-12-29 09:00",
+     "last_start_utc": "2018-01-07 09:00"
+    },
+    {
+     "key": "wta:11750",
+     "name": "Brisbane International - Brisbane",
+     "first_week": "2018-01-01",
+     "last_week": "2018-01-01",
+     "first_start_utc": "2017-12-29 09:00",
+     "last_start_utc": "2018-01-06 09:00"
+    },
+    {
+     "key": "atp:14703",
+     "name": "ASB Classic - Auckland",
+     "first_week": "2018-01-08",
+     "last_week": "2018-01-08",
+     "first_start_utc": "2018-01-05 09:00",
+     "last_start_utc": "2018-01-13 09:00"
+    },
+    {
+     "key": "wta:11753",
+     "name": "Sydney International - Sydney",
+     "first_week": "2018-01-08",
+     "last_week": "2018-01-08",
+     "first_start_utc": "2018-01-05 09:00",
+     "last_start_utc": "2018-01-13 09:00"
+    },
+    {
+     "key": "wta:11755",
+     "name": "Australian Open - Melbourne",
+     "first_week": "2018-01-15",
+     "last_week": "2018-01-22",
+     "first_start_utc": "2018-01-11 09:00",
+     "last_start_utc": "2018-01-27 09:00"
+    },
+    {
+     "key": "atp:14793",
+     "name": "Yokohama Challenger",
+     "first_week": "2018-02-26",
+     "last_week": "2018-02-26",
+     "first_start_utc": "2018-02-23 09:00",
+     "last_start_utc": "2018-03-03 09:00"
+    },
+    {
+     "key": "atp:14991",
+     "name": "Spain F7 (Reus)",
+     "first_week": "2018-03-19",
+     "last_week": "2018-03-19",
+     "first_start_utc": "2018-03-16 09:00",
+     "last_start_utc": "2018-03-25 09:00"
+    },
+    {
+     "key": "atp:15069",
+     "name": "China F4 (Wuhan)",
+     "first_week": "2018-04-30",
+     "last_week": "2018-04-30",
+     "first_start_utc": "2018-04-27 09:00",
+     "last_start_utc": "2018-05-06 09:00"
+    },
+    {
+     "key": "wta:11773",
+     "name": "Mutua Madrid Open - Madrid",
+     "first_week": "2018-05-07",
+     "last_week": "2018-05-07",
+     "first_start_utc": "2018-05-04 09:00",
+     "last_start_utc": "2018-05-12 09:00"
+    },
+    {
+     "key": "atp:15106",
+     "name": "China F5 (Wuhan)",
+     "first_week": "2018-05-07",
+     "last_week": "2018-05-07",
+     "first_start_utc": "2018-05-04 09:00",
+     "last_start_utc": "2018-05-13 09:00"
+    },
+    {
+     "key": "atp:15120",
+     "name": "China F6 (Luan)",
+     "first_week": "2018-05-14",
+     "last_week": "2018-05-14",
+     "first_start_utc": "2018-05-11 09:00",
+     "last_start_utc": "2018-05-19 09:00"
+    },
+    {
+     "key": "wta:11776",
+     "name": "Internationaux de Strasbourg - Strasbourg",
+     "first_week": "2018-05-21",
+     "last_week": "2018-05-21",
+     "first_start_utc": "2018-05-18 09:00",
+     "last_start_utc": "2018-05-26 09:00"
+    },
+    {
+     "key": "atp:15152",
+     "name": "China F7 (Luzhou)",
+     "first_week": "2018-05-28",
+     "last_week": "2018-05-28",
+     "first_start_utc": "2018-05-25 09:00",
+     "last_start_utc": "2018-06-02 09:00"
+    },
+    {
+     "key": "atp:15164",
+     "name": "China F8 (Yinchuan)",
+     "first_week": "2018-06-04",
+     "last_week": "2018-06-04",
+     "first_start_utc": "2018-06-01 09:00",
+     "last_start_utc": "2018-06-10 09:00"
+    },
+    {
+     "key": "wta:11783",
+     "name": "The International Eastbourne - Eastbourne",
+     "first_week": "2018-06-25",
+     "last_week": "2018-06-25",
+     "first_start_utc": "2018-06-22 09:00",
+     "last_start_utc": "2018-06-30 09:00"
+    },
+    {
+     "key": "wta:12095",
+     "name": "Naiman",
+     "first_week": "2018-07-02",
+     "last_week": "2018-07-02",
+     "first_start_utc": "2018-06-29 09:00",
+     "last_start_utc": "2018-07-08 09:00"
+    },
+    {
+     "key": "atp:15270",
+     "name": "China F11 (Kunshan)",
+     "first_week": "2018-07-16",
+     "last_week": "2018-07-16",
+     "first_start_utc": "2018-07-13 09:00",
+     "last_start_utc": "2018-07-21 09:00"
+    },
+    {
+     "key": "atp:15216",
+     "name": "Segovia Challenger",
+     "first_week": "2018-07-30",
+     "last_week": "2018-07-30",
+     "first_start_utc": "2018-07-27 09:00",
+     "last_start_utc": "2018-08-05 09:00"
+    },
+    {
+     "key": "wta:11794",
+     "name": "Connecticut Open - New Haven",
+     "first_week": "2018-08-20",
+     "last_week": "2018-08-20",
+     "first_start_utc": "2018-08-17 09:00",
+     "last_start_utc": "2018-08-25 09:00"
+    },
+    {
+     "key": "atp:15399",
+     "name": "Thailand F1 (Nonthaburi)",
+     "first_week": "2018-08-20",
+     "last_week": "2018-08-20",
+     "first_start_utc": "2018-08-17 09:00",
+     "last_start_utc": "2018-08-24 09:00"
+    },
+    {
+     "key": "atp:15412",
+     "name": "Thailand F2 (Nonthaburi)",
+     "first_week": "2018-08-27",
+     "last_week": "2018-08-27",
+     "first_start_utc": "2018-08-24 09:00",
+     "last_start_utc": "2018-08-31 09:00"
+    },
+    {
+     "key": "wta:12225",
+     "name": "Saint-Malo",
+     "first_week": "2018-09-17",
+     "last_week": "2018-09-17",
+     "first_start_utc": "2018-09-14 09:00",
+     "last_start_utc": "2018-09-23 09:00"
+    },
+    {
+     "key": "wta:11802",
+     "name": "Wuhan Tennis Open - Wuhan",
+     "first_week": "2018-09-24",
+     "last_week": "2018-09-24",
+     "first_start_utc": "2018-09-21 09:00",
+     "last_start_utc": "2018-09-29 09:00"
+    },
+    {
+     "key": "atp:15477",
+     "name": "Kazakhstan F8 (Shymkent)",
+     "first_week": "2018-09-24",
+     "last_week": "2018-09-24",
+     "first_start_utc": "2018-09-21 09:00",
+     "last_start_utc": "2018-09-29 09:00"
+    },
+    {
+     "key": "wta:11804",
+     "name": "China Open - Beijing",
+     "first_week": "2018-10-01",
+     "last_week": "2018-10-01",
+     "first_start_utc": "2018-09-28 09:00",
+     "last_start_utc": "2018-10-07 09:00"
+    }
+   ]
+  }
+ },
+ "editions": {
+  "by_group_tour_year": {
+   "challenger|M|2018": {
+    "editions": 305,
+    "linked": 305,
+    "map_matches": 8663,
+    "matches_linked": 8205
+   },
+   "challenger|M|2019": {
+    "editions": 225,
+    "linked": 224,
+    "map_matches": 7646,
+    "matches_linked": 7273
+   },
+   "challenger|M|2020": {
+    "editions": 110,
+    "linked": 110,
+    "map_matches": 2680,
+    "matches_linked": 2434
+   },
+   "challenger|M|2021": {
+    "editions": 313,
+    "linked": 295,
+    "map_matches": 6886,
+    "matches_linked": 5729
+   },
+   "challenger|M|2022": {
+    "editions": 500,
+    "linked": 462,
+    "map_matches": 9334,
+    "matches_linked": 8453
+   },
+   "challenger|M|2023": {
+    "editions": 548,
+    "linked": 492,
+    "map_matches": 9796,
+    "matches_linked": 8974
+   },
+   "challenger|M|2024": {
+    "editions": 536,
+    "linked": 500,
+    "map_matches": 10427,
+    "matches_linked": 9663
+   },
+   "challenger|M|2025": {
+    "editions": 428,
+    "linked": 425,
+    "map_matches": 10288,
+    "matches_linked": 10083
+   },
+   "challenger|M|2026": {
+    "editions": 315,
+    "linked": 314,
+    "map_matches": 8019,
+    "matches_linked": 7870
+   },
+   "challenger|W|2018": {
+    "editions": 15,
+    "linked": 13,
+    "map_matches": 440,
+    "matches_linked": 427
+   },
+   "challenger|W|2019": {
+    "editions": 18,
+    "linked": 16,
+    "map_matches": 449,
+    "matches_linked": 403
+   },
+   "challenger|W|2020": {
+    "editions": 6,
+    "linked": 6,
+    "map_matches": 236,
+    "matches_linked": 215
+   },
+   "challenger|W|2021": {
+    "editions": 22,
+    "linked": 21,
+    "map_matches": 544,
+    "matches_linked": 515
+   },
+   "challenger|W|2022": {
+    "editions": 38,
+    "linked": 37,
+    "map_matches": 885,
+    "matches_linked": 845
+   },
+   "challenger|W|2023": {
+    "editions": 52,
+    "linked": 52,
+    "map_matches": 1135,
+    "matches_linked": 1062
+   },
+   "challenger|W|2024": {
+    "editions": 57,
+    "linked": 57,
+    "map_matches": 1372,
+    "matches_linked": 1278
+   },
+   "challenger|W|2025": {
+    "editions": 73,
+    "linked": 73,
+    "map_matches": 2087,
+    "matches_linked": 1955
+   },
+   "challenger|W|2026": {
+    "editions": 58,
+    "linked": 56,
+    "map_matches": 2257,
+    "matches_linked": 1367
+   },
+   "itf|M|2018": {
+    "editions": 548,
+    "linked": 548,
+    "map_matches": 16889,
+    "matches_linked": 16356
+   },
+   "itf|M|2019": {
+    "editions": 536,
+    "linked": 536,
+    "map_matches": 16520,
+    "matches_linked": 15922
+   },
+   "itf|M|2020": {
+    "editions": 152,
+    "linked": 151,
+    "map_matches": 4557,
+    "matches_linked": 4423
+   },
+   "itf|M|2021": {
+    "editions": 467,
+    "linked": 436,
+    "map_matches": 12252,
+    "matches_linked": 11600
+   },
+   "itf|M|2022": {
+    "editions": 652,
+    "linked": 607,
+    "map_matches": 16855,
+    "matches_linked": 15873
+   },
+   "itf|M|2023": {
+    "editions": 740,
+    "linked": 673,
+    "map_matches": 17995,
+    "matches_linked": 17218
+   },
+   "itf|M|2024": {
+    "editions": 827,
+    "linked": 756,
+    "map_matches": 19012,
+    "matches_linked": 18019
+   },
+   "itf|M|2025": {
+    "editions": 596,
+    "linked": 595,
+    "map_matches": 17830,
+    "matches_linked": 17226
+   },
+   "itf|M|2026": {
+    "editions": 271,
+    "linked": 247,
+    "map_matches": 7690,
+    "matches_linked": 7369
+   },
+   "itf|W|2018": {
+    "editions": 1030,
+    "linked": 1030,
+    "map_matches": 29297,
+    "matches_linked": 28076
+   },
+   "itf|W|2019": {
+    "editions": 681,
+    "linked": 672,
+    "map_matches": 27677,
+    "matches_linked": 26483
+   },
+   "itf|W|2020": {
+    "editions": 181,
+    "linked": 178,
+    "map_matches": 8510,
+    "matches_linked": 8146
+   },
+   "itf|W|2021": {
+    "editions": 473,
+    "linked": 457,
+    "map_matches": 22517,
+    "matches_linked": 21616
+   },
+   "itf|W|2022": {
+    "editions": 622,
+    "linked": 601,
+    "map_matches": 30652,
+    "matches_linked": 29367
+   },
+   "itf|W|2023": {
+    "editions": 712,
+    "linked": 689,
+    "map_matches": 33324,
+    "matches_linked": 32179
+   },
+   "itf|W|2024": {
+    "editions": 701,
+    "linked": 689,
+    "map_matches": 35393,
+    "matches_linked": 34014
+   },
+   "itf|W|2025": {
+    "editions": 1220,
+    "linked": 1220,
+    "map_matches": 34597,
+    "matches_linked": 33395
+   },
+   "itf|W|2026": {
+    "editions": 727,
+    "linked": 716,
+    "map_matches": 26307,
+    "matches_linked": 25411
+   },
+   "tour|M|2018": {
+    "editions": 81,
+    "linked": 81,
+    "map_matches": 3936,
+    "matches_linked": 3873
+   },
+   "tour|M|2019": {
+    "editions": 84,
+    "linked": 84,
+    "map_matches": 3891,
+    "matches_linked": 3823
+   },
+   "tour|M|2020": {
+    "editions": 36,
+    "linked": 36,
+    "map_matches": 1896,
+    "matches_linked": 1846
+   },
+   "tour|M|2021": {
+    "editions": 81,
+    "linked": 76,
+    "map_matches": 3778,
+    "matches_linked": 3579
+   },
+   "tour|M|2022": {
+    "editions": 87,
+    "linked": 82,
+    "map_matches": 3955,
+    "matches_linked": 3840
+   },
+   "tour|M|2023": {
+    "editions": 91,
+    "linked": 78,
+    "map_matches": 4080,
+    "matches_linked": 3967
+   },
+   "tour|M|2024": {
+    "editions": 77,
+    "linked": 77,
+    "map_matches": 4041,
+    "matches_linked": 3923
+   },
+   "tour|M|2025": {
+    "editions": 74,
+    "linked": 73,
+    "map_matches": 3927,
+    "matches_linked": 3777
+   },
+   "tour|M|2026": {
+    "editions": 84,
+    "linked": 83,
+    "map_matches": 3628,
+    "matches_linked": 3432
+   },
+   "tour|W|2018": {
+    "editions": 83,
+    "linked": 67,
+    "map_matches": 4011,
+    "matches_linked": 3837
+   },
+   "tour|W|2019": {
+    "editions": 112,
+    "linked": 91,
+    "map_matches": 4182,
+    "matches_linked": 3944
+   },
+   "tour|W|2020": {
+    "editions": 46,
+    "linked": 37,
+    "map_matches": 1773,
+    "matches_linked": 1652
+   },
+   "tour|W|2021": {
+    "editions": 103,
+    "linked": 87,
+    "map_matches": 3897,
+    "matches_linked": 3612
+   },
+   "tour|W|2022": {
+    "editions": 81,
+    "linked": 69,
+    "map_matches": 3785,
+    "matches_linked": 3565
+   },
+   "tour|W|2023": {
+    "editions": 81,
+    "linked": 75,
+    "map_matches": 3884,
+    "matches_linked": 3717
+   },
+   "tour|W|2024": {
+    "editions": 83,
+    "linked": 71,
+    "map_matches": 3894,
+    "matches_linked": 3722
+   },
+   "tour|W|2025": {
+    "editions": 74,
+    "linked": 71,
+    "map_matches": 3892,
+    "matches_linked": 3766
+   },
+   "tour|W|2026": {
+    "editions": 67,
+    "linked": 67,
+    "map_matches": 3500,
+    "matches_linked": 3179
+   }
+  },
+  "all": {
+   "editions": 16180,
+   "linked": 15564,
+   "map_matches": 526968,
+   "matches_linked": 502498
+  }
+ },
+ "samples": {
+  "itf_main_since_june_2026|atp": {
+   "sampled": 100,
+   "pages": 100,
+   "with_points": 85,
+   "complete": 8,
+   "only_set_closing_missing": 54,
+   "other_shortfall": 23,
+   "no_points": 15,
+   "with_statistics": 98,
+   "median_games_with_points": 0.857
+  },
+  "itf_main_since_june_2026|wta": {
+   "sampled": 100,
+   "pages": 100,
+   "with_points": 92,
+   "complete": 10,
+   "only_set_closing_missing": 66,
+   "other_shortfall": 16,
+   "no_points": 8,
+   "with_statistics": 98,
+   "median_games_with_points": 0.887
+  },
+  "itf_qualifying_2019_2026|atp": {
+   "sampled": 100,
+   "pages": 100,
+   "with_points": 32,
+   "complete": 0,
+   "only_set_closing_missing": 22,
+   "other_shortfall": 10,
+   "no_points": 68,
+   "with_statistics": 33,
+   "median_games_with_points": 0.0,
+   "final_qualifying_round": {
+    "pages": 27,
+    "with_points": 19
+   },
+   "earlier_rounds": {
+    "pages": 73,
+    "with_points": 13
+   },
+   "by_year": {
+    "2019": {
+     "pages": 13,
+     "with_points": 2
+    },
+    "2020": {
+     "pages": 13,
+     "with_points": 3
+    },
+    "2021": {
+     "pages": 13,
+     "with_points": 3
+    },
+    "2022": {
+     "pages": 13,
+     "with_points": 5
+    },
+    "2023": {
+     "pages": 12,
+     "with_points": 6
+    },
+    "2024": {
+     "pages": 12,
+     "with_points": 7
+    },
+    "2025": {
+     "pages": 12,
+     "with_points": 3
+    },
+    "2026": {
+     "pages": 12,
+     "with_points": 3
+    }
+   }
+  },
+  "itf_qualifying_2019_2026|wta": {
+   "sampled": 100,
+   "pages": 100,
+   "with_points": 38,
+   "complete": 0,
+   "only_set_closing_missing": 28,
+   "other_shortfall": 10,
+   "no_points": 62,
+   "with_statistics": 44,
+   "median_games_with_points": 0.0,
+   "final_qualifying_round": {
+    "pages": 35,
+    "with_points": 24
+   },
+   "earlier_rounds": {
+    "pages": 65,
+    "with_points": 14
+   },
+   "by_year": {
+    "2019": {
+     "pages": 13,
+     "with_points": 3
+    },
+    "2020": {
+     "pages": 13,
+     "with_points": 0
+    },
+    "2021": {
+     "pages": 13,
+     "with_points": 4
+    },
+    "2022": {
+     "pages": 13,
+     "with_points": 8
+    },
+    "2023": {
+     "pages": 12,
+     "with_points": 8
+    },
+    "2024": {
+     "pages": 12,
+     "with_points": 8
+    },
+    "2025": {
+     "pages": 12,
+     "with_points": 4
+    },
+    "2026": {
+     "pages": 12,
+     "with_points": 3
+    }
+   }
+  }
+ },
+ "receipts_with_errors": 0,
+ "error_examples": [],
+ "events_selected": 11421,
+ "finished_at": "2026-10-14T00:35:30+00:00",
+ "seconds": 4633.8
+}

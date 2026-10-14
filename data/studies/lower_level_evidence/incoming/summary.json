@@ -1,0 +1,561 @@
+{
+ "generated_at": "2026-10-09T15:21:32+00:00",
+ "stage0_dir": "data\\studies\\current_best_model\\reference_2026-10-08\\frozen\\tables\\data\\studies\\predictability_diagnostic",
+ "inputs": {
+  "map_matches": {
+   "path": "data\\studies\\data_map\\matches.parquet",
+   "sha256": "f9c2433b6b35ea72ec0e18e090c8504170301754bc2897715d6dbffcec4dcc10"
+  },
+  "map_coverage": {
+   "path": "data\\studies\\data_map\\coverage.json",
+   "sha256": "d535cabcd77c57d35a0f5a1002e7fbb6e1850596f109c09547ff726ce7a66582",
+   "generated_at": "2026-10-09T03:56:13+00:00",
+   "window": {
+    "start": "2018-01-01",
+    "end": "2026-10-04"
+   }
+  },
+  "target_lists": {
+   "sofascore_challenger_points_2025_matches.csv": "1005b1290717a9099a9d2aece436c3e574c32650e122e0bff723ac8316fc4bdc",
+   "sofascore_wta125_points_2019_2026_matches.csv": "447ce0193c263fb4af8f035cc1259bdf7d167368cbcbbad18f9332656abf91a3",
+   "sofascore_challenger_points_2022_2024_matches.csv": "23b6077866c305e1dcf179b3465a27ca87144cae7706303d20e9a997708511f0",
+   "sofascore_wta_2018_points_matches.csv": "ead5909596a5b8dd065d3ec91ba0463ba56884ba7d22a1720e9da441c07b74c1",
+   "sofascore_challenger_points_2018_2021_matches.csv": "1c2fe9ee4493b364edbe307da3e0918a00d5ec42f746fcdd42fee84686aaf558",
+   "tennislive_challenger_points_2018_2021_matches.csv.gz": "b1b5def66711c52b59b1c08e8921f0ff212d067b7e4fa7d3c39e5ed917d7e292",
+   "tennislive_challenger_points_2022_2024_matches.csv.gz": "f90e61172277f519c7e551fafb804faca5d7ac647f49c452fae7fd1c46654cf8",
+   "tennislive_wta_2018_points_matches.csv.gz": "c9a30e1ff2adddbe6969af0b47d5897b6e1aacf5d3835f7a7e46e7e5146153e8",
+   "tennislive_qualifying_points_2018_2026_matches.csv.gz": "4b661e2b56cfff501f18226ba1b20f7c1b1e1ac404220b563f547cbf8abb028b"
+  }
+ },
+ "dev_2018_2024_lower4": {
+  "by_tour_bucket": [
+   {
+    "T": "M",
+    "bucket": "CH",
+    "matches": 37346,
+    "with_box": 37010,
+    "results_only": 336,
+    "m_main365": 32336,
+    "ro_m_main365": 287,
+    "m_frame365": 28863,
+    "ro_m_frame365": 258,
+    "m_frame28": 8697,
+    "ro_m_frame28": 60
+   },
+   {
+    "T": "M",
+    "bucket": "CHQ",
+    "matches": 15768,
+    "with_box": 15628,
+    "results_only": 140,
+    "m_main365": 6539,
+    "ro_m_main365": 52,
+    "m_frame365": 4938,
+    "ro_m_frame365": 39,
+    "m_frame28": 713,
+    "ro_m_frame28": 8
+   },
+   {
+    "T": "M",
+    "bucket": "ITF",
+    "matches": 102358,
+    "with_box": 0,
+    "results_only": 102358,
+    "m_main365": 14363,
+    "ro_m_main365": 14363,
+    "m_frame365": 11046,
+    "ro_m_frame365": 11046,
+    "m_frame28": 691,
+    "ro_m_frame28": 691
+   },
+   {
+    "T": "W",
+    "bucket": "CH",
+    "matches": 4132,
+    "with_box": 3996,
+    "results_only": 136,
+    "m_main365": 4045,
+    "ro_m_main365": 133,
+    "m_frame365": 3935,
+    "ro_m_frame365": 133,
+    "m_frame28": 2091,
+    "ro_m_frame28": 102
+   },
+   {
+    "T": "W",
+    "bucket": "CHQ",
+    "matches": 611,
+    "with_box": 594,
+    "results_only": 17,
+    "m_main365": 474,
+    "ro_m_main365": 16,
+    "m_frame365": 397,
+    "ro_m_frame365": 15,
+    "m_frame28": 101,
+    "ro_m_frame28": 10
+   },
+   {
+    "T": "W",
+    "bucket": "ITF",
+    "matches": 102784,
+    "with_box": 31,
+    "results_only": 102753,
+    "m_main365": 38457,
+    "ro_m_main365": 38427,
+    "m_frame365": 31856,
+    "ro_m_frame365": 31828,
+    "m_frame28": 5810,
+    "ro_m_frame28": 5787
+   },
+   {
+    "T": "W",
+    "bucket": "ITFQ",
+    "matches": 69889,
+    "with_box": 0,
+    "results_only": 69889,
+    "m_main365": 5617,
+    "ro_m_main365": 5617,
+    "m_frame365": 4112,
+    "ro_m_frame365": 4112,
+    "m_frame28": 428,
+    "ro_m_frame28": 428
+   }
+  ]
+ },
+ "targets_by_gap": [
+  {
+   "package": "P5",
+   "gap": "challenger_points_2018_2021",
+   "source": "tennislive",
+   "targets": 25186,
+   "linked": 23709,
+   "linked_date_off": 174,
+   "not_in_stage0": 1303,
+   "in_stage0_by_sources": 24763,
+   "not_in_stage0_by_sources": 423,
+   "unlinked_but_in_stage0": 885,
+   "stage0_matches": 23597,
+   "stage0_with_box": 23505,
+   "rel_main365": 17723,
+   "rel_frame365": 15373,
+   "rel_frame28": 4273
+  },
+  {
+   "package": "P5",
+   "gap": "challenger_points_2022_2024",
+   "source": "tennislive",
+   "targets": 5794,
+   "linked": 5160,
+   "linked_date_off": 67,
+   "not_in_stage0": 567,
+   "in_stage0_by_sources": 5309,
+   "not_in_stage0_by_sources": 485,
+   "unlinked_but_in_stage0": 136,
+   "stage0_matches": 5190,
+   "stage0_with_box": 5135,
+   "rel_main365": 3828,
+   "rel_frame365": 3328,
+   "rel_frame28": 959
+  },
+  {
+   "package": "P5",
+   "gap": "qualifying_points_2018_2026",
+   "source": "tennislive",
+   "targets": 6482,
+   "linked": 6324,
+   "linked_date_off": 29,
+   "not_in_stage0": 129,
+   "in_stage0_by_sources": 6398,
+   "not_in_stage0_by_sources": 84,
+   "unlinked_but_in_stage0": 55,
+   "stage0_matches": 6349,
+   "stage0_with_box": 5992,
+   "rel_main365": 6243,
+   "rel_frame365": 6083,
+   "rel_frame28": 4946
+  },
+  {
+   "package": "P5",
+   "gap": "wta_2018_points",
+   "source": "tennislive",
+   "targets": 2080,
+   "linked": 2060,
+   "linked_date_off": 0,
+   "not_in_stage0": 20,
+   "in_stage0_by_sources": 2060,
+   "not_in_stage0_by_sources": 20,
+   "unlinked_but_in_stage0": 0,
+   "stage0_matches": 2057,
+   "stage0_with_box": 2044,
+   "rel_main365": 1464,
+   "rel_frame365": 1419,
+   "rel_frame28": 1031
+  },
+  {
+   "package": "P6",
+   "gap": "challenger_points_2018_2021",
+   "source": "sofascore",
+   "targets": 24874,
+   "linked": 23709,
+   "linked_date_off": 172,
+   "not_in_stage0": 993,
+   "in_stage0_by_sources": 24763,
+   "not_in_stage0_by_sources": 111,
+   "unlinked_but_in_stage0": 885,
+   "stage0_matches": 23595,
+   "stage0_with_box": 23504,
+   "rel_main365": 17722,
+   "rel_frame365": 15372,
+   "rel_frame28": 4273
+  },
+  {
+   "package": "P6",
+   "gap": "challenger_points_2022_2024",
+   "source": "sofascore",
+   "targets": 5781,
+   "linked": 5160,
+   "linked_date_off": 67,
+   "not_in_stage0": 554,
+   "in_stage0_by_sources": 5309,
+   "not_in_stage0_by_sources": 472,
+   "unlinked_but_in_stage0": 136,
+   "stage0_matches": 5190,
+   "stage0_with_box": 5135,
+   "rel_main365": 3828,
+   "rel_frame365": 3328,
+   "rel_frame28": 959
+  },
+  {
+   "package": "P6",
+   "gap": "challenger_points_2025",
+   "source": "sofascore",
+   "targets": 14675,
+   "linked": 14316,
+   "linked_date_off": 3,
+   "not_in_stage0": 356,
+   "in_stage0_by_sources": 14673,
+   "not_in_stage0_by_sources": 2,
+   "unlinked_but_in_stage0": 356,
+   "stage0_matches": 14302,
+   "stage0_with_box": 14292,
+   "rel_main365": 8542,
+   "rel_frame365": 6909,
+   "rel_frame28": 2060
+  },
+  {
+   "package": "P6",
+   "gap": "wta125_points_2019_2026",
+   "source": "sofascore",
+   "targets": 377,
+   "linked": 306,
+   "linked_date_off": 1,
+   "not_in_stage0": 70,
+   "in_stage0_by_sources": 306,
+   "not_in_stage0_by_sources": 71,
+   "unlinked_but_in_stage0": 0,
+   "stage0_matches": 307,
+   "stage0_with_box": 292,
+   "rel_main365": 283,
+   "rel_frame365": 258,
+   "rel_frame28": 125
+  },
+  {
+   "package": "P6",
+   "gap": "wta_2018_points",
+   "source": "sofascore",
+   "targets": 2079,
+   "linked": 2060,
+   "linked_date_off": 0,
+   "not_in_stage0": 19,
+   "in_stage0_by_sources": 2060,
+   "not_in_stage0_by_sources": 19,
+   "unlinked_but_in_stage0": 0,
+   "stage0_matches": 2057,
+   "stage0_with_box": 2044,
+   "rel_main365": 1464,
+   "rel_frame365": 1419,
+   "rel_frame28": 1031
+  },
+  {
+   "package": "P7",
+   "gap": "itf_detail",
+   "source": "sofascore",
+   "targets": 207045,
+   "linked": 202544,
+   "linked_date_off": 86,
+   "not_in_stage0": 4415,
+   "in_stage0_by_sources": 202511,
+   "not_in_stage0_by_sources": 4534,
+   "unlinked_but_in_stage0": 0,
+   "stage0_matches": 202207,
+   "stage0_with_box": 10,
+   "rel_main365": 51934,
+   "rel_frame365": 42140,
+   "rel_frame28": 6373
+  },
+  {
+   "package": "P7",
+   "gap": "itf_points_2025_2026",
+   "source": "sofascore",
+   "targets": 63259,
+   "linked": 49255,
+   "linked_date_off": 142,
+   "not_in_stage0": 13862,
+   "in_stage0_by_sources": 49255,
+   "not_in_stage0_by_sources": 14004,
+   "unlinked_but_in_stage0": 0,
+   "stage0_matches": 49180,
+   "stage0_with_box": 47217,
+   "rel_main365": 11927,
+   "rel_frame365": 9311,
+   "rel_frame28": 1007
+  }
+ ],
+ "map_per_source_lower_levels": [
+  {
+   "src": "tennislive_listed",
+   "grain": "result",
+   "status": "on_disk",
+   "matches": 626813
+  },
+  {
+   "src": "sackmann",
+   "grain": "result",
+   "status": "on_disk",
+   "matches": 274145
+  },
+  {
+   "src": "wta_site",
+   "grain": "result",
+   "status": "on_disk",
+   "matches": 247210
+  },
+  {
+   "src": "sackmann",
+   "grain": "stats",
+   "status": "on_disk",
+   "matches": 123832
+  },
+  {
+   "src": "api_tennis",
+   "grain": "result",
+   "status": "on_disk",
+   "matches": 93952
+  },
+  {
+   "src": "tml",
+   "grain": "stats",
+   "status": "on_disk",
+   "matches": 43259
+  },
+  {
+   "src": "infosys",
+   "grain": "point",
+   "status": "on_disk",
+   "matches": 24209
+  },
+  {
+   "src": "wta_box",
+   "grain": "stats",
+   "status": "on_disk",
+   "matches": 8584
+  },
+  {
+   "src": "wta_lists",
+   "grain": "result",
+   "status": "on_disk",
+   "matches": 8584
+  },
+  {
+   "src": "wta_events",
+   "grain": "point",
+   "status": "on_disk",
+   "matches": 8439
+  },
+  {
+   "src": "infosys",
+   "grain": "stats",
+   "status": "on_disk",
+   "matches": 4138
+  },
+  {
+   "src": "tdi",
+   "grain": "point",
+   "status": "on_disk",
+   "matches": 4028
+  },
+  {
+   "src": "tdi_listing",
+   "grain": "result",
+   "status": "on_disk",
+   "matches": 4028
+  },
+  {
+   "src": "lta_sample",
+   "grain": "point",
+   "status": "on_disk",
+   "matches": 3352
+  },
+  {
+   "src": "tennislive",
+   "grain": "point",
+   "status": "on_disk",
+   "matches": 3309
+  },
+  {
+   "src": "itf_live",
+   "grain": "point",
+   "status": "on_disk",
+   "matches": 2766
+  },
+  {
+   "src": "sofascore",
+   "grain": "point",
+   "status": "on_disk",
+   "matches": 2533
+  },
+  {
+   "src": "itf_live",
+   "grain": "result",
+   "status": "on_disk",
+   "matches": 1294
+  },
+  {
+   "src": "sofascore",
+   "grain": "result",
+   "status": "on_disk",
+   "matches": 866
+  },
+  {
+   "src": "tml",
+   "grain": "result",
+   "status": "on_disk",
+   "matches": 536
+  },
+  {
+   "src": "mcp",
+   "grain": "shot",
+   "status": "on_disk",
+   "matches": 506
+  },
+  {
+   "src": "tennislive",
+   "grain": "result",
+   "status": "on_disk",
+   "matches": 254
+  },
+  {
+   "src": "tennislive_samples",
+   "grain": "point",
+   "status": "on_disk",
+   "matches": 246
+  },
+  {
+   "src": "sofascore",
+   "grain": "stats",
+   "status": "on_disk",
+   "matches": 242
+  },
+  {
+   "src": "marcosjn2",
+   "grain": "point",
+   "status": "on_disk",
+   "matches": 166
+  },
+  {
+   "src": "court_vision",
+   "grain": "shot",
+   "status": "on_disk",
+   "matches": 130
+  },
+  {
+   "src": "tennislive_samples",
+   "grain": "result",
+   "status": "on_disk",
+   "matches": 123
+  },
+  {
+   "src": "ta_charts",
+   "grain": "shot",
+   "status": "on_disk",
+   "matches": 99
+  },
+  {
+   "src": "tennislive",
+   "grain": "stats",
+   "status": "on_disk",
+   "matches": 54
+  },
+  {
+   "src": "tennislive_samples",
+   "grain": "stats",
+   "status": "on_disk",
+   "matches": 30
+  },
+  {
+   "src": "wimbledon",
+   "grain": "point",
+   "status": "on_disk",
+   "matches": 7
+  },
+  {
+   "src": "infosys_slams",
+   "grain": "point",
+   "status": "on_disk",
+   "matches": 3
+  },
+  {
+   "src": "usopen",
+   "grain": "stats",
+   "status": "on_disk",
+   "matches": 3
+  },
+  {
+   "src": "ausopen",
+   "grain": "point",
+   "status": "on_disk",
+   "matches": 1
+  }
+ ],
+ "yields_measured": {
+  "itf_detail|sofascore": {
+   "stats": [
+    82,
+    84
+   ],
+   "point_complete": [
+    78,
+    84
+   ],
+   "evidence": "docs/research/gap-sources/README.md:76 (84 sampled ITF 2018-24 matches)"
+  },
+  "challenger_points_2025|sofascore": {
+   "stats": [
+    60,
+    60
+   ],
+   "point_complete": [
+    58,
+    60
+   ],
+   "evidence": "docs/studies/gap_downloads/README.md:116-121 (trial, 60 targets)"
+  },
+  "challenger_points_2018_2021|tennislive": {
+   "point_any": [
+    11,
+    14
+   ],
+   "stats": [
+    12,
+    14
+   ],
+   "evidence": "tennislive_gaps_summary.json (14 career pages held)"
+  }
+ },
+ "relevance_check": {
+  "sampled": 300,
+  "wrong": 0,
+  "seed": 20261009
+ },
+ "seconds": 24.4
+}

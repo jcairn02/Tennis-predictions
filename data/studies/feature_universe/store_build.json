@@ -47,7 +47,7 @@
    ]
   ],
   "near_duplicates": 28,
-  "menu_columns": 603,
+  "menu_columns": 606,
   "menu_by_group": {
    "pp": 196,
    "fp": 124,
@@ -61,12 +61,13 @@
    "ds": 7,
    "mk": 5,
    "ctx": 3,
+   "el": 3,
    "kn": 2
   },
   "pairs_consistent": true
  },
  "pairs_consistent": true,
- "columns": 776,
+ "columns": 779,
  "by_group": {
   "pp": 204,
   "fp": 200,
@@ -80,7 +81,8 @@
   "kn": 13,
   "ctx": 9,
   "ds": 8,
-  "mk": 5
+  "mk": 5,
+  "el": 3
  },
  "inputs_sha256": {
   "surface_features": "ba8514e8e514f95881275f192a340f0a3ee5954d61b24b6976e63e1c10f66365",
@@ -93,5 +95,22 @@
   "stage0_players": "f84ec8410140740e929fef2b57b44f28f8ddef2b6b6983c43345d213ee9a6e28",
   "stage1_odds": "43741983ba8720b5ec5e6dc1bc81ed879b0ab94bead1091c76dd2a01fe0fc74d",
   "timing": "ad4370627a21db43372e5ed38eacdf84d19d25a2021dbbc8977bee9a8df47c0b"
+ },
+ "event_levels": {
+  "rows_found": 63737,
+  "side_a_equals_stage0": true,
+  "diff_is_a_minus_b": true,
+  "source_sha256": "f929d9ac9770417f2b317ecd97ed84d2661031011e71b7ba149fb1a4ac6558c2"
+ },
+ "appended": {
+  "el": {
+   "at": "2026-10-08T22:57:14+00:00",
+   "columns": [
+    "el__low_share_diff",
+    "el__low_share_a",
+    "el__low_share_b"
+   ],
+   "how": "build_store.py --append-el"
+  }
  }
 }

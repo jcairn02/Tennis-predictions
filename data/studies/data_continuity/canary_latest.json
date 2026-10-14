@@ -1,5 +1,5 @@
 {
- "checked_at": "2026-10-06T17:02:34+00:00",
+ "checked_at": "2026-10-12T14:59:54+00:00",
  "flags": {
   "sackmann_tennis_atp": [
    "GONE"
@@ -12,22 +12,18 @@
    "GONE",
    "UNARCHIVED (last Software Heritage snapshot 2024-11-14)"
   ],
-  "sackmann_archive_mirror": [
-   "UNARCHIVED (no Software Heritage snapshot)"
-  ],
   "tml_github": [
    "UNARCHIVED (last Software Heritage snapshot 2026-02-21)"
   ],
-  "sirgenkii_infotennis": [
-   "UNARCHIVED (no Software Heritage snapshot)"
-  ],
-  "slam_ball_tracking": [
-   "UNARCHIVED (no Software Heritage snapshot)"
+  "tml_manifest": [
+   "SHRANK (files 207 -> 171)",
+   "SHRANK (3 files smaller: 1981_challenger.csv, 2024_challenger.csv, ATP_Database.csv)",
+   "REVISED (35 earlier-season files: 1978_challenger.csv, 1979_challenger.csv, 1980_challenger.csv, 1981_challenger.csv, 1982_challenger.csv)"
   ]
  },
  "items": [
   {
-   "checked_at": "2026-10-06T17:02:34+00:00",
+   "checked_at": "2026-10-12T14:59:54+00:00",
    "item": "sackmann_tennis_atp",
    "kind": "github",
    "status": 404,
@@ -47,7 +43,7 @@
    ]
   },
   {
-   "checked_at": "2026-10-06T17:02:34+00:00",
+   "checked_at": "2026-10-12T14:59:54+00:00",
    "item": "sackmann_tennis_wta",
    "kind": "github",
    "status": 404,
@@ -68,7 +64,7 @@
    ]
   },
   {
-   "checked_at": "2026-10-06T17:02:34+00:00",
+   "checked_at": "2026-10-12T14:59:54+00:00",
    "item": "sackmann_slam_pointbypoint",
    "kind": "github",
    "status": 404,
@@ -89,7 +85,7 @@
    ]
   },
   {
-   "checked_at": "2026-10-06T17:02:34+00:00",
+   "checked_at": "2026-10-12T14:59:54+00:00",
    "item": "match_charting_project",
    "kind": "github",
    "status": 200,
@@ -104,13 +100,14 @@
      "status": "full"
     },
     "last_any": {
-     "error": "ConnectTimeout"
+     "date": "2026-09-26",
+     "status": "full"
     }
    },
    "flags": []
   },
   {
-   "checked_at": "2026-10-06T17:02:34+00:00",
+   "checked_at": "2026-10-12T14:59:54+00:00",
    "item": "sackmann_archive_mirror",
    "kind": "github",
    "status": 200,
@@ -121,18 +118,18 @@
    "size_kb": 145222,
    "software_heritage": {
     "last_full": {
-     "http": 404
+     "date": "2026-10-06",
+     "status": "full"
     },
     "last_any": {
-     "http": 404
+     "date": "2026-10-06",
+     "status": "full"
     }
    },
-   "flags": [
-    "UNARCHIVED (no Software Heritage snapshot)"
-   ]
+   "flags": []
   },
   {
-   "checked_at": "2026-10-06T17:02:34+00:00",
+   "checked_at": "2026-10-12T14:59:54+00:00",
    "item": "tml_github",
    "kind": "github",
    "status": 200,
@@ -156,7 +153,7 @@
    ]
   },
   {
-   "checked_at": "2026-10-06T17:02:34+00:00",
+   "checked_at": "2026-10-12T14:59:54+00:00",
    "item": "sirgenkii_infotennis",
    "kind": "github",
    "status": 200,
@@ -167,18 +164,18 @@
    "size_kb": 4175,
    "software_heritage": {
     "last_full": {
-     "http": 404
+     "date": "2026-10-06",
+     "status": "full"
     },
     "last_any": {
-     "http": 404
+     "date": "2026-10-06",
+     "status": "full"
     }
    },
-   "flags": [
-    "UNARCHIVED (no Software Heritage snapshot)"
-   ]
+   "flags": []
   },
   {
-   "checked_at": "2026-10-06T17:02:34+00:00",
+   "checked_at": "2026-10-12T14:59:54+00:00",
    "item": "slam_ball_tracking",
    "kind": "github",
    "status": 200,
@@ -189,18 +186,18 @@
    "size_kb": 242993,
    "software_heritage": {
     "last_full": {
-     "http": 404
+     "date": "2026-10-06",
+     "status": "full"
     },
     "last_any": {
-     "http": 404
+     "date": "2026-10-06",
+     "status": "full"
     }
    },
-   "flags": [
-    "UNARCHIVED (no Software Heritage snapshot)"
-   ]
+   "flags": []
   },
   {
-   "checked_at": "2026-10-06T17:02:34+00:00",
+   "checked_at": "2026-10-12T14:59:54+00:00",
    "item": "atp_pipeline_handoff",
    "kind": "huggingface",
    "status": 200,
@@ -212,17 +209,128 @@
    "flags": []
   },
   {
-   "checked_at": "2026-10-06T17:02:34+00:00",
+   "checked_at": "2026-10-12T14:59:54+00:00",
    "item": "tml_manifest",
    "kind": "tml_manifest",
    "status": 200,
    "url": "https://stats.tennismylife.org/api/data-files",
-   "count": 207,
-   "newest_mtime": "2026-10-06T14:00:52.826Z",
-   "flags": []
+   "count": 171,
+   "newest_mtime": "2026-10-12T10:20:27.540Z",
+   "crlf": {
+    "2000_challenger.csv": 3535,
+    "2000_wta.csv": 2358,
+    "2000.csv": 3379,
+    "2001_challenger.csv": 4031,
+    "2001_wta.csv": 2883,
+    "2001.csv": 3312,
+    "2002_challenger.csv": 3594,
+    "2002_wta.csv": 2925,
+    "2002.csv": 3214,
+    "2003_challenger.csv": 3969,
+    "2003_wta.csv": 2718,
+    "2003.csv": 3219,
+    "2004_challenger.csv": 4155,
+    "2004_wta.csv": 2806,
+    "2004.csv": 3289,
+    "2005_challenger.csv": 4341,
+    "2005_wta.csv": 2844,
+    "2005.csv": 3264,
+    "2006_challenger.csv": 4465,
+    "2006_wta.csv": 2788,
+    "2006.csv": 3268,
+    "2007_challenger.csv": 4588,
+    "2007_wta.csv": 2779,
+    "2007.csv": 3193,
+    "2008_challenger.csv": 5147,
+    "2008_wta.csv": 2792,
+    "2008.csv": 3124,
+    "2009_challenger.csv": 4775,
+    "2009_wta.csv": 2723,
+    "2009.csv": 3086,
+    "2010_challenger.csv": 4341,
+    "2010_wta.csv": 2782,
+    "2010.csv": 3031,
+    "2011_challenger.csv": 4215,
+    "2011_wta.csv": 2805,
+    "2011.csv": 3016,
+    "2012_challenger.csv": 4232,
+    "2012_wta.csv": 2850,
+    "2012.csv": 3010,
+    "2013_challenger.csv": 4325,
+    "2013_wta.csv": 2715,
+    "2013.csv": 2945,
+    "2014_challenger.csv": 4387,
+    "2014_wta.csv": 2786,
+    "2014.csv": 2902,
+    "2015_challenger.csv": 4604,
+    "2015_wta.csv": 2652,
+    "2015.csv": 2946,
+    "2016_challenger.csv": 4930,
+    "2016_wta.csv": 2924,
+    "2016.csv": 2971,
+    "2017_challenger.csv": 4496,
+    "2017_wta.csv": 2832,
+    "2017.csv": 2937,
+    "2018_challenger.csv": 4682,
+    "2018_wta.csv": 2757,
+    "2018.csv": 2927,
+    "2019_challenger.csv": 3244,
+    "2019_wta.csv": 2744,
+    "2019.csv": 2807,
+    "2020_challenger.csv": 2184,
+    "2020_wta.csv": 1277,
+    "2020.csv": 1467,
+    "2021_challenger.csv": 4341,
+    "2021_wta.csv": 2598,
+    "2021.csv": 2736,
+    "2022_challenger.csv": 5392,
+    "2022_wta.csv": 2595,
+    "2022.csv": 2919,
+    "2023_challenger.csv": 5694,
+    "2023_wta.csv": 2811,
+    "2023.csv": 2996,
+    "2024_challenger.csv": 6064,
+    "2024_wta.csv": 2659,
+    "2024.csv": 0,
+    "2025_challenger.csv": 6412,
+    "2025_wta.csv": 2623,
+    "2025.csv": 2945,
+    "2026_challenger.csv": 6132,
+    "2026_wta.csv": 0,
+    "2026.csv": 0,
+    "ATP_Database.csv": 12938,
+    "atp_quali/2007_atp_quali.csv": 1757,
+    "atp_quali/2008_atp_quali.csv": 1688,
+    "atp_quali/2009_atp_quali.csv": 1738,
+    "atp_quali/2010_atp_quali.csv": 1824,
+    "atp_quali/2011_atp_quali.csv": 1844,
+    "atp_quali/2012_atp_quali.csv": 1855,
+    "atp_quali/2013_atp_quali.csv": 1862,
+    "atp_quali/2014_atp_quali.csv": 1806,
+    "atp_quali/2015_atp_quali.csv": 1863,
+    "atp_quali/2016_atp_quali.csv": 1293,
+    "atp_quali/2017_atp_quali.csv": 1309,
+    "atp_quali/2018_atp_quali.csv": 1306,
+    "atp_quali/2019_atp_quali.csv": 1294,
+    "atp_quali/2020_atp_quali.csv": 636,
+    "atp_quali/2021_atp_quali.csv": 1291,
+    "atp_quali/2022_atp_quali.csv": 1319,
+    "atp_quali/2023_atp_quali.csv": 1337,
+    "atp_quali/2024_atp_quali.csv": 1343,
+    "atp_quali/2025_atp_quali.csv": 1293,
+    "atp_quali/2026_atp_quali.csv": 1190,
+    "challenger_ongoing_tourneys.csv": 0,
+    "ongoing_tourneys.csv": 0,
+    "wta_ongoing_tourneys.csv": 12
+   },
+   "flags": [
+    "SHRANK (files 207 -> 171)",
+    "SHRANK (3 files smaller: 1981_challenger.csv, 2024_challenger.csv, ATP_Database.csv)",
+    "REVISED (35 earlier-season files: 1978_challenger.csv, 1979_challenger.csv, 1980_challenger.csv, 1981_challenger.csv, 1982_challenger.csv)"
+   ]
   },
   {
-   "checked_at": "2026-10-06T17:02:34+00:00",
+   "checked_at": "2026-10-12T14:59:54+00:00",
    "item": "tml_readme_terms",
    "kind": "terms",
    "status": 200,
@@ -237,7 +345,7 @@
    "flags": []
   },
   {
-   "checked_at": "2026-10-06T17:02:34+00:00",
+   "checked_at": "2026-10-12T14:59:54+00:00",
    "item": "tml_site_terms",
    "kind": "terms",
    "status": 200,

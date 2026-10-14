@@ -1,0 +1,192 @@
+{
+ "source": "infosys_slams",
+ "started_at": "2026-10-10T01:22:43+00:00",
+ "args": {
+  "editions": "AO2026",
+  "families": null,
+  "matches": null,
+  "routes": "keystats-api",
+  "max_requests": 600,
+  "min_interval": 2.0,
+  "jitter": 1.0,
+  "skip_family_after": 8,
+  "refresh": false,
+  "stage_only": false,
+  "no_stage": true,
+  "summary_dir": "data/studies/data_continuity/slam_infosys_overrides/collection"
+ },
+ "decision": "docs/decisions/2026-10-07-serve-speed-acquisition.md",
+ "client": {
+  "impersonate": "chrome",
+  "requests": 476,
+  "retried": 0,
+  "slept_seconds": 807.7,
+  "min_interval": 2.0,
+  "jitter": 1.0,
+  "not_found_answers": 0
+ },
+ "fetch_outcomes": {
+  "AO2026:keystats-api:200": 474,
+  "AO2026:keystats-api:200:cached": 2,
+  "AO2026:keystats-api:404": 2
+ },
+ "families_given_up": [],
+ "receipts": {
+  "AO/2013/match-beats-api:404": 2,
+  "AO/2013/match-beats:absent": 2,
+  "AO/2014/match-beats-api:404": 2,
+  "AO/2014/match-beats:absent": 2,
+  "AO/2015/match-beats-api:404": 2,
+  "AO/2015/match-beats:absent": 2,
+  "AO/2016/match-beats-api:404": 2,
+  "AO/2016/match-beats:absent": 2,
+  "AO/2017/match-beats-api:404": 2,
+  "AO/2017/match-beats:absent": 2,
+  "AO/2018/match-beats-api:200": 2,
+  "AO/2018/match-beats:200": 252,
+  "AO/2018/match-beats:absent": 18,
+  "AO/2019/match-beats-api:200": 2,
+  "AO/2019/match-beats:200": 254,
+  "AO/2019/match-beats:absent": 16,
+  "AO/2020/match-beats-api:200": 2,
+  "AO/2020/match-beats:200": 252,
+  "AO/2020/match-beats:absent": 18,
+  "AO/2021/match-beats-api:200": 2,
+  "AO/2021/match-beats:200": 475,
+  "AO/2021/match-beats:absent": 3,
+  "AO/2022/match-beats-api:200": 2,
+  "AO/2022/match-beats:200": 252,
+  "AO/2022/match-beats:absent": 18,
+  "AO/2023/match-beats-api:200": 2,
+  "AO/2023/match-beats:200": 477,
+  "AO/2023/match-beats:absent": 1,
+  "AO/2024/match-beats-api:200": 2,
+  "AO/2024/match-beats:200": 477,
+  "AO/2024/match-beats:absent": 1,
+  "AO/2025/match-beats:200": 469,
+  "AO/2025/match-beats:absent": 9,
+  "AO/2026/keystats-api:200": 476,
+  "AO/2026/keystats-api:404": 2,
+  "AO/2026/match-beats-api:200": 2,
+  "AO/2026/match-beats:200": 476,
+  "AO/2026/match-beats:absent": 2,
+  "RG/2013/match-beats-api:200": 450,
+  "RG/2013/match-beats-api:404": 28,
+  "RG/2013/match-beats:absent": 2,
+  "RG/2014/match-beats-api:200": 440,
+  "RG/2014/match-beats-api:404": 38,
+  "RG/2014/match-beats:absent": 2,
+  "RG/2015/match-beats-api:200": 450,
+  "RG/2015/match-beats-api:404": 28,
+  "RG/2015/match-beats:absent": 2,
+  "RG/2016/match-beats-api:200": 433,
+  "RG/2016/match-beats-api:404": 29,
+  "RG/2016/match-beats-api:error": 16,
+  "RG/2016/match-beats:200": 2,
+  "RG/2016/match-beats:absent": 15,
+  "RG/2017/match-beats-api:200": 450,
+  "RG/2017/match-beats-api:404": 28,
+  "RG/2017/match-beats:200": 2,
+  "RG/2018/match-beats-api:200": 450,
+  "RG/2018/match-beats-api:404": 28,
+  "RG/2018/match-beats:200": 2,
+  "RG/2019/match-beats-api:200": 1,
+  "RG/2019/match-beats:200": 445,
+  "RG/2019/match-beats:absent": 33,
+  "RG/2020/match-beats-api:200": 1,
+  "RG/2020/match-beats:200": 448,
+  "RG/2020/match-beats:absent": 30,
+  "RG/2021/match-beats-api:200": 1,
+  "RG/2021/match-beats:200": 474,
+  "RG/2021/match-beats:absent": 4,
+  "RG/2022/keystats-api:200": 1,
+  "RG/2022/match-beats-api:200": 1,
+  "RG/2022/match-beats:200": 476,
+  "RG/2022/match-beats:absent": 2,
+  "RG/2022/match-centre:absent": 1,
+  "RG/2023/keystats-api:200": 1,
+  "RG/2023/match-beats-api:200": 1,
+  "RG/2023/match-beats:200": 476,
+  "RG/2023/match-beats:absent": 2,
+  "RG/2023/match-centre:absent": 1,
+  "RG/2024/keystats-api:200": 1,
+  "RG/2024/match-beats-api:200": 1,
+  "RG/2024/match-beats:200": 476,
+  "RG/2024/match-beats:absent": 2,
+  "RG/2024/match-centre:200": 1,
+  "RG/2025/match-centre:200": 470,
+  "RG/2025/match-centre:absent": 8,
+  "RG/2026/keystats-api:200": 474,
+  "RG/2026/keystats-api:404": 4,
+  "RG/2026/match-beats-api:200": 478
+ },
+ "receipts_with_errors": 16,
+ "error_examples": [
+  {
+   "name": "RG/2016/match-beats-api/SM022",
+   "error": "RuntimeError: HTTP 500 for https://itp-rg-sls.infosys-platforms.com/prod/api/match-beats/data/year/2016/eventId/520/matchId/SM022 after 4 attempts"
+  },
+  {
+   "name": "RG/2016/match-beats-api/SM036",
+   "error": "RuntimeError: HTTP 500 for https://itp-rg-sls.infosys-platforms.com/prod/api/match-beats/data/year/2016/eventId/520/matchId/SM036 after 4 attempts"
+  },
+  {
+   "name": "RG/2016/match-beats-api/SM100",
+   "error": "RuntimeError: HTTP 500 for https://itp-rg-sls.infosys-platforms.com/prod/api/match-beats/data/year/2016/eventId/520/matchId/SM100 after 4 attempts"
+  },
+  {
+   "name": "RG/2016/match-beats-api/SM101",
+   "error": "RuntimeError: HTTP 500 for https://itp-rg-sls.infosys-platforms.com/prod/api/match-beats/data/year/2016/eventId/520/matchId/SM101 after 4 attempts"
+  },
+  {
+   "name": "RG/2016/match-beats-api/SM112",
+   "error": "RuntimeError: HTTP 500 for https://itp-rg-sls.infosys-platforms.com/prod/api/match-beats/data/year/2016/eventId/520/matchId/SM112 after 4 attempts"
+  },
+  {
+   "name": "RG/2016/match-beats-api/SM113",
+   "error": "RuntimeError: HTTP 500 for https://itp-rg-sls.infosys-platforms.com/prod/api/match-beats/data/year/2016/eventId/520/matchId/SM113 after 4 attempts"
+  },
+  {
+   "name": "RG/2016/match-beats-api/SM116",
+   "error": "RuntimeError: HTTP 500 for https://itp-rg-sls.infosys-platforms.com/prod/api/match-beats/data/year/2016/eventId/520/matchId/SM116 after 4 attempts"
+  },
+  {
+   "name": "RG/2016/match-beats-api/SM117",
+   "error": "RuntimeError: HTTP 500 for https://itp-rg-sls.infosys-platforms.com/prod/api/match-beats/data/year/2016/eventId/520/matchId/SM117 after 4 attempts"
+  },
+  {
+   "name": "RG/2016/match-beats-api/SM123",
+   "error": "RuntimeError: HTTP 500 for https://itp-rg-sls.infosys-platforms.com/prod/api/match-beats/data/year/2016/eventId/520/matchId/SM123 after 4 attempts"
+  },
+  {
+   "name": "RG/2016/match-beats-api/SD102",
+   "error": "RuntimeError: HTTP 500 for https://itp-rg-sls.infosys-platforms.com/prod/api/match-beats/data/year/2016/eventId/520/matchId/SD102 after 4 attempts"
+  },
+  {
+   "name": "RG/2016/match-beats-api/SD103",
+   "error": "RuntimeError: HTTP 500 for https://itp-rg-sls.infosys-platforms.com/prod/api/match-beats/data/year/2016/eventId/520/matchId/SD103 after 4 attempts"
+  },
+  {
+   "name": "RG/2016/match-beats-api/SD104",
+   "error": "RuntimeError: HTTP 500 for https://itp-rg-sls.infosys-platforms.com/prod/api/match-beats/data/year/2016/eventId/520/matchId/SD104 after 4 attempts"
+  },
+  {
+   "name": "RG/2016/match-beats-api/SD105",
+   "error": "RuntimeError: HTTP 500 for https://itp-rg-sls.infosys-platforms.com/prod/api/match-beats/data/year/2016/eventId/520/matchId/SD105 after 4 attempts"
+  },
+  {
+   "name": "RG/2016/match-beats-api/SD106",
+   "error": "RuntimeError: HTTP 500 for https://itp-rg-sls.infosys-platforms.com/prod/api/match-beats/data/year/2016/eventId/520/matchId/SD106 after 4 attempts"
+  },
+  {
+   "name": "RG/2016/match-beats-api/SD118",
+   "error": "RuntimeError: HTTP 500 for https://itp-rg-sls.infosys-platforms.com/prod/api/match-beats/data/year/2016/eventId/520/matchId/SD118 after 4 attempts"
+  },
+  {
+   "name": "RG/2016/match-beats-api/SD119",
+   "error": "RuntimeError: HTTP 500 for https://itp-rg-sls.infosys-platforms.com/prod/api/match-beats/data/year/2016/eventId/520/matchId/SD119 after 4 attempts"
+  }
+ ],
+ "finished_at": "2026-10-10T01:42:43+00:00",
+ "seconds": 1200.0
+}

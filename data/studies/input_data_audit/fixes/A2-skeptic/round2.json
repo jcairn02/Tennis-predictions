@@ -1,0 +1,229 @@
+{
+ "reviewer": "A2-skeptic",
+ "F1x": [
+  {
+   "match_id": "wta|2015-W-PR-QAT-1A-2015|SF|wta:201425|wta:201521",
+   "vote": "confirm",
+   "fix": "svpt := svpt + df for both players (raw w_svpt += w_df and l_svpt += l_df); every other count unchanged",
+   "reasons": "Match Charting Project 20150227-W-Doha-SF: svpt + df equals the charted serve points for both players (Safarova 53+2 = 55, Suarez Navarro 53+1 = 54) with first serves in, first- and second-serve points won and double faults all equal; svpt alone is off by exactly df. Read inclusively, Safarova would have won 9 of 9 second serves in play. The box fits the score exactly (games identity 12-5) and is not a copy of any other raw row. Doha's charted R32/R16 rows equal MCP with svpt alone (inclusive), so the SF and F came in the other convention, as the window events did that week."
+  },
+  {
+   "match_id": "wta|2015-W-PR-QAT-1A-2015|F|wta:201425|wta:201458",
+   "vote": "confirm",
+   "fix": "svpt := svpt + df for both players (raw w_svpt += w_df and l_svpt += l_df); every other count unchanged",
+   "reasons": "Match Charting Project 20150228-W-Doha-F: svpt + df equals the charted serve points for both players (Safarova 63+2 = 65, Azarenka 52+2 = 54); first-serve and second-serve points won and double faults equal (Safarova's first serves in 47 against 46). Games identity exact (12-7), checks pass before and after, no copy elsewhere."
+  }
+ ],
+ "F2x": [
+  {
+   "match_id": "wta|2019-1052|R16|wta:201662|wta:201697",
+   "vote": "reject",
+   "fix": "none",
+   "reasons": "Same-surname pair (Kristyna d. Karolina Pliskova). Matched to the WTA API by full name, the API record (1052/2019/LS013) equals Stage 0's box AS RECORDED on 18 of 18 counts; the 'exchanged' match came from matching by surname only, which cannot tell the two players apart (my round-1 list of 25 included it). Nothing is exchanged."
+  },
+  {
+   "match_id": "wta|2020-M004|R32|wta:206374|wta:216016",
+   "vote": "reject",
+   "fix": "none",
+   "reasons": "Same-surname pair (Xiyu d. Yafan Wang (WTA API 1002/2020/LS031)). Matched to the WTA API by full name, the API record (1002/2020/LS031) equals Stage 0's box AS RECORDED on 18 of 18 counts; the 'exchanged' match came from matching by surname only, which cannot tell the two players apart (my round-1 list of 25 included it). Nothing is exchanged."
+  },
+  {
+   "match_id": "wta|2021-2028|Q1|wta:206107|wta:206363",
+   "vote": "confirm",
+   "fix": "exchange all nine counts between the two players (w_* <-> l_* on the raw row)",
+   "reasons": "WTA API 2028/2021/RS029 (Z. Yang d [9]A. Danilina 3-6,7-6(4),6-4) equals Stage 0's box exchanged on 18 of 18 counts (as recorded 2); API winner = Stage 0 winner; progression: winner advanced; the API's own box fits its own score (games identity, tiebreaks credited); Stage 0's box fits the score only exchanged; points won as recorded 110-108, after the exchange 108-110."
+  },
+  {
+   "match_id": "wta|2021-2028|Q2|wta:213620|wta:214388",
+   "vote": "confirm",
+   "fix": "exchange all nine counts between the two players (w_* <-> l_* on the raw row)",
+   "reasons": "WTA API 2028/2021/RS013 ([6]A. Bondar d [13]J. Pieri 4-6,7-5,7-5) equals Stage 0's box exchanged on 16 of 16 counts (as recorded 2) and the raw service games are equal both ways; API winner = Stage 0 winner; progression: winner in main draw; points won as recorded 115-115, after the exchange 115-115. The API scores it 4-6 7-5 7-5 (Sackmann 4-6 6-4 7-5) and its box fits that score exactly; Stage 0 keeps no service games (B5) either way. The score is a separate fault, not fixed here."
+  },
+  {
+   "match_id": "wta|2021-2028|Q2|wta:201556|wta:203475",
+   "vote": "confirm",
+   "fix": "exchange all nine counts between the two players (w_* <-> l_* on the raw row)",
+   "reasons": "WTA API 2028/2021/RS012 (L. Hradecka d C. Zhao 7-6(7),6-1) equals Stage 0's box exchanged on 18 of 18 counts (as recorded 0); API winner = Stage 0 winner; progression: winner in main draw; the API's own box fits its own score (games identity, tiebreaks credited); Stage 0's box fits the score only exchanged; points won as recorded 57-73, after the exchange 73-57."
+  },
+  {
+   "match_id": "wta|2021-2028|Q2|wta:213584|wta:214593",
+   "vote": "confirm",
+   "fix": "exchange all nine counts between the two players (w_* <-> l_* on the raw row)",
+   "reasons": "WTA API 2028/2021/RS008 (L. Stefanini d [15]I. Fetecau 1-6,6-2,7-6(3)) equals Stage 0's box exchanged on 18 of 18 counts (as recorded 4); API winner = Stage 0 winner; progression: winner in main draw; the API's own box fits its own score (games identity, tiebreaks credited); Stage 0's box fits the score only exchanged; points won as recorded 90-89, after the exchange 89-90."
+  },
+  {
+   "match_id": "wta|2021-2028|R64|wta:201548|wta:202684",
+   "vote": "confirm",
+   "fix": "exchange all nine counts between the two players (w_* <-> l_* on the raw row)",
+   "reasons": "WTA API 2028/2021/LS041 (A. Tomljanovic d L. Zhu 6-2,7-6(1)) equals Stage 0's box exchanged on 18 of 18 counts (as recorded 2); API winner = Stage 0 winner; progression: winner advanced; the API's own box fits its own score (games identity, tiebreaks credited); Stage 0's box fits the score only exchanged; points won as recorded 68-79, after the exchange 79-68."
+  },
+  {
+   "match_id": "wta|2021-2028|R64|wta:201555|wta:214544",
+   "vote": "confirm",
+   "fix": "exchange all nine counts between the two players (w_* <-> l_* on the raw row)",
+   "reasons": "WTA API 2028/2021/LS040 ([4]A. Sabalenka d P. Hercog 7-6(5),6-2) equals Stage 0's box exchanged on 18 of 18 counts (as recorded 4); API winner = Stage 0 winner; progression: winner advanced; the API's own box fits its own score (games identity, tiebreaks credited); Stage 0's box fits the score only exchanged; points won as recorded 68-86, after the exchange 86-68."
+  },
+  {
+   "match_id": "wta|2021-2028|R64|wta:206107|wta:213550",
+   "vote": "confirm",
+   "fix": "exchange all nine counts between the two players (w_* <-> l_* on the raw row)",
+   "reasons": "WTA API 2028/2021/LS032 ([1]S. Kenin d Z. Yang 7-6(4),6-3) equals Stage 0's box exchanged on 18 of 18 counts (as recorded 0); API winner = Stage 0 winner; progression: winner advanced; points won as recorded 89-101, after the exchange 101-89. The API's own box is one game off its own score (7-6(4) 6-3; Sackmann 7-6(4) 6-2), so the identity cannot decide; the orientation is decided by points: as recorded the winner of 13-8 games wins 89 of 190 points, after the exchange 101."
+  },
+  {
+   "match_id": "wta|2021-2028|R32|wta:201586|wta:206420",
+   "vote": "confirm",
+   "fix": "exchange all nine counts between the two players (w_* <-> l_* on the raw row)",
+   "reasons": "WTA API 2028/2021/LS030 ([17]E. Alexandrova d H. Watson 7-5,6-7(7),6-3) equals Stage 0's box exchanged on 18 of 18 counts (as recorded 0); API winner = Stage 0 winner; progression: winner advanced; the API's own box fits its own score (games identity, tiebreaks credited); Stage 0's box fits the score only exchanged; points won as recorded 116-120, after the exchange 120-116."
+  },
+  {
+   "match_id": "wta|2021-2028|R32|wta:201465|wta:213550",
+   "vote": "confirm",
+   "fix": "exchange all nine counts between the two players (w_* <-> l_* on the raw row)",
+   "reasons": "WTA API 2028/2021/LS016 ([1]S. Kenin d K. Flipkens 5-7,5-4 Ret'd) equals Stage 0's box exchanged on 18 of 18 counts (as recorded 2); API winner = Stage 0 winner; progression: winner advanced; points won as recorded 74-69, after the exchange 69-74. Retirement at 5-7 5-4: the identity and points cannot decide the orientation inside the match; the WTA API (the source Sackmann transcribes) decides, as in every testable match of the same event."
+  },
+  {
+   "match_id": "wta|2021-2028|R16|wta:201709|wta:213550",
+   "vote": "confirm",
+   "fix": "exchange all nine counts between the two players (w_* <-> l_* on the raw row)",
+   "reasons": "WTA API 2028/2021/LS008 ([1]S. Kenin d [13]Y. Putintseva 3-6,7-6(5),6-4) equals Stage 0's box exchanged on 18 of 18 counts (as recorded 4); API winner = Stage 0 winner; progression: winner advanced; the API's own box fits its own score (games identity, tiebreaks credited); Stage 0's box fits the score only exchanged; points won as recorded 115-119, after the exchange 119-115."
+  },
+  {
+   "match_id": "wta|2021-2028|QF|wta:202494|wta:206368",
+   "vote": "confirm",
+   "fix": "exchange all nine counts between the two players (w_* <-> l_* on the raw row)",
+   "reasons": "WTA API 2028/2021/LS007 (V. Kudermetova d [2]E. Svitolina 5-7,6-3,7-6(3)) equals Stage 0's box exchanged on 18 of 18 counts (as recorded 4); API winner = Stage 0 winner; progression: winner advanced; the API's own box fits its own score (games identity, tiebreaks credited); Stage 0's box fits the score only exchanged; points won as recorded 108-108, after the exchange 108-108."
+  },
+  {
+   "match_id": "wta|2021-2027|Q1|wta:215337|wta:215872",
+   "vote": "confirm",
+   "fix": "exchange all nine counts between the two players (w_* <-> l_* on the raw row)",
+   "reasons": "WTA API 2027/2021/RS012 ([5]K. Rakhimova d O. Danilovic 7-6(7),6-2) equals Stage 0's box exchanged on 16 of 16 counts (as recorded 0) and the raw service games are equal both ways; API winner = Stage 0 winner; progression: winner in main draw; the API's own box fits its own score (games identity, tiebreaks credited); points won as recorded 77-88, after the exchange 88-77. The API scores it 7-6(7) 6-2 (Sackmann 7-6(7) 6-4) and its box fits that score exactly; after the exchange Rakhimova's 13 games fit both scores. The score is a separate fault, not fixed here."
+  },
+  {
+   "match_id": "wta|2021-2027|R64|wta:201492|wta:215020",
+   "vote": "confirm",
+   "fix": "exchange all nine counts between the two players (w_* <-> l_* on the raw row)",
+   "reasons": "WTA API 2027/2021/LS058 (A. Blinkova d A. Petkovic 4-6,7-6(3),6-4) equals Stage 0's box exchanged on 18 of 18 counts (as recorded 2); API winner = Stage 0 winner; progression: winner advanced; the API's own box fits its own score (games identity, tiebreaks credited); points won as recorded 124-126, after the exchange 126-124. Both orientations fit the games identity here, so the WTA API decides, as in every testable match of the same event."
+  },
+  {
+   "match_id": "wta|2021-2027|R64|wta:201478|wta:211702",
+   "vote": "confirm",
+   "fix": "exchange all nine counts between the two players (w_* <-> l_* on the raw row)",
+   "reasons": "WTA API 2027/2021/LS038 (V. Lepchenko d N. Hibino 6-3,3-0 Ret'd) equals Stage 0's box exchanged on 18 of 18 counts (as recorded 6); API winner = Stage 0 winner; progression: winner advanced; points won as recorded 30-44, after the exchange 44-30. Retirement at 6-3 3-0: as recorded the leader (9-3 in games) has 30 of 74 points, after the exchange 44."
+  },
+  {
+   "match_id": "wta|2021-2027|R64|wta:204427|wta:214643",
+   "vote": "confirm",
+   "fix": "exchange all nine counts between the two players (w_* <-> l_* on the raw row)",
+   "reasons": "WTA API 2027/2021/LS037 (S. Sorribes Tormo d L. Samsonova 6-7(6),6-1,7-6(4)) equals Stage 0's box exchanged on 18 of 18 counts (as recorded 2); API winner = Stage 0 winner; progression: winner advanced; the API's own box fits its own score (games identity, tiebreaks credited); Stage 0's box fits the score only exchanged; points won as recorded 108-119, after the exchange 119-108."
+  },
+  {
+   "match_id": "wta|2021-2027|R16|wta:206255|wta:213525",
+   "vote": "confirm",
+   "fix": "exchange all nine counts between the two players (w_* <-> l_* on the raw row)",
+   "reasons": "WTA API 2027/2021/LS012 (J. Teichmann d P. Tig 6-3,4-3 Ret'd) equals Stage 0's box exchanged on 18 of 18 counts (as recorded 8); API winner = Stage 0 winner; progression: winner advanced; points won as recorded 53-63, after the exchange 63-53. Retirement (the API has 6-3 4-3 Ret'd against Sackmann's 6-3 3-3 RET); as recorded the player leading 9-6 in games has 53 of 116 points, after the exchange 63."
+  },
+  {
+   "match_id": "wta|2021-2027|SF|wta:213631|wta:215370",
+   "vote": "confirm",
+   "fix": "exchange all nine counts between the two players (w_* <-> l_* on the raw row)",
+   "reasons": "WTA API 2027/2021/LS003 ([13]M. Bouzkova d [2]B. Andreescu 6-7(9),6-2,7-5) equals Stage 0's box exchanged on 18 of 18 counts (as recorded 2); API winner = Stage 0 winner; progression: winner advanced; the API's own box fits its own score (games identity, tiebreaks credited); Stage 0's box fits the score only exchanged; points won as recorded 109-120, after the exchange 120-109."
+  },
+  {
+   "match_id": "wta|2021-1052|Q1|wta:202916|wta:206391",
+   "vote": "reject",
+   "fix": "none",
+   "reasons": "Same-surname pair (Georgina Garcia Perez d. Ellen Perez). Matched to the WTA API by full name, the API record (1052/2021/RS017) equals Stage 0's box AS RECORDED on 18 of 18 counts; the 'exchanged' match came from matching by surname only, which cannot tell the two players apart (my round-1 list of 25 included it). Nothing is exchanged."
+  },
+  {
+   "match_id": "wta|2023-2062|R16|wta:206007|wta:221905",
+   "vote": "confirm",
+   "fix": "exchange all nine counts between the two players (w_* <-> l_* on the raw row)",
+   "reasons": "WTA API 2062/2023/LS012 (R. Montgomery d L. Pigossi 6-0,6-7(3),6-0) equals Stage 0's box exchanged on 18 of 18 counts (as recorded 2); API winner = Stage 0 winner; progression: winner advanced; the API's own box fits its own score (games identity, tiebreaks credited); Stage 0's box fits the score only exchanged; points won as recorded 79-105, after the exchange 105-79."
+  },
+  {
+   "match_id": "wta|2024-1049|R16|wta:216016|wta:216133",
+   "vote": "reject",
+   "fix": "none",
+   "reasons": "Same-surname pair (Xiyu d. Xin Yu Wang). Matched to the WTA API by full name, the API record (1049/2024/LS012) equals Stage 0's box AS RECORDED on 18 of 18 counts; the 'exchanged' match came from matching by surname only, which cannot tell the two players apart (my round-1 list of 25 included it). Nothing is exchanged."
+  },
+  {
+   "match_id": "wta|2024-1096|R32|wta:202492|wta:216016",
+   "vote": "reject",
+   "fix": "none",
+   "reasons": "Same-surname pair (Xiyu d. Qiang Wang). Matched to the WTA API by full name, the API record (1096/2024/LS019) equals Stage 0's box AS RECORDED on 18 of 18 counts; the 'exchanged' match came from matching by surname only, which cannot tell the two players apart (my round-1 list of 25 included it). Nothing is exchanged."
+  },
+  {
+   "match_id": "wta|2024-1075|R32|wta:222965|wta:259799",
+   "vote": "reject",
+   "fix": "none",
+   "reasons": "Same-surname pair (Erika d. Mirra Andreeva). Matched to the WTA API by full name, the API record (1075/2024/LS026) equals Stage 0's box AS RECORDED on 18 of 18 counts; the 'exchanged' match came from matching by surname only, which cannot tell the two players apart (my round-1 list of 25 included it). Nothing is exchanged."
+  },
+  {
+   "match_id": "wta|2025-1038|R128|wta:206368|wta:221236",
+   "vote": "reject",
+   "fix": "none",
+   "reasons": "Same-surname pair (Veronika d. Polina Kudermetova). Matched to the WTA API by full name, the API record (1038/2025/LS073) equals Stage 0's box AS RECORDED on 18 of 18 counts; the 'exchanged' match came from matching by surname only, which cannot tell the two players apart (my round-1 list of 25 included it). Nothing is exchanged."
+  },
+  {
+   "match_id": "wta|2025-2034|R32|wta:213889|wta:215219",
+   "vote": "confirm",
+   "fix": "exchange all nine counts between the two players (w_* <-> l_* on the raw row)",
+   "reasons": "WTA API 2034/2025/LS023 (K. Juvan d [5]G. Minnen 6-1,6-7(2),6-3) equals Stage 0's box exchanged on 18 of 18 counts (as recorded 2); API winner = Stage 0 winner; progression: winner advanced; the API's own box fits its own score (games identity, tiebreaks credited); Stage 0's box fits the score only exchanged; points won as recorded 84-100, after the exchange 100-84."
+  },
+  {
+   "match_id": "wta|2025-2034|R32|wta:214319|wta:232447",
+   "vote": "confirm",
+   "fix": "exchange all nine counts between the two players (w_* <-> l_* on the raw row)",
+   "reasons": "WTA API 2034/2025/LS022 (C. Naef d S. Cakarevic 6-3,6-7(2),6-3) equals Stage 0's box exchanged on 18 of 18 counts (as recorded 4); API winner = Stage 0 winner; progression: winner advanced; the API's own box fits its own score (games identity, tiebreaks credited); Stage 0's box fits the score only exchanged; points won as recorded 91-99, after the exchange 99-91."
+  },
+  {
+   "match_id": "wta|2025-822|R32|wta:206368|wta:221236",
+   "vote": "reject",
+   "fix": "none",
+   "reasons": "Same-surname pair (Veronika d. Polina Kudermetova). Matched to the WTA API by full name, the API record (822/2025/LS028) equals Stage 0's box AS RECORDED on 18 of 18 counts; the 'exchanged' match came from matching by surname only, which cannot tell the two players apart (my round-1 list of 25 included it). Nothing is exchanged."
+  },
+  {
+   "match_id": "wta|2026-1156|R16|wta:216055|wta:221164",
+   "vote": "reject",
+   "fix": "none",
+   "reasons": "Same-surname pair (Francisca d. Matilde Jorge). Matched to the WTA API by full name, the API record (1156/2026/LS011) equals Stage 0's box AS RECORDED on 18 of 18 counts; the 'exchanged' match came from matching by surname only, which cannot tell the two players apart (my round-1 list of 25 included it). Nothing is exchanged."
+  }
+ ],
+ "F2y": [
+  {
+   "match_id": "atp|2022-580|R128|atp:105332|atp:106329",
+   "vote": "confirm",
+   "fix": "exchange the two players' sv_gms only (Paire 26 -> 25, Monteiro 25 -> 26); every other count unchanged",
+   "reasons": "AO ball tracking 2022_MS146: Monteiro served the first game; of 51 games (no tiebreak) Monteiro served 26 and Paire 25. Its serve points (156/158), double faults (13/3), aces (30/13) and break points faced (12/14) per server equal Stage 0's unexchanged, so only the service games are swapped. SofaScore 10065714 equals Stage 0 on 16 of 18 counts, all but sv_gms, which it has 25/26. With 4 breaks each, the score forces Paire's service games to equal his 25 games won; after the fix the games identity holds for both players. B5 is unaffected (sum 51). The whole-box exchange of F2 would be wrong here."
+  }
+ ],
+ "F4x": [
+  {
+   "match_id": "wta|2012-W-SL-AUS-1A-2012|R128|wta:201419|wta:201584",
+   "vote": "confirm",
+   "fix": "blank the box (all nine counts of both players missing, has_box False, box-derived columns missing)",
+   "reasons": "Sackmann's AO 2012 R128 and Wimbledon 2012 R128 rows (both Li d. Pervak 6-3 6-1) carry the identical 16-count box, so at least one is a copy. The Match Charting Project charted the AO match (20120116-W-Australian_Open-R128-Na_Li-Ksenia_Pervak): serve points Li 41 / Pervak 56 against the box's 50 / 46, double faults 0/5 against 1/8, break points faced 2/14 against 1/5. Far beyond charting noise; the chart itself fits 6-3 6-1. The box is not the AO match's. Blanking AO is right whoever owns the box. I did not verify A1's record for Wimbledon, and the Wimbledon row is not voted here."
+  }
+ ],
+ "F1y": [
+  {
+   "match_id": "wta|2015-W-INT-AUT-1A-2015|R16|wta:201325|wta:201344",
+   "vote": "confirm",
+   "fix": "svpt := svpt + df for both players (raw w_svpt += w_df and l_svpt += l_df); every other count unchanged",
+   "reasons": "Bad Gastein R16 Stosur d. Koukalova 6-1 6-0. As recorded Koukalova's 9 double faults exceed her 6 second-serve points (B6), impossible if serve points include double faults; with +df every check B0-B9 passes. The games identity holds exactly (12-1), which does not involve svpt; points per game 6.2 after the fix; the box appears in no other raw row. The extreme double-fault rate is what selects a row into B6: with the 2015 convention, rows with more double faults than second serves in play are 0.14% of the 30 events' raw rows against 0.11-0.17% in clean WTA data, so nothing beyond the known fault is indicated."
+  },
+  {
+   "match_id": "wta|2015-W-INT-AZE-1A-2015|R32|wta:201377|wta:206107",
+   "vote": "confirm",
+   "fix": "svpt := svpt + df for both players (raw w_svpt += w_df and l_svpt += l_df); every other count unchanged",
+   "reasons": "Baku R32 Yang d. Beygelzimer 6-3 0-0 RET. As recorded Yang's 6 double faults exceed her 2 second-serve points (B6); with +df every check passes. Service games 5+4 = 9 match the 9 games played, and the first set's identity holds (6-3); 6.1 points per game after the fix; no copy elsewhere. Same base-rate argument as Bad Gastein."
+  },
+  {
+   "match_id": "wta|2015-W-INT-BRA-2A-2015|R16|wta:203518|wta:206194",
+   "vote": "confirm",
+   "fix": "svpt := svpt + df for both players (raw w_svpt += w_df and l_svpt += l_df); every other count unchanged",
+   "reasons": "Florianopolis R16 Ce d. Kania 6-2 7-6(7). As recorded Ce's 8 double faults exceed her 6 second-serve points (B6); with +df every check passes, and the identity holds exactly for both players (13-8, a match with 14 breaks in 20 service games). Ce's 82.5% first serves in and 1 of 6 second serves won are unusual for her, but clean rows that also have more double faults than second serves in play include first-in rates of 80-87% (e.g. Errani, Eikeri, Bolkvadze), so this profile is what the selection produces, not a sign of a second fault. No copy elsewhere; no independent record exists for 2015."
+  }
+ ]
+}

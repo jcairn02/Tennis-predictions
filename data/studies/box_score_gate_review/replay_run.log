@@ -1,0 +1,65 @@
+{"scenario": "base", "removed": 0}
+>>> C:\Users\zerom\Documents\Tennis-predictions\src\eda\daily_prediction\dp.py states --run C:\Users\zerom\Documents\Tennis-predictions\data\studies\box_score_gate_review\replay\base
+{
+ "checkpoint": "C:\\Users\\zerom\\Documents\\Tennis-predictions\\data\\studies\\daily_prediction\\state\\template_2026-10-13\\2026-06-22",
+ "parts_summary": {
+  "slice changed: recomputed in full": 19,
+  "resumed": 2
+ },
+ "seconds": {
+  "offset": 10.0,
+  "stage3": 15.7,
+  "stage4_rows": 90.9,
+  "weighted": 64.7,
+  "stage4_inputs": 16.0,
+  "pieces": 15.7,
+  "context": 25.7,
+  "waited_for_forms_and_ios": 613.5,
+  "forms_rows": 21.2,
+  "forms_context": 78.9,
+  "forms": 333.2,
+  "forms_family": 433.3,
+  "ios_cache": 53.2,
+  "ios_runs": 800.2,
+  "ios_family": 853.4,
+  "total": 854.8
+ },
+ "gate": {
+  "live_matches": 23,
+  "complete": 21
+ }
+}
+>>> C:\Users\zerom\Documents\Tennis-predictions\src\eda\daily_prediction\dp.py fit --run C:\Users\zerom\Documents\Tennis-predictions\data\studies\box_score_gate_review\replay\base --seeds 0-15
+{
+ "matches": 23,
+ "seeds": 16,
+ "inside_grid": 23,
+ "interpolated_vs_own_max_abs": 0.0007868329325148027,
+ "interpolated_vs_own_mean_abs": 0.0002301900663385735,
+ "falling_steps": 19,
+ "steps": 2070
+}
+>>> C:\Users\zerom\Documents\Tennis-predictions\src\eda\daily_prediction\dp.py predict --run C:\Users\zerom\Documents\Tennis-predictions\data\studies\box_score_gate_review\replay\base --seeds 0-15
+Traceback (most recent call last):
+  File "C:\Users\zerom\Documents\Tennis-predictions\src\eda\daily_prediction\dp.py", line 244, in <module>
+    sys.exit(main())
+             ^^^^^^
+  File "C:\Users\zerom\Documents\Tennis-predictions\src\eda\daily_prediction\dp.py", line 240, in main
+    return a.func(a)
+           ^^^^^^^^^
+  File "C:\Users\zerom\Documents\Tennis-predictions\src\eda\daily_prediction\dp.py", line 133, in cmd_step
+    res = S.step_predict(run_dir, a.seeds or S.run_config(run_dir)["seeds"])
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\zerom\Documents\Tennis-predictions\src\eda\daily_prediction\dp_steps.py", line 312, in step_predict
+    out = PR.run(run_dir, span(seeds), Path(run_config(run_dir)["instance"]),
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\zerom\Documents\Tennis-predictions\src\eda\daily_prediction\dp_predict.py", line 142, in run
+    pat = patterns(run_dir, ids)                 # None while the adjustment is off
+          ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\zerom\Documents\Tennis-predictions\src\eda\daily_prediction\dp_predict.py", line 92, in patterns
+    out = PL.for_run(run_dir, ids)
+          ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\zerom\Documents\Tennis-predictions\src\eda\unpriced_leads\patterns_live.py", line 75, in for_run
+    raise RuntimeError(f"the pattern adjustment is on but {f} is missing: run the patterns step")
+RuntimeError: the pattern adjustment is on but C:\Users\zerom\Documents\Tennis-predictions\data\studies\box_score_gate_review\replay\base\live_patterns.parquet is missing: run the patterns step
+predict failed for C:\Users\zerom\Documents\Tennis-predictions\data\studies\box_score_gate_review\replay\base (exit 1)

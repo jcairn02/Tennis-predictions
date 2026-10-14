@@ -1,0 +1,333 @@
+{
+ "period": "dev 2020-2024",
+ "results_read_through": 2024,
+ "scored_seasons": [
+  2020,
+  2024
+ ],
+ "unit": "mLL per match; positive = the first-named model better; P(better) = Phi(estimate/se)",
+ "preregistration": {
+  "preregistration.md": "cc65bcd5eb402326814291156d30c8d7ff4318d7344dd1f636d174bfd6068ae9",
+  "preregistration_addition_1.md": "c718e6d0696448c7f2a5849cd6e5d2f4443f5e29173b71900f782048a0d48b8a",
+  "preregistration_addition_2.md": "3f5367969b39003aff28e9e5d29fa35027cf9362d7a4cc321c4eef7249e7a27b",
+  "preregistration_addition_3.md": "f206343347895152cf1ddb70bc0229e6c3d1831d4545bf4ee91d5b52225a27ca",
+  "preregistration_addition_4.md": "754e055cd6d9b31a3a6d60bd16165628b6a51c73c6f2944536a81b5774526870",
+  "preregistration_addition_4b.md": "f4e2e405d8f5875bf6e9576e2e7598e2b34bf0dcc51d56cf7597e142a47b848a",
+  "preregistration_addition_4c.md": "7c7ff69a670ffd51c9c91f0edaa18a652e26df05654441f5771840f050900c0a"
+ },
+ "checkpoint_1": {
+  "file": "preregistration_addition_3.md + preregistration_addition_4b.md + preregistration_addition_4c.md",
+  "held_in": {
+   "classes/classes.csv": "preregistration_addition_3.md",
+   "relationship/params.parquet": "preregistration_addition_3.md",
+   "relationship.py": "preregistration_addition_3.md",
+   "level_layer.py": "preregistration_addition_3.md",
+   "level_layer_ios.py": "preregistration_addition_3.md",
+   "system_pairs.py": "preregistration_addition_4b.md",
+   "system_fits.py": "preregistration_addition_3.md",
+   "system_decide.py": "preregistration_addition_4c.md"
+  },
+  "missing": [],
+  "recommended_missing": [
+   "compare.py",
+   "system_arms.py"
+  ],
+  "hashes": {
+   "classes/classes.csv": "58e7862273bfaf8bfbe6283c72b54e80f219ff36c0f83df795076d52ae940c26",
+   "relationship/params.parquet": "4c559abd356f7c9f0f53c958c5d8293ae55d0cdfa62c4e9da689c94c91a801fb",
+   "relationship.py": "06a85f00a2051a53063bdc706d06d360e80e2bd11bf2532aa2abb600df982575",
+   "level_layer.py": "26e21291822f42e4c9e7771f518149d1cb85116bdeb5196285fa22eeca37411f",
+   "level_layer_ios.py": "3fa5f69e592118fc204809ce0ec6afa627e5b979af3e33752e91e89f154c05c3",
+   "system_pairs.py": "a486aed9aa28cab1ef36dc3ae50be4d4cffa5a61a274606445039f33a5f4d898",
+   "system_fits.py": "e8831b1febd0e7987d20c0070335de6c1d93a8d628f463fa2c261f94234c5362",
+   "system_decide.py": "829560436830ee2543c7be88e25f31af53f38ca1605cf3d3c21c43dfd0948870"
+  }
+ },
+ "without_addition": false,
+ "arms_scored": [
+  "SYS",
+  "SYS_w0",
+  "SYS_w50",
+  "SYS_w100",
+  "SEP_ALL",
+  "SYS_NOCLASS",
+  "SYS_S2",
+  "R_S2",
+  "SYS_PLACEBO",
+  "REF_noITF"
+ ],
+ "arms_record": {
+  "absent": [
+   "SYS_BOTH",
+   "SYS_w25",
+   "SYS_w75",
+   "SYS_ITFASIS",
+   "SYS_BOTH_ITFASIS"
+  ],
+  "skipped": {
+   "RES_ONLY": [
+    "model__2019__seed0.npz: missing",
+    "model__2019__seed1.npz: missing",
+    "model__2019__seed2.npz: missing",
+    "model__2019__seed3.npz: missing",
+    "model__2020__seed0.npz: missing"
+   ]
+  },
+  "waived": [
+   "RES_ONLY",
+   "SYS_BOTH"
+  ]
+ },
+ "speed": {
+  "rule": "zero",
+  "gap_matches": 0,
+  "gap_men": 0
+ },
+ "models": {
+  "REF": {
+   "folder": "frozen reference",
+   "speed_column": "the reference's"
+  },
+  "SYS": {
+   "folder": "data/studies/lower_level_evidence/system/arms/SYS",
+   "speed_column": "the reference's"
+  },
+  "SYS_w0": {
+   "folder": "data/studies/lower_level_evidence/system/arms/SYS_w0",
+   "speed_column": "the reference's"
+  },
+  "SYS_w50": {
+   "folder": "data/studies/lower_level_evidence/system/arms/SYS_w50",
+   "speed_column": "the reference's"
+  },
+  "SYS_w100": {
+   "folder": "data/studies/lower_level_evidence/system/arms/SYS_w100",
+   "speed_column": "the reference's"
+  },
+  "SEP_ALL": {
+   "folder": "data/studies/lower_level_evidence/system/arms/SEP_ALL",
+   "speed_column": "the reference's"
+  },
+  "SYS_NOCLASS": {
+   "folder": "data/studies/lower_level_evidence/system/arms/SYS_NOCLASS",
+   "speed_column": "the reference's"
+  },
+  "SYS_S2": {
+   "folder": "data/studies/lower_level_evidence/system/results/arms/SYS_S2",
+   "speed_column": "the reference's"
+  },
+  "R_S2": {
+   "folder": "data/studies/lower_level_evidence/system/results/arms/R_S2",
+   "speed_column": "the reference's"
+  },
+  "SYS_PLACEBO": {
+   "folder": "data/studies/lower_level_evidence/system/results/arms/SYS_PLACEBO",
+   "speed_column": "the reference's"
+  },
+  "REF_noITF": {
+   "folder": "data/studies/lower_level_evidence/system/arms/REF_noITF",
+   "speed_column": "the reference's"
+  }
+ },
+ "coefficients_2024": {
+  "REF": {
+   "stage1": [
+    0.8957957425947172,
+    0.9322035111478328,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "both": [
+    0.8944941099340749,
+    0.9322035111478328,
+    0.027602565093728267,
+    0.03666404973052969,
+    0.02864804315405617
+   ]
+  },
+  "SYS": {
+   "stage1": [
+    0.8991177224819583,
+    0.9331590040692731,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "both": [
+    0.8977890227903078,
+    0.9331590040692731,
+    0.02870943078194399,
+    0.03812929078948308,
+    0.028640456618190493
+   ]
+  },
+  "SYS_w0": {
+   "stage1": [
+    0.892361225039795,
+    0.9341540258461438,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "both": [
+    0.8910122807902187,
+    0.9341540258461438,
+    0.029872351081366547,
+    0.03966048832276444,
+    0.028621034486979884
+   ]
+  },
+  "SYS_w50": {
+   "stage1": [
+    0.8952835420222242,
+    0.9319900895907663,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "both": [
+    0.8939589053086415,
+    0.9319900895907663,
+    0.028909448228555595,
+    0.03839423197987629,
+    0.028639393708621938
+   ]
+  },
+  "SYS_w100": {
+   "stage1": [
+    0.8979378737423062,
+    0.9307494018253377,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "both": [
+    0.8966233438259836,
+    0.9307494018253377,
+    0.028034155545394016,
+    0.03723315631638385,
+    0.02864155498368
+   ]
+  },
+  "SEP_ALL": {
+   "stage1": [
+    0.890601302452611,
+    0.9344040206204407,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "both": [
+    0.8892342771384786,
+    0.9344040206204407,
+    0.030219685367302455,
+    0.04010732839714084,
+    0.02860035505022467
+   ]
+  },
+  "SYS_NOCLASS": {
+   "stage1": [
+    0.8990828414400223,
+    0.933296163794155,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "both": [
+    0.8977570076830251,
+    0.933296163794155,
+    0.02853485763781875,
+    0.03789741682826905,
+    0.02864042362644277
+   ]
+  },
+  "SYS_S2": {
+   "stage1": [
+    0.8986894853157912,
+    0.9309247036000504,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "both": [
+    0.8973613907967914,
+    0.9309247036000504,
+    0.028611082820195772,
+    0.038006233656075986,
+    0.028651986347900053
+   ]
+  },
+  "R_S2": {
+   "stage1": [
+    0.8986472592967212,
+    0.9313534051657062,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "both": [
+    0.8973449174799359,
+    0.9313534051657062,
+    0.02746776096338779,
+    0.036494399076231955,
+    0.028662983285800223
+   ]
+  },
+  "SYS_PLACEBO": {
+   "stage1": [
+    0.8949925130929876,
+    0.9316111472911857,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "both": [
+    0.8937045207998959,
+    0.9316111472911857,
+    0.02700041259625989,
+    0.03586472472093254,
+    0.028648858596856522
+   ]
+  },
+  "REF_noITF": {
+   "stage1": [
+    0.8958344392708416,
+    0.932191275873222,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "both": [
+    0.8945326779600933,
+    0.932191275873222,
+    0.02760566337239055,
+    0.03666811230475291,
+    0.028647959667281002
+   ]
+  }
+ },
+ "selection_registered_rules": {
+  "status": "final",
+  "selected": "SYS_S2",
+  "step1_arm": "SYS_S2",
+  "qualifying": [
+   "SYS_S2",
+   "R_S2"
+  ]
+ },
+ "selection_registered_sha256": "22c6c63cf1dcbb28f7d8bbf883814a477f28d56e9e8c8097017ff250b8330376",
+ "sides_parquet_sha256": "ae232c73d5318c4151146ec6f6b23173da7cdad5099904f5bc4e449532affaca",
+ "addition1": {
+  "pairs_scored": [
+   "REF_noITF vs REF"
+  ],
+  "file": "results/dev/addition1.json"
+ },
+ "generated_at": "2026-10-10T08:12:38Z",
+ "compare_py_check": {
+  "rows_compared": 54,
+  "largest_difference": 0.0,
+  "equal": true
+ }
+}

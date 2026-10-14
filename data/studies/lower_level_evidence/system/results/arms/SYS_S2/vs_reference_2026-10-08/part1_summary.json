@@ -1,0 +1,82 @@
+{
+ "arm": "SYS_S2",
+ "written_at": "2026-10-10T05:17:05Z",
+ "what": "compare.py part 1 (input_drift, season_profile, coverage) on the arm against the frozen reference; no result read",
+ "expected_change": "SYS's inputs exactly, plus the two share inputs of R_S2",
+ "inputs_changed": 44,
+ "inputs_flagged": [
+  {
+   "input": "points_52w",
+   "flag": "uneven",
+   "flagged_tour_seasons": 13.0,
+   "flagged": "atp 2013; atp 2014; atp 2015; atp 2016; atp 2017; atp 2018; atp 2019; atp 2020; atp 2022; atp 2023; atp 2024; atp 2025; atp 2026"
+  },
+  {
+   "input": "form_first_in",
+   "flag": "uneven",
+   "flagged_tour_seasons": 1.0,
+   "flagged": "atp 2023"
+  },
+  {
+   "input": "form_bp_conv",
+   "flag": "uneven",
+   "flagged_tour_seasons": 1.0,
+   "flagged": "atp 2022"
+  },
+  {
+   "input": "form_rpw_second",
+   "flag": "uneven",
+   "flagged_tour_seasons": 1.0,
+   "flagged": "atp 2022"
+  },
+  {
+   "input": "prod_ace",
+   "flag": "uneven",
+   "flagged_tour_seasons": 6.0,
+   "flagged": "atp 2016; atp 2017; atp 2018; atp 2019; atp 2025; atp 2026"
+  },
+  {
+   "input": "prod_df",
+   "flag": "uneven",
+   "flagged_tour_seasons": 3.0,
+   "flagged": "atp 2016; atp 2017; atp 2018"
+  },
+  {
+   "input": "prod_first_won",
+   "flag": "uneven",
+   "flagged_tour_seasons": 8.0,
+   "flagged": "atp 2016; atp 2017; atp 2018; atp 2019; atp 2020; atp 2021; atp 2025; atp 2026"
+  },
+  {
+   "input": "prod_second_won",
+   "flag": "uneven",
+   "flagged_tour_seasons": 7.0,
+   "flagged": "atp 2017; atp 2018; atp 2019; atp 2020; atp 2021; atp 2025; atp 2026"
+  },
+  {
+   "input": "prod_hold",
+   "flag": "uneven",
+   "flagged_tour_seasons": 7.0,
+   "flagged": "atp 2017; atp 2018; atp 2019; atp 2020; atp 2021; atp 2025; atp 2026"
+  },
+  {
+   "input": "prod_bp_saved",
+   "flag": "uneven",
+   "flagged_tour_seasons": 9.0,
+   "flagged": "atp 2018; atp 2019; atp 2020; atp 2021; atp 2022; atp 2023; atp 2024; atp 2025; atp 2026"
+  }
+ ],
+ "only_in_one": [
+  {
+   "input": "box_low_share_h2w_diff",
+   "flag": "only in the candidate"
+  },
+  {
+   "input": "box_low_share_365d_diff",
+   "flag": "only in the candidate"
+  }
+ ],
+ "coverage": {
+  "both": 67226
+ }
+}

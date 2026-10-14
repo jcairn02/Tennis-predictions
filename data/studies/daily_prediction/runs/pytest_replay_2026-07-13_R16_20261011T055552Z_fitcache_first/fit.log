@@ -1,0 +1,37 @@
+[   51.7s] season 2026 seed 0: 48 s (23 matches x 92 prices x 2)
+[   99.8s] season 2026 seed 1: 47 s (23 matches x 92 prices x 2)
+[  146.7s] season 2026 seed 2: 47 s (23 matches x 92 prices x 2)
+[  193.9s] season 2026 seed 3: 47 s (23 matches x 92 prices x 2)
+[  240.5s] season 2026 seed 4: 47 s (23 matches x 92 prices x 2)
+[  286.7s] season 2026 seed 5: 46 s (23 matches x 92 prices x 2)
+[  334.1s] season 2026 seed 6: 47 s (23 matches x 92 prices x 2)
+[  380.0s] season 2026 seed 7: 46 s (23 matches x 92 prices x 2)
+[  426.6s] season 2026 seed 8: 47 s (23 matches x 92 prices x 2)
+[  472.3s] season 2026 seed 9: 46 s (23 matches x 92 prices x 2)
+[  518.2s] season 2026 seed 10: 46 s (23 matches x 92 prices x 2)
+[  564.6s] season 2026 seed 11: 46 s (23 matches x 92 prices x 2)
+[  610.5s] season 2026 seed 12: 46 s (23 matches x 92 prices x 2)
+Traceback (most recent call last):
+  File "C:\Users\zerom\Documents\Tennis-predictions\src\eda\daily_prediction\dp.py", line 237, in <module>
+    t.add_argument("--tag", default="")
+             ^^^^^^
+  File "C:\Users\zerom\Documents\Tennis-predictions\src\eda\daily_prediction\dp.py", line 233, in main
+    t.add_argument("--frame", default=str(DC.INSTANCE / "model_frame.parquet"))
+           ^^^^^^^^^
+  File "C:\Users\zerom\Documents\Tennis-predictions\src\eda\daily_prediction\dp.py", line 126, in cmd_step
+    elif a.cmd == "history":
+              ^^^^^^^^^^^^^^^
+  File "C:\Users\zerom\Documents\Tennis-predictions\src\eda\daily_prediction\dp_steps.py", line 211, in step_fit
+    frame, rec = SP.inputs(box, False, d0, ck, targets, pr.loc[targets, "p_a"].to_numpy(dtype="float64"),
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\zerom\Documents\Tennis-predictions\src\eda\daily_prediction\dp_fit.py", line 114, in run
+    clf, how = TC.get(X_train, y_train, int(season), seed, C.CONFIG, instance, rebuild=cache == "rebuild")
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\zerom\Documents\Tennis-predictions\src\eda\daily_prediction\dp_tabcache.py", line 212, in get
+    rec.update(save(clf, path, k))
+               ^^^^^^^^^^^^^^^^^^
+  File "C:\Users\zerom\Documents\Tennis-predictions\src\eda\daily_prediction\dp_tabcache.py", line 149, in save
+    tmp.rename(path)
+  File "C:\Users\zerom\miniforge3\envs\tennis-tabpfn-local\Lib\pathlib.py", line 1175, in rename
+    os.rename(self, target)
+PermissionError: [WinError 5] Access is denied: 'C:\\Users\\zerom\\Documents\\Tennis-predictions\\data\\studies\\daily_prediction\\state\\template_2026-10-10\\tabpfn\\season2026\\seed13.part' -> 'C:\\Users\\zerom\\Documents\\Tennis-predictions\\data\\studies\\daily_prediction\\state\\template_2026-10-10\\tabpfn\\season2026\\seed13'

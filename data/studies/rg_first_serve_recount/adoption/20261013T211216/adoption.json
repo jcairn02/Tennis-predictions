@@ -1,0 +1,50 @@
+{
+ "tables": [
+  {
+   "decided": "data/studies/data_continuity/slam_box_overrides.csv",
+   "candidate": "data/studies/rg_first_serve_recount/followup/confirmed/candidate/slam_box_overrides.csv",
+   "decided_sha256": "f2870e5c7195a655ea57405a59ee6c4564a4b4830c7fa55758eaa99894adf1a7",
+   "candidate_sha256": "505336f65b4ec0c991b4effe4ad23a0448440da99a87b6229fb4486c07dbed63",
+   "identical": false,
+   "ok": true,
+   "decided_rows": 731,
+   "candidate_rows": 2272,
+   "rows_added": 1541,
+   "columns_added": [
+    "source"
+   ]
+  },
+  {
+   "decided": "data/studies/input_data_audit/fixes/row_corrections.csv",
+   "candidate": "data/studies/rg_first_serve_recount/followup/confirmed/candidate/corrections/row_corrections.csv",
+   "decided_sha256": "563c69335f8ac5e1423bd4d4cbb290bc351b4122cee62b5954525ce0407f974e",
+   "candidate_sha256": "25e48366d01aa167434dc9fbf8a7e1d0cd0c897f15aa9b41b90c49f377534bb9",
+   "identical": false,
+   "ok": true,
+   "decided_rows": 1522,
+   "candidate_rows": 2951,
+   "rows_added": 1429,
+   "columns_added": []
+  },
+  {
+   "decided": "data/studies/input_data_audit/fixes/id_aliases.csv",
+   "candidate": "data/studies/rg_first_serve_recount/followup/confirmed/candidate/corrections/id_aliases.csv",
+   "decided_sha256": "846cde8d49aaf0842fc9124864f672ca0ea576643321dd65e4593b6207cfc382",
+   "candidate_sha256": "846cde8d49aaf0842fc9124864f672ca0ea576643321dd65e4593b6207cfc382",
+   "identical": true,
+   "ok": true
+  }
+ ],
+ "ready": true,
+ "applied_at": "20261013T211216",
+ "kept": "data/studies/rg_first_serve_recount/adoption/20261013T211216/replaced",
+ "after": {
+  "data/studies/data_continuity/slam_box_overrides.csv": "505336f65b4ec0c991b4effe4ad23a0448440da99a87b6229fb4486c07dbed63",
+  "data/studies/input_data_audit/fixes/row_corrections.csv": "25e48366d01aa167434dc9fbf8a7e1d0cd0c897f15aa9b41b90c49f377534bb9",
+  "data/studies/input_data_audit/fixes/id_aliases.csv": "846cde8d49aaf0842fc9124864f672ca0ea576643321dd65e4593b6207cfc382"
+ },
+ "next": [
+  "./python.sh src/eda/data_continuity/rebuild_stage0.py (coordinated with the studies on Stage 0)",
+  "./python.sh src/eda/current_best_model/history.py (main-tour differences: the candidate's matches)"
+ ]
+}

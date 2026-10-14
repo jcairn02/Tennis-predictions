@@ -1,0 +1,339 @@
+{
+ "generated_at": "2026-10-09T17:58:27+00:00",
+ "decisions": [
+  "docs/decisions/2026-10-06-surface-ios-profile.md",
+  "docs/decisions/2026-10-06-offset-elo.md"
+ ],
+ "inputs": [
+  {
+   "name": "odds_logit",
+   "kind": "diff",
+   "source": "the best 2026 model, leak-proof refit (src/eda/tabpfn_leakproof/), unchanged"
+  },
+  {
+   "name": "ratings_iid",
+   "kind": "diff",
+   "source": "the best 2026 model, leak-proof refit (src/eda/tabpfn_leakproof/), unchanged"
+  },
+  {
+   "name": "elo_games",
+   "kind": "diff",
+   "source": "the best 2026 model, leak-proof refit (src/eda/tabpfn_leakproof/), unchanged"
+  },
+  {
+   "name": "adjperf_tpw_2w",
+   "kind": "diff",
+   "source": "the best 2026 model, leak-proof refit (src/eda/tabpfn_leakproof/), unchanged"
+  },
+  {
+   "name": "ios_points_short",
+   "kind": "diff",
+   "source": "the best 2026 model, leak-proof refit (src/eda/tabpfn_leakproof/), unchanged"
+  },
+  {
+   "name": "points_52w",
+   "kind": "diff",
+   "source": "the best 2026 model, leak-proof refit (src/eda/tabpfn_leakproof/), unchanged"
+  },
+  {
+   "name": "sets_14d",
+   "kind": "diff",
+   "source": "the best 2026 model, leak-proof refit (src/eda/tabpfn_leakproof/), unchanged"
+  },
+  {
+   "name": "age",
+   "kind": "diff",
+   "source": "the best 2026 model, leak-proof refit (src/eda/tabpfn_leakproof/), unchanged"
+  },
+  {
+   "name": "age_sq",
+   "kind": "diff",
+   "source": "the best 2026 model, leak-proof refit (src/eda/tabpfn_leakproof/), unchanged"
+  },
+  {
+   "name": "form_ace",
+   "kind": "diff",
+   "source": "the best 2026 model, leak-proof refit (src/eda/tabpfn_leakproof/), unchanged"
+  },
+  {
+   "name": "form_df",
+   "kind": "diff",
+   "source": "the best 2026 model, leak-proof refit (src/eda/tabpfn_leakproof/), unchanged"
+  },
+  {
+   "name": "form_first_in",
+   "kind": "diff",
+   "source": "the best 2026 model, leak-proof refit (src/eda/tabpfn_leakproof/), unchanged"
+  },
+  {
+   "name": "form_first_won",
+   "kind": "diff",
+   "source": "the best 2026 model, leak-proof refit (src/eda/tabpfn_leakproof/), unchanged"
+  },
+  {
+   "name": "form_second_won",
+   "kind": "diff",
+   "source": "the best 2026 model, leak-proof refit (src/eda/tabpfn_leakproof/), unchanged"
+  },
+  {
+   "name": "form_hold",
+   "kind": "diff",
+   "source": "the best 2026 model, leak-proof refit (src/eda/tabpfn_leakproof/), unchanged"
+  },
+  {
+   "name": "form_bp_saved",
+   "kind": "diff",
+   "source": "the best 2026 model, leak-proof refit (src/eda/tabpfn_leakproof/), unchanged"
+  },
+  {
+   "name": "form_bp_faced_pg",
+   "kind": "diff",
+   "source": "the best 2026 model, leak-proof refit (src/eda/tabpfn_leakproof/), unchanged"
+  },
+  {
+   "name": "form_brk",
+   "kind": "diff",
+   "source": "the best 2026 model, leak-proof refit (src/eda/tabpfn_leakproof/), unchanged"
+  },
+  {
+   "name": "form_bp_conv",
+   "kind": "diff",
+   "source": "the best 2026 model, leak-proof refit (src/eda/tabpfn_leakproof/), unchanged"
+  },
+  {
+   "name": "form_rpw_first",
+   "kind": "diff",
+   "source": "the best 2026 model, leak-proof refit (src/eda/tabpfn_leakproof/), unchanged"
+  },
+  {
+   "name": "form_rpw_second",
+   "kind": "diff",
+   "source": "the best 2026 model, leak-proof refit (src/eda/tabpfn_leakproof/), unchanged"
+  },
+  {
+   "name": "formdef_ace",
+   "kind": "diff",
+   "source": "the best 2026 model, leak-proof refit (src/eda/tabpfn_leakproof/), unchanged"
+  },
+  {
+   "name": "formdef_df",
+   "kind": "diff",
+   "source": "the best 2026 model, leak-proof refit (src/eda/tabpfn_leakproof/), unchanged"
+  },
+  {
+   "name": "formdef_first_in",
+   "kind": "diff",
+   "source": "the best 2026 model, leak-proof refit (src/eda/tabpfn_leakproof/), unchanged"
+  },
+  {
+   "name": "formdef_bp_faced_pg",
+   "kind": "diff",
+   "source": "the best 2026 model, leak-proof refit (src/eda/tabpfn_leakproof/), unchanged"
+  },
+  {
+   "name": "iosO_ace",
+   "kind": "diff",
+   "source": "surface IOS (decision 2026-10-06-surface-ios-profile; surface-IOS study, arm sprof)"
+  },
+  {
+   "name": "iosD_ace",
+   "kind": "diff",
+   "source": "surface IOS (decision 2026-10-06-surface-ios-profile; surface-IOS study, arm sprof)"
+  },
+  {
+   "name": "iosO_df",
+   "kind": "diff",
+   "source": "surface IOS (decision 2026-10-06-surface-ios-profile; surface-IOS study, arm sprof)"
+  },
+  {
+   "name": "iosD_df",
+   "kind": "diff",
+   "source": "surface IOS (decision 2026-10-06-surface-ios-profile; surface-IOS study, arm sprof)"
+  },
+  {
+   "name": "iosO_first_in",
+   "kind": "diff",
+   "source": "surface IOS (decision 2026-10-06-surface-ios-profile; surface-IOS study, arm sprof)"
+  },
+  {
+   "name": "iosD_first_in",
+   "kind": "diff",
+   "source": "surface IOS (decision 2026-10-06-surface-ios-profile; surface-IOS study, arm sprof)"
+  },
+  {
+   "name": "iosO_first_won",
+   "kind": "diff",
+   "source": "surface IOS (decision 2026-10-06-surface-ios-profile; surface-IOS study, arm sprof)"
+  },
+  {
+   "name": "iosD_first_won",
+   "kind": "diff",
+   "source": "surface IOS (decision 2026-10-06-surface-ios-profile; surface-IOS study, arm sprof)"
+  },
+  {
+   "name": "iosO_second_won",
+   "kind": "diff",
+   "source": "surface IOS (decision 2026-10-06-surface-ios-profile; surface-IOS study, arm sprof)"
+  },
+  {
+   "name": "iosD_second_won",
+   "kind": "diff",
+   "source": "surface IOS (decision 2026-10-06-surface-ios-profile; surface-IOS study, arm sprof)"
+  },
+  {
+   "name": "iosO_hold",
+   "kind": "diff",
+   "source": "surface IOS (decision 2026-10-06-surface-ios-profile; surface-IOS study, arm sprof)"
+  },
+  {
+   "name": "iosD_hold",
+   "kind": "diff",
+   "source": "surface IOS (decision 2026-10-06-surface-ios-profile; surface-IOS study, arm sprof)"
+  },
+  {
+   "name": "iosO_bp_saved",
+   "kind": "diff",
+   "source": "surface IOS (decision 2026-10-06-surface-ios-profile; surface-IOS study, arm sprof)"
+  },
+  {
+   "name": "iosD_bp_saved",
+   "kind": "diff",
+   "source": "surface IOS (decision 2026-10-06-surface-ios-profile; surface-IOS study, arm sprof)"
+  },
+  {
+   "name": "prod_ace",
+   "kind": "diff",
+   "source": "surface IOS (decision 2026-10-06-surface-ios-profile; surface-IOS study, arm sprof)"
+  },
+  {
+   "name": "prod_df",
+   "kind": "diff",
+   "source": "surface IOS (decision 2026-10-06-surface-ios-profile; surface-IOS study, arm sprof)"
+  },
+  {
+   "name": "prod_first_in",
+   "kind": "diff",
+   "source": "surface IOS (decision 2026-10-06-surface-ios-profile; surface-IOS study, arm sprof)"
+  },
+  {
+   "name": "prod_first_won",
+   "kind": "diff",
+   "source": "surface IOS (decision 2026-10-06-surface-ios-profile; surface-IOS study, arm sprof)"
+  },
+  {
+   "name": "prod_second_won",
+   "kind": "diff",
+   "source": "surface IOS (decision 2026-10-06-surface-ios-profile; surface-IOS study, arm sprof)"
+  },
+  {
+   "name": "prod_hold",
+   "kind": "diff",
+   "source": "surface IOS (decision 2026-10-06-surface-ios-profile; surface-IOS study, arm sprof)"
+  },
+  {
+   "name": "prod_bp_saved",
+   "kind": "diff",
+   "source": "surface IOS (decision 2026-10-06-surface-ios-profile; surface-IOS study, arm sprof)"
+  },
+  {
+   "name": "tour",
+   "kind": "context",
+   "source": "the best 2026 model, leak-proof refit (src/eda/tabpfn_leakproof/), unchanged"
+  },
+  {
+   "name": "surface",
+   "kind": "context",
+   "source": "the best 2026 model, leak-proof refit (src/eda/tabpfn_leakproof/), unchanged"
+  },
+  {
+   "name": "level",
+   "kind": "context",
+   "source": "the best 2026 model, leak-proof refit (src/eda/tabpfn_leakproof/), unchanged"
+  },
+  {
+   "name": "indoor",
+   "kind": "context",
+   "source": "the best 2026 model, leak-proof refit (src/eda/tabpfn_leakproof/), unchanged"
+  },
+  {
+   "name": "best_of",
+   "kind": "context",
+   "source": "the best 2026 model, leak-proof refit (src/eda/tabpfn_leakproof/), unchanged"
+  },
+  {
+   "name": "round",
+   "kind": "context",
+   "source": "the best 2026 model, leak-proof refit (src/eda/tabpfn_leakproof/), unchanged"
+  },
+  {
+   "name": "elo_overall",
+   "kind": "diff",
+   "source": "offset Elo (decision 2026-10-06-offset-elo; surface-Elo-pieces study's pieces.py, race arm elo_off)"
+  },
+  {
+   "name": "elo_surf_offset",
+   "kind": "diff",
+   "source": "offset Elo (decision 2026-10-06-offset-elo; surface-Elo-pieces study's pieces.py, race arm elo_off)"
+  },
+  {
+   "name": "surf_season_a",
+   "kind": "pair",
+   "source": "offset Elo (decision 2026-10-06-offset-elo; surface-Elo-pieces study's pieces.py, race arm elo_off)"
+  },
+  {
+   "name": "surf_season_b",
+   "kind": "pair",
+   "source": "offset Elo (decision 2026-10-06-offset-elo; surface-Elo-pieces study's pieces.py, race arm elo_off)"
+  },
+  {
+   "name": "surf_layoff_a",
+   "kind": "pair",
+   "source": "offset Elo (decision 2026-10-06-offset-elo; surface-Elo-pieces study's pieces.py, race arm elo_off)"
+  },
+  {
+   "name": "surf_layoff_b",
+   "kind": "pair",
+   "source": "offset Elo (decision 2026-10-06-offset-elo; surface-Elo-pieces study's pieces.py, race arm elo_off)"
+  },
+  {
+   "name": "low_share_diff",
+   "kind": "diff",
+   "source": "event-levels experiment C1's input: A's share minus B's of the previous 365 days' played matches below the main tour (blend.history on the frozen reference's Stage 0; src/eda/lower_level_evidence/candidate_arms.py --low-share)"
+  }
+ ],
+ "replaced": {
+  "elo_logit": "the 70/30 (men) or 75/25 (women) surface Elo blend",
+  "surface_first": "A's first matches on the surface this season minus B's"
+ },
+ "kinds": {
+  "diff": "A - B, negated when A and B swap",
+  "pair": "an (A, B) couple, exchanged when they swap",
+  "context": "describes the match, unchanged when they swap"
+ },
+ "rows": {
+  "all": 67226,
+  "train_2013_2021": 42538,
+  "test_2022_2026": 24688
+ },
+ "checks": {
+  "rows_equal_surface_ios_arm": true,
+  "surface_profile_equals_sprof_arm": true,
+  "elo_swap_equals_race_elo_off": true,
+  "unchanged_inputs": 31,
+  "unchanged_equal_upload_train": true,
+  "unchanged_equal_upload_test": true,
+  "labels_equal_upload": true,
+  "test_ids_equal_upload": true,
+  "flip_is_an_involution": true
+ },
+ "sources_sha256": {
+  "frame.parquet": "328ce074542be078f70d89629391b8873fe6cfdd7c1bf29f3dd242764ab17691",
+  "sprof.parquet": "874f063d930ea5b45294de2af428cfb77f2edb3e5b922b08245c7b911ac4d8d5"
+ },
+ "arm": {
+  "name": "FP_L",
+  "what": "FP plus low_share_diff",
+  "built_by": "src/eda/lower_level_evidence/candidate_arms.py",
+  "preregistration": "data/studies/lower_level_evidence/candidates/preregistration.md"
+ }
+}

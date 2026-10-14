@@ -1,0 +1,531 @@
+{
+ "preregistration_sha256": {
+  "original": "bf1e6a3394da0f05c6feb7fe482810b0679e14e6f25b7c257d112d93a3391e18",
+  "with_addition": "27834ffd299b4927425ea2ac8df6fc1efeba39529ee8cbecbe6e69db31d38648"
+ },
+ "scored_seasons": [
+  2020,
+  2024
+ ],
+ "results_read_through": 2024,
+ "arms_scored": [
+  "FP",
+  "F",
+  "P",
+  "FP_placebo",
+  "R_L",
+  "FP_L",
+  "FP_half",
+  "R_S2"
+ ],
+ "arms_missing": [],
+ "unit": "mLL per match; positive = the named candidate better",
+ "primary": {
+  "group": "vs reference",
+  "population": "both tours",
+  "comparison": "FP vs reference",
+  "stage": "both stages",
+  "matches": 22265,
+  "estimate": 0.024246613227673276,
+  "lo": -0.047457980384588046,
+  "hi": 0.0959512068399346,
+  "se": 0.03576504283061628,
+  "p_better": 0.7496483080165413,
+  "blocks": 55,
+  "reading": "unresolved"
+ },
+ "fp_vs_placebo": {
+  "group": "arm vs arm",
+  "population": "both tours",
+  "comparison": "FP vs FP_placebo",
+  "stage": "both stages",
+  "matches": 22265,
+  "estimate": 0.05283449919827854,
+  "lo": -0.03592440158622248,
+  "hi": 0.14159339998277956,
+  "se": 0.04427144382578683,
+  "p_better": 0.8810394089843969,
+  "blocks": 55,
+  "reading": "unresolved"
+ },
+ "fpl_vs_rl": {
+  "group": "arm vs arm",
+  "population": "both tours",
+  "comparison": "FP_L vs R_L",
+  "stage": "both stages",
+  "matches": 22265,
+  "estimate": 0.074799596365989,
+  "lo": -0.007035507597343435,
+  "hi": 0.15663470032932142,
+  "se": 0.040817970660613836,
+  "p_better": 0.9638046770549208,
+  "blocks": 55,
+  "reading": "unresolved"
+ },
+ "secondaries": {
+  "F vs reference": {
+   "group": "vs reference",
+   "population": "both tours",
+   "comparison": "F vs reference",
+   "stage": "both stages",
+   "matches": 22265,
+   "estimate": -0.002569624057432795,
+   "lo": -0.059560711251212144,
+   "hi": 0.054421463136346555,
+   "se": 0.0284261938010672,
+   "p_better": 0.46415336692044457,
+   "blocks": 55,
+   "reading": "unresolved"
+  },
+  "P vs reference": {
+   "group": "vs reference",
+   "population": "both tours",
+   "comparison": "P vs reference",
+   "stage": "both stages",
+   "matches": 22265,
+   "estimate": 0.028869222016474006,
+   "lo": -0.019436422601750426,
+   "hi": 0.07717486663469844,
+   "se": 0.024094041423252707,
+   "p_better": 0.881962102278976,
+   "blocks": 55,
+   "reading": "unresolved"
+  },
+  "FP vs reference, men": {
+   "group": "vs reference",
+   "population": "men",
+   "comparison": "FP vs reference",
+   "stage": "both stages",
+   "matches": 11672,
+   "estimate": 0.08299071828850325,
+   "lo": 0.0016509468736104899,
+   "hi": 0.16433048970339603,
+   "se": 0.04057090713346885,
+   "p_better": 0.9771585993781703,
+   "blocks": 55,
+   "reading": "better"
+  },
+  "FP vs reference, women": {
+   "group": "vs reference",
+   "population": "women",
+   "comparison": "FP vs reference",
+   "stage": "both stages",
+   "matches": 10593,
+   "estimate": -0.04048114984888741,
+   "lo": -0.1535033897187486,
+   "hi": 0.0725410900209738,
+   "se": 0.056349228732698806,
+   "p_better": 0.2378336832212688,
+   "blocks": 54,
+   "reading": "unresolved"
+  },
+  "FP vs reference, exposure < 10": {
+   "group": "vs reference",
+   "population": "exposure < 10",
+   "comparison": "FP vs reference",
+   "stage": "both stages",
+   "matches": 5913,
+   "estimate": 0.04007535437526904,
+   "lo": -0.15208367120600838,
+   "hi": 0.23223437995654647,
+   "se": 0.09584568343510816,
+   "p_better": 0.6612426056372439,
+   "blocks": 55,
+   "reading": "unresolved"
+  },
+  "FP vs reference, exposure >= 10": {
+   "group": "vs reference",
+   "population": "exposure >= 10",
+   "comparison": "FP vs reference",
+   "stage": "both stages",
+   "matches": 16352,
+   "estimate": 0.018522827366265884,
+   "lo": -0.06849828950502669,
+   "hi": 0.10554394423755846,
+   "se": 0.04340466649737271,
+   "p_better": 0.6643700276086044,
+   "blocks": 55,
+   "reading": "unresolved"
+  },
+  "FP vs reference, share gap >= 0.5": {
+   "group": "vs reference",
+   "population": "share gap >= 0.5",
+   "comparison": "FP vs reference",
+   "stage": "both stages",
+   "matches": 5619,
+   "estimate": 0.16491559250941837,
+   "lo": 0.0042695665100205005,
+   "hi": 0.32556161850881626,
+   "se": 0.08012753034352728,
+   "p_better": 0.9777929883900456,
+   "blocks": 55,
+   "reading": "better"
+  },
+  "FP vs reference, share gap < 0.5": {
+   "group": "vs reference",
+   "population": "share gap < 0.5",
+   "comparison": "FP vs reference",
+   "stage": "both stages",
+   "matches": 16542,
+   "estimate": -0.01747808795693126,
+   "lo": -0.09008456502280389,
+   "hi": 0.05512838910894137,
+   "se": 0.03621488709751297,
+   "p_better": 0.31565759023931445,
+   "blocks": 55,
+   "reading": "unresolved"
+  },
+  "FP_L vs R_L": {
+   "group": "arm vs arm",
+   "population": "both tours",
+   "comparison": "FP_L vs R_L",
+   "stage": "both stages",
+   "matches": 22265,
+   "estimate": 0.074799596365989,
+   "lo": -0.007035507597343435,
+   "hi": 0.15663470032932142,
+   "se": 0.040817970660613836,
+   "p_better": 0.9638046770549208,
+   "blocks": 55,
+   "reading": "unresolved"
+  }
+ },
+ "secondaries_worse": [],
+ "falsification_stratum": {
+  "group": "vs reference",
+  "population": "falsification: both 20+ main-tour, share < 0.10",
+  "comparison": "FP vs reference",
+  "stage": "both stages",
+  "matches": 3652,
+  "estimate": -0.03335474420989654,
+  "lo": -0.1546678029808273,
+  "hi": 0.08795831456103423,
+  "se": 0.060508909182542106,
+  "p_better": 0.2918725279108093,
+  "blocks": 55,
+  "reading": "unresolved"
+ },
+ "uneven_check": {
+  "flags": [
+   {
+    "input": "points_52w",
+    "flag": "uneven",
+    "flagged": "atp 2013; atp 2014; atp 2015; atp 2016; atp 2017; atp 2018; atp 2019; atp 2020; atp 2021; atp 2022; atp 2023; atp 2024; atp 2025; atp 2026; wta 2013; wta 2014; wta 2016; wta 2017; wta 2018; wta 2019; wta 2020; wta 2021; wta 2022; wta 2023; wta 2024; wta 2025; wta 2026"
+   }
+  ],
+  "unexpected": [
+   {
+    "input": "points_52w",
+    "flag": "uneven",
+    "flagged": "atp 2013; atp 2014; atp 2015; atp 2016; atp 2017; atp 2018; atp 2019; atp 2020; atp 2021; atp 2022; atp 2023; atp 2024; atp 2025; atp 2026; wta 2013; wta 2014; wta 2016; wta 2017; wta 2018; wta 2019; wta 2020; wta 2021; wta 2022; wta 2023; wta 2024; wta 2025; wta 2026",
+    "cell": "atp 2013",
+    "mean_abs_share_gap": 0.3304798304531953,
+    "tour_median": 0.33915427339853677,
+    "why": "flagged tour-season below the tour's median share gap"
+   },
+   {
+    "input": "points_52w",
+    "flag": "uneven",
+    "flagged": "atp 2013; atp 2014; atp 2015; atp 2016; atp 2017; atp 2018; atp 2019; atp 2020; atp 2021; atp 2022; atp 2023; atp 2024; atp 2025; atp 2026; wta 2013; wta 2014; wta 2016; wta 2017; wta 2018; wta 2019; wta 2020; wta 2021; wta 2022; wta 2023; wta 2024; wta 2025; wta 2026",
+    "cell": "atp 2015",
+    "mean_abs_share_gap": 0.31971641454022326,
+    "tour_median": 0.33915427339853677,
+    "why": "flagged tour-season below the tour's median share gap"
+   },
+   {
+    "input": "points_52w",
+    "flag": "uneven",
+    "flagged": "atp 2013; atp 2014; atp 2015; atp 2016; atp 2017; atp 2018; atp 2019; atp 2020; atp 2021; atp 2022; atp 2023; atp 2024; atp 2025; atp 2026; wta 2013; wta 2014; wta 2016; wta 2017; wta 2018; wta 2019; wta 2020; wta 2021; wta 2022; wta 2023; wta 2024; wta 2025; wta 2026",
+    "cell": "atp 2016",
+    "mean_abs_share_gap": 0.33091120665519047,
+    "tour_median": 0.33915427339853677,
+    "why": "flagged tour-season below the tour's median share gap"
+   },
+   {
+    "input": "points_52w",
+    "flag": "uneven",
+    "flagged": "atp 2013; atp 2014; atp 2015; atp 2016; atp 2017; atp 2018; atp 2019; atp 2020; atp 2021; atp 2022; atp 2023; atp 2024; atp 2025; atp 2026; wta 2013; wta 2014; wta 2016; wta 2017; wta 2018; wta 2019; wta 2020; wta 2021; wta 2022; wta 2023; wta 2024; wta 2025; wta 2026",
+    "cell": "atp 2019",
+    "mean_abs_share_gap": 0.32189950540815576,
+    "tour_median": 0.33915427339853677,
+    "why": "flagged tour-season below the tour's median share gap"
+   },
+   {
+    "input": "points_52w",
+    "flag": "uneven",
+    "flagged": "atp 2013; atp 2014; atp 2015; atp 2016; atp 2017; atp 2018; atp 2019; atp 2020; atp 2021; atp 2022; atp 2023; atp 2024; atp 2025; atp 2026; wta 2013; wta 2014; wta 2016; wta 2017; wta 2018; wta 2019; wta 2020; wta 2021; wta 2022; wta 2023; wta 2024; wta 2025; wta 2026",
+    "cell": "atp 2020",
+    "mean_abs_share_gap": 0.3387149007479196,
+    "tour_median": 0.33915427339853677,
+    "why": "flagged tour-season below the tour's median share gap"
+   },
+   {
+    "input": "points_52w",
+    "flag": "uneven",
+    "flagged": "atp 2013; atp 2014; atp 2015; atp 2016; atp 2017; atp 2018; atp 2019; atp 2020; atp 2021; atp 2022; atp 2023; atp 2024; atp 2025; atp 2026; wta 2013; wta 2014; wta 2016; wta 2017; wta 2018; wta 2019; wta 2020; wta 2021; wta 2022; wta 2023; wta 2024; wta 2025; wta 2026",
+    "cell": "atp 2021",
+    "mean_abs_share_gap": 0.32382566037647903,
+    "tour_median": 0.33915427339853677,
+    "why": "flagged tour-season below the tour's median share gap"
+   },
+   {
+    "input": "points_52w",
+    "flag": "uneven",
+    "flagged": "atp 2013; atp 2014; atp 2015; atp 2016; atp 2017; atp 2018; atp 2019; atp 2020; atp 2021; atp 2022; atp 2023; atp 2024; atp 2025; atp 2026; wta 2013; wta 2014; wta 2016; wta 2017; wta 2018; wta 2019; wta 2020; wta 2021; wta 2022; wta 2023; wta 2024; wta 2025; wta 2026",
+    "cell": "atp 2022",
+    "mean_abs_share_gap": 0.3388276308267088,
+    "tour_median": 0.33915427339853677,
+    "why": "flagged tour-season below the tour's median share gap"
+   },
+   {
+    "input": "points_52w",
+    "flag": "uneven",
+    "flagged": "atp 2013; atp 2014; atp 2015; atp 2016; atp 2017; atp 2018; atp 2019; atp 2020; atp 2021; atp 2022; atp 2023; atp 2024; atp 2025; atp 2026; wta 2013; wta 2014; wta 2016; wta 2017; wta 2018; wta 2019; wta 2020; wta 2021; wta 2022; wta 2023; wta 2024; wta 2025; wta 2026",
+    "cell": "wta 2013",
+    "mean_abs_share_gap": 0.2569503265897747,
+    "tour_median": 0.2595896779660012,
+    "why": "flagged tour-season below the tour's median share gap"
+   },
+   {
+    "input": "points_52w",
+    "flag": "uneven",
+    "flagged": "atp 2013; atp 2014; atp 2015; atp 2016; atp 2017; atp 2018; atp 2019; atp 2020; atp 2021; atp 2022; atp 2023; atp 2024; atp 2025; atp 2026; wta 2013; wta 2014; wta 2016; wta 2017; wta 2018; wta 2019; wta 2020; wta 2021; wta 2022; wta 2023; wta 2024; wta 2025; wta 2026",
+    "cell": "wta 2014",
+    "mean_abs_share_gap": 0.25635353761539764,
+    "tour_median": 0.2595896779660012,
+    "why": "flagged tour-season below the tour's median share gap"
+   },
+   {
+    "input": "points_52w",
+    "flag": "uneven",
+    "flagged": "atp 2013; atp 2014; atp 2015; atp 2016; atp 2017; atp 2018; atp 2019; atp 2020; atp 2021; atp 2022; atp 2023; atp 2024; atp 2025; atp 2026; wta 2013; wta 2014; wta 2016; wta 2017; wta 2018; wta 2019; wta 2020; wta 2021; wta 2022; wta 2023; wta 2024; wta 2025; wta 2026",
+    "cell": "wta 2016",
+    "mean_abs_share_gap": 0.20027614247830083,
+    "tour_median": 0.2595896779660012,
+    "why": "flagged tour-season below the tour's median share gap"
+   },
+   {
+    "input": "points_52w",
+    "flag": "uneven",
+    "flagged": "atp 2013; atp 2014; atp 2015; atp 2016; atp 2017; atp 2018; atp 2019; atp 2020; atp 2021; atp 2022; atp 2023; atp 2024; atp 2025; atp 2026; wta 2013; wta 2014; wta 2016; wta 2017; wta 2018; wta 2019; wta 2020; wta 2021; wta 2022; wta 2023; wta 2024; wta 2025; wta 2026",
+    "cell": "wta 2017",
+    "mean_abs_share_gap": 0.2324618576893941,
+    "tour_median": 0.2595896779660012,
+    "why": "flagged tour-season below the tour's median share gap"
+   },
+   {
+    "input": "points_52w",
+    "flag": "uneven",
+    "flagged": "atp 2013; atp 2014; atp 2015; atp 2016; atp 2017; atp 2018; atp 2019; atp 2020; atp 2021; atp 2022; atp 2023; atp 2024; atp 2025; atp 2026; wta 2013; wta 2014; wta 2016; wta 2017; wta 2018; wta 2019; wta 2020; wta 2021; wta 2022; wta 2023; wta 2024; wta 2025; wta 2026",
+    "cell": "wta 2018",
+    "mean_abs_share_gap": 0.24237276011531558,
+    "tour_median": 0.2595896779660012,
+    "why": "flagged tour-season below the tour's median share gap"
+   },
+   {
+    "input": "points_52w",
+    "flag": "uneven",
+    "flagged": "atp 2013; atp 2014; atp 2015; atp 2016; atp 2017; atp 2018; atp 2019; atp 2020; atp 2021; atp 2022; atp 2023; atp 2024; atp 2025; atp 2026; wta 2013; wta 2014; wta 2016; wta 2017; wta 2018; wta 2019; wta 2020; wta 2021; wta 2022; wta 2023; wta 2024; wta 2025; wta 2026",
+    "cell": "wta 2021",
+    "mean_abs_share_gap": 0.25509260978146264,
+    "tour_median": 0.2595896779660012,
+    "why": "flagged tour-season below the tour's median share gap"
+   }
+  ],
+  "any_unexpected": true
+ },
+ "fp_vs_r_s2": {
+  "group": "arm vs arm",
+  "population": "both tours",
+  "comparison": "FP vs R_S2",
+  "stage": "both stages",
+  "matches": 22265,
+  "estimate": -0.0026047652722159874,
+  "lo": -0.16510585655050777,
+  "hi": 0.1598963260060758,
+  "se": 0.08105280564056049,
+  "p_better": 0.48724078469139503,
+  "blocks": 55,
+  "reading": "unresolved"
+ },
+ "r_s2_vs_reference": {
+  "group": "vs reference",
+  "population": "both tours",
+  "comparison": "R_S2 vs reference",
+  "stage": "both stages",
+  "matches": 22265,
+  "estimate": 0.02685137849988923,
+  "lo": -0.1284695586707366,
+  "hi": 0.18217231567051503,
+  "se": 0.0774714657813637,
+  "p_better": 0.6348794578718981,
+  "blocks": 55,
+  "reading": "unresolved"
+ },
+ "conditions": {
+  "no unexpected uneven input": false,
+  "no secondary worse": true,
+  "every secondary scored": true
+ },
+ "verdict": "Unresolved (the pre-registration's 'tie'), not recommended on mechanism: no unexpected uneven input",
+ "harness_check": {
+  "compare_py": {
+   "estimate": 0.0242466132276732,
+   "lo": -0.047457980384588,
+   "hi": 0.0959512068399346
+  },
+  "this_scorer": {
+   "estimate": 0.024246613227673276,
+   "lo": -0.047457980384588046,
+   "hi": 0.0959512068399346
+  },
+  "equal": true
+ },
+ "coefficients_2024": {
+  "reference": {
+   "stage1": [
+    0.8957957425947172,
+    0.9322035111478328,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "both": [
+    0.8944941099340749,
+    0.9322035111478328,
+    0.027602565093728267,
+    0.03666404973052969,
+    0.02864804315405617
+   ]
+  },
+  "FP": {
+   "stage1": [
+    0.8990717831245139,
+    0.9328438949342654,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "both": [
+    0.8977691924625162,
+    0.9328438949342654,
+    0.027423715326951564,
+    0.036424637293254916,
+    0.028645100916492472
+   ]
+  },
+  "F": {
+   "stage1": [
+    0.8980441790772614,
+    0.9325054022707742,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "both": [
+    0.8967364514072129,
+    0.9325054022707742,
+    0.027679936078923786,
+    0.036764277317194075,
+    0.02864403413513617
+   ]
+  },
+  "P": {
+   "stage1": [
+    0.8971123678078692,
+    0.9324578825540883,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "both": [
+    0.8958163777398884,
+    0.9324578825540883,
+    0.027325789379794577,
+    0.036298415366021734,
+    0.028651240394912694
+   ]
+  },
+  "FP_placebo": {
+   "stage1": [
+    0.8949464416601517,
+    0.931904941419679,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "both": [
+    0.8936485744037352,
+    0.931904941419679,
+    0.027544368178168112,
+    0.03658402366860305,
+    0.028643727710324435
+   ]
+  },
+  "R_L": {
+   "stage1": [
+    0.8971644498681463,
+    0.9332662392238378,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "both": [
+    0.895869213414124,
+    0.9332662392238378,
+    0.027219596131746494,
+    0.036161420902411354,
+    0.028657760129947724
+   ]
+  },
+  "FP_L": {
+   "stage1": [
+    0.8995376072308287,
+    0.9353135858732663,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "both": [
+    0.8982388652140461,
+    0.9353135858732663,
+    0.027276567118397304,
+    0.03623838385464604,
+    0.028659801486387484
+   ]
+  },
+  "FP_half": {
+   "stage1": [
+    0.8982319747179823,
+    0.9333784006188177,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "both": [
+    0.8969299084031188,
+    0.9333784006188177,
+    0.02747103262627684,
+    0.03648859616526962,
+    0.028646866062501185
+   ]
+  },
+  "R_S2": {
+   "stage1": [
+    0.8986472592967212,
+    0.9313534051657062,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "both": [
+    0.8973449174799359,
+    0.9313534051657062,
+    0.02746776096338779,
+    0.036494399076231955,
+    0.028662983285800223
+   ]
+  }
+ },
+ "generated_at": "2026-10-09T19:21:06+00:00"
+}

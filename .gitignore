@@ -28,28 +28,88 @@ data/studies/data_map/_cache/
 *.duckdb
 *.duckdb.wal
 
+# Arrays and model state are always written by a script: model fits, IOS runs, solver caches, profile arrays,
+# TabPFN executor states (3.6 GB each) and model weights. Their readings are kept in the tracked JSON and CSV
+# records beside them; rebuild with the script that wrote them. The .npz files git tracked before 14 Oct 2026
+# stay tracked until taken out of the index (data/LARGE_FILES.md, "Already tracked").
+*.npz
+*.joblib
+*.safetensors
+# The daily engine's temporary solver caches (about 2.5 GB each), written into a run or checkpoint folder and
+# deleted when their step ends (src/eda/daily_prediction/dp_state.py); named in case the rule above is narrowed
+_ios_cache_*.npz
+_cache_tmp.npz
+# A candidate Stage 0's left-out rows (25-31 MB each), written again with the candidate by
+# src/eda/lower_level_evidence/candidate_stage0.py
+data/studies/**/left_out.csv.gz
+# The WTA feed's per-match check results (15 MB), rewritten offline from the raw documents by every refresh
+# (src/eda/official_point_feeds/verify_wta.py); its summary, wta_verification.json, stays tracked
+data/studies/official_point_feeds/wta_checks.csv
+
 # Every file over 50 MB (50,000,000 bytes) in data/, listed by name, or by folder where a folder holds
 # many, so it stays ignored if a rule above is narrowed. GitHub warns above 50 MiB and rejects files
 # above 100 MiB. How to regenerate or re-download each one: data/LARGE_FILES.md. Its last section has
-# the check (and the fix) for large files git would pick up. Last checked 25 Sep 2026: 94 files, all
-# ignored, none tracked.
-data/studies/tennis_data_audit/polymarket/markets.jsonl.gz
-data/dump/odds/polymarket/market_index.parquet
-data/dump/odds/polymarket/trades/
+# the check (and the fix) for large files git would pick up. Last checked 14 Oct 2026: 187 files, all
+# ignored, none tracked. Two folder rules further down belong to this list too:
+# data/studies/data_continuity/rebuilds/*/replaced/ and data/studies/current_best_model/*/frozen/.
+data/raw/public_dump/atp_pipeline_handoff/
+data/raw/public_dump/polymarket_trades/
 data/raw/public_dump/polymarket_prices/bodies/itf.jsonl.gz
 data/raw/public_dump/polymarket_prices/bodies/challenger_125_inferred.jsonl.gz
-data/raw/public_dump/polymarket_trades/
 data/raw/public_dump/match_charting_project/charting-m-points-2020s.csv
-data/raw/public_dump/atp_pipeline_handoff/
-data/studies/polymarket_sharp_money/*.parquet
+data/raw/gap_sources/bwandowando/matches.csv
+data/raw/gap_sources/marcosjn2/
+data/raw/point_sources/sofascore_editions/_receipts.jsonl
+data/raw/point_sources/wta/_receipts.jsonl
+data/dump/odds/polymarket/market_index.parquet
+data/dump/odds/polymarket/trades/
+data/dump/odds/oddstrader/books_lines.parquet
+data/dump/points/tennislive/listed.parquet
+data/dump/points/wta/events/
+data/studies/tennis_data_audit/polymarket/markets.jsonl.gz
 data/studies/predictability_diagnostic/stage0_match_players.parquet
+data/studies/predictability_diagnostic/stage1_baselines.parquet
 data/studies/predictability_diagnostic/stage4_features.parquet
-data/studies/line_sharpening/prices.parquet
-data/studies/line_sharpening/takers.parquet
+data/studies/ufc_ideas/stageB_adj.parquet
+data/studies/ufc_ideas/stageB_adj_features.parquet
+data/studies/ufc_ideas/stageB_ios.parquet
+data/studies/ufc_ideas/stageB_split_features.parquet
+data/studies/ufc_ideas/stageB_features.parquet
+data/studies/ufc_ideas/stageD_profile_features.parquet
+data/studies/shot_level/stage2_features.parquet
+data/studies/shot_level/stage3_sides.parquet
+data/studies/rating_systems/stageA_ratings.parquet
+data/studies/rating_systems/stageB_features.parquet
+data/studies/point_sequence/sequences.parquet
+data/studies/match_timing/leakproof_features.parquet
+data/studies/match_timing/ios_features.parquet
 data/studies/feature_interactions/round1/_panel_aug.parquet
 data/studies/feature_interactions/round1/_history_feats_2010_2024.parquet
 data/studies/feature_universe/store.parquet
-data/studies/match_timing/undated_matches.csv
+data/studies/ios_product_centring/centred_products.parquet
+data/studies/event_levels/frame.parquet
+data/studies/surface_elo_pieces/pieces.parquet
+data/studies/surface_ios/surface_features.parquet
+data/studies/surface_rating_race/ttt_offset.parquet
+data/studies/tabpfn_thinking/frame.parquet
+data/studies/unpriced_leads/candidates/luck/values.parquet
+data/studies/lower_level_evidence/system/relationship/targets_dev_key.parquet
+data/studies/lower_level_evidence/system/stage0/*/stage0_match_players.parquet
+data/studies/level_layer_adoption/stage0/C0_men26/stage0_match_players.parquet
+# Copies of Stage 0 that runs keep beside their records (the small CSV and JSON files beside them stay tracked)
+data/studies/daily_prediction/runs/*/stage0/stage0_match_players.parquet
+data/studies/prediction_run/*/stage0/stage0_match_players.parquet
+data/studies/master_pipeline/data_check/stage0/stage0_match_players.parquet
+data/studies/box_score_gate_review/replay/*/stage0_match_players.parquet
+# The daily engine's TabPFN training caches and checkpoints (the folder also has its own .gitignore)
+data/studies/daily_prediction/state/
+# The lower-level feed's first candidate Stage 0s (13 Oct 2026; later weekly ones are built outside the repository,
+# in C:/Users/zerom/tnr_feed/candidates/) and the coverage alarm's scratch Stage 0, rebuilt from the raw downloads by
+# src/eda/data_gaps_2026/feed.py. The candidates' tables are ignored here and by the type rules (*.parquet,
+# left_out.csv.gz). Their small records stay tracked, among them the hand check of 13 Oct (identity_verdicts.csv),
+# which exists only there; so do the feed's records (feed/runs.jsonl, coverage/*/summary.json)
+data/studies/data_gaps_2026/feed/candidates/*/stage0_match_players.parquet
+data/studies/data_gaps_2026/coverage/stage0_scratch/
 
 # Archives and backup bundles anywhere in data/ are never committed, whatever their size. Backups go to
 # cold storage (gs://tennis-predictions-archive; see data/LARGE_FILES.md).
@@ -57,6 +117,10 @@ data/backups/
 # The copies a coordinated Stage 0 rebuild keeps of what it replaced (src/eda/data_continuity/rebuild_stage0.py);
 # each rebuild's rebuild.json and id_map.csv stay tracked.
 data/studies/data_continuity/rebuilds/*/replaced/
+# The frozen reference of the current best model (src/eda/current_best_model/reference.py): its copies stay local and
+# reach cold storage with the backups; manifest.json, verify.json, README.md and comparisons/ stay tracked.
+data/studies/current_best_model/*/frozen/
+data/studies/current_best_model/*/frozen.partial/
 data/**/*.zip
 data/**/*.7z
 data/**/*.tar

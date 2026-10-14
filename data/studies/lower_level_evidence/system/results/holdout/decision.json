@@ -1,0 +1,1166 @@
+{
+ "decision_layer": "owner decision 2026-10-09 (adoption by change class), addition 4",
+ "sources": {
+  "decision": "docs/decisions/2026-10-09-adoption-by-change-class.md",
+  "applied": "data/studies/lower_level_evidence/system/owner_decision_2026-10-09.md (sections 1-5)",
+  "erratum": "data/studies/lower_level_evidence/system/owner_decision_2026-10-09_erratum_1.md (section 1: the challengers; R_S2 and SYS_S2 report-only)",
+  "adopted": "data/studies/lower_level_evidence/system/preregistration_addition_4.md (code: 4b, 4c)"
+ },
+ "selected_on_dev": "SYS",
+ "preregistration": {
+  "preregistration.md": "cc65bcd5eb402326814291156d30c8d7ff4318d7344dd1f636d174bfd6068ae9",
+  "preregistration_addition_1.md": "c718e6d0696448c7f2a5849cd6e5d2f4443f5e29173b71900f782048a0d48b8a",
+  "preregistration_addition_2.md": "3f5367969b39003aff28e9e5d29fa35027cf9362d7a4cc321c4eef7249e7a27b",
+  "preregistration_addition_3.md": "f206343347895152cf1ddb70bc0229e6c3d1831d4545bf4ee91d5b52225a27ca",
+  "preregistration_addition_4.md": "754e055cd6d9b31a3a6d60bd16165628b6a51c73c6f2944536a81b5774526870",
+  "preregistration_addition_4b.md": "f4e2e405d8f5875bf6e9576e2e7598e2b34bf0dcc51d56cf7597e142a47b848a",
+  "preregistration_addition_4c.md": "7c7ff69a670ffd51c9c91f0edaa18a652e26df05654441f5771840f050900c0a",
+  "preregistration_addition_5.md": "f9d12ac4f9c9eb96eaf99aa831f46160dacc57ec7c53d1155af458c9bf8a9b1f",
+  "preregistration_addition_6.md": "20255b897520f55676786bca21412ff1c7c2b7d19b0eb62104c419f62c644236"
+ },
+ "freeze": {
+  "file": "preregistration_addition_3.md + preregistration_addition_4b.md + preregistration_addition_4c.md",
+  "held_in": {
+   "classes/classes.csv": "preregistration_addition_3.md",
+   "relationship/params.parquet": "preregistration_addition_3.md",
+   "relationship.py": "preregistration_addition_3.md",
+   "level_layer.py": "preregistration_addition_3.md",
+   "level_layer_ios.py": "preregistration_addition_3.md",
+   "system_pairs.py": "preregistration_addition_4b.md",
+   "system_fits.py": "preregistration_addition_3.md",
+   "system_decide.py": "preregistration_addition_4c.md"
+  },
+  "missing": [],
+  "recommended_missing": [
+   "compare.py"
+  ],
+  "hashes": {
+   "classes/classes.csv": "58e7862273bfaf8bfbe6283c72b54e80f219ff36c0f83df795076d52ae940c26",
+   "relationship/params.parquet": "4c559abd356f7c9f0f53c958c5d8293ae55d0cdfa62c4e9da689c94c91a801fb",
+   "relationship.py": "06a85f00a2051a53063bdc706d06d360e80e2bd11bf2532aa2abb600df982575",
+   "level_layer.py": "26e21291822f42e4c9e7771f518149d1cb85116bdeb5196285fa22eeca37411f",
+   "level_layer_ios.py": "3fa5f69e592118fc204809ce0ec6afa627e5b979af3e33752e91e89f154c05c3",
+   "system_pairs.py": "a486aed9aa28cab1ef36dc3ae50be4d4cffa5a61a274606445039f33a5f4d898",
+   "system_fits.py": "e8831b1febd0e7987d20c0070335de6c1d93a8d628f463fa2c261f94234c5362",
+   "system_decide.py": "829560436830ee2543c7be88e25f31af53f38ca1605cf3d3c21c43dfd0948870"
+  }
+ },
+ "readings_sha256": "8f7805eb2957403118a370841e2f9b01f208555c94a9cb494925ecd9e9d6651c",
+ "primary_speed_rule": {
+  "recommendation": {
+   "recommend": "SYS",
+   "drivers": [],
+   "primary": {
+    "comparison": "SYS vs REF",
+    "tour": "men",
+    "population": "all",
+    "stage": "both stages",
+    "matches": 4810,
+    "estimate": 0.01068477880911503,
+    "lo": -0.4253962103770863,
+    "hi": 0.4467657679953163,
+    "se": 0.21027371247312146,
+    "p_better": 0.5202630006388917,
+    "reading": "unresolved"
+   },
+   "primary_shows_harm": false,
+   "worse_after_holm": [],
+   "raw_worse_of_the_eight": [],
+   "edge": "no edge credit: a change adopted on these rules adds nothing to the edge used for stakes, which comes only from untouched matches at the venue's price",
+   "rules": "the owner's decision of 9 Oct 2026 (section 4): SELECTED unless the holdout primary shows harm or any of addition 2's eight readings is worse after Holm"
+  },
+  "registered_rules_recommendation": {
+   "recommend": "unresolved",
+   "p_better": 0.5202630006388917,
+   "conditions": {
+    "p_better_at_least_0.80": false,
+    "pooled_2020_2026_better": false,
+    "no_secondary_worse_after_holm": true
+   },
+   "why": "unresolved: report P(better)",
+   "t_cdf_check": {
+    "recommend_with_t_cdf": "unresolved",
+    "agrees": true
+   }
+  },
+  "rule_test_2025_2026": {
+   "period": "holdout 2025-2026",
+   "tours": {
+    "both tours": {
+     "verdict": "reported (the rule is per tour)",
+     "NEW_SYS_BOTH vs SYS_BOTH": null,
+     "shows_harm": false,
+     "reported_not_decisive": {
+      "NEW_ASIS vs REF": null,
+      "NEW_ASIS_PRE vs REF": null,
+      "NEW_ASIS vs NEW_ASIS_PRE": null,
+      "NEW_SYS_BOTH vs NEW_ASIS": null,
+      "REF_noITF vs REF": {
+       "comparison": "REF_noITF vs REF",
+       "tour": "both tours",
+       "population": "all",
+       "stage": "both stages",
+       "matches": 9457,
+       "estimate": 0.0447553086997164,
+       "lo": -0.1809342463369138,
+       "hi": 0.2704448637363468,
+       "se": 0.1088251535397608,
+       "p_better": 0.659558634123242,
+       "reading": "unresolved"
+      }
+     }
+    },
+    "men": {
+     "verdict": "not scored: NEW_SYS_BOTH or SYS_BOTH has no reading (the default cannot be applied yet)",
+     "NEW_SYS_BOTH vs SYS_BOTH": null,
+     "shows_harm": false,
+     "reported_not_decisive": {
+      "NEW_ASIS vs REF": null,
+      "NEW_ASIS_PRE vs REF": null,
+      "NEW_ASIS vs NEW_ASIS_PRE": null,
+      "NEW_SYS_BOTH vs NEW_ASIS": null,
+      "REF_noITF vs REF": {
+       "comparison": "REF_noITF vs REF",
+       "tour": "men",
+       "population": "all",
+       "stage": "both stages",
+       "matches": 4810,
+       "estimate": -0.0726704124725643,
+       "lo": -0.2817769555820059,
+       "hi": 0.1364361306368771,
+       "se": 0.1008289978522053,
+       "p_better": 0.2355380425476147,
+       "reading": "unresolved"
+      }
+     }
+    },
+    "women": {
+     "verdict": "waits for P7: women's treatment is decided then by the same rule; this reading and REF_noITF against REF are its harm evidence",
+     "NEW_SYS_BOTH vs SYS_BOTH": null,
+     "shows_harm": false,
+     "reported_not_decisive": {
+      "NEW_ASIS vs REF": null,
+      "NEW_ASIS_PRE vs REF": null,
+      "NEW_ASIS vs NEW_ASIS_PRE": null,
+      "NEW_SYS_BOTH vs NEW_ASIS": null,
+      "REF_noITF vs REF": {
+       "comparison": "REF_noITF vs REF",
+       "tour": "women",
+       "population": "all",
+       "stage": "both stages",
+       "matches": 4647,
+       "estimate": 0.166299900659835,
+       "lo": -0.2717088932792398,
+       "hi": 0.6043086945989098,
+       "se": 0.2112032798524895,
+       "p_better": 0.7844739627506705,
+       "reading": "unresolved"
+      }
+     }
+    }
+   },
+   "register_RES_ONLY_on_C0_now_next": false
+  },
+  "rule_test_pooled_2020_2026_reported": {
+   "period": "pooled 2020-2026",
+   "tours": {
+    "both tours": {
+     "verdict": "reported (the rule is per tour)",
+     "NEW_SYS_BOTH vs SYS_BOTH": null,
+     "shows_harm": false,
+     "reported_not_decisive": {
+      "NEW_ASIS vs REF": null,
+      "NEW_ASIS_PRE vs REF": null,
+      "NEW_ASIS vs NEW_ASIS_PRE": null,
+      "NEW_SYS_BOTH vs NEW_ASIS": null,
+      "REF_noITF vs REF": null
+     }
+    },
+    "men": {
+     "verdict": "not scored: NEW_SYS_BOTH or SYS_BOTH has no reading (the default cannot be applied yet)",
+     "NEW_SYS_BOTH vs SYS_BOTH": null,
+     "shows_harm": false,
+     "reported_not_decisive": {
+      "NEW_ASIS vs REF": null,
+      "NEW_ASIS_PRE vs REF": null,
+      "NEW_ASIS vs NEW_ASIS_PRE": null,
+      "NEW_SYS_BOTH vs NEW_ASIS": null,
+      "REF_noITF vs REF": null
+     }
+    },
+    "women": {
+     "verdict": "waits for P7: women's treatment is decided then by the same rule; this reading and REF_noITF against REF are its harm evidence",
+     "NEW_SYS_BOTH vs SYS_BOTH": null,
+     "shows_harm": false,
+     "reported_not_decisive": {
+      "NEW_ASIS vs REF": null,
+      "NEW_ASIS_PRE vs REF": null,
+      "NEW_ASIS vs NEW_ASIS_PRE": null,
+      "NEW_SYS_BOTH vs NEW_ASIS": null,
+      "REF_noITF vs REF": null
+     }
+    }
+   },
+   "register_RES_ONLY_on_C0_now_next": false
+  },
+  "pool_lead_evidence": {
+   "label": "lead evidence for the pool, seasons 2020-2024 (2025-2026 on the holdout)",
+   "seasons_read": "2025-2026 (holdout)",
+   "decides": "nothing (the owner's decision, point 6: a selection round outside the discovery seasons decides)",
+   "both tours": {
+    "R_S2 vs REF": {
+     "comparison": "R_S2 vs REF",
+     "tour": "both tours",
+     "population": "all",
+     "stage": "both stages",
+     "matches": 9457,
+     "estimate": 0.0461075992610733,
+     "lo": -0.2070290831230086,
+     "hi": 0.2992442816451554,
+     "se": 0.1220598725648703,
+     "p_better": 0.6471902645572363,
+     "reading": "unresolved"
+    },
+    "SYS_S2 vs REF": {
+     "comparison": "SYS_S2 vs REF",
+     "tour": "both tours",
+     "population": "all",
+     "stage": "both stages",
+     "matches": 9457,
+     "estimate": 0.0703578215791541,
+     "lo": -0.2676064428253273,
+     "hi": 0.4083220859836355,
+     "se": 0.1629628493830856,
+     "p_better": 0.6670353415053238,
+     "reading": "unresolved"
+    },
+    "SYS vs R_S2": {
+     "comparison": "SYS vs R_S2",
+     "tour": "both tours",
+     "population": "all",
+     "stage": "both stages",
+     "matches": 9457,
+     "estimate": -0.0468558816351768,
+     "lo": -0.3692784359762559,
+     "hi": 0.2755666727059023,
+     "se": 0.1554687986121242,
+     "p_better": 0.3815606672278357,
+     "reading": "unresolved"
+    },
+    "SYS vs SYS_S2": {
+     "comparison": "SYS vs SYS_S2",
+     "tour": "both tours",
+     "population": "all",
+     "stage": "both stages",
+     "matches": 9457,
+     "estimate": -0.0711061039532575,
+     "lo": -0.3407620953086401,
+     "hi": 0.1985498874021249,
+     "se": 0.130025311350377,
+     "p_better": 0.2922362379826528,
+     "reading": "unresolved"
+    },
+    "SYS_S2 vs SYS": {
+     "comparison": "SYS_S2 vs SYS",
+     "tour": "both tours",
+     "population": "all",
+     "stage": "both stages",
+     "matches": 9457,
+     "estimate": 0.0711061039532575,
+     "lo": -0.1985498874021249,
+     "hi": 0.3407620953086401,
+     "se": 0.130025311350377,
+     "p_better": 0.7077637620173471,
+     "reading": "unresolved"
+    }
+   },
+   "men": {
+    "R_S2 vs REF": {
+     "comparison": "R_S2 vs REF",
+     "tour": "men",
+     "population": "all",
+     "stage": "both stages",
+     "matches": 4810,
+     "estimate": 0.0205153682515193,
+     "lo": -0.4196344287022632,
+     "hi": 0.4606651652053019,
+     "se": 0.2122356492138755,
+     "p_better": 0.5385030510812241,
+     "reading": "unresolved"
+    },
+    "SYS_S2 vs REF": {
+     "comparison": "SYS_S2 vs REF",
+     "tour": "men",
+     "population": "all",
+     "stage": "both stages",
+     "matches": 4810,
+     "estimate": 0.0986686584687833,
+     "lo": -0.4901809510894881,
+     "hi": 0.6875182680270548,
+     "se": 0.2839371505766245,
+     "p_better": 0.6358928003097221,
+     "reading": "unresolved"
+    },
+    "SYS vs R_S2": {
+     "comparison": "SYS vs R_S2",
+     "tour": "men",
+     "population": "all",
+     "stage": "both stages",
+     "matches": 4810,
+     "estimate": -0.0098305894424042,
+     "lo": -0.5714400171639089,
+     "hi": 0.5517788382791005,
+     "se": 0.2708022185220329,
+     "p_better": 0.4855208846333952,
+     "reading": "unresolved"
+    },
+    "SYS vs SYS_S2": {
+     "comparison": "SYS vs SYS_S2",
+     "tour": "men",
+     "population": "all",
+     "stage": "both stages",
+     "matches": 4810,
+     "estimate": -0.0879838796596683,
+     "lo": -0.5183027544461168,
+     "hi": 0.34233499512678,
+     "se": 0.2074952809051873,
+     "p_better": 0.3357725723758449,
+     "reading": "unresolved"
+    },
+    "SYS_S2 vs SYS": {
+     "comparison": "SYS_S2 vs SYS",
+     "tour": "men",
+     "population": "all",
+     "stage": "both stages",
+     "matches": 4810,
+     "estimate": 0.0879838796596683,
+     "lo": -0.34233499512678,
+     "hi": 0.5183027544461168,
+     "se": 0.2074952809051873,
+     "p_better": 0.6642274276241551,
+     "reading": "unresolved"
+    }
+   },
+   "women": {
+    "R_S2 vs REF": {
+     "comparison": "R_S2 vs REF",
+     "tour": "women",
+     "population": "all",
+     "stage": "both stages",
+     "matches": 4647,
+     "estimate": 0.0725975134327873,
+     "lo": -0.3220243754127702,
+     "hi": 0.4672194022783449,
+     "se": 0.1902825659645529,
+     "p_better": 0.6485930549601009,
+     "reading": "unresolved"
+    },
+    "SYS_S2 vs REF": {
+     "comparison": "SYS_S2 vs REF",
+     "tour": "women",
+     "population": "all",
+     "stage": "both stages",
+     "matches": 4647,
+     "estimate": 0.0410539426380915,
+     "lo": -0.3590723556664978,
+     "hi": 0.441180240942681,
+     "se": 0.1929367348933172,
+     "p_better": 0.5842524648065572,
+     "reading": "unresolved"
+    },
+    "SYS vs R_S2": {
+     "comparison": "SYS vs R_S2",
+     "tour": "women",
+     "population": "all",
+     "stage": "both stages",
+     "matches": 4647,
+     "estimate": -0.0851798875416187,
+     "lo": -0.535649071998442,
+     "hi": 0.3652892969152044,
+     "se": 0.2172115504214986,
+     "p_better": 0.3474730497819187,
+     "reading": "unresolved"
+    },
+    "SYS vs SYS_S2": {
+     "comparison": "SYS vs SYS_S2",
+     "tour": "women",
+     "population": "all",
+     "stage": "both stages",
+     "matches": 4647,
+     "estimate": -0.053636316746923,
+     "lo": -0.4700805676403823,
+     "hi": 0.3628079341465362,
+     "se": 0.2008050817277557,
+     "p_better": 0.3946936310337178,
+     "reading": "unresolved"
+    },
+    "SYS_S2 vs SYS": {
+     "comparison": "SYS_S2 vs SYS",
+     "tour": "women",
+     "population": "all",
+     "stage": "both stages",
+     "matches": 4647,
+     "estimate": 0.053636316746923,
+     "lo": -0.3628079341465362,
+     "hi": 0.4700805676403823,
+     "se": 0.2008050817277557,
+     "p_better": 0.6053063689662822,
+     "reading": "unresolved"
+    }
+   }
+  },
+  "registered_rule_test_interpretation": [
+   {
+    "data_set": "the 2025-26 ITF box scores",
+    "period": "holdout 2025-2026",
+    "tour": "both tours",
+    "reading": "unresolved: the default stays (new data is a candidate)",
+    "protective_by": [],
+    "holding_back_by": [],
+    "readings": {
+     "REF (ITF as-is) vs REF_noITF": {
+      "comparison": "REF vs REF_noITF",
+      "matches": 9457,
+      "estimate": -0.04475530869971648,
+      "lo": -0.27044486373634685,
+      "hi": 0.18093424633691388,
+      "p_better": 0.340441365876758,
+      "reading": "unresolved"
+     }
+    }
+   },
+   {
+    "data_set": "C0_now's additions",
+    "period": "holdout 2025-2026",
+    "tour": "both tours",
+    "reading": "not scored",
+    "protective_by": [],
+    "holding_back_by": [],
+    "readings": {}
+   },
+   {
+    "data_set": "C0_pre's additions (to 2024-12-29; optional arm)",
+    "period": "holdout 2025-2026",
+    "tour": "both tours",
+    "reading": "not scored",
+    "protective_by": [],
+    "holding_back_by": [],
+    "readings": {}
+   },
+   {
+    "data_set": "the 2025-26 ITF box scores",
+    "period": "holdout 2025-2026",
+    "tour": "men",
+    "reading": "unresolved: the default stays (new data is a candidate)",
+    "protective_by": [],
+    "holding_back_by": [],
+    "readings": {
+     "REF (ITF as-is) vs REF_noITF": {
+      "comparison": "REF vs REF_noITF",
+      "matches": 4810,
+      "estimate": 0.07267041247256437,
+      "lo": -0.13643613063687718,
+      "hi": 0.2817769555820059,
+      "p_better": 0.7644619574523852,
+      "reading": "unresolved"
+     }
+    }
+   },
+   {
+    "data_set": "C0_now's additions",
+    "period": "holdout 2025-2026",
+    "tour": "men",
+    "reading": "not scored",
+    "protective_by": [],
+    "holding_back_by": [],
+    "readings": {}
+   },
+   {
+    "data_set": "C0_pre's additions (to 2024-12-29; optional arm)",
+    "period": "holdout 2025-2026",
+    "tour": "men",
+    "reading": "not scored",
+    "protective_by": [],
+    "holding_back_by": [],
+    "readings": {}
+   },
+   {
+    "data_set": "the 2025-26 ITF box scores",
+    "period": "holdout 2025-2026",
+    "tour": "women",
+    "reading": "unresolved: the default stays (new data is a candidate)",
+    "protective_by": [],
+    "holding_back_by": [],
+    "readings": {
+     "REF (ITF as-is) vs REF_noITF": {
+      "comparison": "REF vs REF_noITF",
+      "matches": 4647,
+      "estimate": -0.16629990065983502,
+      "lo": -0.6043086945989098,
+      "hi": 0.2717088932792398,
+      "p_better": 0.2155260372493295,
+      "reading": "unresolved"
+     }
+    }
+   },
+   {
+    "data_set": "C0_now's additions",
+    "period": "holdout 2025-2026",
+    "tour": "women",
+    "reading": "not scored",
+    "protective_by": [],
+    "holding_back_by": [],
+    "readings": {}
+   },
+   {
+    "data_set": "C0_pre's additions (to 2024-12-29; optional arm)",
+    "period": "holdout 2025-2026",
+    "tour": "women",
+    "reading": "not scored",
+    "protective_by": [],
+    "holding_back_by": [],
+    "readings": {}
+   },
+   {
+    "data_set": "the 2025-26 ITF box scores",
+    "period": "pooled 2020-2026",
+    "tour": "both tours",
+    "reading": "not scored",
+    "protective_by": [],
+    "holding_back_by": [],
+    "readings": {}
+   },
+   {
+    "data_set": "C0_now's additions",
+    "period": "pooled 2020-2026",
+    "tour": "both tours",
+    "reading": "not scored",
+    "protective_by": [],
+    "holding_back_by": [],
+    "readings": {}
+   },
+   {
+    "data_set": "C0_pre's additions (to 2024-12-29; optional arm)",
+    "period": "pooled 2020-2026",
+    "tour": "both tours",
+    "reading": "not scored",
+    "protective_by": [],
+    "holding_back_by": [],
+    "readings": {}
+   },
+   {
+    "data_set": "the 2025-26 ITF box scores",
+    "period": "pooled 2020-2026",
+    "tour": "men",
+    "reading": "not scored",
+    "protective_by": [],
+    "holding_back_by": [],
+    "readings": {}
+   },
+   {
+    "data_set": "C0_now's additions",
+    "period": "pooled 2020-2026",
+    "tour": "men",
+    "reading": "not scored",
+    "protective_by": [],
+    "holding_back_by": [],
+    "readings": {}
+   },
+   {
+    "data_set": "C0_pre's additions (to 2024-12-29; optional arm)",
+    "period": "pooled 2020-2026",
+    "tour": "men",
+    "reading": "not scored",
+    "protective_by": [],
+    "holding_back_by": [],
+    "readings": {}
+   },
+   {
+    "data_set": "the 2025-26 ITF box scores",
+    "period": "pooled 2020-2026",
+    "tour": "women",
+    "reading": "not scored",
+    "protective_by": [],
+    "holding_back_by": [],
+    "readings": {}
+   },
+   {
+    "data_set": "C0_now's additions",
+    "period": "pooled 2020-2026",
+    "tour": "women",
+    "reading": "not scored",
+    "protective_by": [],
+    "holding_back_by": [],
+    "readings": {}
+   },
+   {
+    "data_set": "C0_pre's additions (to 2024-12-29; optional arm)",
+    "period": "pooled 2020-2026",
+    "tour": "women",
+    "reading": "not scored",
+    "protective_by": [],
+    "holding_back_by": [],
+    "readings": {}
+   }
+  ]
+ },
+ "sensitivity_drop909": {
+  "recommendation": {
+   "recommend": "SYS",
+   "drivers": [],
+   "primary": {
+    "comparison": "SYS vs REF",
+    "tour": "men",
+    "population": "all",
+    "stage": "both stages",
+    "matches": 4394,
+    "estimate": 0.04326809812762896,
+    "lo": -0.4352632119221827,
+    "hi": 0.5217994081774406,
+    "se": 0.22940541488252694,
+    "p_better": 0.5748006550149376,
+    "reading": "unresolved"
+   },
+   "primary_shows_harm": false,
+   "worse_after_holm": [],
+   "raw_worse_of_the_eight": [],
+   "edge": "no edge credit: a change adopted on these rules adds nothing to the edge used for stakes, which comes only from untouched matches at the venue's price",
+   "rules": "the owner's decision of 9 Oct 2026 (section 4): SELECTED unless the holdout primary shows harm or any of addition 2's eight readings is worse after Holm"
+  },
+  "registered_rules_recommendation": {
+   "recommend": "unresolved",
+   "p_better": 0.5748006550149376,
+   "conditions": {
+    "p_better_at_least_0.80": false,
+    "pooled_2020_2026_better": false,
+    "no_secondary_worse_after_holm": true
+   },
+   "why": "unresolved: report P(better)",
+   "t_cdf_check": {
+    "recommend_with_t_cdf": "unresolved",
+    "agrees": true
+   }
+  },
+  "rule_test_2025_2026": {
+   "period": "holdout 2025-2026",
+   "tours": {
+    "both tours": {
+     "verdict": "reported (the rule is per tour)",
+     "NEW_SYS_BOTH vs SYS_BOTH": null,
+     "shows_harm": false,
+     "reported_not_decisive": {
+      "NEW_ASIS vs REF": null,
+      "NEW_ASIS_PRE vs REF": null,
+      "NEW_ASIS vs NEW_ASIS_PRE": null,
+      "NEW_SYS_BOTH vs NEW_ASIS": null,
+      "REF_noITF vs REF": {
+       "comparison": "REF_noITF vs REF",
+       "tour": "both tours",
+       "population": "all",
+       "stage": "both stages",
+       "matches": 8551,
+       "estimate": 0.0116738443519702,
+       "lo": -0.1737684095376225,
+       "hi": 0.1971160982415629,
+       "se": 0.0889000495826796,
+       "p_better": 0.5522366447542858,
+       "reading": "unresolved"
+      }
+     }
+    },
+    "men": {
+     "verdict": "not scored: NEW_SYS_BOTH or SYS_BOTH has no reading (the default cannot be applied yet)",
+     "NEW_SYS_BOTH vs SYS_BOTH": null,
+     "shows_harm": false,
+     "reported_not_decisive": {
+      "NEW_ASIS vs REF": null,
+      "NEW_ASIS_PRE vs REF": null,
+      "NEW_ASIS vs NEW_ASIS_PRE": null,
+      "NEW_SYS_BOTH vs NEW_ASIS": null,
+      "REF_noITF vs REF": {
+       "comparison": "REF_noITF vs REF",
+       "tour": "men",
+       "population": "all",
+       "stage": "both stages",
+       "matches": 4394,
+       "estimate": -0.0695356045916774,
+       "lo": -0.2977158852023289,
+       "hi": 0.1586446760189741,
+       "se": 0.1093884367483689,
+       "p_better": 0.2624938091809134,
+       "reading": "unresolved"
+      }
+     }
+    },
+    "women": {
+     "verdict": "waits for P7: women's treatment is decided then by the same rule; this reading and REF_noITF against REF are its harm evidence",
+     "NEW_SYS_BOTH vs SYS_BOTH": null,
+     "shows_harm": false,
+     "reported_not_decisive": {
+      "NEW_ASIS vs REF": null,
+      "NEW_ASIS_PRE vs REF": null,
+      "NEW_ASIS vs NEW_ASIS_PRE": null,
+      "NEW_SYS_BOTH vs NEW_ASIS": null,
+      "REF_noITF vs REF": {
+       "comparison": "REF_noITF vs REF",
+       "tour": "women",
+       "population": "all",
+       "stage": "both stages",
+       "matches": 4157,
+       "estimate": 0.0975132282005118,
+       "lo": -0.2414701665412691,
+       "hi": 0.4364966229422928,
+       "se": 0.1625068719138376,
+       "p_better": 0.7257655520844521,
+       "reading": "unresolved"
+      }
+     }
+    }
+   },
+   "register_RES_ONLY_on_C0_now_next": false
+  },
+  "rule_test_pooled_2020_2026_reported": {
+   "period": "pooled 2020-2026",
+   "tours": {
+    "both tours": {
+     "verdict": "reported (the rule is per tour)",
+     "NEW_SYS_BOTH vs SYS_BOTH": null,
+     "shows_harm": false,
+     "reported_not_decisive": {
+      "NEW_ASIS vs REF": null,
+      "NEW_ASIS_PRE vs REF": null,
+      "NEW_ASIS vs NEW_ASIS_PRE": null,
+      "NEW_SYS_BOTH vs NEW_ASIS": null,
+      "REF_noITF vs REF": null
+     }
+    },
+    "men": {
+     "verdict": "not scored: NEW_SYS_BOTH or SYS_BOTH has no reading (the default cannot be applied yet)",
+     "NEW_SYS_BOTH vs SYS_BOTH": null,
+     "shows_harm": false,
+     "reported_not_decisive": {
+      "NEW_ASIS vs REF": null,
+      "NEW_ASIS_PRE vs REF": null,
+      "NEW_ASIS vs NEW_ASIS_PRE": null,
+      "NEW_SYS_BOTH vs NEW_ASIS": null,
+      "REF_noITF vs REF": null
+     }
+    },
+    "women": {
+     "verdict": "waits for P7: women's treatment is decided then by the same rule; this reading and REF_noITF against REF are its harm evidence",
+     "NEW_SYS_BOTH vs SYS_BOTH": null,
+     "shows_harm": false,
+     "reported_not_decisive": {
+      "NEW_ASIS vs REF": null,
+      "NEW_ASIS_PRE vs REF": null,
+      "NEW_ASIS vs NEW_ASIS_PRE": null,
+      "NEW_SYS_BOTH vs NEW_ASIS": null,
+      "REF_noITF vs REF": null
+     }
+    }
+   },
+   "register_RES_ONLY_on_C0_now_next": false
+  },
+  "pool_lead_evidence": {
+   "label": "lead evidence for the pool, seasons 2020-2024 (2025-2026 on the holdout)",
+   "seasons_read": "2025-2026 (holdout)",
+   "decides": "nothing (the owner's decision, point 6: a selection round outside the discovery seasons decides)",
+   "both tours": {
+    "R_S2 vs REF": {
+     "comparison": "R_S2 vs REF",
+     "tour": "both tours",
+     "population": "all",
+     "stage": "both stages",
+     "matches": 8551,
+     "estimate": 0.1396682538575482,
+     "lo": -0.0908329023385295,
+     "hi": 0.370169410053626,
+     "se": 0.1105010524025254,
+     "p_better": 0.8968767418207144,
+     "reading": "unresolved"
+    },
+    "SYS_S2 vs REF": {
+     "comparison": "SYS_S2 vs REF",
+     "tour": "both tours",
+     "population": "all",
+     "stage": "both stages",
+     "matches": 8551,
+     "estimate": 0.1237676311219075,
+     "lo": -0.2351463654437173,
+     "hi": 0.4826816276875323,
+     "se": 0.1720614985061528,
+     "p_better": 0.7640287458386672,
+     "reading": "unresolved"
+    },
+    "SYS vs R_S2": {
+     "comparison": "SYS vs R_S2",
+     "tour": "both tours",
+     "population": "all",
+     "stage": "both stages",
+     "matches": 8551,
+     "estimate": -0.1613940609300158,
+     "lo": -0.4781703749744528,
+     "hi": 0.1553822531144211,
+     "se": 0.1518609132195702,
+     "p_better": 0.1439418819015385,
+     "reading": "unresolved"
+    },
+    "SYS vs SYS_S2": {
+     "comparison": "SYS vs SYS_S2",
+     "tour": "both tours",
+     "population": "all",
+     "stage": "both stages",
+     "matches": 8551,
+     "estimate": -0.1454934381943751,
+     "lo": -0.4205010954241972,
+     "hi": 0.129514219035447,
+     "se": 0.1318372369325469,
+     "p_better": 0.1348868620534837,
+     "reading": "unresolved"
+    },
+    "SYS_S2 vs SYS": {
+     "comparison": "SYS_S2 vs SYS",
+     "tour": "both tours",
+     "population": "all",
+     "stage": "both stages",
+     "matches": 8551,
+     "estimate": 0.1454934381943751,
+     "lo": -0.129514219035447,
+     "hi": 0.4205010954241972,
+     "se": 0.1318372369325469,
+     "p_better": 0.8651131379465162,
+     "reading": "unresolved"
+    }
+   },
+   "men": {
+    "R_S2 vs REF": {
+     "comparison": "R_S2 vs REF",
+     "tour": "men",
+     "population": "all",
+     "stage": "both stages",
+     "matches": 4394,
+     "estimate": 0.116862281157275,
+     "lo": -0.3193198482072243,
+     "hi": 0.5530444105217743,
+     "se": 0.2091034384788557,
+     "p_better": 0.7118758260959108,
+     "reading": "unresolved"
+    },
+    "SYS_S2 vs REF": {
+     "comparison": "SYS_S2 vs REF",
+     "tour": "men",
+     "population": "all",
+     "stage": "both stages",
+     "matches": 4394,
+     "estimate": 0.1904284519689628,
+     "lo": -0.4265281570549314,
+     "hi": 0.8073850609928571,
+     "se": 0.2957657814342615,
+     "p_better": 0.740163266587556,
+     "reading": "unresolved"
+    },
+    "SYS vs R_S2": {
+     "comparison": "SYS vs R_S2",
+     "tour": "men",
+     "population": "all",
+     "stage": "both stages",
+     "matches": 4394,
+     "estimate": -0.0735941830296461,
+     "lo": -0.6723800598600562,
+     "hi": 0.5251916938007639,
+     "se": 0.2870548271664381,
+     "p_better": 0.3988299702811041,
+     "reading": "unresolved"
+    },
+    "SYS vs SYS_S2": {
+     "comparison": "SYS vs SYS_S2",
+     "tour": "men",
+     "population": "all",
+     "stage": "both stages",
+     "matches": 4394,
+     "estimate": -0.1471603538413339,
+     "lo": -0.6057476092946983,
+     "hi": 0.3114269016120303,
+     "se": 0.219844339101171,
+     "p_better": 0.2516251750557245,
+     "reading": "unresolved"
+    },
+    "SYS_S2 vs SYS": {
+     "comparison": "SYS_S2 vs SYS",
+     "tour": "men",
+     "population": "all",
+     "stage": "both stages",
+     "matches": 4394,
+     "estimate": 0.1471603538413339,
+     "lo": -0.3114269016120303,
+     "hi": 0.6057476092946983,
+     "se": 0.219844339101171,
+     "p_better": 0.7483748249442754,
+     "reading": "unresolved"
+    }
+   },
+   "women": {
+    "R_S2 vs REF": {
+     "comparison": "R_S2 vs REF",
+     "tour": "women",
+     "population": "all",
+     "stage": "both stages",
+     "matches": 4157,
+     "estimate": 0.1637744467959655,
+     "lo": -0.2502100934319303,
+     "hi": 0.5777589870238613,
+     "se": 0.1984620299893164,
+     "p_better": 0.795376092482091,
+     "reading": "unresolved"
+    },
+    "SYS_S2 vs REF": {
+     "comparison": "SYS_S2 vs REF",
+     "tour": "women",
+     "population": "all",
+     "stage": "both stages",
+     "matches": 4157,
+     "estimate": 0.0533063256607669,
+     "lo": -0.3761495422986693,
+     "hi": 0.4827621936202032,
+     "se": 0.205878903833304,
+     "p_better": 0.6021518163522794,
+     "reading": "unresolved"
+    },
+    "SYS vs R_S2": {
+     "comparison": "SYS vs R_S2",
+     "tour": "women",
+     "population": "all",
+     "stage": "both stages",
+     "matches": 4157,
+     "estimate": -0.2541996090402455,
+     "lo": -0.69810030642537,
+     "hi": 0.1897010883448789,
+     "se": 0.212803679741828,
+     "p_better": 0.1161360641246861,
+     "reading": "unresolved"
+    },
+    "SYS vs SYS_S2": {
+     "comparison": "SYS vs SYS_S2",
+     "tour": "women",
+     "population": "all",
+     "stage": "both stages",
+     "matches": 4157,
+     "estimate": -0.1437314879050469,
+     "lo": -0.5703778685260089,
+     "hi": 0.2829148927159151,
+     "se": 0.2045320502524531,
+     "p_better": 0.2411109775387814,
+     "reading": "unresolved"
+    },
+    "SYS_S2 vs SYS": {
+     "comparison": "SYS_S2 vs SYS",
+     "tour": "women",
+     "population": "all",
+     "stage": "both stages",
+     "matches": 4157,
+     "estimate": 0.1437314879050469,
+     "lo": -0.2829148927159151,
+     "hi": 0.5703778685260089,
+     "se": 0.2045320502524531,
+     "p_better": 0.7588890224612186,
+     "reading": "unresolved"
+    }
+   }
+  },
+  "registered_rule_test_interpretation": [
+   {
+    "data_set": "the 2025-26 ITF box scores",
+    "period": "holdout 2025-2026",
+    "tour": "both tours",
+    "reading": "unresolved: the default stays (new data is a candidate)",
+    "protective_by": [],
+    "holding_back_by": [],
+    "readings": {
+     "REF (ITF as-is) vs REF_noITF": {
+      "comparison": "REF vs REF_noITF",
+      "matches": 8551,
+      "estimate": -0.011673844351970213,
+      "lo": -0.19711609824156298,
+      "hi": 0.17376840953762254,
+      "p_better": 0.4477633552457142,
+      "reading": "unresolved"
+     }
+    }
+   },
+   {
+    "data_set": "C0_now's additions",
+    "period": "holdout 2025-2026",
+    "tour": "both tours",
+    "reading": "not scored",
+    "protective_by": [],
+    "holding_back_by": [],
+    "readings": {}
+   },
+   {
+    "data_set": "C0_pre's additions (to 2024-12-29; optional arm)",
+    "period": "holdout 2025-2026",
+    "tour": "both tours",
+    "reading": "not scored",
+    "protective_by": [],
+    "holding_back_by": [],
+    "readings": {}
+   },
+   {
+    "data_set": "the 2025-26 ITF box scores",
+    "period": "holdout 2025-2026",
+    "tour": "men",
+    "reading": "unresolved: the default stays (new data is a candidate)",
+    "protective_by": [],
+    "holding_back_by": [],
+    "readings": {
+     "REF (ITF as-is) vs REF_noITF": {
+      "comparison": "REF vs REF_noITF",
+      "matches": 4394,
+      "estimate": 0.06953560459167742,
+      "lo": -0.15864467601897414,
+      "hi": 0.29771588520232894,
+      "p_better": 0.7375061908190865,
+      "reading": "unresolved"
+     }
+    }
+   },
+   {
+    "data_set": "C0_now's additions",
+    "period": "holdout 2025-2026",
+    "tour": "men",
+    "reading": "not scored",
+    "protective_by": [],
+    "holding_back_by": [],
+    "readings": {}
+   },
+   {
+    "data_set": "C0_pre's additions (to 2024-12-29; optional arm)",
+    "period": "holdout 2025-2026",
+    "tour": "men",
+    "reading": "not scored",
+    "protective_by": [],
+    "holding_back_by": [],
+    "readings": {}
+   },
+   {
+    "data_set": "the 2025-26 ITF box scores",
+    "period": "holdout 2025-2026",
+    "tour": "women",
+    "reading": "unresolved: the default stays (new data is a candidate)",
+    "protective_by": [],
+    "holding_back_by": [],
+    "readings": {
+     "REF (ITF as-is) vs REF_noITF": {
+      "comparison": "REF vs REF_noITF",
+      "matches": 4157,
+      "estimate": -0.09751322820051185,
+      "lo": -0.4364966229422928,
+      "hi": 0.24147016654126913,
+      "p_better": 0.27423444791554785,
+      "reading": "unresolved"
+     }
+    }
+   },
+   {
+    "data_set": "C0_now's additions",
+    "period": "holdout 2025-2026",
+    "tour": "women",
+    "reading": "not scored",
+    "protective_by": [],
+    "holding_back_by": [],
+    "readings": {}
+   },
+   {
+    "data_set": "C0_pre's additions (to 2024-12-29; optional arm)",
+    "period": "holdout 2025-2026",
+    "tour": "women",
+    "reading": "not scored",
+    "protective_by": [],
+    "holding_back_by": [],
+    "readings": {}
+   },
+   {
+    "data_set": "the 2025-26 ITF box scores",
+    "period": "pooled 2020-2026",
+    "tour": "both tours",
+    "reading": "not scored",
+    "protective_by": [],
+    "holding_back_by": [],
+    "readings": {}
+   },
+   {
+    "data_set": "C0_now's additions",
+    "period": "pooled 2020-2026",
+    "tour": "both tours",
+    "reading": "not scored",
+    "protective_by": [],
+    "holding_back_by": [],
+    "readings": {}
+   },
+   {
+    "data_set": "C0_pre's additions (to 2024-12-29; optional arm)",
+    "period": "pooled 2020-2026",
+    "tour": "both tours",
+    "reading": "not scored",
+    "protective_by": [],
+    "holding_back_by": [],
+    "readings": {}
+   },
+   {
+    "data_set": "the 2025-26 ITF box scores",
+    "period": "pooled 2020-2026",
+    "tour": "men",
+    "reading": "not scored",
+    "protective_by": [],
+    "holding_back_by": [],
+    "readings": {}
+   },
+   {
+    "data_set": "C0_now's additions",
+    "period": "pooled 2020-2026",
+    "tour": "men",
+    "reading": "not scored",
+    "protective_by": [],
+    "holding_back_by": [],
+    "readings": {}
+   },
+   {
+    "data_set": "C0_pre's additions (to 2024-12-29; optional arm)",
+    "period": "pooled 2020-2026",
+    "tour": "men",
+    "reading": "not scored",
+    "protective_by": [],
+    "holding_back_by": [],
+    "readings": {}
+   },
+   {
+    "data_set": "the 2025-26 ITF box scores",
+    "period": "pooled 2020-2026",
+    "tour": "women",
+    "reading": "not scored",
+    "protective_by": [],
+    "holding_back_by": [],
+    "readings": {}
+   },
+   {
+    "data_set": "C0_now's additions",
+    "period": "pooled 2020-2026",
+    "tour": "women",
+    "reading": "not scored",
+    "protective_by": [],
+    "holding_back_by": [],
+    "readings": {}
+   },
+   {
+    "data_set": "C0_pre's additions (to 2024-12-29; optional arm)",
+    "period": "pooled 2020-2026",
+    "tour": "women",
+    "reading": "not scored",
+    "protective_by": [],
+    "holding_back_by": [],
+    "readings": {}
+   }
+  ]
+ },
+ "generated_at": "2026-10-10T08:38:41Z"
+}

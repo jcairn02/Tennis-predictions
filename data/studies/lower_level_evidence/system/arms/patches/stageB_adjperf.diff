@@ -1,0 +1,35 @@
+--- repository/src/eda/ufc_ideas/stageB_adjperf.py
++++ sandbox/src/eda/ufc_ideas/stageB_adjperf.py
+@@ -69,6 +69,7 @@
+ from src.eda.predictability_diagnostic import common as C  # noqa: E402
+ from src.eda.ufc_ideas import common as H  # noqa: E402
+ from src.eda.ufc_ideas import stageB_common as B  # noqa: E402
++from src.eda.lower_level_evidence import level_layer as _LLE  # noqa: E402  lower_level_evidence C1 (sandbox only)
+ 
+ ADJ_PARQUET = B.OUT / "stageB_adj.parquet"
+ ADJ_FEATURES = B.OUT / "stageB_adj_features.parquet"
+@@ -394,6 +395,7 @@
+                                    "z_mean": float(zt[m & ok].mean()) if (m & ok).any() else None,
+                                    "z_sd": float(zt[m & ok].std()) if (m & ok).any() else None}
+         Z[(s, ch)] = z
++    Z = _LLE.forms_z(ctx, chosen, Z)   # lower_level_evidence C1 (sandbox only)
+     del mom
+     feats = {}
+     tour_pool = ctx.rows["tour"].to_numpy()[ctx.A]
+@@ -401,7 +403,7 @@
+         units, ok = ctx.step3_units(s, ch)
+         for t in C.TOURS:
+             c = constants_for(chosen, s, ch, t)
+-            sums = ctx.step3([Z[(s, ch)]], units, ok & (ctx.tour_box == t), c["tau"], (c["h3"],))
++            sums = _LLE.forms_step3(ctx, s, ch, [Z[(s, ch)]], units, ok & (ctx.tour_box == t), c["tau"], (c["h3"],))   # lower_level_evidence C1 (sandbox only)
+             kref = ctx.pool_kref(s, c["K3"], c["tau"])
+             mt = tour_pool == t
+             for form in FORMS:
+@@ -523,6 +525,7 @@
+ 
+     t0 = time.time()
+     grid, chosen, brief = tune(ctx)
++    chosen = _LLE.pin("stageB_adjperf", chosen)   # lower_level_evidence C1 (sandbox only)
+     grid.to_csv(ADJ_TUNING, index=False)
+     timings["tuning"] = round(time.time() - t0, 1)
+     for (t, s), c in chosen.items():

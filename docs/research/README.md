@@ -2,6 +2,8 @@
 
 Research records evidence and unresolved questions; it does not authorize implementation or set a roadmap.
 
+**From 9 Oct 2026, each research note keeps a process log,** `process_log.md` beside its README ([template](../studies/process_log_template.md), [decision](../decisions/2026-10-09-study-process-logs.md)). It records the request, the searches and routes tried, the sources used and set aside, and the judgment calls.
+
 The [tennis data and Polymarket audit](tennis-data-audit/README.md) covers September 10, 2025 through September 10, 2026: an observed market catalog, public and commercial/private source research, direct payload checks, conservative market/result joins, and price-history probes. Start with the synthesis, then the [source register](tennis-data-audit/source-register.md) and [evidence index](../../data/studies/tennis_data_audit/README.md). These are findings and limitations, not a source selection or implementation plan.
 
 [Granular data leads](granular-data-leads/README.md) (24 September 2026) ranks, by confidence, where shot-by-shot, tracking and point-by-point data the dump does not hold can be found, including Grand Slam feeds, official tour sites, public tracking caches and paid feeds. It compares, field by field, the per-point statistics each source would add. Evidence is in [data/studies/granular_data_leads/](../../data/studies/granular_data_leads/). It lists options, not decisions. Its [access routes](granular-data-leads/access-routes.md) follow-up checks whether the Slam feeds and the WTA API are public without a scraping ban, or sold by anyone. A second follow-up, [TDI and open data](granular-data-leads/access-routes-tdi-and-open-data.md), does the same for TDI Tennis Results and four open datasets.
@@ -24,6 +26,8 @@ The [tennis data and Polymarket audit](tennis-data-audit/README.md) covers Septe
 * **Paid:** no vendor publicly sells a non-Slam speed archive. The holders are TDI, SMT/IDS, Hawk-Eye, the WTA with Stats Perform, and the Slams. Contacts and a draft inquiry are included.
 
 It lists options, not decisions.
+
+[Earlier-than-close lines for Pinnacle and BetOnline](early-lines/README.md) (8 October 2026) asks whether early tennis lines exist to train on and to bet with, free or paid. Pinnacle's own API closed to the public on 23 July 2025. BettingIsCool sells every Pinnacle line move since 2021 (from €99 a month). The Odds API sells 5-minute snapshots of Pinnacle and BetOnline from 2022 (10-minute from 2020), by tournament. OddsPapi is free but starts in January 2026. BetOnline's full line history is free on OddsTrader. The [bet-timing study](../studies/bet_timing/README.md) found no gain from training on early prices, so the note suggests recording live prices from now on and one targeted test (sharp books' lines as the input for Polymarket's early bets), not a multi-season purchase. It lists options, not decisions.
 
 [Ideas for point-by-point and shot-by-shot tests](point-shot-ideas/README.md) (started 8 October 2026) lists untested ideas waiting for better data. Each entry gives where the idea came from, what data it needs and what the project already holds. The first is physical condition from the rally, measured against the player's own normal: groundstroke speed, running per point, rally length and errors. Ball-tracking files for about 5,800 matches are on disk and unused.
 

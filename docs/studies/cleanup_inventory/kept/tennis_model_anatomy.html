@@ -1,0 +1,1126 @@
+<title>Tennis Model Anatomy</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=JetBrains+Mono:wght@400;500&family=Source+Sans+3:wght@400;600;700&display=swap">
+<style>
+/* Layout: one reading column (max ~1080px). Verdict and the 2026 ladder first, then the scoreboard,
+   the model at a glance, the input families as accordions, the feature universe as a compact list.
+   Tokens follow the project's data map (data/data_map.html) so the two pages read as one project. */
+:root {
+  --bg: #f3f5f4;
+  --surface: #fcfcfb;
+  --surface-2: #eef1f1;
+  --ink: #111a24;
+  --ink-2: #465262;
+  --muted: #6f7b89;
+  --line: #e0e4e7;
+  --line-2: #c8cfd5;
+  --accent: #1c5cab;
+  --accent-wash: #e5edf7;
+  --ball: #cde000;
+  --ball-ink: #111a24;
+  --mark: #1c5cab;
+  --mark-muted: #7a8591;
+  --ref: #111a24;
+  --good: #0ca30c;
+  --warn: #fab219;
+  --serious: #ec835a;
+  --critical: #d03b3b;
+  --shadow: 0 1px 2px rgba(17, 26, 36, 0.06), 0 8px 24px rgba(17, 26, 36, 0.06);
+  --display: "Barlow Condensed", "Arial Narrow", "Roboto Condensed", system-ui, sans-serif;
+  --sans: "Source Sans 3", "Source Sans Pro", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --mono: "JetBrains Mono", ui-monospace, "Cascadia Mono", Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+    --bg: #0e1216;
+    --surface: #171b1f;
+    --surface-2: #1d2227;
+    --ink: #eef2f5;
+    --ink-2: #b6c0ca;
+    --muted: #8a95a0;
+    --line: #262c32;
+    --line-2: #3a424a;
+    --accent: #86b6ef;
+    --accent-wash: #15243a;
+    --ball: #d4e600;
+    --ball-ink: #0e1216;
+    --mark: #3987e5;
+    --mark-muted: #646d77;
+    --ref: #eef2f5;
+    --shadow: 0 1px 2px rgba(0, 0, 0, 0.4), 0 8px 24px rgba(0, 0, 0, 0.3);
+  }
+}
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --bg: #0e1216;
+  --surface: #171b1f;
+  --surface-2: #1d2227;
+  --ink: #eef2f5;
+  --ink-2: #b6c0ca;
+  --muted: #8a95a0;
+  --line: #262c32;
+  --line-2: #3a424a;
+  --accent: #86b6ef;
+  --accent-wash: #15243a;
+  --ball: #d4e600;
+  --ball-ink: #0e1216;
+  --mark: #3987e5;
+  --mark-muted: #646d77;
+  --ref: #eef2f5;
+  --shadow: 0 1px 2px rgba(0, 0, 0, 0.4), 0 8px 24px rgba(0, 0, 0, 0.3);
+}
+
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--sans);
+  font-size: 16.5px;
+  line-height: 1.6;
+}
+.wrap { max-width: 1080px; margin: 0 auto; padding-inline: clamp(16px, 4vw, 40px); padding-block: 0 72px; }
+a { color: var(--accent); text-underline-offset: 2px; }
+a:focus-visible, button:focus-visible, summary:focus-visible, [tabindex]:focus-visible {
+  outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 4px;
+}
+code, .mono { font-family: var(--mono); font-size: 0.82em; }
+code { background: var(--surface-2); padding: 0.08em 0.38em; border-radius: 4px; color: var(--ink); word-break: break-word; }
+p { margin: 0 0 14px; max-width: 72ch; }
+h1, h2, h3, h4 { text-wrap: balance; margin: 0; }
+h1, h2, h3 { font-family: var(--display); font-weight: 600; letter-spacing: 0.005em; line-height: 1.05; }
+h2 { font-size: clamp(28px, 3.6vw, 36px); margin-bottom: 10px; }
+h3 { font-size: 22px; margin-bottom: 8px; }
+h4 { font-size: 17px; font-weight: 700; line-height: 1.3; }
+.eyebrow {
+  font-size: 12.5px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted);
+}
+.muted { color: var(--muted); }
+.ink2 { color: var(--ink-2); }
+.small { font-size: 14px; line-height: 1.5; }
+.num { font-variant-numeric: tabular-nums; }
+.pos { color: var(--ink); font-weight: 700; }
+.neg { color: var(--ink-2); }
+
+/* ---------- top ---------- */
+.mast { padding-block: 40px 28px; border-bottom: 1px solid var(--line); display: grid; gap: 14px; }
+.mast-top { display: flex; flex-wrap: wrap; gap: 8px 18px; align-items: center; justify-content: space-between; }
+.ballmark { display: inline-flex; align-items: center; gap: 10px; }
+.ballmark i { width: 14px; height: 14px; border-radius: 50%; background: var(--ball); box-shadow: inset -3px -2px 0 rgba(0,0,0,0.12); display: inline-block; }
+h1 { font-size: clamp(44px, 7vw, 76px); letter-spacing: -0.005em; }
+.lede { font-size: clamp(18px, 2.1vw, 21px); line-height: 1.5; color: var(--ink-2); max-width: 64ch; margin: 0; }
+.jump { display: flex; flex-wrap: wrap; gap: 6px 18px; font-size: 14.5px; padding-top: 6px; }
+.jump a { text-decoration: none; font-weight: 600; }
+.jump a:hover { text-decoration: underline; }
+
+section { padding-block: 44px 8px; }
+section > header { margin-bottom: 18px; display: grid; gap: 6px; }
+section > header p { color: var(--ink-2); margin: 0; }
+
+/* ---------- verdict ---------- */
+.verdict {
+  background: var(--surface); border: 1px solid var(--line); border-radius: 14px; box-shadow: var(--shadow);
+  display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr); gap: 0; overflow: hidden;
+}
+.verdict-main { padding: 26px 28px; display: grid; gap: 14px; align-content: start; }
+.verdict-side { padding: 26px 28px; background: var(--surface-2); display: grid; gap: 12px; align-content: start; min-width: 0; }
+.hero-row { display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; }
+.hero { font-family: var(--sans); font-weight: 700; font-size: clamp(54px, 8vw, 76px); line-height: 0.95; letter-spacing: -0.02em; }
+.hero-unit { font-size: 16px; color: var(--ink-2); max-width: 22ch; line-height: 1.3; }
+.model-name { font-size: 19px; font-weight: 700; line-height: 1.35; }
+.facts { display: flex; flex-wrap: wrap; gap: 8px; }
+.fact { font-size: 13.5px; background: var(--surface-2); border: 1px solid var(--line); border-radius: 999px; padding: 3px 11px; color: var(--ink-2); font-variant-numeric: tabular-nums; }
+.verdict-main .fact { background: var(--bg); }
+.tag-ball { display: inline-flex; align-items: center; gap: 7px; background: var(--ball); color: var(--ball-ink); font-weight: 700; font-size: 13px; letter-spacing: 0.04em; text-transform: uppercase; padding: 4px 11px; border-radius: 6px; width: fit-content; }
+.caveats { margin: 0; padding: 0; list-style: none; display: grid; gap: 10px; counter-reset: cav; }
+.caveats li { display: grid; grid-template-columns: 22px minmax(0, 1fr); gap: 8px; font-size: 15px; line-height: 1.5; }
+.caveats li::before { counter-increment: cav; content: counter(cav); font-weight: 700; font-size: 12px; color: var(--ink-2); border: 1px solid var(--line-2); border-radius: 50%; width: 20px; height: 20px; display: grid; place-items: center; margin-top: 2px; }
+.ufc-note { border-left: 3px solid var(--ball); padding: 2px 0 2px 14px; font-size: 15px; color: var(--ink-2); }
+.ufc-note b { color: var(--ink); }
+
+/* ---------- reading the number ---------- */
+.explain-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; margin-top: 18px; }
+.explain { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 16px 18px; min-width: 0; }
+.explain h4 { margin-bottom: 6px; }
+.explain p { font-size: 15px; margin: 0; }
+
+/* ---------- ladder chart ---------- */
+.chart-card { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 22px 24px 18px; margin-top: 18px; }
+.chart-title { font-weight: 700; font-size: 17px; }
+.chart-sub { font-size: 14px; color: var(--ink-2); margin: 2px 0 14px; }
+.legend { display: flex; flex-wrap: wrap; gap: 6px 18px; font-size: 13.5px; color: var(--ink-2); margin-bottom: 10px; }
+.legend span { display: inline-flex; align-items: center; gap: 7px; }
+.legend .k { width: 11px; height: 11px; border-radius: 50%; display: inline-block; }
+.legend .k.acc { background: var(--mark); }
+.legend .k.mut { background: var(--mark-muted); }
+.legend .k.ref { width: 2px; height: 14px; border-radius: 0; background: var(--ref); }
+.ladder { display: grid; gap: 2px; }
+.lrow { display: grid; grid-template-columns: minmax(0, 0.95fr) 54px minmax(0, 1.25fr); gap: 12px; align-items: center; min-height: 40px; border-radius: 8px; padding-inline: 6px; }
+.lrow:hover, .lrow:focus-visible { background: var(--surface-2); outline: none; }
+.lrow:focus-visible { box-shadow: 0 0 0 2px var(--accent); }
+.llabel { font-size: 14.5px; line-height: 1.3; min-width: 0; }
+.llabel small { display: block; color: var(--muted); font-size: 12.5px; }
+.lval { text-align: right; font-variant-numeric: tabular-nums; font-weight: 700; font-size: 15px; }
+.ltrack { position: relative; height: 40px; min-width: 0; }
+.ltrack .base { position: absolute; left: 0; right: 0; top: 50%; height: 1px; background: var(--line); }
+.ltrack .refline { position: absolute; top: 0; bottom: 0; width: 2px; background: var(--ref); opacity: 0.85; transform: translateX(-1px); }
+.ltrack .grid { position: absolute; top: 0; bottom: 0; width: 1px; background: var(--line); }
+.ltrack .dot { position: absolute; top: 50%; width: 14px; height: 14px; border-radius: 50%; transform: translate(-50%, -50%); background: var(--mark-muted); box-shadow: 0 0 0 2px var(--surface); }
+.ltrack .dot.acc { background: var(--mark); width: 16px; height: 16px; }
+.lrow.close .llabel { font-weight: 700; }
+.ltip { position: absolute; bottom: calc(100% - 2px); transform: translateX(-50%); background: var(--ink); color: var(--surface); font-size: 12.5px; line-height: 1.35; padding: 6px 9px; border-radius: 6px; white-space: nowrap; pointer-events: none; opacity: 0; transition: opacity 0.12s; z-index: 3; font-variant-numeric: tabular-nums; }
+.lrow:hover .ltip, .lrow:focus-visible .ltip { opacity: 1; }
+@media (prefers-reduced-motion: reduce) { .ltip { transition: none; } }
+.axis { display: grid; grid-template-columns: minmax(0, 0.95fr) 54px minmax(0, 1.25fr); gap: 12px; padding-inline: 6px; }
+.axis .ticks { position: relative; height: 22px; font-size: 12px; color: var(--muted); font-variant-numeric: tabular-nums; }
+.axis .ticks span { position: absolute; transform: translateX(-50%); top: 4px; }
+.chart-note { font-size: 13.5px; color: var(--ink-2); margin: 12px 0 0; max-width: none; }
+
+/* ---------- tables ---------- */
+.tbl-wrap { overflow-x: auto; border: 1px solid var(--line); border-radius: 12px; background: var(--surface); }
+table { border-collapse: collapse; width: 100%; font-size: 14.5px; }
+th, td { text-align: left; padding: 10px 12px; border-bottom: 1px solid var(--line); vertical-align: top; }
+thead th { font-size: 12px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); font-weight: 700; background: var(--surface-2); white-space: nowrap; }
+tbody tr:last-child td { border-bottom: none; }
+td.n, th.n { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+td code { white-space: nowrap; word-break: normal; display: inline-block; margin: 1px 0; }
+tr.win td { background: var(--accent-wash); }
+.score-table { min-width: 860px; }
+.pill { display: inline-block; font-size: 12px; font-weight: 700; padding: 1px 8px; border-radius: 999px; border: 1px solid var(--line-2); color: var(--ink-2); white-space: nowrap; }
+.pill.yes { border-color: var(--accent); color: var(--accent); }
+
+/* ---------- glance ---------- */
+.glance { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+.tile { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 18px 20px; min-width: 0; display: grid; gap: 8px; align-content: start; }
+.tile .eyebrow { color: var(--accent); }
+.tile p { margin: 0; font-size: 15.5px; }
+.tile ul { margin: 0; padding-left: 18px; font-size: 15.5px; display: grid; gap: 4px; }
+.flow { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 10px; margin-top: 16px; counter-reset: step; }
+.flow div { position: relative; background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 12px 12px 12px; font-size: 13.5px; line-height: 1.4; min-width: 0; }
+.flow div b { display: block; font-size: 14px; margin-bottom: 3px; }
+.flow div::before { counter-increment: step; content: counter(step); position: absolute; top: -9px; left: 10px; background: var(--ball); color: var(--ball-ink); font-weight: 700; font-size: 11px; width: 18px; height: 18px; border-radius: 50%; display: grid; place-items: center; }
+.flow div:last-child { border-color: var(--accent); }
+.two { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 14px; margin-top: 14px; }
+.panel { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 18px 20px; min-width: 0; }
+.panel h3 { font-size: 20px; }
+.panel p { font-size: 15.5px; }
+.panel p:last-child { margin-bottom: 0; }
+.trans { width: 100%; font-size: 14.5px; }
+.trans td:first-child { width: 46%; font-weight: 600; }
+
+/* ---------- families ---------- */
+.fam-tools { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; justify-content: space-between; margin-bottom: 12px; }
+.btn { font: inherit; font-size: 14px; font-weight: 600; color: var(--accent); background: var(--surface); border: 1px solid var(--line-2); border-radius: 8px; padding: 6px 12px; cursor: pointer; }
+.btn:hover { background: var(--surface-2); }
+.lean-key { font-size: 13.5px; color: var(--ink-2); max-width: 60ch; margin: 0; }
+.fams { display: grid; gap: 10px; }
+details.fam { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; }
+details.fam[open] { box-shadow: var(--shadow); }
+details.fam > summary { list-style: none; cursor: pointer; display: grid; grid-template-columns: 46px minmax(0, 1fr) 150px 22px; gap: 14px; align-items: center; padding: 14px 16px; border-radius: 12px; }
+details.fam > summary::-webkit-details-marker { display: none; }
+details.fam > summary:hover { background: var(--surface-2); }
+.fam-count { font-family: var(--display); font-weight: 600; font-size: 30px; line-height: 1; text-align: center; color: var(--accent); }
+.fam-count small { display: block; font-family: var(--sans); font-size: 10.5px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); margin-top: 2px; }
+.fam-name { font-weight: 700; font-size: 17.5px; line-height: 1.3; display: block; }
+.fam-what { display: block; font-size: 14.5px; color: var(--ink-2); line-height: 1.45; }
+.lean { display: grid; gap: 4px; font-size: 12px; color: var(--muted); }
+.lean .bar { height: 6px; background: var(--surface-2); border-radius: 999px; overflow: hidden; border: 1px solid var(--line); }
+.lean .bar i { display: block; height: 100%; background: var(--mark); border-radius: 999px; }
+.lean b { color: var(--ink); font-size: 14px; font-variant-numeric: tabular-nums; }
+.chev { width: 12px; height: 12px; border-right: 2px solid var(--muted); border-bottom: 2px solid var(--muted); transform: rotate(45deg); margin-top: -6px; transition: transform 0.15s; justify-self: center; }
+details[open] > summary .chev { transform: rotate(225deg); margin-top: 6px; }
+@media (prefers-reduced-motion: reduce) { .chev { transition: none; } }
+.fam-body { padding: 4px 20px 20px; border-top: 1px solid var(--line); display: grid; gap: 16px; }
+.fam-body > p, .fam-intro { margin: 12px 0 0; font-size: 15.5px; }
+.feat { border: 1px solid var(--line); border-radius: 10px; padding: 16px 18px; background: var(--bg); display: grid; gap: 10px; min-width: 0; }
+.feat-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 12px; }
+.feat-head code { font-size: 13px; background: var(--surface); border: 1px solid var(--line); }
+.feat p { margin: 0; font-size: 15.5px; max-width: none; }
+.recipe { display: grid; grid-template-columns: 128px minmax(0, 1fr); gap: 8px 16px; margin: 0; font-size: 15px; }
+.recipe dt { font-size: 12px; font-weight: 700; letter-spacing: 0.07em; text-transform: uppercase; color: var(--muted); padding-top: 3px; }
+.recipe dd { margin: 0; min-width: 0; }
+.recipe ol, .recipe ul { margin: 0; padding-left: 18px; display: grid; gap: 3px; }
+.ev { display: flex; flex-wrap: wrap; gap: 6px; }
+.ev span { font-size: 13px; background: var(--surface); border: 1px solid var(--line); border-radius: 6px; padding: 2px 8px; font-variant-numeric: tabular-nums; }
+.ev span b { font-weight: 700; }
+.stat-table { min-width: 720px; }
+.stat-table td:nth-child(2) { min-width: 220px; }
+.note { font-size: 14px; color: var(--ink-2); background: var(--surface-2); border-radius: 8px; padding: 10px 14px; margin: 0; max-width: none; }
+
+/* ---------- universe ---------- */
+.status-key { display: flex; flex-wrap: wrap; gap: 8px 16px; margin-bottom: 16px; font-size: 13.5px; color: var(--ink-2); }
+.chip { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 700; padding: 2px 9px 2px 7px; border-radius: 999px; border: 1px solid var(--line-2); background: var(--surface); color: var(--ink-2); white-space: nowrap; line-height: 1.5; }
+.chip .ic { width: 9px; height: 9px; display: inline-block; flex: none; }
+.chip.in .ic { background: var(--mark); border-radius: 50%; }
+.chip.prom .ic { background: var(--warn); transform: rotate(45deg); }
+.chip.none .ic { background: var(--mark-muted); border-radius: 2px; }
+.chip.hurt .ic { width: 0; height: 0; border-left: 5px solid transparent; border-right: 5px solid transparent; border-top: 9px solid var(--critical); }
+.chip.idea .ic { border: 2px solid var(--muted); border-radius: 50%; }
+.chip.held .ic { border: 2px solid var(--muted); border-radius: 2px; }
+.uni { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+.ufam { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 16px 18px; min-width: 0; }
+.ufam h3 { font-size: 19px; margin-bottom: 2px; }
+.ufam .src { font-size: 13px; color: var(--muted); margin: 0 0 10px; }
+.ufam ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 0; }
+.ufam li { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 4px 10px; padding: 8px 0; border-top: 1px solid var(--line); align-items: start; }
+.ufam li:first-child { border-top: none; }
+.ufam li .nm { font-weight: 600; font-size: 14.5px; line-height: 1.35; }
+.ufam li .ds { grid-column: 1 / -1; font-size: 13.5px; color: var(--ink-2); line-height: 1.45; }
+.ufam li .ds .num { color: var(--ink); }
+
+/* ---------- threads ---------- */
+.threads { display: grid; gap: 12px; margin: 0; padding: 0; list-style: none; }
+.threads li { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 16px 18px; display: grid; gap: 6px; }
+.threads li h4 { font-size: 17px; }
+.threads li p { margin: 0; font-size: 15.5px; max-width: none; }
+
+/* ---------- glossary ---------- */
+details.gloss { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; }
+details.gloss > summary { cursor: pointer; padding: 14px 18px; font-weight: 700; font-size: 16.5px; display: flex; justify-content: space-between; align-items: center; list-style: none; }
+details.gloss > summary::-webkit-details-marker { display: none; }
+.gloss-body { padding: 4px 18px 18px; border-top: 1px solid var(--line); display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 4px 28px; }
+.gloss-body dl { margin: 0; }
+.gloss-body dt { font-weight: 700; margin-top: 12px; font-size: 15px; }
+.gloss-body dd { margin: 2px 0 0; font-size: 14.5px; color: var(--ink-2); }
+
+footer { margin-top: 48px; padding-top: 22px; border-top: 1px solid var(--line); font-size: 13.5px; color: var(--ink-2); display: grid; gap: 10px; }
+footer p { max-width: none; margin: 0; }
+footer code { font-size: 12px; }
+
+@media (max-width: 860px) {
+  .verdict { grid-template-columns: minmax(0, 1fr); }
+  .explain-grid { grid-template-columns: minmax(0, 1fr); }
+  .glance, .two, .uni, .gloss-body { grid-template-columns: minmax(0, 1fr); }
+  .flow { grid-template-columns: repeat(2, minmax(0, 1fr)); row-gap: 16px; }
+  details.fam > summary { grid-template-columns: 40px minmax(0, 1fr) 22px; }
+  details.fam > summary .lean { grid-column: 2 / 3; grid-row: 2; max-width: 220px; }
+  .recipe { grid-template-columns: minmax(0, 1fr); gap: 2px; }
+  .recipe dd { margin-bottom: 8px; }
+}
+@media (max-width: 560px) {
+  .lrow, .axis { grid-template-columns: minmax(0, 1fr) 48px; }
+  .lrow .ltrack, .axis .ticks { grid-column: 1 / -1; }
+  .axis > div:not(.ticks) { display: none; }
+  .verdict-main, .verdict-side { padding: 20px; }
+}
+</style>
+
+<div class="wrap">
+
+<header class="mast">
+  <div class="mast-top">
+    <span class="eyebrow ballmark"><i aria-hidden="true"></i>Tennis predictions &middot; state of the model</span>
+    <span class="eyebrow">5 October 2026</span>
+  </div>
+  <h1>Tennis Model Anatomy</h1>
+  <p class="lede">Of every model the studies have built, which did best against the 2026 closing lines, what goes into it, where each input comes from, and what else we could have fed it.</p>
+  <nav class="jump" aria-label="Sections">
+    <a href="#answer">The answer</a>
+    <a href="#scoreboard">Every study vs. the 2026 close</a>
+    <a href="#glance">The model at a glance</a>
+    <a href="#inputs">The 54 inputs</a>
+    <a href="#universe">Feature universe</a>
+    <a href="#threads">Threads for our discussion</a>
+    <a href="#glossary">Glossary</a>
+  </nav>
+</header>
+
+<!-- ===================================================== 1. ANSWER -->
+<section id="answer">
+  <header>
+    <span class="eyebrow">1 &middot; The answer</span>
+    <h2>One model beat the 2026 closing line, narrowly, on inputs with a known timing leak</h2>
+  </header>
+
+  <div class="verdict">
+    <div class="verdict-main">
+      <span class="eyebrow">Best result against the 2026 closing line &middot; men</span>
+      <div class="hero-row">
+        <span class="hero">+2.70</span>
+        <span class="hero-unit">milli-log-loss better than the closing line (recalibrated)</span>
+      </div>
+      <div class="model-name">TabPFN-3.5-Thinking, given the closing odds plus 53 pre-match inputs</div>
+      <div class="facts">
+        <span class="fact">1,774 men's main-tour matches</span>
+        <span class="fact">events starting 4 Jan &ndash; 28 Jul 2026</span>
+        <span class="fact">95% interval +0.01 to +5.38</span>
+        <span class="fact">+3.09 vs the raw close</span>
+        <span class="fact">women: &minus;0.83 (no edge)</span>
+      </div>
+      <span class="tag-ball">A lead, not yet an edge</span>
+      <p class="small ink2" style="margin:0">From the <code>tabpfn_thinking</code> study (2 Oct 2026). Over the whole 2022&ndash;2026 test it gained +1.57 (95% interval +0.82 to +2.32) for men, positive in every season: 2022 +1.24, 2023 +0.72, 2024 +1.30, 2025 +2.28, 2026 +2.70.</p>
+    </div>
+    <div class="verdict-side">
+      <span class="eyebrow">Why it is not settled</span>
+      <ol class="caveats">
+        <li><span><b>Built on the original features.</b> The feature audit later found those leak some results across overlapping tournaments. On the repaired features the simple linear version of this model fell from +0.83 to +0.25. The paid TabPFN fit has not been rerun on repaired features.</span></li>
+        <li><span><b>The closing odds are an input.</b> The model learns how far to move off the market price. It is a "market plus adjustment" model, not a standalone handicapper.</span></li>
+        <li><span><b>One fit, one seed, a looked-at test.</b> Its inputs were chosen after earlier studies had seen 2022&ndash;2026, so 2026 is not an untouched holdout. The UFC study saw about 1 milli-log-loss between TabPFN versions on the same inputs.</span></li>
+      </ol>
+      <p class="ufc-note"><b>In UFC terms:</b> your 2025 v2 kept the odds out and let MESR carry the market. This model instead takes the closing line itself as a column and learns where its other features say the line is wrong. Its whole edge is the size of that correction.</p>
+    </div>
+  </div>
+
+  <div class="explain-grid">
+    <div class="explain">
+      <h4>What the number measures</h4>
+      <p>Log loss averages &minus;ln(probability you gave the eventual winner). A coin scores 0.693; lower is better. One milli-log-loss is 0.001. It is Brier's stricter cousin: confident misses cost much more.</p>
+    </div>
+    <div class="explain">
+      <h4>The 2026 numbers behind it</h4>
+      <p class="num">Men's average closing line: 0.5929. Recalibrated close: 0.5925. TabPFN with odds: 0.5898. Surface Elo alone trails the close by 19.5 milli-log-loss on the same matches.</p>
+    </div>
+    <div class="explain">
+      <h4>What it is not</h4>
+      <p>A log-loss gain is not a betting return. No study has yet turned any of these forecasts into stakes, prices taken, fees or closing-line value. The close is used here as a forecaster to beat.</p>
+    </div>
+  </div>
+
+  <div class="chart-card" role="figure" aria-labelledby="ladder-title">
+    <div id="ladder-title" class="chart-title">How far each forecast gets on 2026 men's matches</div>
+    <p class="chart-sub">Coin = 0%, the average closing line = 100%, past 100% = better than the close. The axis starts at 70% so the differences show.</p>
+    <div class="legend" aria-hidden="true">
+      <span><i class="k acc"></i>Best model</span>
+      <span><i class="k mut"></i>Other forecasts</span>
+      <span><i class="k ref"></i>Closing line</span>
+    </div>
+    <div class="ladder" id="ladder"></div>
+    <div class="axis" aria-hidden="true"><div></div><div></div><div class="ticks" id="ladder-ticks"></div></div>
+    <p class="chart-note">Hover or tab to a row for its log loss and match count. The repaired and original rows score nearly the same matches: all 1,712 matches of the repaired test are among the 1,774. Each row is scaled against the close on its own matches. The same values are in the scoreboard table below.</p>
+  </div>
+</section>
+
+<!-- ===================================================== 2. SCOREBOARD -->
+<section id="scoreboard">
+  <header>
+    <span class="eyebrow">2 &middot; Every study against the 2026 close</span>
+    <h2>Most closing-line tests barely reach 2026</h2>
+    <p>Pinnacle's odds stop on 13 January 2026 in the files we hold, so every study benchmarked on Pinnacle sees only about 70 men's matches of 2026. The two TabPFN fits and the earlier walk-forward feature studies used the average of the books, which runs to the end of July.</p>
+  </header>
+  <div class="tbl-wrap">
+    <table class="score-table">
+      <thead>
+        <tr><th>Study &middot; model</th><th>Odds as input?</th><th>Features</th><th>2026 test (men)</th><th class="n">vs the 2026 close</th><th>Reading</th></tr>
+      </thead>
+      <tbody>
+        <tr class="win"><td><b>TabPFN-Thinking</b> &middot; TabPFN-3.5-Thinking, one paid fit</td><td><span class="pill yes">yes</span></td><td>53 original</td><td class="num">1,774</td><td class="n"><b>+2.70</b><br><span class="small muted">+0.01 to +5.38</span></td><td>Only interval above zero. Upper bound until refit on repaired features</td></tr>
+        <tr><td>TabPFN-Thinking &middot; logistic: odds + 9 + 16-stat profile</td><td><span class="pill yes">yes</span></td><td>25 original</td><td class="num">1,774</td><td class="n">+1.90<br><span class="small muted">&minus;1.72 to +5.52</span></td><td>Positive, not separated from zero</td></tr>
+        <tr><td>TabPFN-Thinking &middot; logistic: odds + 16-stat profile</td><td><span class="pill yes">yes</span></td><td>16 original</td><td class="num">1,774</td><td class="n">+1.13<br><span class="small muted">&minus;1.70 to +3.97</span></td><td>Same profile as UFC-ideas Stage D</td></tr>
+        <tr><td>UFC ideas, Stage D &middot; walk-forward logistic: odds + 16-stat profile</td><td><span class="pill yes">yes</span></td><td>16 original</td><td class="num">2026 season</td><td class="n">+1.21</td><td>Season split published without an interval</td></tr>
+        <tr><td>TabPFN-Thinking &middot; boosted trees: odds + 53</td><td><span class="pill yes">yes</span></td><td>53 original</td><td class="num">1,774</td><td class="n">&minus;0.59<br><span class="small muted">&minus;5.84 to +4.67</span></td><td>Trees lose to the plain close</td></tr>
+        <tr><td><b>Men-only TabPFN, 2026</b> &middot; TabPFN-3.5-Thinking, one paid fit</td><td><span class="pill">no</span></td><td>36 repaired</td><td class="num">1,712</td><td class="n">&minus;13.04<br><span class="small muted">&minus;18.24 to &minus;7.83</span></td><td>Cleanest standalone model. 86.7% of the way to the close</td></tr>
+        <tr><td>Men-only TabPFN, 2026 &middot; logistic, same 36 inputs</td><td><span class="pill">no</span></td><td>36 repaired</td><td class="num">1,712</td><td class="n">&minus;15.06<br><span class="small muted">&minus;22.28 to &minus;7.84</span></td><td>TabPFN beats it by +2.03 (&minus;1.11 to +5.17)</td></tr>
+        <tr><td>Feature-alpha repairs &middot; logistic: Pinnacle + 16-stat profile</td><td><span class="pill yes">yes</span></td><td>16 repaired</td><td class="num">to 13 Jan</td><td class="n">+0.36<br><span class="small muted">&minus;0.25 to +0.96</span></td><td>2019 to 13 Jan 2026 pooled, not a 2026 result</td></tr>
+        <tr><td>Predictive frontier &middot; Pinnacle + profile + five new families</td><td><span class="pill yes">yes</span></td><td>repaired</td><td class="num">70</td><td class="n">n/a</td><td>Too few 2026 matches with Pinnacle. Pooled 2019&ndash;26: +0.01 (&minus;0.46 to +0.49)</td></tr>
+        <tr><td>Rating systems &middot; TrueSkill Through Time and seven others + odds</td><td><span class="pill yes">yes</span></td><td>ratings</td><td class="num">pooled</td><td class="n">n/a</td><td>2013&ndash;26 pooled: +0.04. No rating adds to the odds</td></tr>
+        <tr><td>Shot level &middot; 141 shot-level features + odds</td><td><span class="pill yes">yes</span></td><td>shot-level</td><td class="num">pooled</td><td class="n">n/a</td><td>2022&ndash;26 pooled: nothing adds. Men's serve speed +0.24 to watch</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="small muted" style="margin-top:10px">Milli-log-loss, positive = better than the close. "Recalibrated" close for the odds-input rows (one slope per tour fitted on training seasons); raw average close for the no-odds rows. Intervals are paired 95% intervals clustered in four-week calendar blocks. Women's 2026: TabPFN with odds &minus;0.83 (&minus;4.45 to +2.80).</p>
+</section>
+
+<!-- ===================================================== 3. GLANCE -->
+<section id="glance">
+  <header>
+    <span class="eyebrow">3 &middot; The model at a glance</span>
+    <h2>What it is, what it learned from, what it was tested on</h2>
+  </header>
+
+  <div class="glance">
+    <div class="tile">
+      <span class="eyebrow">The model</span>
+      <p><b>TabPFN-3.5-Thinking</b>, Prior Labs' hosted tabular foundation model. It trains no weights: it reads the training rows as context and predicts the test rows in one pass. "Thinking" mode spends extra compute searching preprocessing and ensembles.</p>
+      <p class="small ink2">Settings copied from the UFC production fit: 8 estimators, softmax temperature 0.9, seed 0, log-loss objective. One paid fit: 162,211 tokens, 275 seconds.</p>
+    </div>
+    <div class="tile">
+      <span class="eyebrow">Trained on</span>
+      <p><b class="num">39,918</b> main-tour singles matches from 2013&ndash;2021 that have closing odds: <span class="num">19,331</span> men's and <span class="num">20,587</span> women's, pooled with a tour column.</p>
+      <ul class="small">
+        <li>Main tour = Grand Slams, Tour Finals, 1000s, 500s, 250s (the only matches with public closing odds).</li>
+        <li>No men's 2018: the odds file for that season is missing.</li>
+        <li>2010&ndash;2012 left out while every rating warms up.</li>
+      </ul>
+    </div>
+    <div class="tile">
+      <span class="eyebrow">Tested on</span>
+      <p>2022&ndash;2026: <b class="num">12,352</b> men's and <b class="num">11,467</b> women's matches with odds. The 2026 slice is <span class="num">1,774</span> men's and <span class="num">1,714</span> women's matches, events starting 4 January to 28 July.</p>
+      <ul class="small">
+        <li>Test outcomes were never uploaded to the API.</li>
+        <li>Inputs keep updating from earlier matches during the test; the fitted model does not.</li>
+      </ul>
+    </div>
+    <div class="tile">
+      <span class="eyebrow">One row = one match</span>
+      <p>Player A is chosen at random (a hash of the match id). The target is "A won"; after a retirement, the player who advanced won. Every player input is <b>A minus B</b>.</p>
+      <p class="small ink2">Each test match is predicted twice, as stored and with A and B swapped, and the two forecasts averaged. Same idea as your corner-agnostic augmentation.</p>
+    </div>
+  </div>
+
+  <div class="flow" aria-label="Pipeline, in order">
+    <div><b>Sources</b>Sackmann, Tennis My Life, tennis-data.co.uk</div>
+    <div><b>Match table</b>872,704 matches, 2010&ndash;Sep 2026, every level</div>
+    <div><b>One time-ordered pass</b>Ratings and rolling statistics, under the time rule</div>
+    <div><b>Per-match row</b>53 A&minus;B differences and context, plus the closing odds</div>
+    <div><b>TabPFN</b>Context: 2013&ndash;21 rows with odds. Query: 2022&ndash;26</div>
+    <div><b>Forecast</b>P(A wins), both orientations averaged, scored against the close</div>
+  </div>
+
+  <div class="two">
+    <div class="panel">
+      <h3>Where the data comes from</h3>
+      <ul class="small" style="padding-left:18px;margin:0;display:grid;gap:6px">
+        <li><b>Jeff Sackmann's tennis_atp / tennis_wta files</b>: the base. Results, scores, box scores (aces, double faults, serve points won and so on), rankings, age, height, hand, country. 461,670 men's and 405,621 women's matches from 2010 at every level: tour, Challenger and WTA 125, ITF, qualifying.</li>
+        <li><b>Tennis My Life</b>: 5,413 matches Sackmann lacks, mostly after 25 May 2026, where his tour files stop.</li>
+        <li><b>tennis-data.co.uk</b>: closing odds for tour-level main draws. The average of several bookmakers (from Oddsportal) and Pinnacle's, captured 3 Aug 2026. 99.93% of rows linked to a match.</li>
+        <li><b>Hand-made tables</b>: level mapping, each Grand Slam's deciding-set rule, each event's country.</li>
+      </ul>
+      <p class="small muted" style="margin-top:10px">History for the features uses every level. The model itself trains and tests only on main-tour matches, because only those have public odds.</p>
+    </div>
+    <div class="panel">
+      <h3>The time rule, and why tennis makes it hard</h3>
+      <p>A feature for a match may use only earlier events and earlier rounds of the same event. In UFC a card is one night. A tennis event runs one or two weeks, rounds fall on different days, several events overlap, and the public files give only the event's start date and the round, not the day a match was played.</p>
+      <p>The original features ordered history by event start date. Late rounds of a two-week event could then reach another event that started during it, and some helpers read the match format from the final score. The repair kept only matches with a provider-dated match day. Those exist only for the main tour, so history fell from 872,704 matches to 78,714.</p>
+    </div>
+  </div>
+
+  <div class="panel" style="margin-top:14px" id="ufc-map">
+    <h3>Translating from the UFC pipeline as it stood in October 2025</h3>
+    <p class="small ink2">Your v2 then: AutoGluon 1.4 on a blue-minus-red frame, Brier-tuned Bayesian decayed averages, online IOS, MESR, time-aware TrueSkill, Platt calibration, a single time-ordered holdout.</p>
+    <div class="tbl-wrap" style="border:none;border-radius:0;background:transparent">
+      <table class="trans" id="ufc-table">
+        <thead><tr><th>In this tennis model</th><th>Closest thing in your 2025 UFC pipeline</th></tr></thead>
+        <tbody>
+          <tr><td>Player A chosen at random, inputs A&minus;B, each test match predicted both ways and averaged</td><td>Your corner-agnostic augmentation (locked in 23 Sep 2025): corners swapped at random, mirrored twins with the differences negated. Your <code>_difference</code> columns were blue minus red</td></tr>
+          <tr><td>Serve and return</td><td>Offence and defence. Every point starts with one player serving, so a serve statistic is something you produce and the matching return statistic is what you allow, like strikes landed and strikes absorbed</td></tr>
+          <tr><td>Box score: match totals of aces, serve points won, breaks&hellip;</td><td>The ufcstats fight totals</td></tr>
+          <tr><td>Rolling statistics with a half-life, shrunk toward the tour's surface average</td><td>Your <code>hist_avg_baysian_date_</code> averages: recency decay, K pseudo-fights toward the weight-class prior. The surface average plays the weight-class prior's role</td></tr>
+          <tr><td>adjperf / adjdef, the two-week profile</td><td>The same formula as your v1 adjperf: (stat &minus; what this opponent usually allows) / the opponent's MAD, then averaged with shrinkage toward 0. Your v2 had dropped it (<code>features_adjperf = []</code>)</td></tr>
+          <tr><td>IOS offence and defence</td><td>Your <code>ios_</code> features: &mu; + O(fighter) &minus; D(opponent). Yours were updated fight by fight online; here they are solved jointly by ridge over all players, the form your UFC IOS took in July 2026</td></tr>
+          <tr><td>Matchup "products"</td><td>Weapon-times-liability interactions, which the UFC side added later</td></tr>
+          <tr><td>Surface Elo, games-weighted Elo, TrueSkill Through Time</td><td>Your v1 Elo and v2 time-aware TrueSkill (which also scaled updates for finishes and close decisions)</td></tr>
+          <tr><td>Closing odds fed in as an input</td><td>v2 kept odds out and let MESR carry the market; some v1 fits used the opening line. Tennis tested MESR too: nothing beyond the odds</td></tr>
+          <tr><td>TabPFN-3.5-Thinking as the whole model</td><td>TabPFN v2 and TabICL were already members inside your AutoGluon ensemble. Here one TabPFN does all the work, like your v3 leg today</td></tr>
+          <tr><td>Train 2013&ndash;21, test 2022&ndash;26</td><td>Your single time-ordered holdout (newest 10% as test). The tennis feature studies themselves refit season by season, the walk-forward UFC adopted in 2026</td></tr>
+          <tr><td>Log loss</td><td>AutoGluon's metric then; you tuned features by Brier. Log loss punishes confident misses harder</td></tr>
+          <tr><td>No closing-line-value test yet</td><td>Same as UFC in October 2025: your first CLV analysis came in June 2026</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ===================================================== 4. INPUTS -->
+<section id="inputs">
+  <header>
+    <span class="eyebrow">4 &middot; The 54 inputs</span>
+    <h2>Eight families. Open one to see how each input is built</h2>
+    <p>Evidence numbers come from the earlier one-feature-at-a-time studies, on the original features. "Given Elo" = how much the feature improves surface Elo; "given odds" = how much it improves the closing odds. Both in milli-log-loss, men / women, over all scored seasons.</p>
+  </header>
+
+  <div class="fam-tools">
+    <p class="lean-key"><b>Bar on the right:</b> how much TabPFN's correction to the price leaned on the family (share of that correction's explained variance lost when the family is shuffled, men). Shares overlap, so they do not add up.</p>
+    <button class="btn" type="button" id="toggle-all">Open all families</button>
+  </div>
+
+  <div class="fams">
+
+    <!-- A. ODDS -->
+    <details class="fam" id="fam-odds">
+      <summary>
+        <span class="fam-count">1<small>input</small></span>
+        <span><span class="fam-name">The closing odds</span><span class="fam-what">The betting market's own probability. Everything else in the model is a correction to it.</span></span>
+        <span class="lean"><span>Leaned on</span><span class="bar"><i style="width:44%"></i></span><b>0.31</b></span>
+        <span class="chev" aria-hidden="true"></span>
+      </summary>
+      <div class="fam-body">
+        <article class="feat">
+          <div class="feat-head"><code>odds_logit</code><h4>Closing odds, as log-odds that A wins</h4></div>
+          <dl class="recipe">
+            <dt>How it's built</dt>
+            <dd><ol>
+              <li>Take the average closing decimal odds across bookmakers for each player (tennis-data.co.uk's <code>AvgW</code>/<code>AvgL</code>).</li>
+              <li>Invert to implied probabilities, then divide by their sum. That strips the bookmaker margin: the median pair sums to 1.058, a 5.8% overround.</li>
+              <li>Drop incoherent pairs (sum outside 1.00&ndash;1.20, e.g. swapped values) and odds of 0 or 1.00.</li>
+              <li>Convert A's probability to log-odds.</li>
+            </ol></dd>
+            <dt>Data</dt><dd>tennis-data.co.uk, one workbook per tour and season. The provider says the odds are the most recent before play; that they are true closing odds is not verified.</dd>
+            <dt>UFC analogue</dt><dd>Your <code>final_odds</code>, de-vigged the same way, but used as a model input. In 2025 your v2 used it only for EV and bet rules, with MESR as the market's input.</dd>
+            <dt>Evidence</dt><dd><div class="ev"><span>Ladder: the 100% mark</span><span>Recalibration alone: <b>+0.51</b> men / <b>+0.49</b> women (2022&ndash;26)</span><span>Fitted slope 1.09&ndash;1.10</span></div><p class="small ink2" style="margin-top:6px">A slope above 1 means the average line is slightly under-confident: favourites win a little more often than priced.</p></dd>
+          </dl>
+        </article>
+      </div>
+    </details>
+
+    <!-- B. ELO -->
+    <details class="fam" id="fam-elo">
+      <summary>
+        <span class="fam-count">1<small>input</small></span>
+        <span><span class="fam-name">Surface Elo</span><span class="fam-what">The classic win/loss rating, blended with a rating earned on the match's own surface.</span></span>
+        <span class="lean"><span>Leaned on</span><span class="bar"><i style="width:17%"></i></span><b>0.12</b></span>
+        <span class="chev" aria-hidden="true"></span>
+      </summary>
+      <div class="fam-body">
+        <article class="feat">
+          <div class="feat-head"><code>elo_logit</code><h4>Surface Elo's log-odds that A wins</h4></div>
+          <p>Tennis is played on hard courts, clay (slow, high bounce) and grass (fast, low bounce). Some players are much better on one. So each player keeps an overall rating and one per surface, and the forecast blends them.</p>
+          <dl class="recipe">
+            <dt>How it's built</dt>
+            <dd><ol>
+              <li>Every player starts at 1,500. History: every singles match since 2010 at every level, 872,704 matches. Retirements count as results; walkovers never move a rating.</li>
+              <li>After each match, move both ratings by K &times; (result &minus; expected). K = k0 / (matches played + offset)<sup>shape</sup>, so newcomers move fast. Tuned on 2013&ndash;2018: k0 600, offset 2, shape 0.6 for men (offset 1 for women).</li>
+              <li>Keep a separate rating per surface, moved only by matches on it.</li>
+              <li>Forecast with (1 &minus; w) &times; overall + w &times; surface, w = 0.30 (men), 0.25 (women).</li>
+              <li>Time rule: rating at the start of the week, plus what this event's earlier rounds added.</li>
+            </ol></dd>
+            <dt>Data</dt><dd>Results from Sackmann plus Tennis My Life.</dd>
+            <dt>UFC analogue</dt><dd>Your v1 Elo (fixed K 96) with two upgrades: K shrinks as a player gains experience, and the surface split is like rating a fighter separately at another weight, partly pooled with the main rating.</dd>
+            <dt>Evidence</dt><dd><div class="ev"><span>Alone: <b>81.7</b> / <b>83.8</b> better than a coin (2022&ndash;26, matches with odds)</span><span>78% / 82% of the way to the close</span><span>Surface blend vs plain Elo: +3.8 / +3.0</span></div></dd>
+          </dl>
+        </article>
+        <p class="note">The rating-systems study (3 Oct) found TrueSkill Through Time beats this Elo by 2.65 / 3.00 and named it the leading base rating, but no rating adds anything once the odds are known.</p>
+      </div>
+    </details>
+
+    <!-- C. SERVE/RETURN RATINGS -->
+    <details class="fam" id="fam-ratings">
+      <summary>
+        <span class="fam-count">2<small>inputs</small></span>
+        <span><span class="fam-name">Serve/return ratings and games-weighted Elo</span><span class="fam-what">Strength measured in points won on serve and on return, and an Elo that credits the margin of victory.</span></span>
+        <span class="lean"><span>Leaned on</span><span class="bar"><i style="width:13%"></i></span><b>0.09</b></span>
+        <span class="chev" aria-hidden="true"></span>
+      </summary>
+      <div class="fam-body">
+        <article class="feat">
+          <div class="feat-head"><code>ratings_iid</code><h4>Serve and return ratings, turned into a match probability</h4></div>
+          <p>The single strongest addition to Elo in any study. Each player has a serve rating S and a return rating R. The chance the server wins a point is modelled as expit(&mu; + S<sub>server</sub> &minus; R<sub>returner</sub>), where &mu; is the tour's serve-point average on that surface (men: 62.8% hard, 60.4% clay, 65.5% grass).</p>
+          <dl class="recipe">
+            <dt>How it's built</dt>
+            <dd><ol>
+              <li>After each completed match with a box score, compare points won on serve with the expected share. The surplus moves the server's S up and the returner's R down, scaled by each rating's uncertainty (a Glicko-style Gaussian update on point counts).</li>
+              <li>Uncertainty shrinks with every point and grows with weeks away. Constants tuned on 2013&ndash;2018 per tour (e.g. a newcomer's serve starts 0.20 below their return for men).</li>
+              <li>Feed both players' expected serve-point shares into the <b>iid point model</b>: treat every point as an independent draw and compute exactly the chance of winning games, sets and the match. It knows best-of-3 versus best-of-5 and each Slam's deciding-set rule.</li>
+              <li>The input is that match probability as log-odds.</li>
+            </ol></dd>
+            <dt>Data</dt><dd>Box scores (Sackmann, TML), every level from 2010: 197,673 men's and 89,115 women's matches move the ratings.</dd>
+            <dt>UFC analogue</dt><dd>Like rating striking offence and striking defence from strike counts, then simulating the fight from them rather than from the W/L.</dd>
+            <dt>Evidence</dt><dd><div class="ev"><span>Given Elo: <b>+3.61</b> / <b>+4.58</b></span><span>Given odds: <b>&minus;0.06</b> / <b>&minus;0.01</b></span><span>Biggest at men's Slams: +14.4 given Elo</span></div></dd>
+          </dl>
+        </article>
+        <article class="feat">
+          <div class="feat-head"><code>elo_games</code><h4>Games-weighted Elo</h4></div>
+          <p>The same Elo, except each update is multiplied by the winner's share of the games played (rescaled to average 1). A 6-0 6-1 win moves ratings more than 7-6 7-6. This is the "WElo" of Angelini, Candila and De Angelis (2022).</p>
+          <dl class="recipe">
+            <dt>Data</dt><dd>Scores (Sackmann, TML). The average winner takes 65.0% (men) and 67.3% (women) of games.</dd>
+            <dt>UFC analogue</dt><dd>Your v2 time-aware TrueSkill scaled its update for finishes and close decisions. Same idea: a dominant win teaches the rating more than a narrow one.</dd>
+            <dt>Evidence</dt><dd><div class="ev"><span>Alone: <b>89.8</b> / <b>92.0</b> better than a coin</span><span>Given Elo: <b>+1.82</b> / <b>+2.38</b></span><span>Given odds: <b>&minus;0.03</b> / <b>&minus;0.03</b></span></div></dd>
+          </dl>
+        </article>
+      </div>
+    </details>
+
+    <!-- D. POINTS-WON AGGREGATES -->
+    <details class="fam" id="fam-points">
+      <summary>
+        <span class="fam-count">3<small>inputs</small></span>
+        <span><span class="fam-name">Points-won aggregates</span><span class="fam-what">Three ways of reading recent form through the share of points won, the most direct measure of level in tennis.</span></span>
+        <span class="lean"><span>Leaned on</span><span class="bar"><i style="width:20%"></i></span><b>0.14</b></span>
+        <span class="chev" aria-hidden="true"></span>
+      </summary>
+      <div class="fam-body">
+        <p class="fam-intro">Why points: a man who wins 51.7% of the points in a best-of-three match wins it about 90% of the time. Small differences in points won are large differences in results.</p>
+        <article class="feat">
+          <div class="feat-head"><code>adjperf_tpw_2w</code><h4>Opponent-adjusted total points won, two-week memory</h4></div>
+          <dl class="recipe">
+            <dt>How it's built</dt>
+            <dd><ol>
+              <li><b>Opponent's norm.</b> For each opponent, what their own earlier opponents managed against them on total points won (log-odds scale), as a weighted mean with its spread (mean absolute deviation). Memory 104 weeks, shrunk toward the tour average with a prior of 2 matches (men).</li>
+              <li><b>Per-match z.</b> (Player's points-won log-odds &minus; opponent's norm) / opponent's spread, clipped to &plusmn;4.</li>
+              <li><b>Player's form.</b> Recency-weighted average of their z over earlier matches, half-life <b>2 weeks</b>, pulled toward 0 with a prior of 10 matches.</li>
+            </ol></dd>
+            <dt>Data</dt><dd>Box scores, every level from 2010 (573,142 player-matches with a box score).</dd>
+            <dt>UFC analogue</dt><dd>The same per-fight formula as your v1 adjperf on SS.HEAD_% and SS.GROUND_%, rebuilt from the UFC code. The tuned memory is far shorter: tennis players play most weeks, and 2 weeks beat every other half-life tried, from 1 week to no decay.</dd>
+            <dt>Evidence</dt><dd><div class="ev"><span>Given Elo: <b>+3.19</b> / <b>+3.32</b></span><span>Given odds: <b>+0.14</b> / <b>&minus;0.07</b></span><span>Career-long version: worse than Elo alone</span></div></dd>
+          </dl>
+        </article>
+        <article class="feat">
+          <div class="feat-head"><code>ios_points_short</code><h4>IOS points matchup, short memory</h4></div>
+          <dl class="recipe">
+            <dt>How it's built</dt>
+            <dd><ol>
+              <li>Every earlier match says: server's serve-points-won log-odds &asymp; &mu; + O<sub>server</sub> &minus; D<sub>returner</sub>.</li>
+              <li>Solve all players' offence O and defence D jointly by ridge regression over every earlier week, older matches decayed with a half-life of <b>4 weeks</b> (men) or <b>13 weeks</b> (women). Re-solved each week, plus this event's earlier rounds.</li>
+              <li>A's expected serve share against B and B's against A go through the iid point model; the input is the match probability as log-odds.</li>
+            </ol></dd>
+            <dt>UFC analogue</dt><dd>Your <code>ios_</code> idea (&mu; + offence &minus; opponent's defence) on serve points. Your 2025 version updated online after each fight with a ~557-day half-life; this one is the joint ridge solve your UFC IOS became in 2026, with a very short memory.</dd>
+            <dt>Evidence</dt><dd><div class="ev"><span>Given Elo: <b>+3.72</b> / <b>+5.02</b></span><span>Given odds: <b>+0.13</b> / <b>+0.01</b></span><span>Short memory chosen after a first rundown (disclosed)</span></div></dd>
+          </dl>
+        </article>
+        <article class="feat">
+          <div class="feat-head"><code>points_52w</code><h4>Points matchup, last 52 weeks</h4></div>
+          <dl class="recipe">
+            <dt>How it's built</dt>
+            <dd><ol>
+              <li>A's serve points won and B's return points won over events of the last 364 days (plus this event's earlier rounds), each shrunk toward the tour's surface average.</li>
+              <li>Combine on the log-odds scale into A's expected serve-point share against B; likewise B's against A.</li>
+              <li>Through the iid point model to a match probability; input as log-odds.</li>
+            </ol></dd>
+            <dt>Evidence</dt><dd><div class="ev"><span>Given Elo: <b>+1.55</b> / <b>+1.59</b></span><span>Given odds: <b>+0.09</b> / <b>+0.03</b></span></div></dd>
+          </dl>
+        </article>
+      </div>
+    </details>
+
+    <!-- E. LOAD, SURFACE, AGE -->
+    <details class="fam" id="fam-context-player">
+      <summary>
+        <span class="fam-count">4<small>inputs</small></span>
+        <span><span class="fam-name">Load, surface familiarity and age</span><span class="fam-what">Recent workload, whether a player has just switched surface, and where they sit on the age curve.</span></span>
+        <span class="lean"><span>Leaned on</span><span class="bar"><i style="width:57%"></i></span><b>0.40</b></span>
+        <span class="chev" aria-hidden="true"></span>
+      </summary>
+      <div class="fam-body">
+        <article class="feat">
+          <div class="feat-head"><code>sets_14d</code><h4>Sets played in the last 14 days</h4></div>
+          <p>log(1 + sets) from this event's earlier rounds and events that started up to 14 days before, A&minus;B. The sign is positive: more recent sets means more wins than Elo expects. It reads as "still alive in draws, in form", not fatigue.</p>
+          <dl class="recipe">
+            <dt>Data</dt><dd>Scores and event start dates. Days are counted between event start dates, since the files hold no match days.</dd>
+            <dt>Evidence</dt><dd><div class="ev"><span>Given Elo: <b>+1.63</b> / <b>+1.87</b></span><span>Given odds: <b>+0.23</b> / <b>+0.29</b></span><span>Among the few hints against the odds</span></div></dd>
+          </dl>
+        </article>
+        <article class="feat">
+          <div class="feat-head"><code>surface_first</code><h4>One of the first matches on this surface this season</h4></div>
+          <p>1 if the player has fewer than 3 earlier matches on this surface this season, A&minus;B. The tour moves from hard courts to clay in spring and to grass for a few weeks in June; players new to the surface lose more often than Elo says.</p>
+          <dl class="recipe">
+            <dt>Evidence</dt><dd><div class="ev"><span>Given Elo: <b>+1.45</b> / <b>+1.30</b></span><span>Given odds: <b>+0.03</b> / <b>+0.20</b></span></div></dd>
+          </dl>
+        </article>
+        <article class="feat">
+          <div class="feat-head"><code>age</code>&nbsp;<code>age_sq</code><h4>Age and age squared</h4></div>
+          <p>(age &minus; 25) and (age &minus; 25)<sup>2</sup> at the tournament's start, each A&minus;B. Young players improve faster than a rating follows; older players decline before it notices.</p>
+          <dl class="recipe">
+            <dt>Data</dt><dd>Birth dates in Sackmann's player files. Ages outside 14&ndash;50 are treated as missing.</dd>
+            <dt>UFC analogue</dt><dd>Your <code>old_age_penalty</code>, but symmetric: a smooth curve peaking near the middle rather than a penalty that starts at 36.</dd>
+            <dt>Evidence</dt><dd><div class="ev"><span>Given Elo: <b>+1.42</b> / <b>+0.56</b></span><span>Men 2022&ndash;26 given Elo: +2.88</span><span>Given odds: <b>+0.13</b> / <b>&minus;0.01</b></span></div></dd>
+          </dl>
+        </article>
+      </div>
+    </details>
+
+    <!-- F. TWO-WEEK PROFILE -->
+    <details class="fam" id="fam-profile">
+      <summary>
+        <span class="fam-count">16<small>inputs</small></span>
+        <span><span class="fam-name">Two-week statistics profile</span><span class="fam-what">How each player has served and returned over the last fortnight, statistic by statistic, scored against what those opponents usually allow.</span></span>
+        <span class="lean"><span>Leaned on</span><span class="bar"><i style="width:63%"></i></span><b>0.44</b></span>
+        <span class="chev" aria-hidden="true"></span>
+      </summary>
+      <div class="fam-body">
+        <p class="fam-intro">This family is the one closing-line lead the studies agree on: per-statistic form for men, independent of every rating. It is the thing your edge thesis asked for: offensive and defensive ratings of individual statistics, not a new win rating.</p>
+        <article class="feat">
+          <div class="feat-head"><h4>The shared recipe (adjperf and adjdef, steps 1&ndash;3)</h4></div>
+          <dl class="recipe">
+            <dt>adjperf</dt><dd>The player's statistic in each earlier match, as a z against what that opponent usually allows: (value &minus; opponent's norm) / opponent's spread, clipped &plusmn;4. Averaged with a <b>2-week half-life</b> and pulled toward 0.</dd>
+            <dt>adjdef</dt><dd>How far the player held each opponent below the opponent's own usual value. In tennis, adjdef on a serve statistic equals adjperf on the matching return statistic, so it is kept only for the four statistics with no return mirror.</dd>
+            <dt>Constants</dt><dd>Serve-side skills use serve-points constants (men: opponent memory 104 weeks, prior 2; form prior 10 matches). Return-side skills use return-points constants (men: memory 52 weeks; form prior 160 matches, close to a plain decayed sum). Rates on the log-odds scale; break points faced per game on the log scale. Every match counts equally: weighting by points played (your &tau; exponent) lost on every grid.</dd>
+            <dt>UFC analogue</dt><dd>Your v1 adjperf/adjdef pair, applied to every serve and return statistic instead of two striking percentages.</dd>
+            <dt>Data</dt><dd>Box scores, every level from 2010. Retirements and non-standard formats are left out of the history.</dd>
+            <dt>Evidence, whole profile</dt><dd><div class="ev"><span>Given odds, men: <b>+0.51</b> (all seasons) &middot; <b>+0.92</b> (2022&ndash;26) &middot; <b>+1.21</b> (2026)</span><span>Women: <b>+0.02</b></span><span>Repaired, beyond calibrated Pinnacle: <b>+0.36</b> (&minus;0.25 to +0.96)</span></div><p class="small ink2" style="margin-top:6px">Alone it is only 16.7 better than a coin (men): it says little about who is stronger, which is why it can be orthogonal to the market.</p></dd>
+          </dl>
+        </article>
+        <div class="tbl-wrap">
+          <table class="stat-table">
+            <thead><tr><th>Input</th><th>The statistic, in tennis terms</th><th>Side</th><th class="n">Given Elo<br>men / women</th><th class="n">Given odds<br>men / women</th></tr></thead>
+            <tbody>
+              <tr><td><code>form_ace</code></td><td>Aces per serve point: serves the returner never touches</td><td>serve</td><td class="n">+0.86 / +0.73</td><td class="n">+0.05 / +0.23</td></tr>
+              <tr><td><code>form_df</code></td><td>Double faults per serve point: both serves missed, point lost</td><td>serve</td><td class="n">+0.18 / +0.25</td><td class="n">&minus;0.02 / +0.09</td></tr>
+              <tr><td><code>form_first_in</code></td><td>First serves in: how much risk the first serve takes</td><td>serve</td><td class="n">+0.02 / +0.01</td><td class="n">&minus;0.04 / +0.01</td></tr>
+              <tr><td><code>form_first_won</code></td><td>Points won when the first serve lands</td><td>serve</td><td class="n">+1.75 / +1.90</td><td class="n">+0.14 / +0.10</td></tr>
+              <tr><td><code>form_second_won</code></td><td>Points won on the second serve, the rally behind the weaker serve</td><td>serve</td><td class="n">+1.46 / +1.66</td><td class="n">+0.12 / +0.13</td></tr>
+              <tr><td><code>form_hold</code></td><td>Service games held</td><td>serve</td><td class="n">+1.82 / +2.48</td><td class="n">&minus;0.03 / &minus;0.01</td></tr>
+              <tr><td><code>form_bp_saved</code></td><td>Break points saved: points that would have lost the service game</td><td>serve</td><td class="n">+0.05 / +0.44</td><td class="n">+0.04 / &minus;0.03</td></tr>
+              <tr><td><code>form_bp_faced_pg</code></td><td>Break points faced per service game: how often the serve is under pressure</td><td>serve</td><td class="n">+1.94 / +1.63</td><td class="n">+0.13 / +0.03</td></tr>
+              <tr><td><code>form_brk</code></td><td>Return games won (breaks of serve)</td><td>return</td><td class="n">+0.86 / +1.00</td><td class="n">+0.01 / &minus;0.06</td></tr>
+              <tr><td><code>form_bp_conv</code></td><td>Break points converted on the opponent's serve</td><td>return</td><td class="n">+0.07 / +0.08</td><td class="n">&minus;0.02 / +0.04</td></tr>
+              <tr><td><code>form_rpw_first</code></td><td>Return points won against the first serve</td><td>return</td><td class="n">+0.94 / +0.91</td><td class="n">+0.02 / &minus;0.08</td></tr>
+              <tr><td><code>form_rpw_second</code></td><td>Return points won against the second serve</td><td>return</td><td class="n">+0.74 / +0.38</td><td class="n">+0.04 / &minus;0.12</td></tr>
+              <tr><td><code>formdef_ace</code></td><td>Aces conceded below the server's norm: hard to ace</td><td>return</td><td class="n">+0.39 / +0.06</td><td class="n">+0.15 / &minus;0.09</td></tr>
+              <tr><td><code>formdef_df</code></td><td>Double faults drawn above the server's norm</td><td>return</td><td class="n">&minus;0.01 / &minus;0.05</td><td class="n">+0.02 / +0.04</td></tr>
+              <tr><td><code>formdef_first_in</code></td><td>Opponents' first serves in, relative to their norm</td><td>return</td><td class="n">0.00 / &minus;0.02</td><td class="n">&minus;0.02 / &minus;0.03</td></tr>
+              <tr><td><code>formdef_bp_faced_pg</code></td><td>Break points created per opponent service game, relative to their norm</td><td>return</td><td class="n">+0.77 / +0.87</td><td class="n">&minus;0.01 / 0.00</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="note">Single-statistic rows are weak against the odds: the largest is +0.23 (women's aces). The profile's value only shows when the 16 are fitted together, which is why the studies test it as a block.</p>
+      </div>
+    </details>
+
+    <!-- G. IOS PROFILE -->
+    <details class="fam" id="fam-ios">
+      <summary>
+        <span class="fam-count">21<small>inputs</small></span>
+        <span><span class="fam-name">Long-memory IOS profile and matchup products</span><span class="fam-what">Stable serve-side traits: an offence and a defence rating per statistic, solved jointly over years of matches, plus weapon-times-liability products.</span></span>
+        <span class="lean"><span>Leaned on</span><span class="bar"><i style="width:89%"></i></span><b>0.62</b></span>
+        <span class="chev" aria-hidden="true"></span>
+      </summary>
+      <div class="fam-body">
+        <p class="fam-intro">TabPFN leaned on this family more than any other, although in linear models it added nothing against the odds. That mismatch is the puzzle of this model: either TabPFN reads these noisy, correlated traits better, or it is picking up the timing leak. The audit flagged this family in particular: a weekly IOS solve can absorb the late rounds of a two-week event before an overlapping event starts (see the time rule in section 3).</p>
+        <article class="feat">
+          <div class="feat-head"><h4>The shared recipe (IOS: implied offensive and defensive skill)</h4></div>
+          <dl class="recipe">
+            <dt>Ratings</dt><dd>For each statistic, every earlier match says: the server's value (log-odds) &asymp; &mu; + O<sub>server</sub> &minus; D<sub>returner</sub>. All players' O and D are solved together by ridge regression (conjugate gradient on the sparse system), re-solved weekly from earlier weeks only, plus this event's earlier rounds. A player's D is their skill as a returner at holding that statistic down.</dd>
+            <dt>Tuning</dt><dd>Memory (half-life), ridge strength &kappa; and weighting by serve points were tuned per statistic on 2013&ndash;2018, scored on forecasting the next match's statistic (not the winner).</dd>
+            <dt>Products</dt><dd><code>prod_s</code> = O<sub>A</sub> &times; (&minus;D<sub>B</sub>) &minus; O<sub>B</sub> &times; (&minus;D<sub>A</sub>): A's weapon against B's weakness, minus the reverse. A linear model of A&minus;B differences cannot form these on its own.</dd>
+            <dt>Evidence, whole family</dt><dd><div class="ev"><span>IOS profile (14) given odds: <b>&minus;0.06</b> / <b>&minus;0.17</b></span><span>With products (21): <b>&minus;0.21</b> / <b>+0.11</b></span><span>Never rebuilt on repaired history</span></div></dd>
+          </dl>
+        </article>
+        <div class="tbl-wrap">
+          <table class="stat-table">
+            <thead><tr><th>Inputs</th><th>Statistic</th><th class="n">Memory, weeks<br>men / women</th><th class="n">Given Elo, men<br>offence / defence</th><th class="n">Given odds, men<br>offence / defence</th></tr></thead>
+            <tbody>
+              <tr><td><code>iosO_ace</code> <code>iosD_ace</code> <code>prod_ace</code></td><td>Aces</td><td class="n">26 / 52</td><td class="n">+0.18 / +0.58</td><td class="n">&minus;0.04 / +0.09</td></tr>
+              <tr><td><code>iosO_df</code> <code>iosD_df</code> <code>prod_df</code></td><td>Double faults</td><td class="n">52 / 52</td><td class="n">&minus;0.07 / +0.01</td><td class="n">+0.03 / &minus;0.05</td></tr>
+              <tr><td><code>iosO_first_in</code> <code>iosD_first_in</code> <code>prod_first_in</code></td><td>First serves in</td><td class="n">26 / 26</td><td class="n">0.00 / &minus;0.08</td><td class="n">&minus;0.04 / &minus;0.03</td></tr>
+              <tr><td><code>iosO_first_won</code> <code>iosD_first_won</code> <code>prod_first_won</code></td><td>First-serve points won</td><td class="n">52 / 104</td><td class="n">&minus;0.23 / +0.15</td><td class="n">&minus;0.03 / +0.06</td></tr>
+              <tr><td><code>iosO_second_won</code> <code>iosD_second_won</code> <code>prod_second_won</code></td><td>Second-serve points won</td><td class="n">104 / 104</td><td class="n">&minus;0.42 / &minus;0.21</td><td class="n">&minus;0.04 / &minus;0.01</td></tr>
+              <tr><td><code>iosO_hold</code> <code>iosD_hold</code> <code>prod_hold</code></td><td>Service games held</td><td class="n">104 / 104</td><td class="n">&minus;0.69 / &minus;0.39</td><td class="n">&minus;0.01 / +0.02</td></tr>
+              <tr><td><code>iosO_bp_saved</code> <code>iosD_bp_saved</code> <code>prod_bp_saved</code></td><td>Break points saved</td><td class="n">no decay / 208</td><td class="n">&minus;0.37 / &minus;0.05</td><td class="n">+0.01 / &minus;0.05</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="note">Negative given-Elo numbers here mean the single rating made Elo's forecast worse on its own: long-memory traits repeat what Elo already knows. The studies found that predicting the winner wants short memories, while forecasting the statistic itself wants long ones.</p>
+      </div>
+    </details>
+
+    <!-- H. CONTEXT -->
+    <details class="fam" id="fam-match">
+      <summary>
+        <span class="fam-count">6<small>inputs</small></span>
+        <span><span class="fam-name">Match context</span><span class="fam-what">Properties of the match itself, the same for both players: tour, surface, level, indoor, format, round.</span></span>
+        <span class="lean"><span>Leaned on</span><span class="bar"><i style="width:0%"></i></span><b>0.00</b></span>
+        <span class="chev" aria-hidden="true"></span>
+      </summary>
+      <div class="fam-body">
+        <div class="tbl-wrap">
+          <table>
+            <thead><tr><th>Input</th><th>Values</th><th>Why it might matter</th></tr></thead>
+            <tbody>
+              <tr><td><code>tour</code></td><td>0 men (ATP), 1 women (WTA)</td><td>One model for both tours</td></tr>
+              <tr><td><code>surface</code></td><td>hard, clay, grass, carpet</td><td>Serve dominance differs by surface</td></tr>
+              <tr><td><code>level</code></td><td>Grand Slam, Tour Finals, 1000, 500, 250</td><td>Market sharpness and player motivation vary by level</td></tr>
+              <tr><td><code>indoor</code></td><td>1 indoor, 0 outdoor (men only)</td><td>Indoor courts play faster, with no wind</td></tr>
+              <tr><td><code>best_of</code></td><td>3 or 5, from the schedule, not the score</td><td>Men's Slams are best of five: the stronger player's edge compounds. Elo's favourites won 2.9 points more than it said there</td></tr>
+              <tr><td><code>round</code></td><td>order within the event</td><td>Later rounds bring stronger, in-form players</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="note">These exist so TabPFN could find interactions (e.g. serve traits matter more on grass). It found almost none: interactions explain about 2% of its correction to the price, and this family carries none of it.</p>
+      </div>
+    </details>
+
+  </div>
+
+  <div class="panel" style="margin-top:18px">
+    <h3>What TabPFN actually did with the 54</h3>
+    <p>Reduced to its straight-line part, TabPFN's correction to the price keeps +0.94 of its +1.57 gain (men, 2022&ndash;26). A separate curve per input explains 96% of the correction's variance; interactions add 2 points more. So the gain is mostly a better weighting of noisy, correlated inputs than a logistic regression manages, not hidden interactions. No free model reproduced it on the same inputs: linear +0.09, ridge +0.19, spline GAM +0.21, boosted trees +0.30, TabICL +0.08 (men, 2022&ndash;26, against the recalibrated close).</p>
+    <p class="small ink2">On average it moves the recalibrated price by 1.7 percentage points and changes the favourite in 610 of 23,819 test matches. In 2026 for men: 1.8 points on average, 42 favourite changes in 1,774 matches.</p>
+  </div>
+</section>
+
+<!-- ===================================================== 5. UNIVERSE -->
+<section id="universe">
+  <header>
+    <span class="eyebrow">5 &middot; Feature universe</span>
+    <h2>Everything else we built, tested, or could have used</h2>
+    <p>Match-level statistics and pre-match features outside the 54 inputs, each with its verdict. Numbers are milli-log-loss, men / women, "given Elo" and "given the odds" as in section 4. They come from the original features unless marked repaired: after the leak was found, only the shortlist was rebuilt.</p>
+  </header>
+  <div class="status-key" aria-label="Status key">
+    <span class="chip prom"><i class="ic"></i>Promising</span>
+    <span class="chip none"><i class="ic"></i>No gain: tested, adds nothing on the odds</span>
+    <span class="chip hurt"><i class="ic"></i>Worse: tested, made forecasts worse</span>
+    <span class="chip idea"><i class="ic"></i>Idea: not tested</span>
+    <span class="chip held"><i class="ic"></i>Held: data on disk, never used</span>
+  </div>
+  <div class="uni" id="universe-grid">
+
+    <div class="ufam">
+      <h3>Other rating systems</h3>
+      <p class="src">Rating-systems study, UFC ideas Stage A, predictability Stages 1 and 4</p>
+      <ul>
+        <li><span class="nm">TrueSkill Through Time</span><span class="chip prom"><i class="ic"></i>Promising</span><span class="ds">Re-estimates whole careers as results arrive. <span class="num">+2.65 / +3.00</span> better than surface Elo; <span class="num">+0.04 / &minus;0.02</span> given the odds. Leading base-rating candidate since 3 Oct.</span></li>
+        <li><span class="nm">Correlated-surface Glicko and TrueSkill</span><span class="chip none"><i class="ic"></i>No gain</span><span class="ds"><span class="num">+2.11 / +2.68</span> and <span class="num">+1.75 / +3.29</span> better than Elo; nothing given the odds.</span></li>
+        <li><span class="nm">Glicko-2 and TrueSkill, match by match</span><span class="chip none"><i class="ic"></i>No gain</span><span class="ds"><span class="num">+0.90 / +1.01</span> and <span class="num">+0.69 / +1.30</span> better than Elo.</span></li>
+        <li><span class="nm">Glicko-2 with weekly rating periods</span><span class="chip hurt"><i class="ic"></i>Worse</span><span class="ds"><span class="num">&minus;1.42 / &minus;0.32</span> against Elo. Built for 10&ndash;15 games a period; tennis players play 1&ndash;5.</span></li>
+        <li><span class="nm">Bradley&ndash;Terry, tuned batch rating</span><span class="chip hurt"><i class="ic"></i>Worse</span><span class="ds"><span class="num">&minus;1.60 / &minus;4.45</span> as the base rating; <span class="num">&minus;2.80 / &minus;3.26</span> without time decay.</span></li>
+        <li><span class="nm">MESR, a rating solved from earlier closing odds</span><span class="chip none"><i class="ic"></i>No gain</span><span class="ds"><span class="num">&minus;0.03 / &minus;0.02</span> given the odds.</span></li>
+        <li><span class="nm">Points-weighted Elo</span><span class="chip none"><i class="ic"></i>No gain</span><span class="ds"><span class="num">+0.27 / +0.69</span> given Elo; the games-weighted version in the model does better.</span></li>
+        <li><span class="nm">Serve rating and return rating, separately</span><span class="chip none"><i class="ic"></i>No gain</span><span class="ds"><span class="num">+1.15 / +1.87</span> and <span class="num">+0.66 / +0.84</span> given Elo; weaker than the combined rating in the model.</span></li>
+        <li><span class="nm">Elo's change over 6 and 12 months</span><span class="chip hurt"><i class="ic"></i>Worse</span><span class="ds"><span class="num">&minus;0.26</span> and <span class="num">&minus;0.30</span> given Elo (men).</span></li>
+      </ul>
+    </div>
+
+    <div class="ufam">
+      <h3>Box-score statistics in other forms</h3>
+      <p class="src">Predictability Stage 4: career, last 52 weeks, decayed over 52 weeks, this surface, opponent-adjusted</p>
+      <ul>
+        <li><span class="nm">Serve, return and total points won</span><span class="chip none"><i class="ic"></i>No gain</span><span class="ds">Best: total points won over 52 weeks, <span class="num">+1.33 / +1.39</span> given Elo; at most <span class="num">+0.10</span> given the odds.</span></li>
+        <li><span class="nm">Holds and breaks</span><span class="chip none"><i class="ic"></i>No gain</span><span class="ds"><span class="num">+0.52 / +0.69</span> and <span class="num">+0.31 / +0.08</span> given Elo.</span></li>
+        <li><span class="nm">Aces and first serves in</span><span class="chip none"><i class="ic"></i>No gain</span><span class="ds">The most repeatable statistics, but style rather than strength: at most <span class="num">+0.16</span> given Elo.</span></li>
+        <li><span class="nm">Double faults</span><span class="chip hurt"><i class="ic"></i>Worse</span><span class="ds">Men's career, surface and adjusted forms <span class="num">&minus;0.12 to &minus;0.14</span> given Elo.</span></li>
+        <li><span class="nm">Break points saved, converted, faced per game</span><span class="chip none"><i class="ic"></i>No gain</span><span class="ds">Saved and converted behave like luck within a player.</span></li>
+        <li><span class="nm">Return points won against the first and the second serve</span><span class="chip none"><i class="ic"></i>No gain</span><span class="ds"><span class="num">+0.41 / +0.22</span> given Elo (men); <span class="num">+0.16</span> given the odds.</span></li>
+        <li><span class="nm">Break points won above expectation</span><span class="chip none"><i class="ic"></i>No gain</span><span class="ds">No spread at all between men's seasons: pure luck.</span></li>
+        <li><span class="nm">Games, break-point and serve-components matchups</span><span class="chip none"><i class="ic"></i>No gain</span><span class="ds">Up to <span class="num">+1.53 / +1.49</span> given Elo; at most <span class="num">+0.06</span> given the odds.</span></li>
+      </ul>
+    </div>
+
+    <div class="ufam">
+      <h3>Results-based records</h3>
+      <p class="src">Predictability Stage 4</p>
+      <ul>
+        <li><span class="nm">Recent win rate</span><span class="chip hurt"><i class="ic"></i>Worse</span><span class="ds"><span class="num">&minus;0.98</span> over 52 weeks, <span class="num">&minus;1.00</span> decayed, given Elo (men). Elo already holds it.</span></li>
+        <li><span class="nm">Sets won, games won</span><span class="chip hurt"><i class="ic"></i>Worse</span><span class="ds"><span class="num">&minus;0.66</span> and <span class="num">&minus;0.35</span> over 52 weeks, given Elo (men).</span></li>
+        <li><span class="nm">Head-to-head record</span><span class="chip hurt"><i class="ic"></i>Worse</span><span class="ds">Men's surface form <span class="num">&minus;0.59</span> given the odds; within &plusmn;0.2 given Elo.</span></li>
+        <li><span class="nm">Deciding-set record</span><span class="chip none"><i class="ic"></i>No gain</span><span class="ds"><span class="num">+0.35 / +0.83</span> given Elo; nothing given the odds.</span></li>
+        <li><span class="nm">Tiebreak record</span><span class="chip none"><i class="ic"></i>No gain</span><span class="ds">A negative control: players who won more tiebreaks lately win less than Elo says. Luck, not skill.</span></li>
+      </ul>
+    </div>
+
+    <div class="ufam">
+      <h3>Rankings and level</h3>
+      <p class="src">Predictability Stage 4</p>
+      <ul>
+        <li><span class="nm">Ranking, ranking points, ranking-versus-Elo gap</span><span class="chip hurt"><i class="ic"></i>Worse</span><span class="ds"><span class="num">&minus;1.67 to &minus;2.26</span> given Elo over all seasons, mostly an Elo warm-up artefact; small gains in 2022&ndash;26. Women's ranking <span class="num">+0.32</span> given the odds, the top Stage 4 row there.</span></li>
+        <li><span class="nm">Level played over the last 52 weeks</span><span class="chip hurt"><i class="ic"></i>Worse</span><span class="ds"><span class="num">&minus;2.48 / &minus;2.09</span> given Elo.</span></li>
+      </ul>
+      <h3 style="margin-top:16px">Player attributes and entry</h3>
+      <p class="src">Predictability Stage 4</p>
+      <ul>
+        <li><span class="nm">Height</span><span class="chip none"><i class="ic"></i>No gain</span><span class="ds"><span class="num">+0.10 / &minus;0.07</span> given Elo.</span></li>
+        <li><span class="nm">Left- against right-handed; record against the opponent's hand</span><span class="chip hurt"><i class="ic"></i>Worse</span><span class="ds"><span class="num">&minus;0.01 to &minus;0.02</span> given Elo: tiny.</span></li>
+        <li><span class="nm">Home country</span><span class="chip hurt"><i class="ic"></i>Worse</span><span class="ds">Men <span class="num">+0.23</span>, women <span class="num">&minus;0.33</span> given Elo; nothing given the odds.</span></li>
+        <li><span class="nm">Entry route: qualifier, lucky loser, wildcard, protected ranking</span><span class="chip none"><i class="ic"></i>No gain</span><span class="ds">Qualifiers <span class="num">+0.40 / +0.35</span> given Elo; men's wildcards <span class="num">&minus;0.06</span>.</span></li>
+        <li><span class="nm">Big-point play on return</span><span class="chip none"><i class="ic"></i>No gain</span><span class="ds"><span class="num">+0.09</span> with the wrong sign: luck, not clutch.</span></li>
+      </ul>
+    </div>
+
+    <div class="ufam">
+      <h3>Schedule, rest and fatigue</h3>
+      <p class="src">Predictability Stage 4, UFC ideas Stage C</p>
+      <ul>
+        <li><span class="nm">Sets over the last 7 days</span><span class="chip prom"><i class="ic"></i>Promising</span><span class="ds"><span class="num">+0.30</span> (+0.05 to +0.54) given the odds, men, the best men's Stage 4 row there; <span class="num">+0.03</span> when built one match later.</span></li>
+        <li><span class="nm">Minutes played over the last 7 and 14 days</span><span class="chip none"><i class="ic"></i>No gain</span><span class="ds"><span class="num">+1.51 / +1.59</span> given Elo (14 days); at most <span class="num">+0.19</span> given the odds. Minutes missing for 25% (men) and 48% (women).</span></li>
+        <li><span class="nm">Minutes and sets of the previous match</span><span class="chip none"><i class="ic"></i>No gain</span><span class="ds">Fatigue from the last match: <span class="num">+0.04 / +0.12</span> given Elo.</span></li>
+        <li><span class="nm">Days since the last match</span><span class="chip none"><i class="ic"></i>No gain</span><span class="ds"><span class="num">+0.81 / +0.90</span> given Elo; <span class="num">+0.13 / +0.19</span> given the odds.</span></li>
+        <li><span class="nm">Matches played: career, last 52 weeks</span><span class="chip hurt"><i class="ic"></i>Worse</span><span class="ds">Career <span class="num">&minus;0.45 / &minus;0.60</span> given Elo; 52 weeks <span class="num">+0.96 / +0.65</span>.</span></li>
+        <li><span class="nm">Last match ended early (retirement or walkover)</span><span class="chip none"><i class="ic"></i>No gain</span><span class="ds"><span class="num">+0.22 / +0.32</span> given Elo; <span class="num">&minus;0.05</span> given the odds.</span></li>
+        <li><span class="nm">Strength of schedule, quality of wins</span><span class="chip hurt"><i class="ic"></i>Worse</span><span class="ds">Men <span class="num">&minus;1.14 to &minus;2.55</span> given Elo; women's quality of wins <span class="num">+0.95</span>.</span></li>
+        <li><span class="nm">Credit for old opponents who later rose</span><span class="chip none"><i class="ic"></i>No gain</span><span class="ds"><span class="num">+0.16 / +0.41</span> given Elo; at most <span class="num">+0.11</span> given the odds.</span></li>
+        <li><span class="nm">Late-match decline and "grinder" traits</span><span class="chip hurt"><i class="ic"></i>Worse</span><span class="ds">Women's decline <span class="num">&minus;0.19</span> given the odds, women's career grinder <span class="num">&minus;0.11</span> given Elo; the rest nothing.</span></li>
+      </ul>
+    </div>
+
+    <div class="ufam">
+      <h3>Form and IOS variants left out</h3>
+      <p class="src">UFC ideas Stages B and D</p>
+      <ul>
+        <li><span class="nm">The 12-statistic profile over 52 weeks</span><span class="chip none"><i class="ic"></i>No gain</span><span class="ds"><span class="num">&minus;0.09 / &minus;0.33</span> given the odds. The signal is two-week form, not traits.</span></li>
+        <li><span class="nm">adjperf of serve points won, two weeks</span><span class="chip none"><i class="ic"></i>No gain</span><span class="ds"><span class="num">+2.78 / +2.97</span> given Elo, <span class="num">+0.20 / +0.11</span> given the odds; overlaps total points won.</span></li>
+        <li><span class="nm">Career-long adjperf</span><span class="chip hurt"><i class="ic"></i>Worse</span><span class="ds">Total points won <span class="num">&minus;0.14 / &minus;0.08</span> given Elo.</span></li>
+        <li><span class="nm">Splits by opponent strength</span><span class="chip none"><i class="ic"></i>No gain</span><span class="ds">"Comes up short against studs, crushes newbies": best split <span class="num">+1.43 / +0.74</span>, below the unsplit form. A player's own gap is chance.</span></li>
+        <li><span class="nm">IOS points matchup at its tuned memory</span><span class="chip hurt"><i class="ic"></i>Worse</span><span class="ds"><span class="num">&minus;0.74 / &minus;0.28</span> beside Elo and the serve/return ratings.</span></li>
+      </ul>
+    </div>
+
+    <div class="ufam">
+      <h3>The repaired model's extra families</h3>
+      <p class="src">Predictive frontier, repaired data. In the 36-input model, not in the 54</p>
+      <ul>
+        <li><span class="nm">Reliability and volatility of a player's level</span><span class="chip prom"><i class="ic"></i>Promising</span><span class="ds"><span class="num">+2.02 / +0.48</span> over the strong Elo model; <span class="num">+0.23</span> (&minus;0.04 to +0.50) given the odds, men: the best of the five.</span></li>
+        <li><span class="nm">Own-expected form: serve and return residuals, 28 and 182 days</span><span class="chip none"><i class="ic"></i>No gain</span><span class="ds"><span class="num">+1.55 / +0.42</span> over the Elo model; <span class="num">&minus;0.04 / &minus;0.13</span> given the odds.</span></li>
+        <li><span class="nm">Surface correction, partly pooled</span><span class="chip none"><i class="ic"></i>No gain</span><span class="ds"><span class="num">+1.12 / +0.71</span>; <span class="num">&minus;0.13 / &minus;0.06</span> given the odds.</span></li>
+        <li><span class="nm">Recovery: rest, inactivity, recent retirement losses</span><span class="chip none"><i class="ic"></i>No gain</span><span class="ds"><span class="num">+0.24 / +0.14</span>; <span class="num">&minus;0.07 / &minus;0.24</span> given the odds.</span></li>
+        <li><span class="nm">Event speed &times; serve style</span><span class="chip none"><i class="ic"></i>No gain</span><span class="ds"><span class="num">+0.06 / +0.10</span>; <span class="num">+0.07 / &minus;0.05</span> given the odds.</span></li>
+        <li><span class="nm">All five together</span><span class="chip none"><i class="ic"></i>No gain</span><span class="ds"><span class="num">+3.68 / +1.18</span> over the Elo model; <span class="num">+0.01 / &minus;0.21</span> given the odds.</span></li>
+      </ul>
+    </div>
+
+    <div class="ufam">
+      <h3>Shot- and point-level statistics</h3>
+      <p class="src">Shot-level study: 25 statistics from 6.2 million points, 141 pre-match features</p>
+      <ul>
+        <li><span class="nm">Serve speed and its recent change</span><span class="chip prom"><i class="ic"></i>Promising</span><span class="ds">Men's three-input speed profile <span class="num">+0.24</span> (+0.07 to +0.41) given the odds in 2022&ndash;26, absent before.</span></li>
+        <li><span class="nm">Rally length: quick points, 5+ and 9+ shot rallies, long-rally edge</span><span class="chip hurt"><i class="ic"></i>Worse</span><span class="ds">Women's long-rally edge <span class="num">&minus;0.32</span> given Elo; the rest nothing.</span></li>
+        <li><span class="nm">Winners, unforced errors, their ratio</span><span class="chip none"><i class="ic"></i>No gain</span><span class="ds">At most <span class="num">+0.05</span> given the odds.</span></li>
+        <li><span class="nm">Net approaches and net points won</span><span class="chip hurt"><i class="ic"></i>Worse</span><span class="ds">Several forms <span class="num">&minus;0.07 to &minus;0.16</span> given the odds.</span></li>
+        <li><span class="nm">Serve direction: to the T, out wide</span><span class="chip none"><i class="ic"></i>No gain</span><span class="ds">Up to <span class="num">+0.25</span> given Elo (women, wide); nothing given the odds.</span></li>
+        <li><span class="nm">Return depth, returns put in play</span><span class="chip none"><i class="ic"></i>No gain</span><span class="ds">Nothing on either tour.</span></li>
+        <li><span class="nm">Backhand share of errors, forehand share of winners</span><span class="chip hurt"><i class="ic"></i>Worse</span><span class="ds">Women's backhand-error share <span class="num">&minus;0.34</span> given the odds.</span></li>
+        <li><span class="nm">Pressure: holding after breaking, breaking back, serving for the set</span><span class="chip none"><i class="ic"></i>No gain</span><span class="ds">Mostly luck; at most <span class="num">+0.03</span> given the odds.</span></li>
+        <li><span class="nm">All shot statistics as profiles, ridge-fitted</span><span class="chip none"><i class="ic"></i>No gain</span><span class="ds"><span class="num">&minus;0.16 to +0.09</span> given the odds.</span></li>
+      </ul>
+    </div>
+
+    <div class="ufam">
+      <h3>Data held, never turned into a feature</h3>
+      <p class="src">Data map and the source studies</p>
+      <ul>
+        <li><span class="nm">Polymarket minute prices and every trade, Sep 2025 &ndash; Sep 2026</span><span class="chip held"><i class="ic"></i>Held</span><span class="ds">Bet-time prices and order flow. Never a model input or benchmark.</span></li>
+        <li><span class="nm">Spread of prices across bookmakers</span><span class="chip held"><i class="ic"></i>Held</span><span class="ds">Max odds, Bet365, overround: used only to check that quotes are coherent.</span></li>
+        <li><span class="nm">Hawk-Eye ball tracking</span><span class="chip held"><i class="ic"></i>Held</span><span class="ds">Spin, net clearance, bounce positions: ATP tour 2021&ndash;24; Australian Open and Roland Garros 2022&ndash;24.</span></li>
+        <li><span class="nm">IBM likelihood-to-win</span><span class="chip held"><i class="ic"></i>Held</span><span class="ds">After every point at Wimbledon and the US Open, 2025&ndash;26; a pre-match likelihood at the US Open.</span></li>
+        <li><span class="nm">Real match start times and per-point clock times</span><span class="chip held"><i class="ic"></i>Held</span><span class="ds">True rest hours and in-match duration, instead of event start dates.</span></li>
+        <li><span class="nm">Per-set statistics and set durations</span><span class="chip held"><i class="ic"></i>Held</span><span class="ds">Flashscore and the ATP site.</span></li>
+        <li><span class="nm">Distance run, TennisViz shot-quality ratings</span><span class="chip held"><i class="ic"></i>Held</span><span class="ds">Distance run at the US Open; TennisViz at Wimbledon and in the TDI feed.</span></li>
+        <li><span class="nm">Doubles results as extra workload</span><span class="chip held"><i class="ic"></i>Held</span><span class="ds">In the Slam feeds, the WTA point log and Sackmann's files to 2020.</span></li>
+        <li><span class="nm">Season-to-date statistics, prize money, draw size</span><span class="chip held"><i class="ic"></i>Held</span><span class="ds">From the ATP site, in the Hugging Face pipeline dump.</span></li>
+      </ul>
+    </div>
+
+    <div class="ufam">
+      <h3>Ideas not yet tested</h3>
+      <p class="src">The predictive-frontier register of 38 directions</p>
+      <ul>
+        <li><span class="nm">Restore dated lower-level history</span><span class="chip idea"><i class="ic"></i>Idea</span><span class="ds">See thread 2 below.</span></li>
+        <li><span class="nm">Carry each player's uncertainty through the point model</span><span class="chip idea"><i class="ic"></i>Idea</span><span class="ds">A shaky rating should give a less confident match probability.</span></li>
+        <li><span class="nm">Serve matchups: unreturned serves, serve direction against return weakness, serve+1 and return+1 patterns</span><span class="chip idea"><i class="ic"></i>Idea</span><span class="ds">From charted and tracked points already on disk.</span></li>
+        <li><span class="nm">Rally-length matchups</span><span class="chip idea"><i class="ic"></i>Idea</span><span class="ds">Partly tested: the simple long-rally edge made forecasts worse.</span></li>
+        <li><span class="nm">Weather, altitude, balls and court pace</span><span class="chip idea"><i class="ic"></i>Idea</span><span class="ds">Needs new data.</span></li>
+        <li><span class="nm">Travel, time zones, acclimatisation</span><span class="chip idea"><i class="ic"></i>Idea</span><span class="ds">Needs new data.</span></li>
+        <li><span class="nm">Injury and withdrawal reports; coach or equipment changes</span><span class="chip idea"><i class="ic"></i>Idea</span><span class="ds">Needs new data.</span></li>
+        <li><span class="nm">Ranking-points incentives</span><span class="chip idea"><i class="ic"></i>Idea</span><span class="ds">Points to defend, qualification races.</span></li>
+        <li><span class="nm">Quote dispersion and freshness; settlement-rule differences</span><span class="chip idea"><i class="ic"></i>Idea</span><span class="ds">Market microstructure rather than sport.</span></li>
+      </ul>
+    </div>
+
+  </div>
+</section>
+
+<!-- ===================================================== 6. THREADS -->
+<section id="threads">
+  <header>
+    <span class="eyebrow">6 &middot; Threads for our discussion</span>
+    <h2>Where the process, not the sport, may be holding us back</h2>
+  </header>
+  <ul class="threads">
+    <li>
+      <h4>We have tested "a better forecaster than the close", never "beat the close"</h4>
+      <p>Your friend's claim is closing-line value: getting a better price than the close. That needs a model better than the price <em>when the bet is placed</em>, usually earlier and softer, not better than the final price. Every study here benchmarks against the closing price, the hardest target there is. The Polymarket study already shows the close is beatable in tennis: 831 of 18,804 regular accounts clearly beat it, by +1.26&cent; per $1 before fees (+0.93&cent; after), with the most at Challenger and WTA 125 level (+1.75&cent;). We hold Polymarket's price history and every trade, so bet-time prices can be tested.</p>
+    </li>
+    <li>
+      <h4>The leak repair threw away 91% of the history</h4>
+      <p>To fix the timing leak, the repair kept only matches with a provider-dated match day: 78,714 of 872,704. Challenger, ITF and qualifying history went, and the repaired no-odds model came out 14.4 milli-log-loss worse than the original on the same matches. Nobody has measured how much of that was leak and how much was lost history. Two ways to remove the leak while keeping the history: real match days for the lower levels (already on disk in part: Flashscore start times for ATP and Challenger singles to April 2025, more ITF and WTA from its head-to-head crawl, api-tennis dates for 2021&ndash;24), or a rule that releases a lower-level result only after its event's last possible day.</p>
+    </li>
+    <li>
+      <h4>The one 2026 winner has not been re-run cleanly</h4>
+      <p>The study's own next step: rebuild the long-memory IOS profile on dated history, then refit TabPFN-3.5-Thinking with the same design on repaired features. If the men's gain survives, it is the first lead worth a betting-grade test. If it collapses, the leak explained it.</p>
+    </li>
+    <li>
+      <h4>We test where the market is sharpest</h4>
+      <p>Public closing odds exist only for the main tour, so every closing-line test ran on the most efficient tennis markets. Polymarket also lists Challenger, WTA 125 and ITF matches, where the sharp accounts earn the most. Pinnacle's odds also stop in January 2026, so our 2026 benchmark is the average of books, which scored 0.7 milli-log-loss worse than Pinnacle.</p>
+    </li>
+  </ul>
+</section>
+
+<!-- ===================================================== 7. GLOSSARY -->
+<section id="glossary">
+  <header>
+    <span class="eyebrow">7 &middot; Glossary</span>
+    <h2>Tennis and statistics terms used on this page</h2>
+  </header>
+  <details class="gloss">
+    <summary>Open the glossary <span class="chev" aria-hidden="true"></span></summary>
+    <div class="gloss-body">
+      <dl>
+        <dt>Serve, return</dt><dd>Each point starts with one player serving; the other returns. Serving is an advantage: men win about 63% of serve points on hard courts.</dd>
+        <dt>Game, set, match</dt><dd>Points make games (first to 4, by 2), games make sets (first to 6, by 2, or a tiebreak at 6&ndash;6), sets make the match (best of 3, or best of 5 in men's Grand Slams).</dd>
+        <dt>Hold, break</dt><dd>Winning your own service game is a hold; winning the opponent's is a break.</dd>
+        <dt>Break point</dt><dd>A point that would win the game for the returner. The server saves it; the returner converts it.</dd>
+        <dt>Ace, double fault</dt><dd>An ace is a serve the returner never touches. A double fault is two missed serves, a lost point.</dd>
+        <dt>First and second serve</dt><dd>A missed first serve gets a second try. Players hit the first hard and the second safe, so second-serve points are where returners attack.</dd>
+        <dt>Tiebreak</dt><dd>A first-to-7-points game that settles a set at 6&ndash;6. Mostly luck from one match to the next.</dd>
+        <dt>Surface</dt><dd>Hard (medium), clay (slow, high bounce, long rallies), grass (fast, low bounce, serve-dominated). Carpet was indoor and is gone.</dd>
+        <dt>Levels</dt><dd>Grand Slams (4 a year), Tour Finals, 1000s, 500s, 250s form the main tour. Below it: Challenger (men) / WTA 125 (women), then ITF. Qualifying rounds feed the main draws.</dd>
+        <dt>Retirement, walkover</dt><dd>A player who stops mid-match retires; one who never starts gives a walkover. Here the player who advanced is counted as the winner after a retirement; walkovers are excluded.</dd>
+      </dl>
+      <dl>
+        <dt>Log loss, milli-log-loss</dt><dd>&minus;ln(probability given to the winner), averaged. Coin 0.693. A milli-log-loss is 0.001. Positive gains on this page mean better.</dd>
+        <dt>The ladder</dt><dd>(coin's log loss &minus; model's) / (coin's &minus; the close's). 0% is a coin, 100% is the closing line.</dd>
+        <dt>De-vig, overround</dt><dd>Implied probabilities from odds sum above 1 (the bookmaker's margin). Dividing by the sum removes it.</dd>
+        <dt>Recalibrated close</dt><dd>The close passed through a one-slope logistic fit on training seasons. It is a slightly stronger benchmark than the raw close.</dd>
+        <dt>Given Elo, given odds</dt><dd>How much adding a feature to surface Elo, or to the closing odds, improves the forecast, fitted season by season on earlier seasons only.</dd>
+        <dt>Paired 95% interval</dt><dd>Uncertainty of a gain computed match by match on the same matches, grouped into four-week blocks of tournament dates so that related matches are not counted as independent.</dd>
+        <dt>Half-life</dt><dd>How long until an old match counts half as much. Two weeks means last month's matches barely count.</dd>
+        <dt>Shrinkage, prior</dt><dd>Pulling an average toward the tour norm (or zero) by a number of pseudo-matches, so a player with three matches is not judged on three matches.</dd>
+        <dt>Ridge</dt><dd>A penalty that pulls coefficients or ratings toward zero to stop them chasing noise.</dd>
+        <dt>iid point model</dt><dd>Treats every point as an independent coin with the server's win chance, and computes exactly the chance of winning the match from it.</dd>
+        <dt>Leak</dt><dd>Information from after a match reaching a feature for that match. Here: late rounds of a two-week event reaching another event that started during it.</dd>
+      </dl>
+    </div>
+  </details>
+</section>
+
+<footer>
+  <p><b>Sources.</b> Every number is read from the study files: <code>docs/studies/tabpfn_thinking/README.md</code> and <code>data/studies/tabpfn_thinking/</code> (results, saved test predictions), <code>docs/studies/predictive_frontier_tabpfn/</code>, <code>docs/studies/predictive_frontier/</code>, <code>docs/studies/feature_alpha_audit/repairs.md</code>, <code>docs/studies/ufc_ideas/stageB.md</code> and <code>stageD.md</code>, <code>docs/studies/predictability_diagnostic/stage0.md</code>&ndash;<code>stage4.md</code> and <code>candidates.md</code>, <code>docs/studies/rating_systems/summary.md</code>, <code>docs/studies/shot_level/README.md</code>, <code>docs/studies/polymarket_sharp_money/README.md</code>. The 2026 ladder values were recomputed from the saved test predictions of both TabPFN studies.</p>
+  <p><b>Status.</b> Research evidence, not a model, dataset or betting decision. Bookmaker odds are archived pre-play snapshots, not verified executable prices.</p>
+</footer>
+
+</div>
+
+<script>
+(function () {
+  // 2026 men's ladder: share of the coin-to-close gap closed, on each forecast's own matches.
+  var rows = [
+    { label: "Surface Elo", sub: "no odds, original history", v: 80.6, ll: "0.6124", n: "1,774", kind: "mut" },
+    { label: "36 repaired inputs, logistic", sub: "no odds", v: 84.7, ll: "0.6099", n: "1,712", kind: "mut" },
+    { label: "36 repaired inputs, TabPFN", sub: "no odds, cleanest standalone model", v: 86.7, ll: "0.6078", n: "1,712", kind: "mut" },
+    { label: "9 original inputs, logistic", sub: "no odds, leak-exposed features", v: 91.6, ll: "0.6013", n: "1,774", kind: "mut" },
+    { label: "Average closing line", sub: "the benchmark", v: 100.0, ll: "0.5929", n: "1,774", kind: "ref" },
+    { label: "Odds + 16-stat profile, logistic", sub: "original features", v: 101.5, ll: "0.5914", n: "1,774", kind: "mut" },
+    { label: "Odds + 53 inputs, TabPFN-3.5-Thinking", sub: "original features", v: 103.1, ll: "0.5898", n: "1,774", kind: "acc" }
+  ];
+  var lo = 70, hi = 106;
+  function pos(v) { return ((v - lo) / (hi - lo) * 100).toFixed(2) + "%"; }
+  var ladder = document.getElementById("ladder");
+  var ticks = [70, 80, 90, 100];
+  rows.forEach(function (r) {
+    var row = document.createElement("div");
+    row.className = "lrow" + (r.kind === "ref" ? " close" : "");
+    row.tabIndex = 0;
+    row.setAttribute("aria-label", r.label + ", " + r.sub + ": " + r.v.toFixed(1) + "% of the way from a coin to the closing line, log loss " + r.ll + " on " + r.n + " matches");
+    var grid = ticks.map(function (t) { return t === 100 ? "" : '<span class="grid" style="left:' + pos(t) + '"></span>'; }).join("");
+    var dot = r.kind === "ref" ? "" : '<span class="dot' + (r.kind === "acc" ? " acc" : "") + '" style="left:' + pos(r.v) + '"></span>';
+    row.innerHTML =
+      '<div class="llabel">' + r.label + '<small>' + r.sub + '</small></div>' +
+      '<div class="lval">' + r.v.toFixed(1) + '%</div>' +
+      '<div class="ltrack">' + grid + '<span class="base"></span><span class="refline" style="left:' + pos(100) + '"></span>' + dot +
+      '<span class="ltip" style="left:' + pos(Math.min(r.v, 99)) + '">log loss ' + r.ll + ' &middot; ' + r.n + ' matches</span></div>';
+    ladder.appendChild(row);
+  });
+  var tk = document.getElementById("ladder-ticks");
+  ticks.forEach(function (t) {
+    var s = document.createElement("span");
+    s.style.left = pos(t);
+    s.textContent = t + "%";
+    tk.appendChild(s);
+  });
+
+  // Open / close all input families.
+  var btn = document.getElementById("toggle-all");
+  var fams = Array.prototype.slice.call(document.querySelectorAll("details.fam"));
+  function sync() {
+    var allOpen = fams.every(function (d) { return d.open; });
+    btn.textContent = allOpen ? "Close all families" : "Open all families";
+  }
+  btn.addEventListener("click", function () {
+    var allOpen = fams.every(function (d) { return d.open; });
+    fams.forEach(function (d) { d.open = !allOpen; });
+    sync();
+  });
+  fams.forEach(function (d) { d.addEventListener("toggle", sync); });
+})();
+</script>

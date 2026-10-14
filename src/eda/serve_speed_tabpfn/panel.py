@@ -4,15 +4,19 @@
 C1  speed_panel.parquet: one row per rebuilt Stage 0 (match_id, side) that any held source times.
     Sources: point tables (stage1_points_<src>.parquet of slam_pbp, slam_tracking, slamtracker, infosys, sirgenkii;
     data/dump/points/infosys_slams/points.parquet), ManTennisData's and the handoff's ATP key statistics, and the AO
-    match centre. Flashscore is not used.
+    match centre. Flashscore is not used. Added on 8 Oct 2026, after the study's frozen build (which they cannot
+    change: speed_panel.parquet stays as run): the ATP Stats Centre's own decrypted files of 2018 to Oct 2021
+    (data/dump/points/infosys_atp/), as MatchBeats point means (infosys_atp; a double fault is "P" or "DF" there) and
+    key statistics (infosys_atp_ks, from serve_speed_acquisition/speeds.parquet). build_records(sources=...) builds
+    any subset by the same code (docs/studies/infosys_atp_backfill/).
     Value per player-match, by tier (Slams = Stage 0 level GS, main draw or qualifying):
         Slams          point mean > key statistic > AO match centre
         other levels   key statistic > point mean > AO match centre
       point mean       first serves in (serve 1, not a double fault) timed in (40, 270] km/h; n = timed count; gate
-                       n / first serves in >= 0.5; the source with the largest n wins, ties infosys_slams > sirgenkii >
-                       infosys > slam_tracking > slamtracker > slam_pbp
-      key statistic    ManTennisData, else the handoff's copy; y = KS - 0.5 (the statistic is the ceiling of the point
-                       mean); n = first serves in from the box score
+                       n / first serves in >= 0.5; the source with the largest n wins, ties infosys_slams > infosys_atp >
+                       sirgenkii > infosys > slam_tracking > slamtracker > slam_pbp
+      key statistic    ManTennisData, else the handoff's copy, else the ATP files' own; y = KS - 0.5 (the statistic is
+                       the ceiling of the point mean); n = first serves in from the box score
       AO match centre  y = MC + 0.5 (the published average is the floor of the point mean); n = first serves in
     A record that does not belong to its linked match is not a candidate, so the player-match takes its next valid
     record (checked in this order; the reason is kept on the record in speed_records.parquet):
@@ -80,6 +84,7 @@ TIMING = ROOT / "data" / "studies" / "match_timing" / "timing.parquet"
 SHOT = ROOT / "data" / "studies" / "shot_level"
 SPEEDS = ROOT / "data" / "studies" / "serve_speed_acquisition" / "speeds.parquet"
 INFO_SLAMS_POINTS = ROOT / "data" / "dump" / "points" / "infosys_slams" / "points.parquet"
+INFO_ATP_POINTS = ROOT / "data" / "dump" / "points" / "infosys_atp" / "points.parquet"
 AO_STATS = ROOT / "data" / "dump" / "points" / "ausopen" / "set_statistics.parquet"
 HANDOFF = ROOT / "data" / "raw" / "public_dump" / "atp_pipeline_handoff"
 MODEL_FRAME = ROOT / "data" / "studies" / "surface_rating_race" / "model" / "model_frame.parquet"
@@ -97,14 +102,19 @@ LINK_COLS = ["source", "key", "match_id", "a1"]
 POINT_COLS = ["key", "server", "serve_no", "end", "speed"]               # point-level: who served, serve number,
                                                                         # ending code (double faults), speed
 INFO_SLAMS_COLS = ["slam", "year", "match_id", "server", "serve", "serveSpeed", "faultSrvSpd", "result"]
+INFO_ATP_COLS = ["year", "event_id", "match_id", "server", "serve", "serveSpeed", "faultSrvSpd", "result"]
+ATP_DOUBLE_FAULTS = ("P", "DF")                                       # the ATP MatchBeats files' double-fault codes
 AO_STATS_COLS = ["record_key", "set", "stat", "team1_primary", "team1_secondary", "team2_primary", "team2_secondary"]
 RESULT_COLUMNS = {"a_won", "won", "winner", "winner_id", "loser", "score", "sets", "games", "status_detail",
                   "minutes", "match_winner", "winner_team", "p_mkt"}
 
 POINT_SOURCES = ["slam_pbp", "slam_tracking", "slamtracker", "infosys", "sirgenkii"]
-PTS_PRIORITY = ["infosys_slams", "sirgenkii", "infosys", "slam_tracking", "slamtracker", "slam_pbp"]
+PTS_PRIORITY = ["infosys_slams", "infosys_atp", "sirgenkii", "infosys", "slam_tracking", "slamtracker", "slam_pbp"]
+KS_RANK = {"mantennisdata": 0, "handoff_ks": 1, "infosys_atp_ks": 2}
 SLAM_ONLY = {"slam_pbp", "slam_tracking", "slamtracker", "infosys_slams", "ausopen_mc"}
-TOUR_ONLY = {"infosys", "mantennisdata", "handoff_ks"}
+TOUR_ONLY = {"infosys", "mantennisdata", "handoff_ks", "infosys_atp", "infosys_atp_ks"}
+ALL_SOURCES = set(POINT_SOURCES) | {"infosys_slams", "infosys_atp", "mantennisdata", "handoff_ks", "infosys_atp_ks",
+                                    "ausopen_mc"}
 TOUR_LEVELS = ("T250", "T500", "T1000", "FIN")
 LO, HI = 40.0, 270.0
 KS_SHIFT, MC_SHIFT = -0.5, +0.5
@@ -223,6 +233,43 @@ def _infosys_slams_records(sp_tab: pd.DataFrame) -> pd.DataFrame:
     return a
 
 
+def _infosys_atp_records(sp_tab: pd.DataFrame) -> pd.DataFrame:
+    """The ATP's own decrypted MatchBeats points (2018 to Oct 2021), as _infosys_slams_records: these files end a double
+    fault with "P" or "DF" (both are the point's ending code, not a match result). Linked through speeds.parquet."""
+    p = pd.read_parquet(INFO_ATP_POINTS, columns=INFO_ATP_COLS)
+    p = p[p["server"].astype(str).isin(["1", "2"])]
+    spd, flt = plaus(p["serveSpeed"]), plaus(p["faultSrvSpd"])
+    df = p["result"].astype(str).isin(ATP_DOUBLE_FAULTS).to_numpy()
+    sv = p["serve"].astype(str).to_numpy()
+    f1, f2 = (sv == "1") & ~df, (sv == "2") & ~df
+    t1, t2 = f1 & np.isfinite(spd), f2 & np.isfinite(spd)
+    fl = (sv == "2") & np.isfinite(flt)
+    g = pd.DataFrame({"source_key": p["year"].astype(str) + "_" + p["event_id"].astype(str) + "_"
+                      + p["match_id"].astype(str), "player_no": p["server"].astype(int).to_numpy(), "f1": f1, "n1": t1,
+                      "s1": np.where(t1, spd, 0.0), "q1": np.where(t1, spd * spd, 0.0), "f2": f2, "n2": t2,
+                      "s2": np.where(t2, spd, 0.0), "mx": np.where((f1 | f2) & np.isfinite(spd), spd, np.nan),
+                      "fl": fl, "sf": np.where(fl, flt, 0.0)})
+    a = g.groupby(["source_key", "player_no"]).agg(f1=("f1", "sum"), n1=("n1", "sum"), s1=("s1", "sum"),
+                                                   q1=("q1", "sum"), f2=("f2", "sum"), n2=("n2", "sum"),
+                                                   s2=("s2", "sum"), spd_max=("mx", "max"), nfault1=("fl", "sum"),
+                                                   sf=("sf", "sum")).reset_index()
+    a["fault1"] = a["sf"] / a["nfault1"].where(a["nfault1"] > 0)
+    lk = sp_tab[sp_tab["source"].eq("infosys_atp")][["source_key", "player_no", "match_id", "side", "round"]]
+    a = a.merge(lk, on=["source_key", "player_no"], how="left").drop(columns=["sf", "player_no"])
+    a = a.rename(columns={"round": "round_src"})
+    a["source"] = "infosys_atp"
+    return a
+
+
+def _infosys_atp_ks_records(sp_tab: pd.DataFrame) -> pd.DataFrame:
+    """The ATP files' own key statistics (the same statistic as ManTennisData's and the handoff's)."""
+    m = sp_tab[sp_tab["source"].eq("infosys_atp") & sp_tab["ks_spd1"].notna()]
+    return pd.DataFrame({"source": "infosys_atp_ks", "source_key": m["source_key"], "match_id": m["match_id"],
+                         "side": m["side"], "ks": m["ks_spd1"], "ks2": m["ks_spd2"], "spd_max": m["ks_max"],
+                         "ks_first_in": m["ks_first_in"], "ks_first_total": m["ks_first_total"],
+                         "round_src": m["round"]})
+
+
 def _mantd_records(sp_tab: pd.DataFrame) -> pd.DataFrame:
     m = sp_tab[sp_tab["source"].eq("mantennisdata") & sp_tab["ks_spd1"].notna()]
     return pd.DataFrame({"source": "mantennisdata", "source_key": m["source_key"], "match_id": m["match_id"],
@@ -321,15 +368,26 @@ def _read_speeds() -> pd.DataFrame:
     return pd.read_parquet(SPEEDS, columns=SPEEDS_COLS)
 
 
-def build_records() -> pd.DataFrame:
-    """Every timed record of every source, linked to the rebuilt Stage 0, harmonised, with its validity."""
+def build_records(sources: set[str] | None = None) -> pd.DataFrame:
+    """Every timed record of every source (or of `sources` only: ALL_SOURCES' names), linked to the rebuilt Stage 0,
+    harmonised, with its validity. Every validity rule reads one record or one source's records, so a subset gets the
+    validity it has in the full build."""
+    want = ALL_SOURCES if sources is None else set(sources)
+    unknown = want - ALL_SOURCES
+    if unknown:
+        raise ValueError(f"unknown sources {sorted(unknown)}")
     links = pd.read_parquet(SHOT / "stage0_source_matches.parquet", columns=LINK_COLS)
     sp_tab = _read_speeds()
     parts = []
     for name in POINT_SOURCES:
-        parts.append(_point_records(name, links))
-    parts.append(_infosys_slams_records(sp_tab))
-    pts = pd.concat(parts, ignore_index=True)
+        if name in want:
+            parts.append(_point_records(name, links))
+    if "infosys_slams" in want:
+        parts.append(_infosys_slams_records(sp_tab))
+    if "infosys_atp" in want:
+        parts.append(_infosys_atp_records(sp_tab))
+    pts = pd.concat(parts, ignore_index=True) if parts else pd.DataFrame(columns=["source", "s1", "n1", "s2", "n2",
+                                                                                  "q1", "f1"])
     pts["kind"], pts["basis"] = "point_mean", "pts"
     pts["y_raw"] = pts["s1"] / pts["n1"].where(pts["n1"] > 0)
     pts["y"] = pts["y_raw"]
@@ -339,14 +397,22 @@ def build_records() -> pd.DataFrame:
     pts["sd_within"] = np.sqrt(np.maximum(pts["q1"] / pts["n1"].where(pts["n1"] > 0) - pts["y_raw"] ** 2, 0.0))
     pts["timed_share"] = pts["n1"] / pts["f1"].where(pts["f1"] > 0)
     pts["gate"] = pts["timed_share"] >= GATE
-    ks = pd.concat([_mantd_records(sp_tab), _handoff_records(links)], ignore_index=True)
+    kparts = []
+    if "mantennisdata" in want:
+        kparts.append(_mantd_records(sp_tab))
+    if "handoff_ks" in want:
+        kparts.append(_handoff_records(links))
+    if "infosys_atp_ks" in want:
+        kparts.append(_infosys_atp_ks_records(sp_tab))
+    ks = pd.concat(kparts, ignore_index=True) if kparts else pd.DataFrame(columns=["ks", "ks2", "ks_first_in",
+                                                                                   "ks_first_total"])
     ks["kind"], ks["basis"] = "keystat", "ks"
     ks["y_raw"], ks["y"] = ks["ks"], ks["ks"] + KS_SHIFT
     ks["n"], ks["f1"] = ks["ks_first_in"], ks["ks_first_in"]
     ks["spd2_raw"], ks["spd2"] = ks["ks2"], ks["ks2"] + KS_SHIFT
     ks["n2"] = ks["ks_first_total"] - ks["ks_first_in"]
     ks["gate"] = True
-    mc = _ausopen_records(links)
+    mc = _ausopen_records(links) if "ausopen_mc" in want else pd.DataFrame(columns=["mc", "mc2", "n1"])
     mc = mc[mc["mc"].notna()]
     mc["kind"], mc["basis"] = "mc_floor", "pts"
     mc["y_raw"], mc["y"] = mc["mc"], mc["mc"] + MC_SHIFT
@@ -370,12 +436,14 @@ def build_records() -> pd.DataFrame:
     reason = pd.Series("", index=rec.index, dtype=object)
     reason[~rec["linked"]] = "unlinked"
     reason[(reason == "") & rec["kind"].eq("point_mean") & ~rec["gate"].astype(bool)] = "gate"
-    rmis = rec["source"].eq("mantennisdata") & rec["round_src"].notna() & (rec["round_src"] != rec["round_s0"])
+    rmis = rec["source"].isin(["mantennisdata", "infosys_atp", "infosys_atp_ks"]) & rec["round_src"].notna() \
+        & (rec["round_src"] != rec["round_s0"])
     reason[(reason == "") & rmis] = "mislink_round"
     slam_only = rec["source"].isin(SLAM_ONLY) & rec["level"].ne("GS")
     tour_only = rec["source"].isin(TOUR_ONLY) & rec["level"].eq("GS")
     reason[(reason == "") & (slam_only | tour_only)] = "mislink_level"
-    for src, why in (("mantennisdata", "ks_duplicate"), ("handoff_ks", "ks_duplicate"), ("ausopen_mc", "mc_duplicate")):
+    for src, why in (("mantennisdata", "ks_duplicate"), ("handoff_ks", "ks_duplicate"),
+                     ("infosys_atp_ks", "ks_duplicate"), ("ausopen_mc", "mc_duplicate")):
         ok = rec["source"].eq(src) & (reason == "")
         g = rec[ok].groupby(["match_id", "side"])["y"]
         spread = g.transform("max") - g.transform("min")
@@ -401,7 +469,7 @@ def choose(rec: pd.DataFrame, s0: pd.DataFrame) -> pd.DataFrame:
     slam = r["level"].eq("GS").to_numpy()
     kind_rank = np.select([r["kind"].eq("point_mean"), r["kind"].eq("keystat"), r["kind"].eq("mc_floor")],
                           [np.where(slam, 0, 1), np.where(slam, 1, 0), 2], 9)
-    src_rank = r["source"].map({**{s: i for i, s in enumerate(PTS_PRIORITY)}, "mantennisdata": 0, "handoff_ks": 1,
+    src_rank = r["source"].map({**{s: i for i, s in enumerate(PTS_PRIORITY)}, **KS_RANK,
                                 "ausopen_mc": 0}).fillna(9).to_numpy()
     r = r.assign(_valid=(~r["valid"]).astype(int), _kind=kind_rank, _n=-r["n"].fillna(0).to_numpy(), _src=src_rank)
     # point means: the largest n wins within the tier; key statistics: ManTennisData before the handoff

@@ -37,18 +37,18 @@ The misses in 2022 and at the 2026 Australian Open are the walkovers. The gap al
 
 **What was taken.**
 * The match catalogue and the 2,027 per-point CSVs (163 MB): one row per serve, 64 columns (server and point winner, serve number, speed and type, rally length, how the point ended, error type, the serve's, return's and last shot's positions, spin).
-* For 2022–2024, the years of the gap, the Court Vision JSON of each of the 1,225 matches (2.08 GB; 104 MB gzipped). It is the only place with every stroke: each point's `trajectoryData` lists the ball's hit, peak, net and bounce positions for the whole rally. The JSON of 2019–2021 (802 matches, 1.16 GB) is outside the gap and was not fetched.
+* For 2022–2024, the years of the gap, the Court Vision JSON of each of the 1,225 matches (2.08 GB; 104 MB gzipped). It is the only place with every stroke: each point's `trajectoryData` lists the ball's hit, peak, net and bounce positions for the whole rally. The JSON of 2019–2021 (802 matches, 1.16 GB) is outside the gap; it was fetched on 8 October ([below](#the-2019-2021-tracking-files-8-october-2026)).
 * The adapter, `src/ingest/public_dump/slam_ball_tracking.py`, checks every file against the repository tree's git blob hash. 2,035 files already fetched by the research session were copied from its copy instead of downloaded again, and 1,222 were downloaded; none failed.
 
 **Where it is.**
 
 | Stage | Path | Contents |
 |---|---|---|
-| Raw | `data/raw/public_dump/slam_ball_tracking/` | The repository's paths; JSON gzipped; `_receipts.jsonl` (268 MB) |
+| Raw | `data/raw/public_dump/slam_ball_tracking/` | The repository's paths; JSON gzipped (170 MB since 8 Oct); `_receipts.jsonl` (3.2 MB) |
 | Staged | `data/dump/points/slam_ball_tracking/matches.parquet` | The catalogue, 2,027 matches, with each match's files and counts |
 | | `…/points/<slam>_<year>.parquet` | Every CSV row, 503,586 |
-| | `…/json_matches.parquet`, `…/json_points/<slam>_<year>.parquet` | The JSON's match fields (1,225) and point records (307,734) |
-| | `…/shots/<slam>_<year>.parquet` | Every trajectory position, 4,662,409 |
+| | `…/json_matches.parquet`, `…/json_points/<slam>_<year>.parquet` | The JSON's match fields and point records: 1,225 and 307,734 for 2022–24; 2,027 and 503,586 since 8 Oct |
+| | `…/shots/<slam>_<year>.parquet` | Every trajectory position: 4,662,409 for 2022–24; 7,934,424 since 8 Oct |
 | Map | [data_map.yaml](../../../data/data_map.yaml), entry `slam_ball_tracking` | Measured as shot where 90% of a match's points are tracked, else point |
 
 A match is identified by slam, tour, year and the catalogue's `match_id`. The Roland Garros ids repeat every year (`SM001` is every final).
@@ -72,6 +72,32 @@ A match is identified by slam, tour, year and the catalogue's `match_id`. The Ro
 | 2025–26 | none | none | none | none |
 
 The Australian Open is nearly whole. Roland Garros is not: the copy holds 225 of its 254 singles matches in 2022, about half in 2023–24, and most Roland Garros points have no trajectory (no 2024 match is tracked on 90% of its points).
+
+### The 2019–2021 tracking files (8 October 2026)
+
+Work package P3 of the [collection plan](../gap_downloads/collection-plan.md) fetched the copy's Court Vision JSON of 2019–2021: the other 802 matches, outside the gap [observed].
+
+* **The run.**
+  * The command: `./python.sh -m src.ingest.public_dump.slam_ball_tracking --json-years 2019-2021 --workers 1`, at the pinned commit `f97a9b3`, one file at a time from GitHub's raw host.
+  * A trial of Roland Garros 2019 came first (83 files), then the rest.
+  * The fetches ran 19:36–19:43 UTC: 802 requests, 1.16 GB as served, every file equal to the tree's git blob hash. Nothing failed or was retried. The research copy held none of these years.
+  * Staging then re-read every year, in about 3 minutes.
+* **What it adds.**
+
+  | Edition | Matches | Tracked on 90%+ of points | Points with a trajectory |
+  |---|---:|---:|---:|
+  | Australian Open 2020 | 250 | 230 | 97% |
+  | Australian Open 2021 | 253 | 86 | 88% |
+  | Roland Garros 2019 | 83 | 58 | 92% |
+  | Roland Garros 2020 | 93 | 84 | 90% |
+  | Roland Garros 2021 | 123 | 111 | 89% |
+
+  In all, 3,272,015 positions. Every match of the copy now has its JSON, and 1,487 of the 2,027 are tracked on at least 90% of their points.
+* **Checks** (`hawkeye.py`, rerun over every year).
+  * Staged against lane A: all 2,027 matches agree.
+  * CSV against JSON: 503,586 records on each side. No match differs in its point ids or in which records are tracked. 7,396 placeholder records (1,275 of them in 2019–21).
+  * The gap's figures are unchanged (745 complete, 552 tracked), and `hawkeye_gap.csv` is byte-identical: these years are outside the gap.
+* **On the map** (rebuilt at 20:17 UTC): the entry `slam_ball_tracking` counts a match as shot where 90% of its points are tracked. So 569 Slam matches of 2019–2021 moved from point to shot grain, 305 men's and 264 women's. The copy still places 2,026 of its 2,027 matches.
 
 ## SofaScore
 
@@ -109,7 +135,7 @@ From the repository root, in Git Bash:
 
 ```
 ./python.sh -m src.ingest.public_dump.slam_ball_tracking          # the copy; skips what is held
-./python.sh -m src.ingest.public_dump.slam_ball_tracking --json-years all   # adds the 2019-2021 tracking (1.16 GB)
+./python.sh -m src.ingest.public_dump.slam_ball_tracking --json-years all   # every year's tracking (held since 8 Oct 2026)
 ./python.sh src/eda/ao_rg_points/hawkeye.py                       # the copy's checks and the gap's fill
 ./python.sh src/eda/ao_rg_points/link_sofascore.py                # gap row -> SofaScore event, and the fetch order
 ./python.sh -m src.ingest.point_sources.sofascore_tournaments --seasons-file data/studies/ao_rg_points/sofascore_seasons.csv --events-file data/studies/ao_rg_points/sofascore_fetch_order.csv --browser

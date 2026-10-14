@@ -1,0 +1,33 @@
+{
+ "name": "SYS_BOTH_cap",
+ "params": "C:\\Users\\zerom\\Documents\\Tennis-predictions\\data\\studies\\lower_level_evidence\\system\\relationship\\params.parquet",
+ "params_sha256": "4c559abd356f7c9f0f53c958c5d8293ae55d0cdfa62c4e9da689c94c91a801fb",
+ "classes": "C:\\Users\\zerom\\Documents\\Tennis-predictions\\data\\studies\\lower_level_evidence\\system\\classes\\classes.csv",
+ "classes_sha256": "58e7862273bfaf8bfbe6283c72b54e80f219ff36c0f83df795076d52ae940c26",
+ "strength": {
+  "path": "C:\\Users\\zerom\\Documents\\Tennis-predictions\\data\\studies\\lower_level_evidence\\system\\arms\\strength\\reference_elo.parquet",
+  "sha256": "fbda8cdc6ac14aaab933169a9d336dfc654bbfa5790cf23b00698344d3b6a54d"
+ },
+ "translate": true,
+ "weight": "fitted",
+ "weight_results": "fitted",
+ "prior": "pool",
+ "itf_box": "exclude",
+ "tours": [
+  "atp",
+  "wta"
+ ],
+ "families": {
+  "points_52w": true,
+  "forms": true,
+  "ios": true,
+  "ios_points_short": true,
+  "ratings_iid": true,
+  "elo": true
+ },
+ "params_season_floor": 2013,
+ "missing_params": "untouched",
+ "solve_w": "w_joint",
+ "ratings_level_term": "none",
+ "what": "C2's gate copy of C1's SYS_BOTH config under a new name, so that lane 2 in tnr_sys_ios does not reuse SYS_BOTH-named runs; built with C1's capped level_layer.py 26e21291 and level_layer_ios.py 3fa5f69e (pooled form-b runs on zeroed surfaces), 10 Oct 2026"
+}

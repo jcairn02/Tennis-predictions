@@ -1,0 +1,70 @@
+{
+ "swap_rows": 382,
+ "candidate_overrides": 2272,
+ "candidate_corrections": 1907,
+ "whole_frame": {
+  "rows_changed": 4002,
+  "rows_changed_not_named": 0,
+  "corrections_by_action": {
+   "add_df_to_svpt": 1196,
+   "exchange_box": 82,
+   "exchange_svgms": 706,
+   "blank_box": 19,
+   "replace_box": 34,
+   "replace_split": 58,
+   "set_age": 194
+  }
+ },
+ "a_vs_b": {
+  "rows_differing": 382,
+  "rows_differing_not_swaps": 0,
+  "columns_differing": [
+   "w_SvGms",
+   "l_SvGms"
+  ],
+  "swap_rows_in_subset": 382,
+  "swap_rows_exchanged": 382,
+  "swap_rows_changed": 382
+ },
+ "swap_rows_equal_to_truth_after": 382,
+ "box_checks": {
+  "stage0_rows": 12762,
+  "status_A": {
+   "full": 10577,
+   "blank": 1292,
+   "no_svgms": 868,
+   "partial": 11,
+   "failed_check": 8,
+   "all_zero": 6
+  },
+  "status_B": {
+   "full": 10581,
+   "blank": 1292,
+   "no_svgms": 868,
+   "partial": 11,
+   "all_zero": 6,
+   "failed_check": 4
+  },
+  "status_changes_A_to_B": [
+   {
+    "A_box_status": "failed_check",
+    "B_box_status": "full",
+    "rows": 4
+   }
+  ],
+  "B5_failures": {
+   "A": 12,
+   "B": 12
+  },
+  "B8_failures": {
+   "A": 4,
+   "B": 0
+  },
+  "swap_rows_B5_or_B8_after": 0,
+  "swap_rows_status_after": {
+   "full": 382
+  },
+  "rows_losing_a_usable_box": 0,
+  "B8_rows_after": []
+ }
+}

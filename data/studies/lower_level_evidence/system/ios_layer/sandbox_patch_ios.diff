@@ -1,0 +1,135 @@
+--- repository/src/eda/match_timing/rebuild.py
++++ sandbox/src/eda/match_timing/rebuild.py
+@@ -64,6 +64,7 @@
+ from src.eda.ufc_ideas import stageB_adjperf as AP  # noqa: E402
+ from src.eda.ufc_ideas import stageB_common as B  # noqa: E402
+ from src.eda.ufc_ideas import stageB_ios as I  # noqa: E402
++from src.eda.lower_level_evidence import level_layer_ios as _LLEIOS  # noqa: E402   # lower_level_evidence C2 (sandbox only)
+ 
+ WORKERS = int(os.environ.get("MATCH_TIMING_WORKERS", "4"))
+ PROFILE_IOS = ("ace", "df", "first_in", "first_won", "second_won", "hold", "bp_saved")
+@@ -165,7 +166,7 @@
+     tour, stat, h, kappa, tau, label = args
+     t0 = time.time()
+     d = _INPUTS[tour]
+-    r = IT.run_timed(d["td"], stat, h, kappa, tau, d["es"], d["lf"], d["obs"])
++    r = _LLEIOS.run_timed(d["td"], stat, h, kappa, tau, d["es"], d["lf"], d["obs"], label=label)  # lower_level_evidence C2 (sandbox only)
+     return {"tour": tour, "stat": stat, "label": label, "O": r["O"], "D": r["D"], "solver": r["solver"],
+             "seconds": round(time.time() - t0, 1)}
+ 
+@@ -192,6 +193,7 @@
+     inputs = {}
+     for t in C.TOURS:
+         td = IT.tour_inputs(rows, sa, typ, t, stats)
++        td = _LLEIOS.annotate_td(td, rows)  # lower_level_evidence C2 (sandbox only)
+         idx = td["idx"]
+         inputs[t] = {"td": td, "es": es[idx], "lf": lf[idx], "obs": obs[idx]}
+     tasks = [(t, s, chosen[(t, s)]["h"], chosen[(t, s)]["kappa"], chosen[(t, s)]["tau"], "tuned")
+@@ -284,6 +286,7 @@
+     frame.to_parquet(IOSFEAT, index=False, compression="zstd")
+     meta = {"ios": ios_meta, "ios_constants": IC.record(constants), "timing_input_sha256": MT.sha256(MT.TIMING),
+             "seconds": round(time.time() - start, 1)}
++    meta = _LLEIOS.stamp(meta)  # lower_level_evidence C2 (sandbox only)
+     MT.jdump(meta, MT.OUT / "ios_features_summary.json")
+     MT.log(f"wrote {IOSFEAT.name}")
+     return meta
+--- repository/src/eda/surface_ios/build_cache.py
++++ sandbox/src/eda/surface_ios/build_cache.py
+@@ -27,6 +27,7 @@
+ from src.eda.match_timing import rebuild as RB  # noqa: E402
+ from src.eda.predictability_diagnostic import common as PC  # noqa: E402
+ from src.eda.ufc_ideas import stageB_common as B  # noqa: E402
++from src.eda.lower_level_evidence import level_layer_ios as _LLEIOS  # noqa: E402   # lower_level_evidence C2 (sandbox only)
+ 
+ 
+ def main() -> int:
+@@ -68,6 +69,7 @@
+             arrays[f"{s}__d"] = a["d"][idx]
+             arrays[f"{s}__y"] = a["c"][idx]
+             arrays[f"{s}__mu"] = a["mu_scale"][idx]
++        arrays = _LLEIOS.annotate_cache(arrays, rows, idx)  # lower_level_evidence C2 (sandbox only)
+         np.savez_compressed(C.CACHE / f"{t}.npz", **arrays)
+         manifest["tours"][t] = {"rows": int(len(idx)), "players": int(pid.max() + 1),
+                                 "surface_rows": {C.SURF_NAMES.get(k, "unknown"): int((surf[idx] == k).sum())
+--- repository/src/eda/surface_ios/build_features.py
++++ sandbox/src/eda/surface_ios/build_features.py
+@@ -42,9 +42,10 @@
+ from src.eda.surface_ios import common as C  # noqa: E402
+ from src.eda.surface_ios import ios_surface as IS  # noqa: E402
+ from src.eda.surface_ios.summarise_tuning import BLOCK_ORIGIN, ratio_gain  # noqa: E402
++from src.eda.lower_level_evidence import level_layer_ios as _LLEIOS  # noqa: E402   # lower_level_evidence C2 (sandbox only)
+ 
+ WORKERS = int(os.environ.get("SURFACE_IOS_WORKERS", "14"))
+-RUNS = C.OUT / "full_runs"
++RUNS = _LLEIOS.runs_dir(C.OUT / "full_runs")  # lower_level_evidence C2 (sandbox only)
+ WINDOWS = {"2019-2026": range(2019, 2027), "2022-2026": range(2022, 2027)}
+ _TD: dict = {}
+ 
+@@ -67,7 +68,7 @@
+     else:
+         ks = c["kappa"] * ksm
+     t0 = time.time()
+-    res = IS.run(td, stat, h, c["kappa"], ks, c["tau"], typ[(stat, tour)])
++    res = _LLEIOS.run_surface(td, stat, h, c["kappa"], ks, c["tau"], typ[(stat, tour)])  # lower_level_evidence C2 (sandbox only)
+     ll, _ = IS.row_logloss(td, stat, res)
+     keep = ("O_eff", "D_eff", "O", "D", "E", "F")
+     np.savez_compressed(RUNS / f"{tour}_{stat}_{kind}.npz", ll=ll, **{k: res[k] for k in keep})
+@@ -171,7 +172,8 @@
+     F.to_parquet(C.OUT / "surface_features.parquet", index=False)
+     O = pd.DataFrame(oos)
+     O.to_csv(C.OUT / "oos_scores.csv", index=False)
+-    C.jdump({"ios_constants": IC.record(constants), "choice": choice, "runs": meta}, C.OUT / "build_features.json")
++    C.jdump(_LLEIOS.stamp({"ios_constants": IC.record(constants), "choice": choice, "runs": meta}, ("ios",)),  # lower_level_evidence C2 (sandbox only)
++            C.OUT / "build_features.json")
+     with pd.option_context("display.width", 250, "display.max_rows", 500):
+         print(O[(O["scope"] == "all levels")].round(3).to_string(index=False))
+     return 0
+--- repository/src/eda/tabpfn_leakproof/build_frame.py
++++ sandbox/src/eda/tabpfn_leakproof/build_frame.py
+@@ -51,6 +51,8 @@
+ 
+ 
+ def main() -> int:
++    from src.eda.lower_level_evidence import level_layer_ios as _LLEIOS  # lower_level_evidence C2 (sandbox only)
++    _LLEIOS.require_consistent(ROOT, "ios_part")  # lower_level_evidence C2 (sandbox only)
+     X0_train, y0_train, X0_query, manifest0 = OD.load_upload()
+     ids0 = pd.read_parquet(T.UPLOAD / "query_ids.parquet")
+     f = pd.read_parquet(T.OUT / "frame.parquet")
+--- repository/src/eda/surface_ios/arms.py
++++ sandbox/src/eda/surface_ios/arms.py
+@@ -69,6 +69,8 @@
+ 
+ 
+ def main() -> int:
++    from src.eda.lower_level_evidence import level_layer_ios as _LLEIOS  # lower_level_evidence C2 (sandbox only)
++    _LLEIOS.require_consistent(ROOT, "both")  # lower_level_evidence C2 (sandbox only)
+     base = pd.read_parquet(C.OUT / "base_frame.parquet")
+     checks = {}
+     if "--base-only" in sys.argv:                            # the base arm needs no surface input (pipeline checks)
+--- repository/src/eda/surface_ios/probe.py
++++ sandbox/src/eda/surface_ios/probe.py
+@@ -36,6 +36,7 @@
+ from src.eda.predictability_diagnostic import common as PC  # noqa: E402
+ from src.eda.predictability_diagnostic import stage1_baselines as E  # noqa: E402
+ from src.eda.ufc_ideas import stageB_common as B  # noqa: E402
++from src.eda.lower_level_evidence import level_layer_ios as _LLEIOS  # noqa: E402   # lower_level_evidence C2 (sandbox only)
+ 
+ STATS = ("spw", "hold", "first_won")
+ KS_MULT = (1.0, 10.0)
+@@ -64,6 +65,7 @@
+               "obs": rows["match_id"].map(tm["obs"]).to_numpy(dtype=float)[idx],
+               "stats": {s: {"ok": sa[s]["ok"][idx], "x": sa[s]["x"][idx], "d": sa[s]["d"][idx], "y": sa[s]["c"][idx],
+                             "mu": sa[s]["mu_scale"][idx]} for s in STATS}}
++        td = _LLEIOS.annotate_td(td, rows, idx=idx, tour=t)  # lower_level_evidence C2 (sandbox only)
+         pos = np.full(len(rows), -1)
+         pos[idx] = np.arange(len(idx))
+         sel = rows["tour"].to_numpy()[A] == t
+@@ -71,7 +73,7 @@
+         for s in STATS:
+             c = chosen[(t, s)]
+             for km in KS_MULT:
+-                r = IS.run(td, s, c["h"], c["kappa"], c["kappa"] * km, c["tau"], typ[(s, t)])
++                r = _LLEIOS.run_surface(td, s, c["h"], c["kappa"], c["kappa"] * km, c["tau"], typ[(s, t)])  # lower_level_evidence C2 (sandbox only)
+                 vals = np.full((len(A), 8), np.nan)
+                 vals[sel] = np.column_stack([r["O_eff"][pa], r["O_eff"][pb], r["D_eff"][pa], r["D_eff"][pb],
+                                              r["E"][pa], r["E"][pb], r["F"][pa], r["F"][pb]])
