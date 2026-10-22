@@ -1,0 +1,139 @@
+template check: data/studies/current_best_model/template_2026-10-21b, season 2026: OK
+  [ok] 57 inputs, ios_points_short dropped: 57 inputs; dropped ['ios_points_short']
+  [ok] odds input Pinnacle first, on this frame: order ['pinnacle', 'betonline', 'average']; frame hash matches: True
+  [ok] level layer built: build_config sha256 69291174289b
+  [ok] seeds 0-15 fitted for 2026: seeds 0-15
+  [ok] daily build tree holds the instance's layer config: C:\Users\zerom\tnr_tpl1021: same
+the daily pipeline now uses template_2026-10-21b on C:/Users/zerom/tnr_tpl1021. Next: make_checkpoint(<a day ~3 weeks back>, tree='C:/Users/zerom/tnr_tpl1021'), then replay_check(), then the first live run.
+>>> dp_checkpoint:  DP_BASE_TREE=C:\Users\zerom\tnr_tpl1021 DP_INSTANCE=template_2026-10-21b ./python.sh 'C:\Users\zerom\Documents\Tennis-predictions\src\eda\daily_prediction\dp.py' checkpoint --day 2026-06-22 --tree C:/Users/zerom/tnr_tpl1021
+[level_layer] ratings_iid atp: 158,607 lower-level rating matches; w at zero 30,597
+[level_layer] ratings_iid wta: 54,143 lower-level rating matches; w at zero 0
+[  30.7s]   constant rpw_first
+[  32.5s]   constant rpw_second
+[  34.2s]   constant bp_over
+[  36.0s]   constant win
+[  37.7s]   constant deciding
+[level_layer] forms: 17 pairs recomputed with the layer in 80 s
+[    0.0s] loading matches, players and odds; applying the repair's data corrections
+[   19.6s] rows: 1,856,674 player-matches; box history eligible 1,777,896; ITF/team own-score standard 1,317,370
+{
+ "checkpoint": "C:\\Users\\zerom\\Documents\\Tennis-predictions\\data\\studies\\daily_prediction\\state\\template_2026-10-21b\\2026-06-22",
+ "seconds": {
+  "offset_seconds": 8.9,
+  "stage3_seconds": 8.5,
+  "stage4_rows_seconds": 34.3,
+  "weighted_seconds": 11.7,
+  "forms_seconds": 109.6,
+  "ios_cache_seconds": 28.4,
+  "ios_runs_seconds": 393.1,
+  "total": 594.9
+ }
+}
+[ok] dp_checkpoint (597 s, exit 0)  log: data/studies/master_pipeline/logs/2026-10-21/155544_dp_checkpoint.log
+{
+ "created_at": "2026-10-21T230542Z",
+ "mode": "replay",
+ "replay": {
+  "week": "2026-07-13",
+  "round": "R16",
+  "winner": "A",
+  "dating": "training"
+ },
+ "matchups_csv": null,
+ "checkpoint": "2026-06-22",
+ "seeds": "0-15",
+ "work_tree": "C:\\Users\\zerom\\tnr_daily_retrain",
+ "instance": "C:\\Users\\zerom\\Documents\\Tennis-predictions\\data\\studies\\current_best_model\\template_2026-10-21b",
+ "base_tree": "C:\\Users\\zerom\\tnr_tpl1021"
+}
+[    0.4s] == worktree
+[   42.4s]    worktree: 42.0 s
+[   42.4s] == matchups
+[   45.4s]    matchups: 2.9 s
+[   45.4s] == prices
+[   45.6s]    prices: 0.2 s
+[   45.6s] == tables
+[   45.7s] --> stage0: src/eda/predictability_diagnostic/stage0_build.py --live-rows run/live_rows.parquet
+[  132.3s]     exit 0 in 86.5 s
+[  137.6s] --> additions: src/eda/current_best_model/additions.py --apply --accepted-json C:\Users\zerom\tnr_daily_retrain\run\accepted_for_replay.json
+[  337.2s]     exit 0 in 199.6 s
+[  337.2s] --> check: src/eda/prediction_run/inject.py --meta run/live_meta.parquet --step check
+[  337.8s]     exit 0 in 0.6 s
+[  337.8s] --> lle_layer: src/eda/current_best_model/layer_config.py --resolve --official C:\Users\zerom\Documents\Tennis-predictions\data\studies\current_best_model\level_layer\official.json
+[  355.1s]     exit 0 in 17.3 s
+[  355.2s] --> odds: src/eda/predictability_diagnostic/stage1_odds.py 
+[  361.0s]     exit 0 in 5.9 s
+[  361.0s] --> live_odds: src/eda/prediction_run/inject.py --meta run/live_meta.parquet --step odds
+[  361.7s]     exit 0 in 0.7 s
+[  367.4s]    tables: 321.8 s
+[  367.4s] == states
+[  525.5s]    states: 158.1 s
+[  525.5s] == history
+[  525.5s]    history: 0.0 s
+[  525.6s] == patterns
+[  579.8s]    patterns: 54.2 s
+[  579.8s] == fit
+[ 1440.4s]    fit: 860.6 s
+[ 1440.4s] == predict
+[ 1441.2s]    predict: 0.7 s
+{
+ "run": "C:\\Users\\zerom\\Documents\\Tennis-predictions\\data\\studies\\daily_prediction\\runs\\replay_2026-07-13_R16_20261021T160541",
+ "mode": "replay",
+ "started_at": "2026-10-21T230542Z",
+ "steps": {
+  "worktree": 42.0,
+  "matchups": 2.9,
+  "prices": 0.2,
+  "tables": 321.8,
+  "states": 158.1,
+  "history": 0.0,
+  "patterns": 54.2,
+  "fit": 860.6,
+  "predict": 0.7,
+  "cleanup": 5.6
+ },
+ "finished_at": "2026-10-21T232942Z",
+ "cleanup": {
+  "deleted": true,
+  "seconds": 5.6
+ }
+}
+{
+ "frame": "C:\\Users\\zerom\\Documents\\Tennis-predictions\\data\\studies\\current_best_model\\template_2026-10-21b\\model_frame.parquet",
+ "matches": 23,
+ "missing_from_frame": [],
+ "inputs": 57,
+ "inputs_bitwise": 42,
+ "non_ios_bitwise": 21,
+ "non_ios_inputs": 36,
+ "ios_max_abs_diff": 0.0,
+ "ios_nan_pattern_equal": true,
+ "max_abs_diff": 4.380941390991211e-06,
+ "matches_equal_on_every_input": 18
+}
+{'matches': 23, 'inputs_bitwise': 42, 'max_abs_diff': 4.380941390991211e-06, 'ios_max_abs_diff': 0.0, 'matches_equal_on_every_input': 18} ok True
+>>> dp_checkpoint:  DP_BASE_TREE=C:\Users\zerom\tnr_tpl1021 DP_INSTANCE=template_2026-10-21b ./python.sh 'C:\Users\zerom\Documents\Tennis-predictions\src\eda\daily_prediction\dp.py' checkpoint --day 2026-09-23 --tree C:/Users/zerom/tnr_tpl1021
+[level_layer] ratings_iid atp: 158,607 lower-level rating matches; w at zero 30,597
+[level_layer] ratings_iid wta: 54,143 lower-level rating matches; w at zero 0
+[  32.1s]   constant rpw_first
+[  33.9s]   constant rpw_second
+[  35.7s]   constant bp_over
+[  37.5s]   constant win
+[  39.1s]   constant deciding
+[level_layer] forms: 17 pairs recomputed with the layer in 75 s
+[    0.0s] loading matches, players and odds; applying the repair's data corrections
+[   19.9s] rows: 1,856,674 player-matches; box history eligible 1,777,896; ITF/team own-score standard 1,317,370
+{
+ "checkpoint": "C:\\Users\\zerom\\Documents\\Tennis-predictions\\data\\studies\\daily_prediction\\state\\template_2026-10-21b\\2026-09-23",
+ "seconds": {
+  "offset_seconds": 9.8,
+  "stage3_seconds": 9.1,
+  "stage4_rows_seconds": 34.2,
+  "weighted_seconds": 11.9,
+  "forms_seconds": 105.4,
+  "ios_cache_seconds": 28.7,
+  "ios_runs_seconds": 392.1,
+  "total": 591.6
+ }
+}
+[ok] dp_checkpoint (594 s, exit 0)  log: data/studies/master_pipeline/logs/2026-10-21/162949_dp_checkpoint.log

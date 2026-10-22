@@ -613,6 +613,14 @@ def wta_site_own_names(m: pd.DataFrame) -> pd.Series:
 
 WTA_PLAYER_RESULTS = WTA / "player_results"     # P2(b): the WTA API's player-matches results (13 Oct 2026, data_gaps_2026)
 WTA_SITE_API = {"on": True}                      # --no-wta-player-matches: the wta_site source as built before 13 Oct
+# The copy's last ten editions (version 29, 24 Sep 2026: those starting 7-14 Sep 2026) file their 187 singles under the
+# wrong editions, ITF W50s under WTA 125 titles among them: the creator's join failed for its newest week. Each match was
+# placed by the WTA API's player matches (the WTA's own tournament number) and confirmed by TennisLive or the WTA's own
+# draws (docs/studies/p6_data_issues/, 14 Oct 2026). Their listings are left out; the player-matches rows hold the same
+# matches under their true events, and the copy held nothing of the 13-14 Sep events themselves. The same list as the
+# data map's (measure.WTA_SITE_MISFILED).
+WTA_SITE_MISFILED = frozenset({163248187558, 322715938447, 354561979229, 491515815086, 540307471641,   # 7 Sep
+                               968402780291, 118580316990, 179051761652, 663626961107, 790501073046})  # 13-14 Sep
 
 
 def orient_sets(scores, reason) -> tuple[list[tuple[int, int, str | None]], bool]:
@@ -698,6 +706,9 @@ def load_wta_site() -> tuple[pd.DataFrame, dict]:
     own = wta_site_own_names(allm)                                              # over every listing, all years
     m = allm[allm["pseudo_tournament_id"].isin(set(t["pseudo_tournament_id"]))].drop_duplicates("pseudo_match_id")
     stats = {"singles_listed": int(len(m))}
+    misfiled = pd.to_numeric(m["pseudo_tournament_id"], errors="coerce").isin(WTA_SITE_MISFILED)
+    stats["misfiled_editions_left_out"] = int(misfiled.sum())
+    m = m[~misfiled]
     rc = m["reason_code"].fillna("").astype(str)
     walk = rc.isin(["B", "D", "UNP", "V"])
     # a player without a WTA id (a marginal ITF player with no WTA profile, 7% of rows) keeps her name only
@@ -2071,6 +2082,21 @@ def repair_and_dedupe(m: pd.DataFrame, mp: pd.DataFrame, ref_ids: set) -> tuple[
     return m2, mp2, info, gone
 
 
+ADDITION_COLUMNS = ["match_id", "sid", "source", "tour", "season", "ev_key", "ev_date", "event_tid", "event_date",
+                    "level", "map_level", "rnd", "x1", "x2", "route1", "route2", "p1", "p2", "c1", "c2", "has_src_box",
+                    "date_basis", "day"]
+ADDITION_DERIVED = ["joins_stage0_event", "has_box", "player_a_id", "player_b_id"]
+
+
+def empty_additions() -> pd.DataFrame:
+    """additions.parquet of a candidate without new matches (a box-only source's: 14 Oct 2026, the TennisLive box-score
+    package, docs/studies/tennislive_box_fill/): no rows, but the columns the checks read, with the types a written
+    additions table reads back with (text as str, so that the checks' merges on player ids keep matching dtypes)."""
+    other = {"season": "int64", "has_src_box": bool, "joins_stage0_event": bool, "has_box": bool,
+             "ev_date": "datetime64[ns]", "event_date": "datetime64[ns]", "day": "datetime64[ns]"}
+    return pd.DataFrame({c: pd.Series(dtype=other.get(c, "str")) for c in ADDITION_COLUMNS + ADDITION_DERIVED})
+
+
 def build(label: str, sources: list[str], revisions: bool, out: Path) -> dict:
     QUIET["on"] = label.startswith("_")
     out.mkdir(parents=True, exist_ok=True)
@@ -2220,10 +2246,7 @@ def build(label: str, sources: list[str], revisions: bool, out: Path) -> dict:
     allm.to_parquet(out / "stage0_matches.parquet", index=False)
     allmp.to_parquet(out / "stage0_match_players.parquet", index=False)
     timing.to_parquet(out / "timing.parquet", index=False, compression="zstd")
-    adds = NR[["match_id", "sid", "source", "tour", "season", "ev_key", "ev_date", "event_tid", "event_date", "level",
-               "map_level",
-               "rnd", "x1", "x2", "route1", "route2", "p1", "p2", "c1", "c2", "has_src_box", "date_basis",
-               "day"]].copy() if len(NR) else pd.DataFrame()
+    adds = NR[ADDITION_COLUMNS].copy() if len(NR) else empty_additions()
     if len(adds):
         adds["joins_stage0_event"] = NR["tid"].notna().to_numpy()
         am = allm.set_index("match_id")

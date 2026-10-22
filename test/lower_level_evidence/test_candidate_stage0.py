@@ -388,6 +388,26 @@ def test_derive_needs_a_ready_parent(tmp_path):
         F.main(["--label", "_pre", "--derive-from", str(tmp_path), "--out", str(tmp_path / "pre")])
 
 
+def test_a_candidate_without_new_matches_writes_additions_the_checks_can_read(tmp_path):
+    """A box-only source's candidate (14 Oct 2026, the TennisLive box-score package) adds no match: its additions table
+    keeps its columns, so the checks read it (an empty frame without columns stopped check_rules)."""
+    adds = F.empty_additions()
+    assert len(adds) == 0 and list(adds.columns) == F.ADDITION_COLUMNS + F.ADDITION_DERIVED
+    adds.to_parquet(tmp_path / "additions.parquet", index=False)
+    back = pd.read_parquet(tmp_path / "additions.parquet")
+    assert list(back.columns) == list(adds.columns)
+    # text columns read back as text, as a written table's do (inventory's merge on player ids needs matching dtypes)
+    assert all(isinstance(back[c].dtype, pd.StringDtype) for c in ("match_id", "source", "x1", "x2", "player_a_id"))
+    m = pd.DataFrame({"match_id": ["r1", "r2"], "status_detail": "completed", "format": "standard",
+                      "box_status": ["full", "no_svgms"], "score_flag": "", "a_won": [True, False]})
+    layers = pd.DataFrame({"match_id": ["r2"], "source": ["tennislive_pages"], "kind": ["completion"],
+                           "passes_checks": [True], "applied": [True]})
+    out = F.check_rules({"m": m, "adds": back, "layers": layers}, m[["match_id"]])
+    assert out["status"] == [] and out["box_status"] == [] and out["side_a_won_new"]["n"] == 0
+    assert out["box_layers"] == [{"source": "tennislive_pages", "kind": "completion", "matches": 1, "pass_checks": 1,
+                                  "failed_checks": 0, "applied": 1}]
+
+
 def test_identity_precision_counts_errors_with_an_exact_upper_bound(tmp_path):
     v = pd.DataFrame({"kind": "links", "source": ["a"] * 20 + ["b"] * 10, "route": "", "row": range(30),
                       "verdict": ["right"] * 20 + ["right"] * 8 + ["wrong", "unsure"], "note": ""})
@@ -564,3 +584,39 @@ def test_a_name_written_with_other_punctuation_is_the_same_player():
                       "x2": ["wta:1"], "p2": ["B One"], "route2": ["crosswalk"]})
     assert F.unify_shared_ids([mn], [mpn], [N], idmap)["unified_ids"] == 1
     assert mn.loc[0, "player_a_id"] == "wta:214974" and mpn.loc[0, "player_id"] == "wta:214974"
+
+
+def test_wta_site_leaves_out_the_copys_misfiled_editions_and_takes_the_wta_apis_rows(tmp_path, monkeypatch):
+    """The copy's last ten editions (7-14 Sep 2026) file their matches under the wrong editions, ITF W50s under WTA 125
+    titles among them (P6 data issues, 14 Oct 2026): their listings are left out, and the WTA API's player-matches row
+    places the match under its true edition and level."""
+    site, api = tmp_path / "bwandowando", tmp_path / "player_results"
+    site.mkdir()
+    api.mkdir()
+    monkeypatch.setattr(F, "WTA_SITE", site)
+    monkeypatch.setattr(F, "WTA_PLAYER_RESULTS", api)
+    monkeypatch.setitem(F.WTA_SITE_API, "on", True)
+    montreux, guiyang = 163248187558, 322715938447
+    assert {montreux, guiyang} <= F.WTA_SITE_MISFILED
+    pd.DataFrame({"pseudo_tournament_id": [montreux, guiyang],
+                  "title": ["Montreux Nestlé Open - Montreux, SUI", "WTT W50 - GUIYANG, CHINA"],
+                  "startDate": ["2026-09-07"] * 2, "surface": ["CLAY", "HARD"], "inOutdoor": ["O", "O"],
+                  "country": ["SUI", "CHN"], "level": ["WTA 125", "ITF"], "singlesDrawSize": [32, 32],
+                  "tournamentGroupId": [1112, 4209]}).to_csv(site / "tournaments.csv", index=False)
+    pd.DataFrame({"pseudo_match_id": [1], "pseudo_tournament_id": [montreux], "player_1": [330001],
+                  "player_2": [330002], "player_3": [None], "player_4": [None], "qpm_flag": ["M"],
+                  "reason_code": ["W"], "round_name": ["R32"], "tourn_round": [1], "scores": ["7-6(5)  7-5"],
+                  "team_name_1": ["WANG,  YAFAN  CHN"], "team_name_2": ["ASTAKHOVA,  ALEKSANDRA  RUS"],
+                  "winner": [1]}).to_csv(site / "matches.csv", index=False)
+    pd.DataFrame({"match_key": ["4209:2026:MS001"], "tournament_group_id": ["4209"], "start_date": ["2026-09-07"],
+                  "title": ["WTT W50 - GUIYANG, CHINA"], "level": ["ITF"], "surface": ["HARD"], "in_outdoor": ["O"],
+                  "country": ["CHN"], "qpm_flag": ["M"], "round_name": ["R32"], "tourn_round": [1],
+                  "winner_id": [330001], "winner_name": ["Yafan Wang"], "winner_country": ["CHN"],
+                  "loser_id": [330002], "loser_name": ["Aleksandra Astakhova"], "loser_country": ["RUS"],
+                  "scores": ["7-6(5)  7-5"], "reason_code": ["W"]}).to_parquet(api / "2026.parquet", index=False)
+    rows, stats = F.load_wta_site()
+    assert stats["misfiled_editions_left_out"] == 1
+    assert len(rows) == 1
+    r = rows.iloc[0]
+    assert r["ev_name"] == "WTT W50 - GUIYANG, CHINA" and r["ev_level"] == "ITF" and r["ev_surface"] == "Hard"
+    assert r["ev_key"] == f"wta_site:{guiyang}" and r["sid"].startswith("wta_site:api:")

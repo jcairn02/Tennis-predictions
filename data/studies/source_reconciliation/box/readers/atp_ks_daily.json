@@ -1,0 +1,136 @@
+{
+ "reader": "atp_ks_daily",
+ "source": "data/raw/point_sources/infosys_atp_daily/<year>/<event>/keystats-api/<CODE>.json.gz (decrypted in memory by the collector's guarded routine)",
+ "files_read": 105,
+ "events": {
+  "5014": 105
+ },
+ "staged_tables_hold": "speeds and first serves in / attempts only (staging/atp_daily_<date>.parquet)",
+ "files_without_set0": 0,
+ "linked": 99,
+ "link_methods": {
+  "event+id/id": 96,
+  "": 6,
+  "event+full/id": 3
+ },
+ "unlinked": {
+  "no_pair_in_event": 6
+ },
+ "complete_flag": {
+  "true": 87,
+  "false": 12
+ },
+ "sv_games_fit_the_score": {
+  "True": 99
+ },
+ "not_complete_but_sv_games_fit": 12,
+ "winner_vs_stage0": null,
+ "note_winner": "key statistics name no winner",
+ "rows_written": 198,
+ "matches_written": 99,
+ "sanity_vs_stage0": {
+  "all": {
+   "ace": {
+    "n": 198,
+    "equal": 1.0
+   },
+   "df": {
+    "n": 198,
+    "equal": 1.0
+   },
+   "svpt": {
+    "n": 198,
+    "equal": 0.9899
+   },
+   "first_in": {
+    "n": 198,
+    "equal": 0.9091
+   },
+   "first_won": {
+    "n": 198,
+    "equal": 0.9394
+   },
+   "second_won": {
+    "n": 198,
+    "equal": 0.9394
+   },
+   "sv_gms": {
+    "n": 198,
+    "equal": 1.0
+   },
+   "bp_saved": {
+    "n": 198,
+    "equal": 1.0
+   },
+   "bp_faced": {
+    "n": 198,
+    "equal": 1.0
+   }
+  },
+  "complete": {
+   "ace": {
+    "n": 174,
+    "equal": 1.0
+   },
+   "df": {
+    "n": 174,
+    "equal": 1.0
+   },
+   "svpt": {
+    "n": 174,
+    "equal": 0.9943
+   },
+   "first_in": {
+    "n": 174,
+    "equal": 0.9138
+   },
+   "first_won": {
+    "n": 174,
+    "equal": 0.9368
+   },
+   "second_won": {
+    "n": 174,
+    "equal": 0.9425
+   },
+   "sv_gms": {
+    "n": 174,
+    "equal": 1.0
+   },
+   "bp_saved": {
+    "n": 174,
+    "equal": 1.0
+   },
+   "bp_faced": {
+    "n": 174,
+    "equal": 1.0
+   }
+  }
+ },
+ "hand_checks": {
+  "by": "atp_handcheck.py (seed 20261016), read by the session on 16 Oct 2026",
+  "compared_with": "the collector's raw file, decrypted in memory (set0 and the players list)",
+  "verdict": "5 of 5: counts equal the decrypted set0 values; the players list's codes and names sit on Stage 0's players; one file read matchCompleted False (MS024) and its counts still equal Stage 0's",
+  "keys": [
+   {
+    "source_key": "2026_5014_MS012",
+    "match_id": "atp|2026-5014-20261007|R16|atp:122298|atp:212588"
+   },
+   {
+    "source_key": "2026_5014_MS024",
+    "match_id": "atp|2026-5014-20261007|R32|atp:122298|atp:209950"
+   },
+   {
+    "source_key": "2026_5014_MS062",
+    "match_id": "atp|2026-5014-20261007|R64|atp:200267|atp:209860"
+   },
+   {
+    "source_key": "2026_5014_MS101",
+    "match_id": "atp|2026-5014-20261007|R128|atp:132686|atp:207680"
+   },
+   {
+    "source_key": "2026_5014_MS126",
+    "match_id": "atp|2026-5014-20261007|R128|atp:200711|atp:207678"
+   }
+  ]
+ }
+}

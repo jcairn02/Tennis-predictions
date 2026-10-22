@@ -1,0 +1,39 @@
+{
+ "packages": [
+  "tennislive_box_fill",
+  "tennislive_box_fill_men_gsq",
+  "men_lower_level_fill"
+ ],
+ "feeds": {
+  "lower_level_feed": "20261021"
+ },
+ "feed_history": [
+  {
+   "feed": "lower_level_feed",
+   "snapshot": "20261013c",
+   "previous": null,
+   "at": "2026-10-14T03:29:24+00:00"
+  },
+  {
+   "feed": "lower_level_feed",
+   "snapshot": "20261014",
+   "previous": "20261013c",
+   "at": "2026-10-14T19:56:39+00:00"
+  },
+  {
+   "feed": "lower_level_feed",
+   "snapshot": "20261021",
+   "previous": "20261014",
+   "at": "2026-10-21T13:40:16+00:00"
+  }
+ ],
+ "retired": {
+  "men_2026_ch_chq": {
+   "reason": "superseded by lower_level_feed/20261013c, which holds every match it added (one as the same meeting under another new player's id: Misolic d. Esculcas, Braga Q1) and its completion, with TDI's box scores for Challenger qualifying; the feed adopted 13 Oct 2026 after its harm check (docs/decisions/2026-10-13-lower-level-feed.md)",
+   "superseded_by": [
+    "lower_level_feed/20261013c"
+   ],
+   "at": "2026-10-14T03:31:08+00:00"
+  }
+ }
+}

@@ -1,0 +1,111 @@
+{
+ "instance": "C:\\Users\\zerom\\Documents\\Tennis-predictions\\data\\studies\\current_best_model\\template_2026-10-16",
+ "frame_sha256": "58b72622c8bf364282223bb3275bc2fc7e3b0857009a752f46995753ace115db",
+ "inputs": [
+  "odds_logit",
+  "ratings_iid",
+  "elo_games",
+  "adjperf_tpw_2w",
+  "points_52w",
+  "sets_14d",
+  "age",
+  "age_sq",
+  "form_ace",
+  "form_df",
+  "form_first_in",
+  "form_first_won",
+  "form_second_won",
+  "form_hold",
+  "form_bp_saved",
+  "form_bp_faced_pg",
+  "form_brk",
+  "form_bp_conv",
+  "form_rpw_first",
+  "form_rpw_second",
+  "formdef_ace",
+  "formdef_df",
+  "formdef_first_in",
+  "formdef_bp_faced_pg",
+  "iosO_ace",
+  "iosD_ace",
+  "iosO_df",
+  "iosD_df",
+  "iosO_first_in",
+  "iosD_first_in",
+  "iosO_first_won",
+  "iosD_first_won",
+  "iosO_second_won",
+  "iosD_second_won",
+  "iosO_hold",
+  "iosD_hold",
+  "iosO_bp_saved",
+  "iosD_bp_saved",
+  "prod_ace",
+  "prod_df",
+  "prod_first_in",
+  "prod_first_won",
+  "prod_second_won",
+  "prod_hold",
+  "prod_bp_saved",
+  "tour",
+  "surface",
+  "level",
+  "indoor",
+  "best_of",
+  "round",
+  "elo_overall",
+  "elo_surf_offset",
+  "surf_season_a",
+  "surf_season_b",
+  "surf_layoff_a",
+  "surf_layoff_b"
+ ],
+ "config": {
+  "n_estimators": 8,
+  "softmax_temperature": 0.9,
+  "ignore_pretraining_limits": true
+ },
+ "grid": {
+  "prices": 91,
+  "from_logit": -2.9444389791664403,
+  "to_logit": 2.9444389791664403
+ },
+ "versions": {
+  "tabpfn": "9.1.0",
+  "torch": "2.11.0+cu128"
+ },
+ "seasons": {
+  "2026": {
+   "matches": 23,
+   "train_rows": 62869,
+   "query_rows": 4232,
+   "training_cutoff": null,
+   "admitted": 0
+  }
+ },
+ "seeds": {
+  "2026_2": {
+   "seconds": 55.5,
+   "fit_seconds": 52.5,
+   "predict_seconds": 3.03,
+   "gpu_free_gb_before": 30.3,
+   "peak_gpu_gb": 8.2,
+   "checkpoint": "C:\\Users\\zerom\\AppData\\Roaming\\tabpfn\\tabpfn-v3.5-20260909.safetensors",
+   "cache": "C:\\Users\\zerom\\AppData\\Local\\Temp\\pytest-of-zerom\\pytest-307\\dp_tabcache0\\template_2026-10-16\\tabpfn\\season2026\\seed2",
+   "how": "built",
+   "build_seconds": 45.31,
+   "save_seconds": 3.45,
+   "bytes": 3617551142
+  }
+ },
+ "path": "training cache (dp_tabcache)",
+ "summary": {
+  "matches": 23,
+  "seeds": 1,
+  "inside_grid": 23,
+  "interpolated_vs_own_max_abs": 0.001178118446226284,
+  "interpolated_vs_own_mean_abs": 0.0004010120879684267,
+  "falling_steps": 25,
+  "steps": 2070
+ }
+}

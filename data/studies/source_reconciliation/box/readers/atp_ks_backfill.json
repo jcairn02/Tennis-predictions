@@ -1,0 +1,151 @@
+{
+ "records_read": 2070,
+ "linked": 2045,
+ "link_methods": {
+  "event+id/id": 1986,
+  "event+anchor/id": 40,
+  "": 25,
+  "event+abbr/id": 19
+ },
+ "unlinked": {
+  "no_pair_in_event": 24,
+  "ambiguous": 1
+ },
+ "records_with_set0_keystats": 575,
+ "dropped": {
+  "no_set0_keystats": 1496,
+  "unlinked_with_keystats": 1
+ },
+ "winner_vs_stage0": {
+  "player_rows_with_a_winner": 1130,
+  "same_as_stage0": 1130,
+  "share_not_equal": 0.0,
+  "match_ids_not_equal_examples": []
+ },
+ "internal_consistency": {
+  "first_won_den_eq_first_in": {
+   "n": 1146,
+   "equal": 1.0
+  },
+  "second_den_eq_svpt_minus_first_in": {
+   "n": 1146,
+   "equal": 1.0
+  },
+  "sv_won_den_eq_svpt": {
+   "n": 1146,
+   "equal": 1.0
+  },
+  "sv_won_eq_first_plus_second": {
+   "n": 1146,
+   "equal": 1.0
+  }
+ },
+ "reader": "atp_ks_backfill",
+ "rows_written": 1146,
+ "matches_written": 573,
+ "sanity_vs_stage0": {
+  "all": {
+   "ace": {
+    "n": 1132,
+    "equal": 0.9708
+   },
+   "df": {
+    "n": 1132,
+    "equal": 0.9788
+   },
+   "svpt": {
+    "n": 1132,
+    "equal": 0.9726
+   },
+   "first_in": {
+    "n": 1132,
+    "equal": 0.9585
+   },
+   "first_won": {
+    "n": 1132,
+    "equal": 0.9629
+   },
+   "second_won": {
+    "n": 1132,
+    "equal": 0.9655
+   },
+   "sv_gms": {
+    "n": 1132,
+    "equal": 0.9753
+   },
+   "bp_saved": {
+    "n": 1132,
+    "equal": 0.9841
+   },
+   "bp_faced": {
+    "n": 1132,
+    "equal": 0.9806
+   }
+  },
+  "complete": {
+   "ace": {
+    "n": 1118,
+    "equal": 0.9723
+   },
+   "df": {
+    "n": 1118,
+    "equal": 0.9794
+   },
+   "svpt": {
+    "n": 1118,
+    "equal": 0.975
+   },
+   "first_in": {
+    "n": 1118,
+    "equal": 0.9606
+   },
+   "first_won": {
+    "n": 1118,
+    "equal": 0.9651
+   },
+   "second_won": {
+    "n": 1118,
+    "equal": 0.9669
+   },
+   "sv_gms": {
+    "n": 1118,
+    "equal": 0.9767
+   },
+   "bp_saved": {
+    "n": 1118,
+    "equal": 0.9857
+   },
+   "bp_faced": {
+    "n": 1118,
+    "equal": 0.9821
+   }
+  }
+ },
+ "hand_checks": {
+  "by": "atp_handcheck.py (seed 20261016), read by the session on 16 Oct 2026",
+  "compared_with": "staged keystats.parquet set0 rows and matches.parquet (p1/p2 codes and names)",
+  "verdict": "5 of 5: counts equal the staged values; p1/p2 sit on the Stage 0 players of the same names",
+  "keys": [
+   {
+    "source_key": "2020_7434_MS022",
+    "match_id": "atp|2020-7434|R32|atp:105916|atp:206173"
+   },
+   {
+    "source_key": "2021_404_MS018",
+    "match_id": "atp|2021-404|R32|atp:106234|atp:133430"
+   },
+   {
+    "source_key": "2021_404_QS017",
+    "match_id": "atp|2021-404|Q2|atp:105933|atp:106099"
+   },
+   {
+    "source_key": "2021_418_MS018",
+    "match_id": "atp|2021-418|R32|atp:105453|atp:122330"
+   },
+   {
+    "source_key": "2021_9569_MS003",
+    "match_id": "atp|2021-9569|SF|atp:105777|atp:134770"
+   }
+  ]
+ }
+}

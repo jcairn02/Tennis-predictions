@@ -24,7 +24,7 @@ Recorded the same day.
   > "I just want the same data as before for training + training updates from future dates frozen. But if we are downloading new LOWER LEVEL data, challenger +ITF it doesnt get auto included in the model. I want a way to test if this lower level skill data is harming our model (though the data is prior to the current date)."
 
   * **The model trains on the reference's matches plus the matches played since,** from the feeds that were feeding it (today Tennis My Life: the main tour, its qualifying, Challenger main draws, team events).
-  * **Anything else that changes the history is a candidate,** never included by itself. That covers new Challenger or ITF matches or box scores of past dates, a new source, and a dropped or revised past match. *Narrowed on 9 Oct 2026 to lower-level data (the amendment below).*
+  * **Anything else that changes the history is a candidate,** never included by itself. That covers new Challenger or ITF matches or box scores of past dates, a new source, and a dropped or revised past match. *Narrowed on 9 Oct 2026 to lower-level data (the amendment below), and on 14 Oct 2026 to lower-level data that changes coverage ([decision](2026-10-14-lower-level-gap-fills.md)).*
   * **Enforced** by `src/eda/current_best_model/history.py`. It compares any Stage 0 with the reference's, match by match. `run_chain.py --setup` refuses a template build when the history differs. *Since 9 Oct 2026, only when the lower-level history differs.*
   * **Refined by the owner the same day** ([prediction-run decision](2026-10-08-prediction-run-box-scores.md)): a reference match possibly played from 5 Oct on, from the feeds that fed the reference, may be completed, corrected or dropped like a new match, so that box scores TML publishes late do not refuse every build.
   * **Testing new data:** a `--setup --candidate` build with the new data, compared with `compare.py`.
@@ -38,6 +38,13 @@ Recorded the same day.
     * **The 8 Oct model stays saved as a comparison point** (the frozen reference).
     * **Qualifying is gated with the lower levels.** The owner named "challenger + ITF". Qualifying was kept under the gate on Claude's recommendation: its box scores inflate players' form numbers as Challengers' do (77–83% of the level boost kept; [lower-level evidence](../studies/lower_level_evidence/README.md) § 1.2). The owner may take it out.
     * **In the code:** `history.py` keeps its all-level counts (new past, dropped, revised) and splits each into `gated` (lower-level) and `allowed_main_tour`. `template_ok` reads only the gated part. Tests: `test/current_best_model/test_history.py`.
+  * **Narrowed again by the owner on 14 October 2026: lower-level data that fills holes enters by itself** ([decision](2026-10-14-lower-level-gap-fills.md)). The owner had asked on 11 Oct, "Why aren't we just using the newest data?", and on 14 Oct: "record the decision, update the projecct rules to match and build the tenis live package".
+    * Another source's lower-level data enters as an accepted package, registered without a decision of its own, when both hold:
+      * its box scores equal the history's on at least 98% of the matches both score, per tour and level;
+      * each tour, level and season it touches already holds box scores for at least half its matches, or the fill brings it closer to its level's other seasons (added the same day at the owner's word, "Yes add and fix those", with the agreement read on today's tables).
+    * It enters live runs at once and training at the next rebuild, whose harm check covers it.
+    * Still tested first: data that fails either condition, a level or seasons the history does not cover, and other sources' revisions.
+    * The first packages are TennisLive's box scores (`tennislive_box_fill`, 233 matches; `tennislive_box_fill_men_gsq`, 184).
 * **One gap, measured: no model input is affected.** A TDI refresh rewrote 18 timeline files in place an hour after the build had read them, and their build-time versions are lost.
   * **What the later versions add:** 268 TDI date links, for 206 Challenger and 62 ATP 500 matches (Beijing and Tokyo), all played 29 Sep – 8 Oct 2026. They change the days of 238 matches.
   * **Why the model cannot see it:** the frame's last matches (Chengdu and Hangzhou) finish by 29 Sep. Under the match clock a result counts only from the day after it finishes, so these days cannot reach a model input.
@@ -98,6 +105,12 @@ Recorded the same day.
     * live fills never become training rows (the [prediction-run decision](2026-10-08-prediction-run-box-scores.md)).
   * **The guard, before first live use:** a replay showing that the walk-forward calibration still fits the in-season fit's forecasts.
   * **Nothing is built yet:** the forecast step does not exist.
+  * ***Amended by the owner on 20 Oct 2026*** ([adoption by kind of change](2026-10-09-adoption-by-change-class.md), its amendment): the rows grow at retrains the owner calls, not at every run, and stage 2's coefficients grow with them (2019 .. Y − 1 plus the season-Y matches the retrain admits, from the walk-forward forecasts). Backtests and every check on unseen matches keep the season rule.
+* **Stage 2's speed coefficients follow the daily collector, confirmed by the owner on 14 October 2026.** Stage 2 already read "refitted each season, on the speed history that matches the live feed: `spd_L_B` for the weekly feed, `spd_L_D` once the daily collector runs". The collector's first rows reached the live panel on 8 Oct, but the daily pipeline still used the weekly set. Two sessions recommended the switch, and so did Claude; the owner's words: "close the gap in point 2 and I say yes to point 1! (not 12)".
+  * **What changes:** a match from 8 Oct 2026 takes the coefficients fitted by the same decided fit on `spd_L_D`, from the same speed history file; a match before it (a replay) keeps the `spd_L_B` set. So every live run takes the daily set.
+  * **The size, 2026, on the 10 Oct instance:** b̃ 0.0338 against 0.0369 weekly; s_atp 0.9008 against 0.9004; s_wta unchanged. The live runs of 11 and 13 Oct move by 0.19 points at most.
+  * **Point 2, the same day:** stage 2's saved coefficients are reused only while the frame, the input list, the seeds 0–3 fit files, the TabPFN they were made with (version, weights, settings) and the speed history are all unchanged. A run whose live fit uses another TabPFN, other weights, other settings or another input list is refused.
+  * **Record:** [the daily prediction README](../studies/daily_prediction/README.md) and part 4 of its process log.
 
 ## Decision
 
@@ -135,7 +148,7 @@ Recorded the same day.
   * the [offset Elo](2026-10-06-offset-elo.md)'s 6: overall Elo, the surface offset, and for each player the matches on the surface this season and the days since the last one.
   * **Since 10 Oct 2026, for men, the box-score and Elo inputs read lower-level matches through the [level layer](2026-10-10-level-evidence-layer.md)** (translated, weighted, ITF box scores out); `data/studies/current_best_model/level_layer/official.json`.
 * **Fit.**
-  * Season Y is trained on the frame's matches of 2013 .. Y − 1. Live fits will also take season Y's matches counted by the run's cut-off, once the forecast step is built (amendment of 9 Oct 2026 above).
+  * Season Y is trained on the frame's matches of 2013 .. Y − 1. Live fits will also take season Y's matches counted by the run's cut-off, once the forecast step is built (amendment of 9 Oct 2026 above). *Since 20 Oct 2026: by the cut-off of the retrain the owner calls, recorded in the instance (amendment above).*
   * 8 estimators, softmax temperature 0.9, pretraining limits ignored.
   * Each match is predicted as stored and with A and B swapped, and the two are symmetrised.
   * The forecast η averages seeds 0–15. The calibration and stage 2's fit use seeds 0–3.
@@ -146,7 +159,7 @@ Recorded the same day.
 * **The coefficients.**
   * s_atp, s_wta and b are fitted by maximum likelihood on 2019 .. Y − 1, from this model's own seeds 0–3 forecasts, with debut seasons left out.
   * b̃ = b · τ² / (τ² + SE²), with τ = 0.05.
-  * They are refitted each season, on the speed history that matches the live feed: `spd_L_B` for the weekly feed, `spd_L_D` once the daily collector runs.
+  * They are refitted each season, on the speed history that matches the live feed: `spd_L_B` for the weekly feed, `spd_L_D` once the daily collector runs. *It has run since 8 Oct 2026: matches from that day take the `spd_L_D` set (confirmed by the owner on 14 Oct 2026; amendment above).* *Since 20 Oct 2026 they are also refitted at each retrain the owner calls, on 2019 .. Y − 1 plus the season-Y matches it admits, on its three conditions (amendment above).*
 * **Every match is in mode L.** The code is `src/eda/serve_speed_tabpfn/adaptive/adjust.py`; the coefficient fit is `serve_speed_tabpfn/score.nudge_parameters`, reproduced in `src/eda/model_rebuild/compare.py` (`walk_forward`).
 
 **Comparisons.** New features and studies are compared against both stages, never the TabPFN fit alone.

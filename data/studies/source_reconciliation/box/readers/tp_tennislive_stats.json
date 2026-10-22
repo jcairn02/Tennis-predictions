@@ -1,0 +1,1092 @@
+{
+ "reader": "tp_tennislive_stats",
+ "written_at": "2026-10-16T22:09:17+00:00",
+ "file": "data/studies/source_reconciliation/box/readers/tp_tennislive_stats.parquet",
+ "snapshot_manifest_sha256": "fc299ad2f4f8c6221521b848403f763777a8553fe4603846fcfe01b059a8be7d",
+ "inputs": [
+  {
+   "path": "data/dump/points/tennislive/matches.parquet",
+   "bytes": 4352654,
+   "modified": "2026-10-14T00:34:47+00:00",
+   "sha256": "b4659201a1f974f6b7c759ea5a502f71c07731941d4b5ff3d319ea1c398e09c1"
+  },
+  {
+   "path": "data/dump/points/tennislive/statistics.parquet",
+   "bytes": 4401119,
+   "modified": "2026-10-14T00:35:23+00:00",
+   "sha256": "5ec4eeec7fc12f832689c4f47d6e39739d4899b83a6a94f1551ed8842fd8b5ae"
+  }
+ ],
+ "records": {
+  "pages": 41412,
+  "distinct_pages": 41412,
+  "finished_singles_not_walkover": 41337,
+  "with_match_statistics": 40638,
+  "by_collection": {
+   "P5": 36497,
+   "careers": 3868,
+   "P4": 273
+  }
+ },
+ "linked": {
+  "offered": 40638,
+  "linked": 38612,
+  "by_pass": {
+   "pair": 38279,
+   "anchor": 240,
+   "player_ids": 93
+  }
+ },
+ "dropped": {
+  "no_tour_or_day": 0,
+  "not_linked_by_reason": {
+   "names and window agree, but neither set scores nor round": 1219,
+   "no Stage 0 match with both players in the window": 736,
+   "names in the window agree on a given name or other word only": 63,
+   "ambiguous: equally good Stage 0 matches": 7,
+   "its Stage 0 match was taken by a better-ranked source row": 1
+  },
+  "ambiguous": 7
+ },
+ "checks": {
+  "swap_suspects_linked": 4,
+  "complete": 38576
+ },
+ "self_consistency_share": {
+  "first_den_equals_first_in": 1.0,
+  "second_den_equals_svpt_minus_first_in": 0.9999
+ },
+ "contract_checks": {
+  "rows": 77224,
+  "matches": 38612,
+  "matches_with_two_rows": 38612,
+  "duplicate_match_player": 0,
+  "player_not_in_stage0_match": 0,
+  "source_keys_on_two_matches": 0
+ },
+ "winner_vs_stage0": {
+  "player_rows_with_a_winner": 75682,
+  "agree": 75512,
+  "disagree": 170,
+  "disagree_share": 0.00225,
+  "disagree_examples": [
+   "atp|2018-1541|QF|atp:105155|atp:106249",
+   "atp|2018-3406|Q2|atp:105894|atp:106292",
+   "atp|2018-586|Q1|atp:106266|atp:200670",
+   "atp|2018-603|Q1|atp:109343|atp:207363",
+   "atp|2018-6967|Q1|atp:105633|atp:122606",
+   "atp|2018-7004|Q1|atp:105974|atp:200666",
+   "atp|2018-7004|Q2|atp:126208|atp:126337",
+   "atp|2018-7494|R16|atp:123819|atp:200095",
+   "atp|2018-7496|Q1|atp:105775|atp:122548",
+   "atp|2018-7652|Q1|atp:105906|atp:207535"
+  ]
+ },
+ "definitions": "\"match\"; the mapping of lower_level_evidence/candidate_stage0.py load_tennislive_pages):\n    first_in / svpt \"First serve\" detail \"17/33\" · first_won \"First serve points won\" \"16/17\" (x_first_den, should equal\n    first_in) · second_won \"Second serve points won\" \"12/16\" (x_second_den, should equal svpt - first_in) · ace \"Aces\" ·\n    df \"Double faults\" · bp_faced / bp_saved from the OPPONENT's \"Break points converted\" \"5/13\" (faced = the opponent's\n    chances, saved = those less his conversions) · sv_won = first_won + second_won. Pages of the newer layout (42 held)\n    add \"Service points won\" \"27/40\" (sv_won / svpt where \"First serve\" is missing), \"Break points saved\" \"2/4\" (the\n    player's own, preferred to the opponent's line) and \"Service games won\" \"6/8\" (sv_gms = played); the usual layout\n    gives no service games (sv_gms NaN).\nLink: the pages' own players, day (reference_utc), round and set scores (oriented by set_winners), linked by\nsrcc_common.link per season on the study's snapshot of Stage 0 (tp_common.link), with TennisLive's player ids for the\nid pass; as candidate_stage0.py links them. Orientation: the linker's p1_side (names; never by who won).\nA page whose statistics may belong to the other player: candidate_stage0.py found TennisLive's two players' statistics\nexchanged on 2 of 36 tour matches it checked and leaves out a page whose winner took under 45% of the points; here such\na page is kept with x_swap_suspect and is not complete.\ncomplete: the page says finished (not a walkover), the eight statistics are there for both players, and the page is\nnot a swap suspect.\nx_src_won: the page's winner_id, oriented.",
+ "sanity_vs_stage0_by_level_group": [
+  {
+   "level_group": "challenger",
+   "field": "ace",
+   "n": 46234,
+   "equal": 46224,
+   "within1": 46227,
+   "mean_diff": -0.0003028075,
+   "mean_abs_diff": 0.0005190985,
+   "equal_share": 0.999783709,
+   "within1_share": 0.9998485963
+  },
+  {
+   "level_group": "challenger_qual",
+   "field": "ace",
+   "n": 13730,
+   "equal": 13730,
+   "within1": 13730,
+   "mean_diff": 0.0,
+   "mean_abs_diff": 0.0,
+   "equal_share": 1.0,
+   "within1_share": 1.0
+  },
+  {
+   "level_group": "itf",
+   "field": "ace",
+   "n": 618,
+   "equal": 591,
+   "within1": 607,
+   "mean_diff": -0.0517799353,
+   "mean_abs_diff": 0.0647249191,
+   "equal_share": 0.9563106796,
+   "within1_share": 0.9822006472
+  },
+  {
+   "level_group": "itf_qual",
+   "field": "ace",
+   "n": 0,
+   "equal": 0,
+   "within1": 0,
+   "mean_diff": null,
+   "mean_abs_diff": null,
+   "equal_share": null,
+   "within1_share": null
+  },
+  {
+   "level_group": "slam",
+   "field": "ace",
+   "n": 54,
+   "equal": 52,
+   "within1": 52,
+   "mean_diff": 0.0,
+   "mean_abs_diff": 0.0740740741,
+   "equal_share": 0.962962963,
+   "within1_share": 0.962962963
+  },
+  {
+   "level_group": "slam_qual",
+   "field": "ace",
+   "n": 3292,
+   "equal": 3288,
+   "within1": 3290,
+   "mean_diff": 0.0006075334,
+   "mean_abs_diff": 0.0024301337,
+   "equal_share": 0.9987849332,
+   "within1_share": 0.9993924666
+  },
+  {
+   "level_group": "team",
+   "field": "ace",
+   "n": 4,
+   "equal": 4,
+   "within1": 4,
+   "mean_diff": 0.0,
+   "mean_abs_diff": 0.0,
+   "equal_share": 1.0,
+   "within1_share": 1.0
+  },
+  {
+   "level_group": "tour_main",
+   "field": "ace",
+   "n": 1276,
+   "equal": 1253,
+   "within1": 1261,
+   "mean_diff": -0.0321316614,
+   "mean_abs_diff": 0.0556426332,
+   "equal_share": 0.9819749216,
+   "within1_share": 0.9882445141
+  },
+  {
+   "level_group": "tour_qual",
+   "field": "ace",
+   "n": 8152,
+   "equal": 8151,
+   "within1": 8152,
+   "mean_diff": -0.0001226693,
+   "mean_abs_diff": 0.0001226693,
+   "equal_share": 0.9998773307,
+   "within1_share": 1.0
+  },
+  {
+   "level_group": "challenger",
+   "field": "df",
+   "n": 46234,
+   "equal": 46223,
+   "within1": 46228,
+   "mean_diff": -0.0001297746,
+   "mean_abs_diff": 0.0006056149,
+   "equal_share": 0.9997620799,
+   "within1_share": 0.9998702254
+  },
+  {
+   "level_group": "challenger_qual",
+   "field": "df",
+   "n": 13730,
+   "equal": 13730,
+   "within1": 13730,
+   "mean_diff": 0.0,
+   "mean_abs_diff": 0.0,
+   "equal_share": 1.0,
+   "within1_share": 1.0
+  },
+  {
+   "level_group": "itf",
+   "field": "df",
+   "n": 618,
+   "equal": 586,
+   "within1": 611,
+   "mean_diff": -0.0631067961,
+   "mean_abs_diff": 0.0663430421,
+   "equal_share": 0.9482200647,
+   "within1_share": 0.9886731392
+  },
+  {
+   "level_group": "itf_qual",
+   "field": "df",
+   "n": 0,
+   "equal": 0,
+   "within1": 0,
+   "mean_diff": null,
+   "mean_abs_diff": null,
+   "equal_share": null,
+   "within1_share": null
+  },
+  {
+   "level_group": "slam",
+   "field": "df",
+   "n": 54,
+   "equal": 52,
+   "within1": 52,
+   "mean_diff": 0.0,
+   "mean_abs_diff": 0.0740740741,
+   "equal_share": 0.962962963,
+   "within1_share": 0.962962963
+  },
+  {
+   "level_group": "slam_qual",
+   "field": "df",
+   "n": 3292,
+   "equal": 3288,
+   "within1": 3290,
+   "mean_diff": 0.0006075334,
+   "mean_abs_diff": 0.0018226002,
+   "equal_share": 0.9987849332,
+   "within1_share": 0.9993924666
+  },
+  {
+   "level_group": "team",
+   "field": "df",
+   "n": 4,
+   "equal": 4,
+   "within1": 4,
+   "mean_diff": 0.0,
+   "mean_abs_diff": 0.0,
+   "equal_share": 1.0,
+   "within1_share": 1.0
+  },
+  {
+   "level_group": "tour_main",
+   "field": "df",
+   "n": 1276,
+   "equal": 1256,
+   "within1": 1265,
+   "mean_diff": -0.0078369906,
+   "mean_abs_diff": 0.0360501567,
+   "equal_share": 0.9843260188,
+   "within1_share": 0.9913793103
+  },
+  {
+   "level_group": "tour_qual",
+   "field": "df",
+   "n": 8152,
+   "equal": 8152,
+   "within1": 8152,
+   "mean_diff": 0.0,
+   "mean_abs_diff": 0.0,
+   "equal_share": 1.0,
+   "within1_share": 1.0
+  },
+  {
+   "level_group": "challenger",
+   "field": "svpt",
+   "n": 46234,
+   "equal": 46209,
+   "within1": 46212,
+   "mean_diff": -0.003936497,
+   "mean_abs_diff": 0.0079162521,
+   "equal_share": 0.9994592724,
+   "within1_share": 0.9995241597
+  },
+  {
+   "level_group": "challenger_qual",
+   "field": "svpt",
+   "n": 13730,
+   "equal": 13729,
+   "within1": 13729,
+   "mean_diff": -0.0006554989,
+   "mean_abs_diff": 0.0006554989,
+   "equal_share": 0.9999271668,
+   "within1_share": 0.9999271668
+  },
+  {
+   "level_group": "itf",
+   "field": "svpt",
+   "n": 618,
+   "equal": 503,
+   "within1": 506,
+   "mean_diff": -1.8203883495,
+   "mean_abs_diff": 2.0760517799,
+   "equal_share": 0.8139158576,
+   "within1_share": 0.8187702265
+  },
+  {
+   "level_group": "itf_qual",
+   "field": "svpt",
+   "n": 0,
+   "equal": 0,
+   "within1": 0,
+   "mean_diff": null,
+   "mean_abs_diff": null,
+   "equal_share": null,
+   "within1_share": null
+  },
+  {
+   "level_group": "slam",
+   "field": "svpt",
+   "n": 54,
+   "equal": 51,
+   "within1": 52,
+   "mean_diff": -0.4444444444,
+   "mean_abs_diff": 0.4814814815,
+   "equal_share": 0.9444444444,
+   "within1_share": 0.962962963
+  },
+  {
+   "level_group": "slam_qual",
+   "field": "svpt",
+   "n": 3292,
+   "equal": 3286,
+   "within1": 3288,
+   "mean_diff": -0.0006075334,
+   "mean_abs_diff": 0.0066828676,
+   "equal_share": 0.9981773998,
+   "within1_share": 0.9987849332
+  },
+  {
+   "level_group": "team",
+   "field": "svpt",
+   "n": 4,
+   "equal": 2,
+   "within1": 4,
+   "mean_diff": -0.5,
+   "mean_abs_diff": 0.5,
+   "equal_share": 0.5,
+   "within1_share": 1.0
+  },
+  {
+   "level_group": "tour_main",
+   "field": "svpt",
+   "n": 1276,
+   "equal": 1248,
+   "within1": 1250,
+   "mean_diff": -0.1614420063,
+   "mean_abs_diff": 0.5548589342,
+   "equal_share": 0.9780564263,
+   "within1_share": 0.9796238245
+  },
+  {
+   "level_group": "tour_qual",
+   "field": "svpt",
+   "n": 8152,
+   "equal": 8150,
+   "within1": 8152,
+   "mean_diff": -0.0002453386,
+   "mean_abs_diff": 0.0002453386,
+   "equal_share": 0.9997546614,
+   "within1_share": 1.0
+  },
+  {
+   "level_group": "challenger",
+   "field": "first_in",
+   "n": 46234,
+   "equal": 46210,
+   "within1": 46215,
+   "mean_diff": -0.0030929619,
+   "mean_abs_diff": 0.0050395813,
+   "equal_share": 0.9994809015,
+   "within1_share": 0.999589047
+  },
+  {
+   "level_group": "challenger_qual",
+   "field": "first_in",
+   "n": 13730,
+   "equal": 13729,
+   "within1": 13729,
+   "mean_diff": -0.0005826657,
+   "mean_abs_diff": 0.0005826657,
+   "equal_share": 0.9999271668,
+   "within1_share": 0.9999271668
+  },
+  {
+   "level_group": "itf",
+   "field": "first_in",
+   "n": 618,
+   "equal": 511,
+   "within1": 521,
+   "mean_diff": -1.1650485437,
+   "mean_abs_diff": 1.3333333333,
+   "equal_share": 0.8268608414,
+   "within1_share": 0.8430420712
+  },
+  {
+   "level_group": "itf_qual",
+   "field": "first_in",
+   "n": 0,
+   "equal": 0,
+   "within1": 0,
+   "mean_diff": null,
+   "mean_abs_diff": null,
+   "equal_share": null,
+   "within1_share": null
+  },
+  {
+   "level_group": "slam",
+   "field": "first_in",
+   "n": 54,
+   "equal": 51,
+   "within1": 52,
+   "mean_diff": -0.5,
+   "mean_abs_diff": 0.537037037,
+   "equal_share": 0.9444444444,
+   "within1_share": 0.962962963
+  },
+  {
+   "level_group": "slam_qual",
+   "field": "first_in",
+   "n": 3292,
+   "equal": 3286,
+   "within1": 3286,
+   "mean_diff": -0.0075941677,
+   "mean_abs_diff": 0.0136695018,
+   "equal_share": 0.9981773998,
+   "within1_share": 0.9981773998
+  },
+  {
+   "level_group": "team",
+   "field": "first_in",
+   "n": 4,
+   "equal": 4,
+   "within1": 4,
+   "mean_diff": 0.0,
+   "mean_abs_diff": 0.0,
+   "equal_share": 1.0,
+   "within1_share": 1.0
+  },
+  {
+   "level_group": "tour_main",
+   "field": "first_in",
+   "n": 1276,
+   "equal": 1251,
+   "within1": 1254,
+   "mean_diff": -0.0626959248,
+   "mean_abs_diff": 0.3542319749,
+   "equal_share": 0.9804075235,
+   "within1_share": 0.9827586207
+  },
+  {
+   "level_group": "tour_qual",
+   "field": "first_in",
+   "n": 8152,
+   "equal": 8150,
+   "within1": 8152,
+   "mean_diff": -0.0002453386,
+   "mean_abs_diff": 0.0002453386,
+   "equal_share": 0.9997546614,
+   "within1_share": 1.0
+  },
+  {
+   "level_group": "challenger",
+   "field": "first_won",
+   "n": 46234,
+   "equal": 46212,
+   "within1": 46218,
+   "mean_diff": -0.0015572955,
+   "mean_abs_diff": 0.0035471731,
+   "equal_share": 0.9995241597,
+   "within1_share": 0.9996539343
+  },
+  {
+   "level_group": "challenger_qual",
+   "field": "first_won",
+   "n": 13730,
+   "equal": 13729,
+   "within1": 13729,
+   "mean_diff": -0.0002913328,
+   "mean_abs_diff": 0.0002913328,
+   "equal_share": 0.9999271668,
+   "within1_share": 0.9999271668
+  },
+  {
+   "level_group": "itf",
+   "field": "first_won",
+   "n": 618,
+   "equal": 519,
+   "within1": 534,
+   "mean_diff": -0.783171521,
+   "mean_abs_diff": 0.8899676375,
+   "equal_share": 0.8398058252,
+   "within1_share": 0.8640776699
+  },
+  {
+   "level_group": "itf_qual",
+   "field": "first_won",
+   "n": 0,
+   "equal": 0,
+   "within1": 0,
+   "mean_diff": null,
+   "mean_abs_diff": null,
+   "equal_share": null,
+   "within1_share": null
+  },
+  {
+   "level_group": "slam",
+   "field": "first_won",
+   "n": 54,
+   "equal": 52,
+   "within1": 52,
+   "mean_diff": -0.5,
+   "mean_abs_diff": 0.5,
+   "equal_share": 0.962962963,
+   "within1_share": 0.962962963
+  },
+  {
+   "level_group": "slam_qual",
+   "field": "first_won",
+   "n": 3292,
+   "equal": 3286,
+   "within1": 3288,
+   "mean_diff": -0.0045565006,
+   "mean_abs_diff": 0.005164034,
+   "equal_share": 0.9981773998,
+   "within1_share": 0.9987849332
+  },
+  {
+   "level_group": "team",
+   "field": "first_won",
+   "n": 4,
+   "equal": 3,
+   "within1": 3,
+   "mean_diff": -0.75,
+   "mean_abs_diff": 0.75,
+   "equal_share": 0.75,
+   "within1_share": 0.75
+  },
+  {
+   "level_group": "tour_main",
+   "field": "first_won",
+   "n": 1276,
+   "equal": 1250,
+   "within1": 1253,
+   "mean_diff": -0.0963949843,
+   "mean_abs_diff": 0.2343260188,
+   "equal_share": 0.9796238245,
+   "within1_share": 0.9819749216
+  },
+  {
+   "level_group": "tour_qual",
+   "field": "first_won",
+   "n": 8152,
+   "equal": 8150,
+   "within1": 8152,
+   "mean_diff": -0.0002453386,
+   "mean_abs_diff": 0.0002453386,
+   "equal_share": 0.9997546614,
+   "within1_share": 1.0
+  },
+  {
+   "level_group": "challenger",
+   "field": "second_won",
+   "n": 46234,
+   "equal": 46217,
+   "within1": 46227,
+   "mean_diff": -0.0007786477,
+   "mean_abs_diff": 0.0017303283,
+   "equal_share": 0.9996323052,
+   "within1_share": 0.9998485963
+  },
+  {
+   "level_group": "challenger_qual",
+   "field": "second_won",
+   "n": 13730,
+   "equal": 13730,
+   "within1": 13730,
+   "mean_diff": 0.0,
+   "mean_abs_diff": 0.0,
+   "equal_share": 1.0,
+   "within1_share": 1.0
+  },
+  {
+   "level_group": "itf",
+   "field": "second_won",
+   "n": 618,
+   "equal": 531,
+   "within1": 564,
+   "mean_diff": -0.3236245955,
+   "mean_abs_diff": 0.3689320388,
+   "equal_share": 0.859223301,
+   "within1_share": 0.9126213592
+  },
+  {
+   "level_group": "itf_qual",
+   "field": "second_won",
+   "n": 0,
+   "equal": 0,
+   "within1": 0,
+   "mean_diff": null,
+   "mean_abs_diff": null,
+   "equal_share": null,
+   "within1_share": null
+  },
+  {
+   "level_group": "slam",
+   "field": "second_won",
+   "n": 54,
+   "equal": 52,
+   "within1": 52,
+   "mean_diff": -0.0925925926,
+   "mean_abs_diff": 0.0925925926,
+   "equal_share": 0.962962963,
+   "within1_share": 0.962962963
+  },
+  {
+   "level_group": "slam_qual",
+   "field": "second_won",
+   "n": 3292,
+   "equal": 3286,
+   "within1": 3286,
+   "mean_diff": 0.0042527339,
+   "mean_abs_diff": 0.0060753341,
+   "equal_share": 0.9981773998,
+   "within1_share": 0.9981773998
+  },
+  {
+   "level_group": "team",
+   "field": "second_won",
+   "n": 4,
+   "equal": 4,
+   "within1": 4,
+   "mean_diff": 0.0,
+   "mean_abs_diff": 0.0,
+   "equal_share": 1.0,
+   "within1_share": 1.0
+  },
+  {
+   "level_group": "tour_main",
+   "field": "second_won",
+   "n": 1276,
+   "equal": 1253,
+   "within1": 1254,
+   "mean_diff": -0.0462382445,
+   "mean_abs_diff": 0.1136363636,
+   "equal_share": 0.9819749216,
+   "within1_share": 0.9827586207
+  },
+  {
+   "level_group": "tour_qual",
+   "field": "second_won",
+   "n": 8152,
+   "equal": 8152,
+   "within1": 8152,
+   "mean_diff": 0.0,
+   "mean_abs_diff": 0.0,
+   "equal_share": 1.0,
+   "within1_share": 1.0
+  },
+  {
+   "level_group": "challenger",
+   "field": "sv_gms",
+   "n": 22,
+   "equal": 22,
+   "within1": 22,
+   "mean_diff": 0.0,
+   "mean_abs_diff": 0.0,
+   "equal_share": 1.0,
+   "within1_share": 1.0
+  },
+  {
+   "level_group": "challenger_qual",
+   "field": "sv_gms",
+   "n": 0,
+   "equal": 0,
+   "within1": 0,
+   "mean_diff": null,
+   "mean_abs_diff": null,
+   "equal_share": null,
+   "within1_share": null
+  },
+  {
+   "level_group": "itf",
+   "field": "sv_gms",
+   "n": 0,
+   "equal": 0,
+   "within1": 0,
+   "mean_diff": null,
+   "mean_abs_diff": null,
+   "equal_share": null,
+   "within1_share": null
+  },
+  {
+   "level_group": "itf_qual",
+   "field": "sv_gms",
+   "n": 0,
+   "equal": 0,
+   "within1": 0,
+   "mean_diff": null,
+   "mean_abs_diff": null,
+   "equal_share": null,
+   "within1_share": null
+  },
+  {
+   "level_group": "slam",
+   "field": "sv_gms",
+   "n": 0,
+   "equal": 0,
+   "within1": 0,
+   "mean_diff": null,
+   "mean_abs_diff": null,
+   "equal_share": null,
+   "within1_share": null
+  },
+  {
+   "level_group": "slam_qual",
+   "field": "sv_gms",
+   "n": 0,
+   "equal": 0,
+   "within1": 0,
+   "mean_diff": null,
+   "mean_abs_diff": null,
+   "equal_share": null,
+   "within1_share": null
+  },
+  {
+   "level_group": "team",
+   "field": "sv_gms",
+   "n": 2,
+   "equal": 2,
+   "within1": 2,
+   "mean_diff": 0.0,
+   "mean_abs_diff": 0.0,
+   "equal_share": 1.0,
+   "within1_share": 1.0
+  },
+  {
+   "level_group": "tour_main",
+   "field": "sv_gms",
+   "n": 2,
+   "equal": 2,
+   "within1": 2,
+   "mean_diff": 0.0,
+   "mean_abs_diff": 0.0,
+   "equal_share": 1.0,
+   "within1_share": 1.0
+  },
+  {
+   "level_group": "tour_qual",
+   "field": "sv_gms",
+   "n": 0,
+   "equal": 0,
+   "within1": 0,
+   "mean_diff": null,
+   "mean_abs_diff": null,
+   "equal_share": null,
+   "within1_share": null
+  },
+  {
+   "level_group": "challenger",
+   "field": "bp_saved",
+   "n": 46212,
+   "equal": 46196,
+   "within1": 46202,
+   "mean_diff": -0.0002813122,
+   "mean_abs_diff": 0.0011036095,
+   "equal_share": 0.9996537696,
+   "within1_share": 0.999783606
+  },
+  {
+   "level_group": "challenger_qual",
+   "field": "bp_saved",
+   "n": 13716,
+   "equal": 13715,
+   "within1": 13715,
+   "mean_diff": -0.0002187227,
+   "mean_abs_diff": 0.0002187227,
+   "equal_share": 0.9999270924,
+   "within1_share": 0.9999270924
+  },
+  {
+   "level_group": "itf",
+   "field": "bp_saved",
+   "n": 618,
+   "equal": 580,
+   "within1": 602,
+   "mean_diff": -0.1100323625,
+   "mean_abs_diff": 0.1197411003,
+   "equal_share": 0.9385113269,
+   "within1_share": 0.9741100324
+  },
+  {
+   "level_group": "itf_qual",
+   "field": "bp_saved",
+   "n": 0,
+   "equal": 0,
+   "within1": 0,
+   "mean_diff": null,
+   "mean_abs_diff": null,
+   "equal_share": null,
+   "within1_share": null
+  },
+  {
+   "level_group": "slam",
+   "field": "bp_saved",
+   "n": 54,
+   "equal": 52,
+   "within1": 53,
+   "mean_diff": -0.0925925926,
+   "mean_abs_diff": 0.1296296296,
+   "equal_share": 0.962962963,
+   "within1_share": 0.9814814815
+  },
+  {
+   "level_group": "slam_qual",
+   "field": "bp_saved",
+   "n": 3286,
+   "equal": 3281,
+   "within1": 3283,
+   "mean_diff": 0.0021302495,
+   "mean_abs_diff": 0.0051734632,
+   "equal_share": 0.9984783932,
+   "within1_share": 0.9990870359
+  },
+  {
+   "level_group": "team",
+   "field": "bp_saved",
+   "n": 4,
+   "equal": 4,
+   "within1": 4,
+   "mean_diff": 0.0,
+   "mean_abs_diff": 0.0,
+   "equal_share": 1.0,
+   "within1_share": 1.0
+  },
+  {
+   "level_group": "tour_main",
+   "field": "bp_saved",
+   "n": 1276,
+   "equal": 1252,
+   "within1": 1256,
+   "mean_diff": -0.0109717868,
+   "mean_abs_diff": 0.0862068966,
+   "equal_share": 0.9811912226,
+   "within1_share": 0.9843260188
+  },
+  {
+   "level_group": "tour_qual",
+   "field": "bp_saved",
+   "n": 8146,
+   "equal": 8146,
+   "within1": 8146,
+   "mean_diff": 0.0,
+   "mean_abs_diff": 0.0,
+   "equal_share": 1.0,
+   "within1_share": 1.0
+  },
+  {
+   "level_group": "challenger",
+   "field": "bp_faced",
+   "n": 46212,
+   "equal": 46195,
+   "within1": 46204,
+   "mean_diff": -0.000216394,
+   "mean_abs_diff": 0.0011685277,
+   "equal_share": 0.9996321302,
+   "within1_share": 0.9998268848
+  },
+  {
+   "level_group": "challenger_qual",
+   "field": "bp_faced",
+   "n": 13716,
+   "equal": 13715,
+   "within1": 13715,
+   "mean_diff": -0.0002187227,
+   "mean_abs_diff": 0.0002187227,
+   "equal_share": 0.9999270924,
+   "within1_share": 0.9999270924
+  },
+  {
+   "level_group": "itf",
+   "field": "bp_faced",
+   "n": 618,
+   "equal": 560,
+   "within1": 587,
+   "mean_diff": -0.1877022654,
+   "mean_abs_diff": 0.213592233,
+   "equal_share": 0.9061488673,
+   "within1_share": 0.9498381877
+  },
+  {
+   "level_group": "itf_qual",
+   "field": "bp_faced",
+   "n": 0,
+   "equal": 0,
+   "within1": 0,
+   "mean_diff": null,
+   "mean_abs_diff": null,
+   "equal_share": null,
+   "within1_share": null
+  },
+  {
+   "level_group": "slam",
+   "field": "bp_faced",
+   "n": 54,
+   "equal": 52,
+   "within1": 52,
+   "mean_diff": 0.0185185185,
+   "mean_abs_diff": 0.0925925926,
+   "equal_share": 0.962962963,
+   "within1_share": 0.962962963
+  },
+  {
+   "level_group": "slam_qual",
+   "field": "bp_faced",
+   "n": 3286,
+   "equal": 3280,
+   "within1": 3281,
+   "mean_diff": 0.0042604991,
+   "mean_abs_diff": 0.0091296409,
+   "equal_share": 0.9981740718,
+   "within1_share": 0.9984783932
+  },
+  {
+   "level_group": "team",
+   "field": "bp_faced",
+   "n": 4,
+   "equal": 4,
+   "within1": 4,
+   "mean_diff": 0.0,
+   "mean_abs_diff": 0.0,
+   "equal_share": 1.0,
+   "within1_share": 1.0
+  },
+  {
+   "level_group": "tour_main",
+   "field": "bp_faced",
+   "n": 1276,
+   "equal": 1252,
+   "within1": 1256,
+   "mean_diff": 0.0039184953,
+   "mean_abs_diff": 0.1010971787,
+   "equal_share": 0.9811912226,
+   "within1_share": 0.9843260188
+  },
+  {
+   "level_group": "tour_qual",
+   "field": "bp_faced",
+   "n": 8146,
+   "equal": 8146,
+   "within1": 8146,
+   "mean_diff": 0.0,
+   "mean_abs_diff": 0.0,
+   "equal_share": 1.0,
+   "within1_share": 1.0
+  },
+  {
+   "level_group": "challenger",
+   "field": "sv_won",
+   "n": 46234,
+   "equal": 46211,
+   "within1": 46218,
+   "mean_diff": -0.0023359432,
+   "mean_abs_diff": 0.0050179522,
+   "equal_share": 0.9995025306,
+   "within1_share": 0.9996539343
+  },
+  {
+   "level_group": "challenger_qual",
+   "field": "sv_won",
+   "n": 13730,
+   "equal": 13729,
+   "within1": 13729,
+   "mean_diff": -0.0002913328,
+   "mean_abs_diff": 0.0002913328,
+   "equal_share": 0.9999271668,
+   "within1_share": 0.9999271668
+  },
+  {
+   "level_group": "itf",
+   "field": "sv_won",
+   "n": 618,
+   "equal": 513,
+   "within1": 522,
+   "mean_diff": -1.1067961165,
+   "mean_abs_diff": 1.2588996764,
+   "equal_share": 0.8300970874,
+   "within1_share": 0.8446601942
+  },
+  {
+   "level_group": "itf_qual",
+   "field": "sv_won",
+   "n": 0,
+   "equal": 0,
+   "within1": 0,
+   "mean_diff": null,
+   "mean_abs_diff": null,
+   "equal_share": null,
+   "within1_share": null
+  },
+  {
+   "level_group": "slam",
+   "field": "sv_won",
+   "n": 54,
+   "equal": 52,
+   "within1": 52,
+   "mean_diff": -0.5925925926,
+   "mean_abs_diff": 0.5925925926,
+   "equal_share": 0.962962963,
+   "within1_share": 0.962962963
+  },
+  {
+   "level_group": "slam_qual",
+   "field": "sv_won",
+   "n": 3292,
+   "equal": 3289,
+   "within1": 3290,
+   "mean_diff": -0.0003037667,
+   "mean_abs_diff": 0.0015188335,
+   "equal_share": 0.9990886999,
+   "within1_share": 0.9993924666
+  },
+  {
+   "level_group": "team",
+   "field": "sv_won",
+   "n": 4,
+   "equal": 3,
+   "within1": 3,
+   "mean_diff": -0.75,
+   "mean_abs_diff": 0.75,
+   "equal_share": 0.75,
+   "within1_share": 0.75
+  },
+  {
+   "level_group": "tour_main",
+   "field": "sv_won",
+   "n": 1276,
+   "equal": 1251,
+   "within1": 1252,
+   "mean_diff": -0.1426332288,
+   "mean_abs_diff": 0.329153605,
+   "equal_share": 0.9804075235,
+   "within1_share": 0.9811912226
+  },
+  {
+   "level_group": "tour_qual",
+   "field": "sv_won",
+   "n": 8152,
+   "equal": 8150,
+   "within1": 8152,
+   "mean_diff": -0.0002453386,
+   "mean_abs_diff": 0.0002453386,
+   "equal_share": 0.9997546614,
+   "within1_share": 1.0
+  }
+ ],
+ "hand_check": {
+  "keys": [
+   "atp|2018-9124|R32|atp:105477|atp:132842",
+   "wta|2018-M001|R32|wta:201540|wta:206391",
+   "atp|2024-M-ITF-SLO-2024-8|R16|atp:202220|atp:210129",
+   "atp|2022-1768|R16|atp:206703|atp:210506",
+   "wta|2018-1103|R16|wta:201518|wta:213550",
+   "atp|2020-7851|QF|atp:106045|atp:106058"
+  ],
+  "status": "checked",
+  "checked_at": "2026-10-16T22:10:21+00:00",
+  "verdict": "6 of 6 keys checked by eye against the page's staged statistics rows (period match) and players: first serve 'in/served', first- and second-serve points won, aces, double faults, and break points faced/saved from the opponent's 'converted' line map to the reader's counts on the right player in all 6 (p1 was Stage 0's B in 2: Trungelliti, Perez); sv_gms NaN as the page gives none. The P5 pages (5 of 6) also equal Stage 0 on every count; the ITF career page has no Stage 0 box.",
+  "how": "tp_handcheck.py printed each key's raw staged rows (the source's own document as staged under data/dump/ or data/raw/) beside the reader's rows and Stage 0's names and counts; checked by eye: the player orientation (names) and every count of the mapping"
+ }
+}

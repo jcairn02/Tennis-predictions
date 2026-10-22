@@ -113,3 +113,10 @@ All three reviewers confirmed 130 serve-speed records as impossible: a first-ser
 ## Decided since
 
 * **The rebuilt model is the current best model,** as a template built on the day's tables, not as stored files. The owner decided this on 8 Oct 2026 ([decision](2026-10-08-current-best-model.md)).
+* **21 Oct 2026: a row correction now finds its match when its source reorders its rows** (Claude, while updating the
+  data for the owner's retrain; [in-season retrain](../studies/in_season_retrain/process_log.md)). Tennis My Life
+  republished its 2026 WTA file with a new row order (17–19 Oct). The row corrections name their rows by number and
+  stop the build when the row no longer holds the guarded match (tournament id, round, both names), so every build
+  stopped. Now a correction whose row moved is applied to the one row of its file with the same four guards, as the
+  date corrections have done since 14 Oct; none, or two, still stops the build. The corrections and their guards are
+  unchanged, and on files whose rows did not move Stage 0 is byte-identical (five outputs checked against the old code).

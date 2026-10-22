@@ -1,6 +1,6 @@
 {
  "source": "tdi",
- "started_at": "2026-10-12T15:11:32+00:00",
+ "started_at": "2026-10-21T12:40:32+00:00",
  "args": {
   "max_requests": 1000,
   "pages": false,
@@ -22,82 +22,81 @@
  },
  "decision": "docs/decisions/2026-09-25-tdi-tennis-results.md",
  "sweep": {
-  "sweep": "20261012T151132Z",
+  "sweep": "20261021T124032Z",
   "event": "started",
-  "at": "2026-10-12T15:11:32+00:00",
+  "at": "2026-10-21T12:40:32+00:00",
   "kind": "recent",
-  "first_day": "2026-10-02",
-  "last_day": "2026-10-12",
+  "first_day": "2026-10-11",
+  "last_day": "2026-10-21",
   "settle_days": 3,
   "tournaments_from": null
  },
  "listings": {
-  "sweep": "20261012T151132Z",
+  "sweep": "20261021T124032Z",
   "planned": 12,
   "missing": 0,
   "finished": true,
   "missing_examples": []
  },
- "matches_selected": 6314,
+ "matches_selected": 6898,
  "pages": {
   "source": "index",
-  "ids": 6314,
-  "done_before": 6084,
-  "fetched": 244,
+  "ids": 6898,
+  "done_before": 6752,
+  "fetched": 146,
   "remaining": 0,
-  "asked_again": 14
+  "asked_again": 0
  },
  "fetch_outcomes": {
-  "date:200": 8,
-  "date:200:cached": 3,
+  "date:200": 6,
+  "date:200:cached": 5,
   "home:200": 1,
-  "match:200": 230,
-  "match:again:200": 14
+  "match:200": 146
  },
  "client": {
   "impersonate": "chrome",
-  "requests": 253,
+  "requests": 153,
   "retried": 0,
-  "slept_seconds": 360.6,
+  "slept_seconds": 172.7,
   "min_interval": 2.0,
   "jitter": 1.0,
   "not_found_answers": 0
  },
  "staged": {
   "listing_pages": {
-   "rows": 231,
+   "rows": 250,
    "dest": "data/dump/points/tdi/listing_pages.parquet",
-   "bytes": 37088
+   "bytes": 38764
   },
   "listing_cards": {
-   "rows": 14040,
+   "rows": 15333,
    "dest": "data/dump/points/tdi/listing_cards.parquet",
-   "bytes": 541586
+   "bytes": 587457
   },
   "match_ids": {
-   "rows": 6314,
+   "rows": 6898,
    "dest": "data/dump/points/tdi/match_ids.parquet",
-   "bytes": 413609
+   "bytes": 442993
   },
   "filter_tournaments": {
-   "rows": 106,
+   "rows": 114,
    "dest": "data/dump/points/tdi/filter_tournaments.parquet",
-   "bytes": 10130
+   "bytes": 10678
   },
   "filter_players": {
-   "rows": 2744,
+   "rows": 2752,
    "dest": "data/dump/points/tdi/filter_players.parquet",
-   "bytes": 132990
+   "bytes": 133565
   },
   "reports": {
    "date_listings": {
-    "in_window": 134,
+    "in_window": 151,
     "outside_window": 3
    },
    "in_window_days": {
-    "count": 112,
+    "count": 121,
     "first": "2026-06-23",
-    "last": "2026-10-12"
+    "last": "2026-10-21"
    },
    "cards_off_their_listing_day": 0,
    "most_cards_on_a_date_listing": 93,
@@ -106,17 +105,19 @@
     "list/date/2026-09-25@20260925T192051Z": 6,
     "list/date/2026-09-29@20260929T172335Z": 20,
     "list/date/2026-10-08@20261008T193400Z": 8,
-    "list/date/2026-10-08@20261008T193546Z": 8
+    "list/date/2026-10-08@20261008T193546Z": 8,
+    "list/date/2026-10-12@20261012T151132Z": 22,
+    "list/date/2026-10-19@20261019T152954Z": 34
    },
-   "match_ids": 6314,
+   "match_ids": 6898,
    "match_ids_by_draw_type": {
-    "doubles": 1449,
-    "singles": 4865
+    "doubles": 1578,
+    "singles": 5320
    },
-   "match_ids_in_date_listings": 6314,
+   "match_ids_in_date_listings": 6898,
    "match_ids_in_tournament_listings": 5141,
    "only_in_date_listings": {
-    "inside_days_read": 1173
+    "inside_days_read": 1757
    },
    "only_in_tournament_listings": {},
    "only_in_date_listings_examples": [
@@ -125,14 +126,14 @@
     "015cebd9-ebf2-4fb2-b5a8-e1badc0bc316",
     "01788eed-c242-4a4f-a653-faa4dd1bde6c",
     "017d8d23-8dd0-4a33-b6e9-7fa90589ec5f",
+    "01c28da0-c1f3-4949-8c08-2f062af4014f",
+    "0207d9fd-cea1-4e12-ba09-6821adad9512",
     "0239b403-59d0-4370-a337-97f8cdde034d",
     "0260f3fc-155f-4e8f-a3df-12a94be847f3",
-    "028c713b-8370-43cd-9fe8-296dc4e36c5e",
-    "0376922b-9905-409d-8246-0a4828eca6a3",
-    "037af3cd-b260-4546-bae1-708102e64960"
+    "028c713b-8370-43cd-9fe8-296dc4e36c5e"
    ],
    "only_in_tournament_listings_examples": [],
-   "ids_with_conflicts": 0,
+   "ids_with_conflicts": 20,
    "tournament_listings": {
     "one_tournament|title_matches=True": 85,
     "empty|title_matches=None": 1
@@ -143,50 +144,50 @@
    ]
   },
   "points": {
-   "rows": 945953,
+   "rows": 1024951,
    "dest": "data/dump/points/tdi/points.parquet",
-   "bytes": 21879383
+   "bytes": 24120582
   },
   "matches": {
-   "rows": 6948,
+   "rows": 7532,
    "dest": "data/dump/points/tdi/matches.parquet",
-   "bytes": 1788913
+   "bytes": 1925632
   },
   "statistics": {
-   "rows": 579725,
+   "rows": 628025,
    "dest": "data/dump/points/tdi/statistics.parquet",
-   "bytes": 3203900
+   "bytes": 3480313
   },
   "players": {
-   "rows": 1558,
+   "rows": 1573,
    "dest": "data/dump/points/tdi/players.parquet",
-   "bytes": 131846
+   "bytes": 132765
   },
   "pages": {
    "records": {
-    "points": 6941,
-    "no points": 7
+    "points": 7522,
+    "no points": 10
    },
    "records_by_id_list": {
-    "index|points": 6307,
+    "index|points": 6888,
     "wayback|points": 634,
-    "index|no points": 7
+    "index|no points": 10
    },
    "documents_by_http_status": {
-    "200": 6269,
+    "200": 6853,
     "404": 679
    },
    "documents_by_level_draw": {
-    "challenger|doubles|main": 1128,
-    "challenger|singles|main": 2429,
-    "challenger|singles|qualifying": 1416,
-    "tour|doubles|main": 308,
+    "challenger|doubles|main": 1201,
+    "challenger|singles|main": 2619,
+    "challenger|singles|qualifying": 1493,
+    "tour|doubles|main": 337,
     "tour|doubles|qualifying": 9,
-    "tour|singles|main": 703,
-    "tour|singles|qualifying": 234,
-    "unknown|doubles|main": 156,
-    "unknown|singles|main": 341,
-    "unknown|singles|qualifying": 224
+    "tour|singles|main": 756,
+    "tour|singles|qualifying": 270,
+    "unknown|doubles|main": 183,
+    "unknown|singles|main": 416,
+    "unknown|singles|qualifying": 248
    },
    "documents_by_month": {
     "2025-05": 145,
@@ -199,12 +200,12 @@
     "2026-07": 1889,
     "2026-08": 1622,
     "2026-09": 1755,
-    "2026-10": 746
+    "2026-10": 1330
    },
    "level_sources": {
-    "name": 641,
-    "sackmann_2025": 5062,
-    "None": 721,
+    "name": 677,
+    "sackmann_2025": 5484,
+    "None": 847,
     "sackmann_2026": 462,
     "sackmann_2022": 62
    },
@@ -217,13 +218,14 @@
     "WUNING OPEN 3": 63,
     "53^ CAMPIONATI INTERNAZIONALI DI SICILIA": 63,
     "Levante Open": 62,
+    "TS MONTE KA' TIRA - CITTA' DI SAN GREGORIO": 62,
     "AXA OPEN DE SION": 62,
     "Kingston Open 2": 61,
     "Kingston Open 1": 61,
-    "TS MONTE KA' TIRA - CITTA' DI SAN GREGORIO": 20,
-    "Bolivia Open Santa Cruz de la Sierra 2": 10
+    "Bolivia Open Santa Cruz de la Sierra 2": 61,
+    "Banca Mediolanum Florence Open": 33
    },
-   "points": 945953,
+   "points": 1024951,
    "outcome_fill_by_level_month": {
     "challenger|2025-05": 0.377,
     "challenger|2025-11": 0.946,
@@ -234,7 +236,7 @@
     "challenger|2026-07": 0.779,
     "challenger|2026-08": 0.811,
     "challenger|2026-09": 0.794,
-    "challenger|2026-10": 0.812,
+    "challenger|2026-10": 0.811,
     "tour|2025-05": 0.566,
     "tour|2025-10": 1.0,
     "tour|2025-11": 0.772,
@@ -249,28 +251,28 @@
     "unknown|2026-07": 0.789,
     "unknown|2026-08": 0.805,
     "unknown|2026-09": 0.826,
-    "unknown|2026-10": 0.827
+    "unknown|2026-10": 0.826
    },
    "point_id_mismatches": 0,
    "points_extra_keys": {},
    "without_atp_code": 0,
    "players_in_header": {
-    "4": 1601,
-    "2": 5347
+    "4": 1730,
+    "2": 5802
    }
   }
  },
  "receipts": {
-  "list/date:200": 137,
-  "list/home:200": 7,
+  "list/date:200": 154,
+  "list/home:200": 9,
   "list/player:200": 1,
   "list/tournament:200": 86,
-  "match:200": 6269,
+  "match:200": 6853,
   "match:404_with_points": 679
  },
  "receipts_with_errors": 0,
  "receipts_unreadable_lines": 0,
  "error_examples": [],
- "finished_at": "2026-10-12T15:25:59+00:00",
- "seconds": 867.7
+ "finished_at": "2026-10-21T12:57:42+00:00",
+ "seconds": 1030.3
 }

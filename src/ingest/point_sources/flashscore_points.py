@@ -110,13 +110,18 @@ def name_words(name) -> set:
     return {w for w in re.split(r"[^a-z]+", fold(name)) if len(w) > 1}
 
 
-def surname_words(fs_name) -> list[str]:
-    """A Flashscore name's surname words, its initials dropped: "Cunha Winheski de Lima V." -> cunha, winheski, de,
-    lima; "Lee Y.-H." -> lee."""
+def surname_text(fs_name) -> str:
+    """A Flashscore name without its initials: "Cunha Winheski de Lima V." -> "Cunha Winheski de Lima"."""
     parts = str(fs_name or "").strip().split(" ")
     while parts and re.fullmatch(r"(?:[A-Z][a-z]?\.-?)+", parts[-1]):
         parts.pop()
-    return [w for w in re.split(r"[^a-z]+", fold(" ".join(parts))) if len(w) > 1]
+    return " ".join(parts)
+
+
+def surname_words(fs_name) -> list[str]:
+    """A Flashscore name's surname words, its initials dropped: "Cunha Winheski de Lima V." -> cunha, winheski, de,
+    lima; "Lee Y.-H." -> lee."""
+    return [w for w in re.split(r"[^a-z]+", fold(surname_text(fs_name))) if len(w) > 1]
 
 
 def pair_matches(w1: set, w2: set, home: list, away: list) -> bool:
@@ -379,6 +384,18 @@ def load_handoff() -> pd.DataFrame:
     return pd.read_parquet(path, columns=HANDOFF_COLUMNS).fillna("")
 
 
+def load_info() -> pd.DataFrame:
+    """What staging says of each feed: every handoff extract staged here (handoff_*.parquet), one row per match id, the
+    ITF extract first. Besides this module's ITF extract, flashscore_p6.py stages handoff_p6.parquet: the copy's records
+    of work package P6's men's ATP and Challenger targets (its grade is Flashscore's category). Linking reads only the
+    ITF extract (load_handoff)."""
+    paths = sorted(P.dump_path(SOURCE).glob("handoff_*.parquet"), key=lambda p: (p.name != "handoff_itf.parquet", p.name))
+    frames = [pd.read_parquet(p, columns=HANDOFF_COLUMNS).fillna("") for p in paths]
+    if not frames:
+        return pd.DataFrame(columns=HANDOFF_COLUMNS)
+    return pd.concat(frames, ignore_index=True).drop_duplicates("fs_id").reset_index(drop=True)
+
+
 # --------------------------------------------------------------------------------------
 # targets, fetching, staging
 # --------------------------------------------------------------------------------------
@@ -582,7 +599,7 @@ def run(args) -> dict:
     frame = pd.concat([frame, results(receipts, frame)], axis=1)
     frame.sort_values(["d", "edition", "uid"]).to_csv(table_path(args.gap, "matches"), index=False)
     if not args.no_stage:
-        summary["staged"] = stage(receipts, handoff)
+        summary["staged"] = stage(receipts, load_info())
     if args.trial:
         summary["trial"] = tally(frame[frame["fs_id"].isin(set(summary["trial_ids"]))])
     summary.update(tally(frame))

@@ -29,6 +29,9 @@ Layout:
     data/raw/oddstrader/events/<lid>/<YYYY-MM>.json        one eventsByDateNew response per tour and month
     data/raw/oddstrader/lines/<lid>/<YYYY-MM>/<nn>.json    one line response per batch of up to 100 singles
     data/raw/oddstrader/books/<lid>/<YYYY-MM>/<nn>.json    every book's lines for a batch of up to 100 listed events
+                                                           (the pull of 9 Oct 2026, batches named by position)
+    data/raw/oddstrader/books/<lid>/<YYYY-MM>/e<hash>.json the later pulls' batches, named by their events: only
+                                                           events no earlier pull holds are asked for (21 Oct 2026)
     data/raw/oddstrader/probe/                             the probes of 9 Oct 2026 (book ids, the site's book list)
     data/raw/oddstrader/_receipts.jsonl                    one receipt per request, with the query sent
     data/dump/odds/oddstrader/events.parquet               one row per listed event (singles and doubles)
@@ -52,6 +55,7 @@ from __future__ import annotations
 
 import argparse
 import datetime as dt
+import hashlib
 import json
 import random
 import sys
@@ -237,24 +241,54 @@ def download(first: str, last: str, leagues, client: Client, refresh_month: str 
     return {"requests": client.sent, "batches": len(batches)}
 
 
+def fetched_book_eids(receipts: C.Receipts) -> set[int]:
+    """The events an earlier every-book pull holds: those of every good books/ receipt."""
+    done: set[int] = set()
+    for name, r in receipts.all().items():
+        if name.startswith("books/") and r.get("sha256") and not r.get("error"):
+            done.update(int(e) for e in r.get("eids") or [])
+    return done
+
+
+def listed_at(receipts: C.Receipts) -> dict[tuple[int, str], pd.Timestamp]:
+    """When each tour's month was last listed: {(lid, "YYYY-MM"): the newest good events/ receipt's time (UTC)}."""
+    out = {}
+    for name, r in receipts.all().items():
+        parts = name.split("/")
+        if len(parts) == 3 and parts[0] == "events" and r.get("sha256") and not r.get("error"):
+            out[(int(parts[1]), parts[2])] = pd.Timestamp(r["retrieved_at"])
+    return out
+
+
 def download_books(eids, client: Client) -> dict:
-    """Every book's lines (books_query) for these listed events, in batches of up to 100 per tour and month of the
-    listed start. Returns counts; raises Stop."""
+    """Every book's lines (books_query) for those of these listed events that no earlier pull holds, in batches of up
+    to 100 per tour and month of the listed start. Returns counts; raises Stop.
+
+    Since 21 Oct 2026 a batch is named by its events, and an event already pulled is not asked for again (a finished
+    match's lines no longer change). The pull of 9 Oct named its batches by position: run again, a month that had gained
+    events would have reused its old, shorter last batch, and the events added to it would have had no lines."""
+    want = {int(e) for e in eids}
+    done = fetched_book_eids(client.receipts)
     events = pd.read_parquet(DUMP / "events.parquet", columns=["eid", "lid", "dt_ms"])
-    events = events[events["eid"].isin({int(e) for e in eids})].copy()
+    events = events[events["eid"].isin(want - done)].copy()
     events["tag"] = pd.to_datetime(events["dt_ms"], unit="ms", utc=True).dt.strftime("%Y-%m")
     batches = []
     for (lid, tag), group in events.sort_values("eid").groupby(["lid", "tag"]):
         ids = [int(e) for e in group["eid"]]
-        batches += [(int(lid), tag, k // BATCH, ids[k:k + BATCH]) for k in range(0, len(ids), BATCH)]
-    C.log(f"[{SOURCE}] every book: {len(events)} of {len(set(eids))} events listed, {len(batches)} batches")
-    for lid, tag, k, ids in batches:
-        doc = client.fetch(f"books/{lid}/{tag}/{k:02d}", books_query(ids),
-                           RAW / "books" / str(lid) / tag / f"{k:02d}.json", {"lid": lid, "month": tag, "eids": ids})
+        for k in range(0, len(ids), BATCH):
+            part = ids[k:k + BATCH]
+            key = "e" + hashlib.sha256(",".join(map(str, part)).encode()).hexdigest()[:12]
+            batches.append((int(lid), tag, key, part))
+    C.log(f"[{SOURCE}] every book: {len(events)} events to pull of {len(want)} asked ({len(want & done)} pulled "
+          f"before), {len(batches)} batches")
+    for lid, tag, key, ids in batches:
+        doc = client.fetch(f"books/{lid}/{tag}/{key}", books_query(ids),
+                           RAW / "books" / str(lid) / tag / f"{key}.json", {"lid": lid, "month": tag, "eids": ids})
         if doc is None:
-            C.log(f"[{SOURCE}] request budget spent at books {lid} {tag} batch {k}")
+            C.log(f"[{SOURCE}] request budget spent at books {lid} {tag} batch {key}")
             return {"requests": client.sent, "batches": len(batches), "stopped": "budget"}
-    return {"requests": client.sent, "batches": len(batches)}
+    return {"requests": client.sent, "batches": len(batches), "events": int(len(events)),
+            "pulled_before": len(want & done)}
 
 
 # --------------------------------------------------------------------------------------
@@ -392,6 +426,38 @@ def stage_books(latest: dict) -> int:
     return len(lines)
 
 
+def pull_books(eids, max_requests: int = 600) -> int:
+    """The every-book pull for these events, then the tables staged: 0, or 2 when stopped (a block: what was fetched
+    is staged). The --books-eids command and the odds step (current_best_model/odds_input.py) both run this."""
+    receipts = C.Receipts(SOURCE, root=RAW.parent)
+    client = Client(receipts, max_requests)
+    try:
+        counts = download_books(eids, client)
+    except Stop as err:
+        C.log(f"[{SOURCE}] STOPPED after {client.sent} requests: {err}")
+        C.log(f"[{SOURCE}] staged what was fetched: {stage(receipts)}")
+        return 2
+    C.log(f"[{SOURCE}] download: {counts}")
+    C.log(f"[{SOURCE}] staged: {stage(receipts)}")
+    return 0
+
+
+def pull_months(months, leagues=(23, 24), max_requests: int = 400) -> int:
+    """Each of these months listed and its singles' lines fetched again (--refresh-month), then the tables staged:
+    0, or 2 when stopped. The odds step runs this for a month whose listing is older than the matches it prices."""
+    receipts = C.Receipts(SOURCE, root=RAW.parent)
+    client = Client(receipts, max_requests)
+    try:
+        for m in months:
+            C.log(f"[{SOURCE}] {m}: {download(m, m, list(leagues), client, m)}")
+    except Stop as err:
+        C.log(f"[{SOURCE}] STOPPED after {client.sent} requests: {err}")
+        C.log(f"[{SOURCE}] staged what was fetched: {stage(receipts)}")
+        return 2
+    C.log(f"[{SOURCE}] staged: {stage(receipts)}")
+    return 0
+
+
 def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--from", dest="first", default="2024-01", help="first month, YYYY-MM")
@@ -403,15 +469,14 @@ def main() -> int:
     ap.add_argument("--books-eids", type=Path, help="CSV with an eid column: fetch every book's lines for these "
                                                     "listed events (instead of the monthly BetOnline pull)")
     args = ap.parse_args()
+    if args.books_eids and not args.stage_only:
+        return pull_books(pd.read_csv(args.books_eids)["eid"].tolist(), args.max_requests)
     receipts = C.Receipts(SOURCE, root=RAW.parent)
     if not args.stage_only:
         client = Client(receipts, args.max_requests)
         try:
-            if args.books_eids:
-                counts = download_books(pd.read_csv(args.books_eids)["eid"].tolist(), client)
-            else:
-                counts = download(args.first, args.last, [int(x) for x in args.leagues.split(",")], client,
-                                  args.refresh_month)
+            counts = download(args.first, args.last, [int(x) for x in args.leagues.split(",")], client,
+                              args.refresh_month)
         except Stop as err:
             C.log(f"[{SOURCE}] STOPPED after {client.sent} requests: {err}")
             C.log(f"[{SOURCE}] staged what was fetched: {stage(receipts)}")

@@ -1,0 +1,17 @@
+# ./python.sh -m src.ingest.public_dump.tennis_my_life --start-year 2000 --accept-held 2025_wta.csv@a99bb69b647c
+# started 2026-10-21T05:52:01-07:00
+[tennis_my_life] catalog lists 171 files; 105 planned, 66 skipped
+[tennis_my_life] 2025_wta.csv changed; kept the replaced file as data/raw/public_dump/tennis_my_life/superseded/2025_wta.20260922210904.b1af6bb0b396.csv
+[tennis_my_life] staged data/dump/matches/tennis_my_life/wta_main/2025_wta.parquet rows=2622 short=0 long=0
+[tennis_my_life] HELD 2026_challenger.csv: 31 rows of the current copy are gone (more than 5); kept as data/raw/public_dump/tennis_my_life/held/2026_challenger.290817794982.csv, the current copy stays
+[tennis_my_life] HELD 2026_wta.csv: 29 rows of the current copy are gone (more than 5); kept as data/raw/public_dump/tennis_my_life/held/2026_wta.8f6fb09ef0b0.csv, the current copy stays
+[tennis_my_life] staged data/dump/players/tennis_my_life/ATP_Database.parquet rows=12939 short=0 long=0
+[tennis_my_life] staged data/dump/matches/tennis_my_life/ongoing/challenger_ongoing_tourneys.parquet rows=83 short=0 long=0
+[tennis_my_life] ongoing_tourneys.csv changed; kept the replaced file as data/raw/public_dump/tennis_my_life/superseded/ongoing_tourneys.20261021123555.c5d6af1cc2a2.csv
+[tennis_my_life] staged data/dump/matches/tennis_my_life/ongoing/ongoing_tourneys.parquet rows=38 short=0 long=0
+[tennis_my_life] staged data/dump/matches/tennis_my_life/ongoing/wta_ongoing_tourneys.parquet rows=34 short=0 long=0
+[tennis_my_life] done: 5 staged files, 15,716 rows, 0 download errors, 2 held
+[tennis_my_life] held 2026_challenger.csv: 31 rows of the current copy are gone (more than 5). To accept it after review: --accept-held 2026_challenger.csv@290817794982
+[tennis_my_life] held 2026_wta.csv: 29 rows of the current copy are gone (more than 5). To accept it after review: --accept-held 2026_wta.csv@8f6fb09ef0b0
+
+# failed, exit 1, 7.7 s

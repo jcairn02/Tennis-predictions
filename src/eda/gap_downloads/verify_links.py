@@ -75,6 +75,14 @@ def ss_sets(event: dict) -> list[tuple[int, int]]:
     return sets
 
 
+def unplayed_dropped(sets: list[tuple[int, int]]) -> list[tuple[int, int]]:
+    """Trailing 0-0 sets left out: a set never started. SofaScore lists one after some finished matches (Miami 2018,
+    Basel 2019) and at retirements; official scores write one at a retirement between sets ('6-4 0-0 RET')."""
+    while sets and sets[-1] == (0, 0):
+        sets = sets[:-1]
+    return sets
+
+
 def compare(event: dict, winner: str, score) -> str:
     """The verdict for one linked event against the official winner and score."""
     side = {1: "homeTeam", 2: "awayTeam"}.get(event.get("winnerCode"))
@@ -82,12 +90,10 @@ def compare(event: dict, winner: str, score) -> str:
         return "SofaScore lists no winner"
     if not (E.team_words(event.get(side) or {}) & E.words(winner)):
         return "winner differs"
-    ours, theirs = ss_sets(event), tml_sets(score)
+    ours, theirs = unplayed_dropped(ss_sets(event)), unplayed_dropped(tml_sets(score))
     if not ours:
         return "winner agrees, SofaScore lists no score"
     retired = any(end in str(score or "").upper() for end in ("RET", "DEF"))   # a retirement or a default
-    while retired and len(ours) > len(theirs) and ours[-1] == (0, 0):   # SofaScore adds the set never started
-        ours = ours[:-1]
     if ours == theirs or (retired and len(ours) == len(theirs) and ours[:-1] == theirs[:-1]):
         return "agrees"
     return "winner agrees, score differs"

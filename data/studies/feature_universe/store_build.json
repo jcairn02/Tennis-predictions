@@ -47,7 +47,7 @@
    ]
   ],
   "near_duplicates": 28,
-  "menu_columns": 606,
+  "menu_columns": 611,
   "menu_by_group": {
    "pp": 196,
    "fp": 124,
@@ -60,6 +60,7 @@
    "sl": 14,
    "ds": 7,
    "mk": 5,
+   "fe": 5,
    "ctx": 3,
    "el": 3,
    "kn": 2
@@ -67,7 +68,7 @@
   "pairs_consistent": true
  },
  "pairs_consistent": true,
- "columns": 779,
+ "columns": 784,
  "by_group": {
   "pp": 204,
   "fp": 200,
@@ -82,6 +83,7 @@
   "ctx": 9,
   "ds": 8,
   "mk": 5,
+  "fe": 5,
   "el": 3
  },
  "inputs_sha256": {
@@ -111,6 +113,28 @@
     "el__low_share_b"
    ],
    "how": "build_store.py --append-el"
+  },
+  "fe": {
+   "at": "2026-10-14T15:17:10+00:00",
+   "columns": [
+    "fe__sw_a",
+    "fe__sw_b",
+    "fe__r_a",
+    "fe__r_b",
+    "fe__r_diff"
+   ],
+   "how": "build_store.py --append-fe"
   }
+ },
+ "form_evidence": {
+  "rows_found": 63737,
+  "values_found": 63626,
+  "side_a_equals_stage0": true,
+  "r_is_sw_over_sw_plus_k3": true,
+  "diff_is_a_minus_b": true,
+  "instance": [
+   "template_2026-10-13"
+  ],
+  "source_sha256": "58fe27cadb2d3c5a9e2d8fe3868006409b4f8fbb1b82dbae59f49e1e4479a831"
  }
 }

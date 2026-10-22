@@ -1,0 +1,68 @@
+{
+ "created_at": "2026-10-20T220331Z",
+ "mode": "replay",
+ "replay": {
+  "week": "2026-07-13",
+  "round": "R16",
+  "winner": "A",
+  "dating": "training"
+ },
+ "matchups_csv": null,
+ "checkpoint": "2026-06-22",
+ "seeds": "0-15",
+ "work_tree": "C:\\Users\\zerom\\tnr_daily_pytest",
+ "instance": "C:\\Users\\zerom\\Documents\\Tennis-predictions\\data\\studies\\current_best_model\\template_2026-10-10",
+ "base_tree": "C:\\Users\\zerom\\tnr_lyr_new"
+}
+[    0.8s] == worktree
+[   40.3s]    worktree: 39.4 s
+[   40.3s] == matchups
+[   46.8s]    matchups: 6.5 s
+[   46.8s] == prices
+[   47.0s]    prices: 0.2 s
+[   47.0s] == tables
+[   47.2s] --> stage0: src/eda/predictability_diagnostic/stage0_build.py --live-rows run/live_rows.parquet
+[  195.7s]     exit 0 in 148.5 s
+[  206.0s] --> additions: src/eda/current_best_model/additions.py --apply --accepted-json C:\Users\zerom\tnr_daily_pytest\run\accepted_for_replay.json
+[  232.9s]     exit 0 in 26.9 s
+[  232.9s] --> check: src/eda/prediction_run/inject.py --meta run/live_meta.parquet --step check
+[  234.3s]     exit 0 in 1.4 s
+[  234.3s] --> lle_layer: src/eda/current_best_model/layer_config.py --resolve --official C:\Users\zerom\Documents\Tennis-predictions\data\studies\current_best_model\level_layer\official.json
+[  259.4s]     exit 0 in 25.0 s
+[  259.4s] --> odds: src/eda/predictability_diagnostic/stage1_odds.py 
+[  272.9s]     exit 0 in 13.5 s
+[  272.9s] --> live_odds: src/eda/prediction_run/inject.py --meta run/live_meta.parquet --step odds
+[  274.5s]     exit 0 in 1.5 s
+[  284.6s]    tables: 237.5 s
+[  284.6s] == states
+[ 1001.1s]    states: 716.5 s
+[ 1001.1s] == history
+[ 1001.1s]    history: 0.0 s
+[ 1001.3s] == patterns
+[ 1094.9s]    patterns: 93.5 s
+[ 1094.9s] == fit
+[ 1269.9s]    fit: 175.0 s
+[ 1269.9s] == predict
+[ 1270.7s]    predict: 0.7 s
+{
+ "run": "C:\\Users\\zerom\\Documents\\Tennis-predictions\\data\\studies\\daily_prediction\\runs\\pytest_replay_2026-07-13_R16_20261020T220330Z",
+ "mode": "replay",
+ "started_at": "2026-10-20T220331Z",
+ "steps": {
+  "worktree": 39.4,
+  "matchups": 6.5,
+  "prices": 0.2,
+  "tables": 237.5,
+  "states": 716.5,
+  "history": 0.0,
+  "patterns": 93.5,
+  "fit": 175.0,
+  "predict": 0.7,
+  "cleanup": 4.8
+ },
+ "finished_at": "2026-10-20T222441Z",
+ "cleanup": {
+  "deleted": true,
+  "seconds": 4.8
+ }
+}

@@ -23,6 +23,7 @@ Without such a log, the [feature-provenance study](feature_provenance/README.md)
    * Add a chronology row after each step that produces a result, a decision, a failure or a change of plan. Do it before moving on, and before launching a long job.
    * A log rebuilt at the end is filtered by hindsight.
    * A long session's context gets summarised, and detail is lost. After a summary, note it in the chronology and re-read the log before continuing.
+   * **Take each row's time from the clock** (`date`, or a timestamp the step itself printed), never from memory. Times written from memory ran 1 to 20 minutes off in three logs of 13–16 Oct 2026 (data gaps, TennisLive box fill, men's lower-level fill), each needing correction rows.
 4. **Correct by adding, never by rewriting.**
    * Leave a wrong entry in place and add a dated correction under it.
    * If a bug or leak touched results already read, say which numbers it touched and whether they were replaced.

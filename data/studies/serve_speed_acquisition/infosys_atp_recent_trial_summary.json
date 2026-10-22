@@ -1,0 +1,294 @@
+{
+ "source": "infosys_atp_recent",
+ "started_at": "2026-10-16T21:22:33+00:00",
+ "args": {
+  "years": "2025,2026",
+  "since": "20250101",
+  "until": null,
+  "series": "atp,1000,ch",
+  "events": "2026:329,2025:375,2025:2907,2026:1763,2026:7913",
+  "limit": 0,
+  "routes": null,
+  "api": "always",
+  "max_requests": 1000,
+  "min_interval": 2.0,
+  "jitter": 1.0,
+  "timeout": 60,
+  "skip_after": 8,
+  "cold_skip_after": 8,
+  "streak": 400,
+  "quiet_window": "07:20-08:00",
+  "no_share": false,
+  "refresh": false,
+  "plan_only": false,
+  "stage_only": false,
+  "no_stage": true
+ },
+ "decision": "docs/decisions/2026-10-08-scraping-approved.md",
+ "plan_doc": "docs/studies/gap_downloads/collection-plan.md (P9)",
+ "decrypted": false,
+ "years": [
+  2025,
+  2026
+ ],
+ "series": [
+  "atp",
+  "1000",
+  "ch"
+ ],
+ "routes": [
+  "keystats",
+  "match-beats",
+  "rally-analysis",
+  "court-vision"
+ ],
+ "api": "always",
+ "events_selected": 5,
+ "matches_selected": 219,
+ "rows_without_a_code": 9,
+ "codes_by_tier": {
+  "2026|tour": 42,
+  "2025|tour": 34,
+  "2026|ch": 94,
+  "2025|ch": 49
+ },
+ "held_elsewhere": {
+  "infosys_atp": 10116,
+  "infosys_atp_daily": 164
+ },
+ "client": {
+  "impersonate": "chrome",
+  "requests": 846,
+  "retried": 0,
+  "slept_seconds": 1544.6,
+  "min_interval": 2.0,
+  "jitter": 1.0,
+  "not_found_answers": 42
+ },
+ "host_share": {
+  "waited_seconds": 0.0,
+  "polls": {}
+ },
+ "fetch_outcomes": {
+  "2025:ch:court-vision:absent": 16,
+  "2025:ch:court-vision:absent:cached": 1,
+  "2025:ch:keystats-api:200": 1,
+  "2025:ch:keystats:200": 49,
+  "2025:ch:keystats:200:cached": 1,
+  "2025:ch:match-beats-api:200": 4,
+  "2025:ch:match-beats:200": 47,
+  "2025:ch:match-beats:200:cached": 1,
+  "2025:ch:match-beats:absent": 3,
+  "2025:ch:rally-analysis:200": 50,
+  "2025:ch:rally-analysis:200:cached": 1,
+  "2025:tour:court-vision:absent": 16,
+  "2025:tour:court-vision:absent:cached": 1,
+  "2025:tour:keystats-api:200": 1,
+  "2025:tour:keystats:200": 34,
+  "2025:tour:keystats:200:cached": 1,
+  "2025:tour:match-beats-api:200": 1,
+  "2025:tour:match-beats:200": 34,
+  "2025:tour:match-beats:200:cached": 1,
+  "2025:tour:rally-analysis:200": 34,
+  "2025:tour:rally-analysis:200:cached": 1,
+  "2026:ch:court-vision:200": 93,
+  "2026:ch:court-vision:200:cached": 2,
+  "2026:ch:court-vision:absent": 2,
+  "2026:ch:keystats-api:200": 4,
+  "2026:ch:keystats:200": 93,
+  "2026:ch:keystats:200:cached": 2,
+  "2026:ch:keystats:absent": 2,
+  "2026:ch:match-beats-api:200": 4,
+  "2026:ch:match-beats:200": 92,
+  "2026:ch:match-beats:200:cached": 2,
+  "2026:ch:match-beats:absent": 2,
+  "2026:ch:rally-analysis:200": 93,
+  "2026:ch:rally-analysis:200:cached": 2,
+  "2026:ch:rally-analysis:absent": 1,
+  "2026:tour:court-vision:200": 42,
+  "2026:tour:court-vision:200:cached": 1,
+  "2026:tour:keystats-api:200": 1,
+  "2026:tour:keystats:200": 42,
+  "2026:tour:keystats:200:cached": 1,
+  "2026:tour:match-beats-api:200": 1,
+  "2026:tour:match-beats:200": 42,
+  "2026:tour:match-beats:200:cached": 1,
+  "2026:tour:rally-analysis:200": 42,
+  "2026:tour:rally-analysis:200:cached": 1
+ },
+ "families_given_up": 4,
+ "families_given_up_examples": [
+  {
+   "event": "2025/375",
+   "name": "Open Occitanie",
+   "route": "court-vision",
+   "family": "MS",
+   "reason": "the first 8 codes asked are absent",
+   "last_code": "MS009"
+  },
+  {
+   "event": "2025/375",
+   "name": "Open Occitanie",
+   "route": "court-vision",
+   "family": "QS",
+   "reason": "the first 8 codes asked are absent",
+   "last_code": "QS012"
+  },
+  {
+   "event": "2025/2907",
+   "name": "Lexus Nottingham Challenger",
+   "route": "court-vision",
+   "family": "MS",
+   "reason": "the first 8 codes asked are absent",
+   "last_code": "MS008"
+  },
+  {
+   "event": "2025/2907",
+   "name": "Lexus Nottingham Challenger",
+   "route": "court-vision",
+   "family": "QS",
+   "reason": "the first 8 codes asked are absent",
+   "last_code": "QS017"
+  }
+ ],
+ "events_by_state": {
+  "2025|ch": {
+   "files": 1
+  },
+  "2025|tour": {
+   "files": 1
+  },
+  "2026|ch": {
+   "files": 2
+  },
+  "2026|tour": {
+   "files": 1
+  }
+ },
+ "by_year_series_route": {
+  "2025|?|match-beats": {
+   "files": 1,
+   "bytes": 93284
+  },
+  "2025|?|rally-analysis": {
+   "files": 1,
+   "bytes": 85996
+  },
+  "2025|atp|court-vision": {
+   "absent": 16,
+   "bytes": 0
+  },
+  "2025|atp|keystats": {
+   "files": 34,
+   "bytes": 856260
+  },
+  "2025|atp|keystats-api": {
+   "files": 1,
+   "bytes": 30992
+  },
+  "2025|atp|match-beats": {
+   "files": 34,
+   "bytes": 2735768
+  },
+  "2025|atp|match-beats-api": {
+   "files": 1,
+   "bytes": 154960
+  },
+  "2025|atp|rally-analysis": {
+   "files": 34,
+   "bytes": 1933940
+  },
+  "2025|ch|court-vision": {
+   "absent": 16,
+   "bytes": 0
+  },
+  "2025|ch|keystats": {
+   "files": 49,
+   "bytes": 1274876
+  },
+  "2025|ch|keystats-api": {
+   "files": 1,
+   "bytes": 30968
+  },
+  "2025|ch|match-beats": {
+   "files": 46,
+   "bytes": 3985756,
+   "absent": 3
+  },
+  "2025|ch|match-beats-api": {
+   "files": 4,
+   "bytes": 391572
+  },
+  "2025|ch|rally-analysis": {
+   "files": 49,
+   "bytes": 2951916
+  },
+  "2026|?|court-vision": {
+   "files": 1,
+   "bytes": 2107012
+  },
+  "2026|?|keystats": {
+   "files": 1,
+   "bytes": 31684
+  },
+  "2026|atp|court-vision": {
+   "files": 42,
+   "bytes": 3696
+  },
+  "2026|atp|keystats": {
+   "files": 42,
+   "bytes": 1111064
+  },
+  "2026|atp|keystats-api": {
+   "files": 1,
+   "bytes": 23396
+  },
+  "2026|atp|match-beats": {
+   "files": 42,
+   "bytes": 4551616
+  },
+  "2026|atp|match-beats-api": {
+   "files": 1,
+   "bytes": 99108
+  },
+  "2026|atp|rally-analysis": {
+   "files": 42,
+   "bytes": 2417268
+  },
+  "2026|ch|court-vision": {
+   "files": 92,
+   "bytes": 8096,
+   "absent": 2
+  },
+  "2026|ch|keystats": {
+   "files": 92,
+   "bytes": 2394944,
+   "absent": 2
+  },
+  "2026|ch|keystats-api": {
+   "files": 4,
+   "bytes": 108792
+  },
+  "2026|ch|match-beats": {
+   "files": 92,
+   "bytes": 9968864,
+   "absent": 2
+  },
+  "2026|ch|match-beats-api": {
+   "files": 4,
+   "bytes": 455140
+  },
+  "2026|ch|rally-analysis": {
+   "files": 93,
+   "bytes": 5378732,
+   "absent": 1
+  }
+ },
+ "matches_in_plan_with_a_file": 219,
+ "files_held_elsewhere_in_plan": 0,
+ "receipts": 846,
+ "receipts_with_errors": 0,
+ "error_examples": [],
+ "finished_at": "2026-10-16T21:58:27+00:00",
+ "seconds": 2159.5
+}

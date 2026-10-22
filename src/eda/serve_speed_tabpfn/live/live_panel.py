@@ -10,8 +10,14 @@
                   when live/speed_panel_backfilled.parquet is present: the same history with that source added by the
                   panel's own precedence (src/eda/infosys_atp_backfill/history.py; +225 usable player-matches of 2018
                   and 2021, none newer than 17 Oct 2021, so no live form changes), read only while the corrected copy's
-                  SHA-256 equals the one it was built from. Plus `release`: the day the row may enter features. That is
-                  the scenario's release (default B, the weekly feed through which these rows came:
+                  SHA-256 equals the one it was built from. Since 22 Oct 2026 (the owner's approval of the source
+                  reconciliation's repairs: docs/decisions/2026-10-22-source-reconciliation-repairs.md), when
+                  live/speed_panel_repaired.parquet is present: the same history with 576 published averages more than
+                  5 km/h off the match's complete point record replaced by the point mean (rule ks_within5;
+                  source_reconciliation/apply_speed.py; every changed row is older than the live form's 364-day
+                  history), read only while the backfilled copy's SHA-256 equals the one it was built from; the
+                  stage-2 column built on it is COLUMN_REPAIRED (decided_column). Plus `release`: the day the row may
+                  enter features. That is the scenario's release (default B, the weekly feed through which these rows came:
                   latency/availability.parquet), capped at FROZEN_IN_HAND (7 Oct 2026, when every frozen row was in
                   hand) but never before lf + 1, and live_source = "frozen"
     new rows      linked staged matches (link.py) not already in the frozen panel, one row per side, on the
@@ -35,15 +41,26 @@ CORRECTED = LC.OUT / "speed_panel_frozen_corrected.parquet"
 CORRECTED_META = LC.OUT / "speed_panel_frozen_corrected.json"
 BACKFILLED = LC.OUT / "speed_panel_backfilled.parquet"
 BACKFILLED_META = LC.OUT / "speed_panel_backfilled.json"
+REPAIRED = LC.OUT / "speed_panel_repaired.parquet"            # since 22 Oct 2026 (source_reconciliation/apply_speed.py)
+REPAIRED_META = LC.OUT / "speed_panel_repaired.json"
+# stage 2's history column (spd_L_B, spd_L_D, ... per frame match) built on the history above: what a retrain's own speed
+# table keeps (in_season_retrain/speed_extend.py) and the daily engine's column for an instance without its own table
+# (daily_prediction/dp_predict.SPEED_COLUMN). The backfilled history's until 22 Oct 2026, the repaired one's since.
+COLUMN_BACKFILLED = LC.ROOT / "data" / "studies" / "infosys_atp_backfill" / "speed_columns_augmented.parquet"
+COLUMN_REPAIRED = LC.ROOT / "data" / "studies" / "source_reconciliation" / "applied" / "speed_columns_repaired.parquet"
+COLUMN_REPAIRED_META = COLUMN_REPAIRED.with_suffix(".json")
 KS_SHIFT = -0.5
 MEN_MIN, MIN_N = 120.0, 10
 TOUR_LEVELS = ("T250", "T500", "T1000", "FIN")
 
 
-def frozen_panel() -> pd.DataFrame:
+def frozen_panel(repaired: bool = True) -> pd.DataFrame:
     """The frozen panel as the live feed uses it: the audit's corrected copy, checked against the frozen file it was
     built from (a changed frozen panel stops the run: rebuild the copy); with the ATP backfill when its file is present,
-    checked against the corrected copy it was built from (a changed copy stops the run: rebuild the backfill)."""
+    checked against the corrected copy it was built from (a changed copy stops the run: rebuild the backfill); with the
+    repair of 22 Oct 2026 when its file is present (repaired=False: the history without it, as the source
+    reconciliation study read it), checked against the backfilled copy it was built from (a changed copy stops the
+    run: rebuild the repair, source_reconciliation/apply_speed.py --build)."""
     import hashlib
     from src.eda.serve_speed_tabpfn import panel as P
     meta = json.loads(CORRECTED_META.read_text(encoding="utf-8"))
@@ -60,7 +77,33 @@ def frozen_panel() -> pd.DataFrame:
                          "(src/eda/infosys_atp_backfill/history.py)")
     if hashlib.sha256(BACKFILLED.read_bytes()).hexdigest() != bm["backfilled_sha256"]:
         raise SystemExit(f"{BACKFILLED} does not match its record {BACKFILLED_META.name}")
-    return pd.read_parquet(BACKFILLED)
+    if not repaired or not REPAIRED.exists():
+        return pd.read_parquet(BACKFILLED)
+    rm = json.loads(REPAIRED_META.read_text(encoding="utf-8"))
+    if rm["backfilled_sha256"] != bm["backfilled_sha256"]:
+        raise SystemExit(f"{BACKFILLED.name} changed since {REPAIRED.name} was built; rebuild it "
+                         "(src/eda/source_reconciliation/apply_speed.py --build)")
+    if hashlib.sha256(REPAIRED.read_bytes()).hexdigest() != rm["repaired_sha256"]:
+        raise SystemExit(f"{REPAIRED} does not match its record {REPAIRED_META.name}")
+    return pd.read_parquet(REPAIRED)
+
+
+def decided_column() -> Path:
+    """Stage 2's decided history column: the repaired history's (COLUMN_REPAIRED, checked against its record and the
+    repaired history it was built on) once the repair of 22 Oct 2026 is present, else the backfilled history's."""
+    import hashlib
+    if not REPAIRED.exists():
+        return COLUMN_BACKFILLED
+    if not COLUMN_REPAIRED.exists():
+        raise SystemExit(f"{REPAIRED.name} is present but its stage-2 column {COLUMN_REPAIRED} is not; rebuild it "
+                         "(src/eda/source_reconciliation/apply_speed.py --build)")
+    cm = json.loads(COLUMN_REPAIRED_META.read_text(encoding="utf-8"))
+    rm = json.loads(REPAIRED_META.read_text(encoding="utf-8"))
+    if cm["history_sha256"] != rm["repaired_sha256"]:
+        raise SystemExit(f"{COLUMN_REPAIRED.name} was built on another history than {REPAIRED.name}; rebuild it")
+    if hashlib.sha256(COLUMN_REPAIRED.read_bytes()).hexdigest() != cm["column_sha256"]:
+        raise SystemExit(f"{COLUMN_REPAIRED} does not match its record {COLUMN_REPAIRED_META.name}")
+    return COLUMN_REPAIRED
 
 
 def frozen_rows(scenario: str = "B") -> pd.DataFrame:

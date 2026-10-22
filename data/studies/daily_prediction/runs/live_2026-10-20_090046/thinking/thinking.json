@@ -1,0 +1,40 @@
+{
+ "schema": "tennis-daily-thinking-v1",
+ "made_at": "2026-10-20T161406Z",
+ "matches": 22,
+ "query_sha256": "e08e4f45ba6a416eea43ef0c6b5bfdc6bce8ad6c4348b3650dbb8bcf7aea9c65",
+ "seasons": {
+  "2026": {
+   "fitted_train_set_id": "01a159e2-4f19-7b31-8754-a29f3f811b33",
+   "fit_slot": "C:\\Users\\zerom\\Documents\\Tennis-predictions\\data\\studies\\master_pipeline\\thinking\\template_2026-10-16\\season2026",
+   "train_sha256": "3782beec37c946bef77ca12f7b9c1f4fdc6b902384207606fd0533ddd5ca7c1b",
+   "config": {
+    "http_timeout_s": 2700.0,
+    "ignore_pretraining_limits": true,
+    "model_path": "v3.5_default",
+    "n_estimators": 8,
+    "random_state": 0,
+    "softmax_temperature": 0.9,
+    "thinking_effort": "high",
+    "thinking_metric": "log_loss",
+    "thinking_mode": true,
+    "thinking_timeout_s": null
+   },
+   "query_rows": 4048,
+   "matches": 22,
+   "served": {
+    "package_version": "9.0.0",
+    "billing_model_version": "v3.5",
+    "execution_mode": "thinking",
+    "weights": "tabpfn-v3.5-20260909.safetensors"
+   },
+   "tokens_used_daily_counter": 33367
+  }
+ },
+ "symmetrised": true,
+ "calibrated": false,
+ "seeds": [
+  0
+ ],
+ "note": "TabPFN-3.5-Thinking's own probability, symmetrised over the two orientations; no stage 2"
+}

@@ -1,0 +1,196 @@
+{
+ "reader": "atp_sirgenkii_recount",
+ "source": "data/dump/points/sirgenkii_infotennis/atp_rally_analysis.parquet",
+ "matches_with_points": 922,
+ "point_rows": 136928,
+ "dropped": {
+  "points_without_results_row": 0
+ },
+ "identity": {
+  "results": 908,
+  "own_players": 14
+ },
+ "identity_own_players_events": {
+  "580": 14
+ },
+ "break_flag_reading_test": {
+  "against": {
+   "aces_against": 0,
+   "df_against": 0,
+   "games_against_alt": 3
+  },
+  "for": {
+   "aces_against": 0,
+   "df_against": 0,
+   "games_against_alt": 4
+  },
+  "either": {
+   "aces_against": 0,
+   "df_against": 0,
+   "games_against_alt": 0
+  }
+ },
+ "break_flag_semantics": {
+  "aces_and_double_faults_at_break_point": 1041,
+  "server_p1": {
+   "p1_flag": 181,
+   "p2_flag": 222
+  },
+  "server_p2": {
+   "p1_flag": 317,
+   "p2_flag": 320
+  },
+  "either_flag_set_at_break_point_by_score": 0.999,
+  "a_flag_set_off_break_point_by_score": 18
+ },
+ "linked": 922,
+ "link_methods": {
+  "event+id/id": 904,
+  "event+full/id": 16,
+  "event+anchor/id": 2
+ },
+ "unlinked": {},
+ "recounted_matches": 922,
+ "recounts_complete": 613,
+ "incomplete_reasons": {
+  "point_gaps": 232,
+  "game_gaps": 23,
+  "games_not_ending_at_last_point": 302,
+  "set_games_differ_from_stage0": 291,
+  "points_without_server": 2
+ },
+ "server_rule_diagnostics_sum": {
+  "x_points": 136928.0,
+  "x_points_without_server": 15.0,
+  "x_point_gaps": 897.0,
+  "x_game_gaps": 67.0,
+  "x_games_not_ending_at_last_point": 576.0,
+  "x_tb_played": 405.0,
+  "x_games": 21403.0,
+  "x_tiebreaks": 405.0,
+  "x_games_without_evidence": 50.0,
+  "x_games_evidence_against_alternation": 0.0,
+  "x_sets_without_assignment": 3.0,
+  "x_aces_against_assigned_server": 0.0,
+  "x_double_faults_against_assigned_server": 0.0,
+  "x_set_first_server_against_previous_set": 2.0,
+  "x_set_pairs": 1289.0,
+  "x_tiebreak_evidence_against": 0.0,
+  "x_score_steps_inconsistent": 8.0,
+  "x_games_two_servers": 0.0
+ },
+ "winner_vs_stage0": {
+  "player_rows_with_a_winner": 1202,
+  "same_as_stage0": 1202,
+  "share_not_equal": 0.0,
+  "match_ids_not_equal_examples": []
+ },
+ "results_rows": 1287,
+ "rows_written": 1844,
+ "matches_written": 922,
+ "sanity_vs_stage0": {
+  "all": {
+   "ace": {
+    "n": 1844,
+    "equal": 0.9561
+   },
+   "df": {
+    "n": 1844,
+    "equal": 0.9837
+   },
+   "svpt": {
+    "n": 1844,
+    "equal": 0.7896
+   },
+   "first_in": {
+    "n": 1844,
+    "equal": 0.8097
+   },
+   "first_won": {
+    "n": 1844,
+    "equal": 0.8449
+   },
+   "second_won": {
+    "n": 1844,
+    "equal": 0.8964
+   },
+   "sv_gms": {
+    "n": 1844,
+    "equal": 0.9539
+   },
+   "bp_saved": {
+    "n": 1844,
+    "equal": 0.9675
+   },
+   "bp_faced": {
+    "n": 1844,
+    "equal": 0.9485
+   }
+  },
+  "complete": {
+   "ace": {
+    "n": 1226,
+    "equal": 0.9902
+   },
+   "df": {
+    "n": 1226,
+    "equal": 0.9992
+   },
+   "svpt": {
+    "n": 1226,
+    "equal": 1.0
+   },
+   "first_in": {
+    "n": 1226,
+    "equal": 0.9829
+   },
+   "first_won": {
+    "n": 1226,
+    "equal": 0.9837
+   },
+   "second_won": {
+    "n": 1226,
+    "equal": 0.9837
+   },
+   "sv_gms": {
+    "n": 1226,
+    "equal": 1.0
+   },
+   "bp_saved": {
+    "n": 1226,
+    "equal": 0.9984
+   },
+   "bp_faced": {
+    "n": 1226,
+    "equal": 0.9935
+   }
+  }
+ },
+ "hand_checks": {
+  "by": "atp_handcheck.py (seed 20261016), read by the session on 16 Oct 2026",
+  "compared_with": "staged atp_rally_analysis.parquet tallied by subject, ending and outcome",
+  "verdict": "5 of 5 complete recounts: aces (ACE, W) and double faults (DOUBLE FAULT, L) per subject equal the reader's per player; codes sit on the Stage 0 players of the same names",
+  "keys": [
+   {
+    "source_key": "2025_301_MS012",
+    "match_id": "atp|2025-301|R16|atp:104792|atp:105526"
+   },
+   {
+    "source_key": "2025_339_MS016",
+    "match_id": "atp|2025-339|R32|atp:104925|atp:208014"
+   },
+   {
+    "source_key": "2025_403_MS005",
+    "match_id": "atp|2025-403|QF|atp:126203|atp:126610"
+   },
+   {
+    "source_key": "2025_4462_MS017",
+    "match_id": "atp|2025-4462|R32|atp:202358|atp:209113"
+   },
+   {
+    "source_key": "2025_499_MS015",
+    "match_id": "atp|2025-499|R16|atp:106218|atp:210319"
+   }
+  ]
+ }
+}

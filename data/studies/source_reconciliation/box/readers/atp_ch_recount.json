@@ -1,0 +1,143 @@
+{
+ "records_read": 2375,
+ "linked": 2353,
+ "link_methods": {
+  "event+id/id": 2309,
+  "event+abbr/id": 25,
+  "": 22,
+  "event+full/id": 10,
+  "event+anchor/id": 9
+ },
+ "unlinked": {
+  "no_pair_in_event": 22
+ },
+ "records_with_matchbeats": 2260,
+ "records_with_rally_only": 115,
+ "dropped": {
+  "no_points": 0,
+  "unlinked_with_points": 22
+ },
+ "recounted_matches": 2353,
+ "recounts_complete": 2150,
+ "incomplete_reasons": {
+  "point_gaps": 116,
+  "game_gaps": 9,
+  "games_not_ending_at_last_point": 203,
+  "set_games_differ_from_stage0": 198,
+  "points_without_server": 0
+ },
+ "winner_vs_stage0": {
+  "player_rows_with_a_winner": 4288,
+  "same_as_stage0": 4288,
+  "share_not_equal": 0.0,
+  "match_ids_not_equal_examples": []
+ },
+ "reader": "atp_ch_recount",
+ "rows_written": 4706,
+ "matches_written": 2353,
+ "sanity_vs_stage0": {
+  "all": {
+   "ace": {
+    "n": 4688,
+    "equal": 0.994
+   },
+   "df": {
+    "n": 4688,
+    "equal": 0.9955
+   },
+   "svpt": {
+    "n": 4688,
+    "equal": 0.9403
+   },
+   "first_in": {
+    "n": 4688,
+    "equal": 0.9503
+   },
+   "first_won": {
+    "n": 4688,
+    "equal": 0.9612
+   },
+   "second_won": {
+    "n": 4688,
+    "equal": 0.9799
+   },
+   "sv_gms": {
+    "n": 4688,
+    "equal": 0.9957
+   },
+   "bp_saved": {
+    "n": 4688,
+    "equal": 0.9908
+   },
+   "bp_faced": {
+    "n": 4688,
+    "equal": 0.9874
+   }
+  },
+  "complete": {
+   "ace": {
+    "n": 4282,
+    "equal": 1.0
+   },
+   "df": {
+    "n": 4282,
+    "equal": 0.9998
+   },
+   "svpt": {
+    "n": 4282,
+    "equal": 0.9967
+   },
+   "first_in": {
+    "n": 4282,
+    "equal": 0.9977
+   },
+   "first_won": {
+    "n": 4282,
+    "equal": 0.9991
+   },
+   "second_won": {
+    "n": 4282,
+    "equal": 0.9995
+   },
+   "sv_gms": {
+    "n": 4282,
+    "equal": 1.0
+   },
+   "bp_saved": {
+    "n": 4282,
+    "equal": 0.9991
+   },
+   "bp_faced": {
+    "n": 4282,
+    "equal": 0.9988
+   }
+  }
+ },
+ "hand_checks": {
+  "by": "atp_handcheck.py (seed 20261016), read by the session on 16 Oct 2026",
+  "compared_with": "staged points.parquet tallied directly by the server field (4 MatchBeats matches) and one rally-only match (no MatchBeats to tally)",
+  "verdict": "4 of 4 MatchBeats recounts equal the tallies; the rally-only recount (server derived) equals Stage 0 on all nine counts; orientation by codes (the staged rally-only rows carry no names) matches Stage 0",
+  "keys": [
+   {
+    "source_key": "2021_9132_QS010",
+    "match_id": "atp|2021-9132|Q1|atp:126533|atp:209405"
+   },
+   {
+    "source_key": "2022_2801_QS023",
+    "match_id": "atp|2022-2801|Q1|atp:106168|atp:209171"
+   },
+   {
+    "source_key": "2022_2813_MS013",
+    "match_id": "atp|2022-2813|R16|atp:105952|atp:209260"
+   },
+   {
+    "source_key": "2023_2833_MS029",
+    "match_id": "atp|2023-2833|R32|atp:200473|atp:209920"
+   },
+   {
+    "source_key": "2023_7536_QS026",
+    "match_id": "atp|2023-7536|Q1|atp:126125|atp:144716"
+   }
+  ]
+ }
+}

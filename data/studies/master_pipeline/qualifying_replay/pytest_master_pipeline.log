@@ -1,0 +1,61 @@
+..........................F......F...................................... [ 92%]
+......                                                                   [100%]
+================================== FAILURES ===================================
+______________________ test_every_issued_command_parses _______________________
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x0000025BE30BEA10>
+
+    def test_every_issued_command_parses(monkeypatch):
+        steps = _commands(monkeypatch)
+        assert len(steps) >= 25
+        helps: dict[tuple, str] = {}
+        for s in steps:
+            args = [str(a) for a in s.args]
+            if args[0] == "-m":
+                target, rest = args[:2], args[2:]
+            else:
+                target, rest = args[:1], args[1:]
+            sub = []
+            if target[-1].endswith("dp.py") or target[-1] == "src.pipeline.thinking" or target[-1] == "src.pipeline.thinking_api":
+                sub, rest = rest[:1], rest[1:]
+            key = (s.env, *target, *sub)
+            if key not in helps:
+                helps[key] = _help(target + sub, s.env)
+            known = _flags(helps[key])
+            used = {a.split("=")[0] for a in rest if a.startswith("--")}
+>           assert used <= known, f"{s.name}: {sorted(used - known)} not in {' '.join(target + sub)} --help"
+E           AssertionError: odds_input_apply: ['--apply'] not in src/eda/current_best_model/odds_input.py --help
+E           assert {'--apply'} <= set()
+E             
+E             Extra items in the left set:
+E             '--apply'
+
+test\master_pipeline\test_master_pipeline.py:166: AssertionError
+---------------------------- Captured stdout call -----------------------------
+NOTE: 2025_challenger.csv is lower-level data: accept it only after src/eda/tml_revisions/held_check.py has listed every change it makes (decision of 13 Oct 2026).
+instance: data/studies/current_best_model/x   sandbox: C:\tmp\x   candidate: False
+__________________________ test_linker_on_the_probe ___________________________
+
+    @needs_probe
+    def test_linker_on_the_probe():
+        m = L.todays_matches(pull=_probe_pull(), hours_ahead=96, now=dt.datetime(2026, 10, 9, 15, 11, tzinfo=dt.timezone.utc))
+        ok = m[m["status"].eq("ok")]
+        shanghai = m[m["tourney_id"].eq("2026-5014")]
+        assert len(shanghai) > 10 and set(shanghai["round"].dropna()) <= {"R64", "R32"}
+>       assert m["reason"].astype(str).str.contains("already played").sum() >= 20          # TML holds those results now
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       AssertionError: assert np.int64(0) >= 20
+E        +  where np.int64(0) = sum()
+E        +    where sum = 0     False\n1     False\n2     False\n3     False\n4     False\n5     False\n6     False\n7     False\n8     False\n9     Fals...    False\n44    False\n45    False\n46    False\n47    False\n48    False\n49    False\n50    False\nName: reason, dtype: bool.sum
+E        +      where 0     False\n1     False\n2     False\n3     False\n4     False\n5     False\n6     False\n7     False\n8     False\n9     Fals...    False\n44    False\n45    False\n46    False\n47    False\n48    False\n49    False\n50    False\nName: reason, dtype: bool = contains('already played')
+E        +        where contains = <pandas.core.strings.accessor.StringMethods object at 0x0000025BE45BE250>.contains
+E        +          where <pandas.core.strings.accessor.StringMethods object at 0x0000025BE45BE250> = 0                               tour itf (ITF or other)\n1                               tour itf (ITF or other)\n2     ...My Life event's final is played: th...\n50    the Tennis My Life event's final is played: th...\nName: reason, dtype: str.str
+E        +            where 0                               tour itf (ITF or other)\n1                               tour itf (ITF or other)\n2     ...My Life event's final is played: th...\n50    the Tennis My Life event's final is played: th...\nName: reason, dtype: str = astype(str)
+E        +              where astype = 0                               tour itf (ITF or other)\n1                               tour itf (ITF or other)\n2     ...My Life event's final is played: th...\n50    the Tennis My Life event's final is played: th...\nName: reason, dtype: str.astype
+
+test\master_pipeline\test_master_pipeline.py:249: AssertionError
+=========================== short test summary info ===========================
+FAILED test/master_pipeline/test_master_pipeline.py::test_every_issued_command_parses
+FAILED test/master_pipeline/test_master_pipeline.py::test_linker_on_the_probe
+2 failed, 76 passed in 371.20s (0:06:11)
+exit 1

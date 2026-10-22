@@ -1,0 +1,110 @@
+{
+ "reader": "wta_events_tbfill_recount",
+ "file": "data/studies/source_reconciliation/box/readers/wta_events_tbfill_recount.parquet",
+ "rows": 50578,
+ "matches": 25289,
+ "source": "wta_events_recount.parquet with unwritten tiebreak winners from the WTA point-by-point feed (B8)",
+ "rule": "fill only when the feed's tiebreak in the same set has the same number of points and the log's known winners (aces, double faults) agree; the event log's servers and serve numbers are kept",
+ "matches_with_unwritten_tiebreaks": 4241,
+ "fill_outcomes_matches": {
+  "no point-by-point document": 1020,
+  "filled": 2634,
+  "feed tiebreak missing or of another length": 573,
+  "serve numbers not recorded": 12,
+  "feed winners contradict the log's aces or double faults": 2
+ },
+ "filled_matches": 2634,
+ "filled_complete_matches": 2558,
+ "sanity_equality_with_stage0_filled_complete_rows": [
+  {
+   "field": "ace",
+   "n": 5062,
+   "equal": 5060,
+   "mean_diff": 0.0,
+   "equal_share": 0.9996,
+   "within1_share": 1.0
+  },
+  {
+   "field": "df",
+   "n": 5062,
+   "equal": 5062,
+   "mean_diff": 0.0,
+   "equal_share": 1.0,
+   "within1_share": 1.0
+  },
+  {
+   "field": "svpt",
+   "n": 5062,
+   "equal": 5053,
+   "mean_diff": 0.0051,
+   "equal_share": 0.9982,
+   "within1_share": 0.9992
+  },
+  {
+   "field": "first_in",
+   "n": 5062,
+   "equal": 4999,
+   "mean_diff": 0.0041,
+   "equal_share": 0.9876,
+   "within1_share": 0.9968
+  },
+  {
+   "field": "first_won",
+   "n": 5062,
+   "equal": 5016,
+   "mean_diff": 0.001,
+   "equal_share": 0.9909,
+   "within1_share": 0.9978
+  },
+  {
+   "field": "second_won",
+   "n": 5062,
+   "equal": 5021,
+   "mean_diff": 0.002,
+   "equal_share": 0.9919,
+   "within1_share": 0.9984
+  },
+  {
+   "field": "sv_gms",
+   "n": 5062,
+   "equal": 5060,
+   "mean_diff": 0.0004,
+   "equal_share": 0.9996,
+   "within1_share": 1.0
+  },
+  {
+   "field": "bp_saved",
+   "n": 5062,
+   "equal": 5056,
+   "mean_diff": 0.0008,
+   "equal_share": 0.9988,
+   "within1_share": 1.0
+  },
+  {
+   "field": "bp_faced",
+   "n": 5062,
+   "equal": 5056,
+   "mean_diff": 0.001,
+   "equal_share": 0.9988,
+   "within1_share": 0.9998
+  },
+  {
+   "field": "sv_won",
+   "n": 5062,
+   "equal": 5055,
+   "mean_diff": 0.003,
+   "equal_share": 0.9986,
+   "within1_share": 0.9994
+  }
+ ],
+ "independence": "not independent of the event log or of the point-by-point feed: both are the umpire device's",
+ "hand_checks": "see wta_handcheck.json",
+ "hand_check_keys": [
+  "wta:609/2025/LS053",
+  "wta:2062/2022/LS021",
+  "wta:2004/2022/LS011",
+  "wta:1020/2026/LS036",
+  "wta:2087/2023/LS004",
+  "wta:1160/2026/LS011"
+ ]
+}

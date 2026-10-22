@@ -1,0 +1,32 @@
+# ./python.sh -m src.ingest.point_sources.tdi --recent 10 --max-requests 1000
+# started 2026-10-21T05:40:32-07:00
+[tdi] new recent sweep 20261021T124032Z: days 2026-10-11 to 2026-10-21
+[tdi] default listing: 150 cards, stamped 2026-10-19..2026-10-21: default listing; 88 tournaments in the filter
+[tdi] date 2026-10-16: 38 cards, stamped 2026-10-16..2026-10-16: in_window
+[tdi] date 2026-10-17: 37 cards, stamped 2026-10-17..2026-10-17: in_window
+[tdi] date 2026-10-18: 86 cards, stamped 2026-10-18..2026-10-18: in_window
+[tdi] date 2026-10-19: 77 cards, stamped 2026-10-19..2026-10-19: in_window
+[tdi] date 2026-10-20: 86 cards, stamped 2026-10-20..2026-10-20: in_window
+[tdi] date 2026-10-21: 26 cards, stamped 2026-10-21..2026-10-21: in_window
+[tdi] sweep 20261021T124032Z finished: 12 listings
+[tdi] staged data/dump/points/tdi/listing_pages.parquet: 250 rows
+[tdi] staged data/dump/points/tdi/listing_cards.parquet: 15,333 rows
+[tdi] staged data/dump/points/tdi/match_ids.parquet: 6,898 rows
+[tdi] staged data/dump/points/tdi/filter_tournaments.parquet: 114 rows
+[tdi] staged data/dump/points/tdi/filter_players.parquet: 2,752 rows
+[tdi] 6898 match ids (index); 6752 done before; 146 to fetch
+[tdi] 50/146 pages; requests=57; date:200=6, date:200:cached=5, home:200=1, match:200=50
+[tdi] 100/146 pages; requests=107; date:200=6, date:200:cached=5, home:200=1, match:200=100
+[tdi] 146/146 pages; requests=153; date:200=6, date:200:cached=5, home:200=1, match:200=146
+[tdi] staged data/dump/points/tdi/listing_pages.parquet: 250 rows
+[tdi] staged data/dump/points/tdi/listing_cards.parquet: 15,333 rows
+[tdi] staged data/dump/points/tdi/match_ids.parquet: 6,898 rows
+[tdi] staged data/dump/points/tdi/filter_tournaments.parquet: 114 rows
+[tdi] staged data/dump/points/tdi/filter_players.parquet: 2,752 rows
+[tdi] staged data/dump/points/tdi/points.parquet: 1,024,951 rows
+[tdi] staged data/dump/points/tdi/matches.parquet: 7,532 rows
+[tdi] staged data/dump/points/tdi/statistics.parquet: 628,025 rows
+[tdi] staged data/dump/points/tdi/players.parquet: 1,573 rows
+[tdi] summary written to data/studies/official_point_feeds/tdi_summary.json
+
+# ok, exit 0, 1030.8 s

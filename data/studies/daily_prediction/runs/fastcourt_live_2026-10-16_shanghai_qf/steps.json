@@ -1,0 +1,141 @@
+{
+ "matchups": {
+  "seconds": 2.7,
+  "result": {
+   "stage0": "C:\\Users\\zerom\\Documents\\Tennis-predictions\\data\\studies\\predictability_diagnostic",
+   "live_matches": 2,
+   "match_ids": [
+    "atp|2026-5014-20261007|QF|atp:106421|atp:126205",
+    "atp|2026-5014-20261007|QF|atp:134770|atp:212588"
+   ],
+   "wta_calendar": {
+    "years": []
+   }
+  }
+ },
+ "prices": {
+  "seconds": 0.0,
+  "result": {
+   "priced": 2,
+   "sources": {
+    "matchups csv (margin-free, side A)": 2
+   },
+   "quoted_at_given": 2
+  }
+ },
+ "worktree": {
+  "seconds": 42.3,
+  "result": {
+   "work_tree": "C:\\Users\\zerom\\tnr_daily_fastcourt_live",
+   "replay": false,
+   "seconds": 42.2,
+   "constants_from": "C:\\Users\\zerom\\Documents\\Tennis-predictions\\data\\studies\\daily_prediction\\state\\template_2026-10-14\\2026-09-21",
+   "constants_replaced": {
+    "data/studies/predictability_diagnostic/stage1_baselines_summary.json": {
+     "before": "3c55a8bb29ed233d74826db6c6fc438a7317af3ce28c7c903257f7493896bbaf",
+     "after": "fae745884032c60cc5a7cfad32914dba56efa22ff5637eebc471de7a26d103cd"
+    },
+    "data/studies/predictability_diagnostic/stage3_ratings_summary.json": {
+     "before": "05209c18235f96b732b545c5d5c50bd4303d0d802ba11afa4039d18fc0544b7b",
+     "after": "a9e58707739cdbb6bd3af127ab41e52806ace615bd1e68d4349ae490afab2b61"
+    },
+    "data/studies/predictability_diagnostic/stage4_constants.csv": {
+     "before": "775d71e473574078f10bb97f303baf60a9f6ae9448b529c9a40672b98806224e",
+     "after": "28fb75d94650c2a37d102396c7087b23d83c9f3c44e7a48367287e851e274890"
+    },
+    "data/studies/surface_elo_pieces/pieces_meta.json": {
+     "before": "766589ccfff670729915ce2f86db543ae46fba930b75332a4cb84c3c4858d714",
+     "after": "51ae3c93f0492b2ee5c2d0245fd555a79b29fc0c28a8d130e40954c139ccd3df"
+    }
+   }
+  }
+ },
+ "tables": {
+  "seconds": 539.4,
+  "result": {
+   "steps": {
+    "stage0": 112.1,
+    "additions": 246.2,
+    "check": 0.9,
+    "lle_layer": 23.9,
+    "odds": 7.4,
+    "live_odds": 1.2,
+    "remap": 2.8,
+    "links": 63.1,
+    "live_links": 6.0,
+    "timing": 52.7,
+    "live_window": 3.4,
+    "additions_window": 19.6
+   },
+   "history": "run beside the states step (history.json)",
+   "timeline_held": false
+  }
+ },
+ "history": {
+  "seconds": 0.0,
+  "result": {
+   "history": "history vs the reference of 2026-10-08: future 315 and updated 6 (allowed); accepted 52,368 (allowed: lower-level additions 48,958, completions 418, decided repairs 2,992); main-tour changes 9 (allowed, listed: new past 1, dropped 1, revised 7); Tennis My Life's own lower-level changes 104 (allowed, decided 13 Oct: new past 39, dropped 45, revised 20); lower-level new past 0, dropped 0, revised 0 -> the template may be built",
+   "ran_seconds": 75.0
+  }
+ },
+ "states": {
+  "seconds": 551.3,
+  "result": {
+   "checkpoint": "C:\\Users\\zerom\\Documents\\Tennis-predictions\\data\\studies\\daily_prediction\\state\\template_2026-10-14\\2026-09-21",
+   "parts_summary": {
+    "slice changed: recomputed in full": 14
+   },
+   "seconds": {
+    "offset": 13.9,
+    "stage3": 15.7,
+    "stage4_rows": 94.1,
+    "weighted": 48.3,
+    "stage4_inputs": 4.4,
+    "pieces": 13.7,
+    "context": 15.9,
+    "waited_for_forms_and_ios": 338.8,
+    "forms_rows": 23.5,
+    "forms_context": 91.9,
+    "forms": 334.9,
+    "forms_family": 450.3,
+    "ios_cache": 55.0,
+    "ios_runs": 489.7,
+    "ios_family": 544.7,
+    "total": 546.3
+   },
+   "gate": {
+    "live_matches": 2,
+    "complete": 2
+   }
+  }
+ },
+ "patterns": {
+  "seconds": 80.8,
+  "result": {
+   "matches": 2,
+   "z_present": 2,
+   "not_built_but_on_counted_as_missing": {
+    "rb__el__low_share_diff": 2,
+    "rb__fp__f12_salience__hasL_a-b": 2
+   },
+   "gate_off": {
+    "PS03_net": {
+     "atp 2026-10": 0.573
+    },
+    "PS06_close": {
+     "atp 2026-10": 0.573
+    },
+    "PS04_flat": {
+     "atp 2026-10": 0.573
+    }
+   },
+   "params_sha256": "cb5db37b32f65f3eee8ad523d3272a811b5903cc718bc31c532e96381f0b1ac2",
+   "venue_pace": {
+    "venue_rows": 128,
+    "venue_rows_without_rating": 0,
+    "ratings_from_run": 2548,
+    "ace_gap_equal_to_input": 2
+   }
+  }
+ }
+}

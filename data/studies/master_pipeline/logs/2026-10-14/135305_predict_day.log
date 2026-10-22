@@ -1,0 +1,87 @@
+# DP_BASE_TREE=C:\Users\zerom\tnr_tpl1014 DP_INSTANCE=template_2026-10-14 DP_WORK_TREE=C:\Users\zerom\tnr_daily_nb ./python.sh 'C:\Users\zerom\Documents\Tennis-predictions\src\eda\daily_prediction\dp.py' run_day --run 'C:\Users\zerom\Documents\Tennis-predictions\data\studies\daily_prediction\runs\live_2026-10-14_135305' --matchups 'C:\Users\zerom\Documents\Tennis-predictions\data\studies\master_pipeline\matchups\matchups_2026-10-14_122859.csv' --refresh --seeds 0-15 --checkpoint auto --leave-checkpoint auto
+# started 2026-10-14T13:53:05-07:00
+{
+ "created_at": "2026-10-14T205306Z",
+ "mode": "live",
+ "replay": null,
+ "matchups_csv": "C:\\Users\\zerom\\Documents\\Tennis-predictions\\data\\studies\\master_pipeline\\matchups\\matchups_2026-10-14_122859.csv",
+ "checkpoint": "auto",
+ "seeds": "0-15",
+ "work_tree": "C:\\Users\\zerom\\tnr_daily_nb",
+ "instance": "C:\\Users\\zerom\\Documents\\Tennis-predictions\\data\\studies\\current_best_model\\template_2026-10-14",
+ "base_tree": "C:\\Users\\zerom\\tnr_tpl1014"
+}
+[    0.5s] == refresh
+[    0.0s] --> tml: -m src.ingest.public_dump.tennis_my_life --start-year 2000
+[    3.2s]     exit 0 in 3 s
+[    3.2s] --> stage0: src/eda/predictability_diagnostic/stage0_build.py --out-dir C:\Users\zerom\Documents\Tennis-predictions\data\studies\daily_prediction\runs\live_2026-10-14_135305\stage0
+[  113.0s]     exit 0 in 110 s
+[  121.3s]    refresh: 120.8 s
+[  121.3s] == matchups
+[  123.6s]    matchups: 2.3 s
+[  123.6s] == prices
+[  123.6s]    prices: 0.0 s
+[  123.6s] == worktree
+[  130.7s]    worktree: 7.1 s
+[  130.7s] == tables
+[  130.8s] --> stage0: src/eda/predictability_diagnostic/stage0_build.py --live-rows run/live_rows.parquet
+[  241.2s]     exit 0 in 110.5 s
+[  241.2s] --> additions: src/eda/current_best_model/additions.py --apply
+[  498.1s]     exit 0 in 256.9 s
+[  498.1s] --> check: src/eda/prediction_run/inject.py --meta run/live_meta.parquet --step check
+[  499.1s]     exit 0 in 0.9 s
+[  499.1s] --> lle_layer: src/eda/current_best_model/layer_config.py --resolve --official C:\Users\zerom\Documents\Tennis-predictions\data\studies\current_best_model\level_layer\official.json
+[  527.5s]     exit 0 in 28.4 s
+[  527.5s] --> odds: src/eda/predictability_diagnostic/stage1_odds.py 
+[  536.1s]     exit 0 in 8.6 s
+[  536.1s] --> live_odds: src/eda/prediction_run/inject.py --meta run/live_meta.parquet --step odds
+[  537.2s]     exit 0 in 1.1 s
+[  537.2s] --> remap: src/eda/prediction_run/inject.py --meta run/live_meta.parquet --step remap
+[  540.0s]     exit 0 in 2.8 s
+[  540.0s] --> links: src/eda/match_timing/link_sources_c.py --sources tennis_data,wta_api,sofascore,slam_feeds,tdi
+[  585.2s]     exit 0 in 45.1 s
+[  585.2s] --> live_links: src/eda/prediction_run/inject.py --meta run/live_meta.parquet --step links
+[  590.6s]     exit 0 in 5.4 s
+[  590.6s] --> timing: src/eda/match_timing/timing.py 
+[  647.2s]     exit 0 in 56.6 s
+[  647.2s] --> live_window: src/eda/prediction_run/inject.py --meta run/live_meta.parquet --step pin
+[  649.9s]     exit 0 in 2.7 s
+[  649.9s] --> additions_window: src/eda/current_best_model/additions.py --pin-timing
+[  669.7s]     exit 0 in 19.9 s
+[  669.7s]    tables: 539.0 s
+[  669.8s] == states
+C:\Users\zerom\tnr_daily_nb\data\studies - The directory is not empty.
+The process cannot access the file because it is being used by another process.
+Traceback (most recent call last):
+  File "C:\Users\zerom\Documents\Tennis-predictions\src\eda\daily_prediction\dp_steps.py", line 489, in run_day
+    st = timed("states", step_states, run_dir, False, workers)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\zerom\Documents\Tennis-predictions\src\eda\daily_prediction\dp_steps.py", line 469, in timed
+    res = fn(*args)
+          ^^^^^^^^^
+  File "C:\Users\zerom\Documents\Tennis-predictions\src\eda\daily_prediction\dp_steps.py", line 231, in step_states
+    raise SystemExit(f"states failed inside the work tree: {run_dir / 'states_inside.log'}")
+SystemExit: states failed inside the work tree: C:\Users\zerom\Documents\Tennis-predictions\data\studies\daily_prediction\runs\live_2026-10-14_135305\states_inside.log
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\zerom\Documents\Tennis-predictions\src\eda\daily_prediction\dp.py", line 244, in <module>
+    sys.exit(main())
+             ^^^^^^
+  File "C:\Users\zerom\Documents\Tennis-predictions\src\eda\daily_prediction\dp.py", line 240, in main
+    return a.func(a)
+           ^^^^^^^^^
+  File "C:\Users\zerom\Documents\Tennis-predictions\src\eda\daily_prediction\dp.py", line 155, in cmd_run_day
+    res = S.run_day(run_dir, a.refresh, not a.no_fit, a.keep_worktree, a.workers, a.direct_seeds, a.leave_checkpoint,
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\zerom\Documents\Tennis-predictions\src\eda\daily_prediction\dp_steps.py", line 511, in run_day
+    out["cleanup"] = WT.cleanup(Path(cfg["work_tree"]))
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\zerom\Documents\Tennis-predictions\src\eda\daily_prediction\dp_worktree.py", line 105, in cleanup
+    subprocess.run(["cmd", "/c", "rmdir", "/s", "/q", str(box)], check=True)
+  File "C:\Users\zerom\miniforge3\envs\tennis\Lib\subprocess.py", line 571, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['cmd', '/c', 'rmdir', '/s', '/q', 'C:\\Users\\zerom\\tnr_daily_nb']' returned non-zero exit status 32.
+
+# failed, exit 1, 747.8 s

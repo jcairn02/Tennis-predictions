@@ -22,6 +22,11 @@ A kind not listed (none in Stage 0 on 14 Oct 2026) is treated as a BAR_KINDS one
 Still blocking ("do not bet: inputs incomplete"):
     * a player who entered through the qualifying (Q, or LL) with no qualifying match in that span of Stage 0: results
       are missing, not only box scores (Tennis My Life has lacked the WTA's qualifying since June 2026);
+    * a qualifying match after its first round (tour-level qualifying is bet since 22 Oct 2026: docs/decisions/
+      2026-10-22-qualifying-bets.md) whose player has no match of the round before in Stage 0, at the event or in the
+      PREVIOUS_ROUND_DAYS before (the feed files some women's qualifying under an id of its own): the result is
+      missing. Women's qualifying reaches the tables only through the weekly lower-level feed, so a women's round 2
+      is blocked until its round 1 is in a snapshot; a men's waits for Tennis My Life's qualifying file;
     * a live match not in Stage 0;
     * since 9 Oct 2026, an unknown indoor input: every training match has one (src/eda/indoor_fill/status.py), so a
       live match whose collected frame row (live_frame.parquet) has none fails.
@@ -55,6 +60,7 @@ MAIN_LEVELS = ("GS", "FIN", "T1000", "T500", "T250")
 BAR_KINDS = ("main tour", "Challenger / WTA 125", "qualifying")
 NOTE_KINDS = ("team event", "ITF")
 EDGE_BAR = 0.01                                    # 1 point: about the 90th-percentile move of one missing round (1.17)
+PREVIOUS_ROUND_DAYS = 4                            # qualifying rounds follow day by day (a Slam's over about four days)
 BET, BET_BAR, NO_BET = "may be bet", "may be bet if its edge clears 1 point", "do not bet: inputs incomplete"
 MISSING_COLUMNS = ["live_match_id", "player_id", "player_name", "match_id", "tournament_name", "round", "same_event",
                    "kind", "effect"]
@@ -80,6 +86,26 @@ def kind(level, qualifying) -> str:
 def effect(k: str) -> str:
     """"note" for a kind the training rows mostly lack, else "edge bar"."""
     return "note" if k in NOTE_KINDS else "edge bar"
+
+
+def previous_round_missing(h: pd.DataFrame, tournament_id, round_order, day: int) -> bool:
+    """A qualifying match after its first round, and no match of the player's round before in ``h`` (the player's
+    Stage 0 rows with their latest finish, lf): at the same event, or a qualifying match of that round finished in the
+    PREVIOUS_ROUND_DAYS before the day."""
+    k = int(round_order) - 1
+    if k < 1:
+        return False
+    prev = h["qualifying"].astype(bool) & h["round_order"].eq(k)
+    near = h["lf"].notna() & (h["lf"] >= day - PREVIOUS_ROUND_DAYS) & (h["lf"] < day)
+    return not (prev & (h["tournament_id"].eq(tournament_id) | near)).any()
+
+
+def previous_round_reason(name: str, rnd: str, round_order, tour: str) -> str:
+    """The block's text: the result of the round before is missing, and what brings it."""
+    before = f"Q{int(round_order) - 1}"
+    where = ("women's qualifying reaches the data only through the weekly lower-level feed" if tour == "wta" else
+             "Tennis My Life has not published it yet")
+    return f"{name}: no {before} match before this {rnd} in Stage 0, so its result is missing ({where})"
 
 
 def check(stage0: Path, timing: Path, meta: pd.DataFrame) -> tuple[pd.DataFrame, pd.DataFrame]:
@@ -127,6 +153,8 @@ def check(stage0: Path, timing: Path, meta: pd.DataFrame) -> tuple[pd.DataFrame,
             # -20261007), so the qualifying matches are looked for in the window, not by the event's id
             if str(pl.get("entry") or "").upper() in QUALIFIED and not h.loc[same_event | recent, "qualifying"].any():
                 blocks.append(f"{pl['player_name']}: entered through qualifying, but no qualifying match in Stage 0")
+            if bool(me["qualifying"]) and previous_round_missing(h, me["tournament_id"], me["round_order"], day):
+                blocks.append(previous_round_reason(pl["player_name"], me["round"], me["round_order"], me["tour"]))
         notes = []
         if bar:
             notes.append(f"{bar} earlier match(es) without a box score of a kind the training rows nearly always hold: "

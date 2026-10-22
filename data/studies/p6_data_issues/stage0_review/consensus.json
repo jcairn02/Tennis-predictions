@@ -1,0 +1,56 @@
+{
+ "rule": "docs/decisions/2026-10-08-corrupt-data-fixes.md: three independent reviewers, the same rows, operation and values",
+ "reviewers": [
+  "R1_recompute",
+  "R2_attack",
+  "R3_records"
+ ],
+ "decided_at": "2026-10-14",
+ "G1": {
+  "verdict": "confirmed unanimously",
+  "rows": [
+   "atp|2024-2847|F|atp:105062|atp:209263",
+   "atp|2024-2847|QF|atp:102093|atp:207352",
+   "atp|2024-2847|QF|atp:105062|atp:210017",
+   "atp|2024-2847|QF|atp:208279|atp:209263",
+   "atp|2024-2847|QF|atp:209903|atp:212021",
+   "atp|2024-2847|R16|atp:102093|atp:209209",
+   "atp|2024-2847|R16|atp:105062|atp:106220",
+   "atp|2024-2847|R16|atp:105836|atp:208279",
+   "atp|2024-2847|R16|atp:106075|atp:207352",
+   "atp|2024-2847|R16|atp:106283|atp:209263",
+   "atp|2024-2847|R16|atp:134840|atp:210017",
+   "atp|2024-2847|R16|atp:200416|atp:209903",
+   "atp|2024-2847|R16|atp:207490|atp:212021",
+   "atp|2024-2847|R32|atp:102093|atp:109686",
+   "atp|2024-2847|R32|atp:105062|atp:106162",
+   "atp|2024-2847|R32|atp:105561|atp:207490",
+   "atp|2024-2847|R32|atp:105836|atp:144973",
+   "atp|2024-2847|R32|atp:105882|atp:209903",
+   "atp|2024-2847|R32|atp:106075|atp:210721",
+   "atp|2024-2847|R32|atp:106177|atp:208279",
+   "atp|2024-2847|R32|atp:106220|atp:200484",
+   "atp|2024-2847|R32|atp:106283|atp:209405",
+   "atp|2024-2847|R32|atp:110602|atp:209263",
+   "atp|2024-2847|R32|atp:125802|atp:200416",
+   "atp|2024-2847|R32|atp:134840|atp:200436",
+   "atp|2024-2847|R32|atp:200273|atp:207352",
+   "atp|2024-2847|R32|atp:208010|atp:212021",
+   "atp|2024-2847|R32|atp:208890|atp:209209",
+   "atp|2024-2847|R32|atp:210017|atp:211596",
+   "atp|2024-2847|SF|atp:105062|atp:212021",
+   "atp|2024-2847|SF|atp:207352|atp:209263"
+  ],
+  "operation": "set tournament_date (Tennis My Life raw tourney_date)",
+  "value": "2024-02-26",
+  "evidence": "TennisLive and SofaScore list all 31 as the third Tenerife Challenger of 2024 (26 Feb - 3 Mar); the ATP results page of event 2847 (Tenerife 3); Wikipedia; the clock simulated by R1 and R3: every window holds its play day after the fix, none before"
+ },
+ "G2": {
+  "verdict": "rejected unanimously (the date fix)",
+  "rows": [],
+  "finding": "the two rows are duplicates of Sackmann rows atp|2021-581|Q2|atp:106045|atp:208013 and atp|2021-581|Q2|atp:106408|atp:202103; re-dating alone would move the clock rule window to 11-18 Dec 2020 (a leak); dropping the Tennis My Life copies needs its own proposal"
+ },
+ "applied": false,
+ "why_not_applied": "Stage 0 lower-level history: a candidate or the owner decision (frozen-reference rule); the 8 Oct corrections mechanism has no date action yet",
+ "proposed_table": "data\\studies\\p6_data_issues\\stage0_review\\proposed_row_corrections.csv"
+}

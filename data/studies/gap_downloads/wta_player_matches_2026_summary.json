@@ -1,15 +1,16 @@
 {
  "source": "wta",
  "mode": "player-matches",
- "started_at": "2026-10-13T23:06:49+00:00",
+ "started_at": "2026-10-20T19:03:49+00:00",
  "args": {
   "batch": null,
   "player_matches": true,
   "players": null,
   "player_year": 2026,
   "refresh_seeds": false,
-  "refresh_before": "2026-10-13T22:45:00",
-  "refresh_active_since": "2026-08-01",
+  "refresh_before": "2026-10-20T19:03:47+00:00",
+  "refresh_active_since": "2026-09-08",
+  "refresh_rotation": 6,
   "player_since": "2026-09-07",
   "years": null,
   "after_pid": null,
@@ -21,7 +22,7 @@
   "endpoints": null,
   "from_date": null,
   "limit": null,
-  "max_requests": 6000,
+  "max_requests": 3000,
   "min_interval": 2.0,
   "jitter": 1.0,
   "stop_after_failures": 5,
@@ -40,104 +41,107 @@
  "seeds": {
   "file": "data/studies/gap_downloads/wta_player_seeds_2026.csv",
   "frozen_at": "2026-10-11T15:59:59+00:00",
-  "kaggle_folder": "data/raw/gap_sources/bwandowando",
+  "seeded_from": "data/raw/gap_sources/bwandowando",
   "players": 2113
  },
  "pauses": [],
  "fetch_outcomes": {
-  "page:200": 2366,
-  "page:200:cached": 2165
+  "page:200": 2024,
+  "page:200:cached": 2563
  },
  "client": {
   "impersonate": "requests",
-  "requests": 2366,
+  "requests": 2024,
   "retried": 0,
-  "slept_seconds": 5214.6,
+  "slept_seconds": 4390.6,
   "min_interval": 2.0,
   "jitter": 1.0,
   "not_found_answers": 0
  },
- "players_asked": 4467,
+ "players_asked": 4511,
  "staged": {
   "player_matches": {
-   "rows": 99787,
+   "rows": 102549,
    "dest": "data/dump/points/wta/player_matches/2026.parquet",
-   "bytes": 5143243
+   "bytes": 5395063
   },
   "player_results": {
-   "rows": 32465,
+   "rows": 33488,
    "dest": "data/dump/points/wta/player_results/2026.parquet",
-   "bytes": 1539629
+   "bytes": 1584536
   }
  },
  "evidence": {
   "players_file": "data/studies/gap_downloads/wta_player_players_2026.csv.gz",
-  "players_asked": 4467,
+  "players_asked": 4511,
   "players_by_wave": {
    "0": 2113,
-   "1": 2058,
-   "2": 286,
-   "3": 10
+   "1": 2093,
+   "2": 294,
+   "3": 11
   },
   "players_by_outcome": {
-   "ok": 4465,
+   "ok": 4509,
    "absent": 2
   },
-  "pages": 4529,
-  "players_with_two_pages_or_more": 64,
-  "rows_served": 99787,
+  "pages": 4585,
+  "players_with_two_pages_or_more": 76,
+  "rows_served": 102547,
   "last_start_by_players": {
-   "": 2,
+   "": 3,
    "2025-12": 15,
-   "2026-01": 91,
-   "2026-02": 96,
-   "2026-03": 210,
-   "2026-04": 187,
-   "2026-05": 355,
-   "2026-06": 563,
-   "2026-07": 646,
-   "2026-08": 672,
-   "2026-09": 1372,
-   "2026-10": 258
+   "2026-01": 90,
+   "2026-02": 95,
+   "2026-03": 204,
+   "2026-04": 183,
+   "2026-05": 350,
+   "2026-06": 549,
+   "2026-07": 611,
+   "2026-08": 652,
+   "2026-09": 773,
+   "2026-10": 986
   },
-  "results": 32465,
+  "results": 33488,
   "results_by_level_draw": {
    "Grand Slam|M": 507,
    "Grand Slam|Q": 448,
-   "ITF|M": 14378,
-   "ITF|Q": 12436,
-   "WTA 1000|M": 768,
-   "WTA 1000|Q": 279,
-   "WTA 125|M": 1635,
-   "WTA 125|Q": 503,
+   "ITF|M": 14842,
+   "ITF|Q": 12787,
+   "WTA 1000|M": 823,
+   "WTA 1000|Q": 303,
+   "WTA 125|M": 1728,
+   "WTA 125|Q": 539,
    "WTA 250|M": 551,
    "WTA 250|Q": 279,
    "WTA 500|M": 465,
    "WTA 500|Q": 216
   },
   "results_rows_per_match": {
-   "1": 252,
-   "2": 32211,
+   "1": 564,
+   "2": 32922,
    "3": 2
   },
   "results_winners_disagree": 1,
-  "results_without_loser_id": 28,
+  "results_without_loser_id": 29,
   "results_without_winner_id": 0,
   "itf_after": "2026-09-07",
-  "itf_after_main": 994,
-  "itf_after_qualifying": 770,
+  "itf_after_main": 1458,
+  "itf_after_qualifying": 1121,
   "itf_after_by_iso_week": {
    "38|M": 248,
    "38|Q": 188,
    "39|M": 309,
-   "39|Q": 268,
-   "40|M": 328,
-   "40|Q": 256,
-   "41|M": 109,
-   "41|Q": 58
+   "39|Q": 270,
+   "40|M": 332,
+   "40|Q": 270,
+   "41|M": 477,
+   "41|Q": 330,
+   "42|M": 92,
+   "42|Q": 63
   },
-  "itf_after_last_start": "2026-10-05"
+  "itf_after_last_start": "2026-10-12",
+  "itf_last_start": "2026-10-12"
  },
- "finished_at": "2026-10-14T00:45:46+00:00",
- "seconds": 5937.3
+ "finished_at": "2026-10-20T20:28:11+00:00",
+ "seconds": 5063.8
 }

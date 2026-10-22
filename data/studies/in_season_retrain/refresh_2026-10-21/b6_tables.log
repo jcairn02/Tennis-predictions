@@ -1,0 +1,186 @@
+Wed Oct 21 06:47:23 PDT 2026
+>>> rebuild_shared_tables:  ./python.sh src/eda/data_continuity/rebuild_stage0.py
+--> [build] src/eda/predictability_diagnostic/stage0_build.py
+[   1.2s] loaded 1,066,404 rows from 10 file groups
+[   6.1s] box overrides: 2,272 rows take the official feed's box score (2 the score too; 1441 of them Sackmann rows)
+row corrections: 11 rows found by their match, their source having moved them (first: ['data/raw/public_dump/tennis_my_life/2026_wta.csv#1270', 'data/raw/public_dump/tennis_my_life/2026_wta.csv#1273', 'data/raw/public_dump/tennis_my_life/2026_wta.csv#1279'])
+[  11.8s] row corrections: 2,951 source rows corrected
+[  13.3s] date corrections: 31 of 31 matches re-dated
+[  25.5s] after repeats: Sackmann 867,297, TML 197,604
+[  32.6s] TML linked: exact_name_pair 183,993, unlinked 6,707, one_player_anchor 6,244, resolved_ids 547, same_event_other_round 113
+[  38.7s] TML-only rows appended: 6,707 (423 in events Sackmann also holds)
+[  93.0s] id aliases: 4 second ids mapped (7 already merged by the repairs)
+[  95.6s] wrote 873,964 matches and 1,747,928 player rows to C:\Users\zerom\Documents\Tennis-predictions\data\studies\predictability_diagnostic
+[  96.5s] cleaning log: 2,375 rows, 33 cells over 1%
+[ 100.2s] done
+--> [checks] src/eda/predictability_diagnostic/stage0_checks.py
+{
+ "counts": [
+  {
+   "tour": "M",
+   "stage0": 233544,
+   "map_result_files": 232950,
+   "map_all_sources": 410775
+  },
+  {
+   "tour": "W",
+   "stage0": 237817,
+   "map_result_files": 237304,
+   "map_all_sources": 297114
+  }
+ ],
+ "a_won": {
+  "n": 873964,
+  "a_won": 437083,
+  "share": 0.5001,
+  "lo": 0.4991,
+  "hi": 0.5012
+ },
+ "asof": {
+  "slice": "player rows of 2024 tournament weeks",
+  "rows": 148206,
+  "asof_helper": {
+   "cuts": 20,
+   "changed_before_cut": 0,
+   "changed_at_cut": 0
+  },
+  "leaky_running_total_including_the_match": {
+   "cuts": 20,
+   "changed_before_cut": 0,
+   "changed_at_cut": 40
+  }
+ }
+}
+--> [odds] src/eda/predictability_diagnostic/stage1_odds.py
+[   2.0s] tennis-data rows 2010 on: 83,550 (0 re-dated to their file's season)
+[   2.1s] odds corrections: 7 rows with prices exchanged
+[   3.0s] Stage 0 main-draw matches at the linked levels: 93,213
+[   3.8s] scan.py's method: 80,188 linked (95.98%), 160 matches taken by two rows
+[   4.7s] linked: 83,490 (99.93%)
+[   6.7s] wrote stage1_odds.parquet (93,213 rows), stage1_odds_unlinked.parquet (60 rows), stage1_odds_summary.json to C:\Users\zerom\Documents\Tennis-predictions\data\studies\predictability_diagnostic
+--> [refresh] src/eda/match_timing/refresh.py --skip-ios
+--> src/eda/match_timing/link_sources_c.py --sources tennis_data,wta_api,sofascore,slam_feeds,tdi
+[    0.0s] running ['tennis_data', 'wta_api', 'sofascore', 'slam_feeds', 'tdi'] with 3 worker process(es)
+[    7.4s] [tennis_data] done: 83,490 linked in 7.4 s
+[   10.0s] [slam_feeds] 7,911 singles matches with a day to link
+[   10.9s] [slam_feeds] done: 7,682 linked in 3.5 s
+[   11.3s] [tdi] 5,800 singles matches to link against 43,975 Stage 0 matches
+[   12.7s] [tdi] done: 4,042 linked in 1.7 s
+[   19.8s] [sofascore] 205,360 singles events to link against 873,964 Stage 0 matches
+[   20.4s] [wta_api] 31,473 singles rows to link
+[   23.9s] [wta_api] done: 28,902 linked in 23.9 s
+[   64.8s] [sofascore] done: 160,314 linked in 64.8 s
+[   69.3s] wrote data\studies\match_timing\links\sources_c_summary.json and data\studies\match_timing\links\sources_c_link_counts.csv
+  tennis_data  read    83550 linked   83490 ambiguous    0 unlinked      60
+  wta_api      read    40919 linked   28902 ambiguous    0 unlinked    2571
+  sofascore    read   210518 linked  160314 ambiguous    1 unlinked   45045
+  slam_feeds   read     7931 linked    7682 ambiguous    0 unlinked     229
+  tdi          read     7532 linked    4042 ambiguous    0 unlinked    1758
+  sirgenkii    read     1343 linked       0 ambiguous    0 unlinked    1343
+    done in 70s
+--> src/eda/match_timing/timing.py
+[    1.0s] links: 1,060,821 rows from 13 sources: {'flashscore': 413616, 'sofascore': 160314, 'live_tennis_api': 126876, 'api_tennis': 108269, 'tennis_data': 83490, 'pbp_copy': 52234, 'infosys': 37203, 'wta_api': 28902, 'open_tennis_data': 26581, 'match_charting': 9164, 'slam_feeds': 7682, 'tdi': 4042, 'tml_days': 2448}
+[   32.3s] source calibration (extra days before / after, tier):
+                     cal_class   tier  overlaps  before  after  share_inside_base  share_inside_calibrated
+              api_tennis:local   gold      1459       2      0           0.957505                 1.000000
+              flashscore:local   gold     24423       1      0           0.986898                 0.999345
+         live_tennis_api:local   gold     19755       1      0           0.984156                 0.999190
+          match_charting:local   gold      2348       1      0           0.997445                 0.998296
+        open_tennis_data:local   gold      7042       2      1           0.974297                 0.999858
+     open_tennis_data:utc_date   gold      5304       0      0           0.999811                 0.999811
+               sofascore:local   gold      8233       1      0           0.991133                 0.999636
+             tennis_data:local   gold      7416       2      1           0.970200                 0.999865
+        tennis_data:local:east   gold      3662       1      0           0.995904                 1.000000
+        tennis_data:local:west   gold      5768       0      0           0.999653                 0.999653
+                tml_days:local   gold       495       4      1           0.977778                 1.000000
+             tml_days:utc_date   gold       495       3      4           0.941414                 1.000000
+wta_api:listing_schedule:local   gold       911       1      1           0.996707                 1.000000
+                 infosys:local silver      3645       0      0           0.999451                 0.999451
+             pbp_copy:utc_date silver      5919       0      0           1.000000                 1.000000
+[   33.5s] dated days not trusted alone: {"dated outside its round's other dated days": 35, 'its sources disagree by more than a week': 10}
+[   45.7s] undated windows widened by their event's shift: 610
+[   48.6s] draw guard: {'moved': 65580, 'contradictory_events': 2, 'contradictory_event_matches': 142, 'events_left_unnarrowed': 0}
+[   52.9s] timing: 494,088 of 873,964 matches have a trusted exact day; 680 conflicts; draw narrowing moved 65,580 bounds; 2 events contradicted the draw order
+    done in 54s
+--> src/eda/match_timing/timing_check.py
+[  205.4s] windows tested out of sample on 487,646 exactly dated matches: missed 0.0461% (after the window 0.0111%, before it 0.0351%)
+    done in 206s
+--> [features] src/eda/match_timing/rebuild.py
+[    0.8s] loading matches, players and odds; applying the repair's data corrections
+[   22.3s] rows: 1,747,928 player-matches; box history eligible 1,672,922; ITF/team own-score standard 1,218,744
+[   31.8s] Elo and serve/return ratings rebuilt (288,127 rating updates)
+[   44.0s] ratings, load, surface, age and games-weighted Elo built
+[   51.1s] 52-week points matchup built
+Adjperf: 576,254 box rows, 89,261,972 history pairs
+Built adjperf_ace|decayed
+Built adjperf_df|decayed
+Built adjperf_first_in|decayed
+Built adjperf_first_won|decayed
+Built adjperf_second_won|decayed
+Built adjperf_hold|decayed
+Built adjperf_bp_saved|decayed
+Built adjperf_bp_faced_pg|decayed
+Built adjperf_brk|decayed
+Built adjperf_bp_conv|decayed
+Built adjperf_rpw_first|decayed
+Built adjperf_rpw_second|decayed
+Built adjperf_tpw|decayed
+Built adjdef_ace|decayed
+Built adjdef_df|decayed
+Built adjdef_first_in|decayed
+Built adjdef_bp_faced_pg|decayed
+[  156.5s] adjperf/adjdef profile and total-points form built
+[  156.9s] wrote perplayer_features.parquet: 256,368 pool matches, 24 per-player inputs
+[  157.0s] IOS constants 2026-10-08_reference (292787ba4485, active.json)
+[  157.1s] loading matches, players and odds; applying the repair's data corrections
+[  177.3s] rows: 1,747,928 player-matches; box history eligible 1,672,922; ITF/team own-score standard 1,218,744
+[  264.5s]   IOS atp ace (tuned): 79.7s, 5,899 daily snapshots, mean PCG iterations 16.3, not converged 0
+[  264.5s]   IOS atp df (tuned): 75.8s, 5,899 daily snapshots, mean PCG iterations 14.2, not converged 0
+[  265.0s]   IOS atp first_in (tuned): 76.3s, 5,899 daily snapshots, mean PCG iterations 14.3, not converged 0
+[  272.6s]   IOS atp first_won (tuned): 81.5s, 5,899 daily snapshots, mean PCG iterations 16.4, not converged 0
+[  336.9s]   IOS atp second_won (tuned): 74.7s, 5,899 daily snapshots, mean PCG iterations 14.5, not converged 0
+[  341.9s]   IOS atp hold (tuned): 77.4s, 5,899 daily snapshots, mean PCG iterations 16.0, not converged 0
+[  341.9s]   IOS atp bp_saved (tuned): 69.5s, 5,899 daily snapshots, mean PCG iterations 10.8, not converged 0
+[  341.9s]   IOS wta ace (tuned): 34.4s, 5,885 daily snapshots, mean PCG iterations 14.6, not converged 0
+[  341.9s]   IOS wta df (tuned): 29.6s, 5,885 daily snapshots, mean PCG iterations 12.2, not converged 0
+[  365.2s]   IOS wta first_in (tuned): 30.7s, 5,885 daily snapshots, mean PCG iterations 12.3, not converged 0
+[  367.1s]   IOS wta first_won (tuned): 30.5s, 5,885 daily snapshots, mean PCG iterations 12.4, not converged 0
+[  367.1s]   IOS wta second_won (tuned): 28.0s, 5,885 daily snapshots, mean PCG iterations 10.5, not converged 0
+[  367.1s]   IOS wta hold (tuned): 19.4s, 5,885 daily snapshots, mean PCG iterations 9.7, not converged 0
+[  383.5s]   IOS wta bp_saved (tuned): 22.2s, 5,885 daily snapshots, mean PCG iterations 9.1, not converged 0
+[  422.8s]   IOS atp spw (short): 57.8s, 5,899 daily snapshots, mean PCG iterations 18.2, not converged 0
+[  422.8s]   IOS wta spw (short): 30.8s, 5,885 daily snapshots, mean PCG iterations 15.9, not converged 0
+[  424.9s] wrote ios_features.parquet
+[  426.3s] wrote leakproof_features.parquet: 256,368 pool matches, 46 inputs
+--> [ttt] src/eda/match_timing/ttt_timed.py
+tour             window base     model  matches   gain     lo     hi  log_loss_model
+ atp 2013-2018 (tuning)  elo       ttt    64208  2.649  1.956  3.342           0.584
+ atp 2013-2018 (tuning)  elo  ttt_hold    64208  2.511  1.819  3.203           0.584
+ atp 2013-2018 (tuning)  elo ttt_timed    64208  2.595  1.901  3.289           0.584
+ atp 2013-2018 (tuning)  ttt ttt_timed    64208 -0.054 -0.103 -0.005           0.584
+ atp          2019-2026  elo       ttt    90922  2.648  1.893  3.404           0.614
+ atp          2019-2026  elo  ttt_hold    90922  2.591  1.828  3.354           0.614
+ atp          2019-2026  elo ttt_timed    90922  2.775  2.005  3.545           0.614
+ atp          2019-2026  ttt ttt_timed    90922  0.127 -0.026  0.279           0.614
+ atp          2022-2026  elo       ttt    64887  2.901  2.058  3.745           0.612
+ atp          2022-2026  elo  ttt_hold    64887  2.778  1.920  3.636           0.612
+ atp          2022-2026  elo ttt_timed    64887  3.084  2.220  3.947           0.612
+ atp          2022-2026  ttt ttt_timed    64887  0.182 -0.031  0.396           0.612
+ wta 2013-2018 (tuning)  elo       ttt    25676  2.527  1.642  3.412           0.597
+ wta 2013-2018 (tuning)  elo  ttt_hold    25676  2.528  1.623  3.432           0.597
+ wta 2013-2018 (tuning)  elo ttt_timed    25676  2.510  1.620  3.401           0.597
+ wta 2013-2018 (tuning)  ttt ttt_timed    25676 -0.017 -0.105  0.071           0.597
+ wta          2019-2026  elo       ttt    34645  2.999  1.671  4.328           0.598
+ wta          2019-2026  elo  ttt_hold    34645  2.752  1.408  4.096           0.598
+ wta          2019-2026  elo ttt_timed    34645  3.413  1.849  4.977           0.598
+ wta          2019-2026  ttt ttt_timed    34645  0.414 -0.469  1.297           0.598
+ wta          2022-2026  elo       ttt    23998  2.292  0.916  3.669           0.599
+ wta          2022-2026  elo  ttt_hold    23998  1.907  0.524  3.291           0.599
+ wta          2022-2026  elo ttt_timed    23998  2.912  1.055  4.770           0.598
+ wta          2022-2026  ttt ttt_timed    23998  0.620 -0.666  1.906           0.598
+[  967.8s] done in 967s
+{"ok": true, "matches": {"before": 873681, "after": 873964}, "ids": {"changed": 1, "left_without_partner": ["atp|2026-2971-20260921|F|atp:127108|atp:210460", "atp|2026-2971-20260921|QF|atp:127108|atp:144870", "atp|2026-2971-20260921|QF|atp:200748|atp:210460", "atp|2026-2971-20260921|QF|atp:207729|atp:209355", "atp|2026-2971-20260921|QF|atp:210157|atp:211902", "atp|2026-2971-20260921|R16|atp:127108|atp:135753", "atp|2026-2971-20260921|R16|atp:144870|atp:212216", "atp|2026-2971-20260921|R16|atp:200748|atp:210464", "atp|2026-2971-20260921|R16|atp:202333|atp:210157", "atp|2026-2971-20260921|R16|atp:207729|atp:210478", "atp|2026-2971-20260921|R16|atp:208119|atp:211902", "atp|2026-2971-20260921|R16|atp:209355|atp:212256", "atp|2026-2971-20260921|R16|atp:210460|atpcode:H0M1", "atp|2026-2971-20260921|R32|atp:106283|atp:210478", "atp|2026-2971-20260921|R32|atp:111578|atp:212256", "atp|2026-2971-20260921|R32|atp:127108|atp:210028", "atp|2026-2971-20260921|R32|atp:135753|atp:211711", "atp|2026-2971-20260921|R32|atp:144870|atp:208342", "atp|2026-2971-20260921|R32|atp:200632|atp:211902", "atp|2026-2971-20260921|R32|atp:200670|atp:210464", "atp|2026-2971-20260921|R32|atp:200748|atp:209406", "atp|2026-2971-20260921|R32|atp:202333|atp:210399", "atp|2026-2971-20260921|R32|atp:207729|atpcode:J0F2", "atp|2026-2971-20260921|R32|atp:208119|atp:213605", "atp|2026-2971-20260921|R32|atp:209355|atp:212251", "atp|2026-2971-20260921|R32|atp:210099|atp:210157", "atp|2026-2971-20260921|R32|atp:210250|atp:212216", "atp|2026-2971-20260921|R32|atp:210460|atp:212219", "atp|2026-2971-20260921|R32|atp:211346|atpcode:H0M1", "atp|2026-2971-20260921|SF|atp:127108|atp:209355", "atp|2026-2971-20260921|SF|atp:210157|atp:210460", "wta|2025-W-FC-2025-FLS|F|wta:202468|wta:211148", "wta|2025-W-FC-2025-FLS|F|wta:215613|wta:220714", "wta|2025-W-FC-2025-FLS|QF|wta:201709|wta:215613", "wta|2025-W-FC-2025-FLS|QF|wta:202468|wta:214981", "wta|2025-W-FC-2025-FLS|QF|wta:202494|wta:211651", "wta|2025-W-FC-2025-FLS|QF|wta:206294|wta:220714", "wta|2025-W-FC-2025-FLS|QF|wta:211107|wta:220416", "wta|2025-W-FC-2025-FLS|QF|wta:211148|wta:216133", "wta|2025-W-FC-2025-FLS|QF|wta:214262|wta:222661", "wta|2025-W-FC-2025-FLS|QF|wta:216146|wta:222601", "wta|2025-W-FC-2025-FLS|SF|wta:202468|wta:211107", "wta|2025-W-FC-2025-FLS|SF|wta:202494|wta:211148", "wta|2025-W-FC-2025-FLS|SF|wta:215613|wta:222661", "wta|2025-W-FC-2025-FLS|SF|wta:216146|wta:220714", "wta|2026-W-FC-2026-FLS|F|wta:202494|wta:222328", "wta|2026-W-FC-2026-FLS|F|wta:211843|wta:214096", "wta|2026-W-FC-2026-FLS|QF|wta:201533|wta:220714", "wta|2026-W-FC-2026-FLS|QF|wta:201709|wta:213710", "wta|2026-W-FC-2026-FLS|QF|wta:202494|wta:213889", "wta|2026-W-FC-2026-FLS|QF|wta:211107|wta:222328", "wta|2026-W-FC-2026-FLS|QF|wta:211148|wta:221012", "wta|2026-W-FC-2026-FLS|QF|wta:211843|wta:260445", "wta|2026-W-FC-2026-FLS|QF|wta:213631|wta:222661", "wta|2026-W-FC-2026-FLS|QF|wta:222601|wta:260306", "wta|2026-W-FC-2026-FLS|SF|wta:202494|wta:211148", "wta|2026-W-FC-2026-FLS|SF|wta:211843|wta:261972", "wta|2026-W-FC-2026-FLS|SF|wta:213710|wta:222328", "wta|2026-W-FC-2026-FLS|SF|wta:214096|wta:222601"], "left_without_partner_count": 59}, "remapped_rows": {"api_tennis.parquet": 0, "flashscore.parquet": 0, "flashscore_ambiguous.parquet": 0, "flashscore_daily_board.parquet": 0, "flashscore_unlinked.parquet": 1, "infosys.parquet": 0, "live_tennis_api.parquet": 1, "match_charting.parquet": 0, "open_tennis_data.parquet": 0, "pbp_copy.parquet": 0, "tml_days.parquet": 0}, "expect": null}
+[ok] rebuild_shared_tables (1860 s, exit 0)  log: data/studies/master_pipeline/logs/2026-10-21/064723_rebuild_shared_tables.log
+[ok] rebuild_shared_tables (1860 s, exit 0)  log: data/studies/master_pipeline/logs/2026-10-21/064723_rebuild_shared_tables.log
+B6 exit 0
+Wed Oct 21 07:18:23 PDT 2026

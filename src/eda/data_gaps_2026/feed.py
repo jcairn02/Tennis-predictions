@@ -33,6 +33,9 @@ One command, --run, in order (each step its own process, its output in the run's
     6. snapshot  additions.py --package <derived> --name lower_level_feed/<date>
     7. check     additions.py --check-against <derived> --only lower_level_feed/<date>: on the frozen reference the merge
                  must give the derived candidate's own tables
+       two draws (since 14 Oct 2026) the "player in two main draws of one week" flags against the last advanced
+                 snapshot's (two_draws.py); the record's "two_draws" names the new ones, which the weekly task alerts
+                 on. Never stops the run
     8. advance   with --advance: additions.py --set-feed lower_level_feed/<date> (the policy of 13 Oct: a snapshot that
                  passes every step becomes current); men_2026_ch_chq is retired once the feed holds all of it. Refused
                  until the feed's first snapshot is accepted by hand, after its harm check
@@ -113,6 +116,17 @@ def _day(s) -> pd.Timestamp:
     return pd.to_datetime(s, errors="coerce")
 
 
+def _sample(p: Path) -> pd.DataFrame | None:
+    """An identity sample, or None when the builder wrote none or an empty one (a box-only candidate has no new players
+    or ids to sample: 14 Oct 2026, the TennisLive box-score package)."""
+    if not p.exists():
+        return None
+    try:
+        return pd.read_csv(p)
+    except pd.errors.EmptyDataError:
+        return None
+
+
 def auto_verdicts(cand: Path) -> pd.DataFrame:
     """Rule verdicts on the builder's identity samples (identity_sample_*.csv), in the hand check's file format
     (identity_verdicts.csv: kind, source, route, row, verdict, note) plus `by` = "rule". A rule says "right" only where
@@ -130,9 +144,8 @@ def auto_verdicts(cand: Path) -> pd.DataFrame:
         rows.append({"kind": kind, "source": src, "route": route, "row": i, "verdict": "right" if ok else "unsure",
                      "note": note, "by": "rule"})
 
-    p = cand / "identity_sample_links.csv"
-    if p.exists():
-        lk = pd.read_csv(p)
+    lk = _sample(cand / "identity_sample_links.csv")
+    if lk is not None:
         for i, r in lk.iterrows():
             days = abs((_day(r["src_day"]) - _day(r["s0_date"])).days) if pd.notna(_day(r["src_day"])) and pd.notna(
                 _day(r["s0_date"])) else 99
@@ -140,26 +153,23 @@ def auto_verdicts(cand: Path) -> pd.DataFrame:
             ok = r["name_grade"] >= 5 and days <= 14 and same_round
             add("links", r["source"], "", i, ok, f"name grade {r['name_grade']}, {days} days, round "
                                                 f"{'agrees' if same_round else 'differs'}")
-    p = cand / "identity_sample_players.csv"
-    if p.exists():
-        pl = pd.read_csv(p)
+    pl = _sample(cand / "identity_sample_players.csv")
+    if pl is not None:
         for i, r in pl.iterrows():
             cc = str(r["src_country"]) if pd.notna(r["src_country"]) else ""
             country_ok = not cc or pd.isna(r["s0_country"]) or cc in str(r["s0_country"]).split(";")
             ok = r["name_grade"] >= 2 and country_ok
             add("players", r["source"], r["route"], i, ok, f"name grade {r['name_grade']}, country "
                                                           f"{'agrees or unknown' if country_ok else 'differs'}")
-    p = cand / "identity_sample_new_ids.csv"
-    if p.exists():
-        nw = pd.read_csv(p)
+    nw = _sample(cand / "identity_sample_new_ids.csv")
+    if nw is not None:
         for i, r in nw.iterrows():
             same = r["reference_same_last_name"]
             ok = pd.isna(same) or not str(same).strip()
             add("new_ids", r["source"], "new", i, ok, "no reference player with this last name" if ok else
                 f"reference players with this last name: {same}")
-    p = cand / "identity_sample_repair_moves.csv"
-    if p.exists():
-        rm = pd.read_csv(p)
+    rm = _sample(cand / "identity_sample_repair_moves.csv")
+    if rm is not None:
         flat = (lambda s: "".join(ch for ch in str(s).lower() if ch.isalnum()))
         for i, r in rm.iterrows():
             ok = flat(r["from_name"]) == flat(r["to_name"]) and str(r["from_c"]) == str(r["to_c"])
@@ -261,6 +271,15 @@ def run(label: str, mode: str, advance: bool) -> int:
     if step("check", [ADDITIONS, "--check-against", str(gaps), "--only", target], logf):
         return done(5, "the merge does not give the derived candidate's tables")
     rec["steps"]["check"] = "pass"
+    # the "player in two main draws of one week" flags against the last advanced snapshot's (owner, 14 Oct 2026,
+    # docs/decisions/2026-10-14-p6-data-issues.md, point 4): a new one alerts through the weekly task (scheduled.py's
+    # job_feed); it never stops the run, and a failure of the comparison is recorded, not raised
+    try:
+        from src.eda.data_gaps_2026 import two_draws as TD
+        advanced = ["F" + h["snapshot"] for h in AD.index().get("feed_history", []) if h.get("feed") == FEED]
+        rec["two_draws"] = TD.check(gaps, label, advanced)
+    except Exception as exc:  # noqa: BLE001
+        rec["two_draws"] = {"error": f"{type(exc).__name__}: {exc}"}
     if advance:
         if FEED not in AD.index().get("feeds", {}):
             # the automatic job only refreshes a feed already accepted: the first snapshot is set by hand, after its

@@ -1,8 +1,13 @@
 """Shared fixtures of the daily prediction script's tests (docs/studies/daily_prediction/).
 
 The four checks the owner asked for (10 Oct 2026) run the script's real paths, so they need:
-    the instance's build tree   DP_BASE_TREE (default C:/Users/zerom/tnr_lyr_new): its tables and code, read only
+    the instance's build tree   DP_BASE_TREE: its tables and code, read only
+    the instance                DP_INSTANCE
     the GPU environment         tennis-tabpfn-local, for the price-grid test
+Both default to the instance the daily pipeline predicts with (the notebook's selection,
+data/studies/master_pipeline/selected_instance.json; 20 Oct 2026: before, the 10 Oct instance and its tree, which every
+repair decided since made unequal to a replay, so the tests guarded an instance nobody predicted with). With no
+selection: the 10 Oct defaults.
 and take minutes (the replay builds a work tree and today's tables; the families test builds a checkpoint and
 recomputes every family in full). They skip when the tree or the environment is missing.
 
@@ -22,7 +27,14 @@ import pytest
 ROOT = Path(__file__).resolve().parents[2]
 PKG = ROOT / "src" / "eda" / "daily_prediction"
 OUT = ROOT / "data" / "studies" / "daily_prediction"
+SELECTED = ROOT / "data" / "studies" / "master_pipeline" / "selected_instance.json"
+_sel = json.loads(SELECTED.read_text(encoding="utf-8")) if SELECTED.exists() else {}
+if "DP_BASE_TREE" not in os.environ and _sel.get("tree"):
+    os.environ["DP_BASE_TREE"] = _sel["tree"]                  # set before any dp module reads it (dp_common, at import)
+if "DP_INSTANCE" not in os.environ and _sel.get("instance"):
+    os.environ["DP_INSTANCE"] = _sel["instance"]
 TREE = Path(os.environ.get("DP_BASE_TREE", "C:/Users/zerom/tnr_lyr_new"))
+INSTANCE_ID = os.environ.get("DP_INSTANCE", "template_2026-10-10")
 PY = Path(os.environ.get("TENNIS_PYTHON", "C:/Users/zerom/miniforge3/envs/tennis/python.exe"))
 PY_TABPFN = Path(os.environ.get("TENNIS_TABPFN_PYTHON", "C:/Users/zerom/miniforge3/envs/tennis-tabpfn-local/python.exe"))
 REPLAY = {"week": "2026-07-13", "round": "R16", "checkpoint": "2026-06-22"}

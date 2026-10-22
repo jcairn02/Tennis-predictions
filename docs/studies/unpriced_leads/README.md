@@ -28,6 +28,10 @@
   * short rest needs scheduled start times for upcoming matches;
   * the court-speed part uses ratings data that end at the last model rebuild;
   * the luck and lower-level parts are not built for live use. Luck stays switched off (box scores are still thin). Since the new lower-level feed (14 October), the lower-level part is switched back on and counts as zero until it is built.
+* **Update, 16 Oct 2026: the court-speed gap was worse than listed.**
+  * The fast-courts pattern was missing for every live match, not just short of an event's newest days. Its ratings came from a file fixed at the 10 Oct model build, and a match not yet played is never in such a file.
+  * Fixed the same day: it now reads the ratings each run computes on today's data. Every run checks them against the model's own inputs ([decision, amendment](../../decisions/2026-10-13-five-pattern-adjustment.md)).
+  * **Also on 16 Oct, at your word: renamed events are one venue.** The 2026 Shanghai main draw ("Shanghai") had been split from its history ("Shanghai Masters"); 12 such renames are now joined, and moves of city or surface stay apart. This departs from the checked definition at 406 of the check's 9,326 matches, by a median 0.02 points of shift (same amendment).
 
 ## 1. The short answer
 

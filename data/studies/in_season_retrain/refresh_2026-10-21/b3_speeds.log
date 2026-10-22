@@ -1,0 +1,54 @@
+>>> refresh_speeds:  ./python.sh src/ingest/speed_daily.py --days-back 21 --max-requests 4200
+{
+ "run_at": "2026-10-21T12:40:28+00:00",
+ "date": "2026-10-21",
+ "mantd_refresh": "skipped",
+ "mantd_staged": 0,
+ "collector": {
+  "enabled": true,
+  "plan_requests": 598,
+  "plan_events": [
+   "2026-329",
+   "2026-496",
+   "2026-5014",
+   "2026-747",
+   "2026-7485",
+   "2026-9410"
+  ],
+  "max_requests": 4200,
+  "status": "ran",
+  "files": 192,
+  "staged": 161
+ },
+ "linked": {
+  "tml": 425,
+  "unlinked": 252,
+  "stage0_exact": 89,
+  "stage0_pair": 2
+ },
+ "live_panel": {
+  "frozen_rows": 43315,
+  "new_rows": 541,
+  "new_use": 539,
+  "new_by_source": {
+   "infosys_atp_daily": 339,
+   "mantennisdata": 202
+  },
+  "new_by_link": {
+   "tml": 417,
+   "stage0_exact": 120,
+   "stage0_pair": 4
+  },
+  "release_scenario_frozen": "B",
+  "frozen_in_hand": "2026-10-07"
+ },
+ "form": {
+  "file": "speed_form_2026-10-21.parquet",
+  "players": 1101,
+  "with_reading_28d": 245,
+  "latest_reading": "2026-10-22"
+ },
+ "seconds": 1514.7
+}
+[ok] refresh_speeds (1516 s, exit 0)  log: data/studies/master_pipeline/logs/2026-10-21/054027_refresh_speeds.log
+exit 0

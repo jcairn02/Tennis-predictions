@@ -2,7 +2,7 @@
  "source": "wta",
  "mode": "bulk",
  "batch": null,
- "started_at": "2026-10-14T01:09:35+00:00",
+ "started_at": "2026-10-21T19:11:32+00:00",
  "args": {
   "batch": null,
   "player_matches": false,
@@ -18,12 +18,12 @@
   "calendar_only": false,
   "sample": false,
   "seed": 20260924,
-  "tiers": "1000,500,250,125,finals",
+  "tiers": "1000,500,250,125,slam,finals",
   "draws": null,
-  "endpoints": "events,stats,advanced-stats,win-probability-momentum,point-by-point",
-  "from_date": "2026-09-08",
+  "endpoints": "stats",
+  "from_date": "2026-09-16",
   "limit": null,
-  "max_requests": 2500,
+  "max_requests": 600,
   "min_interval": 2.0,
   "jitter": 1.0,
   "stop_after_failures": 5,
@@ -58,25 +58,19 @@
   "2026|team": 1
  },
  "pauses": [],
- "editions_selected": 39,
- "matches_selected": 1078,
+ "editions_selected": 34,
+ "matches_selected": 1026,
  "fetch_outcomes": {
-  "advanced-stats:200:cached": 1078,
-  "events:200:cached": 1078,
-  "listing:200": 24,
-  "listing:200:cached": 15,
-  "point-by-point:200:cached": 763,
-  "point-by-point:404:cached": 315,
-  "stats:200:cached": 1078,
-  "win-probability-momentum:200:cached": 796,
-  "win-probability-momentum:404": 148,
-  "win-probability-momentum:404:cached": 134
+  "listing:200": 20,
+  "listing:200:cached": 14,
+  "stats:200": 1,
+  "stats:200:cached": 1025
  },
  "client": {
   "impersonate": "requests",
-  "requests": 174,
+  "requests": 23,
   "retried": 0,
-  "slept_seconds": 202.8,
+  "slept_seconds": 49.8,
   "min_interval": 2.0,
   "jitter": 1.0,
   "not_found_answers": 0
@@ -88,41 +82,41 @@
    "bytes": 47123
   },
   "matches/2026": {
-   "rows": 7481,
+   "rows": 7665,
    "dest": "data/dump/points/wta/matches/2026.parquet",
-   "bytes": 543879
+   "bytes": 556834
   },
   "points/2026": {
-   "rows": 509164,
+   "rows": 531069,
    "dest": "data/dump/points/wta/points/2026.parquet",
-   "bytes": 4692101
+   "bytes": 4896820
   },
   "events/2026": {
-   "rows": 1273535,
+   "rows": 1315686,
    "dest": "data/dump/points/wta/events/2026.parquet",
-   "bytes": 56485707
+   "bytes": 58358230
   },
   "stats/2026": {
-   "rows": 21669,
+   "rows": 22365,
    "dest": "data/dump/points/wta/stats/2026.parquet",
-   "bytes": 499683
+   "bytes": 514715
   },
   "advanced/2026": {
-   "rows": 2119250,
+   "rows": 2179274,
    "dest": "data/dump/points/wta/advanced/2026.parquet",
-   "bytes": 8473624
+   "bytes": 8711973
   },
   "momentum/2026": {
-   "rows": 7899931,
+   "rows": 8376219,
    "dest": "data/dump/points/wta/momentum/2026.parquet",
-   "bytes": 37860385
+   "bytes": 40161105
   }
  },
  "receipts": {
   "calendar:200": 19,
-  "matches:200": 141755,
-  "matches:404": 7442,
-  "players:200": 4537,
+  "matches:200": 142823,
+  "matches:404": 7314,
+  "players:200": 4594,
   "players:error": 5,
   "probe:200": 9,
   "tournaments:200": 679,
@@ -151,6 +145,6 @@
    "error": "response is not JSON"
   }
  ],
- "finished_at": "2026-10-14T01:20:12+00:00",
- "seconds": 638.5
+ "finished_at": "2026-10-21T19:20:35+00:00",
+ "seconds": 545.3
 }

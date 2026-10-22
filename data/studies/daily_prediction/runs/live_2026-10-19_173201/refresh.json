@@ -1,0 +1,53 @@
+{
+ "started_at": "2026-10-20T0032Z",
+ "steps": [
+  {
+   "step": "tml",
+   "args": [
+    "-m",
+    "src.ingest.public_dump.tennis_my_life",
+    "--start-year",
+    "2000"
+   ],
+   "exit": 1,
+   "seconds": 4.1,
+   "tail": "pt as data/raw/public_dump/tennis_my_life/held/2025_wta.691a20513d37.csv, the current copy stays\n[tennis_my_life] HELD 2026_challenger.csv: 31 rows of the current copy are gone (more than 5); kept as data/raw/public_dump/tennis_my_life/held/2026_challenger.290817794982.csv, the current copy stays\n[tennis_my_life] HELD 2026_wta.csv: 29 rows of the current copy are gone (more than 5); kept as data/raw/public_dump/tennis_my_life/held/2026_wta.8f6fb09ef0b0.csv, the current copy stays\n[tennis_my_life] staged data/dump/players/tennis_my_life/ATP_Database.parquet rows=12939 short=0 long=0\n[tennis_my_life] staged data/dump/matches/tennis_my_life/ongoing/challenger_ongoing_tourneys.parquet rows=14 short=0 long=0\n[tennis_my_life] staged data/dump/matches/tennis_my_life/ongoing/ongoing_tourneys.parquet rows=11 short=0 long=0\n[tennis_my_life] staged data/dump/matches/tennis_my_life/ongoing/wta_ongoing_tourneys.parquet rows=11 short=0 long=0\n[tennis_my_life] done: 4 staged files, 12,975 rows, 0 download errors, 3 held\n[tennis_my_life] held 2025_wta.csv: 14 rows of the current copy are gone (more than 5). To accept it after review: --accept-held 2025_wta.csv@691a20513d37\n[tennis_my_life] held 2026_challenger.csv: 31 rows of the current copy are gone (more than 5). To accept it after review: --accept-held 2026_challenger.csv@290817794982\n[tennis_my_life] held 2026_wta.csv: 29 rows of the current copy are gone (more than 5). To accept it after review: --accept-held 2026_wta.csv@8f6fb09ef0b0\n"
+  },
+  {
+   "step": "stage0",
+   "args": [
+    "src/eda/predictability_diagnostic/stage0_build.py",
+    "--out-dir",
+    "C:\\Users\\zerom\\Documents\\Tennis-predictions\\data\\studies\\daily_prediction\\runs\\live_2026-10-19_173201\\stage0"
+   ],
+   "exit": 0,
+   "seconds": 78.8,
+   "tail": "[   1.1s] loaded 1,066,037 rows from 10 file groups\n[   5.0s] box overrides: 2,272 rows take the official feed's box score (2 the score too; 1441 of them Sackmann rows)\n[   7.6s] row corrections: 2,951 source rows corrected\n[   8.6s] date corrections: 31 of 31 matches re-dated\n[  17.0s] after repeats: Sackmann 867,297, TML 197,237\n[  22.0s] TML linked: exact_name_pair 183,928, unlinked 6,357, one_player_anchor 6,291, resolved_ids 548, same_event_other_round 113\n[  26.7s] TML-only rows appended: 6,357 (422 in events Sackmann also holds)\n[  70.9s] id aliases: 4 second ids mapped (7 already merged by the repairs)\n[  73.2s] wrote 873,615 matches and 1,747,230 player rows to C:\\Users\\zerom\\Documents\\Tennis-predictions\\data\\studies\\daily_prediction\\runs\\live_2026-10-19_173201\\stage0\n[  73.9s] cleaning log: 2,376 rows, 31 cells over 1%\n[  77.1s] done\n"
+  }
+ ],
+ "gaps": [
+  {
+   "class": "held",
+   "tour": "atp",
+   "level": "T1000",
+   "matches": 1
+  },
+  {
+   "class": "held",
+   "tour": "atp",
+   "level": "T500",
+   "matches": 1
+  },
+  {
+   "class": "held",
+   "tour": "wta",
+   "level": "TEAM",
+   "matches": 1
+  }
+ ],
+ "fills": {
+  "filled": 0,
+  "notes": []
+ },
+ "finished_at": "2026-10-20T0033Z"
+}

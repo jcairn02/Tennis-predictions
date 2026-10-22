@@ -24,12 +24,28 @@ the wrong match.
                                            (the Infosys Slams' service games, 9 Oct 2026: the same study; no decided
                                            table uses it)
                            set_age         one player's age (side winner or loser) set to the value given
+                           mark_retired    a retirement written without its marker: " RET" appended to the score,
+                                           where the row still reads the score given (value); a row that already
+                                           reads it with the marker is left alone (since 22 Oct 2026, the source
+                                           reconciliation's repairs: docs/decisions/2026-10-22-source-reconciliation-
+                                           repairs.md)
+    event_corrections.csv  one field of every row of a named event (stage0_build.py; since 22 Oct 2026, the same
+                           decision): set_level after Stage 0's level rules and their refinement from Tennis My Life,
+                           set_surface after its surface fill. Stage 0's level rules match an event by name and code,
+                           not by year, so one edition's level or surface could not be corrected before. Named by source,
+                           tour, tournament id (Stage 0's), name and season, guarded by the value it replaces; see
+                           apply_event_corrections
     id_aliases.csv         Stage 0 player ids (stage0_build.py, after repair_tables): one person's second id mapped to
                            the established one, on every row of the second id
     odds_corrections.csv   tennis-data.co.uk rows (stage1_odds.py, right after the rows are read): exchange_prices
                            exchanges the winner's and the loser's price of each book named
     speed_exclusions.csv   serve-speed records (serve_speed_tabpfn/panel.py): not a candidate for their player-match,
                            which takes its next valid record
+    date_corrections.csv   event dates of named matches (stage0_build.py, right after the row corrections; since
+                           14 Oct 2026, docs/decisions/2026-10-14-p6-data-issues.md): set_tourney_date. Unlike the
+                           tables above it names its match, not its row (by source file, tournament id, round and both
+                           players, and the date it replaces), since Tennis My Life rewrites its files' row order; see
+                           apply_date_corrections
 """
 from __future__ import annotations
 
@@ -44,12 +60,18 @@ ROW_CORRECTIONS = FIXES / "row_corrections.csv"
 ID_ALIASES = FIXES / "id_aliases.csv"
 ODDS_CORRECTIONS = FIXES / "odds_corrections.csv"
 SPEED_EXCLUSIONS = FIXES / "speed_exclusions.csv"
+DATE_CORRECTIONS = FIXES / "date_corrections.csv"
+DATE_KEYS = ["source_file", "tourney_id", "round", "winner_name", "loser_name"]
+EVENT_CORRECTIONS = FIXES / "event_corrections.csv"
+EVENT_ACTIONS = {"set_level": "level", "set_surface": "surface"}    # action -> the Stage 0 field it sets
+EVENT_KEYS = ["source", "tour", "tournament_id", "tourney_name", "year"]
 
 COUNTS = ["ace", "df", "svpt", "1stIn", "1stWon", "2ndWon", "SvGms", "bpSaved", "bpFaced"]   # Sackmann's names
 BOX_ACTIONS = ("add_df_to_svpt", "exchange_box", "exchange_svgms", "blank_box", "replace_box", "replace_split",
                "set_svgms")
 SPLIT_COUNTS = ["1stIn", "1stWon", "2ndWon"]
-ROW_ACTIONS = BOX_ACTIONS + ("set_age",)
+ROW_ACTIONS = BOX_ACTIONS + ("set_age", "mark_retired")
+RETIRED_MARK = "RET"
 ROW_GUARDS = ["tourney_id", "round", "winner_name", "loser_name"]
 ODDS_GUARDS = ["td_winner", "td_loser", "td_date_text"]
 SPEED_KEY = ["source", "source_key", "match_id", "side"]
@@ -98,11 +120,60 @@ def _put(df: pd.DataFrame, at: pd.Index, col: str, values) -> None:
         df.loc[at, col] = ["" if np.isnan(x) else format(x, ".10g") for x in v]
 
 
+MOVED: list[str] = []          # the last call's corrections found by their match after the source moved their row
+
+
+def _match_key(f: pd.DataFrame, file_col: str) -> pd.Series:
+    """Source file and the four guards (tournament id, round, winner, loser), as the source writes them."""
+    out = _text(f[file_col])
+    for g in ROW_GUARDS:
+        out = out + "|" + _text(f[g])
+    return out
+
+
+def _row_positions(df: pd.DataFrame, table: pd.DataFrame, rowkey: pd.Series) -> np.ndarray:
+    """Positions in df of the table's distinct row keys. A correction's row is the one its source file and row name
+    when that row's tournament id, round and names equal the guards, as before. Since 21 Oct 2026, when they do not
+    (Tennis My Life rewrote the file's row order: its 2026 WTA file, 17-19 Oct), it is the one row of the file whose
+    tournament id, round and both names equal the guards, as the date corrections have named their matches since
+    14 Oct. No such row, or two, stops the build as before: a correction is never applied to another match."""
+    global MOVED
+    first = ~rowkey.duplicated().to_numpy()
+    keys, t_first = rowkey[first].to_numpy(), table.loc[first]
+    want = _match_key(t_first, "source_file").to_numpy()
+    df_key = _row_key(df["_source_file"], df["_row"])
+    df_match = _match_key(df, "_source_file")
+    by_row = pd.Series(np.arange(len(df)), index=df_key.to_numpy())
+    by_row = by_row[~by_row.index.duplicated(keep=False)]
+    by_match = pd.Series(np.arange(len(df)), index=df_match.to_numpy())
+    n_match = by_match.index.value_counts()
+    by_match = by_match[~by_match.index.duplicated(keep=False)]
+    match_text = df_match.to_numpy()
+    out, moved = np.empty(len(keys), dtype=np.int64), []
+    for i, (k, m) in enumerate(zip(keys, want)):
+        p = by_row.get(k)
+        if p is not None and match_text[p] == m:
+            out[i] = p
+        elif m in by_match.index:
+            out[i] = int(by_match[m])
+            moved.append(k)
+        else:
+            raise SystemExit(f"row corrections: {k} names no row whose tournament id, round and names equal its guards "
+                             f"({int(n_match.get(m, 0))} rows of its file match them); rebuild the table from the "
+                             "current sources")
+    MOVED = moved
+    if moved:
+        print(f"row corrections: {len(moved)} rows found by their match, their source having moved them (first: "
+              f"{moved[:3]})", flush=True)
+    return out
+
+
 def apply_row_corrections(df: pd.DataFrame, table: pd.DataFrame) -> tuple[pd.DataFrame, dict[str, pd.Index]]:
-    """Correct the named raw match rows (columns w_<count>, l_<count>, winner_age, loser_age, _source_file, _row and
-    the guards). Every correction must find exactly one row by source file and row whose tournament id, round and
-    names equal the guards, or the build stops. A row takes at most one box correction and one age per side.
-    Returns the frame and, per action, the index of the rows it changed."""
+    """Correct the named raw match rows (columns w_<count>, l_<count>, winner_age, loser_age, score, _source_file, _row
+    and the guards). Every correction must find exactly one row by source file and row whose tournament id, round and
+    names equal the guards, or, since 21 Oct 2026 when its source moved it, exactly one row of its file with those
+    guards (_row_positions); else the build stops. A row takes at most one box correction, one age per side and one
+    score correction. Returns the frame and, per action, the index of the rows it changed."""
     done: dict[str, pd.Index] = {a: df.index[:0] for a in ROW_ACTIONS}
     if table.empty:
         return df, done
@@ -112,11 +183,11 @@ def apply_row_corrections(df: pd.DataFrame, table: pd.DataFrame) -> tuple[pd.Dat
         raise SystemExit(f"row corrections: unknown actions {sorted(unknown)}")
     rowkey = _row_key(table["source_file"], table["source_row"])
     family = np.where(table["action"].eq("set_age"), "age:" + _text(table.get("side", pd.Series("", index=table.index))),
-                      "box")
+                      np.where(table["action"].eq("mark_retired"), "score", "box"))
     twice = pd.Series(rowkey + "|" + family).duplicated()
     if twice.any():
         raise SystemExit(f"row corrections: a row named twice for the same fields (first: {rowkey[twice].iloc[0]})")
-    pos = _locate(_row_key(df["_source_file"], df["_row"]), rowkey.drop_duplicates(), "row corrections")
+    pos = _row_positions(df, table, rowkey)
     at_of = pd.Series(df.index[pos], index=rowkey.drop_duplicates().to_numpy())
     rows = pd.Index(at_of.loc[rowkey.to_numpy()].to_numpy())
     _guard(df, rows, table, ROW_GUARDS, "row corrections")
@@ -157,6 +228,8 @@ def apply_row_corrections(df: pd.DataFrame, table: pd.DataFrame) -> tuple[pd.Dat
             _replace_split(df, at, table.loc[sel])
         elif action == "set_svgms":
             _set_svgms(df, at, table.loc[sel])
+        elif action == "mark_retired":
+            done[action] = _mark_retired(df, at, table.loc[sel])
         else:
             side = table.loc[sel, "side"].to_numpy()
             value = pd.to_numeric(table.loc[sel, "value"], errors="coerce").to_numpy()
@@ -166,6 +239,52 @@ def apply_row_corrections(df: pd.DataFrame, table: pd.DataFrame) -> tuple[pd.Dat
                 if (side == s).any():
                     _put(df, at[side == s], f"{s}_age", value[side == s])
     return df, done
+
+
+def apply_date_corrections(df: pd.DataFrame, table: pd.DataFrame) -> tuple[pd.DataFrame, dict]:
+    """Event dates of named matches (date_corrections.csv; since 14 Oct 2026, the P6 data issues' Tenerife repair:
+    docs/decisions/2026-10-14-p6-data-issues.md). Unlike the row corrections, a date correction names its match, not its
+    row: by source file, tournament id, round and both players, as the source writes them, and by the date it replaces
+    (old_value, YYYYMMDD as the source writes it). Tennis My Life rewrites its files' row order (none of the 2024
+    Challenger file's rows kept its position on 13 Oct 2026), and a row number would stop every build at its next
+    revision. The matched row takes ``value`` in tourney_date and in the parsed tdate, before Stage 0's event dating
+    (rule C05) reads them. A correction whose match no longer reads the old date (the source fixed it, or changed the
+    match) does nothing and is reported (``not_found``, by the table's match_id); one that finds two rows stops the build.
+    Returns the frame and a report: applied, not_found, rows (the frame index of the corrected rows)."""
+    report = {"applied": 0, "not_found": [], "rows": df.index[:0]}
+    if table.empty:
+        return df, report
+    unknown = set(table["action"]) - {"set_tourney_date"}
+    if unknown:
+        raise SystemExit(f"date corrections: unknown actions {sorted(unknown)}")
+
+    def key(f: pd.DataFrame, names: list[str]) -> pd.Series:
+        parts = [_text(f[c]).str.upper() if c == "round" else _text(f[c]) for c in names]
+        out = parts[0]
+        for p in parts[1:]:
+            out = out + "|" + p
+        return out
+
+    have = pd.Series(key(df, ["_source_file", "tourney_id", "round", "winner_name", "loser_name"]).to_numpy() + "|"
+                     + _text(df["tourney_date"]).to_numpy(), index=df.index)
+    want = key(table, DATE_KEYS) + "|" + _text(table["old_value"])
+    hits = have[have.isin(set(want))]
+    twice = hits.duplicated(keep=False)
+    if twice.any():
+        raise SystemExit(f"date corrections: one correction finds two rows ({hits[twice].iloc[0]})")
+    at = pd.Series(hits.index, index=hits.to_numpy())
+    found = want.isin(set(hits))
+    report["not_found"] = list(table.loc[~found.to_numpy(), "match_id"])
+    rows = pd.Index(at.loc[want[found].to_numpy()].to_numpy())
+    value = table.loc[found.to_numpy(), "value"].to_numpy()
+    if len(rows):
+        if pd.api.types.is_numeric_dtype(df["tourney_date"]):
+            df.loc[rows, "tourney_date"] = [int(v) for v in value]
+        else:
+            df.loc[rows, "tourney_date"] = value
+        df.loc[rows, "tdate"] = pd.to_datetime(pd.Series(value), format="%Y%m%d").to_numpy()
+    report.update(applied=int(len(rows)), rows=rows)
+    return df, report
 
 
 def _replace_split(df: pd.DataFrame, at: pd.Index, rows: pd.DataFrame) -> None:
@@ -239,6 +358,75 @@ def _set_svgms(df: pd.DataFrame, at: pd.Index, rows: pd.DataFrame) -> None:
                                  f"{have[j]:g}; rebuild the table from the current sources")
     for s in ("w", "l"):
         _put(df, at, f"{s}_SvGms", new[s])
+
+
+def _mark_retired(df: pd.DataFrame, at: pd.Index, rows: pd.DataFrame) -> pd.Index:
+    """mark_retired on the frame rows ``at`` (in the order of the table rows ``rows``): a row that reads the table's
+    score (value) takes " RET" after it; a row that already reads it with the marker (the source fixed it) is left
+    alone; any other score stops the build. Returns the rows changed."""
+    want = _text(rows["value"] if "value" in rows else pd.Series("", index=rows.index)).to_numpy()
+    if (want == "").any():
+        raise SystemExit("row corrections: mark_retired needs the score it marks as value")
+    have = _text(df.loc[at, "score"]).str.split().str.join(" ").to_numpy()
+    plain = have == want
+    marked = have == np.char.add(want.astype(str), " " + RETIRED_MARK)
+    if not (plain | marked).all():
+        i = int(np.flatnonzero(~(plain | marked))[0])
+        raise SystemExit(f"row corrections: mark_retired expects the score {want[i]!r} on {at[i]}, the source has "
+                         f"{have[i]!r}; rebuild the table from the current sources")
+    df.loc[at[plain], "score"] = [f"{w} {RETIRED_MARK}" for w in want[plain]]
+    return at[plain]
+
+
+def apply_event_corrections(df: pd.DataFrame, table: pd.DataFrame, action: str) -> tuple[pd.DataFrame, dict]:
+    """One field of every row of each named event (event_corrections.csv; since 22 Oct 2026, the source
+    reconciliation's repairs: docs/decisions/2026-10-22-source-reconciliation-repairs.md). ``action`` picks the table's
+    rows applied in this call: set_level (Stage 0's ``level``, after its level rules and their refinement from Tennis
+    My Life) or set_surface (``surface``, after its surface fill). An event is named by source, tour, Stage 0's
+    tournament id (``tid``), the source's name and the season, as Stage 0 reads them; ``old_value`` is the value the
+    correction replaces. An event whose rows all read old_value takes ``value``; one whose rows all read value already
+    (a source or a rule now gives it) is left alone and reported; an event not found, or found with another name,
+    season or value, stops the build: a correction is never applied to another event.
+    Returns the frame and a report: applied and already (the events, as source|tour|tournament id) and rows (the
+    frame index of the rows changed)."""
+    report: dict = {"applied": [], "already": [], "rows": df.index[:0]}
+    if action not in EVENT_ACTIONS:
+        raise SystemExit(f"event corrections: unknown action {action!r}")
+    if table.empty:
+        return df, report
+    unknown = set(table["action"]) - set(EVENT_ACTIONS)
+    if unknown:
+        raise SystemExit(f"event corrections: unknown actions {sorted(unknown)}")
+    key = _text(table["source"]) + "|" + _text(table["tour"]) + "|" + _text(table["tournament_id"]) + "|" \
+        + _text(table["action"])
+    if key.duplicated().any():
+        raise SystemExit(f"event corrections: an event named twice for one field ({key[key.duplicated()].iloc[0]})")
+    field = EVENT_ACTIONS[action]
+    changed = []
+    for t in table[table["action"].eq(action)].itertuples():
+        name = f"{t.source}|{t.tour}|{t.tournament_id}"
+        hit = (df["source"].eq(t.source) & df["tour"].eq(t.tour) & df["tid"].eq(t.tournament_id)).to_numpy()
+        if not hit.any():
+            raise SystemExit(f"event corrections: {name} names no rows; rebuild the table from the current sources")
+        names = set(_text(df.loc[hit, "tourney_name"]))
+        seasons = set(pd.to_numeric(df.loc[hit, "season"], errors="coerce").astype("Int64").astype(str))
+        if names != {str(t.tourney_name)} or seasons != {str(int(t.year))}:
+            raise SystemExit(f"event corrections: {name} expects {t.tourney_name!r} of {t.year}, the rows read "
+                             f"{sorted(names)} of {sorted(seasons)}; rebuild the table from the current sources")
+        have = set(_text(df.loc[hit, field]))
+        if have == {str(t.value)}:
+            report["already"].append(name)
+            continue
+        if have != {str(t.old_value)}:
+            raise SystemExit(f"event corrections: {name} expects its {field} {t.old_value!r}, its rows read "
+                             f"{sorted(have)}; rebuild the table from the current sources")
+        at = df.index[hit]
+        df.loc[at, field] = t.value
+        changed.append(at)
+        report["applied"].append(name)
+    if changed:
+        report["rows"] = changed[0].append(changed[1:]) if len(changed) > 1 else changed[0]
+    return df, report
 
 
 def apply_id_aliases(m: pd.DataFrame, mp: pd.DataFrame, aliases: pd.DataFrame,

@@ -14,9 +14,14 @@ quote's own time), and the daily pipeline turns p_a to Stage 0's side A itself.
     live_prices()       a fresh Pinnacle price for a run's matches, oriented to side A (for reprice)
 
 What can be priced (the model's population and the daily pipeline's limits):
-    * ATP/WTA main-tour singles (Slams, Finals, 1000s, 500s, 250s): Challengers, WTA 125s, ITF, team events, qualifying,
-      doubles and in-play markets are left out;
-    * the event must already have Tennis My Life rows (a played match), so first rounds wait until the event has begun;
+    * ATP/WTA main-tour singles (Slams, Finals, 1000s, 500s, 250s): Challengers, WTA 125s, ITF, team events, doubles and
+      in-play markets are left out;
+    * since 22 Oct 2026 the qualifying of those events too (the owner's decision: docs/decisions/2026-10-22-qualifying-
+      bets.md), its event and round found as qualifying.py describes: the event from Tennis My Life's rows of the
+      edition, else built from its previous edition (round 1, women's qualifying); the round from TennisLive's results
+      of the event, checked against Tennis My Life's. The qualifying of Challengers, WTA 125s and ITF events stays out;
+    * a main-draw match's event must already have Tennis My Life rows (a played match), so first rounds wait until the
+      event has begun;
     * each name must name exactly one Stage 0 player of the tour (by prediction_run's name key: accents, case and
       punctuation removed, words sorted). An ambiguous name would stop the whole run, so its match is left out. Names
       Pinnacle spells differently go in config/player_aliases.csv (columns pinnacle_name, tour, tml_name). No fuzzy
@@ -33,6 +38,7 @@ from pathlib import Path
 import pandas as pd
 
 from . import config as CFG
+from . import qualifying as Q
 from .runner import Step, run_step
 
 if str(CFG.ROOT) not in sys.path:
@@ -40,6 +46,10 @@ if str(CFG.ROOT) not in sys.path:
 from src.eda.merge_feasibility.scan import name_key, norm  # noqa: E402  (prediction_run's key, imported, not copied)
 
 MATCHUP_COLUMNS = ["tour", "tourney_id", "round", "player_a", "player_b", "day", "p_a"]
+# a qualifying match's event built from its previous edition (prediction_run/live_rows.CSV_EVENT reads the first five),
+# where it came from, and a men's Slam qualifying round's best-of when its previous edition played 5
+EVENT_COLUMNS = ["event_surface", "event_draw_size", "event_level", "event_indoor", "event_date", "event_main_date",
+                 "event_from", "event_best_of"]
 MAIN_TML_LEVELS = {"G", "M", "A", "F", "P", "PM", "I", "1000", "500", "250"}
 NAMED_ROUNDS = {"QF": "QF", "SF": "SF", "F": "F", "FINAL": "F", "SEMIFINAL": "SF", "SEMIFINALS": "SF",
                 "QUARTERFINAL": "QF", "QUARTERFINALS": "QF"}
@@ -195,8 +205,132 @@ def _evidence(event_rows: pd.DataFrame, rnd: str, a: str, b: str) -> str | None:
     return None
 
 
+class _Qualifying:
+    """What linking a listing's qualifying matches reads once: TennisLive (one session, each event's results once) and
+    the shared Stage 0's round-1 counts of past editions (the round check's "round 1 looks complete")."""
+
+    def __init__(self, tennislive: "Q.TennisLive | None" = None):
+        self._tl = tennislive
+        self._rounds = None
+        self._dates = None
+        self.editions: dict = {}
+
+    def edition_date(self, tour: str, tid: str) -> pd.Timestamp | None:
+        """A past edition's date in the shared Stage 0 (its main draw's rows; else its qualifying's): the weekday the
+        main draw's start is estimated on (qualifying.main_draw_start)."""
+        if self._dates is None:
+            self._dates = pd.read_parquet(CFG.STAGE0 / "stage0_matches.parquet",
+                                          columns=["tour", "tournament_id", "tournament_date", "qualifying"])
+        d = self._dates
+        hit = d[d["tour"].eq(tour) & (d["tournament_id"].astype(str).eq(tid)
+                                      | d["tournament_id"].astype(str).str.startswith(tid + "-"))]
+        main = hit[~hit["qualifying"].astype(bool)]
+        dates = (main if len(main) else hit)["tournament_date"]
+        return pd.Timestamp(dates.mode().iloc[0]) if len(dates) else None
+
+    def tennislive(self) -> "Q.TennisLive":
+        if self._tl is None:
+            self._tl = Q.TennisLive()
+        return self._tl
+
+    def round1_size(self, tour: str, prev: dict | None) -> int | None:
+        if prev is None:
+            return None
+        if self._rounds is None:
+            m = pd.read_parquet(CFG.STAGE0 / "stage0_matches.parquet", columns=["tour", "tournament_id", "round"])
+            self._rounds = m[m["round"].astype(str).eq("Q1")]
+        tid = str(prev["tid"])
+        hit = self._rounds[self._rounds["tour"].eq(tour) & (self._rounds["tournament_id"].astype(str).eq(tid)
+                                                           | self._rounds["tournament_id"].astype(str).str.startswith(tid + "-"))]
+        return int(len(hit)) or None
+
+    def previous(self, tml: pd.DataFrame, tour: str, event: str, day: pd.Timestamp) -> tuple[dict | None, str]:
+        key = (tour, event, day.year)
+        if key not in self.editions:
+            self.editions[key] = Q.previous_edition(tml, tour, event, day, MAIN_TML_LEVELS)
+        return self.editions[key]
+
+
+def _link_qualifying(rec: dict, r: pd.Series, tml: pd.DataFrame, stage0: pd.DataFrame, aliases: dict,
+                     uk: pd.Timestamp, ctx: _Qualifying) -> None:
+    """A listed tour-level qualifying match (qualifying.py): its event (Tennis My Life's edition, else built from the
+    previous edition), its players, its round (TennisLive's results, else Tennis My Life's), into rec."""
+    tour, event, day = r["tour"], str(r["event"]), pd.Timestamp(uk.date())
+    qual_rows = tml[tml["round"].astype(str).str.upper().str.fullmatch(r"Q\d")]
+    ev, why = _match_event(event, _events(qual_rows, tour, day))      # the edition's qualifying rows first
+    if ev is None:
+        ev, why = _match_event(event, _events(tml, tour, day))       # then its main draw (begun)
+    prev, prev_note = ctx.previous(tml, tour, event, day)
+    built = None
+    if ev is None:
+        if prev is None:
+            rec["reason"] = (f"qualifying: no Tennis My Life rows of the event, and its previous edition is not found "
+                             f"({prev_note})")
+            return
+        try:
+            built = Q.built_event(prev, day)
+        except ValueError as exc:
+            rec["reason"] = f"qualifying: {exc}"
+            return
+        tid, name, level, draw = built["tourney_id"], built["tourney_name"], prev["level"], prev["draw_size"]
+        event_rows = tml.iloc[0:0]
+    else:
+        tid, name, level, draw = ev["_tid"], ev["tourney_name"], ev["tourney_level"], ev["draw_size"]
+        event_rows = tml[tml["tour"].eq(tour) & tml["_tid"].eq(tid)]
+        stale = _event_current(event_rows, "Q", day)
+        if stale:
+            rec["reason"] = f"qualifying: {stale}"
+            return
+    rec.update(tourney_id=tid, tourney_name=name)
+    tour_rows = tml[tml["tour"].eq(tour)]
+    a, ida, note_a = _player(r["home"], tour, stage0, tour_rows, aliases)
+    b, idb, note_b = _player(r["away"], tour, stage0, tour_rows, aliases)
+    if a is None or b is None:
+        rec["reason"] = note_a if a is None else note_b
+        return
+    rnd, how, tl_note = None, "", ""
+    tl_event, tl_note = ctx.tennislive().event(tour, event, uk.date())
+    if tl_event is not None:
+        rows = ctx.tennislive().results(tl_event)
+        if rows is None:
+            tl_note = f"TennisLive's results did not come ({ctx.tennislive().stopped or 'no answer'})"
+        else:
+            rnd, how = Q.round_from_results(rows, Q.player_keys(a, r["home"]), Q.player_keys(b, r["away"]), (a, b),
+                                            ctx.round1_size(tour, prev))
+            if rnd is None:
+                rec["reason"] = f"qualifying: {how}"
+                return
+            bad = Q.tml_agrees(event_rows, a, b, rnd)
+            if bad:
+                rec["reason"] = f"qualifying round check: {bad}, while TennisLive reads {rnd}"
+                return
+    if rnd is None:                                    # TennisLive gave nothing: Tennis My Life's rows alone
+        rnd, how = Q.round_from_tml(event_rows, a, b)
+        if rnd is None:
+            rec["reason"] = f"qualifying: {how}" + (f" ({tl_note})" if tl_note else "")
+            return
+    played = _evidence(event_rows, rnd, a, b)
+    if played:
+        rec["reason"] = played
+        return
+    notes = [n for n in (note_a, note_b) if n != "stage0"] + [f"qualifying {rnd}: {how}"]
+    if built:
+        notes.append(f"event built from its {built['event_from']}")
+        rec.update({k: v for k, v in built.items() if k.startswith("event_")})
+    # the main draw's start, the date Stage 0 gives a played event's qualifying (C05), for an event whose main draw
+    # is not played yet; where it is, Stage 0 takes the main draw's own first date and this is not read
+    main = Q.main_draw_start(day, str(level) == "G", ctx.edition_date(tour, prev["tid"]) if prev else None)
+    rec["event_main_date"] = main.strftime("%Y%m%d")
+    bo = Q.best_of(tour, level, rnd, prev)
+    if bo:
+        rec["event_best_of"] = bo
+        notes.append(f"best of {bo}, as at its previous edition's {rnd}")
+    rec.update(status="ok", round=rnd, player_a=a, player_b=b, stage0_id_a=ida, stage0_id_b=idb,
+               notes="; ".join(notes), qualifying=True, draw_size=draw)
+
+
 def todays_matches(*, hours_ahead: float = 36, pull: pd.DataFrame | None = None, now: dt.datetime | None = None,
-                   tours: tuple[str, ...] = ("atp", "wta")) -> pd.DataFrame:
+                   tours: tuple[str, ...] = ("atp", "wta"), tennislive: "Q.TennisLive | None" = None) -> pd.DataFrame:
     """Every pre-match moneyline of the latest Pinnacle pull starting within `hours_ahead`, linked to Tennis My Life's
     event and to Stage 0's names and ids; `status` is "ok" or "left out", with the reason. Run record_pinnacle() first."""
     rows = latest_pull() if pull is None else pull
@@ -213,6 +347,7 @@ def todays_matches(*, hours_ahead: float = 36, pull: pd.DataFrame | None = None,
     tml = _tml(years)
     aliases = _aliases()
     stage0 = {t: _stage0_keys(t) for t in tours}
+    qual = _Qualifying(tennislive)                      # TennisLive is asked only when a qualifying match is listed
     out = []
     for _, r in rows.iterrows():
         rec = r.to_dict()
@@ -226,8 +361,8 @@ def todays_matches(*, hours_ahead: float = 36, pull: pd.DataFrame | None = None,
             rec["reason"] = f"tour {r['tour']} (ITF or other)"
         elif r["level"] != "tour":
             rec["reason"] = f"{r['level']} level (outside the model's main-tour population)"
-        elif r.get("qualifying"):
-            rec["reason"] = "qualifying"
+        elif r.get("qualifying"):                       # tour-level qualifying, bet since 22 Oct 2026
+            _link_qualifying(rec, r, tml, stage0[r["tour"]], aliases, uk, qual)
         elif re.search(r"\bcup\b", str(r["league"]), flags=re.I):
             rec["reason"] = "a team event (outside the model's population)"
         else:
@@ -261,8 +396,12 @@ def todays_matches(*, hours_ahead: float = 36, pull: pd.DataFrame | None = None,
     res = pd.DataFrame(out)
     keep = ["status", "reason", "league", "start_utc", "day", "tour", "tourney_id", "tourney_name", "round",
             "home", "away", "player_a", "player_b", "stage0_id_a", "stage0_id_b", "price_home", "price_away",
-            "p_home", "overround", "max_risk_stake", "best_of", "retrieved_at", "matchup_id", "notes"]
+            "p_home", "overround", "max_risk_stake", "best_of", "retrieved_at", "matchup_id", "notes", "qualifying",
+            *EVENT_COLUMNS]
     res = res[[c for c in keep if c in res.columns]].sort_values(["status", "start_utc"], ascending=[False, True])
+    if qual._tl is not None and qual._tl.stopped:
+        print(f"TennisLive stopped answering ({qual._tl.stopped}): qualifying rounds were read from Tennis My Life "
+              "only, where it gives them")
     pair = res.apply(lambda x: "|".join(sorted([str(x["player_a"]), str(x["player_b"])])), axis=1)
     dup = res["status"].eq("ok") & pair.duplicated(keep=False) & res["status"].eq("ok")
     res.loc[dup, ["status", "reason"]] = ["left out", "two listed matches of the same pair: ambiguous"]
@@ -298,7 +437,8 @@ def build_matchups(matches: pd.DataFrame | None = None, *, hours_ahead: float = 
         raise RuntimeError("no match left to write (see todays_matches() for the reasons)")
     utc = lambda s: pd.to_datetime(s, utc=True).dt.strftime("%Y-%m-%dT%H:%M:%SZ")  # noqa: E731
     # best_of is NOT written: the daily pipeline would take it over Tennis My Life's event value, and it is a model
-    # input; Pinnacle's value rides along for reference (review V1, item 4)
+    # input; Pinnacle's value rides along for reference (review V1, item 4). The one exception: a men's Slam
+    # qualifying round its previous edition played at best of 5 (qualifying.best_of: Wimbledon's last round)
     csv = pd.DataFrame({"tour": m["tour"], "tourney_id": m["tourney_id"], "round": m["round"],
                         "player_a": m["player_a"], "player_b": m["player_b"], "day": m["day"],
                         "p_a": m["p_home"].astype(float), "tourney_name": m["tourney_name"],
@@ -308,6 +448,11 @@ def build_matchups(matches: pd.DataFrame | None = None, *, hours_ahead: float = 
                         "odds_a": m["price_home"], "odds_b": m["price_away"], "odds_format": "american",
                         "overround": m["overround"], "max_risk_stake": m["max_risk_stake"],
                         "pinnacle_best_of": m["best_of"], "notes": m["notes"]})
+    if "event_best_of" in m.columns and m["event_best_of"].notna().any():
+        csv["best_of"] = m["event_best_of"]
+    for c in EVENT_COLUMNS[:-1]:                        # a qualifying event built from its previous edition
+        if c in m.columns and m[c].notna().any():
+            csv[c] = m[c]
     CFG.MATCHUPS.mkdir(parents=True, exist_ok=True)
     out = Path(path) if path else CFG.MATCHUPS / f"matchups_{dt.datetime.now():%Y-%m-%d_%H%M%S}.csv"
     csv.to_csv(out, index=False)
@@ -360,6 +505,16 @@ def manual_matchups(rows: list[dict], *, path: str | Path | None = None, source:
     return out
 
 
+def _built_event(row) -> bool | str | None:
+    """True when a matchups row carries a whole built event (prediction_run/live_rows.csv_event accepts it), its
+    refusal as text when it carries part of one, None when it carries none."""
+    from src.eda.prediction_run import live_rows as LR
+    try:
+        return LR.csv_event(row) is not None or None
+    except SystemExit as exc:
+        return str(exc)
+
+
 def check_matchups(csv: str | Path) -> pd.DataFrame:
     """The daily pipeline's refusals, before the run (prediction_run/run.py live_from_matchups): the columns; p_a
     strictly between 0 and 1; a time-zoned start; the event's Tennis My Life rows; each name naming exactly one player.
@@ -382,8 +537,10 @@ def check_matchups(csv: str | Path) -> pd.DataFrame:
             ev = tml[tml["tour"].eq(r["tour"]) & tml["_tid"].eq(str(r["tourney_id"]))]
             if isinstance(r.get("tourney_name"), str) and r["tourney_name"]:
                 ev = ev[ev["tourney_name"].astype(str).eq(r["tourney_name"])]
-            if ev.empty:
-                prob = f"event {r['tourney_id']} has no Tennis My Life rows (a first round, or a wrong id)"
+            built = _built_event(r)                     # a qualifying event built from its previous edition
+            if ev.empty and built is not True:
+                prob = (built if isinstance(built, str) else
+                        f"event {r['tourney_id']} has no Tennis My Life rows (a first round, or a wrong id)")
             else:
                 tour_rows = tml[tml["tour"].eq(r["tour"])]
                 for who in ("player_a", "player_b"):

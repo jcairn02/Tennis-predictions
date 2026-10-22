@@ -851,6 +851,7 @@ Final tables: `followup/confirmed/candidate/` (overrides SHA-256 `505336f6…`, 
   * The level-layer work's template build runs `run_chain.py --setup` on the default path, `C:/Users/zerom/tnr_sb`, which this build occupied.
   * The candidate's Stage 0 stays there for `input_dose.py` and `verify_applied.py`: pass `--candidate-stage0 C:/Users/zerom/tnr_sb_rg_candidate/data/studies/predictability_diagnostic`.
   * Remove it with `MODEL_REBUILD_SANDBOX=C:/Users/zerom/tnr_sb_rg_candidate ./python.sh src/eda/model_rebuild/run_chain.py --cleanup` once the owner agrees.
+  * **Update, 16 Oct 2026: removed, at the owner's word** (by the P6 data-issues session, after checking nothing used it). First, the files those two scripts read were copied into this candidate's records, with the same layout: Stage 0's tables, cleaning log and summary, and the timeline (96 MB; hashes equal to the sandbox's). Now pass `--candidate-stage0 data/studies/current_best_model/2026-10-09_rg_box_scores/candidate_tables/predictability_diagnostic`.
 
 The plan as first written on 10 Oct, before the official decision:
 
@@ -858,7 +859,8 @@ The plan as first written on 10 Oct, before the official decision:
 * **What adoption changes.** Two decided tables take the candidate's; the aliases are unchanged. Stage 0 changes when it is next built.
   * the Slam overrides: 731 rows, plus 1,541;
   * the row corrections: 1,522 rows, plus 1,429 (4 exchanges, 58 split rows, 809 swaps, 558 sets).
-* **Not yet applied, on purpose.** The live Stage 0 is rebuilt in one coordinated run (`rebuild_stage0.py`), at a time no study is building on it. The swap goes in the same run.
+* **Update, 16 Oct 2026: applied on 13 Oct, 21:12.** Another session (the 2026 data gaps) ran the steps below once the level-layer work had finished. Today's Stage 0 holds the repair, checked again on 16 Oct, and the template of 14 Oct carries it. The old tables are kept for the tripwire ([decision](../../decisions/2026-10-09-roland-garros-box-scores.md), "Applied on 13 Oct 2026").
+* **Not yet applied, on purpose** (as written on 10 Oct). The live Stage 0 is rebuilt in one coordinated run (`rebuild_stage0.py`), at a time no study is building on it. The swap goes in the same run.
   * **The lower-level-evidence study is building its arms on today's tables.** Its gate G2 requires every input outside its own change to equal the reference's.
     * At 06:52 UTC that gate failed on the indoor fill, which reached a sandbox set up after the fill entered the repository.
     * A Stage 0 carrying this repair would fail it the same way.

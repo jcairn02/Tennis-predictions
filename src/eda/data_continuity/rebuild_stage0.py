@@ -139,8 +139,9 @@ def id_map(old: Path, new: Path) -> tuple[pd.DataFrame, list[str]]:
         x = m.loc[m["match_id"].isin(ids), ["match_id", "tour", "tournament_id", "round"]].copy()
         names = (p[p["match_id"].isin(ids)].assign(k=lambda d: K.norm_name(d["player_name"]))
                  .groupby("match_id")["k"].agg(lambda s: "|".join(sorted(s))))
+        # names as text even when no id changed: the empty name map is numeric, and text + number fails (14 Oct 2026)
         x["key"] = (x["tour"].astype(str) + "#" + x["tournament_id"].astype(str) + "#" + x["round"].astype(str)
-                    + "#" + x["match_id"].map(names).fillna(""))
+                    + "#" + x["match_id"].map(names).fillna("").astype(str))
         return x[~x["key"].duplicated(keep=False)]
 
     pairs = keyed(mo, po, gone).merge(keyed(mn, pn, fresh), on="key", suffixes=("_old", "_new"))

@@ -1,0 +1,240 @@
+{
+ "source": "data/raw/public_dump/atp_pipeline_handoff/{infosys_deep,infosys_full}/<year>_data.jsonl[.gz]",
+ "records_read": 75190,
+ "records_by_folder_file": [
+  {
+   "folder": "infosys_deep",
+   "file": "2018_data.jsonl",
+   "n": 10
+  },
+  {
+   "folder": "infosys_deep",
+   "file": "2019_data.jsonl",
+   "n": 15
+  },
+  {
+   "folder": "infosys_deep",
+   "file": "2021_data.jsonl.gz",
+   "n": 1549
+  },
+  {
+   "folder": "infosys_deep",
+   "file": "2022_data.jsonl.gz",
+   "n": 11262
+  },
+  {
+   "folder": "infosys_deep",
+   "file": "2023_data.jsonl.gz",
+   "n": 12017
+  },
+  {
+   "folder": "infosys_deep",
+   "file": "2024_data.jsonl.gz",
+   "n": 12502
+  },
+  {
+   "folder": "infosys_full",
+   "file": "1970_data.jsonl.gz",
+   "n": 14
+  },
+  {
+   "folder": "infosys_full",
+   "file": "2018_data.jsonl",
+   "n": 10
+  },
+  {
+   "folder": "infosys_full",
+   "file": "2019_data.jsonl",
+   "n": 6
+  },
+  {
+   "folder": "infosys_full",
+   "file": "2021_data.jsonl.gz",
+   "n": 1487
+  },
+  {
+   "folder": "infosys_full",
+   "file": "2022_data.jsonl.gz",
+   "n": 11316
+  },
+  {
+   "folder": "infosys_full",
+   "file": "2023_data.jsonl.gz",
+   "n": 12267
+  },
+  {
+   "folder": "infosys_full",
+   "file": "2024_data.jsonl.gz",
+   "n": 12735
+  }
+ ],
+ "left_out": {
+  "bad_json": 0,
+  "not_singles": 0,
+  "no_season_1970_file": 0
+ },
+ "copies": {
+  "matches_with_keystats_in_both_copies": 37282,
+  "identical_set0_keystats": 37282,
+  "differing_examples": []
+ },
+ "matches": 37908,
+ "linked": 37331,
+ "link_methods": {
+  "event+id/id": 36054,
+  "": 577,
+  "event+anchor/id": 427,
+  "event+full/id": 423,
+  "event+abbr/id": 388,
+  "infosys_link_file": 30,
+  "event+abbr/full": 5,
+  "event+abbr/abbr": 2,
+  "event+anchor/full": 1,
+  "event+full/full": 1
+ },
+ "unlinked": {
+  "no_pair_in_event": 542,
+  "event_not_in_stage0": 30,
+  "duplicate": 5
+ },
+ "vs_infosys_link_file": {
+  "both_linked": 37170,
+  "same_match_id": 37170,
+  "only_link_file": 33,
+  "only_link_file_taken_oriented": 30,
+  "only_event_linker": 131,
+  "differ_examples": []
+ },
+ "reader": "atp_ks_handoff",
+ "records_with_set0_keystats": 37908,
+ "orientation": {
+  "same": 37908
+ },
+ "dropped": {
+  "keystats_name_other_players": 0,
+  "unlinked": 577
+ },
+ "winner_vs_stage0": {
+  "player_rows_with_a_winner": 73388,
+  "same_as_stage0": 73384,
+  "share_not_equal": 5e-05,
+  "match_ids_not_equal_examples": [
+   "atp|2023-8994|Q2|atp:144750|atp:210506",
+   "atp|2024-9651|Q2|atp:131951|atp:207815"
+  ]
+ },
+ "internal_consistency": {
+  "first_won_den_eq_first_in": 1.0,
+  "second_den_eq_svpt_minus_first_in": 1.0,
+  "sv_won_den_eq_svpt": 1.0,
+  "sv_won_eq_first_plus_second": 1.0,
+  "rows": 74662
+ },
+ "rows_written": 74662,
+ "matches_written": 37331,
+ "sanity_vs_stage0": {
+  "all": {
+   "ace": {
+    "n": 74420,
+    "equal": 0.9986
+   },
+   "df": {
+    "n": 74420,
+    "equal": 0.9989
+   },
+   "svpt": {
+    "n": 74420,
+    "equal": 0.9943
+   },
+   "first_in": {
+    "n": 74420,
+    "equal": 0.9938
+   },
+   "first_won": {
+    "n": 74420,
+    "equal": 0.9952
+   },
+   "second_won": {
+    "n": 74420,
+    "equal": 0.998
+   },
+   "sv_gms": {
+    "n": 74418,
+    "equal": 0.9983
+   },
+   "bp_saved": {
+    "n": 74420,
+    "equal": 0.9986
+   },
+   "bp_faced": {
+    "n": 74420,
+    "equal": 0.9982
+   }
+  },
+  "complete": {
+   "ace": {
+    "n": 74420,
+    "equal": 0.9986
+   },
+   "df": {
+    "n": 74420,
+    "equal": 0.9989
+   },
+   "svpt": {
+    "n": 74420,
+    "equal": 0.9943
+   },
+   "first_in": {
+    "n": 74420,
+    "equal": 0.9938
+   },
+   "first_won": {
+    "n": 74420,
+    "equal": 0.9952
+   },
+   "second_won": {
+    "n": 74420,
+    "equal": 0.998
+   },
+   "sv_gms": {
+    "n": 74418,
+    "equal": 0.9983
+   },
+   "bp_saved": {
+    "n": 74420,
+    "equal": 0.9986
+   },
+   "bp_faced": {
+    "n": 74420,
+    "equal": 0.9982
+   }
+  }
+ },
+ "hand_checks": {
+  "by": "atp_handcheck.py (seed 20261016), read by the session on 16 Oct 2026",
+  "compared_with": "raw JSON line (keystats.setStats.set0, keystats.players, the record's player1/2)",
+  "verdict": "5 of 5: every count equals the raw set0 value (Aces, Double Faults, 1st Serve n/d, 1st and 2nd Serve Points Won numerators, Break Points Saved n/d, Service Games Played, Service Points Won) for both players; the keystats player list is the record's; each ATP code sits on the Stage 0 player of the same name",
+  "keys": [
+   {
+    "source_key": "2021_6204_MS023",
+    "match_id": "atp|2021-6204|R32|atp:105943|atp:200095"
+   },
+   {
+    "source_key": "2022_9198_QS027",
+    "match_id": "atp|2022-9198|Q1|atp:104905|atp:105438"
+   },
+   {
+    "source_key": "2024_7808_MS019",
+    "match_id": "atp|2024-7808|R32|atp:111805|atp:209262"
+   },
+   {
+    "source_key": "2024_9542_MS024",
+    "match_id": "atp|2024-9542|R32|atp:106057|atp:111794"
+   },
+   {
+    "source_key": "2024_9542_QS021",
+    "match_id": "atp|2024-9542|Q1|atp:110774|atp:202418"
+   }
+  ]
+ }
+}

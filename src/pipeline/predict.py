@@ -15,8 +15,11 @@ check approved handed over explicitly (train.dp_env).
                                        it holds junctions to the repository's data/raw and data/dump)
 
 The model switch: "tabpfn35" is the current best model (local TabPFN-3.5, seeds 0-15, stage 2 with its walk-forward
-calibration slope). "tabpfn35_thinking" (TabPFN-3.5-Thinking, the same 57 inputs) runs through the daily pipeline's own
-`--model thinking` once that session adds it, and only with spend_tokens=True (each day's prediction is a paid call).
+calibration slope). "tabpfn35_thinking" is that same run plus TabPFN-3.5-Thinking beside it (the owner, 20 Oct 2026:
+docs/decisions/2026-10-20-thinking-beside-local.md): the daily pipeline's `run_day --thinking --spend-tokens` sends the
+same live rows to the instance's paid season fit and uses the API's probabilities uncalibrated; the prediction used is
+the two models' chances averaged 50/50 in log-odds. Only with spend_tokens=True: each run makes one paid call, and the first Thinking
+run of an instance and season also makes that season's paid fit (thinking.fit_season) before the run starts.
 """
 from __future__ import annotations
 
@@ -30,6 +33,8 @@ from pathlib import Path
 
 import pandas as pd
 
+from src.eda.tabpfn_local.processes import is_jupyter_interrupt_helper
+
 from . import config as CFG
 from .runner import Step, run_step
 
@@ -38,12 +43,8 @@ LOCK = CFG.OUT / "predict.lock"
 # The notebook's own work tree (DP_WORK_TREE), so its runs never share a folder with the daily_prediction session's
 # runs (tnr_daily) or tests (tnr_daily_pytest): a run's cleanup deletes the tree at its path (reviews D1, D2).
 WORK_TREE = Path("C:/Users/zerom/tnr_daily_nb")
-THINKING_WAITS = (
-    "TabPFN-3.5-Thinking predictions run through the daily pipeline's own `--model thinking`, which its session will "
-    "add after three owner decisions: (1) paid spend (each day's prediction is a paid API call; ~30k tokens billed, "
-    "estimated), (2) seed 0 only, (3) stage 2 for Thinking (the 8 Oct research rule q = eta_thinking + b_local * spd_L, "
-    "or a calibrated slope from paid back-season fits). The paid season fit is ready on this side: "
-    "fit_seasons(model='tabpfn35_thinking') quotes its cost for free; spend_tokens=True makes it, once.")
+THINKING_WAITS = ("this daily pipeline's run_day has no --thinking option (added 20 Oct 2026 in "
+                  "src/eda/daily_prediction/dp.py): TabPFN-3.5-Thinking cannot run beside the local model")
 
 
 def _run_day_help() -> str:
@@ -53,21 +54,22 @@ def _run_day_help() -> str:
 
 
 def dp_takes_thinking() -> bool:
-    """Whether dp.py's run_day has the exact option `--model` offering `thinking` (not merely a flag starting so)."""
+    """Whether dp.py's run_day has the exact options `--thinking` and `--spend-tokens` (not merely flags starting so)."""
     text = _run_day_help()
-    return bool(re.search(r"(?m)^\s+--model\s+\{[^}]*\bthinking\b[^}]*\}", text)) or \
-        bool(re.search(r"--model \{[^}]*thinking", text))
+    return all(re.search(rf"(?m)^\s+{flag}(\s|$)", text) for flag in ("--thinking", "--spend-tokens"))
 
 
 def gpu_users() -> list[str]:
-    """Other processes of the local TabPFN environment (the daily fit waits for them, up to 6 hours, silently)."""
+    """Local TabPFN processes the fit waits for (up to 6 hours), excluding VS Code's interrupt helper."""
     import psutil
     local = str(CFG.interpreter("local")).lower()
     out = []
     for proc in psutil.process_iter(["pid", "exe", "cmdline"]):
         try:
-            if (proc.info.get("exe") or "").lower() == local:
-                out.append(f"pid {proc.info['pid']}: {' '.join((proc.info.get('cmdline') or [])[1:4])}")
+            cmdline = proc.info.get("cmdline") or []
+            if ((proc.info.get("exe") or "").lower() == local
+                    and not is_jupyter_interrupt_helper(subprocess.list2cmdline(cmdline))):
+                out.append(f"pid {proc.info['pid']}: {' '.join(cmdline[1:4])}")
         except (psutil.Error, OSError):
             continue
     return out
@@ -125,23 +127,31 @@ def predict_day(matchups: str | Path, *, model: str = CFG.LOCAL, spend_tokens: b
     run_day --refresh, seeds 0-15, with that instance and tree. After it: the instance the run used must be the one
     checked. leave_checkpoint: "auto" (the daily pipeline's default: after recomputed state parts it saves a
     checkpoint on today's tables before the fit, about 11 minutes, so the next day resumes) or "no" (bet first; the next
-    run recomputes those parts again). model="tabpfn35_thinking" needs spend_tokens=True. Returns the run folder (None
-    in a dry run); bet_diagnostics(run) gives the bet-time file."""
+    run recomputes those parts again).
+    model="tabpfn35_thinking": the same run plus TabPFN-3.5-Thinking beside the local model (run_day --thinking), the
+    prediction used being their 50/50 average in log-odds. It needs spend_tokens=True: one paid call per run (about 6k tokens a
+    match on 13 Oct), and, the first time for an instance and season, its paid season fit (about 180k tokens and 8
+    minutes on 13 Oct), made here after the free checks and before the run. If the Thinking call fails, the run still
+    gives the local model's predictions, and this says so. Returns the run folder (None in a dry run);
+    bet_diagnostics(run) gives the bet sheet."""
     CFG.check_model(model)
     extra: list[str] = []
-    if model == CFG.THINKING_MODEL:
+    thinking = model == CFG.THINKING_MODEL
+    if thinking:
         if not dp_takes_thinking():
             raise NotImplementedError(THINKING_WAITS)
         if not spend_tokens:
-            raise RuntimeError("TabPFN-3.5-Thinking's daily prediction is a paid API call: pass spend_tokens=True "
+            raise RuntimeError("TabPFN-3.5-Thinking's prediction is a paid API call: pass spend_tokens=True "
                                "(owner approval required)")
-        extra = ["--model", "thinking"]
+        extra = ["--thinking", "--spend-tokens"]
     matchups = Path(matchups)
     from .live import check_matchups
-    from .train import active_instance, base_tree, dp_env, template_check
+    from .train import active_instance, base_tree, dp_env, show_model_age, template_check
     instance = active_instance()
+    show_model_age(instance)                       # the owner's timer (20 Oct 2026): how old the training rows are
     env = {**dp_env(), "DP_WORK_TREE": str(WORK_TREE)}
-    season = int(pd.read_csv(matchups)["day"].map(lambda d: pd.Timestamp(d).year).max())
+    years = sorted(set(pd.read_csv(matchups)["day"].map(lambda d: pd.Timestamp(d).year).astype(int)))
+    season = years[-1]
     if not skip_checks:
         tc = template_check(instance, season=season, tree=base_tree())
         if not tc["ok"]:
@@ -152,6 +162,8 @@ def predict_day(matchups: str | Path, *, model: str = CFG.LOCAL, spend_tokens: b
     if WORK_TREE.exists() and not dry_run:
         raise RuntimeError(f"{WORK_TREE} exists: a notebook run is going, or one stopped and left its tree. If none is "
                            "going, run cleanup_work_tree() (never delete it by hand: it holds junctions to data/).")
+    if thinking:
+        _thinking_fits(instance, years, dry_run=dry_run)
     busy = gpu_users()
     if busy and not dry_run:
         print("NOTE: the fit will wait for the GPU until these local-TabPFN processes end:", *busy, sep="\n  ")
@@ -184,10 +196,52 @@ def predict_day(matchups: str | Path, *, model: str = CFG.LOCAL, spend_tokens: b
         used = set(d["instance"].astype(str))
         if used != {instance.name}:
             raise RuntimeError(f"the run predicted with {used}, not the checked instance {instance.name}: do not bet on it")
-        ok = int((d["gate"].astype(str) == "may be bet").sum())
-        print(f"{len(d)} matches predicted with {instance.name}; the gate allows {ok} (see bet_diagnostics). "
-              f"Run: {CFG.rel(run)}")
+        gate = d["gate"].astype(str)
+        may = gate.str.startswith("may be bet")
+        ok, bar = int(may.sum()), int((may & gate.ne("may be bet")).sum())
+        print(f"{len(d)} matches predicted with {instance.name}; the gate allows {ok}"
+              + (f", {bar} of them only with an edge above 1 point (a missing box score)" if bar else "")
+              + f" (see bet_diagnostics). Run: {CFG.rel(run)}")
+        if thinking:
+            print(thinking_outcome(run))
     return run
+
+
+def thinking_outcome(run: Path) -> str:
+    """One line on a Thinking run: both models and their ensemble, or Thinking's failure and why."""
+    d = pd.read_csv(run / "predictions.csv")
+    th = json.loads((run / "provenance.json").read_text(encoding="utf-8")).get("thinking") or {}
+    if "ensemble" in d.columns and (d["ensemble"].astype(str) == "on").all():
+        tokens = sum(int(s.get("tokens_used_daily_counter") or 0) for s in (th.get("seasons") or {}).values())
+        return (f"TabPFN-3.5-Thinking predicted the same {len(d)} matches ({tokens:,} tokens on the account's daily "
+                "counter); the prediction used is the two models' chances averaged 50/50 in log-odds (bet sheet: A5).")
+    return (f"WARNING: TabPFN-3.5-Thinking FAILED ({th.get('failed') or 'no Thinking forecast in the run'}). This run's "
+            "predictions are the local model's ALONE: the bet sheet decides on it and says so. A new run tries again; "
+            f"receipts: {CFG.rel(run / 'thinking')}")
+
+
+def _thinking_fits(instance: Path, seasons: list[int], *, dry_run: bool) -> None:
+    """The instance's paid Thinking fit of each season, made here when it has none (thinking.fit_season with
+    spend_tokens=True: the training rows prepared, then the one fit). A fit prepared on another frame than the
+    instance's present one is refused: its training rows may differ, and a slot once used is never reset."""
+    from . import thinking as TH
+    for y in seasons:
+        state = TH.fit_state(instance, y)
+        if state == "ok":
+            continue
+        if state == "other frame":
+            raise RuntimeError(f"{CFG.rel(TH.folder(instance, y))}: the Thinking fit was made on another frame than "
+                               f"{instance.name}'s present one. A rebuilt frame needs its own instance folder.")
+        if state == "other rows":
+            raise RuntimeError(f"{CFG.rel(TH.folder(instance, y))}: the Thinking fit was made on other training rows "
+                               f"than {instance.name}'s present retrain cut-off (training_cutoff.json written or changed "
+                               "after the fit). A retrain is a new instance, with its own fit.")
+        print(f"PAID: {instance.name} has no TabPFN-3.5-Thinking fit for {y}. Making it now, once for this instance and "
+              "season (about 180k tokens and 8 minutes on 13 Oct), before the run.")
+        TH.fit_season(instance, y, spend_tokens=True, dry_run=dry_run)
+        if not dry_run and TH.fit_state(instance, y) != "ok":
+            raise RuntimeError(f"the Thinking fit of {instance.name} for {y} did not complete: see "
+                               f"{CFG.rel(TH.folder(instance, y))}. Nothing was predicted.")
 
 
 def latest_run(kind: str = "live") -> Path | None:

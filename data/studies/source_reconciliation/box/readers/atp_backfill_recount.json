@@ -1,0 +1,142 @@
+{
+ "records_read": 2070,
+ "linked": 2045,
+ "link_methods": {
+  "event+id/id": 1986,
+  "event+anchor/id": 40,
+  "": 25,
+  "event+abbr/id": 19
+ },
+ "unlinked": {
+  "no_pair_in_event": 24,
+  "ambiguous": 1
+ },
+ "records_with_points": 573,
+ "dropped": {
+  "no_points": 1497,
+  "unlinked_with_points": 1
+ },
+ "recounted_matches": 572,
+ "recounts_complete": 508,
+ "incomplete_reasons": {
+  "point_gaps": 47,
+  "game_gaps": 4,
+  "games_not_ending_at_last_point": 44,
+  "set_games_differ_from_stage0": 45,
+  "points_without_server": 0
+ },
+ "winner_vs_stage0": {
+  "player_rows_with_a_winner": 1016,
+  "same_as_stage0": 1016,
+  "share_not_equal": 0.0,
+  "match_ids_not_equal_examples": []
+ },
+ "reader": "atp_backfill_recount",
+ "rows_written": 1144,
+ "matches_written": 572,
+ "sanity_vs_stage0": {
+  "all": {
+   "ace": {
+    "n": 1130,
+    "equal": 0.977
+   },
+   "df": {
+    "n": 1130,
+    "equal": 0.9947
+   },
+   "svpt": {
+    "n": 1130,
+    "equal": 0.9478
+   },
+   "first_in": {
+    "n": 1130,
+    "equal": 0.9416
+   },
+   "first_won": {
+    "n": 1130,
+    "equal": 0.9549
+   },
+   "second_won": {
+    "n": 1130,
+    "equal": 0.9743
+   },
+   "sv_gms": {
+    "n": 1130,
+    "equal": 0.9912
+   },
+   "bp_saved": {
+    "n": 1130,
+    "equal": 0.9929
+   },
+   "bp_faced": {
+    "n": 1130,
+    "equal": 0.9912
+   }
+  },
+  "complete": {
+   "ace": {
+    "n": 1010,
+    "equal": 0.9881
+   },
+   "df": {
+    "n": 1010,
+    "equal": 1.0
+   },
+   "svpt": {
+    "n": 1010,
+    "equal": 0.998
+   },
+   "first_in": {
+    "n": 1010,
+    "equal": 0.9812
+   },
+   "first_won": {
+    "n": 1010,
+    "equal": 0.9861
+   },
+   "second_won": {
+    "n": 1010,
+    "equal": 0.9871
+   },
+   "sv_gms": {
+    "n": 1010,
+    "equal": 1.0
+   },
+   "bp_saved": {
+    "n": 1010,
+    "equal": 0.998
+   },
+   "bp_faced": {
+    "n": 1010,
+    "equal": 0.998
+   }
+  }
+ },
+ "hand_checks": {
+  "by": "atp_handcheck.py (seed 20261016), read by the session on 16 Oct 2026",
+  "compared_with": "staged points.parquet tallied directly by the server field: rows, serve == 1, won on serve 1 / 2, result A, result P or DF",
+  "verdict": "5 of 5 complete recounts: svpt, first_in, first_won, second_won, ace, df equal the tallies; orientation by codes and names matches Stage 0",
+  "keys": [
+   {
+    "source_key": "2021_341_QS012",
+    "match_id": "atp|2021-341|Q1|atp:104259|atp:104797"
+   },
+   {
+    "source_key": "2021_404_MS006",
+    "match_id": "atp|2021-404|QF|atp:100644|atp:126203"
+   },
+   {
+    "source_key": "2021_404_MS034",
+    "match_id": "atp|2021-404|R64|atp:105777|atp:127157"
+   },
+   {
+    "source_key": "2021_404_MS060",
+    "match_id": "atp|2021-404|R64|atp:106426|atp:124014"
+   },
+   {
+    "source_key": "2021_9410_MS005",
+    "match_id": "atp|2021-9410|QF|atp:105357|atp:105902"
+   }
+  ]
+ }
+}

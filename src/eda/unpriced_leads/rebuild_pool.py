@@ -177,7 +177,7 @@ class Tables:
     stage0_p: str
     timing: str
     odds: str           # Stage 1 odds: the tennis-data Court links (indoor status)
-    ios: str            # "repo" | "instance"
+    ios: str            # "repo" | "instance" | a table's path (live_members.py)
     stageb: str         # "repo" | "instance" | "layer_off"
     frame: str          # "current" | "store"
 
@@ -247,7 +247,9 @@ def table_path(T: Tables, kind: str) -> Path:
         return instance_extract(kind)
     if which == "layer_off":
         return instance_extract("stageb_off")
-    return REPO[kind]
+    if which == "repo":
+        return REPO[kind]
+    return Path(which)          # a table named by path: live_members.py's run surface IOS (16 Oct 2026)
 
 
 class Patched:

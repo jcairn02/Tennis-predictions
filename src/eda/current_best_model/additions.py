@@ -19,6 +19,8 @@ A package (--package, from a READY candidate Stage 0 of role F's builder and the
         the result does not depend on where the rows were added) and `order` renumbered; the player rows follow;
       * the timeline gets the package's rows for the matches added.
     A record goes to T/data/studies/current_best_model/accepted_additions_applied.json.
+    --accepted-json <list>: merge that list (accepted.json's form) instead of accepted.json: an exact replay merges the
+    instance's own (daily_prediction/dp_common.replay_tables, 16 Oct 2026), not today's.
 --pin-timing [--tree T]: after a timeline rebuild (a prediction run's timing.py), the added matches' rows set back to the
     package's, the windows training used.
 --check-against <candidate folder>: on the frozen reference's tables, the merge must give the candidate's own Stage 0
@@ -89,13 +91,17 @@ def write_index(cur: dict, accepted: Path = ACCEPTED) -> None:
     part.replace(idx)
 
 
-def listed(accepted: Path = ACCEPTED) -> list[Path]:
-    """The accepted packages, then each feed's current snapshot, each hash-checked against its manifest."""
-    idx = Path(accepted) / "accepted.json"
+def listed(accepted: Path = ACCEPTED, index_file: Path | None = None) -> list[Path]:
+    """The accepted packages, then each feed's current snapshot, each hash-checked against its manifest. index_file:
+    another list in accepted.json's form (an exact replay's: the instance's own, 16 Oct 2026), its names under
+    `accepted`."""
+    idx = Path(index_file) if index_file else Path(accepted) / "accepted.json"
     if not idx.exists():
+        if index_file:
+            raise SystemExit(f"{idx}: no such list")
         return []
-    cur = index(accepted)
-    names = list(cur["packages"]) + [f"{feed}/{snap}" for feed, snap in sorted(cur.get("feeds", {}).items())]
+    cur = json.loads(idx.read_text(encoding="utf-8")) if index_file else index(accepted)
+    names = list(cur.get("packages", [])) + [f"{feed}/{snap}" for feed, snap in sorted(cur.get("feeds", {}).items())]
     out = []
     for name in names:
         p = Path(accepted) / name
@@ -344,9 +350,9 @@ def merge(m: pd.DataFrame, mp: pd.DataFrame, t: pd.DataFrame, packages: list[Pat
     return m, mp, t, rec
 
 
-def apply(tree: Path = ROOT, accepted: Path = ACCEPTED) -> dict:
+def apply(tree: Path = ROOT, accepted: Path = ACCEPTED, index_file: Path | None = None) -> dict:
     tree = Path(tree)
-    packages = listed(accepted)
+    packages = listed(accepted, index_file)
     paths = {"m": tree / PD / "stage0_matches.parquet", "mp": tree / PD / "stage0_match_players.parquet",
              "t": tree / MT / "timing.parquet"}
     before = {k: sha256(p) for k, p in paths.items()}
@@ -359,6 +365,7 @@ def apply(tree: Path = ROOT, accepted: Path = ACCEPTED) -> dict:
         mp.to_parquet(paths["mp"], index=False)
         t.to_parquet(paths["t"], index=False, compression="zstd")
     rec.update({"tree": str(tree), "before_sha256": before, "after_sha256": {k: sha256(p) for k, p in paths.items()},
+                "listed_from": str(index_file) if index_file else str(Path(accepted) / "accepted.json"),
                 "applied_at": pd.Timestamp.now(tz="UTC").isoformat(timespec="seconds")})
     (tree / RECORD).parent.mkdir(parents=True, exist_ok=True)
     (tree / RECORD).write_text(json.dumps(rec, indent=1, default=str), encoding="utf-8")
@@ -366,13 +373,13 @@ def apply(tree: Path = ROOT, accepted: Path = ACCEPTED) -> dict:
     return rec
 
 
-def pin_timing(tree: Path = ROOT, accepted: Path = ACCEPTED) -> dict:
+def pin_timing(tree: Path = ROOT, accepted: Path = ACCEPTED, index_file: Path | None = None) -> dict:
     """The added matches' timeline rows set back to the packages' (after a prediction run rebuilt the timeline)."""
     tree = Path(tree)
     path = tree / MT / "timing.parquet"
     t = pd.read_parquet(path)
     n = 0
-    for p in listed(accepted):
+    for p in listed(accepted, index_file):
         at = pd.read_parquet(p / "timing.parquet")
         at = at[at["match_id"].astype(str).isin(set(t["match_id"].astype(str)))]
         idx = t.reset_index().set_index(t["match_id"].astype(str))["index"]
@@ -423,8 +430,12 @@ def main() -> int:
     ap.add_argument("--reason", help="--retire: why (recorded)")
     ap.add_argument("--only", help="--check-against: merge only these packages or snapshots (comma-separated names)")
     ap.add_argument("--accepted", default=str(ACCEPTED))
+    ap.add_argument("--accepted-json", default=None,
+                    help="--apply, --pin-timing: merge this list (accepted.json's form) instead of <accepted>/"
+                         "accepted.json: an exact replay's, the instance's own (daily_prediction, 16 Oct 2026)")
     a = ap.parse_args()
     acc = Path(a.accepted)
+    lst = Path(a.accepted_json) if a.accepted_json else None
     if a.set_feed:
         print(json.dumps(set_feed(a.set_feed, acc)))
         listed(acc)
@@ -451,9 +462,9 @@ def main() -> int:
         print(json.dumps(res, indent=1, default=str))
         return 0 if res["pass"] else 1
     if a.pin_timing:
-        print(json.dumps(pin_timing(Path(a.tree), acc)))
+        print(json.dumps(pin_timing(Path(a.tree), acc, lst)))
         return 0
-    print(json.dumps(apply(Path(a.tree), acc), indent=1, default=str)[:3000])
+    print(json.dumps(apply(Path(a.tree), acc, lst), indent=1, default=str)[:3000])
     return 0
 
 

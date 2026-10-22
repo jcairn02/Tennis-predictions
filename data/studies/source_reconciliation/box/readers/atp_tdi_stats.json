@@ -1,0 +1,133 @@
+{
+ "singles_records": 5347,
+ "in_link_file": 3673,
+ "link_file_match_not_in_snapshot": 0,
+ "linked": 3789,
+ "link_methods": {
+  "tdi_link_file": 3670,
+  "": 1558,
+  "event+id/id": 112,
+  "event+full/id": 4,
+  "event+anchor/id": 3
+ },
+ "unlinked": 1558,
+ "source": "data/dump/points/tdi/{matches,statistics,points}.parquet",
+ "reader": "atp_tdi_stats",
+ "records_with_match_statistics": 6948,
+ "dropped": {
+  "no_match_statistics": 0
+ },
+ "winner_vs_stage0": {
+  "player_rows_with_a_winner": 7274,
+  "same_as_stage0": 7274,
+  "share_not_equal": 0.0,
+  "match_ids_not_equal_examples": []
+ },
+ "rows_written": 7578,
+ "matches_written": 3789,
+ "sanity_vs_stage0": {
+  "all": {
+   "ace": {
+    "n": 7570,
+    "equal": 0.9999
+   },
+   "df": {
+    "n": 7570,
+    "equal": 0.9999
+   },
+   "svpt": {
+    "n": 7570,
+    "equal": 0.9975
+   },
+   "first_in": {
+    "n": 0,
+    "equal": null
+   },
+   "first_won": {
+    "n": 0,
+    "equal": null
+   },
+   "second_won": {
+    "n": 0,
+    "equal": null
+   },
+   "sv_gms": {
+    "n": 7570,
+    "equal": 0.9988
+   },
+   "bp_saved": {
+    "n": 7570,
+    "equal": 0.9996
+   },
+   "bp_faced": {
+    "n": 7569,
+    "equal": 0.9997
+   }
+  },
+  "complete": {
+   "ace": {
+    "n": 7268,
+    "equal": 0.9999
+   },
+   "df": {
+    "n": 7268,
+    "equal": 0.9999
+   },
+   "svpt": {
+    "n": 7268,
+    "equal": 0.9975
+   },
+   "first_in": {
+    "n": 0,
+    "equal": null
+   },
+   "first_won": {
+    "n": 0,
+    "equal": null
+   },
+   "second_won": {
+    "n": 0,
+    "equal": null
+   },
+   "sv_gms": {
+    "n": 7268,
+    "equal": 0.9989
+   },
+   "bp_saved": {
+    "n": 7268,
+    "equal": 0.9996
+   },
+   "bp_faced": {
+    "n": 7267,
+    "equal": 0.9997
+   }
+  }
+ },
+ "hand_checks": {
+  "by": "atp_handcheck.py (seed 20261016), read by the session on 16 Oct 2026",
+  "compared_with": "staged statistics.parquet (period match) and matches.parquet (team codes, names, scores)",
+  "verdict": "5 of 5: aces, double faults, service games, break points faced and saved, service points won equal the staged values; svpt = service points won + the opponent's return points won; team A/B codes and names sit on Stage 0's players",
+  "keys": [
+   {
+    "source_key": "tdi:08597ea0-6332-4dcb-8b28-fe85b3e9597b",
+    "match_id": "atp|2025-9475|R16|atp:208389|atp:208882"
+   },
+   {
+    "source_key": "tdi:40b7d311-3d07-42a1-aadf-f84aba6d3c5e",
+    "match_id": "atp|2026-314|QF|atp:126239|atp:126774"
+   },
+   {
+    "source_key": "tdi:5640419e-e81c-4c6c-ac7a-1377362679cb",
+    "match_id": "atp|2026-1214|R32|atp:209354|atp:211768"
+   },
+   {
+    "source_key": "tdi:a23a72ca-f47a-42ab-bd77-f510eb0935c0",
+    "match_id": "atp|2026-3013|QF|atp:106109|atp:208013"
+   },
+   {
+    "source_key": "tdi:a57c37c5-9258-42a4-9775-e9d398b18e36",
+    "match_id": "atp|2026-741|SF|atp:200005|atp:207733"
+   }
+  ]
+ }
+}

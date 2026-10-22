@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-10-14T04:15:18+00:00",
+ "generated_at": "2026-10-21T13:50:44+00:00",
  "script": "src/eda/match_timing/link_sources_c.py",
  "schema": [
   "match_id",
@@ -18,53 +18,53 @@
    "source": "tennis_data",
    "file": "data\\studies\\match_timing\\links\\tennis_data.parquet",
    "method": "Stage 1's links (src/eda/predictability_diagnostic/stage1_odds.py), taken as they are: name pair, one-player anchor and winner-swapped passes, confirmed by set scores or round",
-   "rows_read": 83243,
-   "stage0_candidate_matches": 93115,
-   "linked": 83183,
+   "rows_read": 83550,
+   "stage0_candidate_matches": 93213,
+   "linked": 83490,
    "ambiguous": 0,
    "unlinked": 60,
    "outcomes_stage1": {
-    "linked": 83183,
+    "linked": 83490,
     "no name pair in the window": 58,
     "no date": 2
    },
    "linked_by_method": {
     "stage1_name_pair": 39370,
     "stage1_name_pair;uk_day_venue_west": 23221,
-    "stage1_name_pair;uk_day_venue_east": 17329,
+    "stage1_name_pair;uk_day_venue_east": 17627,
     "stage1_one_player_anchor": 1603,
     "stage1_one_player_anchor;uk_day_venue_west": 913,
-    "stage1_one_player_anchor;uk_day_venue_east": 732,
+    "stage1_one_player_anchor;uk_day_venue_east": 741,
     "stage1_winner_swapped": 7,
     "stage1_winner_swapped;uk_day_venue_east": 5,
     "stage1_winner_swapped;uk_day_venue_west": 3
    },
    "redated_kept": 0,
-   "venue_zone_found": 83183,
+   "venue_zone_found": 83490,
    "venues_without_zone": {},
    "rows_far_from_uk_clock": {
     "west": 24137,
-    "east": 18066
+    "east": 18373
    },
    "date_basis": {
-    "local": 83183
+    "local": 83490
    },
    "with_start_utc": 0,
    "score_agrees": {
-    "True": 82297,
-    "False": 886
+    "True": 82602,
+    "False": 888
    },
    "round_agrees": {
-    "True": 83162,
+    "True": 83469,
     "False": 21
    },
-   "seconds": 6.7
+   "seconds": 7.4
   },
   "wta_api": {
    "source": "wta_api",
    "file": "data\\studies\\match_timing\\links\\wta_api.parquet",
    "method": "identity (srcc_common.link): WTA, levels GS/FIN/T1000/T500/T250/CH from Dec 2018, both names, day -10..+21 of the tournament date, set scores (the list's ScoreSet fields) and/or round (RoundID; numbered rounds counted from the draw's first); the WTA edition number (or 2019-20 live-scoring id) as Stage 0's tournament id ranks candidates. Day: first point of the umpire's log in the log's own local time; else the list's time with the edition's offset or the city's zone",
-   "rows_read": 40734,
+   "rows_read": 40919,
    "rows_by_year": {
     "2019": {
      "listed": 3394,
@@ -95,20 +95,20 @@
      "singles": 5906
     },
     "2026": {
-     "listed": 7481,
-     "singles": 5807
+     "listed": 7666,
+     "singles": 5935
     }
    },
-   "singles_played_in_scope": 31328,
-   "singles_with_first_point": 27906,
-   "linked": 28839,
+   "singles_played_in_scope": 31473,
+   "singles_with_first_point": 28051,
+   "linked": 28902,
    "ambiguous": 0,
-   "unlinked": 2489,
+   "unlinked": 2571,
    "outcomes": {
-    "linked": 28839,
-    "no Stage 0 match with both players in the window": 2441,
-    "names and window agree, but neither set scores nor round": 24,
-    "names in the window agree on a given name or other word only": 23,
+    "linked": 28902,
+    "no Stage 0 match with both players in the window": 2521,
+    "names and window agree, but neither set scores nor round": 25,
+    "names in the window agree on a given name or other word only": 24,
     "its Stage 0 match was taken by a better-ranked source row": 1
    },
    "unlinked_by_tier_draw": [
@@ -120,7 +120,7 @@
     {
      "tier": "125",
      "draw": "main_singles",
-     "rows": 1000
+     "rows": 1045
     },
     {
      "tier": "125",
@@ -135,17 +135,17 @@
     {
      "tier": "250",
      "draw": "qual_singles",
-     "rows": 229
+     "rows": 247
     },
     {
      "tier": "500",
      "draw": "main_singles",
-     "rows": 8
+     "rows": 9
     },
     {
      "tier": "500",
      "draw": "qual_singles",
-     "rows": 112
+     "rows": 130
     },
     {
      "tier": "slam",
@@ -154,10 +154,10 @@
     }
    ],
    "linked_by_method": {
-    "identity_pair;first_point;city_zone": 24941,
+    "identity_pair;first_point;city_zone": 25003,
     "identity_pair;listing_schedule;city_zone": 1836,
     "identity_pair;listing_2019_label_day;label": 796,
-    "identity_pair;first_point;city_zone;last_point_day+1": 467,
+    "identity_pair;first_point;city_zone;last_point_day+1": 468,
     "identity_anchor;first_point;city_zone": 369,
     "identity_pair;listing_start;city_zone": 212,
     "identity_pair;listing_start;city_zone;walkover": 147,
@@ -175,7 +175,7 @@
     "identity_player_ids;first_point;city_zone": 1
    },
    "linked_by_pass": {
-    "pair": 28419,
+    "pair": 28482,
     "anchor": 414,
     "player_ids": 6
    },
@@ -245,19 +245,19 @@
     ]
    },
    "player_id_crosswalk_size": 1227,
-   "linked_with_tournament_id_agreeing": 27051,
+   "linked_with_tournament_id_agreeing": 27114,
    "linked_with_tournament_id_disagreeing": 0,
    "date_basis": {
-    "local": 28003,
+    "local": 28066,
     "utc_date": 836
    },
-   "with_start_utc": 26004,
+   "with_start_utc": 26067,
    "score_agrees": {
-    "True": 28589,
+    "True": 28652,
     "False": 250
    },
    "round_agrees": {
-    "True": 27967,
+    "True": 28030,
     "None": 787,
     "False": 85
    },
@@ -320,11 +320,11 @@
     {
      "q1": 3,
      "q2": 3,
-     "links": 27096
+     "links": 27159
     }
    ],
    "check_device_offset_vs_city_zone": {
-    "matches_checked": 23632,
+    "matches_checked": 23777,
     "disagree": 437,
     "disagreeing_editions": [
      {
@@ -555,7 +555,7 @@
     ]
    },
    "check_device_days_vs_city_zone_days": {
-    "matches": 23632,
+    "matches": 23777,
     "different_day": 13,
     "by_edition": [
      {
@@ -573,8 +573,8 @@
     ]
    },
    "check_day_vs_list_day_number": {
-    "matches": 30484,
-    "consistent_with_edition_and_draw": 30328,
+    "matches": 30629,
+    "consistent_with_edition_and_draw": 30473,
     "differences_days": {
      "-1": 67,
      "1": 89
@@ -589,60 +589,60 @@
     "0.99": 240.2
    },
    "first_point_more_than_6h_after_list_time": 119,
-   "seconds": 22.3
+   "seconds": 23.9
   },
   "sofascore": {
    "source": "sofascore",
    "file": "data\\studies\\match_timing\\links\\sofascore.parquet",
    "method": "identity (srcc_common.link; SofaScore team ids for the id pass) against Stage 0 of the event's tour within 30 days of the collections' span; earlier studies' links translated by exact names and week and compared; startTimestamp (listed start, UTC) to the venue's day",
-   "rows_read": 115838,
+   "rows_read": 210518,
    "rows_by_collection": {
-    "sofascore_editions": 104495,
-    "sofascore": 4053,
+    "sofascore_editions": 199175,
+    "sofascore": 3679,
     "sofascore_tournaments": 3574,
+    "sofascore;sofascore_editions": 2109,
     "sofascore_editions;sofascore_tournaments": 1920,
-    "sofascore;sofascore_editions": 1735,
     "sofascore;sofascore_tournaments": 46,
     "sofascore;sofascore_editions;sofascore_tournaments": 15
    },
    "out_of_scope": {
-    "doubles": 1284,
+    "doubles": 1289,
     "exhibition_junior_or_unknown_tour": 120,
-    "not_finished": 2883
+    "not_finished": 3749
    },
-   "singles_in_scope": 111551,
+   "singles_in_scope": 205360,
    "in_scope_by_collection": {
-    "sofascore_editions": 101757,
+    "sofascore_editions": 195566,
     "sofascore_tournaments": 3538,
-    "sofascore": 2617,
+    "sofascore": 2245,
+    "sofascore;sofascore_editions": 2053,
     "sofascore_editions;sofascore_tournaments": 1897,
-    "sofascore;sofascore_editions": 1681,
     "sofascore;sofascore_tournaments": 46,
     "sofascore;sofascore_editions;sofascore_tournaments": 15
    },
-   "linked": 108627,
+   "linked": 160314,
    "ambiguous": 1,
-   "unlinked": 2923,
+   "unlinked": 45045,
    "outcomes": {
-    "linked": 108627,
-    "no Stage 0 match with both players in the window": 2627,
-    "names and window agree, but neither set scores nor round": 150,
-    "names in the window agree on a given name or other word only": 139,
-    "its Stage 0 match was taken by a better-ranked source row": 7,
+    "linked": 160314,
+    "no Stage 0 match with both players in the window": 43192,
+    "names in the window agree on a given name or other word only": 919,
+    "names and window agree, but neither set scores nor round": 704,
+    "its Stage 0 match was taken by a better-ranked source row": 230,
     "ambiguous: equally good Stage 0 matches": 1
    },
    "linked_by_pass": {
-    "pair": 107847,
-    "anchor": 624,
-    "player_ids": 148,
-    "prior_link": 8
+    "pair": 158365,
+    "anchor": 1775,
+    "player_ids": 162,
+    "prior_link": 12
    },
    "linked_by_collection": {
-    "sofascore_editions": 99403,
+    "sofascore_editions": 151090,
     "sofascore_tournaments": 3426,
-    "sofascore": 2179,
+    "sofascore;sofascore_editions": 1982,
     "sofascore_editions;sofascore_tournaments": 1897,
-    "sofascore;sofascore_editions": 1661,
+    "sofascore": 1858,
     "sofascore;sofascore_tournaments": 46,
     "sofascore;sofascore_editions;sofascore_tournaments": 15
    },
@@ -680,26 +680,20 @@
     {
      "collections": "sofascore",
      "category_name": "ITF Men",
-     "reason": "its Stage 0 match was taken by a better-ranked source row",
-     "rows": 1
-    },
-    {
-     "collections": "sofascore",
-     "category_name": "ITF Men",
      "reason": "names and window agree, but neither set scores nor round",
-     "rows": 6
+     "rows": 5
     },
     {
      "collections": "sofascore",
      "category_name": "ITF Men",
      "reason": "names in the window agree on a given name or other word only",
-     "rows": 24
+     "rows": 20
     },
     {
      "collections": "sofascore",
      "category_name": "ITF Men",
      "reason": "no Stage 0 match with both players in the window",
-     "rows": 390
+     "rows": 345
     },
     {
      "collections": "sofascore;sofascore_editions",
@@ -718,6 +712,30 @@
      "category_name": "Challenger",
      "reason": "no Stage 0 match with both players in the window",
      "rows": 16
+    },
+    {
+     "collections": "sofascore;sofascore_editions",
+     "category_name": "ITF Men",
+     "reason": "its Stage 0 match was taken by a better-ranked source row",
+     "rows": 1
+    },
+    {
+     "collections": "sofascore;sofascore_editions",
+     "category_name": "ITF Men",
+     "reason": "names and window agree, but neither set scores nor round",
+     "rows": 1
+    },
+    {
+     "collections": "sofascore;sofascore_editions",
+     "category_name": "ITF Men",
+     "reason": "names in the window agree on a given name or other word only",
+     "rows": 4
+    },
+    {
+     "collections": "sofascore;sofascore_editions",
+     "category_name": "ITF Men",
+     "reason": "no Stage 0 match with both players in the window",
+     "rows": 45
     },
     {
      "collections": "sofascore_editions",
@@ -753,43 +771,67 @@
      "collections": "sofascore_editions",
      "category_name": "Challenger",
      "reason": "names and window agree, but neither set scores nor round",
-     "rows": 102
+     "rows": 103
     },
     {
      "collections": "sofascore_editions",
      "category_name": "Challenger",
      "reason": "names in the window agree on a given name or other word only",
-     "rows": 92
+     "rows": 90
     },
     {
      "collections": "sofascore_editions",
      "category_name": "Challenger",
      "reason": "no Stage 0 match with both players in the window",
-     "rows": 1458
+     "rows": 1430
+    },
+    {
+     "collections": "sofascore_editions",
+     "category_name": "ITF Men",
+     "reason": "its Stage 0 match was taken by a better-ranked source row",
+     "rows": 133
     },
     {
      "collections": "sofascore_editions",
      "category_name": "ITF Men",
      "reason": "names and window agree, but neither set scores nor round",
-     "rows": 2
+     "rows": 279
+    },
+    {
+     "collections": "sofascore_editions",
+     "category_name": "ITF Men",
+     "reason": "names in the window agree on a given name or other word only",
+     "rows": 521
     },
     {
      "collections": "sofascore_editions",
      "category_name": "ITF Men",
      "reason": "no Stage 0 match with both players in the window",
-     "rows": 101
+     "rows": 23327
+    },
+    {
+     "collections": "sofascore_editions",
+     "category_name": "ITF Women",
+     "reason": "its Stage 0 match was taken by a better-ranked source row",
+     "rows": 90
+    },
+    {
+     "collections": "sofascore_editions",
+     "category_name": "ITF Women",
+     "reason": "names and window agree, but neither set scores nor round",
+     "rows": 276
     },
     {
      "collections": "sofascore_editions",
      "category_name": "ITF Women",
      "reason": "names in the window agree on a given name or other word only",
-     "rows": 1
+     "rows": 262
     },
     {
      "collections": "sofascore_editions",
      "category_name": "ITF Women",
      "reason": "no Stage 0 match with both players in the window",
-     "rows": 54
+     "rows": 17422
     },
     {
      "collections": "sofascore_editions",
@@ -807,7 +849,7 @@
      "collections": "sofascore_editions",
      "category_name": "WTA",
      "reason": "no Stage 0 match with both players in the window",
-     "rows": 227
+     "rows": 226
     },
     {
      "collections": "sofascore_editions",
@@ -846,9 +888,9 @@
      "rows": 107
     }
    ],
-   "player_id_crosswalk_size": 4951,
+   "player_id_crosswalk_size": 8898,
    "prior_links": {
-    "rows": 55948,
+    "rows": 320696,
     "by_study_and_verdict": [
      {
       "prior": "ao_rg_points",
@@ -863,22 +905,22 @@
      {
       "prior": "gap_downloads",
       "verdict": "different Stage 0 match",
-      "rows": 46
+      "rows": 10
      },
      {
       "prior": "gap_downloads",
       "verdict": "identity found no link",
-      "rows": 30
+      "rows": 194187
      },
      {
       "prior": "gap_downloads",
       "verdict": "prior row not translatable to Stage 0",
-      "rows": 2887
+      "rows": 24243
      },
      {
       "prior": "gap_downloads",
       "verdict": "same Stage 0 match",
-      "rows": 48858
+      "rows": 98129
      },
      {
       "prior": "point_shot_sources",
@@ -901,7 +943,7 @@
       "rows": 2211
      }
     ],
-    "added_where_identity_found_none": 8,
+    "added_where_identity_found_none": 12,
     "different_examples": [
      {
       "prior": "gap_downloads",
@@ -919,83 +961,6 @@
      },
      {
       "prior": "gap_downloads",
-      "prior_key": "uid:challenger_points_2018_2021:77219",
-      "event_id": "7768225",
-      "prior_mid": "atp|2018-7878|R32|atp:105155|atp:105477",
-      "mine": "atp|2018-7909|R32|atp:124079|atp:126237"
-     },
-     {
-      "prior": "gap_downloads",
-      "prior_key": "uid:challenger_points_2018_2021:21706",
-      "event_id": "7773090",
-      "prior_mid": "atp|2018-7909|R32|atp:105943|atp:106065",
-      "mine": "atp|2018-7494|Q3|atp:105477|atp:105943"
-     },
-     {
-      "prior": "gap_downloads",
-      "prior_key": "uid:challenger_points_2018_2021:64002",
-      "event_id": "7772325",
-      "prior_mid": "atp|2018-7909|R32|atp:124079|atp:126237",
-      "mine": "atp|2018-7494|R32|atp:105155|atp:126237"
-     },
-     {
-      "prior": "gap_downloads",
-      "prior_key": "uid:challenger_points_2018_2021:17963",
-      "event_id": "7973316",
-      "prior_mid": "atp|2018-1763|F|atp:104460|atp:132283",
-      "mine": "atp|2018-448|R32|atp:104460|atp:105841"
-     },
-     {
-      "prior": "gap_downloads",
-      "prior_key": "uid:challenger_points_2018_2021:4155",
-      "event_id": "8013765",
-      "prior_mid": "atp|2018-6307|R32|atp:105948|atp:200335",
-      "mine": "atp|2018-7201|Q2|atp:105948|atp:106181"
-     },
-     {
-      "prior": "gap_downloads",
-      "prior_key": "uid:challenger_points_2018_2021:5870",
-      "event_id": "8013687",
-      "prior_mid": "atp|2018-6307|R32|atp:105292|atp:106032",
-      "mine": "atp|2018-7201|Q2|atp:105826|atp:106032"
-     },
-     {
-      "prior": "gap_downloads",
-      "prior_key": "uid:challenger_points_2018_2021:41095",
-      "event_id": "8012607",
-      "prior_mid": "atp|2018-6307|R16|atp:105292|atp:106426",
-      "mine": "atp|2018-7201|Q1|atp:105578|atp:105826"
-     },
-     {
-      "prior": "gap_downloads",
-      "prior_key": "uid:challenger_points_2018_2021:5215",
-      "event_id": "8050867",
-      "prior_mid": "atp|2018-544|R16|atp:104665|atp:106032",
-      "mine": "atp|2018-7395|R32|atp:104665|atp:106057"
-     },
-     {
-      "prior": "gap_downloads",
-      "prior_key": "uid:challenger_points_2018_2021:56792",
-      "event_id": "8135319",
-      "prior_mid": "atp|2019-7584|QF|atp:105406|atp:144645",
-      "mine": "atp|2019-398|R64|atp:105751|atp:144645"
-     },
-     {
-      "prior": "gap_downloads",
-      "prior_key": "uid:challenger_points_2018_2021:69748",
-      "event_id": "8170999",
-      "prior_mid": "atp|2019-7004|R32|atp:104868|atp:109303",
-      "mine": "atp|2019-7783|R16|atp:105902|atp:109303"
-     },
-     {
-      "prior": "gap_downloads",
-      "prior_key": "uid:challenger_points_2018_2021:61887",
-      "event_id": "8182736",
-      "prior_mid": "atp|2019-7878|R16|atp:104198|atp:124079",
-      "mine": "atp|2019-7909|R32|atp:104198|atp:106398"
-     },
-     {
-      "prior": "gap_downloads",
       "prior_key": "uid:challenger_points_2018_2021:64214",
       "event_id": "8183320",
       "prior_mid": "atp|2019-7878|QF|atp:106210|atp:124079",
@@ -1010,55 +975,222 @@
      },
      {
       "prior": "gap_downloads",
-      "prior_key": "uid:challenger_points_2018_2021:3706",
-      "event_id": "8904325",
-      "prior_mid": "atp|2020-8392|R32|atp:105841|atp:127157",
-      "mine": "atp|2020-9351|R32|atp:127157|atp:207518"
+      "prior_key": "uid:challenger_points_2018_2021:226487",
+      "event_id": "9955644",
+      "prior_mid": "atp|2021-M-ITF-USA-24A-2021|R16|atp:200647|atp:208370",
+      "mine": "atp|2021-637|Q1|atp:200647|atp:208370"
      },
      {
       "prior": "gap_downloads",
-      "prior_key": "uid:challenger_points_2018_2021:2367",
-      "event_id": "9142716",
-      "prior_mid": "atp|2020-7909|R16|atp:123755|atp:207989",
-      "mine": "atp|2020-7878|QF|atp:123755|atp:126535"
+      "prior_key": "uid:itf_points_2025_2026:108370",
+      "event_id": "14053565",
+      "prior_mid": "atp|2025-M-ITF-USA-2025-19|R16|atp:148673|atp:212849",
+      "mine": "atp|2025-M-ITF-USA-2025-18|R32|atp:148673|atp:212849"
      },
      {
       "prior": "gap_downloads",
-      "prior_key": "uid:challenger_points_2018_2021:2453",
-      "event_id": "9145157",
-      "prior_mid": "atp|2020-7909|F|atp:124079|atp:207989",
-      "mine": "atp|2020-7878|SF|atp:124079|atp:126535"
+      "prior_key": "uid:itf_points_2025_2026:441293",
+      "event_id": "13290352",
+      "prior_mid": "wta|2025-W-ITF-KEN-2025-3|SF|wta:222454|wta:264187",
+      "mine": "wta|2025-W-ITF-KEN-2025-2|R16|wta:222454|wta:264187"
      },
      {
       "prior": "gap_downloads",
-      "prior_key": "uid:challenger_points_2018_2021:2542",
-      "event_id": "9134257",
-      "prior_mid": "atp|2020-7909|R32|atp:106368|atp:207989",
-      "mine": "atp|2020-7878|R32|atp:106368|atp:126535"
+      "prior_key": "uid:itf_points_2025_2026:454344",
+      "event_id": "13290353",
+      "prior_mid": "wta|2025-W-ITF-KEN-2025-3|QF|wta:234474|wta:260913",
+      "mine": "wta|2025-W-ITF-KEN-2025-2|R16|wta:234474|wta:260913"
      },
      {
       "prior": "gap_downloads",
-      "prior_key": "uid:challenger_points_2018_2021:24967",
-      "event_id": "9137668",
-      "prior_mid": "atp|2020-7909|R32|atp:105911|atp:123755",
-      "mine": "atp|2020-7878|R32|atp:123755|atp:126504"
+      "prior_key": "uid:itf_points_2025_2026:105252",
+      "event_id": "16233953",
+      "prior_mid": "atp|2026-M-ITF-TUR-2026-15|R32|atp:206782|atp:208908",
+      "mine": "atp|2026-M-ITF-TUR-2026-16|R16|atp:206782|atp:208908"
+     },
+     {
+      "prior": "gap_downloads",
+      "prior_key": "uid:wta125_points_2019_2026:469029",
+      "event_id": "15637286",
+      "prior_mid": "wta|2026-W-ITF-ESP-2026-2|R16|wta:211344|wta:215290",
+      "mine": "wta|2026-1107|Q1|wta:211344|wta:215290"
+     },
+     {
+      "prior": "point_shot_sources",
+      "prior_key": "H09P:atp:2024/7339/ms005:PG20",
+      "event_id": "12959334",
+      "prior_mid": "atp|2024-7339|QF|atp:122078|atp:200587",
+      "mine": "atp|2024-7339|R32|atp:106071|atp:208328"
+     },
+     {
+      "prior": "point_shot_sources",
+      "prior_key": "H0A4:atp:2024/7707/ms003:BU10",
+      "event_id": "12296915",
+      "prior_mid": "atp|2024-7707|SF|atp:200572|atp:202235",
+      "mine": "atp|2024-7707|F|atp:202235|atp:208169"
+     },
+     {
+      "prior": "point_shot_sources",
+      "prior_key": "H0A4:atp:2025/580/qs075:G0GD",
+      "event_id": "13134521",
+      "prior_mid": "atp|2025-580|Q1|atp:200572|atp:209263",
+      "mine": "atp|2024-2955|R32|atp:111576|atp:210220"
+     },
+     {
+      "prior": "point_shot_sources",
+      "prior_key": "W09E:atp:2025/717/ms030:MP01",
+      "event_id": "13587109",
+      "prior_mid": "atp|2025-717|R32|atp:111581|atp:200443",
+      "mine": "atp|2025-9167|R32|atp:200303|atp:211663"
+     },
+     {
+      "prior": "point_shot_sources",
+      "prior_key": "W09E:atp:2026/3083/ms010:W857",
+      "event_id": "16070439",
+      "prior_mid": "atp|2026-3083|R16|atp:126555|atp:200443",
+      "mine": "atp|2026-3083|R32|atp:106109|atp:126165"
      }
     ]
    },
    "date_basis": {
-    "local": 108547,
-    "utc_date": 80
+    "local": 158662,
+    "utc_date": 1652
    },
    "zone_basis": {
-    "event_place_zone": 107311,
-    "stage0_event_zone": 1236,
-    "utc": 80
+    "event_place_zone": 108641,
+    "stage0_event_zone": 50021,
+    "utc": 1652
    },
    "utc_day_kept_for": [
+    {
+     "country": NaN,
+     "city": "huamantla",
+     "links": "392"
+    },
+    {
+     "country": NaN,
+     "city": "bujumbura",
+     "links": "124"
+    },
+    {
+     "country": NaN,
+     "city": "swan hill",
+     "links": "123"
+    },
+    {
+     "country": "MEX",
+     "city": NaN,
+     "links": "93"
+    },
     {
      "country": "USA",
      "city": NaN,
      "links": "64"
+    },
+    {
+     "country": NaN,
+     "city": "pelham",
+     "links": "62"
+    },
+    {
+     "country": NaN,
+     "city": "southaven",
+     "links": "62"
+    },
+    {
+     "country": NaN,
+     "city": "zephyrhills",
+     "links": "62"
+    },
+    {
+     "country": NaN,
+     "city": "vacaria",
+     "links": "62"
+    },
+    {
+     "country": NaN,
+     "city": "indian harbour beach",
+     "links": "62"
+    },
+    {
+     "country": NaN,
+     "city": "bethany beach",
+     "links": "62"
+    },
+    {
+     "country": NaN,
+     "city": "arcadia",
+     "links": "61"
+    },
+    {
+     "country": NaN,
+     "city": "florence",
+     "links": "31"
+    },
+    {
+     "country": NaN,
+     "city": "victoriaville",
+     "links": "31"
+    },
+    {
+     "country": NaN,
+     "city": "templeton",
+     "links": "31"
+    },
+    {
+     "country": NaN,
+     "city": "san rafael",
+     "links": "31"
+    },
+    {
+     "country": NaN,
+     "city": "landisville",
+     "links": "31"
+    },
+    {
+     "country": NaN,
+     "city": "evansville",
+     "links": "31"
+    },
+    {
+     "country": "AUS",
+     "city": "carrara",
+     "links": "31"
+    },
+    {
+     "country": NaN,
+     "city": "leme",
+     "links": "31"
+    },
+    {
+     "country": NaN,
+     "city": "sao joao da boa vista",
+     "links": "30"
+    },
+    {
+     "country": NaN,
+     "city": "tweed heads",
+     "links": "30"
+    },
+    {
+     "country": NaN,
+     "city": "redding",
+     "links": "29"
+    },
+    {
+     "country": NaN,
+     "city": "clemson",
+     "links": "28"
+    },
+    {
+     "country": NaN,
+     "city": "lajeado",
+     "links": "23"
+    },
+    {
+     "country": NaN,
+     "city": "santa cruz do sul",
+     "links": "19"
     },
     {
      "country": "AUS",
@@ -1078,6 +1210,131 @@
    ],
    "utc_day_kept_for_stage0_place": [
     {
+     "s0_country": "MEX",
+     "s0_city": "huamantla",
+     "links": "485"
+    },
+    {
+     "s0_country": "BDI",
+     "s0_city": "bujumbura",
+     "links": "124"
+    },
+    {
+     "s0_country": "AUS",
+     "s0_city": "swan hill",
+     "links": "123"
+    },
+    {
+     "s0_country": "BRA",
+     "s0_city": "vacaria",
+     "links": "62"
+    },
+    {
+     "s0_country": "USA",
+     "s0_city": "bethany beach",
+     "links": "62"
+    },
+    {
+     "s0_country": "USA",
+     "s0_city": "southaven ms",
+     "links": "62"
+    },
+    {
+     "s0_country": "USA",
+     "s0_city": "zephyrhills fl",
+     "links": "62"
+    },
+    {
+     "s0_country": "USA",
+     "s0_city": "indian harbour beach fl",
+     "links": "62"
+    },
+    {
+     "s0_country": "USA",
+     "s0_city": "arcadia ca",
+     "links": "61"
+    },
+    {
+     "s0_country": "AUS",
+     "s0_city": "carrara",
+     "links": "31"
+    },
+    {
+     "s0_country": "USA",
+     "s0_city": "florence",
+     "links": "31"
+    },
+    {
+     "s0_country": "CAN",
+     "s0_city": "victoriaville",
+     "links": "31"
+    },
+    {
+     "s0_country": "BRA",
+     "s0_city": "leme",
+     "links": "31"
+    },
+    {
+     "s0_country": "USA",
+     "s0_city": "landisville pa",
+     "links": "31"
+    },
+    {
+     "s0_country": "USA",
+     "s0_city": "templeton ca",
+     "links": "31"
+    },
+    {
+     "s0_country": "USA",
+     "s0_city": "san rafael ca",
+     "links": "31"
+    },
+    {
+     "s0_country": "USA",
+     "s0_city": "pelham al",
+     "links": "31"
+    },
+    {
+     "s0_country": "USA",
+     "s0_city": "pelham",
+     "links": "31"
+    },
+    {
+     "s0_country": "USA",
+     "s0_city": "evansville",
+     "links": "31"
+    },
+    {
+     "s0_country": "AUS",
+     "s0_city": "tweed heads",
+     "links": "30"
+    },
+    {
+     "s0_country": "BRA",
+     "s0_city": "sao joao da boa vista",
+     "links": "30"
+    },
+    {
+     "s0_country": "USA",
+     "s0_city": "redding ca",
+     "links": "29"
+    },
+    {
+     "s0_country": "USA",
+     "s0_city": "clemson sc",
+     "links": "28"
+    },
+    {
+     "s0_country": "BRA",
+     "s0_city": "lajeado",
+     "links": "23"
+    },
+    {
+     "s0_country": "BRA",
+     "s0_city": "santa cruz do sul",
+     "links": "19"
+    },
+    {
      "s0_country": "USA",
      "s0_city": "usa f24",
      "links": "9"
@@ -1094,141 +1351,26 @@
     },
     {
      "s0_country": "USA",
-     "s0_city": "usa f10",
-     "links": "5"
-    },
-    {
-     "s0_country": "USA",
      "s0_city": "usa f29",
      "links": "5"
     },
     {
      "s0_country": "USA",
-     "s0_city": "usa f32",
-     "links": "4"
-    },
-    {
-     "s0_country": "USA",
-     "s0_city": "usa f19",
-     "links": "4"
-    },
-    {
-     "s0_country": "USA",
-     "s0_city": "usa f2",
-     "links": "3"
-    },
-    {
-     "s0_country": "USA",
-     "s0_city": "usa f17",
-     "links": "3"
-    },
-    {
-     "s0_country": "USA",
-     "s0_city": "usa f11",
-     "links": "3"
-    },
-    {
-     "s0_country": "USA",
-     "s0_city": "usa f1",
-     "links": "3"
-    },
-    {
-     "s0_country": "AUS",
-     "s0_city": "australia f7",
-     "links": "3"
-    },
-    {
-     "s0_country": NaN,
-     "s0_city": "davis wg2 r1 dom vs tun",
-     "links": "2"
-    },
-    {
-     "s0_country": "USA",
-     "s0_city": "usa f9",
-     "links": "2"
-    },
-    {
-     "s0_country": "USA",
-     "s0_city": "usa f13",
-     "links": "2"
-    },
-    {
-     "s0_country": "CAN",
-     "s0_city": "canada f4",
-     "links": "2"
-    },
-    {
-     "s0_country": "AUS",
-     "s0_city": "australia f6",
-     "links": "2"
-    },
-    {
-     "s0_country": "USA",
-     "s0_city": "usa f33",
-     "links": "2"
-    },
-    {
-     "s0_country": "USA",
-     "s0_city": "usa f34",
-     "links": "2"
-    },
-    {
-     "s0_country": "USA",
-     "s0_city": "usa f30",
-     "links": "2"
-    },
-    {
-     "s0_country": NaN,
-     "s0_city": "davis wg2 r1 dom vs lat",
-     "links": "2"
-    },
-    {
-     "s0_country": "AUS",
-     "s0_city": "australia f9",
-     "links": "1"
-    },
-    {
-     "s0_country": "AUS",
-     "s0_city": "australia f1",
-     "links": "1"
-    },
-    {
-     "s0_country": "USA",
-     "s0_city": "usa f28",
-     "links": "1"
-    },
-    {
-     "s0_country": NaN,
-     "s0_city": "davis g1 r1 dom vs chi",
-     "links": "1"
-    },
-    {
-     "s0_country": "USA",
-     "s0_city": "usa f8",
-     "links": "1"
-    },
-    {
-     "s0_country": NaN,
-     "s0_city": "davis qls r2 aut vs bel",
-     "links": "1"
-    },
-    {
-     "s0_country": NaN,
-     "s0_city": "davis wg2 r1 sui vs est",
-     "links": "1"
+     "s0_city": "usa f10",
+     "links": "5"
     }
    ],
-   "with_start_utc": 108139,
+   "with_start_utc": 159731,
    "score_agrees": {
-    "True": 108044,
-    "False": 583
+    "True": 159373,
+    "False": 941
    },
    "round_agrees": {
-    "True": 94578,
-    "None": 13189,
-    "False": 860
+    "True": 145611,
+    "None": 13840,
+    "False": 863
    },
-   "seconds": 38.0
+   "seconds": 64.8
   },
   "slam_feeds": {
    "source": "slam_feeds",
@@ -1441,50 +1583,50 @@
     },
     "note": "eventDay is the draw's day number; a match started on another date than most matches of its day number was put back or resumed"
    },
-   "seconds": 3.1
+   "seconds": 3.5
   },
   "tdi": {
    "source": "tdi",
    "file": "data\\studies\\match_timing\\links\\tdi.parquet",
    "method": "identity (srcc_common.link; ATP tournament id from the page's ATP code ranks candidates; ATP player ids for the id pass) against Stage 0's ATP matches from April 2025; day = first point in the place's zone",
-   "rows_read": 6948,
-   "singles": 5347,
-   "singles_with_first_point": 5346,
-   "linked": 3673,
+   "rows_read": 7532,
+   "singles": 5802,
+   "singles_with_first_point": 5800,
+   "linked": 4042,
    "ambiguous": 0,
-   "unlinked": 1673,
+   "unlinked": 1758,
    "outcomes": {
-    "linked": 3673,
-    "no Stage 0 match with both players in the window": 1477,
-    "names and window agree, but neither set scores nor round": 163,
-    "names in the window agree on a given name or other word only": 33
+    "linked": 4042,
+    "no Stage 0 match with both players in the window": 1570,
+    "names and window agree, but neither set scores nor round": 150,
+    "names in the window agree on a given name or other word only": 38
    },
-   "stage0_last_atp_tournament_date": "2026-10-12",
+   "stage0_last_atp_tournament_date": "2026-10-20",
    "unlinked_after_stage0_ends": 0,
    "unlinked_by_level_draw": [
     {
      "level": "challenger",
      "draw": "qualifying",
      "reason": "names and window agree, but neither set scores nor round",
-     "rows": 13
+     "rows": 16
     },
     {
      "level": "challenger",
      "draw": "qualifying",
      "reason": "names in the window agree on a given name or other word only",
-     "rows": 30
+     "rows": 33
     },
     {
      "level": "challenger",
      "draw": "qualifying",
      "reason": "no Stage 0 match with both players in the window",
-     "rows": 1229
+     "rows": 1300
     },
     {
      "level": "tour",
      "draw": "main",
      "reason": "names and window agree, but neither set scores nor round",
-     "rows": 79
+     "rows": 94
     },
     {
      "level": "tour",
@@ -1496,7 +1638,7 @@
      "level": "unknown",
      "draw": "main",
      "reason": "names and window agree, but neither set scores nor round",
-     "rows": 32
+     "rows": 1
     },
     {
      "level": "unknown",
@@ -1514,37 +1656,37 @@
      "level": "unknown",
      "draw": "qualifying",
      "reason": "names in the window agree on a given name or other word only",
-     "rows": 3
+     "rows": 5
     },
     {
      "level": "unknown",
      "draw": "qualifying",
      "reason": "no Stage 0 match with both players in the window",
-     "rows": 218
+     "rows": 240
     }
    ],
    "linked_by_pass": {
-    "pair": 3673
+    "pair": 4042
    },
-   "linked_with_tournament_id_agreeing": 3673,
+   "linked_with_tournament_id_agreeing": 4042,
    "linked_with_tournament_id_disagreeing": 0,
    "date_basis": {
-    "local": 3673
+    "local": 4042
    },
    "places_without_zone": {
     "Monastir, Monastir": 1
    },
-   "matches_whose_last_point_is_on_a_later_local_day": 79,
-   "with_start_utc": 3673,
+   "matches_whose_last_point_is_on_a_later_local_day": 82,
+   "with_start_utc": 4042,
    "score_agrees": {
-    "True": 3672,
+    "True": 4041,
     "False": 1
    },
    "round_agrees": {
-    "True": 3196,
+    "True": 3565,
     "None": 477
    },
-   "seconds": 1.4
+   "seconds": 1.7
   },
   "sirgenkii": {
    "source": "sirgenkii",
@@ -1592,12 +1734,12 @@
  },
  "links_per_source": {
   "slam_feeds": 7682,
-  "sofascore": 108627,
-  "tdi": 3673,
-  "tennis_data": 83183,
-  "wta_api": 28839
+  "sofascore": 160314,
+  "tdi": 4042,
+  "tennis_data": 83490,
+  "wta_api": 28902
  },
- "matches_with_any_source_c_day": 182588,
+ "matches_with_any_source_c_day": 234796,
  "coverage_file": "data\\studies\\match_timing\\links\\sources_c_link_counts.csv",
  "coverage_by_source_tour_level_qualifying": [
   {
@@ -1605,8 +1747,8 @@
    "tour": "atp",
    "level": "CH",
    "qualifying": false,
-   "stage0_matches": 88540,
-   "linked": 49508
+   "stage0_matches": 88734,
+   "linked": 49834
   },
   {
    "source": "any_except_tennis_data",
@@ -1614,7 +1756,7 @@
    "level": "CH",
    "qualifying": true,
    "stage0_matches": 27742,
-   "linked": 20858
+   "linked": 20856
   },
   {
    "source": "any_except_tennis_data",
@@ -1646,7 +1788,7 @@
    "level": "ITF",
    "qualifying": false,
    "stage0_matches": 276627,
-   "linked": 1983
+   "linked": 27184
   },
   {
    "source": "any_except_tennis_data",
@@ -1661,7 +1803,7 @@
    "tour": "atp",
    "level": "T1000",
    "qualifying": false,
-   "stage0_matches": 9732,
+   "stage0_matches": 9743,
    "linked": 4499
   },
   {
@@ -1677,16 +1819,16 @@
    "tour": "atp",
    "level": "T250",
    "qualifying": false,
-   "stage0_matches": 17742,
-   "linked": 6678
+   "stage0_matches": 17780,
+   "linked": 6716
   },
   {
    "source": "any_except_tennis_data",
    "tour": "atp",
    "level": "T250",
    "qualifying": true,
-   "stage0_matches": 10834,
-   "linked": 2876
+   "stage0_matches": 10870,
+   "linked": 2912
   },
   {
    "source": "any_except_tennis_data",
@@ -1758,7 +1900,7 @@
    "level": "ITF",
    "qualifying": false,
    "stage0_matches": 259027,
-   "linked": 63
+   "linked": 25949
   },
   {
    "source": "any_except_tennis_data",
@@ -1766,15 +1908,15 @@
    "level": "ITF",
    "qualifying": true,
    "stage0_matches": 70137,
-   "linked": 56
+   "linked": 621
   },
   {
    "source": "any_except_tennis_data",
    "tour": "wta",
    "level": "T1000",
    "qualifying": false,
-   "stage0_matches": 10000,
-   "linked": 5313
+   "stage0_matches": 10029,
+   "linked": 5342
   },
   {
    "source": "any_except_tennis_data",
@@ -1789,8 +1931,8 @@
    "tour": "wta",
    "level": "T250",
    "qualifying": false,
-   "stage0_matches": 15129,
-   "linked": 7032
+   "stage0_matches": 15149,
+   "linked": 7052
   },
   {
    "source": "any_except_tennis_data",
@@ -1805,8 +1947,8 @@
    "tour": "wta",
    "level": "T500",
    "qualifying": false,
-   "stage0_matches": 6574,
-   "linked": 3659
+   "stage0_matches": 6588,
+   "linked": 3673
   },
   {
    "source": "any_except_tennis_data",
@@ -1821,7 +1963,7 @@
    "tour": "wta",
    "level": "TEAM",
    "qualifying": false,
-   "stage0_matches": 4239,
+   "stage0_matches": 4225,
    "linked": 0
   },
   {
@@ -1829,8 +1971,8 @@
    "tour": "atp",
    "level": "CH",
    "qualifying": false,
-   "stage0_matches": 88540,
-   "linked": 49508
+   "stage0_matches": 88734,
+   "linked": 49834
   },
   {
    "source": "any_source_c",
@@ -1838,7 +1980,7 @@
    "level": "CH",
    "qualifying": true,
    "stage0_matches": 27742,
-   "linked": 20858
+   "linked": 20856
   },
   {
    "source": "any_source_c",
@@ -1870,7 +2012,7 @@
    "level": "ITF",
    "qualifying": false,
    "stage0_matches": 276627,
-   "linked": 1983
+   "linked": 27184
   },
   {
    "source": "any_source_c",
@@ -1885,8 +2027,8 @@
    "tour": "atp",
    "level": "T1000",
    "qualifying": false,
-   "stage0_matches": 9732,
-   "linked": 9644
+   "stage0_matches": 9743,
+   "linked": 9739
   },
   {
    "source": "any_source_c",
@@ -1901,16 +2043,16 @@
    "tour": "atp",
    "level": "T250",
    "qualifying": false,
-   "stage0_matches": 17742,
-   "linked": 17739
+   "stage0_matches": 17780,
+   "linked": 17777
   },
   {
    "source": "any_source_c",
    "tour": "atp",
    "level": "T250",
    "qualifying": true,
-   "stage0_matches": 10834,
-   "linked": 2876
+   "stage0_matches": 10870,
+   "linked": 2912
   },
   {
    "source": "any_source_c",
@@ -1982,7 +2124,7 @@
    "level": "ITF",
    "qualifying": false,
    "stage0_matches": 259027,
-   "linked": 63
+   "linked": 25949
   },
   {
    "source": "any_source_c",
@@ -1990,15 +2132,15 @@
    "level": "ITF",
    "qualifying": true,
    "stage0_matches": 70137,
-   "linked": 56
+   "linked": 621
   },
   {
    "source": "any_source_c",
    "tour": "wta",
    "level": "T1000",
    "qualifying": false,
-   "stage0_matches": 10000,
-   "linked": 9994
+   "stage0_matches": 10029,
+   "linked": 10023
   },
   {
    "source": "any_source_c",
@@ -2013,8 +2155,8 @@
    "tour": "wta",
    "level": "T250",
    "qualifying": false,
-   "stage0_matches": 15129,
-   "linked": 15025
+   "stage0_matches": 15149,
+   "linked": 15045
   },
   {
    "source": "any_source_c",
@@ -2029,8 +2171,8 @@
    "tour": "wta",
    "level": "T500",
    "qualifying": false,
-   "stage0_matches": 6574,
-   "linked": 6569
+   "stage0_matches": 6588,
+   "linked": 6583
   },
   {
    "source": "any_source_c",
@@ -2045,7 +2187,7 @@
    "tour": "wta",
    "level": "TEAM",
    "qualifying": false,
-   "stage0_matches": 4239,
+   "stage0_matches": 4225,
    "linked": 0
   },
   {
@@ -2085,8 +2227,8 @@
    "tour": "atp",
    "level": "CH",
    "qualifying": false,
-   "stage0_matches": 69974,
-   "linked": 47673
+   "stage0_matches": 70168,
+   "linked": 47709
   },
   {
    "source": "sofascore",
@@ -2094,7 +2236,7 @@
    "level": "CH",
    "qualifying": true,
    "stage0_matches": 27699,
-   "linked": 20858
+   "linked": 20856
   },
   {
    "source": "sofascore",
@@ -2126,14 +2268,14 @@
    "level": "ITF",
    "qualifying": false,
    "stage0_matches": 227407,
-   "linked": 1983
+   "linked": 27184
   },
   {
    "source": "sofascore",
    "tour": "atp",
    "level": "T1000",
    "qualifying": false,
-   "stage0_matches": 5204,
+   "stage0_matches": 5215,
    "linked": 4409
   },
   {
@@ -2149,7 +2291,7 @@
    "tour": "atp",
    "level": "T250",
    "qualifying": false,
-   "stage0_matches": 9712,
+   "stage0_matches": 9750,
    "linked": 6422
   },
   {
@@ -2157,7 +2299,7 @@
    "tour": "atp",
    "level": "T250",
    "qualifying": true,
-   "stage0_matches": 5758,
+   "stage0_matches": 5794,
    "linked": 2771
   },
   {
@@ -2229,8 +2371,8 @@
    "tour": "wta",
    "level": "ITF",
    "qualifying": false,
-   "stage0_matches": 43839,
-   "linked": 63
+   "stage0_matches": 62028,
+   "linked": 25949
   },
   {
    "source": "sofascore",
@@ -2238,14 +2380,14 @@
    "level": "ITF",
    "qualifying": true,
    "stage0_matches": 16684,
-   "linked": 56
+   "linked": 621
   },
   {
    "source": "sofascore",
    "tour": "wta",
    "level": "T1000",
    "qualifying": false,
-   "stage0_matches": 3721,
+   "stage0_matches": 3750,
    "linked": 1650
   },
   {
@@ -2261,7 +2403,7 @@
    "tour": "wta",
    "level": "T250",
    "qualifying": false,
-   "stage0_matches": 7106,
+   "stage0_matches": 7126,
    "linked": 2205
   },
   {
@@ -2270,14 +2412,14 @@
    "level": "T250",
    "qualifying": true,
    "stage0_matches": 3600,
-   "linked": 1310
+   "linked": 1311
   },
   {
    "source": "sofascore",
    "tour": "wta",
    "level": "T500",
    "qualifying": false,
-   "stage0_matches": 3528,
+   "stage0_matches": 3542,
    "linked": 979
   },
   {
@@ -2293,8 +2435,8 @@
    "tour": "atp",
    "level": "CH",
    "qualifying": false,
-   "stage0_matches": 13039,
-   "linked": 2681
+   "stage0_matches": 13233,
+   "linked": 2976
   },
   {
    "source": "tdi",
@@ -2309,7 +2451,7 @@
    "tour": "atp",
    "level": "T1000",
    "qualifying": false,
-   "stage0_matches": 1484,
+   "stage0_matches": 1495,
    "linked": 236
   },
   {
@@ -2325,16 +2467,16 @@
    "tour": "atp",
    "level": "T250",
    "qualifying": false,
-   "stage0_matches": 1533,
-   "linked": 308
+   "stage0_matches": 1571,
+   "linked": 346
   },
   {
    "source": "tdi",
    "tour": "atp",
    "level": "T250",
    "qualifying": true,
-   "stage0_matches": 672,
-   "linked": 116
+   "stage0_matches": 708,
+   "linked": 152
   },
   {
    "source": "tdi",
@@ -2373,15 +2515,15 @@
    "tour": "atp",
    "level": "T1000",
    "qualifying": false,
-   "stage0_matches": 9732,
-   "linked": 9642
+   "stage0_matches": 9743,
+   "linked": 9737
   },
   {
    "source": "tennis_data",
    "tour": "atp",
    "level": "T250",
    "qualifying": false,
-   "stage0_matches": 17742,
+   "stage0_matches": 17780,
    "linked": 17733
   },
   {
@@ -2390,7 +2532,7 @@
    "level": "T500",
    "qualifying": false,
    "stage0_matches": 6893,
-   "linked": 6829
+   "linked": 6891
   },
   {
    "source": "tennis_data",
@@ -2413,15 +2555,15 @@
    "tour": "wta",
    "level": "T1000",
    "qualifying": false,
-   "stage0_matches": 10000,
-   "linked": 9871
+   "stage0_matches": 10029,
+   "linked": 10021
   },
   {
    "source": "tennis_data",
    "tour": "wta",
    "level": "T250",
    "qualifying": false,
-   "stage0_matches": 15129,
+   "stage0_matches": 15149,
    "linked": 14929
   },
   {
@@ -2429,7 +2571,7 @@
    "tour": "wta",
    "level": "T500",
    "qualifying": false,
-   "stage0_matches": 6574,
+   "stage0_matches": 6588,
    "linked": 6566
   },
   {
@@ -2477,8 +2619,8 @@
    "tour": "wta",
    "level": "T1000",
    "qualifying": false,
-   "stage0_matches": 4738,
-   "linked": 4522
+   "stage0_matches": 4767,
+   "linked": 4551
   },
   {
    "source": "wta_api",
@@ -2493,8 +2635,8 @@
    "tour": "wta",
    "level": "T250",
    "qualifying": false,
-   "stage0_matches": 6145,
-   "linked": 5741
+   "stage0_matches": 6165,
+   "linked": 5761
   },
   {
    "source": "wta_api",
@@ -2509,8 +2651,8 @@
    "tour": "wta",
    "level": "T500",
    "qualifying": false,
-   "stage0_matches": 3287,
-   "linked": 3059
+   "stage0_matches": 3301,
+   "linked": 3073
   },
   {
    "source": "wta_api",
@@ -2929,8 +3071,8 @@
    "qualifying": false,
    "year": 2024,
    "stage0_matches": 6401,
-   "linked": 6244,
-   "linked_pct": 97.5
+   "linked": 6275,
+   "linked_pct": 98.0
   },
   {
    "source": "sofascore",
@@ -2948,9 +3090,9 @@
    "level": "CH",
    "qualifying": false,
    "year": 2026,
-   "stage0_matches": 6336,
-   "linked": 4336,
-   "linked_pct": 68.4
+   "stage0_matches": 6530,
+   "linked": 4341,
+   "linked_pct": 66.5
   },
   {
    "source": "sofascore",
@@ -3019,8 +3161,8 @@
    "qualifying": true,
    "year": 2022,
    "stage0_matches": 2991,
-   "linked": 2900,
-   "linked_pct": 97.0
+   "linked": 2899,
+   "linked_pct": 96.9
   },
   {
    "source": "sofascore",
@@ -3039,7 +3181,7 @@
    "qualifying": true,
    "year": 2024,
    "stage0_matches": 3485,
-   "linked": 3422,
+   "linked": 3421,
    "linked_pct": 98.2
   },
   {
@@ -3419,8 +3561,8 @@
    "qualifying": false,
    "year": 2024,
    "stage0_matches": 18423,
-   "linked": 324,
-   "linked_pct": 1.8
+   "linked": 1121,
+   "linked_pct": 6.1
   },
   {
    "source": "sofascore",
@@ -3429,8 +3571,8 @@
    "qualifying": false,
    "year": 2025,
    "stage0_matches": 17906,
-   "linked": 231,
-   "linked_pct": 1.3
+   "linked": 17842,
+   "linked_pct": 99.6
   },
   {
    "source": "sofascore",
@@ -3439,8 +3581,8 @@
    "qualifying": false,
    "year": 2026,
    "stage0_matches": 6894,
-   "linked": 81,
-   "linked_pct": 1.2
+   "linked": 6874,
+   "linked_pct": 99.7
   },
   {
    "source": "sofascore",
@@ -3528,9 +3670,9 @@
    "level": "T1000",
    "qualifying": false,
    "year": 2026,
-   "stage0_matches": 709,
+   "stage0_matches": 720,
    "linked": 534,
-   "linked_pct": 75.3
+   "linked_pct": 74.2
   },
   {
    "source": "sofascore",
@@ -3718,9 +3860,9 @@
    "level": "T250",
    "qualifying": false,
    "year": 2026,
-   "stage0_matches": 699,
+   "stage0_matches": 737,
    "linked": 442,
-   "linked_pct": 63.2
+   "linked_pct": 60.0
   },
   {
    "source": "sofascore",
@@ -3828,9 +3970,9 @@
    "level": "T250",
    "qualifying": true,
    "year": 2026,
-   "stage0_matches": 306,
+   "stage0_matches": 342,
    "linked": 200,
-   "linked_pct": 65.4
+   "linked_pct": 58.5
   },
   {
    "source": "sofascore",
@@ -4419,8 +4561,18 @@
    "qualifying": false,
    "year": 2024,
    "stage0_matches": 18789,
-   "linked": 31,
-   "linked_pct": 0.2
+   "linked": 681,
+   "linked_pct": 3.6
+  },
+  {
+   "source": "sofascore",
+   "tour": "wta",
+   "level": "ITF",
+   "qualifying": false,
+   "year": 2025,
+   "stage0_matches": 18189,
+   "linked": 18093,
+   "linked_pct": 99.5
   },
   {
    "source": "sofascore",
@@ -4429,8 +4581,8 @@
    "qualifying": false,
    "year": 2026,
    "stage0_matches": 7224,
-   "linked": 31,
-   "linked_pct": 0.4
+   "linked": 7174,
+   "linked_pct": 99.3
   },
   {
    "source": "sofascore",
@@ -4439,8 +4591,8 @@
    "qualifying": true,
    "year": 2024,
    "stage0_matches": 16684,
-   "linked": 56,
-   "linked_pct": 0.3
+   "linked": 621,
+   "linked_pct": 3.7
   },
   {
    "source": "sofascore",
@@ -4498,9 +4650,9 @@
    "level": "T1000",
    "qualifying": false,
    "year": 2026,
-   "stage0_matches": 801,
+   "stage0_matches": 830,
    "linked": 335,
-   "linked_pct": 41.8
+   "linked_pct": 40.4
   },
   {
    "source": "sofascore",
@@ -4648,9 +4800,9 @@
    "level": "T250",
    "qualifying": false,
    "year": 2026,
-   "stage0_matches": 556,
+   "stage0_matches": 576,
    "linked": 31,
-   "linked_pct": 5.6
+   "linked_pct": 5.4
   },
   {
    "source": "sofascore",
@@ -4709,8 +4861,8 @@
    "qualifying": true,
    "year": 2023,
    "stage0_matches": 445,
-   "linked": 69,
-   "linked_pct": 15.5
+   "linked": 70,
+   "linked_pct": 15.7
   },
   {
    "source": "sofascore",
@@ -4808,9 +4960,9 @@
    "level": "T500",
    "qualifying": false,
    "year": 2026,
-   "stage0_matches": 445,
+   "stage0_matches": 459,
    "linked": 53,
-   "linked_pct": 11.9
+   "linked_pct": 11.5
   },
   {
    "source": "sofascore",
@@ -4908,9 +5060,9 @@
    "level": "CH",
    "qualifying": false,
    "year": 2026,
-   "stage0_matches": 6336,
-   "linked": 2573,
-   "linked_pct": 40.6
+   "stage0_matches": 6530,
+   "linked": 2868,
+   "linked_pct": 43.9
   },
   {
    "source": "tdi",
@@ -4948,9 +5100,9 @@
    "level": "T1000",
    "qualifying": false,
    "year": 2026,
-   "stage0_matches": 709,
+   "stage0_matches": 720,
    "linked": 224,
-   "linked_pct": 31.6
+   "linked_pct": 31.1
   },
   {
    "source": "tdi",
@@ -4978,9 +5130,9 @@
    "level": "T250",
    "qualifying": false,
    "year": 2026,
-   "stage0_matches": 699,
-   "linked": 296,
-   "linked_pct": 42.3
+   "stage0_matches": 737,
+   "linked": 334,
+   "linked_pct": 45.3
   },
   {
    "source": "tdi",
@@ -4998,9 +5150,9 @@
    "level": "T250",
    "qualifying": true,
    "year": 2026,
-   "stage0_matches": 306,
-   "linked": 107,
-   "linked_pct": 35.0
+   "stage0_matches": 342,
+   "linked": 143,
+   "linked_pct": 41.8
   },
   {
    "source": "tdi",
@@ -5528,9 +5680,9 @@
    "level": "T1000",
    "qualifying": false,
    "year": 2026,
-   "stage0_matches": 709,
-   "linked": 625,
-   "linked_pct": 88.2
+   "stage0_matches": 720,
+   "linked": 720,
+   "linked_pct": 100.0
   },
   {
    "source": "tennis_data",
@@ -5698,9 +5850,9 @@
    "level": "T250",
    "qualifying": false,
    "year": 2026,
-   "stage0_matches": 699,
+   "stage0_matches": 737,
    "linked": 699,
-   "linked_pct": 100.0
+   "linked_pct": 94.8
   },
   {
    "source": "tennis_data",
@@ -5869,8 +6021,8 @@
    "qualifying": false,
    "year": 2026,
    "stage0_matches": 434,
-   "linked": 372,
-   "linked_pct": 85.7
+   "linked": 434,
+   "linked_pct": 100.0
   },
   {
    "source": "tennis_data",
@@ -6358,9 +6510,9 @@
    "level": "T1000",
    "qualifying": false,
    "year": 2026,
-   "stage0_matches": 801,
-   "linked": 680,
-   "linked_pct": 84.9
+   "stage0_matches": 830,
+   "linked": 830,
+   "linked_pct": 100.0
   },
   {
    "source": "tennis_data",
@@ -6528,9 +6680,9 @@
    "level": "T250",
    "qualifying": false,
    "year": 2026,
-   "stage0_matches": 556,
+   "stage0_matches": 576,
    "linked": 556,
-   "linked_pct": 100.0
+   "linked_pct": 96.5
   },
   {
    "source": "tennis_data",
@@ -6698,9 +6850,9 @@
    "level": "T500",
    "qualifying": false,
    "year": 2026,
-   "stage0_matches": 445,
+   "stage0_matches": 459,
    "linked": 445,
-   "linked_pct": 100.0
+   "linked_pct": 96.9
   },
   {
    "source": "wta_api",
@@ -7058,8 +7210,8 @@
    "level": "T1000",
    "qualifying": false,
    "year": 2026,
-   "stage0_matches": 801,
-   "linked": 801,
+   "stage0_matches": 830,
+   "linked": 830,
    "linked_pct": 100.0
   },
   {
@@ -7218,8 +7370,8 @@
    "level": "T250",
    "qualifying": false,
    "year": 2026,
-   "stage0_matches": 556,
-   "linked": 555,
+   "stage0_matches": 576,
+   "linked": 575,
    "linked_pct": 99.8
   },
   {
@@ -7378,8 +7530,8 @@
    "level": "T500",
    "qualifying": false,
    "year": 2026,
-   "stage0_matches": 445,
-   "linked": 444,
+   "stage0_matches": 459,
+   "linked": 458,
    "linked_pct": 99.8
   },
   {
@@ -7569,8 +7721,8 @@
    "qualifying": false,
    "year": 2024,
    "stage0_matches": 6401,
-   "linked": 6244,
-   "linked_pct": 97.5
+   "linked": 6275,
+   "linked_pct": 98.0
   },
   {
    "source": "any_source_c",
@@ -7588,9 +7740,9 @@
    "level": "CH",
    "qualifying": false,
    "year": 2026,
-   "stage0_matches": 6336,
-   "linked": 6171,
-   "linked_pct": 97.4
+   "stage0_matches": 6530,
+   "linked": 6466,
+   "linked_pct": 99.0
   },
   {
    "source": "any_source_c",
@@ -7659,8 +7811,8 @@
    "qualifying": true,
    "year": 2022,
    "stage0_matches": 2991,
-   "linked": 2900,
-   "linked_pct": 97.0
+   "linked": 2899,
+   "linked_pct": 96.9
   },
   {
    "source": "any_source_c",
@@ -7679,7 +7831,7 @@
    "qualifying": true,
    "year": 2024,
    "stage0_matches": 3485,
-   "linked": 3422,
+   "linked": 3421,
    "linked_pct": 98.2
   },
   {
@@ -8239,8 +8391,8 @@
    "qualifying": false,
    "year": 2024,
    "stage0_matches": 18423,
-   "linked": 324,
-   "linked_pct": 1.8
+   "linked": 1121,
+   "linked_pct": 6.1
   },
   {
    "source": "any_source_c",
@@ -8249,8 +8401,8 @@
    "qualifying": false,
    "year": 2025,
    "stage0_matches": 17906,
-   "linked": 231,
-   "linked_pct": 1.3
+   "linked": 17842,
+   "linked_pct": 99.6
   },
   {
    "source": "any_source_c",
@@ -8259,8 +8411,8 @@
    "qualifying": false,
    "year": 2026,
    "stage0_matches": 6894,
-   "linked": 81,
-   "linked_pct": 1.2
+   "linked": 6874,
+   "linked_pct": 99.7
   },
   {
    "source": "any_source_c",
@@ -8428,9 +8580,9 @@
    "level": "T1000",
    "qualifying": false,
    "year": 2026,
-   "stage0_matches": 709,
-   "linked": 625,
-   "linked_pct": 88.2
+   "stage0_matches": 720,
+   "linked": 720,
+   "linked_pct": 100.0
   },
   {
    "source": "any_source_c",
@@ -8688,8 +8840,8 @@
    "level": "T250",
    "qualifying": false,
    "year": 2026,
-   "stage0_matches": 699,
-   "linked": 699,
+   "stage0_matches": 737,
+   "linked": 737,
    "linked_pct": 100.0
   },
   {
@@ -8798,8 +8950,8 @@
    "level": "T250",
    "qualifying": true,
    "year": 2026,
-   "stage0_matches": 306,
-   "linked": 305,
+   "stage0_matches": 342,
+   "linked": 341,
    "linked_pct": 99.7
   },
   {
@@ -9699,8 +9851,18 @@
    "qualifying": false,
    "year": 2024,
    "stage0_matches": 18789,
-   "linked": 31,
-   "linked_pct": 0.2
+   "linked": 681,
+   "linked_pct": 3.6
+  },
+  {
+   "source": "any_source_c",
+   "tour": "wta",
+   "level": "ITF",
+   "qualifying": false,
+   "year": 2025,
+   "stage0_matches": 18189,
+   "linked": 18093,
+   "linked_pct": 99.5
   },
   {
    "source": "any_source_c",
@@ -9709,8 +9871,8 @@
    "qualifying": false,
    "year": 2026,
    "stage0_matches": 7224,
-   "linked": 31,
-   "linked_pct": 0.4
+   "linked": 7174,
+   "linked_pct": 99.3
   },
   {
    "source": "any_source_c",
@@ -9719,8 +9881,8 @@
    "qualifying": true,
    "year": 2024,
    "stage0_matches": 16684,
-   "linked": 56,
-   "linked_pct": 0.3
+   "linked": 621,
+   "linked_pct": 3.7
   },
   {
    "source": "any_source_c",
@@ -9888,8 +10050,8 @@
    "level": "T1000",
    "qualifying": false,
    "year": 2026,
-   "stage0_matches": 801,
-   "linked": 801,
+   "stage0_matches": 830,
+   "linked": 830,
    "linked_pct": 100.0
   },
   {
@@ -10148,8 +10310,8 @@
    "level": "T250",
    "qualifying": false,
    "year": 2026,
-   "stage0_matches": 556,
-   "linked": 556,
+   "stage0_matches": 576,
+   "linked": 576,
    "linked_pct": 100.0
   },
   {
@@ -10408,8 +10570,8 @@
    "level": "T500",
    "qualifying": false,
    "year": 2026,
-   "stage0_matches": 445,
-   "linked": 445,
+   "stage0_matches": 459,
+   "linked": 459,
    "linked_pct": 100.0
   },
   {
@@ -10609,8 +10771,8 @@
    "qualifying": false,
    "year": 2024,
    "stage0_matches": 6401,
-   "linked": 6244,
-   "linked_pct": 97.5
+   "linked": 6275,
+   "linked_pct": 98.0
   },
   {
    "source": "any_except_tennis_data",
@@ -10628,9 +10790,9 @@
    "level": "CH",
    "qualifying": false,
    "year": 2026,
-   "stage0_matches": 6336,
-   "linked": 6171,
-   "linked_pct": 97.4
+   "stage0_matches": 6530,
+   "linked": 6466,
+   "linked_pct": 99.0
   },
   {
    "source": "any_except_tennis_data",
@@ -10699,8 +10861,8 @@
    "qualifying": true,
    "year": 2022,
    "stage0_matches": 2991,
-   "linked": 2900,
-   "linked_pct": 97.0
+   "linked": 2899,
+   "linked_pct": 96.9
   },
   {
    "source": "any_except_tennis_data",
@@ -10719,7 +10881,7 @@
    "qualifying": true,
    "year": 2024,
    "stage0_matches": 3485,
-   "linked": 3422,
+   "linked": 3421,
    "linked_pct": 98.2
   },
   {
@@ -11109,8 +11271,8 @@
    "qualifying": false,
    "year": 2024,
    "stage0_matches": 18423,
-   "linked": 324,
-   "linked_pct": 1.8
+   "linked": 1121,
+   "linked_pct": 6.1
   },
   {
    "source": "any_except_tennis_data",
@@ -11119,8 +11281,8 @@
    "qualifying": false,
    "year": 2025,
    "stage0_matches": 17906,
-   "linked": 231,
-   "linked_pct": 1.3
+   "linked": 17842,
+   "linked_pct": 99.6
   },
   {
    "source": "any_except_tennis_data",
@@ -11129,8 +11291,8 @@
    "qualifying": false,
    "year": 2026,
    "stage0_matches": 6894,
-   "linked": 81,
-   "linked_pct": 1.2
+   "linked": 6874,
+   "linked_pct": 99.7
   },
   {
    "source": "any_except_tennis_data",
@@ -11218,9 +11380,9 @@
    "level": "T1000",
    "qualifying": false,
    "year": 2026,
-   "stage0_matches": 709,
+   "stage0_matches": 720,
    "linked": 624,
-   "linked_pct": 88.0
+   "linked_pct": 86.7
   },
   {
    "source": "any_except_tennis_data",
@@ -11408,8 +11570,8 @@
    "level": "T250",
    "qualifying": false,
    "year": 2026,
-   "stage0_matches": 699,
-   "linked": 698,
+   "stage0_matches": 737,
+   "linked": 736,
    "linked_pct": 99.9
   },
   {
@@ -11518,8 +11680,8 @@
    "level": "T250",
    "qualifying": true,
    "year": 2026,
-   "stage0_matches": 306,
-   "linked": 305,
+   "stage0_matches": 342,
+   "linked": 341,
    "linked_pct": 99.7
   },
   {
@@ -12169,8 +12331,18 @@
    "qualifying": false,
    "year": 2024,
    "stage0_matches": 18789,
-   "linked": 31,
-   "linked_pct": 0.2
+   "linked": 681,
+   "linked_pct": 3.6
+  },
+  {
+   "source": "any_except_tennis_data",
+   "tour": "wta",
+   "level": "ITF",
+   "qualifying": false,
+   "year": 2025,
+   "stage0_matches": 18189,
+   "linked": 18093,
+   "linked_pct": 99.5
   },
   {
    "source": "any_except_tennis_data",
@@ -12179,8 +12351,8 @@
    "qualifying": false,
    "year": 2026,
    "stage0_matches": 7224,
-   "linked": 31,
-   "linked_pct": 0.4
+   "linked": 7174,
+   "linked_pct": 99.3
   },
   {
    "source": "any_except_tennis_data",
@@ -12189,8 +12361,8 @@
    "qualifying": true,
    "year": 2024,
    "stage0_matches": 16684,
-   "linked": 56,
-   "linked_pct": 0.3
+   "linked": 621,
+   "linked_pct": 3.7
   },
   {
    "source": "any_except_tennis_data",
@@ -12278,8 +12450,8 @@
    "level": "T1000",
    "qualifying": false,
    "year": 2026,
-   "stage0_matches": 801,
-   "linked": 801,
+   "stage0_matches": 830,
+   "linked": 830,
    "linked_pct": 100.0
   },
   {
@@ -12458,8 +12630,8 @@
    "level": "T250",
    "qualifying": false,
    "year": 2026,
-   "stage0_matches": 556,
-   "linked": 555,
+   "stage0_matches": 576,
+   "linked": 575,
    "linked_pct": 99.8
   },
   {
@@ -12638,8 +12810,8 @@
    "level": "T500",
    "qualifying": false,
    "year": 2026,
-   "stage0_matches": 445,
-   "linked": 444,
+   "stage0_matches": 459,
+   "linked": 458,
    "linked_pct": 99.8
   },
   {
@@ -12769,9 +12941,9 @@
    },
    "sofascore": {
     "overall": {
-     "matches": 22797,
-     "same_day": 20715,
-     "same_day_pct": 90.87,
+     "matches": 22949,
+     "same_day": 20867,
+     "same_day_pct": 90.93,
      "one_day_apart": 2070,
      "within_one_day_pct": 99.95,
      "more_than_one_day": 12,
@@ -12779,16 +12951,16 @@
       "-13": 1,
       "-2": 8,
       "-1": 1990,
-      "0": 20715,
+      "0": 20867,
       "1": 80,
       "2": 3
      }
     },
     "by_date_basis": {
      "local": {
-      "matches": 22797,
-      "same_day": 20715,
-      "same_day_pct": 90.87,
+      "matches": 22949,
+      "same_day": 20867,
+      "same_day_pct": 90.93,
       "one_day_apart": 2070,
       "within_one_day_pct": 99.95,
       "more_than_one_day": 12,
@@ -12796,7 +12968,7 @@
        "-13": 1,
        "-2": 8,
        "-1": 1990,
-       "0": 20715,
+       "0": 20867,
        "1": 80,
        "2": 3
       }
@@ -12805,39 +12977,39 @@
    },
    "tdi": {
     "overall": {
-     "matches": 588,
-     "same_day": 478,
-     "same_day_pct": 81.29,
-     "one_day_apart": 109,
-     "within_one_day_pct": 99.83,
+     "matches": 650,
+     "same_day": 539,
+     "same_day_pct": 82.92,
+     "one_day_apart": 110,
+     "within_one_day_pct": 99.85,
      "more_than_one_day": 1,
      "differences_days": {
       "-2": 1,
-      "-1": 109,
-      "0": 478
+      "-1": 110,
+      "0": 539
      }
     },
     "by_date_basis": {
      "local": {
-      "matches": 588,
-      "same_day": 478,
-      "same_day_pct": 81.29,
-      "one_day_apart": 109,
-      "within_one_day_pct": 99.83,
+      "matches": 650,
+      "same_day": 539,
+      "same_day_pct": 82.92,
+      "one_day_apart": 110,
+      "within_one_day_pct": 99.85,
       "more_than_one_day": 1,
       "differences_days": {
        "-2": 1,
-       "-1": 109,
-       "0": 478
+       "-1": 110,
+       "0": 539
       }
      }
     }
    },
    "wta_api": {
     "overall": {
-     "matches": 14497,
-     "same_day": 13106,
-     "same_day_pct": 90.4,
+     "matches": 14647,
+     "same_day": 13256,
+     "same_day_pct": 90.5,
      "one_day_apart": 1384,
      "within_one_day_pct": 99.95,
      "more_than_one_day": 7,
@@ -12845,16 +13017,16 @@
       "-3": 1,
       "-2": 5,
       "-1": 1318,
-      "0": 13106,
+      "0": 13256,
       "1": 66,
       "2": 1
      }
     },
     "by_date_basis": {
      "local": {
-      "matches": 14093,
-      "same_day": 12757,
-      "same_day_pct": 90.52,
+      "matches": 14243,
+      "same_day": 12907,
+      "same_day_pct": 90.62,
       "one_day_apart": 1329,
       "within_one_day_pct": 99.95,
       "more_than_one_day": 7,
@@ -12862,7 +13034,7 @@
        "-3": 1,
        "-2": 5,
        "-1": 1266,
-       "0": 12757,
+       "0": 12907,
        "1": 63,
        "2": 1
       }
@@ -13109,10 +13281,10 @@
  "tennis_data_clock": {
   "note": "matches with a known start (first point or listed start) and a venue day from a known zone; tennis-data's day compared with three calendars",
   "all": {
-   "matches": 36345,
-   "td_equals_venue_day_pct": 90.42,
-   "td_equals_utc_day_pct": 96.65,
-   "td_equals_london_day_pct": 98.44
+   "matches": 36557,
+   "td_equals_venue_day_pct": 90.48,
+   "td_equals_utc_day_pct": 96.67,
+   "td_equals_london_day_pct": 98.45
   },
   "venue_day_differs_from_london_day": {
    "matches": 2958,
@@ -13170,30 +13342,30 @@
   {
    "a": "sofascore",
    "b": "tdi",
-   "matches": 1302,
+   "matches": 1307,
    "same_day": 1281,
-   "same_day_pct": 98.39,
+   "same_day_pct": 98.01,
    "one_day_apart": 20,
-   "within_one_day_pct": 99.92,
-   "more_than_one_day": 1,
-   "both_local": 98.39
+   "within_one_day_pct": 99.54,
+   "more_than_one_day": 6,
+   "both_local": 98.01
   },
   {
    "a": "sofascore",
    "b": "tennis_data",
-   "matches": 22797,
-   "same_day": 20715,
-   "same_day_pct": 90.87,
+   "matches": 22949,
+   "same_day": 20867,
+   "same_day_pct": 90.93,
    "one_day_apart": 2070,
    "within_one_day_pct": 99.95,
    "more_than_one_day": 12,
-   "both_local": 90.87
+   "both_local": 90.93
   },
   {
    "a": "sofascore",
    "b": "wta_api",
-   "matches": 7959,
-   "same_day": 7907,
+   "matches": 7960,
+   "same_day": 7908,
    "same_day_pct": 99.35,
    "one_day_apart": 45,
    "within_one_day_pct": 99.91,
@@ -13203,24 +13375,24 @@
   {
    "a": "tdi",
    "b": "tennis_data",
-   "matches": 588,
-   "same_day": 478,
-   "same_day_pct": 81.29,
-   "one_day_apart": 109,
-   "within_one_day_pct": 99.83,
+   "matches": 650,
+   "same_day": 539,
+   "same_day_pct": 82.92,
+   "one_day_apart": 110,
+   "within_one_day_pct": 99.85,
    "more_than_one_day": 1,
-   "both_local": 81.29
+   "both_local": 82.92
   },
   {
    "a": "tennis_data",
    "b": "wta_api",
-   "matches": 14497,
-   "same_day": 13106,
-   "same_day_pct": 90.4,
+   "matches": 14647,
+   "same_day": 13256,
+   "same_day_pct": 90.5,
    "one_day_apart": 1384,
    "within_one_day_pct": 99.95,
    "more_than_one_day": 7,
-   "both_local": 90.52
+   "both_local": 90.62
   }
  ],
  "days_outside_plausible_window": {
@@ -13232,22 +13404,22 @@
     "late": 0
    },
    "sofascore": {
-    "links": 108627,
-    "early": 84,
-    "late": 143
+    "links": 160314,
+    "early": 89,
+    "late": 152
    },
    "tdi": {
-    "links": 3673,
+    "links": 4042,
     "early": 0,
     "late": 0
    },
    "tennis_data": {
-    "links": 83183,
+    "links": 83490,
     "early": 189,
     "late": 2
    },
    "wta_api": {
-    "links": 28839,
+    "links": 28902,
     "early": 66,
     "late": 0
    }
@@ -13257,7 +13429,7 @@
     "source": "sofascore",
     "level": "CH",
     "qualifying": false,
-    "early": 44,
+    "early": 48,
     "late": 0
    },
    {
@@ -13273,6 +13445,20 @@
     "qualifying": true,
     "early": 0,
     "late": 46
+   },
+   {
+    "source": "sofascore",
+    "level": "ITF",
+    "qualifying": false,
+    "early": 1,
+    "late": 1
+   },
+   {
+    "source": "sofascore",
+    "level": "ITF",
+    "qualifying": true,
+    "early": 0,
+    "late": 8
    },
    {
     "source": "sofascore",
@@ -13355,6 +13541,32 @@
   "worst_20": [
    {
     "source": "sofascore",
+    "match_id": "atp|2026-2937|R32|atp:124040|atp:209038",
+    "source_key": "sofascore:16973798",
+    "level": "CH",
+    "qualifying": false,
+    "round": "R32",
+    "tournament_date": "2026-09-14",
+    "date_local": "2026-09-02",
+    "off": -12,
+    "date_basis": "local",
+    "link_method": "prior_link;listed_start;stage0_event_zone;outside_plausible_days"
+   },
+   {
+    "source": "sofascore",
+    "match_id": "atp|2026-3123|SF|atp:207760|atp:210472",
+    "source_key": "sofascore:16755723",
+    "level": "CH",
+    "qualifying": false,
+    "round": "SF",
+    "tournament_date": "2026-08-17",
+    "date_local": "2026-08-08",
+    "off": -9,
+    "date_basis": "local",
+    "link_method": "prior_link;listed_start;stage0_event_zone;outside_plausible_days"
+   },
+   {
+    "source": "sofascore",
     "match_id": "wta|2023-2042|QF|wta:201551|wta:220332",
     "source_key": "sofascore:11406258",
     "level": "T250",
@@ -13365,6 +13577,32 @@
     "off": -9,
     "date_basis": "local",
     "link_method": "prior_link;listed_start;event_place_zone;outside_plausible_days"
+   },
+   {
+    "source": "sofascore",
+    "match_id": "atp|2026-7085|R32|atp:212241|atpcode:L0DB",
+    "source_key": "sofascore:17044635",
+    "level": "CH",
+    "qualifying": false,
+    "round": "R32",
+    "tournament_date": "2026-09-14",
+    "date_local": "2026-09-09",
+    "off": -5,
+    "date_basis": "local",
+    "link_method": "identity_anchor;listed_start;stage0_event_zone;outside_plausible_days"
+   },
+   {
+    "source": "sofascore",
+    "match_id": "atp|2026-8394|R32|atp:209167|atp:209360",
+    "source_key": "sofascore:16416006",
+    "level": "CH",
+    "qualifying": false,
+    "round": "R32",
+    "tournament_date": "2026-07-06",
+    "date_local": "2026-07-01",
+    "off": -5,
+    "date_basis": "local",
+    "link_method": "identity_anchor;listed_start;stage0_event_zone;outside_plausible_days"
    },
    {
     "source": "sofascore",
@@ -13560,58 +13798,6 @@
     "off": 3,
     "date_basis": "local",
     "link_method": "identity_pair;listed_start;event_place_zone;outside_plausible_days"
-   },
-   {
-    "source": "sofascore",
-    "match_id": "atp|2021-581|Q3|atp:105967|atp:127339",
-    "source_key": "sofascore:9279040",
-    "level": "GS",
-    "qualifying": true,
-    "round": "Q3",
-    "tournament_date": "2021-01-10",
-    "date_local": "2021-01-13",
-    "off": 3,
-    "date_basis": "local",
-    "link_method": "identity_pair;listed_start;event_place_zone;outside_plausible_days"
-   },
-   {
-    "source": "sofascore",
-    "match_id": "atp|2021-581|Q3|atp:106000|atp:106293",
-    "source_key": "sofascore:9279062",
-    "level": "GS",
-    "qualifying": true,
-    "round": "Q3",
-    "tournament_date": "2021-01-10",
-    "date_local": "2021-01-13",
-    "off": 3,
-    "date_basis": "local",
-    "link_method": "identity_pair;listed_start;event_place_zone;outside_plausible_days"
-   },
-   {
-    "source": "sofascore",
-    "match_id": "atp|2021-581|Q3|atp:106005|atp:126128",
-    "source_key": "sofascore:9279410",
-    "level": "GS",
-    "qualifying": true,
-    "round": "Q3",
-    "tournament_date": "2021-01-10",
-    "date_local": "2021-01-13",
-    "off": 3,
-    "date_basis": "local",
-    "link_method": "identity_pair;listed_start;event_place_zone;outside_plausible_days"
-   },
-   {
-    "source": "sofascore",
-    "match_id": "atp|2021-581|Q3|atp:106121|atp:111200",
-    "source_key": "sofascore:9278940",
-    "level": "GS",
-    "qualifying": true,
-    "round": "Q3",
-    "tournament_date": "2021-01-10",
-    "date_local": "2021-01-13",
-    "off": 3,
-    "date_basis": "local",
-    "link_method": "identity_pair;listed_start;event_place_zone;outside_plausible_days"
    }
   ]
  },
@@ -13624,16 +13810,16 @@
    }
   },
   "sofascore": {
-   "matches_finishing_on_a_later_local_day": 3927,
+   "matches_finishing_on_a_later_local_day": 4836,
    "by_days": {
-    "1": 1659,
-    "2": 374,
-    "3": 198,
-    "4": 200,
-    "5": 114,
+    "1": 2474,
+    "2": 426,
+    "3": 203,
+    "4": 201,
+    "5": 115,
     "6": 73,
     "7": 34,
-    "8": 87,
+    "8": 89,
     "9": 77,
     "10": 58,
     "11": 49,
@@ -13782,7 +13968,19 @@
     "553": 1,
     "582": 1,
     "584": 2,
-    "624": 1,
+    "600": 2,
+    "602": 6,
+    "603": 1,
+    "605": 1,
+    "607": 2,
+    "609": 2,
+    "610": 4,
+    "612": 2,
+    "614": 1,
+    "615": 9,
+    "617": 1,
+    "622": 1,
+    "624": 2,
     "645": 1,
     "657": 4,
     "659": 1,
@@ -13890,9 +14088,9 @@
    }
   },
   "tdi": {
-   "matches_finishing_on_a_later_local_day": 79,
+   "matches_finishing_on_a_later_local_day": 82,
    "by_days": {
-    "1": 77,
+    "1": 80,
     "2": 2
    }
   },
@@ -13901,9 +14099,9 @@
    "by_days": {}
   },
   "wta_api": {
-   "matches_finishing_on_a_later_local_day": 480,
+   "matches_finishing_on_a_later_local_day": 481,
    "by_days": {
-    "1": 469,
+    "1": 470,
     "2": 8,
     "4": 1,
     "14": 1,

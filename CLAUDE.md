@@ -23,19 +23,37 @@ When the owner says "the current best model", it means **a template, not stored 
 
 1. **The base: the local, non-thinking TabPFN-3.5 on 57 inputs** (closing odds included), from the [offset Elo](docs/decisions/2026-10-06-offset-elo.md) and [surface IOS profile](docs/decisions/2026-10-06-surface-ios-profile.md) decisions.
    * **`ios_points_short` was dropped by the owner on 9 Oct 2026** ([amendment](docs/decisions/2026-10-08-current-best-model.md)). The chain still builds all 58 columns. After it, `src/eda/current_best_model/template_inputs.py --apply <folder>` writes the 57-input list. The frozen reference and the Pinnacle-first instance of 9 Oct are 58-input builds, as built.
-   * **Data:** Stage 0 and Stage 1 as their builders write them by default, with the [Slam overrides](docs/decisions/2026-10-06-slam-box-scores.md) and the [corrections of 8 Oct](docs/decisions/2026-10-08-corrupt-data-fixes.md).
+   * **Data:** Stage 0 and Stage 1 as their builders write them by default, with the [Slam overrides](docs/decisions/2026-10-06-slam-box-scores.md) and the [corrections of 8 Oct](docs/decisions/2026-10-08-corrupt-data-fixes.md), and since 22 Oct the [source reconciliation's repairs](docs/decisions/2026-10-22-source-reconciliation-repairs.md). Those are 201 more rows in `row_corrections.csv`, and `event_corrections.csv`: one edition's level or surface, which Stage 0's builder applies.
+   * **Revisions decided for the next retrain** (owner, 22 Oct 2026: a retrain must be "aware of these intended revisions to the model, not simply adding the latest data"). `data/studies/current_best_model/pending_at_retrain.json` lists each one with its check (`src/eda/current_best_model/pending.py --show`).
+     * They are already in the decided tables, so prediction runs read them at once; training takes them at the next retrain, built on the shared tables after B6.
+     * `tp.retrain()` refuses to start while one is missing from the shared tables. `retrain.sh` checks the built instance before its fits and marks them applied after the switch.
+     * A retrain run by hand must run `pending.py --check` on its Stage 0 first.
+     * Add any future revision of this kind to the register.
    * **Inputs:** built by the documented chain. `src/eda/model_rebuild/run_chain.py` runs it in a sandbox copy, so no study's folder is overwritten.
    * **The odds input is "Pinnacle first", the production rule** (owner, 9 Oct 2026, [decision](docs/decisions/2026-10-09-pinnacle-first-odds-input.md)). After the chain, `src/eda/current_best_model/odds_input.py --apply` replaces the books' average with:
      * Pinnacle's close: tennis-data's to July 2025, cross-checked against OddsTrader's timed copy, then OddsTrader's to 7 Sep 2025;
+     * **from 1 Nov 2025, TennisExplorer's time-stamped Pinnacle close**, its last price before the match. Not used:
+       * untimed prices;
+       * a price far from the site's other books;
+       * a price contradicted by both BetOnline and the average when those two agree (the site's own errors: 4 in 2026);
      * then BetOnline's closing line;
-     * the average only where neither book prices a match.
+     * the average only where neither book prices a match;
+     * **when OddsTrader and tennis-data are mirror images, OddsTrader wins**: tennis-data's row is the one with the players' prices swapped.
 
-     **Live, at every venue and bet time:** Pinnacle's current line with the margin removed (BetOnline's while Pinnacle has none). **If the missing Pinnacle closes (August 2025 on) are obtained, retrain the model on Pinnacle throughout.**
+     The step keeps OddsTrader's and TennisExplorer's tables current itself. It refuses a frame OddsTrader's do not cover, and a month from Nov 2025 that TennisExplorer prices under 75%.
+
+     **Live, at every venue and bet time:** Pinnacle's current line with the margin removed (BetOnline's while Pinnacle has none).
+   * **The closing line from 2025 on changes at the next retrain** (owner, 21 Oct 2026, [amendment](docs/decisions/2026-10-09-pinnacle-first-odds-input.md)). The two bold rules above are that change: rule `2026-10-21`, the step's default, so the next retrain or template build applies them by itself.
+     * **The instances built before 21 Oct 2026, the live one included, keep the rule they were built with** (`--rule 2026-10-09` reproduces it). They carry BetOnline from August 2025 and the mirrored prices on 4 matches.
+     * **The owner asked for a test build compared with the current model, then deferred it** ("DO NOT DO THE TEST YET", 21 Oct 2026). Don't run it until the owner asks.
+     * **August – October 2025 stay as they were** (OddsTrader's Pinnacle to 7 Sep, then BetOnline). TennisExplorer's Pinnacle there has no times and equals tennis-data's, which stopped being Pinnacle's close on 24 Jul 2025 ([research](docs/research/pinnacle-gap/README.md)).
+     * **TennisExplorer's pages download daily** (`src/ingest/scheduled.py`, job `pinnacle_closes`; adapter `src/ingest/tennisexplorer.py`).
    * **The indoor input covers every match** (owner's request, 9 Oct 2026, [decision](docs/decisions/2026-10-09-indoor-input.md)): `src/eda/indoor_fill/status.py`, run by `tabpfn_thinking/build_frame.py`.
      * Men: Stage 0's flag, then tennis-data's Court (the 2026 US Open).
      * Women: the WTA's calendar, then tennis-data's Court. The calendar-first order is Claude's recommendation, for the owner to confirm.
      * `--indoor-men-only` rebuilds the old input. The frozen reference and the 9 Oct instances keep it (women missing).
    * **Fit:** season Y trained on 2013..Y−1; 8 estimators, softmax temperature 0.9, pretraining limits ignored; symmetrised; seeds 0–15 averaged (`src/eda/model_rebuild/fits.py`).
+     * **Live, the rows grow at retrains the owner calls** (owner, 20 Oct 2026, [amendment](docs/decisions/2026-10-09-adoption-by-change-class.md)): a retrain's instance trains its live season-Y fit on 2013..Y−1 plus every season-Y frame match whose result counts by its cut-off (lf + 1 ≤ the cut-off), recorded in the instance; Thinking takes the same rows. Never at a prediction run. Backtests, harm checks and every check on unseen matches keep season Y on 2013..Y−1. A timer at A1, A4 and on the bet sheet shows the time since the cut-off.
    * **The level layer, for men** (owner, 10 Oct 2026, [decision](docs/decisions/2026-10-10-level-evidence-layer.md)): lower-level observations enter the inputs translated and weighted (the level-evidence study's SYS; ITF box scores out; women untouched). Config `data/studies/current_best_model/level_layer/official.json`; every build runs `run_chain.py --prepare-layer` (the opponent strength on its own Stage 0), then each lane with `--layer`; prediction runs resolve it on their own Stage 0. With `LLE_LAYER` unset the hooked builders build the template of before. **Refit each season** walk-forward into a new folder (`relationship.py --method F4`), re-issue the config with the new path and hash, re-run the identity and strength checks; until then later seasons read the last fitted season's parameters. **Accepted lower-level packages** (owner, 10 Oct 2026: the men's 2026 Challenger data, [decision](docs/decisions/2026-10-10-men-2026-challenger-data.md)) are merged into every build's own tables, never the repository's: `run_chain.py --additions` after `--setup`, then lane 0, then `--prepare-layer` (`build_template.sh <sandbox> <out> 1 accepted`); prediction runs merge them themselves.
    * **The lower-level feed** (owner, 13 Oct 2026, [decision](docs/decisions/2026-10-13-lower-level-feed.md)) is merged the same way, after the packages. It holds the levels the history lost in 2026: Sackmann's files ended in June, and Tennis My Life has no ITF, WTA 125 or women's qualifying. Its current snapshot is named in `accepted.json`'s "feeds", and it replaced the men's package.
      * **It updates by itself:** the "lower-level feed" Windows task runs `src/eda/data_gaps_2026/feed.py --run --auto --advance` on Wednesdays, and a snapshot becomes current only when every check passes.
@@ -43,7 +61,13 @@ When the owner says "the current best model", it means **a template, not stored 
      * **The coverage alarm** (`src/eda/data_gaps_2026/coverage.py`) compares every tour and level with one and two years earlier. A newly lost level is added to the feed's scope only after a harm check.
 2. **The walk-forward serve-speed adjustment** on its log-odds, with the **28-day speed memory**: logit q = s_tour·η + b̃·`spd_L`.
    * **Coefficients:** refitted each season on 2019..Y−1 from this model's own seeds 0–3, on the speed history that matches the live feed; b̃ shrunk (τ = 0.05).
+     * **Live, they grow with each retrain** (owner, 20 Oct 2026, same amendment): 2019..Y−1 plus the season-Y matches the retrain admits, from the walk-forward forecasts (the season-Y fit on 2013..Y−1). Conditions: the speed table extended to every season-Y men's match and checked equal where it overlaps; no harm in the check; both versions logged on the first runs.
+     * **The live feed is the daily collector's from 8 Oct 2026:** matches from that day use `spd_L_D`, earlier ones (replays) `spd_L_B` (owner, 14 Oct 2026, [amendment](docs/decisions/2026-10-08-current-best-model.md)).
+     * **In sync with the model:** the daily engine refits them whenever the frame, the input list, the seeds 0–3 fits, their TabPFN or the speed history change, and refuses a live fit made with another TabPFN, weights, settings or input list (`src/eda/daily_prediction/dp_predict.py`).
    * **Speeds:** the live feed's history without the 130 impossible records (`data/studies/serve_speed_tabpfn/live/speed_panel_frozen_corrected.parquet`), plus the ATP's decrypted Stats Centre files of 2018 to Oct 2021 (`…/live/speed_panel_backfilled.parquet`, added 8 Oct at the owner's word); `live_panel.frozen_panel()` returns it.
+     * **Since 22 Oct 2026** ([decision](docs/decisions/2026-10-22-source-reconciliation-repairs.md)), it returns the repaired copy (`…/live/speed_panel_repaired.parquet`). There, 576 published averages that the match's point record contradicts by more than 5 km/h take the point mean.
+     * Stage 2's column on it is `data/studies/source_reconciliation/applied/speed_columns_repaired.parquet` (`live_panel.decided_column()`).
+     * A retrain writes it into the new instance's own speed table (`stage2_speed_columns.parquet`). The instance in use keeps its own table until then.
    * **Code:** `src/eda/serve_speed_tabpfn/adaptive/adjust.py`, every match in mode L.
 3. **The five-pattern adjustment, in the daily predictions** (owner, 13 Oct 2026, [decision](docs/decisions/2026-10-13-five-pattern-adjustment.md)): logit q += b·z.
    * **z** is the unpriced-leads study's combined score, with frozen parameters, capped at ±3.5.
@@ -57,13 +81,20 @@ New features and studies are compared against both stages, never the TabPFN fit 
 
 **The frozen reference** (owner, 8 Oct 2026, [amendment](docs/decisions/2026-10-08-current-best-model.md)). The build of 8 Oct and the tables it was built on are frozen in `data/studies/current_best_model/reference_2026-10-08/`: copied, hashed, read-only, with a [README](data/studies/current_best_model/reference_2026-10-08/README.md) of every data location. It keeps the books' average as its odds input (built before the Pinnacle-first decision); the Pinnacle-first instance of 9 Oct is `data/studies/current_best_model/pinnacle_first_2026-10-09/`.
 * **The training data:** the reference's matches plus the matches played since, from the feeds that fed it.
-  * **The freeze is about lower-level data** (narrowed by the owner on 9 Oct 2026: "the oct 8 freeze I suggested was more about the data from the challenger series/ITF tour").
-    * New, revised or dropped lower-level history never enters by itself, even of past dates: qualifying (tour and Slam), Challengers, ITF, or an unknown level.
-    * **Except Tennis My Life's own corrections, drops and backfills** at the levels it fed the reference (men's Challengers, ATP tour and Slam qualifying). The owner decided on 13 Oct 2026 ([decision](docs/decisions/2026-10-13-tml-lower-level-revisions.md)) that they enter by themselves: on bet days at once, and in training at the next rebuild, with no retrain for them alone. `history.py` lists them as `tml_lower`. A held Tennis My Life file is accepted after `src/eda/tml_revisions/held_check.py` lists every change it makes.
+  * **Lower-level data: only data that changes coverage waits for a test** (the 8 Oct freeze, narrowed to lower-level data by the owner on 9 Oct 2026; since 14 Oct 2026, [decision](docs/decisions/2026-10-14-lower-level-gap-fills.md), data that fills holes enters by itself). Lower-level means qualifying (tour and Slam), Challengers, ITF, or an unknown level.
+    * **Enters by itself:** on bet days at once, in training at the next rebuild, with no retrain for it alone; the next rebuild's harm check covers it.
+      * **Tennis My Life's own corrections, drops and backfills** at the levels it fed the reference (men's Challengers, ATP tour and Slam qualifying; owner, 13 Oct 2026, [decision](docs/decisions/2026-10-13-tml-lower-level-revisions.md)). `history.py` lists them as `tml_lower`. A held Tennis My Life file is accepted after `src/eda/tml_revisions/held_check.py` lists every change it makes.
+      * **Other sources' gap fills** (owner, 14 Oct 2026): built by the candidate builder (`src/eda/lower_level_evidence/candidate_stage0.py`) into an accepted package (`additions.py`) and registered without asking, when both hold:
+        * per tour and level, the source's box scores equal the history's on at least 98% of the matches both score (at least 30 of them). Today's tables, with every decided repair, decide; the frozen copy's reading is recorded beside them;
+        * per tour, level and season it touches (today's tables), the history already holds a box score for at least half of the played matches (for new matches: at least as many matches as it adds), **or** the fill brings the season's box-score share closer to its level's median over the other seasons from 2013 (a season catching up with its neighbours; a level empty in most seasons, such as ITF before 2025, still fails).
+
+        `src/eda/tennislive_box_fill/conditions.py` reads both for box scores; `src/eda/men_lower_level_fill/conditions_new.py` reads the second for added matches (what the merge would add, plus a list of same-pair meetings within 14 days to look at for duplicates). Record the numbers in the package's report, and tell the owner. The packages so far: `tennislive_box_fill` (233), `tennislive_box_fill_men_gsq` (184, men's 2018 Slam qualifying) and `men_lower_level_fill` (4,376 men's Challenger, Challenger-qualifying and ITF results to the feed's start, results only; 16 Oct 2026).
+      * **The weekly lower-level feed** (13 Oct 2026, above).
+    * **Still tested first, as a candidate:** lower-level data that fails either condition; a level or seasons the history does not cover (ITF box scores before 2025, the risk of finding #6); a level Stage 0 never held; another source's revision of a box score the history already holds.
     * Main-tour corrections and new official main-tour sources are repairs, decided on the data evidence.
-  * `src/eda/current_best_model/history.py` checks any Stage 0 against the reference's and lists every difference.
-  * `run_chain.py --setup` refuses a template build only when the lower-level history differs beyond Tennis My Life's own changes.
-* **New lower-level data, new inputs and rebuilds are tested as candidates:** a `run_chain.py --setup --candidate` build with its own `--out`, then `./python.sh src/eda/current_best_model/compare.py --candidate <built folder>`. New features go to the pool (the adoption section below).
+  * `src/eda/current_best_model/history.py` checks any Stage 0 against the reference's and lists every difference; a registered package's matches count as "accepted".
+  * `run_chain.py --setup` refuses a template build only when the lower-level history differs beyond what is accepted: Tennis My Life's own changes, the registered packages and the feed.
+* **Lower-level data that changes coverage, new inputs and rebuilds are tested as candidates:** a `run_chain.py --setup --candidate` build with its own `--out`, then `./python.sh src/eda/current_best_model/compare.py --candidate <built folder>`. New features go to the pool (the adoption section below).
 * **Read the input check first.** An input flagged "uneven" (its scale or level moves in some seasons only) is the warning sign of finding #6.
 * **If a candidate harms the model,** its data is ignored, down-weighted or transformed, and compared again. Accepting it is the owner's call.
 * **A candidate that shows no harm is recommended** when it is a repair, or new data entering by the route its evidence supports. "Unresolved" is not harm ([adoption by kind of change](docs/decisions/2026-10-09-adoption-by-change-class.md)).
@@ -102,6 +133,20 @@ Reason with the [adoption framework](docs/studies/adoption_framework/README.md) 
 
 **Run predictions only from `scripts/master_pipeline.ipynb`** ([how it works](docs/studies/master_pipeline/README.md)). Each cell is one call into `src/pipeline/`; the bet-day cells run the daily engine `src/eda/daily_prediction/` ([report](docs/studies/daily_prediction/README.md)): today's tables in a sandbox, the 57 inputs resumed from a saved checkpoint, 16 seeds at 91 prices, stage 2. About 10 minutes a bet day; a new price is read off the stored curve in seconds. Do not build a second prediction path.
 
+**TabPFN-3.5-Thinking beside the local model** (owner, 20 Oct 2026, [decision](docs/decisions/2026-10-20-thinking-beside-local.md)).
+* **The switch:** `MODEL = "tabpfn35_thinking"` with `SPEND_TOKENS = True`. It adds one paid Thinking call per run (`run_day --thinking --spend-tokens`, `dp_thinking.py`). A new instance's first such run also makes its paid season fit.
+* **The rule:** Thinking's chance is the API's own (seed 0) plus stage 2's serve-speed term, never its calibration slope (owner, the evening of 20 Oct 2026: "should still move with the serve speed numbers ... just not the calibration"). The prediction used is the two models' chances averaged 50/50 in log-odds, with the five-pattern adjustment added after.
+* **The bet sheet:** US odds only.
+
+**The qualifying of the 250s and above is bet, with the live model unchanged** (owner, 22 Oct 2026, [decision](docs/decisions/2026-10-22-qualifying-bets.md)): ATP and WTA 250s, 500s, 1000s and Slams (Stage 0's T250–GS with `qualifying`; Stage 4's TQ and GSQ). Challenger, WTA 125 and ITF qualifying stay out.
+* **Inputs as the qualifying study built them** (`dp_context`): level TQ 6 / GSQ 7, round order Q1–Q3, best of 5 where a men's Slam qualifying round records 5.
+* **A2 places each match** (`src/pipeline/qualifying.py`):
+  * the event from Tennis My Life's rows of the edition, else built from its previous edition (every round 1; all women's qualifying, which Tennis My Life lacks);
+  * the round from TennisLive's results, checked against Tennis My Life's, never read from Tennis My Life's silence;
+  * the main draw's start (`event_main_date`). Stage 0 dates an event by its main draw's first date (rule C05); before the main draw is played, it would otherwise take the first qualifying day and move 19 inputs.
+* **The proof:** a qualifying replay (`dp.py run_day --replay-round Q1 --replay-frame …`) reproduces the training inputs bit for bit, given that date.
+* **Not tested on qualifying:** the five-pattern adjustment and Thinking. Both apply as on the main draw.
+
 | Path | What it is |
 |---|---|
 | `scripts/master_pipeline.ipynb` | The front door: bet day, data update, rebuild and retrain |
@@ -117,11 +162,15 @@ These rules hold for every prediction, and the daily engine above implements the
 
 Live inputs must be the inputs the model was trained on ([decision](docs/decisions/2026-10-08-prediction-run-box-scores.md)). 40 of the 57 inputs read the same event's earlier rounds' box scores, and a missing one is skipped silently.
 
-* **Box scores first.** A prediction run starts with `./python.sh src/eda/prediction_run/run.py --refresh --matchups <csv>`. It downloads Tennis My Life, lists the gaps and fills post-freeze WTA gaps from the WTA API. Fills are live only: they never enter the training history, and TML's numbers replace them once TML publishes.
+* **Box scores first.** A prediction run starts with `./python.sh src/eda/prediction_run/run.py --refresh --matchups <csv>`. It downloads Tennis My Life, lists the gaps and fills post-freeze gaps: women's tour matches from the WTA API, and since 14 Oct 2026 men's tour-level main-draw matches from the ATP Stats Centre's keystats (`fills.fill_atp`, read through the daily speed collector's files and client; equal to TML's counts on 164 of 164 Shanghai 2026 player rows; not the qualifying, where the ATP's first serves differ from TML's). Fills are live only: they never enter the training history, and TML's numbers replace them once TML publishes.
 * **Built in the run's sandbox, never in `data/studies/`:** `run.py --setup`, then `run.py --build <folder>`.
   * Upcoming matches enter Stage 0 as rows with a placeholder result (`stage0_build.py --live-rows`, refused outside a sandbox).
   * They go through the unchanged chain.
-* **The gate** (`gate.csv`): a live match is marked not to bet when an earlier match of either player, at the event or in the last 14 days, lacks a box score, or when its indoor input is unknown (`--refresh --matchups` refetches the WTA's calendar the women's input reads).
+* **The gate** (`gate.csv`; replaced by the owner on 14 Oct 2026, [decision](docs/decisions/2026-10-14-box-score-gate.md)): every earlier match of either player, at the event or in the last 14 days, is checked for a box score, and a missing one never blocks.
+  * A gap of a kind the training rows nearly always hold (main tour, Challenger / WTA 125, qualifying above ITF level) makes a bet need a 1-point edge: the forecast moved 1 point against the side must still be +EV at the odds (`gate.EDGE_BAR`, applied in `src/pipeline/diagnostics.py`).
+  * A gap of a kind they mostly lack (team events, ITF) is only noted.
+  * Still marked not to bet: a qualifier with no qualifying match in the data, or an unknown indoor input (`--refresh --matchups` refetches the WTA's calendar the women's input reads).
+  * Since 22 Oct 2026, also a qualifying round 2 or 3 whose player has no match of the round before in the data: the result is missing, not only the box score. A woman's waits for the weekly lower-level feed.
 * **The proof:** `src/eda/prediction_run/replay.py` replays one past day's matches as live rows; their inputs must equal the template frame's (9 Oct 2026: 23 of 23, to machine precision; 10 Oct 2026, with the level layer and the accepted package: 23 of 23, bit for bit, compared with `--template <instance> --frame model_frame_chain.parquet`).
 * **The history check** lets a match possibly played from 5 Oct on, from the reference's feeds, be completed, corrected or dropped.
 

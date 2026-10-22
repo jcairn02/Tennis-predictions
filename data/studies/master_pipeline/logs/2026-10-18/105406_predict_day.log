@@ -1,0 +1,62 @@
+# DP_BASE_TREE=C:\Users\zerom\tnr_tpl1016 DP_INSTANCE=template_2026-10-16 DP_WORK_TREE=C:\Users\zerom\tnr_daily_nb ./python.sh 'C:\Users\zerom\Documents\Tennis-predictions\src\eda\daily_prediction\dp.py' run_day --run 'C:\Users\zerom\Documents\Tennis-predictions\data\studies\daily_prediction\runs\live_2026-10-18_105406' --matchups 'C:\Users\zerom\Documents\Tennis-predictions\data\studies\master_pipeline\matchups\matchups_2026-10-18_104848.csv' --refresh --seeds 0-15 --checkpoint auto --leave-checkpoint auto
+# started 2026-10-18T10:54:06-07:00
+{
+ "created_at": "2026-10-18T175406Z",
+ "mode": "live",
+ "replay": null,
+ "matchups_csv": "C:\\Users\\zerom\\Documents\\Tennis-predictions\\data\\studies\\master_pipeline\\matchups\\matchups_2026-10-18_104848.csv",
+ "checkpoint": "auto",
+ "seeds": "0-15",
+ "work_tree": "C:\\Users\\zerom\\tnr_daily_nb",
+ "instance": "C:\\Users\\zerom\\Documents\\Tennis-predictions\\data\\studies\\current_best_model\\template_2026-10-16",
+ "base_tree": "C:\\Users\\zerom\\tnr_tpl1016"
+}
+[    0.5s] == refresh
+[    0.0s] --> tml: -m src.ingest.public_dump.tennis_my_life --start-year 2000
+[    3.8s]     exit 1 in 4 s
+[    3.8s] --> stage0: src/eda/predictability_diagnostic/stage0_build.py --out-dir C:\Users\zerom\Documents\Tennis-predictions\data\studies\daily_prediction\runs\live_2026-10-18_105406\stage0
+[   80.6s]     exit 0 in 77 s
+[   85.9s]    refresh: 85.5 s
+[   85.9s] == matchups
+[   91.5s]    matchups: 5.6 s
+[   91.5s] == prices
+[   91.6s]    prices: 0.0 s
+[   91.6s] == worktree
+[  151.4s]    worktree: 59.8 s
+[  151.4s] == tables
+[  151.5s] --> stage0: src/eda/predictability_diagnostic/stage0_build.py --live-rows run/live_rows.parquet
+[  233.9s]     exit 0 in 82.4 s
+[  233.9s] --> additions: src/eda/current_best_model/additions.py --apply
+[  453.4s]     exit 0 in 219.5 s
+[  453.4s] --> check: src/eda/prediction_run/inject.py --meta run/live_meta.parquet --step check
+[  454.2s]     exit 0 in 0.8 s
+[  454.2s] --> lle_layer: src/eda/current_best_model/layer_config.py --resolve --official C:\Users\zerom\Documents\Tennis-predictions\data\studies\current_best_model\level_layer\official.json
+[  473.7s]     exit 0 in 19.5 s
+[  473.7s] --> odds: src/eda/predictability_diagnostic/stage1_odds.py 
+[  480.7s]     exit 0 in 6.9 s
+[  480.7s] --> live_odds: src/eda/prediction_run/inject.py --meta run/live_meta.parquet --step odds
+[  481.5s]     exit 0 in 0.9 s
+[  481.5s] --> remap: src/eda/prediction_run/inject.py --meta run/live_meta.parquet --step remap
+[  483.7s]     exit 0 in 2.2 s
+[  483.7s] --> links: src/eda/match_timing/link_sources_c.py --sources tennis_data,wta_api,sofascore,slam_feeds,tdi
+[  530.4s]     exit 0 in 46.8 s
+[  530.4s] --> live_links: src/eda/prediction_run/inject.py --meta run/live_meta.parquet --step links
+[  534.8s]     exit 0 in 4.3 s
+[  534.8s] --> timing: src/eda/match_timing/timing.py 
+[  577.6s]     exit 0 in 42.8 s
+[  577.6s] --> live_window: src/eda/prediction_run/inject.py --meta run/live_meta.parquet --step pin
+[  580.2s]     exit 0 in 2.6 s
+[  580.2s] --> additions_window: src/eda/current_best_model/additions.py --pin-timing
+[  600.9s]     exit 0 in 20.7 s
+[  600.9s]    tables: 449.5 s
+[  600.9s] == states
+[  990.0s]    states: 389.1 s
+[  990.0s] == history
+[  990.0s]    history: 0.0 s
+[  990.1s] == patterns
+[ 1047.6s]    patterns: 57.5 s
+[ 1047.6s] == checkpoint
+[ 1730.9s]    checkpoint: 683.3 s
+[ 1730.9s] == fit
+
+# interrupted, exit None, 2385.9 s

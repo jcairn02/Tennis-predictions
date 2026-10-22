@@ -99,6 +99,9 @@ PARTICLES = {"jr", "sr", "ii", "iii", "iv", "de", "da", "van", "von", "del", "de
 MAX_SEASON_PAGES = 25  # safety stop per season: 750 events
 LINK_DAYS = (-10, 21)
 WINNER_FIRST = {"tml", "sackmann"}  # the map's matches from these files name the winner first (winner_name)
+# links refused by the borrowed-link rule (no surname matches and the official result disagrees), one row per gap,
+# target uid and SofaScore event; written by src/eda/p6_data_issues/borrowed_links.py --apply
+VETOES = STUDY / "sofascore_link_vetoes.csv"
 
 TARGET_COLUMNS = ["gap", "edition", "uid", "tour", "level", "draw", "year", "d", "tname", "name1", "name2",
                   "creator", "best", "sources"]
@@ -423,11 +426,24 @@ def link_row(event, score: int, loc: dict) -> dict:
     return row
 
 
+def load_vetoes(path: Path = None) -> dict:
+    """(gap, target uid) -> the SofaScore event ids refused for it (VETOES); empty when there is no file."""
+    path = VETOES if path is None else path
+    if not path.exists():
+        return {}
+    out: dict = {}
+    for gap, uid, event_id in pd.read_csv(path, usecols=["gap", "uid", "event_id"]).itertuples(index=False):
+        out.setdefault((gap, int(uid)), set()).add(int(event_id))
+    return out
+
+
 def list_and_link(lister: Lister, targets: pd.DataFrame, known: pd.DataFrame, limit: int | None = None,
-                  log_every: int = 10, only: set | None = None):
+                  log_every: int = 10, only: set | None = None, vetoes: dict | None = None):
     """Locate and list every edition, newest first, and link its targets; with ``only``, only the editions named
     (their keys, as in the editions table), and with ``limit``, only the newest ``limit`` of those; the others'
-    targets stay unlinked. Returns (edition rows, target rows, linked events)."""
+    targets stay unlinked. A link in ``vetoes`` (default: the VETOES file; {} for none) is refused and the target left
+    unlinked. Returns (edition rows, target rows, linked events)."""
+    vetoes = load_vetoes() if vetoes is None else vetoes
     ed_rows, rows, linked = [], [], {}
     editions = targets.sort_values("d", ascending=False, kind="stable").groupby("edition", sort=False)
     tried = 0
@@ -454,6 +470,9 @@ def list_and_link(lister: Lister, targets: pd.DataFrame, known: pd.DataFrame, li
             note = None
             if event is not None and claimed_by_other(event, score, kn):
                 note = f"event {event.get('id')} names another known match better"
+                event, score = None, 0
+            if event is not None and event.get("id") in vetoes.get((t.gap, int(t.uid)), ()):
+                note = f"event {event.get('id')} refused: no surname matches and the official result disagrees"
                 event, score = None, 0
             rows.append({**{c: getattr(t, c) for c in TARGET_COLUMNS}, **link_row(event, score, loc), "link_note": note})
             if event is not None:

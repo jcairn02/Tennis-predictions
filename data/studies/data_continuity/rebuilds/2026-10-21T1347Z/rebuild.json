@@ -1,0 +1,159 @@
+{
+ "started_at": "2026-10-21T13:47:24+00:00",
+ "steps": [
+  {
+   "step": "keep",
+   "files": 72,
+   "bytes": 397340310,
+   "seconds": 1.4
+  },
+  {
+   "step": "build",
+   "command": "src/eda/predictability_diagnostic/stage0_build.py",
+   "exit": 0,
+   "seconds": 101.9
+  },
+  {
+   "step": "checks",
+   "command": "src/eda/predictability_diagnostic/stage0_checks.py",
+   "exit": 0,
+   "seconds": 16.9
+  },
+  {
+   "step": "odds",
+   "command": "src/eda/predictability_diagnostic/stage1_odds.py",
+   "exit": 0,
+   "seconds": 7.4
+  },
+  {
+   "step": "remap",
+   "pairs": 1,
+   "rows": 2
+  },
+  {
+   "step": "refresh",
+   "command": "src/eda/match_timing/refresh.py --skip-ios",
+   "exit": 0,
+   "seconds": 330.1
+  },
+  {
+   "step": "features",
+   "command": "src/eda/match_timing/rebuild.py",
+   "exit": 0,
+   "seconds": 427.4
+  },
+  {
+   "step": "ttt",
+   "command": "src/eda/match_timing/ttt_timed.py",
+   "exit": 0,
+   "seconds": 968.4
+  }
+ ],
+ "ids": {
+  "changed": 1,
+  "left_without_partner": [
+   "atp|2026-2971-20260921|F|atp:127108|atp:210460",
+   "atp|2026-2971-20260921|QF|atp:127108|atp:144870",
+   "atp|2026-2971-20260921|QF|atp:200748|atp:210460",
+   "atp|2026-2971-20260921|QF|atp:207729|atp:209355",
+   "atp|2026-2971-20260921|QF|atp:210157|atp:211902",
+   "atp|2026-2971-20260921|R16|atp:127108|atp:135753",
+   "atp|2026-2971-20260921|R16|atp:144870|atp:212216",
+   "atp|2026-2971-20260921|R16|atp:200748|atp:210464",
+   "atp|2026-2971-20260921|R16|atp:202333|atp:210157",
+   "atp|2026-2971-20260921|R16|atp:207729|atp:210478",
+   "atp|2026-2971-20260921|R16|atp:208119|atp:211902",
+   "atp|2026-2971-20260921|R16|atp:209355|atp:212256",
+   "atp|2026-2971-20260921|R16|atp:210460|atpcode:H0M1",
+   "atp|2026-2971-20260921|R32|atp:106283|atp:210478",
+   "atp|2026-2971-20260921|R32|atp:111578|atp:212256",
+   "atp|2026-2971-20260921|R32|atp:127108|atp:210028",
+   "atp|2026-2971-20260921|R32|atp:135753|atp:211711",
+   "atp|2026-2971-20260921|R32|atp:144870|atp:208342",
+   "atp|2026-2971-20260921|R32|atp:200632|atp:211902",
+   "atp|2026-2971-20260921|R32|atp:200670|atp:210464",
+   "atp|2026-2971-20260921|R32|atp:200748|atp:209406",
+   "atp|2026-2971-20260921|R32|atp:202333|atp:210399",
+   "atp|2026-2971-20260921|R32|atp:207729|atpcode:J0F2",
+   "atp|2026-2971-20260921|R32|atp:208119|atp:213605",
+   "atp|2026-2971-20260921|R32|atp:209355|atp:212251",
+   "atp|2026-2971-20260921|R32|atp:210099|atp:210157",
+   "atp|2026-2971-20260921|R32|atp:210250|atp:212216",
+   "atp|2026-2971-20260921|R32|atp:210460|atp:212219",
+   "atp|2026-2971-20260921|R32|atp:211346|atpcode:H0M1",
+   "atp|2026-2971-20260921|SF|atp:127108|atp:209355",
+   "atp|2026-2971-20260921|SF|atp:210157|atp:210460",
+   "wta|2025-W-FC-2025-FLS|F|wta:202468|wta:211148",
+   "wta|2025-W-FC-2025-FLS|F|wta:215613|wta:220714",
+   "wta|2025-W-FC-2025-FLS|QF|wta:201709|wta:215613",
+   "wta|2025-W-FC-2025-FLS|QF|wta:202468|wta:214981",
+   "wta|2025-W-FC-2025-FLS|QF|wta:202494|wta:211651",
+   "wta|2025-W-FC-2025-FLS|QF|wta:206294|wta:220714",
+   "wta|2025-W-FC-2025-FLS|QF|wta:211107|wta:220416",
+   "wta|2025-W-FC-2025-FLS|QF|wta:211148|wta:216133",
+   "wta|2025-W-FC-2025-FLS|QF|wta:214262|wta:222661",
+   "wta|2025-W-FC-2025-FLS|QF|wta:216146|wta:222601",
+   "wta|2025-W-FC-2025-FLS|SF|wta:202468|wta:211107",
+   "wta|2025-W-FC-2025-FLS|SF|wta:202494|wta:211148",
+   "wta|2025-W-FC-2025-FLS|SF|wta:215613|wta:222661",
+   "wta|2025-W-FC-2025-FLS|SF|wta:216146|wta:220714",
+   "wta|2026-W-FC-2026-FLS|F|wta:202494|wta:222328",
+   "wta|2026-W-FC-2026-FLS|F|wta:211843|wta:214096",
+   "wta|2026-W-FC-2026-FLS|QF|wta:201533|wta:220714",
+   "wta|2026-W-FC-2026-FLS|QF|wta:201709|wta:213710",
+   "wta|2026-W-FC-2026-FLS|QF|wta:202494|wta:213889",
+   "wta|2026-W-FC-2026-FLS|QF|wta:211107|wta:222328",
+   "wta|2026-W-FC-2026-FLS|QF|wta:211148|wta:221012",
+   "wta|2026-W-FC-2026-FLS|QF|wta:211843|wta:260445",
+   "wta|2026-W-FC-2026-FLS|QF|wta:213631|wta:222661",
+   "wta|2026-W-FC-2026-FLS|QF|wta:222601|wta:260306",
+   "wta|2026-W-FC-2026-FLS|SF|wta:202494|wta:211148",
+   "wta|2026-W-FC-2026-FLS|SF|wta:211843|wta:261972",
+   "wta|2026-W-FC-2026-FLS|SF|wta:213710|wta:222328",
+   "wta|2026-W-FC-2026-FLS|SF|wta:214096|wta:222601"
+  ],
+  "left_without_partner_count": 59
+ },
+ "remapped_rows": {
+  "api_tennis.parquet": 0,
+  "flashscore.parquet": 0,
+  "flashscore_ambiguous.parquet": 0,
+  "flashscore_daily_board.parquet": 0,
+  "flashscore_unlinked.parquet": 1,
+  "infosys.parquet": 0,
+  "live_tennis_api.parquet": 1,
+  "match_charting.parquet": 0,
+  "open_tennis_data.parquet": 0,
+  "pbp_copy.parquet": 0,
+  "tml_days.parquet": 0
+ },
+ "matches": {
+  "before": 873681,
+  "after": 873964
+ },
+ "sha256_after": {
+  "stage0_matches.parquet": "2f79cfdd0568870e3adeb30251bfa7c686cac999c98812d7d063837accec9f0b",
+  "stage0_match_players.parquet": "32d0f49acb370e386f1ccc38c02abe747aff2dd388d15ea4626922a5d352ac36"
+ },
+ "stage0_summary_overrides": {
+  "file": "data/studies/data_continuity/slam_box_overrides.csv",
+  "rows": 2272,
+  "scores_replaced": 2,
+  "by_source": {
+   "rolandgarros": 1541,
+   "wimbledon_feed": 366,
+   "usopen_feed": 365
+  }
+ },
+ "timing_check": {
+  "tested_matches": 487646,
+  "missed_share": 0.0004614002780705676,
+  "after_window_share": 0.00011073606673693621,
+  "before_window_share": 0.00035066421133363136,
+  "multi_source_matches": 300028,
+  "multi_source_same_day_share": 0.9661498260162384,
+  "multi_source_within_1_day_share": 0.9992067407042009
+ },
+ "finished_at": "2026-10-21T14:18:22+00:00",
+ "ok": true
+}

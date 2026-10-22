@@ -560,3 +560,534 @@ RUNS="data/studies/daily_prediction/runs/live_2026-10-13_163937 data/studies/dai
 ./python_tabpfn.sh src/eda/thinking_live_compare/predict_api.py --out $OUT     # reads the saved probabilities back
 ./python.sh src/eda/thinking_live_compare/compare.py --out $OUT $RUNS         # the comparison, offline
 ```
+
+---
+
+# Part 4 (14 Oct 2026): a bet day from a screenshot, three failed runs, and the runner's environment fix
+
+Kept by Claude Opus 5.5 (`claude-opus-5-5`), Claude Code in VS Code, session `fde0b675-7704-4ccc-8a96-9aa9cb886955`.
+Local time PDT (UTC−7). No context summary occurred.
+
+## P4.1 The requests
+
+* **First (about 12:15),** with a screenshot of a US book's ATP Shanghai QF lines (Paul +170 / Medvedev −195, Ruud +116
+  / Jodar −136, Davidovich Fokina −120 / Gea +100, De Minaur +174 / Zverev −200; all "Tomorrow, 6–7 PM"):
+  > "generate predictions using the same code that the master pipeline would for the matches ive taken a picture for,
+  > they are upcoming. Any issues with doing so?"
+* **Later:** "why is this taking so long?"; "Was there not a minimum EV bar we applied to bet? or has that not been
+  applied?"; "thes screenshot I showed you had medvedev not at -195, where did you get -195 from?"; "So the price
+  moved on me in the time it took you to do this analysis. Why did we have so many failed runs?"; then, to my offer
+  to fix the runner, "Make it".
+* **How the first was read:** the notebook's cells A1–A6 through `src/pipeline/`, called from scratchpad scripts
+  (`a3.py`: A3 + A3b; `a4.py`: A4; `a6.py`: A6 with the screenshot as a venue, as on 13 Oct), not a second path.
+  The model is fed Pinnacle's margin-free price (the decided rule); the screenshot's prices only give EV at that book.
+
+## P4.2 Chronology (PDT)
+
+| Time | What | Results seen at the time |
+|---|---|---|
+| 12:22–12:27 | Template check (template_2026-10-14 OK); A1 (fetched at 07:30, nothing ran); A2; B2 (TML again) | Pinnacle lists all four QFs; Gea v Davidovich Fokina starts 23:30 PDT tonight and Zverev v De Minaur 03:00, not "tomorrow" (Thursday in Shanghai; the ATP's Wednesday order of play confirms the R16 split). Medvedev v Paul left out: TML's ATP file last changed 08:30Z, before Medvedev–Tsitsipas and Paul–Bergs |
+| 12:29 | A3 + A3b for the 15 Oct pair | both ready |
+| 12:33 | Run 1 (`live_2026-10-14_123349`), launched with PowerShell `Start-Process` of the tennis env's python.exe | died at 12:46 in the states step; the engine's cleanup left one file held by two orphaned workers |
+| 12:52–12:58 | Repository data checked intact; orphans stopped; leftover moved into the run folder, empty folders removed; **retried unchanged** (the death coincided with a session unlock) | a judgment error: no diagnosis first |
+| 12:58 | Run 2 (`…_125827`) | the same death, same place: systematic |
+| 13:11–13:53 | No traceback; no Windows crash record; memory ample (≥ 35 GB commit free, `memlog`) | the leftover-file lock is a consequence, not the cause |
+| 13:53 | Run 3 (`…_135305`) with `PYTHONFAULTHANDLER=1` and an exit-code watcher | exit **0xC06D007F** (delay-load: procedure not found); the tracer: an IOS worker in `numpy.linalg.norm`, then the main in `numpy.linalg.solve` (`stage4_features.fit_slope`) |
+| ~15:00 | 5-second test: the tennis python with PowerShell's PATH crashes on `np.linalg.solve`; with the env's folders first (or conda base's, as Git Bash has) it passes | cause: the launch, not the pipeline or the data. Git Bash's profile activates conda base; the 13 Oct runs and the morning replay were launched from it |
+| 15:12 | Run 4 (`…_151255`), conda base's folders prepended | ok, 1,057 s; both 15 Oct matches PASS |
+| 15:13 | TML's ATP file changed at 21:18Z: Medvedev and Paul's R16 rows present; A2 again links all four | — |
+| 15:31 | Run 5 (`…_153110`, 16 Oct: Jodar v Ruud, Medvedev v Paul) | ok; A6 at 15:48: BET Medvedev (+0.6% at Pinnacle), BET Jodar (+0.5%), both under the sheet's 1% "thin" label |
+| 16:20–16:37 | The fix (below): tests first, failing on the old runner; then the fix; 46 of 46 pass | — |
+| 16:42 | Run 6 (`…_164201`) launched exactly as runs 1–3 (PowerShell's own PATH, no conda) with the fixed runner | ok, 1,140 s: states 442 s, the local-env fit 54 s. Jodar v Ruud at the same price as run 5: p_base and q equal to 10 decimals |
+
+## P4.3 The fix and its judgment calls
+
+* **`runner._activated_path`:** each step's PATH gets its own environment's folders first (`<env>`,
+  `Library\mingw-w64\bin`, `Library\usr\bin`, `Library\bin`, `Scripts`, `bin`), as `conda activate` sets them;
+  Windows only; nothing else in the environment changes.
+* **The child in another environment** (dp.py's fit in tennis-tabpfn-local inherits the tennis step's PATH) was tested
+  before choosing this: with the fit's import order (numpy and pandas, then tabpfn and torch) the local environment
+  loads under the tennis environment's folders, its own, or base's, and fails under a bare PATH.
+* **Rejected:** conda's `CONDA_DLL_SEARCH_MODIFICATION_ENABLE` (no effect in this conda-forge build: all three
+  environments still crashed under a bare PATH).
+* **Found, not fixed:** in the local environment, torch's CPU maths and numpy's linear algebra in one process abort
+  with OMP Error #15 under every PATH, activated or not (two OpenMP runtimes). The fit computes on the GPU and does not
+  hit it; the test leaves torch's CPU maths out and says why.
+* **Separate runs per day** (the 13 Oct precedent: a later day's inputs never see a placeholder result).
+
+## P4.4 Claims and their evidence
+
+| Claim | Evidence | Status |
+|---|---|---|
+| The three failures were the launch's missing conda folders | exit 0xC06D007F in numpy.linalg (fault tracer, run 3); the 5-second A/B test; run 4 passing with base's folders | observed |
+| The fix stops it from any shell | `test_runner_env.py`: 7 pass with the fix, 7 fail with `_activated_path` switched off in memory; run 6 end to end from a bare PowerShell | observed |
+| The fix changes no prediction | run 6 = run 5 for Jodar v Ruud at the same price (10 decimals) | observed |
+| The other tests still pass | `pytest test/master_pipeline`: 46 passed | observed |
+
+## P4.5 Weak points
+
+* The exact library behind 0xC06D007F was not named; the diagnosis rests on behaviour (PATH with or without the
+  environment's folders), reproduced both ways.
+* Only the notebook layer is fixed. `dp.py` started by hand from a shell without conda still crashes; the engine
+  belongs to the daily_prediction session (a recommendation for it, not done here).
+* Left for the owner: the three failed run folders (6.1 GB, no predictions) await a yes before deletion.
+
+## P4.6 Reproduction
+
+```
+./python.sh -m pytest test/master_pipeline/test_runner_env.py -q      # 7 tests; ~10 s
+# the end-to-end check: from PowerShell, with no conda environment active,
+#   Start-Process <envs\tennis\python.exe> <a script calling tp.predict_day(MATCHUPS, model="tabpfn35")>
+```
+
+## P5. GPU guard: Jupyter interrupt helper (18 Oct 2026)
+
+Owner's request, verbatim:
+> **Fix the GPU guard to exclude the Jupyter interrupt helper**, while retaining checks for actual competing training processes and available GPU memory. Avoid killing the helper or disabling the guard entirely.
+
+Interpretation: change the daily fit's shared `training_window.fits` guard and the notebook's preflight warning;
+do not stop any process, relaunch predictions, or change model/data behavior. This session has no exposed session ID.
+Evidence already seen: `live_2026-10-18_105406/fit.log` waits for PID 53492 with 30.3 GB free; the notebook identifies
+that PID as VS Code's `vscode_datascience_helpers/kernel_interrupt_daemon.py --ppid 27060`. The fit guard counts
+all local-env Python processes; the notebook separately enumerates the local interpreter with psutil.
+
+Plan: first reproduce the helper false positive in regression tests, then share a narrow helper-command predicate
+between the two scans. Keep ordinary kernels/training scripts blocked, current-process exclusion in the fit guard,
+and the existing free-memory threshold and timeout. Verify these cases with simulated processes/memory, without
+starting a fit or using the GPU; record results below. No feature timing or prediction rules change.
+
+Implementation and checks so far:
+* Before the fix, both helper-path regression variants failed: `other_local_processes()` returned `[53492]`.
+* Added one shared predicate for the exact helper-script invocation plus `--ppid <positive PID>`; it handles quoted
+  Windows paths, path separators and casing. Merely mentioning the helper as a training argument does not exclude
+  that job; unknown invocations and ordinary ipykernels remain blocking.
+* Kept the fit guard's existing CIM environment filter and own-PID exclusion. CIM now returns command lines with
+  PIDs as JSON so the predicate can filter the helper. The notebook's psutil scan uses the same predicate. The
+  `wait_for_card` loop, memory threshold, retry cadence and timeout are unchanged.
+* Initial focused run: 14 passed. Expanded run (20 guard cases plus existing master-pipeline and training-window
+  tests): 114 passed, 13 fixture errors from access denied to the default pytest temp directory, and one linker
+  assertion failure (`test_linker_on_the_probe`: expected at least 20 reasons containing "already played", got 0;
+  rows now report that the event's final is played). Retrying the failing/error cases in a fresh workspace temp
+  directory; no product change made for these unrelated test issues.
+
+Final verification: **20 focused guard tests passed** (`./python.sh -m pytest
+test/master_pipeline/test_gpu_guard.py -q -p no:cacheprovider`). Tests cover the observed unquoted command,
+quoted paths with spaces, Windows casing/separators, mixed helper/training processes, ordinary kernels, own PID,
+empty/single-object CIM output, unknown commands, insufficient memory, the 12 GB boundary, timeout, and waiting
+until a real job exits while the helper remains alive. GPU memory is simulated; no CUDA allocation or fit ran.
+The broader retry still had 13 temp-directory permission errors even with a fresh workspace base path, and the
+same linker assertion failure (19 passed). `git diff --check` passed on changed tracked source and this log.
+
+Review/reproduction: inspect the narrow shared command predicate and both callers; run the focused command above.
+The existing environment-selection rules and memory gate are preserved. A future helper launch signature may need
+another explicit case: unknown signatures remain blocking. The guards still have their existing separate scan
+mechanisms (CIM versus psutil), and process enumeration failure behavior was not redesigned here. This change was
+not verified by an end-to-end prediction run. No helper or running prediction was killed, restarted or modified;
+already-loaded Python code must be started afresh to use the fix. Existing unrelated worktree edits were preserved.
+
+---
+
+# Part 6 (20 Oct 2026): TabPFN-3.5-Thinking beside the local model, their 50/50 ensemble, US odds only
+
+Kept by Claude Opus 5.5 (`claude-opus-5-5`), Claude Code in VS Code, session `8deb79df-d266-484f-86d1-bc08542c9e4f`
+(peer name `tennis-predictions-97`). Local time PDT (UTC−7). Opened 06:05, before any code was changed.
+
+## P6.1 The request (verbatim)
+
+> Via steps A1-A5 in the master_pipeline.ipynb I attempted to run a tabpfn3.5 thinking run for the newest model.
+> The intention is to have a tabpfn 3.5 paid thinking version I can run IN ADDITION to the tabpfn3.5 nonthinking
+> version, so I can see their results side by side in the tennis bet sheet.
+>
+> So its EITHER the nonthinking-calibrated version OR ( the thinking-noncalibrated version AND nonthinking-calibrated
+> version) that's output in the display.
+> You can remove the european/decimal odds from the run notes that are output from step A5.
+> We only need US odds. Convert lowest odds to take into american as well.
+>
+> We'll use basically a 50/50 ensemble to calculate edge/expected profit.
+> So nonthinking chance without patterns,
+> thinking chance without patterns,
+> ensemble chance without patterns,
+> Would add two columns and reduce one after we get rid of the decimal odds column.
+> Then the other columns are recalculated to consider the ensemble.
+>
+> The pipeline is not set up properly to handle tabpfn3.5 thinking at the moment either. The only difference between
+> that model and the nonthinking is how its called (the API) and that we do not calibrate those probabilites, we use
+> the probabilities given to us from the API. The pipeline is not set up properly to use this.
+>
+> Fix that.
+
+The owner pasted another LLM's answer (A4 refused with `NotImplementedError(THINKING_WAITS)` before any API call;
+make a 2026 Thinking fit for the active instance; set `spend_tokens=True`), with: "use the info only if you think its
+accurate". Checked against the code: accurate. A4's guard (`predict.py`, `dp_takes_thinking()`) refused because the
+daily engine had no Thinking option; the only Thinking season fit is `template_2026-10-10`'s, and the active instance is
+`template_2026-10-16` (`selected_instance.json`), whose training rows differ, so a new paid season fit is needed.
+
+## P6.2 Interpretation acted on
+
+* **Two displays.** `MODEL = "tabpfn35"`: the current best model alone, unchanged. `MODEL = "tabpfn35_thinking"`: the
+  same local run **plus** one paid TabPFN-3.5-Thinking prediction of the same live rows; never Thinking alone. The
+  existing name is kept (the owner's kernel already uses it); its meaning becomes "both".
+* **Thinking uncalibrated** (the owner, again as on 13 Oct): its chance is the API's probability, with no stage 2 at
+  all, neither the calibration slope nor the serve-speed term. It is symmetrised over the two orientations, as the
+  local fit is and as the 13 Oct comparison did: that is how the model is queried (the decided fit's
+  "symmetrised"), not a calibration.
+* **The same model otherwise:** the active instance's 57 inputs and exactly the local model's training rows for the
+  season (2013 .. Y−1; `train_sha256` checked against the season fit's), the same query rows (each match at the 91
+  grid prices and its own, stored then swapped), the guard's fixed settings (8 estimators, temperature 0.9).
+* **Seed 0 only** (my assumption, to be confirmed): the season fit is one paid fit with `random_state` 0. Sixteen
+  seeds would be sixteen paid fits and sixteen times each day's call.
+* **The ensemble** = the plain average of the two chances without patterns: 0.5 × local stage-2 chance + 0.5 ×
+  Thinking's chance (a linear pool; "basically a 50/50 ensemble"). The five-pattern adjustment, while on, is added to
+  the ensemble's log-odds as it is to the local model's today (logit q += b·z). "Model chance", edge, expected profit,
+  the pick, the lowest odds to take, the break-even prices and a reprice all use the ensemble.
+* **The sheet's columns** (Bet sheet, a Thinking run): the decimal "Odds" column removed; "US odds" kept; "Lowest odds
+  to take" in US odds; three chances without patterns (non-thinking, thinking, ensemble) where one stood. Net +1
+  column, as the owner counted. "Only US odds" is applied everywhere the sheet shows odds (Notes, the Matches and Not
+  predicted sheets, a venue's price), not only in that table. The machine record keeps its decimal columns (EV is
+  computed from them; the record's columns are never removed).
+* **Where it is built:** inside the daily engine, as a `--thinking` step of `run_day` (the engine is the one prediction
+  path: CLAUDE.md "Do not build a second prediction path"; the 11 Oct agreement put Thinking's daily call there). The
+  paid season fit stays in `src/pipeline/thinking*.py`; A4 makes it first when the active instance has none for the
+  season (with `spend_tokens=True`).
+
+**Readings set aside:** Thinking alone in the sheet (the owner: "EITHER … OR (… AND …)"); calibrating Thinking (the
+owner: not to); an average in log-odds (the owner said 50/50; a linear pool is the plain reading); the patterns applied
+to each model before averaging (the owner lists the chances "without patterns" and one model chance after them);
+several Thinking seeds (cost).
+
+## P6.3 Plan, each with its check
+
+1. Engine (`src/eda/daily_prediction/`): `dp_thinking.py` (query from `dp_fit.season_jobs` with the fit's
+   `train_sha256` checked; the one paid POST through the project's guard in the tennis-tabpfn env, slot written before
+   it, never repeated; the answers symmetrised into a grid and an own price); `dp.py run_day --thinking --spend-tokens`
+   and a `thinking` step; `dp_predict` writes the ensemble as `q_a` with the local and Thinking chances beside it, in
+   `predictions.csv` and `curves.parquet`; `reprice` and `grade` read the new curves. A failed Thinking call leaves the
+   local model's predictions, said loudly. Check: tests with a fake backend; the 13 Oct paid answers replayed through
+   the new step offline (no token): its query must equal 13 Oct's rows bit for bit and its chances `comparison.csv`'s.
+2. Layer (`src/pipeline/`): `predict_day` passes `--thinking --spend-tokens`, makes the missing season fit first;
+   the record and the sheet show the three chances and US odds only. Check: the bet-sheet tests, rewritten for US
+   odds, plus a Thinking run's sheet.
+3. Notebook: `SPEND_TOKENS` in Setup, A4 passes it, comments say what each switch does. Check: the notebook test
+   (valid, no outputs, every `tp.` call exists) and a dry run.
+4. A free quote for the active instance's 2026 fit (no token spent: it checks the key works here and gives the cost).
+5. No paid call from this session: the owner runs A4.
+
+**Results seen before these choices:** the 13 Oct comparison (`thinking/template_2026-10-10/season2026/live_2026-10-13/
+comparison.csv`: five matches, Thinking within 0.4–1.9 points of the local model's final chance); the 8 Oct Thinking
+study's headline as quoted in Part 3 (uncalibrated Thinking level with the calibrated local model, 2022–26, 58 inputs).
+No new Thinking number was produced before the plan was fixed.
+
+## P6.4 Chronology (PDT)
+
+| Time | Step | Results seen by then | Output |
+|---|---|---|---|
+| 06:00–06:05 | Read the notebook, `src/pipeline/`, the engine's fit and predict steps, the 13 Oct one-off (`src/eda/thinking_live_compare/`), the guard. Token check (hashes compared, nothing printed): the process's `TABPFN_TOKEN` equals the user-scope one (Part 3's 401 is gone) | the 13 Oct comparison | — |
+| 06:05 | This part opened, the plan fixed (above) | same | — |
+| 06:06–06:14 | Engine: `dp_thinking.py` (new); `dp.py`, `dp_steps.py` (`--thinking`, `--spend-tokens`, the `thinking` step, `thinking-send`, a failed call kept apart), `dp_predict.py` (the ensemble), `reprice`, `grade`; `dp_common.py` (`PY_API`, `THINKING_FITS`). Layer: `predict.py`, `thinking.fit_state`, `config.py`, `diagnostics.py`, `bet_sheet.py` (US odds, the three chances) | none new | code |
+| 06:15 | Offline check on a scratchpad copy of `live_2026-10-19_173201` (`template_2026-10-16`; its stage-2 record current, so nothing shared was written). The local re-run equals the run's own `predictions.csv` bit for bit, every numeric column, `spd_L` included. With made-up Thinking answers: ensemble = plain average, patterns after, the curves likewise. The reprice's ensemble against the average of the two models read off their own curves: 6.8e-7. The sheet's three columns, ensemble = average to the record's 6-decimal rounding. One assertion of mine was too tight for that rounding | made-up Thinking numbers only | scratchpad |
+| 06:17 | The 13 Oct paid answers replayed through the new step (scratchpad copy of `live_2026-10-13_163937`): the query equals 13 Oct's 736 rows bit for bit; the guard's flow with a stand-in answering the saved probabilities made one call, then read back; the read-back chances equal `comparison.csv`'s `thinking_own_price_a` exactly (max abs 0.0) | the 13 Oct numbers, already known | scratchpad |
+| 06:18 | The step's subprocess into the tennis-tabpfn env: saved answers read back (exit 0); no answers and no `--spend-tokens`: refused, nothing written | — | — |
+| 06:20 | **The free quote** (`tp.fit_seasons(model="tabpfn35_thinking", seasons="2026")`) for `template_2026-10-16`: authenticated. The training rows prepared: 62,869, `train_sha256` 3782beec…, not `template_2026-10-10`'s 5caded0a…. Fit quoted 727,604. A 30-match day quoted 136,939, against 126,286 for 5 matches on 13 Oct: the cost barely depends on the matches. 15,423,502 of 20M left this month | quote | `thinking/template_2026-10-16/season2026/` (prepared.json, train.npz, quote) |
+| 06:22–06:30 | Tests. The engine's 6: three first failed on Windows' 260-character path limit under this session's deep scratchpad temp folder (a real run's receipt path is about 200 characters); they passed with pytest's default temp folder. The layer's file: 36 then 37 pass, and 1 fails, `test_linker_on_the_probe`, the failure Part 5 recorded (data drift: "final is played" where "already played" was expected) | — | — |
+| 06:30–06:33 | Notebook: the intro, Setup (`SPEND_TOKENS`), A4, A5, C4, C9. Dry runs on the latest real matchups file (35 matches). The local setting's command is unchanged. Thinking without `spend_tokens` is refused. With it: template check OK, then the season fit planned (prepare, fit), then `run_day … --thinking --spend-tokens` | — | notebook |
+| 06:33–06:39 | Decision record and its index row, both READMEs, the engine's log pointer, CLAUDE.md. Then all tests again on the final code (94 pass, the same 1 known failure). Both offline checks again. `read` reordered (the record before `thinking.npz`); its 6 tests pass. The written workbook opened: US odds signed (`+0;-0;0`), chances in %, the Run tab's Thinking line | — | docs |
+
+## P6.5 Judgment calls (results seen when each was made: none new, unless said)
+
+1. **In the engine, not the layer.** The engine is the one prediction path, and reprice and grade then see both models. The 11 Oct agreement put Thinking's daily call there. Ownership: the owner asked for it.
+2. **A failed Thinking call gives the local model's predictions, said loudly, not a failed run.** The local model is the decided one, and a run costs 10–20 minutes. A4 prints the failure in capitals, and the sheet's first run note says it. The alternative, failing the run, was set aside: it leaves no sheet.
+3. **A4 makes a missing season fit itself** (with `spend_tokens=True`, after the free checks, before the run), and prints it as PAID. Without the fit no Thinking run is possible; it is made once per instance and season. A departure from "C9 by hand"; C9 stays for a quote or a fit ahead of a bet day.
+4. **Thinking's call comes after the local fit.** No token is spent on a run whose local fit failed.
+5. **`SPEND_TOKENS` is a Setup switch, False by default**, and `MODEL`'s default stays `"tabpfn35"`. The flag is the existing spend guard made visible.
+6. **US odds everywhere the sheet shows a price**: the table, Notes, Matches, Not predicted, a venue's price, the stake rule's wording. The record keeps decimal odds: expected profit is computed from them, and its columns are never removed.
+7. **Defaults for the owner to confirm**, in the decision record: seed 0, the linear pool, the patterns after the average. The latter two are measured there: 0.17 points apart near 50%, 0.71 at 10/20%; 0.05.
+8. **The permanent test does not assert the 19 Oct file bit for bit.** A later correction of the shared speed panel may legitimately move `spd_L`. That equality is recorded here as today's one-time check; the test checks the local run's schema and that the ensemble reproduces the same code's local numbers.
+
+## P6.6 Claims and their evidence
+
+| Claim | Evidence | Status |
+|---|---|---|
+| A run without Thinking is unchanged | the 19 Oct copy re-predicted bit for bit (06:15, again 06:36); the schema test | observed |
+| Thinking predicts exactly the local model's rows, trained on exactly its rows | `build_query` = 13 Oct rows bit for bit; `train_sha256` checked against the fit (a mismatch refused: test) | observed |
+| The read-back equals the paid answers' symmetrised chances | 13 Oct replay, max abs 0.0 | observed |
+| The prediction used is the plain average, the patterns after it | `test_the_prediction_used_is_the_average_of_the_two_models` (1e-15, 1e-12) | observed, on made-up Thinking numbers |
+| The paid call is guarded (refused without the flag, slot before the call, never resent, an unknown outcome refused) | `test_the_paid_call_is_guarded`; the API-env subprocess checks | observed with a stand-in backend |
+| The key works from this environment | the 06:20 quote | observed |
+| A paid run end to end | not made: the owner runs A4 | **not observed** |
+
+## P6.7 Weak points; where a flaw would hide
+
+* **No paid call was made here.** The API's answer to a run's real query is not observed (35 matches: 6,440 rows; 13 Oct's 920 took 28 s), nor its time.
+* **The ensemble is unmeasured on past seasons**, and the pattern adjustment's size was measured on the local model alone.
+* **Seed 0 only:** Thinking's seed noise is unknown.
+* **The fallback** keeps a sheet when Thinking fails. A reader who misses the warning would bet on the local model alone, which is the decided model, not a wrong one.
+* **Paths:** a receipt's path is about 200 characters. Moving the repository deeper would cross Windows' 260 limit, as the scratchpad tests did.
+* **Where a flaw would hide:**
+  * the orientation of Thinking's answers (checked only against 13 Oct, where both sides used the same code);
+  * the reprice's independent interpolation of each curve (6.8e-7 apart here).
+
+## P6.8 What a re-design would do
+
+* Measure the ensemble first: paid walk-forward Thinking fits of 2022–2025. Or, for free, read the 8 Oct study's saved Thinking forecasts (58 inputs) beside its local twin.
+* Run the Thinking call beside the local fit, not after it: it saves about a minute, but spends tokens on a run whose local fit may fail.
+
+## P6.9 Reviewer checklist
+
+* [ ] `dp_thinking.send`: the slot is written before the POST, never resent, refused without `--spend-tokens`.
+* [ ] `dp_predict.run` with `thinking=False` takes exactly the old path.
+* [ ] The sheet shows no decimal odds: the table, Notes, Matches, Not predicted, the header.
+* [ ] `predict_day`: every free check before the paid fit, the fit before the run.
+* [ ] The decision record's defaults stated as defaults.
+
+## P6.10 Reproduction
+
+```
+./python.sh -m pytest test/daily_prediction/test_thinking.py -q          # 6 tests, offline (the 13 Oct replay, the 19 Oct copy)
+./python.sh -m pytest test/master_pipeline -q                            # the sheet, the switch's dry runs
+# the dry run of a Thinking day, nothing paid:
+./python.sh -c "import src.pipeline as tp; tp.predict_day('<matchups csv>', model='tabpfn35_thinking', spend_tokens=True, dry_run=True)"
+```
+
+## P6.11 The owner's answers, the log-odds average, and "why train through 2025?" (08:35–08:45)
+
+**The owner (verbatim):**
+> "one seed for thinking, averaging in log odds not a plain average, pattern adjusted after averaging is correct.
+> What's this !? [the A4 output: the season fit's `prepare` JSON, `"train_through": 2025`] Train through 2025?? wheres
+> all the 2026 matches and why arent they part of the training?"
+
+**State found at 08:35.**
+* The owner's A4 had made the season fit of `template_2026-10-16` at 08:16–08:23: fitted train set `01a159e2…`, 181,901 tokens, the same as 13 Oct's bill.
+* Its run `live_2026-10-20_081558` (23 matches, `--thinking --spend-tokens`) was in its tables step. Its predict step runs in the repository's process and imports `dp_predict` when it starts, so a change made before then is the one the run uses.
+
+**The change (08:35–08:38), before that step.**
+* `dp_predict.log_odds_mean`: logit q = ½ logit(local stage 2) + ½ logit(Thinking), then the patterns.
+* Compiled in both environments. The engine's 6 tests pass, rewritten for the log-odds average:
+  * a check that it is not the plain average;
+  * the reprice's ensemble now equal to the log-odds average of the two re-read curves to 1e-12, since interpolation in log-odds is linear.
+* The layer's 14 sheet and Thinking tests pass.
+* The wording "plain average" was replaced in the sheet's header and glossary, the code's docstrings and help text, the decision record (its defaults table now records the three answers), the index row, CLAUDE.md and both READMEs.
+* **Not edited:** the notebook. It was open in VS Code with A4 running, and a change on disk could collide with the open copy at its next save. Its intro still says "the plain 50/50 average"; to fix once the owner is done with it.
+
+**The question.**
+* `train_through: 2025` is the current best model's annual protocol: season Y trained on 2013 .. Y − 1 (CLAUDE.md, "Fit"). The local model's 2026 fits are trained the same way, and Thinking mirrors them, as the owner specified.
+* The 4,357 frame matches of 2026 (`season_matches`) are predicted, not learned from. Their results still reach every prediction through the inputs, which each run recomputes on the day's tables.
+* **The owner had decided otherwise on 9 Oct:** "Live fits grow within the season" (`2026-10-08-current-best-model.md`, the adoption-by-change-class point 7). That is 2013 .. Y − 1 plus every season-Y match whose result counts by the run's cut-off; a guard before first use (a replay showing stage 2's calibration still fits such fits' forecasts); backtests and the frozen reference keep the annual protocol.
+* It was never built (the daily prediction README, Limits).
+* **What it would be worth:** about 0.001–0.01 mLL by late season. That is the adoption framework's learning curve through the training-window study's random-draw arms (`resolution_check.out`): an inference from three noisy points, robust in order of magnitude. The training-window study also found recent rows worth no more than old ones.
+
+**Recommendation put to the owner:** build the in-season fit at the cadence of instance rebuilds, guard first.
+* Each rebuild already makes new local fits and a new paid Thinking fit, so adding the season's played matches costs about 7% more rows.
+* Daily refits would cost about 180k tokens a day for Thinking and minutes of GPU a day, for a gain no comparison can see.
+
+## P6.12 The first paid Thinking run, checked (08:47–08:52)
+
+`live_2026-10-20_081558` (the owner's A4) ended at 08:47:33, exit 0, 1,447 s in all:
+
+| Step | Seconds |
+|---|---|
+| tables | 795 |
+| states | 183 |
+| fit | 160 |
+| patterns | 99 |
+| thinking | 48 |
+| predict | 0.6 |
+
+Read from its files, nothing written:
+* **The ensemble.** All 23 matches `ensemble` "on", the patterns on.
+  * `q_a_patterns_off` equals the log-odds average of `q_a_local_patterns_off` and `q_a_thinking` to 6e-17; the plain average would have differed by 0.014 points at most here.
+  * `q_a` is that average shifted by `pattern_shift` (1e-16).
+* **The paid call.** 4,232 rows (23 × 92 × 2) on fit `01a159e2…`, 33,475 tokens on the daily counter.
+  * Served: package 9.0.0, weights `tabpfn-v3.5-20260909.safetensors`, execution mode "thinking".
+* **The two models.** Thinking minus the local model, side A: mean +0.31 points, sd 0.92, largest 2.0. The same player favoured in 22 of 23 matches. One day: a description, not a measurement.
+* **The sheet, built in memory** (`write=False`): model `tabpfn35_thinking`, the designed columns.
+  * All 23 matches BLOCKED at 08:50: 20 for a quote 37 minutes old (Pinnacle's pull of 08:11; the season fit and the run took 36 minutes); 2 started; 1 by the gate (inputs incomplete).
+  * The decided 30-minute rule: A6's reprice pulls Pinnacle again and reads both models' stored curves at no cost.
+
+# Part 7 (20 Oct 2026, evening): Thinking takes stage 2's serve-speed term, never the calibration
+
+Kept by Claude Opus 5.5 (`claude-opus-5-5`), Claude Code in VS Code, session `dd0f8ec7-2146-47b2-9c8c-75b9d421eea0`
+(a session planning the in-season retrain; this part is the one code change it made).
+
+## P7.1 The owner's words, and the reading acted on
+
+> "Tabpfn3.5 thinking should still move with the serve speed numbers wtf? just not the calibration."
+
+Said on reading the session's remark that, with Thinking on, stage 2 shapes only the local model's half of the average.
+* **Read as:** logit(Thinking's chance) = logit(the API's own) + b̃_Y · `spd_L`, the local model's b̃ for the match's
+  season and speed feed, the same `spd_L`, 0 for women, slope 1. The ensemble then carries ½ s·η + ½ logit(API) + b̃·`spd_L`.
+* **Why this reading:** it is the 8 Oct study's "Thinking + offset" and this README's own recommendation of 11–13 Oct
+  ("η + the local b̃·spd_L, no slope"); Part 6 had recorded "no serve-speed term" from "we use the probabilities given
+  to us from the API", which the owner now corrects.
+* **Set aside:** a speed coefficient fitted on Thinking's own forecasts (needs a paid fit per past season); re-issuing
+  the morning's runs (their records stand as made).
+
+## P7.2 What changed
+
+| Where | Change |
+|---|---|
+| `dp_predict.py` | `speed_only(coef)`: the coefficient sets with s_atp = s_wta = 1; Thinking's own and grid chances go through `apply_stage2` with it before `log_odds_mean`. `predictions.csv`: `q_a_thinking` is now Thinking with the term, `q_a_thinking_api` the API's own; the curves carry both; the provenance rule text and a `thinking_stage2` line |
+| `dp_steps.reprice` | carries `q_a_thinking_api` too |
+| `dp_thinking.py`, `src/pipeline/thinking.py`, `diagnostics.py`, `bet_sheet.py` (How to read) | descriptions |
+| `test/daily_prediction/test_thinking.py` | the ensemble test computes Thinking's used chance itself from the run's recorded b̃ by feed and checks: the API's own kept, the men moved by b̃·`spd_L`, the women unmoved, the ensemble the log-odds average of the local chance and that one, the reprice consistent |
+| Records | the decision's amendment, its index row, CLAUDE.md's rule line, this README's "What Thinking is", the daily prediction README, the notebook's introduction (also "the plain 50/50 average" corrected to the decided log-odds average) |
+
+## P7.3 Checks
+
+* `test/daily_prediction/test_thinking.py`: 6 of 6 pass, the ensemble test run, not skipped (its 19 Oct run: 22 men, all
+  with `spd_L` ≠ 0).
+* `test/master_pipeline`: 69 pass, 1 fails, `test_linker_on_the_probe`, the data-drift failure Parts 5–6 recorded; none
+  of its code was touched.
+* The notebook's introduction cell equals its old text exactly once the two phrases are put back (SHA-256 prefix
+  `35b099a1cae49a15` both ways).
+* No prediction run was in progress (process list); the other two tennis sessions were idle.
+
+## P7.4 What it moves (read from files, nothing written to the runs)
+
+* `live_2026-10-20_081558` and `live_2026-10-20_090046` (b̃ 0.03337, daily feed): the amended rule would move the men's
+  ensemble chances by 0.29–0.30 points on average, 0.6 at most.
+* The 09:14 sheet's decisions, recomputed as the sheet makes them (it reproduced all 19 BET/PASS rows): one changes,
+  Darderi–Duckworth (starting 05:00 UTC on 21 Oct), from PASS to BET on Duckworth at +102: his chance 49.5% → 50.1%,
+  expected profit −0.0002 → +0.011 a unit at the 09:14 price. The other 18 stand.
+* An A6 reprice of the morning's runs reads their stored curves, so it keeps the morning's rule; a new A4 run uses the
+  amended one.
+
+## P7.5 Weak points
+
+* b̃ was fitted jointly with the local model's slope on the local model's forecasts. Applied to Thinking's log-odds it
+  assumes the speed effect beyond Thinking's forecast is the same; `spd_L` is in neither model's inputs, so the
+  assumption is mild, but it is not measured.
+* The ensemble with the term, like the ensemble without it, is not measured on past seasons and earns no edge credit.
+
+## P7.6 Addendum: the engine's full test suite (finished 23:31 UTC)
+
+* **First attempt, no result:** run with a 28-minute limit and its output piped through `tail`; the limit stopped it
+  before anything printed (exit 143). Re-run with every result logged, no limit: 1 h 28 min.
+* **37 passed, 3 failed.** The failures are the three that compare a replay of 13 Jul 2026 with the **10 Oct build**,
+  the suite's default (its default tree `tnr_lyr_new` and `dp_common`'s default instance; the price-grid test names
+  `template_2026-10-10/fits` itself):
+  * `test_replay_reproduces_the_57_inputs`: 14 of 36 non-IOS inputs bitwise (36 asked); e.g. `ratings_iid` up to 0.57,
+    `points_52w` up to 0.26;
+  * `test_price_grid_matches_direct_prediction`: the replay's fit against that build's stored fits, up to 0.0081 (0.001
+    asked); its three self-consistency asserts passed;
+  * `test_changed_past_row_recomputes_through_the_steps`: Elo and forms recompute beside the IOS solves.
+* **Read as:** the effect of repairs decided after that build (the Roland Garros box scores applied 13 Oct, the
+  Tenerife dates, Tennis My Life's corrections; daily prediction process log Part 5: "Repairs decided after a build are
+  not undone"). None of the three reads this part's code: they test the tables, states and fit steps, while this part
+  changed only the predict step's Thinking branch and the reprice's column list. The fixture's own `run_day`, predict
+  step included, finished with exit 0.
+* **Not done:** pointing the suite at the build in use (`template_2026-10-16`, whose dump view the replay registry
+  holds). The tests then guard an instance nobody predicts with; put to the owner as a recommendation.
+
+---
+
+# Part 8 (22 Oct 2026): tour-level qualifying into A1–A5
+
+Kept by Claude Opus 5.5 (`claude-opus-5-5`), Claude Code in VS Code, session `40624dcb-dd11-4b33-9758-215a45a8677e`
+(the session that ran the qualifying study, `docs/studies/qualifying_targets/`; this part continues after a context
+summary, and its log was re-read first). Local time PDT (UTC−7). Opened 11:15, before any code was changed; the
+reading of the code (about an hour) came first and is summarised in P8.3.
+
+## P8.1 The request (verbatim)
+
+> We've done enough tests to conclude we should be betting the qualifying rounds of 250+ tournaments.
+> Build the acceptance of this into A1-A5 so we can predict on them using the live model
+
+The conversation just before: the owner asked what the study's "refitted" version was; the answer was that both
+versions are calibrated, that A1–A5 uses only the live model's calibration (learned on main draws), that the
+qualifying-calibrated version existed only in the study's scoring code, and that A1–A5 also applies the five-pattern
+adjustment, which neither test version included.
+
+## P8.2 Interpretation acted on
+
+* **"Qualifying rounds of 250+ tournaments"** = the study's population: the qualifying of the ATP and WTA 250s, 500s and
+  1000s and of the four Slams (Stage 0's levels T250, T500, T1000 and GS with `qualifying`; Stage 4's groups TQ and
+  GSQ), both tours. Challenger, WTA 125 and ITF qualifying stay out.
+* **"The live model"** = the model A1–A5 runs today, unchanged: the active instance (training rows main-draw only), its
+  16 seeds, stage 2 with the slope and speed coefficient fitted on main draws. Not the study's qualifying-calibrated
+  variant, not the pooled arm M1, no retrain. A qualifying match's inputs are built as the study built them: level
+  code TQ 6 / GSQ 7, round order Q1 1 / Q2 2 / Q3 3, best of 3 (5 where Stage 0 records 5 for a men's Slam
+  qualifying match), the indoor rule.
+* **The parts of the live model the study did not test on qualifying:** the five-pattern adjustment and the Thinking
+  ensemble. "Using the live model" is read as: they apply to qualifying as they apply to the main draw (the owner was
+  told in the previous answer that neither was tested). Reported, with the option of turning the patterns off for
+  qualifying, not decided by me.
+* **"Build the acceptance into A1–A5"**: the bet-day cells predict and bet these matches: the linker lets them through
+  and finds their event and round (round 1 included), the engine builds their inputs as the study did, the gate and the
+  data check say what is missing, the bet sheet treats them as bettable. Recorded as a decision.
+
+**Readings set aside:** a small-stake trial or a stake scale for qualifying (recommended on 22 Oct, not asked for now;
+the sheet's stake rule applies as for the main draw); betting only the top 40% of edges (asked about, not asked for);
+the qualifying-calibrated stage 2.
+
+## P8.3 What the code showed (11:15, before any change)
+
+Seven things keep a qualifying match out today, or would make its inputs differ from the study's:
+1. `src/pipeline/live.py` `todays_matches`: `qualifying` → left out.
+2. The event: the linker, `live_rows.upcoming_rows` and `run.live_from_matchups` need the event's own Tennis My Life
+   rows (and their Stage 0 tournament id). A round-1 qualifying match has none: neither qualifying nor main-draw rows
+   exist yet. **Women's qualifying never has any:** Tennis My Life has carried no women's qualifying since June 2026;
+   the lower-level feed brings it weekly (Wednesdays), so on the day even round 2's earlier results are missing.
+3. The round: Pinnacle's league says only "Qualifiers" (16–18 Oct pulls: Almaty, Brussels, Lyon, Ningbo, Osaka).
+   Tennis My Life's own dates of 2026 qualifying rows are not the day played (Almaty and Brussels round 1 was played
+   17 Oct by Pinnacle's start times, dated 18 Oct) and its file lags the day by hours, so its rows alone cannot tell a
+   round 2 whose round 1 is not yet published from a round 1.
+4. `dp_context.inputs`: the level code maps only GS..T250 (TQ/GSQ give NaN, the study's 6/7 expected); the men's GSQ
+   best-of-5 rule is absent; `main` marks the frame population.
+5. `inject.odds`: a live match needs a Stage 1 row (tennis-data's levels); qualifying has none, so the tables step
+   would stop. The engine's odds input does not read it (`dp_state.inputs` takes the run's prices).
+6. The gate (`prediction_run/gate.py`) and the data check (`readiness.py`): no rule for a qualifying match's own
+   earlier rounds; the data check's "same event" excludes qualifying rows.
+7. `diagnostics.py`: "not a main-tour match" blocks a row whose frame row is not `main`; its "not predicted" list drops
+   every qualifying league.
+
+The stage-2 step (`dp_predict`) has no population filter: qualifying gets the live coefficients per tour.
+
+## P8.4 Plan, each with its check
+
+1. **The decision**, `docs/decisions/2026-10-22-qualifying-bets.md`, and CLAUDE.md's line. Check: the owner's words
+   verbatim; nothing beyond them claimed as decided.
+2. **Inputs** (`dp_context`): TQ 6 / GSQ 7, the men's GSQ best-of-5 rule, a `bettable` flag (main draw or tour-level
+   qualifying). Check: `dp.py tree-check --full` on the instance's build tree for past qualifying matches: the state
+   path's 57 inputs against the study's frame (`data/studies/qualifying_targets/frame.parquet`), bit for bit.
+3. **Live rows** (`live_rows`, `run.live_from_matchups`, `inject.odds`): an event with no Tennis My Life rows takes its
+   columns from the matchups CSV; a qualifying live match is priced through the run's prices only. Check: a replay of
+   past qualifying matches as live rows (training dating) against the study's frame; a live-dated replay as a smoke
+   test of the timeline steps.
+4. **Gate and data check**: a qualifying match in round k ≥ 2 needs each player's round k−1 match at the event in
+   Stage 0, else it is blocked (results missing, not only box scores). Check: unit tests; the replay's gate.
+5. **The linker**: tour-level qualifying passes; the event from Tennis My Life's rows of the edition, else built from
+   the previous edition; the round from a same-day listing, cross-checked with Tennis My Life. Check: offline tests on
+   the saved 16–18 Oct pulls; a dry run of A2–A3 on today's listing.
+6. **Bet sheet and diagnostics**: a qualifying row is bettable; "Not predicted" lists tour-level qualifying. Check: the
+   master pipeline's tests.
+7. **Docs**: the master pipeline README, the study's README status, CLAUDE.md.
+
+## P8.5 Chronology (PDT)
+
+| Time | What |
+|---|---|
+| 10:10–11:15 | Read the bet-day path end to end (P8.3); Pinnacle's qualifying leagues listed from every saved pull; Tennis My Life's 2026 qualifying file and its download history; the tree's Stage 0 for qualifying levels, ids, Slam best-of and the women's 2026 sources |
+| 11:15 | This part opened |
+| 11:15 | (Correction to the row above: the request's arrival time was not recorded; "10:10" is an estimate.) |
+| 11:16 | `docs/decisions/2026-10-22-qualifying-bets.md` written (the owner's words, scope, evidence, what is not decided) |
+| 11:17 | `dp_context.inputs`: `QUALIFYING_LEVELS` TQ 6 / GSQ 7 in the level code; best of 5 where Stage 0 records 5 for a men's GSQ match; `qualifying` and `bettable` beside `main` in the info |
+| 11:18–11:24 | **Check 1** (`dp.py tree-check`, DP_INSTANCE `template_2026-10-21b`, the build tree `C:/Users/zerom/tnr_tpl1021`, the checkpoint of 23 Sep made on that tree): the study's qualifying rows from 23 Sep (a scratch copy of `frame.parquet` with `p_mkt` = the study's close, else 0.5, and `in_odds_logit` its logit): **200 matches, 57 of 57 inputs bit for bit, largest difference 0.0** (`data/studies/daily_prediction/checks/tree_check_2026-09-23_qualifying.json`). Both tours; the women's are the feed's rows (Ningbo, Osaka, Wuhan under their `W-WTAID` ids), Shanghai's split ids included. All TQ: no GSQ or best-of-5 row |
+| 11:25–11:31 | **Check 2**, the same from the checkpoint of 22 Jun on rows of 22 Jun – 31 Aug: **756 matches, 57 of 57 bit for bit, 0.0** (`tree_check_2026-06-22_qualifying.json`): Wimbledon's and the US Open's qualifying of both tours (GSQ), Wimbledon's men's Q3 at best of 5, and the summer's tour-level qualifying. Without the edit the level input of every one of them would have been missing (TQ and GSQ are not in `T.CODES`), so the check can fail |
+| 11:20–11:40 | Code written, before any replay result was seen: `live_rows` (an event TML holds no row of takes `event_*` columns from the CSV, `csv_event`; a player without a TML row falls back to their latest Stage 0 row with a blank id, `stage0_players`), `run.live_from_matchups` (a built event's id predicted as Stage 0 normalises TML's), `inject.odds` (a qualifying live match has no Stage 1 row: skipped and counted; any other missing row still stops), `dp_matchups.replay_select`/`replay` (a Q round: the first day's matches at the week's T1000/T500/T250, later qualifying rounds and the events' main draws left out; the day from the instance timeline's `obs`, the venue as a live run finds it), `--replay-frame` (`dp.py`, `dp_steps.replay_frame`: a frame holding rows the instance frame lacks), the gate's previous-round rule (`gate.previous_round_missing`, `PREVIOUS_ROUND_DAYS` 4) and the data check's (`readiness.py`) |
+| 11:23–11:40 | Peers asked about file overlap (another session had edited `dp_steps.py` at 11:23 PDT, before my edits to it): tennis-predictions-b5 (session f3930e64) made the 22 Oct source-reconciliation repairs (`dp_steps.step_worktree`, `dp_worktree.setup(fixes=)`, `dp_predict`'s speed-column constants, `train.retrain`; outside my list `stage0_build.py`, `corrections.py`, `history.py`, …), finished; it is running a replay in `C:/Users/zerom/tnr_daily_srfix`. -f6 and -90 edit none of these files. Since 18:15 UTC Stage 0 builds apply 201 more row corrections and `event_corrections.csv`; replays read the instance's build-tree copy |
+| 11:27–11:37 | **Replay Q1** (`replay_2026-10-19_Q1_qualifying`, DP_WORK_TREE `C:/Users/zerom/tnr_daily_qual`, checkpoint 23 Sep, `--no-fit`, training dating, frame `data/studies/master_pipeline/qualifying_replay/replay_frame.parquet` = the study's 2026 rows with its close as the price): 16 targets (Almaty 8, Brussels 8, the Q1 of 17 Oct); left out as later: their Q2, Lyon's Q1 of 18 Oct and Q2, both main draws. Every step ran: Stage 0 with the live rows (the inject check passed: the ids predicted), `live_odds` skipping 16 qualifying matches, states, **the patterns step (66 s; no failure on qualifying rows)** |
+| 11:38 | **Replay Q1 compared: 38 of 57 inputs bit for bit; 0 of 16 matches equal on every input.** Equal: every rating input (Elo, offset Elo, `ratings_iid`, `elo_games`), the 21 surface-IOS inputs, the context. Different: `sets_14d` (12 of 16 rows, up to 2.39), `points_52w` (12 of 16, up to 0.14), `adjperf_tpw_2w` (16, up to 0.022), 13 `form_*` and 3 `formdef_*` (16, up to 0.035). All read a time window by the match's tournament date. **Cause:** with the main draws left out, Stage 0 dates these events by their earliest row (Tennis My Life's Q1 date, 18 Oct), while the instance dated their qualifying with the main draw's first date (20 Oct): its rule C05, "one date per TML event: the main draw's first date". A live qualifying match always meets this, since its main draw is not played yet |
+| 11:40 | Training's convention measured on the tree's 2025–26 qualifying (every T250–GS edition, both tours, every source): the date is the main draw's start, a Monday for most, the Wednesday or Sunday where the main draw starts then, the Slams' main-draw Sunday or Monday (6–7 days after Q1). **Fix chosen:** the linker estimates the main draw's start (`event_main_date`) and Stage 0 uses it for an event that has no main-draw row yet; nothing else changes. Peer b5 told before `stage0_build.py` is edited |
+| 11:42 | `stage0_build.py` edited (peer b5 agreed; its own edits of today are elsewhere in the file): `add_live_rows` carries an optional `event_main_date` as `live_main_date`; rule C05's `main_day` takes it where an event has no main-draw row (`main_day.combine_first(hint)`). Without the column nothing changes. `live_rows.upcoming_rows` passes the CSV's `event_main_date` on; the qualifying replay gives each live row the instance's own date of its event (the exact test of the code path; a live run's date is the linker's estimate) |
+| 11:43 | **Replay Q1 rerun** started (`replay_2026-10-19_Q1_qualifying_maindate`); its Stage 0 dates both events' live rows 2026-10-20, the instance's date (read from the work tree) |
+| 11:44–11:47 | `qualifying.main_draw_start` written; **date check** (`src/eda/master_pipeline/qualifying_dates.py`): on the tree's 5,145 tour-level and Slam qualifying matches of 2025–26 (207 editions, both tours), the estimate from each match's observed day and its previous edition's date is exact for 79.8%, within a day for 95.0%, at most 3 days off. The misses were Friday matches of Sunday starts (Doha, Dubai, Brisbane); rule changed (Friday to Sunday → the next week): **exact 80.6%, within a day 96.7%, within 2 days 100%** (`main_date_check.json`). The 2-day misses: the 2025 Masters, whose 2024 editions Stage 0 dates a Monday and 2025's a Wednesday (2026's are exact), and Shanghai 2026, whose qualifying TML files apart (dated 5 Oct, estimate 7 Oct). Seen before any forecast was compared |
+| 11:45–11:50 | `test/master_pipeline/test_qualifying.py` (8 tests, offline). The linker on Pinnacle's pull of 16 Oct 22:58 UTC with Tennis My Life cut to 16 Oct: **first 11 of 33 linked**, the 22 women's left out because Tennis My Life's women's rows carry no indoor flag (the built event required it). The women's indoor input comes from the WTA's calendar (`indoor_fill`), so the flag is now optional (`built_event`, `csv_event`): **32 of 33 linked**, every one Q1 (the stand-in TennisLive has no result yet), events built from 2025-9410, 2025-7485, 2025-2092, 2025-405, main-draw start 19 Oct. The one left out: Pinnacle's "Joel Josef Schwaerzler" is Tennis My Life's "Joel Schwaerzler"; the linker's documented fix is an alias in `config/player_aliases.csv`, not created (config/README: no operational configuration is approved). 8 of 8 pass |
+| 11:50–11:52 | **Built-row check** (`src/eda/master_pipeline/qualifying_rows_check.py`): every men's 2026 Q1 in Tennis My Life's qualifying file (778 matches, 54 editions), built as on its morning (TML cut to before the edition) against the row TML published: previous edition found 94.9% (the misses are TML's own 2026 spellings, "Buenoa Aires", "Rio de Jainero", and new or moved events: Estoril, Lyon, Marrakesh; Pinnacle's spellings would match 2025's); where found, indoor 100%, level class (Slam or tour qualifying) 100%, best of 100%, surface 98.9% (Santiago), draw size 97.3%; players found 97.8%, hand/height/country ≥ 99.3%, age within 0.37 days for 90% (at most 8.4 days); rank 13% (not an input) |
+| 11:53 | **Replay Q1 rerun compared: 57 of 57 inputs bit for bit, 16 of 16 matches equal on every input, largest difference 0.0** (`replay_2026-10-19_Q1_qualifying_maindate/replay_compare.json`). With the main-draw date given, the live path for a qualifying round 1 reproduces the training frame exactly; the patterns step ran (z for 16 of 16; two members not built for live matches, as on the main draw). What a live run adds beyond this exact path: the date estimate (11:44) and a round 1's built event and player columns (11:50) |
+| 11:53 | `--replay-main-date` (`dp.py`, `dp_steps.step_matchups`, `dp_matchups.replay`): a qualifying replay's live rows name a given main-draw start instead of the instance's (edited `dp_matchups` first, so a work tree copied between the two edits stays consistent; the round-2 replay's copy has both) |
+| 11:53– | **Replay Q2** started (`replay_2026-10-19_Q2_qualifying`, the instance's dates): the round-2 path, its event taken from Tennis My Life's Q1 rows, the gate's previous-round rule |
+| 11:54–12:04 | **Replay Q2** (`replay_2026-10-19_Q2_qualifying`): 8 targets (Almaty 4, Brussels 4, the Q2 of 18 Oct), their events taken from Tennis My Life's Q1 rows (dated 18 Oct there, given the instance's 20 Oct by the hint). **57 of 57 inputs bit for bit, 8 of 8 matches equal on every input.** The gate: all 8 "may be bet", 5–10 earlier matches checked each, none missing (the previous-round rule found every player's Q1) |
+| 11:56–12:02 | The master pipeline suite (`test/master_pipeline`, 78 tests with the 8 new): **76 passed, 2 failed, neither from this work.** (1) `test_every_issued_command_parses`: `src/eda/current_best_model/odds_input.py --help` crashes (`TypeError: %o format`): its new help text `{TE_MIN_SHARE:.0%} of` renders "75% of", which argparse reads as a format (the file was edited at 01:32 today by another session; `--apply` runs are unaffected). Not edited here; reported. (2) `test_linker_on_the_probe`: the 9 Oct probe read with today's Tennis My Life, which now holds Shanghai's final (18 Oct), so every listed Shanghai round reads "a new event of the same name" (`_event_current`) instead of "already played". Fixed in the test only: Tennis My Life cut to 14 Oct, as it stood when the test was written; it passes |
+| 12:04– | **Replay Q1 with the estimate** started (`replay_2026-10-19_Q1_qualifying_estimate`, `--replay-main-date 2026-10-19`: the linker's estimate for both events, the instance's being 20 Oct, Tennis My Life's own date of their main draw's first day) |
+| 12:05 | No tour-level qualifying in today's Pinnacle pulls (the latest on disk, 04:18 UTC: ITF, Challengers, Lyon/Almaty/Brussels/Ningbo main draws). Basel's and Vienna's qualifying starts Saturday 24 Oct. **A live A1–A5 run on a real qualifying match is not possible today** |
+| 12:06 | **TennisLive on real events** (`qualifying.TennisLive`, Almaty and Ningbo 2026): both found, their qualifying read (Q1 8 + Q2 4; Q1 12 + Q2 6), played pairs "already played". **But no request was made:** the adapter's `fetch_section` refetches only an answer that lists an unfinished match, and the results section lists finished matches only, so a morning answer reads as final and is never asked again. That would misread a later round. Fixed: `tennislive_events.fetch_section(force=)` and `fetch_day(refresh=)`, both defaulting to the old behaviour (the daily task and the feed are unchanged); the linker asks each event's section afresh once per linking and today's or later date pages afresh. Rerun: 3 requests (a session, two sections), status 200, both answers current (today's quarter-finals listed) |

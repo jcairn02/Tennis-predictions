@@ -1,0 +1,60 @@
+{
+ "what": "stage 2's history column (infosys_atp_backfill/columns.py's build_on) on the repaired speed history",
+ "decision": "docs/decisions/2026-10-22-source-reconciliation-repairs.md",
+ "built_by": "src/eda/source_reconciliation/apply_speed.py --build",
+ "generated_at": "2026-10-22T18:16:24+00:00",
+ "history": "data/studies/serve_speed_tabpfn/live/speed_panel_repaired.parquet",
+ "history_sha256": "fa6d8e47330500c7b04d65c555cb210568057750635dfc576f55dc7b473b777a",
+ "replaces": "data/studies/infosys_atp_backfill/speed_columns_augmented.parquet",
+ "replaces_sha256": "2add9204452900fbdc6abf9faa7097e4f836cafe669b6377137cda1c786d6b4b",
+ "column_sha256": "34478f6368f64d857899b0a2633d7eded65bdb77ad523c1ef0e862f87dfb0416",
+ "rows": 63737,
+ "moved_against_the_decided_column": {
+  "spd_L_A": {
+   "moved_0_25": 1230,
+   "moved_0_5": 564,
+   "moved_1": 143,
+   "max_abs": 2.9226201997052876
+  },
+  "spd_L_B": {
+   "moved_0_25": 988,
+   "moved_0_5": 385,
+   "moved_1": 62,
+   "max_abs": 2.631850471040174
+  },
+  "spd_L_D": {
+   "moved_0_25": 1116,
+   "moved_0_5": 488,
+   "moved_1": 113,
+   "max_abs": 2.6318533326686437
+  },
+  "spd_L_E": {
+   "moved_0_25": 971,
+   "moved_0_5": 374,
+   "moved_1": 61,
+   "max_abs": 2.631850471040174
+  }
+ },
+ "equals_the_study_copy_on": [
+  "spd_T_A",
+  "spd_L_A",
+  "late_a_A",
+  "late_b_A",
+  "mode_A",
+  "spd_T_B",
+  "spd_L_B",
+  "late_a_B",
+  "late_b_B",
+  "mode_B",
+  "spd_T_D",
+  "spd_L_D",
+  "late_a_D",
+  "late_b_D",
+  "mode_D",
+  "spd_T_E",
+  "spd_L_E",
+  "late_a_E",
+  "late_b_E",
+  "mode_E"
+ ]
+}

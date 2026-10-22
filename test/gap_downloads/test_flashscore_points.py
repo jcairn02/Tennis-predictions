@@ -164,3 +164,28 @@ def test_a_run_links_fetches_parses_and_stages(folders, monkeypatch):
     before = client.requests
     F.run(parser.parse_args([]))   # a rerun asks for nothing: the record and the absence are both on disk
     assert client.requests == before
+
+
+def test_staging_describes_the_feeds_of_every_extract(folders):
+    # P13's ITF extract, and P6's (flashscore_p6.py): men's ATP and Challenger records, graded by Flashscore's category
+    itf = {"fs_id": "AAA", "fs_date": "20250318", "tour": "M", "grade": "M15", "fs_tournament": "M15 Monastir",
+           "fs_home": "Paul T.", "fs_away": "Opelka R.", "fs_score": "2-1", "fs_status": "3", "fs_start_ts": "1",
+           "fs_end_ts": "2", "fs_duration": "1:20", "handoff_file": "x"}
+    p6 = [{**itf, "grade": "atp-singles", "fs_tournament": "Elsewhere"},          # an id in both: the ITF row is kept
+          {**itf, "fs_id": "CCC", "fs_date": "20190109", "grade": "atp-singles", "fs_tournament": "Sydney",
+           "fs_home": "De Minaur A.", "fs_away": "Opelka R.", "fs_status": None, "fs_start_ts": None,
+           "fs_end_ts": None}]
+    for name, rows in (("handoff_itf.parquet", [itf]), ("handoff_p6.parquet", p6)):
+        P.stage_table(F.SOURCE, P.dump_path(F.SOURCE, name), F.HANDOFF_COLUMNS,
+                      [[r[c] for c in F.HANDOFF_COLUMNS] for r in rows], source_file="x", retrieved_at=None)
+    receipts = P.receipts_for(F.SOURCE)
+    F.fetch_feeds(FakeClient({F.FEED.format(id="AAA"): FEED_OK, F.FEED.format(id="CCC"): FEED_OK}), receipts,
+                  ["AAA", "CCC"])
+    info = F.load_info()
+    assert len(info) == 2 and info.set_index("fs_id").loc["AAA", "fs_tournament"] == "M15 Monastir"
+    assert F.load_handoff()["fs_id"].tolist() == ["AAA"]      # linking still reads the ITF extract alone
+    F.stage(receipts, info)
+    m = pd.read_parquet(P.dump_path(F.SOURCE, "matches.parquet")).set_index("fs_id")
+    assert (m.loc["CCC", "fs_date"], m.loc["CCC", "grade"], m.loc["CCC", "fs_home"]) == ("20190109", "atp-singles",
+                                                                                         "De Minaur A.")
+    assert m.loc["CCC", "fb_verdict"] == "complete" and m.loc["AAA", "grade"] == "M15"

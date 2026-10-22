@@ -1,0 +1,147 @@
+{
+ "singles_records": 5347,
+ "in_link_file": 3673,
+ "link_file_match_not_in_snapshot": 0,
+ "linked": 3789,
+ "link_methods": {
+  "tdi_link_file": 3670,
+  "": 1558,
+  "event+id/id": 112,
+  "event+full/id": 4,
+  "event+anchor/id": 3
+ },
+ "unlinked": 1558,
+ "source": "data/dump/points/tdi/{matches,statistics,points}.parquet",
+ "reader": "atp_tdi_recount",
+ "records_with_points": 3788,
+ "break_point_flag_vs_score": {
+  "points_played_at_break_point_by_the_scores": 49636,
+  "of_them_flagged_is_break_point": 10063,
+  "points_after_which_the_receiver_holds_a_break_point": 49665,
+  "of_them_flagged_is_break_point_": 49665,
+  "points_flagged_is_break_point": 49665,
+  "used": "break points are read from TDI's scores before each point (the previous point's scores), not from the flag"
+ },
+ "recounted_matches": 3788,
+ "recounts_complete": 3529,
+ "incomplete_reasons": {
+  "point_gaps": 87,
+  "game_gaps": 1,
+  "games_not_ending_at_last_point": 301,
+  "set_games_differ_from_stage0": 245,
+  "points_without_server": 0
+ },
+ "winner_vs_stage0": {
+  "player_rows_with_a_winner": 6774,
+  "same_as_stage0": 6774,
+  "share_not_equal": 0.0,
+  "match_ids_not_equal_examples": []
+ },
+ "rows_written": 7576,
+ "matches_written": 3788,
+ "sanity_vs_stage0": {
+  "all": {
+   "ace": {
+    "n": 7570,
+    "equal": 0.9955
+   },
+   "df": {
+    "n": 7570,
+    "equal": 0.9925
+   },
+   "svpt": {
+    "n": 7570,
+    "equal": 0.951
+   },
+   "first_in": {
+    "n": 7570,
+    "equal": 0.9312
+   },
+   "first_won": {
+    "n": 7570,
+    "equal": 0.9526
+   },
+   "second_won": {
+    "n": 7570,
+    "equal": 0.9624
+   },
+   "sv_gms": {
+    "n": 7570,
+    "equal": 0.9974
+   },
+   "bp_saved": {
+    "n": 7570,
+    "equal": 0.9971
+   },
+   "bp_faced": {
+    "n": 7569,
+    "equal": 0.9935
+   }
+  },
+  "complete": {
+   "ace": {
+    "n": 7052,
+    "equal": 0.9997
+   },
+   "df": {
+    "n": 7052,
+    "equal": 0.9977
+   },
+   "svpt": {
+    "n": 7052,
+    "equal": 0.996
+   },
+   "first_in": {
+    "n": 7052,
+    "equal": 0.9648
+   },
+   "first_won": {
+    "n": 7052,
+    "equal": 0.9787
+   },
+   "second_won": {
+    "n": 7052,
+    "equal": 0.9793
+   },
+   "sv_gms": {
+    "n": 7052,
+    "equal": 0.9994
+   },
+   "bp_saved": {
+    "n": 7052,
+    "equal": 0.9997
+   },
+   "bp_faced": {
+    "n": 7051,
+    "equal": 0.9989
+   }
+  }
+ },
+ "hand_checks": {
+  "by": "atp_handcheck.py (seed 20261016), read by the session on 16 Oct 2026",
+  "compared_with": "staged points.parquet tallied directly by team_serving: points, label first serves in, won on them, aces, double faults, points won",
+  "verdict": "5 of 5 complete recounts equal the tallies; orientation by codes matches Stage 0",
+  "keys": [
+   {
+    "source_key": "tdi:1f5aae66-ab7a-4018-9c05-5ab22670e81d",
+    "match_id": "atp|2026-526|R16|atp:123828|atp:208819"
+   },
+   {
+    "source_key": "tdi:3ee3ec4a-b0bb-4b34-bf74-eb4bf6c3a058",
+    "match_id": "atp|2026-3129|R32|atp:101495|atp:209264"
+   },
+   {
+    "source_key": "tdi:744f8261-047a-4ce5-9bc1-01248f72b876",
+    "match_id": "atp|2026-2789|R16|atp:126340|atp:200462"
+   },
+   {
+    "source_key": "tdi:c51aeab7-2c79-458a-8f2b-6c6abd4855b8",
+    "match_id": "atp|2026-8994|R16|atp:200221|atp:200443"
+   },
+   {
+    "source_key": "tdi:d13232a3-a392-4853-bb47-74b5f572e8f7",
+    "match_id": "atp|2026-2937|R16|atp:124040|atp:200677"
+   }
+  ]
+ }
+}

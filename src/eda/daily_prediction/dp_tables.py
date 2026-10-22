@@ -10,6 +10,12 @@ windows), without the steps that reach no input (the daily_update_speed scoping,
 A replay holds the timeline at the instance's (its build tree's timing.parquet), as the 10 Oct layer replay did
 (sources were restaged after the freeze; the played matches keep their days: "training" dating), so the steps that only
 build the timeline (links, remap, timing, the live and the packages' windows) are skipped there.
+A replay's tables are the instance's own (16 Oct 2026): its Stage 0 is built on the instance's dump view (the work
+tree's), the additions step merges the additions the instance's build merged (the run's replay_tables.json, not today's
+accepted.json), and before that merge the copied timeline is made the instance's (training dating: hold_timeline,
+then again after the steps) or trimmed to the tree's Stage 0 (live dating). The copied timeline is the repository's
+current one, which since 13 Oct holds matches a frozen dump lacks; 43 of them are in the lower-level feed, and the merge
+would add their rows a second time.
 """
 from __future__ import annotations
 
@@ -59,6 +65,25 @@ def hold_timeline(box: Path, base_tree: Path) -> dict:
             "source": str(Path(base_tree) / DC.MT / "timing.parquet")}
 
 
+def trim_timeline(box: Path) -> dict:
+    """The work tree's timeline cut to the matches of its own Stage 0 (a live-dated replay, before the merge)."""
+    m = pd.read_parquet(box / DC.PD / "stage0_matches.parquet", columns=["match_id"])
+    ids = set(m["match_id"].astype(str))
+    path = box / DC.MT / "timing.parquet"
+    t = pd.read_parquet(path)
+    keep = t["match_id"].astype(str).isin(ids).to_numpy()
+    part = path.with_name(path.name + ".part")
+    t[keep].reset_index(drop=True).to_parquet(part, index=False, compression="zstd")
+    os.replace(part, path)
+    return {"rows": int(keep.sum()), "dropped": int((~keep).sum()), "sha256": DC.sha256(path)}
+
+
+def replay_steps(steps: list[tuple[str, str, list[str]]], additions_list: Path) -> list[tuple[str, str, list[str]]]:
+    """A replay's steps: the additions step and the packages' window merge the instance's list, not accepted.json."""
+    return [(n, s, [*a, "--accepted-json", str(additions_list)] if n in ("additions", "additions_window") else a)
+            for n, s, a in steps]
+
+
 def history_check(box: Path) -> dict:
     """current_best_model/history.py's check of the work tree's Stage 0 and timeline against the frozen reference (a
     report: nothing reads it to build an input)."""
@@ -72,12 +97,15 @@ def history_check(box: Path) -> dict:
 
 
 def prep(run_dir: Path, box: Path, replay: bool, base_tree: Path = DC.BASE_TREE, hold: bool | None = None,
-         history: bool = True) -> dict:
+         history: bool = True, replay_additions: dict | None = None) -> dict:
     """The preparation in the work tree; the live rows, meta and overrides come from the run's folder. hold (default:
     a replay): the instance's timeline instead of the timeline steps (the exact replay, "training" dating); a replay
     dated as live builds the timeline as a live run does (a smoke test of those steps, not an exactness test).
+    replay_additions (a replay's, required there): the additions the instance's build merged, in accepted.json's form.
     history False: the history check is left to the caller (run_day runs it beside the states step)."""
     hold = replay if hold is None else hold
+    if replay and replay_additions is None:
+        raise SystemExit("a replay merges the instance's own additions: pass them (dp_common.replay_tables)")
     if not (box / WT.MARKER).exists():
         raise SystemExit(f"no work tree at {box}: dp.py worktree")
     rdir = box / "run"
@@ -90,8 +118,14 @@ def prep(run_dir: Path, box: Path, replay: bool, base_tree: Path = DC.BASE_TREE,
     for f in ("stage0_matches.parquet", "stage0_match_players.parquet"):
         shutil.copy2(box / DC.PD / f, rdir / "stage0_before" / f)
     record: dict = {"work_tree": str(box), "replay": replay, "timeline_held": hold, "steps": []}
+    todo = steps((rdir / "overrides.csv").exists(), hold)
+    if replay:
+        additions_list = rdir / "accepted_for_replay.json"
+        DC.write_json(additions_list, replay_additions)
+        record["replay_additions"] = replay_additions
+        todo = replay_steps(todo, additions_list)
     env: dict = {}
-    for name, script, args in steps((rdir / "overrides.csv").exists(), hold):
+    for name, script, args in todo:
         code = WT.run(box, name, script, args, env=env, record=record["steps"])
         if code != 0:
             record["failed"] = name
@@ -99,6 +133,8 @@ def prep(run_dir: Path, box: Path, replay: bool, base_tree: Path = DC.BASE_TREE,
         if name == "lle_layer":
             env = layer_env(box)
             record["lle_layer"] = env["LLE_LAYER"]
+        if replay and name == "stage0":                   # the timeline the merge meets: the instance's, or trimmed
+            record["timeline_before_additions"] = hold_timeline(box, base_tree) if hold else trim_timeline(box)
     if hold:
         record["timeline_held"] = hold_timeline(box, base_tree)
     if history:

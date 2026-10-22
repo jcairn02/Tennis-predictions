@@ -1,0 +1,29 @@
+{
+ "work_tree": "C:\\Users\\zerom\\tnr_daily_fastcourt",
+ "replay": true,
+ "timeline_held": true,
+ "steps": [
+  {
+   "step": "stage0",
+   "script": "src/eda/predictability_diagnostic/stage0_build.py",
+   "args": [
+    "--live-rows",
+    "run/live_rows.parquet"
+   ],
+   "exit": 0,
+   "seconds": 138.3,
+   "log": "C:\\Users\\zerom\\tnr_daily_fastcourt\\logs\\stage0.log"
+  },
+  {
+   "step": "additions",
+   "script": "src/eda/current_best_model/additions.py",
+   "args": [
+    "--apply"
+   ],
+   "exit": 1,
+   "seconds": 299.5,
+   "log": "C:\\Users\\zerom\\tnr_daily_fastcourt\\logs\\additions.log"
+  }
+ ],
+ "failed": "additions"
+}

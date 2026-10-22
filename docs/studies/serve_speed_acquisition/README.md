@@ -4,6 +4,10 @@
 
 **Update, 8 Oct 2026 (evening):** the owner then had those files decrypted (`src/ingest/point_sources/infosys_atp_decrypt.py`). They are staged, checked and integrated in the [ATP backfill study](../infosys_atp_backfill/README.md): serve speeds exist only at the 2018 ATP Finals and Washington, San Diego and Indian Wells 2021 (184 matches); 2019–2020 hold points without speeds. `speeds.parquet` now includes them (source `infosys_atp`).
 
+**Update, 16 Oct 2026:** the ATP's own files of **2025–2026**, tour level and Challengers, are being downloaded (work package P9, section 9). A trial of five events found every point for all 219 of their matches. Serve speeds exist only where the event recorded them, about 4,200 of the 24,961 matches. Process log: [process_log.md](process_log.md).
+
+**Update, 22 Oct 2026:** the download stopped on 17 Oct after one dropped connection and was resumed on 22 Oct with a fix (section 9.4). It should end around 24 October.
+
 Labels: **observed** (seen in the files or measured here), **documented** (the provider's own code or schema), **inference**.
 
 **The request** (owner, 7 Oct 2026):
@@ -372,3 +376,120 @@ These were options 1 and 3 of the [serve-speed sources research](../../research/
 * **Reruns:**
   * `./python.sh -m src.ingest.point_sources.infosys_atp` asks only for what is not held.
   * `--inventory-only` rewrites the evidence without any request.
+
+## 9. The ATP's own files of 2025–2026, tour level and Challengers (work package P9, from 16 Oct 2026)
+
+**The request** (owner, 16 Oct 2026):
+
+> "Do work package P9 of docs/studies/gap_downloads/collection-plan.md: collect the ATP Stats Centre's Infosys files of 2025-2026 for tour-level and Challenger singles (key statistics, MatchBeats, rally analysis, Court Vision), keep them as served, decrypt them at staging, and stage the points, serve speeds and outcomes. The daily speed collector uses the same host every morning: run around it, one collector at a time. The P6 data-issues study (docs/studies/p6_data_issues/README.md, section 2) already fetched the ATP's Challenger point files for 2,360 matches, mostly 2022-23: reuse its code where it fits and don't fetch those again. Follow the plan's shared rules."
+
+* **Authority:** the [8 October decision](../../decisions/2026-10-08-scraping-approved.md) approves collecting these files and decrypting them, every edition.
+* **Kept apart from the serve-speed history.** The new files have their own raw folder and their own tables. Their staging refuses anything in the 2015–2021 backfill's folder and any year before 2022. The tables the serve-speed adjustment reads are untouched.
+* **Status (16 Oct, 22:30 UTC):** the trial is done and checked; the full download is running by itself (section 9.4). The numbers below are the trial's *(observed)*; the full counts come when the download ends.
+
+### 9.1 What is asked
+
+* **The matches:** every tour-level and Challenger singles match of the 2025 and 2026 seasons in ManTennisData (refreshed first; its newest copy is of 11 Oct 2026), each with its ATP match code from its atptour.com link. That is 534 events and 24,961 matches:
+  * tour level (250s, 500s, Masters, the Finals, the United Cup, the Laver Cup): 108 events, 5,423 matches;
+  * Challengers: 426 events, 19,538 matches.
+  * Main draws and qualifying both. Matches without a link (mostly walkovers) are not asked for. The Slams are not on this host.
+* **The four files of each match** (as for 2015–2021, section 8.1): key statistics, MatchBeats (every point), rally analysis, Court Vision (ball tracking).
+* **A second way in.** The host also answers through an "API" address that builds the file on request. It is asked only where the ordinary copy is missing (judgment call 2 of the [process log](process_log.md)).
+* **Order:** tour level first, then Challengers, each newest event first. Per event: the final on every file type first; then, for each file type that has data, every match. A file type with nothing for the first 8 matches asked is given up for that event (3 for Court Vision: an event publishes tracking for its show courts or not at all).
+* **Nothing fetched twice:**
+  * P6's Challenger files are all from 2021–2024, outside these years, so none is asked again.
+  * Two kinds of files already on disk are read where they are, not fetched: the key statistics of the Paris 2025 final (a test file of the October backfill) and the daily speed collector's key statistics of 82 finished Shanghai 2026 matches.
+* **Sharing the host with the daily speed collector.** Before every request the collector checks, and waits while:
+  * the daily task's speed job is running, or the task started less than 20 minutes ago (it starts at 07:30 local time, or on waking when the computer slept through it);
+  * a bet-day prediction run is downloading box scores (it uses the same host);
+  * the daily collector wrote to its folder in the last 5 minutes;
+  * it is between 07:20 and 08:00 local time.
+
+  A second copy of this collector refuses to start.
+* **Practice:** about 2 seconds between requests plus up to 1 second of jitter (about 1,350 an hour), at most 30,000 requests a run, every answer saved exactly as served with a receipt, and a stop on any refusal or challenge.
+
+### 9.2 The trial: five events, 16 Oct 2026
+
+*Observed. 846 requests from 21:22 to 21:58 UTC (36 minutes): no error, no retry, no refusal.*
+
+| Event | Level | Matches | Every point (MatchBeats) | Key statistics | Rally analysis | Court Vision | Requests |
+|---|---|---:|---:|---:|---:|---|---:|
+| Tokyo 2026 (30 Sep) | 500 | 42 | 42 | 42 | 42 | empty | 170 |
+| Montpellier 2025 (27 Jan) | 250 | 34 | 34 | 34 | 34 | none | 120 |
+| Braga 2026 (5 Oct) | Challenger | 47 | 47 | 47 | 47 | empty | 192 |
+| Genoa 2026 (7 Sep) | Challenger | 47 | 47 | 47 | 46 | empty | 192 |
+| Nottingham 2025 (6 Jan) | Challenger | 49 | 49 | 49 | 49 | none | 168 |
+| **All** | | **219** | **219** | **219** | **218** | **0** | **842** (+4 test files) |
+
+* **Against the plan's expectation** (about 80% of matches with every point, about 4 requests a match): every point for all 219, at 3.9 requests a match. The plan's rule (stop if the trial reaches less than half) is far from triggered.
+* **Five matches came only through the second way in:** their ordinary MatchBeats copy was missing (three at Nottingham 2025, one each at Genoa and Braga).
+* **What it found:**
+  1. **Empty Court Vision files.** At events without tracking the host often answers with a file that holds nothing (88 bytes). They are kept, but they no longer count as data, so the collector gives such events up after 3 matches (the trial, run before this rule, asked all of them).
+  2. **Two formats of MatchBeats.** For Tokyo 2026 both copies are the same file. For Montpellier 2025 the ordinary copy, written in June 2026, is an older format. The on-request copy adds eight details per point (who served first in the match, the last hitter, a serve class, shot counts, the point's duration, net approaches) and a momentum score per game, and recomputes a few flags (break points on 4 of 204 points). The server, serve number, speeds, endings, scorer and score are identical. The download keeps the plan's choice (the ordinary copy); fetching the newer format for every older file is an option for later (section 9.6).
+  3. **No serve speeds at these five events.** Serve speed comes from the venue's radar, and these events recorded none, not even in their key statistics. ManTennisData copies the same key statistics, so its coverage tells what to expect: about 4,200 of the 24,961 matches (Masters about 95%; 250s and 500s 38% in 2025 and 52% in 2026; Challengers 44 matches in 2025 and 733 in 2026, at 16 events). So the plan's "every point, its outcome and the serve speed" holds for those matches; for the rest, the files bring every point and its outcome without the speed.
+  4. **Some files never say who won.** 11 complete matches (all of 2026) are marked unfinished in their MatchBeats file, with no winner, though every point and the full score are there. The staged table therefore also reads the winner from the games.
+  5. **How points end.** MatchBeats classifies most points (ace, double fault, winner, forced or unforced error); the rally analysis names mostly aces and double faults. How many points MatchBeats leaves unclassified depends on the event: 1–6% at three events, 36% at Montpellier, 89% at Nottingham.
+
+### 9.3 Checks on the trial's files
+
+*Observed: `src/eda/serve_speed_acquisition/infosys_atp_recent_checks.py`, run on the trial's files and the first event of the full download (Shanghai 2026). Each compares the files with a record they were not built from.*
+
+| Check | Against | Result |
+|---|---|---|
+| Players | ManTennisData's row of the same match | the same two players on 319 of 319 matches it lists |
+| Winner | ManTennisData | the file's own winner 222 of 222; the winner read from the games 233 of 233 (the 11 unnamed included) |
+| Score | ManTennisData | each set's games equal on 221 of 222; the exception is a point log short of a tie-break set (below) |
+| Box score | ManTennisData's statistics of the match | 8,716 of 8,722 values equal (every value in the trial's matches); the 6 others are winners and unforced errors in two Shanghai 2026 qualifying matches |
+| Points | SirGenkii's own decrypted copy (Montpellier 2025, 19 matches) | 2,714 of 2,714 points in both, the same serve number and speed on every one; their key statistics equal ours; we hold 30 points they do not |
+| Endings | the rally analysis of the same match | the same ending on every point both classify (3,448) |
+| Speeds | the key statistics, ManTennisData and Court Vision | first-serve average equals the rounded mean of the timed first serves for 24 of 26 players (all within 1 km/h); maximum equals the fastest timed serve 26 of 26; ManTennisData's three speeds equal the key statistics' on 145–149 of 149 (the others 1–2 km/h apart, in the same two Shanghai qualifying matches); Court Vision's per-point speed within 0.5 km/h of MatchBeats' on 132 of 132 |
+
+* **The two Shanghai 2026 qualifying matches** (QS041, QS051) hold all 13 differences with ManTennisData: its copy, made by 11 Oct, has other winners, unforced errors (for example 18 against our 29) and speeds 1–2 km/h apart. The ATP revising those numbers after ManTennisData copied them is the likely reason *(inference)*.
+
+* **Point logs that are short.** In 8 of the trial's matches the MatchBeats log holds a few points fewer than the official box score: 1–2 points in seven, and most of a tie-break set in one (Montpellier 2025). That is the ATP's own log, kept as it is.
+* **The link to the project's match list** *(observed; the data map built by another session at 22:12 UTC, which already read the trial's tables)*: of 304 matches, 297 were placed on matches the map holds (240 by the ATP's event and player ids, the rest by names and dates), 6 were added as matches it lacked, none was left unplaced, and 1 fell outside the map's window (not looked into).
+* **Not checked yet:** the full download's own numbers.
+
+### 9.4 The full download (running)
+
+* **Started** at 22:08 UTC on 16 Oct 2026, as a process of its own that outlives the Claude Code session. Each run asks at most 30,000 requests; the wrapper starts the next run after each budget stop, stops on a refusal, and stages and checks the files when the plan is done.
+* **Interrupted once.** At 09:32 UTC on 17 Oct, after 83 events and 15,814 requests (all 49 tour-level events of 2026, and 2025's from December back to Rome, 34 of 59), one connection dropped while a 2 MB tracking file was coming in. The collector treated that as a refusal and stopped, as built, and nothing ran for almost five days.
+  * **It was not a refusal:** the ATP site served the daily speed collector every day since, without an error.
+  * **Changed so that it does not happen again:** after a dropped connection the collector now waits two minutes and asks once more, and stops only if it happens twice in a row. The wrapper also stages the files even when a few answers keep failing (the site's on-request copies answer "server error" for some matches without a file; 11 so far).
+* **Resumed** at 14:22 UTC on 22 Oct, on ManTennisData's copy of 19 Oct: 541 events and 25,277 matches (316 more, played to about 18 October).
+* **Expected:** about 60,000–65,000 more requests at about 1,350 an hour: around 24 October if the computer stays awake. Sleep pauses it; it resumes where it stopped.
+* **To see where it is:** `data/raw/point_sources/infosys_atp_recent/_logs/bulk.log` (one line per run) and the newest `bulk_<time>.log` (one line per event).
+* **To resume it by hand** after an interruption (it asks only what it has no answer for), from Git Bash in the project folder:
+  ```
+  ./python.sh -m src.ingest.point_sources.infosys_atp_recent --max-requests 30000 --no-stage
+  ```
+  or the wrapper, detached, as it was started (PowerShell):
+  ```
+  Invoke-CimMethod -ClassName Win32_Process -MethodName Create -Arguments @{CommandLine = '"C:\Program Files\Git\bin\bash.exe" -lc "/c/Users/zerom/Documents/Tennis-predictions/src/ingest/point_sources/infosys_atp_recent_bulk.sh"'; CurrentDirectory = 'C:\Users\zerom\Documents\Tennis-predictions'}
+  ```
+* **After it ends** (the wrapper does the first two): `--stage-only` (decrypts and stages, no request), the checks script, then the data map: set `infosys_atp_recent` to `on_disk`, update the universe row `atp_statscentre_2025`, and rebuild (`./python.sh src/eda/data_map/build.py`).
+
+### 9.5 Limits
+
+* **Serve speeds only where recorded** (9.2, point 3).
+* **The matches stop at ManTennisData's copy of 11 Oct 2026.** Matches played since (Shanghai 2026's last rounds, the events of 12–18 Oct and the rest of the season) are not in this download. The daily speed collector keeps their key statistics. Rerunning the same command after a later ManTennisData refresh (the daily job refreshes it on Mondays) adds the rest of 2026; everything already asked is answered from the receipts.
+* **Not in the leak-proof match clock.** Like the other new sources of the collection plan, these files are not wired into the timing data the models read (`src/eda/match_timing/`). Linking them is separate work.
+* **Dates.** The files carry no match date; the map places each match by its tournament and the ATP player ids.
+* **The only copy.** The host rewrites its files and may drop them; the raw folder is the only copy until the next backup run.
+
+### 9.6 Options (not decisions)
+
+1. **The newer MatchBeats format for 2025.** Fetching the on-request copy of every match whose ordinary copy is in the older format would add the eight point details of 9.2 (point 2): about 20,000 requests (about 15 hours). The exact count will be known after staging.
+2. **Serve speeds into the speed history.** The files' timed matches (about 4,200) could feed the serve-speed adjustment's history. That is a separate decision: these tables are deliberately kept out of it.
+
+### 9.7 Files and reruns
+
+* **Raw (gitignored), the only copy:** `data/raw/point_sources/infosys_atp_recent/<season>/<event>/<file type>/<match>.json.gz`, each answer exactly as served (gzipped), with `_receipts.jsonl`; logs in `_logs/`.
+* **Staged:** `data/dump/points/infosys_atp_recent/`: `matches`, `points` (MatchBeats), `keystats`, `rally`, `court_vision` (one row per tracked point), `court_vision_shots` (one row per stroke: hit, peaks, net, bounce), `court_vision_matches`. Every row names its source file, the file's SHA-256 as served and when it was fetched.
+* **Evidence** in `data/studies/serve_speed_acquisition/`: `infosys_atp_recent_summary.json` (the last run), `infosys_atp_recent_trial_summary.json`, `infosys_atp_recent_events.csv` (one row per event: matches, files and absences per file type), `infosys_atp_recent_stage_summary.json`, `infosys_atp_recent_checks.json` and `infosys_atp_recent_check_mismatches.csv.gz`, and `runs.jsonl`.
+* **Code:**
+  * `src/ingest/point_sources/infosys_atp_recent.py` (the collector), `infosys_atp_recent_stage.py` (decryption and tables), `infosys_atp_recent_bulk.sh` (the detached wrapper);
+  * `src/eda/serve_speed_acquisition/infosys_atp_recent_checks.py` (the checks; it reuses the backfill study's);
+  * the data map's loader `load_infosys_atp_recent` (`src/eda/data_map/measure.py`).
+* **Tests:** `test/serve_speed_acquisition/test_infosys_atp_recent.py` (30, offline): the plan, what other folders hold, sharing the host, a run against a fake host (calibration, discovery, expansion, the second way in, empty files, refusals, exit codes, nothing asked twice, files kept byte for byte), and staging by real decryption with its guard.
+* **The process log:** [process_log.md](process_log.md).

@@ -622,6 +622,14 @@ def h2h_sums(rows: pd.DataFrame, p_iid_own: np.ndarray) -> dict:
 # ------------------------------------------------------------------------------------------------
 # Elo variants (Stage 1's pass with each update weighted)
 
+# The win-probability exponent (rating gap / 400) is held to +-EXP_CAP before 10 ** it. A real gap never comes near it
+# (120,000 points; the frame's Elo inputs stay within about 7 on this scale), so real inputs are unchanged bit for bit.
+# The leak probe redraws later outcomes' numerators and denominators independently (a points share of 400 of 3, a
+# weight of several hundred), which can carry a rating past float range: 10.0 ** x then raised OverflowError and
+# stopped the template build of 16 Oct 2026 (docs/studies/men_lower_level_fill/process_log.md). NaN passes as before.
+EXP_CAP = 300.0
+
+
 def weighted_elo_pass(week, event, rnd, a, b, a_won, surf, upd, weight, n_players: int, k0: float, offset: float,
                       shape: float) -> np.ndarray:
     """stage1_baselines.elo_pass with each update multiplied by the match's weight (the margin-aware Elo of Angelini,
@@ -675,13 +683,19 @@ def weighted_elo_pass(week, event, rnd, a, b, a_won, surf, upd, weight, n_player
         if upd[i]:
             wgt = upd[i] * weight[i]   # level layer (LLE_LAYER): upd[i] True or w
             res = 1.0 if a_won[i] else 0.0
-            surprise = res - 1.0 / (1.0 + 10.0 ** ((rb - ra) / 400.0))
+            x = (rb - ra) / 400.0
+            if x > EXP_CAP or x < -EXP_CAP:   # never for real ratings (EXP_CAP)
+                x = EXP_CAP if x > 0 else -EXP_CAP
+            surprise = res - 1.0 / (1.0 + 10.0 ** x)
             xa[3] += wgt * k0 / (na + offset) ** shape * surprise
             xb[3] -= wgt * k0 / (nb + offset) ** shape * surprise
             xa[4] += upd[i]   # level layer (LLE_LAYER)
             xb[4] += upd[i]
             if do_s:
-                surprise = res - 1.0 / (1.0 + 10.0 ** ((sb - sa) / 400.0))
+                x = (sb - sa) / 400.0
+                if x > EXP_CAP or x < -EXP_CAP:
+                    x = EXP_CAP if x > 0 else -EXP_CAP
+                surprise = res - 1.0 / (1.0 + 10.0 ** x)
                 ya[3] += wgt * k0 / (nsa + offset) ** shape * surprise
                 yb[3] -= wgt * k0 / (nsb + offset) ** shape * surprise
                 ya[4] += upd[i]   # level layer (LLE_LAYER)

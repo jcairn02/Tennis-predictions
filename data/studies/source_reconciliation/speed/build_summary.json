@@ -1,0 +1,386 @@
+{
+ "built_at": "2026-10-16T21:37:43+00:00",
+ "reads_results": false,
+ "stage0": "data/studies/source_reconciliation/_snapshot (manifest.json)",
+ "by_source": [
+  {
+   "src": "mb_slams",
+   "kind": "points",
+   "sys": "infosys_slam",
+   "records": 2820,
+   "linked": 2596,
+   "linked_share": 0.9206,
+   "orientation_by_names": 2596,
+   "names_agree_with_link": 2596,
+   "names_reversed_link": 0,
+   "invalid": {
+    "mislink_round": 2
+   },
+   "valid": 2594,
+   "valid_timed": 2594,
+   "valid_timed_by_tour_year": {
+    "atp|2025": 924,
+    "atp|2026": 470,
+    "wta|2025": 946,
+    "wta|2026": 254
+   }
+  },
+  {
+   "src": "mb_atp",
+   "kind": "points",
+   "sys": "infosys_atp",
+   "records": 1148,
+   "linked": 1146,
+   "linked_share": 0.9983,
+   "orientation_by_names": 1146,
+   "names_agree_with_link": 1146,
+   "names_reversed_link": 0,
+   "invalid": {},
+   "valid": 1146,
+   "valid_timed": 368,
+   "valid_timed_by_tour_year": {
+    "atp|2018": 30,
+    "atp|2021": 338
+   }
+  },
+  {
+   "src": "ra_atp",
+   "kind": "points",
+   "sys": "infosys_atp",
+   "records": 1148,
+   "linked": 1146,
+   "linked_share": 0.9983,
+   "orientation_by_names": 1146,
+   "names_agree_with_link": 1146,
+   "names_reversed_link": 0,
+   "invalid": {},
+   "valid": 1146,
+   "valid_timed": 368,
+   "valid_timed_by_tour_year": {
+    "atp|2018": 30,
+    "atp|2021": 338
+   }
+  },
+  {
+   "src": "ra_handoff",
+   "kind": "points",
+   "sys": "infosys_atp",
+   "records": 62774,
+   "linked": 61482,
+   "linked_share": 0.9794,
+   "orientation_by_names": 61482,
+   "names_agree_with_link": 0,
+   "names_reversed_link": 0,
+   "invalid": {},
+   "valid": 61482,
+   "valid_timed": 10066,
+   "valid_timed_by_tour_year": {
+    "atp|2021": 296,
+    "atp|2022": 2457,
+    "atp|2023": 3233,
+    "atp|2024": 4064,
+    "atp|2025": 16
+   }
+  },
+  {
+   "src": "ra_sirgenkii",
+   "kind": "points",
+   "sys": "infosys_atp",
+   "records": 1816,
+   "linked": 1776,
+   "linked_share": 0.978,
+   "orientation_by_names": 1772,
+   "names_agree_with_link": 1772,
+   "names_reversed_link": 0,
+   "invalid": {
+    "dup_conflict": 6,
+    "dup_copy": 1
+   },
+   "valid": 1769,
+   "valid_timed": 695,
+   "valid_timed_by_tour_year": {
+    "atp|2025": 695
+   }
+  },
+  {
+   "src": "ibm_pts",
+   "kind": "points",
+   "sys": "ibm",
+   "records": 10311,
+   "linked": 9863,
+   "linked_share": 0.9566,
+   "orientation_by_names": 9855,
+   "names_agree_with_link": 9855,
+   "names_reversed_link": 0,
+   "invalid": {
+    "mislink_level": 18,
+    "dup_conflict": 4
+   },
+   "valid": 9841,
+   "valid_timed": 6449,
+   "valid_timed_by_tour_year": {
+    "atp|2019": 142,
+    "atp|2021": 138,
+    "atp|2022": 476,
+    "atp|2023": 464,
+    "atp|2024": 468,
+    "atp|2025": 813,
+    "atp|2026": 952,
+    "wta|2019": 150,
+    "wta|2021": 130,
+    "wta|2022": 473,
+    "wta|2023": 456,
+    "wta|2024": 467,
+    "wta|2025": 812,
+    "wta|2026": 508
+   }
+  },
+  {
+   "src": "sackmann_pts",
+   "kind": "points",
+   "sys": "sackmann",
+   "records": 21012,
+   "linked": 20936,
+   "linked_share": 0.9964,
+   "orientation_by_names": 20898,
+   "names_agree_with_link": 20898,
+   "names_reversed_link": 0,
+   "invalid": {
+    "dup_conflict": 38,
+    "dup_copy": 7,
+    "mislink_level": 6
+   },
+   "valid": 20885,
+   "valid_timed": 13249,
+   "valid_timed_by_tour_year": {
+    "atp|2011": 670,
+    "atp|2014": 518,
+    "atp|2015": 692,
+    "atp|2016": 652,
+    "atp|2017": 684,
+    "atp|2018": 490,
+    "atp|2019": 464,
+    "atp|2020": 568,
+    "atp|2021": 838,
+    "atp|2022": 390,
+    "atp|2023": 392,
+    "atp|2024": 386,
+    "wta|2011": 622,
+    "wta|2014": 508,
+    "wta|2015": 686,
+    "wta|2016": 502,
+    "wta|2017": 631,
+    "wta|2018": 510,
+    "wta|2019": 488,
+    "wta|2020": 578,
+    "wta|2021": 826,
+    "wta|2022": 395,
+    "wta|2023": 380,
+    "wta|2024": 379
+   }
+  },
+  {
+   "src": "hawkeye_pts",
+   "kind": "points",
+   "sys": "hawkeye_slam",
+   "records": 4054,
+   "linked": 4042,
+   "linked_share": 0.997,
+   "orientation_by_names": 4038,
+   "names_agree_with_link": 4038,
+   "names_reversed_link": 0,
+   "invalid": {
+    "dup_conflict": 6,
+    "mislink_level": 4,
+    "dup_copy": 1
+   },
+   "valid": 4031,
+   "valid_timed": 3937,
+   "valid_timed_by_tour_year": {
+    "atp|2019": 84,
+    "atp|2020": 340,
+    "atp|2021": 380,
+    "atp|2022": 426,
+    "atp|2023": 370,
+    "atp|2024": 384,
+    "wta|2019": 82,
+    "wta|2020": 344,
+    "wta|2021": 366,
+    "wta|2022": 426,
+    "wta|2023": 362,
+    "wta|2024": 373
+   }
+  },
+  {
+   "src": "ks_mantd",
+   "kind": "stat",
+   "sys": "infosys_atp",
+   "records": 20505,
+   "linked": 19800,
+   "linked_share": 0.9656,
+   "orientation_by_names": 19738,
+   "names_agree_with_link": 19738,
+   "names_reversed_link": 0,
+   "invalid": {
+    "mislink_round": 46,
+    "dup_conflict": 10,
+    "dup_copy": 1
+   },
+   "valid": 19743,
+   "valid_timed": 19739,
+   "valid_timed_by_tour_year": {
+    "atp|2021": 476,
+    "atp|2022": 3042,
+    "atp|2023": 3675,
+    "atp|2024": 4894,
+    "atp|2025": 3426,
+    "atp|2026": 4226
+   }
+  },
+  {
+   "src": "ks_handoff",
+   "kind": "stat",
+   "sys": "infosys_atp",
+   "records": 12275,
+   "linked": 12258,
+   "linked_share": 0.9986,
+   "orientation_by_names": 12258,
+   "names_agree_with_link": 0,
+   "names_reversed_link": 0,
+   "invalid": {},
+   "valid": 12258,
+   "valid_timed": 12258,
+   "valid_timed_by_tour_year": {
+    "atp|2018": 20,
+    "atp|2021": 571,
+    "atp|2022": 2943,
+    "atp|2023": 3742,
+    "atp|2024": 4934,
+    "atp|2025": 48
+   }
+  },
+  {
+   "src": "ks_atp",
+   "kind": "stat",
+   "sys": "infosys_atp",
+   "records": 368,
+   "linked": 366,
+   "linked_share": 0.9946,
+   "orientation_by_names": 366,
+   "names_agree_with_link": 366,
+   "names_reversed_link": 0,
+   "invalid": {},
+   "valid": 366,
+   "valid_timed": 366,
+   "valid_timed_by_tour_year": {
+    "atp|2018": 30,
+    "atp|2021": 336
+   }
+  },
+  {
+   "src": "ks_sirgenkii",
+   "kind": "stat",
+   "sys": "infosys_atp",
+   "records": 340,
+   "linked": 331,
+   "linked_share": 0.9735,
+   "orientation_by_names": 328,
+   "names_agree_with_link": 328,
+   "names_reversed_link": 0,
+   "invalid": {
+    "dup_conflict": 2
+   },
+   "valid": 329,
+   "valid_timed": 329,
+   "valid_timed_by_tour_year": {
+    "atp|2025": 329
+   }
+  },
+  {
+   "src": "ks_rg",
+   "kind": "stat",
+   "sys": "infosys_slam",
+   "records": 1452,
+   "linked": 1294,
+   "linked_share": 0.8912,
+   "orientation_by_names": 1294,
+   "names_agree_with_link": 1294,
+   "names_reversed_link": 0,
+   "invalid": {},
+   "valid": 1294,
+   "valid_timed": 1294,
+   "valid_timed_by_tour_year": {
+    "atp|2025": 356,
+    "atp|2026": 380,
+    "wta|2025": 334,
+    "wta|2026": 224
+   }
+  },
+  {
+   "src": "ibm_stat",
+   "kind": "stat",
+   "sys": "ibm",
+   "records": 6974,
+   "linked": 6460,
+   "linked_share": 0.9263,
+   "orientation_by_names": 6454,
+   "names_agree_with_link": 6454,
+   "names_reversed_link": 0,
+   "invalid": {
+    "mislink_level": 4,
+    "dup_conflict": 4
+   },
+   "valid": 6452,
+   "valid_timed": 6452,
+   "valid_timed_by_tour_year": {
+    "atp|2019": 142,
+    "atp|2021": 138,
+    "atp|2022": 476,
+    "atp|2023": 464,
+    "atp|2024": 468,
+    "atp|2025": 813,
+    "atp|2026": 952,
+    "wta|2019": 150,
+    "wta|2021": 130,
+    "wta|2022": 474,
+    "wta|2023": 458,
+    "wta|2024": 467,
+    "wta|2025": 812,
+    "wta|2026": 508
+   }
+  },
+  {
+   "src": "ao_mc",
+   "kind": "stat",
+   "sys": "infosys_slam",
+   "records": 1063,
+   "linked": 1063,
+   "linked_share": 1.0,
+   "orientation_by_names": 1059,
+   "names_agree_with_link": 1059,
+   "names_reversed_link": 0,
+   "invalid": {
+    "dup_copy": 22,
+    "dup_conflict": 4,
+    "mislink_level": 2
+   },
+   "valid": 1035,
+   "valid_timed": 1035,
+   "valid_timed_by_tour_year": {
+    "atp|2020": 2,
+    "atp|2021": 6,
+    "atp|2022": 6,
+    "atp|2023": 24,
+    "atp|2024": 16,
+    "atp|2025": 4,
+    "atp|2026": 474,
+    "wta|2021": 4,
+    "wta|2022": 2,
+    "wta|2023": 2,
+    "wta|2024": 13,
+    "wta|2025": 8,
+    "wta|2026": 474
+   }
+  }
+ ]
+}

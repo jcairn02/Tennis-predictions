@@ -30,6 +30,9 @@ Groups (column prefixes; the catalogue docs/studies/feature_universe/README.md d
     ctx__   match context: tour, surface, level, indoor, best of, round, draw size, week of the year, month
     el__    the event-levels study's history composition (added 8 Oct 2026 at the owner's request): each player's share
             of the previous 365 days' played matches below the main tour, and A - B (event_levels/universe_columns.py)
+    fe__    U-126 refreshed (14 Oct 2026, at the owner's request): the box-score evidence behind each player's two-week
+            form as the current best model weighs it, sw (Stage B's step-3 weight sum for tpw, the level layer's
+            weights for men), r = sw / (sw + K3) and r_a - r_b (feature_universe/form_evidence.py)
 Kinds: diff (negated when A and B swap), pair (exchanged with its partner), context (unchanged). Swap behaviour is checked
 for every builder column. Reads no result: the panel is used without its result column. Builders that depend on the
 base model's forecast (x_of_eta) are stored at the model's 2014-2024 forecast only and flagged.
@@ -49,6 +52,7 @@ Run: ./python.sh src/eda/feature_universe/build_store.py
      ./python.sh src/eda/feature_universe/build_store.py --registry-only   (re-annotates the registry from the store)
      ./python.sh src/eda/feature_universe/build_store.py --append-el       (adds the el__ columns to the existing store,
                                                                            every other column untouched)
+     ./python.sh src/eda/feature_universe/build_store.py --append-fe       (the same for the fe__ columns)
 """
 from __future__ import annotations
 
@@ -79,9 +83,11 @@ OUT = ROOT / "data" / "studies" / "feature_universe"
 EPS = 1e-6
 T0 = time.time()
 KEYS = ["match_id", "tour", "season", "tournament_date", "debut_season"]
-PRIORITY = ["m", "alt", "pp", "rt", "ad", "sl", "mk", "lv", "ctx", "fi", "fp", "el", "ds", "kn"]
+PRIORITY = ["m", "alt", "pp", "rt", "ad", "sl", "mk", "lv", "ctx", "fi", "fp", "el", "fe", "ds", "kn"]
 STUDIES = ROOT / "data" / "studies"
 EVENT_LEVELS = STUDIES / "event_levels" / "universe_columns.parquet"
+FORM_EVIDENCE = STUDIES / "feature_universe" / "form_evidence" / "store_columns.parquet"
+FORM_EVIDENCE_K3 = {"atp": 10.0, "wta": 20.0}      # tpw's K3 (the level layer's pinned Stage B constants)
 STAGE0_SIDES = OLD / "predictability_diagnostic" / "stage0_matches.parquet"      # side A's definition (pre-rebuild)
 RATINGS = STUDIES / "rating_systems" / "stageA_ratings.parquet"
 ADJ = STUDIES / "ufc_ideas" / "stageB_adj_features.parquet"
@@ -253,6 +259,40 @@ def event_levels(S: Store, ids: np.ndarray) -> dict:
     return checks
 
 
+def form_evidence(S: Store, ids: np.ndarray) -> dict:
+    """fe__: U-126 refreshed (feature_universe/form_evidence.py, form_evidence/store_columns.parquet), after checking
+    its side A against the pre-rebuild Stage 0 that defines the store's sides, r = sw / (sw + K3) with tpw's K3 per tour,
+    and that the difference is A - B. Missing where the instance's tables lack the match's players."""
+    T = _read(FORM_EVIDENCE, ["tour", "player_a_id", "player_b_id", "sw_a", "sw_b", "r_a", "r_b", "r_diff", "instance"],
+              ids)
+    s0 = pd.read_parquet(STAGE0_SIDES, columns=["match_id", "player_a_id", "player_b_id"])
+    s0 = s0.assign(match_id=s0["match_id"].astype(str)).set_index("match_id").reindex(ids)
+    sa, sb, ra, rb, d = (T[c].to_numpy(float) for c in ("sw_a", "sw_b", "r_a", "r_b", "r_diff"))
+    k3 = T["tour"].map(FORM_EVIDENCE_K3).to_numpy(float)
+    checks = {"rows_found": int(T["player_a_id"].notna().sum()),
+              "values_found": int((np.isfinite(sa) & np.isfinite(sb)).sum()),
+              "side_a_equals_stage0": bool((T["player_a_id"].to_numpy() == s0["player_a_id"].astype(str).to_numpy()).all()
+                                           and (T["player_b_id"].to_numpy() == s0["player_b_id"].astype(str).to_numpy()).all()),
+              "r_is_sw_over_sw_plus_k3": bool(np.allclose(np.r_[ra, rb], np.r_[sa / (sa + k3), sb / (sb + k3)],
+                                                          rtol=0.0, atol=1e-12, equal_nan=True)),
+              "diff_is_a_minus_b": bool(np.allclose(d, ra - rb, rtol=0.0, atol=1e-12, equal_nan=True)),
+              "instance": sorted(set(T["instance"].dropna().astype(str))),
+              "source_sha256": C.sha256_file(FORM_EVIDENCE)}
+    if checks["rows_found"] != len(ids) or not all(checks[k] for k in ("side_a_equals_stage0", "r_is_sw_over_sw_plus_k3",
+                                                                        "diff_is_a_minus_b")):
+        raise ValueError(f"form evidence: checks failed {checks}")
+    src = "feature_universe/form_evidence"
+    inst = ", ".join(checks["instance"])
+    S.add_pair("fe__sw", sa, sb, "fe", src,
+               "the decayed count of the player's earlier box-score matches behind the two-week form, as the current "
+               f"best model weighs it ({inst}): Stage B's step-3 weight sum for tpw (half-life 2 weeks, Stage B's time "
+               "rule; the level layer's weights for men, ITF box scores 0); 0 without one")
+    S.add_pair("fe__r", ra, rb, "fe", src,
+               "the two-week form's shrinkage share sw / (sw + K3), K3 = tpw's (10 men, 20 women)")
+    S.add("fe__r_diff", d, "diff", "fe", src, "A's shrinkage share of the two-week form minus B's")
+    return checks
+
+
 def read_registry() -> pd.DataFrame:
     """store_registry.csv as written, floats read exactly (round trip), so rewriting it leaves unchanged rows as they
     were to the last digit."""
@@ -273,35 +313,47 @@ def coverage(store: pd.DataFrame, reg: pd.DataFrame) -> pd.DataFrame:
     return reg
 
 
-def append_el() -> int:
-    """Add the el__ columns to the existing store and registry; every other column and registry row is kept as it is
-    (the registry's hygiene annotations are recomputed over all rows, as --registry-only does)."""
+def append_group(tag: str, builder, key: str) -> int:
+    """Add one late group's columns (builder(S, ids) -> its checks) to the existing store and registry; every other
+    column and registry row is kept as it is (the registry's hygiene annotations are recomputed over all rows, as
+    --registry-only does). The checks go to store_build.json under `key`, the append under "appended"."""
     store = pd.read_parquet(OUT / "store.parquet")
     reg = read_registry()
     ids = store["match_id"].astype(str).to_numpy()
     S = Store(ids)
-    el_checks = event_levels(S, ids)
+    g_checks = builder(S, ids)
     clash = [c for c in S.cols if c in store.columns]
     if clash:
         same = all(np.array_equal(store[c].to_numpy(float), S.cols[c], equal_nan=True) for c in clash)
         if same and len(clash) == len(S.cols):
-            log("el__ columns already in the store, unchanged")
+            log(f"{tag}__ columns already in the store, unchanged")
             return 0
-        raise ValueError(f"el__ columns already present with other values: {clash}")
+        raise ValueError(f"{tag}__ columns already present with other values: {clash}")
     new = coverage(store.assign(**S.cols), pd.DataFrame(S.meta))
     new["kind_built"], new["partner_built"] = new["kind"], new["partner"]
     store = pd.concat([store, pd.DataFrame(S.cols)], axis=1)
     reg, hchecks = hygiene(store, pd.concat([reg, new], ignore_index=True))
     checks = json.loads((OUT / "store_build.json").read_text(encoding="utf-8"))
+    appended = dict(checks.get("appended", {}))
+    appended[tag] = {"at": pd.Timestamp.now(tz="UTC").isoformat(timespec="seconds"), "columns": list(S.cols),
+                     "how": f"build_store.py --append-{tag}"}
     checks.update({"hygiene": hchecks, "pairs_consistent": hchecks["pairs_consistent"], "columns": int(len(reg)),
-                   "by_group": reg["group"].value_counts().to_dict(), "event_levels": el_checks,
-                   "appended": {"el": {"at": pd.Timestamp.now(tz="UTC").isoformat(timespec="seconds"),
-                                       "columns": list(S.cols), "how": "build_store.py --append-el"}}})
+                   "by_group": reg["group"].value_counts().to_dict(), key: g_checks, "appended": appended})
     store.to_parquet(OUT / "store.parquet", index=False)
     reg.to_csv(OUT / "store_registry.csv", index=False)
     C.write_json(OUT / "store_build.json", checks)
-    log(f"el__ appended: store {store.shape}; menu {hchecks['menu_columns']} columns; {el_checks}")
+    log(f"{tag}__ appended: store {store.shape}; menu {hchecks['menu_columns']} columns; {g_checks}")
     return 0
+
+
+def append_el() -> int:
+    """Add the el__ columns to the existing store and registry (8 Oct 2026)."""
+    return append_group("el", event_levels, "event_levels")
+
+
+def append_fe() -> int:
+    """Add the fe__ columns to the existing store and registry (14 Oct 2026)."""
+    return append_group("fe", form_evidence, "form_evidence")
 
 
 def _key(v: np.ndarray) -> bytes:
@@ -430,6 +482,8 @@ def main() -> int:
         return registry_only()
     if "--append-el" in sys.argv[1:]:
         return append_el()
+    if "--append-fe" in sys.argv[1:]:
+        return append_fe()
     warnings.simplefilter("ignore")
     P = panel26()
     L = long_table()
@@ -637,6 +691,9 @@ def main() -> int:
     # el__: the event-levels study's history composition (last, in the order --append-el gives them)
     checks["event_levels"] = event_levels(S, ids)
     log(f"el__ done: {checks['event_levels']}")
+    # fe__: U-126 refreshed (14 Oct 2026; form_evidence.py --store writes its source first)
+    checks["form_evidence"] = form_evidence(S, ids)
+    log(f"fe__ done: {checks['form_evidence']}")
 
     # write
     keys = P[KEYS].reset_index(drop=True)

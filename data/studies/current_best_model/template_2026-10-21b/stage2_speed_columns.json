@@ -1,0 +1,43 @@
+{
+ "instance": "template_2026-10-21b",
+ "season": 2026,
+ "column": "C:\\Users\\zerom\\Documents\\Tennis-predictions\\data\\studies\\infosys_atp_backfill\\speed_columns_augmented.parquet",
+ "column_sha256": "2add9204452900fbdc6abf9faa7097e4f836cafe669b6377137cda1c786d6b4b",
+ "frame_sha256": "e99212c92215d5a82d6f364ff2c478c8018fd08aa1a6999332799478ee407834",
+ "stage0": "C:\\Users\\zerom\\tnr_tpl1021\\data\\studies\\predictability_diagnostic\\stage0_matches.parquet",
+ "timing": "C:\\Users\\zerom\\tnr_tpl1021\\data\\studies\\match_timing\\timing.parquet",
+ "season_men": 2345,
+ "in_column": 1774,
+ "extended": 571,
+ "check": {
+  "B": {
+   "overlap": 1774,
+   "equal": 1774,
+   "max_abs_diff": 0.0,
+   "differ_with_same_targets": 0,
+   "differ_with_changed_targets": 0,
+   "examples_unexplained": []
+  },
+  "D": {
+   "overlap": 1774,
+   "equal": 1774,
+   "max_abs_diff": 0.0,
+   "differ_with_same_targets": 0,
+   "differ_with_changed_targets": 0,
+   "examples_unexplained": []
+  }
+ },
+ "check_passed": true,
+ "rows": 37098,
+ "missing_after": 0,
+ "history_last_finish": "2026-10-07",
+ "extended_beyond_history": 47,
+ "live_history": {
+  "history_rows": 43783,
+  "live_only_rows": 468,
+  "live_only_obs_last": "2026-10-21"
+ },
+ "beyond_note": "matches starting after the frozen history's last finish read the live panel's later rows (the daily collector's from 8 Oct 2026, and any backfill), each released by its scenario's rule but never before the day the live feed collected it",
+ "rule": "the column's value where it holds the match; the builder's for the others (same history, release days, constants); the check: on the overlap, every difference must come from changed targets",
+ "seconds": 6.3
+}

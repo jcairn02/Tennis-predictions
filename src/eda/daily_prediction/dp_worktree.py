@@ -7,10 +7,11 @@ folders, the frozen reference, the prediction runs' and this script's own record
 (junctions, read only): data/dump/ and data/raw/. Every builder resolves its paths from its own location, so all it
 reads and writes is the work tree's.
 
-A replay (--replay) holds Tennis My Life's staged dump at the freeze of 8 Oct 2026 18:53 UTC (the instance's tables):
-data/dump/ is a folder of junctions with matches/tennis_my_life pointing at the frozen view
-(level_layer_adoption/freeze_dump.py wrote it; Stage 0 built on it equals the frozen Stage 0 byte for byte), as the
-10 Oct layer replay's sandbox did by hand.
+A replay (--replay) holds Tennis My Life's staged dump as the instance's build read it: data/dump/ is a folder of
+junctions with matches/tennis_my_life pointing at the instance's frozen view (level_layer_adoption/freeze_dump.py wrote
+it; Stage 0 built on it equals the build's Stage 0 byte for byte), as the 10 Oct layer replay's sandbox did by hand.
+Which view: dp_common.replay_tables (16 Oct 2026; until then always the 8 Oct view, which only the 10 and 13 Oct
+instances were built on).
 """
 from __future__ import annotations
 
@@ -25,6 +26,7 @@ import dp_common as DC
 MARKER = ".prediction_run_sandbox"                  # prediction_run/common.MARKER: stage0_build's licence for live rows
 EXCLUDE = ("full_runs", "pytest_*", "__pycache__", "current_best_model", "prediction_run", "daily_prediction")
 LINKED = ("dump", "raw")
+FIXES = Path("data") / "studies" / "input_data_audit" / "fixes"     # the decided correction tables (stage0_build)
 
 
 def robocopy(src: Path, dst: Path, exclude_dirs: tuple[str, ...] = ()) -> None:
@@ -46,14 +48,20 @@ def links(box: Path) -> list[str]:
     return [x for x in out.splitlines() if x.strip()]
 
 
-def setup(box: Path = DC.WORK_TREE, replay: bool = False, freeze: Path = DC.FREEZE_DUMP, owner: str = "") -> dict:
+def setup(box: Path = DC.WORK_TREE, replay: bool = False, freeze: Path | None = None, owner: str = "",
+          fixes: Path | None = None) -> dict:
     """A fresh work tree (refused if one exists: clean it up first). owner (a run's folder) is written into the marker:
-    run_day deletes a tree only when it names that run (owner_of)."""
+    run_day deletes a tree only when it names that run (owner_of). freeze: a replay's dump view (step_worktree passes
+    the instance's own, dp_common.replay_tables). fixes: a replay's decided correction tables (since 22 Oct 2026: the
+    instance's build tree's copy, step_worktree), which replace the repository's, so a replay of an instance built
+    before a correction was decided rebuilds the tables that instance was built on; a live run reads the repository's."""
     box = Path(box)
     if box.exists():
         raise SystemExit(f"{box} exists; clean it up first (dp.py cleanup)")
     if box.resolve() == DC.REPO.resolve():
         raise SystemExit("the work tree must not be the repository")
+    if replay and freeze is None:
+        raise SystemExit("a replay's work tree needs the instance's dump view (dp_common.replay_tables)")
     t0 = time.time()
     (box / "data").mkdir(parents=True)
     robocopy(DC.REPO / "src", box / "src", ("__pycache__",))
@@ -76,9 +84,22 @@ def setup(box: Path = DC.WORK_TREE, replay: bool = False, freeze: Path = DC.FREE
         for child in (DC.REPO / "data" / "dump" / "matches").iterdir():
             if child.is_dir():
                 junction(dump / "matches" / child.name, tml if child.name == "tennis_my_life" else child)
+    if replay and fixes is not None:
+        dst = box / FIXES
+        held = {f.name for f in Path(fixes).glob("*.csv")}
+        if not held:
+            raise SystemExit(f"{fixes}: no correction tables")
+        for f in dst.glob("*.csv"):
+            if f.name not in held:                 # a table decided after the instance's build (event corrections)
+                f.unlink()
+        for name in held:
+            shutil.copy2(Path(fixes) / name, dst / name)
     (box / MARKER).write_text(json.dumps({"created_at": DC.stamp(), "repository": str(DC.REPO), "replay": replay,
+                                          "dump_view": str(freeze) if replay else None,
+                                          "fixes": str(fixes) if replay and fixes is not None else None,
                                           "by": "daily_prediction/dp_worktree.py", "owner": owner}), encoding="utf-8")
-    return {"work_tree": str(box), "replay": replay, "seconds": round(time.time() - t0, 1)}
+    return {"work_tree": str(box), "replay": replay, "dump_view": str(freeze) if replay else None,
+            "fixes": str(fixes) if replay and fixes is not None else None, "seconds": round(time.time() - t0, 1)}
 
 
 def owner_of(box: Path) -> str | None:

@@ -215,6 +215,7 @@ Done when the comparison, the input check and the amendment exist. Then tick ite
   * −0.026 [−0.076, +0.023] mLL per match, unresolved, P(better) 0.145. Men −0.023, women −0.030, both unresolved.
   * The rule's harm (worse than −0.1, with the whole interval below 0) is not met.
   * The comparison resolves ±0.049 (`adoption_read.py --kind repair`: "adopt, pending the input check"). The seven input flags are read against the dose: they are the fix's own (step 9 of § 10.3).
+* **Applied on 13 Oct 2026** by the session working on the 2026 data gaps. The template of 14 Oct carries it, and today's Stage 0 was checked again on 16 Oct. The old tables are kept for item 12. The note below is as written on 10 Oct.
 * **Not yet applied** (report § 10.4).
   * The two decided tables take the candidate's (`adopt.py --check`, then `--apply`) in the next coordinated run of `rebuild_stage0.py`, after the lower-level-evidence study's arm builds. That study's gates fail on any main-tour Stage 0 change.
   * Until then, Stage 0 and the model are unchanged.

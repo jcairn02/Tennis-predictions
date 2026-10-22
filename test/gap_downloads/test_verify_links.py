@@ -56,6 +56,11 @@ def test_verdicts():
     # a default ends the match like a retirement: SofaScore's unstarted 0-0 set is left aside (Adelaide 2022)
     assert V.compare(event("Laslo Djere", "Corentin Moutet", [4, 7, 0], [6, 5, 0]), "Laslo Djere", "4-6 7-5 DEF") == \
         "agrees"
+    # an unplayed 0-0 set is left out on both sides: SofaScore's after a finished match (Sydney 2018), the official
+    # score's at a retirement between sets (Nonthaburi 2024)
+    assert V.unplayed_dropped([(6, 4), (0, 0)]) == [(6, 4)] and V.unplayed_dropped([(0, 0)]) == []
+    assert V.compare(event("Ann Bee", "Cid Dee", [2, 6, 7, 0], [6, 3, 6, 0]), "Ann Bee", "2-6 6-3 7-6(4)") == "agrees"
+    assert V.compare(event("Ann Bee", "Cid Dee", [6], [4]), "Ann Bee", "6-4 0-0 RET") == "agrees"
     # winner code 3 (a retirement SofaScore gives no winner) or none (cancelled): no winner to compare
     assert V.compare(event("Ann Bee", "Cid Dee", [4], [1], winner=3), "Ann Bee", "4-1 RET") == "SofaScore lists no winner"
     assert V.compare(event("Ann Bee", "Cid Dee", [], [], winner=None), "Ann Bee", "6-2 6-2") == "SofaScore lists no winner"

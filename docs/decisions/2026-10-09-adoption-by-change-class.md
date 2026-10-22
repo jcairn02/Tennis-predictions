@@ -106,6 +106,8 @@ day ([decision](2026-10-09-adoption-framework.md)), which stays a set of guiding
        feeds whose result counts by the run's cut-off under the match clock (lf + 1 ≤ the cut-off).
      * Backtests and the frozen reference keep the annual protocol.
      * The guard, before first live use: a replay showing that the walk-forward calibration still fits.
+     * ***Amended by the owner on 20 Oct 2026** (section at the end): the rows grow at retrains the owner calls, not at
+       every run ("the retrain's cut-off" in place of "the run's"), and stage 2 grows with them.*
    * **The holdback** (point 5) runs monthly while adoptions are being made.
 8. **Reporting is unchanged, and is only reporting.**
    * Say "better" or "worse" when the 95% interval clears 0; otherwise "unresolved", with P(better). Never "tie".
@@ -133,6 +135,54 @@ day ([decision](2026-10-09-adoption-framework.md)), which stays a set of guiding
   candidate builds (now read by kind of change); the prediction runs.
 * **The stakes lane:** an adoption made on a prior earns no edge credit.
 * **Earlier decisions stand.** Agents recommend; accepting a change stays the owner's call.
+
+## Amendment of 20 October 2026: the live fit grows at retrains the owner calls, and stage 2 with it
+
+**The owner's words.** On learning that every 2026 prediction trained on 2013–2025 only (the policy of point 7 was
+never built):
+
+> "We havent decided on the frequency of retrains yet, but it is a massive error that we are not using any 2026 for
+> training the tabpfn3.5 production models that are used to inform our betting. For production betting our latest
+> trains should IDEALLY be using the latest matches. This is weighed against the cost of frequently retraining. Not
+> practical to do it every day for example. As of now , Id like to only re-train manually , when I say its time to
+> retrain. (a timer can exist that watches time since last retrain so im informed off it on the masters script) each
+> time I run the A1-A5, but being 10 months out of sync is not good."
+
+Then, to Claude's three recommendations (the same day): "I'm on board with the following 3 items. Execute them."
+* "Record your rule as an amendment to the 9 Oct decision? Training rows and stage 2 would grow only at retrains you
+  call; backtests and checks on unseen matches keep the season rule."
+* "Go-ahead for the setup and the check, on the fast plan above?"
+* "Should stage 2 grow at every retrain, on the three conditions from before (speed table extended and checked, no harm
+  in the check, both versions logged)?"
+
+And on the check: "Common sense shows frequent retraining is very unlikely to be harmful, so testing for it is a bit
+overkill imo, but im open to it if you think its worth it to test. 24 hours is an unreasonble cost time wise though."
+
+**The rule.**
+1. **The live fit's training rows grow at retrains the owner calls, never at a prediction run.** A retrain builds an
+   instance on the day's tables. Its live fit for season Y trains on 2013 .. Y − 1 plus every season-Y match of its
+   frame whose result counts by the retrain's cut-off under the match clock (lf + 1 ≤ the cut-off). The instance
+   records the cut-off and the season-Y matches it admits. Between retrains the rows stay as they are.
+2. **Stage 2 grows with them.** s_atp, s_wta and b are refitted at each retrain on 2019 .. Y − 1 plus the same season-Y
+   matches, by the decided fit (debut seasons out, b shrunk with τ = 0.05). For those matches it reads the walk-forward
+   forecasts: the instance's season-Y fit, trained on 2013 .. Y − 1. The owner's three conditions:
+   * the speed table extended to every season-Y men's match of the build, and checked equal to the existing table
+     where they overlap;
+   * no harm in the check (below);
+   * both versions, grown and annual, logged on the first runs.
+3. **The season rule stays for everything that measures.** Backtests, harm checks, the holdback, the frozen reference
+   and every check on unseen matches read the walk-forward fits (season Y on 2013 .. Y − 1) and the annual stage 2
+   (2019 .. Y − 1). The production fit never replaces them, and its forecasts of its own training matches are never
+   scored.
+4. **Thinking's season fit trains on exactly the local fit's rows** (one paid fit per retrain).
+5. **A timer** shows the days and main-tour matches since the active instance's cut-off at A1, A4 and on the bet sheet.
+   Its "retrain due" threshold is a setting, 30 days by default (Claude's suggestion; the owner has not chosen one).
+6. **The guard** of point 7, cut to what can fail cheaply (the owner's "24 hours is an unreasonble cost"): the check of
+   `docs/studies/in_season_retrain/`, with its rules fixed before it runs.
+7. **How often:** undecided. The owner calls each retrain.
+
+**Records:** [the in-season retrain report](../studies/in_season_retrain/README.md) and its process log; the
+[current best model](2026-10-08-current-best-model.md) (its amendment notes); `CLAUDE.md`.
 
 ## Open
 

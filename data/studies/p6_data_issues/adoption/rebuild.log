@@ -1,0 +1,116 @@
+--> [build] src/eda/predictability_diagnostic/stage0_build.py
+[   1.2s] loaded 1,066,104 rows from 10 file groups
+[   6.2s] box overrides: 2,272 rows take the official feed's box score (2 the score too; 1441 of them Sackmann rows)
+[   9.8s] row corrections: 2,951 source rows corrected
+[  11.1s] date corrections: 31 of 31 matches re-dated
+[  22.0s] after repeats: Sackmann 867,297, TML 197,303
+[  28.4s] TML linked: exact_name_pair 183,928, unlinked 6,423, one_player_anchor 6,291, resolved_ids 548, same_event_other_round 113
+[  34.8s] TML-only rows appended: 6,423 (422 in events Sackmann also holds)
+[  94.1s] id aliases: 4 second ids mapped (7 already merged by the repairs)
+[  97.0s] wrote 873,681 matches and 1,747,362 player rows to C:\Users\zerom\Documents\Tennis-predictions\data\studies\predictability_diagnostic
+[  98.0s] cleaning log: 2,377 rows, 31 cells over 1%
+[ 102.3s] done
+--> [checks] src/eda/predictability_diagnostic/stage0_checks.py
+{
+ "counts": [
+  {
+   "tour": "M",
+   "stage0": 233300,
+   "map_result_files": 232906,
+   "map_all_sources": 410740
+  },
+  {
+   "tour": "W",
+   "stage0": 237782,
+   "map_result_files": 237270,
+   "map_all_sources": 297114
+  }
+ ],
+ "a_won": {
+  "n": 873681,
+  "a_won": 436941,
+  "share": 0.5001,
+  "lo": 0.4991,
+  "hi": 0.5012
+ },
+ "asof": {
+  "slice": "player rows of 2024 tournament weeks",
+  "rows": 148206,
+  "asof_helper": {
+   "cuts": 20,
+   "changed_before_cut": 0,
+   "changed_at_cut": 0
+  },
+  "leaky_running_total_including_the_match": {
+   "cuts": 20,
+   "changed_before_cut": 0,
+   "changed_at_cut": 40
+  }
+ }
+}
+--> [odds] src/eda/predictability_diagnostic/stage1_odds.py
+[   2.1s] tennis-data rows 2010 on: 83,243 (0 re-dated to their file's season)
+[   2.2s] odds corrections: 7 rows with prices exchanged
+[   3.3s] Stage 0 main-draw matches at the linked levels: 93,131
+[   4.0s] scan.py's method: 79,890 linked (95.97%), 160 matches taken by two rows
+[   5.0s] linked: 83,183 (99.93%)
+[   7.0s] wrote stage1_odds.parquet (93,131 rows), stage1_odds_unlinked.parquet (60 rows), stage1_odds_summary.json to C:\Users\zerom\Documents\Tennis-predictions\data\studies\predictability_diagnostic
+{"ok": false, "matches": null, "ids": null, "remapped_rows": null, "expect": {"folder": "C:/Users/zerom/AppData/Local/Temp/claude/c--Users-zerom-Documents-Tennis-predictions/b2538231-694b-4911-acc2-603ecdaff3ea/scratchpad/date_dry_run_2/with", "matches_equal": true, "players_equal": true, "same_bytes": true}}
+Traceback (most recent call last):
+  File "C:\Users\zerom\miniforge3\envs\tennis\Lib\site-packages\pandas\core\arrays\arrow\array.py", line 1054, in _evaluate_op_method
+    result = pc.binary_join_element_wise(self_array, other, sep)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\zerom\miniforge3\envs\tennis\Lib\site-packages\pyarrow\compute.py", line 271, in wrapper
+    return func.call(args, options, memory_pool)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pyarrow/_compute.pyx", line 405, in pyarrow._compute.Function.call
+    result = GetResultValue(
+  File "pyarrow/error.pxi", line 155, in pyarrow.lib.pyarrow_internal_check_status
+    return check_status(status)
+  File "pyarrow/error.pxi", line 92, in pyarrow.lib.check_status
+    raise convert_status(status)
+pyarrow.lib.ArrowNotImplementedError: Function 'binary_join_element_wise' has no kernel matching input types (large_string, double, large_string)
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\zerom\Documents\Tennis-predictions\src\eda\data_continuity\rebuild_stage0.py", line 242, in <module>
+    sys.exit(main())
+             ^^^^^^
+  File "C:\Users\zerom\Documents\Tennis-predictions\src\eda\data_continuity\rebuild_stage0.py", line 211, in main
+    pairs, unpaired = id_map(old, PD)
+                      ^^^^^^^^^^^^^^^
+  File "C:\Users\zerom\Documents\Tennis-predictions\src\eda\data_continuity\rebuild_stage0.py", line 146, in id_map
+    pairs = keyed(mo, po, gone).merge(keyed(mn, pn, fresh), on="key", suffixes=("_old", "_new"))
+            ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\zerom\Documents\Tennis-predictions\src\eda\data_continuity\rebuild_stage0.py", line 142, in keyed
+    x["key"] = (x["tour"].astype(str) + "#" + x["tournament_id"].astype(str) + "#" + x["round"].astype(str)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\zerom\miniforge3\envs\tennis\Lib\site-packages\pandas\core\ops\common.py", line 85, in new_method
+    return method(self, other)
+           ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\zerom\miniforge3\envs\tennis\Lib\site-packages\pandas\core\arraylike.py", line 190, in __add__
+    return self._arith_method(other, operator.add)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\zerom\miniforge3\envs\tennis\Lib\site-packages\pandas\core\series.py", line 6751, in _arith_method
+    return base.IndexOpsMixin._arith_method(self, other, op)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\zerom\miniforge3\envs\tennis\Lib\site-packages\pandas\core\base.py", line 1644, in _arith_method
+    result = ops.arithmetic_op(lvalues, rvalues, op)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\zerom\miniforge3\envs\tennis\Lib\site-packages\pandas\core\ops\array_ops.py", line 279, in arithmetic_op
+    res_values = op(left, right)
+                 ^^^^^^^^^^^^^^^
+  File "C:\Users\zerom\miniforge3\envs\tennis\Lib\site-packages\pandas\core\ops\common.py", line 85, in new_method
+    return method(self, other)
+           ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\zerom\miniforge3\envs\tennis\Lib\site-packages\pandas\core\arraylike.py", line 190, in __add__
+    return self._arith_method(other, operator.add)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\zerom\miniforge3\envs\tennis\Lib\site-packages\pandas\core\arrays\arrow\array.py", line 1158, in _arith_method
+    result = self._evaluate_op_method(other, op, ARROW_ARITHMETIC_FUNCS)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\zerom\miniforge3\envs\tennis\Lib\site-packages\pandas\core\arrays\arrow\array.py", line 1058, in _evaluate_op_method
+    raise TypeError(
+TypeError: operation 'add' not supported for dtype 'str' with dtype 'float64'
+rebuild exit 1

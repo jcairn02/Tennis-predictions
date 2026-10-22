@@ -136,9 +136,11 @@ def test_an_age_and_a_box_fix_can_share_a_row_but_one_field_cannot_be_fixed_twic
 
 
 def test_a_row_whose_names_changed_or_that_is_missing_stops_the_build():
-    with pytest.raises(SystemExit, match="winner_name"):
+    # since 21 Oct 2026 a correction whose row moved is found by its match (_row_positions); one whose guards name no
+    # row of its file, under any row number, still stops the build
+    with pytest.raises(SystemExit, match="names no row whose tournament id, round and names equal its guards"):
         K.apply_row_corrections(raw(), table("exchange_box", winner_name="Someone Else"))
-    with pytest.raises(SystemExit, match="exactly one"):
+    with pytest.raises(SystemExit, match="names no row whose tournament id, round and names equal its guards"):
         K.apply_row_corrections(raw(), table("exchange_box", row=7))
 
 
@@ -204,3 +206,52 @@ def test_named_speed_records_are_found_exactly():
     assert hit.tolist() == [True, False, False]
     with pytest.raises(SystemExit, match="exactly one"):
         K.speed_exclusions(rec, rec.iloc[[0]].assign(source_key="k9"))
+
+
+# ------------------------------------------------------------------------------------------- date corrections (14 Oct 2026)
+def dated(n: int = 3) -> pd.DataFrame:
+    """Raw rows as stage0_build holds them when the corrections run: the source's date text and its parsed tdate."""
+    rows = [{"_source_file": "tml/2024_challenger.csv", "_row": 280 + i, "tourney_id": "2024-2847", "round": "R32",
+             "winner_name": f"Win {i}", "loser_name": f"Lose {i}", "tourney_date": "20240121"} for i in range(n)]
+    df = pd.DataFrame(rows, index=range(50, 50 + n))
+    df["tdate"] = pd.to_datetime(df["tourney_date"], format="%Y%m%d")
+    return df
+
+
+def date_table(*idx: int, old: str = "20240121", new: str = "20240226") -> pd.DataFrame:
+    return pd.DataFrame([{"fix": "D1", "action": "set_tourney_date", "match_id": f"m{i}",
+                          "source_file": "tml/2024_challenger.csv", "tourney_id": "2024-2847", "round": "R32",
+                          "winner_name": f"Win {i}", "loser_name": f"Lose {i}", "old_value": old, "value": new}
+                         for i in idx])
+
+
+def test_a_date_correction_finds_its_match_by_identity_not_by_row_number():
+    df = dated()
+    df["_row"] = [900, 901, 902]                       # the source rewrote its row order: the correction still finds it
+    out, rep = K.apply_date_corrections(df, date_table(0, 2))
+    assert list(out.loc[[50, 52], "tourney_date"]) == ["20240226", "20240226"]
+    assert (out.loc[[50, 52], "tdate"] == pd.Timestamp("2024-02-26")).all()
+    assert out.loc[51, "tourney_date"] == "20240121" and out.loc[51, "tdate"] == pd.Timestamp("2024-01-21")
+    assert rep["applied"] == 2 and rep["not_found"] == [] and list(rep["rows"]) == [50, 52]
+
+
+def test_a_date_the_source_already_fixed_is_left_alone_and_reported():
+    df = dated()
+    df.loc[51, "tourney_date"] = "20240226"            # the source corrected this one itself
+    df["tdate"] = pd.to_datetime(df["tourney_date"], format="%Y%m%d")
+    out, rep = K.apply_date_corrections(df, date_table(0, 1))
+    assert rep["applied"] == 1 and rep["not_found"] == ["m1"]
+    assert (out["tdate"] == pd.Timestamp("2024-02-26")).sum() == 2
+
+
+def test_a_date_correction_that_finds_two_rows_stops_the_build():
+    df = pd.concat([dated(1), dated(1).set_axis([60])])
+    with pytest.raises(SystemExit):
+        K.apply_date_corrections(df, date_table(0))
+
+
+def test_a_numeric_source_date_column_keeps_its_type():
+    df = dated(1)
+    df["tourney_date"] = df["tourney_date"].astype("int64")
+    out, rep = K.apply_date_corrections(df, date_table(0))
+    assert out.loc[50, "tourney_date"] == 20240226 and rep["applied"] == 1

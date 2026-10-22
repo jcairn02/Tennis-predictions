@@ -98,7 +98,11 @@ def uk_day(day, start_utc) -> pd.Timestamp:
 def live_from_matchups(matchups: pd.DataFrame, stage0: Path, folder: Path) -> dict:
     """Live rows and meta for upcoming matches (columns MATCHUP_COLUMNS, optional tourney_name, best_of, start_utc).
     p_a is the margin-free price that player_a wins at bet time; the match id is predicted from Stage 0's ids and
-    checked in the sandbox."""
+    checked in the sandbox. An event TML holds no row of yet (a qualifying round 1; women's qualifying) comes with its
+    columns in the CSV (live_rows.CSV_EVENT): its Stage 0 id is predicted as Stage 0 normalises TML's, and the check
+    after the build refuses the run if Stage 0 gave it another."""
+    import re
+
     from src.eda.prediction_run import live_rows as LR
     from src.eda.predictability_diagnostic import common as C
     from src.eda.predictability_diagnostic import stage0_build as B
@@ -108,7 +112,7 @@ def live_from_matchups(matchups: pd.DataFrame, stage0: Path, folder: Path) -> di
         raise SystemExit(f"matchups: columns missing: {sorted(missing)}")
     years = sorted({pd.Timestamp(d).year for d in matchups["day"]})
     raw = LR.staged_tml(sorted(set(years) | {y - 1 for y in years}))
-    rows = LR.upcoming_rows(matchups, raw)
+    rows = LR.upcoming_rows(matchups, raw, LR.stage0_players(stage0))
     m = pd.read_parquet(stage0 / "stage0_matches.parquet", columns=["match_id", "tour", "tournament_id", "source_file",
                                                                     "source_row"])
     p = pd.read_parquet(stage0 / "stage0_match_players.parquet", columns=["match_id", "player_id", "player_name"])
@@ -119,8 +123,11 @@ def live_from_matchups(matchups: pd.DataFrame, stage0: Path, folder: Path) -> di
         own = m[m["source_file"].astype(str).isin(set(event["_source_file"].astype(str)))
                 & pd.to_numeric(m["source_row"]).isin(pd.to_numeric(event["_row"]))]
         tids = own.loc[own["tour"].eq(mu["tour"]), "tournament_id"].value_counts()
+        if tids.empty and event.empty and LR.csv_event(mu) is not None:      # a new event: its id as Stage 0 makes it
+            tids = pd.Series([1], index=[re.sub(r"-0+(\d)", r"-\1", str(mu["tourney_id"]))])
         if tids.empty:
             raise SystemExit(f"matchups: the event {mu['tourney_id']} has no Stage 0 match")
+        event_name = str(event["tourney_name"].iloc[0]) if len(event) else str(mu["tourney_name"])
         ids = []
         for who in ("player_a", "player_b"):
             hit = keyed[keyed["tour"].eq(mu["tour"]) & keyed["key"].eq(B.S.name_key(str(mu[who])))]["player_id"]
@@ -132,9 +139,8 @@ def live_from_matchups(matchups: pd.DataFrame, stage0: Path, folder: Path) -> di
         a_is_a = (lo if C.side_is_low(mid) else hi) == ids[0]
         p_a = float(mu["p_a"])
         meta.append({"match_id": mid, "day": uk_day(mu["day"], mu.get("start_utc")),
-                     "p_a": p_a if a_is_a else 1 - p_a, "venue": venue_for(mu["tour"], tids.index[0],
-                                                                         str(event["tourney_name"].iloc[0])),
-                     "tour": mu["tour"], "tournament_name": str(event["tourney_name"].iloc[0]),
+                     "p_a": p_a if a_is_a else 1 - p_a, "venue": venue_for(mu["tour"], tids.index[0], event_name),
+                     "tour": mu["tour"], "tournament_name": event_name,
                      "round": str(mu["round"]).upper(), "player_a": mu["player_a"], "player_b": mu["player_b"]})
     meta = pd.DataFrame(meta)
     rows.to_parquet(folder / "live_rows.parquet", index=False)
@@ -180,7 +186,8 @@ def refresh(folder: Path, matchups: Path | None, download: bool, max_requests: i
         record["gaps"] = g.groupby(["class", "tour", "level"]).size().rename("matches").reset_index().to_dict("records")
         fillable = g[g["class"].eq("fillable")]
         keys = FL.tml_keys(fillable, LR.staged_tml(sorted({int(y) for y in fillable["year"]}))) if len(fillable) else None
-        fills, notes = FL.fill_wta(fillable, keys, max_requests) if len(fillable) else (pd.DataFrame(), [])
+        # the women's from the WTA API, the men's from the ATP Stats Centre (since 14 Oct 2026)
+        fills, notes = FL.fill_all(fillable, keys, max_requests) if len(fillable) else (pd.DataFrame(), [])
         g = g.merge(pd.DataFrame(notes, columns=["match_id", "outcome"]), on="match_id", how="left") if notes else g
         g[["match_id", "tour", "level", "tournament_name", "round", "tournament_date", "class"]
           + (["outcome"] if "outcome" in g else [])].to_csv(folder / "gaps.csv", index=False)

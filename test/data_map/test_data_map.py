@@ -233,3 +233,236 @@ def test_wta_site_reads_the_newest_copy_and_adds_each_api_match_once(tmp_path, m
     tournaments.to_csv(v30 / "tournaments.csv", index=False)
     matches.iloc[:1].to_csv(v30 / "matches.csv", index=False)
     assert M.wta_site_folder() == v30 and len(M.load_wta_site()) == 4  # the API row now fills the main-draw match
+
+
+def test_wta_site_leaves_out_the_copys_misfiled_editions(tmp_path, monkeypatch):
+    """The copy's last ten editions (7-14 Sep 2026) file their matches under the wrong editions (P6 data issues, 14 Oct
+    2026): their listings are left out, and the WTA API's row places the match under its true edition."""
+    root, api = tmp_path / "bwandowando", tmp_path / "player_results"
+    root.mkdir()
+    api.mkdir()
+    monkeypatch.setattr(M, "WTA_SITE", root)
+    monkeypatch.setattr(M, "WTA_SITE_API", api)
+    monkeypatch.setattr(M, "CACHE", tmp_path / "cache")
+    montreux, guiyang = 163248187558, 322715938447
+    assert {montreux, guiyang} <= M.WTA_SITE_MISFILED
+    pd.DataFrame({"pseudo_tournament_id": [montreux, guiyang],
+                  "title": ["Montreux Nestlé Open - Montreux, SUI", "WTT W50 - GUIYANG, CHINA"],
+                  "startDate": ["2026-09-07"] * 2, "level": ["WTA 125", "ITF"],
+                  "tournamentGroupId": [1112, 4209]}).to_csv(root / "tournaments.csv", index=False)
+    pd.DataFrame({"pseudo_match_id": [1], "pseudo_tournament_id": [montreux], "reason_code": ["W"],
+                  "round_name": ["R32"], "qpm_flag": ["M"], "team_name_1": ["WANG,  YAFAN  CHN"],
+                  "team_name_2": ["ASTAKHOVA,  ALEKSANDRA  RUS"],
+                  "scores": ["7-6(5)  7-5"]}).to_csv(root / "matches.csv", index=False)
+    assert len(M.load_wta_site(refresh=True)) == 0          # the copy's listing alone: left out
+    pd.DataFrame({"tournament_group_id": ["4209"], "start_date": ["2026-09-07"], "title": ["WTT W50 - GUIYANG, CHINA"],
+                  "level": ["ITF"], "qpm_flag": ["M"], "round_name": ["R32"], "winner_name": ["Yafan Wang"],
+                  "loser_name": ["Aleksandra Astakhova"]}).to_parquet(api / "2026.parquet", index=False)
+    out = M.load_wta_site()
+    assert len(out) == 1 and out["tname"].iloc[0] == "WTT W50 - GUIYANG, CHINA" and out["level"].iloc[0] == "ITF"
+
+
+def test_the_map_and_the_feed_leave_out_the_same_misfiled_editions():
+    from src.eda.lower_level_evidence import candidate_stage0 as F
+    assert M.WTA_SITE_MISFILED == F.WTA_SITE_MISFILED and len(M.WTA_SITE_MISFILED) == 10
+
+
+def test_infosys_challengers_rows_take_the_copys_day_and_the_atp_ids(tmp_path, monkeypatch):
+    """The ATP's Challenger point files (staged on their own, 14 Oct 2026): a code with points or rally entries is a
+    point row dated by the copy's match day (else Stage 0's tournament date), a qualifying code falls back to CHQ, and
+    a code with neither is left out."""
+    folder = tmp_path / "points" / "infosys_challengers"
+    folder.mkdir(parents=True)
+    monkeypatch.setattr(M, "DUMP", tmp_path)
+    pd.DataFrame({"year": ["2022", "2022", "2023"], "event_id": ["9695", "9695", "2877"],
+                  "match_id": ["MS022", "QS003", "MS020"], "family": ["MS", "QS", "MS"],
+                  "round_from_code": ["R32", None, "R32"], "points": ["183", "0", "0"], "rally_entries": ["90", "0", "0"],
+                  "p1_id": ["h0dz", "a111", "b222"], "p1_name": ["G. Heide", "A. One", "B. Two"],
+                  "p1_last_name": ["Heide", None, None], "p2_id": ["l0aa", "c333", "d444"],
+                  "p2_name": ["A. Lingua Lavallen", "C. Three", "D. Four"], "p2_last_name": ["Lingua Lavallen", None, None],
+                  "copy_match_date": ["2022-04-26", None, None],
+                  "stage0_tournament_date": ["2022-04-25", "2022-04-25", "2023-04-24"]}).to_parquet(
+        folder / "matches.parquet", index=False)
+    out = M.load_infosys_challengers()
+    assert len(out) == 1                                   # the two codes without points or rally entries are left out
+    r = out.iloc[0]
+    assert str(r["d"])[:10] == "2022-04-26" and r["grain"] == "point" and r["level_fallback"] == "CH"
+    assert r["name1"] == "Heide" and r["draw"] == "main"
+
+
+@pytest.mark.parametrize("value, name", [('["Bernarda PERA"]', "Bernarda PERA"), ("Kaja JUVAN", "Kaja JUVAN"),
+                                         ("[]", "[]"), ("", ""), (None, "")])
+def test_first_listed(value, name):
+    assert M.first_listed(value) == name
+
+
+def test_rolandgarros_rows_are_played_codes_dated_by_their_schedule_day(tmp_path, monkeypatch):
+    """Roland-Garros's own statistics (16 Oct 2026): a played code with statistics is a stats row at GS or GSQ, dated by
+    its schedule day, else the day it ended, else the main draw's first day; walkovers and absent codes are left out."""
+    folder = tmp_path / "points" / "rolandgarros"
+    folder.mkdir(parents=True)
+    monkeypatch.setattr(M, "DUMP", tmp_path)
+    pd.DataFrame({
+        "year": ["2026", "2026", "2026", "2026", "2026"], "match_id": ["SM008", "QD040", "QD041", "SD100", "QD127"],
+        "tour": ["M", "W", "W", "W", "W"], "draw": ["main", "qual", "qual", "main", "qual"],
+        "round_from_code": ["R16", "Q2", "Q2", "R128", "Q1"], "answer": ["ok", "ok", "ok", "ok", "absent"],
+        "date_schedule": ["20260531", "", "", "20260525", ""],
+        "end_timestamp": ["1780245000000", "1779465600000", "", "", ""],
+        "a_names": ['["Jannik SINNER"]', '["Diane PARRY"]', '["Kaja JUVAN"]', '["Anna BLINKOVA"]', None],
+        "b_names": ['["Carlos ALCARAZ"]', '["Leolia JEANJEAN"]', '["Katie SWAN"]', '["Mirra ANDREEVA"]', None],
+        "a_end_cause": ["", "r.", "", "", ""], "b_end_cause": ["", "", "", "w/o.", ""],
+        "has_statistics": ["TRUE", "TRUE", "TRUE", "FALSE", ""]}).to_parquet(folder / "matches.parquet", index=False)
+    out = M.load_rolandgarros({(2026, "RG"): pd.Timestamp("2026-05-24")}).reset_index(drop=True)
+    assert len(out) == 3                                   # the walkover and the absent code are left out
+    assert list(out["level"]) == ["GS", "GSQ", "GSQ"] and list(out["draw"]) == ["main", "qual", "qual"]
+    assert [str(d)[:10] for d in out["d"]] == ["2026-05-31", "2026-05-22", "2026-05-24"]
+    assert set(out["grain"]) == {"stats"} and out["name2"].iloc[1] == "Leolia JEANJEAN"   # a retirement is played
+    assert set(out["slam"]) == {"RG"}
+
+
+def _named(rows, *tnames):
+    rows["tname"] = list(tnames)
+    return rows
+
+
+def test_infosys_slams_rows_carry_their_slam_and_full_names(tmp_path, monkeypatch):
+    """The AO and RG Infosys match centres (16 Oct 2026): a code with points is a point row and one with set statistics
+    only a stats row, named in full and dated by its match day, else its Slam's first day; a code with neither is left
+    out. Placed within its edition, a qualifying match the map lacks is added, not given to the pair's meeting at the
+    event before (the generic passes' 40-day Slam qualifying window reaches it)."""
+    folder = tmp_path / "points" / "infosys_slams"
+    folder.mkdir(parents=True)
+    monkeypatch.setattr(M, "DUMP", tmp_path)
+    pd.DataFrame({
+        "slam": ["AO", "AO", "RG"], "year": ["2025", "2025", "2026"], "tour": ["W", "W", "W"],
+        "draw": ["main", "qual", "qual"], "round_from_code": ["R128", "Q1", "Q1"], "points": ["150", "0", "0"],
+        "keystats_sets": ["2", "2", "0"], "match_date": ["2025-01-13", None, None],
+        "p1_first_name": ["Xiyu", "Yafan", "A"], "p1_last_name": ["Wang", "Wang", "One"],
+        "p1_name": ["X. Wang", "Y. Wang", "A. One"], "p2_first_name": ["Julia", "Talia", "B"],
+        "p2_last_name": ["Grabher", "Gibson", "Two"], "p2_name": ["J. Grabher", "T. Gibson", "B. Two"]}).to_parquet(
+        folder / "matches.parquet", index=False)
+    starts = {(2025, "AO"): pd.Timestamp("2025-01-12")}
+    out = M.load_infosys_slams(starts).reset_index(drop=True)
+    assert len(out) == 2                                   # the code with neither points nor statistics is left out
+    assert list(out["grain"]) == ["point", "stats"] and set(out["slam"]) == {"AO"}
+    assert list(out["name1"]) == ["Xiyu Wang", "Yafan Wang"]
+    assert [str(d)[:10] for d in out["d"]] == ["2025-01-13", "2025-01-12"]
+    u = M.Universe(pd.Timestamp("2025-12-28"))
+    known = u.add("tml", _named(_rows(("W", "2025-01-12", "Xiyu Wang", "Julia Grabher", "GS", "main", "R128", "result"),
+                                      ("W", "2025-01-06", "Yafan Wang", "Talia Gibson", "T500", "main", "R32", "result")),
+                                "Australian Open", "Adelaide"))
+    got = u.add("infosys_slams", out)
+    assert got["uid"].iloc[0] == known["uid"].iloc[0] and u.report["infosys_slams"]["added_as_new_match"] == 1
+    assert known["uid"].iloc[1] not in set(got["uid"])     # not the pair's meeting at Adelaide
+
+
+def test_slam_rows_are_placed_within_their_own_edition():
+    """A Grand Slam row takes the copy of its match nearest its own day, never a meeting of the pair at another event,
+    and a match the map lacks joins it; between two copies on one day, the first known."""
+    u = M.Universe(pd.Timestamp("2026-10-11"))
+    known = u.add("tml", _named(_rows(
+        ("M", "2026-05-31", "Jannik Sinner", "Carlos Alcaraz", "GS", "main", "R16", "point"),     # the day played
+        ("W", "2026-06-08", "Kaja Juvan", "Katie Swan", "T250", "main", "R32", "result")),       # Nottingham
+        "Roland Garros", "Nottingham"))
+    copy = u.matches[u.matches["uid"].eq(known["uid"].iloc[0])].assign(uid=99, d=pd.Timestamp("2026-05-24"))
+    u.matches = pd.concat([u.matches, copy], ignore_index=True)    # a second copy, dated by the event's start
+    rg = _rows(("M", "2026-05-31", "Jannik SINNER", "Carlos ALCARAZ", "GS", "main", "R16", "stats"),
+               ("W", "2026-05-20", "Kaja JUVAN", "Katie SWAN", "GSQ", "qual", "Q2", "stats"),     # no copy on the map
+               ("W", "2026-05-22", "Diane PARRY", "Leolia JEANJEAN", "GSQ", "qual", "Q3", "stats"))
+    got = u.add("rolandgarros", rg.assign(slam="RG"))
+    assert got["uid"].iloc[0] == known["uid"].iloc[0]
+    assert u.report["rolandgarros"]["linked_to_known_match"] == 1 and u.report["rolandgarros"]["added_as_new_match"] == 2
+    assert known["uid"].iloc[1] not in set(got["uid"]) and 99 not in set(got["uid"])
+    assert list(u.matches.loc[u.matches["creator"].eq("rolandgarros"), "level"]) == ["GSQ", "GSQ"]
+    later = u.add("sackmann", rg.iloc[:1].assign(d="2026-05-24"))   # dated by the event's start: the copy of that day
+    assert later["uid"].iloc[0] == 99
+
+
+def test_the_linker_keeps_slam_matches_and_other_events_apart():
+    """A Slam row does not take the pair's meeting at another event when the two tie on the generic passes' dates
+    (the 2021 Australian Open quarter-final Djokovic-Zverev and their ATP Cup match six days earlier), and a row of
+    another level does not take a Slam match (the Challenger of the week after the US Open)."""
+    u = M.Universe(pd.Timestamp("2021-12-26"))
+    known = u.add("tml", _named(_rows(
+        ("M", "2021-02-08", "Novak Djokovic", "Alexander Zverev", "GS", "main", "QF", "result"),
+        ("M", "2021-02-02", "Novak Djokovic", "Alexander Zverev", "TEAM", "main", "RR", "result"),
+        ("M", "2019-08-26", "Denis Istomin", "Mischa Zverev", "GSQ", "qual", "Q2", "result")),
+        "Australian Open", "ATP Cup", "US Open"))
+    sack = u.add("sackmann", _rows(("M", "2021-02-08", "N. Djokovic", "A. Zverev", "GS", "main", "QF", "stats"),
+                                   ("M", "2019-09-09", "Denis Istomin", "Mischa Zverev", "CH", "main", "R32", "stats")))
+    assert sack["uid"].iloc[0] == known["uid"].iloc[0]
+    assert sack["uid"].iloc[1] not in set(known["uid"]) and u.report["sackmann"]["added_as_new_match"] == 1
+
+
+def test_slam_rows_with_hidden_first_names_or_no_level_join_their_match():
+    """The WTA's lists write surnames only ('Sherif Ahmed Abdelaziz'); api-tennis gives Slam rows no level and writes
+    'H. Hsu Yu': both join the known match of their edition."""
+    u = M.Universe(pd.Timestamp("2024-12-29"))
+    known = u.add("tml", _named(_rows(("W", "2024-05-26", "Madison Keys", "Mayar Sherif", "GS", "main", "R64", "point"),
+                                      ("M", "2023-01-16", "Alex de Minaur", "Yu Hsiou Hsu", "GS", "main", "R128", "point")),
+                                "Roland Garros", "Australian Open"))
+    lists = u.add("wta_lists", _rows(("W", "2024-05-30", "Keys", "Sherif Ahmed Abdelaziz", "GS", "main", None, "stats")))
+    api = u.add("api_tennis", _named(_rows(("M", "2023-01-17", "H. Hsu Yu", "A. De Minaur", None, "main", None, "result")),
+                                     "Australian Open"))
+    assert lists["uid"].iloc[0] == known["uid"].iloc[0] and api["uid"].iloc[0] == known["uid"].iloc[1]
+    assert len(u.matches) == 2
+
+
+def test_a_slam_match_a_source_lists_twice_under_two_spellings_joins_once():
+    u = M.Universe(pd.Timestamp("2026-10-11"))
+    u.add("tml", _named(_rows(("M", "2026-05-24", "Jannik Sinner", "Carlos Alcaraz", "GS", "main", "R128", "point")),
+                        "Roland Garros"))
+    got = u.add("wta_site", _rows(("W", "2026-05-18", "IRENE BURILLO", "VIKTORIYA TOMOVA", "GSQ", "qual", "Q1", "result"),
+                                  ("W", "2026-05-18", "Viktoria Tomova-Traycheva", "Irene Burillo", "GSQ", "qual", "Q1",
+                                   "result")))
+    assert got["uid"].nunique() == 1 and int(u.matches["creator"].eq("wta_site").sum()) == 1
+
+
+@pytest.mark.parametrize("row, known, placed", [
+    (("Valentin Royer", "Marc Polmans", "Q1", "GSQ"),                       # first names alone never place
+     [(1, "Valentin Vacherot", "Marc-Andrea Huesler", "Q1", "GSQ")], None),
+    (("Cori Gauff", "Mayar Sherif", "R64", "GS"),                            # a nickname, the same round
+     [(1, "Coco Gauff", "Mayar Sherif Ahmed Abdelaziz", "R64", "GS")], 1),
+    (("Xiyu Wang", "Julia Grabher", None, "GS"),                             # namesakes: the first name decides
+     [(1, "Yafan Wang", "Julia Grabher", "R64", "GS"), (2, "Xiyu Wang", "Julia Grabher", "R128", "GS")], 2),
+    (("Von Deichmann", "Klimovicova", None, "GSQ"),                          # surnames only (the WTA's lists)
+     [(1, "Kathinka Von Deichmann", "Linda Klimovicova", "Q1", "GSQ")], 1),
+    (("Cori Gauff", "Sorana Cirstea", None, "GS"),                           # a nickname, no round
+     [(1, "Coco Gauff", "Sorana Cirstea", "R64", "GS")], 1),
+    (("Paula Badosa", "Denisa Allertova", "Q1", "GSQ"),                      # a changed surname, the same round
+     [(1, "Paula Badosa Gibert", "Denisa Satralova", "Q1", "GSQ")], 1),
+    (("Erika Andreeva", "Aryna Sabalenka", "R128", "GS"),                     # sisters: the round and the first name
+     [(1, "Mirra Andreeva", "Aryna Sabalenka", "QF", "GS"), (2, "Erika Andreeva", "Aryna Sabalenka", "R128", "GS")], 2),
+    (("Katie Boulter", "Tatjana Maria", "R128", "GS"),                       # a surname that is another's first name
+     [(1, "Katie Volynets", "Maria Lourdes Carle", "R128", "GS")], None),
+    (("Radu Albot", "Michael Mmoh", "Q3", "GSQ"),                            # a mislabelled round (SofaScore's copy)
+     [(1, "Radu Albot", "Roberto Marcora", "Q1", "GSQ"), (2, "Radu Albot", "Michael Mmoh", "Q2", "GSQ")], 2),
+    (("Radu Albot", "Joao Sousa", "F", "GSQ"),                               # 'Final' for the qualifying's last round
+     [(1, "Radu Albot", "Joao Sousa", "Q3", "GSQ")], 1),
+    (("Sobolieva", "Belgraver", None, "GSQ"),                                # a transliteration, a letter apart
+     [(1, "Anastasiya Soboleva", "Julie Belgraver", "Q2", "GSQ")], 1),
+    (("Kiki Bertens", "J. Görges", "QF", "GS"),                              # 'Görges' / 'Goerges'
+     [(1, "Julia Goerges", "Kiki Bertens", "QF", "GS")], 1),
+    (("Xinyu Wang", "Julia Grabher", None, "GS"),                            # surnames under five letters: never
+     [(1, "Xinyu Wong", "Julia Grabher", "R64", "GS")], None),
+    (("Radu Albot", "Joao Sousa", "R64", "GS"),                              # qualifying filed as main draw
+     [(1, "Radu Albot", "Joao Sousa", "Q3", "GSQ")], 1),
+    (("Radu Albot", "Joao Sousa", "Q3", "GSQ"),                              # a qualifier who met again in the draw
+     [(1, "Radu Albot", "Joao Sousa", "R128", "GS"), (2, "Radu Albot", "Joao Sousa", "Q3", "GSQ")], 2)])
+def test_slam_place_needs_a_surname_for_each_player(row, known, placed):
+    d = pd.Timestamp("2026-05-25")
+    got = M.slam_place(*row, d, [(*k, d) for k in known])
+    assert (pd.isna(got) and placed is None) or got == placed
+
+
+def test_slam_editions_by_own_slam_name_or_window():
+    starts = {(2020, "USO"): pd.Timestamp("2020-08-31"), (2020, "RG"): pd.Timestamp("2020-09-27"),
+              (2021, "AO"): pd.Timestamp("2021-02-08")}
+    frame = pd.DataFrame({"d": pd.to_datetime(["2020-09-11", "2020-09-23", "2020-09-01", "2021-01-11", "2020-12-01",
+                                               "2021-01-10", "2020-09-05"]),
+                          "year": [2020, 2020, 2020, 2021, 2020, 2021, 2020],
+                          "tname": [None, None, "Roland Garros", None, None, "Doha Aus Open Qualies", "Us Open"],
+                          "slam": [None] * 7})
+    # the nearest first day of the windows that hold it; a name decides ("Aus Open" is not the US Open); the 2021
+    # AO's qualifying six weeks early
+    assert list(M.slam_editions(frame, starts)) == ["USO", "RG", "RG", "AO", None, "AO", "USO"]

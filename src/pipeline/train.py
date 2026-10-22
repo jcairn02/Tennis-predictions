@@ -7,8 +7,8 @@ run the decided steps in order, each through its own command line:
 
     build_instance     run_chain.py in a sandbox copy of the repository: --setup, --additions, lane 0, --prepare-layer,
                        lanes 1 and 2 side by side (about 2.5 h), lane 3, --collect
-    finish_instance    the odds input "Pinnacle first" (odds_sources/table.py --link, OddsTrader's every-book lines,
-                       odds_input.py --apply) and the 57-input list (template_inputs.py --apply)
+    finish_instance    the odds input "Pinnacle first" (odds_input.py --apply, which brings OddsTrader's tables up to
+                       date itself) and the 57-input list (template_inputs.py --apply); every build path runs it
     fit_seasons        the season fits: local TabPFN-3.5 on the GPU (fits.py, seeds 0-15), or TabPFN-3.5-Thinking on the
                        hosted API (thinking.py: a free quote by default; a paid fit only with spend_tokens=True)
     make_checkpoint    the daily pipeline's saved state before a day (dp.py checkpoint)
@@ -26,6 +26,7 @@ from __future__ import annotations
 import datetime as dt
 import json
 import re
+import shutil
 from pathlib import Path
 
 from . import config as CFG
@@ -115,7 +116,7 @@ def instance_status(instance=None) -> dict:
     out["local_fits"] = {y: _span(sorted(s)) for y, s in sorted(seasons.items())}
     th = CFG.THINKING / inst.name
     out["thinking_fits"] = sorted(p.parent.name for p in th.glob("season*/fit.json")) if th.exists() else []
-    out["stage2"] = sorted(p.stem.rsplit("_", 1)[-1] for p in CFG.STAGE2.glob(f"{inst.name}_*.json"))
+    out["stage2"] = sorted(_stage2_label(p, inst) for p in CFG.STAGE2.glob(f"{inst.name}_*.json"))
     st = CFG.DAILY_STATE / inst.name
     out["checkpoints"] = sorted(p.name for p in st.iterdir() if p.is_dir() and re.match(r"\d{4}-\d{2}-\d{2}$", p.name)) \
         if st.exists() else []
@@ -167,8 +168,12 @@ def sandboxes(*, sizes: bool = False) -> list[dict]:
     return out
 
 
-BUILD_DISK_GB = 130   # a sandbox copies data/studies whole (run_chain.setup), today ~75 GB with the daily pipeline's
-                      # 55 GB of TabPFN caches, and the new instance's own caches add ~56 GB when it first predicts
+BUILD_DISK_GB = 90    # a sandbox copies data/studies (run_chain.setup) without the daily pipeline's TabPFN caches (55 GB
+                      # an instance, 220 GB for four on 20 Oct 2026: RUN_CHAIN_SKIP_DIRS below), ~16 GB; the new
+                      # instance's own caches add ~55 GB when it first predicts
+SKIP_DIRS = "daily_prediction"   # left out of the sandbox's copy: no chain step reads the daily engine's caches (the
+                                 # 16 Oct build's script did the same; before 20 Oct this cell copied them, which with four
+                                 # instances' caches would have filled the disk)
 
 
 def build_instance(out=None, *, sandbox=None, candidate: bool = False, start_at: str = "setup",
@@ -191,12 +196,11 @@ def build_instance(out=None, *, sandbox=None, candidate: bool = False, start_at:
     free = shutil.disk_usage(sandbox.anchor or "C:/").free / 1e9
     if start_at == "setup" and free < BUILD_DISK_GB and not allow_low_disk and not dry_run:
         raise RuntimeError(
-            f"{free:.0f} GB free; a build needs about {BUILD_DISK_GB} GB. run_chain's sandbox copies data/studies whole, "
-            "including the daily pipeline's TabPFN caches (55 GB in data/studies/daily_prediction/state), which a model "
-            "build does not read. Options: free space (sandboxes() lists the tnr_* trees, ~20 GB each), or have "
-            "run_chain exclude daily_prediction/prediction_run/master_pipeline from its copy (another study's code: the "
-            "owner's call), then allow_low_disk=True.")
-    env = {"MODEL_REBUILD_SANDBOX": str(sandbox)}
+            f"{free:.0f} GB free; a build needs about {BUILD_DISK_GB} GB (its sandbox, ~16 GB without the daily "
+            "pipeline's caches, and the new instance's own TabPFN caches, ~55 GB, at its first prediction). Free space "
+            "(sandboxes() lists the tnr_* trees, ~16-20 GB each; older instances' caches are 55 GB each, the owner's "
+            "call), then allow_low_disk=True if you must.")
+    env = {"MODEL_REBUILD_SANDBOX": str(sandbox), "RUN_CHAIN_SKIP_DIRS": SKIP_DIRS}
     o = ["--out", str(out)]
     plan = {
         "setup": [Step("chain_setup", [CHAIN, "--setup"] + (["--candidate"] if candidate else []), extra_env=env)],
@@ -221,17 +225,23 @@ def build_instance(out=None, *, sandbox=None, candidate: bool = False, start_at:
     return results
 
 
-def finish_instance(out, *, dry_run: bool = False) -> list[StepResult]:
-    """The decided odds input and input list on a built instance:
-        odds_sources/table.py --link, OddsTrader's every-book lines for the frame's events (network), then
-        odds_input.py --apply (Pinnacle first: Pinnacle's close, BetOnline's, the average) and
+def finish_instance(out, *, stage1=None, dry_run: bool = False) -> list[StepResult]:
+    """The decided odds input and input list on a built instance, the one list of these steps (21 Oct 2026: the
+    scripted builds' post_build.sh runs this function; their own copy of the steps had lost the OddsTrader refresh):
+        the chain's own frame and list kept (model_frame_chain.parquet, model_inputs_chain.json: the books'-average
+        odds input, all 58 columns), then
+        odds_input.py --apply (it brings OddsTrader's tables up to date for the frame itself, network, and refuses a
+        frame they do not cover; then Pinnacle first: Pinnacle's close, BetOnline's, the average) and
         template_inputs.py --apply (57 inputs: ios_points_short dropped).
-    The monthly OddsTrader pull must cover the frame's months first (data.refresh_odds_history)."""
+    `stage1`: a Stage 1 odds table other than the live one (a candidate's)."""
     out = Path(out)
-    steps = [Step("odds_link", ["src/eda/odds_sources/table.py", "--link"]),
-             Step("oddstrader_books", ["-m", "src.ingest.oddstrader", "--books-eids",
-                                       "data/studies/odds_sources/oddstrader_eids.csv", "--max-requests", "600"]),
-             Step("odds_input_apply", ["src/eda/current_best_model/odds_input.py", "--apply", str(out)]),
+    if not dry_run:
+        for name, kept in (("model_frame.parquet", "model_frame_chain.parquet"),
+                           ("model_inputs.json", "model_inputs_chain.json")):
+            if not (out / kept).exists():
+                shutil.copyfile(out / name, out / kept)
+    odds = ["src/eda/current_best_model/odds_input.py", "--apply", str(out)] + (["--stage1", str(stage1)] if stage1 else [])
+    steps = [Step("odds_input_apply", odds),
              Step("template_inputs_apply", ["src/eda/current_best_model/template_inputs.py", "--apply", str(out)])]
     return run_steps(steps, dry_run=dry_run)
 
@@ -360,7 +370,9 @@ def replay_check(week: str = "2026-07-13", round_: str = "R16", checkpoint: str 
                  run_name: str | None = None, dry_run: bool = False) -> list[StepResult]:
     """The end-to-end proof (the daily pipeline's test 2): a past day's matches replayed as live rows through run_day,
     then replay-compare: every one of the 57 inputs must equal the active instance's model frame. About 7 minutes
-    with the GPU (the fit runs too)."""
+    with the GPU (the fit runs too). The replay rebuilds the instance's own tables (since 16 Oct 2026: its dump view
+    from data/studies/daily_prediction/replay_views.json and the additions its build merged); a new instance is
+    refused until its frozen dump view is listed there."""
     run = CFG.DAILY_RUNS / (run_name or f"replay_{week}_{round_}_{dt.datetime.now():%Y%m%dT%H%M%S}")
     dp = str(CFG.DAILY / "dp.py")
     env = {**dp_env(), "DP_WORK_TREE": "C:/Users/zerom/tnr_daily_nb"}
@@ -403,11 +415,182 @@ def use_instance(instance, *, tree=None, season: int | None = None) -> dict:
     return {"instance": inst.name, "tree": str(tree), "template_check_ok": True}
 
 
+# --- the retrain the owner calls (20 Oct 2026) ---------------------------------------------------------------------------
+RETRAIN_SCRIPT = "src/eda/in_season_retrain/retrain.sh"
+GIT_BASH = Path("C:/Program Files/Git/bin/bash.exe")
+
+
+def retrain(name: str | None = None, *, sandbox: str | None = None, cutoff: str | None = None,
+            confirm: bool = False) -> dict:
+    """A retrain, when the owner says it is time (docs/decisions/2026-10-09-adoption-by-change-class.md, its amendment):
+    src/eda/in_season_retrain/retrain.sh builds the template on the shared tables as last rebuilt (B6), records the
+    cut-off (default the rebuild's day) and the extended speed table, fits, runs the harm check against the instance in
+    use and, with no harm, switches (replay proof, rollback on failure). About 5-6 hours, no input needed.
+    confirm=False shows the plan and its checks; confirm=True starts it detached (it survives the kernel and VS Code)
+    and returns its log. Run B5, B2, B4 and B6 (confirm=True) first, after the week's lower-level feed snapshot.
+    Since 22 Oct 2026 the plan lists the revisions the owner decided for the next retrain
+    (data/studies/current_best_model/pending_at_retrain.json; src/eda/current_best_model/pending.py) and refuses to
+    start while one is missing from the shared tables; retrain.sh checks the built instance again before its fits."""
+    import shutil
+    import subprocess
+    today = dt.date.today()
+    name = name or f"template_{today.isoformat()}"
+    sandbox = sandbox or f"C:/Users/zerom/tnr_tpl{today:%m%d}"
+    rebuilds = sorted(p for p in (CFG.ROOT / "data" / "studies" / "data_continuity" / "rebuilds").iterdir()
+                      if (p / "rebuild.json").exists())
+    tables = json.loads((rebuilds[-1] / "rebuild.json").read_text(encoding="utf-8"))["started_at"] if rebuilds else None
+    active = active_instance()
+    built = dt.datetime.fromtimestamp((active / "model_frame.parquet").stat().st_mtime, dt.timezone.utc) \
+        if (active / "model_frame.parquet").exists() else None
+    free = shutil.disk_usage("C:/").free / 1e9
+    plan = {"instance": name, "sandbox": sandbox, "tables_rebuilt": tables,
+            "cutoff": cutoff or (tables[:10] if tables else None), "in_use": active.name,
+            "in_use_built": built.isoformat(timespec="minutes") if built else None,
+            "disk_free_gb": round(free, 0), "age_now": model_age(active).get("line")}
+    checks = {"a new name": not (CFG.INSTANCES / name).exists(),
+              f"disk: at least {BUILD_DISK_GB} GB free": free >= BUILD_DISK_GB,
+              "tables rebuilt (B6) after the instance in use was built": bool(
+                  tables and built and dt.datetime.fromisoformat(tables) > built),
+              "Git Bash found": GIT_BASH.exists()}
+    # the revisions the owner decided that reach the model only at a retrain (the owner, 22 Oct 2026: "aware of these
+    # intended revisions to the model, not simply adding the latest data"): each pending one must already be in the
+    # shared tables the build copies (data/studies/current_best_model/pending_at_retrain.json)
+    from src.eda.current_best_model import pending as PEND
+    pend = PEND.pending()
+    if pend:
+        res = PEND.check(CFG.STAGE0)
+        key = f"the {len(pend)} decided revision(s) pending at this retrain are in the shared tables"
+        checks[key] = res["ok"]
+        plan["pending_revisions"] = PEND.lines(res)
+    plan["checks"] = checks
+    print("RETRAIN PLAN")
+    for k, v in plan.items():
+        if k in ("checks", "pending_revisions"):
+            continue
+        print(f"  {k}: {v}")
+    if pend:
+        print("  revisions decided for this retrain (pending_at_retrain.json; the build must carry them):")
+        for line in plan["pending_revisions"]:
+            print(f"    {line}")
+    for k, ok in checks.items():
+        print(f"  [{'ok' if ok else 'NO'}] {k}")
+    if not checks["tables rebuilt (B6) after the instance in use was built"]:
+        print("  The shared tables have not been rebuilt since the instance in use was built. A retrain on them still "
+              "trains on this season's matches and grows stage 2, but brings no match, result or repair newer than "
+              "those tables: run B5, B2 and B4, then B6 with confirm=True, first.")
+    if pend and not checks[key]:
+        print("  A decided revision is not in the shared tables yet: rebuild them (B6, rebuild_shared_tables(confirm="
+              "True)) first. A retrain without it would add only the latest data; it refuses to start.")
+    if not confirm:
+        print("Nothing started (confirm=False).")
+        return plan
+    hard = ["a new name", f"disk: at least {BUILD_DISK_GB} GB free", "Git Bash found"] + ([key] if pend else [])
+    if not all(checks[k] for k in hard):
+        raise RuntimeError("the retrain's checks failed (above): nothing started")
+    log = CFG.ROOT / "data" / "studies" / "in_season_retrain" / "retrains" / f"{name}.log"
+    log.parent.mkdir(parents=True, exist_ok=True)
+    # PowerShell's Start-Process, Git Bash in a hidden window of its own: neither a session's end nor VS Code's closing
+    # stops it (a build started from a session's shell died with its console on 14 Oct: data_gaps_2026 process log,
+    # 00:24; this launch is the one that build was resumed with, 07:01)
+    inner = (f"cd {CFG.ROOT.as_posix().replace('C:', '/c', 1)} && bash {RETRAIN_SCRIPT} {name} {sandbox}"
+             + (f" {cutoff}" if cutoff else "") + f" >> {CFG.rel(log).replace(chr(92), '/')} 2>&1")
+    # -l: a login shell, whose profile puts conda's folders on PATH. Without it the build's worker processes die in
+    # numpy's MKL at their first linear-algebra call (21 Oct 2026: lane 0's IOS pool, BrokenProcessPool; a probe of
+    # the same launch: -c fails, -l -c solves)
+    ps = (f"$p = Start-Process -FilePath '{GIT_BASH}' -ArgumentList '-l -c \"{inner}\"' -WorkingDirectory '{CFG.ROOT}' "
+          "-WindowStyle Hidden -PassThru; $p.Id")
+    shell = shutil.which("pwsh") or shutil.which("powershell")
+    if not shell:
+        raise RuntimeError("PowerShell not found: start src/eda/in_season_retrain/retrain.sh by hand, detached")
+    done = subprocess.run([shell, "-NoProfile", "-Command", ps], capture_output=True, text=True, timeout=120)
+    pid = done.stdout.strip().splitlines()[-1] if done.stdout.strip() else None
+    if done.returncode or not (pid or "").isdigit():
+        raise RuntimeError(f"the retrain did not start: {done.stderr.strip()[-500:]}")
+    plan.update({"started": dt.datetime.now().astimezone().isoformat(timespec="seconds"), "pid": int(pid),
+                 "log": CFG.rel(log)})
+    print(f"STARTED (pid {pid}, a hidden window of its own): follow {CFG.rel(log)}. It switches by itself only if the "
+          "harm check and the replay proof pass.")
+    return plan
+
+
+# --- the timer: how far the live training rows are behind (the owner, 20 Oct 2026) ------------------------------------------
+MAIN_LEVELS = ("GS", "T1000", "T500", "T250", "FIN")      # the training rows' levels (main-tour main draws)
+
+
+def model_age(instance=None, *, today: dt.date | None = None) -> dict:
+    """The owner's timer ("a timer can exist that watches time since last retrain so im informed off it on the masters
+    script", 20 Oct 2026): the instance's live training rows end at its retrain's cut-off (training_cutoff.json) or,
+    with none for the season, at 31 Dec of the season before (the season rule). Returns the date they run through, the
+    days since, and the main-tour main-draw matches whose results count after it (Stage 0's evaluation rows, the shared
+    results table, by the match clock): matches the model has not trained on. Due at CFG.RETRAIN_DUE_DAYS."""
+    import pandas as pd
+
+    from src.eda.current_best_model import training_rows as TR
+    inst = _instance(instance)
+    today = today or dt.date.today()
+    rec = TR.read_cutoff(inst) if inst.exists() else None
+    if rec and int(rec["season"]) == today.year:
+        cutoff = dt.date.fromisoformat(rec["cutoff"])
+        rule = f"retrain cut-off, recorded {rec['written_at'][:10]}"
+    else:
+        cutoff = dt.date(today.year, 1, 1)
+        rule = "the season rule: no retrain recorded for this season"
+    through = cutoff - dt.timedelta(days=1)          # a result counts by the cut-off when it surely finished before it
+    out = {"instance": inst.name, "rule": rule, "trained_through": through.isoformat(),
+           "days": (today - through).days, "due_days": CFG.RETRAIN_DUE_DAYS}
+    try:
+        s0p = CFG.STAGE0 / "stage0_matches.parquet"
+        s0 = pd.read_parquet(s0p, columns=["match_id", "level", "qualifying", "evaluation"])
+        tm = pd.read_parquet(TR.TIMING, columns=["match_id", "lf"])
+        s = s0[s0["evaluation"].astype(bool) & s0["level"].isin(MAIN_LEVELS) & ~s0["qualifying"].astype(bool)]
+        lf = s[["match_id"]].merge(tm, on="match_id", how="left").set_index("match_id")["lf"]
+        if rec and int(rec["season"]) == today.year:
+            # a retrain's rows end where its frame ends: the newest admitted match (closing odds arrive about a week
+            # late, so the cut-off's last days are not in the frame); not training rows = the season's main-tour
+            # results it does not admit, whether after the cut-off or waiting for their closing price
+            admitted = set(rec["ids"])
+            newest = tm.set_index("match_id")["lf"].reindex(rec["ids"]).max()
+            if pd.notna(newest):
+                through = TR.EPOCH + dt.timedelta(days=int(newest))
+                out["trained_through"], out["days"] = through.isoformat(), (today - through).days
+            season_rows = lf[lf.fillna(-1).to_numpy() + 1 > TR.day_number(dt.date(today.year, 1, 1))]
+            out["matches_since"] = int((~season_rows.index.isin(admitted)).sum())
+        else:
+            out["matches_since"] = int((lf.fillna(-1).to_numpy() + 1 > TR.day_number(cutoff)).sum())
+        out["results_table"] = dt.datetime.fromtimestamp(s0p.stat().st_mtime).date().isoformat()
+    except Exception as e:                           # the timer never stops a cell
+        out["matches_since"], out["results_table"] = None, f"unread ({type(e).__name__})"
+    out["due"] = out["days"] >= CFG.RETRAIN_DUE_DAYS
+    out["line"] = (f"trained through {dt.date.fromisoformat(out['trained_through']):%d %b %Y} ({rule}): "
+                   f"{out['days']} days ago"
+                   + (f"; {out['matches_since']:,} main-tour matches of the season are not training rows (results "
+                      f"table of {out['results_table']})" if out["matches_since"] is not None else "")
+                   + (f". RETRAIN DUE (setting: {CFG.RETRAIN_DUE_DAYS} days)" if out["due"] else "."))
+    return out
+
+
+def show_model_age(instance=None) -> dict:
+    """Print the timer's line (A1, A4, Status); never raises."""
+    try:
+        age = model_age(instance)
+        print(f"MODEL AGE: {age['line']}")
+        return age
+    except Exception as e:
+        print(f"MODEL AGE: unknown ({type(e).__name__}: {e})")
+        return {}
+
+
+def _stage2_label(path: Path, inst: Path) -> str:
+    """A stage-2 record's season and speed feed from its file name: "2026" (the weekly set) or "2026 daily"."""
+    return path.stem[len(inst.name) + 1:].replace("_", " ")
+
+
 def stage2_status(instance=None) -> dict:
-    """The stage-2 coefficients the daily pipeline computed for an instance, by season (s_atp, s_wta, b shrunk)."""
+    """The stage-2 coefficients the daily pipeline computed for an instance, by season and speed feed (s_atp, s_wta,
+    b shrunk): "2026" is the weekly feed's set, "2026 daily" the daily collector's (live runs from 8 Oct 2026)."""
     inst = _instance(instance)
     out = {}
     for p in sorted(CFG.STAGE2.glob(f"{inst.name}_*.json")):
         j = json.loads(p.read_text(encoding="utf-8"))
-        out[p.stem.rsplit("_", 1)[-1]] = {k: j.get(k) for k in ("s_atp", "s_wta", "b_shrunk", "matches", "computed_at")}
+        out[_stage2_label(p, inst)] = {k: j.get(k) for k in ("s_atp", "s_wta", "b_shrunk", "matches", "computed_at")}
     return out

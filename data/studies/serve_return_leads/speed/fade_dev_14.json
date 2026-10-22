@@ -1,0 +1,376 @@
+{
+ "built_at": "2026-10-16T22:10:06+00:00",
+ "reads_results": false,
+ "column": "fade_dev_14",
+ "mode": "prev",
+ "window_days": 14.0,
+ "normal_window_days": 364.0,
+ "k0": 3.0,
+ "rows": {
+  "player_matches_n30": 32256,
+  "dropped_level_mislink": 12,
+  "men_player_matches": 19735,
+  "by_source_year": [
+   {
+    "source": "infosys",
+    "year": 2021,
+    "n": 200
+   },
+   {
+    "source": "infosys",
+    "year": 2022,
+    "n": 1982
+   },
+   {
+    "source": "infosys",
+    "year": 2023,
+    "n": 2571
+   },
+   {
+    "source": "infosys",
+    "year": 2024,
+    "n": 3399
+   },
+   {
+    "source": "infosys_slams",
+    "year": 2025,
+    "n": 847
+   },
+   {
+    "source": "infosys_slams",
+    "year": 2026,
+    "n": 444
+   },
+   {
+    "source": "sirgenkii",
+    "year": 2025,
+    "n": 579
+   },
+   {
+    "source": "slam_pbp",
+    "year": 2011,
+    "n": 644
+   },
+   {
+    "source": "slam_pbp",
+    "year": 2014,
+    "n": 505
+   },
+   {
+    "source": "slam_pbp",
+    "year": 2015,
+    "n": 689
+   },
+   {
+    "source": "slam_pbp",
+    "year": 2016,
+    "n": 632
+   },
+   {
+    "source": "slam_pbp",
+    "year": 2017,
+    "n": 655
+   },
+   {
+    "source": "slam_pbp",
+    "year": 2018,
+    "n": 485
+   },
+   {
+    "source": "slam_pbp",
+    "year": 2019,
+    "n": 317
+   },
+   {
+    "source": "slam_pbp",
+    "year": 2020,
+    "n": 285
+   },
+   {
+    "source": "slam_pbp",
+    "year": 2021,
+    "n": 382
+   },
+   {
+    "source": "slam_tracking",
+    "year": 2019,
+    "n": 84
+   },
+   {
+    "source": "slam_tracking",
+    "year": 2020,
+    "n": 275
+   },
+   {
+    "source": "slam_tracking",
+    "year": 2021,
+    "n": 313
+   },
+   {
+    "source": "slam_tracking",
+    "year": 2022,
+    "n": 413
+   },
+   {
+    "source": "slam_tracking",
+    "year": 2023,
+    "n": 370
+   },
+   {
+    "source": "slam_tracking",
+    "year": 2024,
+    "n": 380
+   },
+   {
+    "source": "slamtracker",
+    "year": 2019,
+    "n": 141
+   },
+   {
+    "source": "slamtracker",
+    "year": 2021,
+    "n": 134
+   },
+   {
+    "source": "slamtracker",
+    "year": 2022,
+    "n": 458
+   },
+   {
+    "source": "slamtracker",
+    "year": 2023,
+    "n": 443
+   },
+   {
+    "source": "slamtracker",
+    "year": 2024,
+    "n": 441
+   },
+   {
+    "source": "slamtracker",
+    "year": 2025,
+    "n": 779
+   },
+   {
+    "source": "slamtracker",
+    "year": 2026,
+    "n": 888
+   }
+  ]
+ },
+ "clock": "timing.parquet (lf + 1 / es)",
+ "value_units": "fade_dev_14: (A - B) / sd, clipped at +-4; fade_dev_14_kmh: A - B in km/h",
+ "sd_km_h": 7.635254561928368,
+ "clipped": 24,
+ "sides_with_recent": 14319,
+ "side_dev_sd_km_h": 5.950243160573258,
+ "side_recent_sd_km_h": 5.89359613220496,
+ "men_matches_nonmissing_by_season": {
+  "2013": 0,
+  "2014": 275,
+  "2015": 369,
+  "2016": 347,
+  "2017": 292,
+  "2018": 206,
+  "2019": 280,
+  "2020": 336,
+  "2021": 558,
+  "2022": 1745,
+  "2023": 1872,
+  "2024": 2167,
+  "2025": 805,
+  "2026": 248
+ },
+ "sha256": {
+  "fade_dev_14.parquet": "899db5228c04a84156631169977f2a8c19a7384345af09017a3e738951a93ef8",
+  "speed_ext.py": "285507302b5d80b6bf94bb3b18291272e09a48f0c3a1e885569b508fa81974c2"
+ },
+ "probe": {
+  "days": 19,
+  "moved": 0,
+  "leaky_control_moved": 1287,
+  "pass": true,
+  "leaky_peek_days": 8.0,
+  "values_checked": [
+   "dev",
+   "recent",
+   "normal",
+   "mu"
+  ],
+  "tolerance": "exact",
+  "per_day": [
+   {
+    "day": 16238.0,
+    "date": "2014-06-17",
+    "rows_scrambled": 18912,
+    "sides_checked": 8106,
+    "moved": 0,
+    "leaky_sides": 560,
+    "leaky_moved": 1
+   },
+   {
+    "day": 16243.0,
+    "date": "2014-06-22",
+    "rows_scrambled": 18912,
+    "sides_checked": 8194,
+    "moved": 0,
+    "leaky_sides": 556,
+    "leaky_moved": 2
+   },
+   {
+    "day": 16574.0,
+    "date": "2015-05-19",
+    "rows_scrambled": 18418,
+    "sides_checked": 12792,
+    "moved": 0,
+    "leaky_sides": 544,
+    "leaky_moved": 0
+   },
+   {
+    "day": 17433.0,
+    "date": "2017-09-24",
+    "rows_scrambled": 16610,
+    "sides_checked": 25302,
+    "moved": 0,
+    "leaky_sides": 374,
+    "leaky_moved": 0
+   },
+   {
+    "day": 19470.0,
+    "date": "2023-04-23",
+    "rows_scrambled": 10144,
+    "sides_checked": 51104,
+    "moved": 0,
+    "leaky_sides": 516,
+    "leaky_moved": 78
+   },
+   {
+    "day": 19606.0,
+    "date": "2023-09-06",
+    "rows_scrambled": 8469,
+    "sides_checked": 53512,
+    "moved": 0,
+    "leaky_sides": 482,
+    "leaky_moved": 117
+   },
+   {
+    "day": 19746.0,
+    "date": "2024-01-24",
+    "rows_scrambled": 7307,
+    "sides_checked": 54934,
+    "moved": 0,
+    "leaky_sides": 468,
+    "leaky_moved": 90
+   },
+   {
+    "day": 19879.0,
+    "date": "2024-06-05",
+    "rows_scrambled": 5818,
+    "sides_checked": 57244,
+    "moved": 0,
+    "leaky_sides": 516,
+    "leaky_moved": 79
+   },
+   {
+    "day": 19914.0,
+    "date": "2024-07-10",
+    "rows_scrambled": 5405,
+    "sides_checked": 57832,
+    "moved": 0,
+    "leaky_sides": 520,
+    "leaky_moved": 88
+   },
+   {
+    "day": 19949.0,
+    "date": "2024-08-14",
+    "rows_scrambled": 4809,
+    "sides_checked": 58494,
+    "moved": 0,
+    "leaky_sides": 516,
+    "leaky_moved": 95
+   },
+   {
+    "day": 19970.0,
+    "date": "2024-09-04",
+    "rows_scrambled": 4392,
+    "sides_checked": 58864,
+    "moved": 0,
+    "leaky_sides": 512,
+    "leaky_moved": 120
+   },
+   {
+    "day": 20084.0,
+    "date": "2024-12-27",
+    "rows_scrambled": 3537,
+    "sides_checked": 59818,
+    "moved": 0,
+    "leaky_sides": 0,
+    "leaky_moved": 0
+   },
+   {
+    "day": 20110.0,
+    "date": "2025-01-22",
+    "rows_scrambled": 3048,
+    "sides_checked": 60288,
+    "moved": 0,
+    "leaky_sides": 470,
+    "leaky_moved": 90
+   },
+   {
+    "day": 20243.0,
+    "date": "2025-06-04",
+    "rows_scrambled": 2121,
+    "sides_checked": 62430,
+    "moved": 0,
+    "leaky_sides": 516,
+    "leaky_moved": 86
+   },
+   {
+    "day": 20278.0,
+    "date": "2025-07-09",
+    "rows_scrambled": 1663,
+    "sides_checked": 63020,
+    "moved": 0,
+    "leaky_sides": 524,
+    "leaky_moved": 119
+   },
+   {
+    "day": 20334.0,
+    "date": "2025-09-03",
+    "rows_scrambled": 1342,
+    "sides_checked": 64102,
+    "moved": 0,
+    "leaky_sides": 530,
+    "leaky_moved": 118
+   },
+   {
+    "day": 20481.0,
+    "date": "2026-01-28",
+    "rows_scrambled": 1332,
+    "sides_checked": 65526,
+    "moved": 0,
+    "leaky_sides": 468,
+    "leaky_moved": 0
+   },
+   {
+    "day": 20607.0,
+    "date": "2026-06-03",
+    "rows_scrambled": 896,
+    "sides_checked": 67624,
+    "moved": 0,
+    "leaky_sides": 522,
+    "leaky_moved": 85
+   },
+   {
+    "day": 20642.0,
+    "date": "2026-07-08",
+    "rows_scrambled": 457,
+    "sides_checked": 68216,
+    "moved": 0,
+    "leaky_sides": 532,
+    "leaky_moved": 119
+   }
+  ],
+  "release_lag_max_days": 0.0
+ }
+}

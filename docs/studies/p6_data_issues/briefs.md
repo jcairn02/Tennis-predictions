@@ -1,0 +1,77 @@
+# The data issues P6 found: subagent briefs (verbatim)
+
+Both launched 14 Oct 2026, about 07:50 local (UTC−7), as general-purpose subagents, in the background, read-only except their own outputs. Neither saw any model result.
+
+## A. The WTA website's mislabelled matches
+
+> You are a read-only data investigator in the tennis-prediction repository at C:\Users\zerom\Documents\Tennis-predictions (Windows; use Git Bash syntax; run every Python script with `./python.sh` from the repo root, never bare python). Read CLAUDE.md first for the project's rules.
+>
+> ## Context
+> The WTA website's match records (a Kaggle copy, `bwandowando/womens-tennis-association-matches-1975-present`, version 29 of 24 Sep 2026, at data/raw/gap_sources/bwandowando/matches.csv and tournaments.csv; the data map reads it in src/eda/data_map/measure.py, function load_wta_site, which joins matches to tournaments by `pseudo_tournament_id`) attributes at least 55 matches of September 2026 to six WTA 125 tournaments whose players SofaScore's listings of those events do not include:
+> * week of 14 Sep 2026: "BBVA Open Internacional de Valencia - Valencia, ESP" (10 matches on the map, e.g. Vaishnavi Adkar v Ying Zhang, Kayo Nishimura v Hikaru Sato, Sofia Johnson v Xinyu Gao, Malaika Rapolu v Katie Swan), "Caldas da Rainha Ladies Open - Caldas Da Rainha, POR" (9), "Zavarovalnica Triglav Ljubljana - Ljubljana, SLO" (9);
+> * week of 7 Sep 2026: "ATIK Antalya Open - Antalya, TUR" (8, e.g. Jiayi Wang v Darya Astakhova), "Kia Open - Barranquilla, COL" (5, e.g. Oceane Dodin v Sofia Johnson), "Montreux Nestlé Open - Montreux, SUI" (14).
+> SofaScore's real Valencia WTA 125 of 14 Sep 2026 was played by Kawa, Lazaro Garcia, Bennemann, Curmi, Mintegi del Olmo and others. Hypothesis (unverified): the file's pseudo-tournament ids attach ITF matches (perhaps of an Asian swing) to WTA 125 titles. The data map's match table is data/studies/data_map/matches.parquet (columns uid, tour, level, draw, year, d, name1, name2, tname, creator, best, sources; these rows have creator == 'wta_site').
+>
+> ## Tasks
+> 1. **The 55 (or however many) matches.** List every map match taken from those six tournaments' WTA-site records, and find each match's real event in data on disk. Sources to try: TennisLive's event listings (data/dump/points/tennislive/listed.parquet and events.parquet, built by src/ingest/point_sources/tennislive.py, work package P4); the WTA API (data/raw/point_sources/wta/ and data/dump/points/wta/, including any player-matches records from work package P2); the ITF live-data API (data/dump/points/itf_live/ or data/raw/point_sources/itf_live/; it covers only 24 Sep onwards); SofaScore (data/dump/points/sofascore_editions/events.parquet). For each match: the true tournament, its level (ITF grade or WTA 125), date, round, score, and whether that score equals the WTA site's.
+> 2. **How widespread.** Across the whole WTA site file, 2018-2026, estimate how many rows are attributed to the wrong tournament: compare each tournament's player pairs with an independent listing of the same tournament where one exists (the WTA API's match lists, data/raw/point_sources/wta/tournaments/*/matches.json, for WTA-level and WTA 125 events; TennisLive listings; Sackmann's files in data/dump/matches/sackmann_archive/wta/). Look for a systematic pattern (the second pseudo id; certain weeks or months; only rows after a date).
+> 3. **Does the model see them?** The lower-level feed (src/eda/data_gaps_2026/feed.py; its builder src/eda/lower_level_evidence/candidate_stage0.py; accepted snapshots named in "feeds" of accepted.json, read by src/eda/current_best_model/additions.py; reports in docs/studies/data_gaps_2026/) turns the WTA website records and other sources into Stage 0 rows for women's WTA 125 and ITF from 1 June 2026. Find whether the current accepted feed snapshot holds these mislabelled matches, at which level (CH = WTA 125 vs ITF), and whether once or twice (e.g. once under the WTA 125 from the website and again under the true ITF event from TennisLive). Check Stage 0 too (data/studies/predictability_diagnostic/stage0_matches.parquet).
+> 4. **The fix.** Say which rows are indisputably mislabelled (two independent sources agree on the true event, with the same players and score), and the correction: re-attribute to the true event and level, or drop as a duplicate of a row held elsewhere. Do not apply it.
+>
+> ## Rules
+> * Read-only, except your own outputs: put scripts in src/eda/p6_data_issues/ (e.g. wta_site_mislabels.py) and outputs (CSV/JSON) in data/studies/p6_data_issues/wta_site/. Do not modify or delete any existing file. No git commands that change state. No network access of any kind.
+> * Do not run heavy pipelines (Stage 0 builds, feed runs, map builds). Reading parquet/CSV/JSON is fine.
+> * Label every statement observed (with the file path) or inference.
+>
+> ## Your final message
+> A concise report: counts; the table of mislabelled matches with their true events (path to the CSV); how widespread the problem is and its pattern; whether the feed or Stage 0 holds them, at which level, once or twice; the proposed correction and its evidence; anything you could not determine.
+
+## B. Tennis My Life's misdated editions
+
+> You are a read-only data investigator in the tennis-prediction repository at C:\Users\zerom\Documents\Tennis-predictions (Windows; use Git Bash syntax; run every Python script with `./python.sh` from the repo root, never bare python). Read CLAUDE.md first for the project's rules, especially "Feature timing" and "The frozen reference".
+>
+> ## Context
+> Tennis My Life (TML; staged files in data/dump/matches/tennis_my_life/atp_main, atp_qualifying, atp_challenger, wta_main, ongoing/; columns include tourney_id, tourney_name, tourney_date, round, winner_name, loser_name, score) misdates some editions:
+> * Nottingham 2025 (tourney_id 2025-2907) is dated 2025-07-07 (the week of "Nottingham 3"), but its matches were played 6-12 Jan 2025 (SofaScore lists them then).
+> * Targu Mures 2025 (2025-3021) is dated 16 Sep but was played 8-14 Sep. Manama 2025 (2025-9635) is dated 24 Nov (the week of Manama 2) and is in no SofaScore Challenger listing of 3-21 Nov.
+> * In 2021 several consecutive Challengers at one venue share one name and date: six Biella events (ids 2021-9434, -9466, -9470, -9496, -9498, -9503) are all "Biella 1" dated 2021-02-14; Oeiras, Antalya, Forli, Prague, Nur-Sultan, Santiago, Istanbul are similar; every Forli Challenger of 2022 reads "Forli 1" with the first one's date.
+> Known already (read these first, do not redo them): Stage 0 (src/eda/predictability_diagnostic/stage0_build.py) links misdated TML copies to Sackmann rows, 2,066 links 46-400 days apart (docs/studies/predictability_diagnostic/audit_stage0.md, stage0.md), and says "a TML-only match may sit in the wrong week" (inferred). The data map holds about 900 such matches twice (docs/studies/gap_downloads/README.md, the TennisLive P5 section). docs/studies/career_coverage/README.md notes 36 misdated rows.
+>
+> ## Tasks
+> 1. **List TML's misdated or lumped editions, 2018-2026, systematically.** Editions whose date disagrees with other evidence: Sackmann's tourney_date for the same match (data/dump/matches/sackmann_archive/atp/ and wta/); SofaScore event start times (data/dump/points/sofascore_editions/events.parquet, data/dump/points/sofascore/events.parquet; column start_utc); TennisLive listings (data/dump/points/tennislive/listed.parquet, events.parquet); TDI if useful. For each edition: TML's id, name and date; the true date(s) and name(s); matches; evidence.
+> 2. **What Stage 0 holds** (data/studies/predictability_diagnostic/stage0_matches.parquet; find its date and source columns): for these matches, does Stage 0 carry TML's date or the true one? Which matches are TML-only (no Sackmann twin)? Count matches whose Stage 0 date is more than 7 days from the true date, by year and level.
+> 3. **The leak-proof clock** (data/studies/match_timing/timing.parquet, built by src/eda/match_timing/timing.py; read its docstring for the meaning of es, earliest possible start, and lf, latest possible finish; results count from lf + 1). For the misdated matches: does the window contain the true play date? A window ending before the true day (lf earlier than the day the match was really played) lets a result count before it happened, a leak: list those with counts. Also windows starting far too early or late.
+> 4. **The data map** (data/studies/data_map/matches.parquet; src/eda/data_map/measure.py): how many matches it holds twice because of these editions, by year and level.
+> 5. **Propose fixes, do not apply them:** (a) how the data map should merge the copies; (b) for Stage 0 and the clock, a correction table for every match whose date is wrong there (Stage 0 match id, current date, true date, evidence). Under the project's rules such a correction to lower-level history is a candidate, so only prepare it.
+>
+> ## Rules
+> * Read-only, except your own outputs: scripts in src/eda/p6_data_issues/ (e.g. tml_misdates.py) and outputs (CSV/JSON) in data/studies/p6_data_issues/tml_misdates/. Do not modify or delete any existing file. No git commands that change state. No network access of any kind.
+> * Do not run heavy pipelines (Stage 0 builds, timing rebuilds, map builds). Reading parquet/CSV/JSON is fine.
+> * Label every statement observed (with the file path) or inference.
+>
+> ## Your final message
+> A concise report: the list of misdated/lumped editions with counts (path to the CSV); what Stage 0 holds for them and how many dates are wrong there; whether any clock window ends before the true play date (counts, examples) and so leaks; the map's double counting; the proposed fixes with their evidence; anything you could not determine.
+
+## C. The three reviewers of the Stage 0 date correction (launched 14 Oct 2026, about 08:48 local)
+
+Under the 8 Oct rule (docs/decisions/2026-10-08-corrupt-data-fixes.md). Three general-purpose subagents, independent, read-only except their own folders. The common brief, verbatim, then each one's lens.
+
+> You are an independent reviewer under the project's rule of 8 Oct 2026 (docs/decisions/2026-10-08-corrupt-data-fixes.md): a Stage 0 row is corrected only where three independent reviewers each confirm (a) it is corrupt beyond reasonable doubt and (b) the fix is clear, unique and correct, naming the same rows, operation and values. You are one of three; do not read the other reviewers' folders. Work read-only: write only your own folder, data/studies/p6_data_issues/stage0_review/<NAME>/. Use ./python.sh (the project's tennis environment) from C:\Users\zerom\Documents\Tennis-predictions; scratch scripts go in your folder. Make no request to SofaScore, Flashscore, TennisLive, the ITF or the WTA (collectors are running on those hosts). Do not edit any existing file, run no state-changing git command, delete nothing, and read no model result.
+>
+> The claim to review (a study of 14 Oct 2026, docs/studies/p6_data_issues/):
+>
+> Group G1, Tenerife 2024. Stage 0 (data/studies/predictability_diagnostic/stage0_matches.parquet) holds 31 men's Challenger matches with tournament_id 2024-2847, tournament_name "Tenerife 1", tournament_date 2024-01-21, source "tml" (Tennis My Life's file data/raw/public_dump/tennis_my_life/2024_challenger.csv, rows 280-310 by Stage 0's source_row). The claim: these are the matches of the third Tenerife Challenger of 2024 (played 26 Feb - 3 Mar 2024; final Kukushkin d. Gigante 6-2 2-0 ret.), not of the first (Sackmann's "Tenerife CH", 2024-9623, week of 15 Jan, which Stage 0 also holds), so their date is corrupt. Proposed fix: tournament_date 2024-01-21 -> 2024-02-26 for exactly these 31 rows (match ids unchanged; the name left as it is). The consequence claimed: the leak-proof clock (data/studies/match_timing/timing.parquet; es and lf in days since 1970; a result counts from lf + 1) closes their windows on 28-31 Jan 2024, so each result counts about a month before it was played, and 136 later Stage 0 matches of the same players read them early.
+>
+> Group G2, Australian Open 2021 qualifying. Two Tennis-My-Life-only walkover rows, atp|2021-580|Q2|atp:106045|atp:208013 and atp|2021-580|Q2|atp:106408|atp:202103, dated 2021-02-08 (the main draw's date), from data/raw/public_dump/tennis_my_life/atp_quali/2021_atp_quali.csv rows 98 and 106. The claim: that qualifying was played 10-13 Jan 2021 in Doha; proposed fix: tournament_date -> 2021-01-10 (Sackmann's date for the same qualifying draw).
+>
+> Evidence the study used (use it if you like, but verify, never trust): TennisLive's listings, data/dump/points/tennislive/listed.parquet (event_name, start_utc, player names, score); SofaScore's events, data/dump/points/sofascore_editions/events.parquet and data/dump/points/sofascore/events.parquet; Sackmann's staged files, data/dump/matches/sackmann_archive/atp/; Tennis My Life's staged files, data/dump/matches/tennis_my_life/; the study's tables, data/studies/p6_data_issues/tml_misdates/ (stage0_date_corrections.csv, misdated_matches.csv.gz, clock_windows.csv, clock_leak_readers.csv).
+>
+> Your lens: <LENS>
+>
+> Deliver data/studies/p6_data_issues/stage0_review/<NAME>/votes.json: a list with one object per group, {"group": "G1" or "G2", "corrupt_beyond_doubt": true/false, "fix_clear_unique_correct": true/false, "rows": [the Stage 0 match ids you confirm], "operation": "set tournament_date", "value": "YYYY-MM-DD", "objections": [...], "evidence": [...]}, and a short notes.md. Your final message: the two votes and a one-paragraph reason for each, in plain words. Keep to what your lens needs: about 15-20 minutes of work.
+
+The lenses, verbatim:
+
+* **R1, recompute.** Recompute every claim from the raw files: find the 31 rows in Tennis My Life's raw file and in Stage 0; each match's play day from TennisLive and SofaScore; the clock's windows. Confirm or refute each number in the claim (31 rows, the dates, the windows closing 28-31 Jan, the 136 later matches that read them). Same for G2's two rows.
+* **R2, attack.** Attack the claim: look for any other explanation under which Stage 0's date is right or the fix is wrong. For example: are any of the 31 the same matches as Sackmann's Tenerife CH (2024-9623) or Tenerife 2 CH (2024-2839) rows, a duplicate rather than a misdate? Could some rows belong to another edition (two editions lumped under one id)? Does any player of the 31 have another Stage 0 match that clashes with the proposed week (26 Feb - 3 Mar 2024)? Is 2024-02-26 the right value under Stage 0's own dating convention for Tennis My Life editions (stage0_build.py, its rule C05), or should it be another day? The same questions for G2.
+* **R3, independent records and a simulated fix.** Check against records independent of the study's linking: the web (Wikipedia and atptour.com only, with WebSearch and WebFetch: the dates, draws and results of the 2024 Tenerife Challengers I, II and III, and of the 2021 Australian Open men's qualifying). Then simulate the fix on a copy (never on the live tables): set the proposed dates and check that (i) no player then has two matches on overlapping days, (ii) the timeline's class window for a Challenger dated 2024-02-26 (the rules in src/eda/match_timing/timing.py) contains each match's play day, and (iii) in date order each of the 31 then follows the players' matches of the preceding weeks. The same for G2 where it applies.

@@ -1,0 +1,65 @@
+{
+ "started_at": "2026-10-14T1958Z",
+ "steps": [
+  {
+   "step": "tml",
+   "args": [
+    "-m",
+    "src.ingest.public_dump.tennis_my_life",
+    "--start-year",
+    "2000"
+   ],
+   "exit": 0,
+   "seconds": 3.3,
+   "tail": "[tennis_my_life] catalog lists 171 files; 105 planned, 66 skipped\n[tennis_my_life] staged data/dump/players/tennis_my_life/ATP_Database.parquet rows=12937 short=0 long=0\n[tennis_my_life] staged data/dump/matches/tennis_my_life/ongoing/challenger_ongoing_tourneys.parquet rows=105 short=0 long=0\n[tennis_my_life] staged data/dump/matches/tennis_my_life/ongoing/ongoing_tourneys.parquet rows=86 short=0 long=0\n[tennis_my_life] staged data/dump/matches/tennis_my_life/ongoing/wta_ongoing_tourneys.parquet rows=40 short=0 long=0\n[tennis_my_life] done: 4 staged files, 13,168 rows, 0 download errors, 0 held\n"
+  },
+  {
+   "step": "stage0",
+   "args": [
+    "src/eda/predictability_diagnostic/stage0_build.py",
+    "--out-dir",
+    "C:\\Users\\zerom\\Documents\\Tennis-predictions\\data\\studies\\daily_prediction\\runs\\live_2026-10-14_125827\\stage0"
+   ],
+   "exit": 0,
+   "seconds": 112.4,
+   "tail": "[   1.5s] loaded 1,066,101 rows from 10 file groups\n[   7.1s] box overrides: 2,272 rows take the official feed's box score (2 the score too; 1441 of them Sackmann rows)\n[  10.9s] row corrections: 2,951 source rows corrected\n[  23.2s] after repeats: Sackmann 867,297, TML 197,300\n[  30.6s] TML linked: exact_name_pair 183,928, unlinked 6,420, one_player_anchor 6,291, resolved_ids 548, same_event_other_round 113\n[  36.7s] TML-only rows appended: 6,420 (422 in events Sackmann also holds)\n[ 101.2s] id aliases: 4 second ids mapped (7 already merged by the repairs)\n[ 103.7s] wrote 873,678 matches and 1,747,356 player rows to C:\\Users\\zerom\\Documents\\Tennis-predictions\\data\\studies\\daily_prediction\\runs\\live_2026-10-14_125827\\stage0\n[ 104.8s] cleaning log: 2,376 rows, 31 cells over 1%\n[ 109.8s] done\n"
+  }
+ ],
+ "gaps": [
+  {
+   "class": "held",
+   "tour": "atp",
+   "level": "T1000",
+   "matches": 1
+  },
+  {
+   "class": "held",
+   "tour": "atp",
+   "level": "T500",
+   "matches": 1
+  },
+  {
+   "class": "held",
+   "tour": "atp",
+   "level": "TEAM",
+   "matches": 34
+  },
+  {
+   "class": "held",
+   "tour": "wta",
+   "level": "TEAM",
+   "matches": 1
+  },
+  {
+   "class": "unserved",
+   "tour": "atp",
+   "level": "TEAM",
+   "matches": 1
+  }
+ ],
+ "fills": {
+  "filled": 0,
+  "notes": []
+ },
+ "finished_at": "2026-10-14T2000Z"
+}

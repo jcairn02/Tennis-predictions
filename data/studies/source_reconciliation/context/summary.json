@@ -1,0 +1,610 @@
+{
+ "generated_at": "2026-10-16T22:35:22+00:00",
+ "snapshot_manifest_made_at": "2026-10-16T20:53:55+00:00",
+ "live_stage0_equals_snapshot": [
+  {
+   "file": "data/studies/predictability_diagnostic/stage0_matches.parquet",
+   "manifest_sha256": "ca8f5b63d3b6e67c3a9f3806e63331690d17640883107b2911dede3a8bd0d8a6",
+   "live_sha256": "ca8f5b63d3b6e67c3a9f3806e63331690d17640883107b2911dede3a8bd0d8a6",
+   "equal": true
+  },
+  {
+   "file": "data/studies/predictability_diagnostic/stage0_match_players.parquet",
+   "manifest_sha256": "988ef943f7e8dafbab31df37e5799aaca42f8efb452a0d35813ff5c88902a3a9",
+   "live_sha256": "988ef943f7e8dafbab31df37e5799aaca42f8efb452a0d35813ff5c88902a3a9",
+   "equal": true
+  },
+  {
+   "file": "data/studies/predictability_diagnostic/stage0_summary.json",
+   "manifest_sha256": "6b70869f18b63add7a060f01706fa6fa1a38e7a946e645d5eb2c153536e90463",
+   "live_sha256": "6b70869f18b63add7a060f01706fa6fa1a38e7a946e645d5eb2c153536e90463",
+   "equal": true
+  }
+ ],
+ "live_stage0_note": "no ctx_ module reads the live Stage 0: the identity linker and the indoor rule were run on the snapshot's tables; checked anyway",
+ "inputs_outside_snapshot": [
+  {
+   "file": "data/studies/match_timing/timing.parquet",
+   "bytes": 10799609,
+   "sha256": "4892663df961277f8b687696347789a87784429a4771886fe01b40643f4b83f5",
+   "modified": "2026-10-15T01:06:25+00:00"
+  },
+  {
+   "file": "data/studies/current_best_model/template_2026-10-14/model_frame.parquet",
+   "bytes": 28912359,
+   "sha256": "c42b18b61206cc851a2bd129f613d0afef9a1d767325f617425a41d6816ac74e",
+   "modified": "2026-10-14T14:09:39+00:00"
+  },
+  {
+   "file": "data/studies/data_continuity/tml_vs_sackmann_pairs.parquet",
+   "bytes": 8336803,
+   "sha256": "6a173132af180599e978f3a6413c9055a0b6e93d8b9f590956aade4134936187",
+   "modified": "2026-10-06T16:45:52+00:00"
+  },
+  {
+   "file": "data/dump/points/tennislive/listed.parquet",
+   "bytes": 71769611,
+   "sha256": "61cd205381bfd5cf0b25423899f6980939632966a84e3c6a7fe199f9047798cb",
+   "modified": "2026-10-16T19:01:57+00:00"
+  },
+  {
+   "file": "data/dump/points/tennislive/events.parquet",
+   "bytes": 1277689,
+   "sha256": "1bd9e73164f304164bea5b4576a12838dd47b40faa7befde8b0ee1f0aef8ff26",
+   "modified": "2026-10-16T19:01:57+00:00"
+  },
+  {
+   "file": "data/raw/gap_sources/bwandowando/matches.csv",
+   "bytes": 278480366,
+   "sha256": "310177acf84b2906d03642b2e76c597a403fc47e7d982010b77a3398d584528b",
+   "modified": "2026-09-29T18:31:22+00:00"
+  },
+  {
+   "file": "data/dump/points/wta/player_results/2026.parquet",
+   "bytes": 1539629,
+   "sha256": "f540462dfde0842cb50b2dc8fbf92677945d98e0ab89c4e61bb6d885196f6bcf",
+   "modified": "2026-10-14T00:45:46+00:00"
+  },
+  {
+   "file": "data/dump/points/wta/player_matches/2026.parquet",
+   "bytes": 5143243,
+   "sha256": "0955cab2fd43b1b7968cb2ffda8a5d2ebc09ff465a908dbc068820fbf3952ce4",
+   "modified": "2026-10-14T00:45:41+00:00"
+  },
+  {
+   "file": "data/dump/points/wta/editions.parquet",
+   "bytes": 47131,
+   "sha256": "4ad25703bbc13e2bcd173320ae39b78ebbd5eebd16b75a0cd2a509f8dd8250ad",
+   "modified": "2026-10-14T19:06:40+00:00"
+  },
+  {
+   "file": "data/dump/points/itf_live/matches.parquet",
+   "bytes": 2331665,
+   "sha256": "6343fd4c7a43cf184e137498f7f67cd16c2cbad55b4da10f3837ea8fb62245d7",
+   "modified": "2026-10-16T14:44:45+00:00"
+  },
+  {
+   "file": "data/dump/matches/open_tennis_data/completed.parquet",
+   "bytes": 777240,
+   "sha256": "992c32da2828792d459a107a98fee1619a229481a0d5971be81c9fc464ed2bc3",
+   "modified": "2026-09-22T21:08:30+00:00"
+  },
+  {
+   "file": "data/dump/matches/live_tennis_api_zenodo/matches.parquet",
+   "bytes": 3110145,
+   "sha256": "1ec817a2de1b4dcf4d541419fc4aa513c952bccf3f56ee955930d3f638e18227",
+   "modified": "2026-10-08T19:45:40+00:00"
+  },
+  {
+   "file": "data/dump/players/sackmann_archive/atp/atp_players.parquet",
+   "bytes": 1215566,
+   "sha256": "6d2a3190c8f27d351e6b270f3b9718276b4294b9fbf43fd6a9a1584f738ab7b9",
+   "modified": "2026-09-22T21:23:09+00:00"
+  },
+  {
+   "file": "data/dump/players/sackmann_archive/wta/wta_players.parquet",
+   "bytes": 1109778,
+   "sha256": "b7c70448702a05fd39863a0366a5830721b8b04f038540182c6ae2f9ffe7a606",
+   "modified": "2026-09-22T21:25:25+00:00"
+  },
+  {
+   "file": "data/dump/players/tennis_my_life/ATP_Database.parquet",
+   "bytes": 497286,
+   "sha256": "8868f013c1653c4c65ae742c4cd83102bd2fcc3cefe0c1514b830fa5c4777997",
+   "modified": "2026-10-16T14:30:09+00:00"
+  },
+  {
+   "file": "data/dump/players/live_tennis_api_zenodo/players.parquet",
+   "bytes": 636306,
+   "sha256": "5ce31486a2fa8e5d429fe8c87fcd758063da84261c6b35db34c13db41518d34b",
+   "modified": "2026-10-08T19:45:41+00:00"
+  },
+  {
+   "file": "data/dump/players/open_tennis_data/players.parquet",
+   "bytes": 41183,
+   "sha256": "3865b5528670a9f5bfcbe1096f808f38040a02322141ee51a39bc47afb80f406",
+   "modified": "2026-09-22T21:08:31+00:00"
+  },
+  {
+   "file": "data/dump/points/tdi/matches.parquet",
+   "bytes": 1788913,
+   "sha256": "42cb6621ae7845dc1538e8400e5ed5e00b15d83dc35e08e55011393d3365a437",
+   "modified": "2026-10-12T15:25:57+00:00"
+  }
+ ],
+ "part_c": {
+  "links": 2040019,
+  "stage0_matches": 873681,
+  "stage0_matches_linked": 743623,
+  "stage0_matches_with_an_independent_source": 736655,
+  "model_frame_matches": 67226,
+  "model_frame_with_two_or_more_independent_families": 67006,
+  "links_by_source": {
+   "tennislive": 468952,
+   "flashscore": 413612,
+   "wta_site": 388205,
+   "tml": 186615,
+   "sofascore": 160314,
+   "live_tennis_api": 126876,
+   "api_tennis": 108269,
+   "tennis_data": 83183,
+   "infosys": 37203,
+   "wta_api": 28853,
+   "open_tennis_data": 26581,
+   "slam_feeds": 7682,
+   "tdi": 3673,
+   "itf_live": 1
+  },
+  "contradicted_by_field": {
+   "status": 137,
+   "games": 121,
+   "winner": 2
+  },
+  "contradicted_in_model_frame_by_field": {
+   "status": 12,
+   "games": 11
+  },
+  "wta_site_sets_reoriented_to_its_winner": 2368,
+  "internal_inconsistency_by_source": {
+   "api_tennis": 21,
+   "flashscore": 0,
+   "infosys": 0,
+   "itf_live": 0,
+   "live_tennis_api": 0,
+   "open_tennis_data": 0,
+   "slam_feeds": 0,
+   "sofascore": 8,
+   "tdi": 0,
+   "tennis_data": 6,
+   "tennislive": 5,
+   "tml": 0,
+   "wta_api": 3,
+   "wta_site": 2368
+  }
+ },
+ "part_c_self_links": {
+  "itf_live": {
+   "singles_listed": 6763,
+   "walkovers_or_byes": 90,
+   "unfinished_or_no_winner": 178,
+   "played": 6495,
+   "outside_stage0_dates": 0,
+   "linked_identity": 1,
+   "dropped_by_weekly_venue_filter": 0,
+   "linked": 1,
+   "linked_by_pass": {
+    "anchor": 1
+   },
+   "linked_identical_sets": 1,
+   "ambiguous_rows": 0,
+   "row_outcomes": {
+    "no Stage 0 match with both players in the window": 6452,
+    "names in the window agree on a given name or other word only": 34,
+    "names and window agree, but neither set scores nor round": 8,
+    "linked": 1
+   }
+  },
+  "tennislive": {
+   "singles_listed": 705653,
+   "walkovers_kept": 5795,
+   "unplayed_or_no_winner": 0,
+   "rows": 705653,
+   "outside_stage0_dates": 0,
+   "linked_identity": 468952,
+   "dropped_by_weekly_venue_filter": 0,
+   "linked": 468952,
+   "linked_by_pass": {
+    "pair": 460783,
+    "anchor": 8050,
+    "player_ids": 119
+   },
+   "linked_identical_sets": 466217,
+   "ambiguous_rows": 1,
+   "row_outcomes": {
+    "linked": 468952,
+    "no Stage 0 match with both players in the window": 226403,
+    "names in the window agree on a given name or other word only": 7100,
+    "names and window agree, but neither set scores nor round": 3137,
+    "its Stage 0 match was taken by a better-ranked source row": 60,
+    "ambiguous: equally good Stage 0 matches": 1
+   }
+  },
+  "wta_site": {
+   "singles_listed": 594129,
+   "misfiled_editions_left_out": 322,
+   "byes_walkovers_unplayed": 37933,
+   "abandoned_or_no_winner_or_name": 251,
+   "names_in_listing_order": 425573,
+   "names_in_the_other_order": 117246,
+   "left_out_ids_and_names_do_not_fit": 12804,
+   "a_player_without_wta_id": 44422,
+   "second_pseudo_id_copies": 37828,
+   "played": 510400,
+   "wta_api_player_matches": {
+    "files": 1,
+    "rows": 32465,
+    "in_a_kaggle_edition": 29643,
+    "held_by_the_kaggle_copy": 27028,
+    "added": 5409,
+    "scores_turned_to_the_winner": 6
+   },
+   "outside_stage0_dates": 0,
+   "linked_identity": 388205,
+   "dropped_by_weekly_venue_filter": 0,
+   "linked": 388205,
+   "linked_by_pass": {
+    "pair": 380367,
+    "anchor": 7692,
+    "player_ids": 146
+   },
+   "linked_identical_sets": 385135,
+   "ambiguous_rows": 9,
+   "row_outcomes": {
+    "linked": 388205,
+    "no Stage 0 match with both players in the window": 115955,
+    "names in the window agree on a given name or other word only": 3604,
+    "names and window agree, but neither set scores nor round": 2236,
+    "its Stage 0 match was taken by a better-ranked source row": 157,
+    "ambiguous: equally good Stage 0 matches": 9
+   }
+  }
+ },
+ "part_c_tml_rows": {
+  "pairs_rows_read": 190866,
+  "stage0_sackmann_rows_paired": 190866,
+  "stage0_tml_rows": 6390,
+  "staged_row_found_for_pairs_and_own_rows": 197096,
+  "re_paired_by_exact_names": 23947,
+  "rows_kept": 197272,
+  "names_ok": 192898,
+  "names_not_ok_left_out": 4374,
+  "by_via": [
+   {
+    "via": "name_pair",
+    "size": 23947,
+    "names_ok": 23947
+   },
+   {
+    "via": "pairs",
+    "size": 166935,
+    "names_ok": 162668
+   },
+   {
+    "via": "stage0_tml",
+    "size": 6390,
+    "names_ok": 6283
+   }
+  ],
+  "stage0_sackmann_matches_with_valid_tml_row": 186615
+ },
+ "part_d_indoor": {
+  "rule_check_on_frame": {
+   "frame_matches": 67226,
+   "rule_equals_frame": 67226,
+   "rule_missing": 0,
+   "differ": 0
+  },
+  "events_with_both": {
+   "atp": 1055,
+   "wta": 905
+  },
+  "events_disagreeing": {
+   "wta": 21,
+   "atp": 10
+  },
+  "disagreeing_frame_matches": {
+   "atp": 273,
+   "wta": 371
+  },
+  "who_is_right": [
+   {
+    "tour": "atp",
+    "right": "second",
+    "resolved_by": "third_sources",
+    "events": 1
+   },
+   {
+    "tour": "atp",
+    "right": "second",
+    "resolved_by": "venue",
+    "events": 9
+   },
+   {
+    "tour": "wta",
+    "right": "second",
+    "resolved_by": "venue",
+    "events": 21
+   }
+  ],
+  "matches_with_both": {
+   "atp": 42826,
+   "wta": 39605
+  },
+  "matches_disagreeing": {
+   "atp": 274,
+   "wta": 476
+  },
+  "third_sources_on_disagreeing_matches_atp": {
+   "sofascore": {
+    "matches": 31,
+    "with_court": 0,
+    "with_second": 31
+   },
+   "live_tennis_api": {
+    "matches": 0,
+    "with_court": 0,
+    "with_second": 0
+   },
+   "tennislive": {
+    "matches": 31,
+    "with_court": 0,
+    "with_second": 31
+   }
+  },
+  "third_sources_all_matches_atp": {
+   "sofascore": {
+    "matches": 9213,
+    "agrees_with_court": 9155,
+    "agrees_with_second": 9186
+   },
+   "live_tennis_api": {
+    "matches": 2703,
+    "agrees_with_court": 2676,
+    "agrees_with_second": 2676
+   },
+   "tennislive": {
+    "matches": 12401,
+    "agrees_with_court": 12339,
+    "agrees_with_second": 12370
+   }
+  },
+  "third_sources_on_disagreeing_matches_wta": {
+   "sofascore": {
+    "matches": 68,
+    "with_court": 38,
+    "with_second": 30
+   },
+   "live_tennis_api": {
+    "matches": 0,
+    "with_court": 0,
+    "with_second": 0
+   },
+   "tennislive": {
+    "matches": 132,
+    "with_court": 0,
+    "with_second": 132
+   }
+  },
+  "third_sources_all_matches_wta": {
+   "sofascore": {
+    "matches": 4529,
+    "agrees_with_court": 4362,
+    "agrees_with_second": 4354
+   },
+   "live_tennis_api": {
+    "matches": 3970,
+    "agrees_with_court": 3696,
+    "agrees_with_second": 3696
+   },
+   "tennislive": {
+    "matches": 12686,
+    "agrees_with_court": 12539,
+    "agrees_with_second": 12671
+   }
+  }
+ },
+ "part_d_dates": {
+  "links_with_a_day": 1059975,
+  "matches_with_a_day": 493681,
+  "matches_with_two_or_more_days": 299971,
+  "links_outside_clock": 271,
+  "links_outside_clock_by_source": {
+   "tennis_data": 89,
+   "sofascore": 43,
+   "tml_days": 36,
+   "match_charting": 35,
+   "live_tennis_api": 27,
+   "flashscore": 13,
+   "wta_api": 12,
+   "slam_feeds": 8,
+   "open_tennis_data": 3,
+   "tdi": 3,
+   "api_tennis": 1,
+   "pbp_copy": 1
+  },
+  "links_outside_clock_outvoted_by_the_timeline": 194,
+  "links_outside_clock_counted_by_the_timeline": 77,
+  "counted_outside_by_direction_source": [
+   {
+    "direction": "after_lf",
+    "source": "api_tennis",
+    "links": 1
+   },
+   {
+    "direction": "after_lf",
+    "source": "flashscore",
+    "links": 9
+   },
+   {
+    "direction": "after_lf",
+    "source": "live_tennis_api",
+    "links": 3
+   },
+   {
+    "direction": "after_lf",
+    "source": "match_charting",
+    "links": 5
+   },
+   {
+    "direction": "after_lf",
+    "source": "sofascore",
+    "links": 6
+   },
+   {
+    "direction": "after_lf",
+    "source": "tennis_data",
+    "links": 1
+   },
+   {
+    "direction": "before_es",
+    "source": "flashscore",
+    "links": 1
+   },
+   {
+    "direction": "before_es",
+    "source": "match_charting",
+    "links": 5
+   },
+   {
+    "direction": "before_es",
+    "source": "pbp_copy",
+    "links": 1
+   },
+   {
+    "direction": "before_es",
+    "source": "slam_feeds",
+    "links": 7
+   },
+   {
+    "direction": "before_es",
+    "source": "sofascore",
+    "links": 28
+   },
+   {
+    "direction": "before_es",
+    "source": "tdi",
+    "links": 3
+   },
+   {
+    "direction": "before_es",
+    "source": "tennis_data",
+    "links": 1
+   },
+   {
+    "direction": "before_es",
+    "source": "wta_api",
+    "links": 6
+   }
+  ],
+  "matches_outside_clock_with_rejected_or_demoted_link": 266,
+  "matches_outside_clock": 270,
+  "outside_by_days": {
+   "-18.0": 1,
+   "-13.0": 1,
+   "-12.0": 2,
+   "-10.0": 1,
+   "-9.0": 1,
+   "-5.0": 3,
+   "-4.0": 3,
+   "-3.0": 3,
+   "-2.0": 6,
+   "-1.0": 58,
+   "0.0": 4,
+   "1.0": 151,
+   "2.0": 13,
+   "3.0": 11,
+   "4.0": 6,
+   "6.0": 3,
+   "7.0": 1,
+   "8.0": 2,
+   "10.0": 1
+  },
+  "links_outside_minus10_plus21": 1,
+  "links_flagged_outside_plausible_days": 498,
+  "timing_file": "data/studies/match_timing/timing.parquet",
+  "timing_sha256": "4892663df961277f8b687696347789a87784429a4771886fe01b40643f4b83f5"
+ },
+ "part_e": {
+  "tennis_abstract": {
+   "bios_with_date_and_id": 1904,
+   "id_in_stage0": 1250,
+   "kept_same_full_name": 1250
+  },
+  "tml": {
+   "codes_in_linked_rows": 4328,
+   "codes_mapped": 4289,
+   "database_rows": 12937,
+   "database_rows_mapped": 4289,
+   "mapped_names_compatible": 4257
+  },
+  "wta_api": {
+   "wta_ids_in_linked_rows": 14216,
+   "wta_ids_mapped": 13591,
+   "wta_ids_with_date": 4557,
+   "wta_ids_with_two_dates": 0,
+   "mapped": 3120,
+   "mapped_names_compatible": 3095
+  },
+  "live_tennis_api": {
+   "players_with_sackmann_id_and_date": 4304,
+   "mapped_names_compatible": 4258
+  },
+  "atp_profiles": {
+   "profiles": 3150,
+   "with_birth_date": 0
+  },
+  "dates_by_source": {
+   "sackmann": 25274,
+   "tml": 4183,
+   "live_tennis_api": 3961,
+   "wta_api": 3095,
+   "tennis_abstract": 1249,
+   "open_tennis_data": 1209
+  },
+  "all_rows_age_off": {
+   "player_rows": 929,
+   "players": 35,
+   "by_level": {
+    "ITF": 897,
+    "CH": 31,
+    "T250": 1
+   },
+   "by_stage0_source": {
+    "sackmann": 923,
+    "tml": 6
+   }
+  },
+  "frame_players_unresolved_ge_quarter_year": 3,
+  "stage0_players": 30758,
+  "players_with_a_date": 26763,
+  "players_with_two_or_more_families": 7448,
+  "players_disagreeing_beyond_a_day": 180,
+  "players_disagreeing_in_frame": 16,
+  "majority_basis": {
+   "single_family": 18602,
+   "all_agree": 4981,
+   "official_wta": 3095,
+   "tie": 66,
+   "majority": 19
+  },
+  "sackmann_differs_from_majority_beyond_a_day": 39,
+  "frame_player_rows": 134452,
+  "frame_rows_with_majority": 134208,
+  "frame_rows_age_off": 0,
+  "frame_players_age_off": 0,
+  "frame_rows_stage0_age_vs_sackmann_off": 0,
+  "frame_rows_without_stage0_age": 186,
+  "age_tolerance_years": 0.25
+ },
+ "handcheck": "handcheck.json"
+}

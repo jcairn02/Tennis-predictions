@@ -1,0 +1,89 @@
+# DP_BASE_TREE=C:\Users\zerom\tnr_tpl1014 DP_INSTANCE=template_2026-10-14 DP_WORK_TREE=C:\Users\zerom\tnr_daily_nb ./python.sh 'C:\Users\zerom\Documents\Tennis-predictions\src\eda\daily_prediction\dp.py' run_day --run 'C:\Users\zerom\Documents\Tennis-predictions\data\studies\daily_prediction\runs\live_2026-10-14_151255' --matchups 'C:\Users\zerom\Documents\Tennis-predictions\data\studies\master_pipeline\matchups\matchups_2026-10-14_122859.csv' --refresh --seeds 0-15 --checkpoint auto --leave-checkpoint auto
+# started 2026-10-14T15:12:55-07:00
+{
+ "created_at": "2026-10-14T221256Z",
+ "mode": "live",
+ "replay": null,
+ "matchups_csv": "C:\\Users\\zerom\\Documents\\Tennis-predictions\\data\\studies\\master_pipeline\\matchups\\matchups_2026-10-14_122859.csv",
+ "checkpoint": "auto",
+ "seeds": "0-15",
+ "work_tree": "C:\\Users\\zerom\\tnr_daily_nb",
+ "instance": "C:\\Users\\zerom\\Documents\\Tennis-predictions\\data\\studies\\current_best_model\\template_2026-10-14",
+ "base_tree": "C:\\Users\\zerom\\tnr_tpl1014"
+}
+[    0.4s] == refresh
+[    0.0s] --> tml: -m src.ingest.public_dump.tennis_my_life --start-year 2000
+[    2.9s]     exit 0 in 3 s
+[    2.9s] --> stage0: src/eda/predictability_diagnostic/stage0_build.py --out-dir C:\Users\zerom\Documents\Tennis-predictions\data\studies\daily_prediction\runs\live_2026-10-14_151255\stage0
+[   78.2s]     exit 0 in 75 s
+[   83.7s]    refresh: 83.3 s
+[   83.7s] == matchups
+[   85.4s]    matchups: 1.7 s
+[   85.4s] == prices
+[   85.4s]    prices: 0.0 s
+[   85.4s] == worktree
+[   93.0s]    worktree: 7.6 s
+[   93.0s] == tables
+[   93.1s] --> stage0: src/eda/predictability_diagnostic/stage0_build.py --live-rows run/live_rows.parquet
+[  177.5s]     exit 0 in 84.4 s
+[  177.5s] --> additions: src/eda/current_best_model/additions.py --apply
+[  410.4s]     exit 0 in 232.9 s
+[  410.4s] --> check: src/eda/prediction_run/inject.py --meta run/live_meta.parquet --step check
+[  411.1s]     exit 0 in 0.7 s
+[  411.1s] --> lle_layer: src/eda/current_best_model/layer_config.py --resolve --official C:\Users\zerom\Documents\Tennis-predictions\data\studies\current_best_model\level_layer\official.json
+[  428.9s]     exit 0 in 17.8 s
+[  429.0s] --> odds: src/eda/predictability_diagnostic/stage1_odds.py 
+[  435.2s]     exit 0 in 6.2 s
+[  435.2s] --> live_odds: src/eda/prediction_run/inject.py --meta run/live_meta.parquet --step odds
+[  435.9s]     exit 0 in 0.8 s
+[  435.9s] --> remap: src/eda/prediction_run/inject.py --meta run/live_meta.parquet --step remap
+[  437.9s]     exit 0 in 2.0 s
+[  437.9s] --> links: src/eda/match_timing/link_sources_c.py --sources tennis_data,wta_api,sofascore,slam_feeds,tdi
+[  468.3s]     exit 0 in 30.4 s
+[  468.3s] --> live_links: src/eda/prediction_run/inject.py --meta run/live_meta.parquet --step links
+[  472.5s]     exit 0 in 4.1 s
+[  472.5s] --> timing: src/eda/match_timing/timing.py 
+[  511.5s]     exit 0 in 39.1 s
+[  511.5s] --> live_window: src/eda/prediction_run/inject.py --meta run/live_meta.parquet --step pin
+[  513.7s]     exit 0 in 2.2 s
+[  513.7s] --> additions_window: src/eda/current_best_model/additions.py --pin-timing
+[  528.0s]     exit 0 in 14.3 s
+[  528.0s]    tables: 435.0 s
+[  528.0s] == states
+[  944.9s]    states: 416.9 s
+[  944.9s] == history
+[  945.0s]    history: 0.0 s
+[  945.0s] == patterns
+[ 1001.1s]    patterns: 56.1 s
+[ 1001.1s] == checkpoint
+[ 1001.1s]    checkpoint: 0.0 s
+[ 1001.1s] == fit
+[ 1053.8s]    fit: 52.6 s
+[ 1053.8s] == predict
+[ 1054.4s]    predict: 0.6 s
+{
+ "run": "C:\\Users\\zerom\\Documents\\Tennis-predictions\\data\\studies\\daily_prediction\\runs\\live_2026-10-14_151255",
+ "mode": "live",
+ "started_at": "2026-10-14T221256Z",
+ "steps": {
+  "refresh": 83.3,
+  "matchups": 1.7,
+  "prices": 0.0,
+  "worktree": 7.6,
+  "tables": 435.0,
+  "states": 416.9,
+  "history": 0.0,
+  "patterns": 56.1,
+  "checkpoint": 0.0,
+  "fit": 52.6,
+  "predict": 0.6,
+  "cleanup": 2.7
+ },
+ "finished_at": "2026-10-14T223030Z",
+ "cleanup": {
+  "deleted": true,
+  "seconds": 2.7
+ }
+}
+
+# ok, exit 0, 1057.5 s

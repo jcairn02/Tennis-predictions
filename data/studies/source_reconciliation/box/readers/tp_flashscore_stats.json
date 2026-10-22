@@ -1,0 +1,1898 @@
+{
+ "reader": "tp_flashscore_stats",
+ "written_at": "2026-10-16T22:19:05+00:00",
+ "file": "data/studies/source_reconciliation/box/readers/tp_flashscore_stats.parquet",
+ "snapshot_manifest_sha256": "fc299ad2f4f8c6221521b848403f763777a8553fe4603846fcfe01b059a8be7d",
+ "inputs": [
+  {
+   "path": "data/raw/public_dump/atp_pipeline_handoff/flashscore_gql_stats/gql_stats_1990_1990_atp.jsonl.gz",
+   "bytes": 33846047,
+   "modified": "2026-09-25T14:52:45+00:00",
+   "sha256": "50da9757040a4c88b3e74e2e33527498c2d46f94a4970a49fbca821a561dc8cf"
+  },
+  {
+   "path": "data/raw/public_dump/atp_pipeline_handoff/flashscore_gql_stats/gql_stats_1991_1991_atp.jsonl.gz",
+   "bytes": 11898075,
+   "modified": "2026-09-25T14:52:30+00:00",
+   "sha256": "ef09166fb96d07fd13dda4638a43be9ef5dc84f51a1f9e0ebb154c48af94fd7f"
+  },
+  {
+   "path": "data/raw/public_dump/atp_pipeline_handoff/flashscore_gql_stats/gql_stats_1992_1992_atp.jsonl.gz",
+   "bytes": 12767797,
+   "modified": "2026-09-25T14:52:30+00:00",
+   "sha256": "2711f2db66f7ac0d23ae08bc05a609e35a714dadee78c12033243c0982a3a2d5"
+  },
+  {
+   "path": "data/raw/public_dump/atp_pipeline_handoff/flashscore_gql_stats/gql_stats_1993_1993_atp.jsonl.gz",
+   "bytes": 24721058,
+   "modified": "2026-09-25T14:52:25+00:00",
+   "sha256": "3aa0d8a4d3f9fd680330fea1dfcc0dc19b7de77c71adef0e8954da2f29aa0fe6"
+  },
+  {
+   "path": "data/raw/public_dump/atp_pipeline_handoff/flashscore_gql_stats/gql_stats_1994_1994_atp.jsonl.gz",
+   "bytes": 39480724,
+   "modified": "2026-09-25T14:52:36+00:00",
+   "sha256": "274f1f535ea92bb452547104fff68e99f3fd408862ea735c6e20214d7ff10c95"
+  },
+  {
+   "path": "data/raw/public_dump/atp_pipeline_handoff/flashscore_gql_stats/gql_stats_1995_1995_atp.jsonl.gz",
+   "bytes": 34002675,
+   "modified": "2026-09-25T14:52:24+00:00",
+   "sha256": "45ff858d4a97338102c75ae234e552702b179f166fb95e77cf240197ff761a3c"
+  },
+  {
+   "path": "data/raw/public_dump/atp_pipeline_handoff/flashscore_gql_stats/gql_stats_1996_1996_atp.jsonl.gz",
+   "bytes": 25602073,
+   "modified": "2026-09-25T14:52:08+00:00",
+   "sha256": "44402965659482bd213d0fd2fafab7283e3eebe39243fe4d2e3e536297ff2b46"
+  },
+  {
+   "path": "data/raw/public_dump/atp_pipeline_handoff/flashscore_gql_stats/gql_stats_1997_1997_atp.jsonl.gz",
+   "bytes": 4323919,
+   "modified": "2026-09-25T14:51:49+00:00",
+   "sha256": "47fafda1f3d655458b962a3caf64da2ac972c2e68efdfc12f335195869ee4c27"
+  },
+  {
+   "path": "data/raw/public_dump/atp_pipeline_handoff/flashscore_gql_stats/gql_stats_1998_1998_atp.jsonl.gz",
+   "bytes": 33189605,
+   "modified": "2026-09-25T14:52:01+00:00",
+   "sha256": "c543c60ae9bd58ab525138deaa9eaa352cedd2fbc293cfb4903c4a3d0d2712ef"
+  },
+  {
+   "path": "data/raw/public_dump/atp_pipeline_handoff/flashscore_gql_stats/gql_stats_1999_1999_atp.jsonl.gz",
+   "bytes": 53833644,
+   "modified": "2026-09-25T14:52:30+00:00",
+   "sha256": "10190255f2115fe3268716d9fbbaa15da12f152c19e0dcbf3b9627c767f54d68"
+  },
+  {
+   "path": "data/raw/public_dump/atp_pipeline_handoff/flashscore_gql_stats/gql_stats_2000_2000_atp.jsonl.gz",
+   "bytes": 24859039,
+   "modified": "2026-09-25T14:51:47+00:00",
+   "sha256": "8f9ebf09dfc42722e7b9586f3a47bf1a1a5aa8504967d4622dd5adee9d521cfc"
+  },
+  {
+   "path": "data/raw/public_dump/atp_pipeline_handoff/flashscore_gql_stats/gql_stats_2001_2001_atp.jsonl.gz",
+   "bytes": 43943245,
+   "modified": "2026-09-25T14:52:00+00:00",
+   "sha256": "8d7095524e208d746d7ba3d39082f64d905dc99e8c284993af12b0466bddb7f8"
+  },
+  {
+   "path": "data/raw/public_dump/atp_pipeline_handoff/flashscore_gql_stats/gql_stats_2002_2002_atp.jsonl.gz",
+   "bytes": 38283919,
+   "modified": "2026-09-25T14:51:37+00:00",
+   "sha256": "ca7554797cfcd6fcc681d8454180840083553b8b9e2bc16a397e49163a61c52a"
+  },
+  {
+   "path": "data/raw/public_dump/atp_pipeline_handoff/flashscore_gql_stats/gql_stats_2003_2003_atp.jsonl.gz",
+   "bytes": 37364082,
+   "modified": "2026-09-25T14:51:29+00:00",
+   "sha256": "142de349a50c5f721b52aa4669ee5cb2ea8309d26773aa0ea7356cd379c3d8c5"
+  },
+  {
+   "path": "data/raw/public_dump/atp_pipeline_handoff/flashscore_gql_stats/gql_stats_2004_2004_atp.jsonl.gz",
+   "bytes": 8024599,
+   "modified": "2026-09-25T14:51:06+00:00",
+   "sha256": "cd07c0fb5c359ed5c62ccb73f133ddcd7deac8a245901ecc52e3a4d72cb1a044"
+  },
+  {
+   "path": "data/raw/public_dump/atp_pipeline_handoff/flashscore_gql_stats/gql_stats_2005_2005_atp.jsonl.gz",
+   "bytes": 50096867,
+   "modified": "2026-09-25T14:51:39+00:00",
+   "sha256": "7895faa9d81f147b332902f9b6bd7afa7ae151acd0a739bdaf96799f3e7784e1"
+  },
+  {
+   "path": "data/raw/public_dump/atp_pipeline_handoff/flashscore_gql_stats/gql_stats_2006_2006_atp.jsonl.gz",
+   "bytes": 54700199,
+   "modified": "2026-09-25T14:51:20+00:00",
+   "sha256": "cf4cd4343e5f4c8ebf6b81157f05c25ad33ecda8e9e528c9450a2ce22ace4fe9"
+  },
+  {
+   "path": "data/raw/public_dump/atp_pipeline_handoff/flashscore_gql_stats/gql_stats_2007_2007_atp.jsonl.gz",
+   "bytes": 32540376,
+   "modified": "2026-09-25T14:51:09+00:00",
+   "sha256": "9c2c731b4760ca6b94391513ff43a43a6c2a96f5110bddca14c7c1ba7bff64d8"
+  },
+  {
+   "path": "data/raw/public_dump/atp_pipeline_handoff/flashscore_gql_stats/gql_stats_2008_2008_atp.jsonl.gz",
+   "bytes": 45292853,
+   "modified": "2026-09-25T14:51:01+00:00",
+   "sha256": "c07c247d9879add2adb8ac73a33007af7eb5859d316eedaa2eaa9aed5e4bb58d"
+  },
+  {
+   "path": "data/raw/public_dump/atp_pipeline_handoff/flashscore_gql_stats/gql_stats_2009_2009_atp.jsonl.gz",
+   "bytes": 27567657,
+   "modified": "2026-09-25T14:50:55+00:00",
+   "sha256": "14c4dcfd4b1c781c1eab7e37f4ad9cd6c36e6caac010100a556027d165602123"
+  },
+  {
+   "path": "data/raw/public_dump/atp_pipeline_handoff/flashscore_gql_stats/gql_stats_2010_2010_atp.jsonl.gz",
+   "bytes": 24981114,
+   "modified": "2026-09-25T14:50:47+00:00",
+   "sha256": "b408643cf953fcdc02a900c633c02bb8e8d8af2227491862778703917821166d"
+  },
+  {
+   "path": "data/raw/public_dump/atp_pipeline_handoff/flashscore_gql_stats/gql_stats_2011_2011_atp.jsonl.gz",
+   "bytes": 36648090,
+   "modified": "2026-09-25T14:50:47+00:00",
+   "sha256": "e18b0e4d83c6b8e45122f862d7d81b68a3ae15cb2977d47e2d375b98fe3613b7"
+  },
+  {
+   "path": "data/raw/public_dump/atp_pipeline_handoff/flashscore_gql_stats/gql_stats_2011_2011_challenger.jsonl.gz",
+   "bytes": 844826,
+   "modified": "2026-09-25T14:50:37+00:00",
+   "sha256": "13abbff7eccd657dfefd2816e2f36b81c57650694ee1115b3fc0f64b8ec72cce"
+  },
+  {
+   "path": "data/raw/public_dump/atp_pipeline_handoff/flashscore_gql_stats/gql_stats_2012_2012_atp.jsonl.gz",
+   "bytes": 9734476,
+   "modified": "2026-09-25T14:50:36+00:00",
+   "sha256": "223a35251f89f7973ab09c94ed2654abdbbb5cd60f45947a6dfd694b52f16f41"
+  },
+  {
+   "path": "data/raw/public_dump/atp_pipeline_handoff/flashscore_gql_stats/gql_stats_2012_2013_challenger.jsonl.gz",
+   "bytes": 3273672,
+   "modified": "2026-09-25T14:50:30+00:00",
+   "sha256": "b644e5b1c2a24df68e6473bc18478a8a4419ba89e5011ee5386b8331f95ffee6"
+  },
+  {
+   "path": "data/raw/public_dump/atp_pipeline_handoff/flashscore_gql_stats/gql_stats_2013_2013_atp.jsonl.gz",
+   "bytes": 26184864,
+   "modified": "2026-09-25T14:50:42+00:00",
+   "sha256": "4fc139ae4d4738db994432bf865ba146dafde6f96d09b14e79edf1de3f133da6"
+  },
+  {
+   "path": "data/raw/public_dump/atp_pipeline_handoff/flashscore_gql_stats/gql_stats_2014_2014_atp.jsonl.gz",
+   "bytes": 43528537,
+   "modified": "2026-09-25T14:50:42+00:00",
+   "sha256": "2ef6d18485717b2518026f3c46161e2bec642a448486c8a3ee9f3d1a06a2fed9"
+  },
+  {
+   "path": "data/raw/public_dump/atp_pipeline_handoff/flashscore_gql_stats/gql_stats_2014_2015_challenger.jsonl.gz",
+   "bytes": 3232226,
+   "modified": "2026-09-25T14:50:22+00:00",
+   "sha256": "e8e75268ea6097a16d37e8a2f7aa57ff576342e73841158996d437a5b38d53a7"
+  },
+  {
+   "path": "data/raw/public_dump/atp_pipeline_handoff/flashscore_gql_stats/gql_stats_2015_2015_atp.jsonl.gz",
+   "bytes": 31917494,
+   "modified": "2026-09-25T14:50:31+00:00",
+   "sha256": "f53b5453f68b55ea8917c44be75e17c915180a6c9b0aa0b6f7309dc90bcccca7"
+  },
+  {
+   "path": "data/raw/public_dump/atp_pipeline_handoff/flashscore_gql_stats/gql_stats_2016_2016_atp.jsonl.gz",
+   "bytes": 24159940,
+   "modified": "2026-09-25T14:50:21+00:00",
+   "sha256": "88babbad437ad49169d72c04a956b02214dfd73e9ed3afae728cfe077c94092a"
+  },
+  {
+   "path": "data/raw/public_dump/atp_pipeline_handoff/flashscore_gql_stats/gql_stats_2016_2017_challenger.jsonl.gz",
+   "bytes": 1729278,
+   "modified": "2026-09-25T14:50:11+00:00",
+   "sha256": "ca68c3e5304d108e60590028efc4bdd38d0df4206fb2de10fb96364832e698cc"
+  },
+  {
+   "path": "data/raw/public_dump/atp_pipeline_handoff/flashscore_gql_stats/gql_stats_2017_2017_atp.jsonl.gz",
+   "bytes": 48228389,
+   "modified": "2026-09-25T14:50:31+00:00",
+   "sha256": "2e94defb96e533ff93c7aafbd6f542538b9dc5350e03eb49b41c6f4f3ae274fa"
+  },
+  {
+   "path": "data/raw/public_dump/atp_pipeline_handoff/flashscore_gql_stats/gql_stats_2018_2018_atp.jsonl.gz",
+   "bytes": 26851524,
+   "modified": "2026-09-25T14:50:27+00:00",
+   "sha256": "e1b2fea00717eaf11e6869869925d80bd2b3cfc057e04640d85888ae8b0eb784"
+  },
+  {
+   "path": "data/raw/public_dump/atp_pipeline_handoff/flashscore_gql_stats/gql_stats_2018_2019_challenger.jsonl.gz",
+   "bytes": 2478218,
+   "modified": "2026-09-25T14:50:06+00:00",
+   "sha256": "1e8d36b3761ff69130f2246da63adfb0c2142e351552f0c0fc2096a146cfaefd"
+  },
+  {
+   "path": "data/raw/public_dump/atp_pipeline_handoff/flashscore_gql_stats/gql_stats_2019_2019_atp.jsonl.gz",
+   "bytes": 33664573,
+   "modified": "2026-09-25T14:50:20+00:00",
+   "sha256": "9abcb121bd771df322ed4626b72404a45982d6810f974ac426b86d601a6594d5"
+  },
+  {
+   "path": "data/raw/public_dump/atp_pipeline_handoff/flashscore_gql_stats/gql_stats_2020_2020_atp.jsonl.gz",
+   "bytes": 5661957,
+   "modified": "2026-09-25T14:50:03+00:00",
+   "sha256": "b308c87ab5a4c3b9b8e43bbdf80befbfb4c087c6dd950ea467e08edf982e2338"
+  },
+  {
+   "path": "data/raw/public_dump/atp_pipeline_handoff/flashscore_gql_stats/gql_stats_2020_2021_atp.jsonl.gz",
+   "bytes": 27345821,
+   "modified": "2026-09-25T14:50:07+00:00",
+   "sha256": "7dcd7a936da587c917d83f3d15eb5e9f8bf524c093fe309c593baa8a817400b2"
+  },
+  {
+   "path": "data/raw/public_dump/atp_pipeline_handoff/flashscore_gql_stats/gql_stats_2020_2021_challenger.jsonl.gz",
+   "bytes": 12440822,
+   "modified": "2026-09-25T14:50:00+00:00",
+   "sha256": "d281c385557caca0bcfa9c0653ac0e8ff50ecc753f85612ed78c3d2493a1da85"
+  },
+  {
+   "path": "data/raw/public_dump/atp_pipeline_handoff/flashscore_gql_stats/gql_stats_2021_2021_atp.jsonl.gz",
+   "bytes": 25416957,
+   "modified": "2026-09-25T14:50:10+00:00",
+   "sha256": "d513bae7fbb0cb148ef1a79b3643bb32a4a6b031058b6ec187c09cf9ded43df8"
+  },
+  {
+   "path": "data/raw/public_dump/atp_pipeline_handoff/flashscore_gql_stats/gql_stats_2022_2022_atp.jsonl.gz",
+   "bytes": 27294503,
+   "modified": "2026-09-25T14:49:52+00:00",
+   "sha256": "c14422ca47a775eb8df2c217380b8b38d9c52434828c8c5824954c8ddc113c83"
+  },
+  {
+   "path": "data/raw/public_dump/atp_pipeline_handoff/flashscore_gql_stats/gql_stats_2022_2023_atp.jsonl.gz",
+   "bytes": 22232070,
+   "modified": "2026-09-25T14:49:49+00:00",
+   "sha256": "0ef38c3a537a7bba0f8c009d843aaf0a00e2555ac47f652d5be61110d1bfaae4"
+  },
+  {
+   "path": "data/raw/public_dump/atp_pipeline_handoff/flashscore_gql_stats/gql_stats_2023_2023_atp.jsonl.gz",
+   "bytes": 37076481,
+   "modified": "2026-09-25T14:50:09+00:00",
+   "sha256": "703adcd9e2d0f36f5f25a79ec0cc9b89a1b3df948592b950c4abf8167ef98282"
+  },
+  {
+   "path": "data/raw/public_dump/atp_pipeline_handoff/flashscore_gql_stats/gql_stats_2024_2024_atp.jsonl.gz",
+   "bytes": 60744616,
+   "modified": "2026-09-25T14:49:38+00:00",
+   "sha256": "0245f67c89f096726da3b6d5fea01110ce91ca2f95bb6c9e8310e3f118d7d5b5"
+  },
+  {
+   "path": "data/raw/public_dump/atp_pipeline_handoff/flashscore_gql_stats/gql_stats_2024_2025_atp.jsonl.gz",
+   "bytes": 24864196,
+   "modified": "2026-09-25T14:49:41+00:00",
+   "sha256": "9c0bb1531cbf24476be85ce55cce63e5f1ecad6fdcb10b084ec2421d1b12ca64"
+  },
+  {
+   "path": "data/raw/public_dump/atp_pipeline_handoff/flashscore_gql_stats/gql_stats_2024_2025_challenger.jsonl.gz",
+   "bytes": 17909217,
+   "modified": "2026-09-25T14:49:10+00:00",
+   "sha256": "31b3ab5f4d814511979a37e38150dcb18271bb19e85f17d92b37a531ed81a995"
+  },
+  {
+   "path": "data/raw/public_dump/atp_pipeline_handoff/flashscore_gql_stats/gql_stats_shard0.jsonl.gz",
+   "bytes": 16700977,
+   "modified": "2026-09-25T14:52:43+00:00",
+   "sha256": "cc94d1653ee220d307adec70c0acc52425660dc6763de615f5576241c16f92ea"
+  },
+  {
+   "path": "data/raw/public_dump/atp_pipeline_handoff/flashscore_full/flashscore_full_1990_1990_atp.jsonl.gz",
+   "bytes": 58441642,
+   "modified": "2026-09-25T15:03:24+00:00",
+   "sha256": "40ed35133894d5cf24ef9a09d2afa06a37a3b787241fe2f54dfd87d26b4e0812"
+  },
+  {
+   "path": "data/raw/public_dump/atp_pipeline_handoff/flashscore_full/flashscore_full_1990_2017_atp.jsonl.gz",
+   "bytes": 145428012,
+   "modified": "2026-09-25T14:59:19+00:00",
+   "sha256": "339561c9dd00c84c47297dcbf6c4e192f2d83d82d6c7924c24a58f2c9ed99a57"
+  },
+  {
+   "path": "data/raw/public_dump/atp_pipeline_handoff/flashscore_full/flashscore_full_1991_1991_atp.jsonl.gz",
+   "bytes": 68481966,
+   "modified": "2026-09-25T15:03:35+00:00",
+   "sha256": "eac8491dce930d17c2a4ee5fcde70ef6ebff2a21f34ed574c6c088759d57d61f"
+  },
+  {
+   "path": "data/raw/public_dump/atp_pipeline_handoff/flashscore_full/flashscore_full_1992_1992_atp.jsonl.gz",
+   "bytes": 73445597,
+   "modified": "2026-09-25T15:03:41+00:00",
+   "sha256": "9b4eec4a2caf2ff93238e89fd0a3e802b0d3720a4209d113a5007f9d78c93e8b"
+  },
+  {
+   "path": "data/raw/public_dump/atp_pipeline_handoff/flashscore_full/flashscore_full_1993_1993_atp.jsonl.gz",
+   "bytes": 79049347,
+   "modified": "2026-09-25T15:03:20+00:00",
+   "sha256": "3bb0c8fcc7bda20af340d6378ed948f835e1e1fde2fad4b7ef0183ced7d5755d"
+  },
+  {
+   "path": "data/raw/public_dump/atp_pipeline_handoff/flashscore_full/flashscore_full_1994_1994_atp.jsonl.gz",
+   "bytes": 77721017,
+   "modified": "2026-09-25T15:02:58+00:00",
+   "sha256": "7fc98386b412347ed154679597ff4ce2bcbe5cdd70ddb222466657ccd70aaa67"
+  },
+  {
+   "path": "data/raw/public_dump/atp_pipeline_handoff/flashscore_full/flashscore_full_1995_1995_atp.jsonl.gz",
+   "bytes": 79437156,
+   "modified": "2026-09-25T15:02:51+00:00",
+   "sha256": "c2f6ce9dee49f65e83d54f87b5cd903dd85a6383f63cd3343afe20197ee2ca67"
+  },
+  {
+   "path": "data/raw/public_dump/atp_pipeline_handoff/flashscore_full/flashscore_full_1996_1996_atp.jsonl.gz",
+   "bytes": 82116142,
+   "modified": "2026-09-25T15:02:45+00:00",
+   "sha256": "1ba57def4958ea21ee7088e5c7f2544b0da495fa9e3cdfda080400280b80b717"
+  },
+  {
+   "path": "data/raw/public_dump/atp_pipeline_handoff/flashscore_full/flashscore_full_1997_1997_atp.jsonl.gz",
+   "bytes": 81895084,
+   "modified": "2026-09-25T15:02:07+00:00",
+   "sha256": "8d77aeae47fea27689da7bb1c40fb69b86252b4bb5a0a32965449425887b0ac9"
+  },
+  {
+   "path": "data/raw/public_dump/atp_pipeline_handoff/flashscore_full/flashscore_full_1998_1998_atp.jsonl.gz",
+   "bytes": 78585242,
+   "modified": "2026-09-25T15:01:53+00:00",
+   "sha256": "a575f3c736a1cea94982770e231d244652f88272ec768e34d117644d00fd0e1f"
+  },
+  {
+   "path": "data/raw/public_dump/atp_pipeline_handoff/flashscore_full/flashscore_full_1999_1999_atp.jsonl.gz",
+   "bytes": 72270265,
+   "modified": "2026-09-25T15:01:53+00:00",
+   "sha256": "2b9f325cb2a2f278c352aa6cb99087762becc9cbff148645b066204cadc3b263"
+  },
+  {
+   "path": "data/raw/public_dump/atp_pipeline_handoff/flashscore_full/flashscore_full_2000_2000_atp.jsonl.gz",
+   "bytes": 79770457,
+   "modified": "2026-09-25T15:01:38+00:00",
+   "sha256": "4229ce7a0148a95ef27329f9664f24f69c9142f274e9788132f475362756e386"
+  },
+  {
+   "path": "data/raw/public_dump/atp_pipeline_handoff/flashscore_full/flashscore_full_2001_2001_atp.jsonl.gz",
+   "bytes": 82479310,
+   "modified": "2026-09-25T15:01:08+00:00",
+   "sha256": "5d74bb893ef9c01174d574660e9a7b897e7b6d31f88db32707ff273f8ca5003a"
+  },
+  {
+   "path": "data/raw/public_dump/atp_pipeline_handoff/flashscore_full/flashscore_full_2002_2002_atp.jsonl.gz",
+   "bytes": 79906664,
+   "modified": "2026-09-25T15:00:58+00:00",
+   "sha256": "d79e80b967b631af6490a58b99e8de6a1aee2d2658202eec940e1f167c3b181c"
+  },
+  {
+   "path": "data/raw/public_dump/atp_pipeline_handoff/flashscore_full/flashscore_full_2003_2003_atp.jsonl.gz",
+   "bytes": 84067782,
+   "modified": "2026-09-25T15:00:41+00:00",
+   "sha256": "1ff89121fe46e806376a3d0c90827ff492d5992e62584656a2d1e9dabb2aee1b"
+  },
+  {
+   "path": "data/raw/public_dump/atp_pipeline_handoff/flashscore_full/flashscore_full_2004_2004_atp.jsonl.gz",
+   "bytes": 87731805,
+   "modified": "2026-09-25T15:00:25+00:00",
+   "sha256": "876609275500c57991d0dc9bc651280c7dd18d98fb9bb4765f869b41496f1bd5"
+  },
+  {
+   "path": "data/raw/public_dump/atp_pipeline_handoff/flashscore_full/flashscore_full_2005_2005_atp.jsonl.gz",
+   "bytes": 89008548,
+   "modified": "2026-09-25T15:00:12+00:00",
+   "sha256": "95243b656d749b400ffde4fede55280443a378b1d4a14ff2d6b2f1d72bff3dd9"
+  },
+  {
+   "path": "data/raw/public_dump/atp_pipeline_handoff/flashscore_full/flashscore_full_2006_2006_atp.jsonl.gz",
+   "bytes": 89700014,
+   "modified": "2026-09-25T15:00:11+00:00",
+   "sha256": "70c8f91171b31da9048014045877a078dfa0f0484a3d4b187e56ef39d2e57345"
+  },
+  {
+   "path": "data/raw/public_dump/atp_pipeline_handoff/flashscore_full/flashscore_full_2007_2007_atp.jsonl.gz",
+   "bytes": 90061875,
+   "modified": "2026-09-25T14:59:44+00:00",
+   "sha256": "4b878abea089aceed658f3098ed638d385ab4b1174fb4623cb96a5bd851944f2"
+  },
+  {
+   "path": "data/raw/public_dump/atp_pipeline_handoff/flashscore_full/flashscore_full_2008_2008_atp.jsonl.gz",
+   "bytes": 77278732,
+   "modified": "2026-09-25T14:59:09+00:00",
+   "sha256": "a2ca762d338446110bf32c1f0fa2f57c59d8446d6698fc8e3621788bc82b7ce3"
+  },
+  {
+   "path": "data/raw/public_dump/atp_pipeline_handoff/flashscore_full/flashscore_full_2008_2008_challenger.jsonl.gz",
+   "bytes": 7251070,
+   "modified": "2026-09-25T14:59:13+00:00",
+   "sha256": "6c7661037f95d5d0b11929c7bda3cba634be348ca944a7d51bc52b479da83d7f"
+  },
+  {
+   "path": "data/raw/public_dump/atp_pipeline_handoff/flashscore_full/flashscore_full_2009_2009_atp.jsonl.gz",
+   "bytes": 199079907,
+   "modified": "2026-09-25T14:59:33+00:00",
+   "sha256": "c6f0dc978d7d94ebb9f004b7729738aebf4b9123406ec56b44f96fbc7c97f795"
+  },
+  {
+   "path": "data/raw/public_dump/atp_pipeline_handoff/flashscore_full/flashscore_full_2009_2009_challenger.jsonl.gz",
+   "bytes": 111501181,
+   "modified": "2026-09-25T14:59:14+00:00",
+   "sha256": "49c5b90af0c46c72e406360be15c4f20e8d12cecbc2f959bdbd73059148e8cf8"
+  },
+  {
+   "path": "data/raw/public_dump/atp_pipeline_handoff/flashscore_full/flashscore_full_2010_2010_atp.jsonl.gz",
+   "bytes": 150454586,
+   "modified": "2026-09-25T14:58:24+00:00",
+   "sha256": "28c3b7a43de9c950f0e004bc2b64710e6934d776066c158e5d90e8d5d4ac107b"
+  },
+  {
+   "path": "data/raw/public_dump/atp_pipeline_handoff/flashscore_full/flashscore_full_2010_2010_challenger.jsonl.gz",
+   "bytes": 102027692,
+   "modified": "2026-09-25T14:58:39+00:00",
+   "sha256": "2def6bdae0228ab99f97fd761dd8daa06fd075dcf228c1ead883310cc573d0e0"
+  },
+  {
+   "path": "data/raw/public_dump/atp_pipeline_handoff/flashscore_full/flashscore_full_2011_2011_atp.jsonl.gz",
+   "bytes": 229976479,
+   "modified": "2026-09-25T14:57:55+00:00",
+   "sha256": "d7c999de5ca85ee385c79a84da8efe9ff7178a4fba20ed0f43fdf56642b733ea"
+  },
+  {
+   "path": "data/raw/public_dump/atp_pipeline_handoff/flashscore_full/flashscore_full_2011_2011_challenger.jsonl.gz",
+   "bytes": 106563381,
+   "modified": "2026-09-25T14:57:56+00:00",
+   "sha256": "a0dc1139181486d7a52d4cfa4c3633b602fa691d09bbe7a1fce84d32f77f0544"
+  },
+  {
+   "path": "data/raw/public_dump/atp_pipeline_handoff/flashscore_full/flashscore_full_2012_2012_atp.jsonl.gz",
+   "bytes": 216845087,
+   "modified": "2026-09-25T14:57:53+00:00",
+   "sha256": "29082846dcef2b51fd5c6fe3bfd5d8181a724898fe764e9f67774872869296b9"
+  },
+  {
+   "path": "data/raw/public_dump/atp_pipeline_handoff/flashscore_full/flashscore_full_2013_2013_atp.jsonl.gz",
+   "bytes": 232930077,
+   "modified": "2026-09-25T14:57:17+00:00",
+   "sha256": "c7fc9fed0522f7e966f296b6a62ceb7a7d95ecc9dc5b2ee1a3174084cb57ba80"
+  },
+  {
+   "path": "data/raw/public_dump/atp_pipeline_handoff/flashscore_full/flashscore_full_2014_2014_atp.jsonl.gz",
+   "bytes": 193782542,
+   "modified": "2026-09-25T14:57:03+00:00",
+   "sha256": "1a8a5fa20063ad09eb5a29ab3d1eba381edebf29b08b91dd0c5e2b859ff66bea"
+  },
+  {
+   "path": "data/raw/public_dump/atp_pipeline_handoff/flashscore_full/flashscore_full_2015_2015_atp.jsonl.gz",
+   "bytes": 219216280,
+   "modified": "2026-09-25T14:56:22+00:00",
+   "sha256": "c2c3975f48fe763623a7eb0db141830c79772c61b2c47d63e6e0e172610ce844"
+  },
+  {
+   "path": "data/raw/public_dump/atp_pipeline_handoff/flashscore_full/flashscore_full_2016_2016_atp.jsonl.gz",
+   "bytes": 216647946,
+   "modified": "2026-09-25T14:55:55+00:00",
+   "sha256": "734d73d8ed51f8b8ff047225d4d90621ef06752b15bfa136fada025fb2642307"
+  },
+  {
+   "path": "data/raw/public_dump/atp_pipeline_handoff/flashscore_full/flashscore_full_2017_2017_atp.jsonl.gz",
+   "bytes": 107836757,
+   "modified": "2026-09-25T14:55:36+00:00",
+   "sha256": "75e96484990a7acac0c56d6288ece2fa51d96f02fba190079ab1d6b2e9fe734f"
+  },
+  {
+   "path": "data/raw/public_dump/atp_pipeline_handoff/flashscore_full/flashscore_full_2018_2018_atp.jsonl.gz",
+   "bytes": 104775277,
+   "modified": "2026-09-25T14:55:12+00:00",
+   "sha256": "2b70b74e30541d28a7c89d4fedeefc9fbdc137dea3f1878c7be627590f3db5ee"
+  },
+  {
+   "path": "data/raw/public_dump/atp_pipeline_handoff/flashscore_full/flashscore_full_2019_2019_atp.jsonl.gz",
+   "bytes": 109645949,
+   "modified": "2026-09-25T14:54:50+00:00",
+   "sha256": "47f7d09285bdf9d9ce342dae42441f2afdded8110b352952713d0dccb351e0df"
+  },
+  {
+   "path": "data/raw/public_dump/atp_pipeline_handoff/flashscore_full/flashscore_full_2020_2020_atp.jsonl.gz",
+   "bytes": 112712919,
+   "modified": "2026-09-25T14:54:40+00:00",
+   "sha256": "9ca3d341101cf429c2a5043e14775af62c0d63661957778c41972a7302dba259"
+  },
+  {
+   "path": "data/raw/public_dump/atp_pipeline_handoff/flashscore_full/flashscore_full_2021_2021_atp.jsonl.gz",
+   "bytes": 237976348,
+   "modified": "2026-09-25T14:54:34+00:00",
+   "sha256": "4fbebc937387f0701f7f698a0c409350cfa363ff248335abad54c6634fbf12b5"
+  },
+  {
+   "path": "data/raw/public_dump/atp_pipeline_handoff/flashscore_full/flashscore_full_2022_2022_atp.jsonl.gz",
+   "bytes": 36227723,
+   "modified": "2026-09-25T14:52:59+00:00",
+   "sha256": "909e8b001da5e84cc583b64948f8ab6dbd51ba58cb775939dcdd49a915a2f572"
+  },
+  {
+   "path": "data/raw/public_dump/atp_pipeline_handoff/flashscore_full/flashscore_full_2022_2023_atp.jsonl.gz",
+   "bytes": 157415502,
+   "modified": "2026-09-25T14:54:13+00:00",
+   "sha256": "2f23247595eb9b03d71e48be63c1d805388b504c08801e9b2747d915caade58d"
+  },
+  {
+   "path": "data/raw/public_dump/atp_pipeline_handoff/flashscore_full/flashscore_full_2023_2023_atp.jsonl.gz",
+   "bytes": 169033494,
+   "modified": "2026-09-25T14:53:50+00:00",
+   "sha256": "50db826366a9ca34a807e9c2133abfc5cff6dd7b59f5f6a8e8e44472a0772a40"
+  },
+  {
+   "path": "data/raw/public_dump/atp_pipeline_handoff/flashscore_full/flashscore_full_2024_2024_atp.jsonl.gz",
+   "bytes": 156102868,
+   "modified": "2026-09-25T14:53:43+00:00",
+   "sha256": "23b660090a85029b13738b19d30f91dc8f0302b2d77a3708b4defa14e6374c25"
+  },
+  {
+   "path": "data/raw/public_dump/atp_pipeline_handoff/flashscore_full/flashscore_full_2024_2026_atp.jsonl.gz",
+   "bytes": 28094139,
+   "modified": "2026-09-25T14:52:40+00:00",
+   "sha256": "5c3efb94ef4cadeb39ab63b4c8a51e72cb5204999cefa828e4a47604f7788e64"
+  }
+ ],
+ "per_file": {
+  "gql_stats_1990_1990_atp.jsonl.gz": {
+   "records": 1886,
+   "with_statistics_from_2009_12": 0,
+   "before_2009_12": 1886,
+   "unreadable_lines": 0
+  },
+  "gql_stats_1991_1991_atp.jsonl.gz": {
+   "records": 594,
+   "with_statistics_from_2009_12": 0,
+   "before_2009_12": 594,
+   "unreadable_lines": 0
+  },
+  "gql_stats_1992_1992_atp.jsonl.gz": {
+   "records": 625,
+   "with_statistics_from_2009_12": 0,
+   "before_2009_12": 625,
+   "unreadable_lines": 0
+  },
+  "gql_stats_1993_1993_atp.jsonl.gz": {
+   "records": 1163,
+   "with_statistics_from_2009_12": 0,
+   "before_2009_12": 1163,
+   "unreadable_lines": 0
+  },
+  "gql_stats_1994_1994_atp.jsonl.gz": {
+   "records": 1827,
+   "with_statistics_from_2009_12": 0,
+   "before_2009_12": 1827,
+   "unreadable_lines": 0
+  },
+  "gql_stats_1995_1995_atp.jsonl.gz": {
+   "records": 1561,
+   "with_statistics_from_2009_12": 0,
+   "before_2009_12": 1561,
+   "unreadable_lines": 0
+  },
+  "gql_stats_1996_1996_atp.jsonl.gz": {
+   "records": 1132,
+   "with_statistics_from_2009_12": 0,
+   "before_2009_12": 1132,
+   "unreadable_lines": 0
+  },
+  "gql_stats_1997_1997_atp.jsonl.gz": {
+   "records": 189,
+   "with_statistics_from_2009_12": 0,
+   "before_2009_12": 189,
+   "unreadable_lines": 0
+  },
+  "gql_stats_1998_1998_atp.jsonl.gz": {
+   "records": 1402,
+   "with_statistics_from_2009_12": 0,
+   "before_2009_12": 1402,
+   "unreadable_lines": 0
+  },
+  "gql_stats_1999_1999_atp.jsonl.gz": {
+   "records": 2172,
+   "with_statistics_from_2009_12": 0,
+   "before_2009_12": 2172,
+   "unreadable_lines": 0
+  },
+  "gql_stats_2000_2000_atp.jsonl.gz": {
+   "records": 1009,
+   "with_statistics_from_2009_12": 0,
+   "before_2009_12": 1009,
+   "unreadable_lines": 0
+  },
+  "gql_stats_2001_2001_atp.jsonl.gz": {
+   "records": 1719,
+   "with_statistics_from_2009_12": 0,
+   "before_2009_12": 1719,
+   "unreadable_lines": 0
+  },
+  "gql_stats_2002_2002_atp.jsonl.gz": {
+   "records": 1469,
+   "with_statistics_from_2009_12": 0,
+   "before_2009_12": 1469,
+   "unreadable_lines": 0
+  },
+  "gql_stats_2003_2003_atp.jsonl.gz": {
+   "records": 1430,
+   "with_statistics_from_2009_12": 0,
+   "before_2009_12": 1430,
+   "unreadable_lines": 0
+  },
+  "gql_stats_2004_2004_atp.jsonl.gz": {
+   "records": 295,
+   "with_statistics_from_2009_12": 0,
+   "before_2009_12": 295,
+   "unreadable_lines": 0
+  },
+  "gql_stats_2005_2005_atp.jsonl.gz": {
+   "records": 1805,
+   "with_statistics_from_2009_12": 0,
+   "before_2009_12": 1805,
+   "unreadable_lines": 0
+  },
+  "gql_stats_2006_2006_atp.jsonl.gz": {
+   "records": 1945,
+   "with_statistics_from_2009_12": 0,
+   "before_2009_12": 1945,
+   "unreadable_lines": 0
+  },
+  "gql_stats_2007_2007_atp.jsonl.gz": {
+   "records": 1147,
+   "with_statistics_from_2009_12": 0,
+   "before_2009_12": 1147,
+   "unreadable_lines": 0
+  },
+  "gql_stats_2008_2008_atp.jsonl.gz": {
+   "records": 1570,
+   "with_statistics_from_2009_12": 0,
+   "before_2009_12": 1570,
+   "unreadable_lines": 0
+  },
+  "gql_stats_2009_2009_atp.jsonl.gz": {
+   "records": 939,
+   "with_statistics_from_2009_12": 4,
+   "before_2009_12": 935,
+   "unreadable_lines": 0
+  },
+  "gql_stats_2010_2010_atp.jsonl.gz": {
+   "records": 862,
+   "with_statistics_from_2009_12": 88,
+   "before_2009_12": 0,
+   "unreadable_lines": 0
+  },
+  "gql_stats_2011_2011_atp.jsonl.gz": {
+   "records": 1323,
+   "with_statistics_from_2009_12": 108,
+   "before_2009_12": 0,
+   "unreadable_lines": 0
+  },
+  "gql_stats_2011_2011_challenger.jsonl.gz": {
+   "records": 31,
+   "with_statistics_from_2009_12": 0,
+   "before_2009_12": 0,
+   "unreadable_lines": 0
+  },
+  "gql_stats_2012_2012_atp.jsonl.gz": {
+   "records": 349,
+   "with_statistics_from_2009_12": 71,
+   "before_2009_12": 0,
+   "unreadable_lines": 0
+  },
+  "gql_stats_2012_2013_challenger.jsonl.gz": {
+   "records": 124,
+   "with_statistics_from_2009_12": 0,
+   "before_2009_12": 0,
+   "unreadable_lines": 0
+  },
+  "gql_stats_2013_2013_atp.jsonl.gz": {
+   "records": 900,
+   "with_statistics_from_2009_12": 416,
+   "before_2009_12": 0,
+   "unreadable_lines": 0
+  },
+  "gql_stats_2014_2014_atp.jsonl.gz": {
+   "records": 1502,
+   "with_statistics_from_2009_12": 204,
+   "before_2009_12": 0,
+   "unreadable_lines": 0
+  },
+  "gql_stats_2014_2015_challenger.jsonl.gz": {
+   "records": 124,
+   "with_statistics_from_2009_12": 0,
+   "before_2009_12": 0,
+   "unreadable_lines": 0
+  },
+  "gql_stats_2015_2015_atp.jsonl.gz": {
+   "records": 1095,
+   "with_statistics_from_2009_12": 168,
+   "before_2009_12": 0,
+   "unreadable_lines": 0
+  },
+  "gql_stats_2016_2016_atp.jsonl.gz": {
+   "records": 805,
+   "with_statistics_from_2009_12": 132,
+   "before_2009_12": 0,
+   "unreadable_lines": 0
+  },
+  "gql_stats_2016_2017_challenger.jsonl.gz": {
+   "records": 62,
+   "with_statistics_from_2009_12": 0,
+   "before_2009_12": 0,
+   "unreadable_lines": 0
+  },
+  "gql_stats_2017_2017_atp.jsonl.gz": {
+   "records": 1568,
+   "with_statistics_from_2009_12": 643,
+   "before_2009_12": 0,
+   "unreadable_lines": 0
+  },
+  "gql_stats_2018_2018_atp.jsonl.gz": {
+   "records": 1036,
+   "with_statistics_from_2009_12": 640,
+   "before_2009_12": 0,
+   "unreadable_lines": 0
+  },
+  "gql_stats_2018_2019_challenger.jsonl.gz": {
+   "records": 93,
+   "with_statistics_from_2009_12": 0,
+   "before_2009_12": 0,
+   "unreadable_lines": 0
+  },
+  "gql_stats_2019_2019_atp.jsonl.gz": {
+   "records": 1264,
+   "with_statistics_from_2009_12": 787,
+   "before_2009_12": 0,
+   "unreadable_lines": 0
+  },
+  "gql_stats_2020_2020_atp.jsonl.gz": {
+   "records": 181,
+   "with_statistics_from_2009_12": 169,
+   "before_2009_12": 0,
+   "unreadable_lines": 0
+  },
+  "gql_stats_2020_2021_atp.jsonl.gz": {
+   "records": 889,
+   "with_statistics_from_2009_12": 721,
+   "before_2009_12": 0,
+   "unreadable_lines": 0
+  },
+  "gql_stats_2020_2021_challenger.jsonl.gz": {
+   "records": 459,
+   "with_statistics_from_2009_12": 20,
+   "before_2009_12": 0,
+   "unreadable_lines": 0
+  },
+  "gql_stats_2021_2021_atp.jsonl.gz": {
+   "records": 912,
+   "with_statistics_from_2009_12": 801,
+   "before_2009_12": 0,
+   "unreadable_lines": 0
+  },
+  "gql_stats_2022_2022_atp.jsonl.gz": {
+   "records": 1042,
+   "with_statistics_from_2009_12": 817,
+   "before_2009_12": 0,
+   "unreadable_lines": 0
+  },
+  "gql_stats_2022_2023_atp.jsonl.gz": {
+   "records": 927,
+   "with_statistics_from_2009_12": 683,
+   "before_2009_12": 0,
+   "unreadable_lines": 0
+  },
+  "gql_stats_2023_2023_atp.jsonl.gz": {
+   "records": 1557,
+   "with_statistics_from_2009_12": 1125,
+   "before_2009_12": 0,
+   "unreadable_lines": 0
+  },
+  "gql_stats_2024_2024_atp.jsonl.gz": {
+   "records": 2067,
+   "with_statistics_from_2009_12": 2060,
+   "before_2009_12": 0,
+   "unreadable_lines": 0
+  },
+  "gql_stats_2024_2025_atp.jsonl.gz": {
+   "records": 1017,
+   "with_statistics_from_2009_12": 792,
+   "before_2009_12": 0,
+   "unreadable_lines": 0
+  },
+  "gql_stats_2024_2025_challenger.jsonl.gz": {
+   "records": 718,
+   "with_statistics_from_2009_12": 717,
+   "before_2009_12": 0,
+   "unreadable_lines": 0
+  },
+  "gql_stats_shard0.jsonl.gz": {
+   "records": 615,
+   "with_statistics_from_2009_12": 20,
+   "before_2009_12": 0,
+   "unreadable_lines": 0
+  },
+  "flashscore_full_1990_1990_atp.jsonl.gz": {
+   "records": 3219,
+   "with_statistics_from_2009_12": 0,
+   "before_2009_12": 3219,
+   "unreadable_lines": 0
+  },
+  "flashscore_full_1990_2017_atp.jsonl.gz": {
+   "records": 5111,
+   "with_statistics_from_2009_12": 209,
+   "before_2009_12": 1092,
+   "unreadable_lines": 0
+  },
+  "flashscore_full_1991_1991_atp.jsonl.gz": {
+   "records": 3401,
+   "with_statistics_from_2009_12": 0,
+   "before_2009_12": 3401,
+   "unreadable_lines": 0
+  },
+  "flashscore_full_1992_1992_atp.jsonl.gz": {
+   "records": 3511,
+   "with_statistics_from_2009_12": 0,
+   "before_2009_12": 3511,
+   "unreadable_lines": 0
+  },
+  "flashscore_full_1993_1993_atp.jsonl.gz": {
+   "records": 3672,
+   "with_statistics_from_2009_12": 0,
+   "before_2009_12": 3672,
+   "unreadable_lines": 0
+  },
+  "flashscore_full_1994_1994_atp.jsonl.gz": {
+   "records": 3545,
+   "with_statistics_from_2009_12": 0,
+   "before_2009_12": 3545,
+   "unreadable_lines": 0
+  },
+  "flashscore_full_1995_1995_atp.jsonl.gz": {
+   "records": 3571,
+   "with_statistics_from_2009_12": 0,
+   "before_2009_12": 3571,
+   "unreadable_lines": 0
+  },
+  "flashscore_full_1996_1996_atp.jsonl.gz": {
+   "records": 3558,
+   "with_statistics_from_2009_12": 0,
+   "before_2009_12": 3558,
+   "unreadable_lines": 0
+  },
+  "flashscore_full_1997_1997_atp.jsonl.gz": {
+   "records": 3525,
+   "with_statistics_from_2009_12": 0,
+   "before_2009_12": 3525,
+   "unreadable_lines": 0
+  },
+  "flashscore_full_1998_1998_atp.jsonl.gz": {
+   "records": 3280,
+   "with_statistics_from_2009_12": 0,
+   "before_2009_12": 3280,
+   "unreadable_lines": 0
+  },
+  "flashscore_full_1999_1999_atp.jsonl.gz": {
+   "records": 2901,
+   "with_statistics_from_2009_12": 0,
+   "before_2009_12": 2901,
+   "unreadable_lines": 0
+  },
+  "flashscore_full_2000_2000_atp.jsonl.gz": {
+   "records": 3187,
+   "with_statistics_from_2009_12": 0,
+   "before_2009_12": 3187,
+   "unreadable_lines": 0
+  },
+  "flashscore_full_2001_2001_atp.jsonl.gz": {
+   "records": 3219,
+   "with_statistics_from_2009_12": 0,
+   "before_2009_12": 3219,
+   "unreadable_lines": 0
+  },
+  "flashscore_full_2002_2002_atp.jsonl.gz": {
+   "records": 3029,
+   "with_statistics_from_2009_12": 0,
+   "before_2009_12": 3029,
+   "unreadable_lines": 0
+  },
+  "flashscore_full_2003_2003_atp.jsonl.gz": {
+   "records": 3180,
+   "with_statistics_from_2009_12": 0,
+   "before_2009_12": 3180,
+   "unreadable_lines": 0
+  },
+  "flashscore_full_2004_2004_atp.jsonl.gz": {
+   "records": 3229,
+   "with_statistics_from_2009_12": 0,
+   "before_2009_12": 3229,
+   "unreadable_lines": 0
+  },
+  "flashscore_full_2005_2005_atp.jsonl.gz": {
+   "records": 3199,
+   "with_statistics_from_2009_12": 0,
+   "before_2009_12": 3199,
+   "unreadable_lines": 0
+  },
+  "flashscore_full_2006_2006_atp.jsonl.gz": {
+   "records": 3177,
+   "with_statistics_from_2009_12": 0,
+   "before_2009_12": 3177,
+   "unreadable_lines": 0
+  },
+  "flashscore_full_2007_2007_atp.jsonl.gz": {
+   "records": 3124,
+   "with_statistics_from_2009_12": 0,
+   "before_2009_12": 3124,
+   "unreadable_lines": 0
+  },
+  "flashscore_full_2008_2008_atp.jsonl.gz": {
+   "records": 2718,
+   "with_statistics_from_2009_12": 0,
+   "before_2009_12": 2718,
+   "unreadable_lines": 0
+  },
+  "flashscore_full_2008_2008_challenger.jsonl.gz": {
+   "records": 310,
+   "with_statistics_from_2009_12": 0,
+   "before_2009_12": 310,
+   "unreadable_lines": 0
+  },
+  "flashscore_full_2009_2009_atp.jsonl.gz": {
+   "records": 7482,
+   "with_statistics_from_2009_12": 8,
+   "before_2009_12": 7446,
+   "unreadable_lines": 0
+  },
+  "flashscore_full_2009_2009_challenger.jsonl.gz": {
+   "records": 4561,
+   "with_statistics_from_2009_12": 0,
+   "before_2009_12": 4533,
+   "unreadable_lines": 0
+  },
+  "flashscore_full_2010_2010_atp.jsonl.gz": {
+   "records": 5653,
+   "with_statistics_from_2009_12": 0,
+   "before_2009_12": 0,
+   "unreadable_lines": 0
+  },
+  "flashscore_full_2010_2010_challenger.jsonl.gz": {
+   "records": 4024,
+   "with_statistics_from_2009_12": 0,
+   "before_2009_12": 0,
+   "unreadable_lines": 0
+  },
+  "flashscore_full_2011_2011_atp.jsonl.gz": {
+   "records": 8506,
+   "with_statistics_from_2009_12": 320,
+   "before_2009_12": 0,
+   "unreadable_lines": 0
+  },
+  "flashscore_full_2011_2011_challenger.jsonl.gz": {
+   "records": 4173,
+   "with_statistics_from_2009_12": 11,
+   "before_2009_12": 0,
+   "unreadable_lines": 0
+  },
+  "flashscore_full_2012_2012_atp.jsonl.gz": {
+   "records": 7864,
+   "with_statistics_from_2009_12": 1058,
+   "before_2009_12": 0,
+   "unreadable_lines": 0
+  },
+  "flashscore_full_2013_2013_atp.jsonl.gz": {
+   "records": 8279,
+   "with_statistics_from_2009_12": 1625,
+   "before_2009_12": 0,
+   "unreadable_lines": 0
+  },
+  "flashscore_full_2014_2014_atp.jsonl.gz": {
+   "records": 6928,
+   "with_statistics_from_2009_12": 430,
+   "before_2009_12": 0,
+   "unreadable_lines": 0
+  },
+  "flashscore_full_2015_2015_atp.jsonl.gz": {
+   "records": 7727,
+   "with_statistics_from_2009_12": 546,
+   "before_2009_12": 0,
+   "unreadable_lines": 0
+  },
+  "flashscore_full_2016_2016_atp.jsonl.gz": {
+   "records": 7536,
+   "with_statistics_from_2009_12": 582,
+   "before_2009_12": 0,
+   "unreadable_lines": 0
+  },
+  "flashscore_full_2017_2017_atp.jsonl.gz": {
+   "records": 3655,
+   "with_statistics_from_2009_12": 1110,
+   "before_2009_12": 0,
+   "unreadable_lines": 0
+  },
+  "flashscore_full_2018_2018_atp.jsonl.gz": {
+   "records": 3368,
+   "with_statistics_from_2009_12": 2546,
+   "before_2009_12": 0,
+   "unreadable_lines": 0
+  },
+  "flashscore_full_2019_2019_atp.jsonl.gz": {
+   "records": 3705,
+   "with_statistics_from_2009_12": 2682,
+   "before_2009_12": 0,
+   "unreadable_lines": 0
+  },
+  "flashscore_full_2020_2020_atp.jsonl.gz": {
+   "records": 3888,
+   "with_statistics_from_2009_12": 1499,
+   "before_2009_12": 0,
+   "unreadable_lines": 0
+  },
+  "flashscore_full_2021_2021_atp.jsonl.gz": {
+   "records": 8428,
+   "with_statistics_from_2009_12": 7836,
+   "before_2009_12": 0,
+   "unreadable_lines": 0
+  },
+  "flashscore_full_2022_2022_atp.jsonl.gz": {
+   "records": 1438,
+   "with_statistics_from_2009_12": 1085,
+   "before_2009_12": 0,
+   "unreadable_lines": 0
+  },
+  "flashscore_full_2022_2023_atp.jsonl.gz": {
+   "records": 5231,
+   "with_statistics_from_2009_12": 5211,
+   "before_2009_12": 0,
+   "unreadable_lines": 0
+  },
+  "flashscore_full_2023_2023_atp.jsonl.gz": {
+   "records": 6506,
+   "with_statistics_from_2009_12": 6064,
+   "before_2009_12": 0,
+   "unreadable_lines": 0
+  },
+  "flashscore_full_2024_2024_atp.jsonl.gz": {
+   "records": 5867,
+   "with_statistics_from_2009_12": 5628,
+   "before_2009_12": 0,
+   "unreadable_lines": 0
+  },
+  "flashscore_full_2024_2026_atp.jsonl.gz": {
+   "records": 1015,
+   "with_statistics_from_2009_12": 889,
+   "before_2009_12": 0,
+   "unreadable_lines": 0
+  }
+ },
+ "records": {
+  "distinct_matches_with_statistics": 37293,
+  "in_two_files": 11506,
+  "in_two_files_with_different_statistics": 0,
+  "detail_section_agrees": 36688
+ },
+ "linked": {
+  "matches_with_statistics_in_link_file": 36967,
+  "by_link_method": {
+   "name_pair": 36798,
+   "one_player_anchor": 169
+  }
+ },
+ "dropped": {
+  "not_in_link_file": 326,
+  "orientation_unresolved": 7
+ },
+ "checks": {
+  "sets_agree": 36900,
+  "games_compared": 36299,
+  "games_agree": 35659,
+  "placeholder_zero_blocks_blanked": 638,
+  "player_rows_split_blanked": 3111,
+  "complete": 34141
+ },
+ "self_consistency_share": {
+  "second_den_equals_svpt_minus_first_in": 0.97176,
+  "sv_won_equals_first_won_plus_second_won": 0.97774,
+  "first_pct_equals_first_in_over_svpt": 0.96323
+ },
+ "contract_checks": {
+  "rows": 73920,
+  "matches": 36960,
+  "matches_with_two_rows": 36960,
+  "duplicate_match_player": 0,
+  "player_not_in_stage0_match": 0,
+  "source_keys_on_two_matches": 0
+ },
+ "winner_vs_stage0": {
+  "player_rows_with_a_winner": 73920,
+  "agree": 73920,
+  "disagree": 0,
+  "disagree_share": 0.0,
+  "disagree_examples": []
+ },
+ "definitions": "match totals (fields home_/away_<stat>, Flashscore's \"Match\" section):\n    ace aces · df double_faults · first_in / first_won 1st_serve_points_won \"72% (47/65)\" (won / first serves in) ·\n    second_won 2nd_serve_points_won \"44% (16/36)\" (won / second serves, double faults included) · sv_won / svpt\n    service_points_won \"62% (63/101)\" · sv_gms service_games_won \"80% (12/15)\" (held / service games played; tiebreak\n    games not counted: in the pages read, a player's service games plus the opponent's equal the games of the score\n    without tiebreaks) · bp_saved / bp_faced break_points_saved \"5/8\".\n    Kept beside them: x_second_den (should equal svpt - first_in), x_first_pct (1st_serve_percentage, a share only),\n    x_games_won (total_games_won numerator, to check the statistics' side against the set scores).\nOrientation: the page's own player names (home_player, away_player: \"Tomic B.\", read as \"B. Tomic\") graded against\nStage 0's A and B (tp_common.orient); never by who won. Checks per match: x_sets_agree (the page's set scores, so\noriented, equal Stage 0's score), x_games_agree (each side's total games won equal its games in the set scores: the\nstatistics belong to the side the names say).\nPlaceholder blocks: some pages (2010-2014 above all) carry every statistic as \"0% (0/0)\"; where both players' serve\npoints read 0/0 the block is no statistics at all: its counts are blanked (x_zero_block).\nImpossible splits: a player with no second serve in 20 serve points or more, or more double faults than second\nserves (observed: 3,111 linked player rows, 3,086 of them with no second serve; 976 from 2012 and 2,083 from 2013\npages, which file every serve point as a first serve): first_in, first_won and second_won are blanked\n(x_split_blanked), the page's values kept in x_first_in_raw, x_first_won_raw, x_second_won_raw.\ncomplete: the page's status is finished (3), the statistics carry all nine counts for both sides, the set scores\nagree with Stage 0's, and the games won do not contradict the score (x_games_agree is not False: of 639\ncontradicting pages, 70 equal the score with the two sides' statistics exchanged; most others are 2012-2013 pages\nwhose games won fit neither side; Flashscore's games won leave tiebreak games out).\nx_src_won: the winner the timing study's Flashscore records give (the head-to-head feed's winner mark; sets won would\nname a retiring leader), in the page's home/away order, oriented by names.",
+ "sanity_vs_stage0_by_level_group": [
+  {
+   "level_group": "challenger",
+   "field": "ace",
+   "n": 17404,
+   "equal": 16909,
+   "within1": 16980,
+   "mean_diff": -0.1689841416,
+   "mean_abs_diff": 0.1703631349,
+   "equal_share": 0.9715582625,
+   "within1_share": 0.9756377844
+  },
+  {
+   "level_group": "challenger_qual",
+   "field": "ace",
+   "n": 7866,
+   "equal": 7845,
+   "within1": 7860,
+   "mean_diff": -0.003941012,
+   "mean_abs_diff": 0.0049580473,
+   "equal_share": 0.9973302822,
+   "within1_share": 0.9992372235
+  },
+  {
+   "level_group": "slam",
+   "field": "ace",
+   "n": 7186,
+   "equal": 6876,
+   "within1": 6956,
+   "mean_diff": -0.2975229613,
+   "mean_abs_diff": 0.3047592541,
+   "equal_share": 0.9568605622,
+   "within1_share": 0.9679933203
+  },
+  {
+   "level_group": "slam_qual",
+   "field": "ace",
+   "n": 128,
+   "equal": 98,
+   "within1": 101,
+   "mean_diff": -1.1953125,
+   "mean_abs_diff": 1.1953125,
+   "equal_share": 0.765625,
+   "within1_share": 0.7890625
+  },
+  {
+   "level_group": "team",
+   "field": "ace",
+   "n": 1522,
+   "equal": 1449,
+   "within1": 1487,
+   "mean_diff": 0.0026281209,
+   "mean_abs_diff": 0.1248357424,
+   "equal_share": 0.9520367937,
+   "within1_share": 0.9770039422
+  },
+  {
+   "level_group": "tour_main",
+   "field": "ace",
+   "n": 29674,
+   "equal": 28966,
+   "within1": 29077,
+   "mean_diff": -0.1260025612,
+   "mean_abs_diff": 0.1278897351,
+   "equal_share": 0.9761407293,
+   "within1_share": 0.9798813776
+  },
+  {
+   "level_group": "tour_qual",
+   "field": "ace",
+   "n": 6858,
+   "equal": 6111,
+   "within1": 6225,
+   "mean_diff": -0.5510352873,
+   "mean_abs_diff": 0.5592009332,
+   "equal_share": 0.8910761155,
+   "within1_share": 0.9076990376
+  },
+  {
+   "level_group": "challenger",
+   "field": "df",
+   "n": 17406,
+   "equal": 16871,
+   "within1": 17018,
+   "mean_diff": -0.0919797771,
+   "mean_abs_diff": 0.0939331265,
+   "equal_share": 0.9692634724,
+   "within1_share": 0.977708836
+  },
+  {
+   "level_group": "challenger_qual",
+   "field": "df",
+   "n": 7866,
+   "equal": 7805,
+   "within1": 7844,
+   "mean_diff": -0.0124586829,
+   "mean_abs_diff": 0.0134757183,
+   "equal_share": 0.9922451055,
+   "within1_share": 0.9972031528
+  },
+  {
+   "level_group": "slam",
+   "field": "df",
+   "n": 7186,
+   "equal": 6924,
+   "within1": 6998,
+   "mean_diff": -0.1301141108,
+   "mean_abs_diff": 0.1326189814,
+   "equal_share": 0.9635402171,
+   "within1_share": 0.9738380184
+  },
+  {
+   "level_group": "slam_qual",
+   "field": "df",
+   "n": 128,
+   "equal": 102,
+   "within1": 116,
+   "mean_diff": -0.4140625,
+   "mean_abs_diff": 0.4140625,
+   "equal_share": 0.796875,
+   "within1_share": 0.90625
+  },
+  {
+   "level_group": "team",
+   "field": "df",
+   "n": 1522,
+   "equal": 1478,
+   "within1": 1504,
+   "mean_diff": -0.0269382392,
+   "mean_abs_diff": 0.0545335085,
+   "equal_share": 0.9710906702,
+   "within1_share": 0.988173456
+  },
+  {
+   "level_group": "tour_main",
+   "field": "df",
+   "n": 29674,
+   "equal": 28853,
+   "within1": 29228,
+   "mean_diff": -0.0616364494,
+   "mean_abs_diff": 0.0641976141,
+   "equal_share": 0.9723326818,
+   "within1_share": 0.9849700074
+  },
+  {
+   "level_group": "tour_qual",
+   "field": "df",
+   "n": 6858,
+   "equal": 6131,
+   "within1": 6327,
+   "mean_diff": -0.3148148148,
+   "mean_abs_diff": 0.3215223097,
+   "equal_share": 0.8939924176,
+   "within1_share": 0.9225721785
+  },
+  {
+   "level_group": "challenger",
+   "field": "svpt",
+   "n": 17824,
+   "equal": 17105,
+   "within1": 17356,
+   "mean_diff": -0.1461512567,
+   "mean_abs_diff": 0.1894636445,
+   "equal_share": 0.9596611311,
+   "within1_share": 0.9737432675
+  },
+  {
+   "level_group": "challenger_qual",
+   "field": "svpt",
+   "n": 7866,
+   "equal": 7643,
+   "within1": 7728,
+   "mean_diff": -0.1273836766,
+   "mean_abs_diff": 0.1871345029,
+   "equal_share": 0.9716501398,
+   "within1_share": 0.9824561404
+  },
+  {
+   "level_group": "slam",
+   "field": "svpt",
+   "n": 7294,
+   "equal": 6730,
+   "within1": 6966,
+   "mean_diff": -0.2843432959,
+   "mean_abs_diff": 0.4581848094,
+   "equal_share": 0.9226761722,
+   "within1_share": 0.9550315328
+  },
+  {
+   "level_group": "slam_qual",
+   "field": "svpt",
+   "n": 128,
+   "equal": 112,
+   "within1": 117,
+   "mean_diff": -0.4375,
+   "mean_abs_diff": 0.625,
+   "equal_share": 0.875,
+   "within1_share": 0.9140625
+  },
+  {
+   "level_group": "team",
+   "field": "svpt",
+   "n": 1522,
+   "equal": 1410,
+   "within1": 1451,
+   "mean_diff": -0.476346912,
+   "mean_abs_diff": 0.5880420499,
+   "equal_share": 0.926412615,
+   "within1_share": 0.9533508541
+  },
+  {
+   "level_group": "tour_main",
+   "field": "svpt",
+   "n": 29956,
+   "equal": 29179,
+   "within1": 29535,
+   "mean_diff": -0.0447656563,
+   "mean_abs_diff": 0.0795500067,
+   "equal_share": 0.9740619575,
+   "within1_share": 0.9859460542
+  },
+  {
+   "level_group": "tour_qual",
+   "field": "svpt",
+   "n": 7150,
+   "equal": 6457,
+   "within1": 6666,
+   "mean_diff": -0.4594405594,
+   "mean_abs_diff": 0.5612587413,
+   "equal_share": 0.9030769231,
+   "within1_share": 0.9323076923
+  },
+  {
+   "level_group": "challenger",
+   "field": "first_in",
+   "n": 16996,
+   "equal": 16732,
+   "within1": 16842,
+   "mean_diff": 0.0906683926,
+   "mean_abs_diff": 0.1497411156,
+   "equal_share": 0.9844669334,
+   "within1_share": 0.9909390445
+  },
+  {
+   "level_group": "challenger_qual",
+   "field": "first_in",
+   "n": 7861,
+   "equal": 7762,
+   "within1": 7808,
+   "mean_diff": -0.0358732986,
+   "mean_abs_diff": 0.0857397278,
+   "equal_share": 0.9874061824,
+   "within1_share": 0.9932578552
+  },
+  {
+   "level_group": "slam",
+   "field": "first_in",
+   "n": 7041,
+   "equal": 6798,
+   "within1": 6914,
+   "mean_diff": 0.4276381196,
+   "mean_abs_diff": 0.5216588553,
+   "equal_share": 0.9654878568,
+   "within1_share": 0.9819627894
+  },
+  {
+   "level_group": "slam_qual",
+   "field": "first_in",
+   "n": 96,
+   "equal": 96,
+   "within1": 96,
+   "mean_diff": 0.0,
+   "mean_abs_diff": 0.0,
+   "equal_share": 1.0,
+   "within1_share": 1.0
+  },
+  {
+   "level_group": "team",
+   "field": "first_in",
+   "n": 1516,
+   "equal": 1396,
+   "within1": 1435,
+   "mean_diff": -0.0765171504,
+   "mean_abs_diff": 0.5672823219,
+   "equal_share": 0.9208443272,
+   "within1_share": 0.9465699208
+  },
+  {
+   "level_group": "tour_main",
+   "field": "first_in",
+   "n": 29023,
+   "equal": 28730,
+   "within1": 28880,
+   "mean_diff": 0.0494090893,
+   "mean_abs_diff": 0.0682217552,
+   "equal_share": 0.9899045585,
+   "within1_share": 0.9950728732
+  },
+  {
+   "level_group": "tour_qual",
+   "field": "first_in",
+   "n": 6193,
+   "equal": 5972,
+   "within1": 6037,
+   "mean_diff": 0.3092200872,
+   "mean_abs_diff": 0.4774745681,
+   "equal_share": 0.9643145487,
+   "within1_share": 0.9748102697
+  },
+  {
+   "level_group": "challenger",
+   "field": "first_won",
+   "n": 16996,
+   "equal": 16773,
+   "within1": 16863,
+   "mean_diff": 0.034655213,
+   "mean_abs_diff": 0.0811367381,
+   "equal_share": 0.9868792657,
+   "within1_share": 0.9921746293
+  },
+  {
+   "level_group": "challenger_qual",
+   "field": "first_won",
+   "n": 7861,
+   "equal": 7784,
+   "within1": 7817,
+   "mean_diff": -0.0216257474,
+   "mean_abs_diff": 0.0559725226,
+   "equal_share": 0.9902048085,
+   "within1_share": 0.9944027477
+  },
+  {
+   "level_group": "slam",
+   "field": "first_won",
+   "n": 7041,
+   "equal": 6832,
+   "within1": 6930,
+   "mean_diff": 0.186337168,
+   "mean_abs_diff": 0.2587700611,
+   "equal_share": 0.9703167164,
+   "within1_share": 0.9842351939
+  },
+  {
+   "level_group": "slam_qual",
+   "field": "first_won",
+   "n": 96,
+   "equal": 96,
+   "within1": 96,
+   "mean_diff": 0.0,
+   "mean_abs_diff": 0.0,
+   "equal_share": 1.0,
+   "within1_share": 1.0
+  },
+  {
+   "level_group": "team",
+   "field": "first_won",
+   "n": 1516,
+   "equal": 1410,
+   "within1": 1453,
+   "mean_diff": -0.098944591,
+   "mean_abs_diff": 0.3100263852,
+   "equal_share": 0.9300791557,
+   "within1_share": 0.9584432718
+  },
+  {
+   "level_group": "tour_main",
+   "field": "first_won",
+   "n": 29023,
+   "equal": 28786,
+   "within1": 28915,
+   "mean_diff": 0.0228094959,
+   "mean_abs_diff": 0.0374875099,
+   "equal_share": 0.9918340626,
+   "within1_share": 0.9962788134
+  },
+  {
+   "level_group": "tour_qual",
+   "field": "first_won",
+   "n": 6193,
+   "equal": 6019,
+   "within1": 6063,
+   "mean_diff": 0.1351525916,
+   "mean_abs_diff": 0.2549652834,
+   "equal_share": 0.9719037623,
+   "within1_share": 0.979008558
+  },
+  {
+   "level_group": "challenger",
+   "field": "second_won",
+   "n": 16954,
+   "equal": 16828,
+   "within1": 16883,
+   "mean_diff": -0.0342102159,
+   "mean_abs_diff": 0.0391647989,
+   "equal_share": 0.9925681255,
+   "within1_share": 0.9958121977
+  },
+  {
+   "level_group": "challenger_qual",
+   "field": "second_won",
+   "n": 7861,
+   "equal": 7809,
+   "within1": 7832,
+   "mean_diff": -0.0170461773,
+   "mean_abs_diff": 0.0256964763,
+   "equal_share": 0.9933850655,
+   "within1_share": 0.9963109019
+  },
+  {
+   "level_group": "slam",
+   "field": "second_won",
+   "n": 6964,
+   "equal": 6852,
+   "within1": 6925,
+   "mean_diff": -0.0524124067,
+   "mean_abs_diff": 0.0639000574,
+   "equal_share": 0.9839172889,
+   "within1_share": 0.9943997702
+  },
+  {
+   "level_group": "slam_qual",
+   "field": "second_won",
+   "n": 96,
+   "equal": 96,
+   "within1": 96,
+   "mean_diff": 0.0,
+   "mean_abs_diff": 0.0,
+   "equal_share": 1.0,
+   "within1_share": 1.0
+  },
+  {
+   "level_group": "team",
+   "field": "second_won",
+   "n": 1516,
+   "equal": 1391,
+   "within1": 1449,
+   "mean_diff": -0.1127968338,
+   "mean_abs_diff": 0.2552770449,
+   "equal_share": 0.9175461741,
+   "within1_share": 0.9558047493
+  },
+  {
+   "level_group": "tour_main",
+   "field": "second_won",
+   "n": 28996,
+   "equal": 28820,
+   "within1": 28920,
+   "mean_diff": -0.0195199338,
+   "mean_abs_diff": 0.0239343358,
+   "equal_share": 0.9939301973,
+   "within1_share": 0.9973789488
+  },
+  {
+   "level_group": "tour_qual",
+   "field": "second_won",
+   "n": 6156,
+   "equal": 6039,
+   "within1": 6060,
+   "mean_diff": -0.146848603,
+   "mean_abs_diff": 0.1682910981,
+   "equal_share": 0.980994152,
+   "within1_share": 0.9844054581
+  },
+  {
+   "level_group": "challenger",
+   "field": "sv_gms",
+   "n": 17816,
+   "equal": 17606,
+   "within1": 17752,
+   "mean_diff": -0.0167265379,
+   "mean_abs_diff": 0.0240233498,
+   "equal_share": 0.9882128424,
+   "within1_share": 0.9964077234
+  },
+  {
+   "level_group": "challenger_qual",
+   "field": "sv_gms",
+   "n": 7864,
+   "equal": 7733,
+   "within1": 7823,
+   "mean_diff": -0.0261953204,
+   "mean_abs_diff": 0.0356052899,
+   "equal_share": 0.9833418108,
+   "within1_share": 0.9947863683
+  },
+  {
+   "level_group": "slam",
+   "field": "sv_gms",
+   "n": 7282,
+   "equal": 6551,
+   "within1": 7173,
+   "mean_diff": -0.1198846471,
+   "mean_abs_diff": 0.1413073332,
+   "equal_share": 0.8996154902,
+   "within1_share": 0.9850315847
+  },
+  {
+   "level_group": "slam_qual",
+   "field": "sv_gms",
+   "n": 128,
+   "equal": 116,
+   "within1": 125,
+   "mean_diff": -0.0625,
+   "mean_abs_diff": 0.125,
+   "equal_share": 0.90625,
+   "within1_share": 0.9765625
+  },
+  {
+   "level_group": "team",
+   "field": "sv_gms",
+   "n": 1520,
+   "equal": 1358,
+   "within1": 1506,
+   "mean_diff": -0.0526315789,
+   "mean_abs_diff": 0.1539473684,
+   "equal_share": 0.8934210526,
+   "within1_share": 0.9907894737
+  },
+  {
+   "level_group": "tour_main",
+   "field": "sv_gms",
+   "n": 29920,
+   "equal": 29686,
+   "within1": 29882,
+   "mean_diff": -0.005381016,
+   "mean_abs_diff": 0.0109959893,
+   "equal_share": 0.9921791444,
+   "within1_share": 0.9987299465
+  },
+  {
+   "level_group": "tour_qual",
+   "field": "sv_gms",
+   "n": 7148,
+   "equal": 6943,
+   "within1": 7068,
+   "mean_diff": -0.0600167879,
+   "mean_abs_diff": 0.0684107443,
+   "equal_share": 0.9713206491,
+   "within1_share": 0.9888080582
+  },
+  {
+   "level_group": "challenger",
+   "field": "bp_saved",
+   "n": 17822,
+   "equal": 17432,
+   "within1": 17736,
+   "mean_diff": -0.0102682078,
+   "mean_abs_diff": 0.029682415,
+   "equal_share": 0.9781169341,
+   "within1_share": 0.9951745034
+  },
+  {
+   "level_group": "challenger_qual",
+   "field": "bp_saved",
+   "n": 7866,
+   "equal": 7723,
+   "within1": 7825,
+   "mean_diff": -0.0104246123,
+   "mean_abs_diff": 0.0302568014,
+   "equal_share": 0.9818204933,
+   "within1_share": 0.9947876939
+  },
+  {
+   "level_group": "slam",
+   "field": "bp_saved",
+   "n": 7294,
+   "equal": 7084,
+   "within1": 7242,
+   "mean_diff": -0.018645462,
+   "mean_abs_diff": 0.0441458733,
+   "equal_share": 0.9712092131,
+   "within1_share": 0.9928708528
+  },
+  {
+   "level_group": "slam_qual",
+   "field": "bp_saved",
+   "n": 128,
+   "equal": 117,
+   "within1": 128,
+   "mean_diff": -0.0546875,
+   "mean_abs_diff": 0.0859375,
+   "equal_share": 0.9140625,
+   "within1_share": 1.0
+  },
+  {
+   "level_group": "team",
+   "field": "bp_saved",
+   "n": 1522,
+   "equal": 1468,
+   "within1": 1503,
+   "mean_diff": -0.0223390276,
+   "mean_abs_diff": 0.0683311432,
+   "equal_share": 0.9645203679,
+   "within1_share": 0.9875164258
+  },
+  {
+   "level_group": "tour_main",
+   "field": "bp_saved",
+   "n": 29954,
+   "equal": 29611,
+   "within1": 29883,
+   "mean_diff": -0.0033384523,
+   "mean_abs_diff": 0.0150230353,
+   "equal_share": 0.9885491086,
+   "within1_share": 0.9976296989
+  },
+  {
+   "level_group": "tour_qual",
+   "field": "bp_saved",
+   "n": 7150,
+   "equal": 6813,
+   "within1": 7069,
+   "mean_diff": -0.0302097902,
+   "mean_abs_diff": 0.0690909091,
+   "equal_share": 0.9528671329,
+   "within1_share": 0.9886713287
+  },
+  {
+   "level_group": "challenger",
+   "field": "bp_faced",
+   "n": 17822,
+   "equal": 17405,
+   "within1": 17703,
+   "mean_diff": -0.0126809561,
+   "mean_abs_diff": 0.0370328807,
+   "equal_share": 0.9766019526,
+   "within1_share": 0.9933228594
+  },
+  {
+   "level_group": "challenger_qual",
+   "field": "bp_faced",
+   "n": 7866,
+   "equal": 7721,
+   "within1": 7815,
+   "mean_diff": -0.0157640478,
+   "mean_abs_diff": 0.0381388253,
+   "equal_share": 0.9815662344,
+   "within1_share": 0.9935163997
+  },
+  {
+   "level_group": "slam",
+   "field": "bp_faced",
+   "n": 7294,
+   "equal": 7036,
+   "within1": 7215,
+   "mean_diff": -0.0348231423,
+   "mean_abs_diff": 0.0638881272,
+   "equal_share": 0.9646284617,
+   "within1_share": 0.9891691801
+  },
+  {
+   "level_group": "slam_qual",
+   "field": "bp_faced",
+   "n": 128,
+   "equal": 117,
+   "within1": 126,
+   "mean_diff": -0.0703125,
+   "mean_abs_diff": 0.1015625,
+   "equal_share": 0.9140625,
+   "within1_share": 0.984375
+  },
+  {
+   "level_group": "team",
+   "field": "bp_faced",
+   "n": 1522,
+   "equal": 1465,
+   "within1": 1500,
+   "mean_diff": -0.0335085414,
+   "mean_abs_diff": 0.0886990802,
+   "equal_share": 0.9625492773,
+   "within1_share": 0.9855453351
+  },
+  {
+   "level_group": "tour_main",
+   "field": "bp_faced",
+   "n": 29954,
+   "equal": 29602,
+   "within1": 29870,
+   "mean_diff": -0.0045069106,
+   "mean_abs_diff": 0.0163918008,
+   "equal_share": 0.9882486479,
+   "within1_share": 0.9971957001
+  },
+  {
+   "level_group": "tour_qual",
+   "field": "bp_faced",
+   "n": 7150,
+   "equal": 6774,
+   "within1": 7049,
+   "mean_diff": -0.0439160839,
+   "mean_abs_diff": 0.085034965,
+   "equal_share": 0.9474125874,
+   "within1_share": 0.9858741259
+  },
+  {
+   "level_group": "challenger",
+   "field": "sv_won",
+   "n": 17824,
+   "equal": 17260,
+   "within1": 17530,
+   "mean_diff": -0.1059245961,
+   "mean_abs_diff": 0.1244389587,
+   "equal_share": 0.9683572711,
+   "within1_share": 0.983505386
+  },
+  {
+   "level_group": "challenger_qual",
+   "field": "sv_won",
+   "n": 7866,
+   "equal": 7708,
+   "within1": 7790,
+   "mean_diff": -0.0719552504,
+   "mean_abs_diff": 0.1080600051,
+   "equal_share": 0.979913552,
+   "within1_share": 0.9903381643
+  },
+  {
+   "level_group": "slam",
+   "field": "sv_won",
+   "n": 7294,
+   "equal": 6717,
+   "within1": 7014,
+   "mean_diff": -0.0907595284,
+   "mean_abs_diff": 0.3262955854,
+   "equal_share": 0.9208938854,
+   "within1_share": 0.9616122841
+  },
+  {
+   "level_group": "slam_qual",
+   "field": "sv_won",
+   "n": 128,
+   "equal": 113,
+   "within1": 119,
+   "mean_diff": -0.125,
+   "mean_abs_diff": 0.453125,
+   "equal_share": 0.8828125,
+   "within1_share": 0.9296875
+  },
+  {
+   "level_group": "team",
+   "field": "sv_won",
+   "n": 1522,
+   "equal": 1435,
+   "within1": 1474,
+   "mean_diff": -0.3423127464,
+   "mean_abs_diff": 0.3869908016,
+   "equal_share": 0.9428383706,
+   "within1_share": 0.9684625493
+  },
+  {
+   "level_group": "tour_main",
+   "field": "sv_won",
+   "n": 29956,
+   "equal": 29375,
+   "within1": 29717,
+   "mean_diff": -0.0358859661,
+   "mean_abs_diff": 0.0508412338,
+   "equal_share": 0.9806048872,
+   "within1_share": 0.9920216317
+  },
+  {
+   "level_group": "tour_qual",
+   "field": "sv_won",
+   "n": 7150,
+   "equal": 6596,
+   "within1": 6832,
+   "mean_diff": -0.3085314685,
+   "mean_abs_diff": 0.3521678322,
+   "equal_share": 0.9225174825,
+   "within1_share": 0.9555244755
+  }
+ ],
+ "hand_check": {
+  "keys": [
+   "atp|2020-407|R16|atp:105676|atp:206173",
+   "atp|2024-7581|R16|atp:106121|atp:208230",
+   "atp|2023-7909|R32|atp:105814|atp:126409",
+   "atp|2022-580|Q3|atp:122078|atp:208103",
+   "atp|2024-221|Q1|atp:105967|atp:106227",
+   "atp|2021-418|Q1|atp:106368|atp:111153"
+  ],
+  "status": "checked",
+  "checked_at": "2026-10-16T22:08:00+00:00",
+  "verdict": "6 of 6 keys checked by eye against the raw JSON record at the file and line in x_file / x_line (four year files of flashscore_full, one gql_stats file): aces, double faults, 1st/2nd serve points won 'won/total', break points saved 'saved/faced', service points won 'won/total' and service games won 'held/played' map to the reader's nine counts and sv_won on the right player in all 6; orientation by names correct (home was Stage 0's B in 3: Neuchrist, Popko, Laaksonen; 'Nam Ji S.' = Ji Sung Nam). In these 6 every count also equals Stage 0's.",
+  "how": "tp_handcheck.py printed each key's raw staged rows (the source's own document as staged under data/dump/ or data/raw/) beside the reader's rows and Stage 0's names and counts; checked by eye: the player orientation (names) and every count of the mapping"
+ }
+}

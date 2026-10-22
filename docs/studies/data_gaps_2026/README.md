@@ -34,11 +34,14 @@ applied: it was waiting for another job to finish, and then nobody ran it.
 * **It passed its harm check:** +0.044 per match on the log-loss scale (in thousandths), within a 95% range of −0.097
   to +0.185; positive means better. That is unresolved, with a 74% chance of being better, and far from the harm line.
   So it was adopted on your rule.
-* **It is the model in use since 13 Oct, 20:41.** The daily notebook now predicts with the new instance
-  (`template_2026-10-13`), which passed its readiness checks. In its replay test, 19 of 23 matches were identical; the
-  4 others differ by at most 0.0000044, for a reason explained in § 7, item 7.
-* **The Roland Garros repair you adopted on 10 Oct is applied** (it fills Roland Garros 2026's 254 main-draw
-  matches without statistics). *(The final model with it: to be filled in.)*
+* **The Roland Garros repair you adopted on 10 Oct is applied.** It fills Roland Garros 2026's 254 main-draw matches
+  that had no statistics, and corrects 2022–2025 and the Australian Open's service games.
+* **The model in use since 14 Oct, 09:10, carries all of it:** `template_2026-10-14`, built on the day's tables with
+  the new data, the Roland Garros repair, and Tennis My Life's corrections that another session accepted yesterday.
+  * It passed the notebook's readiness checks.
+  * In its replay test, 18 of 23 matches gave inputs identical to the model's own. The 5 others (all men's) differ by at
+    most 0.0000045, for a reason explained in § 7, item 7. Every women's match was identical.
+  * From 13 Oct 20:41 until then, a bridge model carried the new data alone (`template_2026-10-13`).
 
 **What keeps it fixed.** A second daily Windows task collects the new data, rebuilds and checks the feed every
 Wednesday, and switches to the new week's data only when every check passes. A weekly coverage alarm compares every
@@ -50,6 +53,8 @@ tour and level with one and two years earlier and notifies you if one drops (§ 
 * one hole I recommend accepting: women's ITF box scores, June to mid-September 2026;
 * one fix to the level layer's re-centring rule, so that bet-day inputs equal training inputs exactly again;
 * one tightening of the builder's partial-name matching;
+* one fix to how jobs share the graphics card, which can otherwise stall a bet day, and 45 minutes of evaluation fits to
+  run when you're not betting;
 * when you re-issue the unpriced-leads registration, its completeness check should read a build's tables, not the
   repository's.
 
@@ -204,8 +209,18 @@ matches").
 * That rebuild also carries Tennis My Life's checked corrections (the other session's work, decided today).
 * The history check is clean: 2,964 Slam matches repaired as decided, 104 Tennis My Life corrections, 9 main-tour
   record changes (Davis Cup, Laver Cup, one Båstad match), and nothing blocked.
-* Because the repair changes past box scores, the model is being rebuilt on today's tables with everything in
-  (`template_2026-10-14`). *(Its result: to be filled in.)*
+* Because the repair changes past box scores, the model was rebuilt on today's tables with everything in
+  (`template_2026-10-14`, in use since 14 Oct 09:10). The session building it ended at 00:30 and stopped the build one
+  step from the end. It was resumed from that step at 07:01, so nothing was rebuilt twice.
+* **Its comparison with the 8 Oct reference** (2020–2024, the standard check after a batch of changes): +0.014 per
+  match, 95% range −0.336 to +0.365, unresolved. The range is wide because the odds input changed since 8 Oct.
+* **Its input check** flags 19 inputs as moving unevenly across seasons, the warning sign the project watches for.
+  Each one comes from a change already decided:
+  * 11 were already in the 10 Oct model you adopted;
+  * the new data adds women's 2026 surface layoffs (shorter, now that their lower-level matches are visible);
+  * the Roland Garros repair adds women's 2013–2014 hold and break inputs (service games that were blank and are now
+    filled, the effect its 10 Oct check recorded) and women's 2026 forms (Roland Garros 2026's statistics).
+* **Its replay test:** 18 of 23 matches identical; 5 men's within 0.0000045 (§ 7, item 7).
 
 ## 5. Keeping it closed
 
@@ -265,8 +280,12 @@ week, and the hours since a player's previous match ended.
 
 Accepting any of these is your call; each comes with my recommendation.
 
-1. **The Roland Garros repair you adopted on 10 Oct is applied** (§ 4: it fills Roland Garros 2026's main-draw box
-   scores, 254 matches, and corrects 2022–2025). *(status: to be filled in)*
+1. **The Roland Garros repair you adopted on 10 Oct is applied** (§ 4), and the model in use carries it. **One
+   leftover:** the new model has 16 seeds for 2026, which is what predictions need, but only 4 for 2019–2025, which
+   is what the comparisons and the speed adjustment use. The other 12 seeds of those seasons serve only 16-seed
+   evaluations. **Recommend:** run them from the notebook when you're not betting (about 45 minutes):
+   `fit_seasons('template_2026-10-14', seasons='2019-2025', seeds='4-15')`. See item 10 for why not beside a bet
+   day.
 2. **Nottingham and Berlin 2026, 58 women's matches without box scores.** The WTA's own data holds them. **Recommend:**
    add them as a main-tour repair, the way the Wimbledon and US Open 2026 box scores were added on 6 Oct. Small, and
    the women's grass form inputs of June read them.
@@ -301,8 +320,15 @@ Accepting any of these is your call; each comes with my recommendation.
    12 players joined, 7 coincidences kept apart by a name check. **Recommend:** tighten the partial-name route before
    it grows (an hour's work).
 9. **Tennis My Life's 2022–2025 Challenger files are no longer held.** Another session checked and accepted them
-   tonight (24 matches change, none main-tour; [decision](../../decisions/2026-10-13-tml-lower-level-revisions.md)).
-   They enter the training data with the rebuild described in § 4.
+   on 13 Oct (24 matches change, none main-tour; [decision](../../decisions/2026-10-13-tml-lower-level-revisions.md)).
+   The model in use since 14 Oct carries them.
+10. **Two jobs on the graphics card can stall each other (found this morning).** Every fitting job waits while any
+    other fitting process exists (`training_window/fits.wait_for_card`), the daily engine's fit included. So two jobs
+    that check at the same moment wait on each other until one gives up: up to 12 hours for a model's fits. This
+    morning the replay test and a model's background fits did exactly that for 40 minutes, until I stopped the
+    background fits. A bet day started while a long fit job runs could hang the same way. **Recommend:** make the
+    oldest job never wait for a younger one, a few lines in that function (or give bet days priority). Until then,
+    run one card job at a time.
 
 ## 8. Files
 
@@ -321,6 +347,8 @@ Accepting any of these is your call; each comes with my recommendation.
 | The notebook | cell B8 of `scripts/master_pipeline.ipynb`; `src/pipeline/data.py` (`lower_level_feed`, `feed_status`) |
 | The harm check | `src/eda/data_gaps_2026/harm.py`; `data/studies/data_gaps_2026/harm/` |
 | Before and after | `src/eda/data_gaps_2026/after.py`; `data/studies/data_gaps_2026/coverage/after_<snapshot>/` |
+| The models | `data/studies/current_best_model/template_2026-10-13/` (the bridge, the harm check's arm) and `template_2026-10-14/` (in use); their build scripts `data/studies/data_gaps_2026/harm/build_feed_arm.sh`, `build_final.sh`, `resume_final.sh`, `switch_final.sh` |
+| The replay's Tennis My Life view for the model in use | `C:/Users/zerom/tnr_dump_freeze_1014/` (set `DP_FREEZE_DUMP` to it for a replay of `template_2026-10-14`) |
 | Tests | `test/data_gaps_2026/`, and additions to `test/current_best_model/test_additions.py`, `test/lower_level_evidence/test_candidate_stage0.py`, `test/gap_downloads/test_tennislive_events.py`, `test/data_continuity/test_rebuild_and_schedule.py` |
 
 **To rerun** (from the repository root, Git Bash):

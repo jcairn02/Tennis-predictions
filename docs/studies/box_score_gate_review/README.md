@@ -9,7 +9,7 @@
 * **The intention was right; the rule built on it was not.** You asked that live inputs be built the way training inputs were, and that every run refresh box scores first. An agent turned that into "withhold the bet if any match of either player in the last 14 days, at any level, lacks a box score". That tests *completeness*, not *sameness with training*. Training rows are missing box scores for about half of team-event matches and every ITF match before 2025, qualifying included. A live match with those gaps looks exactly like what the model learned from, and those gaps cause almost all the blocks: **4.4% of men's and 13.7% of women's main-tour matches in 2024–2026 (20% of women's in 2026).**
 * **"Quietly skips … drifts toward average" is not incredibly bad.** It's how the inputs are designed: no invented numbers, the same treatment in training, and a pull toward average that is the inputs' normal handling of thin evidence. Measured directly: one missing earlier round moves the forecast by a **median of 0.35 percentage points**, at most 1.4, in no consistent direction. That is a fraction of a typical edge.
 * **A block costs more than the gap it guards against.** On the replayed day, betting through one missing round cost about 3 hundredths of a unit in expected profit over 23 matches. Blocking those matches would have given up about 37, twelve times as much. That holds unless the model's edges are badly overstated, and the rule I recommend covers that case too.
-* **What I recommend:**
+* **What I recommended** (adopted by you on 14 Oct, carried out: [below](#carried-out-14-oct-2026)):
   1. Keep refreshing first, and keep the data check.
   2. Stop blocking bets over missing box scores.
      * Gaps of kinds the model was trained with (team events, ITF) become a note on the bet sheet.
@@ -212,6 +212,30 @@ Across all four kinds of deletion, both margins and both judgements, the 1-point
 * **The engine's stand-alone "predict" command now fails** unless the pattern step runs first, and only the full bet-day run does that. The bet-day run itself is unaffected.
 * **The pattern adjustment you switched on last night gave no shift to any of the 23 replayed matches.** Five of its members aren't built for live matches yet, and their safety checks were on for July, so the adjustment paused itself. Worth confirming it's active on a real October bet day.
 * **Cleanup:** my replay work copy (`C:/Users/zerom/tnr_gate_review`, 11 GB) can be deleted. I haven't deleted it.
+
+## Carried out (14 Oct 2026)
+
+You answered "Do all 3, but check if there are other processes that may contradict this work that are active and using this work", and asked for the replay's work copy to be deleted.
+
+* **The check for conflicting work.**
+  * No running process used the gate, the fills or the feature pool. Running at the time: scrapers, the scheduled downloader, and a model fit for the next instance.
+  * The only overlap was in files another session (the pattern adjustment) had edited the night before. I re-read each one before changing it.
+  * The cleanup session had listed the work copy as "running that night", not for deletion.
+* **The work copy is deleted** (11 GB), with the engine's own cleanup, which removes its links into the real data first. File counts before and after showed nothing real was touched.
+* **The gate is replaced** ([decision](../../decisions/2026-10-14-box-score-gate.md)), as recommended, with the correction above: qualifying above ITF level asks the 1-point edge.
+  * The bet sheet applies the edge as the replay tested it.
+  * A pass caused by the edge says so.
+  * The data check's verdicts are now ready, ready once filled, needs a 1-point edge, and will be blocked.
+  * Tests pass (59).
+* **The men's fill is built.** A men's main-draw box score Tennis My Life hasn't published is filled from the ATP's own match statistics.
+  * **Checked on Shanghai 2026:** the ATP's numbers equal Tennis My Life's exactly (164 of 164 player rows).
+  * **Not for the qualifying:** there they differ on first serves (9 of 26 rows equal), so a qualifying gap waits for Tennis My Life under the 1-point edge.
+  * **Expect it to be needed rarely:** Tennis My Life usually has men's box scores within minutes. Only 7 men's matches of about 25,000 in 2025–2026 lack one for good.
+* **The evidence input is in the feature pool.** It was already there as candidate U-126, but built on 7 Oct for the points form only, on older tables, without the level layer.
+  * **What it is now**, rebuilt with the model's own weights: for each player, how many recent box-scored matches stand behind the two-week form (a decayed count), and how much of the form is still the pull toward average.
+  * **Checks:** it reproduces the model's own form bit for bit on all 67,226 training matches. Its timing is safe. It isn't a copy of any existing input (the closest is recent sets played, at 0.71).
+  * **Verdict:** admitted to the pool. It does not enter the model; the next selection round decides.
+  * **One call of the agent that built it:** it raised U-126's priority from low to medium. I recommend keeping that, since you asked for this input and it addresses the model's one real blind spot here.
 
 ## Limits of this review
 

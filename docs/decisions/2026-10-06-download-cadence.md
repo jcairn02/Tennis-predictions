@@ -91,6 +91,22 @@ Decided by Claude the same day under those conditions. Recorded on 6 October 202
   * `wta_site`'s crawl had run in full hours earlier with the same flags; its job logic is tested offline (`test/data_continuity/test_rebuild_and_schedule.py`).
 * **Reported in** [official_point_feeds](../studies/official_point_feeds/README.md#the-catch-up-of-11-and-13-october-2026-work-package-p2a) and [gap_downloads](../studies/gap_downloads/README.md#wta-website-records-after-early-september-work-package-p2b).
 
+## Amendment, 21 October 2026: Pinnacle's closing prices, daily
+
+**The owner:** "Include in our automatic download script downloading pinnacles closing value weekly (or daily if theres a daily script thats being executed)". The daily task is that script, so the job runs daily. The model's odds input trains on these prices from 1 Nov 2025 from the next retrain on ([Pinnacle-first amendment](2026-10-09-pinnacle-first-odds-input.md)).
+
+* **The job `pinnacle_closes`** runs every day, last in the daily task, in the time the other jobs leave. It runs `src/ingest/tennisexplorer.py --calendar <year> --events --matches --since <today − 21 days> --max 400 --stage`.
+* **Each run:**
+  1. **This year's calendar** (last year's too in January).
+  2. **The pages of the tour-level events under way or just finished** (team events, Challengers and exhibitions skipped).
+  3. **Every finished main-draw match of the last 21 days not on disk:** Pinnacle's and every other listed book's last price, each change with its time, and the opening. Usually 20–80 pages, about 4 seconds apart, a receipt for each.
+  4. **The site's tables restaged.**
+* **Alerts.**
+  * A refusal (an HTTP 4xx answer or a challenge page) pauses the job and alerts at once, then weekly while paused. A run asked for by name (`--only pinnacle_closes`) tries anyway and lifts the pause.
+  * Any other failure (usually the PC offline) alerts the second time in a row.
+  * With under 8 minutes of the task left it waits a day; the 21-day window catches it up.
+* **Tested offline** (`test/pinnacle_gap/test_daily_job.py`). The adapter's first full pull (Jan 2025 – Oct 2026, about 10,000 pages) ran on 21–22 Oct 2026 with no block ([research](../research/pinnacle-gap/README.md)).
+
 ## How to pause or remove it
 
 ```powershell

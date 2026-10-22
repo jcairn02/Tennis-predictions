@@ -31,6 +31,7 @@ from dp_hash import hash_arrays, hash_value
 
 PROFILE = ("ace", "df", "first_in", "first_won", "second_won", "hold", "bp_saved")
 RUNS = [(t, s) for t in ("atp", "wta") for s in PROFILE]
+RECENT_DAYS = 120.0             # recent_outputs' window when no checkpoint bounds it (the lean full build)
 
 
 def _mods():
@@ -396,11 +397,31 @@ def last_day_index(s, targets: np.ndarray) -> int:
     return int(np.searchsorted(s.days, q.max(), side="left")) if len(q) else -1
 
 
+def recent_outputs(s, rows: dict, targets: np.ndarray, d0: int) -> dict:
+    """O_eff and D_eff of the other rows this run solved: those queried after the checkpoint's snapshot day, up to the
+    targets' last query day (never more than RECENT_DAYS back). Every row a gap step there reads is filled: an own
+    predecessor still unreleased at the row's query was queried after the snapshot day or was in flight at it (saved).
+    The same window resumed or in full, so a row's value does not depend on the mode. A separate call: the targets'
+    own outputs are computed exactly as without it (outputs reads `rows` and writes nothing back). For builders that
+    read the surface IOS of recent history: the unpriced-leads venue pace (16 Oct 2026)."""
+    targets = np.asarray(targets, dtype=np.int64)
+    i0 = day_index(s, d0)
+    hi = float(s.days[last_day_index(s, targets)])
+    lo = max(float(s.days[i0]) if i0 >= 0 else -np.inf, hi - RECENT_DAYS)
+    extra = np.setdiff1d(np.flatnonzero((s.query > lo) & (s.query <= hi)), targets)
+    rec = {"from_day": lo, "to_day": hi}
+    if not len(extra):
+        return {"rows": extra, "O_eff": np.zeros(0), "D_eff": np.zeros(0), **rec}
+    out = outputs(s, rows, extra)
+    ok = np.isfinite(out["O_eff"]) & np.isfinite(out["D_eff"])
+    return {"rows": out["rows"][ok], "O_eff": out["O_eff"][ok], "D_eff": out["D_eff"][ok], **rec}
+
+
 def worker(args: dict) -> dict:
     """One run in a worker process (sys.path and LLE_LAYER inherited; BLAS single-threaded, as build_features.py runs
     its workers). mode "checkpoint": from day 0 to the checkpoint, saved to args["out"]; "resume": from the saved state
     args["ck"] if today's slice equals args["expect"] (else marked invalid); "full": from day 0. Then the outputs of the
-    target rows (positions in the tour's arrays)."""
+    target rows (positions in the tour's arrays), and with args["recent"] also recent_outputs (res["recent"])."""
     import time
     tour, stat, mode, d0 = args["tour"], args["stat"], args["mode"], int(args["d0"])
     td = load_cache(Path(args["cache"]), (tour,))[tour]
@@ -424,6 +445,8 @@ def worker(args: dict) -> dict:
     if len(targets) and mode != "checkpoint":
         out = outputs(s, rows, targets)
         res["out"] = {k: out[k] for k in ("rows", "O_eff", "D_eff", "O", "D", "E", "F")}
+        if args.get("recent"):
+            res["recent"] = recent_outputs(s, rows, targets, d0)
     res["seconds"] = round(time.time() - t0, 2)
     return res
 

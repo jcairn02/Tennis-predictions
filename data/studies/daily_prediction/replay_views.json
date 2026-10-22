@@ -1,0 +1,47 @@
+{
+ "_about": "Each instance's tables for an exact replay (dp_common.replay_tables; 16 Oct 2026). dump_view: Tennis My Life's staged dump as the instance's build read it, frozen by level_layer_adoption/freeze_dump.py at freeze, the start of the Stage 0 rebuild whose tables the build copied (tables). additions: what the build merged, given here only for an instance whose folder records it nowhere (accepted_at_build.json, chain_additions.json). DP_FREEZE_DUMP overrides the view.",
+ "template_2026-10-10": {
+  "dump_view": "C:/Users/zerom/tnr_dump_freeze",
+  "freeze": "2026-10-08T18:53:10Z",
+  "tables": "data/studies/data_continuity/rebuilds/2026-10-08T1853Z",
+  "additions": {
+   "packages": [
+    "men_2026_ch_chq"
+   ],
+   "feeds": {}
+  },
+  "additions_evidence": "template_2026-10-10/README.md: the package ../accepted_additions/men_2026_ch_chq/ (1,735 matches, one box score)"
+ },
+ "template_2026-10-13": {
+  "dump_view": "C:/Users/zerom/tnr_dump_freeze",
+  "freeze": "2026-10-08T18:53:10Z",
+  "tables": "the 8 Oct tables (template_2026-10-13/README.md)",
+  "additions": {
+   "packages": [],
+   "feeds": {
+    "lower_level_feed": "20261013c"
+   }
+  },
+  "additions_evidence": "template_2026-10-13/README.md: the 10 Oct template on the 8 Oct tables with the snapshot ../accepted_additions/lower_level_feed/20261013c/ in place of the men's 2026 Challenger package; additions.py --check-against gives the build's Stage 0 and timeline"
+ },
+ "template_2026-10-14": {
+  "dump_view": "C:/Users/zerom/tnr_dump_freeze_1014",
+  "freeze": "2026-10-14T04:12:16Z",
+  "tables": "data/studies/data_continuity/rebuilds/2026-10-14T0412Z (its Stage 0's sha256 b3ca7aec... is chain_additions.json's before_sha256.m)"
+ },
+ "template_2026-10-16": {
+  "dump_view": "C:/Users/zerom/tnr_dump_freeze_1016",
+  "freeze": "2026-10-14T21:19:58Z",
+  "tables": "data/studies/data_continuity/rebuilds/2026-10-14T2119Z (the peer session tennis-predictions-d0's build, data/studies/men_lower_level_fill/build_template.sh)"
+ },
+ "template_2026-10-21": {
+  "dump_view": "C:/Users/zerom/tnr_dump_freeze_10211347",
+  "freeze": "2026-10-21T13:47:24Z",
+  "tables": "data/studies/data_continuity/rebuilds/2026-10-21T1347Z/ (in_season_retrain/retrain.sh)"
+ },
+ "template_2026-10-21b": {
+  "dump_view": "C:/Users/zerom/tnr_dump_freeze_10211347",
+  "freeze": "2026-10-21T13:47:24Z",
+  "tables": "data/studies/data_continuity/rebuilds/2026-10-21T1347Z/ (in_season_retrain/retrain.sh)"
+ }
+}

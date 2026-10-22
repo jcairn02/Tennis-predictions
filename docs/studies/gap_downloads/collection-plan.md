@@ -408,6 +408,14 @@ Do work package P9 of docs/studies/gap_downloads/collection-plan.md: collect the
 
 **Report:** [serve_speed_acquisition](../serve_speed_acquisition/README.md).
 
+**Started 16 Oct 2026** (the trial at 21:22 UTC, the bulk at 22:08 UTC, detached; [report, section 9](../serve_speed_acquisition/README.md#9-the-atps-own-files-of-20252026-tour-level-and-challengers-work-package-p9-from-16-oct-2026)):
+* **Trial:** every point for 219 of 219 matches at five events, 3.9 requests a match, no refusal.
+* **Three statements above proved incomplete:**
+  * *"…and the serve speed":* speeds exist only where the event recorded them, about 4,200 of the 24,961 planned matches by ManTennisData's copy of the same key statistics (Masters about 95%, 250s and 500s 38-52%, Challengers under 8%).
+  * *API routes "for current-season files":* the API also serves 2025 files whose static copy is missing (5 of the trial's matches), and builds its MatchBeats on request in a newer format (8 more point fields) where the static copy is older.
+  * *Step 5:* the daily collector is on; its 82 completed 2026 key-statistics files are read from its folder, and the collector waits while the daily job or a prediction run's refresh uses the host.
+* **Interrupted and resumed:** one dropped connection stopped the bulk on 17 Oct (83 events done); not a block. Resumed on 22 Oct with a retry after a reset, on ManTennisData's copy of 19 Oct (541 events, 25,277 codes); expected to end around 24 Oct.
+
 ---
 
 ## P10. Tennis Abstract website-only charts
@@ -450,6 +458,14 @@ Do work package P11 of docs/studies/gap_downloads/collection-plan.md: measure wh
 1. **Probe** (≤ 500 requests) on a seeded sample of Challenger, WTA 125 and ITF matches from the map: 2019, 2022, 2025 and 2026, Polymarket's window included. For each match: is it listed; which bookmakers; is Pinnacle there; are opening and closing prices given, with their times.
 2. **Collect** from the source with the best closing coverage at each level: an adapter, newest first, staged under `data/dump/odds/<source>/`. Prices stay out of git: the repository is public.
 
+**Started 22 Oct 2026** (the probe 04:46-12:17 UTC, the bulk from 12:51 UTC; [report](README.md#bookmaker-odds-below-the-250s-work-package-p11)):
+* **The probe** (346 requests over the three sites) chose **TennisExplorer at every level**. It lists as much as BetExplorer where both list, and alone has Pinnacle, opening prices with times, ITF of 2019 and ITF qualifying. The bulk (`src/ingest/tennisexplorer_lower.py`) goes newest first, waiting whenever the tour-level adapter uses the site.
+* **Three statements above proved wrong or incomplete:**
+  * *"Tennis Explorer lists ... no men's ITF in 2026":* only the event pages are missing. Its daily results list men's ITF under "Futures <year>", with prices and match pages, in 2019 as in 2026.
+  * *BetExplorer "openings and moves per bookmaker, ... Pinnacle among them":* from this connection it shows no Pinnacle, and an opening costs one more request per book and side.
+  * *OddsPortal "heavy on JavaScript":* also encrypted (the page's own decryption works) and, for a match's odds, behind an anti-bot layer that the probe did not pass.
+* **"Pinnacle's public guest API ... unverified":** verified on 9 Oct, and recorded on bet days since 11 Oct (`src/ingest/pinnacle.py`). The forward-capture test reads it every 10 minutes for 36 hours from 22 Oct and compares each lower-level close with TennisExplorer's record after play.
+
 ---
 
 ## P12. ITF official statistics and points for 2025-2026 (probe)
@@ -484,6 +500,7 @@ Do work package P13 of docs/studies/gap_downloads/collection-plan.md: fetch Flas
   4. After: the link check against the official results, the map's loader and the map rebuild.
 * **Expected** (the research's 8 checks): complete points for about 28,400 of the 42,876 targets, 93% to June 2025 and 45% from July. Nothing where the handoff copy has no match duration; the trial measures that rule.
 * **Then P8** aims TennisLive at what Flashscore leaves.
+* **Done (15 Oct 2026, 15:57 UTC).** A record for 27,535 of the 42,876 targets (27,174 complete), from 40,867 requests with no refusal. 24,887 of the 24,973 checkable records agree with the official result. The map's ITF 2025 matches with point data rose from 398 to 25,933 of 39,114 ([report](README.md#flashscore-point-feeds-itf-january-2025-to-february-2026-work-package-p13)).
 * **Not in the timing clock:** like the other new sources, it is not wired into the leak-proof clock (rule 10).
 * **Report:** this study's [README](README.md).
 

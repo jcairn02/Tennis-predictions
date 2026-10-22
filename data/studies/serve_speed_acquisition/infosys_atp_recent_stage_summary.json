@@ -1,0 +1,79 @@
+{
+ "source": "infosys_atp_recent",
+ "started_at": "2026-10-22T14:25:24+00:00",
+ "decision": "docs/decisions/2026-10-08-scraping-approved.md",
+ "matches": 4488,
+ "files": 16224,
+ "files_by_folder": {
+  "infosys_atp_recent": 16078,
+  "infosys_atp_daily": 146
+ },
+ "files_by_route": {
+  "keystats": 4275,
+  "court-vision": 3023,
+  "match-beats": 4027,
+  "rally-analysis": 4330,
+  "keystats-api": 202,
+  "match-beats-api": 367
+ },
+ "staged": {
+  "points.parquet": {
+   "rows": 643778,
+   "bytes": 9396821
+  },
+  "keystats.parquet": {
+   "rows": 303137,
+   "bytes": 3097676
+  },
+  "rally.parquet": {
+   "rows": 630372,
+   "bytes": 4521140
+  },
+  "court_vision.parquet": {
+   "rows": 552239,
+   "bytes": 69919857
+  },
+  "court_vision_shots.parquet": {
+   "rows": 1893390,
+   "bytes": 71646076
+  },
+  "court_vision_matches.parquet": {
+   "rows": 2855,
+   "bytes": 7921587
+  },
+  "matches.parquet": {
+   "rows": 4488,
+   "bytes": 878451
+  }
+ },
+ "by_year": {
+  "2025": {
+   "matches_with_a_document": 1814,
+   "with_points": 1807,
+   "with_timed_points": 1246,
+   "with_keystats": 1804,
+   "with_keystats_speed": 1243,
+   "with_rally": 1799,
+   "with_court_vision": 1189
+  },
+  "2026": {
+   "matches_with_a_document": 2674,
+   "with_points": 2587,
+   "with_timed_points": 1749,
+   "with_keystats": 2673,
+   "with_keystats_speed": 1836,
+   "with_rally": 2531,
+   "with_court_vision": 1666
+  }
+ },
+ "decryption": {
+  "decrypted:match-beats": 4394,
+  "decrypted:keystats": 4477,
+  "decrypted:rally-analysis": 4330,
+  "decrypted:court-vision": 6046
+ },
+ "failures": [],
+ "failures_total": 0,
+ "finished_at": "2026-10-22T14:36:03+00:00",
+ "seconds": 712.9
+}

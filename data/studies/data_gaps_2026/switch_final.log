@@ -7,3 +7,129 @@
 [  38.5s]   constant bp_over
 [  40.5s]   constant win
 [  42.3s]   constant deciding
+[level_layer] forms: 17 pairs recomputed with the layer in 86 s
+[    0.2s] loading matches, players and odds; applying the repair's data corrections
+[   26.0s] rows: 1,844,330 player-matches; box history eligible 1,766,042; ITF/team own-score standard 1,308,172
+{
+ "checkpoint": "C:\\Users\\zerom\\Documents\\Tennis-predictions\\data\\studies\\daily_prediction\\state\\template_2026-10-14\\2026-06-22",
+ "seconds": {
+  "offset_seconds": 10.4,
+  "stage3_seconds": 9.9,
+  "stage4_rows_seconds": 39.7,
+  "weighted_seconds": 14.7,
+  "forms_seconds": 123.7,
+  "ios_cache_seconds": 37.4,
+  "ios_runs_seconds": 505.5,
+  "total": 741.7
+ }
+}
+[ok] dp_checkpoint (744 s, exit 0)  log: data/studies/master_pipeline/logs/2026-10-14/074321_dp_checkpoint.log
+2026-10-14T14:55:46Z replay into C:/Users/zerom/Documents/Tennis-predictions/data/studies/daily_prediction/runs/replay_2026-07-13_R16_20261014T075546
+{
+ "created_at": "2026-10-14T145546Z",
+ "mode": "replay",
+ "replay": {
+  "week": "2026-07-13",
+  "round": "R16",
+  "winner": "A",
+  "dating": "training"
+ },
+ "matchups_csv": null,
+ "checkpoint": "2026-06-22",
+ "seeds": "0-15",
+ "work_tree": "C:\\Users\\zerom\\tnr_daily_nb",
+ "instance": "C:\\Users\\zerom\\Documents\\Tennis-predictions\\data\\studies\\current_best_model\\template_2026-10-14",
+ "base_tree": "C:\\Users\\zerom\\tnr_tpl1014"
+}
+[    0.5s] == worktree
+[   28.0s]    worktree: 27.5 s
+[   28.0s] == matchups
+[   32.0s]    matchups: 4.0 s
+[   32.0s] == prices
+[   32.1s]    prices: 0.1 s
+[   32.1s] == tables
+[   32.2s] --> stage0: src/eda/predictability_diagnostic/stage0_build.py --live-rows run/live_rows.parquet
+[  132.2s]     exit 0 in 100.0 s
+[  132.2s] --> additions: src/eda/current_best_model/additions.py --apply
+[  151.5s]     exit 0 in 19.2 s
+[  151.5s] --> check: src/eda/prediction_run/inject.py --meta run/live_meta.parquet --step check
+[  152.2s]     exit 0 in 0.7 s
+[  152.2s] --> lle_layer: src/eda/current_best_model/layer_config.py --resolve --official C:\Users\zerom\Documents\Tennis-predictions\data\studies\current_best_model\level_layer\official.json
+[  173.5s]     exit 0 in 21.3 s
+[  173.5s] --> odds: src/eda/predictability_diagnostic/stage1_odds.py 
+[  180.2s]     exit 0 in 6.7 s
+[  180.2s] --> live_odds: src/eda/prediction_run/inject.py --meta run/live_meta.parquet --step odds
+[  181.0s]     exit 0 in 0.8 s
+[  187.8s]    tables: 155.7 s
+[  187.9s] == states
+[  374.7s]    states: 186.9 s
+[  374.7s] == history
+[  374.8s]    history: 0.0 s
+[  374.9s] == patterns
+[  441.4s]    patterns: 66.5 s
+[  441.4s] == fit
+[ 3760.9s]    fit: 3319.4 s
+[ 3760.9s] == predict
+[ 3761.3s]    predict: 0.5 s
+{
+ "run": "C:\\Users\\zerom\\Documents\\Tennis-predictions\\data\\studies\\daily_prediction\\runs\\replay_2026-07-13_R16_20261014T075546",
+ "mode": "replay",
+ "started_at": "2026-10-14T145546Z",
+ "steps": {
+  "worktree": 27.5,
+  "matchups": 4.0,
+  "prices": 0.1,
+  "tables": 155.7,
+  "states": 186.9,
+  "history": 0.0,
+  "patterns": 66.5,
+  "fit": 3319.4,
+  "predict": 0.5,
+  "cleanup": 3.7
+ },
+ "finished_at": "2026-10-14T155827Z",
+ "cleanup": {
+  "deleted": true,
+  "seconds": 3.7
+ }
+}
+{
+ "frame": "C:\\Users\\zerom\\Documents\\Tennis-predictions\\data\\studies\\current_best_model\\template_2026-10-14\\model_frame.parquet",
+ "matches": 23,
+ "missing_from_frame": [],
+ "inputs": 57,
+ "inputs_bitwise": 42,
+ "non_ios_bitwise": 21,
+ "non_ios_inputs": 36,
+ "ios_max_abs_diff": 0.0,
+ "ios_nan_pattern_equal": true,
+ "max_abs_diff": 4.470348358154297e-06,
+ "matches_equal_on_every_input": 18
+}
+2026-10-14T15:58:32Z checkpoint 2026-09-21
+>>> dp_checkpoint:  DP_BASE_TREE=C:\Users\zerom\tnr_tpl1014 DP_INSTANCE=template_2026-10-14 ./python.sh 'C:\Users\zerom\Documents\Tennis-predictions\src\eda\daily_prediction\dp.py' checkpoint --day 2026-09-21 --tree C:/Users/zerom/tnr_tpl1014
+[level_layer] ratings_iid atp: 157,626 lower-level rating matches; w at zero 30,266
+[level_layer] ratings_iid wta: 53,566 lower-level rating matches; w at zero 0
+[  35.8s]   constant rpw_first
+[  37.8s]   constant rpw_second
+[  39.7s]   constant bp_over
+[  41.7s]   constant win
+[  43.5s]   constant deciding
+[level_layer] forms: 17 pairs recomputed with the layer in 82 s
+[    0.1s] loading matches, players and odds; applying the repair's data corrections
+[   24.6s] rows: 1,844,330 player-matches; box history eligible 1,766,042; ITF/team own-score standard 1,308,172
+{
+ "checkpoint": "C:\\Users\\zerom\\Documents\\Tennis-predictions\\data\\studies\\daily_prediction\\state\\template_2026-10-14\\2026-09-21",
+ "seconds": {
+  "offset_seconds": 10.8,
+  "stage3_seconds": 9.7,
+  "stage4_rows_seconds": 38.5,
+  "weighted_seconds": 13.2,
+  "forms_seconds": 115.3,
+  "ios_cache_seconds": 34.5,
+  "ios_runs_seconds": 507.1,
+  "total": 729.9
+ }
+}
+[ok] dp_checkpoint (732 s, exit 0)  log: data/studies/master_pipeline/logs/2026-10-14/085832_dp_checkpoint.log
+2026-10-14T16:10:45Z SWITCH DONE

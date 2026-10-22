@@ -6,7 +6,8 @@ I-072 (+)  leak-proof venue pace x ace offence (MEC-03): x = v_e * Delta O^ace, 
            2,000) over the venue's serves released by es (earlier editions and the current edition's earlier days,
            qualifying included), u_j = (aces_j - pi_j n_j) / (pi_j (1 - pi_j)) (the logit-scale ace excess of a serve row,
            pi = expit(mu_ace + O^ace_S - D^ace_R) from the surface IOS as of that match), n_j its serve points,
-           w_j = 2^(-years/2) (MEC-03's constants). Venue = tour x normalised tournament name x surface.
+           w_j = 2^(-years/2) (MEC-03's constants). Venue = tour x normalised tournament name x surface, a renamed
+           event's name joined to its history (RENAMED, since 16 Oct 2026).
 I-073 (+)  per-player indoor deviations (MEC-13): x = I * [(G_A - H_B) - (G_B - H_A)] = I * (Delta G + Delta H): G_S =
            sum n r / (sum n + K_G) over S's indoor serves, H_R = -sum n r / (sum n + K_H) over serves to R indoors (a
            two-stage version of the extended IOS y = mu + O - D + I (G_S - H_R), the base IOS fixed), r the serve-point
@@ -46,10 +47,34 @@ STD_VENUE = ("prod_hold", "prod_first_won", "prod_bp_saved")   # nearest to v_e 
 STAT_COLS = ["spw_n", "spw_d", "rpw_n", "rpw_d", "ace", "df", "svpt", "first_in", "first_won", "second_won", "won"]
 
 
+# Renamed events join their history (16 Oct 2026, the owner's call: "fix this", on the 2026 Shanghai main draw filed as
+# "Shanghai" while its qualifying and 2010-2025 are "Shanghai Masters"). Audit of every main-tour tournament code,
+# 2010-2026, whose name key changes between editions (docs/studies/unpriced_leads/process_log.md, 16 Oct): only pure
+# renames are listed; a move of city or venue (Casablanca-Marrakech, Chennai-Pune, Stanford-San Jose, Montreal-Toronto,
+# Almaty, the 2021 Great Ocean Road Open in Melbourne) or of surface (Stuttgart, Acapulco, Prague, Linz) stays a venue of
+# its own. tour -> {name key: the name key it joins}.
+RENAMED = {
+    "atp": {"shanghai": "shanghaimasters",              # 2026 main draw (code 5014)
+            "atpriodejaneiro": "riodejaneiro",          # 2020 (code 6932)
+            "nursultan": "astana",                      # 2020-2021, the city's own rename (code 9410)
+            "adelaide1": "adelaide", "adelaide2": "adelaide"},   # 2022-2023 double weeks (code 8998)
+    "wta": {"adelaide1": "adelaide", "adelaide2": "adelaide",     # 2022-2023 (codes 2014, 2030, 800)
+            "charleston1": "charleston",                # 2021 (code 804)
+            "guadalajara2": "guadalajara",              # 2022 (code 2075)
+            "clujnapoca2": "clujnapoca",                # 2021 (code 2050)
+            "calvia": "mallorca",                       # 2017 (code 1091: Santa Ponsa, Calvia, Mallorca)
+            "japanopentokyo": "tokyo"},                 # 2016 (code 405; "Tokyo" in 2017)
+}
+
+
 def venue_key(tour, name, surface) -> np.ndarray:
+    tr = pd.Series(np.asarray(tour, dtype=object)).astype(str)
     nm = pd.Series(np.asarray(name, dtype=object)).astype(str).str.lower().map(lambda s: re.sub(r"[^a-z0-9]", "", s))
-    return (pd.Series(np.asarray(tour, dtype=object)).astype(str) + "|" + nm + "|"
-            + pd.Series(np.asarray(surface, dtype=object)).astype(str)).to_numpy()
+    for t, ren in RENAMED.items():
+        m = (tr == t).to_numpy()
+        if m.any():
+            nm[m] = nm[m].replace(ren)
+    return (tr + "|" + nm + "|" + pd.Series(np.asarray(surface, dtype=object)).astype(str)).to_numpy()
 
 
 def indoor_rows(L: pd.DataFrame, max_season: int) -> np.ndarray:

@@ -1,0 +1,71 @@
+>>> tdi_recent:  ./python.sh -m src.ingest.point_sources.tdi --recent 10 --max-requests 1000
+[tdi] new recent sweep 20261021T124032Z: days 2026-10-11 to 2026-10-21
+[tdi] default listing: 150 cards, stamped 2026-10-19..2026-10-21: default listing; 88 tournaments in the filter
+[tdi] date 2026-10-16: 38 cards, stamped 2026-10-16..2026-10-16: in_window
+[tdi] date 2026-10-17: 37 cards, stamped 2026-10-17..2026-10-17: in_window
+[tdi] date 2026-10-18: 86 cards, stamped 2026-10-18..2026-10-18: in_window
+[tdi] date 2026-10-19: 77 cards, stamped 2026-10-19..2026-10-19: in_window
+[tdi] date 2026-10-20: 86 cards, stamped 2026-10-20..2026-10-20: in_window
+[tdi] date 2026-10-21: 26 cards, stamped 2026-10-21..2026-10-21: in_window
+[tdi] sweep 20261021T124032Z finished: 12 listings
+[tdi] staged data/dump/points/tdi/listing_pages.parquet: 250 rows
+[tdi] staged data/dump/points/tdi/listing_cards.parquet: 15,333 rows
+[tdi] staged data/dump/points/tdi/match_ids.parquet: 6,898 rows
+[tdi] staged data/dump/points/tdi/filter_tournaments.parquet: 114 rows
+[tdi] staged data/dump/points/tdi/filter_players.parquet: 2,752 rows
+[tdi] 6898 match ids (index); 6752 done before; 146 to fetch
+[tdi] 50/146 pages; requests=57; date:200=6, date:200:cached=5, home:200=1, match:200=50
+[tdi] 100/146 pages; requests=107; date:200=6, date:200:cached=5, home:200=1, match:200=100
+[tdi] 146/146 pages; requests=153; date:200=6, date:200:cached=5, home:200=1, match:200=146
+[tdi] staged data/dump/points/tdi/listing_pages.parquet: 250 rows
+[tdi] staged data/dump/points/tdi/listing_cards.parquet: 15,333 rows
+[tdi] staged data/dump/points/tdi/match_ids.parquet: 6,898 rows
+[tdi] staged data/dump/points/tdi/filter_tournaments.parquet: 114 rows
+[tdi] staged data/dump/points/tdi/filter_players.parquet: 2,752 rows
+[tdi] staged data/dump/points/tdi/points.parquet: 1,024,951 rows
+[tdi] staged data/dump/points/tdi/matches.parquet: 7,532 rows
+[tdi] staged data/dump/points/tdi/statistics.parquet: 628,025 rows
+[tdi] staged data/dump/points/tdi/players.parquet: 1,573 rows
+[tdi] summary written to data/studies/official_point_feeds/tdi_summary.json
+[ok] tdi_recent (1031 s, exit 0)  log: data/studies/master_pipeline/logs/2026-10-21/054032_tdi_recent.log
+>>> wta_events:  ./python.sh -m src.ingest.point_sources.wta --years 2026 --from-date 2026-09-30 --tiers 1000,500,250,125,finals --endpoints events --max-requests 3000 --stop-after-absences 150 --no-stage
+[wta] 2026-10-21T12:58:48+00:00 2026: 27 editions, 632 matches, 632 endpoint requests at most (cached ones are skipped)
+[wta] 2026-10-21T12:58:48+00:00 2026 25/632 25 matches; requests=26 (1439/h); events:200:cached=25, listing:200=24, listing:200:cached=3
+[wta] 2026-10-21T12:58:48+00:00 2026 50/632 50 matches; requests=26 (1438/h); events:200:cached=50, listing:200=24, listing:200:cached=3
+[wta] 2026-10-21T12:58:48+00:00 2026 75/632 75 matches; requests=26 (1438/h); events:200:cached=75, listing:200=24, listing:200:cached=3
+[wta] 2026-10-21T12:58:48+00:00 2026 100/632 100 matches; requests=26 (1438/h); events:200:cached=100, listing:200=24, listing:200:cached=3
+[wta] 2026-10-21T12:58:48+00:00 2026 125/632 125 matches; requests=26 (1438/h); events:200:cached=125, listing:200=24, listing:200:cached=3
+[wta] 2026-10-21T12:58:48+00:00 2026 150/632 150 matches; requests=26 (1438/h); events:200:cached=150, listing:200=24, listing:200:cached=3
+[wta] 2026-10-21T12:58:48+00:00 2026 175/632 175 matches; requests=26 (1438/h); events:200:cached=175, listing:200=24, listing:200:cached=3
+[wta] 2026-10-21T12:58:48+00:00 2026 200/632 200 matches; requests=26 (1438/h); events:200:cached=200, listing:200=24, listing:200:cached=3
+[wta] 2026-10-21T12:58:48+00:00 2026 225/632 225 matches; requests=26 (1438/h); events:200:cached=225, listing:200=24, listing:200:cached=3
+[wta] 2026-10-21T12:58:48+00:00 2026 250/632 250 matches; requests=26 (1438/h); events:200:cached=250, listing:200=24, listing:200:cached=3
+[wta] 2026-10-21T12:58:48+00:00 2026 275/632 275 matches; requests=26 (1438/h); events:200:cached=275, listing:200=24, listing:200:cached=3
+[wta] 2026-10-21T12:58:48+00:00 2026 300/632 300 matches; requests=26 (1438/h); events:200:cached=300, listing:200=24, listing:200:cached=3
+[wta] 2026-10-21T12:58:48+00:00 2026 325/632 325 matches; requests=26 (1438/h); events:200:cached=325, listing:200=24, listing:200:cached=3
+[wta] 2026-10-21T12:58:48+00:00 2026 350/632 350 matches; requests=26 (1438/h); events:200:cached=350, listing:200=24, listing:200:cached=3
+[wta] 2026-10-21T12:58:48+00:00 2026 375/632 375 matches; requests=26 (1438/h); events:200:cached=375, listing:200=24, listing:200:cached=3
+[wta] 2026-10-21T12:58:48+00:00 2026 400/632 400 matches; requests=26 (1437/h); events:200:cached=400, listing:200=24, listing:200:cached=3
+[wta] 2026-10-21T12:58:48+00:00 2026 425/632 425 matches; requests=26 (1437/h); events:200:cached=425, listing:200=24, listing:200:cached=3
+[wta] 2026-10-21T12:58:48+00:00 2026 450/632 450 matches; requests=26 (1437/h); events:200:cached=450, listing:200=24, listing:200:cached=3
+[wta] 2026-10-21T12:58:48+00:00 2026 475/632 475 matches; requests=26 (1437/h); events:200:cached=475, listing:200=24, listing:200:cached=3
+[wta] 2026-10-21T12:58:48+00:00 2026 500/632 500 matches; requests=26 (1437/h); events:200:cached=500, listing:200=24, listing:200:cached=3
+[wta] 2026-10-21T12:58:48+00:00 2026 525/632 525 matches; requests=26 (1437/h); events:200:cached=525, listing:200=24, listing:200:cached=3
+[wta] 2026-10-21T12:59:03+00:00 2026 550/632 550 matches; requests=32 (1429/h); events:200=6, events:200:cached=544, listing:200=24, listing:200:cached=3
+[wta] 2026-10-21T12:59:43+00:00 2026 575/632 575 matches; requests=48 (1439/h); events:200=22, events:200:cached=553, listing:200=24, listing:200:cached=3
+[wta] 2026-10-21T12:59:59+00:00 2026 600/632 600 matches; requests=54 (1431/h); events:200=28, events:200:cached=572, listing:200=24, listing:200:cached=3
+[wta] 2026-10-21T13:00:22+00:00 2026 625/632 625 matches; requests=63 (1429/h); events:200=37, events:200:cached=588, listing:200=24, listing:200:cached=3
+[wta] 2026-10-21T13:00:22+00:00 632 matches; requests=63; events:200=37, events:200:cached=595, listing:200=24, listing:200:cached=3
+[wta] summary written to data/studies/official_point_feeds/wta_summary.json
+[ok] wta_events (159 s, exit 0)  log: data/studies/master_pipeline/logs/2026-10-21/055742_wta_events.log
+>>> wta_stage:  ./python.sh -m src.ingest.point_sources.wta --stage-only --years 2026
+[wta] staged data/dump/points/wta/editions.parquet: 1,250 rows
+[wta] staged data/dump/points/wta/matches/2026.parquet: 7,666 rows
+[wta] staged data/dump/points/wta/points/2026.parquet: 531,069 rows
+[wta] staged data/dump/points/wta/events/2026.parquet: 1,315,686 rows
+[wta] staged data/dump/points/wta/stats/2026.parquet: 22,239 rows
+[wta] staged data/dump/points/wta/advanced/2026.parquet: 2,179,274 rows
+[wta] staged data/dump/points/wta/momentum/2026.parquet: 8,376,219 rows
+[wta] summary written to data/studies/official_point_feeds/wta_stage_summary.json
+[ok] wta_stage (209 s, exit 0)  log: data/studies/master_pipeline/logs/2026-10-21/060022_wta_stage.log
+B4 exit 0

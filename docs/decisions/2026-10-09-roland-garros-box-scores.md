@@ -106,6 +106,15 @@ The owner questioned the reading first: the Slam slice read worse (−0.065, P(b
   4. a template build, which then carries the layer and this repair, and `prediction_run/replay.py`.
 * **One interaction to know.** The repair changes Roland Garros qualifying box scores of 2022–2026. The level layer treats Slam qualifying as lower-level evidence, with parameters fitted on the tables of 8 Oct, so those parameters saw the faulty rows. The layer's yearly refit takes the corrected rows.
 * **Until the steps run,** Stage 0 and the model are unchanged.
+* **Applied on 13 Oct 2026, 21:12 local,** by the session working on the 2026 data gaps, after the level-layer work had reported done ([its process log](../studies/data_gaps_2026/process_log.md); its run log `data/studies/data_gaps_2026/rg_apply.log`).
+  * Steps 1–3 all passed:
+    * the check found the tables ready;
+    * the swap kept the old tables, under `data/studies/rg_first_serve_recount/adoption/20261013T211216/replaced/`;
+    * the coordinated rebuild finished;
+    * the history check was clean.
+  * Step 4 was the template of 14 Oct (`data/studies/current_best_model/template_2026-10-14/`), which carries this repair, the level layer and the lower-level feed.
+  * Checked again on 16 Oct: today's Stage 0 holds every confirmed value. The same 12 explained rows remain (6 rescued boxes, 6 partial ones), and every corrected match's service games agree with its score.
+  * The tripwire's comparison needs the old tables, and they are kept there.
 
 ## Not decided
 

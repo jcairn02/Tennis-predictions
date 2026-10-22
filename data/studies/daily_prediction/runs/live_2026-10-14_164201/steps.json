@@ -1,0 +1,242 @@
+{
+ "refresh": {
+  "seconds": 97.8,
+  "result": {
+   "started_at": "2026-10-14T2342Z",
+   "steps": [
+    {
+     "step": "tml",
+     "args": [
+      "-m",
+      "src.ingest.public_dump.tennis_my_life",
+      "--start-year",
+      "2000"
+     ],
+     "exit": 0,
+     "seconds": 2.9,
+     "tail": "[tennis_my_life] catalog lists 171 files; 105 planned, 66 skipped\n[tennis_my_life] staged data/dump/players/tennis_my_life/ATP_Database.parquet rows=12937 short=0 long=0\n[tennis_my_life] staged data/dump/matches/tennis_my_life/ongoing/challenger_ongoing_tourneys.parquet rows=111 short=0 long=0\n[tennis_my_life] staged data/dump/matches/tennis_my_life/ongoing/ongoing_tourneys.parquet rows=88 short=0 long=0\n[tennis_my_life] staged data/dump/matches/tennis_my_life/ongoing/wta_ongoing_tourneys.parquet rows=40 short=0 long=0\n[tennis_my_life] done: 4 staged files, 13,176 rows, 0 download errors, 0 held\n"
+    },
+    {
+     "step": "stage0",
+     "args": [
+      "src/eda/predictability_diagnostic/stage0_build.py",
+      "--out-dir",
+      "C:\\Users\\zerom\\Documents\\Tennis-predictions\\data\\studies\\daily_prediction\\runs\\live_2026-10-14_164201\\stage0"
+     ],
+     "exit": 0,
+     "seconds": 88.9,
+     "tail": "[   1.1s] loaded 1,066,109 rows from 10 file groups\n[   5.1s] box overrides: 2,272 rows take the official feed's box score (2 the score too; 1441 of them Sackmann rows)\n[   7.7s] row corrections: 2,951 source rows corrected\n[   8.7s] date corrections: 31 of 31 matches re-dated\n[  17.3s] after repeats: Sackmann 867,297, TML 197,308\n[  22.3s] TML linked: exact_name_pair 183,928, unlinked 6,428, one_player_anchor 6,291, resolved_ids 548, same_event_other_round 113\n[  27.2s] TML-only rows appended: 6,428 (422 in events Sackmann also holds)\n[  79.7s] id aliases: 4 second ids mapped (7 already merged by the repairs)\n[  82.0s] wrote 873,686 matches and 1,747,372 player rows to C:\\Users\\zerom\\Documents\\Tennis-predictions\\data\\studies\\daily_prediction\\runs\\live_2026-10-14_164201\\stage0\n[  82.9s] cleaning log: 2,377 rows, 31 cells over 1%\n[  86.9s] done\n"
+    }
+   ],
+   "gaps": [
+    {
+     "class": "held",
+     "tour": "atp",
+     "level": "T1000",
+     "matches": 1
+    },
+    {
+     "class": "held",
+     "tour": "atp",
+     "level": "T500",
+     "matches": 1
+    },
+    {
+     "class": "held",
+     "tour": "atp",
+     "level": "TEAM",
+     "matches": 34
+    },
+    {
+     "class": "held",
+     "tour": "wta",
+     "level": "TEAM",
+     "matches": 1
+    },
+    {
+     "class": "unserved",
+     "tour": "atp",
+     "level": "TEAM",
+     "matches": 1
+    }
+   ],
+   "fills": {
+    "filled": 0,
+    "notes": []
+   },
+   "finished_at": "2026-10-14T2343Z"
+  }
+ },
+ "matchups": {
+  "seconds": 2.2,
+  "result": {
+   "stage0": "C:\\Users\\zerom\\Documents\\Tennis-predictions\\data\\studies\\daily_prediction\\runs\\live_2026-10-14_164201\\stage0",
+   "live_matches": 2,
+   "match_ids": [
+    "atp|2026-5014-20261007|QF|atp:106421|atp:126205",
+    "atp|2026-5014-20261007|QF|atp:134770|atp:212588"
+   ],
+   "wta_calendar": {
+    "years": []
+   }
+  }
+ },
+ "prices": {
+  "seconds": 0.0,
+  "result": {
+   "priced": 2,
+   "sources": {
+    "matchups csv (margin-free, side A)": 2
+   },
+   "quoted_at_given": 2
+  }
+ },
+ "worktree": {
+  "seconds": 8.6,
+  "result": {
+   "work_tree": "C:\\Users\\zerom\\tnr_daily_nb",
+   "replay": false,
+   "seconds": 8.5,
+   "constants_from": "C:\\Users\\zerom\\Documents\\Tennis-predictions\\data\\studies\\daily_prediction\\state\\template_2026-10-14\\2026-09-21",
+   "constants_replaced": {
+    "data/studies/predictability_diagnostic/stage1_baselines_summary.json": {
+     "before": "3c55a8bb29ed233d74826db6c6fc438a7317af3ce28c7c903257f7493896bbaf",
+     "after": "fae745884032c60cc5a7cfad32914dba56efa22ff5637eebc471de7a26d103cd"
+    },
+    "data/studies/predictability_diagnostic/stage3_ratings_summary.json": {
+     "before": "05209c18235f96b732b545c5d5c50bd4303d0d802ba11afa4039d18fc0544b7b",
+     "after": "a9e58707739cdbb6bd3af127ab41e52806ace615bd1e68d4349ae490afab2b61"
+    },
+    "data/studies/predictability_diagnostic/stage4_constants.csv": {
+     "before": "775d71e473574078f10bb97f303baf60a9f6ae9448b529c9a40672b98806224e",
+     "after": "28fb75d94650c2a37d102396c7087b23d83c9f3c44e7a48367287e851e274890"
+    },
+    "data/studies/surface_elo_pieces/pieces_meta.json": {
+     "before": "766589ccfff670729915ce2f86db543ae46fba930b75332a4cb84c3c4858d714",
+     "after": "51ae3c93f0492b2ee5c2d0245fd555a79b29fc0c28a8d130e40954c139ccd3df"
+    }
+   }
+  }
+ },
+ "tables": {
+  "seconds": 466.6,
+  "result": {
+   "steps": {
+    "stage0": 96.7,
+    "additions": 218.5,
+    "check": 0.8,
+    "lle_layer": 23.6,
+    "odds": 7.1,
+    "live_odds": 0.8,
+    "remap": 2.2,
+    "links": 37.9,
+    "live_links": 4.9,
+    "timing": 53.3,
+    "live_window": 2.4,
+    "additions_window": 18.4
+   },
+   "history": "run beside the states step (history.json)",
+   "timeline_held": false
+  }
+ },
+ "history": {
+  "seconds": 0.0,
+  "result": {
+   "history": "history vs the reference of 2026-10-08: future 257 and updated 6 (allowed); accepted 52,368 (allowed: lower-level additions 48,958, completions 418, decided repairs 2,992); main-tour changes 9 (allowed, listed: new past 1, dropped 1, revised 7); Tennis My Life's own lower-level changes 104 (allowed, decided 13 Oct: new past 39, dropped 45, revised 20); lower-level new past 0, dropped 0, revised 0 -> the template may be built",
+   "ran_seconds": 75.8
+  }
+ },
+ "states": {
+  "seconds": 442.4,
+  "result": {
+   "checkpoint": "C:\\Users\\zerom\\Documents\\Tennis-predictions\\data\\studies\\daily_prediction\\state\\template_2026-10-14\\2026-09-21",
+   "parts_summary": {
+    "slice changed: recomputed in full": 14
+   },
+   "seconds": {
+    "offset": 14.2,
+    "stage3": 14.0,
+    "stage4_rows": 79.0,
+    "weighted": 54.6,
+    "stage4_inputs": 4.3,
+    "pieces": 14.0,
+    "context": 19.7,
+    "waited_for_forms_and_ios": 237.1,
+    "forms_rows": 18.2,
+    "forms_context": 70.9,
+    "forms": 213.8,
+    "forms_family": 303.0,
+    "ios_cache": 46.6,
+    "ios_runs": 390.8,
+    "ios_family": 437.4,
+    "total": 438.6
+   },
+   "gate": {
+    "live_matches": 2,
+    "complete": 2
+   }
+  }
+ },
+ "patterns": {
+  "seconds": 64.2,
+  "result": {
+   "matches": 2,
+   "z_present": 2,
+   "not_built_but_on_counted_as_missing": {
+    "rb__el__low_share_diff": 2,
+    "rb__fp__f12_salience__hasL_a-b": 2
+   },
+   "gate_off": {
+    "PS03_net": {
+     "atp 2026-10": 0.573
+    },
+    "PS06_close": {
+     "atp 2026-10": 0.573
+    },
+    "PS04_flat": {
+     "atp 2026-10": 0.573
+    }
+   },
+   "params_sha256": "cb5db37b32f65f3eee8ad523d3272a811b5903cc718bc31c532e96381f0b1ac2"
+  }
+ },
+ "checkpoint": {
+  "seconds": 0.0,
+  "result": {
+   "day": "2026-09-21",
+   "skipped": "a checkpoint of that day exists"
+  }
+ },
+ "fit": {
+  "seconds": 54.4,
+  "result": {
+   "matches": 2,
+   "seeds": 16,
+   "inside_grid": 2,
+   "interpolated_vs_own_max_abs": 0.0005537696862116803,
+   "interpolated_vs_own_mean_abs": 0.00045376107613132044,
+   "falling_steps": 0,
+   "steps": 180
+  }
+ },
+ "predict": {
+  "seconds": 0.4,
+  "result": {
+   "matches": 2,
+   "q_range": [
+    0.5717330548462592,
+    0.6766075393020866
+   ],
+   "grid_read_back_vs_own_max_abs": 0.0005537696862116803,
+   "archived_to": "C:\\Users\\zerom\\Documents\\Tennis-predictions\\predictions\\2026-10-16\\records"
+  }
+ },
+ "reprice": {
+  "seconds": 0.2,
+  "result": {
+   "repriced": 2,
+   "outside_grid_or_unknown": 0,
+   "file": "C:\\Users\\zerom\\Documents\\Tennis-predictions\\data\\studies\\daily_prediction\\runs\\live_2026-10-14_164201\\reprice_2026-10-15T000140Z.csv"
+  }
+ }
+}

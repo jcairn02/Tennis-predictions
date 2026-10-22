@@ -1,0 +1,71 @@
+{
+ "written_utc": "2026-10-16T21:15:40+00:00",
+ "results_seen_by_then": "none in the gap or elsewhere in this part (only coverage and template counts, which read no result)",
+ "scored_rows": "gap rows (td_date >= 2025-08-01, the model input BetOnline or the average per odds_input.construct) played before 2026-07-29 (tournament_date and td_date): 4,340 rows",
+ "primary": "each candidate log loss minus BetOnline last line (today stand-in), paired on rows where both priced; mLL; 95% interval over four-week blocks (odds_sources common.mean_ci); P(better) = Phi(-est/SE). better/worse only when the interval clears 0, else unresolved",
+ "singles": [
+  "bol",
+  "bfe",
+  "pm",
+  "psx",
+  "b365",
+  "avg",
+  "max",
+  "otmed"
+ ],
+ "equal_declared": [
+  "bol+bfe",
+  "bol+pm",
+  "bfe+pm",
+  "bol+bfe+pm",
+  "bol+bfe+pm+otmed",
+  "bol+psx",
+  "bol+bfe+psx",
+  "bol+otmed"
+ ],
+ "walk_forward_declared": {
+  "sets": [
+   "bol+bfe",
+   "bol+pm",
+   "bol+bfe+pm",
+   "bol+bfe+pm+otmed"
+  ],
+  "rule": "logistic without intercept on all earlier rows from 2018 where every member is priced, refitted at each four-week block, weights normalised to sum 1 (pools.weighted); a block is scored only with >= 500 training rows"
+ },
+ "pinnacle_proxy_declared": {
+  "primary": "OLS without intercept of reconciled Pinnacle log-odds on the priced subset of {bol,b365,avg,max,otmed}, one fit per pattern, fitted 2018-01-01..2025-07-31",
+  "variants": [
+   "same, fitted 2023-08-01..2025-07-31",
+   "BetOnline alone rescaled to Pinnacle (bol only)"
+  ],
+  "checks": "distance to Pinnacle (KL mLL, RMSE log-odds) walk-forward by season 2019-2025 and in the post-change window 2025-08-01..2025-09-07 (OddsTrader Pinnacle); results in the gap"
+ },
+ "full_coverage_rules_declared": {
+  "today": "bol else avg",
+  "bol_bfe": "mean of priced {bol,bfe} else avg",
+  "bol_pm": "mean of priced {bol,pm} else avg",
+  "sharp3": "mean of priced {bol,bfe,pm} else avg",
+  "sharp4": "mean of priced {bol,bfe,pm,otmed} else avg",
+  "proxy": "the primary proxy (avg is one of its books, so it is always defined)"
+ },
+ "exploratory": "every equal average of 2-4 of the 8 singles (154), ranked on even four-week blocks, confirmed on odd blocks",
+ "secondary": [
+  "by part: 2025 (Aug-Nov, new against odds_sources s4) and 2026 (Jan-28 Jul, overlapping it)",
+  "by tour",
+  "calibration slope per candidate in the gap",
+  "Polymarket 60 min as a check on the 30-min price"
+ ],
+ "additions": [
+  {
+   "written_utc": "2026-10-16T21:23:44+00:00",
+   "results_seen_by_then": "odds_psx.py section 3 only: tennis-data PS against Pinnacle (OddsTrader), Pinnacle opening, BetOnline last and opening, Betfair, by period (2024-10..2025-07; 2025-08-01..09-07; 2025-09-08..2026-01). No other candidate scored in the gap.",
+   "added": {
+    "b105": "Bet105 last line (OddsTrader id 130), late lines dropped: the book nearest to Pinnacle own last line where Pinnacle is known after the August 2025 change (KL 0.20 mLL against BetOnline 0.39, 1 Aug - 7 Sep 2025; median |dz| 0.017; same price 23%) with 89% coverage of the gap rows. Selected on distance to Pinnacle, which reads no result.",
+    "b105_pre": "the same, only lines stamped at or before the listed start (Bet105 last lines are stamped a median 0-6 min after it): a check against in-play prices",
+    "eq_bol+b105": "equal average of BetOnline and Bet105",
+    "proxy_b105": "the primary proxy with Bet105 as a sixth book (its pattern fitted on 2025-04..2025-07, the only months with both)",
+    "rule_b105": "full-coverage rule: mean of priced {bol, b105} else avg"
+   }
+  }
+ ]
+}

@@ -1,0 +1,414 @@
+{
+ "reader": "tp_sofascore_setbox",
+ "written_at": "2026-10-16T22:16:18+00:00",
+ "file": "data/studies/source_reconciliation/box/readers/tp_sofascore_setbox.parquet",
+ "snapshot_manifest_sha256": "fc299ad2f4f8c6221521b848403f763777a8553fe4603846fcfe01b059a8be7d",
+ "inputs": [
+  {
+   "path": "data/dump/points/sofascore/events.parquet",
+   "bytes": 899702,
+   "modified": "2026-09-24T19:10:44+00:00",
+   "sha256": "8f20003cfc1fc838cd9d2d86c195a7f16a7b9bd9276cdcfcf4a765f9f5d26051"
+  },
+  {
+   "path": "data/dump/points/sofascore/statistics.parquet",
+   "bytes": 1540907,
+   "modified": "2026-09-24T19:10:50+00:00",
+   "sha256": "bbc8ac767f5c9d726bf19101279a09a86947aa9dc382d6016fd567a0337f66f8"
+  },
+  {
+   "path": "data/dump/points/sofascore/points.parquet",
+   "bytes": 2147873,
+   "modified": "2026-09-24T19:10:48+00:00",
+   "sha256": "84ab30e72c47ac6e8d7eba38e6288599377b95ab493cd16ef1540e2ab4ec39cf"
+  },
+  {
+   "path": "data/dump/points/sofascore_editions/events.parquet",
+   "bytes": 20488761,
+   "modified": "2026-10-15T01:02:05+00:00",
+   "sha256": "f191bb1267c893774ac1d0cab8e97520d03a86c1aa1cdc05bf6b16af021a1321"
+  },
+  {
+   "path": "data/dump/points/sofascore_editions/statistics.parquet",
+   "bytes": 13057048,
+   "modified": "2026-10-15T01:01:53+00:00",
+   "sha256": "1cda3926ed9d24d9a395e227ef54869af6bb9423ee41d612feca260db90c680b"
+  },
+  {
+   "path": "data/dump/points/sofascore_editions/points.parquet",
+   "bytes": 36612369,
+   "modified": "2026-10-15T01:00:07+00:00",
+   "sha256": "4b24e41763701c03b1a142eac34dc89f803fb78c81cc740564a867d8c451ffe8"
+  },
+  {
+   "path": "data/dump/points/sofascore_tournaments/events.parquet",
+   "bytes": 537494,
+   "modified": "2026-09-30T14:56:30+00:00",
+   "sha256": "e81e064a1d57fa5666a3539b6ce5718a8ef39ed0997e5072c4d6cf615006be81"
+  },
+  {
+   "path": "data/dump/points/sofascore_tournaments/statistics.parquet",
+   "bytes": 1137275,
+   "modified": "2026-09-30T14:56:34+00:00",
+   "sha256": "bfe5f0fead13c6e79a93d942d3d1bcf1979930aac312696b537cfe8deccf9706"
+  },
+  {
+   "path": "data/dump/points/sofascore_tournaments/points.parquet",
+   "bytes": 1426404,
+   "modified": "2026-09-30T14:56:33+00:00",
+   "sha256": "aa74baf80b7001de41c751efb778fcc77970a1d2ecf2bb39d7a384a96297fe2f"
+  }
+ ],
+ "collections": {
+  "sofascore": {
+   "events_with_period_all": 3362,
+   "taken_from_here": 3362
+  },
+  "sofascore_editions": {
+   "events_with_period_all": 43033,
+   "taken_from_here": 43032
+  },
+  "sofascore_tournaments": {
+   "events_with_period_all": 1632,
+   "taken_from_here": 1627
+  }
+ },
+ "orientation": {
+  "link_rows_whose_match_is_not_in_the_snapshot": 0,
+  "linked_events": 160314,
+  "oriented": 160300,
+  "orientation_unresolved": 14,
+  "unresolved_examples": [
+   {
+    "event_id": "16265320",
+    "home_name": "Zuzanna Kolonus",
+    "away_name": "Anastasiia Kostiushkina",
+    "match_id": "wta|2026-W-ITF-TUR-2026-16|R32|wta:242443|wta:270235"
+   },
+   {
+    "event_id": "15001290",
+    "home_name": "Aneta Kucmova",
+    "away_name": "Tiphanie Lemaitre",
+    "match_id": "wta|2025-W-ITF-CZE-2025-6|R32|wta:215166|wta:215726"
+   },
+   {
+    "event_id": "14929088",
+    "home_name": "Francesca Dell'Edera",
+    "away_name": "Amy Stevens",
+    "match_id": "wta|2025-W-ITF-TUN-2025-44|R32|wta:214974|wta:221862"
+   },
+   {
+    "event_id": "14870767",
+    "home_name": "Dimitris Azoidis",
+    "away_name": "Faris Zakaria",
+    "match_id": "atp|2025-3029|Q1|atp:206782|atp:209403"
+   },
+   {
+    "event_id": "14713228",
+    "home_name": "Joao Graca",
+    "away_name": "Alex Hernandez",
+    "match_id": "atp|2025-M-ITF-POR-2025-14|R16|atp:205885|atp:207834"
+   },
+   {
+    "event_id": "14527266",
+    "home_name": "Sanhui Shin",
+    "away_name": "Woobin Shin",
+    "match_id": "atp|2025-7783|R32|atp:200321|atp:209959"
+   },
+   {
+    "event_id": "14257082",
+    "home_name": "Nikita Belozertsev",
+    "away_name": "Dimitris Azoidis",
+    "match_id": "atp|2025-M-ITF-SRB-2025-15|R16|atp:206782|atp:212756"
+   },
+   {
+    "event_id": "13842766",
+    "home_name": "Sanhui Shin",
+    "away_name": "Woobin Shin",
+    "match_id": "atp|2025-M-ITF-CHN-2025-8|SF|atp:200321|atp:209959"
+   }
+  ]
+ },
+ "records_read": {
+  "events_listed": 210518,
+  "events_with_box": 48019
+ },
+ "what": "the sum of SofaScore's per-set periods 1ST..5TH (a count only where every set period has it)",
+ "linked": {
+  "events_with_box_linked_to_stage0": 23946,
+  "by_link_method": {
+   "identity_pair": 23701,
+   "identity_anchor": 229,
+   "identity_player_ids": 14,
+   "prior_link": 2
+  }
+ },
+ "dropped": {
+  "box_events_not_in_link_file": 253,
+  "orientation_unresolved": 3
+ },
+ "contract_checks": {
+  "rows": 47886,
+  "matches": 23943,
+  "matches_with_two_rows": 23943,
+  "duplicate_match_player": 0,
+  "player_not_in_stage0_match": 0,
+  "source_keys_on_two_matches": 0
+ },
+ "complete_rows": 47866,
+ "self_consistency_share": {
+  "first_den_equals_first_in": 0.99996,
+  "second_den_equals_svpt_minus_first_in": 0.99634,
+  "second_att_equals_svpt_minus_first_in": 0.98414,
+  "df_equals_second_att_minus_second_in": 0.99977,
+  "sv_won_equals_first_won_plus_second_won": 0.99996
+ },
+ "winner_vs_stage0": {
+  "player_rows_with_a_winner": 47876,
+  "agree": 47876,
+  "disagree": 0,
+  "disagree_share": 0.0,
+  "disagree_examples": []
+ },
+ "score_agrees_link_file": {
+  "True": 23905,
+  "False": 41
+ },
+ "definitions": "; the mapping of data_continuity/sources.py sofascore()):\n    ace aces · df doubleFaults · first_in / svpt firstServeAccuracy \"in/attempts\" · first_won\n    firstServePointsAccuracy numerator · second_won secondServePointsAccuracy numerator · sv_gms serviceGamesTotal ·\n    bp_saved / bp_faced breakPointsSaved \"saved/faced\" · sv_won servicePointsScored.\n    Kept beside them: the first-serve-points denominator (x_first_den, should equal first_in), the second-serve-points\n    denominator (x_second_den, should equal svpt - first_in) and secondServeAccuracy \"in/attempts\" (x_second_in,\n    x_second_att): SofaScore's own consistency.\n    Two readers with the same mapping: tp_sofascore_box reads the match totals SofaScore publishes (period ALL);\n    tp_sofascore_setbox sums its per-set periods (1ST..5TH; a count only where every set period has it). They\n    differ: from late 2024 the ALL period is often not the sum of the set periods (observed 16 Oct 2026: aces,\n    double faults, serve points, points won and break points in Dec 2024 - Aug 2025; break points in Feb - Jun\n    2026; first serves in throughout, ALL higher), while the set periods equal the point recount.\n    x_all_equals_setsum (ALL box): the player's ALL totals equal the set sums on every count both have (NaN where the\n    event has no set periods).",
+ "sanity_vs_stage0_by_tour": [
+  {
+   "tour": "atp",
+   "field": "ace",
+   "n": 42044,
+   "equal": 41648,
+   "within1": 41912,
+   "mean_diff": -0.0151983636,
+   "mean_abs_diff": 0.0189563315,
+   "equal_share": 0.9905812958,
+   "within1_share": 0.9968604319
+  },
+  {
+   "tour": "wta",
+   "field": "ace",
+   "n": 2660,
+   "equal": 2511,
+   "within1": 2605,
+   "mean_diff": -0.0785714286,
+   "mean_abs_diff": 0.1011278195,
+   "equal_share": 0.9439849624,
+   "within1_share": 0.9793233083
+  },
+  {
+   "tour": "atp",
+   "field": "df",
+   "n": 42044,
+   "equal": 41502,
+   "within1": 41883,
+   "mean_diff": -0.0158167634,
+   "mean_abs_diff": 0.0206688231,
+   "equal_share": 0.9871087432,
+   "within1_share": 0.9961706783
+  },
+  {
+   "tour": "wta",
+   "field": "df",
+   "n": 2660,
+   "equal": 2257,
+   "within1": 2550,
+   "mean_diff": -0.1958646617,
+   "mean_abs_diff": 0.2312030075,
+   "equal_share": 0.8484962406,
+   "within1_share": 0.9586466165
+  },
+  {
+   "tour": "atp",
+   "field": "svpt",
+   "n": 42040,
+   "equal": 41507,
+   "within1": 41754,
+   "mean_diff": -0.0398430067,
+   "mean_abs_diff": 0.0674357755,
+   "equal_share": 0.9873215985,
+   "within1_share": 0.9931969553
+  },
+  {
+   "tour": "wta",
+   "field": "svpt",
+   "n": 2652,
+   "equal": 2545,
+   "within1": 2581,
+   "mean_diff": -0.1787330317,
+   "mean_abs_diff": 0.2880844646,
+   "equal_share": 0.959653092,
+   "within1_share": 0.9732277526
+  },
+  {
+   "tour": "atp",
+   "field": "first_in",
+   "n": 42040,
+   "equal": 37791,
+   "within1": 39675,
+   "mean_diff": 0.3829210276,
+   "mean_abs_diff": 0.4500951475,
+   "equal_share": 0.8989295909,
+   "within1_share": 0.9437440533
+  },
+  {
+   "tour": "wta",
+   "field": "first_in",
+   "n": 2652,
+   "equal": 1048,
+   "within1": 1638,
+   "mean_diff": 2.4309954751,
+   "mean_abs_diff": 2.8208898944,
+   "equal_share": 0.395173454,
+   "within1_share": 0.6176470588
+  },
+  {
+   "tour": "atp",
+   "field": "first_won",
+   "n": 42032,
+   "equal": 38790,
+   "within1": 40427,
+   "mean_diff": 0.1960649029,
+   "mean_abs_diff": 0.241791968,
+   "equal_share": 0.9228682908,
+   "within1_share": 0.9618148078
+  },
+  {
+   "tour": "wta",
+   "field": "first_won",
+   "n": 2650,
+   "equal": 1383,
+   "within1": 1968,
+   "mean_diff": 1.1452830189,
+   "mean_abs_diff": 1.4290566038,
+   "equal_share": 0.5218867925,
+   "within1_share": 0.7426415094
+  },
+  {
+   "tour": "atp",
+   "field": "second_won",
+   "n": 42032,
+   "equal": 38852,
+   "within1": 40478,
+   "mean_diff": -0.2161924248,
+   "mean_abs_diff": 0.2347497145,
+   "equal_share": 0.9243433574,
+   "within1_share": 0.963028169
+  },
+  {
+   "tour": "wta",
+   "field": "second_won",
+   "n": 2650,
+   "equal": 1386,
+   "within1": 1969,
+   "mean_diff": -1.2494339623,
+   "mean_abs_diff": 1.418490566,
+   "equal_share": 0.5230188679,
+   "within1_share": 0.7430188679
+  },
+  {
+   "tour": "atp",
+   "field": "sv_gms",
+   "n": 42006,
+   "equal": 41722,
+   "within1": 41949,
+   "mean_diff": -0.0059515307,
+   "mean_abs_diff": 0.0107603676,
+   "equal_share": 0.9932390611,
+   "within1_share": 0.998643051
+  },
+  {
+   "tour": "wta",
+   "field": "sv_gms",
+   "n": 2644,
+   "equal": 2593,
+   "within1": 2624,
+   "mean_diff": -0.0313918306,
+   "mean_abs_diff": 0.0381996974,
+   "equal_share": 0.9807110439,
+   "within1_share": 0.9924357035
+  },
+  {
+   "tour": "atp",
+   "field": "bp_saved",
+   "n": 40906,
+   "equal": 40646,
+   "within1": 40848,
+   "mean_diff": 0.0,
+   "mean_abs_diff": 0.0092895908,
+   "equal_share": 0.9936439642,
+   "within1_share": 0.9985821151
+  },
+  {
+   "tour": "wta",
+   "field": "bp_saved",
+   "n": 2632,
+   "equal": 2589,
+   "within1": 2613,
+   "mean_diff": -0.0034194529,
+   "mean_abs_diff": 0.0315349544,
+   "equal_share": 0.983662614,
+   "within1_share": 0.992781155
+  },
+  {
+   "tour": "atp",
+   "field": "bp_faced",
+   "n": 40906,
+   "equal": 40664,
+   "within1": 40833,
+   "mean_diff": 0.0004889258,
+   "mean_abs_diff": 0.0100229795,
+   "equal_share": 0.9940839975,
+   "within1_share": 0.9982154207
+  },
+  {
+   "tour": "wta",
+   "field": "bp_faced",
+   "n": 2632,
+   "equal": 2581,
+   "within1": 2610,
+   "mean_diff": -0.0034194529,
+   "mean_abs_diff": 0.0429331307,
+   "equal_share": 0.9806231003,
+   "within1_share": 0.9916413374
+  },
+  {
+   "tour": "atp",
+   "field": "sv_won",
+   "n": 42032,
+   "equal": 41651,
+   "within1": 41834,
+   "mean_diff": -0.0201275219,
+   "mean_abs_diff": 0.0347354397,
+   "equal_share": 0.9909354777,
+   "within1_share": 0.9952893034
+  },
+  {
+   "tour": "wta",
+   "field": "sv_won",
+   "n": 2650,
+   "equal": 2563,
+   "within1": 2602,
+   "mean_diff": -0.1052830189,
+   "mean_abs_diff": 0.1588679245,
+   "equal_share": 0.9671698113,
+   "within1_share": 0.9818867925
+  }
+ ],
+ "hand_check": {
+  "keys": [
+   "atp|2025-2829|R16|atp:122352|atp:207678",
+   "wta|2026-520|R128|wta:211107|wta:259857",
+   "atp|2026-3077|QF|atp:200303|atp:208819",
+   "atp|2026-2911|R16|atp:208852|atp:209098",
+   "atp|2026-9162|R32|atp:200452|atp:209920",
+   "atp|2026-9623|R16|atp:210017|atp:211639"
+  ],
+  "status": "checked",
+  "checked_at": "2026-10-16T21:37:00+00:00",
+  "verdict": "6 of 6 keys checked by eye against the staged per-set statistics (1ST..3RD) and events: every count equals the sum of its mapped statistic over the set periods on the right player; orientation by names correct in all 6 (accents: Medjedović; a dropped surname: Daniel Merida = Daniel Merida Aguilar). Seen in passing: atp|2026-2911 Sakellaridis ALL break points 5/7 and points won 60 vs per-set 6/11 and 61 = Stage 0; wta|2026-520 (RG) the set sums still differ from Stage 0 by one first serve in (Boulter) and one first-serve point won (Urhobo).",
+  "how": "tp_handcheck.py printed each key's raw staged rows (the source's own document as staged under data/dump/ or data/raw/) beside the reader's rows and Stage 0's names and counts; checked by eye: the player orientation (names) and every count of the mapping"
+ }
+}

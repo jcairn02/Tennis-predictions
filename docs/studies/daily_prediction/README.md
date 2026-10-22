@@ -4,6 +4,63 @@
 it builds: [prediction_pipeline/PLAN.md](../prediction_pipeline/PLAN.md) § 7 · **Not a decision:** nothing here changes
 the current best model; the script reproduces it.
 
+## TabPFN-3.5-Thinking beside the local model: `run_day --thinking` (20 Oct 2026)
+
+Added by the master pipeline's session at your request ([decision](../../decisions/2026-10-20-thinking-beside-local.md);
+the master pipeline's process log, Part 6).
+
+**What it adds.** `dp.py run_day --thinking --spend-tokens` runs the day as before, then one paid TabPFN-3.5-Thinking
+call after the local fit. The new step is `dp_thinking.py`.
+
+**What it sends.** The same rows the local fit predicts: each match at the 91 grid prices and its own, both
+orientations.
+
+**Which fit answers.** The instance's season fit, which the master pipeline makes. The step refuses a fit made on
+other training rows.
+
+**What it saves.** The answers are averaged over the two orientations, as the API gives them. The predict step then adds stage 2's serve-speed term to them, never the calibration slope (the owner, the evening of 20 Oct 2026).
+
+**What `predict` writes.** With Thinking:
+* `q_a` is the local stage-2 chance and Thinking's averaged 50/50 in log-odds, with the five-pattern adjustment added after;
+* `q_a_local`, `q_a_local_patterns_off` and `q_a_thinking` (Thinking with the speed term) stand beside it, and from the evening of 20 Oct `q_a_thinking_api` (the API's own chance);
+* the curves carry all three, and so a reprice or a grade reads them.
+
+**How the paid call is guarded.** Through the project's guard: refused without `--spend-tokens`, never sent twice from
+a run, and answers that were saved are only read back. If the call fails, the run's predictions are the local model's
+alone, and `predictions.csv`'s `ensemble` column ("off") and `provenance.json` say why.
+
+**What did not change.** A run without `--thinking` writes what it wrote before. On a copy of the 19 Oct live run the
+predict step reproduced the run's `predictions.csv` bit for bit. Tests: `test/daily_prediction/test_thinking.py`.
+
+## Stage 2 kept in step with its model, and the daily speed history (14 Oct 2026)
+
+You asked me to "close the gap in point 2" and said yes to point 1: live runs use the daily speed history, and replays
+of days before 8 Oct keep the weekly one. Process log: part 4.
+
+* **Stage 2's numbers can no longer go stale without an error.** They are the slope per tour (the calibration) and
+  the serve-speed coefficient, fitted from the model's own past forecasts and saved. Until today they were refitted
+  when the match table or the speed history changed, but not when the input list, the saved fits or the TabPFN
+  version changed inside the same folder.
+  * **Now they are reused only while everything they are fitted from is unchanged:** the match table, the input
+    list, the 28 fit files they come from (seeds 0–3, 2019–2025), the TabPFN those were made with (version, weights,
+    settings) and the speed history. Otherwise they are refitted, in about 10 seconds.
+  * **A run is refused** if the day's fit uses another TabPFN version, other weights, other settings or another
+    input list than those saved fits. The slope was fitted on their forecasts, so it would not suit the day's.
+  * **Shown:** under the old check, editing the input list and redoing every fit with another TabPFN version changed
+    nothing it looked at. The new check catches both. The builds of 10, 13 and 14 Oct all pass it.
+* **The serve-speed coefficient now follows the daily collector.** A match from 8 Oct 2026 (the collector's first day)
+  takes the coefficients fitted on the daily feed's history. A match before it (a replay) keeps the weekly set.
+  * **The numbers for 2026 (the 10 Oct build):** speed coefficient 0.0338 (weekly 0.0369); men's slope 0.9008
+    (0.9004). The women's slope is unchanged (0.9223), because women have no speed term.
+  * **What it moves:** re-predicting the three live runs of 11 and 13 Oct (13 men's matches) moves each chance by
+    0.09–0.16 points on average and 0.19 points at most. A replay of 15 Jul comes out the same, bit for bit.
+  * `predictions.csv` gains a `speed_feed` column ("daily" or "weekly"), and the provenance records the rule.
+* **Tests:** 7 new fast tests pass, and so do the 6 existing fast tests here and the master pipeline's 33. The slow
+  replay tests were not rerun: their replay day is before 8 Oct, and the same predict code reproduced such a replay
+  bit for bit.
+* **Also changed, in your master notebook's code:** its stage-2 listing labels the new daily records "2026 daily"
+  (`src/pipeline/train.py`).
+
 ## Stage 0's builders and a name fix (11 Oct 2026, afternoon)
 
 You approved editing `stage0_build.py` and `feature_alpha_audit/repair_data.py` for speed, "with proof that the new
@@ -59,6 +116,7 @@ Stage 0 is byte-identical to today's", and asked me to delete the leftover folde
 * **I recommend:** live runs use the daily set (2026's coefficients refitted on `spd_L_D`, applied as the daily
   feed). Replays of days before 8 Oct keep the weekly set.
 * This moves live predictions slightly, by design, so it's your call. Shall I make it?
+* **Decided by the owner on 14 Oct 2026: yes. Done the same day** (the section at the top).
 
 ## Speed-ups (11 Oct 2026)
 
@@ -168,9 +226,13 @@ listed first.
 
 The steps, in run_day's order: `refresh` (box scores first: prediction_run's), `matchups`, `prices`, `worktree` (a
 fresh sandbox copy, the instance's constants installed), `tables` (Stage 0 with the live rows, the accepted packages,
-the level layer resolved, Stage 1's odds, the timeline), `states` (the 57 inputs from the checkpoint, and the gate),
+the level layer resolved, Stage 1's odds, the timeline), `states` (the 57 inputs from the checkpoint, and the gate;
+since 16 Oct 2026 also `ios_ace_recent.parquet`: the surface IOS's ace ratings of the live rows and of every match solved
+since the checkpoint, at no extra solving, the 57 inputs unchanged),
 `patterns` (since 13 Oct 2026, while the five-pattern adjustment is on: its live score, from
-`src/eda/unpriced_leads/live_members.py` inside the work tree; [decision](../../decisions/2026-10-13-five-pattern-adjustment.md)),
+`src/eda/unpriced_leads/live_members.py` inside the work tree; its fast-courts pattern reads the instance's own surface
+IOS table with those ratings laid over it, since 16 Oct, and `live_patterns.json` counts venue history left without a
+rating; [decision](../../decisions/2026-10-13-five-pattern-adjustment.md)),
 `fit` (16 seeds, every live match at 91 prices and its own), `predict` (stage 2 with the pattern term;
 `predictions.csv` keeps `q_a`, the prediction used, and adds `q_a_patterns_off` and `q_a_patterns_on`; `curves.parquet`,
 `provenance.json`; a live run also archives to `predictions/<day>/records/`, since 13 Oct beside the master
@@ -223,6 +285,16 @@ back costs its full recompute: an IOS solve 1–6 minutes, the forms about 2, th
 builders write into their own folders, so they never run in the repository), with the prediction run's licence for
 live rows. The checkpoint's copies of the instance's constants files are installed into it first. A replay holds
 Tennis My Life's dump at the 8 Oct freeze and the timeline at the template's, as the 10 Oct layer replay did.
+**Since 16 Oct 2026 a replay rebuilds the instance's own tables** (`dp_common.replay_tables`, recorded in the run's
+`replay_tables.json`):
+* **its dump view:** `DP_FREEZE_DUMP`, else the registry `data/studies/daily_prediction/replay_views.json`;
+* **the additions its build merged:** `accepted_at_build.json`, else `chain_additions.json`, else the registry;
+* **the template's timeline,** put in right after Stage 0 is built, before the additions merge.
+
+Until then every replay used the 8 Oct view and today's `accepted.json`. Since the lower-level feed (14 Oct) that failed
+at the merge ("duplicate ... timeline rows"). An instance with neither record is refused. **A new instance needs its
+view frozen** (`level_layer_adoption/freeze_dump.py`, at the start of the Stage 0 rebuild its build copied) and added
+to the registry.
 
 **Tables.** `prediction_run`'s own preparation, run unchanged, without the three steps that reach no input (Stage 0's
 and the timeline's report-only checks, and `match_timing/rebuild.py`, whose columns the surface IOS replaces).
@@ -276,7 +348,7 @@ its numbers decide nothing).
 | 3 | Where states live | Kept in `data/studies/daily_prediction/state/` (gitignored by its own file) for now; PLAN.md's `data/state/<instance>/` once this runs daily (`DP_STATE` switches it) |
 | 4 | Stage 2's 2026 coefficients, computed here by the decided fit (they read 2019–2025 results) | Keep them: the decided recipe needs them for any 2026 forecast |
 | 5 (11 Oct) | May I edit `stage0_build.py` and `feature_alpha_audit/repair_data.py` to read their text columns as plain arrays (or tell the daily_update_speed session to)? | **Yes**: likely about a minute a day, proven byte-equal against today's Stage 0 before use. *(Approved and done 11 Oct: byte-identical, 45–65 s saved)* |
-| 7 (11 Oct) | Stage 2's speed feed: the daily set (`spd_L_D`) for live runs, as the decision says once the daily collector runs (it has since 8 Oct)? | **Yes**, the weekly set kept for replays of days before 8 Oct |
+| 7 (11 Oct) | Stage 2's speed feed: the daily set (`spd_L_D`) for live runs, as the decision says once the daily collector runs (it has since 8 Oct)? | **Yes**, the weekly set kept for replays of days before 8 Oct<br>**Decided 14 Oct by the owner: yes. Done** (the section at the top) |
 | 8 (11 Oct) | Lower-level history in live runs. The first live day (12 Oct's Shanghai R32, run by the notebook session) found Tennis My Life's post-freeze revisions in its tables: 30 old tour-qualifying matches under revised ids, 20 Challengers revised. A template build on those tables would be refused, but live runs take the day's dump and only report it. Hold the lower-level history at the 8 Oct freeze in live runs, accept the revisions, or refuse such runs? | **Hold it at the freeze**, so that live inputs follow the recipe the template was trained on. Main-tour rows keep flowing in, and new lower-level data keeps entering only as accepted packages<br>**Decided 13 Oct by the owner: accept the revisions** (the other option; [decision](../../decisions/2026-10-13-tml-lower-level-revisions.md)). Tennis My Life's own lower-level corrections enter live runs at once, as the live path already does, and training at the next rebuild. `history.py` lists them as `tml_lower`. Other sources' lower-level data still enters only as accepted packages or through the lower-level feed |
 | 6 (11 Oct) | 56 GB of disk for TabPFN's caches (int8 caches would halve it but change the numbers) | **Keep the exact caches**: the disk is available (160 GB free), and int8 would move predictions |
 
@@ -292,7 +364,9 @@ its numbers decide nothing).
 | TabPFN's caches (gitignored, 54 GB) | `data/studies/daily_prediction/state/template_2026-10-10/tabpfn/season<Y>/seed<k>/` |
 | Stage 0's byte-identity proof (11 Oct) | `src/eda/daily_prediction/dp_stage0_equiv.py`; records `data/studies/daily_prediction/stage0_speed/` |
 | The checks behind the tests | `dp_selftest.py`; tests `test/daily_prediction/` |
+| Stage 2's sync and speed-feed proof (14 Oct) | `dp_stage2_proof.py`; tests `test/daily_prediction/test_stage2_sync.py`; records `data/studies/daily_prediction/checks/stage2_proof/` (the baseline of the code before, the new outputs, `diff_base_new.json`, `instances.json`) |
 | Checkpoints (gitignored) | `data/studies/daily_prediction/state/template_2026-10-10/<day>/` |
 | Runs, checks, logs | `data/studies/daily_prediction/{runs,checks,logs}/`; stage 2's coefficients `stage2/` |
 
 Nothing outside `src/eda/daily_prediction/`, `test/daily_prediction/`, `data/studies/daily_prediction/` and this folder was created or edited (checked), but one row at the top of the studies index (`docs/studies/README.md`), as the plan's session did: the builders, `prediction_run/` and the prototypes are imported as they are. The work trees live outside the repository (`C:/Users/zerom/tnr_daily*`) and are deleted at the end of each run.
+*14 Oct, part 4: also edited outside them, as the section at the top says: two listings in `src/pipeline/train.py`, an amendment of the 8 Oct decision, CLAUDE.md's stage-2 line and the master pipeline README's decision 2.*

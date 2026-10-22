@@ -1,6 +1,6 @@
 # The master pipeline notebook: data → model → predictions, without asking an LLM
 
-11 October 2026, **updated 13 October: the bet-time output is now the bet sheet** ([below](#the-bet-sheet-a5); process log, Part 2) · For the owner · Process log: [process_log.md](process_log.md) · The design as the critics saw it: [design_v1.md](design_v1.md); briefs: [subagent_briefs.md](subagent_briefs.md) · **Not a decision:** the notebook runs the current best model as decided and changes nothing in its recipe.
+11 October 2026, **updated 13 October: the bet-time output is now the bet sheet** ([below](#the-bet-sheet-a5); process log, Part 2); **updated 20 October: TabPFN-3.5-Thinking beside the local model, US odds only** ([below](#tabpfn-35-thinking-beside-the-local-model-20-oct-2026); process log, Part 6); **updated 22 October: the qualifying of the 250s and above is predicted and bet** ([below](#qualifying-of-the-250s-and-above-22-oct-2026); process log, Part 8) · For the owner · Process log: [process_log.md](process_log.md) · The design as the critics saw it: [design_v1.md](design_v1.md); briefs: [subagent_briefs.md](subagent_briefs.md) · **Not a decision:** the notebook runs the current best model as decided and changes nothing in its recipe.
 
 ## In short
 
@@ -20,12 +20,8 @@
   * The notebook shows what is fresh and runs the rest by hand. Only B6 touches the shared tables.
   * **Since 13 Oct 2026, B8:** the lower-level feed and the coverage alarm (`tp.feed_status()`, `tp.lower_level_feed()`). A second Windows task keeps the levels Tennis My Life does not publish (ITF, WTA 125, women's qualifying, men's Challenger qualifying) flowing into every build and prediction run, and A1 prints the feed's snapshot and any coverage alarm ([the 2026 data gaps](../data_gaps_2026/README.md)).
 * **The model switch:** `MODEL = "tabpfn35"` or `"tabpfn35_thinking"`.
-  * **tabpfn35** is the current best model: local TabPFN-3.5, 57 inputs, seeds 0–15, and stage 2 with its walk-forward calibration slope. It works today.
-  * **tabpfn35_thinking** is ready on the retrain side: a free cost quote of the season fit, then the one paid fit when you say so. Daily predictions with it wait for two things:
-    * the daily_prediction session's `--model thinking`, which we agreed it builds, since it owns the fit;
-    * your decisions below.
-
-    Until then the predict cell says exactly what it waits for.
+  * **tabpfn35** is the current best model alone: local TabPFN-3.5, 57 inputs, seeds 0–15, and stage 2 with its walk-forward calibration slope.
+  * **tabpfn35_thinking** (wired 20 Oct 2026, [below](#tabpfn-35-thinking-beside-the-local-model-20-oct-2026)) is that same run plus TabPFN-3.5-Thinking beside it, uncalibrated. The bet sheet shows both models and decides on their 50/50 average in log-odds. It needs `SPEND_TOKENS = True`.
 * **Prediction-time data was the missing piece, and it now exists.**
   * One call pulls Pinnacle's listing: the live price you decided on, and the matchups.
   * The linker ties each match to Tennis My Life's event and to Stage 0's players.
@@ -37,6 +33,69 @@
   * **A name swap, now fixed.** `predictions.csv` could print a player's probability beside the other player's name. I found it; the daily_prediction session fixed it.
   * **14 active players can never be predicted.** Their name points to two Stage 0 ids, which would stop a whole run; Jakub Mensik is one. The linker now leaves them out.
   * **A rebuild would fill the disk.** Its sandbox copies 55 GB of TabPFN caches it doesn't use.
+  * **A run started from a shell without conda died silently (14 Oct, fixed the same day).** numpy's math library could not find the right version of its own parts, and the run stopped in its states step about 12 minutes in, with no error message. Three bet-day runs were lost. The runner now puts each step's environment folders first on PATH, as `conda activate` does, whichever shell starts the notebook (`test/master_pipeline/test_runner_env.py`; process log, Part 4).
+
+## Qualifying of the 250s and above (22 Oct 2026)
+
+Made after your decision of 22 Oct: *"We've done enough tests to conclude we should be betting the qualifying rounds of 250+ tournaments. Build the acceptance of this into A1-A5 so we can predict on them using the live model"* ([decision](../../decisions/2026-10-22-qualifying-bets.md); the evidence: [the qualifying study](../qualifying_targets/README.md); process log Part 8).
+
+**What changed for you: nothing in how you run A1 to A5.** Qualifying matches of ATP and WTA 250s, 500s, 1000s and Slams now come through A2 like main-draw matches, are predicted in A4 and appear on the bet sheet. Their round shows as Q1, Q2 or Q3. Challenger, WTA 125 and ITF qualifying still stay out.
+
+**The model is the live one, unchanged:** the same instance, the same 16 seeds, the same calibration (learned from main draws). A qualifying match's inputs are built exactly as in the study that measured the edge.
+
+**How A2 places a qualifying match.** Pinnacle's listing says only "ATP Almaty - Qualifiers", so A2 works out two things itself:
+* **The event.** It is found in Tennis My Life's results once the event has any. Before that (every round 1, and all women's qualifying, which Tennis My Life does not carry), A2 builds it from the event's edition a year earlier: its surface, indoor setting, level and draw size.
+* **The round.** A2 reads it from TennisLive's live results of the event: neither player has played yet, round 1; both won round 1, round 2. A round TennisLive cannot confirm (for example a player whose result is missing there) is left out with the reason; run A2 again later.
+
+**Blocked: a round 2 or 3 whose round before is missing from the data.** The model needs each player's earlier qualifying result, as in training.
+* **Men:** Tennis My Life publishes qualifying results within hours. Until it has round 1, round 2 is blocked; run A1 and A3b again later.
+* **Women:** their qualifying results reach the data only through the weekly lower-level feed, so **women's rounds 2 and 3 are blocked on the day.** Women's round 1 can be bet. A same-day source for women's results is possible (the WTA's own API lists them); it is not built.
+
+**What the checks showed:**
+* **The inputs are the study's, exactly.** The engine's inputs for 956 past qualifying matches (both tours, Slams included) equal the study's to the last bit.
+* **A replay of 17 Oct's round 1 (Almaty, Brussels) built as live rows gave all 57 inputs exactly**, once each match carried its main draw's start date. That date matters: before the main draw is played, the data would date the event by its first qualifying day, which moved 19 inputs (up to 2.4 sets in "sets in the last 14 days").
+* **A2 estimates the main draw's start:** exact for 81% of the 2025–26 qualifying matches, within a day for 97%, never more than 2 days off.
+* **An event built from last year's edition matched what was later published**, on 778 men's round-1 matches of 2026: indoor, level, best-of 100%; surface 99%; players' ages within a day.
+* **On the listing of 16 Oct 22:58 UTC**, A2 placed 32 of the 33 qualifying matches of Almaty, Brussels, Ningbo and Osaka. The one left out needs a name alias (Pinnacle's "Joel Josef Schwaerzler" is Tennis My Life's "Joel Schwaerzler").
+
+**Not tested on qualifying, and on as for every match:**
+* **The five-pattern adjustment.** As on a main-draw match, it can move a forecast by up to about 5 points (the replay's 16 matches: up to about 3). One of its parts reads the players' seeding, which in qualifying is a qualifying seed. The sheet's "Model chance without patterns" shows the forecast the study measured.
+* **The Thinking ensemble**, when `MODEL = "tabpfn35_thinking"`.
+
+## TabPFN-3.5-Thinking beside the local model (20 Oct 2026)
+
+Made after your request of 20 Oct: *"a tabpfn 3.5 paid thinking version I can run IN ADDITION to the tabpfn3.5 nonthinking version, so I can see their results side by side in the tennis bet sheet … We'll use basically a 50/50 ensemble to calculate edge/expected profit."* Recorded as a [decision](../../decisions/2026-10-20-thinking-beside-local.md); process log Part 6.
+
+**Why A4 refused before.** The refusal came from the notebook's own guard, before any call to the API. The daily engine had no way to run Thinking, so `predict_day` stopped there. Setting `spend_tokens=True` would not have helped.
+
+**How to use it:**
+1. In Setup, set `MODEL = "tabpfn35_thinking"` and `SPEND_TOKENS = True`.
+2. Run A1 to A5 as usual.
+   * **A4** runs the local model as before, then makes one paid Thinking call for all the run's matches (about 32–35k tokens).
+   * **The first Thinking run on a new instance** first makes that instance's season fit (about 180k tokens and 8 minutes). The active instance, `template_2026-10-16`, has none yet, so your first run makes it.
+   * **A5** shows the sheet below. A6 reprices both models off their stored curves, at no cost.
+
+**What Thinking is.** The same model in everything but how it is called and that its probabilities are not calibrated:
+* the same 57 inputs and exactly the same training rows (the engine checks their hash against the fit's);
+* the same rows to predict (each match at 91 prices and its own, both orientations averaged);
+* seed 0;
+* ~~no stage 2~~ no calibration slope, but stage 2's serve-speed term is added: the local b̃ · `spd_L`, men only (the owner, the evening of 20 Oct 2026: "should still move with the serve speed numbers ... just not the calibration"; process log Part 7).
+
+The 13 Oct paid answers, replayed through the new step without any token, came out identical to that day's comparison.
+
+**The bet sheet now:**
+* **Odds:** only US odds, everywhere. The "Lowest odds to take" column is in US odds too, and any price above it is better.
+* **A Thinking run's chances:** "Model chance", then the non-thinking, the thinking and the ensemble chance without patterns. The ensemble is the two chances averaged 50/50 in log-odds (your answer of 20 Oct: 60% and 70% give 65.2%, 10% and 20% give 14.3%), and "Model chance" adds the five-pattern adjustment to it.
+* **Training rows:** both models train on 2013–2025 for the 2026 season (the annual protocol). The in-season growth you decided on 9 Oct is not built yet ([the decision](../../decisions/2026-10-20-thinking-beside-local.md), "Cost and limits").
+* **What uses the ensemble:** the edge, the expected profit, the decision and the stake.
+* **If the Thinking call fails:** the sheet is the local model's alone, and its first note says so; A4 prints a warning in capitals.
+
+| Bet sheet columns | Local run | Thinking run |
+|---|---|---|
+| Odds | US odds, Lowest odds to take (both American) | the same |
+| Chances | Model chance, Model chance without patterns, Market chance | Model chance, Non-thinking / Thinking / Ensemble chance without patterns, Market chance |
+
+**Not measured:** the ensemble on past seasons. A walk-forward test needs a paid Thinking fit per season (about 1.3M tokens for 2019–2025). The 8 Oct study found uncalibrated Thinking level with the calibrated local model on 58 inputs.
 
 ## A bet day, in seven cells
 
@@ -46,7 +105,7 @@
 | A2 | `tp.record_pinnacle()`, `tp.todays_matches()` | Pinnacle's listing now (three paced requests, raw copies and receipts); each match linked or left out with its reason | ~10 s |
 | A3 | `tp.build_matchups(matches)`, `tp.check_matchups(...)` | The matchups CSV (`only=` / `drop=` to choose); the daily pipeline's own refusals checked first | seconds |
 | A3b | `tp.data_check(MATCHUPS)` | **Since 13 Oct:** the run's gate applied before the run, [below](#the-data-check-a3b) | ~100 s; ~20 s when nothing new was downloaded |
-| A4 | `tp.predict_day(MATCHUPS, model=MODEL)` | The template check, then the daily pipeline's `run_day --refresh` (seeds 0–15) in a new run folder and the notebook's own work tree | ~7 min warm; the first run on new tables 23 min (11 Oct) |
+| A4 | `tp.predict_day(MATCHUPS, model=MODEL, spend_tokens=SPEND_TOKENS)` | The template check, then the daily pipeline's `run_day --refresh` (seeds 0–15) in a new run folder and the notebook's own work tree; with `"tabpfn35_thinking"`, one paid Thinking call after the local fit (and the instance's season fit first, once) | ~7 min warm; the first run on new tables 23 min (11 Oct); Thinking adds about a minute (8 more for a season fit) |
 | A5 | `tp.bet_diagnostics(RUN)` | The bet sheet, below | seconds |
 | A6 | `tp.reprice(RUN)` | A new Pinnacle price, read off the run's stored curve (no refit), then a new bet sheet | seconds |
 
@@ -60,23 +119,27 @@ Made 13 Oct after your question: *"Why would there be no box score? … wouldnt 
 
 **Why the three 11 Oct matches were blocked.** Tennis My Life *had* the Laver Cup box scores. Our Stage 0 rejected two of them, which blocked three matches: it read the 10-8 and 13-11 match tiebreaks as full sets, so the box scores looked like part of a 41- and a 43-game match. That reading is now repaired, as you approved ([decision](../../decisions/2026-10-13-match-tiebreak-reading.md)). Exactly those 2 matches change in all of Stage 0.
 
-**The check** (`src/pipeline/readiness.py`) tells you before the 10-minute run which matches the run's gate will block.
+**The check** (`src/pipeline/readiness.py`) tells you before the 10-minute run what the run's gate will do to each match.
 * **It reads what the run reads:**
   * Stage 0 built now on the downloads on disk, by the run's own builder, into a cache (never the shared tables);
   * the lower-level packages and feeds merged in, by the run's own merge.
-* **It applies the gate's rule:** every earlier match of either player, at the event or in the 14 days before, needs a usable box score, and a qualifier needs a qualifying match.
-* **Each match is "ready", "ready once filled" or "will be blocked"** ("ready once filled": the run fills a women's box score from the WTA's own feed), with the cause and what fixes it:
+* **It applies the gate's rule** (replaced on 14 Oct 2026, [decision](../../decisions/2026-10-14-box-score-gate.md)): every earlier match of either player, at the event or in the 14 days before, is checked for a usable box score. A missing one never blocks:
+  * of a kind training nearly always has (main tour, Challenger / WTA 125, qualifying above ITF level), a bet needs a 1-point edge;
+  * of a kind training mostly lacks (team events, ITF), it is only noted.
+
+  A qualifier without a qualifying match still blocks.
+* **Each match is "ready", "ready once filled", "needs a 1-point edge" or "will be blocked"** ("ready once filled": the run fills the box score from an official feed), with the cause and what fixes it:
 
 | Cause | What fixes it |
 |---|---|
-| Tennis My Life has none yet | Wait, run A1 again, then A3b. Women's tour matches after 8 Oct: the run fills them itself. Men's: no other source yet |
-| Tennis My Life has it, but our consistency check rejected it | A data repair (as for the Laver Cup); blocked until then |
+| Tennis My Life has none yet | Wait, run A1 again, then A3b. The run fills women's tour matches after 8 Oct from the WTA's own feed |
+| Tennis My Life has it, but our consistency check rejected it | A data repair (as for the Laver Cup); until then a 1-point edge |
 | A match from the lower-level feed lacks one | Its source's next publication, taken at the feed's next snapshot (B8) |
-| A qualifier without a qualifying match | Nothing on the day |
+| A qualifier without a qualifying match | Nothing on the day: blocked |
 
-**It agrees with the real gate.** On the 11 Oct run's own Stage 0 and matchups it blocks the same three matches, for the same cause, after checking the same number of earlier matches; a test holds it to that. On today's repaired data the same eight are all ready.
+**It agrees with the real gate.** On the 11 Oct run's own Stage 0 and matchups it checks the same earlier matches and finds the same three gaps; a test holds it to that. Those were the Laver Cup's, a team event, so under the rule of 14 Oct they are only noted and all eight matches are ready.
 
-**The run stays the authority.** It downloads once more, then decides with its own gate, which also checks the indoor input that only the run builds. The check errs toward a block: a match missing from the shared timeline gets a cautious window.
+**The run stays the authority.** It downloads once more, then decides with its own gate, which also checks the indoor input that only the run builds. The check errs toward a gap: a match missing from the shared timeline gets a cautious window.
 
 ## The bet sheet (A5)
 
@@ -85,7 +148,7 @@ Made 13 Oct after your question: *"if I were a businessman looking at this infor
 **What changed is the presentation only.** Rebuilt from the same run at the same times, the two 11 Oct files are reproduced exactly: 52 of 52 columns, 81 and 31 rows. The one difference is intended: the run's notes are said once, in the header, instead of on every row.
 
 * **The file:** `predictions/<day>/bet_sheet_<made>.xlsx`, a new one each call. Its sheets:
-  * **Bet sheet:** one row per match, BET first, then PASS, then BLOCKED, colour-coded. A row gives the start in your time zone, the match as Pinnacle lists it, the decision and the player, the stake, Pinnacle's odds (decimal and US), the lowest odds still worth taking (1 / model chance), the model's and the market's chance, the edge in points, the expected profit, the event, and a plain note: why a PASS or a block, or a thin edge.
+  * **Bet sheet:** one row per match, BET first, then PASS, then BLOCKED, colour-coded. A row gives the start in your time zone, the match as Pinnacle lists it, the decision and the player, the stake, Pinnacle's US odds, the lowest US odds still worth taking (1 / model chance), the model's and the market's chance, the edge in points, the expected profit, the event, and a plain note: why a PASS or a block, or a thin edge. Since 20 Oct every price is in US odds (the decimal column is gone), and a Thinking run shows the non-thinking, the thinking and the ensemble chance without patterns ([above](#tabpfn-35-thinking-beside-the-local-model-20-oct-2026)).
   * **Matches:** every figure of both players.
   * **Not predicted.**
   * **Run:** provenance.
@@ -110,11 +173,12 @@ Everything is side A / side B as the daily pipeline's Stage 0 fixes them; the na
 |---|---|
 | The match | day, start (UTC), minutes to start, tour, event, round, best of, surface, indoor (and its source) |
 | The price | source, quote time and age, Pinnacle's odds for both players (with its margin), overround, the margin-free price the model was fed (`p_market_a`), Pinnacle's stake limit |
-| The model | `p_base_a` (stage 1), `eta`, `spd_L` with each man's serve-speed readings in 28 days, `q_a`/`q_b` (both stages: the forecast), fair odds 1/q for both, the spread of the 16 seeds |
+| The model | `p_base_a` (stage 1), `eta`, `spd_L` with each man's serve-speed readings in 28 days, `q_a`/`q_b` (both stages: the forecast), fair odds 1/q for both, the spread of the 16 seeds. A Thinking run (since 20 Oct): `q_a` and everything computed from it are the 50/50 ensemble's, with `q_a_local`, `q_a_local_patterns_off` and `q_a_thinking` beside them; the record's odds stay decimal (expected profit is computed from them), the sheet shows them in US odds |
 | The patterns (since 13 Oct 2026) | The five-pattern adjustment ([decision](../../decisions/2026-10-13-five-pattern-adjustment.md)): `patterns` (on/off), `q_a_patterns_off` and `q_a_patterns_on` (`q_a` is the one used), `pattern_shift_pts_a`, the decision without it (`pick_patterns_off`, `ev_a_pinnacle_patterns_off`, `ev_b_pinnacle_patterns_off`), and `patterns_effect` ("bet only with the patterns", "the patterns remove this bet", "the patterns switch the side"). The sheet shows "Model chance without patterns" and says in Notes when the patterns make or switch a bet |
 | The bet | `edge_a` = q − p; the **pick** is the side whose EV at Pinnacle's own odds, margin included, is positive; `min_odds_to_bet` = 1/q, the least odds still +EV at any venue before fees; its EV at Pinnacle; EV at another venue when you pass its prices (`venue_prices={...}`: odds, or a Polymarket share price) |
 | Break-even | every side-A price where the model's curve crosses q = p, the one nearest the current price, or "none in [0.05, 0.95]". Curves cross 0 to 3 times (a replay: 6, 9, 1 and 7 matches) |
-| Blocked | no pick and no EV when:<br>• the gate says do not bet<br>• not a main-tour match, or an unsupported format<br>• the match has started<br>• the quote is over 30 min old<br>• a price or player read-back mismatch<br>• a new price off the curve<br>• no bookmaker odds with their margin, without which EV would flatter every pick |
+| The edge bar (since 14 Oct 2026) | `gate_edge_bar`: an earlier main-tour, Challenger or qualifying match lacks a box score (`gate_detail` says whose), so a side is picked only if its forecast moved 1 point against it is still +EV at the odds; `passed_by_bar`: the +EV side the bar took away (a PASS that says so). `gate_notes`: missing box scores of kinds the model was trained without (team events, ITF), noted only ([decision](../../decisions/2026-10-14-box-score-gate.md)) |
+| Blocked | no pick and no EV when:<br>• the gate says do not bet (since 14 Oct: only an unknown indoor input, or a qualifier with no qualifying match; since 22 Oct also a qualifying round whose player's round before is missing)<br>• neither a main-tour match nor tour-level qualifying (bet since 22 Oct), or an unsupported format<br>• the match has started<br>• the quote is over 30 min old<br>• a price or player read-back mismatch<br>• a new price off the curve<br>• no bookmaker odds with their margin, without which EV would flatter every pick |
 | Warnings | this match's own: a player new since Stage 0, seeds that disagree, missing speed form. The run's own notes (the history check, recomputed state parts, an unclean results download) go to the provenance and the sheet's header since 13 Oct |
 | Not predicted | one row per listed match of the window that was left out, with the reason |
 
@@ -162,11 +226,11 @@ A small team, as you asked:
 
 ## Limits
 
-* **First rounds can't be predicted.** The daily pipeline needs a played match of the event, so tomorrow's Wuhan first round waits.
+* **First rounds can't be predicted.** The daily pipeline needs a played match of the event, so tomorrow's Wuhan first round waits. *Since 22 Oct 2026 this holds for main-draw first rounds only:* a qualifying round 1 is built from its previous edition ([above](#qualifying-of-the-250s-and-above-22-oct-2026)). The same could serve main-draw first rounds; not done, since nothing about them was asked.
 * **14 active players can't be predicted.** Their name keys point to two Stage 0 ids (decision 3).
-* **Thinking's daily predictions are not wired yet** (above).
+* ~~**Thinking's daily predictions are not wired yet** (above).~~ **Wired 20 Oct 2026**, beside the local model ([above](#tabpfn-35-thinking-beside-the-local-model-20-oct-2026)). Its ensemble with the local model is not measured on past seasons.
 * **The daily pipeline can't be switched to a new instance from the notebook.** Its session is adding `DP_INSTANCE`; until then `use_instance()` lists the steps.
-* **Stage 2 reads the weekly speed set** (decision 2).
+* **Stage 2 reads the weekly speed set** (decision 2). *Fixed 14 Oct: live runs read the daily set.*
 * **The gate marks women who came through qualifying "do not bet".** Tennis My Life has no WTA qualifying since June.
 * **BetOnline's line, when Pinnacle has none, is entered by hand** (`manual_matchups`).
 * **The notebook checks names against the shared Stage 0 of 8 Oct.** A player new since then is found in Tennis My Life's rows instead, and the run's own refreshed Stage 0 holds them.
@@ -175,11 +239,11 @@ A small team, as you asked:
 
 | # | Question | My recommendation |
 |---|---|---|
-| 1 | **Thinking:** approve paid use? | **Yes, in steps.** First the free quote (C9; it costs nothing). Then one paid fit for 2026, about 180k tokens billed (an estimate from past receipts). Then daily predictions on that saved fit, about 30k tokens a day, seed 0 only. Use stage 2's 8 Oct research rule (η + the local b̃·spd_L, no slope; Thinking's own slope was 0.99), labelled research, with no edge credit, until paid back-season fits (about 1.3M billed) allow a calibrated slope. One fit per season rather than refitting daily (the in-season policy would cost about 5.5M a month for a gain of 0.001–0.01 mLL). The API's terms for betting use were not checked. **13 Oct, at your request:** the 2026 fit was made on the active instance (181,901 tokens; `thinking/template_2026-10-10/season2026/fit.json`), and today's five Shanghai matches were predicted with it, uncalibrated (one call, 31,572 tokens; `src/eda/thinking_live_compare/`; process log Part 3). Daily Thinking predictions are still not wired. |
-| 2 | Stage 2's speed set: the decision says `spd_L_D` once the daily collector runs, and it has run daily since 8 Oct; the code still uses `spd_L_B` | **Switch live runs to `spd_L_D`** as the decision says, replays before 8 Oct keeping `spd_L_B`. It changes predictions, so it is yours. The daily_prediction session is asking you too. |
+| 1 | **Thinking:** approve paid use? | **Yes, in steps.** First the free quote (C9; it costs nothing). Then one paid fit for 2026, about 180k tokens billed (an estimate from past receipts). Then daily predictions on that saved fit, about 30k tokens a day, seed 0 only. Use stage 2's 8 Oct research rule (η + the local b̃·spd_L, no slope; Thinking's own slope was 0.99), labelled research, with no edge credit, until paid back-season fits (about 1.3M billed) allow a calibrated slope. One fit per season rather than refitting daily (the in-season policy would cost about 5.5M a month for a gain of 0.001–0.01 mLL). The API's terms for betting use were not checked. **13 Oct, at your request:** the 2026 fit was made on the active instance (181,901 tokens; `thinking/template_2026-10-10/season2026/fit.json`), and today's five Shanghai matches were predicted with it, uncalibrated (one call, 31,572 tokens; `src/eda/thinking_live_compare/`; process log Part 3). Daily Thinking predictions are still not wired.<br>**Decided 20 Oct by the owner:** Thinking runs beside the local model, never alone; its own probability, uncalibrated, no serve-speed term; the bet sheet decides on the 50/50 average in log-odds ([decision](../../decisions/2026-10-20-thinking-beside-local.md)). Wired the same day: `MODEL = "tabpfn35_thinking"`, `SPEND_TOKENS = True`. Seed 0 only, and the patterns after the average: both confirmed by you the same day. The first season fit, `template_2026-10-16`'s, was made by A4 at 08:16–08:23 (181,901 tokens). |
+| 2 | Stage 2's speed set: the decision says `spd_L_D` once the daily collector runs, and it has run daily since 8 Oct; the code still uses `spd_L_B` | **Switch live runs to `spd_L_D`** as the decision says, replays before 8 Oct keeping `spd_L_B`. It changes predictions, so it is yours. The daily_prediction session is asking you too.<br>**Decided 14 Oct by the owner: yes. Done in the daily pipeline the same day** (matches from 8 Oct take the daily set; `predictions.csv`'s `speed_feed` says which; [its report](../daily_prediction/README.md)). |
 | 3 | 14 active players with two Stage 0 ids (Mensik, Landaluce, Gigante, …) | **Two fixes.** The daily pipeline should take each player's id from the matchups CSV (my CSV already carries `stage0_id_a/b`). The duplicates should be merged as a repair, through the candidate route since some rows are lower-level. |
 | 4 | The rebuild sandbox copies `data/studies` whole, including 55 GB of TabPFN caches (disk: 106–119 GB free) | **Exclude `daily_prediction`, `prediction_run` and `master_pipeline` from `run_chain`'s copy.** It changes no output. Until then `build_instance` refuses below 130 GB free, with this explanation. |
-| 5 | A Pinnacle cadence: pulls are by hand today | **Add a pull to the scheduled task during events** (hourly, plus near match starts). It records a price history and the closing lines your 9 Oct decision would retrain on. Cadence is a download decision, so it is yours. |
+| 5 | A Pinnacle cadence: pulls are by hand today | **Add a pull to the scheduled task during events** (hourly, plus near match starts). It records a price history and the closing lines your 9 Oct decision would retrain on. Cadence is a download decision, so it is yours. *21 Oct 2026:* the closing lines now come daily from TennisExplorer (the daily task's `pinnacle_closes` job, on your word; [research](../../research/pinnacle-gap/README.md)). A price history through the day from Pinnacle's own site stays open. |
 | 6 | Where the layer lives (CLAUDE.md's table has no row for it) | **Add a row:** "Operator pipeline (the notebook's functions): `src/pipeline/`". |
 | 7 | A stake column | ~~Leave it off until a staking rule is decided.~~ **13 Oct: shown**, since you asked "by how much?". It uses your 8 Oct research rule, which sizes by the price only, labelled on the sheet; `STAKE_RULE = None` hides it. **Still open:** a decided staking rule, and whether a bet needs a minimum expected profit. Today any +EV counts, even Fils' +0.3% on 11 Oct, which the sheet flags as thin. |
 | 8 | The four held Tennis My Life Challenger files (2022–2025; rows vanished upstream) | Review them before accepting (B2). They are lower-level data, so accepting one changes the lower-level history. Nothing in this work touched them.<br>**Done 13 Oct (owner's word; [decision](../../decisions/2026-10-13-tml-lower-level-revisions.md)):** checked by a scratch rebuild ([report](../tml_revisions/README.md)): cleanup, not damage. 24 Stage 0 matches change, all men's Challengers: duplicates removed, a misplaced match restored, keys rebuilt. No main-tour match changes. Accepted at 18:48. |
@@ -190,11 +254,13 @@ A small team, as you asked:
 | What | Where |
 |---|---|
 | The notebook | `scripts/master_pipeline.ipynb` (kernel: the `tennis` conda env) |
-| The layer | `src/pipeline/`:<br>• `config` (paths, interpreters read from the shims)<br>• `runner` (streamed steps, logs, receipts, dry runs)<br>• `overview` (status)<br>• `data`, `train`, `live`, `predict`, `diagnostics` (the record)<br>• `bet_sheet` (the sheet, the workbook, the notebook's view; since 13 Oct)<br>• `readiness` (the data check, `tp.data_check`; since 13 Oct)<br>• `thinking` and `thinking_api` (season fits) |
+| The layer | `src/pipeline/`:<br>• `config` (paths, interpreters read from the shims)<br>• `runner` (streamed steps, logs, receipts, dry runs)<br>• `overview` (status)<br>• `data`, `train`, `live`, `predict`, `diagnostics` (the record)<br>• `bet_sheet` (the sheet, the workbook, the notebook's view; since 13 Oct)<br>• `readiness` (the data check, `tp.data_check`; since 13 Oct)<br>• `thinking` and `thinking_api` (season fits)<br>• `qualifying` (a qualifying match's event, round and main-draw start; since 22 Oct) |
+| The qualifying checks (22 Oct) | `src/eda/master_pipeline/qualifying_dates.py` (the main-draw start against training's dates), `qualifying_rows_check.py` (built round-1 rows against published ones); their outputs, the replays' frame and logs in `data/studies/master_pipeline/qualifying_replay/`; the replays in `data/studies/daily_prediction/runs/replay_2026-10-19_Q*_qualifying*/`; the engine's input checks in `data/studies/daily_prediction/checks/tree_check_*_qualifying.json` |
+| Thinking's daily call (since 20 Oct) | the daily engine's `src/eda/daily_prediction/dp_thinking.py` (`run_day --thinking --spend-tokens`); each run's query, paid call and receipts in its `thinking/` folder; the season fits in `data/studies/master_pipeline/thinking/<instance>/season<Y>/` |
 | The data checks | `data/studies/master_pipeline/data_check/`: each check's table and gaps, and the Stage 0 cache (`stage0/`, rebuilt when its downloads or code change) |
 | The bet sheets | `predictions/<day>/bet_sheet_*.xlsx`; their records, provenance and the daily engine's archive in `predictions/<day>/records/` |
 | The Pinnacle recorder | `src/ingest/pinnacle.py`; raw `data/raw/pinnacle/<day>/`, staged `data/dump/odds/pinnacle/pulls/<day>/` |
 | Logs, receipts, matchups CSVs, Thinking records | `data/studies/master_pipeline/` |
-| Tests | `test/master_pipeline/` (`./python.sh -m pytest test/master_pipeline -q`, 38 tests on 13 Oct, about 40 s) |
+| Tests | `test/master_pipeline/` (`./python.sh -m pytest test/master_pipeline -q`, 46 tests on 14 Oct, about 4 minutes on a busy machine; `test_qualifying.py`, 8 offline tests, since 22 Oct); Thinking's step: `test/daily_prediction/test_thinking.py` (6 tests, offline, 20 Oct) |
 
 Nothing outside these, this folder and two index rows (`docs/studies/README.md`, `scripts/README.md`) was created or edited. No git command changed anything.

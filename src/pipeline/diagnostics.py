@@ -28,12 +28,28 @@ What a row says (review D2's rules, process log 11:00):
                      the one nearest the current price, or "none in [0.05, 0.95]"
     stake            only with stake_rule="owner_8oct": the owner's research rule of 8 Oct 2026 (units, not a decided
                      staking rule; tabpfn_thinking58/common.stake)
-    flags            blocked (no pick, no EV) with the reasons: the gate's "do not bet" (gate_detail: whose earlier
-                     match lacks a box score), not a main-tour match, an unsupported format, a started match, a stale
-                     quote, a price or player read-back mismatch, a price off the curve; warnings (this match's own):
-                     players new since Stage 0, seeds that disagree, missing serve-speed form
+    flags            blocked (no pick, no EV) with the reasons: the gate's "do not bet" (since 14 Oct 2026 only an
+                     unknown indoor input or a qualifier without a qualifying match; since 22 Oct 2026 also a
+                     qualifying match whose round before is missing), neither a main-tour match nor tour-level
+                     qualifying (bet since 22 Oct 2026), an unsupported format, a started match, a stale quote, a price
+                     or player read-back mismatch, a price off the curve; warnings (this match's own): players new
+                     since Stage 0, seeds that disagree, missing serve-speed form
+    the edge bar     gate_edge_bar (gate.EDGE_BAR, 14 Oct 2026; docs/decisions/2026-10-14-box-score-gate.md): an earlier
+                     match of a kind the training rows nearly always hold lacks a box score (gate_detail: whose), so a
+                     side is picked only if its forecast moved the bar against it is still +EV; passed_by_bar: the
+                     side the bar took away. gate_notes: missing box scores of kinds the training rows mostly lack (team
+                     events, ITF), noted only
     decision         BET (a pick), PASS (no side +EV at Pinnacle's odds), BLOCKED, NOT PREDICTED; home_side: the side
                      Pinnacle lists first
+    Thinking         a run with TabPFN-3.5-Thinking beside the local model (MODEL "tabpfn35_thinking", 20 Oct 2026): q_a,
+                     q_a_patterns_off and everything computed from them (edge, EV, the pick, fair odds, the break-even
+                     prices) are the ensemble's (the two chances averaged 50/50 in log-odds, then the patterns while
+                     on); beside them q_a_local (the local model, with the patterns while
+                     on), q_a_local_patterns_off and q_a_thinking (Thinking's chance: the API's own plus stage 2's
+                     serve-speed term, uncalibrated, no patterns; q_a_thinking_api the API's own, from the evening of
+                     20 Oct 2026).
+                     When the run's Thinking call failed, the row is the local model's alone and the run's notes say so
+The odds in the record stay decimal (EV is computed from them); the sheet shows them as US odds only (20 Oct 2026).
 The run's own notes (the history check, recomputed state parts, an unclean results download) apply to every match:
 they go to the provenance sidecar and the sheet's header, once, not into every row.
 A newer price (reprice) is read off the run's curve, so edge and EV are always at the same moment as the price.
@@ -235,29 +251,50 @@ BOX_CAUSES = {"failed_check": "Tennis My Life has it, but our consistency check 
               "one_side": "Tennis My Life's is incomplete", "partial": "Tennis My Life's is incomplete"}
 
 
-def _gate_gaps(run: Path) -> dict:
+def _gate_gaps(run: Path) -> tuple[dict, dict]:
     """Per live match, whose earlier match lacks a usable box score and why: "Casper Ruud's Laver Cup RR match (Tennis
-    My Life has it, but our consistency check rejected it)" (the gate's own list; the cause from the run's Stage 0)."""
+    My Life has it, but our consistency check rejected it)" (the gate's own list; the cause from the run's Stage 0).
+    Two dicts: the gaps that set the edge bar (since 14 Oct 2026: a kind the training rows nearly always hold; before,
+    every gap, and each blocked the bet) and the gaps only noted (team events, ITF)."""
     p = run / "gate_missing.csv"
     if not p.exists():
-        return {}
+        return {}, {}
     g = pd.read_csv(p).astype({"live_match_id": str, "match_id": str})
+    if "effect" not in g.columns:                       # a run before 14 Oct 2026: every gap counted
+        g["effect"] = "edge bar"
     s0 = run / "stage0" / "stage0_matches.parquet"
     status = (pd.read_parquet(s0, columns=["match_id", "box_status"]).astype({"match_id": str})
               .set_index("match_id")["box_status"] if s0.exists() else pd.Series(dtype=object))
-    out = {}
-    for mid, rows in g.groupby("live_match_id", sort=False):
+    out = ({}, {})
+    for (mid, eff), rows in g.groupby(["live_match_id", "effect"], sort=False):
         items = []
         for r in rows.itertuples():
             cause = BOX_CAUSES.get(status.get(r.match_id))
-            items.append(f"{r.player_name}'s {r.tournament_name} {r.round} match" + (f" ({cause})" if cause else ""))
+            kind = f"{r.kind}, " if eff == "note" and isinstance(getattr(r, "kind", None), str) else ""
+            items.append(f"{r.player_name}'s {r.tournament_name} {r.round} match" +
+                         (f" ({kind}{cause})" if cause else (f" ({kind[:-2]})" if kind else "")))
         items = list(dict.fromkeys(items))
-        out[mid] = items[0] if len(items) == 1 else ", ".join(items[:-1]) + " and " + items[-1]
+        out[0 if eff != "note" else 1][mid] = items[0] if len(items) == 1 else ", ".join(items[:-1]) + " and " + items[-1]
     return out
 
 
 def _sha(p: Path) -> str | None:
     return hashlib.sha256(p.read_bytes()).hexdigest() if p.exists() else None
+
+
+def _thinking_line(th: dict | None) -> str:
+    """The run's Thinking call in one line, for the sheet's Run tab: the fit, the served model, the tokens, or why not."""
+    th = th or {}
+    if th.get("ensemble") != "on":
+        return f"asked for, failed: {th.get('failed') or 'no Thinking forecast in the run'}"
+    parts = []
+    for season, s in sorted((th.get("seasons") or {}).items()):
+        served = s.get("served") or {}
+        parts.append(f"season {season}: fit {s.get('fitted_train_set_id')} (seed 0), served {served.get('weights')} "
+                     f"(package {served.get('package_version')}), {s.get('query_rows')} rows, "
+                     f"{s.get('tokens_used_daily_counter')} tokens on the daily counter")
+    return f"on, weight {th.get('weight_local')} local / {1 - float(th.get('weight_local') or 0.5)} Thinking; " + \
+        "; ".join(parts)
 
 
 def _id(x) -> str | None:
@@ -329,7 +366,13 @@ def bet_diagnostics(run: str | Path | None = None, *, reprice_file: str | Path |
     mu = pd.read_csv(run / "matchups_input.csv") if (run / "matchups_input.csv").exists() else None
     hist = _read_json(run / "history.json").get("history", {})
     states = _read_json(run / "states.json")
-    model = _read_json(run / "pipeline_model.json").get("model", CFG.LOCAL)
+    prov = _read_json(run / "provenance.json")
+    # Thinking beside the local model (20 Oct 2026): asked for when predictions.csv carries its columns; the ensemble is
+    # what the run predicted only when its call succeeded (else the local model alone, said once in the notes)
+    asked = "q_a_thinking" in pred.columns or \
+        _read_json(run / "pipeline_model.json").get("model") == CFG.THINKING_MODEL
+    ensemble = bool(len(pred)) and "ensemble" in pred.columns and (pred["ensemble"].astype(str) == "on").all()
+    model = CFG.THINKING_MODEL if ensemble else CFG.LOCAL
     spread = _seed_spread(run)
     rep = rep_prices = None
     if reprice_file:
@@ -344,7 +387,11 @@ def bet_diagnostics(run: str | Path | None = None, *, reprice_file: str | Path |
     speed = _speed_coverage(min(str(pred["day"].max())[:10], f"{now.astimezone():%Y-%m-%d}"))
     download = _download_warning(run)
     notes = _run_notes(run, hist, recomputed, download)      # the run's own: said once, not on every row
-    gaps = _gate_gaps(run)
+    if asked and not ensemble:
+        notes.insert(0, {"plain": "TabPFN-3.5-Thinking was asked for, but its call failed: every chance, edge and "
+                                  "decision on this sheet is the current best model's alone. A new run (A4) tries again.",
+                         "detail": f"thinking: {(prov.get('thinking') or {}).get('failed') or 'no Thinking forecast'}"})
+    gaps, noted = _gate_gaps(run)
     rows = []
     for (_, p), m in zip(pred.iterrows(), _matchup_rows(pred, mu)):
         mid = p["match_id"]
@@ -355,6 +402,8 @@ def bet_diagnostics(run: str | Path | None = None, *, reprice_file: str | Path |
         # the five-pattern adjustment (switched on 13 Oct 2026): q_a is the prediction used; q_off the one without it
         status = p.get("patterns") if isinstance(p.get("patterns"), str) else "off"
         q_off = _num(p.get("q_a_patterns_off"), q_a if status == "off" else float("nan"))
+        # an ensemble run: q_a and q_off are the 50/50 log-odds ensemble's; each model's own chance beside them
+        each = {c: _num(p.get(c)) for c in ("q_a_local", "q_a_local_patterns_off", "q_a_thinking")} if ensemble else {}
         d_a = d_b = over = limit = float("nan")
         home_is_a = None
         if m is not None:
@@ -382,6 +431,7 @@ def bet_diagnostics(run: str | Path | None = None, *, reprice_file: str | Path |
             r = rep.loc[mid]
             p_mkt, q_a = float(r["p_market_a"]), float(r["q_a"])
             q_off = _num(r.get("q_a_patterns_off"), q_a if status == "off" else float("nan"))
+            each = {c: _num(r.get(c)) for c in each}            # each model's curve read at the new price too
             if math.isnan(q_a):
                 blocked.append(f"new price off the curve ({r.get('note')}): needs a new run")
             if rep_prices is not None and mid in rep_prices.index:
@@ -399,12 +449,21 @@ def bet_diagnostics(run: str | Path | None = None, *, reprice_file: str | Path |
             if naive:
                 warn.append("the quote time carries no time zone: read as UTC")
         gate = str(p["gate"])
-        if gate != "may be bet":
-            blocked.append(f"gate: {gate}" + (f" ({p['gate_reason']})" if isinstance(p.get("gate_reason"), str) else ""))
+        if not gate.startswith("may be bet"):         # since 14 Oct 2026 only the indoor and qualifier checks block
+            # the gate's blocking reasons, without its counts of missing box scores (gate_detail names those)
+            why = [x.strip() for x in p["gate_reason"].split("; ") if x.strip() and not re.match(r"^\d+ earlier", x.strip())] \
+                if isinstance(p.get("gate_reason"), str) else []
+            blocked.append(f"gate: {gate}" + (f" ({' | '.join(why)})" if why else ""))
+        # the edge bar a missing box score of a kind the training rows nearly always hold sets (gate.EDGE_BAR); a run
+        # made before 14 Oct 2026 has none
+        bar = _num(p.get("gate_edge_bar"), 0.0)
+        bar = 0.0 if math.isnan(bar) else bar
         f = frame.loc[mid] if mid in frame.index else None
         if f is not None:
-            if not bool(f.get("main", True)):
-                blocked.append("not a main-tour match (outside the model's population)")
+            # the main tour, and since 22 Oct 2026 its qualifying (docs/decisions/2026-10-22-qualifying-bets.md); a run
+            # made before then has no "bettable" column and reads "main" as before
+            if not bool(f.get("bettable", f.get("main", True))):
+                blocked.append("not a main-tour or tour-level qualifying match (outside the model's population)")
             if not bool(f.get("format_supported", True)):
                 blocked.append("unsupported match format")
         if not math.isnan(mins_to_start) and mins_to_start <= 0:
@@ -432,8 +491,15 @@ def bet_diagnostics(run: str | Path | None = None, *, reprice_file: str | Path |
         else:
             ev_a, ev_b = q_a * d_a - 1, q_b * d_b - 1
             ev_a_off, ev_b_off = q_off * d_a - 1, (1 - q_off) * d_b - 1
-        pick = "A" if ev_a > 0 else ("B" if ev_b > 0 else "")
-        pick_off = "A" if ev_a_off > 0 else ("B" if ev_b_off > 0 else "")
+        # with a bar, a side is picked only if its forecast moved the bar against it is still +EV at the odds (the
+        # rule the gate review's replay tested); the EVs reported stay the forecast's own
+        bars = [((q_a - bar) * d_a - 1, (q_b - bar) * d_b - 1),
+                ((q_off - bar) * d_a - 1, (1 - q_off - bar) * d_b - 1)] if bar > 0 else \
+            [(ev_a, ev_b), (ev_a_off, ev_b_off)]
+        pick = "A" if bars[0][0] > 0 else ("B" if bars[0][1] > 0 else "")
+        pick_off = "A" if bars[1][0] > 0 else ("B" if bars[1][1] > 0 else "")
+        # the side the bar took away (it was +EV, but not by the bar)
+        under_bar = ("A" if ev_a > 0 else ("B" if ev_b > 0 else "")) if bar > 0 and not pick else ""
         roots = curve_roots(x, qc) if len(x) else []
         nearest = min(roots, key=lambda r: abs(_logit(r) - _logit(p_mkt))) if roots else float("nan")
         if not len(x):
@@ -474,6 +540,7 @@ def bet_diagnostics(run: str | Path | None = None, *, reprice_file: str | Path |
             "nearest_break_even_p_a": round(nearest, 4) if not math.isnan(nearest) else None,
             "break_even_note": edge_note or None,
         }
+        row.update({c: round(v, 6) if math.isfinite(v) else None for c, v in each.items()})
         q_pick = q_a if pick == "A" else (q_b if pick == "B" else float("nan"))
         if blocked:
             pick = pick_off = ""
@@ -495,7 +562,9 @@ def bet_diagnostics(run: str | Path | None = None, *, reprice_file: str | Path |
         if stake_rule == "owner_8oct" and pick:
             from src.eda.tabpfn_thinking58.common import stake
             row["stake_units_owner_8oct_research"] = round(float(stake(row["pinnacle_odds_pick"])), 3)
-        row.update({"status": "predicted", "gate": gate, "gate_detail": gaps.get(mid), "blocked": bool(blocked),
+        row.update({"status": "predicted", "gate": gate, "gate_detail": gaps.get(mid),
+                    "gate_edge_bar": bar if bar > 0 else None, "gate_notes": noted.get(mid),
+                    "passed_by_bar": under_bar if under_bar and not blocked else None, "blocked": bool(blocked),
                     "block_reasons": "; ".join(blocked) or None, "warnings": "; ".join(warn) or None,
                     "home_side": None if home_is_a is None else ("A" if home_is_a else "B"),
                     "match_id": mid, "run": run.name})
@@ -505,9 +574,9 @@ def bet_diagnostics(run: str | Path | None = None, *, reprice_file: str | Path |
     if link.exists() and left_out != "none":   # the window's other listed matches, with the reason each was left out
         lk = pd.read_csv(link)
         lk = lk[~lk["status"].eq("ok")]
-        if left_out == "main":                  # main-tour singles only (not Challengers, 125s, ITF, doubles, in-play)
-            lk = lk[lk["league"].astype(str).str.match(r"^(ATP|WTA) (?!Challenger|125)", case=False)
-                    & ~lk["league"].astype(str).str.contains("Doubles|Qualif", case=False)]
+        if left_out == "main":                  # main-tour singles and their qualifying (not Challengers, 125s, ITF,
+            lk = lk[lk["league"].astype(str).str.match(r"^(ATP|WTA) (?!Challenger|125)", case=False)   # doubles, in-play)
+                    & ~lk["league"].astype(str).str.contains("Doubles", case=False)]
         for _, r in lk.iterrows():
             rows.append({"day": r.get("day"), "start_utc": r.get("start_utc"), "tour": r.get("tour"),
                          "tournament": r.get("tourney_name") if isinstance(r.get("tourney_name"), str) else r.get("league"),
@@ -516,14 +585,14 @@ def bet_diagnostics(run: str | Path | None = None, *, reprice_file: str | Path |
                          "status": "not predicted", "blocked": True, "block_reasons": r.get("reason"),
                          "run": run.name, "pick": "", "decision": "NOT PREDICTED"})
     out = pd.DataFrame(rows)
-    prov = _read_json(run / "provenance.json")
     meta = {"run": CFG.rel(run), "run_name": run.name, "model": model,
             "instance": pred["instance"].iloc[0] if "instance" in pred else None,
             "checkpoint": pred["checkpoint"].iloc[0] if "checkpoint" in pred else None,
             "seeds": pred["seeds"].iloc[0] if "seeds" in pred else None, "stale_minutes": stale_minutes,
             "reprice_file": CFG.rel(reprice_file) if reprice_file else None, "venue_fee": venue_fee,
             "history_line": _read_json(run / "history.json").get("history_line"),
-            "speed_km_h": ((prov.get("stage2") or {}).get("speed") or {}).get("standardiser_km_h")}
+            "speed_km_h": ((prov.get("stage2") or {}).get("speed") or {}).get("standardiser_km_h"),
+            "thinking": _thinking_line(prov.get("thinking")) if asked else None}
     sheet = BS.build(out, made_at=now, stake_rule=stake_rule, venue=venue, notes=notes, meta=meta)
     if write:
         live = run.name.startswith("live_")
@@ -544,7 +613,8 @@ def bet_diagnostics(run: str | Path | None = None, *, reprice_file: str | Path |
                 "written_at": dt.datetime.now(dt.timezone.utc).isoformat(timespec="seconds"), "run": CFG.rel(run),
                 "model": model,
                 "instance": meta["instance"], "checkpoint": meta["checkpoint"],
-                "stage2": prov.get("stage2"), "state_parts": states.get("parts_summary"),
+                "stage2": prov.get("stage2"), "thinking": prov.get("thinking"),
+                "state_parts": states.get("parts_summary"),
                 "history": meta["history_line"], "run_notes": notes, "files": sheet.files,
                 "inputs": {n: _sha(run / n) for n in ("predictions.csv", "curves.parquet", "gate.csv",
                                                       "matchups_input.csv", "provenance.json")},

@@ -1,0 +1,39 @@
+{
+ "keys": {
+  "instance": "C:\\Users\\zerom\\Documents\\Tennis-predictions\\data\\studies\\current_best_model\\template_2026-10-16",
+  "frame_sha256": "58b72622c8bf364282223bb3275bc2fc7e3b0857009a752f46995753ace115db",
+  "inputs_sha256": "2de9e61b9317d53e3f123cb1dfb6381559c3598692eb934c6d1c2f17539cda0c",
+  "fit_files": 28,
+  "fits_sha256": "88959e6c08f43a57baff0e39ea6d62818806b7ac6b7c0795d0618ca0491521ed",
+  "fits_model": {
+   "tabpfn": "9.1.0",
+   "checkpoint": "tabpfn-v3.5-20260909.safetensors",
+   "config": {
+    "n_estimators": 8,
+    "softmax_temperature": 0.9,
+    "ignore_pretraining_limits": true
+   },
+   "inputs_sha256": "b69ab8ad74df341c893917108acbde33028b29aa2b9890f3f5682a860035b199",
+   "torch": [
+    "2.11.0+cu128"
+   ],
+   "devices": [
+    "NVIDIA GeForce RTX 5090"
+   ]
+  },
+  "feed": "daily",
+  "speed_column": "C:\\Users\\zerom\\Documents\\Tennis-predictions\\data\\studies\\infosys_atp_backfill\\speed_columns_augmented.parquet",
+  "speed_history": "spd_L_D",
+  "speed_column_sha256": "2add9204452900fbdc6abf9faa7097e4f836cafe669b6377137cda1c786d6b4b",
+  "season": 2026
+ },
+ "feed": "daily",
+ "s_atp": 0.9009685272835591,
+ "s_wta": 0.9234497919047319,
+ "b_shrunk": 0.033373488831578285,
+ "b_mle": 0.03796333241611558,
+ "se_b": 0.018542493792040274,
+ "fit": "current_best_model/compare.walk_forward: 2019 .. Y - 1, seeds 0-3 mean, debut seasons out, b shrunk with tau 0.05, on spd_L_D",
+ "matches": 32414,
+ "computed_at": "2026-10-18T211417Z"
+}

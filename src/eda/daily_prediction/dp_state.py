@@ -195,11 +195,43 @@ def forms_family(a: dict) -> dict:
     return out
 
 
+def write_ace_rows(path: Path, cache: dict, results: list[dict]) -> dict:
+    """The ace runs' ratings by match and side (srf_O_eff_ace, srf_D_eff_ace: each row's surface IOS as of its query
+    day, on the tree's tables): the target rows (the same values the inputs are made of) and every other row the run
+    solved since its checkpoint (dp_ios.recent_outputs). The unpriced-leads venue pace reads them for the history the
+    instance's own surface IOS table does not reach yet (live_members.py; 16 Oct 2026)."""
+    parts, rec = [], {}
+    for r in results:
+        if r["stat"] != "ace":
+            continue
+        td = cache[r["tour"]]
+        for src, o in (("target", r.get("out")), ("recent", r.get("recent"))):
+            if o is None or not len(o["rows"]):
+                continue
+            rw = np.asarray(o["rows"], dtype=np.int64)
+            parts.append(pd.DataFrame({"match_id": td["key_match"][rw].astype(str), "side": td["key_side"][rw].astype(str),
+                                       "player_id": td["key_player"][rw].astype(str), "tour": r["tour"],
+                                       "srf_O_eff_ace": np.asarray(o["O_eff"], dtype="float64"),
+                                       "srf_D_eff_ace": np.asarray(o["D_eff"], dtype="float64"), "source": src}))
+        rc = r.get("recent") or {}
+        rec[r["tour"]] = {"mode": r["mode"], "recent_rows": int(len(rc.get("rows", []))),
+                          "from_day": DC.date_of(int(np.floor(rc["from_day"]))) if rc else None,
+                          "to_day": DC.date_of(int(rc["to_day"])) if rc else None}
+    cols = ["match_id", "side", "player_id", "tour", "srf_O_eff_ace", "srf_D_eff_ace", "source"]
+    t = pd.concat(parts, ignore_index=True) if parts else pd.DataFrame(columns=cols)
+    t = t.drop_duplicates(["match_id", "side"], keep="first").reset_index(drop=True)      # a target's own row first
+    path = Path(path)
+    path.parent.mkdir(parents=True, exist_ok=True)
+    t.to_parquet(path, index=False)
+    return {"file": str(path), "rows": int(len(t)), "sha256": DC.sha256(path), "tours": rec}
+
+
 def ios_family(a: dict) -> dict:
     """The surface IOS's 21 inputs of the target matches, self-contained so that it runs in its own process from the
     start of inputs() (it reads no other family's output): the solver cache from the tree's tables, the 14 runs in
     worker processes with single-threaded BLAS (resumed where the slice is unchanged, else in full), three inputs a
-    statistic. a: target_ids, ck, d0, workers, cache_dir."""
+    statistic. a: target_ids, ck, d0, workers, cache_dir, and ace_rows (optional: a parquet path for write_ace_rows;
+    the ace runs then also return their recent rows, which changes none of the 21 inputs)."""
     t_all = time.time()
     target_ids = np.asarray(a["target_ids"]).astype(str)
     ck = Path(a["ck"]) if a.get("ck") else None
@@ -222,7 +254,7 @@ def ios_family(a: dict) -> dict:
         rows_a = tp["pos_a"].to_numpy()[sel].astype(np.int64)
         tg = np.sort(np.r_[rows_a, rows_a + 1])
         job = {"tour": tour, "stat": stat, "d0": d0 if d0 is not None else 0, "cache": str(cache_file),
-               "targets": tg.tolist()}
+               "targets": tg.tolist(), "recent": bool(a.get("ace_rows")) and stat == "ace"}
         if man is not None and len(tg):
             fi = man["families"]["ios"][f"{tour}_{stat}"]
             job.update({"mode": "resume", "ck": str(ck / fi["file"]), "expect": fi["slice"]})
@@ -246,6 +278,8 @@ def ios_family(a: dict) -> dict:
             ios.setdefault(name, np.full(len(target_ids), np.nan))[sel] = v
     out["ios_runs"] = {f"{r['tour']}_{r['stat']}": {"mode": r["mode"], "record": r.get("record"),
                                                    "seconds": r.get("seconds")} for r in results}
+    if a.get("ace_rows"):
+        out["ace_rows"] = write_ace_rows(Path(a["ace_rows"]), cache, results)
     try:
         cache_file.unlink()
     except OSError as e:
@@ -257,9 +291,10 @@ def ios_family(a: dict) -> dict:
 
 
 def inputs(tree: Path, read_only: bool, d0: int | None, ck: Path | None, target_ids, prices,
-           workers: int = 7, cache_dir: Path | None = None) -> tuple[pd.DataFrame, dict]:
+           workers: int = 7, cache_dir: Path | None = None, ace_rows: Path | None = None) -> tuple[pd.DataFrame, dict]:
     """The 57 inputs (the instance's order, in_<name>) of the target matches. ck None: every family in full (tier 2).
-    prices: the margin-free chance of each target's side A (the odds input).
+    prices: the margin-free chance of each target's side A (the odds input). ace_rows: also write the ace runs'
+    ratings of the targets and of the recent history there (write_ace_rows; the inputs are the same either way).
 
     Three processes (part 2: scheduling only, each family computes what it computed in one process): the surface IOS
     in its own from the start (ios_family), Stage B's forms in its own once Stage 3's table is written
@@ -296,7 +331,8 @@ def inputs(tree: Path, read_only: bool, d0: int | None, ck: Path | None, target_
     # the surface IOS, in its own process from the start (section 6 below collects it)
     job = {"target_ids": target_ids.tolist(), "ck": None if ck is None else str(ck), "d0": d0}
     ex = ProcessPoolExecutor(max_workers=2)
-    ios_fut = ex.submit(ios_family, {**job, "workers": workers, "cache_dir": str(cache_dir or (DC.OUT / "tmp"))})
+    ios_fut = ex.submit(ios_family, {**job, "workers": workers, "cache_dir": str(cache_dir or (DC.OUT / "tmp")),
+                                     "ace_rows": None if ace_rows is None else str(ace_rows)})
     # 1. the offset pass
     t0 = time.time()
     m, obs = PCS.stage0()

@@ -46,6 +46,8 @@ def held_tml_files() -> list[str]:
             current = CFG.TML_RAW / f"{parts[0]}.csv"
             if current.exists() and hashlib.sha256(current.read_bytes()).hexdigest()[:12] == parts[1]:
                 continue                         # accepted: the held version is the current copy
+            if current.exists() and current.stat().st_mtime > f.stat().st_mtime:
+                continue                         # superseded: a newer copy has been accepted since (21 Oct 2026)
             out.append(f"{parts[0]}.csv@{parts[1]}")
     return out
 
@@ -288,6 +290,8 @@ def morning_refresh(*, max_age_hours: float = 6, dry_run: bool = False) -> dict:
     print("Lower-level feed:", ", ".join(f"{k} {v}" for k, v in feeds.items()) or "none accepted yet")
     for cell in (out["feed"].get("coverage") or {}).get("alarm", [])[:12]:
         print("COVERAGE:", cell)
+    from .train import show_model_age
+    out["model_age"] = show_model_age()            # the owner's timer (20 Oct 2026): how old the training rows are
     return out
 
 

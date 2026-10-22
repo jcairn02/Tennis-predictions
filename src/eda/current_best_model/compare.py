@@ -255,6 +255,27 @@ def walk_forward(eta: pd.Series, info: pd.DataFrame, z: pd.Series | None, test) 
     return out
 
 
+def walk_forward_on(eta: pd.Series, info: pd.DataFrame, z: pd.Series | None, hist: pd.Index) -> tuple:
+    """(s_atp, s_wta, b_shrunk, b, se_b) fitted on the named history (debut seasons already left out): walk_forward's
+    fit with its rows given, for stage 2 grown at a retrain (2019 .. Y - 1 plus the season-Y matches it admits; the
+    owner, 20 Oct 2026). On hist = the seasons before Y it equals walk_forward(...)[Y] (test_training_rows.py)."""
+    e = eta.reindex(hist).to_numpy()
+    atp = (info.loc[hist, "tour"] == "atp").to_numpy()
+    y = info.loc[hist, "y"].to_numpy(float)
+    X = [np.where(atp, e, 0.0), np.where(~atp, e, 0.0)]
+    if z is not None:
+        zz = z.reindex(hist).to_numpy(float)
+        if not np.isfinite(zz).all():
+            raise SystemExit(f"the speed column lacks {int((~np.isfinite(zz)).sum())} history matches")
+        X.append(zz)
+    beta, se = C.fit_logistic(np.column_stack(X), y)
+    b = 0.0
+    if z is not None:
+        b = float(beta[2]) * C.TAU_NUDGE ** 2 / (C.TAU_NUDGE ** 2 + float(se[2]) ** 2)
+    return (float(beta[0]), float(beta[1]), b, float(beta[2]) if z is not None else 0.0,
+            float(se[2]) if z is not None else 0.0)
+
+
 def forecasts(p: pd.DataFrame, info: pd.DataFrame, params: dict, z: pd.Series | None, ids: pd.Index):
     """(the seed mean's forecast, the per-seed forecasts) on ids, with each season's s and b; women's column is 0."""
     lp = C.lg(p.reindex(ids).to_numpy())

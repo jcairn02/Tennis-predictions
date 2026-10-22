@@ -11,8 +11,11 @@ change in Stage 0:
       the input's WTA SD, or known in one frame only), before Roland Garros 2013, from it to the end of 2013, and in
       2014; and those that go from missing to known.
 Reads no result. Writes into <out>/input_dose/: coverage.csv, dose_rows.csv, timing.csv, summary.json.
-Usage: ./python.sh src/eda/rg_first_serve_recount/input_dose.py --candidate-stage0 C:/Users/zerom/tnr_sb/data/studies/predictability_diagnostic
+Usage: ./python.sh src/eda/rg_first_serve_recount/input_dose.py
+           --candidate-stage0 data/studies/current_best_model/2026-10-09_rg_box_scores/candidate_tables/predictability_diagnostic
            --out data/studies/current_best_model/2026-10-09_rg_box_scores
+       (the candidate's Stage 0 was first read in the build sandbox, C:/Users/zerom/tnr_sb; it was copied to
+       candidate_tables/ with equal hashes, and the sandbox removed, on 16 Oct 2026)
 """
 from __future__ import annotations
 

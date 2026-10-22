@@ -1,0 +1,24 @@
+# ./python.sh src/eda/current_best_model/odds_input.py --apply 'data\studies\current_best_model\template_2026-10-21b'
+# started 2026-10-21T15:28:24-07:00
+[    2.0s] link: 39,978 of 42,685 tennis-data rows; 39,978 events
+[oddstrader] every book: 0 events to pull of 39978 asked (39978 pulled before), 0 batches
+[oddstrader] download: {'requests': 0, 'batches': 0, 'events': 0, 'pulled_before': 39978}
+[oddstrader] staged: {'events': 91737, 'singles': 66967, 'lines': 506618, 'betonline_matches': 66967, 'books_lines': 2164713}
+C:\Users\zerom\Documents\Tennis-predictions\src\eda\odds_sources\common.py:84: RuntimeWarning: divide by zero encountered in divide
+  ia, ib = 1.0 / np.asarray(d_a, dtype=float), 1.0 / np.asarray(d_b, dtype=float)
+C:\Users\zerom\Documents\Tennis-predictions\src\eda\odds_sources\common.py:85: RuntimeWarning: invalid value encountered in divide
+  return ia / (ia + ib)
+C:\Users\zerom\Documents\Tennis-predictions\src\eda\odds_sources\table.py:95: RuntimeWarning: divide by zero encountered in divide
+  cols[f"over_{name}"] = np.where(ok, 1.0 / d_a + 1.0 / d_b, np.nan)
+[   40.7s] odds_sources.parquet: 67,531 matches; OddsTrader books kept 60
+{
+ "matches": 67531,
+ "by_source": {
+  "pinnacle (tennis-data)": 60739,
+  "pinnacle (oddstrader)": 957,
+  "betonline": 5280,
+  "average": 555
+ }
+}
+
+# ok, exit 0, 44.4 s

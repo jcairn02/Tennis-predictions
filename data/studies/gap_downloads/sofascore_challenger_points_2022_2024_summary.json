@@ -2,63 +2,30 @@
  "source": "sofascore_editions",
  "gap": "challenger_points_2022_2024",
  "targets_from": "frozen in data/studies/gap_downloads/sofascore_challenger_points_2022_2024_matches.csv",
- "started_at": "2026-10-11T14:18:07+00:00",
+ "started_at": "2026-10-14T14:59:39+00:00",
  "args": {
   "gap": "challenger_points_2022_2024",
   "refresh_targets": false,
-  "skip": [
-   "statistics"
-  ],
+  "skip": null,
+  "defer_uncovered": false,
   "limit": null,
-  "max_requests": 40000,
-  "min_interval": 2.0,
-  "jitter": 1.0,
-  "stage_only": false,
-  "no_stage": false,
-  "browser": "http://localhost:9222"
+  "editions": null,
+  "max_requests": 10000,
+  "min_interval": 1.0,
+  "jitter": 0.6,
+  "stage_only": true,
+  "no_stage": true,
+  "browser": null
  },
- "fetch_outcomes": {
-  "point-by-point:200": 1880,
-  "point-by-point:200:cached": 17,
-  "point-by-point:404": 3272
- },
- "client": {
-  "impersonate": "browser:155.0.8059.39",
-  "requests": 5198,
-  "retried": 1,
-  "slept_seconds": 11892.9,
-  "min_interval": 2.0,
-  "transport": "browser",
-  "cdp_url": "http://localhost:9222",
-  "page_reloads": 0,
-  "token_renewals": 0,
-  "renewals_failed": 0,
-  "site_data_resets": 0
- },
- "staged": {
-  "events": {
-   "rows": 75294,
-   "dest": "data/dump/points/sofascore_editions/events.parquet",
-   "bytes": 7986056
-  },
-  "points": {
-   "rows": 2608179,
-   "dest": "data/dump/points/sofascore_editions/points.parquet",
-   "bytes": 15179401
-  },
-  "statistics": {
-   "rows": 1162119,
-   "dest": "data/dump/points/sofascore_editions/statistics.parquet",
-   "bytes": 9978493
-  }
- },
+ "fetch_outcomes": {},
  "all": {
   "targets": 5781,
-  "listed": 5264,
-  "points_any": 1931,
-  "points_complete": 1891,
-  "points_absent": 3333,
+  "listed": 5238,
+  "points_any": 1922,
+  "points_complete": 1882,
+  "points_absent": 3316,
   "points_not_fetched": 0,
+  "points_deferred": 0,
   "full_box_score": 1,
   "stats_any": 1
  },
@@ -67,11 +34,12 @@
  "by_year_level": {
   "2022|CH": {
    "targets": 1553,
-   "listed": 1309,
-   "points_any": 49,
-   "points_complete": 49,
-   "points_absent": 1260,
+   "listed": 1295,
+   "points_any": 48,
+   "points_complete": 48,
+   "points_absent": 1247,
    "points_not_fetched": 0,
+   "points_deferred": 0,
    "full_box_score": 0,
    "stats_any": 0
   },
@@ -82,16 +50,18 @@
    "points_complete": 7,
    "points_absent": 573,
    "points_not_fetched": 0,
+   "points_deferred": 0,
    "full_box_score": 0,
    "stats_any": 0
   },
   "2023|CH": {
    "targets": 1099,
-   "listed": 1010,
+   "listed": 1006,
    "points_any": 1,
    "points_complete": 1,
-   "points_absent": 1009,
+   "points_absent": 1005,
    "points_not_fetched": 0,
+   "points_deferred": 0,
    "full_box_score": 0,
    "stats_any": 0
   },
@@ -102,16 +72,18 @@
    "points_complete": 0,
    "points_absent": 488,
    "points_not_fetched": 0,
+   "points_deferred": 0,
    "full_box_score": 0,
    "stats_any": 0
   },
   "2024|CH": {
    "targets": 1388,
-   "listed": 1215,
-   "points_any": 1212,
-   "points_complete": 1185,
+   "listed": 1207,
+   "points_any": 1204,
+   "points_complete": 1177,
    "points_absent": 3,
    "points_not_fetched": 0,
+   "points_deferred": 0,
    "full_box_score": 0,
    "stats_any": 0
   },
@@ -122,13 +94,14 @@
    "points_complete": 649,
    "points_absent": 0,
    "points_not_fetched": 0,
+   "points_deferred": 0,
    "full_box_score": 1,
    "stats_any": 1
   }
  },
  "pbp_verdicts": {
-  "nan": 3850,
-  "complete": 1820,
+  "nan": 3859,
+  "complete": 1811,
   "complete to retirement": 71,
   "other": 17,
   "no score to compare": 14,
@@ -152,7 +125,7 @@
    "locate_tried": "72/2022-06-07:108;72/2022-06-09:43;72/2022-06-06:135;72/2022-06-10:42;72/2022-06-04:62;72/2022-06-02:53;72/2022-05-31:97"
   }
  ],
- "matches_selected": 5264,
+ "matches_selected": 5238,
  "receipts_with_errors": 12,
  "error_examples": [
   {
@@ -204,6 +177,6 @@
    "error": "RuntimeError: TargetClosedError: Page.evaluate: Target page, context or browser has been closed for https://api.sofascore.com/api/v1/category/72/scheduled-events/2021-12-29 after 4 attempts"
   }
  ],
- "finished_at": "2026-10-11T17:59:18+00:00",
- "seconds": 13270.8
+ "finished_at": "2026-10-14T15:00:30+00:00",
+ "seconds": 51.5
 }

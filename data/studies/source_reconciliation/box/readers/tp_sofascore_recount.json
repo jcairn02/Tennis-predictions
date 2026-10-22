@@ -1,0 +1,371 @@
+{
+ "reader": "tp_sofascore_recount",
+ "written_at": "2026-10-16T22:17:39+00:00",
+ "file": "data/studies/source_reconciliation/box/readers/tp_sofascore_recount.parquet",
+ "snapshot_manifest_sha256": "fc299ad2f4f8c6221521b848403f763777a8553fe4603846fcfe01b059a8be7d",
+ "inputs": [
+  {
+   "path": "data/dump/points/sofascore/events.parquet",
+   "bytes": 899702,
+   "modified": "2026-09-24T19:10:44+00:00",
+   "sha256": "8f20003cfc1fc838cd9d2d86c195a7f16a7b9bd9276cdcfcf4a765f9f5d26051"
+  },
+  {
+   "path": "data/dump/points/sofascore/statistics.parquet",
+   "bytes": 1540907,
+   "modified": "2026-09-24T19:10:50+00:00",
+   "sha256": "bbc8ac767f5c9d726bf19101279a09a86947aa9dc382d6016fd567a0337f66f8"
+  },
+  {
+   "path": "data/dump/points/sofascore/points.parquet",
+   "bytes": 2147873,
+   "modified": "2026-09-24T19:10:48+00:00",
+   "sha256": "84ab30e72c47ac6e8d7eba38e6288599377b95ab493cd16ef1540e2ab4ec39cf"
+  },
+  {
+   "path": "data/dump/points/sofascore_editions/events.parquet",
+   "bytes": 20488761,
+   "modified": "2026-10-15T01:02:05+00:00",
+   "sha256": "f191bb1267c893774ac1d0cab8e97520d03a86c1aa1cdc05bf6b16af021a1321"
+  },
+  {
+   "path": "data/dump/points/sofascore_editions/statistics.parquet",
+   "bytes": 13057048,
+   "modified": "2026-10-15T01:01:53+00:00",
+   "sha256": "1cda3926ed9d24d9a395e227ef54869af6bb9423ee41d612feca260db90c680b"
+  },
+  {
+   "path": "data/dump/points/sofascore_editions/points.parquet",
+   "bytes": 36612369,
+   "modified": "2026-10-15T01:00:07+00:00",
+   "sha256": "4b24e41763701c03b1a142eac34dc89f803fb78c81cc740564a867d8c451ffe8"
+  },
+  {
+   "path": "data/dump/points/sofascore_tournaments/events.parquet",
+   "bytes": 537494,
+   "modified": "2026-09-30T14:56:30+00:00",
+   "sha256": "e81e064a1d57fa5666a3539b6ce5718a8ef39ed0997e5072c4d6cf615006be81"
+  },
+  {
+   "path": "data/dump/points/sofascore_tournaments/statistics.parquet",
+   "bytes": 1137275,
+   "modified": "2026-09-30T14:56:34+00:00",
+   "sha256": "bfe5f0fead13c6e79a93d942d3d1bcf1979930aac312696b537cfe8deccf9706"
+  },
+  {
+   "path": "data/dump/points/sofascore_tournaments/points.parquet",
+   "bytes": 1426404,
+   "modified": "2026-09-30T14:56:33+00:00",
+   "sha256": "aa74baf80b7001de41c751efb778fcc77970a1d2ecf2bb39d7a384a96297fe2f"
+  }
+ ],
+ "collections": {
+  "sofascore": {
+   "events_with_points": 3145,
+   "taken_from_here": 3145,
+   "point_rows": 368534
+  },
+  "sofascore_editions": {
+   "events_with_points": 53851,
+   "taken_from_here": 53848,
+   "point_rows": 6346036
+  },
+  "sofascore_tournaments": {
+   "events_with_points": 1632,
+   "taken_from_here": 1627,
+   "point_rows": 250664
+  }
+ },
+ "records_read": {
+  "events_with_points": 58620,
+  "linked_events_recounted": 48171
+ },
+ "dropped": {
+  "point_events_not_in_link_file": 10449,
+  "orientation_unresolved": 4
+ },
+ "checks": {
+  "listing_ok": 41710,
+  "sets_equal_event": 46003,
+  "sets_equal_stage0": 46286,
+  "complete": 40936,
+  "games": 1068092,
+  "games_ok": 1058266,
+  "tiebreak_games": 15963
+ },
+ "complete_by_collection": {
+  "sofascore_editions": 36787,
+  "sofascore": 2707,
+  "sofascore_tournaments": 1442
+ },
+ "contract_checks": {
+  "rows": 96334,
+  "matches": 48167,
+  "matches_with_two_rows": 48167,
+  "duplicate_match_player": 0,
+  "player_not_in_stage0_match": 0,
+  "source_keys_on_two_matches": 0
+ },
+ "winner_vs_stage0_complete_matches": {
+  "player_rows_with_a_winner": 78534,
+  "agree": 78534,
+  "disagree": 0,
+  "disagree_share": 0.0,
+  "disagree_examples": []
+ },
+ "winner_vs_stage0_all": {
+  "player_rows_with_a_winner": 90798,
+  "agree": 90714,
+  "disagree": 84,
+  "disagree_share": 0.00093,
+  "disagree_examples": [
+   "atp|2015-M-FU-GER-9A-2015|R32|atp:122310|atp:123828",
+   "atp|2019-544|R64|atp:121264|atp:144821",
+   "atp|2019-6239|R32|atp:104897|atp:105217",
+   "atp|2019-7849|R32|atp:126337|atp:200221",
+   "atp|2019-8297|R32|atp:105074|atp:111200",
+   "atp|2019-9154|R32|atp:106232|atp:200265",
+   "atp|2020-7009|R32|atp:105905|atp:122669",
+   "atp|2020-7845|SF|atp:105449|atp:111515",
+   "atp|2020-7880|R32|atp:105943|atp:111187",
+   "atp|2021-9548|R16|atp:106137|atp:126120"
+  ]
+ },
+ "definitions": "(what the records say, observed 16 Oct 2026 on all three collections):\n    * Each game lists the score AFTER each point (home_point, away_point: 0 15 30 40 A; tiebreak points as numbers).\n      A non-tiebreak game's last point is NOT listed: the game ends one point after the last listed score, won by the\n      game's winner (``scoring``). Tiebreak listings include their last point.\n    * ``serving`` is the server of a non-tiebreak game (the point described as an ace is won by that side in 11,693 of\n      11,734 listed points). In a tiebreak game ``serving`` is not the first server (an ace is won by the side the field\n      implies in 55% of tiebreak points only); the normal rotation is: the tiebreak's first server is the opponent of\n      the previous game's server (or of the previous tiebreak's first server), then two points each (aces won by that\n      side in 6,463 of 6,479 tiebreak points, double faults lost by it in 3,755 of 3,757).\n    * point_description 1 = ace, 2 = double fault, 0 = other. home/away_point_type codes describe break-point states\n      (2 = the returner holds a break point after the point) and are not used.\n    * No serve number: first_in, first_won, second_won cannot be recounted (NaN).\n    * Aces and double faults: the last point of each non-tiebreak game is not listed, so its type is unknown. The\n      recount gives the listed points' aces and double faults (x_ace_listed, x_df_listed) and the bounds the unlisted\n      points allow (x_ace_max = listed + games held: an ace can only win the server the game; x_df_max = listed + games\n      lost on serve); ``ace`` and ``df`` are NaN.\n    * svpt (every point served, the unlisted last points included), sv_won, sv_gms (completed non-tiebreak games\n      served), bp_faced (points of the player's non-tiebreak service games at which the returner would win the game by\n      winning the point; the state before a game's last point is its last listed score) and bp_saved; the set scores.\n    * complete: every game's listing is a valid point-by-point progression (one point at a time, a last point that can\n      end the game), the set scores from the games equal the event's own, and they equal Stage 0's score.",
+ "sanity_vs_stage0_complete_by_tour": [
+  {
+   "tour": "atp",
+   "field": "ace",
+   "n": 0,
+   "equal": 0,
+   "within1": 0,
+   "mean_diff": null,
+   "mean_abs_diff": null,
+   "equal_share": null,
+   "within1_share": null
+  },
+  {
+   "tour": "wta",
+   "field": "ace",
+   "n": 0,
+   "equal": 0,
+   "within1": 0,
+   "mean_diff": null,
+   "mean_abs_diff": null,
+   "equal_share": null,
+   "within1_share": null
+  },
+  {
+   "tour": "atp",
+   "field": "df",
+   "n": 0,
+   "equal": 0,
+   "within1": 0,
+   "mean_diff": null,
+   "mean_abs_diff": null,
+   "equal_share": null,
+   "within1_share": null
+  },
+  {
+   "tour": "wta",
+   "field": "df",
+   "n": 0,
+   "equal": 0,
+   "within1": 0,
+   "mean_diff": null,
+   "mean_abs_diff": null,
+   "equal_share": null,
+   "within1_share": null
+  },
+  {
+   "tour": "atp",
+   "field": "svpt",
+   "n": 69200,
+   "equal": 68505,
+   "within1": 68689,
+   "mean_diff": -0.0022543353,
+   "mean_abs_diff": 0.0245086705,
+   "equal_share": 0.9899566474,
+   "within1_share": 0.9926156069
+  },
+  {
+   "tour": "wta",
+   "field": "svpt",
+   "n": 9482,
+   "equal": 9418,
+   "within1": 9439,
+   "mean_diff": 0.0045349082,
+   "mean_abs_diff": 0.0188778739,
+   "equal_share": 0.9932503691,
+   "within1_share": 0.9954650918
+  },
+  {
+   "tour": "atp",
+   "field": "first_in",
+   "n": 0,
+   "equal": 0,
+   "within1": 0,
+   "mean_diff": null,
+   "mean_abs_diff": null,
+   "equal_share": null,
+   "within1_share": null
+  },
+  {
+   "tour": "wta",
+   "field": "first_in",
+   "n": 0,
+   "equal": 0,
+   "within1": 0,
+   "mean_diff": null,
+   "mean_abs_diff": null,
+   "equal_share": null,
+   "within1_share": null
+  },
+  {
+   "tour": "atp",
+   "field": "first_won",
+   "n": 0,
+   "equal": 0,
+   "within1": 0,
+   "mean_diff": null,
+   "mean_abs_diff": null,
+   "equal_share": null,
+   "within1_share": null
+  },
+  {
+   "tour": "wta",
+   "field": "first_won",
+   "n": 0,
+   "equal": 0,
+   "within1": 0,
+   "mean_diff": null,
+   "mean_abs_diff": null,
+   "equal_share": null,
+   "within1_share": null
+  },
+  {
+   "tour": "atp",
+   "field": "second_won",
+   "n": 0,
+   "equal": 0,
+   "within1": 0,
+   "mean_diff": null,
+   "mean_abs_diff": null,
+   "equal_share": null,
+   "within1_share": null
+  },
+  {
+   "tour": "wta",
+   "field": "second_won",
+   "n": 0,
+   "equal": 0,
+   "within1": 0,
+   "mean_diff": null,
+   "mean_abs_diff": null,
+   "equal_share": null,
+   "within1_share": null
+  },
+  {
+   "tour": "atp",
+   "field": "sv_gms",
+   "n": 69172,
+   "equal": 69035,
+   "within1": 69170,
+   "mean_diff": -0.0009975134,
+   "mean_abs_diff": 0.0020094836,
+   "equal_share": 0.9980194298,
+   "within1_share": 0.9999710866
+  },
+  {
+   "tour": "wta",
+   "field": "sv_gms",
+   "n": 9480,
+   "equal": 9427,
+   "within1": 9480,
+   "mean_diff": -0.004535865,
+   "mean_abs_diff": 0.0055907173,
+   "equal_share": 0.9944092827,
+   "within1_share": 1.0
+  },
+  {
+   "tour": "atp",
+   "field": "bp_saved",
+   "n": 69200,
+   "equal": 68824,
+   "within1": 69147,
+   "mean_diff": -0.0005780347,
+   "mean_abs_diff": 0.0066184971,
+   "equal_share": 0.994566474,
+   "within1_share": 0.999234104
+  },
+  {
+   "tour": "wta",
+   "field": "bp_saved",
+   "n": 9482,
+   "equal": 9435,
+   "within1": 9474,
+   "mean_diff": -0.0006327779,
+   "mean_abs_diff": 0.005905927,
+   "equal_share": 0.9950432398,
+   "within1_share": 0.9991562961
+  },
+  {
+   "tour": "atp",
+   "field": "bp_faced",
+   "n": 69200,
+   "equal": 68800,
+   "within1": 69132,
+   "mean_diff": 0.0002312139,
+   "mean_abs_diff": 0.0074855491,
+   "equal_share": 0.9942196532,
+   "within1_share": 0.999017341
+  },
+  {
+   "tour": "wta",
+   "field": "bp_faced",
+   "n": 9482,
+   "equal": 9432,
+   "within1": 9472,
+   "mean_diff": -0.0004218519,
+   "mean_abs_diff": 0.0071714828,
+   "equal_share": 0.9947268509,
+   "within1_share": 0.9989453702
+  },
+  {
+   "tour": "atp",
+   "field": "sv_won",
+   "n": 69200,
+   "equal": 68630,
+   "within1": 69087,
+   "mean_diff": -0.0026878613,
+   "mean_abs_diff": 0.0128034682,
+   "equal_share": 0.9917630058,
+   "within1_share": 0.998367052
+  },
+  {
+   "tour": "wta",
+   "field": "sv_won",
+   "n": 9482,
+   "equal": 9426,
+   "within1": 9468,
+   "mean_diff": -0.0003163889,
+   "mean_abs_diff": 0.0104408353,
+   "equal_share": 0.994094073,
+   "within1_share": 0.9985235182
+  }
+ ],
+ "hand_check": {
+  "keys": [
+   "atp|2021-9436|R16|atp:126127|atp:202385",
+   "wta|2023-520|R32|wta:220589|wta:220704",
+   "atp|2026-M-ITF-ECU-2026-6|R16|atp:126581|atp:200105",
+   "atp|2026-2791|Q1|atp:202113|atp:213051",
+   "atp|2026-M-ITF-TUR-2026-14|R32|atp:210099|atp:211684",
+   "atp|2025-375|R32|atp:106296|atp:136440"
+  ],
+  "status": "checked",
+  "checked_at": "2026-10-16T21:37:31+00:00",
+  "verdict": "6 of 6 keys checked by eye against the staged point rows (per game: listed points, serving, scoring, last listed score, aces and double faults described): listed points + one unlisted last point per non-tiebreak game = the recount's serve points (e.g. atp|2021-9436: 144 + 30 = 86 + 88), tiebreak points rotate as in tennis (atp|2026-M-ITF-ECU-2026-6: 4 + 4 for a 7-1 tiebreak); every recounted serve points, points won, service games, break points faced and saved equals Stage 0's in all 6; listed double faults equal Stage 0's in all 6 and listed aces are at or below Stage 0's (the rest on unlisted last points); orientation by names correct in all 6 (home was Stage 0's B in 2).",
+  "how": "tp_handcheck.py printed each key's raw staged rows (the source's own document as staged under data/dump/ or data/raw/) beside the reader's rows and Stage 0's names and counts; checked by eye: the player orientation (names) and every count of the mapping"
+ }
+}

@@ -1,0 +1,160 @@
+{
+ "reader": "atp_ks_sirgenkii",
+ "source": "data/dump/points/sirgenkii_infotennis/atp_key_stats.parquet",
+ "matches_with_set0_rows": 929,
+ "player_rows_set0": 1858,
+ "player_rows_with_values": 929,
+ "matches_with_both_players_valued": 0,
+ "reconstruction": {
+  "present_player_unique": 722,
+  "present_player_rows": 929,
+  "absent_player_unique": 720,
+  "solutions_present_player": {
+   "1": 454,
+   "2": 420,
+   "3": 37,
+   "4": 7,
+   "5": 3,
+   "6": 4,
+   "8": 1,
+   "9": 1,
+   "11": 1,
+   "13": 1
+  },
+  "solutions_absent_player": {
+   "1": 459,
+   "2": 429,
+   "3": 31,
+   "4": 3,
+   "5": 5,
+   "8": 1,
+   "323": 1
+  },
+  "joint_pairs": {
+   "1": 720,
+   "2": 207,
+   "3": 1,
+   "9": 1
+  }
+ },
+ "dropped": {
+  "present_player_not_in_results": 0
+ },
+ "linked": 929,
+ "link_methods": {
+  "event+id/id": 912,
+  "event+full/id": 15,
+  "event+anchor/id": 2
+ },
+ "unlinked": {},
+ "note_complete": "SirGenkii keeps no match-completion flag; complete=True means only that the copy holds set0 statistics of the match",
+ "results_rows": 1287,
+ "rows_written": 1858,
+ "matches_written": 929,
+ "sanity_vs_stage0": {
+  "all": {
+   "ace": {
+    "n": 929,
+    "equal": 1.0
+   },
+   "df": {
+    "n": 929,
+    "equal": 1.0
+   },
+   "svpt": {
+    "n": 1442,
+    "equal": 0.9958
+   },
+   "first_in": {
+    "n": 1442,
+    "equal": 0.9951
+   },
+   "first_won": {
+    "n": 1442,
+    "equal": 0.9979
+   },
+   "second_won": {
+    "n": 1442,
+    "equal": 1.0
+   },
+   "sv_gms": {
+    "n": 1858,
+    "equal": 0.9995
+   },
+   "bp_saved": {
+    "n": 929,
+    "equal": 0.9989
+   },
+   "bp_faced": {
+    "n": 929,
+    "equal": 0.9978
+   }
+  },
+  "complete": {
+   "ace": {
+    "n": 929,
+    "equal": 1.0
+   },
+   "df": {
+    "n": 929,
+    "equal": 1.0
+   },
+   "svpt": {
+    "n": 1442,
+    "equal": 0.9958
+   },
+   "first_in": {
+    "n": 1442,
+    "equal": 0.9951
+   },
+   "first_won": {
+    "n": 1442,
+    "equal": 0.9979
+   },
+   "second_won": {
+    "n": 1442,
+    "equal": 1.0
+   },
+   "sv_gms": {
+    "n": 1858,
+    "equal": 0.9995
+   },
+   "bp_saved": {
+    "n": 929,
+    "equal": 0.9989
+   },
+   "bp_faced": {
+    "n": 929,
+    "equal": 0.9978
+   }
+  }
+ },
+ "winner_vs_stage0": null,
+ "hand_checks": {
+  "by": "atp_handcheck.py (seed 20261016), read by the session on 16 Oct 2026",
+  "compared_with": "staged atp_key_stats.parquet set_n 0 rows (one valued, one -999 per match)",
+  "verdict": "5 of 5: the present player's aces, double faults, service games and break points faced equal the staged counts and bp_saved = share x faced; where the reconstruction is unique (3 of the 5 matches) its counts reproduce the four shares to five decimals and equal Stage 0; in 2 matches it is ambiguous and left NaN, as designed; the absent player's service games are the present player's return games",
+  "keys": [
+   {
+    "source_key": "2025_336_MS013",
+    "match_id": "atp|2025-336|R16|atp:200267|atp:209950"
+   },
+   {
+    "source_key": "2025_375_MS019",
+    "match_id": "atp|2025-375|R32|atp:126239|atp:208004"
+   },
+   {
+    "source_key": "2025_499_MS022",
+    "match_id": "atp|2025-499|R32|atp:111153|atp:124187"
+   },
+   {
+    "source_key": "2025_506_MS014",
+    "match_id": "atp|2025-506|R16|atp:105948|atp:211663"
+   },
+   {
+    "source_key": "2025_807_QS006",
+    "match_id": "atp|2025-807|Q2|atp:111578|atp:210460"
+   }
+  ]
+ }
+}

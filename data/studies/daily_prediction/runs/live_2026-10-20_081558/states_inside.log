@@ -1,0 +1,246 @@
+[    2.1s] loading matches, players and odds; applying the repair's data corrections
+[level_layer] ratings_iid atp: 158,099 lower-level rating matches; w at zero 30,385
+[level_layer] ratings_iid wta: 53,833 lower-level rating matches; w at zero 0
+[   56.8s] rows: 1,854,008 player-matches; box history eligible 1,775,352; ITF/team own-score standard 1,315,582
+[  68.6s]   constant rpw_first
+[  74.2s]   constant rpw_second
+[  80.2s]   constant bp_over
+[  86.8s]   constant win
+[  92.7s]   constant deciding
+[level_layer] points_52w spw: 15,684 lower-level rows of 33,452 admitted; translated 11,850; w at zero 312
+[level_layer] points_52w rpw: 15,684 lower-level rows of 33,452 admitted; translated 11,850; w at zero 312
+[ 142.8s]   history sums: columns 0-24 of 63
+[ 143.3s]   history sums: columns 24-48 of 63
+[ 143.7s]   history sums: columns 48-63 of 63
+[ 143.7s]   history sums done
+[ 144.1s]   meetings done
+{
+ "checkpoint": "C:\\Users\\zerom\\Documents\\Tennis-predictions\\data\\studies\\daily_prediction\\state\\template_2026-10-16\\2026-09-28",
+ "record": {
+  "checkpoint": "C:\\Users\\zerom\\Documents\\Tennis-predictions\\data\\studies\\daily_prediction\\state\\template_2026-10-16\\2026-09-28",
+  "d0": "2026-09-28",
+  "targets": 23,
+  "parts": {
+   "elo:atp": "resumed",
+   "elo:wta": "resumed",
+   "stage3:atp": "resumed",
+   "stage3:wta": "resumed",
+   "weighted:atp": "resumed",
+   "weighted:wta": "resumed",
+   "forms:": "resumed",
+   "ios:atp_ace": "resumed",
+   "ios:atp_df": "resumed",
+   "ios:atp_first_in": "resumed",
+   "ios:atp_first_won": "resumed",
+   "ios:atp_second_won": "resumed",
+   "ios:atp_hold": "resumed",
+   "ios:atp_bp_saved": "resumed",
+   "ios:wta_ace": "resumed",
+   "ios:wta_df": "resumed",
+   "ios:wta_first_in": "resumed",
+   "ios:wta_first_won": "resumed",
+   "ios:wta_second_won": "resumed",
+   "ios:wta_hold": "resumed",
+   "ios:wta_bp_saved": "resumed"
+  },
+  "seconds": {
+   "offset": 14.3,
+   "stage3": 16.5,
+   "stage4_rows": 94.5,
+   "weighted": 12.9,
+   "stage4_inputs": 6.9,
+   "pieces": 6.0,
+   "context": 9.8,
+   "waited_for_forms_and_ios": 11.4,
+   "forms_rows": 50.3,
+   "forms_context": 75.3,
+   "forms": 14.6,
+   "forms_family": 140.2,
+   "ios_cache": 84.1,
+   "ios_runs": 43.8,
+   "ios_family": 127.8,
+   "total": 173.2
+  },
+  "stage3_table": "written to C:\\Users\\zerom\\tnr_daily_nb\\data\\studies\\predictability_diagnostic\\stage3_ratings.parquet",
+  "stage4": {
+   "players": 46,
+   "subset_matches": 23807,
+   "seconds": 6.9
+  },
+  "forms_new_box_rows": 6098,
+  "ios_runs": {
+   "atp_ace": {
+    "mode": "resume",
+    "record": {
+     "days": 22,
+     "seconds": 2.39,
+     "not_converged": 0
+    },
+    "seconds": 7.99
+   },
+   "atp_df": {
+    "mode": "resume",
+    "record": {
+     "days": 22,
+     "seconds": 2.0,
+     "not_converged": 0
+    },
+    "seconds": 6.92
+   },
+   "atp_first_in": {
+    "mode": "resume",
+    "record": {
+     "days": 22,
+     "seconds": 1.89,
+     "not_converged": 0
+    },
+    "seconds": 6.19
+   },
+   "atp_first_won": {
+    "mode": "resume",
+    "record": {
+     "days": 22,
+     "seconds": 1.83,
+     "not_converged": 0
+    },
+    "seconds": 7.25
+   },
+   "atp_second_won": {
+    "mode": "resume",
+    "record": {
+     "days": 22,
+     "seconds": 1.41,
+     "not_converged": 0
+    },
+    "seconds": 4.94
+   },
+   "atp_hold": {
+    "mode": "resume",
+    "record": {
+     "days": 22,
+     "seconds": 2.06,
+     "not_converged": 0
+    },
+    "seconds": 6.11
+   },
+   "atp_bp_saved": {
+    "mode": "resume",
+    "record": {
+     "days": 22,
+     "seconds": 1.17,
+     "not_converged": 0
+    },
+    "seconds": 4.98
+   },
+   "wta_ace": {
+    "mode": "resume",
+    "record": {
+     "days": 19,
+     "seconds": 1.01,
+     "not_converged": 0
+    },
+    "seconds": 6.09
+   },
+   "wta_df": {
+    "mode": "resume",
+    "record": {
+     "days": 19,
+     "seconds": 0.98,
+     "not_converged": 0
+    },
+    "seconds": 5.72
+   },
+   "wta_first_in": {
+    "mode": "resume",
+    "record": {
+     "days": 19,
+     "seconds": 0.98,
+     "not_converged": 0
+    },
+    "seconds": 5.64
+   },
+   "wta_first_won": {
+    "mode": "resume",
+    "record": {
+     "days": 19,
+     "seconds": 0.78,
+     "not_converged": 0
+    },
+    "seconds": 5.1
+   },
+   "wta_second_won": {
+    "mode": "resume",
+    "record": {
+     "days": 19,
+     "seconds": 0.58,
+     "not_converged": 0
+    },
+    "seconds": 4.07
+   },
+   "wta_hold": {
+    "mode": "resume",
+    "record": {
+     "days": 19,
+     "seconds": 0.33,
+     "not_converged": 0
+    },
+    "seconds": 2.96
+   },
+   "wta_bp_saved": {
+    "mode": "resume",
+    "record": {
+     "days": 19,
+     "seconds": 0.42,
+     "not_converged": 0
+    },
+    "seconds": 3.31
+   }
+  },
+  "ace_rows": {
+   "file": "C:\\Users\\zerom\\Documents\\Tennis-predictions\\data\\studies\\daily_prediction\\runs\\live_2026-10-20_081558\\ios_ace_recent.parquet",
+   "rows": 7454,
+   "sha256": "6f82a8bd28263acf4757d46387b0784e631accabd883cec76308a6a4d9000252",
+   "tours": {
+    "atp": {
+     "mode": "resume",
+     "recent_rows": 3576,
+     "from_day": "2026-09-27",
+     "to_day": "2026-10-21"
+    },
+    "wta": {
+     "mode": "resume",
+     "recent_rows": 3832,
+     "from_day": "2026-09-27",
+     "to_day": "2026-10-21"
+    }
+   }
+  }
+ },
+ "parts_summary": {
+  "resumed": 21
+ },
+ "seconds": {
+  "offset": 14.3,
+  "stage3": 16.5,
+  "stage4_rows": 94.5,
+  "weighted": 12.9,
+  "stage4_inputs": 6.9,
+  "pieces": 6.0,
+  "context": 9.8,
+  "waited_for_forms_and_ios": 11.4,
+  "forms_rows": 50.3,
+  "forms_context": 75.3,
+  "forms": 14.6,
+  "forms_family": 140.2,
+  "ios_cache": 84.1,
+  "ios_runs": 43.8,
+  "ios_family": 127.8,
+  "total": 173.2
+ },
+ "layer_config": "C:\\Users\\zerom\\tnr_daily_nb\\data\\studies\\current_best_model\\level_layer\\this_build\\build_config.json",
+ "layer_config_sha256": "b7e2d53f9b33521e65a0b7739e96322297d52553d0f9251b8588b988c17a8791",
+ "gate": {
+  "live_matches": 23,
+  "complete": 22
+ }
+}

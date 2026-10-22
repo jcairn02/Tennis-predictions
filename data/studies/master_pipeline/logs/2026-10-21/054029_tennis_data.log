@@ -1,0 +1,17 @@
+# ./python.sh -m src.ingest.refresh_odds --only tennis_data
+# started 2026-10-21T05:40:29-07:00
+
+=== tennis_data: -m src.ingest.public_dump.tennis_data_couk --start-year 2025 --end-year 2026 --refresh
+[tennis_data_couk] 47 workbook links on data.php
+[tennis_data_couk] atp 2025 via live: 2644 rows into 5 tournament-type partitions
+[tennis_data_couk] atp/2026 changed; kept the replaced file as data/raw/public_dump/tennis_data_couk/superseded/atp/2026.live-20261005234805.ac3a5cc3a453.xlsx
+[tennis_data_couk] atp 2026 via live: 2361 rows into 4 tournament-type partitions
+[tennis_data_couk] wta 2025 via live: 2505 rows into 5 tournament-type partitions
+[tennis_data_couk] wta/2026 changed; kept the replaced file as data/raw/public_dump/tennis_data_couk/superseded/wta/2026.live-20261005234806.9bb1d5b2ecc5.xlsx
+[tennis_data_couk] wta 2026 via live: 2341 rows into 4 tournament-type partitions
+[tennis_data_couk] done: 18 staged files, 9,851 rows, 3 download errors
+
+=== refresh summary (2026-10-21T12:40:29+00:00)
+  tennis_data  ok (old errors in receipts)   0.1 min
+
+# ok, exit 0, 4.6 s

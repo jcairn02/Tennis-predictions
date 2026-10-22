@@ -1,8 +1,8 @@
 """TabPFN-3.5-Thinking season fits for an instance (the owner's model switch, 11 Oct 2026).
 
 Division of work agreed with the daily_prediction session (process log, 10:20): this module holds the PAID season fits;
-the daily pipeline's own `--model thinking` (dp_fit / dp_predict, not built yet) will re-attach to a fit by its id
-and predict the day's price grid. So:
+the daily pipeline's `run_day --thinking` (dp_thinking.py, built 20 Oct 2026) re-attaches to a fit by its id and
+predicts the day's price grid beside the local model (predict.predict_day makes a missing fit first). So:
 
     fit_season(instance, season)                     a FREE quote (the hosted API's cost estimate sends only the
                                                      data's shape) and the account's remaining quota; nothing paid
@@ -10,8 +10,10 @@ and predict the day's price grid. So:
                                                      the instance frame's 2013 .. Y-1 rows, the 57 inputs in the model's
                                                      order (exactly the local model's training rows)
 
-Owner decisions pending before any token is spent (put to the owner by both sessions): paid spend, seed 0 only, and
-stage 2 for Thinking. Until the owner approves, call it without spend_tokens (a quote).
+The owner's answers (20 Oct 2026; docs/decisions/2026-10-20-thinking-beside-local.md): paid use beside the local model,
+never instead of it; Thinking's probabilities used as the API gives them, never calibrated (the daily pipeline's
+predict step adds stage 2's serve-speed term: the owner, the evening of 20 Oct 2026); one fit per instance and season
+(seed 0). A call without spend_tokens is a free quote.
 
 Two steps, each in its own environment:
     prepare   (tennis env)          the training rows from the instance frame -> <folder>/train.npz, prepared.json
@@ -56,18 +58,22 @@ def train_sha256(columns, X, y) -> str:
 
 
 def prepare(instance: Path, season: int) -> dict:
-    """The season's training rows, exactly as the local fit trains (serve_speed_tabpfn.arms.job_data on the instance
-    frame, the model's 57 inputs from in_<name> columns), saved for the API worker (which cannot import the frame
+    """The season's training rows, exactly as the local fit trains (current_best_model.training_rows.job_data on the
+    instance frame: season Y on 2013 .. Y - 1, plus the season-Y matches a retrain admitted, the owner's rule of
+    20 Oct 2026; the model's 57 inputs from in_<name> columns), saved for the API worker (which cannot import the frame
     code's environment)."""
     import numpy as np
 
+    from src.eda.current_best_model import training_rows as TR
     from src.eda.model_rebuild import fits as FITS
     from src.eda.serve_speed_tabpfn import arms as A
     from src.eda.serve_speed_tabpfn import common as C
     P = FITS.paths(Path(instance))
     cols = A.arm_inputs("model", P)
     frame = A.load_frame([], P, labels=True)
-    X_train, y_train, X_test, test_ids = A.job_data(frame, cols, int(season))
+    X_train, y_train, X_test, test_ids = TR.job_data(frame, cols, int(season), Path(instance))
+    cut = TR.read_cutoff(Path(instance))
+    cut = cut if cut and int(cut["season"]) == int(season) else None
     out = folder(instance, season)
     out.mkdir(parents=True, exist_ok=True)
     digest = train_sha256(X_train.columns, X_train.to_numpy(dtype="float64"), y_train)
@@ -84,7 +90,9 @@ def prepare(instance: Path, season: int) -> dict:
     rec = {"instance": CFG.rel(instance), "season": int(season), "train_from": int(C.TRAIN_FROM),
            "train_through": int(season) - 1, "training_rows": int(len(X_train)), "features": len(cols),
            "columns": list(map(str, X_train.columns)), "train_sha256": digest,
-           "frame_sha256": C.sha256_file(P.model_frame), "season_matches": int(len(X_test))}
+           "frame_sha256": C.sha256_file(P.model_frame), "season_matches": int(len(X_test)),
+           "training_cutoff": cut["cutoff"] if cut else None, "admitted": cut["admitted"] if cut else 0,
+           "training_ids_sha256": cut["ids_sha256"] if cut else None}
     held.write_text(json.dumps(rec, indent=1), encoding="utf-8")
     print(json.dumps({k: v for k, v in rec.items() if k != "columns"}, indent=1))
     return rec
@@ -110,6 +118,30 @@ def fit_season(instance, season: int, *, spend_tokens: bool = False, daily_match
     if fit.exists() and not dry_run:
         print("fit.json:", json.loads(fit.read_text(encoding="utf-8")).get("fitted_train_set_id"))
     return res
+
+
+FIT_FILES = ("prepared.json", "train.npz", "fit.json", "fit_complete.json", "fitted_model.json")
+
+
+def fit_state(instance, season: int) -> str:
+    """"ok": the season's fit is complete and was prepared on the instance's present frame and training cut-off (so on
+    its present training rows; the daily pipeline checks the rows' hash again); "missing" (none, or one submitted and
+    not known complete: fit_season resumes or refuses it); "other frame": made on another frame than the instance's
+    present one; "other rows": on the same frame, but before or after another retrain cut-off was recorded."""
+    from src.eda.current_best_model import training_rows as TR
+    out = folder(Path(instance), season)
+    if not all((out / n).exists() for n in FIT_FILES):
+        return "missing"
+    prep = json.loads((out / "prepared.json").read_text(encoding="utf-8"))
+    h = hashlib.sha256()
+    with open(Path(instance) / "model_frame.parquet", "rb") as f:
+        for block in iter(lambda: f.read(1 << 20), b""):
+            h.update(block)
+    if prep.get("frame_sha256") != h.hexdigest():
+        return "other frame"
+    cut = TR.read_cutoff(Path(instance))
+    want = cut["ids_sha256"] if cut and int(cut["season"]) == int(season) else None
+    return "ok" if prep.get("training_ids_sha256") == want else "other rows"
 
 
 def status(instance) -> dict:

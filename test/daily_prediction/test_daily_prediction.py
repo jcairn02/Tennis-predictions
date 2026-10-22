@@ -171,7 +171,13 @@ def test_price_grid_matches_direct_prediction(replay_run):
     d = FT.load(replay_run, list(range(16)))
     pg = d["grid"].mean(axis=0)
     back = FT.interp(d["own_logit"], pg)
-    inst = ROOT / "data" / "studies" / "current_best_model" / "template_2026-10-10" / "fits"
+    from pathlib import Path
+    inst_dir = Path(json.loads((replay_run / "run.json").read_text(encoding="utf-8"))["instance"])     # the replay's
+    if (inst_dir / "training_cutoff.json").exists():
+        # a retrain's instance (the owner's rule of 20 Oct 2026): its live fit trains through the cut-off, so the stored
+        # walk-forward fits (2013 .. Y - 1) are not the live fit's; the grid's own consistency above is the check
+        return
+    inst = inst_dir / "fits"
     stored = []
     for seed in range(16):
         with np.load(inst / f"model__2026__seed{seed}.npz", allow_pickle=False) as z:

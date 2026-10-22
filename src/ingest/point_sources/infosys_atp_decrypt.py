@@ -106,9 +106,20 @@ def audit(doc, route: str, event: str, match: str) -> dict:
     return result
 
 
+def challenger_files() -> set[Path]:
+    """The Challenger point files fetched into this raw folder for the P6 data issues (receipts' purpose "p6 challengers"
+    or "p6_data_issues probe"). They are decrypted and staged on their own (infosys_challengers_stage.py; owner,
+    14 Oct 2026: kept out of the serve-speed history, which reads this module's output)."""
+    from src.ingest.point_sources import common as P
+    from src.ingest.point_sources.infosys_challengers_stage import CHALLENGER_PURPOSES
+    return {(PROJECT_ROOT / r["dest"]).resolve() for r in P.receipts_for("infosys_atp").all().values()
+            if r.get("purpose") in CHALLENGER_PURPOSES and r.get("dest")}
+
+
 def main() -> int:
     started = datetime.now(timezone.utc).isoformat()
-    paths = sorted(RAW.rglob("*.json.gz"))
+    left_out = challenger_files()
+    paths = sorted(p for p in RAW.rglob("*.json.gz") if p.resolve() not in left_out)
     if not paths:
         raise SystemExit(f"No envelopes found in {RAW}")
     with INVENTORY.open(encoding="utf-8", newline="") as handle:
@@ -158,7 +169,7 @@ def main() -> int:
             print(f"Decrypted/audited {index}/{len(paths)} files", flush=True)
 
     # Re-read every original after processing, and detect additions/removals.
-    after = set(RAW.rglob("*.json.gz"))
+    after = {p for p in RAW.rglob("*.json.gz") if p.resolve() not in left_out}
     originals_unchanged = after == set(paths) and all(
         sha((PROJECT_ROOT / row["raw_file"]).read_bytes()) == row["raw_stored_sha256"]
         for row in rows

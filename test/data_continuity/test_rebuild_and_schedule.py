@@ -173,7 +173,7 @@ def test_the_weekly_task_runs_its_own_jobs(monkeypatch, capsys):
     assert S.main() == 0
     day = dt.date.today().weekday()                                    # tennislive every day, the rest on their days
     expected = ["tennislive"] + {S.WTA_POINTS_WEEKDAY: ["wta_points"], S.WTA_SITE_WEEKDAY: ["wta_site"],
-                                 S.FEED_WEEKDAY: ["wta", "feed", "coverage"]}.get(day, [])
+                                 S.FEED_WEEKDAY: ["wta", "feed", "coverage", "tml_dates"]}.get(day, [])
     assert json.loads(capsys.readouterr().out)["due"] == expected
     monkeypatch.setattr(sys, "argv", ["scheduled", "--weekly", "--only", "feed,coverage", "--dry-run"])
     S.main()
@@ -247,11 +247,12 @@ def test_the_wta_jobs_run_on_their_days_and_catch_up_but_never_on_the_feeds_day(
     week = {monday + dt.timedelta(days=i): S.weekly_due(monday + dt.timedelta(days=i), None, {}) for i in range(7)}
     assert week[monday] == ["tennislive", "wta_points"]
     assert week[monday + dt.timedelta(days=1)] == ["tennislive", "wta_site"]
-    assert week[monday + dt.timedelta(days=2)] == ["tennislive", "wta", "feed", "coverage"]
+    assert week[monday + dt.timedelta(days=2)] == ["tennislive", "wta", "feed", "coverage", "tml_dates"]
     assert all(due == ["tennislive"] for d, due in week.items() if d.weekday() > 2)
     missed = {"wta_points_last": "2026-10-12", "wta_site_last": "2026-10-13"}     # last Monday and Tuesday's runs
     assert S.weekly_due(dt.date(2026, 10, 20), None, missed) == ["tennislive", "wta_points", "wta_site"]  # Monday off
-    assert S.weekly_due(dt.date(2026, 10, 21), None, missed) == ["tennislive", "wta", "feed", "coverage"]  # not Wed
+    assert S.weekly_due(dt.date(2026, 10, 21), None, missed) == ["tennislive", "wta", "feed", "coverage",
+                                                              "tml_dates"]  # not Wed
     assert S.weekly_due(dt.date(2026, 10, 22), None, missed) == ["tennislive", "wta_points", "wta_site"]
     ran = {"wta_points_last": "2026-10-19", "wta_site_last": "2026-10-20"}
     assert S.weekly_due(dt.date(2026, 10, 22), None, ran) == ["tennislive"]       # ran on their days: nothing to catch
@@ -356,3 +357,60 @@ def test_the_wta_jobs_command_lines_parse_in_the_adapter(tmp_path, monkeypatch):
     crawl, staging = (parsed(c["args"]) for c in calls[:2])
     assert crawl.player_matches and crawl.refresh_rotation == S.WTA_SITE_ROTATION and crawl.refresh_before
     assert staging.player_matches and staging.stage_only and staging.player_year == crawl.player_year
+
+
+def test_tml_dates_alerts_a_new_misdated_edition_then_every_four_weeks_and_forgets_acknowledged_ones(tmp_path,
+                                                                                                        monkeypatch):
+    """The weekly Tennis My Life date check (14 Oct 2026): exit 3 with a new edition alerts at once, not again the next
+    week, again after four; an edition gone from the summary's "new" (added to the known list) is forgotten."""
+    summary = tmp_path / "summary.json"
+    monkeypatch.setattr(S, "TML_DATES_SUMMARY", summary)
+    monkeypatch.setattr(S, "child", lambda name, args, timeout: {"exit": 3, "seconds": 0.1, "log": "t.log"})
+    state: dict = {}
+    summary.write_text(json.dumps({"misdated": 68, "new": ["atp|2026-9001|Lima|20260601"]}), encoding="utf-8")
+    out, alerts = S.job_tml_dates(state, left=3600)
+    assert len(alerts) == 1 and "Lima" in alerts[0] and out["new"] == ["atp|2026-9001|Lima|20260601"]
+    out, alerts = S.job_tml_dates(state, left=3600)
+    assert alerts == [] and out["new"] == []
+    state["tml_dates_alerted"]["atp|2026-9001|Lima|20260601"] = (dt.date.today() - dt.timedelta(days=28)).isoformat()
+    out, alerts = S.job_tml_dates(state, left=3600)
+    assert len(alerts) == 1 and out["reminded"] == ["atp|2026-9001|Lima|20260601"]
+    summary.write_text(json.dumps({"misdated": 68, "new": []}), encoding="utf-8")
+    monkeypatch.setattr(S, "child", lambda name, args, timeout: {"exit": 0, "seconds": 0.1, "log": "t.log"})
+    out, alerts = S.job_tml_dates(state, left=3600)
+    assert alerts == [] and state["tml_dates_alerted"] == {}
+    monkeypatch.setattr(S, "child", lambda name, args, timeout: {"exit": 1, "seconds": 0.1, "log": "t.log"})
+    assert S.job_tml_dates(state, left=3600)[1] == []                  # one failure: no alert
+    assert len(S.job_tml_dates(state, left=3600)[1]) == 1              # the second in a row alerts
+
+
+def test_the_feed_alerts_on_new_two_draw_flags_and_never_fails_for_them(tmp_path, monkeypatch):
+    """The feed's run records its two-draws comparison (14 Oct 2026); job_feed alerts when it names new flags, and the
+    feed's exit code is untouched."""
+    runs = tmp_path / "runs.jsonl"
+    monkeypatch.setattr(S, "FEED_RUNS", runs)
+    monkeypatch.setattr(S, "child", lambda name, args, timeout: {"exit": 0, "seconds": 0.1, "log": "f.log"})
+    runs.write_text(json.dumps({"label": "F1", "exit": 0, "why": "advanced", "two_draws": {"new": 0}}) + "\n",
+                    encoding="utf-8")
+    out, alerts = S.job_feed({}, left=3 * 3600)
+    assert alerts == [] and out["exit"] == 0
+    runs.write_text(json.dumps({"label": "F2", "exit": 0, "why": "advanced",
+                                "two_draws": {"new": 2, "new_examples": ["wta:1 2026-09-07: A | B"],
+                                              "file": "x_new.csv"}}) + "\n", encoding="utf-8")
+    out, alerts = S.job_feed({}, left=3 * 3600)
+    assert len(alerts) == 1 and "2 new" in alerts[0] and out["exit"] == 0
+
+
+def test_the_id_map_works_when_no_match_id_changed(tmp_path):
+    """A rebuild whose new Stage 0 keeps every match id (the date correction of 14 Oct 2026 changes no id) pairs nothing
+    and leaves nothing unpaired; the empty name map once made the key's text + number fail."""
+    m = pd.DataFrame({"match_id": ["a|1|R32|p1|p2", "a|1|F|p1|p3"], "tour": ["atp", "atp"],
+                      "tournament_id": ["2024-2847", "2024-2847"], "round": ["R32", "F"]})
+    p = pd.DataFrame({"match_id": ["a|1|R32|p1|p2", "a|1|R32|p1|p2", "a|1|F|p1|p3", "a|1|F|p1|p3"],
+                      "player_name": ["One", "Two", "One", "Three"]})
+    for name in ("old", "new"):
+        (tmp_path / name).mkdir()
+        m.to_parquet(tmp_path / name / "stage0_matches.parquet", index=False)
+        p.to_parquet(tmp_path / name / "stage0_match_players.parquet", index=False)
+    pairs, unpaired = R.id_map(tmp_path / "old", tmp_path / "new")
+    assert pairs.empty and unpaired == []

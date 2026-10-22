@@ -316,3 +316,175 @@ Session: `f66b9e99-f90d-40a5-b5fe-c347536062c5` (peer name since the restart: `t
 | 07:40-07:41 | **Corrected and re-run on the same tables** (Stage 0 b3ca7aec…, timeline b984bbbb…, unchanged since 13 Oct 21:16). `level_group` now sorts ITF, then team events, then qualifying. `coverage.py`: women's qualifying above ITF level 85.1% pooled, 99-100% every season since 2019; men's 94.5%; ITF, qualifying included, 7.7% / 6.2%. `simulate_gate.py --tag _now_v2` and `--first 2013 --tag _now2013_v2`; any-kind blocks unchanged (4.4 / 13.7%). `scopes.py --tag _now_v2`, near-complete scope (now with both tours' qualifying above ITF): **0.5% / 4.3%** (was 0.5 / 3.3%); the women's 2026 8.4% → 11.5%, the added part the 2026 Slam qualifying (Roland Garros 29, Wimbledon 28, US Open 25), which Tennis My Life has lacked since June 2026. The `_now` files of 13 Oct are kept | Correct the evidence the rule rests on | the re-runs | `coverage.csv`, `gate_simulation*_now_v2*`, `scopes_now_v2.csv` |
 | 07:41 | **README corrected visibly:** a correction note at the top, saying the owner approved the first version; the coverage and scope tables; the kind lists in "In short" and the recommendation. The principle the owner approved (a note for kinds training lacks, a bar for kinds it nearly always has) is unchanged; one kind moves between the lists | Report honestly | — | README |
 | 07:42 | **Subagent B reported** (taken as reported where not re-checked): **the pool already holds this input as U-126, "form evidence and shrinkage"** (`data/studies/feature_universe/universe.csv:127`). Its columns are `fp__f07_evidence_age__f07_s0_a/_b`: s0, the decayed count of recent box-score matches, from `f07_evidence_age.form_state`, and `fp__f13_uncertainty__shr_a/_b`: s0/(s0 + K3), with K3 fixed at 37. Built 7 Oct; status built, not in the model; tier D, priority low. Its limits: the points form only, the frozen 63,737-match population (the template frame has 67,226), and no level layer. The model's own Σw is computed (`stageB_adjperf.py:222-225`, `level_layer.py:863-881`) but not stored. **So decision 3 becomes a refresh of U-126**, not a new id: rebuild it on the current population with the model's own weights, and re-file its verdict | Plan 4 | none | — |
+| 07:44 | **Subagent A reported** (taken as reported where not re-checked). The ATP's Infosys keystats API holds the full box score per match: aces, double faults, first serves in and points, first- and second-serve points won, break points saved and faced, service games. The daily serve-speed collector (`serve_speed_tabpfn/live/atp_daily.py`) already fetches and decrypts it for TML's played rounds of events with per-match dates, but stages only speeds. TML's men's `tourney_id` is year plus ATP event id, and its player ids are ATP codes, so a gap can be matched by event, round's code range and both codes. The prediction-run README notes "TML usually has ATP box scores within minutes". No set scores in keystats; Challenger keystats unprobed; the agreement with TML for men unmeasured | Plan 3 | none | — |
+| 07:45 | Subagent D launched (general-purpose, writes only the feature-pool files; brief verbatim in the appendix): refresh U-126 with the model's own weights, re-file its card | Plan 4 | none | — |
+| 07:46-07:58 | **The gate replaced** (`src/eda/prediction_run/gate.py`). `kind()` sorts ITF and team events first, then qualifying, main tour, Challenger / WTA 125; `effect()` gives "note" for team events and ITF, else "edge bar" (an unknown kind included). A gap never blocks; `EDGE_BAR = 0.01`. Still blocking: the qualifier rule, not in Stage 0, an unknown indoor input. `gate.csv` gains `edge_bar`, `bar_gaps`, `noted_gaps`; `bet` is BET, BET_BAR ("may be bet if its edge clears 1 point") or NO_BET; `gate_missing.csv` gains `kind`, `effect`. Readers: `dp_predict.py` copies the bar into `predictions.csv` as `gate_edge_bar`; `diagnostics.py` blocks only what does not start "may be bet", picks a side only if its forecast moved the bar against it is still +EV (as the replay tested), records `gate_edge_bar`, `passed_by_bar`, `gate_notes`, and passes the gate's blocking reasons joined by " \| " (the qualifier reason holds a comma); `bet_sheet.py` says the bar, a bar-passed bet and noted gaps plainly, keeps the old wording for a run made before 14 Oct, and its Data check column reads complete / gap: 1-point edge needed / incomplete; `readiness.py` verdicts ready / ready once filled / needs a 1-point edge / will be blocked, with noted gaps in their own column; `predict.py` counts the bar. Re-read before editing: `diagnostics.py`, `bet_sheet.py` (the pattern session's edits of 13 Oct kept) | Decision 1 | — | the files named |
+| 07:58-08:00 | **Tests.** Updated to the new rule: the gate's (a main-tour gap sets the bar and does not block; team and ITF gaps noted; kinds; the qualifier and indoor blocks), the data check's (five synthetic matches; on the 11 Oct run the three Laver Cup gaps are noted and nothing is blocked), the plain wording, and a new one: the bet sheet applies the bar exactly as the replay tested it. **First run: one failure, not the gate's:** `test_data_check_agrees_with_the_runs_own_gate` hit the duplicate-timeline collision (the 11 Oct run's Stage 0 is older than the shared timeline of 13 Oct 21:16; a fresh data check does not meet it). The test now restricts the timeline to that Stage 0's matches, as `retry_tables` did. **Then `test/prediction_run` and `test/master_pipeline`: 54 passed.** `test/daily_prediction` without a replay: 6 passed; the 11 that need a replay were not run (the collision) | Verify | — | tests |
+| 08:00-08:02 | **Recorded:** `docs/decisions/2026-10-14-box-score-gate.md` (the owner's words verbatim, the rule, the evidence, the departure, the correction, the status) and its row in the index; a pointer at the top of the 8 Oct decision; the gate's line in CLAUDE.md (re-read first: the pattern session edited CLAUDE.md at 07:09); the data check and record sections of the master-pipeline README | Record the decision | — | the docs named |
+| 08:03 | **How often the men's fill would be needed (observed, before building).** Shared Stage 0, 2025-2026, men's completed matches of the kinds that set the bar: 7 of about 25,000 lack a box score permanently (2 Challenger, 4 qualifying, 1 Shanghai). Today's gaps list (`fills.gaps` on the shared tables) has no fillable men's gap: the two Shanghai ones are held (the frozen reference holds them). The prediction-run README notes TML usually has men's box scores within minutes. So the fill is insurance for days TML lags; built because the owner decided it | Plan 3 | none | — |
+| 08:04-08:06 | **Built** in `prediction_run/fills.py`: `atp_codes` (the bracket's codes; qualifying QS001-063), `held_keystats` (the collector's raw file, decrypted behind its year guard), `keystats_counts` (the nine counts as the backfill study maps them, plus a check that its own fractions agree), `_atp_client` (the collector's client, headers and receipts; nothing when the collector is off), `fill_atp` (files on disk first, then asks the codes not held for other players, stopping at the match; a block stops the fills), `fill_all` (WTA and ATP); `tml_keys` gains TML's player codes; `gaps()` classes ATP tour-level gaps fillable; `run.py --refresh` calls `fill_all`; the agreement check takes `--tour atp` (`--max-requests 0`: files on disk only) | Decision 2 | — | `fills.py`, `run.py` |
+| 08:06 | **Agreement, files on disk only, Shanghai 2026 (observed):** 73 matches linked, all nine counts equal TML's on 146 of 146 player rows | Verify | — | `atp_fill_check/` |
+| 08:06-08:08 | **The request path, live** (main draw, budget 40): the budget stopped the run cleanly; 66 filled, all equal (132 of 132 rows); 6 "not completed". **Then two corrections of my own reading:** (1) the ATP's `matchCompleted` reads False on finished matches (9 of 82 main-draw files, e.g. Tsitsipas v Fritz 3-6 7-5 6-3 with 15 service games each): replaced by `covers_match`, the flag or the service games adding up to TML's score (as B5), and the main draw then filled 82 of 82, all equal (164 of 164 rows); (2) the decision record's first status line said the 66 were fetched with real requests: the receipts show the 40 requests brought 6 files, all re-fetches of held ones, and 34 absent codes; corrected in the record | Verify | the agreement rows | `atp_fill_check_asked/` |
+| 08:11-08:14 | **The request path finding new files** (Shanghai qualifying, none held, budget 70): 14 new files, 2 matches filled before the budget stopped it. **They disagreed with TML** on first serves. With the 14 new files, on disk only: 13 qualifying matches, ace, df, service games and break points equal on 26 of 26 rows, but first serves in on 9 of 26 (the ATP 0.73 lower on average), first-serve points won 14 of 26, second-serve points won 14 of 26, serve points 24 of 26. TML's qualifying numbers come from another source than its main draw's. **Choice:** the men's fill takes main-draw matches only (`gaps()`: not qualifying), where the ATP's numbers are exactly those the training rows hold; a qualifying gap waits for TML under the 1-point bar. Receipts of the fill's requests: 110 (20 answered, 90 absent) | Live inputs as in training | the agreement rows | `atp_fill_check_qualifying/`, `fills.py` |
+| 08:09-08:15 | **Tests:** 5 new offline tests of the men's fill (the nine counts and the fraction check; `covers_match`; the codes; the classes, qualifying unserved; linking by codes with TML's orientation, a player listed second in the file). The first run of the orientation test failed on my test's expectation, not the code (the file listed Bublik first); fixed. **59 passed** (`test/prediction_run`, `test/master_pipeline`). **Recorded:** CLAUDE.md's "Box scores first" line, the data check's docstring and fix text, and the decision's status | Verify, record | — | tests, docs |
+| 08:22 | **Subagent D reported** (taken as reported where not re-checked; its own chronology 07:45-08:22 is in its report, summarised here). Five `fe__` columns: `sw_a/_b`, the decayed count of earlier box-score matches as the model's total-points form weighs them (half-life 2 weeks, the level layer's weights for men, ITF 0); `r_a/_b` = sw/(sw + K3), with K3 10 for men and 20 for women; `r_diff`. Built with `level_layer.forms_step3` on the `tnr_gaps` tree, read-only. **Checks it reported:** the model's `adjperf_tpw_2w` rebuilt bit for bit on all 67,226 frame matches (an independent recount on 400 rows to 1.2e-14); against the old U-126 r 0.982 (0.998 without the layer); a timing probe with 8 cuts and 2.04M protected rows, nothing moved beyond 1e-12, and a leaky control caught; largest \|r\| with another column 0.98 (its own old build), then 0.71 (sets in 14 days); coverage 1.00 except women 2025-26 in the store (0.97). The store's values are missing for 111 WTA June-July 2026 matches: 71 keep their match id but name other players in today's tables, 40 are gone; not traced. **Verdict: admitted, U-126 re-filed in place; priority raised from low to medium (its call, flagged).** **Corrections to the brief:** the "K3 37" was a line number (K3 is 10 / 20); the engine runs `forms_state.step3_for` and does not keep the weight sum (live use would need it); `template_2026-10-14` exists and was built too (differs from 13 Oct on 2.8% of player-rows). Files: `form_evidence.py` and `form_evidence/` outputs, `build_store.py` (`--append-fe`), `catalogue/spec_form.py`, the feature-universe test, its README (the card in section 9), the store, registry, menu and universe | Decision 3 | none (no result read) | the files named |
+| 08:23 | **Lead's check of D's work (observed):** `test/feature_universe` 14 passed; the store has 63,737 rows and 789 columns, with the five `fe__` columns (sw mean 3.28, max 13.5; r mean 0.19, max 0.57; r_diff centred on 0); U-126's row read in full (definition, source, the `fe__` columns to select over the 7 Oct ones, safe timing, "no result read", caveats, priority medium). Also: `test/current_best_model` 99 passed. **Recommendation to the owner:** keep the medium priority; flag the 71 WTA match ids that changed players as a possible id-stability issue, untraced | Verify | — | — |
+
+## P2.4 Claims and their evidence
+
+| Claim | Evidence | Status |
+|---|---|---|
+| Nothing running used or contradicted this work | The process list, the session list and the files changed in the last 24 hours (07:34) | Observed at 07:34; sessions can start later |
+| The work copy was deleted without touching real data | Junction-first cleanup; link-target file counts and bytes before and after | Observed |
+| The rule's kinds rest on training coverage | `coverage.py` re-run with ITF sorted before qualifying | Observed; corrects Part 1's pooling |
+| The new gate does what the decision says | `test/prediction_run` (gate tests), `test/master_pipeline` (data check, bet sheet, the bar) | 59 passed; not yet seen on a live bet day |
+| The bet sheet's bar equals the replay's tested rule | `test_the_bet_sheet_applies_the_edge_bar` | Observed (tests) |
+| The men's fill equals TML's numbers in the main draw | Shanghai 2026, 82 matches, 164 of 164 player rows, all nine counts | Observed |
+| The ATP's qualifying numbers differ from TML's | 13 Shanghai qualifying matches, first serves in equal 9 of 26 rows | Observed; why TML differs there is inferred (another source) |
+| The men's fill will rarely be needed | 7 of about 25,000 men's matches lack a box score permanently in 2025-26; no fillable men's gap today | Observed on permanent gaps; bet-time delays unmeasured |
+| The evidence input is refreshed in the pool | Subagent D's report and the lead's check (P2.3, 08:22-08:23) | Observed (D's checks as reported; the lead re-ran the tests and read the row) |
+
+## P2.5 Threats to validity, and where a flaw would hide
+
+* **The bar is tested on synthetic and replayed records, not a live bet day.** The first live run is the real test.
+* **The men's fill's agreement rests on one event** (Shanghai 2026, a Masters). Smaller events, or files fetched during play, are untested. `covers_match` guards against a file of a match still in play.
+* **Bet-time delays are unmeasured.** How often Tennis My Life lacks a box score at the hour of a bet is unknown: neither the fill's value nor the bar's frequency has a live estimate yet.
+* **The data check errs toward a gap** (a cautious window for undated matches), so it may show "needs a 1-point edge" where the run finds none.
+* **The kinds are fixed lists.** If training coverage of a kind changes (the lower-level feed fills ITF and WTA 125 box scores from 2025), a kind may move. The decision says to re-run `coverage.py` at each template build.
+* **Shared code changed while other sessions work:** `diagnostics.py`, `bet_sheet.py`, `dp_predict.py`, `readiness.py`, `fills.py`, `run.py`, CLAUDE.md, the notebook. Each was re-read first, and edits were kept narrow, but a session holding an older copy in memory could overwrite them.
+
+## P2.6 What a re-design would do
+
+* Log every live day's gaps with their kind and whether the fill or the bar acted, and re-read the rule after a month of bet days.
+* Probe Challenger keystats, and the WTA 125s' and Slams' feeds, for fills where training holds the box scores.
+* Let the model price a gap itself (the evidence input), then retire the bar if the model handles thin evidence.
+
+## P2.7 Reviewer checklist
+
+- [ ] `gate.kind`: ITF and team events are sorted before qualifying (the error of Part 1).
+- [ ] The bar in `diagnostics.py` moves each side's forecast against that side, for the pick with and without the patterns.
+- [ ] A run made before 14 Oct still reads as it did (its gate text, `gate_detail` wording).
+- [ ] `fills.gaps`: the ATP main draw only is fillable; the qualifying, Challengers, Slams and team events are not.
+- [ ] `fill_atp` orients by TML's winner and loser codes, never by the file's order.
+- [ ] The fill's requests: paced, receipted, raw copies kept, stopped on a block or the budget.
+- [ ] The evidence input stays out of the model (pool only).
+
+## P2.8 Reproduction
+
+```text
+./python.sh -m pytest test/prediction_run test/master_pipeline -q
+./python.sh src/eda/box_score_gate_review/coverage.py
+./python.sh src/eda/box_score_gate_review/simulate_gate.py --stage0 data/studies/predictability_diagnostic --tag _now_v2
+./python.sh src/eda/box_score_gate_review/scopes.py --tag _now_v2
+./python.sh -m src.eda.prediction_run.fills --stage0 data/studies/predictability_diagnostic     --events 2026-5014-20261005,2026-5014-20261007 --tour atp --out <folder> --max-requests 0
+```
+
+## P2.A Appendix: the subagent briefs of Part 2, verbatim
+
+Transcript times (UTC): A 14:36:18, B 14:36:24 (07:36 PDT; the chronology says 07:35), D 14:45:27 (07:45 PDT).
+
+### A: "Facts for building the men's fill" (Explore)
+
+```text
+Read-only research in the repository C:/Users/zerom/Documents/Tennis-predictions (Windows; use the Read/Grep/Glob tools). Do not edit anything. Search very thoroughly.
+
+Goal: build a live "men's fill". At bet time, a men's (ATP) match whose box score Tennis My Life (TML) has not published yet would be filled from the ATP's own match statistics, the way post-freeze WTA gaps are filled from the WTA API today. I need the facts to design it.
+
+1. The current fill design: src/eda/prediction_run/fills.py, and where src/eda/prediction_run/run.py --refresh and the daily engine's refresh step (src/eda/daily_prediction/) call it. Explain:
+   - the gap classes (held / fillable / unserved) and how a gap is classified;
+   - fill_wta's inputs and outputs, tml_keys, and override_table's columns;
+   - how the overrides enter Stage 0 for a live run (stage0_build.py --box-overrides ... --confirm-live-overrides), and what stops fills from entering training;
+   - how a fill is dropped once TML publishes.
+   Quote the relevant code with file:line.
+2. The 8 Oct plan for the men's equivalent. Search docs/decisions/2026-10-08-prediction-run-box-scores.md, docs/studies/prediction_run/ (README, process log, plans), docs/studies/daily_prediction/ and docs/studies/prediction_pipeline/ for any plan or note on an ATP fill (an ATP stats feed, Infosys, atptour.com match stats). Quote it.
+3. Existing ATP match-statistics sources in the code. Search src/ingest/ and src/eda/ (for example infosys_atp_backfill, serve_speed_tabpfn/live, serve_speed_acquisition, official_point_feeds, ao_rg_points) for code that downloads ATP match statistics or the ATP Stats Centre / Infosys files, including any decryption, for recent matches. For each, report:
+   - the URL pattern(s);
+   - how matches are identified (ATP tournament id, year, match code like MS001);
+   - what fields come back: aces, double faults, serve points, 1st serve in, 1st serve points won, 2nd serve points won, service games, break points saved and faced;
+   - pacing, receipts and raw-copy conventions;
+   - whether it covers Challengers.
+   Report whether a live feed already fetches these per match during tournaments (for example for serve speeds), and where its raw files land.
+4. How Stage 0 men's matches map to ATP tournament ids and match codes: any id-link tables (match_timing link_sources, tournament id maps, TML's tourney_id format like 2026-0314). Can a Stage 0 men's match be matched to an ATP match-stats record, by tournament, round and player ATP ids?
+5. Stage 0's box-score columns and checks that a filled box score must pass: src/eda/predictability_diagnostic/common.py (C.BOX) and stage0_build.py (checks B0–B9).
+
+Report with file:line references and verbatim quotes where wording matters. Separate observed code from inference. Keep the report under 1,200 words.
+```
+
+### B: "How a feature enters the pool" (Explore)
+
+```text
+Read-only research in the repository C:/Users/zerom/Documents/Tennis-predictions (Windows; use the Read/Grep/Glob tools). Do not edit anything.
+
+Goal: add one candidate input to the project's feature pool (the "feature universe"): how much box-score evidence stands behind each player's recent form. I need to know how a feature enters the pool, and how to build this one.
+
+1. The pool. Read docs/studies/feature_universe/README.md and its process log, docs/studies/adoption_framework/README.md § 11, and any docs/decisions file on the feature universe or selection rounds. Report:
+   - how a candidate feature is registered: a registry file (its path, format and columns), a values parquet per feature, or something else;
+   - what an "admission verdict" requires: a screen, a leak probe via src/eda/match_timing/probe.py, a cluster assignment, or more;
+   - who decides (selection rounds by cluster).
+   Give the most recent example of a feature admitted to the pool, with the exact files it added or changed.
+2. The two-week form inputs of the current best model (in_form_*, in_formdef_*, in_adjperf_tpw_2w). Report:
+   - where they are computed (src/eda/ufc_ideas/stageB_*.py, src/eda/daily_prediction/dp_forms.py, the chain in src/eda/model_rebuild/run_chain.py);
+   - the weighting w = 2^(-age/2 weeks) and the prior K3;
+   - how a match without a box score gets weight 0;
+   - whether the code exposes Σw, the weighted count of box-scored matches per player-match, or would need to compute it.
+   Do the same for the surface IOS profile (in_iosO_*, in_iosD_*) and points_52w: is there a natural "evidence" quantity per player, such as a count or weight of box-scored matches?
+3. The template frame: where the instance's model frame lives (data/studies/current_best_model/template_2026-10-13/ or similar; model_frame_chain.parquet?), and its key columns (match_id, sides A/B, season), so a new feature can be joined to it.
+4. The leak-proof timing rules for a per-player count feature (CLAUDE.md, "Feature timing"): which clock it must use.
+
+Report with file:line references, and quote where wording matters. Separate what you observed from your inference. Keep the report under 1,000 words.
+```
+
+### D: "Refresh pool candidate U-126" (general-purpose)
+
+```text
+You are working in the repository C:/Users/zerom/Documents/Tennis-predictions on Windows (Git Bash and PowerShell are available). Run project Python only through ./python.sh, the project's `tennis` Conda environment. Read CLAUDE.md first; its rules bind you:
+- no state-mutating git commands;
+- never delete files;
+- no model fits unless stated below.
+
+The lead session is editing these right now, so do not edit them: src/eda/prediction_run/, src/pipeline/, src/eda/daily_prediction/, docs/decisions/, docs/studies/box_score_gate_review/, CLAUDE.md. Reading them is fine.
+
+**The task.** The owner decided on 14 Oct 2026, verbatim: "Add an input to the candidate-feature list saying how much data stands behind each player's recent form". The pool (the "feature universe") already holds such a candidate: U-126, "form evidence and shrinkage". Refresh it so the pool carries a current, exact version. It goes to the pool only, never into the model: selection rounds decide later.
+
+**Facts already found by a read-only survey.** Verify any you rely on.
+- **U-126 today.** It is `data/studies/feature_universe/universe.csv:127`, with columns `fp__f07_evidence_age__f07_s0_a/_b` and `fp__f13_uncertainty__shr_a/_b` (menu.csv:321-322, 366-367).
+  - s0 is the decayed count of recent box-score matches. It comes from `f07_evidence_age.form_state`: s0 = Σ 2^(-age/14 days) over box-score rows with a finite tpw z, under Stage 0's as-of rule.
+  - shr = W/(W + K3), with K3 hard-coded at 37 (`f13_uncertainty.prepare_b6`).
+  - Built 7 Oct on the frozen population of 63,737 matches. Points form only; no level layer. Status: built, not in the model; tier D, priority low.
+- **The model's own two-week forms.** They come from `src/eda/ufc_ideas/stageB_adjperf.py`.
+  - Formula: sum w z / (sum w + K3 u_typ^tau), with w = 2^(-age/h3) × units^tau. Chosen constants: tau = 0, h3 = 2 weeks.
+  - K3 by skill: serve 10 (men) / 20 (women); return 160; tpw 10 / 20.
+  - With tau = 0, Σw is the decayed match count.
+  - A row without a box score gets weight 0 (stageB_adjperf.py:222). Σw is computed (sums column k, :225) but never stored.
+  - The level layer (`level_layer.py:863-881`) multiplies w by its `rw` for men, and the template excludes ITF box scores (`itf_box: "exclude"`). Women are untouched.
+  - The live engine computes the forms through `dp_forms.decided_inputs` (src/eda/daily_prediction/dp_forms.py:150-152), calling `LL.forms_step3`. An exact Σw is column k at ctx.ia/ctx.ib.
+- **The pool's route.** It is in docs/studies/feature_universe/README.md: adding a feature (about lines 581-603), verdicts and the admission card (581-595), and the U-330 example.
+  - A feature has a `catalogue/spec_*.py`; `build_store.py` appends it to `store.parquet` (one wide table keyed by match_id); then `store_registry.csv`, `menu.csv` and `universe.csv` are updated.
+  - Tests live in test/feature_universe/test_store.py.
+  - A per-player own-history count is "safe by construction" (CLAUDE.md, Feature timing). It uses Stage 0's as-of rule and needs no probe.
+- **The template frame.** It is `data/studies/current_best_model/template_2026-10-13/model_frame_chain.parquet` (67,226 rows; match_id, tour, season, …; side A is Stage 0's player_a_id).
+
+**What to build.**
+1. **Columns.** Per match, for side A and side B, take the decayed count of the player's earlier box-scored matches exactly as the model's two-week forms weight them (Σw, with the layer's weights for men). Compute it, if at all possible, with the model's own code path, so it equals what the live engine computes. Also the shrinkage share r = Σw/(Σw + K3) with the model's own K3; say which skill's K3 you use, and why. Encode as the pool's conventions want (A, B and/or A − B).
+   If the per-statistic masks make Σw differ between statistics (women's service-game statistics are partly missing), say how much, and pick one with a reason.
+2. **Population.** Build for the store's population, and also save the template frame's population beside it, so a later round can use either.
+3. **Checks, all without scoring any result against match outcomes.**
+   - (a) Against the old U-126 s0: the correlation, the largest differences, and why they differ.
+   - (b) On a sample: confirm Σw is the denominator of the model's own form value.
+   - (c) How timing safety is enforced.
+   - (d) Near-copies: the largest |r| against the store's columns and the model's inputs (for example in_sets_14d).
+   - (e) Coverage by season.
+4. **Register it in the pool** following the README's conventions; keep earlier ids. Either re-file U-126 or add a successor row, whichever the README's conventions say.
+   - Write the admission card: definition, encodings, stable measurement and coverage, timing, available at bet time, not a near-copy, mechanism, cluster node, results read (none).
+   - Recommend a verdict on the card's criteria.
+   - Add tests in test/feature_universe/ like U-330's, and run the feature-universe tests.
+5. **No fits and no outcome scoring.** If the README's admission rules require a screen against results, stop and report that, rather than running it.
+
+**Report back** (under 900 words):
+- the files you added or changed;
+- the checks' numbers;
+- the verdict and why;
+- anything that contradicts the facts above;
+- a short chronological record of your steps (with clock times from `date`, failures and dead ends), which the lead will copy into the study's process log.
+```
+

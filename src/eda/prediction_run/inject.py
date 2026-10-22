@@ -73,13 +73,23 @@ def check(meta: pd.DataFrame) -> dict:
 
 
 def odds(meta: pd.DataFrame) -> dict:
+    """A qualifying live match (bet since 22 Oct 2026: docs/decisions/2026-10-22-qualifying-bets.md) has no Stage 1 row:
+    tennis-data prices no qualifying, and the model's odds input is the run's price (the daily engine reads it from
+    the run's prices table, never from Stage 1). It is left out here and counted; any other live match without a row
+    still stops the run."""
     o = pd.read_parquet(ODDS)
     o["match_id"] = o["match_id"].astype(str)
     pos = pd.Series(np.arange(len(o)), index=o["match_id"])
     missing = sorted(set(meta["match_id"]) - set(pos.index))
-    if missing:
-        raise SystemExit(f"odds: {len(missing)} live matches have no Stage 1 row (not a main-draw match at a level "
-                         f"tennis-data covers): {missing[:5]}")
+    m = pd.read_parquet(C.MATCHES, columns=["match_id", "qualifying"]).astype({"match_id": str})
+    qual = set(m.loc[m["qualifying"].astype(bool) & m["match_id"].isin(missing), "match_id"])
+    if set(missing) - qual:
+        bad = sorted(set(missing) - qual)
+        raise SystemExit(f"odds: {len(bad)} live matches have no Stage 1 row (not a main-draw match at a level "
+                         f"tennis-data covers): {bad[:5]}")
+    meta = meta[~meta["match_id"].isin(qual)]
+    if meta.empty:
+        return {"priced": 0, "qualifying_without_stage1_row": len(qual)}
     idx = pos.reindex(meta["match_id"]).to_numpy()
     p = meta["p_a"].astype(float).to_numpy()
     if not ((p > 0) & (p < 1)).all():
@@ -101,7 +111,7 @@ def odds(meta: pd.DataFrame) -> dict:
     part = ODDS.with_name(ODDS.name + ".part")
     o.to_parquet(part, index=False)
     os.replace(part, ODDS)
-    return {"priced": int(len(rows))}
+    return {"priced": int(len(rows)), **({"qualifying_without_stage1_row": len(qual)} if qual else {})}
 
 
 def remap() -> dict:

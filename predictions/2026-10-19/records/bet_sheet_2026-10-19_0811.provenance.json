@@ -1,0 +1,105 @@
+{
+ "made_at": "2026-10-19T15:11:04+00:00",
+ "written_at": "2026-10-19T15:11:05+00:00",
+ "run": "data/studies/daily_prediction/runs/live_2026-10-19_075718",
+ "model": "tabpfn35",
+ "instance": "template_2026-10-16",
+ "checkpoint": "2026-09-28",
+ "stage2": {
+  "coefficients": {
+   "2026_daily": {
+    "keys": {
+     "instance": "C:\\Users\\zerom\\Documents\\Tennis-predictions\\data\\studies\\current_best_model\\template_2026-10-16",
+     "frame_sha256": "58b72622c8bf364282223bb3275bc2fc7e3b0857009a752f46995753ace115db",
+     "inputs_sha256": "2de9e61b9317d53e3f123cb1dfb6381559c3598692eb934c6d1c2f17539cda0c",
+     "fit_files": 28,
+     "fits_sha256": "88959e6c08f43a57baff0e39ea6d62818806b7ac6b7c0795d0618ca0491521ed",
+     "fits_model": {
+      "tabpfn": "9.1.0",
+      "checkpoint": "tabpfn-v3.5-20260909.safetensors",
+      "config": {
+       "n_estimators": 8,
+       "softmax_temperature": 0.9,
+       "ignore_pretraining_limits": true
+      },
+      "inputs_sha256": "b69ab8ad74df341c893917108acbde33028b29aa2b9890f3f5682a860035b199",
+      "torch": [
+       "2.11.0+cu128"
+      ],
+      "devices": [
+       "NVIDIA GeForce RTX 5090"
+      ]
+     },
+     "feed": "daily",
+     "speed_column": "C:\\Users\\zerom\\Documents\\Tennis-predictions\\data\\studies\\infosys_atp_backfill\\speed_columns_augmented.parquet",
+     "speed_history": "spd_L_D",
+     "speed_column_sha256": "2add9204452900fbdc6abf9faa7097e4f836cafe669b6377137cda1c786d6b4b",
+     "season": 2026
+    },
+    "feed": "daily",
+    "s_atp": 0.9009685272835591,
+    "s_wta": 0.9234497919047319,
+    "b_shrunk": 0.033373488831578285,
+    "b_mle": 0.03796333241611558,
+    "se_b": 0.018542493792040274,
+    "fit": "current_best_model/compare.walk_forward: 2019 .. Y - 1, seeds 0-3 mean, debut seasons out, b shrunk with tau 0.05, on spd_L_D",
+    "matches": 32414,
+    "computed_at": "2026-10-18T211417Z"
+   }
+  },
+  "speed": {
+   "panel": "C:\\Users\\zerom\\Documents\\Tennis-predictions\\data\\studies\\serve_speed_tabpfn\\live\\speed_panel_live.parquet",
+   "panel_sha256": "e773850882128e6cb6997cc305efd6445133d7e608322c5ec91df218df1e6969",
+   "standardiser_km_h": 1.9496051535048338,
+   "clip": 4.0
+  },
+  "mode": "L",
+  "feed": "daily",
+  "feed_rule": "daily from 2026-10-08 (the daily collector's first day in the live panel), weekly before (the owner, 14 Oct 2026)",
+  "patterns": {
+   "status": "on",
+   "size_per_unit_z": 0.06164709422441551,
+   "params": "data/studies/unpriced_leads/check_now/now/params.json",
+   "params_sha256": "cb5db37b32f65f3eee8ad523d3272a811b5903cc718bc31c532e96381f0b1ac2",
+   "live_file_sha256": "c39d06c5ad04eb5199c6110070f131b3619f802a28160813e07b633e1a09ec28",
+   "set_at": "2026-10-13 21:09 PDT",
+   "matches_with_z": 27,
+   "rules": "docs/studies/unpriced_leads/check_now_rules.md"
+  }
+ },
+ "state_parts": {
+  "resumed": 21
+ },
+ "history": "history vs the reference of 2026-10-08: future 174 and updated 6 (allowed); accepted 56,713 (allowed: lower-level additions 53,303, completions 418, decided repairs 2,992); main-tour changes 9 (allowed, listed: new past 1, dropped 1, revised 7); Tennis My Life's own lower-level changes 104 (allowed, decided 13 Oct: new past 39, dropped 45, revised 20); lower-level new past 0, dropped 0, revised 0 -> the template may be built",
+ "run_notes": [
+  {
+   "plain": "Tennis My Life's download held 4 changed files for review (2025_wta.csv, 2026_challenger.csv, 2026_wta.csv, atp_quali/2026_atp_quali.csv); this run used the copies it had. Each match's data check still applies.",
+   "detail": "the run's Tennis My Life download did not finish cleanly (held file or lock): refresh.json; held: 2025_wta.csv, 2026_challenger.csv, 2026_wta.csv, atp_quali/2026_atp_quali.csv (accept after src/eda/tml_revisions/held_check.py: docs/decisions/2026-10-13-tml-lower-level-revisions.md)"
+  }
+ ],
+ "files": {
+  "Bet sheet": "predictions/2026-10-19/bet_sheet_2026-10-19_0811.xlsx",
+  "Record (every figure)": "predictions/2026-10-19/records/bet_sheet_2026-10-19_0811.csv",
+  "Provenance": "predictions/2026-10-19/records/bet_sheet_2026-10-19_0811.provenance.json"
+ },
+ "inputs": {
+  "predictions.csv": "24c161753afa32bfa68874ac4dfa9ad4c470db2a8caa2851fbbf98e8c19067ef",
+  "curves.parquet": "23001431a21be08fd07499acff62bc0cb62aa6251368c087d505cd80b5b8b4ac",
+  "gate.csv": "e6a8f651ce869a6509512e4fecaa4bf425b32cd40f31e1349a31ff897fc6aa4c",
+  "matchups_input.csv": "f2f0c6c35c04c91f55fe431d48bee69b0b5f849d0d93e697b13ab25d224b66a3",
+  "provenance.json": "9c1803826fbfffce24274787d1a1ad24366c4de39b0eda34374edf86a1e116d1"
+ },
+ "reprice_file": null,
+ "parameters": {
+  "stale_minutes": 30,
+  "venue": "",
+  "venue_fee": 0.0,
+  "venue_prices": null,
+  "stake_rule": "owner_8oct"
+ },
+ "code_sha256": {
+  "diagnostics.py": "adb7eba76095fdf547690445e421e95339338dabd9a029f772dceb9d52220f42",
+  "bet_sheet.py": "ccd3280998a77b8c4faa5bd81f93194f639e6247e2bce457975a7ecf750c1cf1"
+ },
+ "rules": "Section A's output: the bet-time record of a prediction run, and the bet sheet made from it (bet_sheet.py).\n\n    predictions/<day>/bet_sheet_<local time>.xlsx                    the bet sheet: what to bet, at what odds, how much,\n                                                                     and why (bet_sheet.py; the owner's request of 13 Oct)\n    predictions/<day>/records/bet_sheet_<local time>.csv             the record below: every figure, sides A/B\n    predictions/<day>/records/bet_sheet_<local time>.provenance.json its provenance (and the run's notes, said once)\n\nThe record: one row per match, built only from the run folder's stable files (agreed with the daily_prediction session:\npredictions.csv, curves.parquet, gate.csv, provenance keys; columns may be added there, never removed or renamed) and the\nmatchups CSV the run was made from. Everything is side A / side B as the daily pipeline's Stage 0 sides (player_a_id is\nside A); the names come from predictions.csv, which takes them from Stage 0's side rows. The bet sheet only re-says it.\n\nWhat a row says (review D2's rules, process log 11:00):\n    the match        day, start, minutes to start, tour, event, round, best of, surface, indoor\n    the price        source, quote time and age, Pinnacle's odds of both players (with the margin), the overround, the\n                     margin-free price p_market_a the model was fed, Pinnacle's stake limit\n    the model        p_base_a (stage 1, the TabPFN seed mean), eta, spd_L, q_a (both stages: the forecast), the spread of\n                     the 16 seeds at the own price\n    the patterns     the five-pattern adjustment (switched on 13 Oct 2026; docs/studies/unpriced_leads/): patterns\n                     (\"on\" / \"off\"), q_a_patterns_off and q_a_patterns_on (q_a is the one used), pattern_shift_pts_a, and\n                     the decision without it (edge_a_, ev_a_pinnacle_, ev_b_pinnacle_, pick_patterns_off) with\n                     patterns_effect: \"bet only with the patterns\", \"the patterns remove this bet\", \"the patterns\n                     switch the side\", or empty\n    the bet          edge_a = q_a - p_market_a; the pick is the side whose EV at Pinnacle's own odds (margin included) is\n                     positive; fair odds 1/q of the pick; the least odds at which the pick is still +EV anywhere (1/q, no\n                     fees); its EV at Pinnacle; at another venue too when its prices are given\n    break-even       every price p* (side A's) where the model's curve crosses q = p (0 to 3 crossings happen; review D2),\n                     the one nearest the current price, or \"none in [0.05, 0.95]\"\n    stake            only with stake_rule=\"owner_8oct\": the owner's research rule of 8 Oct 2026 (units, not a decided\n                     staking rule; tabpfn_thinking58/common.stake)\n    flags            blocked (no pick, no EV) with the reasons: the gate's \"do not bet\" (since 14 Oct 2026 only an\n                     unknown indoor input or a qualifier without a qualifying match), not a main-tour match, an\n                     unsupported format, a started match, a stale quote, a price or player read-back mismatch, a price\n                     off the curve; warnings (this match's own): players new since Stage 0, seeds that disagree,\n                     missing serve-speed form\n    the edge bar     gate_edge_bar (gate.EDGE_BAR, 14 Oct 2026; docs/decisions/2026-10-14-box-score-gate.md): an earlier\n                     match of a kind the training rows nearly always hold lacks a box score (gate_detail: whose), so a\n                     side is picked only if its forecast moved the bar against it is still +EV; passed_by_bar: the\n                     side the bar took away. gate_notes: missing box scores of kinds the training rows mostly lack (team\n                     events, ITF), noted only\n    decision         BET (a pick), PASS (no side +EV at Pinnacle's odds), BLOCKED, NOT PREDICTED; home_side: the side\n                     Pinnacle lists first\nThe run's own notes (the history check, recomputed state parts, an unclean results download) apply to every match:\nthey go to the provenance sidecar and the sheet's header, once, not into every row.\nA newer price (reprice) is read off the run's curve, so edge and EV are always at the same moment as the price.\n"
+}

@@ -1,0 +1,421 @@
+{
+ "sandbox": "C:\\Users\\zerom\\tnr_sb_tenerife",
+ "rows": [
+  "atp|2024-2847|F|atp:105062|atp:209263",
+  "atp|2024-2847|QF|atp:102093|atp:207352",
+  "atp|2024-2847|QF|atp:105062|atp:210017",
+  "atp|2024-2847|QF|atp:208279|atp:209263",
+  "atp|2024-2847|QF|atp:209903|atp:212021",
+  "atp|2024-2847|R16|atp:102093|atp:209209",
+  "atp|2024-2847|R16|atp:105062|atp:106220",
+  "atp|2024-2847|R16|atp:105836|atp:208279",
+  "atp|2024-2847|R16|atp:106075|atp:207352",
+  "atp|2024-2847|R16|atp:106283|atp:209263",
+  "atp|2024-2847|R16|atp:134840|atp:210017",
+  "atp|2024-2847|R16|atp:200416|atp:209903",
+  "atp|2024-2847|R16|atp:207490|atp:212021",
+  "atp|2024-2847|R32|atp:102093|atp:109686",
+  "atp|2024-2847|R32|atp:105062|atp:106162",
+  "atp|2024-2847|R32|atp:105561|atp:207490",
+  "atp|2024-2847|R32|atp:105836|atp:144973",
+  "atp|2024-2847|R32|atp:105882|atp:209903",
+  "atp|2024-2847|R32|atp:106075|atp:210721",
+  "atp|2024-2847|R32|atp:106177|atp:208279",
+  "atp|2024-2847|R32|atp:106220|atp:200484",
+  "atp|2024-2847|R32|atp:106283|atp:209405",
+  "atp|2024-2847|R32|atp:110602|atp:209263",
+  "atp|2024-2847|R32|atp:125802|atp:200416",
+  "atp|2024-2847|R32|atp:134840|atp:200436",
+  "atp|2024-2847|R32|atp:200273|atp:207352",
+  "atp|2024-2847|R32|atp:208010|atp:212021",
+  "atp|2024-2847|R32|atp:208890|atp:209209",
+  "atp|2024-2847|R32|atp:210017|atp:211596",
+  "atp|2024-2847|SF|atp:105062|atp:212021",
+  "atp|2024-2847|SF|atp:207352|atp:209263"
+ ],
+ "restored": [
+  {
+   "file": "data/studies/match_timing/links/api_tennis.csv",
+   "from": "tables",
+   "sha256": "e1e40a6ab481350257f330f881c7dae0c8c620d5deab87fc92e7e97e1f4f8e68"
+  },
+  {
+   "file": "data/studies/match_timing/links/api_tennis.json",
+   "from": "tables",
+   "sha256": "0c839e611132e52406a60b43fae85200d3c3064a16325adc98795f51a23849b3"
+  },
+  {
+   "file": "data/studies/match_timing/links/api_tennis.parquet",
+   "from": "tables",
+   "sha256": "a0a8f153bcd0564cb775fa21f83abd7d2109ea201f8c8492485f5ee30dd6e608"
+  },
+  {
+   "file": "data/studies/match_timing/links/flashscore.parquet",
+   "from": "tables",
+   "sha256": "d01ef8f102cc6cd876f23f9d0a9fe5a8eb878459200be343d1b6262cc6e6396c"
+  },
+  {
+   "file": "data/studies/match_timing/links/flashscore_ambiguous.parquet",
+   "from": "tables",
+   "sha256": "0c5c4d462750397fbf9e0cbd49e64d412a7785e587bf2d52f7bcead9a2fc0675"
+  },
+  {
+   "file": "data/studies/match_timing/links/flashscore_daily_board.parquet",
+   "from": "tables",
+   "sha256": "9d8dd142e435b4acb45671cdd175ddfd109681384c06a7f9088bd9601ca46632"
+  },
+  {
+   "file": "data/studies/match_timing/links/flashscore_link_counts.csv",
+   "from": "tables",
+   "sha256": "9e12d92c8da61c18c1e90fca095259482bc8583d2e668d5003b3185fd5d10edf"
+  },
+  {
+   "file": "data/studies/match_timing/links/flashscore_records.parquet",
+   "from": "tables",
+   "sha256": "8ebff56d220b80a8036aeabd4ba7de7f88c93ed653e7b7df7295179e5c0d125c"
+  },
+  {
+   "file": "data/studies/match_timing/links/flashscore_summary.json",
+   "from": "tables",
+   "sha256": "d1d57e8f5d0943b92774956570105bd0632d91634082e9195829d30fd7e524d9"
+  },
+  {
+   "file": "data/studies/match_timing/links/flashscore_unlinked.parquet",
+   "from": "tables",
+   "sha256": "18764a13196a42a1a2d6f5f56712cc53f7d12c9b32bd628adba54802c134d521"
+  },
+  {
+   "file": "data/studies/match_timing/links/infosys.csv",
+   "from": "tables",
+   "sha256": "738215508235447b8d6dab9c83c521afd919fef2e3263e3d23bdd4cd84e3da2a"
+  },
+  {
+   "file": "data/studies/match_timing/links/infosys.json",
+   "from": "tables",
+   "sha256": "fad60bf050e4a0bf8ae2440f2b997e3f8b59d84b46928030be61e0006a7cff34"
+  },
+  {
+   "file": "data/studies/match_timing/links/infosys.parquet",
+   "from": "tables",
+   "sha256": "f6a6249a5e0e20cc0c1a8a3a50cfa7d5b2b95488b85b185e78fbf9c6d77428ef"
+  },
+  {
+   "file": "data/studies/match_timing/links/live_tennis_api.csv",
+   "from": "tables",
+   "sha256": "dd1210497785afaf65aa76d3d9e649a8913d9e873c18104a8488e137d7c99279"
+  },
+  {
+   "file": "data/studies/match_timing/links/live_tennis_api.json",
+   "from": "tables",
+   "sha256": "76825962fdb5a1da3088fe885f46544f7c6ba3ff870f78a6280cbac245714218"
+  },
+  {
+   "file": "data/studies/match_timing/links/live_tennis_api.parquet",
+   "from": "tables",
+   "sha256": "69473004dbcf7f225ad48a16435c6dfd4110850674e47d4c7fd39a7a233dfbea"
+  },
+  {
+   "file": "data/studies/match_timing/links/match_charting.csv",
+   "from": "tables",
+   "sha256": "738215508235447b8d6dab9c83c521afd919fef2e3263e3d23bdd4cd84e3da2a"
+  },
+  {
+   "file": "data/studies/match_timing/links/match_charting.json",
+   "from": "tables",
+   "sha256": "94fbab1f561763c0a5018488ea4ff9181b3e2e3e3f95350c2fdaf29c0ef6b059"
+  },
+  {
+   "file": "data/studies/match_timing/links/match_charting.parquet",
+   "from": "tables",
+   "sha256": "02676713324d8e0724b989f66205d63833d1fd17247da97b37d6dd32b38e7dcb"
+  },
+  {
+   "file": "data/studies/match_timing/links/open_tennis_data.csv",
+   "from": "tables",
+   "sha256": "738215508235447b8d6dab9c83c521afd919fef2e3263e3d23bdd4cd84e3da2a"
+  },
+  {
+   "file": "data/studies/match_timing/links/open_tennis_data.json",
+   "from": "tables",
+   "sha256": "80219e882684b756c9e4c61e79d1c07f0142d9d7564693c6880afe4b0ad9eec6"
+  },
+  {
+   "file": "data/studies/match_timing/links/open_tennis_data.parquet",
+   "from": "tables",
+   "sha256": "12e512f72798cac06495386d15944a284b0d1d65c5833c6d0f293cb832662ea4"
+  },
+  {
+   "file": "data/studies/match_timing/links/pbp_copy.json",
+   "from": "tables",
+   "sha256": "c2d91c878b255c7ab2e2467390cd64ea09f19e119c27e8fced8bfb9092fa3c4e"
+  },
+  {
+   "file": "data/studies/match_timing/links/pbp_copy.parquet",
+   "from": "tables",
+   "sha256": "72e63909b7989f021c877a8ec7fc0c4711d264e212a934aec0089842493c988c"
+  },
+  {
+   "file": "data/studies/match_timing/links/sirgenkii.parquet",
+   "from": "tables",
+   "sha256": "ae82fcf026e3d424b545e7c77bfa40283068e7a1528446c69d88babe52527f76"
+  },
+  {
+   "file": "data/studies/match_timing/links/slam_feeds.csv",
+   "from": "tables",
+   "sha256": "ad0b9181a532c97b1ea0519854113b929cc74ab7f0d955982a80cc6868a2dc93"
+  },
+  {
+   "file": "data/studies/match_timing/links/slam_feeds.parquet",
+   "from": "tables",
+   "sha256": "196661aa289231ece5b6d3022203f2c60f33754e710c74332184d6b1c9bcbdb2"
+  },
+  {
+   "file": "data/studies/match_timing/links/sofascore.csv",
+   "from": "tables",
+   "sha256": "15c9cd0f2e23e116df5702328a2956275138812913a49a21f27885d50f574676"
+  },
+  {
+   "file": "data/studies/match_timing/links/sofascore.parquet",
+   "from": "tables",
+   "sha256": "9076c3fada967967a46ba40dd7f4b16e6139424e4b8a71cec12fec2066c7d310"
+  },
+  {
+   "file": "data/studies/match_timing/links/sources_b_link_counts.csv",
+   "from": "tables",
+   "sha256": "a0e72aaf1f66c53e6956c0db770ee815d2c8cc5910444a4552f2279ea9710390"
+  },
+  {
+   "file": "data/studies/match_timing/links/sources_b_summary.json",
+   "from": "tables",
+   "sha256": "d28031844071d0e756bbc42fac026e5f49ddfc6c16a292cbf447c525bbf0b76f"
+  },
+  {
+   "file": "data/studies/match_timing/links/tennis_data.parquet",
+   "from": "tables",
+   "sha256": "1f51eed6bd4cc1e3b1d79b0eb3bd50216d5807f1e97854a2f716bbe89ca47f7b"
+  },
+  {
+   "file": "data/studies/match_timing/links/tml_days.csv",
+   "from": "tables",
+   "sha256": "738215508235447b8d6dab9c83c521afd919fef2e3263e3d23bdd4cd84e3da2a"
+  },
+  {
+   "file": "data/studies/match_timing/links/tml_days.json",
+   "from": "tables",
+   "sha256": "feba39ac0ca04ef98d79428b2957bebdab2054073e7e7617a204c53f4acd491a"
+  },
+  {
+   "file": "data/studies/match_timing/links/tml_days.parquet",
+   "from": "tables",
+   "sha256": "56995def7cfdc500c2fc2b609f697b040cdc3669c7ad573976c3b4aae76bfc96"
+  },
+  {
+   "file": "data/studies/match_timing/links/wta_api.csv",
+   "from": "tables",
+   "sha256": "a806d3cc59142ebdaee8416b8b93cbccc25a5eb8bdc07b7bf71176822e0b7675"
+  },
+  {
+   "file": "data/studies/match_timing/links/wta_api.parquet",
+   "from": "tables",
+   "sha256": "d91e34a3dcc5b7ce539e4e6335417e324a2b92c945c18b4ee6e18c99faac911e"
+  },
+  {
+   "file": "data/studies/match_timing/perplayer_features.parquet",
+   "from": "tables",
+   "sha256": "603cce4e137cb6a48aa14186f1be922df26c946f00c30e0e3423e0b60e75225a"
+  },
+  {
+   "file": "data/studies/match_timing/perplayer_features_summary.json",
+   "from": "tables",
+   "sha256": "5599b9d6487261b8e9d82db045d57cb39b87951e82aa07189a746c157195141d"
+  },
+  {
+   "file": "data/studies/match_timing/ttt_timed.parquet",
+   "from": "tables",
+   "sha256": "8efba214b44ec72b8eddb9a0e618e34d7f900995ef304a7b3f7c0bc7b29d54f3"
+  },
+  {
+   "file": "data/studies/match_timing/ttt_timed_results.csv",
+   "from": "tables",
+   "sha256": "9ed714196689af5b65ff0f9ccfae3fac9c836f27ef5aac2eb12ecb93cbde871d"
+  },
+  {
+   "file": "data/studies/match_timing/ttt_timed_summary.json",
+   "from": "tables",
+   "sha256": "26dc4913fc973b544fb13be6e908f4cbc349a561c112a16c05b97c05566879e7"
+  },
+  {
+   "file": "data/studies/predictability_diagnostic/stage0_cells.csv",
+   "from": "tables",
+   "sha256": "e76bd5dc8e279561e42ea2b739744863274bc467c039533d94b9648d2e0d014c"
+  },
+  {
+   "file": "data/studies/predictability_diagnostic/stage0_check_box.csv",
+   "from": "tables",
+   "sha256": "c630b28bf7273a6a9e5026013b1c675db9f6f348c97a1687580972b436e31dd7"
+  },
+  {
+   "file": "data/studies/predictability_diagnostic/stage0_check_counts.csv",
+   "from": "tables",
+   "sha256": "c229eba16f3494d850fdb61f5983efb39ca3f4b9bc88d38e4772171094007c88"
+  },
+  {
+   "file": "data/studies/predictability_diagnostic/stage0_checks.json",
+   "from": "tables",
+   "sha256": "fbc6ca2e428ffc561f433891b1aebe731080a3213036a5a9c836db4f585ba69b"
+  },
+  {
+   "file": "data/studies/predictability_diagnostic/stage0_cleaning_log.csv",
+   "from": "tables",
+   "sha256": "f63b6b9fd46335b2c936798aedc58b875eced1bd0d035fc5de6f234f39843850"
+  },
+  {
+   "file": "data/studies/predictability_diagnostic/stage0_level_applied.csv",
+   "from": "tables",
+   "sha256": "c79d0eb7ec50c158063b94f80d884a0faea1a87f77f367e29569254d096f8e7b"
+  },
+  {
+   "file": "data/studies/predictability_diagnostic/stage0_match_players.parquet",
+   "from": "tables",
+   "sha256": "9b712648ed28dc7267c6bac03c051f6dc823145a2eebf74078b798083bb9f860"
+  },
+  {
+   "file": "data/studies/predictability_diagnostic/stage0_matches.parquet",
+   "from": "tables",
+   "sha256": "07bc2d34f6655fdb27426bbf348d5ed1cda35cf4e9a187bd5cd22a81108ab00f"
+  },
+  {
+   "file": "data/studies/predictability_diagnostic/stage0_summary.json",
+   "from": "tables",
+   "sha256": "6c62831482a04643df1408a82738d81a2deaecfb3dcc60910378ac174a86bffc"
+  },
+  {
+   "file": "data/studies/predictability_diagnostic/stage1_odds.parquet",
+   "from": "tables",
+   "sha256": "4a802e173ea87284ea2357bdbaa662726adc3dc04414c530b72c4958c55d7e21"
+  },
+  {
+   "file": "data/studies/predictability_diagnostic/stage1_odds_summary.json",
+   "from": "tables",
+   "sha256": "8d670a53f06260b95fcee83bf56ffde91378ce1e56a7998cf89774acce9b093d"
+  },
+  {
+   "file": "data/studies/predictability_diagnostic/stage1_odds_unlinked.parquet",
+   "from": "tables",
+   "sha256": "a26a06a78196ada191a115b663e1e14ace0e36545e39d3e74fd104193459c91e"
+  },
+  {
+   "file": "data/studies/match_timing/ios_features.parquet",
+   "from": "tables_later",
+   "sha256": "577294cc9f840a2c763c7369a3dc56088536080b1f4d7fc619ac7fd1e75461de"
+  },
+  {
+   "file": "data/studies/match_timing/ios_features_summary.json",
+   "from": "tables_later",
+   "sha256": "b52327ba5083450a1b033e183c26bd0454c9247161b3c91eb1d342a70b989fdc"
+  },
+  {
+   "file": "data/studies/match_timing/leakproof_features.parquet",
+   "from": "tables_later",
+   "sha256": "7de20544d61b2213b0b8d48603f72810934bacb08b5bda0cb3267cf844278e40"
+  },
+  {
+   "file": "data/studies/match_timing/leakproof_features_summary.json",
+   "from": "tables_later",
+   "sha256": "0e379924c66fb1a316c8df038e5861c28fc7079a250de9557adb3aac3d17e785"
+  },
+  {
+   "file": "data/studies/match_timing/links/sources_c_link_counts.csv",
+   "from": "tables_later",
+   "sha256": "357318de1108e2b589cf4211d2caf26da7938c53670df6da34b89e1beae468d2"
+  },
+  {
+   "file": "data/studies/match_timing/links/sources_c_summary.json",
+   "from": "tables_later",
+   "sha256": "a619ea02685303060868399437fbc0b35cf12b88f868ef770c3940344416fc9b"
+  },
+  {
+   "file": "data/studies/match_timing/links/tdi.csv",
+   "from": "tables_later",
+   "sha256": "d41cc43b6e5eef18f31379bdfaaadc3bc7e18d19cffd1dea2ec3ba05593f735d"
+  },
+  {
+   "file": "data/studies/match_timing/links/tdi.parquet",
+   "from": "tables_later",
+   "sha256": "6bd59410ad8c782341bd6f23025df30e67f44a026a9d700378f409dd84990607"
+  },
+  {
+   "file": "data/studies/match_timing/source_calibration.csv",
+   "from": "tables_later",
+   "sha256": "bdd64e48ccedbf5e6a0f4af66dd732522a9da799da89ae2e530344901dcf61fb"
+  },
+  {
+   "file": "data/studies/match_timing/timing.parquet",
+   "from": "tables_later",
+   "sha256": "f602943d5ea0a66771d54063fa3501c426b2c60f60d1eeb294f93785a00c6bcc"
+  },
+  {
+   "file": "data/studies/match_timing/timing_check.json",
+   "from": "tables_later",
+   "sha256": "de0d188e11db5f69567b50547afcf37d9ec9d24db96647d026584d6b0eafd0c9"
+  },
+  {
+   "file": "data/studies/match_timing/timing_check_classes.csv",
+   "from": "tables_later",
+   "sha256": "50533bc5600c6f76a2a74e7b92c4c662952b5f84d251f8c18826454e970b6454"
+  },
+  {
+   "file": "data/studies/match_timing/timing_check_siblings.csv",
+   "from": "tables_later",
+   "sha256": "6af2d435f2354392dec2470e2d6747d23a1618e7759ecc06d9cbd690975c6633"
+  },
+  {
+   "file": "data/studies/match_timing/timing_classes.csv",
+   "from": "tables_later",
+   "sha256": "049a8615c3f77208b092c229d7bc071897d2fefefa95108a88a018434a9aa965"
+  },
+  {
+   "file": "data/studies/match_timing/timing_summary.json",
+   "from": "tables_later",
+   "sha256": "3d385761842fdaca28a8f20ebfea1caf4ead969ef7410ddc8d998cbd70ec096d"
+  },
+  {
+   "file": "data/studies/match_timing/undated_matches.csv.gz",
+   "from": "tables_later",
+   "sha256": "30b3043a82f27ce16862af5dd23856bc66ce9dc3cb2de167327fb1107cca552a"
+  },
+  {
+   "file": "data/studies/match_timing/undated_matches.parquet",
+   "from": "tables_later",
+   "sha256": "a1e1d51066436961d09a63d67457f6d2cc2b3c24fe0eb4c67e31dd601503209f"
+  },
+  {
+   "file": "data/studies/match_timing/undated_summary.csv",
+   "from": "tables_later",
+   "sha256": "94b121343448d21a5c0c932b17add0d375cf2ef4bc6caa9dddb51edd72f88077"
+  }
+ ],
+ "stage0": {
+  "dates_changed": 31,
+  "rows_reordered": 7142,
+  "other_columns_equal": true,
+  "player_rows_equal_but_order": true,
+  "matches": 873437,
+  "sha256": {
+   "stage0_matches.parquet": "3aea7d4a05dda0bb8a576fac71f61c9c6d09ea39234d75c6384a5c962e9c9d9b",
+   "stage0_match_players.parquet": "b81ddd29f045bd45117fd7b30bccc84be14164210e8125b9ce8988f4e9139113"
+  }
+ },
+ "timeline": {
+  "anchor_shift_days": 35.0,
+  "rule_labels_unchanged": true,
+  "rows": 31,
+  "windows_holding_the_play_day": 31,
+  "with_a_play_day": 31,
+  "new_windows": [
+   "2024-02-23",
+   "2024-03-06"
+  ],
+  "sha256": "1eb68e07bc19955a899ee40ba8a254da351621d87f58c2e474497a1f85bffcc8"
+ }
+}

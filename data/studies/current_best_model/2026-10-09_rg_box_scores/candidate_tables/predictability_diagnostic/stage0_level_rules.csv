@@ -1,0 +1,29 @@
+order,source,tour,code,name,level,refine,note
+1,*,*,*,davis cup|fed cup|bjk cup|billie jean king|atp cup|united cup|laver cup|world team (?:championship|cup)|hopman,TEAM,,"Team competitions, whatever their code (Sackmann files the ATP Cup and United Cup under A; TML files the World Team Championship, ATP Cup, United Cup and Laver Cup under A)"
+2,*,*,*,olympic,TEAM,,"The Olympics, whatever their code (Sackmann's ATP files use A for 2012-2021)"
+3,*,*,O,,TEAM,,Olympics
+4,*,*,D,,TEAM,,Davis Cup and Fed Cup / Billie Jean King Cup ties
+5,*,atp,*,next ?gen,FIN,,"Next Gen ATP Finals, the under-21 season finale (filed under A and F)"
+6,*,*,F,,FIN,,"Season finales: ATP and WTA Finals, WTA Elite Trophy (Zhuhai), WTA Tournament of Champions"
+7,*,atp,A,tour finals|atp finals,FIN,,Sackmann files the 2020 ATP Finals under A
+8,*,wta,W,finals|championships,FIN,,Both sources file the 2015 WTA Finals under W
+9,*,*,G,,GS,,Grand Slams
+10,sackmann,atp,M,,T1000,,Masters 1000
+11,tml,atp,M,indian wells|miami|monte ?carlo|madrid|rome|canada|toronto|montreal|cincinnati|shanghai|paris,T1000,,The nine Masters 1000 events
+12,tml,atp,M,,T250,,TML files Winston-Salem 2026 (a 250) under M
+13,sackmann,atp,A,,T250,tml_majority,Sackmann's A covers 250 and 500 events alike: the level TML gives the same matches decides
+14,tml,atp,500,,T500,,
+15,tml,atp,250,,T250,,
+16,tml,atp,A,,T250,,TML files Doha and Los Cabos 2024 (250s) under A
+17,*,*,C,,CH,,Challenger and WTA 125
+18,sackmann,atp,S|15|25,,ITF,,"Futures (S, to 2019) and M15 / M25 (from 2020)"
+19,*,wta,W,125,CH,,WTA 125 events filed under W
+20,sackmann,wta,PM,,T1000,tml_majority,Sackmann's WTA codes blur 500 and 1000 (Premier 5 has no code of its own): the level TML gives the same matches decides
+21,sackmann,wta,P,,T500,tml_majority,Sackmann's P covers WTA 500 / Premier and several 1000 / Premier 5 events
+22,sackmann,wta,I,,T250,tml_majority,International / WTA 250
+23,sackmann,wta,W,,T250,tml_majority,Sackmann files 2021 WTA 250 and 500 events under W
+24,sackmann,wta,\d+(\+H)?,,ITF,,"ITF W10-W100 (+H: with hospitality; Sackmann files six 2025 W35+H / W50+H events in the WTA main file)"
+25,tml,wta,PM|P5|1000,,T1000,,
+26,tml,wta,P|500,,T500,,
+27,tml,wta,I|250,,T250,,
+28,tml,wta,A|W,,T250,,TML files Prague 2025 under A and Charleston 2 2021 under W (both 250s)

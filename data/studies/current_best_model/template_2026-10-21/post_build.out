@@ -1,0 +1,18 @@
+C:\Users\zerom\Documents\Tennis-predictions\src\eda\odds_sources\common.py:84: RuntimeWarning: divide by zero encountered in divide
+  ia, ib = 1.0 / np.asarray(d_a, dtype=float), 1.0 / np.asarray(d_b, dtype=float)
+C:\Users\zerom\Documents\Tennis-predictions\src\eda\odds_sources\common.py:85: RuntimeWarning: invalid value encountered in divide
+  return ia / (ia + ib)
+C:\Users\zerom\Documents\Tennis-predictions\src\eda\odds_sources\table.py:84: RuntimeWarning: divide by zero encountered in divide
+  cols[f"over_{name}"] = np.where(ok, 1.0 / d_a + 1.0 / d_b, np.nan)
+[   14.4s] odds_sources.parquet: 67,531 matches; OddsTrader books kept 60
+{
+ "matches": 67531,
+ "by_source": {
+  "pinnacle (tennis-data)": 60737,
+  "pinnacle (oddstrader)": 959,
+  "betonline": 4993,
+  "average": 842
+ }
+}
+{"folder": "data\\studies\\current_best_model\\template_2026-10-21", "was": "built", "inputs": 57, "dropped": ["ios_points_short"]}
+post-build done: data/studies/current_best_model/template_2026-10-21

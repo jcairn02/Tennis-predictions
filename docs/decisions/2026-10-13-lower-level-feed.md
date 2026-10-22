@@ -84,6 +84,10 @@ Read by Claude as the acceptance the summary asked for, on the condition the own
 * **In use from 13 Oct 2026, 20:31:** the snapshot `lower_level_feed/20261013c` is named in `accepted.json`, and
   `men_2026_ch_chq` is retired. The instance built in the check is the current one
   (`data/studies/current_best_model/template_2026-10-13/`); the daily pipeline was pointed at it the same evening.
+* **From 14 Oct 2026, 09:10:** the template rebuilt on the day's tables (`template_2026-10-14`). It carries the feed's
+  snapshot, the Roland Garros repair of 10 Oct (applied 13 Oct 21:12, its decision's coordinated rebuild) and Tennis My
+  Life's corrections accepted on 13 Oct. Its replay check: 18 of 23 matches equal on every input, 5 men's within
+  4.5e-6 (the level layer's season-wide re-centring, which the feed's women's additions trigger; the report's § 7).
 
 ## To undo
 

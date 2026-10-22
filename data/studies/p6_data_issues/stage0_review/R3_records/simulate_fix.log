@@ -1,0 +1,176 @@
+link rows holding the G1/G2 match ids: [('flashscore_unlinked.parquet', 33), ('infosys.parquet', 30)]
+G1 validation: re-implemented windows on the current date reproduce timing.parquet: True (31/31)
+   round                 a_name                         b_name              score        tl_day      sofa_day      es_old      lf_old      es_new      lf_new         basis_w                       rule_label  in_window  in_old_window
+0    R32          Zsombor Piros                Raul Brancaccio        1-6 6-2 6-3  [2024-02-27]  [2024-02-27]  2024-01-19  2024-01-28  2024-02-23  2024-03-03  empirical+rule  ATP Challenger (all categories)       True          False
+1    R32       Martin Landaluce              Pablo Llamas Ruiz     7-6(6) 1-0 RET  [2024-02-26]  [2024-02-26]  2024-01-19  2024-01-28  2024-02-23  2024-03-03  empirical+rule  ATP Challenger (all categories)       True          False
+2    R32         Richard Zusman                  Filip Misolic            6-2 6-3  [2024-02-26]  [2024-02-26]  2024-01-19  2024-01-28  2024-02-23  2024-03-03  empirical+rule  ATP Challenger (all categories)       True          False
+3    R32         Bu Yunchaokete                     Hady Habib        6-4 2-6 6-3  [2024-02-27]           NaN  2024-01-19  2024-01-28  2024-02-23  2024-03-03  empirical+rule  ATP Challenger (all categories)       True          False
+4    R32         Matteo Gigante                   Dennis Novak            6-1 6-3  [2024-02-27]  [2024-02-27]  2024-01-19  2024-01-28  2024-02-23  2024-03-03  empirical+rule  ATP Challenger (all categories)       True          False
+5    R32        Rudolf Molleker               Dimitar Kuzmanov        6-4 4-6 6-3  [2024-02-27]  [2024-02-27]  2024-01-19  2024-01-28  2024-02-23  2024-03-03  empirical+rule  ATP Challenger (all categories)       True          False
+6    R32        August Holmgren                   Ilya Ivashka            6-3 7-5  [2024-02-27]  [2024-02-27]  2024-01-19  2024-01-28  2024-02-23  2024-03-03  empirical+rule  ATP Challenger (all categories)       True          False
+7    R32     Oriol Roca Batalla           Alejandro Moro Canas            7-5 6-4  [2024-02-27]  [2024-02-27]  2024-01-19  2024-01-28  2024-02-23  2024-03-03  empirical+rule  ATP Challenger (all categories)       True          False
+8    R32            Martin Damm               Riccardo Bonadio      7-6(5) 7-6(5)  [2024-02-26]           NaN  2024-01-19  2024-01-28  2024-02-23  2024-03-03  empirical+rule  ATP Challenger (all categories)       True          False
+9    R32          Jozef Kovalik                 Iliyan Radulov            7-5 6-2  [2024-02-27]  [2024-02-27]  2024-01-19  2024-01-28  2024-02-23  2024-03-03  empirical+rule  ATP Challenger (all categories)       True          False
+10   R32       Mitchell Krueger                  Daniel Rincon  6-7(5) 6-4 7-6(7)  [2024-02-27]  [2024-02-27]  2024-01-19  2024-01-28  2024-02-23  2024-03-03  empirical+rule  ATP Challenger (all categories)       True          False
+11   R32       Franco Agamenone              Mikhail Kukushkin         7-6(3) 6-3  [2024-02-27]  [2024-02-27]  2024-01-19  2024-01-28  2024-02-23  2024-03-03  empirical+rule  ATP Challenger (all categories)       True          False
+12   R32  Carlos Lopez Montagud           Alessandro Giannessi        6-3 1-0 RET  [2024-02-27]  [2024-02-27]  2024-01-19  2024-01-28  2024-02-23  2024-03-03  empirical+rule  ATP Challenger (all categories)       True          False
+13   R32            Jules Marie  Santiago Fa Rodriguez Taverna         6-2 7-6(4)  [2024-02-26]  [2024-02-26]  2024-01-19  2024-01-28  2024-02-23  2024-03-03  empirical+rule  ATP Challenger (all categories)       True          False
+14   R32  Daniel Merida Aguilar                 Yaroslav Demin            6-1 6-0  [2024-02-27]           NaN  2024-01-19  2024-01-28  2024-02-23  2024-03-03  empirical+rule  ATP Challenger (all categories)       True          False
+15   R32         Lukas Neumayer              Stefano Travaglia            6-3 6-2  [2024-02-27]  [2024-02-27]  2024-01-19  2024-01-28  2024-02-23  2024-03-03  empirical+rule  ATP Challenger (all categories)       True          False
+16   R16          Filip Misolic                    Martin Damm        4-6 6-3 7-5  [2024-02-28]           NaN  2024-01-21  2024-01-29  2024-02-25  2024-03-04  empirical+rule  ATP Challenger (all categories)       True          False
+17   R16         Bu Yunchaokete                  Jozef Kovalik            6-4 6-4  [2024-02-28]           NaN  2024-01-21  2024-01-29  2024-02-25  2024-03-04  empirical+rule  ATP Challenger (all categories)       True          False
+18   R16         Matteo Gigante               Mitchell Krueger     4-6 6-3 7-6(4)  [2024-02-28]  [2024-02-28]  2024-01-21  2024-01-29  2024-02-25  2024-03-04  empirical+rule  ATP Challenger (all categories)       True          False
+19   R16      Mikhail Kukushkin               Dimitar Kuzmanov            6-4 7-5  [2024-02-29]  [2024-02-29]  2024-01-21  2024-01-29  2024-02-25  2024-03-04  empirical+rule  ATP Challenger (all categories)       True          False
+20   R16       Martin Landaluce          Carlos Lopez Montagud        6-2 4-1 RET  [2024-02-29]  [2024-02-29]  2024-01-21  2024-01-29  2024-02-25  2024-03-04  empirical+rule  ATP Challenger (all categories)       True          False
+21   R16  Daniel Merida Aguilar                Raul Brancaccio     3-6 6-1 7-6(2)  [2024-02-29]           NaN  2024-01-21  2024-01-29  2024-02-25  2024-03-04  empirical+rule  ATP Challenger (all categories)       True          False
+22   R16            Jules Marie           Alejandro Moro Canas     6-4 6-7(5) 6-3  [2024-02-28]  [2024-02-28]  2024-01-21  2024-01-29  2024-02-25  2024-03-04  empirical+rule  ATP Challenger (all categories)       True          False
+23   R16        August Holmgren                 Lukas Neumayer     6-3 6-7(5) 6-4  [2024-02-29]  [2024-02-29]  2024-01-21  2024-01-29  2024-02-25  2024-03-04  empirical+rule  ATP Challenger (all categories)       True          False
+24    QF            Martin Damm                 Bu Yunchaokete      7-6(7) 7-6(1)  [2024-03-01]           NaN  2024-01-23  2024-01-30  2024-02-27  2024-03-05  empirical+rule  ATP Challenger (all categories)       True          False
+25    QF   Alejandro Moro Canas                 Matteo Gigante         7-6(3) 7-5  [2024-03-01]  [2024-03-01]  2024-01-23  2024-01-30  2024-02-27  2024-03-05  empirical+rule  ATP Challenger (all categories)       True          False
+26    QF  Daniel Merida Aguilar              Mikhail Kukushkin            6-3 6-4  [2024-03-01]           NaN  2024-01-23  2024-01-30  2024-02-27  2024-03-05  empirical+rule  ATP Challenger (all categories)       True          False
+27    QF       Martin Landaluce                 Lukas Neumayer            6-3 6-3  [2024-03-01]  [2024-03-01]  2024-01-23  2024-01-30  2024-02-27  2024-03-05  empirical+rule  ATP Challenger (all categories)       True          False
+28    SF         Bu Yunchaokete                 Matteo Gigante  1-6 7-6(0) 7-6(7)  [2024-03-02]           NaN  2024-01-23  2024-01-31  2024-02-27  2024-03-06  empirical+rule  ATP Challenger (all categories)       True          False
+29    SF      Mikhail Kukushkin               Martin Landaluce     2-6 6-2 7-6(4)  [2024-03-02]  [2024-03-02]  2024-01-23  2024-01-31  2024-02-27  2024-03-06  empirical+rule  ATP Challenger (all categories)       True          False
+30     F         Matteo Gigante              Mikhail Kukushkin        6-2 2-0 RET  [2024-03-03]  [2024-03-03]  2024-01-24  2024-01-31  2024-02-28  2024-03-06  empirical+rule  ATP Challenger (all categories)       True          False
+G1 (ii): play day found for 31 of 31; inside the new window: 31 ; inside the old window: 0
+G1 (ii, web only): every new window intersects 26 Feb - 3 Mar: True ; the final's window holds Sun 3 Mar: True
+
+G1 (i) hard conflicts after the fix (another match of the player dated inside his Tenerife 3 span):
+  none
+
+G1 (i) softer overlaps after the fix (another match's window touches one of his Tenerife 3 play days):
+  none
+
+G1 (iii) order after the fix:
+           pid                           name  t3_matches  t3_contiguous    t3_first     t3_last                      prev_event   prev_date prev_round     prev_es     prev_lf    prev_day  prev_ok                     next_event   next_date next_round     next_es     next_lf    next_day  next_ok
+0   atp:102093                    Martin Damm           3           True  2024-02-26  2024-03-01                   Tenerife 2 CH  2024-02-19         QF  2024-02-22  2024-02-23  2024-02-23     True                  Miami Masters  2024-03-18       R128  2024-03-19  2024-03-20  2024-03-20     True
+1   atp:105062              Mikhail Kukushkin           5           True  2024-02-27  2024-03-03                       Manama CH  2024-02-12          F  2024-02-16  2024-02-17  2024-02-17     True                      Lugano CH  2024-03-04        R32  2024-03-05  2024-03-06  2024-03-06     True
+2   atp:105561           Alessandro Giannessi           1           True  2024-02-27  2024-02-27                   Tenerife 2 CH  2024-02-19        R32  2024-02-19  2024-02-20  2024-02-20     True              Szekesfehervar CH  2024-03-11        R32  2024-03-10  2024-03-11  2024-03-11     True
+3   atp:105836                    Jules Marie           2           True  2024-02-26  2024-02-28                   Tenerife 2 CH  2024-02-19         SF  2024-02-23  2024-02-24  2024-02-24     True               M25 Vale do Lobo  2024-03-11        R32  2024-03-12  2024-03-13  2024-03-13     True
+4   atp:105882              Stefano Travaglia           1           True  2024-02-27  2024-02-27                   Tenerife 2 CH  2024-02-19          F  2024-02-24  2024-02-25  2024-02-25     True                      Lugano CH  2024-03-04        R32  2024-03-03  2024-03-04  2024-03-04     True
+5   atp:106075                  Jozef Kovalik           2           True  2024-02-27  2024-02-28                   Tenerife 2 CH  2024-02-19         QF  2024-02-22  2024-02-23  2024-02-23     True              Szekesfehervar CH  2024-03-11        R32  2024-03-11  2024-03-12  2024-03-12     True
+6   atp:106162               Franco Agamenone           1           True  2024-02-27  2024-02-27                   Tenerife 2 CH  2024-02-19        R16  2024-02-21  2024-02-22  2024-02-22     True              Szekesfehervar CH  2024-03-11        R32  2024-03-10  2024-03-11  2024-03-11     True
+7   atp:106177             Oriol Roca Batalla           1           True  2024-02-27  2024-02-27                         Pune CH  2024-02-19        R32  2024-02-19  2024-02-20  2024-02-20     True                      Murcia CH  2024-03-18        R32  2024-03-17  2024-03-18  2024-03-18     True
+8   atp:106220               Dimitar Kuzmanov           2           True  2024-02-27  2024-02-29                   Tenerife 2 CH  2024-02-19        R16  2024-02-20  2024-02-21  2024-02-21     True                       Zadar CH  2024-03-18        R32  2024-03-17  2024-03-18  2024-03-18     True
+9   atp:106283               Mitchell Krueger           2           True  2024-02-27  2024-02-28                   Tenerife 2 CH  2024-02-19        R32  2024-02-19  2024-02-20  2024-02-20     True                     Phoenix CH  2024-03-11         Q1  2024-03-10  2024-03-11  2024-03-11     True
+10  atp:109686               Riccardo Bonadio           1           True  2024-02-26  2024-02-26                   Tenerife 2 CH  2024-02-19        R32  2024-02-18  2024-02-19  2024-02-19     True                      Lugano CH  2024-03-04         Q1  2024-03-02  2024-03-03  2024-03-03     True
+11  atp:110602                   Dennis Novak           1           True  2024-02-27  2024-02-27                   Tenerife 2 CH  2024-02-19        R16  2024-02-21  2024-02-22  2024-02-22     True                       Zadar CH  2024-03-18        R32  2024-03-18  2024-03-19  2024-03-19     True
+12  atp:125802                   Ilya Ivashka           1           True  2024-02-27  2024-02-27                 Australian Open  2024-01-15         Q1  2024-01-09  2024-01-10  2024-01-10     True                       M15 Luan  2025-04-21        R32  2025-04-22  2025-04-23  2025-04-23     True
+13  atp:134840                Raul Brancaccio           2           True  2024-02-27  2024-02-29                   Tenerife 2 CH  2024-02-19        R16  2024-02-20  2024-02-21  2024-02-21     True                      Murcia CH  2024-03-18         Q1  2024-03-16  2024-03-17  2024-03-17     True
+14  atp:144973  Santiago Fa Rodriguez Taverna           1           True  2024-02-26  2024-02-26                   Tenerife 2 CH  2024-02-19        R16  2024-02-21  2024-02-22  2024-02-22     True              Szekesfehervar CH  2024-03-11        R32  2024-03-11  2024-03-12  2024-03-12     True
+15  atp:200273                     Hady Habib           1           True  2024-02-27  2024-02-27                   Tenerife 2 CH  2024-02-19         Q1  2024-02-17  2024-02-18  2024-02-18     True             M25 Quinta Do Lago  2024-03-04        R32  2024-03-04  2024-03-08  2024-03-06     True
+16  atp:200416                August Holmgren           2           True  2024-02-27  2024-02-29                   Tenerife 2 CH  2024-02-19        R32  2024-02-19  2024-02-20  2024-02-20     True             M25 Bakersfield CA  2024-03-11        R32  2024-03-12  2024-03-13  2024-03-13     True
+17  atp:200436                  Zsombor Piros           1           True  2024-02-27  2024-02-27                   Tenerife 2 CH  2024-02-19        R32  2024-02-20  2024-02-21  2024-02-21     True              Szekesfehervar CH  2024-03-11        R32  2024-03-10  2024-03-11  2024-03-11     True
+18  atp:200484                Rudolf Molleker           1           True  2024-02-27  2024-02-27                       Manama CH  2024-02-12        R32  2024-02-12  2024-02-13  2024-02-13     True                      Lugano CH  2024-03-04        R32  2024-03-04  2024-03-05  2024-03-05     True
+19  atp:207352                 Bu Yunchaokete           4           True  2024-02-27  2024-03-02                 Australian Open  2024-01-15         Q1  2024-01-09  2024-01-10  2024-01-10     True                      Lugano CH  2024-03-04        R32  2024-03-04  2024-03-05  2024-03-05     True
+20  atp:207490          Carlos Lopez Montagud           2           True  2024-02-27  2024-02-29  M25 Vila Real de Santo Antonio  2024-02-19        R32  2024-02-19  2024-02-20  2024-02-20     True                      Murcia CH  2024-03-18         Q1  2024-03-16  2024-03-17  2024-03-17     True
+21  atp:208010              Pablo Llamas Ruiz           1           True  2024-02-26  2024-02-26                   Tenerife 2 CH  2024-02-19        R32  2024-02-19  2024-02-20  2024-02-20     True              Szekesfehervar CH  2024-03-11        R32  2024-03-10  2024-03-11  2024-03-11     True
+22  atp:208279           Alejandro Moro Canas           3           True  2024-02-27  2024-03-01                   Tenerife 2 CH  2024-02-19        R16  2024-02-21  2024-02-22  2024-02-22     True                      Murcia CH  2024-03-18        R32  2024-03-18  2024-03-19  2024-03-19     True
+23  atp:208890                 Richard Zusman           1           True  2024-02-26  2024-02-26                   Tenerife 2 CH  2024-02-19        R32  2024-02-18  2024-02-19  2024-02-19     True  M15 Les Franqueses del Valles  2024-03-11        R32  2024-03-12  2024-03-13  2024-03-13     True
+24  atp:209209                  Filip Misolic           2           True  2024-02-26  2024-02-28                   Tenerife 2 CH  2024-02-19        R32  2024-02-18  2024-02-19  2024-02-19     True              Szekesfehervar CH  2024-03-11        R32  2024-03-11  2024-03-12  2024-03-12     True
+25  atp:209263                 Matteo Gigante           5           True  2024-02-27  2024-03-03                   Tenerife 2 CH  2024-02-19          F  2024-02-24  2024-02-25  2024-02-25     True                      Naples CH  2024-03-25        R32  2024-03-26  2024-03-27  2024-03-27     True
+26  atp:209405                  Daniel Rincon           1           True  2024-02-27  2024-02-27                   Tenerife 2 CH  2024-02-19        R32  2024-02-19  2024-02-20  2024-02-20     True                      Girona CH  2024-03-25        R32  2024-03-25  2024-03-26  2024-03-26     True
+27  atp:209903                 Lukas Neumayer           3           True  2024-02-27  2024-03-01                   Tenerife 2 CH  2024-02-19        R32  2024-02-19  2024-02-20  2024-02-20     True              Szekesfehervar CH  2024-03-11        R32  2024-03-11  2024-03-12  2024-03-12     True
+28  atp:210017          Daniel Merida Aguilar           3           True  2024-02-27  2024-03-01                     M15 Villena  2024-02-19         QF  2024-02-22  2024-02-23  2024-02-23     True               M25 Vale do Lobo  2024-03-11        R32  2024-03-12  2024-03-13  2024-03-13     True
+29  atp:210721                 Iliyan Radulov           1           True  2024-02-27  2024-02-27                     M15 Villena  2024-02-19        R32  2024-02-19  2024-02-20  2024-02-20     True                    M15 Torello  2024-03-04        R32  2024-03-05  2024-03-06  2024-03-06     True
+30  atp:211596                 Yaroslav Demin           1           True  2024-02-27  2024-02-27  M25 Vila Real de Santo Antonio  2024-02-19         QF  2024-02-22  2024-02-24  2024-02-24     True  M15 Les Franqueses del Valles  2024-03-11        R32  2024-03-12  2024-03-13  2024-03-13     True
+31  atp:212021               Martin Landaluce           4           True  2024-02-26  2024-03-02                   Tenerife 2 CH  2024-02-19        R32  2024-02-20  2024-02-21  2024-02-21     True                  Miami Masters  2024-03-18       R128  2024-03-20  2024-03-21  2024-03-21     True
+all contiguous: True ; prev ok: True ; next ok: True
+
+G1 now: other matches of these players with an exact day inside the misdated rows' windows (19-31 Jan):
+           pid                           name                          event        date round   exact_day
+0   atp:102093                    Martin Damm                     Koblenz CH  2024-01-29   R32  2024-01-29
+1   atp:105062              Mikhail Kukushkin  Ottignies-Louvain-la-Neuve CH  2024-01-22    Q1  2024-01-22
+2   atp:105062              Mikhail Kukushkin                     Koblenz CH  2024-01-29   R16  2024-01-31
+3   atp:105062              Mikhail Kukushkin                    Tenerife CH  2024-01-15    QF  2024-01-19
+4   atp:105062              Mikhail Kukushkin  Ottignies-Louvain-la-Neuve CH  2024-01-22    Q2  2024-01-23
+5   atp:105062              Mikhail Kukushkin                     Koblenz CH  2024-01-29   R32  2024-01-29
+6   atp:105561           Alessandro Giannessi              Punta Del Este CH  2024-01-22   R32  2024-01-23
+7   atp:106162               Franco Agamenone                     Koblenz CH  2024-01-29    Q1  2024-01-28
+8   atp:106162               Franco Agamenone  Ottignies-Louvain-la-Neuve CH  2024-01-22   R32  2024-01-24
+9   atp:106177             Oriol Roca Batalla                    Montpellier  2024-01-29    Q1  2024-01-28
+10  atp:106220               Dimitar Kuzmanov                     Quimper CH  2024-01-22   R32  2024-01-24
+11  atp:106220               Dimitar Kuzmanov                     Quimper CH  2024-01-22   R16  2024-01-25
+12  atp:106283               Mitchell Krueger              Indian Wells 2 CH  2024-01-22   R16  2024-01-25
+13  atp:106283               Mitchell Krueger              Indian Wells 1 CH  2024-01-15    QF  2024-01-19
+14  atp:106283               Mitchell Krueger              Indian Wells 1 CH  2024-01-15    SF  2024-01-21
+15  atp:106283               Mitchell Krueger              Indian Wells 1 CH  2024-01-15     F  2024-01-21
+16  atp:106283               Mitchell Krueger              Indian Wells 2 CH  2024-01-22   R32  2024-01-23
+17  atp:110602                   Dennis Novak                Nonthaburi 3 CH  2024-01-15    QF  2024-01-19
+18  atp:134840                Raul Brancaccio  Ottignies-Louvain-la-Neuve CH  2024-01-22   R32  2024-01-23
+19  atp:144973  Santiago Fa Rodriguez Taverna                Buenos Aires CH  2024-01-15    QF  2024-01-19
+20  atp:144973  Santiago Fa Rodriguez Taverna              Punta Del Este CH  2024-01-22   R32  2024-01-22
+21  atp:144973  Santiago Fa Rodriguez Taverna              Punta Del Este CH  2024-01-22   R16  2024-01-24
+22  atp:200436                  Zsombor Piros  Ottignies-Louvain-la-Neuve CH  2024-01-22   R32  2024-01-23
+23  atp:200436                  Zsombor Piros  Ottignies-Louvain-la-Neuve CH  2024-01-22   R16  2024-01-25
+24  atp:200484                Rudolf Molleker  Ottignies-Louvain-la-Neuve CH  2024-01-22   R32  2024-01-23
+25  atp:207490          Carlos Lopez Montagud                    M15 Manacor  2024-01-22   R32  2024-01-24
+26  atp:207490          Carlos Lopez Montagud                    M15 Manacor  2024-01-22   R16  2024-01-25
+27  atp:208010              Pablo Llamas Ruiz                    Tenerife CH  2024-01-15    QF  2024-01-19
+28  atp:208010              Pablo Llamas Ruiz                    Montpellier  2024-01-29    Q1  2024-01-28
+29  atp:208279           Alejandro Moro Canas  Ottignies-Louvain-la-Neuve CH  2024-01-22    Q1  2024-01-22
+30  atp:208279           Alejandro Moro Canas                     Koblenz CH  2024-01-29   R32  2024-01-30
+31  atp:209209                  Filip Misolic                     Quimper CH  2024-01-22   R32  2024-01-23
+32  atp:209263                 Matteo Gigante                Nonthaburi 3 CH  2024-01-15    QF  2024-01-19
+33  atp:209263                 Matteo Gigante                Nonthaburi 3 CH  2024-01-15    SF  2024-01-20
+34  atp:209263                 Matteo Gigante                Nonthaburi 3 CH  2024-01-15     F  2024-01-21
+35  atp:209263                 Matteo Gigante                    Montpellier  2024-01-29    Q1  2024-01-28
+36  atp:209405                  Daniel Rincon                    Montpellier  2024-01-29    Q1  2024-01-28
+37  atp:209903                 Lukas Neumayer              Punta Del Este CH  2024-01-22   R32  2024-01-23
+38  atp:210721                 Iliyan Radulov                    M15 Manacor  2024-01-22   R32  2024-01-23
+39  atp:211596                 Yaroslav Demin                    M15 Manacor  2024-01-15    SF  2024-01-20
+40  atp:211596                 Yaroslav Demin                    M15 Manacor  2024-01-22   R16  2024-01-25
+41  atp:211596                 Yaroslav Demin                    M15 Manacor  2024-01-15    QF  2024-01-19
+42  atp:211596                 Yaroslav Demin                    M15 Manacor  2024-01-15     F  2024-01-21
+43  atp:211596                 Yaroslav Demin                    M15 Manacor  2024-01-22   R32  2024-01-24
+44  atp:211596                 Yaroslav Demin                    M15 Manacor  2024-01-22    QF  2024-01-26
+45  atp:212021               Martin Landaluce                    M15 Manacor  2024-01-22    QF  2024-01-26
+46  atp:212021               Martin Landaluce                    M15 Manacor  2024-01-22   R32  2024-01-23
+47  atp:212021               Martin Landaluce                    M15 Manacor  2024-01-22   R16  2024-01-25
+matches of these players dated 22 Jan - 25 Feb 2024 (they follow the misdated rows in Stage 0's order though played before them): 171
+Stage 0 matches of the same players whose earliest start falls after a misdated result counts and before that match was played (distinct): 136
+
+G2 validation: reproduces timing.parquet: True
+                                match_id                                       players        label_now              window_now      label_fixed basis_fixed            window_fixed  q2_day_in_now  q2_day_in_fixed
+0  atp|2021-580|Q2|atp:106045|atp:208013                     Dane Sweeny v Denis Kudla  Australian Open  2021-01-08..2021-01-15  Australian Open  named_rule  2020-12-11..2020-12-18           True            False
+1  atp|2021-580|Q2|atp:106408|atp:202103  Francisco Cerundolo v Mario Vilella Martinez  Australian Open  2021-01-08..2021-01-15  Australian Open  named_rule  2020-12-11..2020-12-18           True            False
+variant (date AND name as Sackmann's): windows ['2021-01-10..2021-01-14', '2021-01-10..2021-01-14'] label ['Australian Open 2021 qualifying (Doha; Dubai)']
+                                       match_id        tournament_name tournament_date round     status                   score                  a_name                   b_name  a_won    source        es_d        lf_d  exact
+531967    atp|2021-581|Q1|atp:106045|atp:200611  Doha Aus Open Qualies      2021-01-10    Q1  completed                 6-4 6-3             Denis Kudla        Elliot Benchetrit   True  sackmann  2021-01-10  2021-01-11   True
+531969    atp|2021-581|Q1|atp:105657|atp:208013  Doha Aus Open Qualies      2021-01-10    Q1  completed          7-6(3) 2-6 6-3            Marius Copil              Dane Sweeny  False  sackmann  2021-01-10  2021-01-11   True
+532019    atp|2021-581|Q1|atp:105561|atp:106408  Doha Aus Open Qualies      2021-01-10    Q1  completed                 6-1 6-3    Alessandro Giannessi   Mario Vilella Martinez  False  sackmann  2021-01-09  2021-01-10   True
+532021    atp|2021-581|Q1|atp:104198|atp:202103  Doha Aus Open Qualies      2021-01-10    Q1  completed                 6-2 6-4  Guillermo Garcia Lopez      Francisco Cerundolo  False  sackmann  2021-01-09  2021-01-10   True
+532083    atp|2021-581|Q2|atp:106045|atp:208013  Doha Aus Open Qualies      2021-01-10    Q2   walkover                     W/O             Dane Sweeny              Denis Kudla   True  sackmann  2021-01-11  2021-01-13  False
+532109    atp|2021-581|Q2|atp:106408|atp:202103  Doha Aus Open Qualies      2021-01-10    Q2   walkover                     W/O     Francisco Cerundolo   Mario Vilella Martinez  False  sackmann  2021-01-11  2021-01-13  False
+532141    atp|2021-581|Q3|atp:104660|atp:208013  Doha Aus Open Qualies      2021-01-10    Q3  completed             2-6 6-3 6-1             Dane Sweeny        Sergiy Stakhovsky  False  sackmann  2021-01-12  2021-01-13   True
+532153    atp|2021-581|Q3|atp:106408|atp:126555  Doha Aus Open Qualies      2021-01-10    Q3  completed             4-6 7-5 6-4             Tung Lin Wu   Mario Vilella Martinez  False  sackmann  2021-01-12  2021-01-13   True
+532929  atp|2021-6239|R32|atp:106005|atp:106045           Quimper 1 CH      2021-01-24   R32  completed              6-2 7-6(6)             Denis Kudla       Constant Lestienne  False  sackmann  2021-01-25  2021-01-26   True
+533447  atp|2021-9454|R32|atp:106045|atp:126523           Quimper 2 CH      2021-01-31   R32  completed                 6-2 6-3             Denis Kudla  Bernabe Zapata Miralles  False  sackmann  2021-02-02  2021-02-03   True
+533749  atp|2021-8998|R64|atp:106227|atp:208013  Great Ocean Road Open      2021-02-01   R64  completed              7-6(4) 7-5             Ji Sung Nam              Dane Sweeny  False  sackmann  2021-02-01  2021-02-02   True
+533771  atp|2021-8998|R64|atp:105870|atp:106408  Great Ocean Road Open      2021-02-01   R64  completed              7-6(2) 6-4  Mario Vilella Martinez         Yannick Hanfmann   True  sackmann  2021-02-01  2021-02-02   True
+533969  atp|2021-8998|R32|atp:105379|atp:208013  Great Ocean Road Open      2021-02-01   R32  completed                 6-0 6-4            Aljaz Bedene              Dane Sweeny   True  sackmann  2021-02-02  2021-02-03   True
+533983  atp|2021-8998|R32|atp:105932|atp:106408  Great Ocean Road Open      2021-02-01   R32  completed                 7-5 6-3  Mario Vilella Martinez     Nikoloz Basilashvili   True  sackmann  2021-02-02  2021-02-03   True
+534091  atp|2021-8998|R16|atp:106408|atp:111442  Great Ocean Road Open      2021-02-01   R16  completed                 6-4 6-4  Mario Vilella Martinez          Jordan Thompson  False  sackmann  2021-02-04  2021-02-05   True
+534321   atp|2021-398|R32|atp:106045|atp:126120           Cherbourg CH      2021-02-07   R32  completed                 6-3 6-1             Denis Kudla          Nino Serdarusic   True  sackmann  2021-02-07  2021-02-08   True
+534345   atp|2021-398|R16|atp:106045|atp:126107           Cherbourg CH      2021-02-07   R16  completed          6-1 6-7(5) 6-3          Michael Geerts              Denis Kudla   True  sackmann  2021-02-09  2021-02-10   True
+534498    atp|2021-580|Q2|atp:106045|atp:208013        Australian Open      2021-02-08    Q2   walkover                     W/O             Dane Sweeny              Denis Kudla   True       tml  2021-01-08  2021-01-15  False
+534499    atp|2021-580|Q2|atp:106408|atp:202103        Australian Open      2021-02-08    Q2   walkover                     W/O     Francisco Cerundolo   Mario Vilella Martinez  False       tml  2021-01-08  2021-01-15  False
+534700  atp|2021-580|R128|atp:106408|atp:207830        Australian Open      2021-02-08  R128    retired  6-7(5) 7-5 6-0 3-0 RET  Mario Vilella Martinez             Tomas Machac  False  sackmann  2021-02-08  2021-02-09   True
+535379  atp|2021-9452|R32|atp:105911|atp:202103          Concepcion CH      2021-02-14   R32  completed                 7-5 7-5     Francisco Cerundolo         Andrea Collarini   True  sackmann  2021-02-14  2021-02-15   True
+535412  atp|2021-9452|R16|atp:111797|atp:202103          Concepcion CH      2021-02-14   R16  completed             4-6 6-4 7-5           Nicolas Jarry      Francisco Cerundolo  False  sackmann  2021-02-16  2021-02-17   True
+535427   atp|2021-9452|QF|atp:202103|atp:205734          Concepcion CH      2021-02-14    QF  completed              6-3 7-6(4)     Francisco Cerundolo      Thiago Seyboth Wild   True  sackmann  2021-02-18  2021-02-19   True
+535436   atp|2021-9452|SF|atp:126214|atp:202103          Concepcion CH      2021-02-14    SF  completed                 6-1 6-1        Alejandro Tabilo      Francisco Cerundolo  False  sackmann  2021-02-19  2021-02-20   True
+535439    atp|2021-9452|F|atp:202103|atp:202104          Concepcion CH      2021-02-14     F  completed       6-3 6-7(5) 7-6(5)          Sebastian Baez      Francisco Cerundolo   True  sackmann  2021-02-20  2021-02-21   True
+535940   atp|2021-9158|Q1|atp:106006|atp:106408                Cordoba      2021-02-22    Q1  completed                 6-3 6-4  Mario Vilella Martinez          Agustin Velotti  False  sackmann  2021-02-19  2021-02-20   True
+536380  atp|2021-9158|R32|atp:126149|atp:202103                Cordoba      2021-02-22   R32  completed          6-7(3) 6-1 6-4     Francisco Cerundolo           Gianluca Mager   True  sackmann  2021-02-22  2021-02-23   True
+536546  atp|2021-9158|R16|atp:105948|atp:202103                Cordoba      2021-02-22   R16  completed             1-6 6-2 6-4     Francisco Cerundolo           Federico Coria  False  sackmann  2021-02-23  2021-02-24   True
+536710    atp|2021-506|Q1|atp:106408|atp:144642           Buenos Aires      2021-03-01    Q1  completed                 6-4 7-5      Tomas Barrios Vera   Mario Vilella Martinez  False  sackmann  2021-02-26  2021-02-27   True
+536712    atp|2021-506|Q1|atp:110778|atp:202103           Buenos Aires      2021-03-01    Q1  completed             4-6 6-4 6-4            Joao Menezes      Francisco Cerundolo  False  sackmann  2021-02-26  2021-02-27   True
+536908    atp|2021-506|Q2|atp:106408|atp:111576           Buenos Aires      2021-03-01    Q2  completed                 6-4 6-2             Sumit Nagal   Mario Vilella Martinez   True  sackmann  2021-02-27  2021-02-28   True
+536909    atp|2021-506|Q2|atp:106105|atp:202103           Buenos Aires      2021-03-01    Q2  completed             2-6 6-3 6-2        Guilherme Clezar      Francisco Cerundolo  False  sackmann  2021-02-27  2021-02-28   True
+537017    atp|2021-506|Q3|atp:106006|atp:202103           Buenos Aires      2021-03-01    Q3  completed                 6-4 7-5         Agustin Velotti      Francisco Cerundolo  False  sackmann  2021-02-28  2021-03-01   True
+537277   atp|2021-506|R32|atp:105948|atp:202103           Buenos Aires      2021-03-01   R32  completed                 6-4 7-5     Francisco Cerundolo           Federico Coria   True  sackmann  2021-03-01  2021-03-02   True
+537460   atp|2021-506|R16|atp:105332|atp:202103           Buenos Aires      2021-03-01   R16  completed             4-6 6-3 6-1     Francisco Cerundolo             Benoit Paire   True  sackmann  2021-03-03  2021-03-04   True
+537509    atp|2021-506|QF|atp:104665|atp:202103           Buenos Aires      2021-03-01    QF  completed             1-6 6-3 6-2     Francisco Cerundolo            Pablo Andujar   True  sackmann  2021-03-04  2021-03-05   True
+537578    atp|2021-506|SF|atp:105077|atp:202103           Buenos Aires      2021-03-01    SF  completed          7-6(5) 3-6 6-2            Albert Ramos      Francisco Cerundolo  False  sackmann  2021-03-05  2021-03-06   True
+537616     atp|2021-506|F|atp:106043|atp:202103           Buenos Aires      2021-03-01     F  completed                 6-1 6-2     Francisco Cerundolo        Diego Schwartzman  False  sackmann  2021-03-06  2021-03-07   True

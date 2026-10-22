@@ -96,6 +96,12 @@ def targets_frame():
     return t[E.TARGET_COLUMNS]
 
 
+@pytest.fixture(autouse=True)
+def no_vetoes(tmp_path, monkeypatch):
+    """No test reads the repository's veto file."""
+    monkeypatch.setattr(E, "VETOES", tmp_path / "no_vetoes.csv")
+
+
 @pytest.fixture
 def folders(tmp_path, monkeypatch):
     monkeypatch.setattr(P, "RAW_ROOT", tmp_path / "raw")
@@ -185,6 +191,20 @@ def test_an_event_another_known_match_names_better_is_not_linked():
     assert rows[0]["link_note"] == "event 501 names another known match better"
     _, rows, _ = E.list_and_link(CannedLister([varillas]), t, t)   # with no better claimant, the shared word links
     assert rows[0]["listed"] and rows[0]["event_id"] == 501 and rows[0]["link_note"] is None
+
+
+def test_a_vetoed_link_is_refused(tmp_path, monkeypatch):
+    varillas = event(501, "Sebastian Gima", "Juan Pablo Varillas", "2026-03-30")
+    t = targets_frame().iloc[:1].assign(name1="Sebastian Gima", name2="Juan Pablo Varillas")
+    t = t.assign(w1=t["name1"].map(E.words), w2=t["name2"].map(E.words))
+    _, rows, linked = E.list_and_link(CannedLister([varillas]), t, t, vetoes={("atp_points_2025", 0): {501}})
+    assert not rows[0]["listed"] and linked == {} and rows[0]["link_note"].startswith("event 501 refused")
+    vetoes = tmp_path / "vetoes.csv"   # the file form, read by default
+    pd.DataFrame({"gap": ["atp_points_2025"], "uid": [0], "event_id": [501], "reason": ["test"]}).to_csv(vetoes, index=False)
+    monkeypatch.setattr(E, "VETOES", vetoes)
+    assert E.load_vetoes() == {("atp_points_2025", 0): {501}}
+    assert not E.list_and_link(CannedLister([varillas]), t, t)[1][0]["listed"]
+    assert E.list_and_link(CannedLister([varillas]), t, t, vetoes={})[1][0]["listed"]   # {} turns them off
 
 
 class DayLister(CannedLister):

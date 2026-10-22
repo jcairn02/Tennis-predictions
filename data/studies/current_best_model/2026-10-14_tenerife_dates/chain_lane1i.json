@@ -1,0 +1,31 @@
+{
+ "steps": [
+  {
+   "step": "thinking_frame_indoor_men_only",
+   "script": "src/eda/tabpfn_thinking/build_frame.py --indoor-men-only",
+   "exit": 0,
+   "seconds": 5.8,
+   "finished_at": "2026-10-14T13:56:53",
+   "log": "C:\\Users\\zerom\\tnr_sb_tenerife\\logs\\thinking_frame_indoor_men_only.log"
+  },
+  {
+   "step": "leakproof_frame_after_indoor_men_only",
+   "script": "src/eda/tabpfn_leakproof/build_frame.py",
+   "exit": 0,
+   "seconds": 3.3,
+   "finished_at": "2026-10-14T13:56:57",
+   "log": "C:\\Users\\zerom\\tnr_sb_tenerife\\logs\\leakproof_frame_after_indoor_men_only.log"
+  },
+  {
+   "step": "elo_frames_after_indoor_men_only",
+   "script": "src/eda/surface_elo_pieces/build_frames.py",
+   "exit": 0,
+   "seconds": 13.3,
+   "finished_at": "2026-10-14T13:57:10",
+   "log": "C:\\Users\\zerom\\tnr_sb_tenerife\\logs\\elo_frames_after_indoor_men_only.log"
+  }
+ ],
+ "sandbox": "C:\\Users\\zerom\\tnr_sb_tenerife",
+ "lane": "1i",
+ "lle_layer": null
+}

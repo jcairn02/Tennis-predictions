@@ -1,0 +1,165 @@
+{
+ "worktree": {
+  "seconds": 30.8,
+  "result": {
+   "work_tree": "C:\\Users\\zerom\\tnr_daily_srfix",
+   "replay": true,
+   "dump_view": "C:\\Users\\zerom\\tnr_dump_freeze_10211347",
+   "fixes": "C:\\Users\\zerom\\tnr_tpl1021\\data\\studies\\input_data_audit\\fixes",
+   "seconds": 30.7,
+   "constants_from": "C:\\Users\\zerom\\Documents\\Tennis-predictions\\data\\studies\\daily_prediction\\state\\template_2026-10-21b\\2026-06-22",
+   "constants_replaced": {
+    "data/studies/predictability_diagnostic/stage1_baselines_summary.json": {
+     "before": "3c55a8bb29ed233d74826db6c6fc438a7317af3ce28c7c903257f7493896bbaf",
+     "after": "5eb0abeeaecc6c8a89a12002c31e3756cfe3054889e447ac45f51243720da5ca"
+    },
+    "data/studies/predictability_diagnostic/stage3_ratings_summary.json": {
+     "before": "05209c18235f96b732b545c5d5c50bd4303d0d802ba11afa4039d18fc0544b7b",
+     "after": "8bb7ee686fb1c63b8ea6f8251299f818be4bd759b8216ae6186274b4aca3b1f5"
+    },
+    "data/studies/predictability_diagnostic/stage4_constants.csv": {
+     "before": "775d71e473574078f10bb97f303baf60a9f6ae9448b529c9a40672b98806224e",
+     "after": "35f30cab978dbb2bef406b605cdd38f58d02365dcb69a92720754f320909a822"
+    },
+    "data/studies/surface_elo_pieces/pieces_meta.json": {
+     "before": "766589ccfff670729915ce2f86db543ae46fba930b75332a4cb84c3c4858d714",
+     "after": "ba27375b60b6996d3ceba7e362ca265bee9eed583e46a223efcae7144c22d1a0"
+    }
+   }
+  }
+ },
+ "matchups": {
+  "seconds": 6.4,
+  "result": {
+   "kind": "replay",
+   "week": "2026-07-13",
+   "round": "R16",
+   "placeholder_winner": "A",
+   "dating": "training",
+   "targets": 23,
+   "left_out_later": 52,
+   "placeholder_reverses_result": 10,
+   "by_event": [
+    {
+     "tour": "atp",
+     "tournament_name": "Bastad",
+     "matches": 4
+    },
+    {
+     "tour": "atp",
+     "tournament_name": "Gstaad",
+     "matches": 3
+    },
+    {
+     "tour": "atp",
+     "tournament_name": "Umag",
+     "matches": 8
+    },
+    {
+     "tour": "wta",
+     "tournament_name": "Athens",
+     "matches": 4
+    },
+    {
+     "tour": "wta",
+     "tournament_name": "Iasi",
+     "matches": 4
+    }
+   ],
+   "base_tree": "C:\\Users\\zerom\\tnr_tpl1021",
+   "frame": "C:\\Users\\zerom\\Documents\\Tennis-predictions\\data\\studies\\current_best_model\\template_2026-10-21b\\model_frame.parquet"
+  }
+ },
+ "prices": {
+  "seconds": 0.1,
+  "result": {
+   "priced": 23,
+   "sources": {
+    "instance frame p_mkt (betonline)": 19,
+    "instance frame p_mkt (average)": 4
+   },
+   "quoted_at_given": 0
+  }
+ },
+ "tables": {
+  "seconds": 450.7,
+  "result": {
+   "steps": {
+    "stage0": 124.1,
+    "additions": 283.6,
+    "check": 1.1,
+    "lle_layer": 19.5,
+    "odds": 6.7,
+    "live_odds": 0.8
+   },
+   "history": "run beside the states step (history.json)",
+   "timeline_held": {
+    "rows": 928285,
+    "of_instance_rows": 928337,
+    "sha256": "b71764cabc943847c79b6c9e44916885c7463f6240d222abfcd7ea872e2c32c3",
+    "source": "C:\\Users\\zerom\\tnr_tpl1021\\data\\studies\\match_timing\\timing.parquet"
+   }
+  }
+ },
+ "history": {
+  "seconds": 0.0,
+  "result": {
+   "history": "history vs the reference of 2026-10-08: future 544 and updated 23 (allowed); accepted 57,788 (allowed: lower-level additions 54,373, completions 418, decided repairs 2,997); main-tour changes 332 (allowed, listed: new past 16, dropped 68, revised 248); Tennis My Life's own lower-level changes 217 (allowed, decided 13 Oct: new past 73, dropped 76, revised 68); lower-level new past 0, dropped 0, revised 0 -> the template may be built",
+   "ran_seconds": 66.7
+  }
+ },
+ "states": {
+  "seconds": 231.1,
+  "result": {
+   "checkpoint": "C:\\Users\\zerom\\Documents\\Tennis-predictions\\data\\studies\\daily_prediction\\state\\template_2026-10-21b\\2026-06-22",
+   "parts_summary": {
+    "resumed": 20,
+    "slice changed: recomputed in full": 1
+   },
+   "seconds": {
+    "offset": 8.8,
+    "stage3": 7.8,
+    "stage4_rows": 57.7,
+    "weighted": 10.7,
+    "stage4_inputs": 5.4,
+    "pieces": 4.5,
+    "context": 8.0,
+    "waited_for_forms_and_ios": 119.5,
+    "forms_rows": 16.6,
+    "forms_context": 80.3,
+    "forms": 108.2,
+    "forms_family": 205.1,
+    "ios_cache": 43.6,
+    "ios_runs": 19.2,
+    "ios_family": 62.8,
+    "total": 223.1
+   },
+   "gate": {
+    "live_matches": 23,
+    "complete": 23
+   }
+  }
+ },
+ "patterns": {
+  "seconds": 88.5,
+  "result": {
+   "matches": 23,
+   "z_present": 23,
+   "not_built_but_on_counted_as_missing": {
+    "PS03_net": 23,
+    "PS06_close": 23,
+    "PS04_flat": 23,
+    "rb__el__low_share_diff": 23,
+    "rb__fp__f12_salience__hasL_a-b": 23
+   },
+   "gate_off": {},
+   "params_sha256": "cb5db37b32f65f3eee8ad523d3272a811b5903cc718bc31c532e96381f0b1ac2",
+   "venue_pace": {
+    "venue_rows": 21168,
+    "venue_rows_without_rating": 0,
+    "ratings_from_run": 6362,
+    "ace_gap_equal_to_input": 23
+   }
+  }
+ }
+}

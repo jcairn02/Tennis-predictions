@@ -241,7 +241,12 @@ def test_staging_keeps_only_pre_match_moneylines():
 
 
 @needs_probe
-def test_linker_on_the_probe():
+def test_linker_on_the_probe(monkeypatch):
+    # Tennis My Life as it stood when this test was written (11-14 Oct 2026): it held the results of many matches the
+    # probe lists, but not yet Shanghai's final (18 Oct), after which every listed Shanghai round reads "a new event of
+    # the same name" (found 22 Oct 2026; the qualifying test cuts the same way)
+    real = L._tml
+    monkeypatch.setattr(L, "_tml", lambda years: (lambda t: t[t["_date"] <= pd.Timestamp("2026-10-14")])(real(years)))
     m = L.todays_matches(pull=_probe_pull(), hours_ahead=96, now=dt.datetime(2026, 10, 9, 15, 11, tzinfo=dt.timezone.utc))
     ok = m[m["status"].eq("ok")]
     shanghai = m[m["tourney_id"].eq("2026-5014")]
@@ -267,7 +272,7 @@ def test_diagnostics_on_a_replay():
     assert (pred["pick"] == "").all() and pred["blocked"].all()
     assert pred["block_reasons"].str.contains("no bookmaker odds").all()
     gated = pred[pred["block_reasons"].str.contains("gate:")]
-    assert set(gated["gate"]) == {g for g in p["gate"] if g != "may be bet"}
+    assert set(gated["gate"]) == {g for g in p["gate"] if not g.startswith("may be bet")}
     assert np.allclose(pred["fair_odds_a"], (1 / p["q_a"]).round(4), atol=1e-3)
     n = pred["break_even_p_a"].map(lambda s: len(str(s).split(";")) if isinstance(s, str) else 0)
     assert n.value_counts().to_dict() == {1: 9, 3: 7, 0: 6, 2: 1}              # review D2's count on this replay
@@ -376,14 +381,22 @@ def test_bet_sheet_says_what_the_record_says(tmp_path):
     picks = pred[pred["pick"].isin(["A", "B"])].set_index("pick_player")
     for _, r in t[t["Decision"].eq("BET")].iterrows():
         p = picks.loc[r["Player"]]
-        assert r["Odds"] == pytest.approx(p["pinnacle_odds_pick"])
+        assert r["US odds"] == BS.american(p["pinnacle_odds_pick"])
         assert r["Expected profit"] == pytest.approx(p["ev_pinnacle_pick"]) and r["Expected profit"] > 0
-        assert r["Model chance"] == pytest.approx(p["p_pick"]) and r["Odds"] >= r["Lowest odds to take"]
+        assert r["Lowest odds to take"] == BS.american(1 / p["p_pick"])
+        assert r["Model chance"] == pytest.approx(p["p_pick"]) and r["US odds"] >= r["Lowest odds to take"]
         assert r["Stake (units)"] == pytest.approx(float(stake(p["pinnacle_odds_pick"])), abs=1e-3)
     for _, r in t[t["Decision"].eq("PASS") & t["Player"].notna()].iterrows():
-        assert r["Expected profit"] <= 0 and r["Odds"] < r["Lowest odds to take"] and r["Edge (pts)"] > 0
+        assert r["Expected profit"] <= 0 and r["US odds"] <= r["Lowest odds to take"] and r["Edge (pts)"] > 0
     blocked = t[t["Decision"].eq("BLOCKED")]
-    assert blocked[["Player", "Stake (units)", "Odds"]].isna().all().all() and blocked["Notes"].str.len().gt(0).all()
+    assert blocked[["Player", "Stake (units)", "US odds"]].isna().all().all() and blocked["Notes"].str.len().gt(0).all()
+    # US odds only (the owner, 20 Oct 2026): no decimal odds column, and no decimal price in any note or header line
+    every = [*t.columns, *sh.matches.columns, *sh.left_out.columns]
+    assert not [c for c in every if re.fullmatch(r"(Odds|Fair odds) ?\d?", c)]
+    assert {k for c, k in sh.kinds.items() if "odds" in c.lower()} == {"us"}
+    assert {k for c, k in sh.matches_kinds.items() if "odds" in c.lower()} == {"us"}
+    texts = [*t["Notes"].astype(str), *sh.matches["Edge gone if the market reaches"].astype(str), *sh.header]
+    assert not [x for x in texts if re.search(r"\b\d+\.\d{3}\b", x)]          # decimal odds were said as 2.345
     m = sh.matches.set_index("Match id")
     home_p = {pred.iloc[i]["match_id"]: r["p_a"] for i, r in enumerate(rows)}         # the CSV's home player is 1
     assert np.allclose([m.loc[k, "Market chance 1"] for k in home_p], list(home_p.values()), atol=1e-6)
@@ -397,7 +410,14 @@ def test_plain_reasons():
     gate = {"block_reasons": "gate: do not bet: inputs incomplete (1 earlier match(es) without a box score)",
             "gate_detail": "Casper Ruud's Laver Cup RR match (Tennis My Life has it, but our consistency check rejected it)"}
     assert BS.why_blocked(gate).startswith("Data gap: no usable box score for Casper Ruud's Laver Cup RR match (Tennis "
-                                           "My Life has it, but our consistency check rejected it)")
+                                           "My Life has it, but our consistency check rejected it)")   # a run before 14 Oct
+    since = BS.why_blocked({"block_reasons": "gate: do not bet: inputs incomplete (Jane Doe: entered through qualifying, "
+                                             "but no qualifying match in Stage 0 | indoor or outdoor unknown "
+                                             "(src/eda/indoor_fill/status.py found no source))"})
+    assert since.startswith("Data check: Jane Doe came through qualifying") and "indoors is unknown" in since
+    assert [BS.data_check_word(g) for g in ("may be bet", "may be bet if its edge clears 1 point",
+                                            "do not bet: inputs incomplete")] == \
+        ["complete", "gap: 1-point edge needed", "incomplete"]
     stale = BS.why_blocked({"block_reasons": "quote 45 min old (over 30): reprice; the match has started"})
     assert "45 min old (limit 30)" in stale and "A6" in stale and "has started" in stale
     assert BS.why_blocked({"block_reasons": "something new"}) == "Something new."
@@ -451,21 +471,27 @@ def test_no_module_shadows_an_exported_function():
 
 
 def test_data_check_names_each_cause_and_fix(tmp_path):
-    """Four matches on a synthetic Stage 0: complete; an earlier box score our checks rejected; a WTA box score the run
-    fills from the WTA's feed; a qualifier with no qualifying match."""
+    """Five matches on a synthetic Stage 0 (the rule of 14 Oct 2026): complete; a main-tour box score our checks
+    rejected (a bet needs a 1-point edge); a WTA box score the run fills from the WTA's feed; a qualifier with no
+    qualifying match (blocked); a team-event box score missing (noted only, ready)."""
     from src.pipeline import readiness as DCK
     s0 = tmp_path / "stage0"
     s0.mkdir()
     matches, players, timing = [], [], []
     lf = (pd.Timestamp("2026-10-16") - pd.Timestamp("1970-01-01")).days
-    for tour, tid, pid, opp, status, entry in (
-            ("atp", "2026-9001", "atp:1", "atp:91", "full", None), ("atp", "2026-9001", "atp:2", "atp:92", "full", None),
-            ("atp", "2026-9001", "atp:3", "atp:93", "failed_check", None),
-            ("atp", "2026-9001", "atp:4", "atp:94", "full", None),
-            ("wta", "2026-9002", "wta:5", "wta:95", "blank", None), ("wta", "2026-9002", "wta:6", "wta:96", "full", None),
-            ("wta", "2026-9002", "wta:7", "wta:97", "full", "Q"), ("wta", "2026-9002", "wta:8", "wta:98", "full", None)):
+    for tour, tid, pid, opp, status, entry, level in (
+            ("atp", "2026-9001", "atp:1", "atp:91", "full", None, "T500"),
+            ("atp", "2026-9001", "atp:2", "atp:92", "full", None, "T500"),
+            ("atp", "2026-9001", "atp:3", "atp:93", "failed_check", None, "T500"),
+            ("atp", "2026-9001", "atp:4", "atp:94", "full", None, "T500"),
+            ("wta", "2026-9002", "wta:5", "wta:95", "blank", None, "T500"),
+            ("wta", "2026-9002", "wta:6", "wta:96", "full", None, "T500"),
+            ("wta", "2026-9002", "wta:7", "wta:97", "full", "Q", "T500"),
+            ("wta", "2026-9002", "wta:8", "wta:98", "full", None, "T500"),
+            ("atp", "2026-9003", "atp:10", "atp:90", "blank", None, "TEAM"),
+            ("atp", "2026-9001", "atp:11", "atp:89", "full", None, "T500")):
         mid = f"{tour}|{tid}-20261014|R32|{pid}|{opp}"
-        matches.append(dict(match_id=mid, tour=tour, year=2026, level="T500", qualifying=False, round="R32",
+        matches.append(dict(match_id=mid, tour=tour, year=2026, level=level, qualifying=False, round="R32",
                             round_order=13, tournament_id=f"{tid}-20261014", tournament_name="Testopolis",
                             tournament_date=pd.Timestamp("2026-10-14"), status="completed",
                             has_box=status == "full", box_status=status, source="tml"))
@@ -479,36 +505,159 @@ def test_data_check_names_each_cause_and_fix(tmp_path):
                             tourney_name="Testopolis", start_utc="2026-10-20T10:00:00Z", stage0_id_a=a, stage0_id_b=b)
                        for t, tid, a, b in (("atp", "2026-9001", "atp:1", "atp:2"), ("atp", "2026-9001", "atp:3", "atp:4"),
                                             ("wta", "2026-9002", "wta:5", "wta:6"),
-                                            ("wta", "2026-9002", "wta:7", "wta:8"))])
+                                            ("wta", "2026-9002", "wta:7", "wta:8"),
+                                            ("atp", "2026-9001", "atp:10", "atp:11"))])
     mu.to_csv(tmp_path / "matchups.csv", index=False)
     out = DCK.data_check(tmp_path / "matchups.csv", stage0=s0, timing=tmp_path / "timing.parquet", held=set(),
                          packages=False, now=dt.datetime(2026, 10, 19, 12, 0, tzinfo=dt.timezone.utc), write=False,
                          show=False)
     got = dict(zip(out["Match"], out["Verdict"]))
-    assert got == {"atp:1 v atp:2": "ready", "atp:3 v atp:4": "will be blocked", "wta:5 v wta:6": "ready once filled",
-                   "wta:7 v wta:8": "will be blocked"}
+    assert got == {"atp:1 v atp:2": "ready", "atp:3 v atp:4": "needs a 1-point edge",
+                   "wta:5 v wta:6": "ready once filled", "wta:7 v wta:8": "will be blocked", "atp:10 v atp:11": "ready"}
     why = dict(zip(out["Match"], out["Why"] + " | " + out["What fixes it"]))
     assert "consistency check rejected it" in why["atp:3 v atp:4"] and "data repair" in why["atp:3 v atp:4"]
     assert "the WTA's own feed" in why["wta:5 v wta:6"]
     assert "came through qualifying" in why["wta:7 v wta:8"]
+    noted = dict(zip(out["Match"], out["Noted only"]))
+    assert "team event" in noted["atp:10 v atp:11"] and not why["atp:10 v atp:11"].strip(" |")
     assert list(out["Verdict"]) == sorted(out["Verdict"], key=lambda v: -list(DCK.VERDICTS).index(v))   # blocks first
 
 
 @pytest.mark.skipif(not (LIVE_RUN / "stage0" / "stage0_matches.parquet").exists(), reason="no live run of 11 Oct")
-def test_data_check_agrees_with_the_runs_own_gate():
+def test_data_check_agrees_with_the_runs_own_gate(tmp_path):
     """On the 11 Oct run's own Stage 0 (the builder before the match-tiebreak repair) and matchups, the data check
-    blocks the matches the run's gate blocked, having checked the same earlier matches."""
+    checks the same earlier matches as the run's gate, and finds the gaps the run's gate found. Under the rule of 14 Oct
+    2026 the three Laver Cup gaps that blocked three matches that day are a team event's: noted only, nothing blocked."""
     from src.pipeline import readiness as DCK
-    out = DCK.data_check(LIVE_RUN / "matchups_input.csv", stage0=LIVE_RUN / "stage0",
+    # since the shared rebuild of 13 Oct 21:13-21:16 the shared timeline dates lower-level matches that this older
+    # Stage 0 lacks and the feed adds again, and the merge refuses the duplicate timeline rows (the same collision that
+    # stops the engine's replays; box_score_gate_review, process log Part 1, 22:15-22:35): the timeline is restricted
+    # to this Stage 0's matches, as that Stage 0's own run had it
+    ids = set(pd.read_parquet(LIVE_RUN / "stage0" / "stage0_matches.parquet", columns=["match_id"])["match_id"].astype(str))
+    t = pd.read_parquet(CFG.TIMING)
+    t[t["match_id"].astype(str).isin(ids)].to_parquet(tmp_path / "timing.parquet", index=False)
+    out = DCK.data_check(LIVE_RUN / "matchups_input.csv", stage0=LIVE_RUN / "stage0", timing=tmp_path / "timing.parquet",
                          now=dt.datetime(2026, 10, 11, 18, 1, tzinfo=dt.timezone.utc), write=False, show=False)
     gate = pd.read_csv(LIVE_RUN / "gate.csv").merge(pd.read_csv(LIVE_RUN / "predictions.csv")[
         ["match_id", "player_a", "player_b"]], on="match_id")
     from src.eda.merge_feasibility.scan import name_key          # the CSV spells names as Stage 0 does, the run too
-    want = {frozenset(name_key(x) for x in (r.player_a, r.player_b)): (not r.complete, r.earlier_matches_checked)
+    want = {frozenset(name_key(x) for x in (r.player_a, r.player_b)): (r.without_box, r.earlier_matches_checked)
             for r in gate.itertuples()}
-    got = {frozenset(name_key(x) for x in m.split(" v ")): (v == "will be blocked", n)
-           for m, v, n in zip(out["Match"], out["Verdict"], out["Earlier matches checked"])}
-    assert got == want and sum(b for b, _ in got.values()) == 3
+    got = {frozenset(name_key(x) for x in m.split(" v ")): (a + b, n)
+           for m, a, b, n in zip(out["Match"], out["Missing: edge needed"], out["Missing: noted only"],
+                                 out["Earlier matches checked"])}
+    assert got == want and sum(g for g, _ in got.values()) == 3
+    assert set(out["Verdict"]) == {"ready"} and out["Missing: noted only"].sum() == 3
+    assert out["Noted only"].str.contains("Laver Cup RR match \\(team event").sum() == 3
+
+
+@needs_replay
+def test_the_bet_sheet_applies_the_edge_bar(tmp_path):
+    """A match whose gate sets the 1-point bar is bet only when its forecast, moved 1 point against the side, is still
+    +EV at the odds (the rule the gate review's replay tested); a +EV side that does not clear it is a PASS that says
+    so, and nothing is blocked."""
+    run, _, _ = _priced_run(tmp_path)
+    pred = pd.read_csv(run / "predictions.csv")
+    pred["gate"], pred["gate_reason"], pred["gate_edge_bar"] = (
+        "may be bet if its edge clears 1 point", "1 earlier match(es) without a box score of a kind the training rows "
+        "nearly always hold: the edge must clear 1 point", 0.01)
+    pred.to_csv(run / "predictions.csv", index=False)
+    rec = D.bet_diagnostics(run, write=False, show=False, now=PRICED_NOW)
+    p = rec[rec["status"].eq("predicted")]
+    assert not p["blocked"].any() and (p["gate_edge_bar"] == 0.01).all()
+    for _, r in p.iterrows():
+        qa, da, db = r["q_a"], r["pinnacle_odds_a"], r["pinnacle_odds_b"]
+        clears = {"A": (qa - 0.01) * da - 1 > 0, "B": (1 - qa - 0.01) * db - 1 > 0}
+        want = "A" if clears["A"] else ("B" if clears["B"] else "")
+        assert r["pick"] == want
+        plain = "A" if r["ev_a_pinnacle"] > 0 else ("B" if r["ev_b_pinnacle"] > 0 else "")
+        assert (r["passed_by_bar"] if isinstance(r["passed_by_bar"], str) else "") == ("" if want else plain)
+    barred = p[p["passed_by_bar"].isin(["A", "B"])]
+    assert len(barred) and (barred["decision"] == "PASS").all()
+    assert all("Passed for a data gap" in BS.notes_for(r) for _, r in barred.iterrows())
+
+
+def _log_odds_mean(a, b):
+    la, lb = np.log(np.asarray(a) / (1 - np.asarray(a))), np.log(np.asarray(b) / (1 - np.asarray(b)))
+    return 1 / (1 + np.exp(-(0.5 * la + 0.5 * lb)))
+
+
+def _thinking_run(tmp_path, ok: bool = True):
+    """The priced run as a run with TabPFN-3.5-Thinking beside the local model (what dp_predict writes): q_a is the
+    ensemble's (the two chances averaged 50/50 in log-odds), the local and Thinking chances beside it; or, ok=False, a
+    run whose Thinking call failed."""
+    run, mu, rows = _priced_run(tmp_path)
+    pred = pd.read_csv(run / "predictions.csv")
+    local = pred["q_a"].to_numpy()
+    thinking = np.clip(local + np.where(np.arange(len(pred)) % 3 == 0, 0.06, -0.04), 0.02, 0.98)
+    pred["q_a_local"], pred["q_a_local_patterns_off"] = local, local
+    pred["q_a_thinking"] = thinking if ok else np.nan
+    pred["q_a"] = pred["q_a_patterns_off"] = _log_odds_mean(local, thinking) if ok else local
+    pred["patterns"], pred["ensemble"], pred["ensemble_weight_local"] = "off", "on" if ok else "off", 0.5 if ok else np.nan
+    pred.to_csv(run / "predictions.csv", index=False)
+    th = {"requested": True, "ensemble": "on", "weight_local": 0.5,
+          "seasons": {"2026": {"fitted_train_set_id": "fit-x", "query_rows": 92, "tokens_used_daily_counter": 31572,
+                               "served": {"weights": "tabpfn-v3.5.safetensors", "package_version": "9.0.0"}}}} if ok \
+        else {"requested": True, "ensemble": "off", "failed": "thinking failed: the API said 429"}
+    (run / "provenance.json").write_text(json.dumps({"thinking": th}), encoding="utf-8")
+    (run / "pipeline_model.json").write_text(json.dumps({"model": "tabpfn35_thinking"}), encoding="utf-8")
+    return run, local, thinking
+
+
+@needs_replay
+def test_the_bet_sheet_shows_both_models_and_decides_on_their_average(tmp_path):
+    """A run with Thinking (the owner, 20 Oct 2026): the record carries each model's chance, the decision, edge and
+    expected profit are the ensemble's, and the sheet shows the non-thinking, the thinking and the ensemble chance
+    without patterns where a local run shows one column (and no decimal odds: net +1 column)."""
+    run, local, thinking = _thinking_run(tmp_path)
+    rec = D.bet_diagnostics(run, write=False, show=False, now=PRICED_NOW, stake_rule="owner_8oct")
+    p = rec[rec["status"].eq("predicted")].reset_index(drop=True)
+    assert p["model"].eq("tabpfn35_thinking").all()
+    assert np.allclose(p["q_a"], _log_odds_mean(local, thinking).round(6), atol=1e-6)
+    assert np.allclose(p["q_a_local_patterns_off"], local.round(6)) and np.allclose(p["q_a_thinking"], thinking.round(6))
+    assert np.allclose(p["edge_a"], (p["q_a"] - p["p_market_a"]).round(6), atol=2e-6)
+    for _, r in p[p["pick"].isin(["A", "B"])].iterrows():                  # each pick is +EV for the ensemble
+        q = r["q_a"] if r["pick"] == "A" else 1 - r["q_a"]
+        assert r["ev_pinnacle_pick"] > 0 and q * r["pinnacle_odds_pick"] - 1 == pytest.approx(r["ev_pinnacle_pick"],
+                                                                                               abs=1e-4)
+    sh = BS.build(rec, made_at=PRICED_NOW, stake_rule="owner_8oct", meta={"stale_minutes": 30,
+                                                                          "model": "tabpfn35_thinking"})
+    (tmp_path / "local").mkdir()
+    local_sheet = BS.build(D.bet_diagnostics(_priced_run(tmp_path / "local")[0], write=False, show=False,
+                                             now=PRICED_NOW, stake_rule="owner_8oct"),
+                           made_at=PRICED_NOW, stake_rule="owner_8oct", meta={"stale_minutes": 30})
+    t = sh.table
+    assert list(t.columns[t.columns.get_loc("Model chance"):t.columns.get_loc("Market chance")]) == \
+        ["Model chance", "Non-thinking chance without patterns", "Thinking chance without patterns",
+         "Ensemble chance without patterns"]
+    assert len(t.columns) == len(local_sheet.table.columns) + 2
+    assert "Model chance without patterns" in local_sheet.table.columns and "Odds" not in local_sheet.table.columns
+    shown = t[t["Player"].notna()]
+    assert len(shown) and np.allclose(shown["Ensemble chance without patterns"],
+                                      _log_odds_mean(shown["Non-thinking chance without patterns"],
+                                                     shown["Thinking chance without patterns"]), atol=2e-6)
+    assert np.allclose(shown["Model chance"], shown["Ensemble chance without patterns"])     # patterns off here
+    assert {"Non-thinking chance 1 without patterns", "Thinking chance 1 without patterns",
+            "Ensemble chance 1 without patterns"} <= set(sh.matches.columns)
+    assert any("log-odds" in h for h in sh.header) and not any("plain" in h for h in sh.header)
+
+
+@needs_replay
+def test_a_failed_thinking_call_gives_the_local_sheet_and_says_so(tmp_path, monkeypatch):
+    """Thinking asked for but its call failed: the record and the sheet are the local model's alone, the sheet's run
+    notes say why (once), and predict_day's line says it loudly."""
+    run, local, _ = _thinking_run(tmp_path, ok=False)
+    monkeypatch.setattr(CFG, "PREDICTIONS", tmp_path / "predictions")
+    rec = D.bet_diagnostics(run, write=True, show=False, now=PRICED_NOW)
+    p = rec[rec["status"].eq("predicted")]
+    assert p["model"].eq("tabpfn35").all() and "q_a_thinking" not in rec.columns
+    assert np.allclose(p["q_a"], local.round(6))
+    prov = json.loads(next((tmp_path / "predictions").rglob("*.provenance.json")).read_text(encoding="utf-8"))
+    first = prov["run_notes"][0]
+    assert "Thinking was asked for, but its call failed" in first["plain"] and "429" in first["detail"]
+    from src.pipeline import predict as PD
+    line = PD.thinking_outcome(run)
+    assert line.startswith("WARNING") and "429" in line and "ALONE" in line
 
 
 # ------------------------------------------------------------------------------------------------------------------
@@ -520,9 +669,63 @@ def test_thinking_fit_refused_without_the_flag():
     assert out.returncode == 2 and "Refused" in out.stdout
 
 
-def test_predict_thinking_waits_for_the_daily_pipeline():
+def test_the_daily_pipeline_offers_thinking_and_a_pipeline_without_it_is_refused(monkeypatch):
+    assert tp.predict.dp_takes_thinking()                      # run_day --thinking --spend-tokens (20 Oct 2026)
+    monkeypatch.setattr("src.pipeline.predict.dp_takes_thinking", lambda: False)
     with pytest.raises(NotImplementedError):
-        tp.predict_day("x.csv", model="tabpfn35_thinking")
+        tp.predict_day("x.csv", model="tabpfn35_thinking", spend_tokens=True)
+
+
+def test_predict_day_with_thinking_makes_a_missing_fit_first_then_runs_both(tmp_path, monkeypatch):
+    """A dry run: with no season fit, the paid fit's two steps come first, then run_day with --thinking and
+    --spend-tokens; with the fit, only the run; a fit made on another frame is refused. Every flag parses."""
+    from src.pipeline import thinking as TH
+    mu = tmp_path / "m.csv"
+    pd.DataFrame({"day": ["2026-10-21"]}).to_csv(mu, index=False)
+    seen: list[R.Step] = []
+
+    def capture(step, **kw):
+        seen.append(step)
+        return R.StepResult(step.name, step.shown(), "dry-run", None, 0.0, None)
+    monkeypatch.setattr("src.pipeline.predict.run_step", capture)
+    monkeypatch.setattr("src.pipeline.runner.run_steps", lambda steps, **kw: [capture(s) for s in steps])
+    monkeypatch.setattr(TH, "fit_state", lambda instance, season: "missing")
+    assert tp.predict_day(mu, model="tabpfn35_thinking", spend_tokens=True, skip_checks=True, dry_run=True) is None
+    assert [s.name for s in seen] == ["thinking_prepare_2026", "thinking_fit_2026", "predict_day"]
+    assert "--spend-tokens" in seen[1].args and seen[1].env == "api"
+    run_day = [str(a) for a in seen[2].args]
+    assert {"--thinking", "--spend-tokens", "--refresh"} <= set(run_day)
+    known = _flags(_help(run_day[:2]))
+    assert {a for a in run_day if a.startswith("--")} <= known
+    seen.clear()
+    monkeypatch.setattr(TH, "fit_state", lambda instance, season: "ok")
+    tp.predict_day(mu, model="tabpfn35_thinking", spend_tokens=True, skip_checks=True, dry_run=True)
+    assert [s.name for s in seen] == ["predict_day"]
+    monkeypatch.setattr(TH, "fit_state", lambda instance, season: "other frame")
+    with pytest.raises(RuntimeError, match="another frame"):
+        tp.predict_day(mu, model="tabpfn35_thinking", spend_tokens=True, skip_checks=True, dry_run=True)
+    seen.clear()
+    tp.predict_day(mu, model="tabpfn35", skip_checks=True, dry_run=True)       # the local model: no Thinking at all
+    assert [s.name for s in seen] == ["predict_day"] and "--thinking" not in [str(a) for a in seen[0].args]
+
+
+def test_fit_state_reads_the_instance_frame(tmp_path, monkeypatch):
+    from src.pipeline import thinking as TH
+    monkeypatch.setattr(CFG, "THINKING", tmp_path / "thinking")
+    inst = tmp_path / "template_x"
+    inst.mkdir()
+    (inst / "model_frame.parquet").write_bytes(b"frame one")
+    assert TH.fit_state(inst, 2026) == "missing"
+    out = TH.folder(inst, 2026)
+    out.mkdir(parents=True)
+    import hashlib
+    for n in TH.FIT_FILES:
+        (out / n).write_text("{}", encoding="utf-8")
+    (out / "prepared.json").write_text(json.dumps({"frame_sha256": hashlib.sha256(b"frame one").hexdigest()}),
+                                       encoding="utf-8")
+    assert TH.fit_state(inst, 2026) == "ok"
+    (inst / "model_frame.parquet").write_bytes(b"frame two")
+    assert TH.fit_state(inst, 2026) == "other frame"
 
 
 def test_train_sha256_matches_the_daily_pipelines_recipe():

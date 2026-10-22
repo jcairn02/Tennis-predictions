@@ -36,11 +36,19 @@ if str(ROOT) not in sys.path:
 from src.eda.betonline_lines import sharpness as SH  # noqa: E402
 from src.eda.odds_sources import common as C  # noqa: E402
 from src.eda.sharp_benchmark import build as BLD  # noqa: E402
+from src.ingest import oddstrader as OTI  # noqa: E402
+from src.ingest.public_dump import common as IC  # noqa: E402
 
 KEY = ["tour", "td_date", "td_winner", "td_loser"]
 TD_BOOKS = {"avg": "avg", "max": "max", "ps": "ps", "b365": "b365"}     # Stage 1's <book>_a / <book>_b
 TD_EXTRA = {"bfe": ("BFEW", "BFEL"), "ex": ("EXW", "EXL"), "lb": ("LBW", "LBL")}
 MIN_LINES_PER_BOOK = 500     # an OddsTrader book with fewer coherent last lines on frame matches is left out
+LID = {"atp": 23, "wta": 24}
+# a month's listing holds a match's final pre-match line once the day after the match day is over (UTC): every match
+# of the day has finished, the latest about 4 a.m. UTC the next day
+LISTED_AFTER = pd.Timedelta(days=2)
+FIRST_LISTED = "2018-01"     # OddsTrader's listing as pulled (the bet-timing study's pull): the 2018 season's matches
+                             # of late December 2017 are outside it (21 Oct 2026: the first refresh listed 2017-12 too)
 
 
 def link() -> int:
@@ -54,6 +62,9 @@ def link() -> int:
     pd.DataFrame({"eid": sorted(out["eid"].astype(int).unique())}).to_csv(C.EIDS, index=False)
     by = td.groupby("season").size().to_frame("tennis_data_rows").join(out.groupby("season").size().rename("linked"))
     counts = {"tennis_data_rows": int(len(td)), "linked": int(len(out)),
+              # what the link saw (21 Oct 2026): a frame match after this day was never offered to it (coverage())
+              "tennis_data_through": str(pd.to_datetime(td["date"]).max().date()),
+              "built_at": IC.utc_now_iso(),
               "by_season": {str(s): {"rows": int(r.tennis_data_rows), "linked": int(r.linked)} for s, r in by.iterrows()}}
     C.write_json(C.OUT / "link_counts.json", counts)
     C.log(f"link: {counts['linked']:,} of {counts['tennis_data_rows']:,} tennis-data rows; {len(set(out['eid'])):,} events")
@@ -107,6 +118,65 @@ def tennis_data_extra(f: pd.DataFrame) -> pd.DataFrame:
     sb = keyed(pd.read_parquet(C.POLYMARKET, columns=["tour", "date", "winner", "loser", "pw_pm_m30"]))
     o = f[["match_id", "a_is_w"] + KEY].merge(td, on=KEY, how="left", validate="one_to_one")
     return o.merge(sb, on=KEY, how="left", validate="one_to_one")
+
+
+def _receipts() -> IC.Receipts:
+    return IC.Receipts(OTI.SOURCE, root=OTI.RAW.parent)
+
+
+def stale_months(f: pd.DataFrame, listed: dict | None = None) -> list[str]:
+    """The months (YYYY-MM) holding a frame match of 2018 on whose tour's OddsTrader listing was last fetched before
+    that match's line was final (LISTED_AFTER), or never."""
+    listed = _receipts() if listed is None else listed
+    listed = OTI.listed_at(listed) if isinstance(listed, IC.Receipts) else listed
+    g = f[(f["season"] >= 2018) & f["td_date"].notna() & f["tour"].isin(list(LID))]
+    out = set()
+    for (tour, tag), d in g.groupby([g["tour"], g["td_date"].dt.strftime("%Y-%m")]):
+        if tag < FIRST_LISTED:
+            continue
+        at = listed.get((LID[tour], tag))
+        if at is None or at.tz_convert(None) < d["td_date"].max() + LISTED_AFTER:
+            out.add(tag)
+    return sorted(out)
+
+
+def coverage(f: pd.DataFrame, counts: dict | None = None, lk: pd.DataFrame | None = None,
+             fetched: set | None = None, listed: dict | None = None) -> list[str]:
+    """Why OddsTrader's tables cannot price this frame yet, or [] (21 Oct 2026). Each of the three tables is a snapshot
+    another step refreshes; a match one of them has not seen falls back to the books' average without a word, which
+    is how the builds of 13-21 Oct priced their newest matches (the link of 9 Oct). So every gap stops the build:
+        the month's listing (the monthly pull) older than the match's final line;
+        a match newer than the tennis-data rows the link saw;
+        a linked event without the every-book pull (BetOnline's line is read from it)."""
+    counts = C.read_json(C.OUT / "link_counts.json") if counts is None else counts
+    lk = pd.read_parquet(C.LINK) if lk is None else lk
+    rec = _receipts() if fetched is None or listed is None else None
+    fetched = OTI.fetched_book_eids(rec) if fetched is None else fetched
+    listed = OTI.listed_at(rec) if listed is None else listed
+    g = f[(f["season"] >= 2018) & f["td_date"].notna()]
+    problems = []
+    months = stale_months(g, listed)
+    if months:
+        problems.append(f"OddsTrader's listing of {', '.join(months)} was fetched before some of the frame's matches "
+                        "in it had a final line (the monthly pull: odds_input.py --apply refreshes it)")
+    through = counts.get("tennis_data_through")
+    if through is None:
+        problems.append("the OddsTrader link predates its coverage record (table.py --link writes it)")
+    else:
+        newer = g[g["td_date"] > pd.Timestamp(through)]
+        if len(newer):
+            problems.append(f"{len(newer)} frame matches ({newer['td_date'].min().date()} to "
+                            f"{newer['td_date'].max().date()}) are newer than the tennis-data rows the OddsTrader link "
+                            f"saw (to {through}): table.py --link")
+    lk = lk.rename(columns={"date": "td_date", "winner": "td_winner", "loser": "td_loser"})
+    lk = lk.assign(td_date=pd.to_datetime(lk["td_date"]).dt.normalize(), td_winner=lk["td_winner"].astype(str),
+                   td_loser=lk["td_loser"].astype(str))
+    eids = set(g[KEY].merge(lk[KEY + ["eid"]], on=KEY, how="inner")["eid"].astype(int))
+    missing = eids - set(fetched)
+    if missing:
+        problems.append(f"{len(missing)} linked events of the frame have no every-book pull, which holds BetOnline's "
+                        "line (src.ingest.oddstrader --books-eids)")
+    return problems
 
 
 def oddstrader(f: pd.DataFrame) -> tuple[pd.DataFrame, dict]:
@@ -169,6 +239,10 @@ def build(frame_path: Path = C.MODEL_FRAME, stage1_path: Path = C.STAGE1, out_pa
     out = pd.concat([base.reset_index(drop=True), pd.DataFrame(cols)], axis=1)
     if not np.allclose(out["p_avg"].dropna(), out.loc[out["p_avg"].notna(), "p_mkt"]):
         raise RuntimeError("the frame's market input is not Stage 1's average with the margin removed")
+    problems = coverage(f)
+    if problems:
+        raise SystemExit("OddsTrader's tables do not cover this frame, so its newest matches would fall back to the "
+                         "books' average:\n  " + "\n  ".join(problems))
     ot, ot_counts = oddstrader(f)
     out = out.merge(ot, on="match_id", how="left", validate="one_to_one")
     out["block"] = C.blocks(out["td_date"].to_numpy("datetime64[D]"))

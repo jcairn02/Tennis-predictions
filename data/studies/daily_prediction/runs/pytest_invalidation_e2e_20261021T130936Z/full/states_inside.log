@@ -1,0 +1,246 @@
+[    0.9s] loading matches, players and odds; applying the repair's data corrections
+[level_layer] ratings_iid atp: 158,116 lower-level rating matches; w at zero 30,385
+[level_layer] ratings_iid wta: 53,833 lower-level rating matches; w at zero 0
+[   26.3s] rows: 1,853,864 player-matches; box history eligible 1,775,210; ITF/team own-score standard 1,315,582
+[  39.4s]   constant rpw_first
+[  43.0s]   constant rpw_second
+[  49.0s]   constant bp_over
+[  55.3s]   constant win
+[  61.0s]   constant deciding
+[level_layer] points_52w spw: 17,812 lower-level rows of 31,530 admitted; translated 14,202; w at zero 322
+[level_layer] points_52w rpw: 17,812 lower-level rows of 31,530 admitted; translated 14,202; w at zero 322
+[ 169.0s]   history sums: columns 0-24 of 63
+[ 170.2s]   history sums: columns 24-48 of 63
+[ 171.0s]   history sums: columns 48-63 of 63
+[ 171.0s]   history sums done
+[ 171.8s]   meetings done
+[level_layer] forms: 17 pairs recomputed with the layer in 212 s
+{
+ "checkpoint": null,
+ "record": {
+  "checkpoint": null,
+  "d0": null,
+  "targets": 23,
+  "parts": {
+   "elo:atp": "full (no checkpoint)",
+   "elo:wta": "full (no checkpoint)",
+   "stage3:atp": "full (no checkpoint)",
+   "stage3:wta": "full (no checkpoint)",
+   "weighted:atp": "full (no checkpoint)",
+   "weighted:wta": "full (no checkpoint)",
+   "forms:": "full (no checkpoint)",
+   "ios:atp_ace": "full (no checkpoint)",
+   "ios:atp_df": "full (no checkpoint)",
+   "ios:atp_first_in": "full (no checkpoint)",
+   "ios:atp_first_won": "full (no checkpoint)",
+   "ios:atp_second_won": "full (no checkpoint)",
+   "ios:atp_hold": "full (no checkpoint)",
+   "ios:atp_bp_saved": "full (no checkpoint)",
+   "ios:wta_ace": "full (no checkpoint)",
+   "ios:wta_df": "full (no checkpoint)",
+   "ios:wta_first_in": "full (no checkpoint)",
+   "ios:wta_first_won": "full (no checkpoint)",
+   "ios:wta_second_won": "full (no checkpoint)",
+   "ios:wta_hold": "full (no checkpoint)",
+   "ios:wta_bp_saved": "full (no checkpoint)"
+  },
+  "seconds": {
+   "offset": 10.8,
+   "stage3": 9.6,
+   "stage4_rows": 82.3,
+   "weighted": 55.7,
+   "stage4_inputs": 14.8,
+   "pieces": 15.0,
+   "context": 18.0,
+   "waited_for_forms_and_ios": 382.2,
+   "forms_rows": 16.0,
+   "forms_context": 77.0,
+   "forms": 224.7,
+   "forms_family": 317.6,
+   "ios_cache": 38.8,
+   "ios_runs": 550.3,
+   "ios_family": 589.1,
+   "total": 590.1
+  },
+  "stage3_table": "written to C:\\Users\\zerom\\tnr_daily_pytest\\data\\studies\\predictability_diagnostic\\stage3_ratings.parquet",
+  "stage4": {
+   "players": 46,
+   "subset_matches": 23487,
+   "seconds": 14.8
+  },
+  "ios_runs": {
+   "atp_ace": {
+    "mode": "full",
+    "record": {
+     "days": 5809,
+     "seconds": 450.05,
+     "not_converged": 0
+    },
+    "seconds": 451.09
+   },
+   "atp_df": {
+    "mode": "full",
+    "record": {
+     "days": 5809,
+     "seconds": 382.28,
+     "not_converged": 0
+    },
+    "seconds": 382.73
+   },
+   "atp_first_in": {
+    "mode": "full",
+    "record": {
+     "days": 5809,
+     "seconds": 377.92,
+     "not_converged": 0
+    },
+    "seconds": 378.38
+   },
+   "atp_first_won": {
+    "mode": "full",
+    "record": {
+     "days": 5809,
+     "seconds": 459.87,
+     "not_converged": 0
+    },
+    "seconds": 460.37
+   },
+   "atp_second_won": {
+    "mode": "full",
+    "record": {
+     "days": 5809,
+     "seconds": 397.35,
+     "not_converged": 0
+    },
+    "seconds": 397.87
+   },
+   "atp_hold": {
+    "mode": "full",
+    "record": {
+     "days": 5809,
+     "seconds": 462.43,
+     "not_converged": 0
+    },
+    "seconds": 462.93
+   },
+   "atp_bp_saved": {
+    "mode": "full",
+    "record": {
+     "days": 5809,
+     "seconds": 286.13,
+     "not_converged": 0
+    },
+    "seconds": 286.62
+   },
+   "wta_ace": {
+    "mode": "full",
+    "record": {
+     "days": 5799,
+     "seconds": 167.33,
+     "not_converged": 0
+    },
+    "seconds": 168.26
+   },
+   "wta_df": {
+    "mode": "full",
+    "record": {
+     "days": 5799,
+     "seconds": 137.17,
+     "not_converged": 0
+    },
+    "seconds": 137.52
+   },
+   "wta_first_in": {
+    "mode": "full",
+    "record": {
+     "days": 5799,
+     "seconds": 137.33,
+     "not_converged": 0
+    },
+    "seconds": 137.63
+   },
+   "wta_first_won": {
+    "mode": "full",
+    "record": {
+     "days": 5799,
+     "seconds": 129.54,
+     "not_converged": 0
+    },
+    "seconds": 129.79
+   },
+   "wta_second_won": {
+    "mode": "full",
+    "record": {
+     "days": 5799,
+     "seconds": 90.18,
+     "not_converged": 0
+    },
+    "seconds": 90.36
+   },
+   "wta_hold": {
+    "mode": "full",
+    "record": {
+     "days": 5799,
+     "seconds": 75.59,
+     "not_converged": 0
+    },
+    "seconds": 75.78
+   },
+   "wta_bp_saved": {
+    "mode": "full",
+    "record": {
+     "days": 5799,
+     "seconds": 83.14,
+     "not_converged": 0
+    },
+    "seconds": 83.29
+   }
+  },
+  "ace_rows": {
+   "file": "C:\\Users\\zerom\\Documents\\Tennis-predictions\\data\\studies\\daily_prediction\\runs\\pytest_invalidation_e2e_20261021T130936Z\\full\\ios_ace_recent.parquet",
+   "rows": 58530,
+   "sha256": "bad93f4c161688362b522e90f75d043b3401d092404f4ff38762d5bce221e0a1",
+   "tours": {
+    "atp": {
+     "mode": "full",
+     "recent_rows": 26110,
+     "from_day": "2026-03-17",
+     "to_day": "2026-07-15"
+    },
+    "wta": {
+     "mode": "full",
+     "recent_rows": 32374,
+     "from_day": "2026-03-17",
+     "to_day": "2026-07-15"
+    }
+   }
+  }
+ },
+ "parts_summary": {
+  "full (no checkpoint)": 21
+ },
+ "seconds": {
+  "offset": 10.8,
+  "stage3": 9.6,
+  "stage4_rows": 82.3,
+  "weighted": 55.7,
+  "stage4_inputs": 14.8,
+  "pieces": 15.0,
+  "context": 18.0,
+  "waited_for_forms_and_ios": 382.2,
+  "forms_rows": 16.0,
+  "forms_context": 77.0,
+  "forms": 224.7,
+  "forms_family": 317.6,
+  "ios_cache": 38.8,
+  "ios_runs": 550.3,
+  "ios_family": 589.1,
+  "total": 590.1
+ },
+ "layer_config": "C:\\Users\\zerom\\tnr_daily_pytest\\data\\studies\\current_best_model\\level_layer\\this_build\\build_config.json",
+ "layer_config_sha256": "147c5a3b3adf0428446032e1b2301c0ed18ede5b8881d08e10d0b4596a4c2d92",
+ "gate": {
+  "live_matches": 23,
+  "complete": 23
+ }
+}

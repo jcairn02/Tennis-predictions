@@ -127,6 +127,7 @@ class Event:
     start: str
     codes: list[str] = field(default_factory=list)  # MS then QS, each from its last round: MS001, MS002, ...
     uncoded: int = 0  # tour-level rows without a usable stats link (mostly walkovers): not asked for
+    series: str = ""  # ManTennisData's series_id ("atp", "1000", "ch")
 
     @property
     def key(self) -> str:
@@ -145,15 +146,16 @@ def code_order(mid: str) -> tuple[int, str, int]:
 
 
 def load_plan(years: list[int], since: str, until: str, events: set[int] | None = None,
-              root: Path | None = None) -> list[Event]:
-    """Every tour-level event of ``years`` that began in [since, until] (YYYYMMDD), with its match codes, in ``years``
-    order and then by start date."""
+              root: Path | None = None, series=TOUR_SERIES) -> list[Event]:
+    """Every event of ManTennisData's ``series`` (default: tour level) and ``years`` that began in [since, until]
+    (YYYYMMDD), with its match codes, in ``years`` order and then by start date. Work package P9
+    (infosys_atp_recent.py) adds the Challengers ("ch")."""
     import pyarrow.parquet as pq
 
     root = root or MTD_ROOT
     tours = pq.read_table(root / "atp_tournaments.parquet",
                           columns=["id", "name", "series_id", "series_category_id", "start_dtm"]).to_pylist()
-    meta = {t["id"]: t for t in tours if t["series_id"] in TOUR_SERIES and since <= (t["start_dtm"] or "") <= until}
+    meta = {t["id"]: t for t in tours if t["series_id"] in series and since <= (t["start_dtm"] or "") <= until}
     plan: list[Event] = []
     for year in years:
         path = root / f"atp_matches_{year}.parquet"
@@ -170,7 +172,7 @@ def load_plan(years: list[int], since: str, until: str, events: set[int] | None 
             if events and event not in events:
                 continue
             ev = by_event.setdefault(row["tournament_id"], Event(year, event, t["name"], t["series_category_id"],
-                                                                  t["start_dtm"]))
+                                                                  t["start_dtm"], series=t["series_id"]))
             code = code_of(row["stats_url"])
             if code is None or code[:2] != (year, event):  # no link, or a link to another event (none seen)
                 ev.uncoded += 1

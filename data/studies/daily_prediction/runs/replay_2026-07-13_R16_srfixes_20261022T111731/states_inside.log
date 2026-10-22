@@ -1,0 +1,247 @@
+[    1.0s] loading matches, players and odds; applying the repair's data corrections
+[level_layer] ratings_iid atp: 158,607 lower-level rating matches; w at zero 30,597
+[level_layer] ratings_iid wta: 54,143 lower-level rating matches; w at zero 0
+[   30.0s] rows: 1,856,570 player-matches; box history eligible 1,777,798; ITF/team own-score standard 1,317,370
+[  36.0s]   constant rpw_first
+[  38.5s]   constant rpw_second
+[  41.2s]   constant bp_over
+[  44.0s]   constant win
+[  47.3s]   constant deciding
+[level_layer] points_52w spw: 17,860 lower-level rows of 31,638 admitted; translated 14,226; w at zero 322
+[level_layer] points_52w rpw: 17,860 lower-level rows of 31,638 admitted; translated 14,226; w at zero 322
+[  88.7s]   history sums: columns 0-24 of 63
+[  89.0s]   history sums: columns 24-48 of 63
+[  89.3s]   history sums: columns 48-63 of 63
+[  89.3s]   history sums done
+[  89.7s]   meetings done
+[level_layer] forms: 17 pairs recomputed with the layer in 98 s
+{
+ "checkpoint": "C:\\Users\\zerom\\Documents\\Tennis-predictions\\data\\studies\\daily_prediction\\state\\template_2026-10-21b\\2026-06-22",
+ "record": {
+  "checkpoint": "C:\\Users\\zerom\\Documents\\Tennis-predictions\\data\\studies\\daily_prediction\\state\\template_2026-10-21b\\2026-06-22",
+  "d0": "2026-06-22",
+  "targets": 23,
+  "parts": {
+   "elo:atp": "resumed",
+   "elo:wta": "resumed",
+   "stage3:atp": "resumed",
+   "stage3:wta": "resumed",
+   "weighted:atp": "resumed",
+   "weighted:wta": "resumed",
+   "forms:": "slice changed: recomputed in full",
+   "ios:atp_ace": "resumed",
+   "ios:atp_df": "resumed",
+   "ios:atp_first_in": "resumed",
+   "ios:atp_first_won": "resumed",
+   "ios:atp_second_won": "resumed",
+   "ios:atp_hold": "resumed",
+   "ios:atp_bp_saved": "resumed",
+   "ios:wta_ace": "resumed",
+   "ios:wta_df": "resumed",
+   "ios:wta_first_in": "resumed",
+   "ios:wta_first_won": "resumed",
+   "ios:wta_second_won": "resumed",
+   "ios:wta_hold": "resumed",
+   "ios:wta_bp_saved": "resumed"
+  },
+  "seconds": {
+   "offset": 8.8,
+   "stage3": 7.8,
+   "stage4_rows": 57.7,
+   "weighted": 10.7,
+   "stage4_inputs": 5.4,
+   "pieces": 4.5,
+   "context": 8.0,
+   "waited_for_forms_and_ios": 119.5,
+   "forms_rows": 16.6,
+   "forms_context": 80.3,
+   "forms": 108.2,
+   "forms_family": 205.1,
+   "ios_cache": 43.6,
+   "ios_runs": 19.2,
+   "ios_family": 62.8,
+   "total": 223.1
+  },
+  "stage3_table": "written to C:\\Users\\zerom\\tnr_daily_srfix\\data\\studies\\predictability_diagnostic\\stage3_ratings.parquet",
+  "stage4": {
+   "players": 46,
+   "subset_matches": 23534,
+   "seconds": 5.4
+  },
+  "ios_runs": {
+   "atp_ace": {
+    "mode": "resume",
+    "record": {
+     "days": 24,
+     "seconds": 1.75,
+     "not_converged": 0
+    },
+    "seconds": 4.21
+   },
+   "atp_df": {
+    "mode": "resume",
+    "record": {
+     "days": 24,
+     "seconds": 1.69,
+     "not_converged": 0
+    },
+    "seconds": 3.89
+   },
+   "atp_first_in": {
+    "mode": "resume",
+    "record": {
+     "days": 24,
+     "seconds": 1.66,
+     "not_converged": 0
+    },
+    "seconds": 3.78
+   },
+   "atp_first_won": {
+    "mode": "resume",
+    "record": {
+     "days": 24,
+     "seconds": 1.95,
+     "not_converged": 0
+    },
+    "seconds": 4.32
+   },
+   "atp_second_won": {
+    "mode": "resume",
+    "record": {
+     "days": 24,
+     "seconds": 1.6,
+     "not_converged": 0
+    },
+    "seconds": 3.9
+   },
+   "atp_hold": {
+    "mode": "resume",
+    "record": {
+     "days": 24,
+     "seconds": 1.94,
+     "not_converged": 0
+    },
+    "seconds": 4.34
+   },
+   "atp_bp_saved": {
+    "mode": "resume",
+    "record": {
+     "days": 24,
+     "seconds": 1.17,
+     "not_converged": 0
+    },
+    "seconds": 3.81
+   },
+   "wta_ace": {
+    "mode": "resume",
+    "record": {
+     "days": 24,
+     "seconds": 0.39,
+     "not_converged": 0
+    },
+    "seconds": 2.76
+   },
+   "wta_df": {
+    "mode": "resume",
+    "record": {
+     "days": 24,
+     "seconds": 0.39,
+     "not_converged": 0
+    },
+    "seconds": 2.36
+   },
+   "wta_first_in": {
+    "mode": "resume",
+    "record": {
+     "days": 24,
+     "seconds": 0.72,
+     "not_converged": 0
+    },
+    "seconds": 2.74
+   },
+   "wta_first_won": {
+    "mode": "resume",
+    "record": {
+     "days": 24,
+     "seconds": 0.54,
+     "not_converged": 0
+    },
+    "seconds": 3.15
+   },
+   "wta_second_won": {
+    "mode": "resume",
+    "record": {
+     "days": 24,
+     "seconds": 0.68,
+     "not_converged": 0
+    },
+    "seconds": 2.89
+   },
+   "wta_hold": {
+    "mode": "resume",
+    "record": {
+     "days": 24,
+     "seconds": 0.39,
+     "not_converged": 0
+    },
+    "seconds": 2.47
+   },
+   "wta_bp_saved": {
+    "mode": "resume",
+    "record": {
+     "days": 24,
+     "seconds": 0.48,
+     "not_converged": 0
+    },
+    "seconds": 2.44
+   }
+  },
+  "ace_rows": {
+   "file": "C:\\Users\\zerom\\Documents\\Tennis-predictions\\data\\studies\\daily_prediction\\runs\\replay_2026-07-13_R16_srfixes_20261022T111731\\ios_ace_recent.parquet",
+   "rows": 12724,
+   "sha256": "2a6a5baa5c77398e4e7042488ebf1e84246c0e87269ef1636bec203c4fc3f161",
+   "tours": {
+    "atp": {
+     "mode": "resume",
+     "recent_rows": 6058,
+     "from_day": "2026-06-21",
+     "to_day": "2026-07-15"
+    },
+    "wta": {
+     "mode": "resume",
+     "recent_rows": 6620,
+     "from_day": "2026-06-21",
+     "to_day": "2026-07-15"
+    }
+   }
+  }
+ },
+ "parts_summary": {
+  "resumed": 20,
+  "slice changed: recomputed in full": 1
+ },
+ "seconds": {
+  "offset": 8.8,
+  "stage3": 7.8,
+  "stage4_rows": 57.7,
+  "weighted": 10.7,
+  "stage4_inputs": 5.4,
+  "pieces": 4.5,
+  "context": 8.0,
+  "waited_for_forms_and_ios": 119.5,
+  "forms_rows": 16.6,
+  "forms_context": 80.3,
+  "forms": 108.2,
+  "forms_family": 205.1,
+  "ios_cache": 43.6,
+  "ios_runs": 19.2,
+  "ios_family": 62.8,
+  "total": 223.1
+ },
+ "layer_config": "C:\\Users\\zerom\\tnr_daily_srfix\\data\\studies\\current_best_model\\level_layer\\this_build\\build_config.json",
+ "layer_config_sha256": "572d342a0dd32f6b174129321a81de23a4cf11a81af086ae407709ca9142a531",
+ "gate": {
+  "live_matches": 23,
+  "complete": 23
+ }
+}

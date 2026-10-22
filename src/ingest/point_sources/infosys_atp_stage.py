@@ -129,8 +129,19 @@ def read_csv(path: Path) -> list[dict]:
         return list(csv.DictReader(handle))
 
 
+def challenger_keys() -> set[tuple]:
+    """(year, event, route, MID) of the Challenger point files fetched into the adapter's raw folder for the P6 data
+    issues: staged on their own (infosys_challengers_stage.py), never here, whose tables the serve-speed backfill reads
+    (owner, 14 Oct 2026)."""
+    from src.ingest.point_sources.infosys_challengers_stage import CHALLENGER_PURPOSES
+    return {(str(r.get("year")), str(r.get("event_id")), str(r.get("route")), str(r.get("match_id")).upper())
+            for r in P.receipts_for("infosys_atp").all().values() if r.get("purpose") in CHALLENGER_PURPOSES}
+
+
 def stage() -> dict:
-    files = sorted(p for p in DECRYPTED.rglob("*.json") if len(p.relative_to(DECRYPTED).parts) == 4)
+    left_out = challenger_keys()
+    files = sorted(p for p in DECRYPTED.rglob("*.json") if len(p.relative_to(DECRYPTED).parts) == 4
+                   and (*p.relative_to(DECRYPTED).parts[:3], p.stem.upper()) not in left_out)
     if not files:
         raise SystemExit(f"no decrypted file under {P.rel(DECRYPTED)}: run src/ingest/point_sources/infosys_atp_decrypt.py")
     inventory = {(r["year"], r["event_id"], r["route"], r["match_id"].upper()): r for r in read_csv(INVENTORY)}

@@ -1,0 +1,79 @@
+{
+ "name": "official",
+ "params": "C:\\Users\\zerom\\Documents\\Tennis-predictions\\data\\studies\\lower_level_evidence\\system\\relationship\\params.parquet",
+ "params_sha256": "4c559abd356f7c9f0f53c958c5d8293ae55d0cdfa62c4e9da689c94c91a801fb",
+ "classes": "C:\\Users\\zerom\\Documents\\Tennis-predictions\\data\\studies\\lower_level_evidence\\system\\classes\\classes.csv",
+ "prior": "pool",
+ "pins": {
+  "stageB_adjperf": {
+   "path": "C:\\Users\\zerom\\Documents\\Tennis-predictions\\data\\studies\\lower_level_evidence\\system\\arms\\constants\\stageB_adj_summary_reference.json",
+   "sha256": "43429744425a89c43a1a119bc0e7620405d82ffd913a9f31c95bce3342ced271"
+  }
+ },
+ "elo_count": "weighted",
+ "classes_sha256": "58e7862273bfaf8bfbe6283c72b54e80f219ff36c0f83df795076d52ae940c26",
+ "translate": true,
+ "weight": "fitted",
+ "weight_results": "fitted",
+ "itf_box": "exclude",
+ "tours": [
+  "atp"
+ ],
+ "families": {
+  "points_52w": true,
+  "forms": true,
+  "ios": true,
+  "ios_points_short": false,
+  "ratings_iid": true,
+  "elo": true
+ },
+ "params_season_floor": 2013,
+ "missing_params": "error",
+ "solve_w": "w_joint",
+ "ratings_level_term": "none",
+ "fitted_cap": 1.0,
+ "fitted_cap_results": 1.0,
+ "ios_level_term": "fixed_effect",
+ "params_season_ceiling": "last_fitted",
+ "strength_k": {
+  "atp": {
+   "k0": 600.0,
+   "offset": 2.0,
+   "shape": 0.6
+  },
+  "wta": {
+   "k0": 600.0,
+   "offset": 1.0,
+   "shape": 0.6
+  }
+ },
+ "strength_policy": "per build: the plain pre-match Elo on the build's own Stage 0 with strength_k (src/eda/current_best_model/layer_config.py --resolve); the strength named here is the frozen one, which the build's must equal on the reference's matches",
+ "what": "the level layer of the current best model, men (docs/decisions/2026-10-10-level-evidence-layer.md): the level-evidence study's SYS, every setting as tested",
+ "from": {
+  "config": "C:\\Users\\zerom\\Documents\\Tennis-predictions\\data\\studies\\lower_level_evidence\\system\\arms\\configs\\SYS.json",
+  "sha256": "8bcc8cc9606a65fe18e8ff6ccc5cff0f05e799f7017872d89faaf150df03acf9",
+  "stage1_k_from": "C:\\Users\\zerom\\Documents\\Tennis-predictions\\data\\studies\\current_best_model\\reference_2026-10-08\\frozen\\instance\\chain_outputs\\stage1_baselines_summary.json",
+  "stage1_k_sha256": "4e1a21e5f62bf8f6ce6f2855eda6a714caec9f77b40bb5e2a9f42f237e92519d"
+ },
+ "changed_from_sys": {
+  "name": "SYS -> official",
+  "record_dir": "SYS's study folder -> null here; each build's own tree",
+  "families.ios_points_short": "true -> false: the input was dropped on 9 Oct 2026 (the IOS part still runs for the 'ios' family, whose pooled solves lane 3's mapping check reads)",
+  "params_season_ceiling": "absent -> last_fitted: seasons after the last fitted one read its parameters",
+  "strength": "the frozen strength_elo.parquet, replaced in each build by the build's own plain Elo",
+  "strength_k": "added: the frozen reference's Stage 1 K (retirements counted), which the strength uses"
+ },
+ "strength": {
+  "path": "C:\\Users\\zerom\\tnr_tpl1021\\data\\studies\\current_best_model\\level_layer\\this_build\\strength_elo.parquet",
+  "sha256": "cd21d9dd78c7cd0aa1f9d413373d65f5e5f36951a1d35570d95d5e692ea6ad29"
+ },
+ "record_dir": "C:\\Users\\zerom\\tnr_tpl1021\\data\\studies\\current_best_model\\level_layer\\this_build\\layer_calls",
+ "resolved": {
+  "from": "C:\\Users\\zerom\\Documents\\Tennis-predictions\\data\\studies\\current_best_model\\level_layer\\official.json",
+  "from_sha256": "be66df2934ee41e9b9a6f5d2f81a7ac452b74a7ae209268694dd93b993ded3dc",
+  "tree": "C:\\Users\\zerom\\tnr_tpl1021",
+  "stage0_sha256": "eeb73c0a6c3d8d7d30d3117e6bc7742789d447f1d1a6ba8519fc279dbf9c2420",
+  "strength_rule": "re-centred (option c)",
+  "at": "2026-10-21T14:44:27+00:00"
+ }
+}

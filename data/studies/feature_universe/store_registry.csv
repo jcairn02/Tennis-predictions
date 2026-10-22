@@ -591,7 +591,7 @@ fi__B11__x,fi,diff,,B11,f24_onsite,B11's screen column,,diff,,,,,,,1,1.0,1.0,1.0
 fi__B11__bd11_on,fi,diff,,B11,f24_onsite,B11's TabPFN deployment column,,diff,,,,,,,1,1.0,1.0,1.0
 fi__B11__bd11_on_x_nov,fi,diff,,B11,f24_onsite,B11's TabPFN deployment column,,diff,,,,,,,1,1.0,1.0,1.0
 fi__B11__bd11_rhythm_vs_cold,fi,diff,,B11,f24_onsite,B11's TabPFN deployment column,,diff,,,,,,,1,1.0,1.0,1.0
-ds__B11_member_On,ds,diff,,B11,f24_onsite,descriptive: B11 member On,,diff,,,,,fi__B11__bd11_on,0.9998437311505298,0,1.0,1.0,1.0
+ds__B11_member_On,ds,diff,,B11,f24_onsite,descriptive: B11 member On,,diff,,,,,fi__B11__bd11_on,0.999843731150529,0,1.0,1.0,1.0
 ds__B11_member_I_075,ds,diff,,B11,f24_onsite,descriptive: B11 member I-075,,diff,,,,,,,1,1.0,1.0,1.0
 ds__B11_member_I_076,ds,diff,,B11,f24_onsite,descriptive: B11 member I-076,,diff,,,,,,,1,1.0,1.0,1.0
 fp__f25_switch__bdsw_in_a,fp,pair,fp__f25_switch__bdsw_in_b,B-SWITCH,f25_switch.prepare,per-player intermediate of B-SWITCH,,pair,fp__f25_switch__bdsw_in_b,,,,,,1,1.0,1.0,1.0
@@ -764,7 +764,7 @@ kn__KN-SDEV__x6,kn,diff,,KN-SDEV,p3_known_null.py,known-null placebo KN-SDEV,,di
 kn__KN-SDEV__x7,kn,diff,,KN-SDEV,p3_known_null.py,known-null placebo KN-SDEV,,diff,,alt__sdevD_ace,1.0,,,,0,1.0,1.0,1.0
 kn__KN-SNET,kn,diff,,KN-SNET,p3_known_null.py,known-null placebo KN-SNET,,diff,,,,,,,1,1.0,1.0,1.0
 kn__KN-ELOSURF,kn,diff,,KN-ELOSURF,p3_known_null.py,known-null placebo KN-ELOSURF,,diff,,alt__elo_surface,1.0,,,,0,1.0,1.0,1.0
-kn__KN-TTTLOGIT,kn,diff,,KN-TTTLOGIT,p3_known_null.py,known-null placebo KN-TTTLOGIT,,diff,,,,,alt__ttt_logit,1.0,0,1.0,1.0,1.0
+kn__KN-TTTLOGIT,kn,diff,,KN-TTTLOGIT,p3_known_null.py,known-null placebo KN-TTTLOGIT,,diff,,,,,alt__ttt_logit,1.0000000000000036,0,1.0,1.0,1.0
 kn__KN-SURFCAREER,kn,diff,,KN-SURFCAREER,p3_known_null.py,known-null placebo KN-SURFCAREER,,diff,,,,,,,1,1.0,1.0,1.0
 ctx__tour,ctx,context,,,model frame,match context: tour (the model's coding),,context,,m__tour,1.0,constant_within_tour,,,0,1.0,1.0,1.0
 ctx__surface,ctx,context,,,model frame,match context: surface (the model's coding),,context,,m__surface,1.0,,,,0,1.0,1.0,1.0
@@ -778,3 +778,8 @@ ctx__month,ctx,context,,,Stage 0,month of the event,,context,,,,,,,1,1.0,1.0,1.0
 el__low_share_diff,el,diff,,,event_levels/universe_columns,"A's share of the previous 365 days' played matches below the main tour (qualifying, Challenger / WTA 125, ITF) minus B's",,diff,,,,,,,1,0.9987724835913623,0.9987521345067647,0.9944140579541487
 el__low_share_a,el,pair,el__low_share_b,,event_levels/universe_columns,"the player's share of the previous 365 days' played matches below the main tour (qualifying, Challenger / WTA 125, ITF); missing without a match in the window",,pair,el__low_share_b,,,,,,1,0.9993987674733203,0.9990805201628793,0.996392412428721
 el__low_share_b,el,pair,el__low_share_a,,event_levels/universe_columns,"the player's share of the previous 365 days' played matches below the main tour (qualifying, Challenger / WTA 125, ITF); missing without a match in the window",,pair,el__low_share_a,,,,,,1,0.9993737161180419,0.9996716143438854,0.9956941696729896
+fe__sw_a,fe,pair,fe__sw_b,,feature_universe/form_evidence,"the decayed count of the player's earlier box-score matches behind the two-week form, as the current best model weighs it (template_2026-10-13): Stage B's step-3 weight sum for tpw (half-life 2 weeks, Stage B's time rule; the level layer's weights for men, ITF box scores 0); 0 without one",,pair,fe__sw_b,,,,,,1,1.0,1.0,0.9870825090189689
+fe__sw_b,fe,pair,fe__sw_a,,feature_universe/form_evidence,"the decayed count of the player's earlier box-score matches behind the two-week form, as the current best model weighs it (template_2026-10-13): Stage B's step-3 weight sum for tpw (half-life 2 weeks, Stage B's time rule; the level layer's weights for men, ITF box scores 0); 0 without one",,pair,fe__sw_a,,,,,,1,1.0,1.0,0.9870825090189689
+fe__r_a,fe,pair,fe__r_b,,feature_universe/form_evidence,"the two-week form's shrinkage share sw / (sw + K3), K3 = tpw's (10 men, 20 women)",,pair,fe__r_b,,,,,,1,1.0,1.0,0.9870825090189689
+fe__r_b,fe,pair,fe__r_a,,feature_universe/form_evidence,"the two-week form's shrinkage share sw / (sw + K3), K3 = tpw's (10 men, 20 women)",,pair,fe__r_a,,,,,,1,1.0,1.0,0.9870825090189689
+fe__r_diff,fe,diff,,,feature_universe/form_evidence,A's shrinkage share of the two-week form minus B's,,diff,,,,,,,1,1.0,1.0,0.9870825090189689

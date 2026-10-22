@@ -30,6 +30,7 @@ if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
 from src.eda.training_window import common as C  # noqa: E402
+from src.eda.tabpfn_local.processes import is_jupyter_interrupt_helper  # noqa: E402
 
 
 def plan(frame: pd.DataFrame) -> pd.DataFrame:
@@ -76,11 +77,17 @@ def check(frame: pd.DataFrame) -> dict:
 
 
 def other_local_processes() -> list[int]:
+    """Local-env jobs except this process and VS Code's non-computing interrupt helper."""
     ps = ("Get-CimInstance Win32_Process -Filter \"Name='python.exe'\" | "
-          "Where-Object { $_.CommandLine -like '*tennis-tabpfn-local*' } | ForEach-Object { $_.ProcessId }")
+          "Where-Object { $_.CommandLine -like '*tennis-tabpfn-local*' } | "
+          "Select-Object ProcessId,CommandLine | ConvertTo-Json -Compress")
     out = subprocess.run(["powershell.exe", "-NoProfile", "-Command", ps], capture_output=True, text=True,
                          timeout=120).stdout
-    return [int(x) for x in out.split() if x.strip().isdigit() and int(x) != os.getpid()]
+    rows = json.loads(out) if out.strip() else []
+    if isinstance(rows, dict):  # PowerShell emits one object rather than an array for a single process.
+        rows = [rows]
+    return [int(row["ProcessId"]) for row in rows
+            if int(row["ProcessId"]) != os.getpid() and not is_jupyter_interrupt_helper(row.get("CommandLine"))]
 
 
 def wait_for_card(need_gb: float = 12.0, patience_s: int = 4 * 3600, processes: bool = True) -> float:

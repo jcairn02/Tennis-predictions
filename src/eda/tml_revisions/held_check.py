@@ -88,6 +88,17 @@ def held_files(names: list[str] | None = None) -> list[dict]:
         path = meta_path.with_name(meta_path.name[: -len(".meta.json")])
         out.append({"name": meta["name"], "path": path, "sha256": meta["sha256"], "reason": meta.get("reason"),
                     "held_at": meta.get("held_at"), "subdir": subdir_of(meta["name"])})
+    # Tennis My Life can republish a held file before it is reviewed (21 Oct 2026: 2025_wta twice, 2026_wta three
+    # times): the newest held version (the CSV's own write time: the download that held it) is the one checked; the
+    # older ones stay in held/ as the record and are named here
+    newest: dict[str, dict] = {}
+    for h in out:
+        if h["name"] not in newest or h["path"].stat().st_mtime > newest[h["name"]]["path"].stat().st_mtime:
+            newest[h["name"]] = h
+    older = [f"{h['name']}@{h['sha256'][:12]}" for h in out if newest[h["name"]] is not h]
+    if older:
+        print(f"older held versions superseded by a newer one (not checked): {older}")
+    out = sorted(newest.values(), key=lambda h: h["name"])
     if names and len(out) != len(set(names)):
         raise SystemExit(f"held versions found for {[h['name'] for h in out]} of {names}")
     return out

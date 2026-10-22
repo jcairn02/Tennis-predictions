@@ -1,0 +1,64 @@
+{
+ "created_at": "2026-10-22T182644Z",
+ "mode": "replay",
+ "replay": {
+  "week": "2026-10-19",
+  "round": "Q1",
+  "winner": "A",
+  "dating": "training",
+  "frame": "C:\\Users\\zerom\\Documents\\Tennis-predictions\\data\\studies\\master_pipeline\\qualifying_replay\\replay_frame.parquet"
+ },
+ "matchups_csv": null,
+ "checkpoint": "2026-09-23",
+ "seeds": "0-15",
+ "work_tree": "C:\\Users\\zerom\\tnr_daily_qual",
+ "instance": "C:\\Users\\zerom\\Documents\\Tennis-predictions\\data\\studies\\current_best_model\\template_2026-10-21b",
+ "base_tree": "C:\\Users\\zerom\\tnr_tpl1021"
+}
+[    1.5s] == worktree
+[   41.2s]    worktree: 39.7 s
+[   41.2s] == matchups
+[   62.6s]    matchups: 21.3 s
+[   62.6s] == prices
+[   62.8s]    prices: 0.2 s
+[   62.8s] == tables
+[   62.9s] --> stage0: src/eda/predictability_diagnostic/stage0_build.py --live-rows run/live_rows.parquet
+[  172.4s]     exit 0 in 109.4 s
+[  179.9s] --> additions: src/eda/current_best_model/additions.py --apply --accepted-json C:\Users\zerom\tnr_daily_qual\run\accepted_for_replay.json
+[  443.2s]     exit 0 in 263.4 s
+[  443.2s] --> check: src/eda/prediction_run/inject.py --meta run/live_meta.parquet --step check
+[  444.0s]     exit 0 in 0.8 s
+[  444.0s] --> lle_layer: src/eda/current_best_model/layer_config.py --resolve --official C:\Users\zerom\Documents\Tennis-predictions\data\studies\current_best_model\level_layer\official.json
+[  464.9s]     exit 0 in 20.8 s
+[  464.9s] --> odds: src/eda/predictability_diagnostic/stage1_odds.py 
+[  471.9s]     exit 0 in 7.0 s
+[  471.9s] --> live_odds: src/eda/prediction_run/inject.py --meta run/live_meta.parquet --step odds
+[  472.7s]     exit 0 in 0.8 s
+[  479.5s]    tables: 416.7 s
+[  479.5s] == states
+[  584.6s]    states: 105.1 s
+[  584.6s] == history
+[  584.6s]    history: 0.0 s
+[  584.8s] == patterns
+[  651.3s]    patterns: 66.5 s
+{
+ "run": "C:\\Users\\zerom\\Documents\\Tennis-predictions\\data\\studies\\daily_prediction\\runs\\replay_2026-10-19_Q1_qualifying",
+ "mode": "replay",
+ "started_at": "2026-10-22T182644Z",
+ "steps": {
+  "worktree": 39.7,
+  "matchups": 21.3,
+  "prices": 0.2,
+  "tables": 416.7,
+  "states": 105.1,
+  "history": 0.0,
+  "patterns": 66.5,
+  "cleanup": 3.3
+ },
+ "finished_at": "2026-10-22T183734Z",
+ "cleanup": {
+  "deleted": true,
+  "seconds": 3.3
+ }
+}
+exit 0

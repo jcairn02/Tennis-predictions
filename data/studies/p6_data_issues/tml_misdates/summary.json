@@ -1,0 +1,534 @@
+{
+ "generated_at": "2026-10-14T15:27:44+00:00",
+ "parameters": {
+  "window_days": 400,
+  "conflict_days": 3,
+  "min_rows": 3,
+  "agree_days": 3,
+  "wrong_days": 7,
+  "trust_days": 7,
+  "play_window": {
+   "week": [
+    -4,
+    9
+   ],
+   "fortnight": [
+    -9,
+    15
+   ]
+  }
+ },
+ "inputs": {
+  "tml_rows": 102035
+ },
+ "links": {
+  "sk": {
+   "rows": 95931,
+   "pass2": 1577
+  },
+  "tl": {
+   "rows": 96958,
+   "pass2": 2200
+  },
+  "ss": {
+   "rows": 68197,
+   "pass2": 400
+  },
+  "tdi": {
+   "rows": 3104,
+   "pass2": 0
+  }
+ },
+ "rows_with_play_day": 97099,
+ "rows_day_conflict": 12,
+ "editions": {
+  "all": 3660,
+  "date_error": {
+   "right": 2110,
+   "no evidence": 776,
+   "dated by its last days": 705,
+   "another week (early)": 64,
+   "another week (late)": 3,
+   "unresolved (another week (late) on fewer than 3 rows)": 2
+  },
+  "category": {
+   "not flagged": 2850,
+   "dated by its last days": 649,
+   "misdated, lumped": 62,
+   "lumped, dated within its week": 53,
+   "consecutive editions under one name and date": 40,
+   "misdated": 5,
+   "rows dated apart": 1
+  },
+  "category_by_season_level": [
+   {
+    "category": "consecutive editions under one name and date",
+    "season": 2018,
+    "level": "CH",
+    "matches": 2
+   },
+   {
+    "category": "consecutive editions under one name and date",
+    "season": 2019,
+    "level": "CH",
+    "matches": 4
+   },
+   {
+    "category": "consecutive editions under one name and date",
+    "season": 2020,
+    "level": "CH",
+    "matches": 4
+   },
+   {
+    "category": "consecutive editions under one name and date",
+    "season": 2021,
+    "level": "CH",
+    "matches": 20
+   },
+   {
+    "category": "consecutive editions under one name and date",
+    "season": 2022,
+    "level": "CH",
+    "matches": 4
+   },
+   {
+    "category": "consecutive editions under one name and date",
+    "season": 2023,
+    "level": "CH",
+    "matches": 4
+   },
+   {
+    "category": "consecutive editions under one name and date",
+    "season": 2024,
+    "level": "CH",
+    "matches": 2
+   },
+   {
+    "category": "dated by its last days",
+    "season": 2018,
+    "level": "CH",
+    "matches": 116
+   },
+   {
+    "category": "dated by its last days",
+    "season": 2019,
+    "level": "CH",
+    "matches": 51
+   },
+   {
+    "category": "dated by its last days",
+    "season": 2020,
+    "level": "CH",
+    "matches": 35
+   },
+   {
+    "category": "dated by its last days",
+    "season": 2021,
+    "level": "CH",
+    "matches": 71
+   },
+   {
+    "category": "dated by its last days",
+    "season": 2022,
+    "level": "CH",
+    "matches": 113
+   },
+   {
+    "category": "dated by its last days",
+    "season": 2023,
+    "level": "CH",
+    "matches": 125
+   },
+   {
+    "category": "dated by its last days",
+    "season": 2024,
+    "level": "CH",
+    "matches": 137
+   },
+   {
+    "category": "dated by its last days",
+    "season": 2025,
+    "level": "FIN",
+    "matches": 1
+   },
+   {
+    "category": "lumped, dated within its week",
+    "season": 2018,
+    "level": "CH",
+    "matches": 4
+   },
+   {
+    "category": "lumped, dated within its week",
+    "season": 2020,
+    "level": "CH",
+    "matches": 2
+   },
+   {
+    "category": "lumped, dated within its week",
+    "season": 2021,
+    "level": "CH",
+    "matches": 13
+   },
+   {
+    "category": "lumped, dated within its week",
+    "season": 2022,
+    "level": "CH",
+    "matches": 11
+   },
+   {
+    "category": "lumped, dated within its week",
+    "season": 2023,
+    "level": "CH",
+    "matches": 12
+   },
+   {
+    "category": "lumped, dated within its week",
+    "season": 2024,
+    "level": "CH",
+    "matches": 11
+   },
+   {
+    "category": "misdated",
+    "season": 2024,
+    "level": "CH",
+    "matches": 2
+   },
+   {
+    "category": "misdated",
+    "season": 2025,
+    "level": "CH",
+    "matches": 3
+   },
+   {
+    "category": "misdated, lumped",
+    "season": 2018,
+    "level": "CH",
+    "matches": 4
+   },
+   {
+    "category": "misdated, lumped",
+    "season": 2020,
+    "level": "CH",
+    "matches": 2
+   },
+   {
+    "category": "misdated, lumped",
+    "season": 2021,
+    "level": "CH",
+    "matches": 21
+   },
+   {
+    "category": "misdated, lumped",
+    "season": 2022,
+    "level": "CH",
+    "matches": 13
+   },
+   {
+    "category": "misdated, lumped",
+    "season": 2023,
+    "level": "CH",
+    "matches": 10
+   },
+   {
+    "category": "misdated, lumped",
+    "season": 2024,
+    "level": "CH",
+    "matches": 12
+   },
+   {
+    "category": "rows dated apart",
+    "season": 2021,
+    "level": "GS",
+    "matches": 1
+   }
+  ]
+ },
+ "rows_by_category": {
+  "dated by its last days": 21151,
+  "misdated, lumped": 1938,
+  "lumped, dated within its week": 1659,
+  "consecutive editions under one name and date": 1368,
+  "rows dated apart": 239,
+  "misdated": 155
+ },
+ "stage0": {
+  "held_as_by_category": [
+   {
+    "category": "consecutive editions under one name and date",
+    "s0_held_as": "sackmann_row",
+    "matches": 1368
+   },
+   {
+    "category": "dated by its last days",
+    "s0_held_as": "not_in_stage0",
+    "matches": 7
+   },
+   {
+    "category": "dated by its last days",
+    "s0_held_as": "sackmann_row",
+    "matches": 21109
+   },
+   {
+    "category": "dated by its last days",
+    "s0_held_as": "tml_row",
+    "matches": 35
+   },
+   {
+    "category": "lumped, dated within its week",
+    "s0_held_as": "sackmann_row",
+    "matches": 1656
+   },
+   {
+    "category": "lumped, dated within its week",
+    "s0_held_as": "tml_row",
+    "matches": 3
+   },
+   {
+    "category": "misdated",
+    "s0_held_as": "sackmann_row",
+    "matches": 155
+   },
+   {
+    "category": "misdated, lumped",
+    "s0_held_as": "sackmann_row",
+    "matches": 1906
+   },
+   {
+    "category": "misdated, lumped",
+    "s0_held_as": "tml_row",
+    "matches": 32
+   },
+   {
+    "category": "rows dated apart",
+    "s0_held_as": "sackmann_row",
+    "matches": 237
+   },
+   {
+    "category": "rows dated apart",
+    "s0_held_as": "tml_row",
+    "matches": 2
+   }
+  ],
+  "date_is_by_category": [
+   {
+    "category": "consecutive editions under one name and date",
+    "s0_date_is": "sackmann_date",
+    "matches": 1368
+   },
+   {
+    "category": "dated by its last days",
+    "s0_date_is": "",
+    "matches": 7
+   },
+   {
+    "category": "dated by its last days",
+    "s0_date_is": "other",
+    "matches": 35
+   },
+   {
+    "category": "dated by its last days",
+    "s0_date_is": "sackmann_date",
+    "matches": 21109
+   },
+   {
+    "category": "lumped, dated within its week",
+    "s0_date_is": "other",
+    "matches": 3
+   },
+   {
+    "category": "lumped, dated within its week",
+    "s0_date_is": "sackmann_date",
+    "matches": 1656
+   },
+   {
+    "category": "misdated",
+    "s0_date_is": "sackmann_date",
+    "matches": 155
+   },
+   {
+    "category": "misdated, lumped",
+    "s0_date_is": "other",
+    "matches": 1
+   },
+   {
+    "category": "misdated, lumped",
+    "s0_date_is": "sackmann_date",
+    "matches": 1906
+   },
+   {
+    "category": "misdated, lumped",
+    "s0_date_is": "tml_date",
+    "matches": 31
+   },
+   {
+    "category": "rows dated apart",
+    "s0_date_is": "sackmann_date",
+    "matches": 237
+   },
+   {
+    "category": "rows dated apart",
+    "s0_date_is": "tml_date",
+    "matches": 2
+   }
+  ],
+  "wrong_dates_all_tml_rows": 33,
+  "wrong_by_category_year_level_held_as": [
+   {
+    "category": "misdated, lumped",
+    "season": 2024,
+    "s0_level": "CH",
+    "s0_held_as": "tml_row",
+    "matches": 31
+   },
+   {
+    "category": "rows dated apart",
+    "season": 2021,
+    "s0_level": "GS",
+    "s0_held_as": "tml_row",
+    "matches": 2
+   }
+  ],
+  "wrong_evaluation_matches": 31,
+  "unresolved_rows_all": 1725,
+  "sackmann_twins_set_aside_all": 37,
+  "tml_only_rows_in_stage0": 6082,
+  "tml_only_rows_with_play_day": 5672,
+  "tml_only_rows_dated_wrong": 33,
+  "tml_only_wrong_by_year_level": [
+   {
+    "season": 2021,
+    "s0_level": "GS",
+    "matches": 2
+   },
+   {
+    "season": 2024,
+    "s0_level": "CH",
+    "matches": 31
+   }
+  ]
+ },
+ "clock": {
+  "by_category_all_rows": [
+   {
+    "category": "dated by its last days",
+    "clock_leak": "lf the day before the reported play day",
+    "clock_late_start": "",
+    "matches": 3
+   },
+   {
+    "category": "misdated, lumped",
+    "clock_leak": "lf before the play day (certain)",
+    "clock_late_start": "",
+    "matches": 31
+   },
+   {
+    "category": "not flagged",
+    "clock_leak": "",
+    "clock_late_start": "es the day after the reported play day",
+    "matches": 7
+   },
+   {
+    "category": "not flagged",
+    "clock_leak": "lf the day before the reported play day",
+    "clock_late_start": "",
+    "matches": 8
+   }
+  ],
+  "holds_day_flagged": 26472,
+  "with_clock_flagged": 26503,
+  "leaks_certain_by_year_level": [
+   {
+    "category": "misdated, lumped",
+    "season": 2024,
+    "s0_level": "CH",
+    "s0_held_as": "tml_row",
+    "s0_evaluation": true,
+    "matches": 31
+   }
+  ],
+  "leak_readers": {
+   "pairs": 335,
+   "reader_matches": 136,
+   "reader_evaluation_matches": 93,
+   "leaking_matches_read": 31
+  }
+ },
+ "map": {
+  "twice_all_rows": 1586,
+  "twice_flagged": 1575,
+  "twice_misdated": 1575,
+  "tml_copy_found_flagged": 26283,
+  "twice_by_category_year_level": [
+   {
+    "category": "misdated",
+    "map_tml_year": 2024.0,
+    "map_tml_level": "CH",
+    "matches": 53
+   },
+   {
+    "category": "misdated",
+    "map_tml_year": 2025.0,
+    "map_tml_level": "CH",
+    "matches": 61
+   },
+   {
+    "category": "misdated, lumped",
+    "map_tml_year": 2018.0,
+    "map_tml_level": "CH",
+    "matches": 118
+   },
+   {
+    "category": "misdated, lumped",
+    "map_tml_year": 2020.0,
+    "map_tml_level": "CH",
+    "matches": 30
+   },
+   {
+    "category": "misdated, lumped",
+    "map_tml_year": 2021.0,
+    "map_tml_level": "CH",
+    "matches": 589
+   },
+   {
+    "category": "misdated, lumped",
+    "map_tml_year": 2022.0,
+    "map_tml_level": "CH",
+    "matches": 265
+   },
+   {
+    "category": "misdated, lumped",
+    "map_tml_year": 2023.0,
+    "map_tml_level": "CH",
+    "matches": 203
+   },
+   {
+    "category": "misdated, lumped",
+    "map_tml_year": 2024.0,
+    "map_tml_level": "CH",
+    "matches": 256
+   },
+   {
+    "category": "not flagged",
+    "map_tml_year": 2026.0,
+    "map_tml_level": "CH",
+    "matches": 1
+   },
+   {
+    "category": "not flagged",
+    "map_tml_year": 2026.0,
+    "map_tml_level": "GS",
+    "matches": 5
+   },
+   {
+    "category": "not flagged",
+    "map_tml_year": 2026.0,
+    "map_tml_level": "T1000",
+    "matches": 5
+   }
+  ],
+  "other_copy_creator": {
+   "sackmann": 1559,
+   "api_tennis": 27
+  }
+ }
+}

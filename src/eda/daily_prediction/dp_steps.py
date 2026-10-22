@@ -7,6 +7,7 @@ Where each step runs:
                            itself with the work tree's copy of this package, so the builders it imports are the work
                            tree's and so are their tables
     the GPU environment    fit (tennis-tabpfn-local)
+    the API environment    thinking's paid call (tennis-tabpfn; dp_thinking: its query and read-back run here)
 """
 from __future__ import annotations
 
@@ -21,6 +22,9 @@ import numpy as np
 import pandas as pd
 
 import dp_common as DC
+
+ACE_ROWS = "ios_ace_recent.parquet"     # the states step's ace ratings (dp_state.write_ace_rows), read by step_patterns
+REPLAY_TABLES = "replay_tables.json"    # a replay's dump view and the instance's additions (dp_common.replay_tables)
 
 
 def repo_imports() -> None:
@@ -46,15 +50,25 @@ def run_config(run_dir: Path) -> dict:
 
 
 def init(run_dir: Path, mode: str, replay: dict | None, csv: str | None, checkpoint: str, seeds: str,
-         work_tree: Path = DC.WORK_TREE) -> dict:
+         work_tree: Path = DC.WORK_TREE, thinking: bool = False) -> dict:
+    """thinking: TabPFN-3.5-Thinking beside the local model (dp_thinking; a paid call), recorded in run.json."""
     if not (DC.INSTANCE / "model_frame.parquet").exists():
         raise SystemExit(f"no instance at {DC.INSTANCE} (DP_INSTANCE names the folder under "
                          "data/studies/current_best_model/)")
     run_dir.mkdir(parents=True, exist_ok=True)
     cfg = {"created_at": DC.stamp(), "mode": mode, "replay": replay, "matchups_csv": csv, "checkpoint": checkpoint,
            "seeds": seeds, "work_tree": str(work_tree), "instance": str(DC.INSTANCE), "base_tree": str(DC.BASE_TREE)}
+    if thinking:
+        cfg["thinking"] = True
     DC.write_json(run_dir / "run.json", cfg)
     return cfg
+
+
+def replay_frame(cfg: dict) -> Path:
+    """A replay's frame: the one run.json names (--replay-frame: rows the instance frame lacks, e.g. a qualifying
+    round's), else the instance's own."""
+    given = (cfg.get("replay") or {}).get("frame")
+    return Path(given) if given else Path(cfg["instance"]) / "model_frame.parquet"
 
 
 def record(run_dir: Path, step: str, value: dict) -> None:
@@ -97,11 +111,25 @@ def choose_checkpoint(cfg: dict, run_dir: Path) -> Path:
 
 
 def step_worktree(run_dir: Path) -> dict:
+    """The work tree. A replay's is built on the instance's own dump view, and the view and the additions the
+    instance's build merged are recorded in <run>/replay_tables.json, which the tables step merges (16 Oct 2026). Since
+    22 Oct 2026 a replay also reads the decided correction tables of the instance's build tree (DC.BASE_TREE's copy,
+    recorded there as "fixes"), so corrections decided after the instance was built do not reach its replay."""
     import dp_store as STR
     import dp_worktree as WT
     cfg = run_config(run_dir)
     box = Path(cfg["work_tree"])
-    rec = WT.setup(box, replay=cfg["mode"] == "replay", owner=str(run_dir))
+    freeze, fixes = None, None
+    if cfg["mode"] == "replay":
+        rt = DC.replay_tables(Path(cfg["instance"]))
+        own = DC.BASE_TREE / WT.FIXES
+        if own.is_dir():
+            fixes = own
+            rt["fixes"] = str(own)
+            rt["fixes_sha256"] = {f.name: DC.sha256(f) for f in sorted(own.glob("*.csv"))}
+        DC.write_json(run_dir / REPLAY_TABLES, rt)
+        freeze = Path(rt["dump_view"])
+    rec = WT.setup(box, replay=cfg["mode"] == "replay", freeze=freeze, owner=str(run_dir), fixes=fixes)
     ck = choose_checkpoint(cfg, run_dir) if (run_dir / "live_meta.parquet").exists() else (
         STR.folder(cfg["checkpoint"]) if cfg["checkpoint"] not in (None, "", "auto") else STR.checkpoints()[0])
     rec["constants_from"] = str(ck)
@@ -138,7 +166,8 @@ def step_matchups(run_dir: Path, inside: bool = False) -> dict:
     DC.use_tree(Path(cfg["work_tree"]))
     r = cfg["replay"]
     rec = MU.replay(run_dir, r["week"], r["round"], r.get("winner", "A"), Path(cfg["base_tree"]),
-                    Path(cfg["instance"]) / "model_frame.parquet", r.get("dating", "training"))
+                    replay_frame(cfg), r.get("dating", "training"), **({"main_date": r["main_date"]}
+                                                                       if r.get("main_date") else {}))
     DC.write_json(run_dir / "replay.json", rec)
     return rec
 
@@ -147,7 +176,7 @@ def step_prices(run_dir: Path) -> dict:
     import dp_matchups as MU
     cfg = run_config(run_dir)
     if cfg["mode"] == "replay":
-        return MU.prices(run_dir, Path(cfg["instance"]) / "model_frame.parquet")
+        return MU.prices(run_dir, replay_frame(cfg))
     return MU.prices(run_dir, None, run_dir / "matchups.csv")
 
 
@@ -157,8 +186,14 @@ def step_tables(run_dir: Path, history: bool = True) -> dict:
     import dp_tables as TB
     cfg = run_config(run_dir)
     exact = cfg["mode"] == "replay" and (cfg.get("replay") or {}).get("dating", "training") == "training"
+    replay_add = None
+    if cfg["mode"] == "replay":
+        if not (run_dir / REPLAY_TABLES).exists():
+            raise SystemExit(f"{run_dir / REPLAY_TABLES} missing: run the worktree step again (it records the "
+                             "instance's dump view and additions)")
+        replay_add = DC.read_json(run_dir / REPLAY_TABLES)["additions"]
     rec = TB.prep(run_dir, Path(cfg["work_tree"]), cfg["mode"] == "replay", Path(cfg["base_tree"]), hold=exact,
-                  history=history)
+                  history=history, replay_additions=replay_add)
     DC.write_json(run_dir / "tables.json", rec)
     if rec.get("failed"):
         raise SystemExit(f"tables: step {rec['failed']} failed (its log: {Path(cfg['work_tree']) / 'logs'})")
@@ -239,8 +274,10 @@ def step_states(run_dir: Path, inside: bool = False, workers: int = 7, full: boo
     meta = pd.read_parquet(run_dir / "live_meta.parquet").astype({"match_id": str})
     pr = pd.read_parquet(run_dir / "prices.parquet").astype({"match_id": str}).set_index("match_id")
     targets = meta["match_id"].to_numpy()
+    # ace_rows: the ace ratings of the live rows and of the history since the checkpoint, for the pattern step's venue
+    # pace (16 Oct 2026); the 57 inputs are the same with or without it
     frame, rec = SP.inputs(box, False, d0, ck, targets, pr.loc[targets, "p_a"].to_numpy(dtype="float64"),
-                           workers=workers, cache_dir=run_dir)
+                           workers=workers, cache_dir=run_dir, ace_rows=run_dir / ACE_ROWS)
     frame.to_parquet(run_dir / "live_frame.parquet", index=False)
     from src.eda.predictability_diagnostic import common as C
     s0 = pd.read_parquet(C.MATCHES, columns=["match_id", "player_a_id", "player_b_id", "tournament_id",
@@ -276,6 +313,29 @@ def step_fit(run_dir: Path, seeds: str, direct: str = "", cache: str = "use") ->
                   cache=cache)["summary"]
 
 
+def step_thinking(run_dir: Path, spend_tokens: bool) -> dict:
+    """TabPFN-3.5-Thinking's one paid prediction of the run's matches (dp_thinking): the query in this process, the call
+    in the hosted API's environment, the answers read back and symmetrised here."""
+    import dp_thinking as TK
+    cfg = run_config(run_dir)
+    if not cfg.get("thinking"):
+        raise SystemExit("thinking: this run was made without --thinking")
+    failed = TK.folder(run_dir) / "failed.json"             # an earlier attempt's failure: kept, renamed
+    if failed.exists():
+        failed.replace(failed.with_name(f"failed_{DC.stamp()}.json"))
+    repo_imports()
+    query = TK.build_query(run_dir, Path(cfg["instance"]))
+    cmd = [str(DC.PY_API), str(DC.HERE / "dp.py"), "thinking-send", "--run", str(run_dir)]
+    if spend_tokens:
+        cmd.append("--spend-tokens")
+    with open(run_dir / "thinking.log", "w", encoding="utf-8") as fh:
+        code = subprocess.run(cmd, cwd=DC.REPO, stdout=fh, stderr=subprocess.STDOUT, env=TK.api_env()).returncode
+    if code:
+        tail = (run_dir / "thinking.log").read_text(encoding="utf-8", errors="replace").strip().splitlines()[-3:]
+        raise SystemExit(f"thinking failed ({run_dir / 'thinking.log'}): " + " | ".join(tail))
+    return {"query": query, **TK.read(run_dir)}
+
+
 def patterns_on() -> bool:
     """Whether the combined-pattern adjustment is on (unpriced_leads/patterns_live.py; off: no step, no change)."""
     repo_imports()
@@ -286,17 +346,27 @@ def patterns_on() -> bool:
 def step_patterns(run_dir: Path) -> dict:
     """The combined-pattern adjustment's live values and z, while it is on: unpriced_leads/live_members.py inside the
     work tree for the run's matches (the registered members on the tree's own tables), then the live gate and z with
-    the check's frozen parameters. Writes <run>/live_members.parquet, live_patterns.parquet and live_patterns.json."""
+    the check's frozen parameters. Writes <run>/live_members.parquet, live_members.json, live_patterns.parquet and
+    live_patterns.json.
+    The venue pace's surface IOS (16 Oct 2026): the instance's own table (its build tree's), with the ace ratings the
+    states step solved on today's tables laid over it (the live rows and the history since the checkpoint)."""
     repo_imports()
     from src.eda.unpriced_leads import patterns_live as PL
-    box = Path(run_config(run_dir)["work_tree"])
+    cfg = run_config(run_dir)
+    box = Path(cfg["work_tree"])
     script = box / "src" / "eda" / "unpriced_leads" / "live_members.py"
     if not script.exists():
         raise SystemExit(f"{script} missing: the work tree predates the pattern adjustment")
+    ace = run_dir / ACE_ROWS
+    if not ace.exists():
+        raise SystemExit(f"{ace} missing: the states step predates the live ace ratings (16 Oct 2026); run it again")
+    ios_table = Path(cfg["base_tree"]) / "data" / "studies" / "surface_ios" / "surface_features.parquet"
     meta = pd.read_parquet(run_dir / "live_meta.parquet").astype({"match_id": str})
     ids = run_dir / "patterns_ids.txt"
     ids.write_text("\n".join(meta["match_id"].tolist()) + "\n", encoding="utf-8")
-    cmd = [str(DC.PY), str(script), "--ids", str(ids), "--out", str(run_dir / PL.MEMBERS_FILE)]
+    cmd = [str(DC.PY), str(script), "--ids", str(ids), "--out", str(run_dir / PL.MEMBERS_FILE),
+           "--ios-table", str(ios_table), "--ace-rows", str(ace), "--frame", str(run_dir / "live_frame.parquet"),
+           "--ios-out", str(box / "run" / "live_ios_table.parquet")]
     with open(run_dir / "patterns_inside.log", "w", encoding="utf-8") as fh:
         code = subprocess.run(cmd, cwd=box, env={**os.environ, "PYTHONIOENCODING": "utf-8"}, stdout=fh,
                               stderr=subprocess.STDOUT).returncode
@@ -309,10 +379,10 @@ def step_predict(run_dir: Path, seeds: str) -> dict:
     repo_imports()
     import dp_predict as PR
     states = DC.read_json(run_dir / "states.json")
-    out = PR.run(run_dir, span(seeds), Path(run_config(run_dir)["instance"]),
-                 checkpoint=Path(states["checkpoint"]).name if states["checkpoint"]
-                 else "none: every part from scratch (tier 2)")
     cfg = run_config(run_dir)
+    out = PR.run(run_dir, span(seeds), Path(cfg["instance"]),
+                 checkpoint=Path(states["checkpoint"]).name if states["checkpoint"]
+                 else "none: every part from scratch (tier 2)", thinking=bool(cfg.get("thinking")))
     if cfg["mode"] == "live":                            # the archive (PLAN.md section 2), beside the bet sheets' records
         day = str(pd.read_csv(run_dir / "predictions.csv")["day"].min())[:10]   # (master pipeline, 13 Oct 2026): the
         dst = DC.REPO / "predictions" / day / "records"                         # day's folder keeps the sheets on top
@@ -342,6 +412,11 @@ def step_grade(run_dir: Path) -> dict:
     g.loc[done, "ll_market"] = ll(g.loc[done, "p_market_a"])
     if "q_a_patterns_off" in g.columns:               # the model without the combined-pattern adjustment, beside it
         g.loc[done, "ll_model_patterns_off"] = ll(g.loc[done, "q_a_patterns_off"])
+    # a run with Thinking beside the local model (q_a is their ensemble): each model alone, without the patterns
+    both = {"ll_local_patterns_off": "q_a_local_patterns_off", "ll_thinking": "q_a_thinking"}
+    both = {k: c for k, c in both.items() if c in g.columns and g.loc[done, c].notna().all()}
+    for k, c in both.items():
+        g.loc[done, k] = ll(g.loc[done, c])
     g.to_csv(run_dir / "graded.csv", index=False)
     out = {"predictions": int(len(g)), "graded": int(done.sum())}
     if done.any():
@@ -351,6 +426,8 @@ def step_grade(run_dir: Path) -> dict:
         if "ll_model_patterns_off" in g.columns:
             out["mean_ll_model_patterns_off"] = float(g.loc[done, "ll_model_patterns_off"].mean())
             out["patterns"] = str(g["patterns"].iloc[0]) if "patterns" in g.columns else None
+        for k in both:
+            out[f"mean_{k}"] = float(g.loc[done, k].mean())
     DC.write_json(run_dir / "grade.json", out)
     return out
 
@@ -367,6 +444,10 @@ def reprice(run_dir: Path, prices_csv: Path) -> dict:
     curves = pd.read_parquet(run_dir / "curves.parquet").astype({"match_id": str})
     new = pd.read_csv(prices_csv).astype({"match_id": str})
     two = "q_a_patterns_off" in curves.columns          # the combined-pattern adjustment's two versions (13 Oct 2026)
+    # a run with Thinking beside the local model (20 Oct 2026): q_a is their ensemble; each model's own curve beside it
+    # (q_a_thinking with stage 2's speed term, q_a_thinking_api the API's own: runs from the evening of 20 Oct)
+    each = [c for c in ("q_a_local", "q_a_local_patterns_off", "q_a_thinking", "q_a_thinking_api")
+            if c in curves.columns]
     status = "off"
     if (run_dir / "predictions.csv").exists():
         pc = pd.read_csv(run_dir / "predictions.csv")
@@ -386,6 +467,8 @@ def reprice(run_dir: Path, prices_csv: Path) -> dict:
             q_off = float(expit(np.interp(x, g, logit(c["q_a_patterns_off"].to_numpy())))) if inside else np.nan
             row.update({"q_a_patterns_off": q_off, "q_a_patterns_on": q if status == "on" else np.nan,
                         "patterns": status})
+        for col in each:
+            row[col] = float(expit(np.interp(x, g, logit(c[col].to_numpy())))) if inside else np.nan
         row["note"] = "" if inside else "outside the price grid"
         rows.append(row)
     out = pd.DataFrame(rows)
@@ -400,7 +483,7 @@ def replay_compare(run_dir: Path, frame: Path | None = None) -> dict:
     input bit for bit; the IOS inputs also within the owner's 1e-6)."""
     import dp_state as SP
     cfg = run_config(run_dir)
-    frame = frame or (Path(cfg["instance"]) / "model_frame.parquet")
+    frame = frame or replay_frame(cfg)
     names = SP.model_names(Path(cfg["instance"]))
     live = pd.read_parquet(run_dir / "live_frame.parquet").astype({"match_id": str}).set_index("match_id")
     tmpl = pd.read_parquet(frame, columns=["match_id"] + [f"in_{n}" for n in names]).astype({"match_id": str})
@@ -452,14 +535,19 @@ def step_save_checkpoint(run_dir: Path, workers: int) -> dict:
 
 
 def run_day(run_dir: Path, do_refresh: bool, do_fit: bool, keep_tree: bool, workers: int, direct: str = "",
-            leave_checkpoint: str = "auto", fit_cache: str = "use") -> dict:
+            leave_checkpoint: str = "auto", fit_cache: str = "use", spend_tokens: bool = False) -> dict:
     """Every step in order, each one's time recorded (run_day.json). A live day leaves a checkpoint on its own tables
     (leave_checkpoint "auto": when a part had to be recomputed in full, or the checkpoint it resumed from is more than
-    two weeks older than the one it would leave; "yes", "no"). fit_cache: step_fit's."""
+    two weeks older than the one it would leave; "yes", "no"). fit_cache: step_fit's.
+    A run made with --thinking (run.json) also gets TabPFN-3.5-Thinking's paid prediction after the local fit
+    (spend_tokens must be given, or nothing starts). If that call fails, the local model's predictions still come, and
+    run_day.json, predictions.csv's `ensemble` and provenance.json say why there is no ensemble."""
     import dp_worktree as WT
     cfg = run_config(run_dir)
     if Path(cfg["instance"]).resolve() != DC.INSTANCE.resolve():
         raise SystemExit(f"this run was made for {cfg['instance']}, but DP_INSTANCE now names {DC.INSTANCE}")
+    if cfg.get("thinking") and do_fit and not spend_tokens:
+        raise SystemExit("this run asks for TabPFN-3.5-Thinking, a paid call: pass --spend-tokens")
     times: dict = {}
     out: dict = {"run": str(run_dir), "mode": cfg["mode"], "started_at": DC.stamp(), "steps": times}
 
@@ -498,6 +586,15 @@ def run_day(run_dir: Path, do_refresh: bool, do_fit: bool, keep_tree: bool, work
                 timed("checkpoint", step_save_checkpoint, run_dir, workers)
         if do_fit:
             timed("fit", step_fit, run_dir, cfg["seeds"], direct, fit_cache)
+            if cfg.get("thinking"):                      # after the local fit: no token is spent on a run that failed
+                try:
+                    timed("thinking", step_thinking, run_dir, spend_tokens)
+                except (Exception, SystemExit) as exc:  # noqa: BLE001 - the local model's predictions still come
+                    reason = str(exc) if isinstance(exc, SystemExit) else f"{type(exc).__name__}: {exc}"
+                    out["thinking_failed"] = reason
+                    record(run_dir, "thinking", {"failed": reason})
+                    DC.write_json(run_dir / "thinking" / "failed.json", {"failed_at": DC.stamp(), "reason": reason})
+                    DC.log(f"   THINKING FAILED ({reason}): the local model's predictions follow, without the ensemble")
             timed("predict", step_predict, run_dir, cfg["seeds"])
         out["finished_at"] = DC.stamp()
         return out

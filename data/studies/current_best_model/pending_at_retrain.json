@@ -1,0 +1,26 @@
+{
+ "what": "Revisions the owner decided for the current best model that reach its training rows only when a retrain builds a new instance. Each is already in force in the decided tables, so every Stage 0 build applies it and prediction runs read it at once; the model trains on it only from the next retrain, whose build must find it in the shared tables. src/pipeline/train.retrain() (the notebook's C0) runs every pending entry's check on the shared tables before it starts and refuses to start when one fails; src/eda/in_season_retrain/retrain.sh runs it again on the built instance before the fits, writes <instance>/revisions_at_build.json, stops when it fails, and marks the entries applied after a switch. src/eda/current_best_model/pending.py reads and checks this file.",
+ "owner_instruction": "Ensure that when we implement the next re-train either through the master script or via another LLM agent, that it's aware of these intended revisions to the model, not simply adding the latest data. (the owner, 22 Oct 2026)",
+ "revisions": [
+  {
+   "id": "2026-10-22-source-reconciliation",
+   "decision": "docs/decisions/2026-10-22-source-reconciliation-repairs.md",
+   "decided": "2026-10-22",
+   "status": "pending",
+   "what": [
+    "S1: 122 Slam matches (AO and US Open 2016-17, Wimbledon 2016-17 and 2024, Roland Garros 2016) whose two service-game counts were exchanged: exchanged back (row_corrections.csv, fix SRS1)",
+    "O1: 71 matches whose tour's own box and point record agree with each other and not with Stage 0: the tour's whole box (row_corrections.csv, fix SRO1)",
+    "8 frame matches filed as completed that were retirements: RET appended to the score (row_corrections.csv, fix SRRET)",
+    "15 editions at the wrong level and WTA Paris 2010-14 filed as carpet: corrected per edition (event_corrections.csv, fixes SRLVL and SRSRF; Stage 0's builder applies the table since 22 Oct 2026)",
+    "the serve-speed history: 576 published averages more than 5 km/h off the match's point record replaced by the point mean (serve_speed_tabpfn/live/speed_panel_repaired.parquet and its stage-2 column source_reconciliation/applied/speed_columns_repaired.parquet; a retrain's in_season_retrain/speed_extend.py writes it into the new instance's own speed table)"
+   ],
+   "in_force_since": "2026-10-22: the decided tables (every Stage 0 build: prediction runs at once, the shared tables at their next rebuild, B6) and the decided speed history",
+   "reaches_training": "the first retrain whose shared tables were rebuilt (B6) after 22 Oct 2026, 18:15 UTC",
+   "how_a_retrain_takes_it": "nothing to switch on: rebuild the shared tables (B6) before the retrain, as its plan asks; the build reads the decided tables and the decided speed history by default",
+   "check_stage0": ["src/eda/source_reconciliation/verify_applied.py", "--stage0", "{stage0}"],
+   "check_instance": ["src/eda/source_reconciliation/verify_applied.py", "--stage0", "{stage0}", "--instance", "{instance}"],
+   "applied_in": null,
+   "applied_at": null
+  }
+ ]
+}

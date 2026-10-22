@@ -33,7 +33,9 @@ and answered: **"record the decision and run the check on the four files"**. Rec
 3. **The history check lists them; it no longer refuses a build for them.** `history.py` counts them as `tml_lower`,
    apart from `gated`. These stay gated:
    * other sources' lower-level changes: new sources and kinds enter as accepted packages or through the lower-level
-     feed ([10 Oct](2026-10-10-men-2026-challenger-data.md), [13 Oct](2026-10-13-lower-level-feed.md));
+     feed ([10 Oct](2026-10-10-men-2026-challenger-data.md), [13 Oct](2026-10-13-lower-level-feed.md)). *Since
+     14 Oct 2026, a package that fills holes from a source that counts as the history does is registered without a
+     decision of its own ([decision](2026-10-14-lower-level-gap-fills.md)).*
    * Tennis My Life at a level it never fed;
    * a candidate build's box layers on a Tennis My Life row;
    * any change to a row Stage 0 takes from Sackmann.

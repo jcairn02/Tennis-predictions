@@ -499,21 +499,25 @@ class Stalls:
         return r
 
 
-def fetch_day(client, receipts, session: Session, day: dt.date) -> dict:
+def fetch_day(client, receipts, session: Session, day: dt.date, refresh: bool = False) -> dict:
+    """A date page; refresh: asked again even when held (the bet-day linker reads today's and tomorrow's: 22 Oct
+    2026)."""
     name, dest = f"calendar/{day.isoformat()}", P.raw_path(SOURCE, "calendar", f"{day.isoformat()}.html.gz")
-    r = P.fetch(client, f"{SITE}/{day.isoformat()}/", dest, receipts, name=name, validator=P.html_validator,
-                compress=True, extra={"date": day.isoformat()})
+    r = P.fetch(client, f"{SITE}/{day.isoformat()}/", dest, receipts, name=name, refresh=refresh,
+                validator=P.html_validator, compress=True, extra={"date": day.isoformat()})
     if not r.get("skipped") and r.get("status") == 200 and dest.exists():
         session.note(P.read_bytes(dest).decode("utf-8", errors="replace"))
     return r
 
 
-def fetch_section(client, receipts, session: Session, ev: dict) -> dict:
-    """An event's results section; fetched again when the answer on disk was not final."""
+def fetch_section(client, receipts, session: Session, ev: dict, force: bool = False) -> dict:
+    """An event's results section; fetched again when the answer on disk was not final, or always with force (the
+    bet-day linker, 22 Oct 2026: an event under way lists only its finished matches, so an answer of the morning reads
+    as final while the day's later results are missing)."""
     name, dest = section_target(ev["url"])
     previous = receipts.get(name)
-    refresh = False
-    if previous and previous.get("status") == 200 and not previous.get("error") and dest.exists():
+    refresh = force
+    if previous and previous.get("status") == 200 and not previous.get("error") and dest.exists() and not force:
         refresh = not section_settled(P.read_json(dest), previous.get("retrieved_at"))
         if not refresh:
             return {**previous, "skipped": True}

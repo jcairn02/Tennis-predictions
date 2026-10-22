@@ -247,6 +247,26 @@ def test_weighted_elo_equals_stage1_with_unit_weights_and_scales_k():
     assert np.allclose(two, k2, equal_nan=True, atol=1e-9)
 
 
+def test_weighted_elo_survives_an_impossible_weight_and_keeps_the_values_before_it():
+    """The leak probe redraws a later match's numerator and denominator independently, so a weight can reach several
+    hundred; one such update carried a rating past float range and 10.0 ** x raised OverflowError (the template build
+    of 16 Oct 2026). The exponent is now capped: the pass completes, and every value before the heavy match is the
+    uncapped pass's, bit for bit."""
+    m = elo_history(seed=5)
+    h = B.history_arrays(m)
+    upd = [True] * len(m)
+    base = F.weighted_elo_pass(h["week"], h["event"], h["rnd"], h["a"], h["b"], h["a_won"], h["surf"], upd, [1.0] * len(m),
+                               h["n_players"], 600, 2, 0.6)
+    heavy = len(m) // 3
+    w = [1.0] * len(m)
+    w[heavy] = 1e6
+    got = F.weighted_elo_pass(h["week"], h["event"], h["rnd"], h["a"], h["b"], h["a_won"], h["surf"], upd, w,
+                              h["n_players"], 600, 2, 0.6)
+    assert np.array_equal(got[:heavy + 1], base[:heavy + 1], equal_nan=True)
+    gap = np.abs(got[:, 0] - got[:, 1]) / 400.0
+    assert np.nanmax(gap) > F.EXP_CAP          # the cap was reached: without it this history raises
+
+
 def test_weighted_elo_passes_the_date_and_round_probe():
     m = elo_history(seed=4)
     h = B.history_arrays(m)

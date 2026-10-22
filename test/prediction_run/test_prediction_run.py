@@ -5,8 +5,10 @@
 2. A replay row is the match's own TML row less its outcome, the placeholder won by the player asked for.
 3. The WTA API's box score maps to Stage 0's counts with break points read on the returner's side, and a fill is kept
    only when every set's games agree with TML's score.
-4. The gate passes a match whose players' earlier matches all have box scores, and fails one whose same-event earlier
-   round lacks one, or a qualifier without qualifying matches.
+4. The gate (rule of 14 Oct 2026, docs/decisions/2026-10-14-box-score-gate.md) passes a match whose players' earlier
+   matches all have box scores; a missing one of a kind the training rows nearly always hold (main tour, Challenger /
+   WTA 125, qualifying above ITF level) sets the 1-point edge bar, one of a kind they mostly lack (team events, ITF) is
+   only noted, and neither blocks; a qualifier without qualifying matches, or an unknown indoor input, still blocks.
 
 Run: ./python.sh -m pytest test/prediction_run -q
 """
@@ -113,6 +115,75 @@ def test_set_scores_are_compared_from_the_winners_side():
     assert FL.api_games(m, "A") != FL.games("6-4 6-7(5) 6-3")
 
 
+# ------------------------------------------------------------------------------------------------ 3a. ATP fills (14 Oct)
+
+def keystats(completed=False, p1="Z355", p2="BK92", sv=("15", "15"), first_won="63/78"):
+    """A decrypted keystats object as the ATP Stats Centre sends it (the labels of 2026/5014/MS008)."""
+    stats = {"Aces": ("15", "20"), "Double Faults": ("1", "8"), "1st Serve": ("78/101 (77%)", "60/90 (67%)"),
+             "1st Serve Points Won": (first_won, "45/60"), "2nd Serve Points Won": ("13/23", "15/30"),
+             "Break Points Saved": ("1/3 (33%)", "4/6 (67%)"), "Service Games Played": sv}
+    return {"matchCompleted": completed, "players": [{"player1Id": p1, "player1Name": "Alexander Zverev"},
+                                                      {"player1Id": p2, "player1Name": "Alexander Bublik"}],
+            "setStats": {"set0": [{"name": k, "player1": a, "player2": b} for k, (a, b) in stats.items()]}}
+
+
+def test_the_atp_box_score_maps_to_stage0s_nine_counts():
+    a, b = FL.keystats_counts(keystats(), "Z355"), FL.keystats_counts(keystats(), "BK92")
+    assert {k: a[k] for k in FL.COUNTS} == {"ace": 15, "df": 1, "svpt": 101, "first_in": 78, "first_won": 63,
+                                            "second_won": 13, "sv_gms": 15, "bp_saved": 1, "bp_faced": 3}
+    assert (b["svpt"], b["first_in"], b["bp_faced"]) == (90, 60, 6) and a["consistent"] and b["consistent"]
+    assert FL.keystats_counts(keystats(), "XXXX") is None
+    assert not FL.keystats_counts(keystats(first_won="63/77"), "Z355")["consistent"]   # 77 != the 78 first serves in
+
+
+def test_an_atp_file_covers_the_match_by_its_service_games():
+    k = {"winner_code": "Z355", "loser_code": "BK92", "tml_score": "3-6 7-5 6-3"}           # 30 games, 15 + 15
+    assert FL.covers_match(keystats(completed=False), k)          # the flag reads False on finished matches
+    assert not FL.covers_match(keystats(completed=False, sv=("9", "9")), k)                 # a match in progress
+    assert FL.covers_match(keystats(completed=False, sv=("18", "18")), {**k, "tml_score": "6-7(4) 7-6(3) 7-6(7)"})
+    assert FL.covers_match(keystats(completed=True, sv=("9", "9")), k)
+
+
+def test_atp_codes_follow_the_bracket():
+    assert FL.atp_codes("R32", False) == [f"MS{n:03d}" for n in range(16, 32)]
+    assert FL.atp_codes("F", False) == ["MS001"] and FL.atp_codes("QF", False)[0] == "MS004"
+    assert FL.atp_codes("Q2", True) == [f"QS{n:03d}" for n in range(1, 64)]
+
+
+def test_atp_main_draw_gaps_are_fillable_and_the_rest_are_not(tmp_path):
+    # the ATP's qualifying keystats count first serves differently from TML's (Shanghai 2026: 9 of 26 rows equal)
+    rows = [dict(match_id=f"m{i}", tour=t, level=lv, qualifying=q, source="tml", status="completed", has_box=False,
+                 tournament_date=pd.Timestamp("2026-10-10")) for i, (t, lv, q) in enumerate(
+        [("atp", "T500", False), ("atp", "T1000", False), ("atp", "CH", False), ("atp", "GS", False),
+         ("atp", "TEAM", False), ("wta", "T250", False), ("atp", "T250", True)])]
+    (tmp_path / "s0").mkdir()
+    pd.DataFrame(rows).to_parquet(tmp_path / "s0" / "stage0_matches.parquet")
+    g = FL.gaps(tmp_path / "s0", pd.Timestamp("2026-10-14"), held={"m1"}).set_index("match_id")["class"]
+    assert g.to_dict() == {"m0": "fillable", "m1": "held", "m2": "unserved", "m3": "unserved", "m4": "unserved",
+                           "m5": "fillable", "m6": "unserved"}
+
+
+def test_the_atp_fill_links_by_codes_and_keeps_tmls_orientation(tmp_path, monkeypatch):
+    from src.eda.serve_speed_tabpfn.live import atp_daily as AD
+    held = {"MS019": keystats(p1="AAAA", p2="BBBB", completed=True),               # another match of the round
+            "MS020": keystats(p1="BK92", p2="Z355", completed=False)}             # ours, players listed B first
+    monkeypatch.setattr(FL, "held_keystats", lambda year, event, code: held.get(code))
+    monkeypatch.setattr(AD, "raw_path", lambda year, event, code, route="keystats-api": tmp_path / f"{code}.json.gz")
+    (tmp_path / "MS020.json.gz").write_bytes(b"envelope")
+    gap = pd.DataFrame([{"match_id": "s0id", "qualifying": False, "tour": "atp"}])
+    keys = pd.DataFrame([{"tour": "atp", "tid": "2026-5014", "round": "R32", "winner_key": "zverev a",
+                          "loser_key": "bublik a", "winner_name": "Alexander Zverev", "loser_name": "Alexander Bublik",
+                          "tml_score": "3-6 7-5 6-3", "stage0_match_id": "s0id", "winner_code": "Z355",
+                          "loser_code": "BK92"}])
+    fills, notes = FL.fill_atp(gap, keys, max_requests=0, ask=False)
+    assert notes == [{"match_id": "s0id", "outcome": "filled", "feed_key": "atp:2026/5014/MS020", "how": "held"}]
+    r = fills.iloc[0]
+    assert r["box_source"] == "atp_keystats_live" and r["stage0_match_id"] == "s0id"
+    # the winner is Zverev, listed second in the file: his counts are the file's player-2 values
+    assert (r["w_ace"], r["w_svpt"], r["l_ace"], r["l_svpt"]) == (20, 90, 15, 101)
+    assert set(FL.override_table(fills).columns) >= {"w_ace", "l_bpFaced", "box_source"}
+
+
 # ------------------------------------------------------------------------------------------------ 3b. live windows
 
 def test_a_live_match_takes_its_tours_current_window(tmp_path, monkeypatch):
@@ -157,16 +228,16 @@ def test_a_live_match_takes_its_tours_current_window(tmp_path, monkeypatch):
 
 # ------------------------------------------------------------------------------------------------ 4. the gate
 
-def gate_tables(tmp_path, earlier_box=True, entry=""):
+def gate_tables(tmp_path, earlier_box=True, entry="", earlier_level="T250"):
     ms = pd.DataFrame([
         {"match_id": "e1", "tour": "wta", "tournament_id": "2026-1", "tournament_name": "X", "round": "R32",
          "round_order": 13, "status": "completed", "has_box": earlier_box, "qualifying": False,
-         "tournament_date": pd.Timestamp("2026-10-01")},
+         "level": earlier_level, "tournament_date": pd.Timestamp("2026-10-01")},
         {"match_id": "e0", "tour": "wta", "tournament_id": "2026-0", "tournament_name": "W", "round": "R16",
-         "round_order": 14, "status": "retired", "has_box": False, "qualifying": False,
+         "round_order": 14, "status": "retired", "has_box": False, "qualifying": False, "level": "T250",
          "tournament_date": pd.Timestamp("2026-09-24")},
         {"match_id": "live", "tour": "wta", "tournament_id": "2026-1", "tournament_name": "X", "round": "R16",
-         "round_order": 14, "status": "completed", "has_box": False, "qualifying": False,
+         "round_order": 14, "status": "completed", "has_box": False, "qualifying": False, "level": "T250",
          "tournament_date": pd.Timestamp("2026-10-01")}])
     ps = pd.DataFrame([{"match_id": m, "player_id": pid, "player_name": n, "entry": e}
                        for m, pid, n, e in (("e1", "p1", "One", ""), ("e1", "p3", "Three", ""), ("e0", "p2", "Two", ""),
@@ -186,17 +257,46 @@ def gate_tables(tmp_path, earlier_box=True, entry=""):
 def test_the_gate_passes_complete_inputs(tmp_path):
     table, missing = G.check(*gate_tables(tmp_path))
     assert bool(table["complete"].iloc[0]) and table["earlier_matches_checked"].iloc[0] == 1 and missing.empty
+    assert table["edge_bar"].iloc[0] == 0 and G.verdict(table).iloc[0] == G.BET
 
 
-def test_the_gate_fails_a_missing_same_event_box_score(tmp_path):
+def test_a_missing_main_tour_box_score_sets_the_bar_and_does_not_block(tmp_path):
     table, missing = G.check(*gate_tables(tmp_path, earlier_box=False))
-    assert not bool(table["complete"].iloc[0]) and missing["match_id"].tolist() == ["e1"]
+    assert bool(table["complete"].iloc[0]) and missing["match_id"].tolist() == ["e1"]
     assert bool(missing["same_event"].iloc[0])
+    assert (missing["kind"].iloc[0], missing["effect"].iloc[0]) == ("main tour", "edge bar")
+    assert table["edge_bar"].iloc[0] == G.EDGE_BAR == 0.01 and table["bar_gaps"].iloc[0] == 1
+    assert G.verdict(table).iloc[0] == G.BET_BAR and "clear 1 point" in table["reason"].iloc[0]
+
+
+@pytest.mark.parametrize("level", ["TEAM", "ITF"])
+def test_a_missing_box_score_of_a_kind_training_lacks_is_only_noted(tmp_path, level):
+    table, missing = G.check(*gate_tables(tmp_path, earlier_box=False, earlier_level=level))
+    assert bool(table["complete"].iloc[0]) and table["edge_bar"].iloc[0] == 0
+    assert table["noted_gaps"].iloc[0] == 1 and missing["effect"].iloc[0] == "note"
+    assert G.verdict(table).iloc[0] == G.BET
+
+
+def test_kinds_put_the_itf_qualifying_with_the_itf():
+    # the women's ITF qualifying has no box score in training; the tour's and the 125s' qualifying nearly always have one
+    assert G.kind("ITF", True) == "ITF" and G.kind("TEAM", False) == "team event"
+    assert G.kind("GS", True) == G.kind("CH", True) == G.kind("T250", True) == "qualifying"
+    assert G.kind("T1000", False) == "main tour" and G.kind("CH", False) == "Challenger / WTA 125"
+    assert [G.effect(k) for k in ("ITF", "team event", "qualifying", "main tour", "Challenger / WTA 125", "other")] == \
+        ["note", "note", "edge bar", "edge bar", "edge bar", "edge bar"]
 
 
 def test_the_gate_fails_a_qualifier_without_qualifying_matches(tmp_path):
     table, _ = G.check(*gate_tables(tmp_path, entry="Q"))
     assert not bool(table["complete"].iloc[0]) and "through qualifying" in table["reason"].iloc[0]
+    assert G.verdict(table).iloc[0] == G.NO_BET
+
+
+def test_an_unknown_indoor_input_blocks_even_with_the_bar(tmp_path):
+    table, _ = G.check(*gate_tables(tmp_path, earlier_box=False))
+    table = G.with_indoor(table, {"live"})
+    assert not bool(table["complete"].iloc[0]) and G.verdict(table).iloc[0] == G.NO_BET
+    assert table["reason"].iloc[0].startswith("indoor or outdoor unknown")
 
 
 def test_a_qualifiers_matches_under_another_event_id_count(tmp_path):

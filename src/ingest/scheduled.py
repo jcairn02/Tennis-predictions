@@ -37,6 +37,18 @@ Jobs:
                          block pauses the job and alerts at once, then each Monday while paused; a run asked for by name
                          (--only tdi) tries anyway and lifts the pause when it gets through. Another TDI run holding the
                          lock is a skip, not a failure; a failure or a crowded-out Monday alerts the second time in a row.
+    pinnacle_closes  every day   Pinnacle's closing prices, with every other listed book's, from TennisExplorer's match
+                         pages (src/ingest/tennisexplorer.py), added 21 Oct 2026 at the owner's request ("Include in our
+                         automatic download script downloading pinnacles closing value weekly (or daily if theres a daily
+                         script thats being executed)"; docs/research/pinnacle-gap/). The model's odds input trains on
+                         them from 1 Nov 2025 (current_best_model/odds_input.py). This year's calendar, the pages of the
+                         events under way or just finished, every finished tour-level main-draw match of the last 21 days
+                         not on disk (at most 400 pages; a usual day is 20-80, about 4 seconds each), then the site's
+                         tables restaged. It runs last, in the time the others leave (with under 8 minutes left it waits
+                         a day; the 21 days catch it up). A refusal (an HTTP 4xx answer or a challenge page) pauses the job
+                         and alerts at once, then weekly while paused; a run asked for by name (--only pinnacle_closes)
+                         tries anyway and lifts the pause when it gets through. Any other failure (usually the PC offline)
+                         alerts the second time in a row.
 The lower-level feed's run (--weekly; the Windows task "Tennis predictions - lower-level feed", every day at 12:00, a
 3-hour limit), added 13 Oct 2026 at the owner's request ("Make sure our pipeline is set up to automatically integrate
 this so this doesnt happen again"; docs/studies/data_gaps_2026/, docs/decisions/2026-10-13-lower-level-feed.md). The
@@ -71,6 +83,11 @@ Stage 0 for four months after Sackmann's files ended; these jobs keep them curre
     coverage     Wednesdays: a Stage 0 built from today's files, with the accepted packages and the feed merged, against the same
                  months 1 and 2 years earlier (src/eda/data_gaps_2026/coverage.py): an alarm cell alerts when new, and
                  again every 4 weeks while it lasts; cells acknowledged in coverage.KNOWN do not alert
+    tml_dates    Wednesdays (since 14 Oct 2026, docs/decisions/2026-10-14-p6-data-issues.md): Tennis My Life's edition
+                 dates against the days played (src/eda/tml_revisions/edition_dates.py, about a minute, no request): an
+                 edition dated in another week, not on its known list, alerts when new and every 4 weeks while it lasts
+The feed's run also compares its "player in two main draws of one week" flags with the last advanced snapshot's
+(src/eda/data_gaps_2026/two_draws.py); a new flag alerts, never blocks (same decision).
 A block of TennisLive or the WTA API pauses that job and alerts, as for TDI; a run asked for by name tries anyway. The
 WTA API's three jobs check that no other WTA collector is running (one collector per host).
 Each job's outcome is appended to data/raw/_scheduled/runs.jsonl. state.json holds what the next run compares against,
@@ -85,7 +102,7 @@ Nothing else is shown.
 
 Run: C:/Users/zerom/miniforge3/envs/tennis/pythonw.exe -m src.ingest.scheduled     (the scheduled task: no window)
      C:/Users/zerom/miniforge3/envs/tennis/pythonw.exe -m src.ingest.scheduled --weekly    (the feed task, daily)
-     ./python.sh -m src.ingest.scheduled [--only tml,speeds,itf,canary,slams,tdi,tennislive,wta_points,wta_site,wta,
+     ./python.sh -m src.ingest.scheduled [--only tml,speeds,itf,canary,slams,tdi,pinnacle_closes,tennislive,wta_points,wta_site,wta,
                                           feed,coverage]
                                          [--force-canary] [--no-notify] [--dry-run]
 """
@@ -125,13 +142,21 @@ TDI_LOCKED = "another TDI run is fetching"
 TASK_LIMIT = 2 * 60 * 60              # Task Scheduler stops the whole task, its record and state unsaved, after 2 hours
 TDI_SPARE = 10 * 60                   # of the task's time, kept after TDI's run for the record and the notification
 TDI_LEAST = 15 * 60                   # with less than this left for it, TDI waits for the next Monday
+PINNACLE_TIMEOUT = 40 * 60            # a usual day: ~15 event pages, 20-80 match pages (~4 s each) and the restage
+PINNACLE_BUDGET = 400                 # match pages a run: a missed week (~350 pages) is caught up in one run
+PINNACLE_DAYS = 21                    # the matches of the last three weeks; older ones the odds step fetches itself
+PINNACLE_LEAST = 8 * 60               # with less than this of the task left, the job waits a day
+PINNACLE_SPARE = 5 * 60               # of the task's time, kept after its run for the record and the notification
+PINNACLE_REMIND = dt.timedelta(days=7)
+PINNACLE_REFUSED = re.compile(r"STOPPED: .*(HTTP 4\d\d|challenge)")
 NO_WINDOW = getattr(subprocess, "CREATE_NO_WINDOW", 0)
-WEEKLY_JOBS = ("tennislive", "wta_points", "wta_site", "wta", "feed", "coverage")   # the feed task's, in order
+WEEKLY_JOBS = ("tennislive", "wta_points", "wta_site", "wta", "feed", "coverage", "tml_dates")   # the feed task's
 FEED_WEEKDAY = 2                      # Wednesday: wta, feed and coverage (tennislive runs every day)
 WTA_POINTS_WEEKDAY = 0                # Monday: the WTA week ends on Sunday (work package P2(a), added 14 Oct 2026)
 WTA_SITE_WEEKDAY = 1                  # Tuesday: the website's records, read by Wednesday's feed (P2(b), 14 Oct 2026)
 WEEKLY_DAYS = {"tennislive": None, "wta_points": WTA_POINTS_WEEKDAY, "wta_site": WTA_SITE_WEEKDAY,
-               "wta": FEED_WEEKDAY, "feed": FEED_WEEKDAY, "coverage": FEED_WEEKDAY}   # None: every day
+               "wta": FEED_WEEKDAY, "feed": FEED_WEEKDAY, "coverage": FEED_WEEKDAY,
+               "tml_dates": FEED_WEEKDAY}   # None: every day
 CATCH_UP = ("wta_points", "wta_site")  # run on the next day the task runs when their own day was missed (PC off),
 #                                       never on the feed's day, which is kept for the feed
 WTA_POINTS_TIMEOUT = 100 * 60         # five weeks of editions, every endpoint: ~800-1,800 requests and the staging
@@ -158,6 +183,9 @@ FEED_LEAST = 75 * 60                  # with less than this left for it, the fee
 COVERAGE_REMIND = dt.timedelta(days=28)
 COVERAGE_SUMMARY = ROOT / "data" / "studies" / "data_gaps_2026" / "coverage" / "weekly" / "summary.json"
 COVERAGE_STAGE0 = ROOT / "data" / "studies" / "data_gaps_2026" / "coverage" / "stage0_scratch"
+TML_DATES_TIMEOUT = 10 * 60          # the edition-date check (about a minute; no request)
+TML_DATES_SUMMARY = ROOT / "data" / "studies" / "tml_revisions" / "edition_dates" / "weekly" / "summary.json"
+TML_DATES_REMIND = dt.timedelta(days=28)
 FEED_RUNS = ROOT / "data" / "studies" / "data_gaps_2026" / "feed" / "runs.jsonl"
 # (name, raw folder, (month, day) by which the event has surely finished). The Australian Open's and Roland Garros's box
 # scores come from their own Infosys statistics and point files, and Roland Garros's also from rolandgarros.com's
@@ -367,6 +395,52 @@ def job_tdi(state: dict, asked: bool, left: float = TASK_LIMIT) -> tuple[dict, l
     if failed and state.get("tdi_failed"):
         alerts.append(f"TDI download failed two runs in a row (exit {out['exit']}). Log: {out['log']}")
     state["tdi_failed"] = failed
+    return out, alerts
+
+
+def job_pinnacle_closes(state: dict, asked: bool, left: float = TASK_LIMIT) -> tuple[dict, list[str]]:
+    """Pinnacle's closing prices from TennisExplorer, given ``left`` seconds of the task's time (see the module's notes).
+    A refusal pauses the job until a run asked for by name gets through, reminded weekly; any other failure alerts the
+    second time in a row; too little time left is a skip, alerted the second time in a row."""
+    paused = state.get("pinnacle_closes_blocked")
+    if paused and not asked:
+        alerts = []
+        last = paused.get("reminded") or paused["at"]
+        if dt.datetime.now(dt.timezone.utc) - dt.datetime.fromisoformat(last) >= PINNACLE_REMIND:
+            alerts.append(f"The daily Pinnacle-closes download (TennisExplorer) is still paused after a refusal on "
+                          f"{paused['at'][:10]}. Ask Claude to look ({paused['log']}): the model's odds input reads "
+                          "these prices from 1 Nov 2025.")
+            paused["reminded"] = now()
+        return {"skipped": f"paused since the refusal of {paused['at']}"}, alerts
+    timeout = min(PINNACLE_TIMEOUT, left - PINNACLE_SPARE)
+    if timeout < PINNACLE_LEAST:
+        alerts = ["The daily Pinnacle-closes download was crowded out two runs in a row (the day's other jobs left too "
+                  "little of the task's 2 hours). Ask Claude to look at data/raw/_scheduled/runs.jsonl."] \
+            if state.get("pinnacle_closes_failed") else []
+        state["pinnacle_closes_failed"] = True
+        return {"skipped": f"only {left / 60:.0f} minutes of the task were left"}, alerts
+    today = dt.date.today()
+    years = [str(today.year - 1), str(today.year)] if today.month == 1 else [str(today.year)]
+    since = today - dt.timedelta(days=PINNACLE_DAYS)
+    out = child("pinnacle_closes", ["-m", "src.ingest.tennisexplorer", "--calendar", *years, "--events", "--matches",
+                                    "--since", since.isoformat(), "--max", str(PINNACLE_BUDGET), "--stage"],
+                timeout=int(timeout))
+    text = (ROOT / out["log"]).read_text(encoding="utf-8", errors="replace").split("=== ")[-1]   # this run's part
+    fetched = re.search(r"matches: (\d+) pages fetched", text)
+    out["match_pages"] = int(fetched.group(1)) if fetched else None
+    alerts = []
+    if out["exit"] == 2 and PINNACLE_REFUSED.search(text):
+        state["pinnacle_closes_blocked"] = {"at": now(), "log": out["log"]}
+        alerts.append("TennisExplorer refused the daily Pinnacle-closes download (a block), so the job is paused. Ask "
+                      f"Claude to look ({out['log']}): the model's odds input reads these prices from 1 Nov 2025.")
+        return out, alerts
+    if out["exit"] == 0:
+        state.pop("pinnacle_closes_blocked", None)
+    failed = out["exit"] != 0
+    if failed and state.get("pinnacle_closes_failed"):
+        alerts.append(f"The daily Pinnacle-closes download (TennisExplorer) failed two runs in a row (exit {out['exit']}). "
+                      f"Log: {out['log']}")
+    state["pinnacle_closes_failed"] = failed
     return out, alerts
 
 
@@ -643,6 +717,56 @@ def job_feed(state: dict, left: float) -> tuple[dict, list[str]]:
     if failed and state.get("feed_failed"):
         alerts.append(f"The lower-level feed failed two weeks in a row (exit {out['exit']}). Log: {out['log']}")
     state["feed_failed"] = failed
+    # a "player in two main draws of one week" flag the last advanced snapshot did not hold (owner, 14 Oct 2026,
+    # docs/decisions/2026-10-14-p6-data-issues.md, point 4): an alert, never a block
+    try:
+        two = json.loads(FEED_RUNS.read_text(encoding="utf-8").splitlines()[-1]).get("two_draws") or {}
+    except (FileNotFoundError, ValueError, IndexError):
+        two = {}
+    out["two_draws"] = two
+    if two.get("new"):
+        alerts.append(f"The lower-level feed's new snapshot has {two['new']} new \"player in two main draws of one week\" "
+                      f"flag(s) (e.g. {'; '.join(two.get('new_examples', [])[:2])}): a source may file matches under the "
+                      f"wrong event. Ask Claude to look ({two.get('file', 'data/studies/data_gaps_2026/feed/two_draws/')}).")
+    elif two.get("error"):
+        alerts.append(f"The lower-level feed's two-draws comparison failed ({two['error'][:120]}). Ask Claude to look.")
+    return out, alerts
+
+
+def job_tml_dates(state: dict, left: float) -> tuple[dict, list[str]]:
+    """Tennis My Life's edition dates against the days played (src/eda/tml_revisions/edition_dates.py; owner, 14 Oct
+    2026, docs/decisions/2026-10-14-p6-data-issues.md, point 3): an edition dated in another week than it was played,
+    and not on the known list, alerts at once and every 4 weeks while it stays; it corrects nothing (a flagged edition
+    goes to the three-reviewer route)."""
+    out = child("tml_dates", ["src/eda/tml_revisions/edition_dates.py", "--label", "weekly"],
+                timeout=int(min(TML_DATES_TIMEOUT, max(60, left - 5 * 60))))
+    failed = out["exit"] not in (0, 3)                        # 3: the check ran and found a new misdated edition
+    alerts = []
+    if failed and state.get("tml_dates_failed"):
+        alerts.append(f"The Tennis My Life date check failed two weeks in a row (exit {out['exit']}). Log: {out['log']}")
+    state["tml_dates_failed"] = failed
+    if failed:
+        return out, alerts
+    try:
+        summary = json.loads(TML_DATES_SUMMARY.read_text(encoding="utf-8"))
+    except (FileNotFoundError, ValueError):
+        return out, alerts + ["The Tennis My Life date check wrote no summary. Ask Claude to look."]
+    flagged = set(summary.get("new", []))
+    seen = state.setdefault("tml_dates_alerted", {})
+    today = dt.date.today()
+    new = sorted(e for e in flagged if e not in seen)
+    due = sorted(e for e in flagged if e in seen and today - dt.date.fromisoformat(seen[e]) >= TML_DATES_REMIND)
+    for e in new + due:
+        seen[e] = today.isoformat()
+    for e in list(seen):
+        if e not in flagged:
+            del seen[e]                                       # acknowledged (on the known list) or gone
+    out.update(misdated=summary.get("misdated"), new=new, reminded=due)
+    if new or due:
+        names = ", ".join(" ".join(e.split("|")[2:4])[:30] for e in (new + due)[:3])
+        alerts.append(f"Tennis My Life dates {len(new + due)} edition(s) in another week than they were played ({names}"
+                      f"{' ...' if len(new + due) > 3 else ''}). Stage 0 would take the wrong date. Ask Claude to look "
+                      "(data/studies/tml_revisions/edition_dates/weekly/summary.json).")
     return out, alerts
 
 
@@ -764,16 +888,17 @@ def job_slams(state: dict, today: dt.date) -> tuple[dict, list[str]]:
 
 def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument("--only", help="comma list of jobs: tml, speeds, itf, canary, slams, tdi, tennislive, wta_points, "
-                                   "wta_site, wta, feed, coverage (default: the daily jobs that are due)")
+    ap.add_argument("--only", help="comma list of jobs: tml, speeds, itf, canary, slams, tdi, pinnacle_closes, "
+                                   "tennislive, wta_points, wta_site, wta, feed, coverage, tml_dates (default: the daily "
+                                   "jobs that are due)")
     ap.add_argument("--weekly", action="store_true", help="the weekly task's jobs: tennislive, wta_points, wta_site, "
-                                                          "wta, feed, coverage")
+                                                          "wta, feed, coverage, tml_dates")
     ap.add_argument("--force-canary", action="store_true", help="run the canary even if it is not Monday")
     ap.add_argument("--no-notify", action="store_true", help="log only; no Windows notification")
     ap.add_argument("--dry-run", action="store_true", help="print the jobs that are due and stop")
     a = ap.parse_args()
     today = dt.date.today()
-    daily = ("tml", "speeds", "itf", "canary", "slams", "tdi")
+    daily = ("tml", "speeds", "itf", "canary", "slams", "tdi", "pinnacle_closes")
     if a.weekly:
         due = weekly_due(today, set(a.only.split(",")) if a.only else None, load_state())
         limit = WEEKLY_LIMIT
@@ -804,6 +929,8 @@ def main() -> int:
                 out, more = job_canary(state)
             elif job == "tdi":
                 out, more = job_tdi(state, asked=asked, left=left)
+            elif job == "pinnacle_closes":
+                out, more = job_pinnacle_closes(state, asked=asked, left=left)
             elif job == "tennislive":
                 out, more = job_tennislive(state, asked, left)
             elif job == "wta_points":
@@ -816,6 +943,8 @@ def main() -> int:
                 out, more = job_feed(state, left)
             elif job == "coverage":
                 out, more = job_coverage(state, left)
+            elif job == "tml_dates":
+                out, more = job_tml_dates(state, left)
             else:
                 out, more = job_slams(state, today)
             entry["jobs"][job] = out

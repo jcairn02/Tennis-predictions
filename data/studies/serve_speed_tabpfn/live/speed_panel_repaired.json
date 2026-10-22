@@ -1,0 +1,36 @@
+{
+ "what": "the live feed's speed history (corrected, with the ATP backfill) with the published averages more than 5 km/h off the match's complete point record replaced by the point mean (rule ks_within5)",
+ "decision": "docs/decisions/2026-10-22-source-reconciliation-repairs.md",
+ "built_by": "src/eda/source_reconciliation/apply_speed.py --build",
+ "evidence": "data/studies/source_reconciliation/speed/REPORT.md; the rule's copy speed/histories/ks_within5.parquet",
+ "generated_at": "2026-10-22T18:16:24+00:00",
+ "backfilled_sha256": "56731cbab3bd439cffd578c515c911ea8a6792966acfa790ef58243f6ace4c51",
+ "repaired_sha256": "fa6d8e47330500c7b04d65c555cb210568057750635dfc576f55dc7b473b777a",
+ "rows": 43315,
+ "changed": 576,
+ "changed_by_source": {
+  "mantennisdata": 559,
+  "handoff_ks": 9,
+  "infosys_atp_ks": 8
+ },
+ "changed_by_year": {
+  "2018": 1,
+  "2021": 23,
+  "2022": 91,
+  "2023": 232,
+  "2024": 200,
+  "2025": 29
+ },
+ "change_kmh": {
+  "median_abs": 7.330459770114942,
+  "max_abs": 28.743243243243256
+ },
+ "latest_changed_obs": "2025-04-06",
+ "rows_changed_file": "data/studies/source_reconciliation/applied/speed_rows_changed.csv",
+ "live_check": {
+  "day": "2026-10-22",
+  "players": 1101,
+  "players_whose_form_moved": 0,
+  "max_abs_change_kmh": 0.0
+ }
+}

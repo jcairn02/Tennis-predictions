@@ -1,0 +1,27 @@
+2026-10-17T00:59:12Z live checkpoint 2026-09-21
+>>> dp_checkpoint:  DP_BASE_TREE=C:\Users\zerom\tnr_tpl1016 DP_INSTANCE=template_2026-10-16 ./python.sh 'C:\Users\zerom\Documents\Tennis-predictions\src\eda\daily_prediction\dp.py' checkpoint --day 2026-09-21 --tree C:/Users/zerom/tnr_tpl1016
+[level_layer] ratings_iid atp: 158,116 lower-level rating matches; w at zero 30,385
+[level_layer] ratings_iid wta: 53,833 lower-level rating matches; w at zero 0
+[  32.5s]   constant rpw_first
+[  34.3s]   constant rpw_second
+[  36.2s]   constant bp_over
+[  38.1s]   constant win
+[  39.8s]   constant deciding
+[level_layer] forms: 17 pairs recomputed with the layer in 85 s
+[    0.1s] loading matches, players and odds; applying the repair's data corrections
+[   23.7s] rows: 1,853,968 player-matches; box history eligible 1,775,308; ITF/team own-score standard 1,315,582
+{
+ "checkpoint": "C:\\Users\\zerom\\Documents\\Tennis-predictions\\data\\studies\\daily_prediction\\state\\template_2026-10-16\\2026-09-21",
+ "seconds": {
+  "offset_seconds": 9.6,
+  "stage3_seconds": 9.0,
+  "stage4_rows_seconds": 36.3,
+  "weighted_seconds": 12.6,
+  "forms_seconds": 116.9,
+  "ios_cache_seconds": 33.6,
+  "ios_runs_seconds": 446.5,
+  "total": 664.9
+ }
+}
+[ok] dp_checkpoint (668 s, exit 0)  log: data/studies/master_pipeline/logs/2026-10-16/175912_dp_checkpoint.log
+2026-10-17T01:10:19Z LIVE CHECKPOINT DONE

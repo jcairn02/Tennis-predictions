@@ -106,3 +106,80 @@ def test_mean_ci_and_slope_ci():
     y = (rng.random(len(z)) < C.ex(1.1 * z)).astype(float)
     s = C.slope_ci(z, y, np.arange(len(z)) // 50)
     assert s["lo"] < 1.1 < s["hi"]
+
+
+# --- OddsTrader's tables must cover the frame they price (21 Oct 2026) -----------------------------------------------
+def _cover_case():
+    from src.eda.odds_sources import table as T
+    f = pd.DataFrame({"match_id": ["a", "b"], "tour": ["atp", "wta"], "season": [2026, 2026],
+                      "td_date": pd.to_datetime(["2026-10-10", "2026-10-12"]),
+                      "td_winner": ["X", "Y"], "td_loser": ["Z", "W"]})
+    lk = pd.DataFrame({"tour": ["atp", "wta"], "date": pd.to_datetime(["2026-10-10", "2026-10-12"]),
+                       "winner": ["X", "Y"], "loser": ["Z", "W"], "eid": [1, 2]})
+    listed = {(23, "2026-10"): pd.Timestamp("2026-10-21T12:00:00+00:00"),
+              (24, "2026-10"): pd.Timestamp("2026-10-21T12:00:00+00:00")}
+    return T, f, {"tennis_data_through": "2026-10-19"}, lk, {1, 2}, listed
+
+
+def test_coverage_passes_a_frame_every_oddstrader_table_has_seen():
+    T, f, counts, lk, fetched, listed = _cover_case()
+    assert T.coverage(f, counts, lk, fetched, listed) == []
+
+
+def test_coverage_names_each_stale_table_the_builds_of_13_to_21_october_missed():
+    T, f, counts, lk, fetched, listed = _cover_case()
+    # the link built before the frame's newest tennis-data rows (the link of 9 Oct saw rows to 29 Sep)
+    p = T.coverage(f, {"tennis_data_through": "2026-10-11"}, lk, fetched, listed)
+    assert len(p) == 1 and "newer than the tennis-data rows" in p[0] and "1 frame matches" in p[0]
+    assert "predates its coverage record" in T.coverage(f, {}, lk, fetched, listed)[0]
+    # a linked event the every-book pull (BetOnline's line) never fetched
+    p = T.coverage(f, counts, lk, {1}, listed)
+    assert len(p) == 1 and "1 linked events" in p[0]
+    # a month listed before its newest match's line was final (the day after the match day not yet over), or never
+    early = {**listed, (24, "2026-10"): pd.Timestamp("2026-10-13T20:00:00+00:00")}
+    assert T.stale_months(f, early) == ["2026-10"] and "2026-10" in T.coverage(f, counts, lk, fetched, early)[0]
+    assert T.stale_months(f, {(23, "2026-10"): listed[(23, "2026-10")]}) == ["2026-10"]
+    # seasons before the link's first (2018) are not OddsTrader's
+    old = f.assign(season=2017)
+    assert T.coverage(old, {"tennis_data_through": "2000-01-01"}, lk.iloc[:0], set(), {}) == []
+
+
+def test_the_book_pull_asks_only_for_new_events_in_batches_named_by_their_events(tmp_path, monkeypatch):
+    from src.ingest import oddstrader as OT
+    ev = pd.DataFrame({"eid": [1, 2, 3, 4], "lid": [23, 23, 23, 24],
+                       "dt_ms": [pd.Timestamp(d, tz="UTC").value // 10**6
+                                 for d in ("2026-09-28", "2026-09-29", "2026-10-02", "2026-10-02")]})
+    ev.to_parquet(tmp_path / "events.parquet", index=False)
+    monkeypatch.setattr(OT, "DUMP", tmp_path)
+    monkeypatch.setattr(OT, "RAW", tmp_path / "raw")
+
+    class Receipts:      # the 9 Oct pull: event 1 in a batch named by position; a failed batch holds nothing
+        def all(self):
+            return {"books/23/2026-09/00": {"sha256": "x", "eids": [1]},
+                    "books/23/2026-09/01": {"error": "HTTP 500", "eids": [2]},
+                    "events/23/2026-09": {"sha256": "y", "retrieved_at": "2026-10-09T14:59:15+00:00"}}
+
+    class Client:
+        receipts, sent, calls = Receipts(), 0, []
+
+        def fetch(self, name, query, dest, extra=None, refresh=False):
+            self.calls.append((name, list(extra["eids"])))
+            return {"data": {}}
+
+    c = Client()
+    counts = OT.download_books([1, 2, 3, 4], c)
+    asked = sorted(e for _, ids in c.calls for e in ids)
+    assert asked == [2, 3, 4] and counts["pulled_before"] == 1
+    names = [n for n, _ in c.calls]
+    assert all(n.split("/")[-1].startswith("e") for n in names) and len(set(names)) == 3
+    # a batch's name is its events': the same events, the same name; a month that gained events, a new name
+    again = Client(); again.calls = []
+    OT.download_books([2], again)
+    assert again.calls[0][0] == [n for n, ids in c.calls if ids == [2]][0]
+    assert OT.listed_at(Receipts()) == {(23, "2026-09"): pd.Timestamp("2026-10-09T14:59:15+00:00")}
+
+
+def test_months_before_oddstraders_listing_are_not_stale():
+    T, f, counts, lk, fetched, listed = _cover_case()
+    dec = f.assign(season=2018, td_date=pd.to_datetime(["2017-12-31", "2017-12-30"]))
+    assert T.stale_months(dec, {}) == []

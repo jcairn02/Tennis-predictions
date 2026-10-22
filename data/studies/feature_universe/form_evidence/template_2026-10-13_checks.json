@@ -1,0 +1,2673 @@
+{
+ "what": "U-126 refreshed (14 Oct 2026): each player's decayed count of earlier box-score matches behind the two-week form, as the current best model weighs it (sw), and the form's shrinkage share r = sw / (sw + K3); no result read, nothing fitted",
+ "generated_at": "2026-10-14T15:16:41+00:00",
+ "statistic": "adjperf_tpw",
+ "k3": {
+  "atp": 10.0,
+  "wta": 20.0
+ },
+ "half_life_weeks": {
+  "atp": 2.0,
+  "wta": 2.0
+ },
+ "sources": {
+  "tree": "C:\\Users\\zerom\\tnr_gaps",
+  "layer_config": "C:\\Users\\zerom\\tnr_gaps\\data\\studies\\current_best_model\\level_layer\\this_build\\build_config.json",
+  "layer_config_sha256": "b0cfae87f407ae6f9f568b143d1ad1262397863119ca0bc02067299118c4599d",
+  "layer_config_copy": "C:\\Users\\zerom\\Documents\\Tennis-predictions\\data\\studies\\feature_universe\\form_evidence\\layer_copies\\tnr_gaps.json",
+  "stage0_sha256": "a7731a3bc15db0081055a769b8d00df699cb64fdd8aa83db71fa04daf5d64f89",
+  "timing_sha256": "0c859a20b59d62a4b361ff2475216d07b05265a6c47ce454dcadf8c5a96e80b6",
+  "code": {
+   "src/eda/ufc_ideas/stageB_adjperf.py": {
+    "tree": "e775eb0f56edfb6c5d5c727ec06c61c3e3c0bef97563cbcaca7861e18135459a",
+    "repository_equal": true
+   },
+   "src/eda/ufc_ideas/stageB_common.py": {
+    "tree": "51e673dcff81d1ce47cba3178dd1d9eb1a6f250f6cb96466556360585cd575ce",
+    "repository_equal": true
+   },
+   "src/eda/lower_level_evidence/level_layer.py": {
+    "tree": "6f97b915d80cf5f8affb3ee24b9e34feb90192c043d12c15bc7e9ab94880e06a",
+    "repository_equal": true
+   },
+   "src/eda/predictability_diagnostic/stage4_features.py": {
+    "tree": "2a7bcf27b71e7e11e4d831a78ca2f0e6314c3689b76fb15800b6b677da64a5a8",
+    "repository_equal": true
+   },
+   "src/eda/predictability_diagnostic/stage3_traits.py": {
+    "tree": "25397fa9ad8f2e75032135d484b658071d0a48348fab4bcb14f0ce811a2b2309",
+    "repository_equal": true
+   },
+   "src/eda/predictability_diagnostic/common.py": {
+    "tree": "22e931d777b9e906e2f6972b5b44ec1a21ee6d2d580e00b4d7f2e7739bc96720",
+    "repository_equal": true
+   },
+   "src/eda/prediction_pipeline/forms_state.py": {
+    "tree": "83d1a4599dfdf4999351444bf8ef5453b3fd44b4834f05d2aff586151bbe11a9",
+    "repository_equal": true
+   }
+  },
+  "pinned_constants": {
+   "atp|rpw": {
+    "h1": 52.0,
+    "K1": 2.0,
+    "tau": 0,
+    "h3": 2.0,
+    "K3": 160.0,
+    "improvement": 1.0922719497592492,
+    "step_A_improvement": 0.16069871514767797,
+    "matches": 62060,
+    "grid_best": {
+     "h1": 26.0,
+     "K1": 2.0,
+     "tau": 0,
+     "h3": 2.0,
+     "K3": 160.0,
+     "improvement": 1.0933775308810123
+    },
+    "rank_in_grid": 3,
+    "settings": 3600
+   },
+   "atp|spw": {
+    "h1": 104.0,
+    "K1": 2.0,
+    "tau": 0,
+    "h3": 2.0,
+    "K3": 10.0,
+    "improvement": 2.311862339227866,
+    "step_A_improvement": 0.4576655521495443,
+    "matches": 62060,
+    "grid_best": {
+     "h1": "inf",
+     "K1": 5.0,
+     "tau": 0,
+     "h3": 2.0,
+     "K3": 10.0,
+     "improvement": 2.3190576822508246
+    },
+    "rank_in_grid": 9,
+    "settings": 3600
+   },
+   "atp|tpw": {
+    "h1": 104.0,
+    "K1": 2.0,
+    "tau": 0,
+    "h3": 2.0,
+    "K3": 10.0,
+    "improvement": 2.692768530430212,
+    "step_A_improvement": 0.8918500077250702,
+    "matches": 62060,
+    "grid_best": {
+     "h1": "inf",
+     "K1": 2.0,
+     "tau": 0,
+     "h3": 2.0,
+     "K3": 10.0,
+     "improvement": 2.6966558875916036
+    },
+    "rank_in_grid": 2,
+    "settings": 3600
+   },
+   "wta|rpw": {
+    "h1": Infinity,
+    "K1": 20.0,
+    "tau": 0,
+    "h3": 2.0,
+    "K3": 160.0,
+    "improvement": 1.0989914664910616,
+    "step_A_improvement": 0.02317251382655261,
+    "matches": 24635,
+    "grid_best": {
+     "h1": 26.0,
+     "K1": 5.0,
+     "tau": 0,
+     "h3": 2.0,
+     "K3": 160.0,
+     "improvement": 1.1419740980007642
+    },
+    "rank_in_grid": 39,
+    "settings": 3600
+   },
+   "wta|spw": {
+    "h1": 26.0,
+    "K1": 2.0,
+    "tau": 0,
+    "h3": 2.0,
+    "K3": 20.0,
+    "improvement": 2.129199123801051,
+    "step_A_improvement": 0.45805553145428224,
+    "matches": 24635,
+    "grid_best": {
+     "h1": 26.0,
+     "K1": 5.0,
+     "tau": 0,
+     "h3": 2.0,
+     "K3": 20.0,
+     "improvement": 2.13443885306408
+    },
+    "rank_in_grid": 3,
+    "settings": 3600
+   },
+   "wta|tpw": {
+    "h1": Infinity,
+    "K1": 20.0,
+    "tau": 0,
+    "h3": 2.0,
+    "K3": 20.0,
+    "improvement": 2.5819800734803167,
+    "step_A_improvement": 0.44422270185195956,
+    "matches": 24635,
+    "grid_best": {
+     "h1": 52.0,
+     "K1": 5.0,
+     "tau": 0,
+     "h3": 2.0,
+     "K3": 20.0,
+     "improvement": 2.620945886081083
+    },
+    "rank_in_grid": 32,
+    "settings": 3600
+   }
+  },
+  "frame": {
+   "path": "C:\\Users\\zerom\\Documents\\Tennis-predictions\\data\\studies\\current_best_model\\template_2026-10-13\\model_frame_chain.parquet",
+   "sha256": "4fbbdb210fb31df81b1e4daed56820cd190425334ca5278b06860d6694244a0e"
+  }
+ },
+ "outputs": {
+  "instance": "C:\\Users\\zerom\\Documents\\Tennis-predictions\\data\\studies\\feature_universe\\form_evidence\\template_2026-10-13.parquet",
+  "instance_sha256": "4b83ebe1a12ddf59894029f433a0a03bbb392b3cbca68336e2056a484b245359",
+  "store": "C:\\Users\\zerom\\Documents\\Tennis-predictions\\data\\studies\\feature_universe\\form_evidence\\store_columns.parquet",
+  "store_sha256": "58fe27cadb2d3c5a9e2d8fe3868006409b4f8fbb1b82dbae59f49e1e4479a831"
+ },
+ "checks": {
+  "frame_sides_equal_tree_stage0": true,
+  "b_denominator": {
+   "frame_matches": 67226,
+   "nan_pattern_equal": true,
+   "bitwise_equal": 67226,
+   "max_abs_diff": 0.0,
+   "frame_player_rows": 134452,
+   "exists_but_sw_zero": 48,
+   "sw_positive_but_not_exists": 0,
+   "no_earlier_box_score": 270,
+   "smallest_positive_sw": 2.3396200816091525e-24,
+   "negative_sw": 0
+  },
+  "b_recount": {
+   "sampled_player_rows": 400,
+   "max_relative_gap": 1.2361911949974629e-14,
+   "worst": {
+    "match_id": "wta|2026-902|R128|wta:211701|wta:215785",
+    "player_id": "wta:211701",
+    "recount": 2.370983385799337,
+    "stored": 2.370983385799308,
+    "relative_gap": 1.2361911949974629e-14
+   },
+   "layer_weight_by_tour_level": {
+    "atp|CH": {
+     "rows": 168660,
+     "min": 0.5192128698456211,
+     "mean": 0.6101,
+     "max": 0.7776852304351424
+    },
+    "atp|CHQ": {
+     "rows": 55438,
+     "min": 0.0,
+     "mean": 0.4903,
+     "max": 0.785315909954023
+    },
+    "atp|GSQ": {
+     "rows": 10942,
+     "min": 0.24650613623232556,
+     "mean": 0.7036,
+     "max": 1.0
+    },
+    "atp|ITF": {
+     "rows": 48130,
+     "min": 0.0,
+     "mean": 0.0,
+     "max": 0.0
+    },
+    "atp|MAIN": {
+     "rows": 82668,
+     "min": 1.0,
+     "mean": 1.0,
+     "max": 1.0
+    },
+    "atp|TEAM": {
+     "rows": 3776,
+     "min": 1.0,
+     "mean": 1.0,
+     "max": 1.0
+    },
+    "atp|TQ": {
+     "rows": 31850,
+     "min": 0.7286330981462042,
+     "mean": 0.9031,
+     "max": 1.0
+    },
+    "wta|CH": {
+     "rows": 14984,
+     "min": 1.0,
+     "mean": 1.0,
+     "max": 1.0
+    },
+    "wta|CHQ": {
+     "rows": 3066,
+     "min": 1.0,
+     "mean": 1.0,
+     "max": 1.0
+    },
+    "wta|GSQ": {
+     "rows": 8472,
+     "min": 1.0,
+     "mean": 1.0,
+     "max": 1.0
+    },
+    "wta|ITF": {
+     "rows": 49298,
+     "min": 1.0,
+     "mean": 1.0,
+     "max": 1.0
+    },
+    "wta|MAIN": {
+     "rows": 73610,
+     "min": 1.0,
+     "mean": 1.0,
+     "max": 1.0
+    },
+    "wta|TEAM": {
+     "rows": 3382,
+     "min": 1.0,
+     "mean": 1.0,
+     "max": 1.0
+    },
+    "wta|TQ": {
+     "rows": 31248,
+     "min": 1.0,
+     "mean": 1.0,
+     "max": 1.0
+    }
+   }
+  },
+  "sw_without_z_equals_sw": true,
+  "women_untouched_by_the_layer": true,
+  "e_by_tour_season": [
+   {
+    "tour": "atp",
+    "season": 2013,
+    "matches": 2611,
+    "both_exist": 0.9985,
+    "finite": 1.0,
+    "mean_sw": 3.4834,
+    "median_sw": 3.256,
+    "mean_r": 0.2442,
+    "share_main": 0.7941,
+    "share_lower_non_itf": 0.2059,
+    "share_itf": 0.0,
+    "mean_sw_without_layer": 3.6505
+   },
+   {
+    "tour": "atp",
+    "season": 2014,
+    "matches": 2574,
+    "both_exist": 0.9992,
+    "finite": 1.0,
+    "mean_sw": 3.4713,
+    "median_sw": 3.261,
+    "mean_r": 0.2443,
+    "share_main": 0.7807,
+    "share_lower_non_itf": 0.2193,
+    "share_itf": 0.0,
+    "mean_sw_without_layer": 3.6508
+   },
+   {
+    "tour": "atp",
+    "season": 2015,
+    "matches": 2619,
+    "both_exist": 0.9996,
+    "finite": 1.0,
+    "mean_sw": 3.203,
+    "median_sw": 2.9761,
+    "mean_r": 0.2293,
+    "share_main": 0.8653,
+    "share_lower_non_itf": 0.1347,
+    "share_itf": 0.0,
+    "mean_sw_without_layer": 3.4231
+   },
+   {
+    "tour": "atp",
+    "season": 2016,
+    "matches": 2603,
+    "both_exist": 0.9977,
+    "finite": 1.0,
+    "mean_sw": 3.3821,
+    "median_sw": 3.1726,
+    "mean_r": 0.2395,
+    "share_main": 0.8324,
+    "share_lower_non_itf": 0.1676,
+    "share_itf": 0.0,
+    "mean_sw_without_layer": 3.6377
+   },
+   {
+    "tour": "atp",
+    "season": 2017,
+    "matches": 2612,
+    "both_exist": 1.0,
+    "finite": 1.0,
+    "mean_sw": 3.4171,
+    "median_sw": 3.2047,
+    "mean_r": 0.2409,
+    "share_main": 0.8244,
+    "share_lower_non_itf": 0.1756,
+    "share_itf": 0.0,
+    "mean_sw_without_layer": 3.6865
+   },
+   {
+    "tour": "atp",
+    "season": 2018,
+    "matches": 2620,
+    "both_exist": 0.9992,
+    "finite": 1.0,
+    "mean_sw": 3.4014,
+    "median_sw": 3.2194,
+    "mean_r": 0.2406,
+    "share_main": 0.8054,
+    "share_lower_non_itf": 0.1946,
+    "share_itf": 0.0,
+    "mean_sw_without_layer": 3.6284
+   },
+   {
+    "tour": "atp",
+    "season": 2019,
+    "matches": 2587,
+    "both_exist": 0.9988,
+    "finite": 1.0,
+    "mean_sw": 3.4702,
+    "median_sw": 3.3116,
+    "mean_r": 0.2444,
+    "share_main": 0.7992,
+    "share_lower_non_itf": 0.2008,
+    "share_itf": 0.0,
+    "mean_sw_without_layer": 3.7721
+   },
+   {
+    "tour": "atp",
+    "season": 2020,
+    "matches": 1259,
+    "both_exist": 0.9992,
+    "finite": 1.0,
+    "mean_sw": 3.1343,
+    "median_sw": 2.9891,
+    "mean_r": 0.2241,
+    "share_main": 0.786,
+    "share_lower_non_itf": 0.214,
+    "share_itf": 0.0,
+    "mean_sw_without_layer": 3.3991
+   },
+   {
+    "tour": "atp",
+    "season": 2021,
+    "matches": 2466,
+    "both_exist": 0.9984,
+    "finite": 1.0,
+    "mean_sw": 3.4077,
+    "median_sw": 3.192,
+    "mean_r": 0.2391,
+    "share_main": 0.7906,
+    "share_lower_non_itf": 0.2094,
+    "share_itf": 0.0,
+    "mean_sw_without_layer": 3.5879
+   },
+   {
+    "tour": "atp",
+    "season": 2022,
+    "matches": 2606,
+    "both_exist": 0.9985,
+    "finite": 1.0,
+    "mean_sw": 3.5424,
+    "median_sw": 3.3823,
+    "mean_r": 0.2491,
+    "share_main": 0.7802,
+    "share_lower_non_itf": 0.2198,
+    "share_itf": 0.0,
+    "mean_sw_without_layer": 3.7915
+   },
+   {
+    "tour": "atp",
+    "season": 2023,
+    "matches": 2676,
+    "both_exist": 0.9989,
+    "finite": 1.0,
+    "mean_sw": 3.5667,
+    "median_sw": 3.3798,
+    "mean_r": 0.2499,
+    "share_main": 0.7773,
+    "share_lower_non_itf": 0.2227,
+    "share_itf": 0.0,
+    "mean_sw_without_layer": 3.8745
+   },
+   {
+    "tour": "atp",
+    "season": 2024,
+    "matches": 2676,
+    "both_exist": 0.9993,
+    "finite": 1.0,
+    "mean_sw": 3.5828,
+    "median_sw": 3.4192,
+    "mean_r": 0.2518,
+    "share_main": 0.7766,
+    "share_lower_non_itf": 0.2234,
+    "share_itf": 0.0,
+    "mean_sw_without_layer": 3.8282
+   },
+   {
+    "tour": "atp",
+    "season": 2025,
+    "matches": 2620,
+    "both_exist": 1.0,
+    "finite": 1.0,
+    "mean_sw": 3.4707,
+    "median_sw": 3.2802,
+    "mean_r": 0.245,
+    "share_main": 0.7601,
+    "share_lower_non_itf": 0.2399,
+    "share_itf": 0.0,
+    "mean_sw_without_layer": 3.7471
+   },
+   {
+    "tour": "atp",
+    "season": 2026,
+    "matches": 2190,
+    "both_exist": 0.9991,
+    "finite": 1.0,
+    "mean_sw": 3.2888,
+    "median_sw": 3.1299,
+    "mean_r": 0.2353,
+    "share_main": 0.7586,
+    "share_lower_non_itf": 0.2414,
+    "share_itf": 0.0,
+    "mean_sw_without_layer": 3.5859
+   },
+   {
+    "tour": "wta",
+    "season": 2013,
+    "matches": 2417,
+    "both_exist": 0.9421,
+    "finite": 1.0,
+    "mean_sw": 2.892,
+    "median_sw": 2.6415,
+    "mean_r": 0.1205,
+    "share_main": 0.8031,
+    "share_lower_non_itf": 0.1969,
+    "share_itf": 0.0,
+    "mean_sw_without_layer": 2.892
+   },
+   {
+    "tour": "wta",
+    "season": 2014,
+    "matches": 2449,
+    "both_exist": 0.9882,
+    "finite": 1.0,
+    "mean_sw": 3.0083,
+    "median_sw": 2.809,
+    "mean_r": 0.1253,
+    "share_main": 0.7897,
+    "share_lower_non_itf": 0.2103,
+    "share_itf": 0.0,
+    "mean_sw_without_layer": 3.0083
+   },
+   {
+    "tour": "wta",
+    "season": 2015,
+    "matches": 2495,
+    "both_exist": 0.9912,
+    "finite": 1.0,
+    "mean_sw": 2.054,
+    "median_sw": 1.6431,
+    "mean_r": 0.0877,
+    "share_main": 0.9986,
+    "share_lower_non_itf": 0.0014,
+    "share_itf": 0.0,
+    "mean_sw_without_layer": 2.054
+   },
+   {
+    "tour": "wta",
+    "season": 2016,
+    "matches": 2498,
+    "both_exist": 0.9908,
+    "finite": 1.0,
+    "mean_sw": 3.2732,
+    "median_sw": 3.0046,
+    "mean_r": 0.1345,
+    "share_main": 0.7964,
+    "share_lower_non_itf": 0.2036,
+    "share_itf": 0.0,
+    "mean_sw_without_layer": 3.2732
+   },
+   {
+    "tour": "wta",
+    "season": 2017,
+    "matches": 2485,
+    "both_exist": 0.9956,
+    "finite": 1.0,
+    "mean_sw": 3.2664,
+    "median_sw": 3.0367,
+    "mean_r": 0.1347,
+    "share_main": 0.8101,
+    "share_lower_non_itf": 0.1899,
+    "share_itf": 0.0,
+    "mean_sw_without_layer": 3.2664
+   },
+   {
+    "tour": "wta",
+    "season": 2018,
+    "matches": 2450,
+    "both_exist": 0.9984,
+    "finite": 1.0,
+    "mean_sw": 3.2627,
+    "median_sw": 3.0554,
+    "mean_r": 0.1347,
+    "share_main": 0.7921,
+    "share_lower_non_itf": 0.2079,
+    "share_itf": 0.0,
+    "mean_sw_without_layer": 3.2627
+   },
+   {
+    "tour": "wta",
+    "season": 2019,
+    "matches": 2458,
+    "both_exist": 0.9972,
+    "finite": 1.0,
+    "mean_sw": 3.3716,
+    "median_sw": 3.2126,
+    "mean_r": 0.1391,
+    "share_main": 0.7606,
+    "share_lower_non_itf": 0.2394,
+    "share_itf": 0.0,
+    "mean_sw_without_layer": 3.3716
+   },
+   {
+    "tour": "wta",
+    "season": 2020,
+    "matches": 1046,
+    "both_exist": 0.9962,
+    "finite": 1.0,
+    "mean_sw": 2.7269,
+    "median_sw": 2.5006,
+    "mean_r": 0.1141,
+    "share_main": 0.7786,
+    "share_lower_non_itf": 0.2214,
+    "share_itf": 0.0,
+    "mean_sw_without_layer": 2.7269
+   },
+   {
+    "tour": "wta",
+    "season": 2021,
+    "matches": 2289,
+    "both_exist": 0.9948,
+    "finite": 1.0,
+    "mean_sw": 3.0704,
+    "median_sw": 2.8659,
+    "mean_r": 0.128,
+    "share_main": 0.7717,
+    "share_lower_non_itf": 0.2283,
+    "share_itf": 0.0,
+    "mean_sw_without_layer": 3.0704
+   },
+   {
+    "tour": "wta",
+    "season": 2022,
+    "matches": 2339,
+    "both_exist": 0.9974,
+    "finite": 1.0,
+    "mean_sw": 3.2331,
+    "median_sw": 3.0181,
+    "mean_r": 0.1339,
+    "share_main": 0.7476,
+    "share_lower_non_itf": 0.2505,
+    "share_itf": 0.0019,
+    "mean_sw_without_layer": 3.2331
+   },
+   {
+    "tour": "wta",
+    "season": 2023,
+    "matches": 2464,
+    "both_exist": 0.9947,
+    "finite": 1.0,
+    "mean_sw": 3.2949,
+    "median_sw": 3.1008,
+    "mean_r": 0.1366,
+    "share_main": 0.7418,
+    "share_lower_non_itf": 0.2582,
+    "share_itf": 0.0,
+    "mean_sw_without_layer": 3.2949
+   },
+   {
+    "tour": "wta",
+    "season": 2024,
+    "matches": 2465,
+    "both_exist": 0.9976,
+    "finite": 1.0,
+    "mean_sw": 3.4414,
+    "median_sw": 3.2625,
+    "mean_r": 0.1417,
+    "share_main": 0.7329,
+    "share_lower_non_itf": 0.2671,
+    "share_itf": 0.0,
+    "mean_sw_without_layer": 3.4414
+   },
+   {
+    "tour": "wta",
+    "season": 2025,
+    "matches": 2485,
+    "both_exist": 0.9996,
+    "finite": 1.0,
+    "mean_sw": 3.4557,
+    "median_sw": 3.2884,
+    "mean_r": 0.1424,
+    "share_main": 0.7148,
+    "share_lower_non_itf": 0.2471,
+    "share_itf": 0.0381,
+    "mean_sw_without_layer": 3.4557
+   },
+   {
+    "tour": "wta",
+    "season": 2026,
+    "matches": 2167,
+    "both_exist": 0.9972,
+    "finite": 1.0,
+    "mean_sw": 3.0996,
+    "median_sw": 2.8698,
+    "mean_r": 0.1294,
+    "share_main": 0.7032,
+    "share_lower_non_itf": 0.2703,
+    "share_itf": 0.0265,
+    "mean_sw_without_layer": 3.0996
+   }
+  ],
+  "e_summary": {
+   "atp": {
+    "sw": {
+     "n": 69438,
+     "mean": 3.4288,
+     "min": 0.0,
+     "p10": 1.2381,
+     "median": 3.2356,
+     "p90": 5.8781,
+     "max": 13.4959,
+     "share_zero": 0.0005
+    },
+    "r": {
+     "n": 69438,
+     "mean": 0.242,
+     "min": 0.0,
+     "p10": 0.1102,
+     "median": 0.2445,
+     "p90": 0.3702,
+     "max": 0.5744,
+     "share_zero": 0.0005
+    }
+   },
+   "wta": {
+    "sw": {
+     "n": 65014,
+     "mean": 3.1195,
+     "min": 0.0,
+     "p10": 0.8191,
+     "median": 2.9211,
+     "p90": 5.6683,
+     "max": 12.4712,
+     "share_zero": 0.0044
+    },
+    "r": {
+     "n": 65014,
+     "mean": 0.1294,
+     "min": 0.0,
+     "p10": 0.0393,
+     "median": 0.1274,
+     "p90": 0.2208,
+     "max": 0.3841,
+     "share_zero": 0.0044
+    }
+   },
+   "r_diff": {
+    "n": 67226,
+    "mean": 0.0004,
+    "min": -0.414648,
+    "p10": -0.1119,
+    "median": 0.0,
+    "p90": 0.1125,
+    "max": 0.421,
+    "share_zero": 0.0
+   }
+  },
+  "c_probe": {
+   "cuts": 8,
+   "protected_checked": 2043014,
+   "protected_changed": 0,
+   "protected_changed_bitwise": 134,
+   "later_rows": 2947322,
+   "later_changed": 2744637,
+   "control_protected_changed": 186,
+   "largest_protected_difference": 1.7763568394002505e-15,
+   "tolerance": "protected_changed counts moves beyond 1e-12; protected_changed_bitwise also counts the as-of sums' rounding at the cut's own week ((a + b) - b against a, when the row's own box score is removed)"
+  },
+  "masks": {
+   "adjperf_ace": {
+    "atp|2013-2021": {
+     "share_differs": 0.6564,
+     "share_differs_by_0.25": 0.1281,
+     "mean_abs_diff": 0.0864,
+     "mean_ratio": 1.0193,
+     "corr": 0.995,
+     "tpw_exists_this_not": 0.0
+    },
+    "atp|2022-2024": {
+     "share_differs": 0.7083,
+     "share_differs_by_0.25": 0.1422,
+     "mean_abs_diff": 0.0948,
+     "mean_ratio": 1.0266,
+     "corr": 0.9958,
+     "tpw_exists_this_not": 0.0
+    },
+    "atp|2025-2026": {
+     "share_differs": 0.6806,
+     "share_differs_by_0.25": 0.0633,
+     "mean_abs_diff": 0.0579,
+     "mean_ratio": 1.0147,
+     "corr": 0.996,
+     "tpw_exists_this_not": 0.0
+    },
+    "wta|2013-2021": {
+     "share_differs": 0.0,
+     "share_differs_by_0.25": 0.0,
+     "mean_abs_diff": 0.0,
+     "mean_ratio": 1.0,
+     "corr": 1.0,
+     "tpw_exists_this_not": 0.0
+    },
+    "wta|2022-2024": {
+     "share_differs": 0.0,
+     "share_differs_by_0.25": 0.0,
+     "mean_abs_diff": 0.0,
+     "mean_ratio": 1.0,
+     "corr": 1.0,
+     "tpw_exists_this_not": 0.0
+    },
+    "wta|2025-2026": {
+     "share_differs": 0.0,
+     "share_differs_by_0.25": 0.0,
+     "mean_abs_diff": 0.0,
+     "mean_ratio": 1.0,
+     "corr": 1.0,
+     "tpw_exists_this_not": 0.0
+    }
+   },
+   "adjperf_df": {
+    "atp|2013-2021": {
+     "share_differs": 0.6612,
+     "share_differs_by_0.25": 0.156,
+     "mean_abs_diff": 0.1059,
+     "mean_ratio": 0.9851,
+     "corr": 0.9923,
+     "tpw_exists_this_not": 0.0
+    },
+    "atp|2022-2024": {
+     "share_differs": 0.707,
+     "share_differs_by_0.25": 0.1411,
+     "mean_abs_diff": 0.1026,
+     "mean_ratio": 0.9811,
+     "corr": 0.9927,
+     "tpw_exists_this_not": 0.0
+    },
+    "atp|2025-2026": {
+     "share_differs": 0.6885,
+     "share_differs_by_0.25": 0.1321,
+     "mean_abs_diff": 0.0884,
+     "mean_ratio": 0.9835,
+     "corr": 0.9945,
+     "tpw_exists_this_not": 0.0
+    },
+    "wta|2013-2021": {
+     "share_differs": 0.0,
+     "share_differs_by_0.25": 0.0,
+     "mean_abs_diff": 0.0,
+     "mean_ratio": 1.0,
+     "corr": 1.0,
+     "tpw_exists_this_not": 0.0
+    },
+    "wta|2022-2024": {
+     "share_differs": 0.0,
+     "share_differs_by_0.25": 0.0,
+     "mean_abs_diff": 0.0,
+     "mean_ratio": 1.0,
+     "corr": 1.0,
+     "tpw_exists_this_not": 0.0
+    },
+    "wta|2025-2026": {
+     "share_differs": 0.0,
+     "share_differs_by_0.25": 0.0,
+     "mean_abs_diff": 0.0,
+     "mean_ratio": 1.0,
+     "corr": 1.0,
+     "tpw_exists_this_not": 0.0
+    }
+   },
+   "adjperf_first_in": {
+    "atp|2013-2021": {
+     "share_differs": 0.6629,
+     "share_differs_by_0.25": 0.2074,
+     "mean_abs_diff": 0.1802,
+     "mean_ratio": 0.9588,
+     "corr": 0.9775,
+     "tpw_exists_this_not": 0.0
+    },
+    "atp|2022-2024": {
+     "share_differs": 0.7078,
+     "share_differs_by_0.25": 0.2026,
+     "mean_abs_diff": 0.1807,
+     "mean_ratio": 0.9554,
+     "corr": 0.9778,
+     "tpw_exists_this_not": 0.0
+    },
+    "atp|2025-2026": {
+     "share_differs": 0.6939,
+     "share_differs_by_0.25": 0.2311,
+     "mean_abs_diff": 0.1923,
+     "mean_ratio": 0.9432,
+     "corr": 0.9781,
+     "tpw_exists_this_not": 0.0
+    },
+    "wta|2013-2021": {
+     "share_differs": 0.0,
+     "share_differs_by_0.25": 0.0,
+     "mean_abs_diff": 0.0,
+     "mean_ratio": 1.0,
+     "corr": 1.0,
+     "tpw_exists_this_not": 0.0
+    },
+    "wta|2022-2024": {
+     "share_differs": 0.0,
+     "share_differs_by_0.25": 0.0,
+     "mean_abs_diff": 0.0,
+     "mean_ratio": 1.0,
+     "corr": 1.0,
+     "tpw_exists_this_not": 0.0
+    },
+    "wta|2025-2026": {
+     "share_differs": 0.0,
+     "share_differs_by_0.25": 0.0,
+     "mean_abs_diff": 0.0,
+     "mean_ratio": 1.0,
+     "corr": 1.0,
+     "tpw_exists_this_not": 0.0
+    }
+   },
+   "adjperf_first_won": {
+    "atp|2013-2021": {
+     "share_differs": 0.6549,
+     "share_differs_by_0.25": 0.0521,
+     "mean_abs_diff": 0.0456,
+     "mean_ratio": 1.0066,
+     "corr": 0.9984,
+     "tpw_exists_this_not": 0.0
+    },
+    "atp|2022-2024": {
+     "share_differs": 0.6994,
+     "share_differs_by_0.25": 0.0663,
+     "mean_abs_diff": 0.0568,
+     "mean_ratio": 1.0159,
+     "corr": 0.9978,
+     "tpw_exists_this_not": 0.0
+    },
+    "atp|2025-2026": {
+     "share_differs": 0.6833,
+     "share_differs_by_0.25": 0.0843,
+     "mean_abs_diff": 0.0642,
+     "mean_ratio": 1.0187,
+     "corr": 0.9962,
+     "tpw_exists_this_not": 0.0
+    },
+    "wta|2013-2021": {
+     "share_differs": 0.0,
+     "share_differs_by_0.25": 0.0,
+     "mean_abs_diff": 0.0,
+     "mean_ratio": 1.0,
+     "corr": 1.0,
+     "tpw_exists_this_not": 0.0
+    },
+    "wta|2022-2024": {
+     "share_differs": 0.0,
+     "share_differs_by_0.25": 0.0,
+     "mean_abs_diff": 0.0,
+     "mean_ratio": 1.0,
+     "corr": 1.0,
+     "tpw_exists_this_not": 0.0
+    },
+    "wta|2025-2026": {
+     "share_differs": 0.0,
+     "share_differs_by_0.25": 0.0,
+     "mean_abs_diff": 0.0,
+     "mean_ratio": 1.0,
+     "corr": 1.0,
+     "tpw_exists_this_not": 0.0
+    }
+   },
+   "adjperf_second_won": {
+    "atp|2013-2021": {
+     "share_differs": 0.6519,
+     "share_differs_by_0.25": 0.0782,
+     "mean_abs_diff": 0.0652,
+     "mean_ratio": 1.0167,
+     "corr": 0.9957,
+     "tpw_exists_this_not": 0.0
+    },
+    "atp|2022-2024": {
+     "share_differs": 0.7021,
+     "share_differs_by_0.25": 0.1338,
+     "mean_abs_diff": 0.0895,
+     "mean_ratio": 1.0218,
+     "corr": 0.9956,
+     "tpw_exists_this_not": 0.0
+    },
+    "atp|2025-2026": {
+     "share_differs": 0.6895,
+     "share_differs_by_0.25": 0.1392,
+     "mean_abs_diff": 0.091,
+     "mean_ratio": 1.0269,
+     "corr": 0.9954,
+     "tpw_exists_this_not": 0.0
+    },
+    "wta|2013-2021": {
+     "share_differs": 0.0,
+     "share_differs_by_0.25": 0.0,
+     "mean_abs_diff": 0.0,
+     "mean_ratio": 1.0,
+     "corr": 1.0,
+     "tpw_exists_this_not": 0.0
+    },
+    "wta|2022-2024": {
+     "share_differs": 0.0,
+     "share_differs_by_0.25": 0.0,
+     "mean_abs_diff": 0.0,
+     "mean_ratio": 1.0,
+     "corr": 1.0,
+     "tpw_exists_this_not": 0.0
+    },
+    "wta|2025-2026": {
+     "share_differs": 0.0,
+     "share_differs_by_0.25": 0.0,
+     "mean_abs_diff": 0.0,
+     "mean_ratio": 1.0,
+     "corr": 1.0,
+     "tpw_exists_this_not": 0.0
+    }
+   },
+   "adjperf_hold": {
+    "atp|2013-2021": {
+     "share_differs": 0.6506,
+     "share_differs_by_0.25": 0.0224,
+     "mean_abs_diff": 0.0339,
+     "mean_ratio": 0.992,
+     "corr": 0.9969,
+     "tpw_exists_this_not": 0.0
+    },
+    "atp|2022-2024": {
+     "share_differs": 0.7115,
+     "share_differs_by_0.25": 0.094,
+     "mean_abs_diff": 0.0728,
+     "mean_ratio": 1.0136,
+     "corr": 0.9947,
+     "tpw_exists_this_not": 0.0
+    },
+    "atp|2025-2026": {
+     "share_differs": 0.7011,
+     "share_differs_by_0.25": 0.099,
+     "mean_abs_diff": 0.0773,
+     "mean_ratio": 1.0175,
+     "corr": 0.9944,
+     "tpw_exists_this_not": 0.0
+    },
+    "wta|2013-2021": {
+     "share_differs": 0.6359,
+     "share_differs_by_0.25": 0.3126,
+     "mean_abs_diff": 0.7953,
+     "mean_ratio": 0.7356,
+     "corr": 0.7,
+     "tpw_exists_this_not": 0.237
+    },
+    "wta|2022-2024": {
+     "share_differs": 0.2499,
+     "share_differs_by_0.25": 0.0306,
+     "mean_abs_diff": 0.0266,
+     "mean_ratio": 0.992,
+     "corr": 0.9953,
+     "tpw_exists_this_not": 0.0001
+    },
+    "wta|2025-2026": {
+     "share_differs": 0.2832,
+     "share_differs_by_0.25": 0.0203,
+     "mean_abs_diff": 0.0191,
+     "mean_ratio": 0.9942,
+     "corr": 0.9971,
+     "tpw_exists_this_not": 0.0
+    }
+   },
+   "adjperf_bp_saved": {
+    "atp|2013-2021": {
+     "share_differs": 0.9748,
+     "share_differs_by_0.25": 0.2811,
+     "mean_abs_diff": 0.2637,
+     "mean_ratio": 0.9368,
+     "corr": 0.967,
+     "tpw_exists_this_not": 0.0
+    },
+    "atp|2022-2024": {
+     "share_differs": 0.9876,
+     "share_differs_by_0.25": 0.3232,
+     "mean_abs_diff": 0.2785,
+     "mean_ratio": 0.9497,
+     "corr": 0.965,
+     "tpw_exists_this_not": 0.0
+    },
+    "atp|2025-2026": {
+     "share_differs": 0.9879,
+     "share_differs_by_0.25": 0.2941,
+     "mean_abs_diff": 0.2582,
+     "mean_ratio": 0.9481,
+     "corr": 0.9659,
+     "tpw_exists_this_not": 0.0
+    },
+    "wta|2013-2021": {
+     "share_differs": 0.5231,
+     "share_differs_by_0.25": 0.0997,
+     "mean_abs_diff": 0.0845,
+     "mean_ratio": 0.9719,
+     "corr": 0.9911,
+     "tpw_exists_this_not": 0.0
+    },
+    "wta|2022-2024": {
+     "share_differs": 0.6034,
+     "share_differs_by_0.25": 0.1141,
+     "mean_abs_diff": 0.0982,
+     "mean_ratio": 0.9705,
+     "corr": 0.9884,
+     "tpw_exists_this_not": 0.0
+    },
+    "wta|2025-2026": {
+     "share_differs": 0.6379,
+     "share_differs_by_0.25": 0.104,
+     "mean_abs_diff": 0.0912,
+     "mean_ratio": 0.9723,
+     "corr": 0.9894,
+     "tpw_exists_this_not": 0.0
+    }
+   },
+   "adjperf_bp_faced_pg": {
+    "atp|2013-2021": {
+     "share_differs": 0.6523,
+     "share_differs_by_0.25": 0.0449,
+     "mean_abs_diff": 0.0442,
+     "mean_ratio": 0.9945,
+     "corr": 0.996,
+     "tpw_exists_this_not": 0.0
+    },
+    "atp|2022-2024": {
+     "share_differs": 0.7198,
+     "share_differs_by_0.25": 0.1479,
+     "mean_abs_diff": 0.1046,
+     "mean_ratio": 1.0081,
+     "corr": 0.9912,
+     "tpw_exists_this_not": 0.0
+    },
+    "atp|2025-2026": {
+     "share_differs": 0.7091,
+     "share_differs_by_0.25": 0.2361,
+     "mean_abs_diff": 0.2008,
+     "mean_ratio": 1.0555,
+     "corr": 0.9779,
+     "tpw_exists_this_not": 0.0
+    },
+    "wta|2013-2021": {
+     "share_differs": 0.6359,
+     "share_differs_by_0.25": 0.3126,
+     "mean_abs_diff": 0.7953,
+     "mean_ratio": 0.7356,
+     "corr": 0.7,
+     "tpw_exists_this_not": 0.237
+    },
+    "wta|2022-2024": {
+     "share_differs": 0.2499,
+     "share_differs_by_0.25": 0.0306,
+     "mean_abs_diff": 0.0266,
+     "mean_ratio": 0.992,
+     "corr": 0.9953,
+     "tpw_exists_this_not": 0.0001
+    },
+    "wta|2025-2026": {
+     "share_differs": 0.2832,
+     "share_differs_by_0.25": 0.0203,
+     "mean_abs_diff": 0.0191,
+     "mean_ratio": 0.9942,
+     "corr": 0.9971,
+     "tpw_exists_this_not": 0.0
+    }
+   },
+   "adjperf_brk": {
+    "atp|2013-2021": {
+     "share_differs": 0.6669,
+     "share_differs_by_0.25": 0.2189,
+     "mean_abs_diff": 0.1824,
+     "mean_ratio": 1.0501,
+     "corr": 0.9815,
+     "tpw_exists_this_not": 0.0
+    },
+    "atp|2022-2024": {
+     "share_differs": 0.7078,
+     "share_differs_by_0.25": 0.1623,
+     "mean_abs_diff": 0.1186,
+     "mean_ratio": 1.0263,
+     "corr": 0.9899,
+     "tpw_exists_this_not": 0.0
+    },
+    "atp|2025-2026": {
+     "share_differs": 0.6993,
+     "share_differs_by_0.25": 0.0406,
+     "mean_abs_diff": 0.0514,
+     "mean_ratio": 1.0002,
+     "corr": 0.9955,
+     "tpw_exists_this_not": 0.0
+    },
+    "wta|2013-2021": {
+     "share_differs": 0.6359,
+     "share_differs_by_0.25": 0.3126,
+     "mean_abs_diff": 0.7953,
+     "mean_ratio": 0.7356,
+     "corr": 0.7,
+     "tpw_exists_this_not": 0.237
+    },
+    "wta|2022-2024": {
+     "share_differs": 0.2499,
+     "share_differs_by_0.25": 0.0306,
+     "mean_abs_diff": 0.0266,
+     "mean_ratio": 0.992,
+     "corr": 0.9953,
+     "tpw_exists_this_not": 0.0001
+    },
+    "wta|2025-2026": {
+     "share_differs": 0.2832,
+     "share_differs_by_0.25": 0.0203,
+     "mean_abs_diff": 0.0191,
+     "mean_ratio": 0.9942,
+     "corr": 0.9971,
+     "tpw_exists_this_not": 0.0
+    }
+   },
+   "adjperf_bp_conv": {
+    "atp|2013-2021": {
+     "share_differs": 0.9286,
+     "share_differs_by_0.25": 0.2619,
+     "mean_abs_diff": 0.184,
+     "mean_ratio": 1.0005,
+     "corr": 0.9837,
+     "tpw_exists_this_not": 0.0002
+    },
+    "atp|2022-2024": {
+     "share_differs": 0.9186,
+     "share_differs_by_0.25": 0.223,
+     "mean_abs_diff": 0.1612,
+     "mean_ratio": 0.9667,
+     "corr": 0.9874,
+     "tpw_exists_this_not": 0.0001
+    },
+    "atp|2025-2026": {
+     "share_differs": 0.9261,
+     "share_differs_by_0.25": 0.1807,
+     "mean_abs_diff": 0.1256,
+     "mean_ratio": 0.9808,
+     "corr": 0.9903,
+     "tpw_exists_this_not": 0.0002
+    },
+    "wta|2013-2021": {
+     "share_differs": 0.3739,
+     "share_differs_by_0.25": 0.041,
+     "mean_abs_diff": 0.0269,
+     "mean_ratio": 0.9911,
+     "corr": 0.9984,
+     "tpw_exists_this_not": 0.0001
+    },
+    "wta|2022-2024": {
+     "share_differs": 0.4409,
+     "share_differs_by_0.25": 0.0467,
+     "mean_abs_diff": 0.0305,
+     "mean_ratio": 0.9908,
+     "corr": 0.998,
+     "tpw_exists_this_not": 0.0001
+    },
+    "wta|2025-2026": {
+     "share_differs": 0.4645,
+     "share_differs_by_0.25": 0.0407,
+     "mean_abs_diff": 0.0267,
+     "mean_ratio": 0.9919,
+     "corr": 0.9982,
+     "tpw_exists_this_not": 0.0
+    }
+   },
+   "adjperf_rpw_first": {
+    "atp|2013-2021": {
+     "share_differs": 0.661,
+     "share_differs_by_0.25": 0.1768,
+     "mean_abs_diff": 0.1202,
+     "mean_ratio": 1.0353,
+     "corr": 0.9927,
+     "tpw_exists_this_not": 0.0
+    },
+    "atp|2022-2024": {
+     "share_differs": 0.7075,
+     "share_differs_by_0.25": 0.0837,
+     "mean_abs_diff": 0.0628,
+     "mean_ratio": 1.0175,
+     "corr": 0.9982,
+     "tpw_exists_this_not": 0.0
+    },
+    "atp|2025-2026": {
+     "share_differs": 0.6807,
+     "share_differs_by_0.25": 0.0674,
+     "mean_abs_diff": 0.0531,
+     "mean_ratio": 1.0154,
+     "corr": 0.9984,
+     "tpw_exists_this_not": 0.0
+    },
+    "wta|2013-2021": {
+     "share_differs": 0.0,
+     "share_differs_by_0.25": 0.0,
+     "mean_abs_diff": 0.0,
+     "mean_ratio": 1.0,
+     "corr": 1.0,
+     "tpw_exists_this_not": 0.0
+    },
+    "wta|2022-2024": {
+     "share_differs": 0.0,
+     "share_differs_by_0.25": 0.0,
+     "mean_abs_diff": 0.0,
+     "mean_ratio": 1.0,
+     "corr": 1.0,
+     "tpw_exists_this_not": 0.0
+    },
+    "wta|2025-2026": {
+     "share_differs": 0.0,
+     "share_differs_by_0.25": 0.0,
+     "mean_abs_diff": 0.0,
+     "mean_ratio": 1.0,
+     "corr": 1.0,
+     "tpw_exists_this_not": 0.0
+    }
+   },
+   "adjperf_rpw_second": {
+    "atp|2013-2021": {
+     "share_differs": 0.6613,
+     "share_differs_by_0.25": 0.2233,
+     "mean_abs_diff": 0.1781,
+     "mean_ratio": 1.0406,
+     "corr": 0.9816,
+     "tpw_exists_this_not": 0.0
+    },
+    "atp|2022-2024": {
+     "share_differs": 0.7152,
+     "share_differs_by_0.25": 0.1753,
+     "mean_abs_diff": 0.1277,
+     "mean_ratio": 1.003,
+     "corr": 0.9881,
+     "tpw_exists_this_not": 0.0
+    },
+    "atp|2025-2026": {
+     "share_differs": 0.6898,
+     "share_differs_by_0.25": 0.1578,
+     "mean_abs_diff": 0.1065,
+     "mean_ratio": 1.0276,
+     "corr": 0.9931,
+     "tpw_exists_this_not": 0.0
+    },
+    "wta|2013-2021": {
+     "share_differs": 0.0,
+     "share_differs_by_0.25": 0.0,
+     "mean_abs_diff": 0.0,
+     "mean_ratio": 1.0,
+     "corr": 1.0,
+     "tpw_exists_this_not": 0.0
+    },
+    "wta|2022-2024": {
+     "share_differs": 0.0,
+     "share_differs_by_0.25": 0.0,
+     "mean_abs_diff": 0.0,
+     "mean_ratio": 1.0,
+     "corr": 1.0,
+     "tpw_exists_this_not": 0.0
+    },
+    "wta|2025-2026": {
+     "share_differs": 0.0,
+     "share_differs_by_0.25": 0.0,
+     "mean_abs_diff": 0.0,
+     "mean_ratio": 1.0,
+     "corr": 1.0,
+     "tpw_exists_this_not": 0.0
+    }
+   },
+   "adjperf_tpw": {
+    "atp|2013-2021": {
+     "share_differs": 0.0,
+     "share_differs_by_0.25": 0.0,
+     "mean_abs_diff": 0.0,
+     "mean_ratio": 1.0,
+     "corr": 1.0,
+     "tpw_exists_this_not": 0.0
+    },
+    "atp|2022-2024": {
+     "share_differs": 0.0,
+     "share_differs_by_0.25": 0.0,
+     "mean_abs_diff": 0.0,
+     "mean_ratio": 1.0,
+     "corr": 1.0,
+     "tpw_exists_this_not": 0.0
+    },
+    "atp|2025-2026": {
+     "share_differs": 0.0,
+     "share_differs_by_0.25": 0.0,
+     "mean_abs_diff": 0.0,
+     "mean_ratio": 1.0,
+     "corr": 1.0,
+     "tpw_exists_this_not": 0.0
+    },
+    "wta|2013-2021": {
+     "share_differs": 0.0,
+     "share_differs_by_0.25": 0.0,
+     "mean_abs_diff": 0.0,
+     "mean_ratio": 1.0,
+     "corr": 1.0,
+     "tpw_exists_this_not": 0.0
+    },
+    "wta|2022-2024": {
+     "share_differs": 0.0,
+     "share_differs_by_0.25": 0.0,
+     "mean_abs_diff": 0.0,
+     "mean_ratio": 1.0,
+     "corr": 1.0,
+     "tpw_exists_this_not": 0.0
+    },
+    "wta|2025-2026": {
+     "share_differs": 0.0,
+     "share_differs_by_0.25": 0.0,
+     "mean_abs_diff": 0.0,
+     "mean_ratio": 1.0,
+     "corr": 1.0,
+     "tpw_exists_this_not": 0.0
+    }
+   },
+   "adjdef_ace": {
+    "atp|2013-2021": {
+     "share_differs": 0.6555,
+     "share_differs_by_0.25": 0.1251,
+     "mean_abs_diff": 0.085,
+     "mean_ratio": 1.0229,
+     "corr": 0.9957,
+     "tpw_exists_this_not": 0.0
+    },
+    "atp|2022-2024": {
+     "share_differs": 0.7099,
+     "share_differs_by_0.25": 0.2072,
+     "mean_abs_diff": 0.1453,
+     "mean_ratio": 1.0406,
+     "corr": 0.9902,
+     "tpw_exists_this_not": 0.0
+    },
+    "atp|2025-2026": {
+     "share_differs": 0.6916,
+     "share_differs_by_0.25": 0.1853,
+     "mean_abs_diff": 0.1313,
+     "mean_ratio": 1.0386,
+     "corr": 0.9902,
+     "tpw_exists_this_not": 0.0
+    },
+    "wta|2013-2021": {
+     "share_differs": 0.0,
+     "share_differs_by_0.25": 0.0,
+     "mean_abs_diff": 0.0,
+     "mean_ratio": 1.0,
+     "corr": 1.0,
+     "tpw_exists_this_not": 0.0
+    },
+    "wta|2022-2024": {
+     "share_differs": 0.0,
+     "share_differs_by_0.25": 0.0,
+     "mean_abs_diff": 0.0,
+     "mean_ratio": 1.0,
+     "corr": 1.0,
+     "tpw_exists_this_not": 0.0
+    },
+    "wta|2025-2026": {
+     "share_differs": 0.0,
+     "share_differs_by_0.25": 0.0,
+     "mean_abs_diff": 0.0,
+     "mean_ratio": 1.0,
+     "corr": 1.0,
+     "tpw_exists_this_not": 0.0
+    }
+   },
+   "adjdef_df": {
+    "atp|2013-2021": {
+     "share_differs": 0.6556,
+     "share_differs_by_0.25": 0.105,
+     "mean_abs_diff": 0.072,
+     "mean_ratio": 1.013,
+     "corr": 0.9967,
+     "tpw_exists_this_not": 0.0
+    },
+    "atp|2022-2024": {
+     "share_differs": 0.7102,
+     "share_differs_by_0.25": 0.1875,
+     "mean_abs_diff": 0.145,
+     "mean_ratio": 1.0004,
+     "corr": 0.9833,
+     "tpw_exists_this_not": 0.0
+    },
+    "atp|2025-2026": {
+     "share_differs": 0.6942,
+     "share_differs_by_0.25": 0.1787,
+     "mean_abs_diff": 0.13,
+     "mean_ratio": 1.0243,
+     "corr": 0.9879,
+     "tpw_exists_this_not": 0.0
+    },
+    "wta|2013-2021": {
+     "share_differs": 0.0,
+     "share_differs_by_0.25": 0.0,
+     "mean_abs_diff": 0.0,
+     "mean_ratio": 1.0,
+     "corr": 1.0,
+     "tpw_exists_this_not": 0.0
+    },
+    "wta|2022-2024": {
+     "share_differs": 0.0,
+     "share_differs_by_0.25": 0.0,
+     "mean_abs_diff": 0.0,
+     "mean_ratio": 1.0,
+     "corr": 1.0,
+     "tpw_exists_this_not": 0.0
+    },
+    "wta|2025-2026": {
+     "share_differs": 0.0,
+     "share_differs_by_0.25": 0.0,
+     "mean_abs_diff": 0.0,
+     "mean_ratio": 1.0,
+     "corr": 1.0,
+     "tpw_exists_this_not": 0.0
+    }
+   },
+   "adjdef_first_in": {
+    "atp|2013-2021": {
+     "share_differs": 0.6575,
+     "share_differs_by_0.25": 0.0806,
+     "mean_abs_diff": 0.0698,
+     "mean_ratio": 0.9968,
+     "corr": 0.9953,
+     "tpw_exists_this_not": 0.0
+    },
+    "atp|2022-2024": {
+     "share_differs": 0.7075,
+     "share_differs_by_0.25": 0.2,
+     "mean_abs_diff": 0.1491,
+     "mean_ratio": 1.0417,
+     "corr": 0.9886,
+     "tpw_exists_this_not": 0.0
+    },
+    "atp|2025-2026": {
+     "share_differs": 0.6951,
+     "share_differs_by_0.25": 0.2587,
+     "mean_abs_diff": 0.2366,
+     "mean_ratio": 1.0694,
+     "corr": 0.9717,
+     "tpw_exists_this_not": 0.0
+    },
+    "wta|2013-2021": {
+     "share_differs": 0.0,
+     "share_differs_by_0.25": 0.0,
+     "mean_abs_diff": 0.0,
+     "mean_ratio": 1.0,
+     "corr": 1.0,
+     "tpw_exists_this_not": 0.0
+    },
+    "wta|2022-2024": {
+     "share_differs": 0.0,
+     "share_differs_by_0.25": 0.0,
+     "mean_abs_diff": 0.0,
+     "mean_ratio": 1.0,
+     "corr": 1.0,
+     "tpw_exists_this_not": 0.0
+    },
+    "wta|2025-2026": {
+     "share_differs": 0.0,
+     "share_differs_by_0.25": 0.0,
+     "mean_abs_diff": 0.0,
+     "mean_ratio": 1.0,
+     "corr": 1.0,
+     "tpw_exists_this_not": 0.0
+    }
+   },
+   "adjdef_bp_faced_pg": {
+    "atp|2013-2021": {
+     "share_differs": 0.6679,
+     "share_differs_by_0.25": 0.2429,
+     "mean_abs_diff": 0.2092,
+     "mean_ratio": 1.0587,
+     "corr": 0.9781,
+     "tpw_exists_this_not": 0.0
+    },
+    "atp|2022-2024": {
+     "share_differs": 0.7195,
+     "share_differs_by_0.25": 0.2706,
+     "mean_abs_diff": 0.2604,
+     "mean_ratio": 1.0691,
+     "corr": 0.9673,
+     "tpw_exists_this_not": 0.0
+    },
+    "atp|2025-2026": {
+     "share_differs": 0.7126,
+     "share_differs_by_0.25": 0.2667,
+     "mean_abs_diff": 0.2487,
+     "mean_ratio": 1.0704,
+     "corr": 0.9689,
+     "tpw_exists_this_not": 0.0
+    },
+    "wta|2013-2021": {
+     "share_differs": 0.6359,
+     "share_differs_by_0.25": 0.3126,
+     "mean_abs_diff": 0.7953,
+     "mean_ratio": 0.7356,
+     "corr": 0.7,
+     "tpw_exists_this_not": 0.237
+    },
+    "wta|2022-2024": {
+     "share_differs": 0.2499,
+     "share_differs_by_0.25": 0.0306,
+     "mean_abs_diff": 0.0266,
+     "mean_ratio": 0.992,
+     "corr": 0.9953,
+     "tpw_exists_this_not": 0.0001
+    },
+    "wta|2025-2026": {
+     "share_differs": 0.2832,
+     "share_differs_by_0.25": 0.0203,
+     "mean_abs_diff": 0.0191,
+     "mean_ratio": 0.9942,
+     "corr": 0.9971,
+     "tpw_exists_this_not": 0.0
+    }
+   }
+  },
+  "store_population": {
+   "rows": 63737,
+   "found_both_sides": 63626,
+   "found_in_the_pool": 63626,
+   "found_side_a_is_the_tree_side_a": 63626,
+   "found_sides_exchanged": 0,
+   "in_the_instance_frame": 63697,
+   "store_matches_in_the_tree_stage0": 63697,
+   "not_found_same_match_id_other_players": 71,
+   "not_found_match_id_absent_from_the_tree": 40,
+   "not_found_by_tour_season": {
+    "wta|2026": 111
+   },
+   "not_found": [
+    "wta|2026-1111|R32|wta:320319|wta:328120",
+    "wta|2026-822|R32|wta:319007|wta:325956",
+    "wta|2026-1111|R32|wta:319125|wta:326735",
+    "wta|2026-822|R32|wta:320124|wta:327845",
+    "wta|2026-1111|R32|wta:313974|wta:326678",
+    "wta|2026-822|R32|wta:322082|wta:329408",
+    "wta|2026-1111|R32|wta:320983|wta:328897",
+    "wta|2026-822|R32|wta:222145|wta:321454",
+    "wta|2026-1111|R32|wta:318516|wta:333132",
+    "wta|2026-822|R32|wta:325410|wta:325725",
+    "wta|2026-1111|R32|wta:312469|wta:321179",
+    "wta|2026-822|R32|wta:328884|wta:329081",
+    "wta|2026-1111|R32|wta:324267|wta:328366",
+    "wta|2026-822|R32|wta:222601|wta:315232",
+    "wta|2026-1111|R32|wta:319489|wta:322222",
+    "wta|2026-822|R32|wta:239383|wta:324261",
+    "wta|2026-1111|R32|wta:329505|wta:332285",
+    "wta|2026-822|R32|wta:318314|wta:320716",
+    "wta|2026-1111|R32|wta:311779|wta:330332",
+    "wta|2026-822|R32|wta:330364|wta:331102",
+    "wta|2026-1111|R32|wta:310926|wta:324479",
+    "wta|2026-822|R32|wta:211817|wta:319571",
+    "wta|2026-822|R32|wta:215713|wta:324898",
+    "wta|2026-822|R32|wta:326907|wta:327391",
+    "wta|2026-822|R32|wta:214040|wta:315130",
+    "wta|2026-1111|R16|wta:310440|wta:324166",
+    "wta|2026-1111|R16|wta:319125|wta:320319",
+    "wta|2026-1111|R16|wta:313974|wta:331006",
+    "wta|2026-1111|R16|wta:318516|wta:320983",
+    "wta|2026-1111|R16|wta:312469|wta:328366",
+    "wta|2026-1111|R16|wta:319489|wta:325936",
+    "wta|2026-822|R16|wta:325956|wta:327845",
+    "wta|2026-1111|R16|wta:330332|wta:332285",
+    "wta|2026-822|R16|wta:321454|wta:329408",
+    "wta|2026-1111|R16|wta:310926|wta:326384",
+    "wta|2026-822|R16|wta:325725|wta:329081",
+    "wta|2026-822|R16|wta:315232|wta:324261",
+    "wta|2026-822|R16|wta:318314|wta:331102",
+    "wta|2026-822|R16|wta:215713|wta:326907",
+    "wta|2026-822|R16|wta:266376|wta:315130",
+    "wta|2026-1111|QF|wta:319125|wta:324166",
+    "wta|2026-1111|QF|wta:313974|wta:318516",
+    "wta|2026-1111|QF|wta:325936|wta:328366",
+    "wta|2026-1111|QF|wta:326384|wta:332285",
+    "wta|2026-822|QF|wta:327845|wta:329408",
+    "wta|2026-822|QF|wta:315232|wta:325725",
+    "wta|2026-822|QF|wta:211817|wta:318314",
+    "wta|2026-822|QF|wta:315130|wta:326907",
+    "wta|2026-1111|SF|wta:318516|wta:319125",
+    "wta|2026-1111|SF|wta:328366|wta:332285",
+    "wta|2026-822|SF|wta:315232|wta:329408",
+    "wta|2026-822|SF|wta:315130|wta:318314",
+    "wta|2026-1111|F|wta:318516|wta:328366",
+    "wta|2026-1080|R32|wta:215035|wta:260206",
+    "wta|2026-2017|R32|wta:215613|wta:220332",
+    "wta|2026-2017|R32|wta:200748|wta:201593",
+    "wta|2026-2017|R32|wta:221012|wta:221333",
+    "wta|2026-2017|R32|wta:213887|wta:216133",
+    "wta|2026-2017|R32|wta:211107|wta:220367",
+    "wta|2026-2017|R32|wta:211701|wta:214643",
+    "wta|2026-2017|R32|wta:210722|wta:223253",
+    "wta|2026-2017|R32|wta:206420|wta:215983",
+    "wta|2026-2017|R16|wta:215613|wta:216347",
+    "wta|2026-2017|R16|wta:201593|wta:214096",
+    "wta|2026-2017|R16|wta:220704|wta:221012",
+    "wta|2026-2017|R16|wta:216133|wta:220367",
+    "wta|2026-2017|R16|wta:202494|wta:214643",
+    "wta|2026-2017|R16|wta:206420|wta:259799",
+    "wta|2026-2017|QF|wta:211817|wta:215613",
+    "wta|2026-2017|QF|wta:206420|wta:211768",
+    "wta|2026-710|R32|wta:211148|wta:213583",
+    "wta|2026-710|R32|wta:201548|wta:220714",
+    "wta|2026-710|R32|wta:211533|wta:215936",
+    "wta|2026-710|R32|wta:214388|wta:215910",
+    "wta|2026-710|R32|wta:211279|wta:220309",
+    "wta|2026-710|R32|wta:201696|wta:239383",
+    "wta|2026-710|R32|wta:216083|wta:222145",
+    "wta|2026-710|R32|wta:222045|wta:238075",
+    "wta|2026-710|R32|wta:206252|wta:214040",
+    "wta|2026-710|R32|wta:214082|wta:220520",
+    "wta|2026-710|R32|wta:211843|wta:220750",
+    "wta|2026-710|R32|wta:222601|wta:260206",
+    "wta|2026-710|R16|wta:213583|wta:220435",
+    "wta|2026-710|R16|wta:201548|wta:238184",
+    "wta|2026-710|R16|wta:211533|wta:215910",
+    "wta|2026-710|R16|wta:215306|wta:216083",
+    "wta|2026-710|R16|wta:211843|wta:220520",
+    "wta|2026-710|QF|wta:213583|wta:238184",
+    "wta|2026-710|QF|wta:211533|wta:220309",
+    "wta|2026-710|QF|wta:216083|wta:238075",
+    "wta|2026-710|QF|wta:201619|wta:220520",
+    "wta|2026-710|SF|wta:211533|wta:213583",
+    "wta|2026-710|F|wta:201619|wta:213583",
+    "wta|2026-904|R128|wta:219917|wta:728507",
+    "wta|2026-904|R128|wta:215042|wta:313169",
+    "wta|2026-1175|R32|wta:260172|wta:327469",
+    "wta|2026-1175|R32|wta:211279|wta:326113",
+    "wta|2026-1175|R32|wta:213657|wta:330920",
+    "wta|2026-2063|R32|wta:222966|wta:332575",
+    "wta|2026-1175|R32|wta:210847|wta:327193",
+    "wta|2026-1175|R16|wta:221012|wta:330920",
+    "wta|2026-2063|R16|wta:211651|wta:332575",
+    "wta|2026-1082|R32|wta:206219|wta:332718",
+    "wta|2026-1082|R32|wta:222290|wta:335755",
+    "wta|2026-2042|R32|wta:221039|wta:332562",
+    "wta|2026-1167|R32|wta:213576|wta:329512",
+    "wta|2026-1167|R32|wta:206420|wta:335303",
+    "wta|2026-1167|R16|wta:233741|wta:335303",
+    "wta|2026-1167|QF|wta:216083|wta:335303",
+    "wta|2026-1167|SF|wta:220722|wta:335303",
+    "wta|2026-1167|F|wta:221307|wta:335303"
+   ],
+   "store_population_sha256": "6113966fd8286cb41738eb7b52e0d6d9e2d7631c980c3aec7be6e4bbbaaab06b",
+   "store_sides_sha256": "271d2561f31d0c8cc407e5fb9b73d572115173e329e272c337f8daddda4662af"
+  },
+  "a_old_build": {
+   "corr_sw_s0": {
+    "all": 0.98155,
+    "atp|2013-2021": 0.97513,
+    "atp|2022-2024": 0.96787,
+    "atp|2025-2026": 0.9606,
+    "wta|2013-2021": 0.99985,
+    "wta|2022-2024": 1.0,
+    "wta|2025-2026": 0.96825
+   },
+   "corr_sw_without_layer_s0": {
+    "all": 0.99808,
+    "atp|2013-2021": 1.0,
+    "atp|2022-2024": 1.0,
+    "atp|2025-2026": 0.99978,
+    "wta|2013-2021": 0.99985,
+    "wta|2022-2024": 1.0,
+    "wta|2025-2026": 0.96825
+   },
+   "corr_r_shr": {
+    "all": 0.9717,
+    "atp|2013-2021": 0.95941,
+    "atp|2022-2024": 0.9463,
+    "atp|2025-2026": 0.94256,
+    "wta|2013-2021": 0.98378,
+    "wta|2022-2024": 0.97744,
+    "wta|2025-2026": 0.94224
+   },
+   "player_rows": 127252,
+   "share_abs_diff_over_0.01": 0.235,
+   "share_abs_diff_over_0.5": 0.0927,
+   "mean_diff": -0.11742,
+   "by_tour_period": {
+    "atp|2013-2021": {
+     "rows": 38662,
+     "mean_new": 3.387,
+     "mean_s0": 3.6147,
+     "share_differs": 0.6145,
+     "layer_part_mean": -0.2277,
+     "layer_part_share_nonzero": 0.6702,
+     "tables_part_mean": 0.0,
+     "tables_part_share_nonzero": 0.0019
+    },
+    "atp|2022-2024": {
+     "rows": 15916,
+     "mean_new": 3.5641,
+     "mean_s0": 3.8317,
+     "share_differs": 0.6546,
+     "layer_part_mean": -0.2676,
+     "layer_part_share_nonzero": 0.7221,
+     "tables_part_mean": 0.0,
+     "tables_part_share_nonzero": 0.0
+    },
+    "atp|2025-2026": {
+     "rows": 8788,
+     "mean_new": 3.3908,
+     "mean_s0": 3.6808,
+     "share_differs": 0.6274,
+     "layer_part_mean": -0.2909,
+     "layer_part_share_nonzero": 0.7056,
+     "tables_part_mean": 0.0009,
+     "tables_part_share_nonzero": 0.0008
+    },
+    "wta|2013-2021": {
+     "rows": 41174,
+     "mean_new": 3.0085,
+     "mean_s0": 3.01,
+     "share_differs": 0.0161,
+     "layer_part_mean": 0.0,
+     "layer_part_share_nonzero": 0.0,
+     "tables_part_mean": -0.0014,
+     "tables_part_share_nonzero": 0.0161
+    },
+    "wta|2022-2024": {
+     "rows": 14536,
+     "mean_new": 3.3247,
+     "mean_s0": 3.3247,
+     "share_differs": 0.0,
+     "layer_part_mean": 0.0,
+     "layer_part_share_nonzero": 0.0,
+     "tables_part_mean": 0.0,
+     "tables_part_share_nonzero": 0.0
+    },
+    "wta|2025-2026": {
+     "rows": 8176,
+     "mean_new": 3.3352,
+     "mean_s0": 3.2461,
+     "share_differs": 0.059,
+     "layer_part_mean": 0.0,
+     "layer_part_share_nonzero": 0.0,
+     "tables_part_mean": 0.089,
+     "tables_part_share_nonzero": 0.059
+    }
+   },
+   "largest": [
+    {
+     "match_id": "atp|2025-322|R32|atp:123809|atp:124116",
+     "player_id": "atp:123809",
+     "tour": "atp",
+     "season": 2025,
+     "sw_new": 5.0029,
+     "sw_without_layer": 10.9561,
+     "s0_7oct": 10.9561,
+     "layer_part": -5.9532,
+     "tables_part": 0.0
+    },
+    {
+     "match_id": "wta|2026-2042|R16|wta:221257|wta:221406",
+     "player_id": "wta:221257",
+     "tour": "wta",
+     "season": 2026,
+     "sw_new": 7.7252,
+     "sw_without_layer": 7.7252,
+     "s0_7oct": 1.787,
+     "layer_part": 0.0,
+     "tables_part": 5.9382
+    },
+    {
+     "match_id": "wta|2026-2042|R32|wta:221257|wta:221985",
+     "player_id": "wta:221257",
+     "tour": "wta",
+     "season": 2026,
+     "sw_new": 6.7252,
+     "sw_without_layer": 6.7252,
+     "s0_7oct": 0.787,
+     "layer_part": 0.0,
+     "tables_part": 5.9382
+    },
+    {
+     "match_id": "wta|2026-2063|F|wta:210886|wta:211651",
+     "player_id": "wta:210886",
+     "tour": "wta",
+     "season": 2026,
+     "sw_new": 9.5895,
+     "sw_without_layer": 9.5895,
+     "s0_7oct": 4.4504,
+     "layer_part": 0.0,
+     "tables_part": 5.1391
+    },
+    {
+     "match_id": "wta|2026-2063|QF|wta:201709|wta:210886",
+     "player_id": "wta:210886",
+     "tour": "wta",
+     "season": 2026,
+     "sw_new": 7.5895,
+     "sw_without_layer": 7.5895,
+     "s0_7oct": 2.4504,
+     "layer_part": 0.0,
+     "tables_part": 5.1391
+    },
+    {
+     "match_id": "wta|2026-2063|R32|wta:210886|wta:213646",
+     "player_id": "wta:210886",
+     "tour": "wta",
+     "season": 2026,
+     "sw_new": 5.5895,
+     "sw_without_layer": 5.5895,
+     "s0_7oct": 0.4504,
+     "layer_part": 0.0,
+     "tables_part": 5.1391
+    },
+    {
+     "match_id": "wta|2026-2063|R16|wta:210886|wta:259733",
+     "player_id": "wta:210886",
+     "tour": "wta",
+     "season": 2026,
+     "sw_new": 6.5895,
+     "sw_without_layer": 6.5895,
+     "s0_7oct": 1.4504,
+     "layer_part": 0.0,
+     "tables_part": 5.1391
+    },
+    {
+     "match_id": "wta|2026-2063|SF|wta:210886|wta:220716",
+     "player_id": "wta:210886",
+     "tour": "wta",
+     "season": 2026,
+     "sw_new": 8.5895,
+     "sw_without_layer": 8.5895,
+     "s0_7oct": 3.4504,
+     "layer_part": 0.0,
+     "tables_part": 5.1391
+    },
+    {
+     "match_id": "wta|2026-2042|R16|wta:211843|wta:214604",
+     "player_id": "wta:214604",
+     "tour": "wta",
+     "season": 2026,
+     "sw_new": 6.2379,
+     "sw_without_layer": 6.2379,
+     "s0_7oct": 1.1165,
+     "layer_part": 0.0,
+     "tables_part": 5.1213
+    },
+    {
+     "match_id": "wta|2026-2042|R32|wta:214604|wta:215898",
+     "player_id": "wta:214604",
+     "tour": "wta",
+     "season": 2026,
+     "sw_new": 5.2379,
+     "sw_without_layer": 5.2379,
+     "s0_7oct": 0.1165,
+     "layer_part": 0.0,
+     "tables_part": 5.1213
+    }
+   ],
+   "largest_layer_part": [
+    {
+     "match_id": "atp|2025-322|R32|atp:123809|atp:124116",
+     "player_id": "atp:123809",
+     "tour": "atp",
+     "season": 2025,
+     "sw_new": 5.0029,
+     "sw_without_layer": 10.9561,
+     "s0_7oct": 10.9561,
+     "layer_part": -5.9532,
+     "tables_part": 0.0
+    },
+    {
+     "match_id": "atp|2017-7650|R32|atp:105051|atp:105216",
+     "player_id": "atp:105051",
+     "tour": "atp",
+     "season": 2017,
+     "sw_new": 2.5979,
+     "sw_without_layer": 7.4648,
+     "s0_7oct": 7.4648,
+     "layer_part": -4.8669,
+     "tables_part": 0.0
+    },
+    {
+     "match_id": "atp|2025-520|R128|atp:144895|atp:202127",
+     "player_id": "atp:202127",
+     "tour": "atp",
+     "season": 2025,
+     "sw_new": 2.3561,
+     "sw_without_layer": 6.8768,
+     "s0_7oct": 6.8768,
+     "layer_part": -4.5207,
+     "tables_part": 0.0
+    },
+    {
+     "match_id": "atp|2016-439|R32|atp:105426|atp:106210",
+     "player_id": "atp:105426",
+     "tour": "atp",
+     "season": 2016,
+     "sw_new": 2.1196,
+     "sw_without_layer": 6.1729,
+     "s0_7oct": 6.1729,
+     "layer_part": -4.0533,
+     "tables_part": 0.0
+    },
+    {
+     "match_id": "atp|2023-7434|R16|atp:105526|atp:126129",
+     "player_id": "atp:126129",
+     "tour": "atp",
+     "season": 2023,
+     "sw_new": 8.3877,
+     "sw_without_layer": 12.4365,
+     "s0_7oct": 12.4365,
+     "layer_part": -4.0487,
+     "tables_part": 0.0
+    },
+    {
+     "match_id": "atp|2023-7434|R32|atp:126129|atp:144817",
+     "player_id": "atp:126129",
+     "tour": "atp",
+     "season": 2023,
+     "sw_new": 7.3877,
+     "sw_without_layer": 11.4365,
+     "s0_7oct": 11.4365,
+     "layer_part": -4.0487,
+     "tables_part": 0.0
+    },
+    {
+     "match_id": "atp|2016-6120|R32|atp:105550|atp:106421",
+     "player_id": "atp:106421",
+     "tour": "atp",
+     "season": 2016,
+     "sw_new": 3.918,
+     "sw_without_layer": 7.7381,
+     "s0_7oct": 7.7381,
+     "layer_part": -3.8201,
+     "tables_part": 0.0
+    },
+    {
+     "match_id": "atp|2016-322|R32|atp:105807|atp:106426",
+     "player_id": "atp:106426",
+     "tour": "atp",
+     "season": 2016,
+     "sw_new": 2.0573,
+     "sw_without_layer": 5.8647,
+     "s0_7oct": 5.8647,
+     "layer_part": -3.8074,
+     "tables_part": 0.0
+    },
+    {
+     "match_id": "atp|2017-M007|R64|atp:104607|atp:126094",
+     "player_id": "atp:126094",
+     "tour": "atp",
+     "season": 2017,
+     "sw_new": 4.6987,
+     "sw_without_layer": 8.4955,
+     "s0_7oct": 8.4955,
+     "layer_part": -3.7968,
+     "tables_part": 0.0
+    },
+    {
+     "match_id": "atp|2017-M007|R128|atp:104252|atp:126094",
+     "player_id": "atp:126094",
+     "tour": "atp",
+     "season": 2017,
+     "sw_new": 3.6987,
+     "sw_without_layer": 7.4955,
+     "s0_7oct": 7.4955,
+     "layer_part": -3.7968,
+     "tables_part": 0.0
+    }
+   ],
+   "largest_tables_part": [
+    {
+     "match_id": "wta|2026-2042|R16|wta:221257|wta:221406",
+     "player_id": "wta:221257",
+     "tour": "wta",
+     "season": 2026,
+     "sw_new": 7.7252,
+     "sw_without_layer": 7.7252,
+     "s0_7oct": 1.787,
+     "layer_part": 0.0,
+     "tables_part": 5.9382
+    },
+    {
+     "match_id": "wta|2026-2042|R32|wta:221257|wta:221985",
+     "player_id": "wta:221257",
+     "tour": "wta",
+     "season": 2026,
+     "sw_new": 6.7252,
+     "sw_without_layer": 6.7252,
+     "s0_7oct": 0.787,
+     "layer_part": 0.0,
+     "tables_part": 5.9382
+    },
+    {
+     "match_id": "wta|2026-2063|F|wta:210886|wta:211651",
+     "player_id": "wta:210886",
+     "tour": "wta",
+     "season": 2026,
+     "sw_new": 9.5895,
+     "sw_without_layer": 9.5895,
+     "s0_7oct": 4.4504,
+     "layer_part": 0.0,
+     "tables_part": 5.1391
+    },
+    {
+     "match_id": "wta|2026-2063|QF|wta:201709|wta:210886",
+     "player_id": "wta:210886",
+     "tour": "wta",
+     "season": 2026,
+     "sw_new": 7.5895,
+     "sw_without_layer": 7.5895,
+     "s0_7oct": 2.4504,
+     "layer_part": 0.0,
+     "tables_part": 5.1391
+    },
+    {
+     "match_id": "wta|2026-2063|R32|wta:210886|wta:213646",
+     "player_id": "wta:210886",
+     "tour": "wta",
+     "season": 2026,
+     "sw_new": 5.5895,
+     "sw_without_layer": 5.5895,
+     "s0_7oct": 0.4504,
+     "layer_part": 0.0,
+     "tables_part": 5.1391
+    },
+    {
+     "match_id": "wta|2026-2063|R16|wta:210886|wta:259733",
+     "player_id": "wta:210886",
+     "tour": "wta",
+     "season": 2026,
+     "sw_new": 6.5895,
+     "sw_without_layer": 6.5895,
+     "s0_7oct": 1.4504,
+     "layer_part": 0.0,
+     "tables_part": 5.1391
+    },
+    {
+     "match_id": "wta|2026-2063|SF|wta:210886|wta:220716",
+     "player_id": "wta:210886",
+     "tour": "wta",
+     "season": 2026,
+     "sw_new": 8.5895,
+     "sw_without_layer": 8.5895,
+     "s0_7oct": 3.4504,
+     "layer_part": 0.0,
+     "tables_part": 5.1391
+    },
+    {
+     "match_id": "wta|2026-2042|R16|wta:211843|wta:214604",
+     "player_id": "wta:214604",
+     "tour": "wta",
+     "season": 2026,
+     "sw_new": 6.2379,
+     "sw_without_layer": 6.2379,
+     "s0_7oct": 1.1165,
+     "layer_part": 0.0,
+     "tables_part": 5.1213
+    },
+    {
+     "match_id": "wta|2026-2042|R32|wta:214604|wta:215898",
+     "player_id": "wta:214604",
+     "tour": "wta",
+     "season": 2026,
+     "sw_new": 5.2379,
+     "sw_without_layer": 5.2379,
+     "s0_7oct": 0.1165,
+     "layer_part": 0.0,
+     "tables_part": 5.1213
+    },
+    {
+     "match_id": "wta|2026-2012|R32|wta:202499|wta:223253",
+     "player_id": "wta:202499",
+     "tour": "wta",
+     "season": 2026,
+     "sw_new": 5.9486,
+     "sw_without_layer": 5.9486,
+     "s0_7oct": 0.9988,
+     "layer_part": 0.0,
+     "tables_part": 4.9497
+    }
+   ]
+  },
+  "a_tables_explained": [
+   {
+    "match_id": "wta|2026-2042|R16|wta:221257|wta:221406",
+    "player_id": "wta:221257",
+    "tour": "wta",
+    "season": 2026,
+    "sw_new": 7.7252,
+    "sw_without_layer": 7.7252,
+    "s0_7oct": 1.787,
+    "layer_part": 0.0,
+    "tables_part": 5.9382,
+    "box_rows_only_today": [
+     "wta|2026-W-WTAID-1127-2026|R32|wta:221257|wta:221626 (2026-06-08, CH, R32)",
+     "wta|2026-W-WTAID-1127-2026|R16|wta:221257|wta:236955 (2026-06-08, CH, R16)",
+     "wta|2026-2012|Q1|wta:202684|wta:221257 (2026-06-15, T500, Q1)",
+     "wta|2026-2017|Q1|wta:206124|wta:221257 (2026-06-21, T500, Q1)",
+     "wta|2026-2017|Q2|wta:213887|wta:221257 (2026-06-21, T500, Q2)",
+     "wta|2026-W-WTAID-2003-2026|R32|wta:214906|wta:221257 (2026-07-06, CH, R32)",
+     "wta|2026-W-WTAID-2003-2026|R16|wta:216385|wta:221257 (2026-07-06, CH, R16)",
+     "wta|2026-W-WTAID-2003-2026|QF|wta:201709|wta:221257 (2026-07-06, CH, QF)"
+    ],
+    "box_rows_only_2_oct": []
+   },
+   {
+    "match_id": "wta|2026-2042|R32|wta:221257|wta:221985",
+    "player_id": "wta:221257",
+    "tour": "wta",
+    "season": 2026,
+    "sw_new": 6.7252,
+    "sw_without_layer": 6.7252,
+    "s0_7oct": 0.787,
+    "layer_part": 0.0,
+    "tables_part": 5.9382,
+    "box_rows_only_today": [
+     "wta|2026-W-WTAID-1127-2026|R32|wta:221257|wta:221626 (2026-06-08, CH, R32)",
+     "wta|2026-W-WTAID-1127-2026|R16|wta:221257|wta:236955 (2026-06-08, CH, R16)",
+     "wta|2026-2012|Q1|wta:202684|wta:221257 (2026-06-15, T500, Q1)",
+     "wta|2026-2017|Q1|wta:206124|wta:221257 (2026-06-21, T500, Q1)",
+     "wta|2026-2017|Q2|wta:213887|wta:221257 (2026-06-21, T500, Q2)",
+     "wta|2026-W-WTAID-2003-2026|R32|wta:214906|wta:221257 (2026-07-06, CH, R32)",
+     "wta|2026-W-WTAID-2003-2026|R16|wta:216385|wta:221257 (2026-07-06, CH, R16)",
+     "wta|2026-W-WTAID-2003-2026|QF|wta:201709|wta:221257 (2026-07-06, CH, QF)"
+    ],
+    "box_rows_only_2_oct": []
+   },
+   {
+    "match_id": "wta|2026-2063|F|wta:210886|wta:211651",
+    "player_id": "wta:210886",
+    "tour": "wta",
+    "season": 2026,
+    "sw_new": 9.5895,
+    "sw_without_layer": 9.5895,
+    "s0_7oct": 4.4504,
+    "layer_part": 0.0,
+    "tables_part": 5.1391,
+    "box_rows_only_today": [
+     "wta|2026-W-WTAID-1171-2026|R32|wta:210886|wta:223410 (2026-06-08, CH, R32)",
+     "wta|2026-W-WTAID-1171-2026|R16|wta:210886|wta:220742 (2026-06-08, CH, R16)",
+     "wta|2026-W-WTAID-1170-2026|R32|wta:210886|wta:213779 (2026-06-15, CH, R32)",
+     "wta|2026-W-WTAID-1170-2026|R16|wta:210886|wta:221411 (2026-06-15, CH, R16)",
+     "wta|2026-W-WTAID-1170-2026|QF|wta:210886|wta:239456 (2026-06-15, CH, QF)",
+     "wta|2026-W-WTAID-1170-2026|SF|wta:210886|wta:260664 (2026-06-15, CH, SF)",
+     "wta|2026-W-WTAID-1170-2026|F|wta:210886|wta:216016 (2026-06-15, CH, F)",
+     "wta|2026-W-WTAID-2071-2026|R32|wta:210886|wta:236956 (2026-07-06, CH, R32)"
+    ],
+    "box_rows_only_2_oct": []
+   },
+   {
+    "match_id": "wta|2026-2063|QF|wta:201709|wta:210886",
+    "player_id": "wta:210886",
+    "tour": "wta",
+    "season": 2026,
+    "sw_new": 7.5895,
+    "sw_without_layer": 7.5895,
+    "s0_7oct": 2.4504,
+    "layer_part": 0.0,
+    "tables_part": 5.1391,
+    "box_rows_only_today": [
+     "wta|2026-W-WTAID-1171-2026|R32|wta:210886|wta:223410 (2026-06-08, CH, R32)",
+     "wta|2026-W-WTAID-1171-2026|R16|wta:210886|wta:220742 (2026-06-08, CH, R16)",
+     "wta|2026-W-WTAID-1170-2026|R32|wta:210886|wta:213779 (2026-06-15, CH, R32)",
+     "wta|2026-W-WTAID-1170-2026|R16|wta:210886|wta:221411 (2026-06-15, CH, R16)",
+     "wta|2026-W-WTAID-1170-2026|QF|wta:210886|wta:239456 (2026-06-15, CH, QF)",
+     "wta|2026-W-WTAID-1170-2026|SF|wta:210886|wta:260664 (2026-06-15, CH, SF)",
+     "wta|2026-W-WTAID-1170-2026|F|wta:210886|wta:216016 (2026-06-15, CH, F)",
+     "wta|2026-W-WTAID-2071-2026|R32|wta:210886|wta:236956 (2026-07-06, CH, R32)"
+    ],
+    "box_rows_only_2_oct": []
+   },
+   {
+    "match_id": "wta|2026-2063|R32|wta:210886|wta:213646",
+    "player_id": "wta:210886",
+    "tour": "wta",
+    "season": 2026,
+    "sw_new": 5.5895,
+    "sw_without_layer": 5.5895,
+    "s0_7oct": 0.4504,
+    "layer_part": 0.0,
+    "tables_part": 5.1391,
+    "box_rows_only_today": [
+     "wta|2026-W-WTAID-1171-2026|R32|wta:210886|wta:223410 (2026-06-08, CH, R32)",
+     "wta|2026-W-WTAID-1171-2026|R16|wta:210886|wta:220742 (2026-06-08, CH, R16)",
+     "wta|2026-W-WTAID-1170-2026|R32|wta:210886|wta:213779 (2026-06-15, CH, R32)",
+     "wta|2026-W-WTAID-1170-2026|R16|wta:210886|wta:221411 (2026-06-15, CH, R16)",
+     "wta|2026-W-WTAID-1170-2026|QF|wta:210886|wta:239456 (2026-06-15, CH, QF)",
+     "wta|2026-W-WTAID-1170-2026|SF|wta:210886|wta:260664 (2026-06-15, CH, SF)",
+     "wta|2026-W-WTAID-1170-2026|F|wta:210886|wta:216016 (2026-06-15, CH, F)",
+     "wta|2026-W-WTAID-2071-2026|R32|wta:210886|wta:236956 (2026-07-06, CH, R32)"
+    ],
+    "box_rows_only_2_oct": []
+   }
+  ],
+  "d_near_copies": {
+   "store": {
+    "sw_a": [
+     {
+      "column": "fp__f07_evidence_age__f07_s0_a",
+      "r": 0.9813,
+      "rows": 63626
+     },
+     {
+      "column": "fp__f13_uncertainty__shr_a",
+      "r": 0.7778,
+      "rows": 63626
+     },
+     {
+      "column": "pp__sets_14d_a",
+      "r": 0.7128,
+      "rows": 63607
+     },
+     {
+      "column": "fp__f23_arrival__bd10_fit_a",
+      "r": 0.705,
+      "rows": 63626
+     },
+     {
+      "column": "fp__f07_evidence_age__f07_form_rebuilt_a",
+      "r": 0.6643,
+      "rows": 63626
+     },
+     {
+      "column": "pp__adjperf_tpw_2w_a",
+      "r": 0.664,
+      "rows": 63493
+     }
+    ],
+    "sw_b": [
+     {
+      "column": "fp__f07_evidence_age__f07_s0_b",
+      "r": 0.9818,
+      "rows": 63626
+     },
+     {
+      "column": "fp__f13_uncertainty__shr_b",
+      "r": 0.7773,
+      "rows": 63626
+     },
+     {
+      "column": "pp__sets_14d_b",
+      "r": 0.7084,
+      "rows": 63603
+     },
+     {
+      "column": "fp__f23_arrival__bd10_fit_b",
+      "r": 0.7033,
+      "rows": 63626
+     },
+     {
+      "column": "fp__f07_evidence_age__f07_form_rebuilt_b",
+      "r": 0.6606,
+      "rows": 63626
+     },
+     {
+      "column": "pp__adjperf_tpw_2w_b",
+      "r": 0.6603,
+      "rows": 63494
+     }
+    ],
+    "r_a": [
+     {
+      "column": "fp__f13_uncertainty__shr_a",
+      "r": 0.9717,
+      "rows": 63626
+     },
+     {
+      "column": "fp__f07_evidence_age__f07_s0_a",
+      "r": 0.873,
+      "rows": 63626
+     },
+     {
+      "column": "fp__f07_evidence_age__f07_form_rebuilt_a",
+      "r": 0.7035,
+      "rows": 63626
+     },
+     {
+      "column": "pp__adjperf_tpw_2w_a",
+      "r": 0.7034,
+      "rows": 63493
+     },
+     {
+      "column": "fp__f23_arrival__bd10_fit_a",
+      "r": 0.6774,
+      "rows": 63626
+     },
+     {
+      "column": "pp__sets_14d_a",
+      "r": 0.6381,
+      "rows": 63607
+     }
+    ],
+    "r_b": [
+     {
+      "column": "fp__f13_uncertainty__shr_b",
+      "r": 0.9717,
+      "rows": 63626
+     },
+     {
+      "column": "fp__f07_evidence_age__f07_s0_b",
+      "r": 0.8722,
+      "rows": 63626
+     },
+     {
+      "column": "fp__f07_evidence_age__f07_form_rebuilt_b",
+      "r": 0.7004,
+      "rows": 63626
+     },
+     {
+      "column": "pp__adjperf_tpw_2w_b",
+      "r": 0.7003,
+      "rows": 63494
+     },
+     {
+      "column": "fp__f23_arrival__bd10_fit_b",
+      "r": 0.6755,
+      "rows": 63626
+     },
+     {
+      "column": "pp__sets_14d_b",
+      "r": 0.6328,
+      "rows": 63603
+     }
+    ],
+    "r_diff": [
+     {
+      "column": "m__sets_14d",
+      "r": 0.6952,
+      "rows": 63584
+     },
+     {
+      "column": "fi__B-LOAD__x",
+      "r": -0.6506,
+      "rows": 63626
+     },
+     {
+      "column": "fi__B-STATE__x",
+      "r": 0.6479,
+      "rows": 51393
+     },
+     {
+      "column": "fi__B-STATE__bdst_pastfat",
+      "r": 0.6478,
+      "rows": 51393
+     },
+     {
+      "column": "fi__B-LOAD__bd_fat3",
+      "r": 0.5931,
+      "rows": 63626
+     },
+     {
+      "column": "fi__B9b__bd9b_fat_composed",
+      "r": 0.5793,
+      "rows": 63626
+     }
+    ],
+    "sw_diff": [
+     {
+      "column": "m__sets_14d",
+      "r": 0.6737,
+      "rows": 63584
+     },
+     {
+      "column": "fi__B-STATE__x",
+      "r": 0.6335,
+      "rows": 51393
+     },
+     {
+      "column": "fi__B-STATE__bdst_pastfat",
+      "r": 0.6333,
+      "rows": 51393
+     },
+     {
+      "column": "fi__B-LOAD__x",
+      "r": -0.6234,
+      "rows": 63626
+     },
+     {
+      "column": "fi__B-LOAD__bd_fat3",
+      "r": 0.5545,
+      "rows": 63626
+     },
+     {
+      "column": "fi__B9b__bd9b_fat_composed",
+      "r": 0.5409,
+      "rows": 63626
+     }
+    ]
+   },
+   "model_inputs": {
+    "sw_a": [
+     {
+      "column": "in_surf_layoff_a",
+      "r": -0.5275,
+      "rows": 67226
+     },
+     {
+      "column": "in_round",
+      "r": 0.4289,
+      "rows": 67226
+     },
+     {
+      "column": "in_surf_season_a",
+      "r": 0.4005,
+      "rows": 67226
+     },
+     {
+      "column": "in_sets_14d",
+      "r": 0.347,
+      "rows": 67184
+     },
+     {
+      "column": "in_surf_layoff_b",
+      "r": -0.2977,
+      "rows": 67226
+     },
+     {
+      "column": "in_adjperf_tpw_2w",
+      "r": 0.217,
+      "rows": 66956
+     }
+    ],
+    "sw_b": [
+     {
+      "column": "in_surf_layoff_b",
+      "r": -0.5259,
+      "rows": 67226
+     },
+     {
+      "column": "in_round",
+      "r": 0.4259,
+      "rows": 67226
+     },
+     {
+      "column": "in_surf_season_b",
+      "r": 0.4012,
+      "rows": 67226
+     },
+     {
+      "column": "in_sets_14d",
+      "r": -0.3419,
+      "rows": 67184
+     },
+     {
+      "column": "in_surf_layoff_a",
+      "r": -0.2979,
+      "rows": 67226
+     },
+     {
+      "column": "in_surf_season_a",
+      "r": 0.2181,
+      "rows": 67226
+     }
+    ],
+    "r_a": [
+     {
+      "column": "in_tour",
+      "r": -0.5472,
+      "rows": 67226
+     },
+     {
+      "column": "in_surf_layoff_a",
+      "r": -0.4704,
+      "rows": 67226
+     },
+     {
+      "column": "in_surf_season_a",
+      "r": 0.3627,
+      "rows": 67226
+     },
+     {
+      "column": "in_round",
+      "r": 0.352,
+      "rows": 67226
+     },
+     {
+      "column": "in_sets_14d",
+      "r": 0.3067,
+      "rows": 67184
+     },
+     {
+      "column": "in_surf_layoff_b",
+      "r": -0.2548,
+      "rows": 67226
+     }
+    ],
+    "r_b": [
+     {
+      "column": "in_tour",
+      "r": -0.548,
+      "rows": 67226
+     },
+     {
+      "column": "in_surf_layoff_b",
+      "r": -0.4691,
+      "rows": 67226
+     },
+     {
+      "column": "in_surf_season_b",
+      "r": 0.3632,
+      "rows": 67226
+     },
+     {
+      "column": "in_round",
+      "r": 0.3494,
+      "rows": 67226
+     },
+     {
+      "column": "in_sets_14d",
+      "r": -0.3002,
+      "rows": 67184
+     },
+     {
+      "column": "in_surf_layoff_a",
+      "r": -0.255,
+      "rows": 67226
+     }
+    ],
+    "r_diff": [
+     {
+      "column": "in_sets_14d",
+      "r": 0.6976,
+      "rows": 67184
+     },
+     {
+      "column": "in_adjperf_tpw_2w",
+      "r": 0.3918,
+      "rows": 66956
+     },
+     {
+      "column": "in_form_brk",
+      "r": 0.3205,
+      "rows": 61850
+     },
+     {
+      "column": "in_form_rpw_first",
+      "r": 0.2827,
+      "rows": 66956
+     },
+     {
+      "column": "in_form_rpw_second",
+      "r": 0.2526,
+      "rows": 66956
+     },
+     {
+      "column": "in_form_hold",
+      "r": 0.2494,
+      "rows": 61850
+     }
+    ],
+    "sw_diff": [
+     {
+      "column": "in_sets_14d",
+      "r": 0.6756,
+      "rows": 67184
+     },
+     {
+      "column": "in_adjperf_tpw_2w",
+      "r": 0.4114,
+      "rows": 66956
+     },
+     {
+      "column": "in_form_brk",
+      "r": 0.3578,
+      "rows": 61850
+     },
+     {
+      "column": "in_form_rpw_first",
+      "r": 0.3164,
+      "rows": 66956
+     },
+     {
+      "column": "in_form_rpw_second",
+      "r": 0.2799,
+      "rows": 66956
+     },
+     {
+      "column": "in_form_hold",
+      "r": 0.2727,
+      "rows": 61850
+     }
+    ]
+   }
+  }
+ },
+ "seconds": 233.7
+}

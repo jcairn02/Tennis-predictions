@@ -18,7 +18,7 @@
     * the feed adds the women's 2026 surface layoffs;
     * the repair adds the women's 2013–2014 hold and break inputs (the filled service games its 10 Oct check recorded) and the women's 2026 forms (Roland Garros 2026's box scores).
   * The report's process log, `docs/studies/data_gaps_2026/process_log.md`, has the attribution.
-* **The replay check** (2026-07-13 R16, with Tennis My Life held as this build read it: the frozen view `C:/Users/zerom/tnr_dump_freeze_1014`, freeze 2026-10-14T04:12:16Z, set through `DP_FREEZE_DUMP`): <REPLAY>.
+* **The replay check** (2026-07-13 R16, with Tennis My Life held as this build read it: the frozen view `C:/Users/zerom/tnr_dump_freeze_1014`, freeze 2026-10-14T04:12:16Z, set through `DP_FREEZE_DUMP`): 23 matches, none missing from the frame; every IOS input equal; **18 of 23 matches equal on every input; 5 men's (Umag ×3, Båstad ×2) differ on the level layer's 15 Stage B forms by at most 4.5e-6**; the 8 women's equal bit for bit (`daily_prediction/runs/replay_2026-07-13_R16_20261014T075546/replay_compare.json`). The cause, as for the 13 Oct bridge (4 men's matches): option (c)'s shift is a mean over each season, and a replay drops the replayed events' later rounds (the process log's judgment call 8).
 
 ## Files
 

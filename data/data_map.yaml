@@ -159,7 +159,11 @@ datasets:
       Files Winston-Salem 2026 as a Masters event and some 2024 Challenger rows under 2007 dates. Measured
       against Sackmann and the official feeds (docs/studies/data_continuity/): women's aces and double faults of
       Dec 2024 - Feb 2026 are wrong in most rows; Wimbledon 2026 men's first serves in run six points above the
-      official feed; no women's qualifying, WTA 125, ITF or Challenger qualifying files.
+      official feed; no women's qualifying, WTA 125, ITF or Challenger qualifying files. Files some Challenger
+      editions of 2018-2025 under another edition's name and date (Irving 2018 as "Dallas", Biella 3-7 of 2021 as
+      "Biella 1"; docs/studies/p6_data_issues/): since 14 Oct 2026 the map gives those rows their own date from
+      Sackmann's twin or TennisLive's listing (measure.repair_tml_dates; 1,841 rows,
+      data/studies/data_map/tml_redated.csv), so each match is held once.
 
   - id: sackmann_archive
     name: Jeff Sackmann's tennis_atp and tennis_wta
@@ -235,31 +239,37 @@ datasets:
       result files; its statistics would raise the stats share of Challenger and ITF matches somewhat.
 
   - id: flashscore_points
-    name: Flashscore point-by-point feeds (ITF main draws, January 2025 to February 2026)
-    provider: Flashscore's live site (its df_mh point feed), asked by match id by the project's adapter
+    name: Flashscore point-by-point feeds (ITF main draws 2025-26; men's tour, qualifying and Challenger matches 2018-24)
+    provider: Flashscore's live site (its df_mh point feed), asked by match id by the project's adapters
     what: >-
-      Flashscore's point records of the ITF main-draw singles matches SofaScore lacks (work package P13): for each
-      game the server, the winner and the score after each point, with break-, set- and match-point marks, and
-      tiebreaks point by point. No ace or double-fault codes. The match ids come from the Flashscore handoff copy on
-      disk (entry flashscore), linked to the gap itf_points_2025_2026's frozen targets.
+      Flashscore's point records of matches SofaScore lacks: for each game the server, the winner and the score after
+      each point, with break-, set- and match-point marks, and tiebreaks point by point. No ace or double-fault codes.
+      The match ids come from the Flashscore handoff copy on disk (entry flashscore). Work package P13 (14-15 Oct
+      2026): the ITF main draws of January 2025 to February 2026 (gap itf_points_2025_2026), a record for 27,535 of the
+      42,876 targets (27,174 complete to the score); 24,887 of the 24,973 checkable records agree with the official
+      result on the winner and every set. The P6 data issues (16 Oct 2026): the 3,480 targets of P6's gaps without a
+      SofaScore point record whose copy lists the point tab, mostly ATP qualifying of 2018-20 and Challengers of
+      2020-23: a record for 3,479 (3,424 complete to the score); 3,171 agree with the official result, and the 155
+      links it contradicts (another match taken for the target) are not placed.
     grain: point
     tours: [men, women]
-    levels: [ITF]
-    years: 2025-2026
-    status: downloading
+    levels: [GS, T1000, T500, T250, TQ, CH, CHQ, ITF]
+    years: 2018-2026
+    status: on_disk
     how: api_scrape
     measured_as: [flashscore_points]
     raw: [data/raw/point_sources/flashscore_points/]
     staged: [data/dump/points/flashscore_points/]
-    adapter: src/ingest/point_sources/flashscore_points.py
-    evidence: data/studies/gap_downloads/
-    report: docs/studies/gap_downloads/README.md
+    adapter: [src/ingest/point_sources/flashscore_points.py, src/ingest/point_sources/flashscore_p6.py]
+    evidence: [data/studies/gap_downloads/, data/studies/p6_data_issues/flashscore/]
+    report: [docs/studies/gap_downloads/README.md, docs/studies/p6_data_issues/README.md]
     decision: docs/decisions/2026-10-08-scraping-approved.md
     rights: Flashscore's terms forbid automated extraction; collected on the owner's decision of 8 Oct 2026
     notes: >-
       Added on 14 Oct 2026 (UTC) at the owner's word, after P7 found SofaScore empty for these months
-      (docs/research/gap-sources/itf_2025_points.md). Per target:
-      data/studies/gap_downloads/flashscore_itf_points_2025_2026_matches.csv.gz.
+      (docs/research/gap-sources/itf_2025_points.md); P6's matches added on 16 Oct 2026 at the owner's word. Per
+      target: data/studies/gap_downloads/flashscore_itf_points_2025_2026_matches.csv.gz (P13) and
+      data/studies/p6_data_issues/flashscore/fetch_matches.csv.gz (P6; link_refused marks the links not placed).
 
   - id: atp_scraped_enriched
     name: ATP-site results with per-set statistics (Hugging Face handoff)
@@ -363,6 +373,77 @@ datasets:
       8 Oct 2026: the same rows as v1.0.0, every other byte equal, with scheduled_time_utc and timestamp_utc moved back
       2-3 hours to UTC (checked row by row). The staged tables carry _zenodo_version, and their readers convert only
       v1.0.0's times.
+
+  - id: rolandgarros_stats
+    name: Roland-Garros's own match statistics, 2019-2026
+    provider: rolandgarros.com's plain match API (the JSON its match pages load; not encrypted), asked by match code
+    what: >-
+      One document per singles match of Roland-Garros 2019-2026, main draw and qualifying, men and women: the draw,
+      round, court, duration, schedule day and end time, the players, set scores with tie-breaks, the winner and how the
+      match ended, and RG's statistics for the match and each set (aces, double faults, first serves in, points won on
+      first and second serve, break points, receiving points, net points, winners, unforced errors, total points, serve
+      speeds).
+    grain: stats
+    tours: [men, women]
+    levels: [GS, GSQ]
+    years: 2019-2026
+    status: on_disk
+    how: api_scrape
+    measured_as: [rolandgarros]
+    raw: [data/raw/point_sources/rolandgarros/]
+    staged: [data/dump/points/rolandgarros/]
+    adapter: src/ingest/point_sources/rolandgarros.py
+    evidence: data/studies/rg_first_serve_recount/
+    report: docs/studies/rg_first_serve_recount/README.md
+    decision: docs/decisions/2026-10-09-roland-garros-box-scores.md
+    rights: Terms not recorded; collected under the owner's scraping decision of 8 Oct 2026
+    backup: No copy outside this PC; the site still answered on 9 Oct 2026.
+    notes: >-
+      Fetched on 9 Oct 2026, about 2 s apart with receipts: 3,824 match codes, 3,768 documents, and 56 codes of women's
+      qualifying 2019-2020 that the site does not hold. Staged as matches.parquet (one row per code) and
+      statistics.parquet (one row per statistic per set). The source of the Roland-Garros repair: RG's box scores of
+      2022-2026 replace the result files' in 1,541 matches through the decided table
+      data/studies/data_continuity/slam_box_overrides.csv, applied to the live tables on 13 Oct 2026 and in the model
+      from the build of 14 Oct. Catalogued on 14 Oct 2026 at the owner's request; measured on the map's grid since
+      16 Oct 2026, also at the owner's request: one stats row per played code (walkovers left out, measure.py
+      load_rolandgarros), placed within its own edition as every Grand Slam row is (measure.py slam_place). On the
+      measurement of 16 Oct (22:12 UTC) all 3,748 codes are on known matches; the qualifying matches it first added
+      (RG 2021: 2, RG 2022: 1, RG 2026: 3) are now made by the result files' own rows, which no longer go to the same
+      pairs' meetings at other events. It raised no match's best grain, since every one already had points or shots
+      from another source.
+
+  - id: infosys_atp_daily
+    name: ATP Stats Centre key statistics, current season, collected daily (decrypted)
+    provider: >-
+      The files atptour.com's Stats Centre pages load from itp-atp-sls.infosys-platforms.com (the keystats route), kept
+      as served and decrypted at staging
+    what: >-
+      The current season's key-statistics file of each ATP tour-level and Challenger singles match (Slams and team events
+      left out), with the serve speeds the serve-speed adjustment reads. Asked each morning for the rounds Tennis My Life
+      lists as played since the last run.
+    grain: stats
+    tours: [men]
+    levels: [FIN, T1000, T500, T250, CH]
+    years: 2026 (daily from 8 Oct 2026)
+    status: on_disk
+    how: decrypted
+    measured_as: []
+    raw: [data/raw/point_sources/infosys_atp_daily/]
+    staged: null
+    adapter: src/eda/serve_speed_tabpfn/live/atp_daily.py, src/ingest/speed_daily.py
+    evidence: data/studies/serve_speed_tabpfn/live/
+    report: docs/studies/serve_speed_tabpfn/README.md
+    decision: docs/decisions/2026-10-07-speed-nudge.md
+    rights: >-
+      atptour.com's terms forbid systematic retrieval; collected and decrypted under the owner's decision of 8 Oct 2026
+      (its clarification: the daily collector decrypts the current season's files)
+    backup: No copy outside this PC.
+    notes: >-
+      Run by the daily scheduled job "speeds" (src/ingest/scheduled.py; at most 200 requests a day). The collector refuses
+      to decrypt anything of 2015-2021 or under infosys_atp/ (the encrypted backfill). Staged by the live serve-speed
+      pipeline, not into data/dump/: data/studies/serve_speed_tabpfn/live/staging/atp_daily_<date>.parquet, then the live
+      speed panel and each player's 28-day speed form. On 14 Oct 2026 it held 101 files, all of one event (5014,
+      Shanghai). Catalogued on 14 Oct 2026 at the owner's request.
 
   # ---------------------------------------------------------------- point by point
   - id: slam_pbp_archive
@@ -867,6 +948,37 @@ datasets:
       Not staged; the map reads its JSON lines. It appends one extra point to 99.5% of tie-breaks, credited to the
       tie-break's winner: drop it before using the points. A subset of what SofaScore itself serves.
 
+  - id: olympics_2024
+    name: Paris 2024 Olympic tennis results files (Wayback copies)
+    provider: olympics.com's per-match results documents (OG2024, RES_ByRSC_H2H), as the Internet Archive captured them
+    what: >-
+      125 of the 128 singles matches of the Paris 2024 Olympics (men 64, women 61), played at Roland-Garros: the status,
+      the set scores, each player's statistics per set and for the match (first serves in with points won, second serves,
+      aces, double faults, break points, receiving points ...) and a play-by-play naming each point's serve and how it
+      ended.
+    grain: point
+    tours: [men, women]
+    levels: [TEAM]
+    years: "2024"
+    status: on_disk
+    how: wayback
+    measured_as: []
+    raw: [data/raw/point_sources/olympics/]
+    staged: [data/dump/points/olympics/]
+    adapter: src/ingest/point_sources/olympics.py
+    evidence: data/studies/rg_first_serve_recount/
+    report: docs/studies/rg_first_serve_recount/README.md
+    decision: docs/decisions/2026-10-08-scraping-approved.md
+    rights: olympics.com's documents as the Internet Archive keeps them; terms not recorded
+    backup: olympics.com no longer serves them (HTTP 404 on 9 Oct 2026); the Wayback Machine's captures remain.
+    notes: >-
+      Fetched on 9 Oct 2026: 127 requests, two capture lists and the latest capture of each of 125 documents (English
+      first). Staged as units.parquet, stats.parquet and pbp.parquet (16,770 play-by-play actions). Collected for the
+      Roland-Garros first-serve recount as an independent record, since the Games were played at Roland-Garros and
+      Sackmann's rows show the same first-serve fault there. The decision of 9 Oct 2026 covers Roland-Garros only, so no
+      table was changed from these files. Not measured on the map's grid. Catalogued on 14 Oct 2026 at the owner's
+      request.
+
   # ---------------------------------------------------------------- shot by shot
   - id: match_charting_project
     name: Match Charting Project
@@ -1004,7 +1116,11 @@ datasets:
       serves (232,965 of 235,725 points carry a speed); RG key statistics for 941. The 17 codes without a file
       are played matches the hosts do not serve. The study links the matches to Stage 0 (all but RG 2026
       women's qualifying, which Stage 0 lacks) and measures what they add to serve speed; the map counts every
-      match with points. The AO 2025 points equal SirGenkii's copy of the same matches point for point.
+      match with points. The AO 2025 points equal SirGenkii's copy of the same matches point for point. Since 16 Oct
+      2026 (owner's request) the map places each match within its own edition, as every Grand Slam row (measure.py
+      slam_place, with full names): on the measurement of 16 Oct (22:12 UTC) all 1,410 rows are on known matches,
+      among them 4 qualifying matches (AO 2025: 1, RG 2026: 3) whose points the generic matching had put on the same
+      pairs' meetings at Brisbane, Oeiras, Indian Harbour Beach and Tokyo.
 
   - id: infosys_atp
     name: ATP Stats Centre Infosys files, 2018 to October 2021 (decrypted)
@@ -1049,6 +1165,76 @@ datasets:
       Checks (data/studies/infosys_atp_backfill/checks.json): the same two players and winner as ManTennisData on
       every match, and identical to the Hugging Face handoff's decrypted copy wherever both hold a match. A double
       fault is coded "P" or "DF"; the rally analysis cuts speeds to whole km/h, MatchBeats rounds them.
+
+  - id: infosys_challengers
+    name: ATP Stats Centre Infosys files, Challengers 2021-2024 (decrypted)
+    provider: >-
+      The files atptour.com's Stats Centre pages load from itp-atp-sls.infosys-platforms.com, kept exactly as
+      served (in infosys_atp's raw folder, told apart by their receipts' purpose) and decrypted offline
+    what: >-
+      Challenger singles of 2021-2024 that SofaScore lacks and the Hugging Face copy holds without point files:
+      MatchBeats (every point: server, serve number, speed, ending, stroke) and rally analysis. The host wrote these
+      files in May-October 2026, after the copy was made; a probe of 26 found all 26.
+    grain: point
+    tours: [men]
+    levels: [CH, CHQ]
+    years: 2021 to 2024
+    status: on_disk
+    how: decrypted
+    measured_as: [infosys_challengers]
+    raw: [data/raw/point_sources/infosys_atp/]
+    staged: [data/dump/points/infosys_challengers/]
+    adapter: src/ingest/point_sources/infosys_challengers.py
+    evidence: data/studies/p6_data_issues/infosys_challengers/
+    report: docs/studies/p6_data_issues/README.md
+    decision: docs/decisions/2026-10-14-p6-data-issues.md
+    rights: >-
+      atptour.com's terms forbid systematic retrieval; collected and decrypted under the owner's decision of
+      8 Oct 2026 (scraping approved, decryption included)
+    backup: >-
+      The only copy. The host rewrites its files and may drop them. No copy outside this PC.
+    notes: >-
+      Downloaded 14 Oct 2026 (src/ingest/point_sources/infosys_challengers.py): 2,360 match codes of P6's targets,
+      MatchBeats and rally analysis each. Staged on their own (src/ingest/point_sources/infosys_challengers_stage.py)
+      and kept out of data/dump/points/infosys_atp/, which the serve-speed backfill reads (the owner's decision of
+      14 Oct 2026): infosys_atp_decrypt and infosys_atp_stage leave these receipts' purposes out.
+
+  - id: infosys_atp_recent
+    name: ATP Stats Centre Infosys files, 2025-2026, tour level and Challengers (decrypted)
+    provider: >-
+      The files atptour.com's Stats Centre pages load from itp-atp-sls.infosys-platforms.com, kept exactly as served
+      and decrypted at staging (work package P9 of docs/studies/gap_downloads/collection-plan.md)
+    what: >-
+      ATP tour-level and Challenger singles of 2025-2026, main draws and qualifying: MatchBeats (every point: server,
+      serve number, serve speed and a first-serve fault's speed where the event recorded them, ending, stroke, rally
+      counts, the match clock), key statistics per set (the box score; maximum and average serve speeds where
+      recorded), rally analysis (serve direction, court side) and Court Vision (Hawk-Eye ball tracking per point, at
+      the events that publish it). The 2026 key statistics the daily speed collector holds are read from its folder,
+      not fetched again.
+    grain: shot
+    tours: [men]
+    levels: [FIN, T1000, T500, T250, TEAM, TQ, CH, CHQ]
+    years: 2025 to 2026
+    status: downloading
+    how: decrypted
+    measured_as: [infosys_atp_recent]
+    raw: [data/raw/point_sources/infosys_atp_recent/]
+    staged: [data/dump/points/infosys_atp_recent/]
+    adapter: src/ingest/point_sources/infosys_atp_recent.py
+    evidence: data/studies/serve_speed_acquisition/
+    report: docs/studies/serve_speed_acquisition/README.md
+    decision: docs/decisions/2026-10-08-scraping-approved.md
+    rights: >-
+      atptour.com's terms forbid systematic retrieval; collected and decrypted under the owner's decision of
+      8 Oct 2026 (scraping approved, decryption included, every edition)
+    backup: >-
+      The only copy. The host rewrites its files and may drop them. No copy outside this PC.
+    notes: >-
+      Started 16 Oct 2026 (a trial of 5 events, then the bulk). Kept apart from data/dump/points/infosys_atp/, which
+      the serve-speed history reads: its own raw folder and tables, and a staging guard that refuses the 2015-2021
+      backfill's folder and any year before 2022. Serve speeds exist only where the event recorded them: by
+      ManTennisData's copy of the same key statistics, about 4,200 of the 24,961 planned matches (Masters about 95%,
+      250s and 500s 38-52%, Challengers under 8%).
 
   - id: mantennisdata
     name: ManTennisData (ATP Stats Centre match statistics with serve speeds)
@@ -1184,6 +1370,36 @@ datasets:
     rights: No explicit licence
     notes: No odds exist in any public file below the main tours.
 
+  - id: tennis_data_couk_indoor_copy
+    name: tennis-data.co.uk workbooks, downloaded again for the indoor input (10 Oct 2026)
+    provider: tennis-data.co.uk's relaunched site (its data.php listing), the publisher of tennis_data_couk
+    what: >-
+      Every season workbook again, ATP 2000-2026 and WTA 2007-2026 (47 files), kept beside the shared copy so that the
+      candidate builds reading data/dump/odds/tennis_data_couk/ that day were not changed mid-run, and compared with it:
+      43 the same bytes, ATP 2026 with 62 rows appended, and ATP 2002, 2004 and 2006 not in the shared copy. The
+      comparison measured what restaging the shared copy would add to the Court column (indoor or outdoor) the indoor
+      input reads.
+    grain: market
+    tours: [men, women]
+    levels: [GS, FIN, T1000, T500, T250]
+    years: 2000-2026 (men), 2007-2026 (women)
+    status: on_disk
+    how: site_files
+    measured_as: []
+    raw: [data/raw/indoor_fill/tennis_data_couk/]
+    staged: null
+    adapter: src/eda/indoor_fill/snapshot.py
+    evidence: data/studies/indoor_fill/
+    report: docs/studies/indoor_fill/README.md
+    decision: docs/decisions/2026-10-09-indoor-input.md
+    rights: No explicit licence, as tennis_data_couk
+    notes: >-
+      Fetched on 10 Oct 2026 (00:42-00:44 UTC, 2.5 s apart, with receipts), with the listing page and the site's notes
+      under docs/. Not staged and not read by the model: the indoor input reads tennis-data's Court through Stage 1's link
+      to the shared copy, which the routine refresh (src/ingest/refresh_odds.py) restages when no build reads it.
+      data/studies/indoor_fill/snapshot.json lists the comparison and the rows the shared copy lacks. Catalogued on
+      14 Oct 2026 at the owner's request.
+
   - id: oddstrader
     name: BetOnline tennis opening and last lines (OddsTrader)
     provider: oddstrader.com's own odds service (undocumented GraphQL, no login)
@@ -1215,6 +1431,157 @@ datasets:
       matches, but 587 are flagged uncertain (stamped over 30 minutes after the listed start, or not a
       two-sided market). betonline_matches.parquet has one row per match with the flags. Line history is not
       pulled.
+
+  - id: pinnacle
+    name: Pinnacle's current tennis lines (the bet-day price recorder)
+    provider: >-
+      pinnacle.com's public guest API (guest.api.arcadia.pinnacle.com), which its own pages read, with the key from the
+      site's public configuration; no login
+    what: >-
+      Every tennis matchup Pinnacle lists at the moment of a pull, with its main-market prices: the match moneyline, the
+      start time, league and round, whether it is in play, and the stake limit. Pinnacle's current line with the margin
+      removed is the model's odds input at bet time (BetOnline's while Pinnacle has none). Pulled when a bet day runs
+      (the notebook's record_pinnacle step), at most once a minute.
+    grain: market
+    tours: [men, women]
+    levels: [T1000, T500, T250, TQ, CH, CHQ, ITF]
+    years: from 11 Oct 2026
+    status: on_disk
+    how: api_scrape
+    measured_as: []
+    raw: [data/raw/pinnacle/]
+    staged: [data/dump/odds/pinnacle/]
+    adapter: src/ingest/pinnacle.py
+    evidence: null
+    report: docs/studies/master_pipeline/README.md
+    decision: docs/decisions/2026-10-09-pinnacle-first-odds-input.md
+    rights: Terms not recorded; read under the owner's scraping decision of 8 Oct 2026. Never republish
+    notes: >-
+      Raw: one folder per UTC day with <HHMMSSZ>_matchups.json.gz and <HHMMSSZ>_straight.json.gz per pull, receipts in
+      _receipts.jsonl, and probe/ (the five answers of the 9 Oct 2026 probe that found the route: the site's
+      configuration, its script, a tennis page and the two listings). Staged: pulls/<UTC day>/<HHMMSSZ>.parquet, one row
+      per matchup; only pre-match prices are marked usable (in-play, alternate, closed, special and doubles markets are
+      not). By 14 Oct 2026: 5 pulls (11, 13 and 14 Oct UTC), 698 matchups of the ATP, WTA, Challenger, WTA 125 and ITF
+      tours. Each new day's folder falls under this entry. Catalogued on 14 Oct 2026 at the owner's request.
+
+  - id: tennisexplorer
+    name: Every listed book's match-winner prices with their history, Pinnacle's among them (TennisExplorer)
+    provider: tennisexplorer.com's public pages (server-rendered HTML, no login, no key)
+    what: >-
+      For every finished main-draw singles match of the ATP and WTA tour-level events (Slams, 1000s, 500s, 250s and the
+      Finals; not team events, qualifying, Challengers or ITF) from January 2025: the match-winner prices of about 15
+      books, Pinnacle's among them, with each side's last price, every change with its time and the opening price with
+      its time; and the match's date, listed start, round, full names and score. Pulled 21-22 Oct 2026 for the
+      Pinnacle closes missing since Pinnacle's public API closed (23 Jul 2025): the gap (1 Aug 2025 on) first, then
+      January - July 2025 to check the site's prices against Pinnacle's own closes; 9,844 match pages, no block.
+    grain: market
+    tours: [men, women]
+    levels: [GS, FIN, T1000, T500, T250]
+    years: January 2025 - October 2026
+    status: on_disk
+    how: page_scrape
+    measured_as: []
+    raw: [data/raw/tennisexplorer/, data/raw/pinnacle_gap/]
+    staged: [data/dump/odds/tennisexplorer/]
+    adapter: src/ingest/tennisexplorer.py
+    evidence: data/studies/pinnacle_gap/
+    report: docs/research/pinnacle-gap/README.md
+    decision: docs/decisions/2026-10-08-scraping-approved.md
+    rights: Terms not recorded; read under the owner's scraping decision of 8 Oct 2026. Never republish
+    notes: >-
+      Raw: calendar/, events/<year>/<tour>/<slug>.html.gz and matches/<id // 10000>/<id>.html.gz, receipts in
+      _receipts.jsonl; data/raw/pinnacle_gap/ holds the research probes and samples (receipts there too). Staged:
+      events, matches, odds (one row per match and book), moves (every change) and link (the model frame's match_id to
+      the site's match, with Pinnacle's last prices for A and B). Times on the site are Europe/Berlin's (shown as
+      "GMT+1", summer time observed), stored in UTC. Pinnacle's rows of Aug - Oct 2025 are mostly untimed (one price, the
+      number tennis-data's PSW/PSL carry); from November 2025 they carry times again. Catalogued on 21 Oct 2026. Since 21 Oct 2026 the model's odds step (current_best_model/odds_input.py, rule 2026-10-21) trains on its time-stamped Pinnacle closes from 1 Nov 2025 at the next retrain, leaving out the site's own errors (a Pinnacle row far from its other books, or a page the wrong way round), and the daily task's pinnacle_closes job keeps the pages current (src/ingest/scheduled.py).
+
+  - id: odds_probe
+    name: Which site holds bookmakers' odds below the tour level (work package P11's probe)
+    provider: betexplorer.com, oddsportal.com and tennisexplorer.com, their public pages and the feeds those pages load
+    what: >-
+      The answers of a probe of at most 500 requests on a seeded sample of the map's Challenger, WTA 125 and ITF matches
+      (one week each of 2019, 2022, 2025 and 2026; 6,043 matches): each site's day listings and, for a few matches per
+      level and year, the match's odds by book (closing price and its time, Pinnacle or not, opening). BetExplorer: 141
+      requests on 22 Oct 2026; OddsPortal: 24 (its scripts, two day feeds, stopped at its anti-bot layer).
+    grain: market
+    tours: [men, women]
+    levels: [CH, CHQ, ITF, ITFQ]
+    years: 2019, 2022, 2025, 2026 (one week each)
+    status: on_disk
+    how: sample_reads
+    measured_as: []
+    raw: [data/raw/odds_probe/]
+    staged: null
+    adapter: src/eda/gap_downloads/odds_probe.py
+    evidence: data/studies/gap_downloads/
+    report: docs/studies/gap_downloads/README.md
+    decision: docs/decisions/2026-10-08-scraping-approved.md
+    rights: Terms not recorded; read under the owner's scraping decision of 8 Oct 2026. Never republish
+    notes: >-
+      Raw: betexplorer/{day,odds,history}/, oddsportal/{day,js,feed,match}/ and tennisexplorer/{day,match}/, each with
+      _receipts.jsonl. Evidence (counts and flags, no price): odds_probe_sample.csv and .json, odds_probe_<site>.csv.gz
+      and .json. OddsPortal's feeds are encrypted; the page's own decryption is in odds_probe's notes. Catalogued on
+      22 Oct 2026.
+
+  - id: pinnacle_capture
+    name: Pinnacle's tennis listing every 10 minutes (work package P11's forward-capture test)
+    provider: >-
+      pinnacle.com's public guest API (guest.api.arcadia.pinnacle.com), read as the bet-day recorder reads it
+      (src/ingest/pinnacle.py), into its own folders
+    what: >-
+      Every tennis matchup Pinnacle lists at each pull, tour level, Challenger, WTA 125 and ITF, with the match moneyline,
+      the listed start, whether it is in play and the stake limit; a pull every 10 minutes for 36 hours from 04:50 UTC on
+      22 Oct 2026. Each matchup's last pre-start price is the captured close, compared with TennisExplorer's record of
+      the same matches after play.
+    grain: market
+    tours: [men, women]
+    levels: [T1000, T500, T250, CH, CHQ, ITF, ITFQ]
+    years: from 22 Oct 2026 (a 36-hour test)
+    status: downloading
+    how: api_scrape
+    measured_as: []
+    raw: [data/raw/pinnacle_capture/]
+    staged: [data/dump/odds/pinnacle_capture/]
+    adapter: src/eda/gap_downloads/pinnacle_capture.py
+    evidence: data/studies/gap_downloads/
+    report: docs/studies/gap_downloads/README.md
+    decision: docs/decisions/2026-10-08-scraping-approved.md
+    rights: Terms not recorded; read under the owner's scraping decision of 8 Oct 2026. Never republish
+    notes: >-
+      Kept apart from the bet-day recorder's folders (data/raw/pinnacle/, data/dump/odds/pinnacle/), whose newest file
+      the bet-day path reads. Raw: <UTC day>/<HHMMSSZ>_{matchups,straight}.json.gz, _receipts.jsonl, _logs/. Staged:
+      pulls/<UTC day>/<HHMMSSZ>.parquet, one row per matchup. Catalogued on 22 Oct 2026.
+
+  - id: tennisexplorer_lower
+    name: Bookmakers' match-winner prices below the tour level, Pinnacle's among them (TennisExplorer, work package P11)
+    provider: tennisexplorer.com's public pages (server-rendered HTML, no login, no key)
+    what: >-
+      Every singles match of the Challengers, WTA 125s and ITF events (main draws and qualifying) that the site's daily
+      results list with bookmakers' prices, from yesterday back to January 2018, newest first: each day's results (every
+      listed match with the books' average last price), and each priced match's page (about 2-16 books, Pinnacle on
+      most Challenger and WTA 125 matches and on more than half of ITF main-draw matches: each side's last price,
+      every change with its time, the opening with its time). Chosen over BetExplorer and OddsPortal by P11's probe.
+    grain: market
+    tours: [men, women]
+    levels: [CH, CHQ, ITF, ITFQ]
+    years: 2018 - October 2026 (downloading, newest first)
+    status: downloading
+    how: page_scrape
+    measured_as: []
+    raw: [data/raw/tennisexplorer_lower/]
+    staged: [data/dump/odds/tennisexplorer_lower/]
+    adapter: src/ingest/tennisexplorer_lower.py
+    evidence: data/studies/gap_downloads/
+    report: docs/studies/gap_downloads/README.md
+    decision: docs/decisions/2026-10-08-scraping-approved.md
+    rights: Terms not recorded; read under the owner's scraping decision of 8 Oct 2026. Never republish
+    notes: >-
+      Kept apart from the tour-level adapter's folders (data/raw/tennisexplorer/), whose staging feeds the model's odds
+      input. Raw: day/<atp|wta>/<YYYY>/<YYYY-MM-DD>.html.gz, calendar/<tour>_<year>.html.gz,
+      matches/<id // 10000>/<id>.html.gz, _receipts.jsonl, _state/done_days.txt, _logs/. Staged, one file per month and
+      table, every column a string: listed/, matches/, odds/, moves/. Times on the site are Europe/Berlin's, stored in
+      UTC. Catalogued on 22 Oct 2026.
 
   # ---------------------------------------------------------------- reference and older copies
   - id: atp_handoff_other
@@ -1372,6 +1739,34 @@ datasets:
       Samples, not collections: they measured what each source holds (the universe section of the map), and are not
       counted as data held. The Hawk-Eye and SirGenkii copies used for data are the public_dump ones.
 
+  - id: itf_2025_point_probes
+    name: ITF 2025 point-source probes (13 Oct 2026)
+    provider: Flashscore's live site, the ITF's live-data API (Stadion) and itftennis.com's own API, a few documents each
+    what: >-
+      The answers behind the search for ITF point records of January 2025 to February 2026, which SofaScore lacks:
+      Flashscore's point feeds (df_mh) of 8 sample matches (4 empty) and one match page; 5 requests asking whether the
+      ITF's live-data API can list a 2025 event's matches (it lists only the last 14 days and has no draw or event
+      resource); and itftennis.com's calendar and event filters for W75 Zagreb 2025, read inside a Chrome tab, until its
+      draw sheet was refused (HTTP 403).
+    grain: reference
+    tours: [men, women]
+    levels: [ITF]
+    years: 2025 (samples)
+    status: on_disk
+    how: sample_reads
+    measured_as: []
+    raw: [data/raw/gap_sources/flashscore_itf_2025/, data/raw/point_sources/itf_site_probe/, data/raw/point_sources/itf_stadion_probe/]
+    staged: null
+    adapter: src/eda/gap_downloads/itf_stadion_probe.py, src/eda/gap_downloads/itf_site_probe.py
+    evidence: data/studies/gap_downloads/
+    report: docs/research/gap-sources/itf_2025_points.md
+    rights: Read as bounded measurements; see each source's entry
+    notes: >-
+      Samples, not collections. The Flashscore answers were read by a research subagent and copied here unchanged on
+      13 Oct 2026; they led to work package P13 (entry flashscore_points). The two ITF probes wrote
+      data/studies/gap_downloads/itf_stadion_probe.json and itf_site_probe.json. Catalogued on 14 Oct 2026 at the
+      owner's request.
+
   - id: inherited_snapshots
     name: Inherited June 2026 downloads
     provider: The earlier one-shot scaffold's downloaders
@@ -1420,29 +1815,96 @@ in_progress:
         from January 2025 to February 2026: its listings flag almost every event of that window coverage -1, and every
         February 2026 match asked was absent (HTTP 404). At the owner's choice the first run was stopped at 22:27 UTC
         (about 28,830 requests; points for 19,395 matches), and a second run with --defer-uncovered started at 22:33
-        UTC: the flagged events wait until the end of P7.
+        UTC: the flagged events wait until the end of P7. A Windows Update restart (14 Oct 07:29 UTC) stopped it; a third
+        run resumed at 14:06 UTC. itf_points_2025_2026 done but the deferred at 00:10 UTC on 15 Oct: 62,727 of 63,334
+        linked, every point for 19,411 (18,944 complete), 8,007 absent, 35,309 deferred, box scores 23,378 (the
+        reduced 2026 set). Link check: 48,253 agree, 49 another winner, 13,904 no official row. Staged, map rebuilt
+        (01:04 UTC) and refresh.py --sources sofascore run (01:15 UTC). itf_detail's first run started at 00:47 UTC on
+        15 Oct (--defer-uncovered); log run_20261015T004743Z_itf_detail.log. Its listing ended at about 12:55 UTC
+        (about 17,300 requests): 202,253 of 207,045 targets linked to 201,141 events, none flagged coverage -1 (nothing
+        deferred). The first run used its budget at 21:47 UTC on 15 Oct (exit 1, no block): point records asked for
+        12,500 of the 201,141 events, newest first, back to 19 Aug 2024; 12,525 targets with a record (12,320 complete
+        to the score), 176 absent (HTTP 404). Box scores come after every point record (92 so far, the trial's). The
+        second run (from 21:53 UTC; log run_20261015T215358Z_itf_detail.log) used its budget and ended at 19:01 UTC on
+        16 Oct, no block: point records asked for 42,500 events, back to 23 Oct 2023; 42,445 targets with a record
+        (41,795 complete), 594 absent. The third run started at 19:01 UTC with the same command; log
+        run_20261016T190139Z_itf_detail.log. It stopped at about 23:00 UTC when the SofaScore Chrome window closed
+        (a clean exit, not a block; 48,100 events asked by then). The session reopened the window with the README's
+        command at 23:11 UTC and started the fourth run at 23:12 UTC; log run_20261016T231210Z_itf_detail.log. It
+        used its budget and ended at 20:23 UTC on 17 Oct, no block: point records asked for 77,800 events, back to 10
+        Oct 2022; 77,804 targets with a record (76,379 complete), 1,043 absent. The fifth run started at 20:23 UTC;
+        log run_20261017T202340Z_itf_detail.log. At 23:07 UTC SofaScore challenged (its token check; the first since 8
+        Oct) and at 23:09 UTC the Chrome window closed again (a clean exit), so the run stopped after 81,800 events.
+        The session reopened the window at 23:24 UTC and started the sixth run; log run_20261017T232427Z_itf_detail.log.
+        It used its budget and ended at 20:36 UTC on 18 Oct, no block: point records asked for 111,200 events, back to
+        13 Sep 2021; 111,091 targets with a record (107,465 complete), 1,808 absent. The seventh run started at 20:37
+        UTC; log run_20261018T203706Z_itf_detail.log. The Chrome window closed again at 14:20 UTC on 19 Oct (a clean
+        exit, no challenge before it; the third time), so the run stopped after 137,100 events: 135,859 targets with a
+        record (130,717 complete), 2,384 absent, back to 25 Nov 2019. The PC restarted at 04:18 UTC on 20 Oct. The
+        session reopened the window, restarted the priority watchdog (-Hours 336) and started the eighth run at 12:51
+        UTC on 20 Oct; log run_20261020T125101Z_itf_detail.log. It used its budget and ended at 10:13 UTC on 21 Oct,
+        no block: 168,242 targets asked, back to 21 Jan 2019; 164,302 with a record (158,555 complete), 3,940 absent.
+        The ninth run started at 10:13 UTC; log run_20261021T101330Z_itf_detail.log. It used its budget and ended at
+        07:30 UTC on 22 Oct, no block: 192,131 targets with a record (185,663 complete), 6,125 absent, 3,997 not yet
+        asked. The tenth run started at 07:31 UTC; log run_20261022T073108Z_itf_detail.log. It finishes the point
+        records and starts the box scores (about 201,000 requests, about 6 days).
       expected_done: >-
-        About 150,000 requests for itf_points_2025_2026 and 440,000 for itf_detail at ~1,300 an hour: ~5 and ~14 days,
-        so late October 2026 at the earliest
+        itf_detail had about 390,000 requests left after its first run (188,641 point records, then about 201,000 box
+        scores) at ~1,400 an hour: about 11.5 days, so about 27 Oct 2026 if nothing stops it. The deferred events'
+        last pass (about 80,000 requests) would follow, if the owner keeps it
       after: verify_links.py, staging (--stage-only), a map rebuild and refresh.py --sources sofascore after each gap
-    - dataset: flashscore_points
+    - dataset: infosys_atp_recent
       what: >-
-        Work package P13 of docs/studies/gap_downloads/collection-plan.md (added 14 Oct 2026 at the owner's word):
-        Flashscore's point feeds for the ITF main-draw matches of January 2025 to February 2026, which SofaScore lacks,
-        asked by the match ids of the Flashscore copy on disk; about 40,800 feeds. Another site than P7's, so it runs
-        beside it.
+        Work package P9 of docs/studies/gap_downloads/collection-plan.md: the ATP Stats Centre's Infosys files of
+        2025-2026 (key statistics, MatchBeats, rally analysis, Court Vision) for the 24,961 tour-level and Challenger
+        match codes of ManTennisData's 534 events, tour level first, each newest first. The collector waits while the
+        daily speed job or a prediction run's refresh uses the host, and from 07:20 to 08:00 local time.
       command: >-
-        ./python.sh -m src.ingest.point_sources.flashscore_points --max-requests 30000, rerun until done (after
-        --extract, offline, and a trial with --trial 200 --max-requests 250)
-      started: "2026-10-14 01:09 UTC (trial)"
+        src/ingest/point_sources/infosys_atp_recent_bulk.sh (detached): runs of ./python.sh -m
+        src.ingest.point_sources.infosys_atp_recent --max-requests 30000 --no-stage, rerun after each budget stop;
+        stage and check when the plan is done
+      started: "2026-10-16 21:22 UTC (the trial); bulk from 2026-10-16 22:08 UTC"
       progress: >-
-        The handoff extract is done (44,308 ITF records, 42,791 in the window); 40,873 of 42,876 targets linked. Trial
-        (01:09-01:19 UTC, 189 requests, no refusal): a record for 131 of 189 (130 complete). None of the 52 targets
-        without a match duration in the handoff copy had one, and 131 of 137 with one did. 115 of 115 checkable records
-        agree with the official result. The bulk run started at 04:38 UTC on 14 Oct (budget 30,000; targets with a
-        duration first); log run_20261014T043807Z.log.
-      after: the link check against the official results, the map's loader for it and a map rebuild
+        Trial (5 events, 846 requests, 21:22-21:58 UTC, no refusal): every point for 219 of 219 planned matches, key
+        statistics 219, rally analysis 218, 3.9 requests a match. Bulk run 1 stopped at 09:32 UTC on 17 Oct on one
+        connection reset (83 events, 15,814 requests); not a block (the host served the daily collector every day
+        since). Resumed at 14:22 UTC on 22 Oct with a retry after a reset, on ManTennisData's copy of 19 Oct (541
+        events, 25,277 codes). Bulk log: data/raw/point_sources/infosys_atp_recent/_logs/bulk.log
+      expected_done: "about 60,000-65,000 more requests at about 1,350 an hour: around 24 Oct 2026 if nothing stops it"
+      after: staging (--stage-only), infosys_atp_recent_checks.py, the map's loader and rebuild
+    - dataset: pinnacle_capture
+      what: >-
+        Work package P11's forward-capture test: Pinnacle's tennis listing every 10 minutes for 36 hours, each lower-level
+        matchup's last pre-start price kept as its close, in its own folders (not the bet-day recorder's).
+      command: >-
+        src/eda/gap_downloads/pinnacle_capture.sh (detached; EVERY=600 HOURS=36): ./python.sh
+        src/eda/gap_downloads/pinnacle_capture.py --every 600 --hours 36
+      started: "2026-10-22 04:50 UTC"
+      progress: >-
+        Pull 1 at 04:50:19 UTC: 197 moneylines, 164 of the lower levels (149 usable pre-match). Log
+        data/raw/pinnacle_capture/_logs/capture_20261022T045013Z.log
+      expected_done: "2026-10-23 about 16:50 UTC"
+      after: pinnacle_capture.py --closes, then the comparison with TennisExplorer's pages of the same matches
+    - dataset: tennisexplorer_lower
+      what: >-
+        Work package P11's collection: TennisExplorer's daily results and the page of every Challenger, WTA 125 and ITF
+        singles match they list with prices (main draws and qualifying), newest day first, from 21 Oct 2026 back to
+        1 Jan 2018. About 250 match pages a day of October 2026 and about 105 of January 2026; roughly 400,000 requests
+        in all at about 1,200 an hour.
+      command: >-
+        src/ingest/tennisexplorer_lower_bulk.sh (detached; BUDGET=10000 MAX_RUNS=60 SINCE=2018-01-01): runs of ./python.sh
+        -m src.ingest.tennisexplorer_lower --since 2018-01-01 --max-requests 10000 --no-stage, each staged after it;
+        rerun the script to resume. The collector waits while the tour-level adapter or the model's odds step uses the site
+      started: "2026-10-22 12:18 UTC (trials); bulk from 2026-10-22 12:51 UTC"
+      progress: >-
+        Trials (632 requests, all HTTP 200): 20-21 Oct 2026, 494 match pages (Pinnacle on 66 of 76 Challenger, 157 of
+        235 men's ITF main draw, 83 of 145 women's ITF and WTA 125); 26 Feb 2019, 128 pages. Bulk log:
+        data/raw/tennisexplorer_lower/_logs/bulk.log
+      expected_done: "about 2 weeks for 2018-2026 if nothing stops it; 2025-2026 in about 4 days"
+      after: staging (each run), the comparison with Pinnacle's capture (pinnacle_capture.py --compare), the report
   not_counted:
+    - Flashscore's point feeds of the P6 targets SofaScore lacks (the P6 data issues, flashscore_points; mostly ATP qualifying of 2018-20 and Challengers of 2020-23) finished at 23:39 UTC on 16 Oct 2026 and are on disk and staged; 3,389 requests from 21:05 UTC (a trial of 82, then the run), one per feed, no retry, error or refusal. A record for 3,479 of the 3,480 targets (3,424 complete to the copy's score); 3,171 agree with the official result, 155 links it contradicts are not placed, 153 have no official row to check.
+    - Flashscore's ITF point feeds of January 2025 to February 2026 (work package P13, flashscore_points) finished at 15:57 UTC on 15 Oct 2026 and are on disk and staged; 40,867 requests from 01:09 UTC on 14 Oct, one per feed (a trial and three runs, one cut by a Windows Update restart), no retry, error or refusal. A record for 27,535 of the 42,876 targets (27,174 complete), 13,337 feeds empty; 24,887 of 24,973 checkable records agree with the official result; the map was rebuilt at 16:00 UTC.
     - The WTA website's 2026 records from the API's player lists (work package P2(b), wta_site_records) finished at 00:46 UTC on 14 Oct 2026 and are on disk and staged; 4,437 requests on 11 Oct and 2,366 on 13-14 Oct, no refusal; results to the ITF editions of 5 Oct.
     - The WTA API's 2026 catch-up (work package P2(a), wta_api) finished at 23:07 UTC on 13 Oct 2026 and is on disk and staged; 2,441 requests on 11 and 13 Oct, no error or refusal; the timing clock was refreshed (refresh.py --sources wta_api) at 23:20 UTC.
     - SofaScore's records for the seven P6 gaps (work package P6, sofascore_editions) finished at 14:18 UTC on 12 Oct 2026 and are on disk; about 70,500 requests from 19:36 UTC on 8 Oct, one challenge that cleared by itself (9 Oct), and a Chrome window that closed on 10 Oct (resumed 11 Oct).

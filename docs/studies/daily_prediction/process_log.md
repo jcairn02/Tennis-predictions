@@ -542,3 +542,269 @@ itself, and a template build on these tables would be refused; the live path (pr
 pipeline reuses) builds from the day's dump and only reports it. **Not changed: put to the owner** (hold the lower-level
 history at the freeze in live runs, accept the revisions, or refuse such runs).
 (Time note: the paragraph above, headed 11:30, was written at 11:27 by the clock.)
+
+# Part 4: stage 2 kept in sync with its model, and the daily speed history (14 Oct 2026)
+
+Started 08:40 PDT, 14 Oct 2026 · A new session (`1a8beee8-cda5-4ed5-b5a0-f0a7760dbbce`; parts 1-3 were
+`d2d2331e-b87f-42fd-baa1-b5c3ddebe82c`). No context summary. Another session (`f66b9e99-...`, the box-score gate
+review) edited `dp_predict.py` at 07:45 today (the `gate_edge_bar` column); its change is left as it is.
+
+## P4.1 The request
+
+* **The owner's words, verbatim** (14 Oct 2026, about 08:30 PDT): "close the gap in point 2 and I say yes to point 12",
+  then, interrupting it: "close the gap in point 2 and I say yes to point 1! (not 12)".
+* **The two points, from my answer just before** (same session; the owner had asked how the calibration step stays in
+  sync, and whether the 6 Oct reorganisation proposal's "shared scoreboard" item was about that):
+  * Point 1: "Waiting on you: which serve-speed history stage 2 uses. ... Since 8 Oct the newest live speed numbers
+    come from the daily collector, but the coefficient is still fitted on the weekly feed's history. The 8 Oct decision
+    says to switch once the daily collector runs, and two sessions have put this to you since 11 Oct. I agree with
+    them: live runs should use the daily history, and replays of days before 8 Oct should keep the weekly one. This only
+    carries out the existing decision. It moves predictions slightly, by design."
+  * Point 2: "A gap where nothing would warn you. The fingerprint covers the match table and the speed history. It
+    doesn't cover the input list, the saved fits or the TabPFN version. If a build were changed inside its own folder
+    (its input list edited, or its fits redone after a TabPFN upgrade), the old slope would be reused with no error. ...
+    I recommend adding those three to the fingerprint. It's a few lines plus a test."
+* **How it was read.**
+  * **Point 2.** A stage-2 coefficient record (`dp_predict.coefficients`) is reused only while everything it was fitted
+    from is unchanged: the frame and the speed column (as now), plus the instance's input list (`model_inputs.json`),
+    the seeds 0-3 fit files of 2019 .. Y - 1, and the TabPFN those fits were made with (version, weights, settings).
+    Stored fits made with mixed TabPFN records are refused. And a run refuses when its live fit's TabPFN, settings or
+    input list differ from those fits': the slope was fitted on those fits' forecasts, so it would not suit the live
+    ones. The torch version and the graphics card are recorded, not required equal (floating-point-level effects).
+  * **Point 1.** By each match's day: from 8 Oct 2026, the daily collector's first day in the live panel (68 rows
+    collected that day; 300 by 14 Oct), the daily set `L_daily`: coefficients fitted by the same decided fit on
+    `spd_L_D` (scenario D) of the decided speed history, the same file as today's weekly column
+    (`infosys_atp_backfill/speed_columns_augmented.parquet`), applied with feed "daily". Before 8 Oct the weekly set,
+    as now. Every live run is after 8 Oct, so it takes the daily set; replays of earlier days keep the weekly one.
+  * **Not covered:** the live speed form (it already reads the daily rows from their collection day), the decided fit
+    itself, the five-pattern adjustment, `current_best_model/compare.py`.
+  * **The owner's yes is a decision record:** an amendment of the 8 Oct decision (whose own text it carries out), this
+    study's README, and CLAUDE.md's stage-2 line.
+* **Plan.**
+  1. A baseline before any edit: today's predict code (`dp_predict.run`, called directly so that nothing is archived to
+     `predictions/`) on scratch copies of a replay of 13 Jul 2026 (`runs/replay_2026-07-13_R16_20261013T205131/`,
+     instance 13 Oct) and the live run of 13 Oct (`runs/live_2026-10-13_165316/`, instance 10 Oct).
+  2. The edits: `dp_predict.py` (the record's keys, the TabPFN check, the feed rule, provenance, a `speed_feed` column in
+     `predictions.csv`: columns may be added, never removed, by `src/pipeline/diagnostics.py`'s contract) and
+     `src/pipeline/train.py`'s two listings of the coefficient files, which would misread the daily files' names.
+  3. Fast tests (no GPU, no build tree): `test/daily_prediction/test_stage2_sync.py`.
+  4. The proof: the weekly coefficients unchanged to the last digit; the replay's predictions identical to the
+     baseline's but the new column; the live run's predictions with the daily set against the baseline (the move's
+     size); the daily coefficients reported.
+  5. Records: the README, this log, the decision's amendment, CLAUDE.md, the master pipeline README's open-decision row.
+
+## P4.2 Chronology
+
+| When | Step | Why | Results seen by then | Output |
+|---|---|---|---|---|
+| 08:10-08:35 | Read (before the request, answering the owner's question): `dp_predict.py`, `adaptive/adjust.py`, `current_best_model/compare.py`, the decisions of 8 and 13 Oct; the cached records `stage2/template_2026-10-10_2026.json` and `..._2026-10-13_2026.json` (keys equal to their instances' current frames); a read-only check that the slope fitted on the seeds 0-3 mean suits the seeds 0-15 mean (scratchpad `slope_seeds_check.py`) | The owner's question | the cached 2026 record reproduced exactly (s_atp 0.9004133650304764, s_wta 0.922313466818255, b 0.03692698221419298); 16-seed slopes higher by about 0.001; 2020-2024: -0.0014 [-0.008, +0.005] mLL with the 16-seed slopes (unresolved, P(better) about 0.34) | — |
+| 08:36 | Read what reads stage 2's records: `dp_steps.step_predict` (archives a live run's predictions and provenance to `predictions/<day>/records/`), `reprice` (reads the stored curves; no coefficient), `src/pipeline/diagnostics.py` (`stage2.speed.standardiser_km_h`, the whole `stage2` block), `train.instance_status` and `stage2_status` (the files' names); the stored fits' meta (`versions`, `checkpoint`, `config`, `columns`, `device`); a live `fit.json` (`versions`, `config`, `inputs`, each seed's `checkpoint`); the live panel (`collected_on`: 8, 9, 10, 11, 12 and 14 Oct) | Plan step 2 | — | — |
+| (time note) | **By the clock (file times), corrected by addition:** this part's log was opened at 08:30, not 08:40; the first row's reading ran about 07:40-08:20 (`dp_predict.py`'s 07:45 write by the gate session fell between my first two reads of it), the second row's about 08:24-08:29 | Rule: correct by adding | — | — |
+| 08:31 | **Baseline** (plan step 1): scratchpad `stage2_proof.py run base` on copies of `replay_2026-07-13_R16_20261013T205131` (23 matches of 15 Jul: 15 men, 8 women; instance 13 Oct), `live_2026-10-13_165316` (1 man, 16 Oct), `live_2026-10-11_110150` (8 men, 12 Oct), `live_2026-10-13_163937` (4 men, 14 Oct; all three on instance 10 Oct); the pattern adjustment off for both arms (`UL_PATTERNS_CONFIG` pointed at a missing file), so `q_a` is stage 2 alone; `dp_predict.run` called directly, so nothing is archived | Plan step 1 | none of the new code's | **The harness reproduces the replay's stored predictions and curves exactly** (only today's new `gate_edge_bar` column added). The live runs' stored `spd_L` differ from today's by up to 0.0102: the live panel gained 12 rows collected on 14 Oct, released by these matches' days (14 and 16 Oct). So the live baseline is today's panel, and the comparison is baseline against new code on the same panel, never against the stored files |
+| 08:32 | The stage-2 records copied to scratchpad `stage2_before/` (`template_2026-10-10_2026.json` SHA-256 `aa4c04e1…`, `template_2026-10-13_2026.json` `a53af0a8…`) | The weekly records are refitted under the new keys, overwriting them; the proof needs the old numbers | — | — |
+| 08:33-08:36 | **The edits.** `dp_predict.py`: `DAILY_FEED_FROM` ("2026-10-08"), `FEED_COLUMN`; `feed_of`, `coef_path` (the weekly name kept, `_daily` added), `fit_files` (`compare.FIT_FROM`, `compare.SEEDS`, `forecasts.find_fit`: what `seed_table` reads), `list_sha256`, `fits_model` (one TabPFN record across the fits, else refused; unrecorded refused), `stage2_keys`, `check_live_fit`, `apply_stage2` (each feed's rows with its own set); `coefficients` takes the feed; `run` reads `fit.json` first, checks each record against it, applies by feed, writes `speed_feed` and provenance `stage2.feed`, `feed_rule`. `src/pipeline/train.py`: `_stage2_label` for `instance_status` and `stage2_status` ("2026", "2026 daily") | Plan step 2 | the baseline | — |
+| 08:37 | `test/daily_prediction/test_stage2_sync.py` written and run | Plan step 3 | — | **7 passed (1.5 s)** |
+| 08:38 | **Proof** (plan step 4): `stage2_proof.py run new` on the same four runs, then `diff base new` | Plan step 4 | the baseline | **Replay (15 Jul, weekly): every column of `predictions.csv` and `curves.parquet` bit for bit**, plus the new `speed_feed`. **Live (daily):** `q_a` moved by mean abs 0.096, 0.088 and 0.159 points (8, 4, 1 matches), at most 0.189 points; curves at most 0.199 points; `spd_L` unchanged (only the coefficients changed) |
+| 08:38 | The records written: `template_2026-10-13_2026.json` refitted under the new keys, **numbers identical to the old record's to the last digit**; `template_2026-10-10_2026_daily.json` new: s_atp 0.900834 (weekly 0.900413), s_wta 0.922313 (weekly the same: women's column is 0, so their slope is separable), b̃ 0.033759 (0.036927), b 0.038402 (0.043027), se 0.018544 (0.020322), 32,413 matches | Plan step 4 | — | — |
+| 08:39 | scratchpad `stage2_checks.py`: (1) the 10 Oct weekly record refitted under the new keys; (2) `stage2_keys` read-only on the 10, 13 and 14 Oct instances, both feeds; (3) the old keys on a fake instance, before and after its input list was edited and every fit redone with another TabPFN version | Is anything refused that should not be; is the gap shown | — | (1) **identical numbers**; (2) **all six accepted**: 28 fits each, one record (TabPFN 9.1.0, `tabpfn-v3.5-20260909.safetensors`, the decided settings, torch 2.11.0+cu128, RTX 5090); the 14 Oct instance (the notebook's selection since 07:42, being finished by another session: its seeds 0-3 of 2019-2025 present) included; (3) **old keys unchanged (the old record would have been reused): True; new keys changed** |
+| 08:39-08:43 | The existing fast tests: `test/daily_prediction/test_daily_prediction.py -k "slice_hash or fit_cache_key or side_names_follow or quote_times or never_deletes or changed_past_row_invalidates"`; `test/master_pipeline/test_master_pipeline.py` | Nothing else broken | — | **6 passed (3:47); 33 passed (43 s)**. The slow replay tests were not run: their replay is of 15 Jul (weekly), which the proof showed bit for bit through the same predict code |
+| 08:44-08:50 | Records: this README's top section, its decision 7 and "Decision for you" marked decided; the decision of 8 Oct: an amendment bullet and a note on Stage 2's coefficients line; CLAUDE.md's stage-2 coefficients line (two sub-bullets); the master pipeline README's decision 2 and its "weekly speed set" limit marked done | Plan step 5 | all of the above | — |
+
+## P4.3 Judgment calls
+
+1. **The feed by each match's day, not by the run's mode** (before the edits). A live run is always after 8 Oct. A
+   replay of a day after 8 Oct also takes the daily set, because the live speed form then reads the daily rows from
+   their collection day, so the coefficient matches the numbers it multiplies.
+2. **The switch-over day read from the data:** the first `collected_on` in the live panel (8 Oct, 68 rows), which is
+   also the day the README of 11 Oct names.
+3. **The weekly record keeps its file name; the daily one adds `_daily`.** The existing records keep their meaning and
+   no file is orphaned; `train.py`'s two listings were changed to label both ("2026", "2026 daily").
+4. **What must be equal and what is only recorded.** Required: the TabPFN version, the weights (by file name: a moved
+   folder holds the same weights), the settings without the seed, the input list. Recorded only: torch and the card
+   (floating-point-level effects; a refusal there would stop runs for nothing material).
+5. **Fits that do not record their TabPFN are refused**, not trusted: nothing could check them. Every template
+   instance records it (checked on all three).
+6. **The proof with the pattern term off:** it is added after stage 2 and is unchanged here, so leaving it out
+   isolates the change.
+7. **The slow replay tests not rerun** (08:43): the predict code they run reproduced a pre-8-Oct replay bit for bit,
+   and their other parts (inputs, fit) are untouched.
+8. **Another session's code edited:** `src/pipeline/train.py` (the master notebook session's, idle), two listing lines,
+   because the daily records' names would otherwise be misread as seasons. Said in both READMEs.
+9. **The shared stage-2 cache written during the proof:** the 13 Oct and 10 Oct weekly records refitted under the new
+   keys (identical numbers), the 10 Oct daily record created. That is what the first live run would do; the old
+   records are kept in scratchpad `stage2_before/`.
+
+## P4.4 Claims and their evidence
+
+| Claim (README) | Evidence | Status |
+|---|---|---|
+| Before 14 Oct the record ignored the input list, the fits and their TabPFN | the old `coefficients` (read at 08:1x; quoted in my first answer); `stage2_checks.py` (3): old keys unchanged after the input list was edited and every fit redone with another TabPFN | observed |
+| The record is now refitted when any of them changes, and fits with mixed or no TabPFN records are refused | `test_stage2_keys_see_every_input_of_the_fit`, `test_fits_without_their_tabpfn_record_are_refused`, `test_a_held_record_is_reused_only_while_its_keys_hold`; `stage2_checks.py` (3) | observed (tests) |
+| A run is refused when its live fit's TabPFN, weights, settings or input list differ | `test_the_live_fit_must_be_the_model_the_coefficients_were_fitted_on` | observed (test) |
+| The three builds pass the check | `stage2_checks.py` (2) | observed |
+| The weekly numbers are unchanged | `template_2026-10-13_2026.json` and `template_2026-10-10_2026.json` refitted under the new keys against `stage2_before/` (every number identical) | observed |
+| A replay of 15 Jul is unchanged, bit for bit | `stage2_proof.py diff base new replay_2026-07-13_R16_20261013T205131` | observed |
+| The daily set's numbers (b̃ 0.0338, s_atp 0.9008, s_wta 0.9223) | `stage2/template_2026-10-10_2026_daily.json` | observed |
+| Live chances move by 0.09–0.16 points on average, 0.19 at most | `diff base new` on the three live runs (13 men's matches) | observed, three days |
+| Tests pass: 7 new, 6 existing fast, 33 master pipeline | the runs at 08:37 and 08:39-08:43 | observed |
+
+## P4.5 Weak points
+
+* **The size of the move is measured on 13 men's matches.** The speed term is clipped at ±4, so with these
+  coefficients a match can move by about 0.0032 × 4 ≈ 0.013 log-odds more than the weekly set: about 0.3 points at
+  even odds.
+* **The daily history is scenario D** (non-Slam rows released at lf + 2, Slams after the event), the serve-speed
+  study's model of a daily feed. The collector releases a row on its collection day (at least lf + 1), so the live form
+  can be a day fresher than the history the coefficient was fitted on. Not changed here.
+* **The check compares the fits' TabPFN record with the live fit's, not their forecasts.** That the live fit gives the
+  decided path's numbers is part 2's bit-for-bit test.
+* **Not in the fingerprint:** the fit's own code (`compare.walk_forward`, `fit_logistic`) and τ. A change there would
+  not refit a held record.
+* **Where a flaw would hide:** a fit file found outside the instance's `fits/` (an instance's other search folders are
+  empty by construction), or a fit file whose meta disagrees with its forecasts.
+* **What a re-design would do:** write the coefficients into the instance at build time, keyed and checked there, so
+  that a live run never fits anything; or key the record on the seed table's content instead of the files.
+
+## P4.6 Reviewer checklist
+
+* [ ] Read `dp_predict.stage2_keys`, `fits_model`, `check_live_fit`, `feed_of`, `apply_stage2` and the edited `run`.
+* [ ] `./python.sh -m pytest test/daily_prediction/test_stage2_sync.py -v`.
+* [ ] Re-run the proof (below): the replay bit for bit, the live runs within 0.2 points.
+* [ ] Open `data/studies/daily_prediction/stage2/`: each record's `keys` hold `fits_model`, `fits_sha256`,
+      `inputs_sha256`, `feed` and `speed_history`.
+
+## P4.7 Reproduction
+
+```
+./python.sh -m pytest test/daily_prediction/test_stage2_sync.py -v
+# the scratchpad harness (session 1a8beee8), copied anywhere: it copies run folders and calls dp_predict.run on them
+./python.sh stage2_proof.py run <tag> replay_2026-07-13_R16_20261013T205131 live_2026-10-11_110150 live_2026-10-13_163937 live_2026-10-13_165316
+./python.sh stage2_proof.py diff <old tag> <new tag> <run name>
+./python.sh stage2_checks.py
+```
+
+(08:48, by addition.) **The harness moved into the package**, because the scratchpad does not last:
+`src/eda/daily_prediction/dp_stage2_proof.py`. It copies only what the predict step reads (not the 260 MB run folders)
+to `data/studies/daily_prediction/checks/stage2_proof/<tag>/`, keeps only the outputs, and writes `diff_<a>_<b>.json`
+and `instances.json`. The baseline made at 08:31 with the code before this part is kept there as `base/` (its
+predictions, curves and provenance; that code itself is gone). Re-run at 08:47 as `new`: **the same result** (the
+replay bit for bit; the live moves 0.096, 0.088 and 0.159 points on average, 0.189 at most; six of six instance-feed
+records accepted). So the reproduction is:
+
+```
+./python.sh -m pytest test/daily_prediction/test_stage2_sync.py -v
+./python.sh src/eda/daily_prediction/dp_stage2_proof.py run <tag> replay_2026-07-13_R16_20261013T205131 live_2026-10-11_110150 live_2026-10-13_163937 live_2026-10-13_165316
+./python.sh src/eda/daily_prediction/dp_stage2_proof.py diff base <tag>
+./python.sh src/eda/daily_prediction/dp_stage2_proof.py instances
+```
+
+# Part 5: exact replays on the instance's own tables (16 Oct 2026)
+
+## P5.1 The request
+
+Session `05787e62-d18b-48a5-a558-d9d145598686` (the same session that fixed the five-pattern adjustment's fast-courts
+member earlier on 16 Oct; see the unpriced-leads process log). **The owner, verbatim** (14:50 PDT), quoting this
+session's report back to it:
+
+> fix this below:
+> Replays have been broken since 14 Oct. Every exact replay (the engine's self-tests and the notebook's replay check)
+> stops while merging the new lower-level data, because it re-adds 43 matches the timeline already has. Live bet days
+> aren't affected. I recommend fixing this next; it's a small change and I can do it.
+> This year's Shanghai is cut off from its history. [...] (the second item is logged in the unpriced-leads process log)
+
+**What was known before any change** (from this session's failed replay at 13:58 and a peer session's read-only check,
+tennis-predictions-d0, 14:05): an exact replay builds Stage 0 from Tennis My Life's frozen 8 Oct dump view
+(`DP_FREEZE_DUMP`, default `C:/Users/zerom/tnr_dump_freeze`) but keeps the repository's current timeline until
+`hold_timeline` runs after the steps; the additions step merges the repository's *current* `accepted.json` (packages and
+feed snapshots). Three mismatches with the instance follow: (1) 43 feed matches TML has since published under the same
+ids sit in the copied timeline but not in the 8 Oct Stage 0, so the merge adds their timeline rows twice and refuses;
+(2) the 8 Oct view is the 10 Oct instance's dump, not the 14 Oct instance's; (3) the current feed snapshot and the
+package registered at 14:25 today are not what the 14 Oct instance merged (the peer: 2,110 current feed matches are not
+in `tnr_tpl1014`'s timeline), so even past (1) the replay would stop at `hold_timeline`.
+
+**Read as:** make an exact replay rebuild the instance's own tables, whatever the repository holds today: the instance's
+dump view, the additions its build merged, and its timeline. **Set aside:** (a) only removing the refusal in (1): the
+replay would then stop at `hold_timeline` or reproduce other tables; (b) pinning replays to the 10 Oct instance: that
+tests an instance nobody predicts with. **Correction to the report:** it called this "a small change"; with (2) and (3)
+it is not.
+
+**Plan** (before any change; refined below as found): read how an instance records its dump and its additions, how the
+peer session's 16 Oct build freezes its dump view and runs its replay check, and the notebook's replay check; then make
+the replay take the instance's dump view and additions from the instance itself (failing loudly where an instance does
+not record them), and keep the copied timeline from colliding with the merge. **Verify:** unit tests of the new pieces;
+an exact replay of 13 Jul 2026 R16 against an instance whose dump view exists, its 57 inputs against the template frame
+(`replay-compare`), and the replay's own pattern step. **Coordination:** the peer's detached 16 Oct build runs a replay
+check tonight through this code path; tell it before changing anything it reads.
+
+## P5.2 Chronology (PDT)
+
+| When | What | Evidence |
+|---|---|---|
+| 14:55–15:05 | **Read, before any change:**<br>• The peer's build script (`data/studies/men_lower_level_fill/build_template.sh`). It freezes a dump view at the start of the Stage 0 rebuild its tables came from (`tnr_dump_freeze_1016`, 2026-10-14T21:19:58Z) and copies `accepted.json` into the instance as `accepted_at_build.json`. Its switch refuses if `accepted.json` changed since the build. Its replay check passes `DP_FREEZE_DUMP` and the instance explicitly. So the peer had solved this for its own build, by hand.<br>• The notebook's `replay_check()` passes no view, so it used the 8 Oct one.<br>• The 14 Oct instance records its merge in `chain_additions.json`: `lower_level_feed/20261013c`, 48,529 added, 43 skipped as the same id. The 10 and 13 Oct instances record none; their READMEs name `men_2026_ch_chq` and `lower_level_feed/20261013c` on the 8 Oct tables.<br>• The 14 Oct build's pre-merge Stage 0 hash (`b3ca7aec…`) is rebuild `2026-10-14T0412Z`'s, and its view exists (`tnr_dump_freeze_1014`, made for the 14 Oct switch with explicit settings).<br>• `box_score_gate_review/replay_gaps.py` had met the same duplicate failure on 14 Oct and trimmed its tree's timeline by hand. | the files named |
+| 15:00–15:05 | **Coordination.** Told the peer the four changes before making them. It replied that none is a problem. Its switch starts around 18:00, and it asked for the replay-path code to be in by 17:00 and unchanged while its replay runs. Its `accepted_at_build.json` is a verbatim copy (sha256 `b65c7b41…`). | messages |
+| 15:00–15:06 | **Built:**<br>• `additions.py --accepted-json` (`listed`, `apply`, `pin_timing`); the record gains `listed_from`.<br>• `dp_common.replay_tables` with `REPLAY_VIEWS` and `ACCEPTED`; `FREEZE_DUMP` is now only the explicit setting.<br>• `dp_worktree.setup` refuses a replay without a view.<br>• `dp_steps.step_worktree` writes `<run>/replay_tables.json`; `step_tables` passes its additions.<br>• `dp_tables.replay_steps`, `trim_timeline`, and the early `hold_timeline`.<br>• The registry `data/studies/daily_prediction/replay_views.json`.<br>**Tests:** `test/daily_prediction/test_replay_tables.py`, 7 passed; the existing fast engine tests, 5 passed. The three real instances resolve to the expected view and list. | tests |
+| 15:06–15:16 | **The exact replay of 13 Jul 2026 R16 against `template_2026-10-14`**: no fit (the peer's build holds the GPU), no `DP_FREEZE_DUMP` (so the registry is used), tree `C:/Users/zerom/tnr_daily_replayfix`, run `runs/replayfix_2026-07-13_R16`. Every step passed (tables 225 s, states 243 s).<br>• **The merge equals the build's:** 48,529 added, 43 skipped as the same id, 1 completion.<br>• **Timeline:** held before the merge (873,584 rows) and after (922,113).<br>• **Its pattern step:** 23 of 23 z; ace gap equal to the input on 23; 0 venue rows without a rating.<br>• **`replay-compare`:** none missing from the frame; the 21 IOS inputs exact (0.0); 40 of 57 inputs bitwise. The Elo trio (`elo_surf_offset`, `elo_overall`, `elo_games`) differs on 15 of 23 matches, at most 1.9e-3; Stage B's forms on 5, at most 3.6e-6. That is beyond the peer's guard of 1e-4. | `replay_compare_todays_code.json` |
+| 15:16–15:18 | **The cause, found.** The replay's Stage 0 equals the instance's on every shared row and column, players included, except 31 rows: Tenerife 1, a 2024 Challenger, dated 2024-02-26 instead of 2024-01-21. That is P6's date correction ([decision](../../decisions/2026-10-14-p6-data-issues.md)), which today's Stage 0 build applies and which came after this instance was built. The 52 instance-only matches are the replay's held-back later rounds, as designed. | the comparison in this session |
+| 15:18 | **The proof that nothing else differs:** the 31 dates set back to the instance's in the replay tree (backup `run/stage0_matches_before_tenerife_revert.parquet`); then the states step and `replay-compare` again. Result below. | `states_tenerife.log` |
+| 15:19 | **First attempt refused, correctly.** The states step stopped: the tree's level-layer config "was resolved on another Stage 0 (its 829e298a6545, now b09f54df92c6)". The date revert changed Stage 0's hash, and the layer is pinned to it. The `replay-compare` after it read the old inputs again, so it changed nothing; it is not evidence. Also, the first try ran its commands under `&` inside a background shell, so they ran detached and unwatched. **Second attempt:** `layer_config.py --resolve --official <official.json>` in the tree (the tables step's own command), then states, then `replay-compare`, as one watched job. | `states_tenerife.log`, `states_tenerife2.log` |
+| 15:21 | **Second attempt refused, correctly.** The layer resolved, but the states step stopped with "tournament weeks do not ascend in the table's order": I had changed the 31 dates without re-sorting Stage 0. The `replay-compare` after it again read the old inputs and is not evidence; the third run compares only if the states step succeeds. **Third attempt:** Stage 0 re-sorted by its own rule (`predictability_diagnostic.common.chrono_sort`, `order` renumbered, player rows following, as `additions.merge` does). The tree's Stage 0 then equals the instance's, row for row in the same order, on every value except `order` (shifted by the 23 live rows and the 52 held-back rows) and `source_row`'s type (Int64 against int64, values equal). Then the layer, the states step and `replay-compare` again. | `states_tenerife3.log` |
+| 15:26 | **The proof, passed.** Layer re-resolved, states step 0, `replay-compare` 0. With the instance's own Tenerife dates the replay reproduces the instance's frame:<br>• 23 matches, none missing;<br>• 42 of 57 inputs bitwise; the 21 IOS inputs exact (0.0); the Elo trio bitwise on all 23;<br>• 18 of 23 matches equal on every input;<br>• the rest is Stage B's forms on 5 matches, at most 4.47e-6: float32 rounding, the same reading as the 14 Oct switch's replay (the peer: "4.5e-6 at most, the IOS inputs exact").<br>The peer's switch guard (none missing, IOS within 1e-6 with the same NaN pattern, every input within 1e-4) passes. The earlier 1.9e-3 was therefore entirely P6's correction. | `replay_compare.json`; `replay_compare_todays_code.json` keeps the first reading |
+| 15:27 | **Times corrected (by addition).** The times of this part's rows from 15:00 were first written as estimates that ran 10–35 minutes ahead of the clock; they were set to the run files' write times (`replay_tables.json` 15:06, `tables.json` 15:12, the logs 15:16–15:26). The unpriced-leads log's venue row was corrected the same way. | file times |
+
+## P5.3 Judgment calls
+
+* **A central registry, not records written into the instance folders.** Instance folders are their builds' outputs, and the 16 Oct one was being written by the peer's build at the time. The registry holds what a folder cannot tell: its dump view, and for 10 and 13 Oct the additions. Each entry names its evidence.
+* **The instance's own records first** (`accepted_at_build.json`, then `chain_additions.json`), the registry last. A replay never merges today's `accepted.json`; with neither record, it is refused rather than guessed.
+* **No silent 8 Oct default.** `DP_FREEZE_DUMP` still wins, as the peer's switch and the 14 Oct switch use it. Otherwise the registry's view, else a refusal naming the fix.
+* **The instance's timeline before the merge** (training dating), rather than only trimming the copied one as `box_score_gate_review` did by hand. It gives the steps between (check, layer, odds) the instance's rows. Its condition (every tree match in the instance's timeline) is a subset of the final hold's, so it cannot fail where the end would pass. Live-dated replays trim instead, since there is no held timeline to give them.
+* **Repairs decided after a build are not undone.** A replay runs today's code, so an instance built before a decided repair (here P6's Tenerife dates) shows that repair's effect. The proof shows it is the only difference. Freezing code per instance would cost far more than a rebuild, and the next instance carries the repair.
+* **Verified without the fit:** the peer's build held the GPU, and `replay-compare` reads only the inputs.
+
+## P5.4 Claims and their evidence
+
+1. **Replays failed since 14 Oct, and why:** this session's replay at 13:58 (`runs/fastcourt_replay_2026-07-13_R16`, the tree's `logs/additions.log`). The 43 clashing ids were counted in this session and confirmed by the peer.
+2. **A replay now resolves each instance's own tables:** `test_replay_tables.py` (7 passed), and the three real instances resolved (10, 13 and 14 Oct; the 16 Oct entry is in the registry for tonight).
+3. **The merge reproduces the build's:** the replay's `accepted_additions_applied.json` equals the 14 Oct `chain_additions.json` counts (48,529 added; 43 skipped as the same id; 1 completion).
+4. **The replay reproduces the instance's inputs up to decided repairs:** `replay_compare_todays_code.json`, where only the Elo trio and Stage B differ. The Stage 0 diff is only the 31 Tenerife dates. With them reverted, `replay_compare.json` reads Elo bitwise and every input within 4.5e-6 (float32), and the switch guard passes.
+
+## P5.5 Weak points; where a flaw would hide
+
+* **The engine's own heavy replay tests were not run.** They need the GPU (the fit) and default to the 10 Oct instance; the GPU was the peer's. That configuration resolves (the 8 Oct view, `men_2026_ch_chq`) but was not replayed. Two expectations, not checks: P6's Tenerife correction should show as on 14 Oct, since that instance also predates it; and today's merge code (the week-duplicate rule, 13 Oct) may differ from the 10 Oct merge.
+* **The registry entries for 10 and 13 Oct rest on their READMEs**, not on a recorded merge.
+* **A new instance must have its view frozen and listed.** The peer's 16 Oct entry is listed in advance; an instance it forgets is refused, not mis-replayed.
+* **The live-dated path (trim) is untested here** beyond the unit test of `trim_timeline`.
+
+## P5.6 Reviewer checklist
+
+* [ ] Read `dp_common.replay_tables`, `dp_steps.step_worktree` / `step_tables`, `dp_tables.prep` / `replay_steps` / `trim_timeline`, `dp_worktree.setup`, and `additions.py`'s `listed` / `apply` / `--accepted-json`.
+* [ ] `./python.sh -m pytest test/daily_prediction/test_replay_tables.py -q`.
+* [ ] Open `runs/replayfix_2026-07-13_R16/replay_tables.json`, and the work tree's `run/accepted_for_replay.json` and `data/studies/current_best_model/accepted_additions_applied.json`.
+* [ ] Compare `replay_compare_todays_code.json` with `replay_compare.json`: only the Elo trio changes, to bitwise.
+
+## P5.7 Reproduction
+
+```
+# the exact replay against the selected instance (no fit), the registry resolving its view and additions
+DP_INSTANCE=template_2026-10-14 DP_BASE_TREE=C:/Users/zerom/tnr_tpl1014 DP_WORK_TREE=<tree> ./python.sh src/eda/daily_prediction/dp.py run_day --run <run> --replay-week 2026-07-13 --replay-round R16 --checkpoint 2026-06-22 --no-fit --keep-worktree
+DP_INSTANCE=template_2026-10-14 DP_BASE_TREE=C:/Users/zerom/tnr_tpl1014 DP_WORK_TREE=<tree> ./python.sh src/eda/daily_prediction/dp.py replay-compare --run <run>
+# the Tenerife proof: in the tree, set the 31 'atp|2024-2847|' rows' tournament_date to the instance's, re-sort Stage 0 with
+# predictability_diagnostic.common.chrono_sort (renumber order, players follow), layer_config.py --resolve --official
+# <official.json>, then dp.py states --run <run> and replay-compare as above
+```
+Kept for review (cleanup to be discussed): the tree `C:/Users/zerom/tnr_daily_replayfix` (its Stage 0 holds the reverted dates; the original is `run/stage0_matches_before_tenerife_revert.parquet`) and the run `runs/replayfix_2026-07-13_R16`.
+
+---
+
+# Part 6 (20 Oct 2026): `run_day --thinking`, added from the master pipeline's session
+
+A pointer, not a second record. The request, the reasoning, every check and the weak points are in the master pipeline's process log, Part 6 (`docs/studies/master_pipeline/process_log.md`; session `8deb79df-d266-484f-86d1-bc08542c9e4f`, Claude Opus 5.5). The owner's decision: `docs/decisions/2026-10-20-thinking-beside-local.md`.
+
+What changed in this package:
+* **New:** `dp_thinking.py`.
+* **Changed:** `dp.py`, `dp_steps.py` and `dp_predict.py`.
+  * `run_day --thinking --spend-tokens`, an `init --thinking`, a `thinking` step, and the internal `thinking-send`;
+  * the predict step's ensemble;
+  * `reprice` and `grade` read the new columns.
+* **Two paths:** `PY_API` and `THINKING_FITS` in `dp_common.py`.
+
+A run without `--thinking` is unchanged. On a copy of `live_2026-10-19_173201` the predict step reproduced its `predictions.csv` bit for bit.

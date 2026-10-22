@@ -33,8 +33,10 @@ docs/studies/rg_first_serve_recount/).
 Corrections of corrupt source rows (docs/decisions/2026-10-08-corrupt-data-fixes.md): every build also applies the
 tables in data/studies/input_data_audit/fixes/ (src/eda/input_data_audit/corrections.py): row_corrections.csv right
 after the overrides (serve points that leave out double faults, box scores exchanged between winner and loser, copied
-box scores blanked or replaced from the WTA's own statistics, impossible ages), and id_aliases.csv after the repairs
-(one player's second id). Each row must find its source row exactly, or the build stops. --no-corrections builds
+box scores blanked or replaced from the WTA's own statistics, impossible ages), date_corrections.csv right after them
+(an event dated in another week than it was played, since 14 Oct 2026: named by match, not by row, and reported, not
+stopping, once the source fixes the date itself), and id_aliases.csv after the repairs (one player's second id). Each
+row correction must find its source row exactly, or the build stops. --no-corrections builds
 without them; --corrections-dir <folder> applies other tables, into the live folder only with
 --confirm-live-overrides.
 
@@ -81,8 +83,9 @@ CORRECTION_RULES = {  # action -> (rule id, words, cleaning-log action)
     "exchange_svgms": ("E3", "service-game counts exchanged between winner and loser: exchanged back", "fix_box"),
     "blank_box": ("E4", "box score copied from another match (WTA Adelaide 2 2022 from Adelaide 2021; the same pair's "
                         "other meeting): blanked", "drop_box"),
-    "replace_box": ("E5", "box score copied from another match, replaced by the WTA's own statistics of this match",
-                          "replace_box"),
+    "replace_box": ("E5", "box score copied from another match (WTA Adelaide 2 2022), or contradicted by the tour's own "
+                          "box and point record of the match where they agree (since 22 Oct 2026): replaced by the "
+                          "tour's own statistics of this match", "replace_box"),
     "set_age": ("E6", "impossible or stale age (Tennis My Life's 2026 WTA ages written without their decimal point; "
                       "ATP Challengers of 17 Aug 2020 aged at 16 Mar 2020): the age from the birth date", "fix"),
     "replace_split": ("E7", "second serves booked as first serves (Roland Garros 2022-2025, Paris Olympics 2024): "
@@ -90,6 +93,16 @@ CORRECTION_RULES = {  # action -> (rule id, words, cleaning-log action)
     "set_svgms": ("E8", "service games the score disproves or leaves blank (Australian Open, Roland Garros): both set "
                         "from the score's alternation of serve, from the Slam's own record of who served first",
                   "fix_box"),
+    "mark_retired": ("E10", "a retirement written without its marker, the score short of a finished match (every other "
+                            "source and the tour's own record call it a retirement; since 22 Oct 2026): RET appended to "
+                            "the score, so it reads as retired", "relabel"),
+}
+EVENT_RULES = {  # event-correction action -> (rule id, words, cleaning-log action); docs/decisions/2026-10-22-...
+    "set_level": ("E11", "one edition of an event at the wrong level (Stage 0's level rules match an event by name and "
+                         "code, not by year; the tour's own record gives the level): the edition's level corrected",
+                  "relabel"),
+    "set_surface": ("E12", "one edition of an event on the wrong surface (WTA Paris 2013-14 filed as carpet; the WTA, "
+                           "tennis-data and Flashscore give hard): the edition's surface corrected", "relabel"),
 }
 SACKMANN_END = pd.Timestamp("2026-05-25")      # Sackmann's last main-tour week (lower tiers: 1-2 June)
 SANDBOX_MARKER = ROOT / ".prediction_run_sandbox"   # the root of a prediction run's sandbox, the only home of live rows
@@ -232,20 +245,87 @@ def apply_row_corrections(df: pd.DataFrame, folder: Path, summary: dict) -> pd.D
     return df
 
 
+def apply_date_corrections(df: pd.DataFrame, folder: Path, summary: dict) -> pd.DataFrame:
+    """The date corrections (date_corrections.csv beside the row corrections; since 14 Oct 2026, the P6 data issues'
+    Tenerife repair: docs/decisions/2026-10-14-p6-data-issues.md), logged as rule E9. A folder without the table (an
+    older candidate's) applies none. A correction whose match no longer reads the old date (the source fixed it) is
+    reported, not applied, and does not stop the build."""
+    path = Path(folder) / X.DATE_CORRECTIONS.name
+    if not path.exists():
+        return df
+    table = pd.read_csv(path, dtype=str, keep_default_na=False)
+    df, rep = X.apply_date_corrections(df, table)
+    if len(rep["rows"]):
+        note("E9", "event dated in another week than it was played (Tennis My Life gave the third Tenerife Challenger "
+                   "of 2024 the first one's name and date; three reviewers confirmed the date the matches were played): "
+                   "the event's true date (decision 2026-10-14)", "fix_date", df.loc[rep["rows"]])
+    summary["date_corrections"] = {"file": path.as_posix(), "rows": int(len(table)), "applied": rep["applied"],
+                                   "not_found": rep["not_found"]}
+    log(f"date corrections: {rep['applied']:,} of {len(table):,} matches re-dated"
+        + (f"; {len(rep['not_found'])} no longer read the old date (the source changed): {rep['not_found'][:3]}"
+           if rep["not_found"] else ""))
+    return df
+
+
+def event_corrections(folder: Path | str | None) -> pd.DataFrame:
+    """The event corrections (event_corrections.csv beside the row corrections; since 22 Oct 2026,
+    docs/decisions/2026-10-22-source-reconciliation-repairs.md). Empty without corrections, or for a folder without
+    the table (an older candidate's)."""
+    if folder is None or not (Path(folder) / X.EVENT_CORRECTIONS.name).exists():
+        return pd.DataFrame()
+    return pd.read_csv(Path(folder) / X.EVENT_CORRECTIONS.name, dtype=str, keep_default_na=False)
+
+
+def apply_event_corrections(sack: pd.DataFrame, tml: pd.DataFrame, table: pd.DataFrame, action: str,
+                            summary: dict) -> None:
+    """One field of named events (corrections.apply_event_corrections), in each source's frame in place, logged as
+    rules E11 (level) and E12 (surface). An event that already reads the corrected value is reported, not applied."""
+    if table.empty or not table["action"].eq(action).any():
+        return
+    rid, words, act = EVENT_RULES[action]
+    rep: dict = {"applied": [], "already": []}
+    for frame, source in ((sack, "sackmann"), (tml, "tml")):
+        t = table[table["source"].eq(source)]
+        if not t["action"].eq(action).any():
+            continue
+        _, r = X.apply_event_corrections(frame, t, action)
+        rep["applied"] += r["applied"]
+        rep["already"] += r["already"]
+        if len(r["rows"]):
+            note(rid, words + " (decision 2026-10-22)", act, frame.loc[r["rows"]])
+    summary.setdefault("event_corrections", {})[action] = rep
+    log(f"event corrections ({action}): {len(rep['applied'])} events corrected"
+        + (f"; {len(rep['already'])} already read the corrected value: {rep['already'][:3]}" if rep["already"] else ""))
+
+
 def apply_id_aliases(m: pd.DataFrame, mp: pd.DataFrame, folder: Path, summary: dict) -> tuple[pd.DataFrame,
                                                                                               pd.DataFrame]:
     """The audit's id aliases: a second id of one player mapped to the established id. An alias whose second id the
-    repairs already merged has no rows left and is reported as such."""
+    repairs already merged has no rows left and is reported as such. Since 22 Oct 2026 so is one whose source now
+    writes the established id itself (Tennis My Life's 2026 WTA file of 22 Oct for Tomljanovic, Cristian and Wolff):
+    its second id has no rows, and every row of the tour under its name carries the established id. Any other alias
+    without rows (the player gone, or under a third id) still stops the build. A replay of an older dump still holds
+    the second ids, which the alias maps as before."""
     aliases = correction_table(folder, X.ID_ALIASES.name)
     present = aliases["from_id"].isin(set(column_items(mp["player_id"])))
     merged = {(a["source_id"], a["canonical_id"]) for a in summary.get("data_repairs", {}).get("identity_aliases", [])}
-    lost = [(f, t) for f, t in zip(aliases.loc[~present, "from_id"], aliases.loc[~present, "to_id"]) if (f, t) not in merged]
+    gone = [a for a in aliases[~present].itertuples() if (a.from_id, a.to_id) not in merged]
+    fixed, lost = [], []
+    if gone:
+        tour = mp["match_id"].map(m.set_index("match_id")["tour"])
+        names = pd.unique(mp["player_name"].astype(str))
+        key = mp["player_name"].astype(str).map(dict(zip(names, (A.name_key(n) for n in names))))
+        for a in gone:
+            ids = set(mp.loc[tour.eq(a.tour).to_numpy() & key.eq(a.name_key).to_numpy(), "player_id"])
+            (fixed if ids == {a.to_id} else lost).append((a.from_id, a.to_id))
     if lost:
-        raise SystemExit(f"id aliases: {lost[:3]} have no rows and were not merged into the same id by the repairs; "
-                         "rebuild the table")
+        raise SystemExit(f"id aliases: {lost[:3]} have no rows, were not merged into the same id by the repairs, and "
+                         "their players' rows do not all carry the established id; rebuild the table")
     m, mp, report = X.apply_id_aliases(m, mp, aliases[present], A.name_key)
-    summary["id_aliases"] = {"applied": report, "already_merged": aliases.loc[~present, "from_id"].tolist()}
-    log(f"id aliases: {len(report)} second ids mapped ({int((~present).sum())} already merged by the repairs)")
+    summary["id_aliases"] = {"applied": report, "already_merged": aliases.loc[~present, "from_id"].tolist(),
+                             "fixed_by_source": [f for f, _ in fixed]}
+    log(f"id aliases: {len(report)} second ids mapped ({int((~present).sum()) - len(fixed)} already merged by the "
+        f"repairs, {len(fixed)} written as the established id by the source itself: {[f for f, _ in fixed]})")
     return m, mp
 
 
@@ -268,7 +348,10 @@ def add_live_rows(raw: pd.DataFrame, live: pd.DataFrame) -> pd.DataFrame:
     """Upcoming matches as Tennis My Life rows (group "live"), appended after every source file. Each row carries its
     tour and TML's own columns; the result is a placeholder and the box score blank, so the row is history for no
     match but its own players' later ones, which a prediction run never builds. A row whose ``live_role`` is "drop"
-    only names a played match to leave out (a replay's later rounds, which had not been played at its moment)."""
+    only names a played match to leave out (a replay's later rounds, which had not been played at its moment).
+    A live qualifying row may carry ``event_main_date`` (YYYYMMDD): the start of its event's main draw, which is not
+    played yet; the event's date (C05) is then that day, as a played event's qualifying is dated (bet since 22 Oct 2026,
+    docs/decisions/2026-10-22-qualifying-bets.md). Rows without it, and every build without live rows, are as before."""
     missing = {"tour", "tourney_id", "round", "winner_name", "loser_name", "score"} - set(live.columns)
     if missing:
         raise SystemExit(f"live rows: columns missing: {sorted(missing)}")
@@ -279,6 +362,9 @@ def add_live_rows(raw: pd.DataFrame, live: pd.DataFrame) -> pd.DataFrame:
     rows["source"], rows["group"], rows["file_season"] = "tml", "live", None
     rows["live_role"] = role.to_numpy()
     rows["_source_file"] = rows["_source_file"].fillna("live_rows")
+    if "event_main_date" in live.columns and live["event_main_date"].notna().any():
+        rows["live_main_date"] = pd.to_datetime(live["event_main_date"].astype("string").str.replace(r"\.0$", "", regex=True),
+                                                format="%Y%m%d", errors="coerce").to_numpy()
     out = pd.concat([raw, rows], ignore_index=True)
     out["rid"] = np.arange(len(out), dtype="int64")
     return out
@@ -1080,6 +1166,8 @@ def build(out_dir: Path | str | None = None, box_overrides: Path | str | None = 
         df = apply_box_overrides(df, pd.read_csv(box_overrides, dtype=str, keep_default_na=False), rel_path, summary)
     if corrections is not None:
         df = apply_row_corrections(df, Path(corrections), summary)
+        df = apply_date_corrections(df, Path(corrections), summary)
+    events = event_corrections(corrections)
     df = parse_scores(df)
     df = rule_levels(df)
     snapshots = [df[["rid", "tour", "level", "qualifying", "season"]]]   # where each raw row sits, for the log
@@ -1102,6 +1190,10 @@ def build(out_dir: Path | str | None = None, box_overrides: Path | str | None = 
     tm = df["source"].eq("tml")
     main_day = df[tm & ~df["qualifying"]].groupby(["tour", "ekey"])["tdate"].min()
     any_day = df[tm].groupby(["tour", "ekey"])["tdate"].min()
+    if "live_main_date" in df.columns and df["live_main_date"].notna().any():
+        # a live qualifying row's event whose main draw is not played yet: the start the linker gives it (add_live_rows)
+        hint = df[tm & df["live_main_date"].notna()].groupby(["tour", "ekey"])["live_main_date"].min()
+        main_day = main_day.combine_first(hint)
     day = lookup(main_day.combine_first(any_day), df, ["tour", "ekey"])
     move = tm & day.notna() & df["tdate"].ne(day) & ((df["tdate"] - day).dt.days.abs() <= 21)
     note("C05", "TML row dated apart from its event's main draw (qualifying dated the day before or after it; "
@@ -1140,6 +1232,7 @@ def build(out_dir: Path | str | None = None, box_overrides: Path | str | None = 
          "(A, I and W -> 250, P -> 500, PM -> 1000)", "flag", sack[refine & from_tml.isna()])
     note("L3", "TML files a non-Masters event under M (Winston-Salem 2026): 250", "relabel",
          tml[tml["level_rule"].eq("12")])
+    apply_event_corrections(sack, tml, events, "set_level", summary)      # one edition's level (22 Oct 2026)
     unlevelled = pd.concat([sack[sack["level"].isna()], tml[tml["level"].isna()]])
     note("L4", "no level rule matches: dropped", "drop_row", unlevelled)
     sack, tml = sack[sack["level"].notna()].copy(), tml[tml["level"].notna()].copy()
@@ -1155,6 +1248,7 @@ def build(out_dir: Path | str | None = None, box_overrides: Path | str | None = 
     note("F1", "Sackmann surface blank: taken from the TML rows of the same event", "fill",
          sack[blank_surface & fill.notna()])
     sack.loc[blank_surface, "surface"] = fill[blank_surface]
+    apply_event_corrections(sack, tml, events, "set_surface", summary)    # one edition's surface (22 Oct 2026)
     snapshots.append(pd.concat([sack, tml])[["rid", "tour", "level", "qualifying", "season"]])
 
     # TML-only rows: event id, date, season, name and level from Sackmann where it holds the event

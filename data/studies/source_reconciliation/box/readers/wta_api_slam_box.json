@@ -1,0 +1,432 @@
+{
+ "reader": "wta_api_slam_box",
+ "file": "data/studies/source_reconciliation/box/readers/wta_api_slam_box.parquet",
+ "rows": 4084,
+ "matches": 2042,
+ "source": "WTA API box score (stats endpoint, setnum 0); batches B3 (tour, WTA 125, Finals, every draw) and B9 (Slams 2024-2026); data/dump/points/wta/stats/<year>.parquet",
+ "split": "tier == 'slam' -> wta_api_slam_box; every other tier -> wta_api_box",
+ "records_read": {
+  "stats_rows": 127167,
+  "matches_with_box": 40318,
+  "by_year": {
+   "2019": 3394,
+   "2020": 1794,
+   "2021": 4273,
+   "2022": 4688,
+   "2023": 5181,
+   "2024": 6037,
+   "2025": 7549,
+   "2026": 7402
+  },
+  "singles_with_box": 31185,
+  "this_reader_matches_linked": 2042
+ },
+ "link": {
+  "link_file_rows": 28853,
+  "linked_and_oriented": 28852,
+  "dropped": {
+   "link_without_listing_row": 0,
+   "link_to_match_outside_women_2019": 0,
+   "names_do_not_orient": 1
+  },
+  "oriented_by_one_name_only (the other changed, e.g. a married name)": 410,
+  "orientation_checked_by_ids": {
+   "checked": 28771,
+   "agree": 28753,
+   "crosswalk_ids": 1455
+  },
+  "winner_disagrees_after_orienting": 1,
+  "winner_unknown_in_listing": 8,
+  "note": "link and orientation are computed over every singles listing row; this reader keeps its own tier"
+ },
+ "dropped": {
+  "linked_but_no_box_row (both readers)": 153
+ },
+ "complete": {
+  "rows": 1234,
+  "of": 4084
+ },
+ "by_level_group": {
+  "slam_main": 1270,
+  "slam_qual": 772
+ },
+ "by_s0_year": {
+  "2024": 471,
+  "2025": 953,
+  "2026": 618
+ },
+ "box_all_zero_rows (counts blanked, not complete)": 2850,
+ "box_all_zero_by_tournament_year": {
+  "901/2025": 237,
+  "901/2026": 1,
+  "903/2024": 237,
+  "903/2025": 239,
+  "904/2025": 239,
+  "905/2024": 234,
+  "905/2025": 238
+ },
+ "winner_disagrees_after_orienting_matches": 0,
+ "sanity_equality_with_stage0_all_rows": [
+  {
+   "field": "ace",
+   "n": 1234,
+   "equal": 1224,
+   "mean_diff": -0.0065,
+   "equal_share": 0.9919,
+   "within1_share": 0.9984
+  },
+  {
+   "field": "df",
+   "n": 1234,
+   "equal": 1220,
+   "mean_diff": -0.0097,
+   "equal_share": 0.9887,
+   "within1_share": 0.9976
+  },
+  {
+   "field": "svpt",
+   "n": 1234,
+   "equal": 1208,
+   "mean_diff": 0.0235,
+   "equal_share": 0.9789,
+   "within1_share": 0.9903
+  },
+  {
+   "field": "first_in",
+   "n": 1234,
+   "equal": 842,
+   "mean_diff": 1.4352,
+   "equal_share": 0.6823,
+   "within1_share": 0.8015
+  },
+  {
+   "field": "first_won",
+   "n": 1234,
+   "equal": 945,
+   "mean_diff": 0.6653,
+   "equal_share": 0.7658,
+   "within1_share": 0.8825
+  },
+  {
+   "field": "second_won",
+   "n": 1234,
+   "equal": 942,
+   "mean_diff": -0.6402,
+   "equal_share": 0.7634,
+   "within1_share": 0.8857
+  },
+  {
+   "field": "sv_gms",
+   "n": 1234,
+   "equal": 68,
+   "mean_diff": -3.6637,
+   "equal_share": 0.0551,
+   "within1_share": 0.1702
+  },
+  {
+   "field": "bp_saved",
+   "n": 1234,
+   "equal": 1230,
+   "mean_diff": 0.0,
+   "equal_share": 0.9968,
+   "within1_share": 1.0
+  },
+  {
+   "field": "bp_faced",
+   "n": 1234,
+   "equal": 1230,
+   "mean_diff": 0.0,
+   "equal_share": 0.9968,
+   "within1_share": 1.0
+  },
+  {
+   "field": "sv_won",
+   "n": 1234,
+   "equal": 1215,
+   "mean_diff": 0.0251,
+   "equal_share": 0.9846,
+   "within1_share": 0.9951
+  }
+ ],
+ "sanity_equality_with_stage0_by_year": [
+  {
+   "x_s0_year": 2024,
+   "field": "ace",
+   "n": 0,
+   "equal": 0,
+   "mean_diff": null,
+   "equal_share": null,
+   "within1_share": null
+  },
+  {
+   "x_s0_year": 2025,
+   "field": "ace",
+   "n": 0,
+   "equal": 0,
+   "mean_diff": null,
+   "equal_share": null,
+   "within1_share": null
+  },
+  {
+   "x_s0_year": 2026,
+   "field": "ace",
+   "n": 1234,
+   "equal": 1224,
+   "mean_diff": -0.0065,
+   "equal_share": 0.9919,
+   "within1_share": 0.9984
+  },
+  {
+   "x_s0_year": 2024,
+   "field": "df",
+   "n": 0,
+   "equal": 0,
+   "mean_diff": null,
+   "equal_share": null,
+   "within1_share": null
+  },
+  {
+   "x_s0_year": 2025,
+   "field": "df",
+   "n": 0,
+   "equal": 0,
+   "mean_diff": null,
+   "equal_share": null,
+   "within1_share": null
+  },
+  {
+   "x_s0_year": 2026,
+   "field": "df",
+   "n": 1234,
+   "equal": 1220,
+   "mean_diff": -0.0097,
+   "equal_share": 0.9887,
+   "within1_share": 0.9976
+  },
+  {
+   "x_s0_year": 2024,
+   "field": "svpt",
+   "n": 0,
+   "equal": 0,
+   "mean_diff": null,
+   "equal_share": null,
+   "within1_share": null
+  },
+  {
+   "x_s0_year": 2025,
+   "field": "svpt",
+   "n": 0,
+   "equal": 0,
+   "mean_diff": null,
+   "equal_share": null,
+   "within1_share": null
+  },
+  {
+   "x_s0_year": 2026,
+   "field": "svpt",
+   "n": 1234,
+   "equal": 1208,
+   "mean_diff": 0.0235,
+   "equal_share": 0.9789,
+   "within1_share": 0.9903
+  },
+  {
+   "x_s0_year": 2024,
+   "field": "first_in",
+   "n": 0,
+   "equal": 0,
+   "mean_diff": null,
+   "equal_share": null,
+   "within1_share": null
+  },
+  {
+   "x_s0_year": 2025,
+   "field": "first_in",
+   "n": 0,
+   "equal": 0,
+   "mean_diff": null,
+   "equal_share": null,
+   "within1_share": null
+  },
+  {
+   "x_s0_year": 2026,
+   "field": "first_in",
+   "n": 1234,
+   "equal": 842,
+   "mean_diff": 1.4352,
+   "equal_share": 0.6823,
+   "within1_share": 0.8015
+  },
+  {
+   "x_s0_year": 2024,
+   "field": "first_won",
+   "n": 0,
+   "equal": 0,
+   "mean_diff": null,
+   "equal_share": null,
+   "within1_share": null
+  },
+  {
+   "x_s0_year": 2025,
+   "field": "first_won",
+   "n": 0,
+   "equal": 0,
+   "mean_diff": null,
+   "equal_share": null,
+   "within1_share": null
+  },
+  {
+   "x_s0_year": 2026,
+   "field": "first_won",
+   "n": 1234,
+   "equal": 945,
+   "mean_diff": 0.6653,
+   "equal_share": 0.7658,
+   "within1_share": 0.8825
+  },
+  {
+   "x_s0_year": 2024,
+   "field": "second_won",
+   "n": 0,
+   "equal": 0,
+   "mean_diff": null,
+   "equal_share": null,
+   "within1_share": null
+  },
+  {
+   "x_s0_year": 2025,
+   "field": "second_won",
+   "n": 0,
+   "equal": 0,
+   "mean_diff": null,
+   "equal_share": null,
+   "within1_share": null
+  },
+  {
+   "x_s0_year": 2026,
+   "field": "second_won",
+   "n": 1234,
+   "equal": 942,
+   "mean_diff": -0.6402,
+   "equal_share": 0.7634,
+   "within1_share": 0.8857
+  },
+  {
+   "x_s0_year": 2024,
+   "field": "sv_gms",
+   "n": 0,
+   "equal": 0,
+   "mean_diff": null,
+   "equal_share": null,
+   "within1_share": null
+  },
+  {
+   "x_s0_year": 2025,
+   "field": "sv_gms",
+   "n": 0,
+   "equal": 0,
+   "mean_diff": null,
+   "equal_share": null,
+   "within1_share": null
+  },
+  {
+   "x_s0_year": 2026,
+   "field": "sv_gms",
+   "n": 1234,
+   "equal": 68,
+   "mean_diff": -3.6637,
+   "equal_share": 0.0551,
+   "within1_share": 0.1702
+  },
+  {
+   "x_s0_year": 2024,
+   "field": "bp_saved",
+   "n": 0,
+   "equal": 0,
+   "mean_diff": null,
+   "equal_share": null,
+   "within1_share": null
+  },
+  {
+   "x_s0_year": 2025,
+   "field": "bp_saved",
+   "n": 0,
+   "equal": 0,
+   "mean_diff": null,
+   "equal_share": null,
+   "within1_share": null
+  },
+  {
+   "x_s0_year": 2026,
+   "field": "bp_saved",
+   "n": 1234,
+   "equal": 1230,
+   "mean_diff": 0.0,
+   "equal_share": 0.9968,
+   "within1_share": 1.0
+  },
+  {
+   "x_s0_year": 2024,
+   "field": "bp_faced",
+   "n": 0,
+   "equal": 0,
+   "mean_diff": null,
+   "equal_share": null,
+   "within1_share": null
+  },
+  {
+   "x_s0_year": 2025,
+   "field": "bp_faced",
+   "n": 0,
+   "equal": 0,
+   "mean_diff": null,
+   "equal_share": null,
+   "within1_share": null
+  },
+  {
+   "x_s0_year": 2026,
+   "field": "bp_faced",
+   "n": 1234,
+   "equal": 1230,
+   "mean_diff": 0.0,
+   "equal_share": 0.9968,
+   "within1_share": 1.0
+  },
+  {
+   "x_s0_year": 2024,
+   "field": "sv_won",
+   "n": 0,
+   "equal": 0,
+   "mean_diff": null,
+   "equal_share": null,
+   "within1_share": null
+  },
+  {
+   "x_s0_year": 2025,
+   "field": "sv_won",
+   "n": 0,
+   "equal": 0,
+   "mean_diff": null,
+   "equal_share": null,
+   "within1_share": null
+  },
+  {
+   "x_s0_year": 2026,
+   "field": "sv_won",
+   "n": 1234,
+   "equal": 1215,
+   "mean_diff": 0.0251,
+   "equal_share": 0.9846,
+   "within1_share": 0.9951
+  }
+ ],
+ "hand_checks": "see wta_handcheck.json",
+ "hand_check_keys": [
+  "wta:901/2026/LS67816660",
+  "wta:901/2026/LS67832944",
+  "wta:901/2026/RS67662482",
+  "wta:901/2026/LS67664804",
+  "wta:903/2026/LS71642252",
+  "wta:903/2026/LS71642242"
+ ]
+}

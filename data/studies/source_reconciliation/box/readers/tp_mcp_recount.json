@@ -1,0 +1,408 @@
+{
+ "reader": "tp_mcp_recount",
+ "written_at": "2026-10-16T21:44:42+00:00",
+ "file": "data/studies/source_reconciliation/box/readers/tp_mcp_recount.parquet",
+ "snapshot_manifest_sha256": "fc299ad2f4f8c6221521b848403f763777a8553fe4603846fcfe01b059a8be7d",
+ "inputs": [
+  {
+   "path": "data/dump/points/match_charting_project/points/charting-m-points-2010s.parquet",
+   "bytes": 4434982,
+   "modified": "2026-09-22T21:25:36+00:00",
+   "sha256": "b97d09b51da710796ad4bd3f9e3a450b642c503a88db0d5b9589554b56b53a31"
+  },
+  {
+   "path": "data/dump/points/match_charting_project/points/charting-m-points-2020s.parquet",
+   "bytes": 6705742,
+   "modified": "2026-09-22T21:25:42+00:00",
+   "sha256": "f5236b2e3855718187805eb2df9eede645e70f13f8f55d554643cf064eeb4cc6"
+  },
+  {
+   "path": "data/dump/points/match_charting_project/points/charting-w-points-2010s.parquet",
+   "bytes": 2141047,
+   "modified": "2026-09-22T21:26:12+00:00",
+   "sha256": "e9bf0bf9007c2287a071a3b3469e1d7324e30cd19a7c5b4b5130aa997c154257"
+  },
+  {
+   "path": "data/dump/points/match_charting_project/points/charting-w-points-2020s.parquet",
+   "bytes": 4304121,
+   "modified": "2026-09-22T21:26:15+00:00",
+   "sha256": "cfa569d7fe73683044eea83c19b8b40152f01457c8f562b69095f53a6aaa81f6"
+  },
+  {
+   "path": "data/dump/points/match_charting_project/metadata/charting-m-matches.parquet",
+   "bytes": 232184,
+   "modified": "2026-09-22T21:25:32+00:00",
+   "sha256": "88b802f90b6623814e21a9841f1606bd7f86bb2615a10247876b7e35ccc4a654"
+  },
+  {
+   "path": "data/dump/points/match_charting_project/metadata/charting-w-matches.parquet",
+   "bytes": 141008,
+   "modified": "2026-09-22T21:26:09+00:00",
+   "sha256": "3beff689c1edcda4974f932b6d6f5191ffb80ad02bc9a8f2375b29725aad2d38"
+  },
+  {
+   "path": "data/dump/points/match_charting_project/stats/charting-m-stats-Overview.parquet",
+   "bytes": 1030622,
+   "modified": "2026-09-22T21:25:47+00:00",
+   "sha256": "901f56e301971c687928eca2850b02fe358768b43e0043646a4e7ecda0d693f0"
+  },
+  {
+   "path": "data/dump/points/match_charting_project/stats/charting-w-stats-Overview.parquet",
+   "bytes": 530566,
+   "modified": "2026-09-22T21:26:19+00:00",
+   "sha256": "85bf4570abf971d94f4435229a042cad81c126c60b150e792054536ee9c096a0"
+  }
+ ],
+ "records": {
+  "charts_listed": 11822,
+  "charts_with_points": 9406,
+  "point_rows": 1437120,
+  "links": 9164,
+  "linked_charts": 9164,
+  "linked_with_points": 9136,
+  "orientation_unresolved": 9
+ },
+ "dropped": {
+  "charts_not_in_link_file": 2658,
+  "linked_charts_without_points": 28,
+  "orientation_unresolved": 8
+ },
+ "checks": {
+  "recounted": 9136,
+  "points_consistent": 9100,
+  "sets_equal_stage0": 9105,
+  "with_unknown_or_bad_points": 1028,
+  "complete": 8058
+ },
+ "parser_vs_mcp_overview": {
+  "all": {
+   "svpt": {
+    "n": 18252,
+    "equal_share": 0.9342
+   },
+   "ace": {
+    "n": 18252,
+    "equal_share": 0.99786
+   },
+   "df": {
+    "n": 18252,
+    "equal_share": 0.99485
+   },
+   "first_in": {
+    "n": 18252,
+    "equal_share": 0.99195
+   },
+   "first_won": {
+    "n": 18252,
+    "equal_share": 0.9948
+   },
+   "second_won": {
+    "n": 18252,
+    "equal_share": 0.99753
+   },
+   "bp_faced": {
+    "n": 18252,
+    "equal_share": 0.99063
+   },
+   "bp_saved": {
+    "n": 18252,
+    "equal_share": 0.99469
+   }
+  },
+  "complete": {
+   "svpt": {
+    "n": 16112,
+    "equal_share": 0.99975
+   },
+   "ace": {
+    "n": 16112,
+    "equal_share": 0.99938
+   },
+   "df": {
+    "n": 16112,
+    "equal_share": 0.99578
+   },
+   "first_in": {
+    "n": 16112,
+    "equal_share": 0.99851
+   },
+   "first_won": {
+    "n": 16112,
+    "equal_share": 0.99932
+   },
+   "second_won": {
+    "n": 16112,
+    "equal_share": 0.99926
+   },
+   "bp_faced": {
+    "n": 16112,
+    "equal_share": 0.99994
+   },
+   "bp_saved": {
+    "n": 16112,
+    "equal_share": 0.99994
+   }
+  }
+ },
+ "contract_checks": {
+  "rows": 18256,
+  "matches": 9128,
+  "matches_with_two_rows": 9128,
+  "duplicate_match_player": 0,
+  "player_not_in_stage0_match": 0,
+  "source_keys_on_two_matches": 0
+ },
+ "winner_vs_stage0_complete": {
+  "player_rows_with_a_winner": 15942,
+  "agree": 15942,
+  "disagree": 0,
+  "disagree_share": 0.0,
+  "disagree_examples": []
+ },
+ "winner_vs_stage0_all": {
+  "player_rows_with_a_winner": 18010,
+  "agree": 18008,
+  "disagree": 2,
+  "disagree_share": 0.00011,
+  "disagree_examples": [
+   "wta|2026-609|R16|wta:214096|wta:216347"
+  ]
+ },
+ "definitions": "from each point's first- and second-serve strings ('1st', '2nd'), the server (Svr: 1 =\nPlayer 1) and the point's winner (PtWinner). The conventions, read from the data (16 Oct 2026; the shot-level study's\nmcp_point() and the RG referee scripts use the same codes):\n    * a serve string may start with lets, 'c' (one per let); they are dropped;\n    * a serve is a fault when, lets dropped, it is a direction (4 wide, 5 body, 6 T, 0 unknown; may be missing),\n      optional modifiers (+ ^ ; !), one or more fault codes n (net) w (wide) d (deep) x (wide and deep) g (foot\n      fault) e (unknown) ! (shank), and optional trailing marks (; @ # !): '6d@', '4^n', '4;w', '4wd'. 'V' (a time\n      violation) costs the first serve like a fault. This reading reproduces MCP's own Overview first serves in\n      99.62% of player rows (a narrower one, direction + one code: 99.4%; \"a second string means a fault\": 99.17%);\n    * a first serve in followed by a second-serve string (128 points), or a fault with no second serve (6), is\n      ambiguous: x_bad_points, and the chart is not complete;\n    * a double fault: the second serve is a fault (the server loses 56,420 of 56,426);\n    * an ace: the serve played is its direction followed by '*' (the server wins 94,005 of 94,005). '#' after the\n      serve (an unreturned serve the returner touched) and 'C' are not aces;\n    * 'S' / 'R' (the whole first string): the point went to the server / returner but the video missed it: a served\n      point with no serve detail (counted in svpt and sv_won; first serves unknown: x_unknown_points);\n    * 'P' / 'Q': a point penalty against the server / returner: no serve, not counted as a served point\n      (x_penalty_points); it moves the score.\nCounts per player (that player's serve): svpt, first_in, first_won, second_won (a double fault is a second-serve point\nlost), ace, df, sv_won, sv_gms (completed non-tiebreak games served), bp_faced (points of a non-tiebreak service game\nat which the returner wins the game by winning the point: Pts, written server first, 0/15/30-40 or 40-AD) and\nbp_saved. A tiebreak game is one whose point scores are numbers (1-0, 2-3, ...).\ncomplete: the chart's points are numbered 1..N without a gap, every point's recorded score (sets, games, points) is\nthe previous point's score plus that point's winner, the first point is 0-0 in the first game, the set scores so\nreconstructed equal Stage 0's score, and no point lacks its serve detail (S/R). x_points_consistent is the same\nwithout the last condition (svpt, sv_won, sv_gms and break points do not need serve detail).\nOrientation: the chart's Player 1 / Player 2 names graded against Stage 0's A and B (tp_common.orient). x_src_won is\nthe recount's winner by finished sets (None where the sets do not decide it, as at a retirement).\nx_mcp_*: MCP's own Overview totals (set Total) of the same player, computed by the project from the same strings:\na check of this parser, not an independent record.",
+ "sanity_vs_stage0_complete_by_tour": [
+  {
+   "tour": "atp",
+   "field": "ace",
+   "n": 9500,
+   "equal": 8123,
+   "within1": 9367,
+   "mean_diff": 0.0395789474,
+   "mean_abs_diff": 0.1616842105,
+   "equal_share": 0.8550526316,
+   "within1_share": 0.986
+  },
+  {
+   "tour": "wta",
+   "field": "ace",
+   "n": 6042,
+   "equal": 5739,
+   "within1": 6021,
+   "mean_diff": 0.0225091029,
+   "mean_abs_diff": 0.0562727574,
+   "equal_share": 0.9498510427,
+   "within1_share": 0.9965243297
+  },
+  {
+   "tour": "atp",
+   "field": "df",
+   "n": 9500,
+   "equal": 9406,
+   "within1": 9494,
+   "mean_diff": 0.0042105263,
+   "mean_abs_diff": 0.0111578947,
+   "equal_share": 0.9901052632,
+   "within1_share": 0.9993684211
+  },
+  {
+   "tour": "wta",
+   "field": "df",
+   "n": 6042,
+   "equal": 5963,
+   "within1": 6033,
+   "mean_diff": 0.0039721946,
+   "mean_abs_diff": 0.0162197948,
+   "equal_share": 0.9869248593,
+   "within1_share": 0.998510427
+  },
+  {
+   "tour": "atp",
+   "field": "svpt",
+   "n": 9500,
+   "equal": 9355,
+   "within1": 9456,
+   "mean_diff": -0.0090526316,
+   "mean_abs_diff": 0.0267368421,
+   "equal_share": 0.9847368421,
+   "within1_share": 0.9953684211
+  },
+  {
+   "tour": "wta",
+   "field": "svpt",
+   "n": 6042,
+   "equal": 5930,
+   "within1": 5980,
+   "mean_diff": 0.0072823568,
+   "mean_abs_diff": 0.0887123469,
+   "equal_share": 0.9814630917,
+   "within1_share": 0.9897384972
+  },
+  {
+   "tour": "atp",
+   "field": "first_in",
+   "n": 9500,
+   "equal": 7432,
+   "within1": 9173,
+   "mean_diff": 0.0811578947,
+   "mean_abs_diff": 0.27,
+   "equal_share": 0.7823157895,
+   "within1_share": 0.9655789474
+  },
+  {
+   "tour": "wta",
+   "field": "first_in",
+   "n": 6042,
+   "equal": 5176,
+   "within1": 5889,
+   "mean_diff": 0.0259847733,
+   "mean_abs_diff": 0.2166501159,
+   "equal_share": 0.8566699768,
+   "within1_share": 0.9746772592
+  },
+  {
+   "tour": "atp",
+   "field": "first_won",
+   "n": 9500,
+   "equal": 8099,
+   "within1": 9351,
+   "mean_diff": 0.0471578947,
+   "mean_abs_diff": 0.1675789474,
+   "equal_share": 0.8525263158,
+   "within1_share": 0.9843157895
+  },
+  {
+   "tour": "wta",
+   "field": "first_won",
+   "n": 6042,
+   "equal": 5504,
+   "within1": 5968,
+   "mean_diff": 0.0114200596,
+   "mean_abs_diff": 0.1292618338,
+   "equal_share": 0.9109566369,
+   "within1_share": 0.9877523999
+  },
+  {
+   "tour": "atp",
+   "field": "second_won",
+   "n": 9500,
+   "equal": 8139,
+   "within1": 9358,
+   "mean_diff": -0.0550526316,
+   "mean_abs_diff": 0.1653684211,
+   "equal_share": 0.8567368421,
+   "within1_share": 0.9850526316
+  },
+  {
+   "tour": "wta",
+   "field": "second_won",
+   "n": 6042,
+   "equal": 5520,
+   "within1": 5981,
+   "mean_diff": -0.0228401192,
+   "mean_abs_diff": 0.1095663688,
+   "equal_share": 0.9136047666,
+   "within1_share": 0.9899040053
+  },
+  {
+   "tour": "atp",
+   "field": "sv_gms",
+   "n": 9490,
+   "equal": 9286,
+   "within1": 9456,
+   "mean_diff": -0.0213909378,
+   "mean_abs_diff": 0.0251844046,
+   "equal_share": 0.9785036881,
+   "within1_share": 0.9964172813
+  },
+  {
+   "tour": "wta",
+   "field": "sv_gms",
+   "n": 5466,
+   "equal": 5371,
+   "within1": 5462,
+   "mean_diff": -0.0107939993,
+   "mean_abs_diff": 0.0181119649,
+   "equal_share": 0.9826198317,
+   "within1_share": 0.9992682034
+  },
+  {
+   "tour": "atp",
+   "field": "bp_saved",
+   "n": 9500,
+   "equal": 9462,
+   "within1": 9492,
+   "mean_diff": -0.0002105263,
+   "mean_abs_diff": 0.0050526316,
+   "equal_share": 0.996,
+   "within1_share": 0.9991578947
+  },
+  {
+   "tour": "wta",
+   "field": "bp_saved",
+   "n": 6042,
+   "equal": 5989,
+   "within1": 6031,
+   "mean_diff": 0.0009930487,
+   "mean_abs_diff": 0.0122476001,
+   "equal_share": 0.9912280702,
+   "within1_share": 0.9981794108
+  },
+  {
+   "tour": "atp",
+   "field": "bp_faced",
+   "n": 9500,
+   "equal": 9448,
+   "within1": 9492,
+   "mean_diff": -0.0006315789,
+   "mean_abs_diff": 0.0067368421,
+   "equal_share": 0.9945263158,
+   "within1_share": 0.9991578947
+  },
+  {
+   "tour": "wta",
+   "field": "bp_faced",
+   "n": 6042,
+   "equal": 5985,
+   "within1": 6026,
+   "mean_diff": 0.0043032109,
+   "mean_abs_diff": 0.0155577623,
+   "equal_share": 0.9905660377,
+   "within1_share": 0.9973518702
+  },
+  {
+   "tour": "atp",
+   "field": "sv_won",
+   "n": 9500,
+   "equal": 9417,
+   "within1": 9485,
+   "mean_diff": -0.0076842105,
+   "mean_abs_diff": 0.0142105263,
+   "equal_share": 0.9912631579,
+   "within1_share": 0.9984210526
+  },
+  {
+   "tour": "wta",
+   "field": "sv_won",
+   "n": 6042,
+   "equal": 5956,
+   "within1": 6002,
+   "mean_diff": -0.0114200596,
+   "mean_abs_diff": 0.0600794439,
+   "equal_share": 0.9857663025,
+   "within1_share": 0.9933796756
+  }
+ ],
+ "hand_check": {
+  "keys": [
+   "atp|2018-407|R16|atp:103819|atp:104259",
+   "wta|2020-800|R32|wta:202428|wta:215035",
+   "atp|2025-6242|F|atp:105916|atp:122298",
+   "atp|2025-352|R16|atp:111815|atp:200473",
+   "wta|2018-540|R128|wta:201585|wta:202499",
+   "wta|2019-1101|R16|wta:201514|wta:201555"
+  ],
+  "status": "checked",
+  "checked_at": "2026-10-16T21:45:56+00:00",
+  "verdict": "6 of 6 keys: the recount equals MCP's own Overview totals (set Total) on every count, both players, and the player rows sit on the right Stage 0 ids by name (Kohlschreiber, Bertens, Van De Zandschulp, Norrie, Stephens, Hercog = Stage 0's A). For 20180215-M-Rotterdam-R16-Roger_Federer-Philipp_Kohlschreiber the raw point strings (159 points, Pt 1..159) were also counted with independent minimal rules (a second string = a first-serve fault; a second string that is a fault code = double fault; direction + '*' = ace; distinct Gm# outside 6-6 = service games; Pts 0/15/30-40 or 40-AD = break point): Federer 68 / 46 / 41 / 14 / 0 df / 11 aces / 12 games / 0 bp; Kohlschreiber 91 / 56 / 36 / 24 / 2 / 6 / 12 / 6 faced 5 saved: equal to the reader's rows.",
+  "how": "tp_handcheck.py printed each key's raw staged rows (the source's own document as staged under data/dump/ or data/raw/) beside the reader's rows and Stage 0's names and counts; checked by eye: the player orientation (names) and every count of the mapping"
+ }
+}

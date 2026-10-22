@@ -1,0 +1,36 @@
+{
+ "started_at": "2026-10-14T21:15:59+00:00",
+ "steps": [
+  {
+   "step": "keep",
+   "files": 72,
+   "bytes": 387487845,
+   "seconds": 1.4
+  },
+  {
+   "step": "build",
+   "command": "src/eda/predictability_diagnostic/stage0_build.py",
+   "exit": 0,
+   "seconds": 104.2
+  },
+  {
+   "step": "checks",
+   "command": "src/eda/predictability_diagnostic/stage0_checks.py",
+   "exit": 0,
+   "seconds": 18.9
+  },
+  {
+   "step": "odds",
+   "command": "src/eda/predictability_diagnostic/stage1_odds.py",
+   "exit": 0,
+   "seconds": 7.7
+  }
+ ],
+ "expect": {
+  "folder": "C:/Users/zerom/AppData/Local/Temp/claude/c--Users-zerom-Documents-Tennis-predictions/b2538231-694b-4911-acc2-603ecdaff3ea/scratchpad/date_dry_run_2/with",
+  "matches_equal": true,
+  "players_equal": true,
+  "same_bytes": true
+ },
+ "ok": false
+}

@@ -74,6 +74,44 @@ def test_flashscore_feeds_are_placed_on_the_targets_linked(tmp_path):
     assert len(M.flashscore_point_uids(rows, matches, paths=[])) == 2
 
 
+def test_p6s_flashscore_links_are_read_and_the_refused_ones_left_out(tmp_path, monkeypatch):
+    monkeypatch.setattr(M, "DATA", tmp_path)
+    p13 = tmp_path / "studies" / "gap_downloads" / "flashscore_itf_points_2025_2026_matches.csv.gz"
+    p6 = tmp_path / "studies" / "p6_data_issues" / "flashscore" / "fetch_matches.csv.gz"
+    for p in (p13, p6):
+        p.parent.mkdir(parents=True)
+    pd.DataFrame({"tour": ["M"], "tname": ["M15 Monastir"], "d": ["2025-03-17"], "name1": ["Tommy Paul"],
+                  "name2": ["Reilly Opelka"], "fs_id": ["AAA"]}).to_csv(p13, index=False)
+    # one feed linked to two targets; the link check refused the borrowed one (Galan shares only "Daniel")
+    pd.DataFrame({"tour": ["M", "M"], "tname": ["Barcelona", "Monterrey"], "d": ["2019-04-22", "2019-04-07"],
+                  "name1": ["Marcel Granollers", "Marcel Granollers"], "name2": ["Daniel Evans", "Daniel Elahi Galan"],
+                  "fs_id": ["BBB", "BBB"], "level": ["TQ", "CH"], "link_refused": [False, True]}).to_csv(p6, index=False)
+    matches = pd.DataFrame({"uid": [1, 2, 3], "tour": "M", "year": [2025, 2019, 2019],
+                            "tname": ["M15 Monastir", "Barcelona", "Monterrey"],
+                            "d": pd.to_datetime(["2025-03-17", "2019-04-22", "2019-04-07"]),
+                            "name1": ["Tommy Paul", "Marcel Granollers", "Marcel Granollers"],
+                            "name2": ["Reilly Opelka", "Daniel Evans", "Daniel Elahi Galan"]})
+    rows = pd.DataFrame({"fs_id": ["AAA", "BBB"], "tour": "M", "d": pd.to_datetime(["2025-03-19", "2019-04-23"]),
+                         "name1": ["Paul T.", "Granollers M."], "name2": ["Opelka R.", "Evans D."],
+                         "tname": ["M15 Monastir", "Barcelona"]})
+    got = M.flashscore_point_uids(rows, matches)          # the default tables: P13's and P6's
+    assert sorted(zip(got["fs_id"], got["preset_uid"].astype(int))) == [("AAA", 1), ("BBB", 2)]
+
+
+def test_p6s_flashscore_records_leave_level_and_draw_to_their_match(tmp_path, monkeypatch):
+    monkeypatch.setattr(M, "DUMP", tmp_path)
+    path = tmp_path / "points" / "flashscore_points" / "matches.parquet"
+    path.parent.mkdir(parents=True)
+    pd.DataFrame({"fs_id": ["AAA", "BBB", "CCC"], "tour": "M", "fs_date": ["20250318", "20190422", "20190422"],
+                  "grade": ["M15", "atp-singles", "challenger-men-singles"], "fs_tournament": ["M15 Monastir", "Barcelona", "Monterrey"],
+                  "fs_home": ["Paul T.", "Granollers M.", "Galan D. E."], "fs_away": ["Opelka R.", "Evans D.", "Kicker N."],
+                  "feed_status": "200", "fb_points": ["120", "150", "0"]}).to_parquet(path)
+    got = M.load_flashscore_points().set_index("fs_id")
+    assert list(got.index) == ["AAA", "BBB"]                 # a feed without points is left out
+    assert (got.loc["AAA", "level"], got.loc["AAA", "draw"]) == ("ITF", "main")
+    assert got.loc["BBB", ["level", "draw"]].isna().all() and got.loc["BBB", "d"] == pd.Timestamp("2019-04-22")
+
+
 def test_wta_125_category_is_a_womens_challenger_level():
     # SofaScore's category 871 is named 'WTA 125' (observed 9 Oct 2026); unmapped, its records would be dropped
     assert (M.SOFASCORE_TOUR["WTA 125"], M.SOFASCORE_FALLBACK["WTA 125"]) == ("W", "CH")

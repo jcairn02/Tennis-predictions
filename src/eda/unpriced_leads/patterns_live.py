@@ -3,9 +3,11 @@
 It is off until the single check passes and the owner accepts it. While adjustment.json's status is "off", the engine
 runs no extra step and its outputs are unchanged: no column, no provenance entry. When it is on:
     the patterns step (dp_steps.step_patterns, after the states step) runs live_members.py inside the work tree for the
-    live matches (the registered members' values on the tree's own tables), then build_for_run here computes the live
-    gate and z with the check's frozen parameters (check_now.score_from_params) and writes
-    <run>/live_patterns.parquet (match_id, z, each member's value and gate);
+    live matches (the registered members' values on the tree's own tables; G3's surface IOS is the instance's table
+    with the states step's ace ratings of today's tables laid over it, since 16 Oct 2026), then build_for_run here
+    computes the live gate and z with the check's frozen parameters (check_now.score_from_params) and writes
+    <run>/live_patterns.parquet (match_id, z, each member's value and gate), and live_patterns.json (with the venue
+    pace's coverage: venue history rows without a rating, which add nothing);
     the predict step adds b z to each match's stage-2 log-odds, at its own price and at every grid price:
         logit q = s_tour eta + b_speed spd_L + b z
     z is the same at every price, because the score reads none of the price inputs. It records z, the shift and q
@@ -218,5 +220,12 @@ def build_for_run(run_dir: Path, tree: Path) -> dict:
     rec = {"matches": int(len(out)), "z_present": int(np.isfinite(z).sum()),
            "not_built_but_on_counted_as_missing": missing_on, "gate_off": gate_report,
            "params_sha256": cfg["params_sha256"]}
+    lm = (run_dir / MEMBERS_FILE).with_suffix(".json")          # live_members.py's record of what G3 read
+    if lm.exists():
+        j = json.loads(lm.read_text(encoding="utf-8"))
+        rec["venue_pace"] = {"venue_rows": j.get("venue_rows"),
+                             "venue_rows_without_rating": j.get("venue_rows_without_rating"),
+                             "ratings_from_run": (j.get("ios") or {}).get("run_matches"),
+                             "ace_gap_equal_to_input": (j.get("frame_check") or {}).get("equal")}
     (run_dir / "live_patterns.json").write_text(json.dumps(rec, indent=1, default=float), encoding="utf-8")
     return rec

@@ -78,6 +78,12 @@ QUAL_OF = {"GS": "GSQ", "T1000": "TQ", "T500": "TQ", "T250": "TQ", "FIN": "TQ", 
 MAIN_OF = {"GSQ": "GS", "TQ": "T250", "CHQ": "CH", "ITFQ": "ITF"}
 WTA_API_LEVELS = {"FIN", "T1000", "T500", "T250", "TQ", "CH", "CHQ"}   # what the WTA API lists
 SLAM_PATTERNS = {"AO": "australian", "RG": "roland|french", "W": "wimbledon", "USO": "us open"}
+SLAM_LEVELS = frozenset({"GS", "GSQ"})
+# The editions' own name test: "us open" whole words only (Sackmann's "Doha Aus Open Qualies" holds it inside a word)
+SLAM_NAMES = {"AO": r"australian|\baus open\b", "RG": r"roland|french", "W": r"wimbledon", "USO": r"\bus open\b"}
+# Days before the main draw's first day an edition's matches may be dated (its qualifying): three weeks, six for the
+# 2021 Australian Open, whose qualifying was played in Doha and Dubai four weeks early; and 16 days after it
+SLAM_LEAD, SLAM_LEAD_EXCEPT, SLAM_TAIL = 21, {(2021, "AO"): 42}, 16
 
 # Statuses used when the catalog is missing or does not name a dataset.
 DEFAULT_STATUS = {"wta_events": "on_disk", "tdi": "on_disk", "wta_box": "on_disk"}
@@ -276,6 +282,101 @@ def catalog_status() -> dict:
 # --------------------------------------------------------------------------------------------
 # The universe and linking
 
+def slam_rows(rows: pd.DataFrame) -> pd.Series:
+    """Which rows are Grand Slam rows: level GS or GSQ, or no level and a tournament name that names a Slam (api-tennis
+    gives its Slam rows none)."""
+    level = rows["level"] if "level" in rows else pd.Series(None, index=rows.index, dtype=object)
+    names = rows["tname"].fillna("").astype(str).str.lower() if "tname" in rows else pd.Series("", index=rows.index)
+    unknown = level.isna() | level.eq("OTHER")
+    return level.isin(SLAM_LEVELS) | (unknown & names.str.contains("|".join(SLAM_NAMES.values())))
+
+
+def slam_editions(frame: pd.DataFrame, starts: dict) -> pd.Series:
+    """The Grand Slam ('AO', 'RG', 'W', 'USO') of each Grand Slam row (d, year[, slam, tname]): its own ``slam``,
+    else the Slam its tournament name names, else the edition whose window holds its date (``SLAM_LEAD`` days before
+    the main draw's first day to ``SLAM_TAIL`` after it), the nearest first day first. None outside every window."""
+    out = frame["slam"].astype(object) if "slam" in frame else pd.Series(None, index=frame.index, dtype=object)
+    names = frame["tname"].fillna("").astype(str).str.lower() if "tname" in frame else pd.Series("", index=frame.index)
+    for slam, pattern in SLAM_NAMES.items():
+        out = out.where(out.notna() | ~names.str.contains(pattern), slam)
+    todo = out.isna()
+    if todo.any():
+        by_year: dict[int, list] = {}
+        for (year, slam), start in starts.items():
+            by_year.setdefault(int(year), []).append((slam, pd.Timestamp(start)))
+        guess = []
+        for d, year in zip(frame.loc[todo, "d"], frame.loc[todo, "year"]):
+            best = None
+            for slam, start in by_year.get(int(year), []) if pd.notna(year) and pd.notna(d) else []:
+                lead = SLAM_LEAD_EXCEPT.get((int(year), slam), SLAM_LEAD)
+                if start - pd.Timedelta(days=lead) <= d <= start + pd.Timedelta(days=SLAM_TAIL):
+                    gap = abs((d - start).days)
+                    if best is None or gap < best[0]:
+                        best = (gap, slam)
+            guess.append(best[1] if best else None)
+        out[todo] = guess
+    return out
+
+
+@lru_cache(maxsize=None)
+def near_surname(a: str, b: str) -> bool:
+    """Two spellings of one surname a letter apart, both of five letters or more, and first names agreeing: the
+    transliterations of 'Wuerth' / 'Wurth', 'Goerges' / 'Görges', 'Sobolieva' / 'Soboleva'."""
+    x, y = surname_key(a), surname_key(b)
+    if x == y or min(len(x), len(y)) < 5 or abs(len(x) - len(y)) > 1 or not same_first_name(a, b):
+        return False
+    if len(x) == len(y):
+        return sum(c != d for c, d in zip(x, y)) == 1
+    short, long_ = (x, y) if len(x) < len(y) else (y, x)
+    return any(long_[:i] + long_[i + 1:] == short for i in range(len(long_)))
+
+
+def slam_place(n1: str, n2: str, rnd, level, d, known: list) -> float:
+    """The uid among ``known`` (uid, name1, name2, rnd, level, d: Grand Slam matches of one edition and tour) that a
+    row of that edition is, or NaN.
+
+    Best: both players the same player in one orientation (``same_player``: a surname of one is a word of the other,
+    so 'Cori Gauff' / 'Coco Gauff' and 'Mayar Sherif' / 'Mayar Sherif Ahmed Abdelaziz' agree, while first names alone
+    never do: 'Valentin Royer v Marc Polmans' is not 'Valentin Vacherot v Marc-Andrea Huesler'), with both first
+    names agreeing, or the same round given by both (a pair meets once per round, so a nickname cannot mislead there).
+    Next: both the same player, first names unread, since a pair meets once in an edition. Sources hide first names
+    in surnames ('Sherif Ahmed Abdelaziz' and 'Burillo Escorihuela' in the WTA's lists, 'Von Deichmann'), initials
+    ('C. J. Barranco') and surname-first forms ('H. Hsu Yu'). 'Xiyu Wang' and 'Yafan Wang' are the same player here,
+    so a namesake's match against the same opponent can be taken when the row's own is missing, as the generic first
+    pass does everywhere else in the map; when both are known, the first name decides. Then: a surname spelt a
+    letter apart (``near_surname``: 'Wuerth' / 'Wurth', 'J. Görges' / 'Julia Goerges', 'Sobolieva' / 'Soboleva'),
+    with the first names agreeing and the other player the same. Last: a changed
+    surname, with the same round and draw, both first names the same and one surname the same ('Denisa Allertova' /
+    'Denisa Satralova'). A pair meets once in an edition, so the round and the draw (main or qualifying) only rank
+    within a tier: sources mislabel both (SofaScore's copy calls Wimbledon 2022's second qualifying round the third and
+    files 342 qualifying matches of 2021-2024 as main draw; the Australian Open's archived draws call the qualifying's
+    last round 'Final'). Within a tier: the same round first, then the same draw, the most name words shared, the
+    nearest date, the lowest uid."""
+    rnd = rnd if isinstance(rnd, str) else None
+    best, best_key = np.nan, None
+    for uid, a, b, r, lv, du in known:
+        r = r if isinstance(r, str) else None
+        same_round = rnd is not None and rnd == r
+        agree = 2 if same_round else (1 if rnd is None or r is None else 0)
+        near = -abs((d - du).days) if pd.notna(d) and pd.notna(du) else -9999
+        for x, y in ((a, b), (b, a)):
+            p1, p2 = same_player(n1, x), same_player(n2, y)
+            f1, f2 = same_first_name(n1, x), same_first_name(n2, y)
+            if p1 and p2 and (same_round or (f1 and f2)):
+                key = (3, agree, lv == level, name_word_fit(n1, x) + name_word_fit(n2, y), near, -uid)
+            elif p1 and p2:
+                key = (2, agree, lv == level, name_word_fit(n1, x) + name_word_fit(n2, y), near, -uid)
+            elif (p1 or near_surname(n1, x)) and (p2 or near_surname(n2, y)):
+                key = (1, agree, lv == level, name_word_fit(n1, x) + name_word_fit(n2, y), near, -uid)
+            elif same_round and lv == level and f1 and f2 and (p1 or p2):
+                key = (0, agree, True, 0, near, -uid)
+            else:
+                continue
+            if best_key is None or key > best_key:
+                best, best_key = uid, key
+    return best
+
+
 MATCH_COLUMNS = ["uid", "tour", "level", "draw", "year", "d", "pair", "k1", "k2", "rnd", "name1", "name2",
                  "tname", "creator"]
 
@@ -311,6 +412,87 @@ class Universe:
     def link(self, rows: pd.DataFrame, lo: int = -10, hi: int = 21) -> pd.Series:
         """uid of the universe match each row is, or NaN.
 
+        A Grand Slam row (level GS or GSQ) is placed among the Grand Slam matches of its own edition only
+        (``_link_slam``), and a row of another known level never joins a Grand Slam match (16 Oct 2026). The
+        generic passes work on surnames and dates alone, and across levels they gave a Slam's match to the same
+        pair's meeting at another event in the window (the 2021 Australian Open quarter-final Djokovic-Zverev to
+        their ATP Cup match a week earlier) or the reverse (the Challenger of the week after to a US Open qualifying
+        match); within a Slam they missed late rounds one file dates by the event's start and another by the day
+        played, and spellings such as 'Cori Gauff'. Rows of no known level keep the generic passes over every match.
+        """
+        out = pd.Series(np.nan, index=rows.index)
+        if rows.empty or self.matches.empty:
+            return out
+        level = rows["level"] if "level" in rows else pd.Series(None, index=rows.index, dtype=object)
+        at_slam = slam_rows(rows)
+        other = level.notna() & ~level.eq("OTHER") & ~at_slam
+        slam_matches = self.matches["level"].isin(SLAM_LEVELS)
+        if at_slam.any():
+            placed, outside = self._link_slam(rows[at_slam])
+            out[at_slam] = placed
+            if outside.any():             # no edition window holds it: the generic passes, among Slam matches only
+                rest = rows[at_slam][outside.to_numpy()]
+                out[rest.index] = self._link_generic(rest, self.matches[slam_matches], lo, hi)
+        if other.any():
+            out[other] = self._link_generic(rows[other], self.matches[~slam_matches], lo, hi)
+        free = ~at_slam & ~other
+        if free.any():
+            out[free] = self._link_generic(rows[free], self.matches, lo, hi)
+        return out
+
+    def _link_slam(self, rows: pd.DataFrame) -> tuple[pd.Series, pd.Series]:
+        """(uid, outside) of Grand Slam rows: ``slam_place`` among the known Grand Slam matches of the same edition
+        (``slam_editions``) and tour, NaN where none is the row's match (one the universe lacks, which then joins it
+        instead of borrowing another event's); ``outside`` marks the rows no edition window holds."""
+        out = pd.Series(np.nan, index=rows.index)
+        starts = slam_starts(self.matches)
+        editions = slam_editions(rows, starts)
+        m = self.matches[self.matches["level"].isin(SLAM_LEVELS)]
+        m = m.assign(slam=slam_editions(m, starts).to_numpy())
+        for (slam, tour, year), group in rows.assign(slam=editions).dropna(subset=["slam"]).groupby(
+                ["slam", "tour", "year"]):
+            cands = m[m["slam"].eq(slam) & m["tour"].eq(tour) & m["year"].eq(year)]
+            known = list(zip(cands["uid"], cands["name1"].astype(str), cands["name2"].astype(str), cands["rnd"],
+                             cands["level"], cands["d"]))
+            index: dict[str, list[int]] = {}       # a word's first four letters -> candidates (same_player needs one)
+            for k, (_, a, b, *_) in enumerate(known):
+                for w in set(_words(a)) | set(_words(b)):
+                    index.setdefault(w[:4], []).append(k)
+            for i, n1, n2, rnd, lv, d in zip(group.index, group["name1"], group["name2"], group["rnd"],
+                                             group["level"], group["d"]):
+                near = sorted({k for w in set(_words(n1)) | set(_words(n2)) for k in index.get(w[:4], ())})
+                out[i] = slam_place(n1, n2, rnd, lv, d, [known[k] for k in near])
+        return out, editions.isna()
+
+    def _slam_repeats(self, new: pd.DataFrame) -> list:
+        """Index of the Grand Slam rows of ``new`` (rows about to join the universe) that another of them already is
+        (``slam_place`` within the edition and tour, in order): left out of the new matches, they are then linked to
+        the one they repeat."""
+        slam = new[new["level"].isin(SLAM_LEVELS)]
+        if len(slam) < 2:
+            return []
+        frames = [f for f in (self.matches, slam) if not f.empty]
+        starts = slam_starts(pd.concat(frames, ignore_index=True)[["level", "tname", "year", "d"]])
+        repeats = []
+        for _, group in slam.assign(slam=slam_editions(slam, starts)).dropna(subset=["slam"]).groupby(
+                ["slam", "tour", "year"]):
+            kept: list = []
+            index: dict[str, list[int]] = {}
+            for i, n1, n2, rnd, lv, d in zip(group.index, group["name1"], group["name2"], group["rnd"],
+                                             group["level"], group["d"]):
+                prefixes = {w[:4] for w in set(_words(n1)) | set(_words(n2))}
+                near = sorted({k for p in prefixes for k in index.get(p, ())})
+                if near and pd.notna(slam_place(n1, n2, rnd, lv, d, [kept[k] for k in near])):
+                    repeats.append(i)
+                    continue
+                for p in prefixes:
+                    index.setdefault(p, []).append(len(kept))
+                kept.append((len(kept), n1, n2, rnd, lv, d))
+        return repeats
+
+    def _link_generic(self, rows: pd.DataFrame, matches: pd.DataFrame, lo: int, hi: int) -> pd.Series:
+        """uid among ``matches`` of each row, or NaN: the generic passes.
+
         First pass: same tour, same pair of surname keys, date in the window. Second pass, for the
         rest: one surname key agrees and the other two names pass ``same_player`` (married names,
         names cut short, surname-first order). The window allows for one source dating a match by
@@ -319,7 +501,7 @@ class Universe:
         players' first names to agree (``same_first_name``): a surname key alone is shared by sisters
         and by many players at the ITF events of one week.
         """
-        if rows.empty or self.matches.empty:
+        if rows.empty or matches.empty:
             return pd.Series(np.nan, index=rows.index)
         rows = rows.copy()
         # Grand Slam qualifying can be dated weeks away from the main draw, either way (the 2021
@@ -328,7 +510,7 @@ class Universe:
         slam = rows["level"].isin(["GS", "GSQ"]) if "level" in rows else pd.Series(False, index=rows.index)
         gsq = rows.get("level", pd.Series(None, index=rows.index)).eq("GSQ")
         rows["lo"], rows["hi"] = np.where(gsq, -40, lo), np.where(gsq, 40, hi)
-        right = self.matches[["uid", "tour", "pair", "d", "draw"]].rename(columns={"d": "d_u", "draw": "draw_u"})
+        right = matches[["uid", "tour", "pair", "d", "draw"]].rename(columns={"d": "d_u", "draw": "draw_u"})
         cand = rows[["rid", "tour", "pair", "d", "draw", "lo", "hi"]].merge(right, on=["tour", "pair"])
         found = self._best(cand, lo, hi)
         todo = rows[~rows["rid"].isin(found.index)]
@@ -336,7 +518,7 @@ class Universe:
             keys = ["rid", "tour", "d", "draw"]
             left = pd.concat([todo[keys].assign(key=todo["k1"], own=todo["name1"], other=todo["name2"]),
                               todo[keys].assign(key=todo["k2"], own=todo["name2"], other=todo["name1"])])
-            m = self.matches
+            m = matches
             ukeys = ["uid", "tour", "d", "draw"]
             right = pd.concat([m[ukeys].assign(key=m["k1"], uown=m["name1"], uother=m["name2"]),
                                m[ukeys].assign(key=m["k2"], uown=m["name2"], uother=m["name1"])])
@@ -355,7 +537,7 @@ class Universe:
             keys = ["rid", "tour", "d", "draw", "rnd", "lo", "hi"]
             left = pd.concat([todo[keys].assign(key=todo["k1"], own=todo["name1"], other=todo["name2"]),
                               todo[keys].assign(key=todo["k2"], own=todo["name2"], other=todo["name1"])])
-            m = self.matches[self.matches["rnd"].notna()]
+            m = matches[matches["rnd"].notna()]
             ukeys = ["uid", "tour", "d", "draw", "rnd"]
             right = pd.concat([m[ukeys].assign(key=m["k1"], uown=m["name1"], uother=m["name2"]),
                                m[ukeys].assign(key=m["k2"], uown=m["name2"], uother=m["name1"])])
@@ -423,10 +605,12 @@ class Universe:
                     new["level"] = new["level"].where(new["level"].notna(), guess)
             fallback = new["level_fallback"].where(~new["draw"].eq("qual"), new["level_fallback"].map(to_qual))
             new["level"] = new["level"].where(new["level"].notna(), fallback).fillna("OTHER")
-            # one match listed twice in the source: same pair, same round, within five days
+            # one match listed twice in the source: same pair, same round, within five days; at a Grand Slam, also
+            # under two spellings (the WTA website's 'Viktoriya Tomova' / 'Viktoria Tomova-Traycheva')
             new = new.sort_values(["tour", "pair", "d"])
             gap = new.groupby(["tour", "pair", new["round"].fillna("")])["d"].diff().dt.days
             new = new[gap.isna() | (gap > 5)].copy()
+            new = new.drop(index=self._slam_repeats(new))
             new["uid"] = np.arange(self._next, self._next + len(new))
             self._next += len(new)
             new["creator"] = src
@@ -504,6 +688,9 @@ def _match_rows(frame: pd.DataFrame, tour: str, level_fn) -> pd.DataFrame:
         "code": frame["tourney_level"].fillna("").astype(str),
         "draw": np.where(is_qual_round(frame["round"]), "qual", "main"),
         "grain": np.where(pd.to_numeric(frame["w_svpt"], errors="coerce").fillna(0) > 0, "stats", "result"),
+        # for repair_tml_dates: the score and the tournament id ('2018-06486' and '2018-6486' agree)
+        "score": frame["score"].fillna("").astype(str),
+        "tid": frame["tourney_id"].fillna("").astype(str).str.replace(r"-0+(\d)", r"-\1", regex=True),
     })
     out["level"] = [level_fn(c, n) for c, n in zip(out["code"], out["tname"])]
     q = out["draw"].eq("qual")
@@ -557,6 +744,110 @@ def load_sackmann(tml_levels: dict) -> pd.DataFrame:
     fut.loc[fut["draw"].eq("qual"), "level"] = "ITFQ"
     parts.append(fut)
     return pd.concat(parts, ignore_index=True)
+
+
+# words a tournament name shares with too many others to tell two events apart
+_EVENT_GENERIC = frozenset({"atp", "wta", "itf", "challenger", "challengers", "open", "masters", "cup", "the", "and",
+                            "tennis", "international", "championships", "championship", "trophy", "men", "mens",
+                            "women", "womens", "tour", "series", "qualifying", "qualies", "del", "des"})
+REDATE_DAYS = (10, 366)   # a twin more than 10 days and at most a year away from Tennis My Life's date
+
+
+@lru_cache(maxsize=None)
+def event_words(name: str) -> frozenset:
+    """A tournament name's distinctive words: 'ATP Tenerife 3 Challenger' and 'Tenerife 1' -> {'tenerife'}."""
+    return frozenset(w for w in re.split(r"[^a-z]+", _ascii(str(name or "")).lower())
+                     if len(w) >= 3 and w not in _EVENT_GENERIC)
+
+
+@lru_cache(maxsize=None)
+def set_games(score: str) -> tuple:
+    """Games per set, whoever is written first: '7-6(5) 3-6 6-4' -> (13, 9, 10); a match tiebreak '[10-8]' is a set
+    (18), as TennisLive writes it; a score with no set -> ()."""
+    return tuple(int(a) + int(b) for a, b in re.findall(r"(\d+)-(\d+)", re.sub(r"\(\d+\)", "", str(score or ""))))
+
+
+def repair_tml_dates(tml: pd.DataFrame, refs: list[tuple[str, pd.DataFrame]]) -> tuple[pd.DataFrame, pd.DataFrame]:
+    """Tennis My Life files some Challenger editions under another edition's name and date: the 2018 Irving Challenger
+    as Dallas (29 January), Biella 2 to 7 of 2021 as Biella 1 (14 February), Tenerife 3 of 2024 as Tenerife 1 (21
+    January). The linker's window (-10 to +21 days) then misses the same match in Sackmann's files, which joins the map
+    as a second match (about 900 of them, P5 of 9-10 Oct 2026). Stage 0's own linker tolerates this (stage0_build.pick).
+
+    A Tennis My Life row whose own match a reference lists more than 10 days and at most a year away takes that
+    reference's date and tournament name, so that the reference's row then links to it. Its own match: the same tour,
+    surname pair (pair_key), round and games per set, in an event of the same tournament id or sharing a distinctive
+    word of its name (event_words). The references are asked in order (Sackmann's files, then TennisLive's listings for
+    the editions Sackmann lacks); a row that any reference lists within 10 days of its own date is left as it is, and
+    so is a row whose twins sit at two different dates or events. Then the rest of a Tennis My Life event moves with
+    it, when at least half of the event's rows were moved, all to one date and event, and none was found at its own
+    date (``source`` "event"). Returns the rows (``d`` and ``tname`` changed) and one row per change (``row``: the
+    row's index in ``tml``)."""
+    report_cols = ["row", "source", "tour", "year", "tid", "tname_was", "d_was", "tname", "d", "days", "name1", "name2",
+                   "round", "score"]
+    t = tml.copy()
+
+    def keyed(f: pd.DataFrame) -> pd.DataFrame:
+        if f.empty or "tour" not in f:
+            return pd.DataFrame(columns=["tour", "pair", "rnd", "games", "d", "tname", "tid"])
+        k = pd.DataFrame({"tour": f["tour"].to_numpy(),
+                          "pair": pair_key(f["name1"].map(surname_key), f["name2"].map(surname_key)).to_numpy(),
+                          "rnd": f["round"].map(canon_round).fillna("").to_numpy(),
+                          "games": f["score"].fillna("").astype(str).map(set_games).to_numpy(),
+                          "d": pd.to_datetime(f["d"]).to_numpy(), "tname": f["tname"].fillna("").to_numpy(),
+                          "tid": (f["tid"] if "tid" in f else pd.Series("", index=f.index)).fillna("").to_numpy()},
+                         index=f.index)
+        return k[k["pair"].notna() & k["games"].map(len).gt(0) & k["d"].notna()]
+
+    tk = keyed(t)
+    tk = tk.assign(i=tk.index)
+    near, cands = set(), []
+    for name, ref in refs:
+        rk = keyed(ref)
+        if rk.empty:
+            continue
+        c = tk.merge(rk, on=["tour", "pair", "rnd", "games"], suffixes=("", "_r"))
+        gap = (c["d_r"] - c["d"]).dt.days
+        near |= set(c.loc[gap.abs() <= REDATE_DAYS[0], "i"])
+        same_event = (c["tid"].ne("") & c["tid"].eq(c["tid_r"])) | np.array(
+            [bool(event_words(a) & event_words(b)) for a, b in zip(c["tname"], c["tname_r"])], dtype=bool)
+        far = c[(gap.abs() > REDATE_DAYS[0]) & (gap.abs() <= REDATE_DAYS[1]) & same_event]
+        cands.append(far.assign(source=name, order=len(cands)))
+    report = pd.DataFrame(columns=report_cols)
+    if not cands:
+        return t, report
+    c = pd.concat(cands, ignore_index=True)
+    c = c[~c["i"].isin(near)]
+    c = c[c["order"].eq(c.groupby("i")["order"].transform("min"))]          # the first reference that lists it
+    one = c.groupby("i")[["d_r", "tname_r"]].nunique()
+    one = one.index[(one["d_r"] == 1) & (one["tname_r"] == 1)]
+    pick = c[c["i"].isin(one)].drop_duplicates("i").set_index("i")
+    moved = pd.DataFrame({"source": pick["source"], "d": pick["d_r"], "tname": pick["tname_r"]})
+    # the rest of an event moves with it
+    tid = (t["tid"] if "tid" in t else pd.Series("", index=t.index)).fillna("").astype(str)
+    ekey = (t["tour"].astype(str) + "|" + tid + "|" + t["tname"].fillna("").astype(str) + "|"
+            + pd.to_datetime(t["d"]).dt.strftime("%Y-%m-%d").fillna(""))
+    size = ekey.value_counts()
+    held_at_own_date = set(ekey.loc[ekey.index.isin(list(near))])
+    for key, idx in moved.groupby(ekey.loc[moved.index]).groups.items():
+        targets = moved.loc[idx, ["d", "tname"]].drop_duplicates()
+        if len(targets) != 1 or 2 * len(idx) < size[key] or key in held_at_own_date:
+            continue
+        rest = ekey.index[ekey.eq(key) & ~ekey.index.isin(moved.index)]
+        if len(rest):
+            moved = pd.concat([moved, pd.DataFrame({"source": "event", "d": targets["d"].iloc[0],
+                                                    "tname": targets["tname"].iloc[0]}, index=rest)])
+    report = pd.DataFrame({"row": moved.index, "source": moved["source"], "tour": t.loc[moved.index, "tour"],
+                           "year": t.loc[moved.index, "year"] if "year" in t else None,
+                           "tid": tid.loc[moved.index], "tname_was": t.loc[moved.index, "tname"],
+                           "d_was": pd.to_datetime(t.loc[moved.index, "d"]), "tname": moved["tname"],
+                           "d": pd.to_datetime(moved["d"]),
+                           "name1": t.loc[moved.index, "name1"], "name2": t.loc[moved.index, "name2"],
+                           "round": t.loc[moved.index, "round"], "score": t.loc[moved.index, "score"]},
+                          index=moved.index)
+    report["days"] = (report["d"] - report["d_was"]).dt.days
+    t.loc[moved.index, "d"] = pd.to_datetime(moved["d"]).to_numpy()
+    t.loc[moved.index, "tname"] = moved["tname"].to_numpy()
+    return t, report[report_cols].sort_values(["d_was", "tname_was", "round"]).reset_index(drop=True)
 
 
 def load_wta_lists() -> pd.DataFrame:
@@ -1004,10 +1295,30 @@ def load_sofascore_editions() -> pd.DataFrame:
         "grain": np.where(ev["event_id"].isin(pts), "point", "stats")}).dropna(subset=["tour"])
 
 
-def sofascore_edition_uids(rows: pd.DataFrame, matches: pd.DataFrame, paths: list[Path] | None = None) -> pd.Series:
+def placement_index(matches: pd.DataFrame, aliases: pd.DataFrame | None = None, with_draw: bool = False) -> pd.Series:
+    """Key -> uid, for placing the gap downloads by the keys their frozen lists hold (tour, tournament, date and names;
+    with ``with_draw`` the draw too): every map match's own key, and ``aliases``, the keys of the copies merged into a
+    match (build(): a Tennis My Life row's name and date before repair_tml_dates moved it, and the Sackmann and
+    API-Tennis rows that then joined it). A key that names two matches places neither."""
+    def key(f: pd.DataFrame) -> pd.Series:
+        k = (f["tour"].astype(str) + "|" + f["tname"].fillna("").astype(str) + "|"
+             + pd.to_datetime(f["d"]).dt.strftime("%Y-%m-%d") + "|" + f["name1"].fillna("").astype(str) + "|"
+             + f["name2"].fillna("").astype(str))
+        return k + "|" + f["draw"].fillna("").astype(str) if with_draw else k
+
+    parts = [pd.DataFrame({"key": key(matches).to_numpy(), "uid": matches["uid"].to_numpy()})]
+    if aliases is not None and len(aliases):
+        parts.append(pd.DataFrame({"key": key(aliases).to_numpy(), "uid": aliases["uid"].to_numpy()}))
+    k = pd.concat(parts, ignore_index=True).drop_duplicates()
+    k = k[~k["key"].duplicated(keep=False)]
+    return pd.Series(k["uid"].to_numpy(), index=k["key"].to_numpy())
+
+
+def sofascore_edition_uids(rows: pd.DataFrame, matches: pd.DataFrame, paths: list[Path] | None = None,
+                           aliases: pd.DataFrame | None = None) -> pd.Series:
     """For each row's event, the map match the by-edition adapter linked it to (its per-match tables,
     data/studies/gap_downloads/sofascore_<gap>_matches.csv, gzipped for the ITF gaps), where that match is still in
-    the map; else NaN.
+    the map, also under a key merged into it (``aliases``, placement_index); else NaN.
 
     The adapter links inside one tournament's SofaScore season. The generic link can instead take the same
     pair's meeting a few days earlier at another event, because the map dates 2026 matches by the day played
@@ -1027,8 +1338,7 @@ def sofascore_edition_uids(rows: pd.DataFrame, matches: pd.DataFrame, paths: lis
         return (f["tour"] + "|" + f["tname"].fillna("") + "|" + day + "|" + f["name1"].fillna("") + "|"
                 + f["name2"].fillna(""))
 
-    uid = pd.Series(matches["uid"].to_numpy(), index=key(matches, matches["d"].dt.strftime("%Y-%m-%d")).to_numpy())
-    uid = uid[~uid.index.duplicated(keep=False)]          # a key two matches share places neither
+    uid = placement_index(matches, aliases)               # a key two matches share places neither
     target = pd.Series(key(links, links["d"]).to_numpy(), index=links["event_id"].to_numpy())
     return rows["event_id"].map(target).map(uid)
 
@@ -1094,6 +1404,56 @@ def load_infosys_atp() -> pd.DataFrame:
         "atp_key": id_key(m["year"], m["event_id"], m["p1_id"].str.upper(), m["p2_id"].str.upper())})
 
 
+def load_infosys_challengers() -> pd.DataFrame:
+    """The ATP Stats Centre's Challenger point files of 2021-2024, fetched for the P6 data issues and staged in tables of
+    their own (src/ingest/point_sources/infosys_challengers_stage.py; owner, 14 Oct 2026: on the map, kept out of the
+    serve-speed history). One row per match code whose MatchBeats file holds points, or whose rally analysis holds
+    entries (point); a code with neither is left out rather than added as a match. The day is the Hugging Face copy's
+    match date where it lists the code, else Stage 0's tournament date; the ATP ids place it, as for Infosys."""
+    path = DUMP / "points" / "infosys_challengers" / "matches.parquet"
+    columns = ["tour", "d", "year", "name1", "name2", "round", "draw", "level", "level_fallback", "group", "grain",
+               "atp_key"]
+    if not path.exists():
+        return pd.DataFrame(columns=columns)
+    m = pd.read_parquet(path)
+    pts, ra = (pd.to_numeric(m[c], errors="coerce").fillna(0) for c in ("points", "rally_entries"))
+    m = m[(pts > 0) | (ra > 0)].copy()
+    qual = m["family"].eq("QS")
+    return pd.DataFrame({
+        "tour": "M", "d": to_date(m["copy_match_date"].fillna(m["stage0_tournament_date"]), "%Y-%m-%d"),
+        "year": pd.to_numeric(m["year"], errors="coerce"),
+        "name1": m["p1_last_name"].fillna(m["p1_name"]), "name2": m["p2_last_name"].fillna(m["p2_name"]),
+        "round": m["round_from_code"], "draw": np.where(qual, "qual", "main"), "level": None,
+        "level_fallback": np.where(qual, "CHQ", "CH"), "group": m["event_id"], "grain": "point",
+        "atp_key": id_key(m["year"], m["event_id"], m["p1_id"].str.upper(), m["p2_id"].str.upper())})
+
+
+def load_infosys_atp_recent() -> pd.DataFrame:
+    """The ATP Stats Centre's own Infosys files of 2025-2026, tour level and Challengers (work package P9,
+    src/ingest/point_sources/infosys_atp_recent.py), decrypted at staging into tables of their own
+    (infosys_atp_recent_stage.py), apart from the serve-speed history's. One row per match code whose files hold Court
+    Vision points (shot), MatchBeats points or rally entries (point), or key statistics (stats); a code with nothing
+    more (an empty document) is left out rather than added as a match. The files carry no date, so a row takes its
+    tournament's first day (ManTennisData's calendar); the ATP ids place it, as for Infosys."""
+    path = DUMP / "points" / "infosys_atp_recent" / "matches.parquet"
+    columns = ["tour", "d", "year", "name1", "name2", "round", "draw", "level", "level_fallback", "group", "grain",
+               "atp_key"]
+    if not path.exists():
+        return pd.DataFrame(columns=columns)
+    m = pd.read_parquet(path)
+    pts, ra, sets, cv = (pd.to_numeric(m[c], errors="coerce").fillna(0)
+                         for c in ("points", "rally_entries", "keystats_sets", "cv_points"))
+    keep = (pts > 0) | (ra > 0) | (sets > 0) | (cv > 0)
+    m, pts, ra, cv = m[keep].copy(), pts[keep], ra[keep], cv[keep]
+    return pd.DataFrame({
+        "tour": "M", "d": to_date(m["tournament_start"], "%Y%m%d"), "year": pd.to_numeric(m["year"], errors="coerce"),
+        "name1": m["p1_last_name"].fillna(m["p1_name"]), "name2": m["p2_last_name"].fillna(m["p2_name"]),
+        "round": m["round_from_code"], "draw": np.where(m["family"].eq("QS"), "qual", "main"), "level": None,
+        "level_fallback": np.where(m["series"].eq("ch"), "CH", "T250"), "group": m["event_id"],
+        "grain": np.where(cv > 0, "shot", np.where((pts > 0) | (ra > 0), "point", "stats")),
+        "atp_key": id_key(m["year"], m["event_id"], m["p1_id"].str.upper(), m["p2_id"].str.upper())})
+
+
 def load_sofascore_tournaments() -> pd.DataFrame:
     """SofaScore events listed by tournament season for the gap slam_points_ao_rg whose point and statistics
     documents were asked for; the seasons' other events add nothing a known match lacks. Walkovers are left out,
@@ -1145,11 +1505,13 @@ def load_tennislive(sampled: bool = False, gaps: bool = False) -> pd.DataFrame:
     }).dropna(subset=["tour"])
 
 
-def tennislive_gap_uids(rows: pd.DataFrame, matches: pd.DataFrame, paths: list[Path] | None = None) -> pd.DataFrame:
+def tennislive_gap_uids(rows: pd.DataFrame, matches: pd.DataFrame, paths: list[Path] | None = None,
+                        aliases: pd.DataFrame | None = None) -> pd.DataFrame:
     """The gap mode's pages (load_tennislive(gaps=True)) with ``preset_uid``: the map match tennislive_gaps.py linked
     each to and asked its page for (its per-target tables, data/studies/gap_downloads/tennislive_<gap>_matches.csv.gz),
     found by tour, tournament, date, names and draw (a pair can meet in the qualifying and again in the main draw of
-    one event), where that match is still in the map and no other match has its key; a page it places nowhere keeps
+    one event), where that match is still in the map, also under a key merged into it (``aliases``, placement_index),
+    and no other match has its key; a page it places nowhere keeps
     one row without. A match the map holds twice (Tennis My Life's misdated copy and Sackmann's, or two spellings of a
     name) has both copies linked to one page, and both are credited: the page is given one row per copy. A placed page
     takes its match's date, year and names, the map's own keys: the qualifying of an early-January event, played in
@@ -1166,8 +1528,7 @@ def tennislive_gap_uids(rows: pd.DataFrame, matches: pd.DataFrame, paths: list[P
         return (f["tour"] + "|" + f["tname"].fillna("") + "|" + day + "|" + f["name1"].fillna("") + "|"
                 + f["name2"].fillna("") + "|" + f["draw"].fillna(""))
 
-    uid = pd.Series(matches["uid"].to_numpy(), index=key(matches, matches["d"].dt.strftime("%Y-%m-%d")).to_numpy())
-    uid = uid[~uid.index.duplicated(keep=False)]          # a key two matches share places neither
+    uid = placement_index(matches, aliases, with_draw=True)   # a key two matches share places neither
     links = links.assign(preset_uid=key(links, links["d"]).map(uid)).dropna(subset=["preset_uid"])
     links = links.drop_duplicates(["tl_url", "preset_uid"])[["tl_url", "preset_uid"]].rename(columns={"tl_url": "url"})
     out = rows.merge(links, on="url", how="left").reset_index(drop=True)
@@ -1181,39 +1542,46 @@ def tennislive_gap_uids(rows: pd.DataFrame, matches: pd.DataFrame, paths: list[P
 
 
 def load_flashscore_points() -> pd.DataFrame:
-    """Flashscore's point feeds of work package P13 (src/ingest/point_sources/flashscore_points.py): one row per feed
-    with a point record, with the handoff copy's date, players and tournament (ITF main draws)."""
+    """Flashscore's point feeds (src/ingest/point_sources/flashscore_points.py): one row per feed with a point record,
+    with the handoff copy's date, players and tournament. Work package P13's are ITF main draws (a grade such as
+    "M15"); work package P6's (flashscore_p6.py) are men's ATP and Challenger matches, main draw or qualifying, whose
+    grade is Flashscore's category: their level and draw are left to the match they are placed on."""
     path = DUMP / "points" / "flashscore_points" / "matches.parquet"
     cols = ["fs_id", "tour", "d", "name1", "name2", "tname", "round", "draw", "level", "group", "grain"]
     if not path.exists():
         return pd.DataFrame(columns=cols)
     m = pd.read_parquet(path)
     m = m[m["feed_status"].eq("200") & pd.to_numeric(m["fb_points"], errors="coerce").gt(0)]
+    itf = m["grade"].fillna("").str.fullmatch(r"[MW]\d{2,3}")
     return pd.DataFrame({"fs_id": m["fs_id"], "tour": m["tour"], "d": to_date(m["fs_date"], "%Y%m%d"),
                          "name1": m["fs_home"], "name2": m["fs_away"], "tname": m["fs_tournament"], "round": None,
-                         "draw": "main", "level": "ITF", "group": m["fs_tournament"], "grain": "point"})
+                         "draw": np.where(itf, "main", None), "level": np.where(itf, "ITF", None),
+                         "group": m["fs_tournament"], "grain": "point"})
 
 
-def flashscore_point_uids(rows: pd.DataFrame, matches: pd.DataFrame, paths: list[Path] | None = None) -> pd.DataFrame:
+def flashscore_point_uids(rows: pd.DataFrame, matches: pd.DataFrame, paths: list[Path] | None = None,
+                          aliases: pd.DataFrame | None = None) -> pd.DataFrame:
     """Flashscore's feeds (load_flashscore_points) with ``preset_uid``: the map match flashscore_points.py linked each
-    to (its per-target tables, data/studies/gap_downloads/flashscore_<gap>_matches.csv.gz), found by tour, tournament,
-    date and names, where that match is still in the map and no other match has its key. A feed linked to two map rows
+    to (its per-target tables, data/studies/gap_downloads/flashscore_<gap>_matches.csv.gz) or flashscore_p6.py did
+    (data/studies/p6_data_issues/flashscore/fetch_matches.csv.gz, less the links its link check refused:
+    ``link_refused``), found by tour, tournament, date and names, where that match is still in the map (also under a
+    key merged into it: ``aliases``, placement_index) and no other match has its key. A feed linked to two map rows
     (a match the map holds twice) is given one row per copy, and a placed feed takes its match's date, year and names,
     as tennislive_gap_uids does."""
     if paths is None:
         paths = sorted((DATA / "studies" / "gap_downloads").glob("flashscore_*_matches.csv.gz"))
-    cols = ["tour", "tname", "d", "name1", "name2", "fs_id"]
+        paths += [p for p in [DATA / "studies" / "p6_data_issues" / "flashscore" / "fetch_matches.csv.gz"] if p.exists()]
+    cols = ["tour", "tname", "d", "name1", "name2", "fs_id", "link_refused"]
     links = (pd.concat([pd.read_csv(p, usecols=lambda c: c in cols, dtype=str).reindex(columns=cols) for p in paths])
              if paths else pd.DataFrame(columns=cols))
     links = links.dropna(subset=["fs_id"])
-    links = links[links["fs_id"].ne("")]
+    links = links[links["fs_id"].ne("") & ~links["link_refused"].fillna("").str.lower().eq("true")]
 
     def key(f: pd.DataFrame, day: pd.Series) -> pd.Series:
         return (f["tour"] + "|" + f["tname"].fillna("") + "|" + day + "|" + f["name1"].fillna("") + "|"
                 + f["name2"].fillna(""))
 
-    uid = pd.Series(matches["uid"].to_numpy(), index=key(matches, matches["d"].dt.strftime("%Y-%m-%d")).to_numpy())
-    uid = uid[~uid.index.duplicated(keep=False)]          # a key two matches share places neither
+    uid = placement_index(matches, aliases)               # a key two matches share places neither
     links = links.assign(preset_uid=key(links, links["d"]).map(uid)).dropna(subset=["preset_uid"])
     links = links.drop_duplicates(["fs_id", "preset_uid"])[["fs_id", "preset_uid"]]
     out = rows.merge(links, on="fs_id", how="left").reset_index(drop=True)
@@ -1248,9 +1616,10 @@ def load_tennislive_listed() -> pd.DataFrame:
     columns = ["tour", "d", "name1", "name2", "tname", "round", "draw", "level", "level_fallback", "group", "grain"]
     if not (base / "listed.parquet").exists() or not (base / "events.parquet").exists():
         return pd.DataFrame(columns=columns)
-    li = pd.read_parquet(base / "listed.parquet",
-                         columns=["event_key", "event_name", "event_kind", "event_rank", "tour", "discipline", "junior",
-                                  "played", "match_id", "player1_name", "player2_name", "start_utc", "draw", "round"])
+    want = ["event_key", "event_name", "event_kind", "event_rank", "tour", "discipline", "junior", "played",
+            "match_id", "player1_name", "player2_name", "start_utc", "draw", "round", "score"]
+    have = set(pq.read_schema(base / "listed.parquet").names)
+    li = pd.read_parquet(base / "listed.parquet", columns=[c for c in want if c in have]).reindex(columns=want)
     first_week = pd.read_parquet(base / "events.parquet", columns=["key", "first_week"]).set_index("key")["first_week"]
     li = li[li["discipline"].eq("singles") & li["played"].eq("TRUE") & ~li["junior"].eq("TRUE")
             & li["event_kind"].isin(list(_TENNISLIVE_KINDS))]
@@ -1269,7 +1638,8 @@ def load_tennislive_listed() -> pd.DataFrame:
         "name1": li["player1_name"], "name2": li["player2_name"],
         "tname": li["event_name"].fillna("").str.replace(r"^(ATP|WTA)\s+", "", regex=True),
         "round": li["round"], "draw": np.where(qual, "qual", "main"), "level": level,
-        "level_fallback": kind_level.where(~(itf | slam)), "group": li["event_key"], "grain": "result"
+        "level_fallback": kind_level.where(~(itf | slam)), "group": li["event_key"], "grain": "result",
+        "score": li["score"]   # player 1 first; repair_tml_dates compares games per set only
     }).dropna(subset=["tour"])
 
 
@@ -1327,10 +1697,11 @@ def load_itf_live() -> pd.DataFrame:
 
 def load_infosys_slams(starts: dict) -> pd.DataFrame:
     """The Australian Open's and Roland-Garros's Infosys match centres (AO 2025, RG 2025, RG 2026), decrypted at
-    staging: one row per singles match code whose file holds points or set statistics. A code with neither
-    (a walkover, say) is left out rather than added as a match."""
+    staging: one row per singles match code whose file holds points or set statistics, with its Slam and both players'
+    full names (the linker places it within its edition, ``slam_place``). A code with neither (a walkover, say) is
+    left out rather than added as a match."""
     path = DUMP / "points" / "infosys_slams" / "matches.parquet"
-    columns = ["tour", "d", "year", "name1", "name2", "round", "draw", "level", "grain"]
+    columns = ["tour", "d", "year", "name1", "name2", "round", "draw", "level", "grain", "slam"]
     if not path.exists():
         return pd.DataFrame(columns=columns)
     m = pd.read_parquet(path)
@@ -1340,11 +1711,50 @@ def load_infosys_slams(starts: dict) -> pd.DataFrame:
     year = pd.to_numeric(m["year"], errors="coerce")
     start = [starts.get((int(y), s)) for y, s in zip(year, m["slam"])]
     qual = m["draw"].eq("qual")
+
+    def full(side):
+        name = (m[f"{side}_first_name"].fillna("") + " " + m[f"{side}_last_name"].fillna("")).str.strip()
+        return name.where(name.ne(""), m[f"{side}_name"])
+
     return pd.DataFrame({
         "tour": m["tour"], "d": to_date(m["match_date"]).fillna(pd.Series(start, index=m.index)), "year": year,
-        "name1": m["p1_last_name"].fillna(m["p1_name"]), "name2": m["p2_last_name"].fillna(m["p2_name"]),
+        "name1": full("p1"), "name2": full("p2"),
         "round": m["round_from_code"], "draw": np.where(qual, "qual", "main"), "level": np.where(qual, "GSQ", "GS"),
-        "grain": np.where(pts.loc[m.index] > 0, "point", "stats")})
+        "grain": np.where(pts.loc[m.index] > 0, "point", "stats"), "slam": m["slam"]})
+
+
+def first_listed(value) -> str:
+    """The first name of a staged JSON list ('["Bernarda PERA"]' -> 'Bernarda PERA'); any other string as it is."""
+    if not isinstance(value, str) or not value.strip():
+        return ""
+    try:
+        names = json.loads(value)
+    except ValueError:
+        return value
+    return str(names[0]) if isinstance(names, list) and names else value
+
+
+def load_rolandgarros(starts: dict) -> pd.DataFrame:
+    """Roland-Garros's own match statistics (rolandgarros.com's match API, 2019-2026, staged 9 Oct 2026): one row per
+    singles code the site answered, main draw and qualifying, dated by its schedule day, else the day it ended, else
+    the main draw's first day. A code with statistics is a stats row, any other a result row; walkovers are left out
+    (every played code of 2019-2026 has statistics). The linker places them within their edition (``slam_place``)."""
+    path = DUMP / "points" / "rolandgarros" / "matches.parquet"
+    columns = ["tour", "d", "year", "name1", "name2", "round", "draw", "level", "grain", "slam"]
+    if not path.exists():
+        return pd.DataFrame(columns=columns)
+    m = pd.read_parquet(path)
+    walkover = (m["a_end_cause"].fillna("").str.startswith("w/o") | m["b_end_cause"].fillna("").str.startswith("w/o"))
+    m = m[m["answer"].eq("ok") & ~walkover].copy()
+    year = pd.to_numeric(m["year"], errors="coerce")
+    ended = pd.to_datetime(pd.to_numeric(m["end_timestamp"], errors="coerce"), unit="ms", errors="coerce").dt.normalize()
+    start = pd.to_datetime(pd.Series([starts.get((int(y), "RG")) if pd.notna(y) else None for y in year], index=m.index))
+    qual = m["draw"].eq("qual")
+    return pd.DataFrame({
+        "tour": m["tour"], "d": to_date(m["date_schedule"], "%Y%m%d").fillna(ended).fillna(start), "year": year,
+        "name1": m["a_names"].map(first_listed), "name2": m["b_names"].map(first_listed),
+        "round": m["round_from_code"], "draw": np.where(qual, "qual", "main"), "level": np.where(qual, "GSQ", "GS"),
+        "grain": np.where(m["has_statistics"].fillna("").str.upper().eq("TRUE"), "stats", "result"), "slam": "RG"})
 
 
 MARCOSJN2 = RAW / "gap_sources" / "marcosjn2"
@@ -1429,6 +1839,12 @@ def wta_site_rounds(m: pd.DataFrame) -> pd.Series:
 
 
 WTA_SITE_API = DUMP / "points" / "wta" / "player_results"   # the same records from the WTA API (P2(b), 11 Oct 2026)
+# The copy's last ten editions (version 29: those starting 7-14 Sep 2026) file their singles under the wrong editions
+# (ITF W50s under WTA 125 titles among them); the WTA API's rows hold the same matches under their true events, so the
+# copy's listings of these editions are left out (docs/studies/p6_data_issues/, 14 Oct 2026). The same list as the
+# lower-level feed's builder (candidate_stage0.WTA_SITE_MISFILED).
+WTA_SITE_MISFILED = frozenset({163248187558, 322715938447, 354561979229, 491515815086, 540307471641,   # 7 Sep
+                               968402780291, 118580316990, 179051761652, 663626961107, 790501073046})  # 13-14 Sep
 
 
 def wta_site_folder() -> Path:
@@ -1474,7 +1890,7 @@ def load_wta_site(refresh: bool = False) -> pd.DataFrame:
     if not all(p.exists() for p in paths):
         return pd.DataFrame(columns=columns)
     cache, meta = CACHE / "wta_site_matches.parquet", CACHE / "wta_site_matches.json"
-    sig = _signature(paths + api_paths)
+    sig = _signature(paths + api_paths) + ";misfiled editions left out (14 Oct 2026)"   # the rule is part of the cache
     if not refresh and cache.exists() and meta.exists() and json.loads(meta.read_text())["signature"] == sig:
         return pd.read_parquet(cache)
     t = pd.read_csv(paths[1], low_memory=False,
@@ -1485,6 +1901,7 @@ def load_wta_site(refresh: bool = False) -> pd.DataFrame:
                     usecols=["pseudo_match_id", "pseudo_tournament_id", "reason_code", "round_name", "qpm_flag",
                              "team_name_1", "team_name_2", "scores"])
     m = m[m["pseudo_tournament_id"].isin(set(t["pseudo_tournament_id"]))]
+    m = m[~pd.to_numeric(m["pseudo_tournament_id"], errors="coerce").isin(WTA_SITE_MISFILED)]
     m = m.drop_duplicates("pseudo_match_id")
     m = m[~m["reason_code"].isin(["B", "D", "UNP", "V"])]
     m = m.merge(t.drop(columns=["tournamentGroupId"]), on="pseudo_tournament_id", how="left")
@@ -1530,41 +1947,68 @@ def build(end: pd.Timestamp, refresh: bool = False, log=print) -> tuple[Universe
         log(f"[{time.time() - t0:5.0f}s] {msg}: {len(u.matches):,} matches")
 
     tml = load_tml()
-    placed_tml = u.add("tml", tml)
-    atp_uid = (placed_tml[placed_tml["tour"].eq("M")].dropna(subset=["uid"])
-               .drop_duplicates("atp_key").set_index("atp_key")["uid"])
     tml_levels = {}
     for tour, year, name, level, draw in zip(tml["tour"], tml["year"], tml["tname"].str.lower().str.strip(),
                                              tml["level"], tml["draw"]):
         if draw == "main":
             tml_levels.setdefault((tour, year, name), level)
-    step("Tennis My Life")
-    u.add("sackmann", load_sackmann(tml_levels))
+    sack = load_sackmann(tml_levels)
+    listed = load_tennislive_listed()
+    # Tennis My Life's misdated Challenger editions take their own date, so the other files' rows link to them
+    tml, u.tml_redated = repair_tml_dates(tml, [("sackmann", sack), ("tennislive_listed", listed)])
+    placed_tml = u.add("tml", tml)
+    u.report["tml"]["redated"] = {"rows": int(len(u.tml_redated)),
+                                  "by_reference": {str(k): int(v) for k, v in
+                                                   u.tml_redated["source"].value_counts().items()}}
+    atp_uid = (placed_tml[placed_tml["tour"].eq("M")].dropna(subset=["uid"])
+               .drop_duplicates("atp_key").set_index("atp_key")["uid"])
+    step(f"Tennis My Life ({len(u.tml_redated):,} rows of misdated editions given their own date)")
+    # the gap downloads' frozen lists keep the keys of the copies a re-dated match now merges: Tennis My Life's old
+    # name and date, and the Sackmann and API-Tennis rows that join it (placement_index)
+    rep = u.tml_redated
+    alias_cols = ["tour", "tname", "d", "name1", "name2", "draw", "uid"]
+    aliases = [pd.DataFrame({"tour": rep["tour"].to_numpy(), "tname": rep["tname_was"].to_numpy(),
+                             "d": pd.to_datetime(rep["d_was"]).to_numpy(), "name1": rep["name1"].to_numpy(),
+                             "name2": rep["name2"].to_numpy(),
+                             "draw": tml["draw"].reindex(rep["row"].to_numpy()).to_numpy(),
+                             "uid": placed_tml["uid"].reindex(rep["row"].to_numpy()).to_numpy()})]
+    merged = set(aliases[0]["uid"].dropna())
+
+    def slam_keys(placed: pd.DataFrame) -> pd.DataFrame:
+        # Grand Slam rows place within their edition (16 Oct 2026): the copy a row used to make on its own (a late round
+        # dated by the event's start, 'Cori Gauff', 'Sherif Ahmed Abdelaziz') is gone, so its key places as an alias
+        return placed.loc[slam_rows(placed) & placed["uid"].notna(), alias_cols]
+
+    placed_sack = u.add("sackmann", sack)
+    aliases += [placed_sack.loc[placed_sack["uid"].isin(merged), alias_cols], slam_keys(placed_sack)]
     step("Sackmann")
     lists = u.add("wta_lists", load_wta_lists(), group="group")
+    aliases.append(slam_keys(lists))
     step("WTA match lists")
     starts = slam_starts(u.matches)
     feeds = load_slam_feeds(starts)
     for site in ("wimbledon", "usopen", "ausopen", "ausopen_wayback", "ausopen_archived_draws"):
         src = "slam_draws" if site == "ausopen_archived_draws" else site
-        u.add(src, feeds[feeds["site"].eq(site)])
+        aliases.append(slam_keys(u.add(src, feeds[feeds["site"].eq(site)])))
     step("Slam feeds")
     # the WTA website's own records: women's ITF qualifying and results the other files lack
-    u.add("wta_site", load_wta_site(refresh))
+    aliases.append(slam_keys(u.add("wta_site", load_wta_site(refresh))))
     step("WTA website records")
-    u.add("api_tennis", load_api_tennis(), group="group")
+    placed_api = u.add("api_tennis", load_api_tennis(), group="group")
+    aliases += [placed_api.loc[placed_api["uid"].isin(merged), alias_cols], slam_keys(placed_api)]
     step("api-tennis")
     # TennisLive's event listings: men's ITF qualifying and the ITF results since June 2026 the files lack
-    u.add("tennislive_listed", load_tennislive_listed(), group="group")
+    aliases.append(slam_keys(u.add("tennislive_listed", listed, group="group")))
     step("TennisLive event listings")
     tdi_status = status.get("tdi", "downloading")
     tdi = load_tdi(finished=tdi_status == "on_disk")
     notes["tdi_singles_ids"], notes["tdi_pages_on_disk"] = int(len(tdi)), int(tdi["status"].eq("on_disk").sum())
     placed = u.add("tdi", tdi[tdi["status"].ne("absent")], status="status", group="group")
+    aliases.append(slam_keys(placed))
     # the listing cards themselves (with scores) are on disk, whether or not the page is yet
     u.credit("tdi_listing", placed["uid"].dropna(), "result", "on_disk")
     step("TDI")
-    u.add("slam_pbp", load_slam_pbp(starts))
+    aliases.append(slam_keys(u.add("slam_pbp", load_slam_pbp(starts))))
     # the Court Vision copy covers matches the result files list: a row that links to none is a failed link
     cv = load_slam_ball_tracking(starts)
     cv["preset_uid"] = court_vision_uids(cv, u.matches)
@@ -1588,9 +2032,10 @@ def build(end: pd.Timestamp, refresh: bool = False, log=print) -> tuple[Universe
     mcp = load_mcp()
     u.add("mcp", mcp)
     u.add("ta_charts", load_ta_charts(set(mcp["match_id"])))
-    u.add("sofascore", load_sofascore(), group="group")
+    aliases.append(slam_keys(u.add("sofascore", load_sofascore(), group="group")))
+    u.aliases = pd.concat([a for a in aliases if len(a)], ignore_index=True).dropna(subset=["uid"])
     se = load_sofascore_editions()
-    se["preset_uid"] = sofascore_edition_uids(se, u.matches)     # the adapter's own links first
+    se["preset_uid"] = sofascore_edition_uids(se, u.matches, aliases=u.aliases)     # the adapter's own links first
     u.add("sofascore_editions", se, group="group")
     u.report["sofascore_editions"]["placed_by_adapter_links"] = int(se["preset_uid"].notna().sum())
     # listed by the Slam seasons of a gap of known matches: an event that links to none is a failed link
@@ -1601,22 +2046,31 @@ def build(end: pd.Timestamp, refresh: bool = False, log=print) -> tuple[Universe
     u.add("tennislive", load_tennislive(), group="group")
     u.add("tennislive_samples", load_tennislive(sampled=True), group="group")
     # the gap mode's pages, of known matches: placed on the matches it linked them to, else a failed link
-    tg = tennislive_gap_uids(load_tennislive(gaps=True), u.matches)
+    tg = tennislive_gap_uids(load_tennislive(gaps=True), u.matches, aliases=u.aliases)
     u.add("tennislive_gaps", tg, group="group", add_new=False)
     u.report["tennislive_gaps"]["placed_by_adapter_links"] = int(tg["preset_uid"].notna().sum())
     # Flashscore's point feeds of P13, of known matches: placed on the matches it linked them to, else a failed link
-    fp = flashscore_point_uids(load_flashscore_points(), u.matches)
+    fp = flashscore_point_uids(load_flashscore_points(), u.matches, aliases=u.aliases)
     u.add("flashscore_points", fp, group="group", add_new=False)
     u.report["flashscore_points"]["placed_by_adapter_links"] = int(fp["preset_uid"].notna().sum())
     u.add("lta_sample", load_lta_sample(), group="group")
     u.add("itf_live", load_itf_live(), group="group")
     u.add("infosys_slams", load_infosys_slams(starts))
+    u.add("rolandgarros", load_rolandgarros(starts))       # Roland-Garros's own statistics
     ia = load_infosys_atp()
     ia["preset_uid"] = ia["atp_key"].map(atp_uid)                # ids first, as for Infosys: the files carry no date
     u.add("infosys_atp", ia, group="group")
     u.report["infosys_atp"]["placed_by_atp_ids"] = int(ia["preset_uid"].notna().sum())
+    ic = load_infosys_challengers()
+    ic["preset_uid"] = ic["atp_key"].map(atp_uid)                # ids first: Tennis My Life's Challenger ids are the ATP's
+    u.add("infosys_challengers", ic, group="group")
+    u.report["infosys_challengers"]["placed_by_atp_ids"] = int(ic["preset_uid"].notna().sum())
+    ir = load_infosys_atp_recent()
+    ir["preset_uid"] = ir["atp_key"].map(atp_uid)                # ids first (P9): the files carry no date
+    u.add("infosys_atp_recent", ir, group="group")
+    u.report["infosys_atp_recent"]["placed_by_atp_ids"] = int(ir["preset_uid"].notna().sum())
     u.add("marcosjn2", load_marcosjn2(refresh))
-    step("charts, SofaScore, TennisLive, Live Tennis API, Infosys Slams and ATP, marcosjn2")
+    step("charts, SofaScore, TennisLive, Live Tennis API, Infosys Slams and ATP, Roland-Garros, marcosjn2")
 
     # WTA API: the umpire's point log (batch B1), then the batches assumed held
     state = wta_events_state(lists, refresh)
@@ -1786,6 +2240,9 @@ def run(end: pd.Timestamp, refresh: bool = False, log=print) -> dict:
             "best_status", "best_on_disk", "sources"]
     m[keep].astype({"name1": str, "name2": str, "tname": str, "draw": str, "level": str}).to_parquet(
         OUT / "matches.parquet", index=False)
+    redated = getattr(u, "tml_redated", None)
+    if redated is not None:      # Tennis My Life's rows of misdated editions and the date each was given
+        redated.to_csv(OUT / "tml_redated.csv", index=False)
     outside = m[~m["level"].isin(GRID_LEVELS)]
     payload = {
         "generated_by": "src/eda/data_map/measure.py",

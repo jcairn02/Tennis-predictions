@@ -1,7 +1,8 @@
 """Running the project's steps from the notebook: one subprocess per step, in the step's own environment.
 
 Every step
-    * runs from the repository root, with the interpreter of its environment (config.interpreter);
+    * runs from the repository root, with the interpreter of its environment (config.interpreter) and that
+      environment's folders first on PATH, as `conda activate` sets them, whichever shell started the notebook;
     * streams its output into the notebook cell and into a log file, logs/<YYYY-MM-DD>/<HHMMSS>_<step>.log;
     * leaves one receipt line in data/studies/master_pipeline/runs.jsonl (command, times, exit code, log);
     * can be a dry run: the command is printed and recorded, nothing is executed;
@@ -94,8 +95,22 @@ def _receipt(result: StepResult, step: Step, started: dt.datetime, dry_run: bool
 SCRUBBED_PREFIXES = ("DP_", "LLE_", "MODEL_REBUILD_")
 
 
+def _activated_path(env_name: str, path: str) -> str:
+    """PATH as `conda activate` sets it for a step's environment: the environment's own folders first. A shell with no
+    environment active (PowerShell, a scheduled task) gives none of them, and numpy's MKL then dies at its first
+    linear-algebra call, silently (Windows 0xC06D007F: the three failed bet-day runs of 14 Oct 2026). A child in
+    another environment inherits this PATH: the daily engine's fit loads in the local TabPFN environment under the
+    tennis environment's folders (test/master_pipeline/test_runner_env.py)."""
+    prefix = CFG.interpreter(env_name).parent
+    first = [prefix, prefix / "Library" / "mingw-w64" / "bin", prefix / "Library" / "usr" / "bin",
+             prefix / "Library" / "bin", prefix / "Scripts", prefix / "bin"]
+    return os.pathsep.join([str(p) for p in first] + ([path] if path else []))
+
+
 def _child_env(step: Step) -> dict:
     env = {k: v for k, v in os.environ.items() if not k.startswith(SCRUBBED_PREFIXES)}
+    if sys.platform == "win32":
+        env["PATH"] = _activated_path(step.env, env.get("PATH", ""))
     env["PYTHONIOENCODING"] = "utf-8"
     env["PYTHONUNBUFFERED"] = "1"
     env["MPLBACKEND"] = "Agg"         # the kernel's inline backend does not exist in the other environments

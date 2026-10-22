@@ -1,0 +1,14 @@
+# ./python.sh 'src\eda\predictability_diagnostic\stage0_build.py' --out-dir 'C:\Users\zerom\Documents\Tennis-predictions\data\studies\master_pipeline\data_check\stage0'
+# started 2026-10-14T12:29:04-07:00
+[   2.0s] loaded 1,066,101 rows from 10 file groups
+[   7.9s] box overrides: 2,272 rows take the official feed's box score (2 the score too; 1441 of them Sackmann rows)
+[  12.2s] row corrections: 2,951 source rows corrected
+[  25.6s] after repeats: Sackmann 867,297, TML 197,300
+[  33.0s] TML linked: exact_name_pair 183,928, unlinked 6,420, one_player_anchor 6,291, resolved_ids 548, same_event_other_round 113
+[  39.5s] TML-only rows appended: 6,420 (422 in events Sackmann also holds)
+[  98.0s] id aliases: 4 second ids mapped (7 already merged by the repairs)
+[ 100.7s] wrote 873,678 matches and 1,747,356 player rows to C:\Users\zerom\Documents\Tennis-predictions\data\studies\master_pipeline\data_check\stage0
+[ 101.5s] cleaning log: 2,376 rows, 31 cells over 1%
+[ 105.8s] done
+
+# ok, exit 0, 108.3 s

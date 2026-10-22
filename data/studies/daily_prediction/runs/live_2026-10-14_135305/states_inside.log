@@ -1,0 +1,100 @@
+[    1.3s] loading matches, players and odds; applying the repair's data corrections
+[level_layer] ratings_iid atp: 158,116 lower-level rating matches; w at zero 30,385
+[level_layer] ratings_iid wta: 53,833 lower-level rating matches; w at zero 0
+[   34.7s] rows: 1,845,282 player-matches; box history eligible 1,766,956; ITF/team own-score standard 1,308,854
+[  54.2s]   constant rpw_first
+[  58.4s]   constant rpw_second
+[  61.9s]   constant bp_over
+Windows fatal exception: code 0xc06d007f
+
+Current thread 0x000086c0 (most recent call first):
+  File "C:\Users\zerom\miniforge3\envs\tennis\Lib\site-packages\numpy\linalg\_linalg.py", line 2768 in norm
+  File "C:\Users\zerom\tnr_daily_nb\src\eda\surface_ios\ios_surface.py", line 83 in pcg_block
+  File "C:\Users\zerom\tnr_daily_nb\src\eda\prediction_pipeline\ios_state.py", line 286 in step
+  File "C:\Users\zerom\tnr_daily_nb\src\eda\prediction_pipeline\ios_state.py", line 363 in run_days
+  File "C:\Users\zerom\tnr_daily_nb\src\eda\daily_prediction\dp_ios.py", line 384 in full
+  File "C:\Users\zerom\tnr_daily_nb\src\eda\daily_prediction\dp_ios.py", line 420 in worker
+  File "C:\Users\zerom\miniforge3\envs\tennis\Lib\concurrent\futures\process.py", line 210 in <listcomp>
+  File "C:\Users\zerom\miniforge3\envs\tennis\Lib\concurrent\futures\process.py", line 210 in _process_chunk
+  File "C:\Users\zerom\miniforge3\envs\tennis\Lib\concurrent\futures\process.py", line 261 in _process_worker
+  File "C:\Users\zerom\miniforge3\envs\tennis\Lib\multiprocessing\process.py", line 108 in run
+  File "C:\Users\zerom\miniforge3\envs\tennis\Lib\multiprocessing\process.py", line 314 in _bootstrap
+  File "C:\Users\zerom\miniforge3\envs\tennis\Lib\multiprocessing\spawn.py", line 135 in _main
+  File "C:\Users\zerom\miniforge3\envs\tennis\Lib\multiprocessing\spawn.py", line 122 in spawn_main
+  File "<string>", line 1 in <module>
+Traceback (most recent call last):
+  File "C:\Users\zerom\miniforge3\envs\tennis\Lib\multiprocessing\queues.py", line 246, in _feed
+    send_bytes(obj)
+  File "C:\Users\zerom\miniforge3\envs\tennis\Lib\multiprocessing\connection.py", line 184, in send_bytes
+    self._check_closed()
+  File "C:\Users\zerom\miniforge3\envs\tennis\Lib\multiprocessing\connection.py", line 137, in _check_closed
+    raise OSError("handle is closed")
+OSError: handle is closed
+Traceback (most recent call last):
+  File "C:\Users\zerom\miniforge3\envs\tennis\Lib\multiprocessing\queues.py", line 246, in _feed
+    send_bytes(obj)
+  File "C:\Users\zerom\miniforge3\envs\tennis\Lib\multiprocessing\connection.py", line 184, in send_bytes
+    self._check_closed()
+  File "C:\Users\zerom\miniforge3\envs\tennis\Lib\multiprocessing\connection.py", line 137, in _check_closed
+    raise OSError("handle is closed")
+OSError: handle is closed
+Traceback (most recent call last):
+  File "C:\Users\zerom\miniforge3\envs\tennis\Lib\multiprocessing\queues.py", line 246, in _feed
+    send_bytes(obj)
+  File "C:\Users\zerom\miniforge3\envs\tennis\Lib\multiprocessing\connection.py", line 184, in send_bytes
+    self._check_closed()
+  File "C:\Users\zerom\miniforge3\envs\tennis\Lib\multiprocessing\connection.py", line 137, in _check_closed
+    raise OSError("handle is closed")
+OSError: handle is closed
+Traceback (most recent call last):
+  File "C:\Users\zerom\miniforge3\envs\tennis\Lib\multiprocessing\queues.py", line 246, in _feed
+    send_bytes(obj)
+  File "C:\Users\zerom\miniforge3\envs\tennis\Lib\multiprocessing\connection.py", line 184, in send_bytes
+    self._check_closed()
+  File "C:\Users\zerom\miniforge3\envs\tennis\Lib\multiprocessing\connection.py", line 137, in _check_closed
+    raise OSError("handle is closed")
+OSError: handle is closed
+Traceback (most recent call last):
+  File "C:\Users\zerom\miniforge3\envs\tennis\Lib\multiprocessing\queues.py", line 246, in _feed
+    send_bytes(obj)
+  File "C:\Users\zerom\miniforge3\envs\tennis\Lib\multiprocessing\connection.py", line 184, in send_bytes
+    self._check_closed()
+  File "C:\Users\zerom\miniforge3\envs\tennis\Lib\multiprocessing\connection.py", line 137, in _check_closed
+    raise OSError("handle is closed")
+OSError: handle is closed
+Traceback (most recent call last):
+  File "C:\Users\zerom\miniforge3\envs\tennis\Lib\multiprocessing\queues.py", line 246, in _feed
+    send_bytes(obj)
+  File "C:\Users\zerom\miniforge3\envs\tennis\Lib\multiprocessing\connection.py", line 184, in send_bytes
+    self._check_closed()
+  File "C:\Users\zerom\miniforge3\envs\tennis\Lib\multiprocessing\connection.py", line 137, in _check_closed
+    raise OSError("handle is closed")
+OSError: handle is closed
+[  65.4s]   constant win
+[  68.4s]   constant deciding
+Windows fatal exception: code 0xc06d007f
+
+Thread 0x000076d8 (most recent call first):
+  File "C:\Users\zerom\miniforge3\envs\tennis\Lib\threading.py", line 327 in wait
+  File "C:\Users\zerom\miniforge3\envs\tennis\Lib\multiprocessing\queues.py", line 231 in _feed
+  File "C:\Users\zerom\miniforge3\envs\tennis\Lib\threading.py", line 982 in run
+  File "C:\Users\zerom\miniforge3\envs\tennis\Lib\threading.py", line 1045 in _bootstrap_inner
+  File "C:\Users\zerom\miniforge3\envs\tennis\Lib\threading.py", line 1002 in _bootstrap
+
+Thread 0x0000aeb4 (most recent call first):
+  File "C:\Users\zerom\miniforge3\envs\tennis\Lib\multiprocessing\connection.py", line 828 in _exhaustive_wait
+  File "C:\Users\zerom\miniforge3\envs\tennis\Lib\multiprocessing\connection.py", line 896 in wait
+  File "C:\Users\zerom\miniforge3\envs\tennis\Lib\concurrent\futures\process.py", line 417 in wait_result_broken_or_wakeup
+  File "C:\Users\zerom\miniforge3\envs\tennis\Lib\concurrent\futures\process.py", line 344 in run
+  File "C:\Users\zerom\miniforge3\envs\tennis\Lib\threading.py", line 1045 in _bootstrap_inner
+  File "C:\Users\zerom\miniforge3\envs\tennis\Lib\threading.py", line 1002 in _bootstrap
+
+Current thread 0x0000b6b4 (most recent call first):
+  File "C:\Users\zerom\tnr_daily_nb\src\eda\predictability_diagnostic\stage4_features.py", line 447 in fit_slope
+  File "C:\Users\zerom\tnr_daily_nb\src\eda\predictability_diagnostic\stage4_features.py", line 494 in constants
+  File "C:\Users\zerom\tnr_daily_nb\src\eda\daily_prediction\dp_stage4.py", line 34 in load
+  File "C:\Users\zerom\tnr_daily_nb\src\eda\daily_prediction\dp_state.py", line 354 in inputs
+  File "C:\Users\zerom\tnr_daily_nb\src\eda\daily_prediction\dp_steps.py", line 242 in step_states
+  File "C:\Users\zerom\tnr_daily_nb\src\eda\daily_prediction\dp.py", line 129 in cmd_step
+  File "C:\Users\zerom\tnr_daily_nb\src\eda\daily_prediction\dp.py", line 240 in main
+  File "C:\Users\zerom\tnr_daily_nb\src\eda\daily_prediction\dp.py", line 244 in <module>

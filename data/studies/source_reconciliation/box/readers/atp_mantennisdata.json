@@ -1,0 +1,186 @@
+{
+ "reader": "atp_mantennisdata",
+ "source": "data/dump/matches/mantennisdata/atp_matches_<year>.parquet",
+ "seasons_read": [
+  2015,
+  2016,
+  2017,
+  2018,
+  2019,
+  2020,
+  2021,
+  2022,
+  2023,
+  2024,
+  2025,
+  2026
+ ],
+ "records_read": 145243,
+ "records_by_file_year": {
+  "2015": 12684,
+  "2016": 12587,
+  "2017": 12045,
+  "2018": 12793,
+  "2019": 11654,
+  "2020": 4667,
+  "2021": 10224,
+  "2022": 12922,
+  "2023": 13536,
+  "2024": 14211,
+  "2025": 14493,
+  "2026": 13427
+ },
+ "dropped": {
+  "no_box_statistics": 5858,
+  "duplicate_source_key": 0,
+  "unlinked:no_pair_in_event": 6339,
+  "unlinked:event_not_in_stage0": 612,
+  "unlinked:duplicate": 25
+ },
+ "linked": 132409,
+ "link_methods": {
+  "event+id/id": 127792,
+  "": 6976,
+  "event+anchor/id": 2252,
+  "event+abbr/id": 2125,
+  "event+full/id": 198,
+  "event+abbr/abbr": 15,
+  "event+abbr/full": 14,
+  "event+anchor/full": 13
+ },
+ "winner_vs_stage0": {
+  "player_rows_with_a_winner": 264818,
+  "same_as_stage0": 264814,
+  "share_not_equal": 2e-05,
+  "match_ids_not_equal_examples": [
+   "atp|2018-3627|Q2|atp:121816|atp:200325",
+   "atp|2024-9651|Q2|atp:131951|atp:207815"
+  ]
+ },
+ "internal_consistency": {
+  "first_pts_total_equals_first_in": {
+   "n": 264818,
+   "equal": 1.0
+  },
+  "second_pts_total_equals_svpt_minus_first_in": {
+   "n": 264818,
+   "equal": 1.0
+  },
+  "service_pts_total_equals_svpt": {
+   "n": 264818,
+   "equal": 1.0
+  },
+  "sv_won_equals_first_won_plus_second_won": {
+   "n": 264818,
+   "equal": 1.0
+  }
+ },
+ "crosswalk_codes": 4423,
+ "rows_written": 264818,
+ "matches_written": 132409,
+ "sanity_vs_stage0": {
+  "all": {
+   "ace": {
+    "n": 260010,
+    "equal": 0.998
+   },
+   "df": {
+    "n": 260010,
+    "equal": 0.9983
+   },
+   "svpt": {
+    "n": 260010,
+    "equal": 0.9943
+   },
+   "first_in": {
+    "n": 260010,
+    "equal": 0.986
+   },
+   "first_won": {
+    "n": 260010,
+    "equal": 0.988
+   },
+   "second_won": {
+    "n": 260010,
+    "equal": 0.9888
+   },
+   "sv_gms": {
+    "n": 258764,
+    "equal": 0.9922
+   },
+   "bp_saved": {
+    "n": 260010,
+    "equal": 0.9989
+   },
+   "bp_faced": {
+    "n": 260009,
+    "equal": 0.9989
+   }
+  },
+  "complete": {
+   "ace": {
+    "n": 260008,
+    "equal": 0.998
+   },
+   "df": {
+    "n": 260008,
+    "equal": 0.9983
+   },
+   "svpt": {
+    "n": 260008,
+    "equal": 0.9943
+   },
+   "first_in": {
+    "n": 260008,
+    "equal": 0.986
+   },
+   "first_won": {
+    "n": 260008,
+    "equal": 0.988
+   },
+   "second_won": {
+    "n": 260008,
+    "equal": 0.9888
+   },
+   "sv_gms": {
+    "n": 258762,
+    "equal": 0.9922
+   },
+   "bp_saved": {
+    "n": 260008,
+    "equal": 0.9989
+   },
+   "bp_faced": {
+    "n": 260007,
+    "equal": 0.9989
+   }
+  }
+ },
+ "hand_checks": {
+  "by": "atp_handcheck.py (seed 20261016), read by the session on 16 Oct 2026",
+  "compared_with": "staged atp_matches_<year>.parquet row (win_ / los_ columns, winner / loser codes and names)",
+  "verdict": "5 of 5 (seasons 2018 on): counts equal the staged values; winner and loser codes sit on the Stage 0 players of the same names",
+  "keys": [
+   {
+    "source_key": "mantd:2022-1212-g09c-f0f6-Q2",
+    "match_id": "atp|2022-1212|Q2|atp:200309|atp:210064"
+   },
+   {
+    "source_key": "mantd:2023-2881-z0by-p0iz-Q1",
+    "match_id": "atp|2023-2881|Q1|atp:109207|atp:210052"
+   },
+   {
+    "source_key": "mantd:2025-1536-td51-mp20-R32",
+    "match_id": "atp|2025-1536|R32|atp:124186|atp:126207"
+   },
+   {
+    "source_key": "mantd:2025-2965-dc48-d0ar-R32",
+    "match_id": "atp|2025-2965|R32|atp:123961|atp:127123"
+   },
+   {
+    "source_key": "mantd:2025-9003-l0c6-z419-Q1",
+    "match_id": "atp|2025-9003|Q1|atp:126523|atp:207507"
+   }
+  ]
+ }
+}

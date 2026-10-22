@@ -1,0 +1,146 @@
+{
+ "built_at": "2026-10-16T21:35:14+00:00",
+ "reads_results": false,
+ "frozen_first_serve": {
+  "filter": {
+   "hl": 14.0,
+   "s2f": 12.0,
+   "q": 0.010958904109589041,
+   "c": 2.0,
+   "nu_pts": 7.0,
+   "nu_ks": 8.0,
+   "sigma": 13.49
+  },
+  "tau2": 22.0,
+  "s_serve": 12.4
+ },
+ "serve_noise_points_le_2023": {
+  "1": {
+   "player_matches": 14830,
+   "pooled_sd": 13.382769036292618,
+   "median_sd": 12.305565367508834
+  },
+  "2": {
+   "player_matches": 14557,
+   "pooled_sd": 11.30173944036183,
+   "median_sd": 9.642712297506863
+  }
+ },
+ "ratios": {
+  "pooled_sd": 0.8444993266873797,
+  "median_sd": 0.7836057921375258
+ },
+ "tau2_estimates": {
+  "first": {
+   "tau2": 30.36204474390118,
+   "rows": 14385
+  },
+  "second": {
+   "tau2": 33.65656227390565,
+   "rows": 14225
+  },
+  "gap": {
+   "tau2": 34.0340171548434,
+   "rows": 14225
+  }
+ },
+ "one_step": {
+  "first": {
+   "estimate": {
+    "s2f": 24.821812879028624,
+    "q": 0.05281022885023471,
+    "nu_pts": 24.670967689043668,
+    "nu_ks": 44.76275464450748
+   },
+   "mse": 25.815908605882314,
+   "mse_at_frozen": 26.05787018765991,
+   "iterations": 146,
+   "converged": true,
+   "targets": 9447,
+   "cut_km_h": 20.0,
+   "cut_share": 0.0064156499789650824
+  },
+  "second": {
+   "estimate": {
+    "s2f": 34.36489043242697,
+    "q": 0.08159096882712288,
+    "nu_pts": 58.65434261246747,
+    "nu_ks": 71.41457575607296
+   },
+   "mse": 29.320640524253395,
+   "mse_at_frozen": 29.613434333860415,
+   "iterations": 118,
+   "converged": true,
+   "targets": 9062,
+   "cut_km_h": 19.39021274802432,
+   "cut_share": 0.0064156499789650824
+  },
+  "gap": {
+   "estimate": {
+    "s2f": 22.162573008085477,
+    "q": 0.024809871769945185,
+    "nu_pts": 35.94646184041094,
+    "nu_ks": 65.71872293127059
+   },
+   "mse": 32.942400485040025,
+   "mse_at_frozen": 33.36255439399633,
+   "iterations": 103,
+   "converged": true,
+   "targets": 9342,
+   "cut_km_h": 21.275034223036347,
+   "cut_share": 0.0064156499789650824
+  }
+ },
+ "second": {
+  "filter": {
+   "hl": 14.0,
+   "s2f": 16.61356030677086,
+   "q": 0.0169313336270637,
+   "c": 2.0,
+   "nu_pts": 16.64224944324378,
+   "nu_ks": 12.763213760766305,
+   "sigma": 11.392295917012753
+  },
+  "tau2": 24.387170767695324,
+  "s_serve": 9.71671182250532
+ },
+ "gap": {
+  "filter": {
+   "hl": 14.0,
+   "s2f": 10.71440178012628,
+   "q": 0.0051484155932950675,
+   "c": 2.0,
+   "nu_pts": 10.199244555560051,
+   "nu_ks": 11.745250881575844,
+   "sigma": 17.65685437049265
+  },
+  "tau2": 24.660670377180566,
+  "s_serve": 15.75355479381129,
+  "sigma_parts": [
+   13.49,
+   11.392295917012753
+  ]
+ },
+ "histories": {
+  "second": {
+   "rows": 43315,
+   "use_first": 43098,
+   "use_second": 42369,
+   "men_use_first": 32147,
+   "men_use_second": 31864,
+   "ao_match_centre_n2_filled": 956,
+   "ao_match_centre_rows": 956,
+   "dropped_men": {
+    "no_spd2": 51,
+    "n2_lt_10_or_missing": 222,
+    "spd2_lt_100": 10
+   }
+  },
+  "gap": {
+   "men_use_gap": 31864,
+   "sigma_g": 17.65685437049265,
+   "n_eff_median_men": 38.0
+  }
+ },
+ "rule": "constant(series) = frozen first-serve constant x estimate(series) / estimate(first serve), the same estimator for both; hl (14 / 28), c = 2, the 364-day window and the clip at 4 are the columns' definition"
+}

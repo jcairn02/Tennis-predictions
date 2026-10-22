@@ -1,0 +1,439 @@
+{
+ "generated_at": "2026-10-21T22:45:28+00:00",
+ "reference": "2026-10-08",
+ "candidate": "template_2026-10-21b",
+ "candidate_frame": "data/studies/current_best_model/template_2026-10-21b/model_frame.parquet",
+ "candidate_frame_sha256": "e99212c92215d5a82d6f364ff2c478c8018fd08aa1a6999332799478ee407834",
+ "speed_column": "the reference's",
+ "results_read_through": 2024,
+ "scored_seasons": [
+  2020,
+  2024
+ ],
+ "unit": "mLL per match; positive = the candidate has the lower log loss (better); reading 'better' or 'worse' when the 95% interval clears 0, otherwise 'unresolved'; p_better = the t CDF of estimate / se on blocks - 1 df (flat prior, this one test; null for identical forecasts); model against model: seed term paired by seed (seeds 0-3), against a close: unpaired; *_unpaired = the interval as read before 9 Oct 2026",
+ "primary": [
+  {
+   "group": "primary",
+   "population": "both tours",
+   "comparison": "both stages: candidate vs reference",
+   "matches": 22265,
+   "estimate": 0.04478522422616261,
+   "lo": -0.29681913999507775,
+   "hi": 0.38638958844740295,
+   "se": 0.17038649969294214,
+   "p_better": 0.6031648082676957,
+   "reading": "unresolved",
+   "lo_week": -0.31312608248006546,
+   "hi_week": 0.40269653093239066,
+   "blocks": 55,
+   "seed_term": "paired",
+   "se_unpaired": 0.1734486071231158,
+   "lo_unpaired": -0.30295829576003963,
+   "hi_unpaired": 0.39252874421236483,
+   "lo_week_unpaired": -0.31881008264848376,
+   "hi_week_unpaired": 0.40838053110080896
+  },
+  {
+   "group": "primary",
+   "population": "both tours",
+   "comparison": "stage 1: candidate vs reference",
+   "matches": 22265,
+   "estimate": 0.045271527597404014,
+   "lo": -0.2956134159914171,
+   "hi": 0.3861564711862251,
+   "se": 0.17002766480614484,
+   "p_better": 0.6044733983495467,
+   "reading": "unresolved",
+   "lo_week": -0.3128522720040278,
+   "hi_week": 0.4033953271988358,
+   "blocks": 55,
+   "seed_term": "paired",
+   "se_unpaired": 0.17334347035861566,
+   "lo_unpaired": -0.3022612058672248,
+   "hi_unpaired": 0.3928042610620328,
+   "lo_week_unpaired": -0.318991402104785,
+   "hi_week_unpaired": 0.409534457299593
+  },
+  {
+   "group": "primary",
+   "population": "both tours",
+   "comparison": "for scale: reference vs its calibrated close",
+   "matches": 22265,
+   "estimate": 1.3744563925777173,
+   "lo": 0.6677271339575777,
+   "hi": 2.081185651197857,
+   "se": 0.3525046434385874,
+   "p_better": 0.9998654753681772,
+   "reading": "better",
+   "lo_week": 0.7431920231056708,
+   "hi_week": 2.005720762049764,
+   "blocks": 55,
+   "seed_term": "unpaired",
+   "se_unpaired": 0.3525046434385874,
+   "lo_unpaired": 0.6677271339575777,
+   "hi_unpaired": 2.081185651197857,
+   "lo_week_unpaired": 0.7431920231056708,
+   "hi_week_unpaired": 2.005720762049764
+  },
+  {
+   "group": "primary",
+   "population": "both tours",
+   "comparison": "for scale: candidate vs its calibrated close",
+   "matches": 22265,
+   "estimate": 1.0922598335435798,
+   "lo": 0.4172258355700147,
+   "hi": 1.767293831517145,
+   "se": 0.3366955815996476,
+   "p_better": 0.9989879255532663,
+   "reading": "better",
+   "lo_week": 0.48459762160028463,
+   "hi_week": 1.699922045486875,
+   "blocks": 55,
+   "seed_term": "unpaired",
+   "se_unpaired": 0.3366955815996476,
+   "lo_unpaired": 0.4172258355700147,
+   "hi_unpaired": 1.767293831517145,
+   "lo_week_unpaired": 0.48459762160028463,
+   "hi_week_unpaired": 1.699922045486875
+  },
+  {
+   "group": "primary",
+   "population": "men",
+   "comparison": "both stages: candidate vs reference",
+   "matches": 11672,
+   "estimate": -0.1383902033992671,
+   "lo": -0.5998349739135116,
+   "hi": 0.32305456711497743,
+   "se": 0.23016087463863377,
+   "p_better": 0.2750860353900071,
+   "reading": "unresolved",
+   "lo_week": -0.6116452480903076,
+   "hi_week": 0.33486484129177335,
+   "blocks": 55,
+   "seed_term": "paired",
+   "se_unpaired": 0.2316108720483951,
+   "lo_unpaired": -0.6027420436882684,
+   "hi_unpaired": 0.32596163688973423,
+   "lo_week_unpaired": -0.6143955370486606,
+   "hi_week_unpaired": 0.33761513025012635
+  },
+  {
+   "group": "primary",
+   "population": "men",
+   "comparison": "stage 1: candidate vs reference",
+   "matches": 11672,
+   "estimate": -0.13746255222031828,
+   "lo": -0.5994020363400083,
+   "hi": 0.3244769318993717,
+   "se": 0.2304076294474445,
+   "p_better": 0.2766318055018355,
+   "reading": "unresolved",
+   "lo_week": -0.611615418297323,
+   "hi_week": 0.3366903138566865,
+   "blocks": 55,
+   "seed_term": "paired",
+   "se_unpaired": 0.23213226620456326,
+   "lo_unpaired": -0.6028597248540035,
+   "hi_unpaired": 0.3279346204133669,
+   "lo_week_unpaired": -0.6148841040769939,
+   "hi_week_unpaired": 0.3399589996363574
+  },
+  {
+   "group": "primary",
+   "population": "men",
+   "comparison": "for scale: reference vs its calibrated close",
+   "matches": 11672,
+   "estimate": 1.4833155913039506,
+   "lo": 0.601846477359273,
+   "hi": 2.364784705248628,
+   "se": 0.43966193832114464,
+   "p_better": 0.9993109107423802,
+   "reading": "better",
+   "lo_week": 0.6637736644778942,
+   "hi_week": 2.302857518130007,
+   "blocks": 55,
+   "seed_term": "unpaired",
+   "se_unpaired": 0.43966193832114464,
+   "lo_unpaired": 0.601846477359273,
+   "hi_unpaired": 2.364784705248628,
+   "lo_week_unpaired": 0.6637736644778942,
+   "hi_week_unpaired": 2.302857518130007
+  },
+  {
+   "group": "primary",
+   "population": "men",
+   "comparison": "for scale: candidate vs its calibrated close",
+   "matches": 11672,
+   "estimate": 1.2291318761533863,
+   "lo": 0.4044630903148332,
+   "hi": 2.0538006619919393,
+   "se": 0.4113308919380685,
+   "p_better": 0.9978918911665805,
+   "reading": "better",
+   "lo_week": 0.44069381220670156,
+   "hi_week": 2.017569940100071,
+   "blocks": 55,
+   "seed_term": "unpaired",
+   "se_unpaired": 0.4113308919380685,
+   "lo_unpaired": 0.4044630903148332,
+   "hi_unpaired": 2.0538006619919393,
+   "lo_week_unpaired": 0.44069381220670156,
+   "hi_week_unpaired": 2.017569940100071
+  },
+  {
+   "group": "primary",
+   "population": "women",
+   "comparison": "both stages: candidate vs reference",
+   "matches": 10593,
+   "estimate": 0.2466188493790008,
+   "lo": -0.3438732530391556,
+   "hi": 0.8371109517971572,
+   "se": 0.2944002400087434,
+   "p_better": 0.7970192523141355,
+   "reading": "unresolved",
+   "lo_week": -0.3135290117596753,
+   "hi_week": 0.8067667105176769,
+   "blocks": 54,
+   "seed_term": "paired",
+   "se_unpaired": 0.296771919501492,
+   "lo_unpaired": -0.3486302396839137,
+   "hi_unpaired": 0.8418679384419153,
+   "lo_week_unpaired": -0.3183925211727051,
+   "hi_week_unpaired": 0.8116302199307067
+  },
+  {
+   "group": "primary",
+   "population": "women",
+   "comparison": "stage 1: candidate vs reference",
+   "matches": 10593,
+   "estimate": 0.2466188493790008,
+   "lo": -0.3438732530391556,
+   "hi": 0.8371109517971572,
+   "se": 0.2944002400087434,
+   "p_better": 0.7970192523141355,
+   "reading": "unresolved",
+   "lo_week": -0.3135290117596753,
+   "hi_week": 0.8067667105176769,
+   "blocks": 54,
+   "seed_term": "paired",
+   "se_unpaired": 0.296771919501492,
+   "lo_unpaired": -0.3486302396839137,
+   "hi_unpaired": 0.8418679384419153,
+   "lo_week_unpaired": -0.3183925211727051,
+   "hi_week_unpaired": 0.8116302199307067
+  },
+  {
+   "group": "primary",
+   "population": "women",
+   "comparison": "for scale: reference vs its calibrated close",
+   "matches": 10593,
+   "estimate": 1.2545088264932662,
+   "lo": 0.3868112011031496,
+   "hi": 2.122206451883383,
+   "se": 0.4326059368512436,
+   "p_better": 0.9972888803351307,
+   "reading": "better",
+   "lo_week": 0.38250779672023416,
+   "hi_week": 2.1265098562662983,
+   "blocks": 54,
+   "seed_term": "unpaired",
+   "se_unpaired": 0.4326059368512436,
+   "lo_unpaired": 0.3868112011031496,
+   "hi_unpaired": 2.122206451883383,
+   "lo_week_unpaired": 0.38250779672023416,
+   "hi_week_unpaired": 2.1265098562662983
+  },
+  {
+   "group": "primary",
+   "population": "women",
+   "comparison": "for scale: candidate vs its calibrated close",
+   "matches": 10593,
+   "estimate": 0.9414460431780869,
+   "lo": 0.08195101934070759,
+   "hi": 1.8009410670154662,
+   "se": 0.4285163853467734,
+   "p_better": 0.983792496879482,
+   "reading": "better",
+   "lo_week": 0.0784542208322776,
+   "hi_week": 1.8044378655238962,
+   "blocks": 54,
+   "seed_term": "unpaired",
+   "se_unpaired": 0.4285163853467734,
+   "lo_unpaired": 0.08195101934070759,
+   "hi_unpaired": 1.8009410670154662,
+   "lo_week_unpaired": 0.0784542208322776,
+   "hi_week_unpaired": 1.8044378655238962
+  }
+ ],
+ "inputs_flagged": [
+  {
+   "input": "points_52w",
+   "flag": "uneven",
+   "flagged_tour_seasons": 13,
+   "flagged": "atp 2013; atp 2014; atp 2015; atp 2016; atp 2017; atp 2018; atp 2019; atp 2020; atp 2022; atp 2023; atp 2024; atp 2025; atp 2026"
+  },
+  {
+   "input": "form_ace",
+   "flag": "uneven",
+   "flagged_tour_seasons": 1,
+   "flagged": "wta 2026"
+  },
+  {
+   "input": "form_first_in",
+   "flag": "uneven",
+   "flagged_tour_seasons": 2,
+   "flagged": "atp 2023; wta 2026"
+  },
+  {
+   "input": "form_hold",
+   "flag": "uneven",
+   "flagged_tour_seasons": 2,
+   "flagged": "wta 2013; wta 2014"
+  },
+  {
+   "input": "form_bp_faced_pg",
+   "flag": "uneven",
+   "flagged_tour_seasons": 2,
+   "flagged": "wta 2013; wta 2014"
+  },
+  {
+   "input": "form_brk",
+   "flag": "uneven",
+   "flagged_tour_seasons": 3,
+   "flagged": "wta 2013; wta 2014; wta 2026"
+  },
+  {
+   "input": "form_bp_conv",
+   "flag": "uneven",
+   "flagged_tour_seasons": 1,
+   "flagged": "atp 2022"
+  },
+  {
+   "input": "form_rpw_second",
+   "flag": "uneven",
+   "flagged_tour_seasons": 1,
+   "flagged": "wta 2026"
+  },
+  {
+   "input": "formdef_ace",
+   "flag": "uneven",
+   "flagged_tour_seasons": 1,
+   "flagged": "wta 2026"
+  },
+  {
+   "input": "formdef_bp_faced_pg",
+   "flag": "uneven",
+   "flagged_tour_seasons": 2,
+   "flagged": "wta 2013; wta 2014"
+  },
+  {
+   "input": "iosO_hold",
+   "flag": "uneven",
+   "flagged_tour_seasons": 2,
+   "flagged": "wta 2013; wta 2014"
+  },
+  {
+   "input": "iosD_hold",
+   "flag": "uneven",
+   "flagged_tour_seasons": 2,
+   "flagged": "wta 2013; wta 2014"
+  },
+  {
+   "input": "prod_ace",
+   "flag": "uneven",
+   "flagged_tour_seasons": 6,
+   "flagged": "atp 2016; atp 2017; atp 2018; atp 2019; atp 2025; atp 2026"
+  },
+  {
+   "input": "prod_df",
+   "flag": "uneven",
+   "flagged_tour_seasons": 3,
+   "flagged": "atp 2016; atp 2017; atp 2018"
+  },
+  {
+   "input": "prod_first_won",
+   "flag": "uneven",
+   "flagged_tour_seasons": 8,
+   "flagged": "atp 2016; atp 2017; atp 2018; atp 2019; atp 2020; atp 2021; atp 2025; atp 2026"
+  },
+  {
+   "input": "prod_second_won",
+   "flag": "uneven",
+   "flagged_tour_seasons": 7,
+   "flagged": "atp 2017; atp 2018; atp 2019; atp 2020; atp 2021; atp 2025; atp 2026"
+  },
+  {
+   "input": "prod_hold",
+   "flag": "uneven",
+   "flagged_tour_seasons": 9,
+   "flagged": "atp 2017; atp 2018; atp 2019; atp 2020; atp 2021; atp 2025; atp 2026; wta 2013; wta 2014"
+  },
+  {
+   "input": "prod_bp_saved",
+   "flag": "uneven",
+   "flagged_tour_seasons": 9,
+   "flagged": "atp 2018; atp 2019; atp 2020; atp 2021; atp 2022; atp 2023; atp 2024; atp 2025; atp 2026"
+  },
+  {
+   "input": "indoor",
+   "flag": "uneven",
+   "flagged_tour_seasons": 14,
+   "flagged": "wta 2013; wta 2014; wta 2015; wta 2016; wta 2017; wta 2018; wta 2019; wta 2020; wta 2021; wta 2022; wta 2023; wta 2024; wta 2025; wta 2026"
+  },
+  {
+   "input": "elo_surf_offset",
+   "flag": "uneven",
+   "flagged_tour_seasons": 1,
+   "flagged": "atp 2023"
+  },
+  {
+   "input": "surf_layoff_a",
+   "flag": "uneven",
+   "flagged_tour_seasons": 1,
+   "flagged": "wta 2026"
+  },
+  {
+   "input": "surf_layoff_b",
+   "flag": "uneven",
+   "flagged_tour_seasons": 1,
+   "flagged": "wta 2026"
+  }
+ ],
+ "inputs_changed": 53,
+ "inputs_only_in_one": [],
+ "coverage": {
+  "both": 67226,
+  "reference only": 0,
+  "candidate only": 305
+ },
+ "coefficients_last_season": {
+  "reference stage 1": [
+   0.8957957425947172,
+   0.9322035111478328,
+   0.0,
+   0.0,
+   0.0
+  ],
+  "candidate stage 1": [
+   0.8997865080512492,
+   0.9378805067361083,
+   0.0,
+   0.0,
+   0.0
+  ],
+  "reference": [
+   0.8944941099340749,
+   0.9322035111478328,
+   0.027602565093728267,
+   0.03666404973052969,
+   0.02864804315405617
+  ],
+  "candidate": [
+   0.8984822059750539,
+   0.9378805067361083,
+   0.028079234125745693,
+   0.03729174324096224,
+   0.028639559943550663
+  ]
+ }
+}

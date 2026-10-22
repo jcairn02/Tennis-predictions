@@ -1,0 +1,47 @@
+{
+ "built_at": "2026-10-16T22:07:18+00:00",
+ "reads_results": false,
+ "constants": "constants.json",
+ "columns": {
+  "spd_L_B": {
+   "sd_km_h": 1.9496051535048338,
+   "source": "frozen standardiser (latency B_M1)",
+   "stored_rows_differing": 0
+  },
+  "spd2_L_B": {
+   "sd_km_h": 2.1187846523945226,
+   "sd_definition": "SD (ddof 1) of unclipped f_hat_A - f_hat_B, men's frame matches of 2022-23 (as latency B_M1's standardiser)",
+   "clipped": 26,
+   "corr_with_spd_L_B_men_nonzero": 0.42260430735438215
+  },
+  "spd2_T_B": {
+   "sd_km_h": 1.6658734190984568,
+   "sd_definition": "SD (ddof 1) of unclipped f_hat_A - f_hat_B, men's frame matches of 2022-23 (as latency B_M1's standardiser)",
+   "clipped": 47,
+   "corr_with_spd_L_B_men_nonzero": 0.3913302347333542
+  },
+  "gap_L_B": {
+   "sd_km_h": 1.7594552086232647,
+   "sd_definition": "SD (ddof 1) of unclipped f_hat_A - f_hat_B, men's frame matches of 2022-23 (as latency B_M1's standardiser)",
+   "clipped": 24,
+   "corr_with_spd_L_B_men_nonzero": 0.41289562395209173
+  },
+  "gap_T_B": {
+   "sd_km_h": 1.3690609476287607,
+   "sd_definition": "SD (ddof 1) of unclipped f_hat_A - f_hat_B, men's frame matches of 2022-23 (as latency B_M1's standardiser)",
+   "clipped": 37,
+   "corr_with_spd_L_B_men_nonzero": 0.40319924483074865
+  }
+ },
+ "sensitivity_frozen_constants": {
+  "corr_with_spd2_L_B_men_nonzero": 0.9949826723972183,
+  "sd_km_h": 2.0920025153764734,
+  "note": "not read against results"
+ },
+ "coverage": "builder_coverage.csv",
+ "sha256": {
+  "builder_columns.parquet": "5bafccfb1bcea70cfe59ab470e0c6cca4e2c51e8e57f09b6825396a8f12e2f75",
+  "history": "56731cbab3bd439cffd578c515c911ea8a6792966acfa790ef58243f6ace4c51",
+  "speed_ext.py": "285507302b5d80b6bf94bb3b18291272e09a48f0c3a1e885569b508fa81974c2"
+ }
+}

@@ -144,6 +144,10 @@ def live_files(tmp_path, monkeypatch):
     monkeypatch.setattr(LP, "CORRECTED_META", meta)
     monkeypatch.setattr(LP, "BACKFILLED", backfilled)
     monkeypatch.setattr(LP, "BACKFILLED_META", bmeta)
+    # the repaired layer above the backfill (since 22 Oct 2026, source_reconciliation/apply_speed.py): absent here, so
+    # the backfill is the top layer these tests read
+    monkeypatch.setattr(LP, "REPAIRED", tmp_path / "repaired.parquet")
+    monkeypatch.setattr(LP, "REPAIRED_META", tmp_path / "repaired.json")
     return {"corrected": corrected, "backfilled": backfilled, "bmeta": bmeta}
 
 

@@ -89,7 +89,12 @@ def test_runner_offline(tmp_path):
     head = live.iloc[:len(fr)][fr.columns]
     pd.testing.assert_frame_equal(head.reset_index(drop=True), fr.reset_index(drop=True), check_dtype=False)
     assert not live.duplicated(["match_id", "side"]).any()
-    assert (live["release"] >= live["lf"] + 1).all()
+    # the clock's guard (never before the match surely finished, lf + 1) holds for the frozen rows and for live rows
+    # not reported completed; a live row its source reports completed counts from the day it was collected
+    # (live_panel.new_rows: "data in hand")
+    done = live["live_source"].eq("daily") & live["match_completed"].fillna(False).astype(bool)
+    assert (live.loc[~done, "release"] >= live.loc[~done, "lf"] + 1).all()
+    assert (live.loc[done, "release"] == [LC.day_of(c) for c in live.loc[done, "collected_on"]]).all()
     form = pd.read_parquet(tmp_path / "speed_form_2026-10-08.parquet")
     assert len(form) > 1000 and set(form.columns) >= {"player_id", "f_hat", "f_sd", "L_hat", "last_reading"}
     assert (tmp_path / LC.RUNS.name).exists()

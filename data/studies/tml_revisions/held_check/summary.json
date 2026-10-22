@@ -1,199 +1,308 @@
 {
  "checked": [
-  "2022_challenger.csv",
-  "2023_challenger.csv",
-  "2024_challenger.csv",
-  "2025_challenger.csv"
+  "2025_wta.csv",
+  "2026_challenger.csv",
+  "2026_wta.csv"
  ],
  "staged": {
-  "2022_challenger.csv": {
-   "sha256": "d95fa0a4bf8a1986394d4083a932ed6ca86eee14bfb741519a209a022ebcdc6d",
-   "rows": 5384
+  "2025_wta.csv": {
+   "sha256": "a99bb69b647c51123755e21861989777569833e08a8bf67f948a8bc1954e009f",
+   "rows": 2622
   },
-  "2023_challenger.csv": {
-   "sha256": "ee3a2128d89a1946537102afbf779a0dd2953cc48488e43c7e663d2c2fae74a4",
-   "rows": 5688
+  "2026_challenger.csv": {
+   "sha256": "2908177949820e2297a553ca9d16fcae8b43b2e140b8c4379479d449b1190a70",
+   "rows": 6447
   },
-  "2024_challenger.csv": {
-   "sha256": "ca3a597f1a972ac2244f44f28a40175687b0d5a69d98bb710370ff77a0190a5f",
-   "rows": 5936
-  },
-  "2025_challenger.csv": {
-   "sha256": "78b86009de42e324d2af570eb646770f31afc978c6b2fdeddbdc5c9a05a270f8",
-   "rows": 6399
+  "2026_wta.csv": {
+   "sha256": "8f6fb09ef0b0b1fcfc3bba057f7592cd3c7e96cbb4e937fcc674d3fe86168a8d",
+   "rows": 2375
   }
  },
  "validated": {
-  "2022_challenger.csv": {
+  "2025_wta.csv": {
    "raw_sha256_equals_staged_meta": true,
-   "rows": 5391,
+   "rows": 2622,
    "equal": true
   },
-  "2023_challenger.csv": {
+  "2026_challenger.csv": {
    "raw_sha256_equals_staged_meta": true,
-   "rows": 5693,
+   "rows": 6255,
    "equal": true
   },
-  "2024_challenger.csv": {
+  "2026_wta.csv": {
    "raw_sha256_equals_staged_meta": true,
-   "rows": 6063,
-   "equal": true
-  },
-  "2025_challenger.csv": {
-   "raw_sha256_equals_staged_meta": true,
-   "rows": 6411,
+   "rows": 2319,
    "equal": true
   }
  },
  "builds": {
   "A": {
    "exit": 0,
-   "seconds": 152.7,
+   "seconds": 109.0,
    "log": "C:\\Users\\zerom\\tnr_tmlcheck\\logs\\build_A.log",
    "out": "C:\\Users\\zerom\\tnr_tmlcheck\\out\\A"
   },
   "B": {
    "exit": 0,
-   "seconds": 87.7,
+   "seconds": 92.4,
    "log": "C:\\Users\\zerom\\tnr_tmlcheck\\logs\\build_B.log",
    "out": "C:\\Users\\zerom\\tnr_tmlcheck\\out\\B"
   }
  },
  "matches": {
-  "A": 873642,
-  "B": 873636
+  "A": 873732,
+  "B": 873962
  },
- "dropped": 15,
- "new": 9,
- "revised": 0,
+ "dropped": 60,
+ "new": 290,
+ "revised": 283,
  "paired": {
-  "key": 8,
-  "event": 0,
+  "key": 1,
+  "event": 31,
   "player": 0
  },
- "dropped_unpaired": 7,
- "new_unpaired": 1,
- "main_tour_changes": 0,
- "main_tour_examples": [],
+ "dropped_unpaired": 28,
+ "new_unpaired": 258,
+ "main_tour_changes": 328,
+ "main_tour_examples": [
+  "wta|2025-W-FC-2025-FLS|QF|wta:206294|wta:220714",
+  "wta|2025-W-FC-2025-FLS|QF|wta:211148|wta:216133",
+  "wta|2025-W-FC-2025-FLS|QF|wta:216146|wta:222601",
+  "wta|2025-W-FC-2025-FLS|QF|wta:202494|wta:211651",
+  "wta|2025-W-FC-2025-FLS|QF|wta:201709|wta:215613",
+  "wta|2025-W-FC-2025-FLS|QF|wta:202468|wta:214981",
+  "wta|2025-W-FC-2025-FLS|QF|wta:214262|wta:222661",
+  "wta|2025-W-FC-2025-FLS|QF|wta:211107|wta:220416",
+  "wta|2025-W-FC-2025-FLS|SF|wta:216146|wta:220714",
+  "wta|2025-W-FC-2025-FLS|SF|wta:202494|wta:211148"
+ ],
  "by": [
   {
    "kind": "dropped",
    "source": "tml",
    "tour": "atp",
    "map_level": "CH",
-   "year": 2022,
-   "matches": 3
-  },
-  {
-   "kind": "dropped",
-   "source": "tml",
-   "tour": "atp",
-   "map_level": "CH",
-   "year": 2025,
-   "matches": 4
-  },
-  {
-   "kind": "dropped",
-   "source": "tml",
-   "tour": "atp",
-   "map_level": "CH",
    "year": 2026,
-   "matches": 8
+   "matches": 31
+  },
+  {
+   "kind": "dropped",
+   "source": "tml",
+   "tour": "wta",
+   "map_level": "T250",
+   "year": 2026,
+   "matches": 1
+  },
+  {
+   "kind": "dropped",
+   "source": "tml",
+   "tour": "wta",
+   "map_level": "TEAM",
+   "year": 2025,
+   "matches": 14
+  },
+  {
+   "kind": "dropped",
+   "source": "tml",
+   "tour": "wta",
+   "map_level": "TEAM",
+   "year": 2026,
+   "matches": 14
   },
   {
    "kind": "new",
    "source": "tml",
    "tour": "atp",
    "map_level": "CH",
-   "year": 2023,
+   "year": 2026,
+   "matches": 220
+  },
+  {
+   "kind": "new",
+   "source": "tml",
+   "tour": "wta",
+   "map_level": "T1000",
+   "year": 2026,
+   "matches": 55
+  },
+  {
+   "kind": "new",
+   "source": "tml",
+   "tour": "wta",
+   "map_level": "T250",
+   "year": 2026,
    "matches": 1
   },
   {
    "kind": "new",
    "source": "tml",
+   "tour": "wta",
+   "map_level": "TEAM",
+   "year": 2026,
+   "matches": 14
+  },
+  {
+   "kind": "revised",
+   "source": "tml",
    "tour": "atp",
    "map_level": "CH",
    "year": 2026,
-   "matches": 8
+   "matches": 54
+  },
+  {
+   "kind": "revised",
+   "source": "tml",
+   "tour": "wta",
+   "map_level": "GS",
+   "year": 2026,
+   "matches": 3
+  },
+  {
+   "kind": "revised",
+   "source": "tml",
+   "tour": "wta",
+   "map_level": "T1000",
+   "year": 2026,
+   "matches": 23
+  },
+  {
+   "kind": "revised",
+   "source": "tml",
+   "tour": "wta",
+   "map_level": "T250",
+   "year": 2026,
+   "matches": 108
+  },
+  {
+   "kind": "revised",
+   "source": "tml",
+   "tour": "wta",
+   "map_level": "T500",
+   "year": 2026,
+   "matches": 57
+  },
+  {
+   "kind": "revised",
+   "source": "tml",
+   "tour": "wta",
+   "map_level": "TEAM",
+   "year": 2025,
+   "matches": 38
   }
  ],
- "revised_facts": {},
- "players_touched": 23,
+ "revised_facts": {
+  "indoor": 191,
+  "player.age": 166,
+  "player.first_in": 116,
+  "player.first_won": 115,
+  "player.second_won": 114,
+  "player.svpt": 108,
+  "player.sv_gms": 103,
+  "player.bp_faced": 102,
+  "player.df": 101,
+  "player.ace": 100,
+  "player.bp_saved": 100,
+  "has_box": 98,
+  "player.has_box": 98,
+  "minutes": 47,
+  "player.rank_points": 8,
+  "player.rank": 4,
+  "status": 1,
+  "score": 1
+ },
+ "players_touched": 453,
  "reach": {
   "frame": "data/studies/current_best_model/template_2026-10-10/model_frame_chain.parquet",
   "training_rows": 62869,
-  "touched_players": 23,
-  "touched_players_in_training_rows": 9,
-  "rows_with_a_touched_player": 192,
-  "rows_after_the_players_first_change": 15,
+  "touched_players": 453,
+  "touched_players_in_training_rows": 289,
+  "rows_with_a_touched_player": 22558,
+  "rows_after_the_players_first_change": 98,
   "rows_after_by_season": {
-   "2022": 2,
-   "2023": 7,
-   "2024": 4,
-   "2025": 2
+   "2025": 98
   }
  },
  "cleaning_rules_changed": {
-  "C01|atp|CH|False|2024": {
-   "A": 124,
+  "C10|atp|CH|False|2026": {
+   "A": 18,
+   "B": 22
+  },
+  "C10|wta|T250|False|2026": {
+   "A": 4,
+   "B": 5
+  },
+  "C13|atp|CH|False|2026": {
+   "A": 266,
+   "B": 275
+  },
+  "C16|wta|T250|False|2026": {
+   "A": 1,
    "B": 0
   },
-  "C20|atp|CH|False|2022": {
-   "A": 70,
-   "B": 67
-  },
-  "C20|atp|CH|False|2023": {
-   "A": 34,
-   "B": 35
-  },
-  "C50|atp|CH|False|2022": {
-   "A": 71,
-   "B": 68
-  },
-  "C50|atp|CH|False|2023": {
-   "A": 33,
-   "B": 34
-  },
-  "C61|atp|CH|False|2022": {
-   "A": 5,
-   "B": 4
-  },
-  "C61|atp|CH|False|2023": {
+  "C18|wta|T1000|False|2026": {
    "A": 3,
+   "B": 5
+  },
+  "C20|atp|CH|False|2026": {
+   "A": 12,
+   "B": 15
+  },
+  "C20|wta|TEAM|False|2025": {
+   "A": 117,
+   "B": 61
+  },
+  "C23|wta|T250|False|2026": {
+   "A": 31,
+   "B": 0
+  },
+  "C23|wta|T500|False|2026": {
+   "A": 28,
+   "B": 0
+  },
+  "C23|wta|TEAM|False|2026": {
+   "A": 1,
+   "B": 0
+  },
+  "C35|wta|T1000|False|2026": {
+   "A": 7,
+   "B": 6
+  },
+  "C35|wta|TEAM|False|2025": {
+   "A": 1,
+   "B": 5
+  },
+  "C39|wta|TEAM|False|2025": {
+   "A": 0,
    "B": 4
+  },
+  "C50|atp|CH|False|2026": {
+   "A": 21,
+   "B": 23
+  },
+  "C50|wta|TEAM|False|2025": {
+   "A": 106,
+   "B": 92
+  },
+  "C60|wta|T250|False|2026": {
+   "A": 44,
+   "B": 43
+  },
+  "C60|wta|T500|False|2026": {
+   "A": 27,
+   "B": 26
   },
   "C61|atp|CH|False|2026": {
-   "A": 137,
-   "B": 130
+   "A": 129,
+   "B": 134
   },
-  "D1_tml|atp|CH|False|2022": {
-   "A": 7,
-   "B": 0
-  },
-  "D1_tml|atp|CH|False|2023": {
-   "A": 5,
-   "B": 0
-  },
-  "D1_tml|atp|CH|False|2024": {
-   "A": 3,
-   "B": 0
-  },
-  "D6|atp|CH|False|2022": {
-   "A": 1,
-   "B": 0
-  },
-  "D6|atp|CH|False|2023": {
-   "A": 1,
-   "B": 2
-  },
-  "D6|atp|CH|False|2025": {
-   "A": 8,
-   "B": 0
+  "D6|atp|CH|False|2026": {
+   "A": 0,
+   "B": 1
   }
  },
  "history": {
-  "A": "history vs the reference of 2026-10-08: future 200 and updated 6 (allowed); main-tour changes 14 (allowed, listed: new past 6, dropped 1, revised 7); lower-level new past 30, dropped 30, revised 20 -> the lower-level history changed: a template build is refused",
-  "B": "history vs the reference of 2026-10-08: future 200 and updated 6 (allowed); main-tour changes 14 (allowed, listed: new past 6, dropped 1, revised 7); lower-level new past 39, dropped 45, revised 20 -> the lower-level history changed: a template build is refused"
+  "A": "history vs the reference of 2026-10-08: future 301 and updated 6 (allowed); accepted 2,995 (allowed: lower-level additions 0, completions 3, decided repairs 2,992); main-tour changes 9 (allowed, listed: new past 1, dropped 1, revised 7); Tennis My Life's own lower-level changes 104 (allowed, decided 13 Oct: new past 39, dropped 45, revised 20); lower-level new past 0, dropped 0, revised 0 -> the template may be built",
+  "B": "history vs the reference of 2026-10-08: future 542 and updated 23 (allowed); accepted 3,001 (allowed: lower-level additions 0, completions 4, decided repairs 2,997); main-tour changes 259 (allowed, listed: new past 16, dropped 16, revised 227); Tennis My Life's own lower-level changes 217 (allowed, decided 13 Oct: new past 73, dropped 76, revised 68); lower-level new past 0, dropped 0, revised 0 -> the template may be built"
  },
- "written": "2026-10-14T01:47:52+00:00"
+ "written": "2026-10-21T12:51:08+00:00"
 }

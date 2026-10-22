@@ -1,0 +1,28 @@
+>>> tennis_data:  ./python.sh -m src.ingest.refresh_odds --only tennis_data
+
+=== tennis_data: -m src.ingest.public_dump.tennis_data_couk --start-year 2025 --end-year 2026 --refresh
+[tennis_data_couk] 47 workbook links on data.php
+[tennis_data_couk] atp 2025 via live: 2644 rows into 5 tournament-type partitions
+[tennis_data_couk] atp/2026 changed; kept the replaced file as data/raw/public_dump/tennis_data_couk/superseded/atp/2026.live-20261005234805.ac3a5cc3a453.xlsx
+[tennis_data_couk] atp 2026 via live: 2361 rows into 4 tournament-type partitions
+[tennis_data_couk] wta 2025 via live: 2505 rows into 5 tournament-type partitions
+[tennis_data_couk] wta/2026 changed; kept the replaced file as data/raw/public_dump/tennis_data_couk/superseded/wta/2026.live-20261005234806.9bb1d5b2ecc5.xlsx
+[tennis_data_couk] wta 2026 via live: 2341 rows into 4 tournament-type partitions
+[tennis_data_couk] done: 18 staged files, 9,851 rows, 3 download errors
+
+=== refresh summary (2026-10-21T12:40:29+00:00)
+  tennis_data  ok (old errors in receipts)   0.1 min
+[ok] tennis_data (5 s, exit 0)  log: data/studies/master_pipeline/logs/2026-10-21/054029_tennis_data.log
+>>> oddstrader_2026-09:  ./python.sh -m src.ingest.oddstrader --from 2026-09 --to 2026-09 --refresh-month 2026-09
+[oddstrader] ATP 2026-09: 319 events, 209 singles
+[oddstrader] WTA 2026-09: 440 events, 315 singles
+[oddstrader] download: {'requests': 9, 'batches': 7}
+[oddstrader] staged: {'events': 91079, 'singles': 66462, 'lines': 501366, 'betonline_matches': 66462, 'books_lines': 2156371}
+[ok] oddstrader_2026-09 (82 s, exit 0)  log: data/studies/master_pipeline/logs/2026-10-21/054034_oddstrader_2026-09.log
+>>> oddstrader_2026-10:  ./python.sh -m src.ingest.oddstrader --from 2026-10 --to 2026-10 --refresh-month 2026-10
+[oddstrader] ATP 2026-10: 378 events, 283 singles
+[oddstrader] WTA 2026-10: 343 events, 251 singles
+[oddstrader] download: {'requests': 8, 'batches': 6}
+[oddstrader] staged: {'events': 91545, 'singles': 66799, 'lines': 506378, 'betonline_matches': 66799, 'books_lines': 2156371}
+[ok] oddstrader_2026-10 (66 s, exit 0)  log: data/studies/master_pipeline/logs/2026-10-21/054155_oddstrader_2026-10.log
+exit 0

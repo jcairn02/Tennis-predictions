@@ -45,7 +45,9 @@ and compared with the reference.
                tables name (every Stage 0 build applies them; each row an owner's decision: the corrupt-data fixes of
                8 Oct, the Slam box scores of 6 Oct, the Roland Garros repair of 9-10 Oct once adopt.py swaps it in),
                whose lower-level rows (Slam qualifying) would otherwise refuse every template build
-               (docs/studies/data_gaps_2026/)
+               (docs/studies/data_gaps_2026/). Since 22 Oct 2026 also every match of an event the decided event
+               corrections name (event_corrections.csv: one edition's level or surface; four WTA 125 editions filed
+               as 250s become lower-level by it): docs/decisions/2026-10-22-source-reconciliation-repairs.md
     tml_lower  (since 13 Oct 2026; the owner, docs/decisions/2026-10-13-tml-lower-level-revisions.md) lower-level new
                past, dropped and revised matches that are Tennis My Life's own rows (source "tml") at a level it fed the
                reference (tour, map_level and qualifying flag of the reference's own tml rows: men's Challengers, tour
@@ -94,7 +96,12 @@ MAIN_TOUR = {"GS", "FIN", "T1000", "T500", "T250", "TEAM"}
 # the decided correction and override tables every Stage 0 build applies (stage0_build.DECIDED_CORRECTIONS and
 # DECIDED_OVERRIDES), with the column that names each row's Stage 0 match
 DECIDED_TABLES = {ROOT / "data" / "studies" / "input_data_audit" / "fixes" / "row_corrections.csv": "match_id",
-                  ROOT / "data" / "studies" / "data_continuity" / "slam_box_overrides.csv": "stage0_match_id"}
+                  ROOT / "data" / "studies" / "data_continuity" / "slam_box_overrides.csv": "stage0_match_id",
+                  # the date corrections (since 14 Oct 2026, docs/decisions/2026-10-14-p6-data-issues.md)
+                  ROOT / "data" / "studies" / "input_data_audit" / "fixes" / "date_corrections.csv": "match_id"}
+# the decided event corrections (one edition's level or surface; since 22 Oct 2026, docs/decisions/
+# 2026-10-22-source-reconciliation-repairs.md): they name events, so every match of a named event is a decided repair
+DECIDED_EVENTS = ROOT / "data" / "studies" / "input_data_audit" / "fixes" / "event_corrections.csv"
 
 
 def decided_repair_ids(tables: dict | None = None) -> set:
@@ -104,6 +111,23 @@ def decided_repair_ids(tables: dict | None = None) -> set:
         if Path(path).exists():
             out |= set(pd.read_csv(path, usecols=[col], dtype=str)[col].dropna())
     return out
+
+
+def decided_events(path: Path | None = None) -> set[tuple[str, str]]:
+    """(tour, Stage 0 tournament id) of the events the decided event corrections name."""
+    path = Path(path or DECIDED_EVENTS)
+    if not path.exists():
+        return set()
+    t = pd.read_csv(path, usecols=["tour", "tournament_id"], dtype=str)
+    return set(zip(t["tour"], t["tournament_id"]))
+
+
+def in_decided_events(rows: pd.DataFrame, events: set[tuple[str, str]] | None = None) -> np.ndarray:
+    """Whether each match belongs to an event the decided event corrections name."""
+    events = decided_events() if events is None else events
+    if rows.empty or not events:
+        return np.zeros(len(rows), dtype=bool)
+    return np.array([k in events for k in zip(rows["tour"].astype(str), rows["tournament_id"].astype(str))], dtype=bool)
 
 
 def content_hash(matches: pd.DataFrame, players: pd.DataFrame) -> pd.Series:
@@ -223,7 +247,8 @@ def check(stage0: Path = LIVE, timing: Path | None = LIVE_TIMING, ref_stage0: Pa
     acc_added, acc_completed = AD.accepted_ids()
     acc_new = new_past["match_id"].isin(acc_added).to_numpy()
     acc_rev = revised["match_id"].isin(acc_completed).to_numpy()
-    acc_rep = revised["match_id"].isin(decided_repair_ids()).to_numpy() & ~acc_rev    # decided repairs (13 Oct 2026)
+    acc_rep = ((revised["match_id"].isin(decided_repair_ids()).to_numpy() | in_decided_events(revised))
+               & ~acc_rev)                     # decided repairs (13 Oct 2026; the event corrections since 22 Oct 2026)
     accepted = pd.concat([new_past[acc_new], revised[acc_rev], revised[acc_rep]])
     new_past, revised = new_past[~acc_new], revised[~acc_rev & ~acc_rep]
     out = {"checked": str(stage0), "reference": R.REF_ID, "freeze": str(FREEZE.date()), "since": str(since.date()),

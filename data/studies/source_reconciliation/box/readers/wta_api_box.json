@@ -1,0 +1,892 @@
+{
+ "reader": "wta_api_box",
+ "file": "data/studies/source_reconciliation/box/readers/wta_api_box.parquet",
+ "rows": 53314,
+ "matches": 26657,
+ "source": "WTA API box score (stats endpoint, setnum 0); batches B3 (tour, WTA 125, Finals, every draw) and B9 (Slams 2024-2026); data/dump/points/wta/stats/<year>.parquet",
+ "split": "tier == 'slam' -> wta_api_slam_box; every other tier -> wta_api_box",
+ "records_read": {
+  "stats_rows": 127167,
+  "matches_with_box": 40318,
+  "by_year": {
+   "2019": 3394,
+   "2020": 1794,
+   "2021": 4273,
+   "2022": 4688,
+   "2023": 5181,
+   "2024": 6037,
+   "2025": 7549,
+   "2026": 7402
+  },
+  "singles_with_box": 31185,
+  "this_reader_matches_linked": 26657
+ },
+ "link": {
+  "link_file_rows": 28853,
+  "linked_and_oriented": 28852,
+  "dropped": {
+   "link_without_listing_row": 0,
+   "link_to_match_outside_women_2019": 0,
+   "names_do_not_orient": 1
+  },
+  "oriented_by_one_name_only (the other changed, e.g. a married name)": 410,
+  "orientation_checked_by_ids": {
+   "checked": 28771,
+   "agree": 28753,
+   "crosswalk_ids": 1455
+  },
+  "winner_disagrees_after_orienting": 1,
+  "winner_unknown_in_listing": 8,
+  "note": "link and orientation are computed over every singles listing row; this reader keeps its own tier"
+ },
+ "dropped": {
+  "linked_but_no_box_row (both readers)": 153
+ },
+ "complete": {
+  "rows": 53280,
+  "of": 53314
+ },
+ "by_level_group": {
+  "tour_main": 13357,
+  "tour_qual": 6128,
+  "wta125_main": 6161,
+  "wta125_qual": 1011
+ },
+ "by_s0_year": {
+  "2019": 2603,
+  "2020": 1357,
+  "2021": 3191,
+  "2022": 3557,
+  "2023": 3842,
+  "2024": 4133,
+  "2025": 4766,
+  "2026": 3208
+ },
+ "box_all_zero_rows (counts blanked, not complete)": 20,
+ "box_all_zero_by_tournament_year": {
+  "1003/2020": 1,
+  "1038/2019": 1,
+  "1050/2020": 1,
+  "1051/2019": 1,
+  "1082/2020": 1,
+  "1086/2019": 1,
+  "1086/2020": 1,
+  "2010/2019": 1,
+  "2011/2020": 1,
+  "300/2019": 1
+ },
+ "winner_disagrees_after_orienting_matches": 1,
+ "sanity_equality_with_stage0_all_rows": [
+  {
+   "field": "ace",
+   "n": 52808,
+   "equal": 52722,
+   "mean_diff": 0.0019,
+   "equal_share": 0.9984,
+   "within1_share": 0.999
+  },
+  {
+   "field": "df",
+   "n": 52808,
+   "equal": 52699,
+   "mean_diff": 0.0144,
+   "equal_share": 0.9979,
+   "within1_share": 0.9987
+  },
+  {
+   "field": "svpt",
+   "n": 52808,
+   "equal": 52607,
+   "mean_diff": 0.3277,
+   "equal_share": 0.9962,
+   "within1_share": 0.9966
+  },
+  {
+   "field": "first_in",
+   "n": 52808,
+   "equal": 52598,
+   "mean_diff": 0.2294,
+   "equal_share": 0.996,
+   "within1_share": 0.9966
+  },
+  {
+   "field": "first_won",
+   "n": 52808,
+   "equal": 52615,
+   "mean_diff": 0.1276,
+   "equal_share": 0.9963,
+   "within1_share": 0.997
+  },
+  {
+   "field": "second_won",
+   "n": 52808,
+   "equal": 52641,
+   "mean_diff": 0.0401,
+   "equal_share": 0.9968,
+   "within1_share": 0.9976
+  },
+  {
+   "field": "sv_gms",
+   "n": 52712,
+   "equal": 52588,
+   "mean_diff": -0.0069,
+   "equal_share": 0.9976,
+   "within1_share": 0.9989
+  },
+  {
+   "field": "bp_saved",
+   "n": 52808,
+   "equal": 52698,
+   "mean_diff": 0.0288,
+   "equal_share": 0.9979,
+   "within1_share": 0.9986
+  },
+  {
+   "field": "bp_faced",
+   "n": 52808,
+   "equal": 52667,
+   "mean_diff": 0.049,
+   "equal_share": 0.9973,
+   "within1_share": 0.9979
+  },
+  {
+   "field": "sv_won",
+   "n": 52808,
+   "equal": 52624,
+   "mean_diff": 0.1677,
+   "equal_share": 0.9965,
+   "within1_share": 0.9969
+  }
+ ],
+ "sanity_equality_with_stage0_by_year": [
+  {
+   "x_s0_year": 2019,
+   "field": "ace",
+   "n": 5184,
+   "equal": 5182,
+   "mean_diff": -0.0021,
+   "equal_share": 0.9996,
+   "within1_share": 0.9996
+  },
+  {
+   "x_s0_year": 2020,
+   "field": "ace",
+   "n": 2704,
+   "equal": 2702,
+   "mean_diff": 0.0022,
+   "equal_share": 0.9993,
+   "within1_share": 0.9993
+  },
+  {
+   "x_s0_year": 2021,
+   "field": "ace",
+   "n": 6294,
+   "equal": 6275,
+   "mean_diff": 0.0291,
+   "equal_share": 0.997,
+   "within1_share": 0.9979
+  },
+  {
+   "x_s0_year": 2022,
+   "field": "ace",
+   "n": 7058,
+   "equal": 7058,
+   "mean_diff": 0.0,
+   "equal_share": 1.0,
+   "within1_share": 1.0
+  },
+  {
+   "x_s0_year": 2023,
+   "field": "ace",
+   "n": 7486,
+   "equal": 7483,
+   "mean_diff": -0.0008,
+   "equal_share": 0.9996,
+   "within1_share": 0.9997
+  },
+  {
+   "x_s0_year": 2024,
+   "field": "ace",
+   "n": 8262,
+   "equal": 8223,
+   "mean_diff": -0.0114,
+   "equal_share": 0.9953,
+   "within1_share": 0.997
+  },
+  {
+   "x_s0_year": 2025,
+   "field": "ace",
+   "n": 9522,
+   "equal": 9510,
+   "mean_diff": 0.0009,
+   "equal_share": 0.9987,
+   "within1_share": 0.9994
+  },
+  {
+   "x_s0_year": 2026,
+   "field": "ace",
+   "n": 6298,
+   "equal": 6289,
+   "mean_diff": 0.0021,
+   "equal_share": 0.9986,
+   "within1_share": 0.9997
+  },
+  {
+   "x_s0_year": 2019,
+   "field": "df",
+   "n": 5184,
+   "equal": 5182,
+   "mean_diff": -0.0008,
+   "equal_share": 0.9996,
+   "within1_share": 0.9998
+  },
+  {
+   "x_s0_year": 2020,
+   "field": "df",
+   "n": 2704,
+   "equal": 2701,
+   "mean_diff": 0.0004,
+   "equal_share": 0.9989,
+   "within1_share": 1.0
+  },
+  {
+   "x_s0_year": 2021,
+   "field": "df",
+   "n": 6294,
+   "equal": 6267,
+   "mean_diff": 0.1378,
+   "equal_share": 0.9957,
+   "within1_share": 0.9962
+  },
+  {
+   "x_s0_year": 2022,
+   "field": "df",
+   "n": 7058,
+   "equal": 7058,
+   "mean_diff": 0.0,
+   "equal_share": 1.0,
+   "within1_share": 1.0
+  },
+  {
+   "x_s0_year": 2023,
+   "field": "df",
+   "n": 7486,
+   "equal": 7484,
+   "mean_diff": -0.0012,
+   "equal_share": 0.9997,
+   "within1_share": 0.9997
+  },
+  {
+   "x_s0_year": 2024,
+   "field": "df",
+   "n": 8262,
+   "equal": 8214,
+   "mean_diff": -0.0153,
+   "equal_share": 0.9942,
+   "within1_share": 0.996
+  },
+  {
+   "x_s0_year": 2025,
+   "field": "df",
+   "n": 9522,
+   "equal": 9508,
+   "mean_diff": 0.0014,
+   "equal_share": 0.9985,
+   "within1_share": 0.9996
+  },
+  {
+   "x_s0_year": 2026,
+   "field": "df",
+   "n": 6298,
+   "equal": 6285,
+   "mean_diff": 0.0027,
+   "equal_share": 0.9979,
+   "within1_share": 0.9995
+  },
+  {
+   "x_s0_year": 2019,
+   "field": "svpt",
+   "n": 5184,
+   "equal": 5177,
+   "mean_diff": -0.034,
+   "equal_share": 0.9986,
+   "within1_share": 0.9994
+  },
+  {
+   "x_s0_year": 2020,
+   "field": "svpt",
+   "n": 2704,
+   "equal": 2698,
+   "mean_diff": 0.0329,
+   "equal_share": 0.9978,
+   "within1_share": 0.9985
+  },
+  {
+   "x_s0_year": 2021,
+   "field": "svpt",
+   "n": 6294,
+   "equal": 6262,
+   "mean_diff": 3.0942,
+   "equal_share": 0.9949,
+   "within1_share": 0.9956
+  },
+  {
+   "x_s0_year": 2022,
+   "field": "svpt",
+   "n": 7058,
+   "equal": 7058,
+   "mean_diff": 0.0,
+   "equal_share": 1.0,
+   "within1_share": 1.0
+  },
+  {
+   "x_s0_year": 2023,
+   "field": "svpt",
+   "n": 7486,
+   "equal": 7484,
+   "mean_diff": -0.0278,
+   "equal_share": 0.9997,
+   "within1_share": 0.9997
+  },
+  {
+   "x_s0_year": 2024,
+   "field": "svpt",
+   "n": 8262,
+   "equal": 8194,
+   "mean_diff": -0.3016,
+   "equal_share": 0.9918,
+   "within1_share": 0.9921
+  },
+  {
+   "x_s0_year": 2025,
+   "field": "svpt",
+   "n": 9522,
+   "equal": 9476,
+   "mean_diff": 0.0291,
+   "equal_share": 0.9952,
+   "within1_share": 0.9955
+  },
+  {
+   "x_s0_year": 2026,
+   "field": "svpt",
+   "n": 6298,
+   "equal": 6258,
+   "mean_diff": 0.0543,
+   "equal_share": 0.9936,
+   "within1_share": 0.9949
+  },
+  {
+   "x_s0_year": 2019,
+   "field": "first_in",
+   "n": 5184,
+   "equal": 5177,
+   "mean_diff": -0.0214,
+   "equal_share": 0.9986,
+   "within1_share": 0.9994
+  },
+  {
+   "x_s0_year": 2020,
+   "field": "first_in",
+   "n": 2704,
+   "equal": 2698,
+   "mean_diff": 0.0148,
+   "equal_share": 0.9978,
+   "within1_share": 0.9985
+  },
+  {
+   "x_s0_year": 2021,
+   "field": "first_in",
+   "n": 6294,
+   "equal": 6261,
+   "mean_diff": 2.1486,
+   "equal_share": 0.9948,
+   "within1_share": 0.9957
+  },
+  {
+   "x_s0_year": 2022,
+   "field": "first_in",
+   "n": 7058,
+   "equal": 7058,
+   "mean_diff": 0.0,
+   "equal_share": 1.0,
+   "within1_share": 1.0
+  },
+  {
+   "x_s0_year": 2023,
+   "field": "first_in",
+   "n": 7486,
+   "equal": 7484,
+   "mean_diff": -0.0187,
+   "equal_share": 0.9997,
+   "within1_share": 0.9997
+  },
+  {
+   "x_s0_year": 2024,
+   "field": "first_in",
+   "n": 8262,
+   "equal": 8197,
+   "mean_diff": -0.1866,
+   "equal_share": 0.9921,
+   "within1_share": 0.9921
+  },
+  {
+   "x_s0_year": 2025,
+   "field": "first_in",
+   "n": 9522,
+   "equal": 9478,
+   "mean_diff": 0.0177,
+   "equal_share": 0.9954,
+   "within1_share": 0.9959
+  },
+  {
+   "x_s0_year": 2026,
+   "field": "first_in",
+   "n": 6298,
+   "equal": 6245,
+   "mean_diff": 0.0275,
+   "equal_share": 0.9916,
+   "within1_share": 0.9935
+  },
+  {
+   "x_s0_year": 2019,
+   "field": "first_won",
+   "n": 5184,
+   "equal": 5180,
+   "mean_diff": -0.0141,
+   "equal_share": 0.9992,
+   "within1_share": 0.9996
+  },
+  {
+   "x_s0_year": 2020,
+   "field": "first_won",
+   "n": 2704,
+   "equal": 2700,
+   "mean_diff": 0.0141,
+   "equal_share": 0.9985,
+   "within1_share": 0.9985
+  },
+  {
+   "x_s0_year": 2021,
+   "field": "first_won",
+   "n": 6294,
+   "equal": 6261,
+   "mean_diff": 1.2073,
+   "equal_share": 0.9948,
+   "within1_share": 0.9957
+  },
+  {
+   "x_s0_year": 2022,
+   "field": "first_won",
+   "n": 7058,
+   "equal": 7058,
+   "mean_diff": 0.0,
+   "equal_share": 1.0,
+   "within1_share": 1.0
+  },
+  {
+   "x_s0_year": 2023,
+   "field": "first_won",
+   "n": 7486,
+   "equal": 7483,
+   "mean_diff": -0.0108,
+   "equal_share": 0.9996,
+   "within1_share": 0.9997
+  },
+  {
+   "x_s0_year": 2024,
+   "field": "first_won",
+   "n": 8262,
+   "equal": 8198,
+   "mean_diff": -0.1162,
+   "equal_share": 0.9923,
+   "within1_share": 0.9924
+  },
+  {
+   "x_s0_year": 2025,
+   "field": "first_won",
+   "n": 9522,
+   "equal": 9483,
+   "mean_diff": 0.0095,
+   "equal_share": 0.9959,
+   "within1_share": 0.9967
+  },
+  {
+   "x_s0_year": 2026,
+   "field": "first_won",
+   "n": 6298,
+   "equal": 6252,
+   "mean_diff": 0.0195,
+   "equal_share": 0.9927,
+   "within1_share": 0.9956
+  },
+  {
+   "x_s0_year": 2019,
+   "field": "second_won",
+   "n": 5184,
+   "equal": 5182,
+   "mean_diff": -0.0077,
+   "equal_share": 0.9996,
+   "within1_share": 0.9996
+  },
+  {
+   "x_s0_year": 2020,
+   "field": "second_won",
+   "n": 2704,
+   "equal": 2701,
+   "mean_diff": 0.0111,
+   "equal_share": 0.9989,
+   "within1_share": 0.9989
+  },
+  {
+   "x_s0_year": 2021,
+   "field": "second_won",
+   "n": 6294,
+   "equal": 6266,
+   "mean_diff": 0.3894,
+   "equal_share": 0.9956,
+   "within1_share": 0.9963
+  },
+  {
+   "x_s0_year": 2022,
+   "field": "second_won",
+   "n": 7058,
+   "equal": 7058,
+   "mean_diff": 0.0,
+   "equal_share": 1.0,
+   "within1_share": 1.0
+  },
+  {
+   "x_s0_year": 2023,
+   "field": "second_won",
+   "n": 7486,
+   "equal": 7484,
+   "mean_diff": -0.0035,
+   "equal_share": 0.9997,
+   "within1_share": 0.9997
+  },
+  {
+   "x_s0_year": 2024,
+   "field": "second_won",
+   "n": 8262,
+   "equal": 8201,
+   "mean_diff": -0.0497,
+   "equal_share": 0.9926,
+   "within1_share": 0.9936
+  },
+  {
+   "x_s0_year": 2025,
+   "field": "second_won",
+   "n": 9522,
+   "equal": 9489,
+   "mean_diff": 0.0043,
+   "equal_share": 0.9965,
+   "within1_share": 0.9974
+  },
+  {
+   "x_s0_year": 2026,
+   "field": "second_won",
+   "n": 6298,
+   "equal": 6260,
+   "mean_diff": 0.0117,
+   "equal_share": 0.994,
+   "within1_share": 0.997
+  },
+  {
+   "x_s0_year": 2019,
+   "field": "sv_gms",
+   "n": 5184,
+   "equal": 5156,
+   "mean_diff": 0.005,
+   "equal_share": 0.9946,
+   "within1_share": 1.0
+  },
+  {
+   "x_s0_year": 2020,
+   "field": "sv_gms",
+   "n": 2704,
+   "equal": 2692,
+   "mean_diff": 0.0026,
+   "equal_share": 0.9956,
+   "within1_share": 0.9996
+  },
+  {
+   "x_s0_year": 2021,
+   "field": "sv_gms",
+   "n": 6256,
+   "equal": 6252,
+   "mean_diff": 0.0002,
+   "equal_share": 0.9994,
+   "within1_share": 0.9998
+  },
+  {
+   "x_s0_year": 2022,
+   "field": "sv_gms",
+   "n": 7054,
+   "equal": 7054,
+   "mean_diff": 0.0,
+   "equal_share": 1.0,
+   "within1_share": 1.0
+  },
+  {
+   "x_s0_year": 2023,
+   "field": "sv_gms",
+   "n": 7482,
+   "equal": 7480,
+   "mean_diff": -0.0036,
+   "equal_share": 0.9997,
+   "within1_share": 0.9997
+  },
+  {
+   "x_s0_year": 2024,
+   "field": "sv_gms",
+   "n": 8260,
+   "equal": 8196,
+   "mean_diff": -0.0432,
+   "equal_share": 0.9923,
+   "within1_share": 0.9936
+  },
+  {
+   "x_s0_year": 2025,
+   "field": "sv_gms",
+   "n": 9496,
+   "equal": 9489,
+   "mean_diff": -0.0019,
+   "equal_share": 0.9993,
+   "within1_share": 0.9998
+  },
+  {
+   "x_s0_year": 2026,
+   "field": "sv_gms",
+   "n": 6276,
+   "equal": 6269,
+   "mean_diff": 0.0008,
+   "equal_share": 0.9989,
+   "within1_share": 1.0
+  },
+  {
+   "x_s0_year": 2019,
+   "field": "bp_saved",
+   "n": 5184,
+   "equal": 5182,
+   "mean_diff": -0.001,
+   "equal_share": 0.9996,
+   "within1_share": 0.9996
+  },
+  {
+   "x_s0_year": 2020,
+   "field": "bp_saved",
+   "n": 2704,
+   "equal": 2701,
+   "mean_diff": 0.0004,
+   "equal_share": 0.9989,
+   "within1_share": 0.9989
+  },
+  {
+   "x_s0_year": 2021,
+   "field": "bp_saved",
+   "n": 6294,
+   "equal": 6268,
+   "mean_diff": 0.2631,
+   "equal_share": 0.9959,
+   "within1_share": 0.9968
+  },
+  {
+   "x_s0_year": 2022,
+   "field": "bp_saved",
+   "n": 7058,
+   "equal": 7058,
+   "mean_diff": 0.0,
+   "equal_share": 1.0,
+   "within1_share": 1.0
+  },
+  {
+   "x_s0_year": 2023,
+   "field": "bp_saved",
+   "n": 7486,
+   "equal": 7484,
+   "mean_diff": -0.0019,
+   "equal_share": 0.9997,
+   "within1_share": 0.9997
+  },
+  {
+   "x_s0_year": 2024,
+   "field": "bp_saved",
+   "n": 8262,
+   "equal": 8214,
+   "mean_diff": -0.0179,
+   "equal_share": 0.9942,
+   "within1_share": 0.9956
+  },
+  {
+   "x_s0_year": 2025,
+   "field": "bp_saved",
+   "n": 9522,
+   "equal": 9505,
+   "mean_diff": 0.0015,
+   "equal_share": 0.9982,
+   "within1_share": 0.9993
+  },
+  {
+   "x_s0_year": 2026,
+   "field": "bp_saved",
+   "n": 6298,
+   "equal": 6286,
+   "mean_diff": 0.0027,
+   "equal_share": 0.9981,
+   "within1_share": 0.9994
+  },
+  {
+   "x_s0_year": 2019,
+   "field": "bp_faced",
+   "n": 5184,
+   "equal": 5181,
+   "mean_diff": -0.0021,
+   "equal_share": 0.9994,
+   "within1_share": 0.9996
+  },
+  {
+   "x_s0_year": 2020,
+   "field": "bp_faced",
+   "n": 2704,
+   "equal": 2700,
+   "mean_diff": 0.0007,
+   "equal_share": 0.9985,
+   "within1_share": 0.9985
+  },
+  {
+   "x_s0_year": 2021,
+   "field": "bp_faced",
+   "n": 6294,
+   "equal": 6265,
+   "mean_diff": 0.4519,
+   "equal_share": 0.9954,
+   "within1_share": 0.996
+  },
+  {
+   "x_s0_year": 2022,
+   "field": "bp_faced",
+   "n": 7058,
+   "equal": 7058,
+   "mean_diff": 0.0,
+   "equal_share": 1.0,
+   "within1_share": 1.0
+  },
+  {
+   "x_s0_year": 2023,
+   "field": "bp_faced",
+   "n": 7486,
+   "equal": 7483,
+   "mean_diff": -0.0036,
+   "equal_share": 0.9996,
+   "within1_share": 0.9997
+  },
+  {
+   "x_s0_year": 2024,
+   "field": "bp_faced",
+   "n": 8262,
+   "equal": 8205,
+   "mean_diff": -0.0356,
+   "equal_share": 0.9931,
+   "within1_share": 0.9942
+  },
+  {
+   "x_s0_year": 2025,
+   "field": "bp_faced",
+   "n": 9522,
+   "equal": 9495,
+   "mean_diff": 0.0041,
+   "equal_share": 0.9972,
+   "within1_share": 0.9981
+  },
+  {
+   "x_s0_year": 2026,
+   "field": "bp_faced",
+   "n": 6298,
+   "equal": 6280,
+   "mean_diff": 0.0059,
+   "equal_share": 0.9971,
+   "within1_share": 0.9984
+  },
+  {
+   "x_s0_year": 2019,
+   "field": "sv_won",
+   "n": 5184,
+   "equal": 5180,
+   "mean_diff": -0.0218,
+   "equal_share": 0.9992,
+   "within1_share": 0.9996
+  },
+  {
+   "x_s0_year": 2020,
+   "field": "sv_won",
+   "n": 2704,
+   "equal": 2700,
+   "mean_diff": 0.0251,
+   "equal_share": 0.9985,
+   "within1_share": 0.9985
+  },
+  {
+   "x_s0_year": 2021,
+   "field": "sv_won",
+   "n": 6294,
+   "equal": 6263,
+   "mean_diff": 1.5968,
+   "equal_share": 0.9951,
+   "within1_share": 0.9956
+  },
+  {
+   "x_s0_year": 2022,
+   "field": "sv_won",
+   "n": 7058,
+   "equal": 7058,
+   "mean_diff": 0.0,
+   "equal_share": 1.0,
+   "within1_share": 1.0
+  },
+  {
+   "x_s0_year": 2023,
+   "field": "sv_won",
+   "n": 7486,
+   "equal": 7483,
+   "mean_diff": -0.0143,
+   "equal_share": 0.9996,
+   "within1_share": 0.9997
+  },
+  {
+   "x_s0_year": 2024,
+   "field": "sv_won",
+   "n": 8262,
+   "equal": 8197,
+   "mean_diff": -0.1659,
+   "equal_share": 0.9921,
+   "within1_share": 0.9923
+  },
+  {
+   "x_s0_year": 2025,
+   "field": "sv_won",
+   "n": 9522,
+   "equal": 9482,
+   "mean_diff": 0.0138,
+   "equal_share": 0.9958,
+   "within1_share": 0.9964
+  },
+  {
+   "x_s0_year": 2026,
+   "field": "sv_won",
+   "n": 6298,
+   "equal": 6261,
+   "mean_diff": 0.0313,
+   "equal_share": 0.9941,
+   "within1_share": 0.9954
+  }
+ ],
+ "hand_checks": "see wta_handcheck.json",
+ "hand_check_keys": [
+  "wta:2045/2021/LS028",
+  "wta:1127/2025/LS008",
+  "wta:2063/2022/RS004",
+  "wta:2086/2024/LS023",
+  "wta:2003/2022/LS006",
+  "wta:806/2025/LS001"
+ ]
+}

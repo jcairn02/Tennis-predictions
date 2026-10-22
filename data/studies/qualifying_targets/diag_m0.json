@@ -1,0 +1,93 @@
+{
+ "stored_meta": {
+  "train_shape": [
+   30433,
+   57
+  ],
+  "versions": {
+   "tabpfn": "9.1.0",
+   "torch": "2.11.0+cu128"
+  },
+  "checkpoint": "C:\\Users\\zerom\\AppData\\Roaming\\tabpfn\\tabpfn-v3.5-20260909.safetensors",
+  "config": {
+   "n_estimators": 8,
+   "softmax_temperature": 0.9,
+   "ignore_pretraining_limits": true,
+   "random_state": 0
+  },
+  "device": "NVIDIA GeForce RTX 5090",
+  "fingerprint": "e6ca212f7b34f020ebf02fb0b26eb676b9e776907ab4284f56734be1c9188046",
+  "query_rows": {
+   "td": 10090
+  }
+ },
+ "fits_py_meta": {
+  "train_shape": [
+   30433,
+   57
+  ],
+  "versions": {
+   "tabpfn": "9.1.0",
+   "torch": "2.11.0+cu128"
+  },
+  "checkpoint": "C:\\Users\\zerom\\AppData\\Roaming\\tabpfn\\tabpfn-v3.5-20260909.safetensors",
+  "config": {
+   "n_estimators": 8,
+   "softmax_temperature": 0.9,
+   "ignore_pretraining_limits": true,
+   "random_state": 0
+  },
+  "device": "NVIDIA GeForce RTX 5090",
+  "fingerprint": "085bbeb076e8e0cdc357b3999eb19540b7285859a58523a612e74d7a8e1963ca",
+  "query_rows": {
+   "main": 10090,
+   "qual": 4954
+  }
+ },
+ "train_X_equal_to_the_instance_job": true,
+ "runs": {
+  "a_main_only": {
+   "max_abs_vs_stored": 0.0,
+   "max_abs_vs_fits_py": 0.00011527538299560547,
+   "equal_stored": true,
+   "equal_fits_py": false,
+   "p_head": [
+    0.1630934774875641,
+    0.7545225024223328,
+    0.20770208537578583
+   ]
+  },
+  "b_main_then_qual": {
+   "max_abs_vs_stored": 0.00011527538299560547,
+   "max_abs_vs_fits_py": 0.0,
+   "equal_stored": false,
+   "equal_fits_py": true,
+   "p_head": [
+    0.1631058156490326,
+    0.7545050978660583,
+    0.20768746733665466
+   ]
+  },
+  "c_repeat_of_b": {
+   "max_abs_vs_stored": 0.00011527538299560547,
+   "max_abs_vs_fits_py": 0.0,
+   "equal_stored": false,
+   "equal_fits_py": true,
+   "p_head": [
+    0.1631058156490326,
+    0.7545050978660583,
+    0.20768746733665466
+   ]
+  }
+ },
+ "stored_head": [
+  0.1630934774875641,
+  0.7545225024223328,
+  0.20770208537578583
+ ],
+ "fits_py_head": [
+  0.1631058156490326,
+  0.7545050978660583,
+  0.20768746733665466
+ ]
+}

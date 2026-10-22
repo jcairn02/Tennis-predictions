@@ -1,0 +1,92 @@
+--> stage1_baselines: src/eda/predictability_diagnostic/stage1_baselines.py
+    exit 0 in 1173.0 s
+--> stage3_ratings: src/eda/predictability_diagnostic/stage3_ratings.py
+    exit 0 in 238.0 s
+--> stage4_features: src/eda/predictability_diagnostic/stage4_features.py
+    exit 1 in 541.6 s
+t zero 60,718
+[level_layer] points_52w rpw: 423,794 lower-level rows of 587,930 admitted; translated 267,812; w at zero 60,718
+[ 135.0s]   history sums: columns 0-24 of 63
+[ 155.5s]   history sums: columns 24-48 of 63
+[ 169.5s]   history sums: columns 48-63 of 63
+[ 169.6s]   history sums done
+[ 191.5s]   meetings done
+[ 441.9s] features built: 165 columns
+[ 446.2s] wrote stage4_features.parquet: 260,863 matches x 176 columns
+[ 455.3s] coverage checked against the plan
+[level_layer] points_52w spw: 152,424 lower-level rows of 171,158 admitted; translated 42,592; w at zero 48,254
+[level_layer] points_52w rpw: 152,424 lower-level rows of 171,158 admitted; translated 42,592; w at zero 48,254
+[ 463.2s]   history sums: columns 0-24 of 63
+[ 465.1s]   history sums: columns 24-48 of 63
+[ 466.3s]   history sums: columns 48-63 of 63
+[ 466.3s]   history sums done
+[ 467.5s]   meetings done
+[level_layer] points_52w spw: 152,424 lower-level rows of 171,158 admitted; translated 42,592; w at zero 48,254
+[level_layer] points_52w rpw: 152,424 lower-level rows of 171,158 admitted; translated 42,592; w at zero 48,254
+[ 501.1s]   history sums: columns 0-24 of 63
+[ 503.3s]   history sums: columns 24-48 of 63
+[ 505.0s]   history sums: columns 48-63 of 63
+[ 505.0s]   history sums done
+[ 506.4s]   meetings done
+Traceback (most recent call last):
+  File "C:\Users\zerom\tnr_tpl1016\src\eda\predictability_diagnostic\stage4_features.py", line 1615, in <module>
+    sys.exit(main())
+             ^^^^^^
+  File "C:\Users\zerom\tnr_tpl1016\src\eda\predictability_diagnostic\stage4_features.py", line 1595, in main
+    pr = run_probe(rows, ctx, cand, pbp)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\zerom\tnr_tpl1016\src\eda\predictability_diagnostic\stage4_features.py", line 1553, in run_probe
+    return probe(sl_rows, ctx, cand, sl_pbp)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\zerom\tnr_tpl1016\src\eda\predictability_diagnostic\stage4_features.py", line 1454, in probe
+    got = build_all(pert, vctx, cand, pbp_p, pool)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\zerom\tnr_tpl1016\src\eda\predictability_diagnostic\stage4_features.py", line 1493, in build_all
+    elo_w = elo_variants(rows, ctx["elo_scale"]) if (only is None or {"elo_games", "elo_points"} & set(only)) else {}
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\zerom\tnr_tpl1016\src\eda\predictability_diagnostic\stage4_features.py", line 748, in elo_variants
+    block[idx] = weighted_elo_pass(h["week"], h["event"], h["rnd"], h["a"], h["b"], h["a_won"], h["surf"],
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\zerom\tnr_tpl1016\src\eda\predictability_diagnostic\stage4_features.py", line 678, in weighted_elo_pass
+    surprise = res - 1.0 / (1.0 + 10.0 ** ((rb - ra) / 400.0))
+                                  ~~~~~^^~~~~~~~~~~~~~~~~~~~~
+OverflowError: (34, 'Result too large')
+
+--> stage4_features: src/eda/predictability_diagnostic/stage4_features.py
+    exit 0 in 968.8 s
+--> ufc_stageA_ratings: src/eda/ufc_ideas/stageA_ratings.py --reuse-grid
+    exit 0 in 993.9 s
+--> ufc_stageA_features: src/eda/ufc_ideas/stageA_features.py
+    exit 0 in 3.6 s
+--> ufc_stageC_fatigue: src/eda/ufc_ideas/stageC_fatigue.py
+    exit 0 in 67.3 s
+--> ufc_stageC_sos: src/eda/ufc_ideas/stageC_sos.py
+    exit 0 in 143.5 s
+--> ufc_stageC_rundown: src/eda/ufc_ideas/stageC_rundown.py
+    exit 0 in 84.9 s
+--> ufc_stageB_adjperf: src/eda/ufc_ideas/stageB_adjperf.py
+    exit 0 in 1093.9 s
+--> ufc_stageB_ios: src/eda/ufc_ideas/stageB_ios.py
+    exit 0 in 498.4 s
+--> ios_constants_check: src/eda/ios_constants/registry.py --check
+    exit 0 in 1.7 s
+--> ufc_stageB_split: src/eda/ufc_ideas/stageB_split.py
+    exit 0 in 125.3 s
+--> ufc_stageB_rundown: src/eda/ufc_ideas/stageB_rundown.py
+    exit 0 in 426.8 s
+--> ufc_stageD_profile: src/eda/ufc_ideas/stageD_profile.py
+    exit 0 in 229.6 s
+--> ufc_stageD_rundown: src/eda/ufc_ideas/stageD_rundown.py
+    exit 0 in 53.2 s
+--> thinking_frame: src/eda/tabpfn_thinking/build_frame.py
+    exit 0 in 10.0 s
+--> lle_ios_part: src/eda/match_timing/rebuild.py --part ios
+    exit 0 in 247.6 s
+--> lle_ios_merge: src/eda/match_timing/rebuild.py --part merge
+    exit 0 in 3.2 s
+--> leakproof_frame: src/eda/tabpfn_leakproof/build_frame.py
+    exit 0 in 2.5 s
+--> elo_pieces: src/eda/surface_elo_pieces/pieces.py
+    exit 0 in 435.5 s
+--> elo_frames: src/eda/surface_elo_pieces/build_frames.py
+    exit 0 in 9.8 s

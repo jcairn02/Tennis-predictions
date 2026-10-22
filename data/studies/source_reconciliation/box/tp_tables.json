@@ -1,0 +1,693 @@
+{
+ "q1": {
+  "tp_sofascore_box": {
+   "matches": 37249,
+   "complete": 24005,
+   "by_tour": {
+    "atp": 29332,
+    "wta": 7917
+   }
+  },
+  "tp_sofascore_setbox": {
+   "matches": 23943,
+   "complete": 23933,
+   "by_tour": {
+    "atp": 22568,
+    "wta": 1375
+   }
+  },
+  "tp_sofascore_recount": {
+   "matches": 48167,
+   "complete": 40936,
+   "by_tour": {
+    "atp": 41391,
+    "wta": 6776
+   }
+  },
+  "tp_tennislive_stats": {
+   "matches": 38612,
+   "complete": 38576,
+   "by_tour": {
+    "atp": 34934,
+    "wta": 3678
+   }
+  },
+  "tp_atp_scraped": {
+   "matches": 140378,
+   "complete": 140378,
+   "by_tour": {
+    "atp": 140378
+   }
+  },
+  "tp_flashscore_stats": {
+   "matches": 36960,
+   "complete": 34141,
+   "by_tour": {
+    "atp": 36322
+   }
+  },
+  "tp_mcp_recount": {
+   "matches": 9128,
+   "complete": 8058,
+   "by_tour": {
+    "atp": 5417,
+    "wta": 3711
+   }
+  }
+ },
+ "q2": {
+  "ALL box vs recount": {
+   "svpt": 0.7947,
+   "sv_won": 0.8806,
+   "sv_gms": 0.9952,
+   "bp_faced": 0.7367,
+   "bp_saved": 0.7758
+  },
+  "set-sum box vs recount": {
+   "svpt": 0.9929,
+   "sv_won": 0.9953,
+   "sv_gms": 0.9957,
+   "bp_faced": 0.9971,
+   "bp_saved": 0.9965
+  },
+  "aces_and_double_faults": [
+   {
+    "field": "ace",
+    "rows": 58386,
+    "box_equals_listed": 0.4041,
+    "box_within_bounds": 0.9499,
+    "box_below_listed": 0.04,
+    "box_above_max": 0.0101,
+    "mean_box_minus_listed": 1.129
+   },
+   {
+    "field": "ace (set-sum box)",
+    "rows": 44924,
+    "box_equals_listed": 0.4409,
+    "box_within_bounds": 0.9976,
+    "box_below_listed": 0.0013,
+    "box_above_max": 0.0011,
+    "mean_box_minus_listed": 1.054
+   },
+   {
+    "field": "df",
+    "rows": 58328,
+    "box_equals_listed": 0.5433,
+    "box_within_bounds": 0.8542,
+    "box_below_listed": 0.0349,
+    "box_above_max": 0.1109,
+    "mean_box_minus_listed": 0.984
+   },
+   {
+    "field": "df (set-sum box)",
+    "rows": 44924,
+    "box_equals_listed": 0.7546,
+    "box_within_bounds": 0.9882,
+    "box_below_listed": 0.0057,
+    "box_above_max": 0.0061,
+    "mean_box_minus_listed": 0.307
+   }
+  ],
+  "moved_first_serves": {
+   "ALL box atp": {
+    "rows": 11991,
+    "sum_first_in_diff": 18789,
+    "win_rate_of_moved": 0.511
+   },
+   "ALL box wta": {
+    "rows": 766,
+    "sum_first_in_diff": 1913,
+    "win_rate_of_moved": 0.449
+   },
+   "set-sum box atp": {
+    "rows": 3787,
+    "sum_first_in_diff": 15015,
+    "win_rate_of_moved": 0.522
+   },
+   "set-sum box wta": {
+    "rows": 1509,
+    "sum_first_in_diff": 6254,
+    "win_rate_of_moved": 0.478
+   }
+  },
+  "bp": [
+   {
+    "box": "ALL",
+    "period": "2024-12..2025-08",
+    "tour": "atp",
+    "rows": 17174,
+    "bp_faced_equal_recount": 0.6689,
+    "bp_saved_equal_recount": 0.6837,
+    "box_faced_below_recount": 0.2319,
+    "box_conversions_below_games_broken": 0.2469,
+    "svpt_equal_recount": 0.6206
+   },
+   {
+    "box": "ALL",
+    "period": "2024-12..2025-08",
+    "tour": "wta",
+    "rows": 466,
+    "bp_faced_equal_recount": 0.9979,
+    "bp_saved_equal_recount": 0.9979,
+    "box_faced_below_recount": 0.0,
+    "box_conversions_below_games_broken": 0.0,
+    "svpt_equal_recount": 0.9163
+   },
+   {
+    "box": "ALL",
+    "period": "2025-09..2026-01",
+    "tour": "atp",
+    "rows": 9562,
+    "bp_faced_equal_recount": 0.9977,
+    "bp_saved_equal_recount": 0.9977,
+    "box_faced_below_recount": 0.0008,
+    "box_conversions_below_games_broken": 0.0006,
+    "svpt_equal_recount": 0.8936
+   },
+   {
+    "box": "ALL",
+    "period": "2025-09..2026-01",
+    "tour": "wta",
+    "rows": 72,
+    "bp_faced_equal_recount": 0.9306,
+    "bp_saved_equal_recount": 0.9583,
+    "box_faced_below_recount": 0.0556,
+    "box_conversions_below_games_broken": 0.0417,
+    "svpt_equal_recount": 0.6389
+   },
+   {
+    "box": "ALL",
+    "period": "2026-02..2026-06",
+    "tour": "atp",
+    "rows": 10476,
+    "bp_faced_equal_recount": 0.423,
+    "bp_saved_equal_recount": 0.5674,
+    "box_faced_below_recount": 0.5764,
+    "box_conversions_below_games_broken": 0.4161,
+    "svpt_equal_recount": 0.8867
+   },
+   {
+    "box": "ALL",
+    "period": "2026-02..2026-06",
+    "tour": "wta",
+    "rows": 220,
+    "bp_faced_equal_recount": 1.0,
+    "bp_saved_equal_recount": 1.0,
+    "box_faced_below_recount": 0.0,
+    "box_conversions_below_games_broken": 0.0,
+    "svpt_equal_recount": 0.8273
+   },
+   {
+    "box": "ALL",
+    "period": "other",
+    "tour": "atp",
+    "rows": 5554,
+    "bp_faced_equal_recount": 0.9896,
+    "bp_saved_equal_recount": 0.987,
+    "box_faced_below_recount": 0.0038,
+    "box_conversions_below_games_broken": 0.0067,
+    "svpt_equal_recount": 0.96
+   },
+   {
+    "box": "ALL",
+    "period": "other",
+    "tour": "wta",
+    "rows": 1414,
+    "bp_faced_equal_recount": 0.9887,
+    "bp_saved_equal_recount": 0.9901,
+    "box_faced_below_recount": 0.0071,
+    "box_conversions_below_games_broken": 0.0035,
+    "svpt_equal_recount": 0.8904
+   },
+   {
+    "box": "set-sum",
+    "period": "2024-12..2025-08",
+    "tour": "atp",
+    "rows": 16880,
+    "bp_faced_equal_recount": 0.9973,
+    "bp_saved_equal_recount": 0.9968,
+    "box_faced_below_recount": 0.0006,
+    "box_conversions_below_games_broken": 0.0008,
+    "svpt_equal_recount": 0.9951
+   },
+   {
+    "box": "set-sum",
+    "period": "2024-12..2025-08",
+    "tour": "wta",
+    "rows": 466,
+    "bp_faced_equal_recount": 0.9979,
+    "bp_saved_equal_recount": 1.0,
+    "box_faced_below_recount": 0.0021,
+    "box_conversions_below_games_broken": 0.0021,
+    "svpt_equal_recount": 0.9914
+   },
+   {
+    "box": "set-sum",
+    "period": "2025-09..2026-01",
+    "tour": "atp",
+    "rows": 9210,
+    "bp_faced_equal_recount": 0.9978,
+    "bp_saved_equal_recount": 0.9977,
+    "box_faced_below_recount": 0.0007,
+    "box_conversions_below_games_broken": 0.0005,
+    "svpt_equal_recount": 0.9961
+   },
+   {
+    "box": "set-sum",
+    "period": "2025-09..2026-01",
+    "tour": "wta",
+    "rows": 72,
+    "bp_faced_equal_recount": 0.9861,
+    "bp_saved_equal_recount": 0.9861,
+    "box_faced_below_recount": 0.0139,
+    "box_conversions_below_games_broken": 0.0139,
+    "svpt_equal_recount": 0.9722
+   },
+   {
+    "box": "set-sum",
+    "period": "2026-02..2026-06",
+    "tour": "atp",
+    "rows": 10216,
+    "bp_faced_equal_recount": 0.9984,
+    "bp_saved_equal_recount": 0.9972,
+    "box_faced_below_recount": 0.0005,
+    "box_conversions_below_games_broken": 0.0007,
+    "svpt_equal_recount": 0.9943
+   },
+   {
+    "box": "set-sum",
+    "period": "2026-02..2026-06",
+    "tour": "wta",
+    "rows": 218,
+    "bp_faced_equal_recount": 1.0,
+    "bp_saved_equal_recount": 1.0,
+    "box_faced_below_recount": 0.0,
+    "box_conversions_below_games_broken": 0.0,
+    "svpt_equal_recount": 1.0
+   },
+   {
+    "box": "set-sum",
+    "period": "other",
+    "tour": "atp",
+    "rows": 5434,
+    "bp_faced_equal_recount": 0.9941,
+    "bp_saved_equal_recount": 0.993,
+    "box_faced_below_recount": 0.0028,
+    "box_conversions_below_games_broken": 0.0029,
+    "svpt_equal_recount": 0.984
+   },
+   {
+    "box": "set-sum",
+    "period": "other",
+    "tour": "wta",
+    "rows": 1404,
+    "bp_faced_equal_recount": 0.9922,
+    "bp_saved_equal_recount": 0.9936,
+    "box_faced_below_recount": 0.0057,
+    "box_conversions_below_games_broken": 0.0036,
+    "svpt_equal_recount": 0.9751
+   }
+  ]
+ },
+ "q3": {
+  "coverage_2013_2018": {
+   "stage0_matches": 15789,
+   "flashscore_complete": 4643,
+   "atp_scrape_complete": 14946,
+   "both": 4267
+  },
+  "agreement": [
+   {
+    "source": "flashscore",
+    "years": "2010-2012",
+    "field": "ace",
+    "player_rows": 544,
+    "equal_share": 0.9651,
+    "mean_diff": -0.035
+   },
+   {
+    "source": "flashscore",
+    "years": "2010-2012",
+    "field": "df",
+    "player_rows": 544,
+    "equal_share": 0.9908,
+    "mean_diff": -0.007
+   },
+   {
+    "source": "flashscore",
+    "years": "2010-2012",
+    "field": "svpt",
+    "player_rows": 544,
+    "equal_share": 0.943,
+    "mean_diff": -0.026
+   },
+   {
+    "source": "flashscore",
+    "years": "2010-2012",
+    "field": "first_in",
+    "player_rows": 544,
+    "equal_share": 0.932,
+    "mean_diff": 0.042
+   },
+   {
+    "source": "flashscore",
+    "years": "2010-2012",
+    "field": "first_won",
+    "player_rows": 544,
+    "equal_share": 0.9577,
+    "mean_diff": -0.002
+   },
+   {
+    "source": "flashscore",
+    "years": "2010-2012",
+    "field": "second_won",
+    "player_rows": 544,
+    "equal_share": 0.9632,
+    "mean_diff": -0.002
+   },
+   {
+    "source": "flashscore",
+    "years": "2010-2012",
+    "field": "sv_gms",
+    "player_rows": 544,
+    "equal_share": 1.0,
+    "mean_diff": 0.0
+   },
+   {
+    "source": "flashscore",
+    "years": "2010-2012",
+    "field": "bp_saved",
+    "player_rows": 544,
+    "equal_share": 0.9908,
+    "mean_diff": -0.002
+   },
+   {
+    "source": "flashscore",
+    "years": "2010-2012",
+    "field": "bp_faced",
+    "player_rows": 544,
+    "equal_share": 0.9853,
+    "mean_diff": 0.004
+   },
+   {
+    "source": "flashscore",
+    "years": "2013-2018",
+    "field": "ace",
+    "player_rows": 9268,
+    "equal_share": 0.9916,
+    "mean_diff": -0.009
+   },
+   {
+    "source": "flashscore",
+    "years": "2013-2018",
+    "field": "df",
+    "player_rows": 9268,
+    "equal_share": 0.9936,
+    "mean_diff": -0.008
+   },
+   {
+    "source": "flashscore",
+    "years": "2013-2018",
+    "field": "svpt",
+    "player_rows": 9268,
+    "equal_share": 0.9834,
+    "mean_diff": -0.003
+   },
+   {
+    "source": "flashscore",
+    "years": "2013-2018",
+    "field": "first_in",
+    "player_rows": 9268,
+    "equal_share": 0.9896,
+    "mean_diff": 0.029
+   },
+   {
+    "source": "flashscore",
+    "years": "2013-2018",
+    "field": "first_won",
+    "player_rows": 9268,
+    "equal_share": 0.9912,
+    "mean_diff": 0.015
+   },
+   {
+    "source": "flashscore",
+    "years": "2013-2018",
+    "field": "second_won",
+    "player_rows": 9268,
+    "equal_share": 0.9897,
+    "mean_diff": -0.018
+   },
+   {
+    "source": "flashscore",
+    "years": "2013-2018",
+    "field": "sv_gms",
+    "player_rows": 9264,
+    "equal_share": 0.9899,
+    "mean_diff": 0.0
+   },
+   {
+    "source": "flashscore",
+    "years": "2013-2018",
+    "field": "bp_saved",
+    "player_rows": 9268,
+    "equal_share": 0.9932,
+    "mean_diff": 0.001
+   },
+   {
+    "source": "flashscore",
+    "years": "2013-2018",
+    "field": "bp_faced",
+    "player_rows": 9268,
+    "equal_share": 0.9927,
+    "mean_diff": 0.001
+   },
+   {
+    "source": "atp_scrape",
+    "years": "2010-2012",
+    "field": "ace",
+    "player_rows": 15822,
+    "equal_share": 1.0,
+    "mean_diff": 0.0
+   },
+   {
+    "source": "atp_scrape",
+    "years": "2010-2012",
+    "field": "df",
+    "player_rows": 15822,
+    "equal_share": 1.0,
+    "mean_diff": 0.0
+   },
+   {
+    "source": "atp_scrape",
+    "years": "2010-2012",
+    "field": "svpt",
+    "player_rows": 15822,
+    "equal_share": 1.0,
+    "mean_diff": 0.0
+   },
+   {
+    "source": "atp_scrape",
+    "years": "2010-2012",
+    "field": "first_in",
+    "player_rows": 15822,
+    "equal_share": 1.0,
+    "mean_diff": 0.0
+   },
+   {
+    "source": "atp_scrape",
+    "years": "2010-2012",
+    "field": "first_won",
+    "player_rows": 15822,
+    "equal_share": 1.0,
+    "mean_diff": 0.0
+   },
+   {
+    "source": "atp_scrape",
+    "years": "2010-2012",
+    "field": "second_won",
+    "player_rows": 15822,
+    "equal_share": 1.0,
+    "mean_diff": 0.0
+   },
+   {
+    "source": "atp_scrape",
+    "years": "2010-2012",
+    "field": "sv_gms",
+    "player_rows": 15814,
+    "equal_share": 1.0,
+    "mean_diff": 0.0
+   },
+   {
+    "source": "atp_scrape",
+    "years": "2010-2012",
+    "field": "bp_saved",
+    "player_rows": 15822,
+    "equal_share": 0.9999,
+    "mean_diff": 0.0
+   },
+   {
+    "source": "atp_scrape",
+    "years": "2010-2012",
+    "field": "bp_faced",
+    "player_rows": 15822,
+    "equal_share": 0.9994,
+    "mean_diff": 0.001
+   },
+   {
+    "source": "atp_scrape",
+    "years": "2013-2018",
+    "field": "ace",
+    "player_rows": 29868,
+    "equal_share": 0.994,
+    "mean_diff": 0.0
+   },
+   {
+    "source": "atp_scrape",
+    "years": "2013-2018",
+    "field": "df",
+    "player_rows": 29868,
+    "equal_share": 0.9986,
+    "mean_diff": 0.0
+   },
+   {
+    "source": "atp_scrape",
+    "years": "2013-2018",
+    "field": "svpt",
+    "player_rows": 29868,
+    "equal_share": 0.9983,
+    "mean_diff": 0.0
+   },
+   {
+    "source": "atp_scrape",
+    "years": "2013-2018",
+    "field": "first_in",
+    "player_rows": 29868,
+    "equal_share": 0.9891,
+    "mean_diff": 0.003
+   },
+   {
+    "source": "atp_scrape",
+    "years": "2013-2018",
+    "field": "first_won",
+    "player_rows": 29868,
+    "equal_share": 0.9918,
+    "mean_diff": 0.001
+   },
+   {
+    "source": "atp_scrape",
+    "years": "2013-2018",
+    "field": "second_won",
+    "player_rows": 29868,
+    "equal_share": 0.9918,
+    "mean_diff": -0.001
+   },
+   {
+    "source": "atp_scrape",
+    "years": "2013-2018",
+    "field": "sv_gms",
+    "player_rows": 29854,
+    "equal_share": 0.9831,
+    "mean_diff": -0.009
+   },
+   {
+    "source": "atp_scrape",
+    "years": "2013-2018",
+    "field": "bp_saved",
+    "player_rows": 29868,
+    "equal_share": 0.9991,
+    "mean_diff": 0.0
+   },
+   {
+    "source": "atp_scrape",
+    "years": "2013-2018",
+    "field": "bp_faced",
+    "player_rows": 29868,
+    "equal_share": 0.9991,
+    "mean_diff": 0.0
+   }
+  ],
+  "second_opinion": [
+   {
+    "field": "ace",
+    "player_rows_all_three": 8520,
+    "all_equal": 8424,
+    "flashscore_differs_scrape_equals_stage0": 75,
+    "scrape_differs_flashscore_equals_stage0": 19,
+    "both_differ_and_agree_with_each_other": 2,
+    "all_three_differ": 0
+   },
+   {
+    "field": "df",
+    "player_rows_all_three": 8520,
+    "all_equal": 8463,
+    "flashscore_differs_scrape_equals_stage0": 53,
+    "scrape_differs_flashscore_equals_stage0": 1,
+    "both_differ_and_agree_with_each_other": 3,
+    "all_three_differ": 0
+   },
+   {
+    "field": "svpt",
+    "player_rows_all_three": 8520,
+    "all_equal": 8372,
+    "flashscore_differs_scrape_equals_stage0": 138,
+    "scrape_differs_flashscore_equals_stage0": 2,
+    "both_differ_and_agree_with_each_other": 8,
+    "all_three_differ": 0
+   },
+   {
+    "field": "first_in",
+    "player_rows_all_three": 8520,
+    "all_equal": 8398,
+    "flashscore_differs_scrape_equals_stage0": 92,
+    "scrape_differs_flashscore_equals_stage0": 26,
+    "both_differ_and_agree_with_each_other": 4,
+    "all_three_differ": 0
+   },
+   {
+    "field": "first_won",
+    "player_rows_all_three": 8520,
+    "all_equal": 8417,
+    "flashscore_differs_scrape_equals_stage0": 77,
+    "scrape_differs_flashscore_equals_stage0": 21,
+    "both_differ_and_agree_with_each_other": 5,
+    "all_three_differ": 0
+   },
+   {
+    "field": "second_won",
+    "player_rows_all_three": 8520,
+    "all_equal": 8408,
+    "flashscore_differs_scrape_equals_stage0": 87,
+    "scrape_differs_flashscore_equals_stage0": 20,
+    "both_differ_and_agree_with_each_other": 5,
+    "all_three_differ": 0
+   },
+   {
+    "field": "sv_gms",
+    "player_rows_all_three": 8516,
+    "all_equal": 8419,
+    "flashscore_differs_scrape_equals_stage0": 33,
+    "scrape_differs_flashscore_equals_stage0": 3,
+    "both_differ_and_agree_with_each_other": 61,
+    "all_three_differ": 0
+   },
+   {
+    "field": "bp_saved",
+    "player_rows_all_three": 8520,
+    "all_equal": 8458,
+    "flashscore_differs_scrape_equals_stage0": 58,
+    "scrape_differs_flashscore_equals_stage0": 1,
+    "both_differ_and_agree_with_each_other": 3,
+    "all_three_differ": 0
+   },
+   {
+    "field": "bp_faced",
+    "player_rows_all_three": 8520,
+    "all_equal": 8453,
+    "flashscore_differs_scrape_equals_stage0": 63,
+    "scrape_differs_flashscore_equals_stage0": 1,
+    "both_differ_and_agree_with_each_other": 3,
+    "all_three_differ": 0
+   }
+  ]
+ }
+}

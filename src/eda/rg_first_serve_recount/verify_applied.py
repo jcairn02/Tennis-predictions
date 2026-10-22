@@ -24,8 +24,10 @@ likely is that?"
 Writes <out>/verify_applied/: v1_values.csv, v2_orientation.csv, v3_timing.csv, v4_direction.csv, v5_box_rules.csv and
 summary.json.
 Usage: ./python.sh src/eda/rg_first_serve_recount/verify_applied.py
-           --candidate-stage0 C:/Users/zerom/tnr_sb/data/studies/predictability_diagnostic
+           --candidate-stage0 data/studies/current_best_model/2026-10-09_rg_box_scores/candidate_tables/predictability_diagnostic
            --out data/studies/current_best_model/2026-10-09_rg_box_scores
+       (first run on the build sandbox's copy, C:/Users/zerom/tnr_sb; copied to candidate_tables/ with equal hashes,
+       and the sandbox removed, on 16 Oct 2026; the timeline is read from candidate_tables/match_timing/)
 """
 from __future__ import annotations
 

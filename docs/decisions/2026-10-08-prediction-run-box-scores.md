@@ -1,5 +1,9 @@
 # Prediction runs refresh box scores first, and build live inputs with the training code
 
+**Amended by the owner on 14 October 2026:** point 3 (the gate) is replaced. A missing box score no longer blocks a
+bet: of a kind the training rows nearly always hold it asks a 1-point edge, of a kind they mostly lack it is noted; only
+the qualifier and indoor checks still block ([decision](2026-10-14-box-score-gate.md)). The rest of this record stands.
+
 **Asked by the owner on 8 October 2026:**
 
 > "When we are working with live data on the prediction pipeline, we need a better pipeline. 'Make live inputs match what the model was trained on. Every prediction run should refresh box scores first: without the same event's earlier rounds, the 2-week profile loses a third to a half of its gain over Elo.'"

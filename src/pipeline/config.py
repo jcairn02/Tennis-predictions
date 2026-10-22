@@ -55,6 +55,8 @@ DAILY_RUNS = DAILY_OUT / "runs"
 DAILY_STATE = DAILY_OUT / "state"        # the daily pipeline's default (DP_* variables are never passed on: runner.py)
 STAGE2 = DAILY_OUT / "stage2"
 INSTANCES = ROOT / "data" / "studies" / "current_best_model"
+RETRAIN_DUE_DAYS = 30                # the timer's "retrain due" (train.model_age): Claude's default of 20 Oct 2026, a
+                                     # setting; the owner calls each retrain and has not chosen a threshold
 STAGE0 = ROOT / "data" / "studies" / "predictability_diagnostic"
 TIMING = ROOT / "data" / "studies" / "match_timing" / "timing.parquet"
 SCHEDULED = ROOT / "data" / "raw" / "_scheduled"
@@ -67,9 +69,11 @@ ALIASES = ROOT / "config" / "player_aliases.csv"
 
 SELECTED_INSTANCE = OUT / "selected_instance.json"   # the instance chosen with use_instance() (else the daily pipeline's default)
 
-# --- the two models of the switch (the owner's request of 11 Oct 2026) ------------------------------------------------
-LOCAL = "tabpfn35"                  # the current best model: local TabPFN-3.5, seeds 0-15, stage 2 calibrated
-THINKING_MODEL = "tabpfn35_thinking"   # TabPFN-3.5-Thinking on the hosted API, the same 57 inputs
+# --- the two settings of the switch (the owner's requests of 11 and 20 Oct 2026) --------------------------------------
+LOCAL = "tabpfn35"                  # the current best model alone: local TabPFN-3.5, seeds 0-15, stage 2 calibrated
+THINKING_MODEL = "tabpfn35_thinking"   # that model AND TabPFN-3.5-Thinking beside it (hosted, paid, the same 57 inputs
+                                       # and training rows, uncalibrated); their 50/50 log-odds average decides. Season fits
+                                       # (fit_seasons) with this setting are Thinking's alone
 MODELS = (LOCAL, THINKING_MODEL)
 
 

@@ -24,14 +24,16 @@ Tests are in `test/feature_universe/`.
 
 **Added 8 Oct 2026, at the owner's request:** U-330, the share of each player's last-year matches below the main tour, from the [event-levels study](../event_levels/README.md) (section 2, "Event-levels study"). Every earlier column, catalogue row, menu row and coverage figure is unchanged (section 8).
 
+**Refreshed 14 Oct 2026, at the owner's request:** U-126, the form evidence: how much box-score evidence stands behind each player's two-week form, exactly as the current best model weighs it (five `fe__` columns; section 2, "Two-week profile"; its admission card is in section 9). Every earlier column and coverage figure is unchanged. Of the catalogue, only U-126's own row changed, and with it the priority of its four 7 Oct menu columns (section 8).
+
 **Validation (observed, `validation.json`).**
-* Every one of the store's 779 columns is referenced by a catalogue row, directly or through a copy, and every name in `store_columns` exists.
+* Every one of the store's 784 columns is referenced by a catalogue row, directly or through a copy, and every name in `store_columns` exists.
 * All 58 model inputs are covered, by 56 rows: the two pair inputs (`surf_season_a/_b`, `surf_layoff_a/_b`) are one row each.
 * 71 rows have no store column: features held only in other tables, or not built. Their `source` names the table and column.
 
 ## 0. The store and the menu
 
-**What the store holds** (observed). One row per match of the model population (63,737), keyed by `match_id` with `tour`, `season`, `tournament_date` and `debut_season`. It has 779 feature columns and no result column.
+**What the store holds** (observed). One row per match of the model population (63,737), keyed by `match_id` with `tour`, `season`, `tournament_date` and `debut_season`. It has 784 feature columns and no result column.
 
 | Prefix | What | Columns | On the menu |
 |---|---|---:|---:|
@@ -49,7 +51,8 @@ Tests are in `test/feature_universe/`.
 | `kn__` | known-null placebos | 13 | 2 |
 | `ctx__` | match context: the model's six, plus draw size, week and month | 9 | 3 |
 | `el__` | the event-levels study's history composition: each player's share of last year's matches below the main tour, and A − B (added 8 Oct) | 3 | 3 |
-| **All** | | **779** | **606** |
+| `fe__` | the form evidence (U-126 refreshed, 14 Oct): each player's decayed count of earlier box-score matches as the model weighs it, the form's shrinkage share, and A − B of the share | 5 | 5 |
+| **All** | | **784** | **611** |
 
 **Kinds and sides.**
 * `diff` is A − B and flips sign when the players swap.
@@ -66,7 +69,7 @@ Side A is Stage 0's `player_a_id` (the pre-rebuild copy), as in the model frame.
   * The profile and serve-speed tables' market log-odds equal the model's price exactly.
 * **No result is read.** The panel is loaded without its result column, and table reads refuse result columns by name.
 
-**Copies and the menu.** The builders share intermediates, so one series often sits under several names. The registry marks each column's representative, chosen by group in the order m, alt, pp, rt, ad, sl, mk, lv, ctx, fi, fp, el, ds, kn:
+**Copies and the menu.** The builders share intermediates, so one series often sits under several names. The registry marks each column's representative, chosen by group in the order m, alt, pp, rt, ad, sl, mk, lv, ctx, fi, fp, el, fe, ds, kn:
 * 142 exact copies and 2 negated copies (`canonical`, `dup_sign`);
 * 28 near copies (`near_dup_of`): |r| ≥ 0.999 on common rows, adding at most 0.5% of rows the representative lacks, so the both-tours indoor flag is not a copy of the men-only one;
 * 3 columns constant within each tour (`degenerate`), two of them also copies;
@@ -74,7 +77,7 @@ Side A is Stage 0's `player_a_id` (the pre-rebuild copy), as in the model frame.
   * `f07_k3`, `h2hn` and `bd9b_mpp` are the same for both players, so they are context;
   * `f08_bigpt` and `h2hres` are split differences (+d/2, −d/2), so they are diffs.
 
-The remaining 606 columns form the menu (`menu = 1`). Three copies worth knowing:
+The remaining 611 columns form the menu (`menu = 1`). Three copies worth knowing:
 * The model's two-week form inputs are exactly the decayed opponent-adjusted forms. 28 of the 30 `ad__…_decayed` columns are copies; only the serve-points-won pair is new.
 * `fi__I-084__s` is `lv__elo` rescaled.
 * The KN placebos equal their `alt__` twins.
@@ -93,9 +96,9 @@ The remaining 606 columns form the menu (`menu = 1`). Three copies worth knowing
 * its copies (`aliases`) and its coverage.
 
 Counts:
-* priority: high 141 (mostly the incumbents and their per-player pairs), medium 77, low 370, exclude 18;
-* near-miss tier: A 20, B 15, C 53, D 33;
-* seen on 2025–2026: yes 367, no 239.
+* priority: high 141 (mostly the incumbents and their per-player pairs), medium 86, low 366, exclude 18;
+* near-miss tier: A 20, B 15, C 53, D 38;
+* seen on 2025–2026: yes 367, no 244.
 
 **What is not in the store.** 71 catalogue rows:
 * 39 built features left in their own study tables, all suggested low or exclude (Stage 4 aggregates, shot-level families, the frontier, splits, weekly Glicko-2);
@@ -108,6 +111,9 @@ Counts:
 ./python.sh src/eda/feature_universe/perplayer_2026.py             # about 1 minute
 ./python.sh src/eda/event_levels/universe_columns.py               # seconds (the el__ source; needs the event-levels
                                                                    # study's history.parquet and an existing store)
+./python.sh src/eda/feature_universe/form_evidence.py --store      # about 4 minutes (the fe__ source; reads the
+                                                                   # template_2026-10-13 build tree C:/Users/zerom/tnr_gaps,
+                                                                   # read only; its checks need an existing store)
 ./python.sh src/eda/feature_universe/build_store.py                # about 8 minutes
 ./python.sh src/eda/feature_universe/catalogue/coverage.py         # a few minutes
 ./python.sh src/eda/feature_universe/catalogue/duplicates.py       # seconds
@@ -115,7 +121,7 @@ Counts:
 ./python.sh -m pytest test/feature_universe -q
 ```
 
-`build_store.py --registry-only` re-annotates the registry from an existing store in seconds. `build_store.py --append-el` adds the three `el__` columns to an existing store without touching the others (how they were added on 8 Oct).
+`build_store.py --registry-only` re-annotates the registry from an existing store in seconds. `build_store.py --append-el` adds the three `el__` columns to an existing store without touching the others (how they were added on 8 Oct); `--append-fe` does the same for the five `fe__` columns (14 Oct). The full rebuild builds `fe__` last too, but it was not re-run on 14 Oct.
 
 ## 1. How the universe is organised
 
@@ -178,7 +184,7 @@ Round 0 warned that almost every earlier result was read on windows that include
 
 **Priority suggestions.**
 * 59 high: 53 incumbents and 6 new rows (section 7).
-* 40 medium, 198 low, 33 exclude.
+* 41 medium, 197 low, 33 exclude (U-126 moved from low to medium on 14 Oct).
 
 **Seen on 2025–2026.** 160 yes and 170 no.
 * Of the feature-interactions rows, five are seen: B-INJ's four, and I-084 (U-256), through the pair-strength study.
@@ -272,7 +278,11 @@ IDs refer to `universe.csv`. ★ marks a near miss (tier in brackets). "Store" n
 * Each has per-player columns `pp__form_<s>_a/_b`, rebuilt for 2013–2026 (`perplayer_form_2013_2026.parquet`).
 * **Built beside them**:
   * U-125 the 52-week level of the points form [C], so a model can form the short-minus-long gap itself;
-  * U-126 the form's evidence and shrinkage [D];
+  * U-126 the form's evidence and shrinkage [D]. **Refreshed on 14 Oct 2026** with the model's own weights (`fe__`, built by `form_evidence.py` on template_2026-10-13's tables):
+    * `fe__sw_a/_b`: each player's decayed count of earlier box-score matches behind the two-week form, Stage B's step-3 weight sum for total points won (half-life 2 weeks; the level layer's weights for men, ITF box scores 0; 0 without one). With it, the model's `adjperf_tpw_2w` is rebuilt bit for bit;
+    * `fe__r_a/_b`: the share of the raw two-week mean that the form keeps, sw / (sw + K3), K3 10 for men and 20 for women;
+    * `fe__r_diff`: A − B of that share;
+    * the 7 Oct builds (`fp__f07…s0`, `fp__f13…shr`: no level layer, the 30 Sep tables) stay for B6 and B7. Select `fe__`.
   * U-127 a fatigue-adjusted form (buildable) [C], meant to replace the raw form, not to be added to it.
 
 ### Load and schedule (U-128–U-162)
@@ -483,7 +493,8 @@ Read them with their base rate: about 11 of 34 members would reach |z| ≥ 1 by 
 * the count and its log difference: U-138 with U-307 (On);
 * the context and its product: U-192 with U-254 (venue);
 * the sum and its standardised modulator: U-231 with U-256 (pair strength);
-* the per-player state and its difference: U-144 with U-296 (odometer), U-143 with U-322 (past fatigue), U-162 with U-284 (letdown).
+* the per-player state and its difference: U-144 with U-296 (odometer), U-143 with U-322 (past fatigue), U-162 with U-284 (letdown);
+* two builds of the form evidence (U-126): `fe__` (14 Oct, the model's own weights) and the 7 Oct `fp__f07…s0` and `fp__f13…shr`. Select `fe__`.
 
 ## 5. Exclusions and why (33 rows marked "exclude")
 
@@ -503,7 +514,7 @@ Exclusion is a suggestion. None of these was killed for a result on 2025–2026.
 
 ## 6. What a selection process must handle specially
 
-1. **Copies.** Select from `menu.csv` (or the registry's `menu = 1`), not from the raw store: 779 columns hold 606 distinct usable ones (section 0). Examples:
+1. **Copies.** Select from `menu.csv` (or the registry's `menu = 1`), not from the raw store: 784 columns hold 611 distinct usable ones (section 0). Examples:
    * `m__` equals `ctx__` for the six context inputs.
    * The fatigue kernel has eight copies, the imputed share six, off-site load four, rest four.
    * The on-site, rank, fame, height and salience intermediates are copied across modules.
@@ -517,7 +528,7 @@ Exclusion is a suggestion. None of these was killed for a result on 2025–2026.
 3. **Base-dependent columns** (ten, flagged in the store). Recompute them with the new model's own out-of-sample forecast. Eight are missing in 2013 and 2025–2026, and B-ANCHOR's and B-REPUTE's sums change meaning there (section 0).
 4. **Price-slope modulators** (`fi__…__s`, `lv__elo`, `mk__dispersion`) are symmetric. They act only through the price, so they must enter beside `m__odds_logit`. In a linear screen the candidate is s × price, with neither s × price among the controls nor s alone as a main effect (the study's builders.md rule).
 5. **Market-internal inputs** help a model benchmarked on the average close. Polymarket is as sharp as Pinnacle, so judge them on the betting venue's price, or leave them out. Pinnacle covers only 59% of 2025–2026 (it ends in January 2026).
-6. **Clean test seasons.** 160 rows were seen on 2025–2026: every incumbent and most earlier-study features. In `menu.csv`, 367 of the 606 columns are seen.
+6. **Clean test seasons.** 160 rows were seen on 2025–2026: every incumbent and most earlier-study features. In `menu.csv`, 367 of the 611 columns are seen.
    * Seen among the near misses: the rust rows (B-INJ's U-315–U-318, and the raw blocks U-132–U-135, through B-INJ and Stage 4's days_since), C-1 (U-002, U-003), KN-TTTLOGIT (U-036), and pair strength (U-231, U-256: the pair-strength study's one-shot test, 7 Oct 2026).
    * Unseen: On, venue pace, B-MOTIV, B-OVERREACT and the tier C–D members (I-036 included; only its close relative, the Elo sum, was tested). For them, 2025–2026 is still a valid single test after a pre-registration chosen on 2014–2024 alone (next_candidates).
 7. **Coverage holes by tour.**
@@ -554,7 +565,7 @@ Exclusion is a suggestion. None of these was killed for a result on 2025–2026.
 
   The pair's Elo sum (U-231) and I-084's modulator (U-256) were high until the pair-strength study tested them on 2025–2026 (ties). They are now low.
 
-Medium-priority rows (40) include the decided-TTT and offset-TTT swaps, the B-MOTIV and B-OVERREACT members, past fatigue and the odometer, women's indoor, Slam proximity, serve speed, ranking, the Stage 3 uncertainties, the spw IOS, the decayed serve-points-won form and, since 8 Oct, the history composition (U-330).
+Medium-priority rows (41) include the decided-TTT and offset-TTT swaps, the B-MOTIV and B-OVERREACT members, past fatigue and the odometer, women's indoor, Slam proximity, serve speed, ranking, the Stage 3 uncertainties, the spw IOS, the decayed serve-points-won form, since 8 Oct the history composition (U-330) and, since 14 Oct, the form evidence (U-126).
 
 ## 8. Notes
 
@@ -571,6 +582,20 @@ Medium-priority rows (40) include the decided-TTT and offset-TTT swaps, the B-MO
   * the row sits in its own spec module (`catalogue/spec_event_levels.py`), last, so U-001 … U-329 kept their ids;
   * unchanged, checked against copies taken before: all 776 earlier store columns (byte for byte), every earlier registry field (one near-duplicate correlation differs by 1.6 × 10⁻¹³, float rounding of the larger matrix), all 1,793 earlier coverage keys, `duplicates.json`, U-001 … U-329, and the 603 earlier menu rows;
   * the store grew to 779 columns, the menu to 606 (`el__` 3), the catalogue to 330 rows. Two documents that describe the menu as it was (603) were left as written: [clean_holdout_rebuild](../clean_holdout_rebuild/README.md) and the feature-provenance study.
+* **U-126 refreshed, 14 Oct 2026** (the owner: "Add an input to the candidate-feature list saying how much data stands behind each player's recent form"):
+  * **Built** by `form_evidence.py --store`, with the model's own code on template_2026-10-13's build tree (`C:/Users/zerom/tnr_gaps`), read only, as the daily engine reads a base tree. Appended with `build_store.py --append-fe`;
+  * **Re-filed in place, not a new row:** one row per conceptual feature (section 1), as U-125 holds two builds of its level. So no id moved, and the catalogue keeps 330 rows;
+  * **Side A** is the store's (the pre-rebuild Stage 0's) wherever the tree has both players: 63,626 of 63,737 matches, each with the tree's own side A. The other 111 are WTA matches of June–July 2026, and they are missing:
+    * 71 keep their match id but name other players in today's tables. 8 of their 86 old ids are the 8 Oct id fix's aliases (F7); the rest are presumably Tennis My Life's own id revisions (inferred, not traced);
+    * 40 match ids are no longer in today's tables;
+  * **The instance's own population** (its 67,226 matches) is beside, in `form_evidence/template_2026-10-13.parquet`. `template_2026-10-14.parquet` was built the same way on that instance's tree. The two differ on 2.8% of the player-rows, 84% of them in 2026 (that instance has the Roland Garros repair and Tennis My Life's revisions);
+  * **Unchanged,** checked against copies taken before:
+    * all 779 earlier store columns and the keys, value for value;
+    * every earlier registry field, except two near-duplicate correlations that moved by float rounding (8.9 × 10⁻¹⁶ and 3.6 × 10⁻¹⁵);
+    * all 1,797 earlier coverage keys and `duplicates.json`;
+    * every catalogue row but U-126;
+    * the 606 earlier menu rows, except the priority of U-126's four 7 Oct columns (low to medium, with their row);
+  * the store grew to 784 columns and the menu to 611 (`fe__` 5).
 
 ## 9. The pool: admissions (since 9 Oct 2026)
 
@@ -601,4 +626,41 @@ Medium-priority rows (40) include the decided-TTT and offset-TTT swaps, the B-MO
 **Re-filed on 9 Oct 2026:**
 * **U-330, the lower-level share:** admitted as a lead. It read 2013–2024 results in the event-levels study: the mispricing, and the 59th-input test (+0.06 [−0.10, +0.23] mLL, + = with the share better). [Checklist](../adoption_framework/checklist.md) item 9 is no longer an adoption decision.
 * **The two box-score share differences** (`in_box_low_share_h2w_diff`, `in_box_low_share_365d_diff`; the lower-level study's R_S2): to be admitted as a lead. They read 2020–2024 results; they are not yet in the store.
+
+**Re-filed on 14 Oct 2026: U-126, the form evidence** (the owner: "Add an input to the candidate-feature list saying how much data stands behind each player's recent form"). **Recommended verdict: admitted.** Checks: `form_evidence/template_2026-10-13_checks.json`.
+* **Definition and encodings.** For each player, the box-score evidence behind the two-week form, exactly as the current best model weighs it:
+  * `fe__sw_a/_b`: sw, the decayed count of the player's earlier box-score matches. It is the denominator of Stage B's step 3 for total points won (`adjperf_tpw_2w`):
+    * half-life 2 weeks, from tournament date to tournament date;
+    * Stage B's time rule;
+    * the level layer's weights for men: main tour 1, lower levels 0.49–0.90 on average, ITF box scores 0. Women: 1;
+    * a main-tour match weighs 1. sw is 0 without an earlier box score.
+  * `fe__r_a/_b`: r = sw / (sw + K3), the share of the raw two-week mean that the form keeps. K3 is total points won's: 10 for men, 20 for women. The serve-skill forms use the same K3; the return-skill forms use 160.
+  * `fe__r_diff`: r_a − r_b.
+  * **Why total points won.** Its mask is the broadest. The other forms' sw differ:
+    * men's correlate 0.98–1.00 with it (the layer weighs each statistic);
+    * women's service-game forms (hold, break points faced, return games) correlate 0.70 in 2013–2021, and are missing on 24% of the player-rows where its form exists.
+* **Stable measurement.** Defined the same way in every season.
+  * **Coverage:** 1.00, except women's 2025–2026 (0.97: the 111 matches of section 8).
+  * **Its level moves with box-score coverage,** as the model's form denominators do:
+    * women's 2015 lacks lower-level box scores: mean sw 2.05, against 2.7–3.5 in other seasons;
+    * women's ITF box scores are 3.8% of sw in 2025 and 2.7% in 2026, and about 0 before. The layer leaves women untouched;
+    * 2020 is lower for both tours.
+  * **Reliability:** not applicable, since it is a count, not an estimate.
+* **Timing.** Safe by construction: each player's own earlier matches under Stage B's time rule.
+  * **A cut probe on sw** (8 cuts, 2.04 million protected rows): none moved beyond 10⁻¹². 134 moved by rounding, at most 1.8 × 10⁻¹⁵, and a leaky control was caught at 186 rows.
+  * **The denominator check:** sw rebuilds the model's `adjperf_tpw_2w` bit for bit on all 67,226 frame matches.
+  * **An independent recount** on 400 player-rows agrees to 1.2 × 10⁻¹⁴.
+* **Available at bet time.** It comes from the same box scores as the forms, with Tennis My Life's lag and the WTA fills.
+  * The daily engine already computes sw in step 3 (`forms_state.step3_for`), but does not output it yet.
+  * A missing recent box score lowers sw at bet time, as it lowers the form's denominator.
+* **Not a near-copy.**
+  * Its largest |r|: 0.98 with its own 7 Oct build (`fp__f07…s0`), then 0.71 with `pp__sets_14d`.
+  * `fe__r_diff`'s largest is 0.70, with the model's `sets_14d`.
+  * None reaches 0.999, so all five are distinct menu columns.
+* **Mechanism.** The model sees each form only after shrinkage, as A − B. It cannot tell a small difference between two thin histories from one between two thick ones. The evidence lets it weigh the 17 forms. Where recent form rests on few box scores (a return, a run below the main tour), the market's reading of it may be off.
+* **Cluster.** The per-statistic profiles block, at the two-week profile's node, beside U-125's long level. Its mean |r| with sets in 14 days is about 0.7, below the 0.8 merge rule.
+* **Results read.** None for `fe__`.
+  * The 7 Oct builds entered B7 (I-031) and B6 (I-033) as parts of composites, screened on 2014–2024: oriented z +0.76 and +1.13, neither significant (feature interactions).
+  * They were never tested as an input, and the request is the owner's, not drawn from those readings. So the verdict is "admitted", not "admitted as a lead". Those seasons are recorded here for a round to see.
+* **Priority suggestion:** medium (low before), by the analogy with U-125.
 

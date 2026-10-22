@@ -62,8 +62,11 @@ def interp(own_logit: np.ndarray, p_grid: np.ndarray) -> np.ndarray:
 
 def season_jobs(run_dir: Path, instance: Path = DC.INSTANCE):
     """Per season of the run's live matches: (season, its live rows, X_train, y_train, the query rows as stored then
-    swapped, the stored half's length, the matches), as the fit predicts them."""
+    swapped, the stored half's length, the matches), as the fit predicts them. The training rows are the instance's
+    (current_best_model/training_rows.job_data): season Y on 2013 .. Y - 1, plus the season-Y matches its retrain
+    admitted (the owner, 20 Oct 2026); without a record, the season rule."""
     FITS, A, C, TWF = _mods()
+    from src.eda.current_best_model import training_rows as TR
     P = FITS.paths(instance)
     cols = A.arm_inputs("model", P)
     frame = A.load_frame([], P, labels=True)
@@ -71,7 +74,7 @@ def season_jobs(run_dir: Path, instance: Path = DC.INSTANCE):
     meta = pd.read_parquet(run_dir / "live_meta.parquet").astype({"match_id": str}).set_index("match_id")
     live["season"] = pd.to_datetime(meta.loc[live["match_id"].astype(str), "day"]).dt.year.to_numpy()
     for season, part in live.groupby("season"):
-        X_train, y_train, _, _ = A.job_data(frame, cols, int(season))
+        X_train, y_train, _, _ = TR.job_data(frame, cols, int(season), instance)
         Xq, n = query_rows(part, cols)
         yield int(season), part, X_train, y_train, pd.concat([Xq, A.flip(Xq, P)], ignore_index=True), len(Xq), n
 
@@ -96,8 +99,13 @@ def run(run_dir: Path, seeds: list[int], instance: Path = DC.INSTANCE, direct_se
            "versions": {"tabpfn": version("tabpfn"), "torch": torch.__version__}, "seasons": {}, "seeds": {},
            "path": "decided (fit_preprocessors)" if cache == "off" else "training cache (dp_tabcache)"}
     checked_processes = False
+    from src.eda.current_best_model import training_rows as TR
+    cut = TR.read_cutoff(instance)
     for season, part, X_train, y_train, X_all, k, n in season_jobs(run_dir, instance):
-        rec["seasons"][int(season)] = {"matches": int(n), "train_rows": int(len(X_train)), "query_rows": int(len(X_all))}
+        own = cut if cut and int(cut["season"]) == int(season) else None
+        rec["seasons"][int(season)] = {"matches": int(n), "train_rows": int(len(X_train)), "query_rows": int(len(X_all)),
+                                       "training_cutoff": own["cutoff"] if own else None,
+                                       "admitted": own["admitted"] if own else 0}
         for seed in seeds:
             path = out_dir / f"season{int(season)}_seed{seed}.npz"
             if path.exists():

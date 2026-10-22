@@ -1,0 +1,35 @@
+{
+ "instance": "template_2026-10-16",
+ "season": 2026,
+ "column": "C:\\Users\\zerom\\Documents\\Tennis-predictions\\data\\studies\\infosys_atp_backfill\\speed_columns_augmented.parquet",
+ "column_sha256": "2add9204452900fbdc6abf9faa7097e4f836cafe669b6377137cda1c786d6b4b",
+ "frame_sha256": "58b72622c8bf364282223bb3275bc2fc7e3b0857009a752f46995753ace115db",
+ "stage0": "C:\\Users\\zerom\\Documents\\Tennis-predictions\\data\\studies\\predictability_diagnostic\\stage0_matches.parquet",
+ "timing": "C:\\Users\\zerom\\Documents\\Tennis-predictions\\data\\studies\\match_timing\\timing.parquet",
+ "season_men": 2190,
+ "in_column": 1774,
+ "extended": 416,
+ "check": {
+  "B": {
+   "overlap": 1774,
+   "equal": 1774,
+   "max_abs_diff": 0.0,
+   "differ_with_same_targets": 0,
+   "differ_with_changed_targets": 0,
+   "examples_unexplained": []
+  },
+  "D": {
+   "overlap": 1774,
+   "equal": 1774,
+   "max_abs_diff": 0.0,
+   "differ_with_same_targets": 0,
+   "differ_with_changed_targets": 0,
+   "examples_unexplained": []
+  }
+ },
+ "check_passed": true,
+ "rows": 36793,
+ "missing_after": 0,
+ "rule": "the column's value where it holds the match; the builder's for the others (same history, release days, constants); the check: on the overlap, every difference must come from changed targets",
+ "seconds": 6.0
+}

@@ -2,64 +2,30 @@
  "source": "sofascore_editions",
  "gap": "challenger_points_2018_2021",
  "targets_from": "frozen in data/studies/gap_downloads/sofascore_challenger_points_2018_2021_matches.csv",
- "started_at": "2026-10-11T21:34:32+00:00",
+ "started_at": "2026-10-14T15:00:32+00:00",
  "args": {
   "gap": "challenger_points_2018_2021",
   "refresh_targets": false,
-  "skip": [
-   "statistics"
-  ],
+  "skip": null,
+  "defer_uncovered": false,
   "limit": null,
-  "max_requests": 40000,
-  "min_interval": 2.0,
-  "jitter": 1.0,
-  "stage_only": false,
-  "no_stage": false,
-  "browser": "http://localhost:9222"
+  "editions": null,
+  "max_requests": 10000,
+  "min_interval": 1.0,
+  "jitter": 0.6,
+  "stage_only": true,
+  "no_stage": true,
+  "browser": null
  },
- "fetch_outcomes": {
-  "point-by-point:200": 11719,
-  "point-by-point:200:cached": 52,
-  "point-by-point:404": 10394,
-  "point-by-point:404:cached": 15
- },
- "client": {
-  "impersonate": "browser:155.0.8059.39",
-  "requests": 23957,
-  "retried": 2,
-  "slept_seconds": 54180.4,
-  "min_interval": 2.0,
-  "transport": "browser",
-  "cdp_url": "http://localhost:9222",
-  "page_reloads": 0,
-  "token_renewals": 0,
-  "renewals_failed": 0,
-  "site_data_resets": 0
- },
- "staged": {
-  "events": {
-   "rows": 107807,
-   "dest": "data/dump/points/sofascore_editions/events.parquet",
-   "bytes": 11240493
-  },
-  "points": {
-   "rows": 4146781,
-   "dest": "data/dump/points/sofascore_editions/points.parquet",
-   "bytes": 24047984
-  },
-  "statistics": {
-   "rows": 1162119,
-   "dest": "data/dump/points/sofascore_editions/statistics.parquet",
-   "bytes": 9978493
-  }
- },
+ "fetch_outcomes": {},
  "all": {
   "targets": 24874,
-  "listed": 22348,
-  "points_any": 11885,
-  "points_complete": 11621,
-  "points_absent": 10463,
+  "listed": 22327,
+  "points_any": 11874,
+  "points_complete": 11610,
+  "points_absent": 10453,
   "points_not_fetched": 0,
+  "points_deferred": 0,
   "full_box_score": 0,
   "stats_any": 0
  },
@@ -68,11 +34,12 @@
  "by_year_level": {
   "2018|CH": {
    "targets": 4951,
-   "listed": 4446,
-   "points_any": 2068,
-   "points_complete": 2044,
-   "points_absent": 2378,
+   "listed": 4437,
+   "points_any": 2067,
+   "points_complete": 2043,
+   "points_absent": 2370,
    "points_not_fetched": 0,
+   "points_deferred": 0,
    "full_box_score": 0,
    "stats_any": 0
   },
@@ -83,16 +50,18 @@
    "points_complete": 122,
    "points_absent": 3454,
    "points_not_fetched": 0,
+   "points_deferred": 0,
    "full_box_score": 0,
    "stats_any": 0
   },
   "2019|CH": {
    "targets": 7202,
-   "listed": 6656,
-   "points_any": 4029,
-   "points_complete": 3964,
+   "listed": 6652,
+   "points_any": 4025,
+   "points_complete": 3960,
    "points_absent": 2627,
    "points_not_fetched": 0,
+   "points_deferred": 0,
    "full_box_score": 0,
    "stats_any": 0
   },
@@ -103,16 +72,18 @@
    "points_complete": 110,
    "points_absent": 140,
    "points_not_fetched": 0,
+   "points_deferred": 0,
    "full_box_score": 0,
    "stats_any": 0
   },
   "2020|CH": {
    "targets": 2255,
-   "listed": 2011,
-   "points_any": 1699,
-   "points_complete": 1654,
+   "listed": 2006,
+   "points_any": 1694,
+   "points_complete": 1649,
    "points_absent": 312,
    "points_not_fetched": 0,
+   "points_deferred": 0,
    "full_box_score": 0,
    "stats_any": 0
   },
@@ -123,16 +94,18 @@
    "points_complete": 31,
    "points_absent": 310,
    "points_not_fetched": 0,
+   "points_deferred": 0,
    "full_box_score": 0,
    "stats_any": 0
   },
   "2021|CH": {
    "targets": 4690,
-   "listed": 3562,
-   "points_any": 3289,
-   "points_complete": 3199,
-   "points_absent": 273,
+   "listed": 3559,
+   "points_any": 3288,
+   "points_complete": 3198,
+   "points_absent": 271,
    "points_not_fetched": 0,
+   "points_deferred": 0,
    "full_box_score": 0,
    "stats_any": 0
   },
@@ -143,13 +116,14 @@
    "points_complete": 497,
    "points_absent": 969,
    "points_not_fetched": 0,
+   "points_deferred": 0,
    "full_box_score": 0,
    "stats_any": 0
   }
  },
  "pbp_verdicts": {
-  "nan": 12989,
-  "complete": 11415,
+  "nan": 13000,
+  "complete": 11404,
   "short": 254,
   "complete to retirement": 206,
   "other": 10
@@ -192,7 +166,7 @@
    "locate_tried": "72/2018-01-10:22;72/2018-01-12:10;72/2018-01-09:33;72/2018-01-13:12;72/2018-01-07:39;72/2018-01-05:31;72/2018-01-03:29"
   }
  ],
- "matches_selected": 22348,
+ "matches_selected": 22327,
  "receipts_with_errors": 12,
  "error_examples": [
   {
@@ -244,6 +218,6 @@
    "error": "RuntimeError: TargetClosedError: Page.evaluate: Target page, context or browser has been closed for https://api.sofascore.com/api/v1/category/72/scheduled-events/2021-12-29 after 4 attempts"
   }
  ],
- "finished_at": "2026-10-12T14:18:04+00:00",
- "seconds": 60212.6
+ "finished_at": "2026-10-14T15:01:05+00:00",
+ "seconds": 33.9
 }

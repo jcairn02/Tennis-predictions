@@ -141,6 +141,11 @@ def _print(out: dict) -> None:
         print(f"  checkpoints {m.get('checkpoints')}   TabPFN caches {m.get('tabpfn_caches')}")
     else:
         print(" ", m)
+    try:                                               # the owner's timer (20 Oct 2026)
+        from .train import model_age
+        print(f"  MODEL AGE: {model_age()['line']}")
+    except Exception as e:
+        print(f"  MODEL AGE: unknown ({type(e).__name__})")
     if out.get("paused"):
         print(f"  PAUSED after a block: {out['paused']}")
     print("== Latest prediction runs ==")

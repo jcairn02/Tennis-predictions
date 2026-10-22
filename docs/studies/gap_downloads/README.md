@@ -134,6 +134,7 @@ Each links to its twin's event, and the map credits the Tennis My Life row. Two 
   * other names are ordered or spelt differently (Sanhui Shin; "B. Yunchaokete").
 
   Linking stays as it was. The link check reports borrowed events as a different winner or score, gap by gap.
+* **Since 14 Oct 2026, links that fail both tests are refused** ([the follow-up study](../p6_data_issues/README.md#1-borrowed-links-fixed)). A link is refused when no surname matches *and* the official result disagrees: 47 links, 26 in gap 4 and 21 in gap 7, each read by hand. They are listed in `data/studies/gap_downloads/sofascore_link_vetoes.csv`, which the adapter reads. Gaps 4 and 7 were re-linked offline. The link check now also drops an unplayed 0-0 set on either side, and all eight link checks were re-run. The gap sections below give the counts of 9-12 Oct; the follow-up study gives the re-checked ones.
 * **A closed Chrome window now stops the run** (`browser.py`; `common.Client` lets the stop through). Gap 4's first run lost its browser between 04:17 and 04:26 UTC on 10 Oct. It then recorded every request as failed ("Target page, context or browser has been closed"), about one every 50 seconds, for 34 hours, until it was stopped by hand on 11 Oct at 14:16 UTC. None of those requests reached SofaScore, and the next run asks for each again. Now a tab closed on its own is replaced by a new one on the site, and a closed window stops the run with "Blocked".
 * **Chrome was reopened on 11 Oct (14:17 UTC) with three more flags**, which keep it from slowing or freezing the tab when its window is hidden: `--disable-background-timer-throttling --disable-renderer-backgrounding --disable-backgrounding-occluded-windows`. They change nothing SofaScore sees. Gap 3's run had lost 2.8 hours to a frozen tab. The command is under [browser mode](#running-it).
 
@@ -405,8 +406,8 @@ At the end: `./python.sh src/eda/match_timing/refresh.py --sources sofascore`. L
 
 | Order | Gap | Targets | Editions | What it is | Status |
 |---|---|---:|---:|---|---|
-| 1 | `itf_points_2025_2026` (new) | 63,334 | 2,338 | ITF main draws of 2025-26 without point data | Running from 13 Oct 01:26 UTC |
-| 2 | `itf_detail` | 207,045 | 7,550 | ITF main draws of 2018-24 with only a result | Waiting |
+| 1 | `itf_points_2025_2026` (new) | 63,334 | 2,338 | ITF main draws of 2025-26 without point data | Done but the deferred, 15 Oct 00:10 UTC: every point for 19,411 (18,944 complete); 35,309 deferred |
+| 2 | `itf_detail` | 207,045 | 7,550 | ITF main draws of 2018-24 with only a result | Running from 15 Oct 00:47 UTC (tenth run from 22 Oct 07:31 UTC); every point record asked by 22 Oct ~09:20 UTC (194,772 of 201,141 events with one); box scores since |
 
 **How it is run, and where it departs from the plan [observed]:**
 * **It started after P6 had finished** (12 Oct, 14:18 UTC), and after P6's map rebuild (14:22 UTC) and timing refresh (14:23-14:30 UTC). P4's listings were already on the map, so the ITF matches TennisLive listed since June 2026 are targets.
@@ -497,7 +498,7 @@ The plan asks for a separate qualifying gap only if most of the trial editions' 
 * The map holds about 70,000 ITF qualifying matches of 2025-26 and 204,000 of 2018-24, nearly all below point.
 * Evidence: `data/studies/gap_downloads/itf_qualifying_probe.json` and `.csv`.
 
-### itf_points_2025_2026: the download (running)
+### itf_points_2025_2026: the download (done but the deferred)
 
 **The first run [observed]**, 13 Oct, 01:26-22:27 UTC (budget 30,000):
 * *Listing:* 2,338 editions listed by about 04:50 UTC (4,908 requests). 62,727 of 63,334 targets (99.0%) linked to 62,677 events.
@@ -522,6 +523,25 @@ The plan asks for a separate qualifying gap only if most of the trial editions' 
 * *The option:* the owner chose to leave the flagged events until the end of P7. The adapter's `--defer-uncovered` does not ask for events SofaScore lists with `coverage: -1`. Their per-match rows say "deferred (coverage -1)", and the summary counts them under `points_deferred`.
 * *The order now:* the rest of `itf_points_2025_2026`, then `itf_detail`, then one last run of this gap without the option, which asks for the deferred events. Whether to make that last run is the owner's call; it costs about 80,000 requests and would add few records.
 * *The second run* started at 22:33 UTC with the option.
+* *A restart:* Windows Update restarted the PC on 14 Oct at 07:29 and 07:33 UTC, which killed the second run, the Flashscore run (P13) and the priority watchdog. The owner reopened the SofaScore Chrome window at 13:54 UTC. A third run with the same command started at 14:06 UTC and resumed from the receipts.
+
+**The result [observed]**, 15 Oct 00:10 UTC (the third run's end, exit 0), with no block over the three runs:
+
+| | Targets |
+|---|---:|
+| Linked to a SofaScore event | 62,727 of 63,334 |
+| Every point listed | 19,411 (18,944 complete to the score) |
+| No point record (HTTP 404) | 8,007 |
+| Deferred (flagged `coverage: -1`; asked at the end of P7, if kept) | 35,309 |
+| A box score (the reduced 11-item set of 2026; 6 items on some 2025 events) | 23,378 |
+
+* *The link check* (`verify_links.py`, 15 Oct 00:48 UTC) covers every linked target, deferred ones included: it reads the event's listed result.
+  * 48,253 agree on the winner and every set, 191 differ in score, 49 name another winner, 324 have no winner on SofaScore, and 6 no score.
+  * 13,904 have no official row: TennisLive's listings 7,561, the WTA website records 6,318, the ITF live API 25. 607 are not linked.
+  * 100 SofaScore events are each linked by two targets: matches the map holds twice.
+* *Staged* (`--stage-only --defer-uncovered`, 00:52-01:02 UTC): every event of the located seasons with P6's (203,219 events), 6,346,036 point rows and 1,407,110 statistics rows.
+* *On the map* (rebuilt 01:02-01:04 UTC): the ITF matches from 1 March 2026 have point (or shot) data for 24,698 of 26,224 (94%). 2025 has almost none, 398 of 39,114, in SofaScore's hole. Flashscore (P13) fills most of it.
+* *The timeline* (`refresh.py --sources sofascore`, 01:04-01:15 UTC; every step exited 0): the linker read 210,518 SofaScore singles events and linked 160,314 to Stage 0, against 108,433 before. Of the 45,045 it left unlinked, 42,731 are ITF events (men 24,681, women 18,050), and 43,193 in all have no Stage 0 match with both players in the window (`data/studies/match_timing/links/sources_c_summary.json`).
 * *Twins:* 136 matches of January 2025 to February 2026 appear twice in one SofaScore season, one copy flagged and one not. The run asks only the linked copy. The 15 unflagged copies asked so far had no record either, so the rule was not changed.
 
 **Elsewhere, so far [observed, 13 Oct 2026]:**
@@ -538,26 +558,62 @@ The plan asks for a separate qualifying gap only if most of the trial editions' 
   * *The rest:* TennisLive (P8) would add partial points for most of what Flashscore lacks, except in January 2025.
   * *Paid feeds* seem to cover about the same matches as Flashscore.
 
+### itf_detail: the download (running)
+
+**The first run [observed]**, 15 Oct, 00:47-21:47 UTC (budget 30,000; it stopped at the budget, exit 1, with no block):
+* *Listing:* 7,550 editions listed by about 12:55 UTC (about 17,300 requests). 202,253 of 207,045 targets (97.7%) linked to 201,141 events. None is flagged `coverage: -1`, so `--defer-uncovered` defers nothing in this gap.
+* *Point records,* newest first: 12,500 of the 201,141 events asked, back to 19 August 2024. 12,525 targets have a record (98.6% of those asked), and 176 are absent (HTTP 404).
+  * *Against the score:* 12,166 complete, 154 complete to a retirement, 159 short, 33 other, 13 with no score to compare.
+* *Box scores* come after every point record, as in P6: 92 so far, the trial's.
+* *Pace:* about 1,410 requests an hour once the listing was done.
+
+**The second run** started at 21:53 UTC with the same command (log `run_20261015T215358Z_itf_detail.log`). It replays the listing from the receipts without a request. It was started by hand: the watcher meant to restart the run at its budget looked for the Flashscore client's wording of a budget stop, not this adapter's ("request budget of 30000 used up"), and stood down. The run sat idle for 6 minutes. The next watcher accepts both wordings.
+
+**After the second run [observed]** (it used its budget and ended at 19:01 UTC on 16 Oct, with no block; a watcher started the third run at once, log `run_20261016T190139Z_itf_detail.log`):
+* *Point records:* 42,500 of the 201,141 events asked, back to 23 October 2023. 42,445 targets have a record (98.6% of those asked), and 594 are absent.
+  * *Against the score:* 41,186 complete, 609 complete to a retirement, 478 short, 149 other, 23 with no score to compare.
+* *Where the absent ones are:* mostly the first days of particular tournaments, not whole tournaments. Only 8 of the 1,623 tournaments asked lack every record (23 targets). At W25 Santo Domingo (November 2023), for example, all 31 matches of the first two rounds are absent and 11 of the last 15 have a record. The absent answers are SofaScore's own JSON 404s, in runs of neighbouring event ids.
+
+**The Chrome window closed (16 Oct, about 23:00 UTC) [observed].** The third run stopped then, with "the Chrome window with the debugging port was closed", after 48,100 events had been asked. It was not a block. The scraping profile wrote its settings at 23:00:16 and left no crash report, so Chrome closed cleanly: by hand, or by Chrome itself (an update had been installed the night before and was waiting for a restart). The session reopened the window at 23:11 UTC with the command below (same profile, the three flags), started minimised, and launched the fourth run at 23:12 UTC (log `run_20261016T231210Z_itf_detail.log`).
+
+**After the fourth run [observed]** (it used its budget and ended at 20:23 UTC on 17 Oct, with no block; a watcher started the fifth run at once, log `run_20261017T202340Z_itf_detail.log`): point records asked for 77,800 events, back to 10 October 2022. 77,804 targets have a record (98.7% of those asked; 76,379 complete), and 1,043 are absent. 11 of the 2,933 tournaments asked lack every record (56 targets).
+
+**A challenge, and the window closed again (17 Oct) [observed].** At 23:07 UTC, after 3,702 requests of the fifth run, SofaScore answered with its challenge: HTTP 403, reason "challenge", the refusal that asks the page for a fresh token. It was the first since P6's of 8 October. The adapter reloaded the tab and waited for the token, as designed; no check was detected in the page. At 23:09:11 UTC Chrome closed, cleanly again, and the run stopped after 81,800 events.
+* *Around it:* Windows logged configuration-change events, COM permission errors and a DNS time-out at 23:07:55-23:08:17. A network change would explain both the challenge and the timing [inference]. The closure of 16 October had no such events, and no scheduled task runs at either time.
+* *Resumed:* the session reopened the window at 23:24 UTC, shown without focus rather than minimised, so the site's check can run in a visible page, and started the sixth run (log `run_20261017T232427Z_itf_detail.log`). SofaScore accepted it without a check.
+
+**After the sixth run [observed]** (it used its budget and ended at 20:36 UTC on 18 Oct, with no block; a watcher started the seventh run at once, log `run_20261018T203706Z_itf_detail.log`): point records asked for 111,200 events, back to 13 September 2021. 111,091 targets have a record (98.4% of those asked; 107,465 complete), and 1,808 are absent.
+
+**The window closed a third time (19 Oct, 14:20 UTC) [observed].** The seventh run stopped then, after 137,100 events, with no challenge before it: the last answer, at 14:20:23, was a record, and Chrome wrote its settings at 14:20:27 and left no crash report. Five seconds earlier, the priority watchdog had found the tab's renderer raised from Idle to Normal, which Chrome does when its window comes to the front [observed]; so the window was most likely brought forward and closed by hand [inference]. The run then sat idle for about 22 hours: the session's check-ins did not run, and the PC restarted at 04:18 UTC on 20 Oct, which also ended the watchdog.
+* *After the seventh run:* 138,243 targets asked, back to 25 November 2019. 135,859 have a record (98.3%; 130,717 complete), and 2,384 are absent.
+* *Resumed (20 Oct, 12:51 UTC), at the owner's word ("continue downloading the sofascore itf data"):* the window reopened minimised (Chrome 155.0.8059.85, updated by the restart), the watchdog restarted for 14 days (`-Hours 336`), and the eighth run started (log `run_20261020T125101Z_itf_detail.log`).
+
+**After the eighth run [observed]** (it used its budget and ended at 10:13 UTC on 21 Oct, with no block; a watcher started the ninth run at once, log `run_20261021T101330Z_itf_detail.log`): 168,242 targets asked, back to 21 January 2019. 164,302 have a record (97.7%; 158,555 complete), and 3,940 are absent. The share absent grows in the older seasons, about 6-7% of the matches asked in 2019.
+
+**After the ninth run [observed]** (it used its budget and ended at 07:30 UTC on 22 Oct, with no block; a watcher started the tenth run at once, log `run_20261022T073108Z_itf_detail.log`): 192,131 targets have a record (185,663 complete), 6,125 are absent (about 8% of the 2018 matches asked), and 3,997 are not yet asked. The tenth run finishes the point records, then starts the box scores: about 201,000 requests, about 6 days.
+
+**Left [inference from the pace]:** about 188,600 point records after the first run, then about 201,000 box scores: about 390,000 requests, or about 11.5 days, so about 27 October if nothing stops it. The second run kept to that pace.
+
 ### Running and resuming P7
 
-A run stops at its budget of 30,000 requests (about a day), on a block, or when the Chrome window closes. Rerunning the same command resumes: every answer is on disk with its receipt, and nothing is asked twice. Run from the repository root in Git Bash, gap by gap:
+A run stops at its budget of 30,000 requests (about a day), on a block, or when the Chrome window closes. Rerunning the same command resumes: every answer is on disk with its receipt, and nothing is asked twice. Run from the repository root in Git Bash. Now, gap 2:
 
 ```
-./python.sh -m src.ingest.point_sources.sofascore_editions --gap itf_points_2025_2026 --browser --max-requests 30000 --min-interval 2.0 --jitter 1.0 --no-stage --defer-uncovered > data/raw/point_sources/sofascore_editions/_logs/run_<UTC stamp>_itf_points_2025_2026.log 2>&1
+./python.sh -m src.ingest.point_sources.sofascore_editions --gap itf_detail --browser --max-requests 30000 --min-interval 2.0 --jitter 1.0 --no-stage --defer-uncovered > data/raw/point_sources/sofascore_editions/_logs/run_<UTC stamp>_itf_detail.log 2>&1
 ```
 
-`--defer-uncovered` leaves the flagged events for the end (above). The last run of P7, if the owner keeps it, is the same command without it.
+Gap 1 ran the same command with `--gap itf_points_2025_2026`. `--defer-uncovered` leaves the flagged events for the end (above). The last run of P7, if the owner keeps it, is gap 1's command without it.
 
 When a run ends with every target fetched (the log's last `point-by-point` and `statistics` lines reach their totals with no `STOPPED`), finish the gap:
 
 ```
-./python.sh -m src.ingest.point_sources.sofascore_editions --gap itf_points_2025_2026 --stage-only
-./python.sh src/eda/gap_downloads/verify_links.py --gap itf_points_2025_2026
+./python.sh -m src.ingest.point_sources.sofascore_editions --gap itf_detail --stage-only
+./python.sh src/eda/gap_downloads/verify_links.py --gap itf_detail
 ./python.sh src/eda/data_map/build.py
 ./python.sh src/eda/match_timing/refresh.py --sources sofascore
 ```
 
-Then the same for `--gap itf_detail`. Never run two map builds or two timing refreshes at once.
+Gap 1's after-steps ran on 15 Oct (above). Never run two map builds or two timing refreshes at once.
 
 The trials, for the record:
 
@@ -576,7 +632,7 @@ The trials, for the record:
 
 ## Flashscore point feeds: ITF January 2025 to February 2026 (work package P13)
 
-**Status: running since 14 October 2026 (trial 01:09 UTC; bulk from 04:38 UTC).** [Work package P13](collection-plan.md#p13-flashscore-point-feeds-itf-january-2025-to-february-2026) was added at the owner's word after P7 found SofaScore empty for these months. It asks Flashscore's point feed of each ITF main-draw target of the window, by the match ids of the Flashscore copy on disk ([research](../../research/gap-sources/itf_2025_points.md)). Flashscore is another site than P7's, so the two run side by side.
+**Status: done, 14 October 2026 01:09 UTC to 15 October 15:57 UTC.** [Work package P13](collection-plan.md#p13-flashscore-point-feeds-itf-january-2025-to-february-2026) was added at the owner's word after P7 found SofaScore empty for these months. It asks Flashscore's point feed of each ITF main-draw target of the window, by the match ids of the Flashscore copy on disk ([research](../../research/gap-sources/itf_2025_points.md)). Flashscore is another site than P7's, so the two run side by side.
 
 **How it is run [observed]** (`src/ingest/point_sources/flashscore_points.py`):
 * **The extract** (14 Oct, 01:07 UTC, offline, 82 s): the handoff copy's ITF singles records of 20 Dec 2024 to 15 Mar 2026, from 148 files of `flashscore_full` and `flashscore_gql_stats`, one per match id. 44,308 records, of which 42,791 are dated 1 Jan 2025 to 28 Feb 2026, 29,614 of those with a match duration. These are the research's counts exactly.
@@ -600,9 +656,31 @@ The trials, for the record:
 * *Irregular games:* 6 of the 131 records have one game whose listed scores skip a step ("15:0" then "40:0"). The point between has no known winner, and that game lists a point fewer than was played.
 * *Staged:* 17,805 points.
 
-**Expected for the bulk [inference]:** about 28,000-28,500 records, at the trial's rate on the 29,614 targets with a duration, and almost none without one.
+**Expected for the bulk [inference, written before it ran]:** about 28,000-28,500 records, at the trial's rate on the 29,614 targets with a duration, and almost none without one.
 
-**On the map.** The loader `load_flashscore_points` in `src/eda/data_map/measure.py` places each record on the map match the adapter linked it to (`flashscore_point_uids`, from the per-target table, as for TennisLive's gap pages). It adds no new matches. It counts from the next map rebuild; the dataset is `flashscore_points` in data_map.yaml.
+**The download [observed]**, 14 Oct 04:38 UTC to 15 Oct 15:57 UTC, in three runs:
+* *The runs:* a Windows Update restart (14 Oct 07:29 UTC) cut the first; the second used its budget at 10:58 UTC on 15 Oct; the third asked the rest.
+* *Requests:* 40,867 in all, the trial's included, one per feed. There was no retry, error or refusal.
+* *Records:* 27,534 feeds hold a point record; 13,333 are empty. By target: a record for 27,535 of the 42,876, 27,174 of them complete, 305 short, 56 other; 2,003 targets not linked.
+* *By month* (targets with a record, of those linked): December 2024 to June 2025, 92-98% each month; July to November 2025, 42-53%; December 2025, 23%; January-February 2026, 41-55%.
+* *The duration rule held:* 27,501 of the 28,434 targets with a duration in the handoff copy have a record, and 35 of the 12,439 without one.
+* *Irregular games:* 900 of the 27,534 records (3.3%) have at least one game whose listed scores skip a step.
+* *Staged:* 3,682,438 point rows.
+
+**Against the official result [observed]** (`verify_flashscore.py`, 15 Oct 16:00 UTC, after a fix: a never-started 0-0 set in the official score is now left aside, as in `verify_links.py`):
+* 24,887 of the 24,973 records that have an official row agree on the winner and every set; 83 differ in score and 3 name another winner.
+* 2,562 have no official row (TennisLive's listings 1,328, the WTA website records 1,234).
+* Before the fix, 226 differed in score, mostly retirements written "6-0 0-0" in the official score.
+
+**On the map [observed]**, rebuilt at 16:00 UTC on 15 Oct. The loader `load_flashscore_points` in `src/eda/data_map/measure.py` places each record on the map match the adapter linked it to (`flashscore_point_uids`, from the per-target table, as for TennisLive's gap pages), and adds no new matches. With it, the ITF matches have point (or shot) data as follows:
+
+| Months | ITF matches | With point data |
+|---|---:|---:|
+| January-June 2025 | 18,909 | 16,988 (90%) |
+| July-December 2025 | 20,083 | 8,845 (44%) |
+| January-February 2026 | 4,076 | 1,916 (47%) |
+
+The year 2025 as a whole has 25,933 of 39,114, against 398 before P13. What remains without points in the window (about 15,300 matches: 13,181 of 2025, most from July on, and 2,160 of January-February 2026) is for TennisLive's pages (P8), whose records usually lack the set-closing games.
 
 **Not in the timing clock:** like the other new sources, Flashscore's records are not wired into the leak-proof clock.
 
@@ -628,6 +706,7 @@ The extract (`--extract`) runs only once; each run restages `points.parquet` and
 * *Staged* (gitignored): `data/dump/points/flashscore_points/`, holding `handoff_itf.parquet`, `matches.parquet` and `points.parquet`.
 * *Evidence:* `data/studies/gap_downloads/flashscore_itf_points_2025_2026_matches.csv.gz` (one row per target), `_summary.json`, `_link_check.csv.gz` and `.json`.
 * *Tests:* `test/gap_downloads/test_flashscore_points.py` (the parser, the link, the trial's spread and a whole run against a fake Flashscore) and `test/data_map/test_sofascore_edition_links.py` (the map's placement).
+* *Shared since 16 Oct 2026:* the raw folder, receipts and staged tables also hold work package P6's Flashscore feeds, men's ATP and Challenger matches of 2018-24 ([the P6 data issues report](../p6_data_issues/README.md#2-sofascores-holes-what-fills-them), `flashscore_p6.py`). Staging takes each feed's match from every extract on disk (`handoff_itf.parquet`, and P6's `handoff_p6.parquet`); linking still reads the ITF extract alone. `verify_flashscore.py --p6` checks P6's records, and the map places them through P6's own per-target table.
 
 ## Running it
 
@@ -692,13 +771,16 @@ Tests: `./python.sh -m pytest test/gap_downloads test/data_map -q`. They cover t
 * **SofaScore's own records.** 21 records are short or uneven against the score, and SofaScore's listed score is itself wrong at least once (Båstad). Where another source holds the same match, the records can be compared once the sources are merged.
 * **Placement on the map.** The map dates 2026 matches by the day played, so its generic link can put a record on the same pair's meeting a few days earlier at another event. The map therefore places SofaScore's records on the matches the adapter linked them to, by tournament, and uses the generic link only for the rest (`sofascore_edition_uids` in `src/eda/data_map/measure.py`). The other session found this trap in the Slam data.
 * **The frozen list.** It keeps the map's match ids (`uid`) of the build of 25 September 2026. A later build renumbers matches, so the list is joined by its names and dates, not by `uid`.
-* **P6: SofaScore's holes.** Its point records are near complete for Challengers of 2024-26 and for most tour-level main draws. They are thin for qualifying at every level, about half for Challengers of 2018, and almost absent for Challengers from spring 2022 to the end of 2023. Where SofaScore has nothing, the map's point data for those matches comes mostly from TennisLive (P5), which usually lacks the set-closing games.
+* **P6: SofaScore's holes.** Its point records are near complete for Challengers of 2024-26 and for most tour-level main draws. They are thin for qualifying at every level, about half for Challengers of 2018, and almost absent for Challengers from spring 2022 to the end of 2023. Where SofaScore has nothing, the map's point data for those matches comes mostly from TennisLive (P5), which usually lacks the set-closing games. *Since 14 Oct 2026* the ATP Stats Centre's own point files fill 2,360 of these matches completely: the map's source `infosys_challengers` ([the follow-up](../p6_data_issues/README.md), section 2).
 * **P6: the map's own rows.** Some targets are wrong in the map, and nothing on SofaScore can fix them:
   * Tennis My Life misdates editions: Nottingham 2025 is dated July for a January event; several 2021 venues' consecutive Challengers share one name and date.
   * The WTA website records file September 2026 matches under the wrong WTA 125s.
   * The map holds some matches twice (an API-Tennis row beside Tennis My Life's or Sackmann's), and each twin links to the same event.
   * These targets stay unlinked, or the twins share an event; the map credits one row.
-* **P6: borrowed events.** When SofaScore lacks a target's match, an event of one of its players whose opponent shares only a first name can take its place. The link check shows these as a different winner or score: 9 in gap 4 and some of the 43 in gap 7. A surname rule that would stop them cost more correct links than it saved, because SofaScore shows players' current names, married names included.
+  * *Followed up 14 Oct 2026* ([the data issues P6 found](../p6_data_issues/README.md)):
+    * The website copy's last ten editions (7-14 Sep 2026) misfile all 187 of their matches. They are now left out of the map and of the lower-level feed, and the WTA API's records place those matches.
+    * Tennis My Life misdates 67 Challenger editions of 2018-25. They leave 1,586 matches twice on the map, and 31 Tenerife 2024 matches in Stage 0 a month early (a leak). Both are prepared for the owner's decision, not changed.
+* **P6: borrowed events.** When SofaScore lacks a target's match, an event of one of its players whose opponent shares only a first name can take its place. The link check shows these as a different winner or score: 9 in gap 4 and some of the 43 in gap 7. A surname rule that would stop them cost more correct links than it saved, because SofaScore shows players' current names, married names included. *Since 14 Oct 2026, a link that fails both the surname test and the official result is refused (47 links; [the follow-up](../p6_data_issues/README.md)).*
 * **P6: the frozen lists.** They were taken from the map of 8 October. Matches that joined the map later (P4's TennisLive listings added 381 Challenger matches of 2025-26) are not targets.
 * **P6: box scores.** Only gaps 1-3 asked for them (15,814). For gaps 4-7 Stage 0 holds a box score for about 99% of the matches.
 * **Rights.** SofaScore's terms forbid automated extraction; it is collected on the owner's decision of 23 September 2026 ([point- and shot-level sources](../point_shot_sources/README.md#direct-download-24-september-2026)). The SirGenkii data has no licence and is a third party's decryption of ATP files, the kind the owner accepted for the Hugging Face copy on 25 September ([decision](../../decisions/2026-09-25-atp-pipeline-handoff.md)). The project decrypts nothing.
@@ -894,7 +976,7 @@ Offline, from P4's `listed.parquet` (`src/ingest/point_sources/tennislive_gaps.p
 4. **A page is asked for** when its link is confirmed and has a page URL, and is in the target's draw or has the reference's games per set.
 
 The rules come from a first, looser pass (any shared name word, in the edition's event, then three weeks around it). It linked 38,569 rows, but disagreed with the reference's winner for 66 and its score for 76, mostly a pair's other meeting elsewhere:
-* **Misdated editions.** Tennis My Life files the March 2018 Irving Challenger under Dallas's name and date (29 January) and Biella 2-7 of 2021 under Biella 1's (14 February). The same holds for several same-city Challengers of 2020-21 (Antalya, Forli, Istanbul, Oeiras, Nur-Sultan, Prague, Santiago). Their matches are found in another week: 881 rows.
+* **Misdated editions.** Tennis My Life files the March 2018 Irving Challenger under Dallas's name and date (29 January) and Biella 2-7 of 2021 under Biella 1's (14 February). The same holds for several same-city Challengers of 2020-21 (Antalya, Forli, Istanbul, Oeiras, Nur-Sultan, Prague, Santiago). Their matches are found in another week: 881 rows. *(Checked on 14 Oct: 14 February is Biella 2's own week, so only Biella 3-7's matches are dated wrong, by 3 weeks to 3½ months.)*
 * **Two events in one edition.** Tennis My Life's "Prague" of 2020 is Prague I and II, and Griekspoor and Coppejans met in the first round of both.
 * **API-Tennis files some Challenger qualifying matches as main-draw rounds** ("Final", "Semi-finals"). 101 of its rows link to a TennisLive qualifying match, and the 94 with the same score are fetched; 315 stay unconfirmed or unlinked.
 
@@ -916,7 +998,7 @@ The rules come from a first, looser pass (any shared name word, in the edition's
   * 1 with the score written loser first.
 
   402 confirmed rows have no reference row to check.
-* **The map holds about 900 of these matches twice.** 921 pages are linked by two of the map's matches: mostly a Tennis My Life row of a misdated edition and Sackmann's row of the same match (817), else two spellings of a name. Each page is fetched once, and on the map both copies are credited (`tennislive_gap_uids` in `src/eda/data_map/measure.py`).
+* **The map held about 900 of these matches twice** (until 14 Oct; [fixed then](#update-14-october-2026-each-misdated-match-held-once)). 921 pages are linked by two of the map's matches: mostly a Tennis My Life row of a misdated edition and Sackmann's row of the same match (817), else two spellings of a name. Each page is fetched once, and on the map both copies were credited (`tennislive_gap_uids` in `src/eda/data_map/measure.py`).
 * **In all:** 36,737 distinct pages; 30 were held already (the ten careers' and P4's samples).
 
 ### Trial [observed]
@@ -1027,9 +1109,29 @@ From the repository root (Git Bash):
 * **Partial records.** TennisLive's pages usually lack the game that closed each set: 2,286 of 38,772 records are complete, 1,725 of them Challengers of 2023-24. The map counts a partial record as "point", and that is why P6 froze its SofaScore lists before these pages reached the map; SofaScore's complete records of the same matches are still to come (P6 gaps 4-7).
 * **Links by names and scores.** 478 target rows are unconfirmed or not linked, most of them API-Tennis rows (315) whose rounds and scores look wrong. A reference row can itself be wrong, and the 402 matches without one are linked by the surname pair alone.
 * **TennisLive's statistics** were checked only where an official box score exists (37,394 rows); the 116 matches that differ are listed in the per-target tables (`box_differences`), with no judgement of which source is right.
-* **The map's duplicates** stay in the map: both copies of a match get the page's points, except 18 that share one key.
+* **The map's duplicates:** the misdated copies are held once since 14 Oct (below). 11 doubles of 2026's two-week events remain. The 18 "held twice under one key" above are, on the map of 14 Oct, real repeat meetings that share one key (below).
 * **Not on the leak-proof clock.** TennisLive's pages are not wired into `src/eda/match_timing/` or Stage 0, so the models do not see them; no `refresh.py` run is needed for them, and wiring them is separate work.
 * **Rights.** TennisLive's terms forbid automated extraction; collected under the owner's decision of 8 October 2026 ([decision](../../decisions/2026-10-08-scraping-approved.md)).
+
+### Update, 14 October 2026: each misdated match held once
+
+**Asked by the owner** on 14 Oct, quoting this section's report of the misdated editions and of the looser linking: "Fix this if it isnt already fixed" ([process log](process_log.md#p5-follow-up-tennis-my-lifes-misdated-challenger-editions)).
+
+* **The linking** was fixed in P5 itself: only links confirmed by the score were fetched and placed (above).
+* **Stage 0, the model's match table, never held these doubles** [observed].
+  * Its own linker joins a misdated Tennis My Life row to Sackmann's copy within a season when the set scores agree, and keeps Sackmann's row with its date.
+  * Its one misdated event is the 31 matches of the third Tenerife Challenger of 2024, dated 21 January, which Sackmann lacks. It is covered by the owner's decision of 14 Oct on the [P6 data-issues study](../p6_data_issues/README.md) ([decision](../../decisions/2026-10-14-p6-data-issues.md)), and that study is correcting it.
+* **The map: fixed** [observed; build of 14 Oct, 19:26 UTC].
+  * **The rule** (`repair_tml_dates` in `src/eda/data_map/measure.py`; tests in `test/data_map/test_tml_redate.py`). Before Tennis My Life's rows join the map, a row whose own match Sackmann's files (else TennisLive's listings) hold more than 10 days and at most a year away takes that date and tournament name. Its own match means the same pair, round and games per set, in an event of the same id or sharing a name word. A row with two such twins, or one at its own date, is left as it is.
+  * **Moved:** 1,841 rows (1,659 by Sackmann's twin, 166 by TennisLive's listing, 16 with the rest of their event), listed in `data/studies/data_map/tml_redated.csv`.
+  * **Against the P6 data-issues study's reviewed list of misdated editions:** 57 of its 68 are moved, 56 to its date. The 57th, the 2021 Australian Open qualifying played in Doha, lands one day apart. The other 11 are dated 7-9 days off, and the map's linker joins those to Sackmann's copy anyway.
+  * **Against its list of 1,586 doubles:** all 1,575 of this kind are gone. 1,548 are held once at their true date; the other 27 are pairs that really met twice that season (Sackmann lists both meetings).
+  * **The map:** 709,194 → 708,199 matches. Men's Challengers and their qualifying of 2018-25 lose 1,646 (2021: 6,914 → 6,313). The 2021 Biella events go from 454 to 298 matches (seven editions of 43 make 301).
+  * **The gap downloads stay attached.** Their frozen lists name the old copies, so the placement also reads the keys of the copies merged into each match (`placement_index`). Placed by their own links: all 34,453 SofaScore records, all 131 Flashscore records, and 36,851 of 36,903 TennisLive page rows.
+  * **The gaps** (map of 15:55 UTC → 19:26 UTC): `challenger_points_2018_2021` 737 → 666, `challenger_points_2022_2024` 232 → 217, `wta_2018_points` 51 and `qualifying_points_2018_2026` 216 unchanged.
+* **Not fixed here:**
+  * 11 doubles of another kind: the last rounds of 2026's two-week events (Australian Open, Indian Wells, Miami, Rome, Roland Garros). Tennis My Life dates them by the day played, 11 or more days after Sackmann's start date.
+  * **Shared keys, not doubles** [observed]. 17 pairs of Challenger matches share one key on the map (tour, event name, date, players and draw). In each, the same two players met at two editions a week apart that Tennis My Life files under one name and date: Burnie 2019 and 2020 (with Launceston's matches); Antalya 1, Potchefstroom 1, Split 1, Almaty, Salinas and Napoli 2021 (Napoli with Ercolano's); Oeiras 1, Shymkent 1 and Nonthaburi 1 2022; Nonthaburi 1 2023; Indian Wells 1 2024. So one row of each pair is 6-9 days from Sackmann's date for it, within the 10 days the rule leaves alone. Their Tennis My Life rows differ in round and score, and the map holds two matches for each pair, as it should. But one of each pair carries the other edition's date, and a download frozen under the shared key is placed by the map's own linker instead. The other keys that name two matches are 3 pairs that met in the round robin and again in the final of the ATP Finals, and 2 at ITF events (not checked).
 
 ## WTA website records after early September (work package P2(b))
 
@@ -1160,3 +1262,121 @@ From the repository root, in Git Bash:
 * **The website's own records.** One match has two winners; 28 losers have no id; ITF events the website does not carry would be missing from it (one such event is suspected, Wagga Wagga).
 * **Not on the leak-proof clock, nor in Stage 0.** The results reach the map only. The map reads them with the Kaggle copy (`measured_as: wta_site`). `src/eda/match_timing/` and Stage 0 do not read them, and the lower-level evidence study's candidate Stage 0 reads the Kaggle copy (version 29) alone. Wiring them in is separate work, and new lower-level history enters the model only as a candidate (CLAUDE.md).
 * **Rights.** wtatennis.com forbids automated access and harvesting; collected under the owner's decision of 8 October 2026 ([decision](../../decisions/2026-10-08-scraping-approved.md)).
+
+## Bookmaker odds below the 250s (work package P11)
+
+**Status: collecting, from 22 October 2026, 12:51 UTC.** [Work package P11](collection-plan.md#p11-bookmaker-odds-below-the-250s-probe-then-collect) asks which public site holds bookmakers' opening and closing odds for Challenger, WTA 125 and ITF matches of 2018-2026, to collect from the best one, and to test a forward capture of closing lines. Prices stay out of git: every table under `data/studies/` here holds counts and flags only. [Process log](process_log.md#work-package-p11-bookmaker-odds-below-the-250s-probe-collect-forward-capture).
+
+**In short:**
+* **TennisExplorer is the best source at every level** [observed]. Where BetExplorer lists a level, TennisExplorer lists as much. It alone has Pinnacle, opening prices and every price change with its time, ITF matches of 2019, and ITF qualifying. OddsPortal could not be read past its anti-bot layer.
+* **Pinnacle below the tour level** (the probe's match pages): on 40 of 40 Challenger and WTA 125 main-draw matches, 25 of 40 ITF main-draw matches (2 of 10 in 2019, 7-8 of 10 in 2022-26), 6 of 13 Challenger and WTA 125 qualifying matches, and 0 of 16 ITF qualifying matches.
+* **The collection is running** in the background, newest day first, back to January 2018: about 250 priced matches a day of October 2026, about 105 of January 2026; roughly 400,000 requests, two weeks or so if nothing stops it (2025-26 in about four to five days).
+* **The forward-capture test is running:** Pinnacle's listing read every 10 minutes, each lower-level match's last price before its start compared with TennisExplorer's record after play. Its result comes when the site's pages of 22-23 Oct are in.
+
+### The sample
+
+One week per year, drawn with a fixed seed among the weeks that hold a WTA 125 and several men's Challengers and ITF events of both tours: 25 Feb 2019, 9 May 2022, 14 Jul 2025 and 5 Jan 2026. Every map match of those weeks' Challenger, WTA 125 and ITF editions (main draw and qualifying) is in it: 6,043 matches. Each site was read by day over each week's span of play (the Saturday before to the Sunday after). For a few matches per level and year (5 main-draw, 2 qualifying), the first ones in a fixed random order that the site lists, the match's odds were read book by book.
+
+### What each site holds [observed]
+
+Requests: BetExplorer 141, TennisExplorer 181 (after the other session's TennisExplorer download ended at 12:07 UTC; one collector per site), OddsPortal 24. No site refused: every answer was HTTP 200 except one OddsPortal address that the probe guessed (404).
+
+| Sample matches listed: TennisExplorer / BetExplorer | 2019 | 2022 | 2025 | 2026 |
+|---|---:|---:|---:|---:|
+| Men's Challengers | 140 / 138 of 141 | 153 / 153 of 190 | 114 / 112 of 123 | 150 / 150 of 154 |
+| WTA 125 | 47 / 43 of 48 | 60 / 60 of 60 | 61 / 61 of 62 | 31 / 31 of 31 |
+| Men's ITF main draw | 175 / 30 of 184 | 400 / 405 of 415 | 512 / 504 of 524 | 210 / 211 of 218 |
+| Women's ITF main draw | 204 / 0 of 215 | 382 / 376 of 407 | 444 / 441 of 463 | 195 / 196 of 200 |
+| Men's Challenger qualifying | 5 / 0 of 5 | 77 / 75 of 80 | 72 / 70 of 72 | 90 / 86 of 90 |
+| ITF qualifying, both tours | 212 / 0 of 219 | 756 / 0 of 792 | 910 / 0 of 945 | 351 / 0 of 359 |
+
+Each site misses 37 of the 2022 Challengers, 33 of them the same matches. Main-draw matches that TennisExplorer lists nearly all show prices. ITF qualifying shows prices less often: 93 of 219 in 2019, 366 of 792 in 2022, 229 of 945 in 2025, 128 of 359 in 2026.
+
+**TennisExplorer's match pages** (5 main-draw and 2 qualifying matches per level and year, the first in a fixed random order that the site lists with prices; 109 pages):
+
+| | Books (median) | Pinnacle |
+|---|---:|---:|
+| Challengers and WTA 125s, main draw | 15-16 | 40 of 40 |
+| ITF main draw | 5 (2019), 12-15 (2022-26) | 25 of 40 (2019 2, 2022 8, 2025 8, 2026 7, of 10 each) |
+| Challenger and WTA 125 qualifying | 3-16 | 6 of 13 (none before 2025) |
+| ITF qualifying | 2-7 | 0 of 16 |
+
+* **Each book's price comes with every change and its time, and the opening with its time.** Pinnacle's prices carry times on 67 of the 71 pages that show it. The site's day listing shows the books' average last price for every listed match.
+* **Pinnacle's last change** came a median 98 minutes before the listed start (a quarter within 29 minutes, a quarter more than 3.8 hours before; one a minute after the start). Whether that last price is Pinnacle's close is what the forward-capture test checks (below).
+
+**BetExplorer** has odds on every match it lists, from 4 to 16 books (a median of 7-11 for ITF, 14-16 for Challengers and WTA 125s), each with its closing price and the time it was set. But:
+* it shows **no Pinnacle** from this connection, as the Pinnacle-gap research found at tour level;
+* its odds table has **no opening price**: that takes one more request per book and side;
+* it lists **no ITF qualifying, and almost no ITF of 2019**.
+
+**OddsPortal:**
+* Its pages are script shells. The match lists come from feeds that the page decrypts (AES with a key in its public script). The project decrypted one with the page's own steps, which the 8 October decision covers.
+* **The date feed serves only the last 30 days**; older matches sit in per-tournament archives.
+* **A match's odds load behind an anti-bot layer:** a proof token the page mints every few minutes, and honeypot links. Getting past that is outside the 8 October decision, so the probe stopped there.
+* Its books carry BetExplorer's numbering (the two sites share their odds), so it would likely repeat BetExplorer's prices. Whether it shows Pinnacle to this region is unknown.
+
+### The choice
+
+The plan's rule was the best closing coverage at each level, then Pinnacle (the model's odds input is Pinnacle first). **TennisExplorer wins at every level:** it ties BetExplorer on Challengers, WTA 125s and ITF main draws of 2022-26, is alone on ITF of 2019 and on ITF qualifying, and alone has Pinnacle and opening prices. Collected: `src/ingest/tennisexplorer_lower.py`.
+
+### The collection
+
+**How it works:**
+* Day by day, newest first: the day's two results pages (men and women), then the page of every in-scope match the day lists with prices.
+* **In scope:** Challengers (any type on the site's calendar), the men's ITF the site lumps as "Futures", and every event the calendar does not type as tour level: women's ITF and WTA 125s. Main draws and qualifying alike.
+* **Out of scope:** the tour level (the tour adapter's), exhibitions, leagues, team and UTR events. Matches listed without prices have no book on their page and are not asked.
+* **Its own folders** (`data/raw/tennisexplorer_lower/`, `data/dump/odds/tennisexplorer_lower/`), so a lower-level page never reaches the tour-level staging that the model's odds input reads.
+* **It waits** whenever the tour-level adapter (the daily `pinnacle_closes` job) or the model's odds step uses the site.
+* **Pace:** 2.5 seconds plus up to 1 between requests, the tour adapter's pace, which held for 10,000 pages without a refusal. It stops at the first refusal.
+
+**Trials [observed]:**
+
+| | Requests | Match pages | Pinnacle on | Books (median) |
+|---|---:|---:|---|---|
+| A: 20-21 Oct 2026 (budget 500, used up) | 500 | 494, all parsed | Challengers 66 of 76; men's ITF main 157 of 235; women's ITF and WTA 125 83 of 145; men's ITF qualifying 0 of 38 | 15, 9, 11, 2 |
+| B: 26 Feb 2019 | 132 | 128, all parsed | Challengers 35 of 35; women's ITF and WTA 125 main 14 of 37; men's ITF main 0 of 26; qualifying 0 of 30 | 15, 5, 5, 3 |
+
+* *Expected* (shared rule 5), from the probe's own day listings: about 105 priced matches a day (the January 2026 week). Trial A reached about 250 a day, as October is busier.
+* 250 of trial A's 306 Pinnacle rows carry times. The rest show one price with no change table.
+
+**The bulk** started at 12:51 UTC on 22 Oct, detached: runs of 10,000 requests, each staged after it, newest day first from 21 Oct back to 1 Jan 2018.
+* *Expected [inference]:* roughly 400,000 requests at about 1,200 an hour, so about two weeks, if nothing stops it. 2025-26 should be done in about four to five days.
+* *Progress:* the data map's `in_progress` line, and `data/raw/tennisexplorer_lower/_logs/bulk.log`.
+
+### Forward capture of closing lines: running
+
+Pinnacle's whole tennis listing is read every 10 minutes for 36 hours (from 04:50 UTC on 22 Oct), into its own folders, apart from the bet-day recorder's. Each lower-level matchup's last price before its start is its captured close. The test compares it with TennisExplorer's record of the same match after play: whether the site's Pinnacle price is the same, and how close to the start each was set. The first pull listed 164 lower-level moneylines (149 open pre-match). By 12:57 UTC on 22 Oct, 106 had started: their last captured price came a median 10 minutes before the listed start for ITF (96 matches) and 6 minutes for Challengers (10) [observed]. So Pinnacle keeps these markets open until close to the start, and a 10-minute poll captures a near-close price. The site's pages of 22-23 Oct come with the bulk's next runs, which start each time from the newest day.
+
+### Running and resuming P11
+
+From the repository root, in Git Bash:
+
+```
+./python.sh src/eda/gap_downloads/odds_probe.py --report                       # offline: every probe measure
+./python.sh -m src.ingest.tennisexplorer_lower --stage-only                    # offline: restage the changed months
+./python.sh src/eda/gap_downloads/pinnacle_capture.py --closes                 # offline: the captured closes
+./python.sh src/eda/gap_downloads/pinnacle_capture.py --compare                # offline, once the site's pages of those days are in
+```
+
+* **The bulk** runs detached. If it stopped (the PC slept or restarted, or a run ended on a refusal), start it again from PowerShell; it resumes where the receipts end, and days already done are skipped without a request:
+  ```
+  $env:BUDGET="10000"; $env:MAX_RUNS="60"; $env:SINCE="2018-01-01"; Start-Process -WindowStyle Hidden -FilePath "C:\Program Files\Git\bin\bash.exe" -ArgumentList '-l','-c','"/c/Users/zerom/Documents/Tennis-predictions/src/ingest/tennisexplorer_lower_bulk.sh"'
+  ```
+  A refusal (exit 2 in `bulk.log`) is a block: wait at least a day before restarting, and check that the daily `pinnacle_closes` job gets through first.
+* **The capture** runs detached (`src/eda/gap_downloads/pinnacle_capture.sh`, log in `data/raw/pinnacle_capture/_logs/`). If it stopped early, rerun it the same way; each pull is its own file.
+
+### Files
+
+* *Probe evidence* (counts and flags, no price): `data/studies/gap_downloads/odds_probe_sample.csv` and `.json` (the sample); `odds_probe_<site>.csv.gz` (one row per sample match: listed, priced, and on the detail matches the number of books, Pinnacle, times) and `.json` (by level and year), for `betexplorer` and `tennisexplorer`. Made by `src/eda/gap_downloads/odds_probe.py`.
+* *Collection evidence:* `tennisexplorer_lower_summary.json` (the last run and counts by month) and `runs.jsonl`.
+* *Raw* (gitignored): `data/raw/odds_probe/<site>/`, `data/raw/tennisexplorer_lower/`, `data/raw/pinnacle_capture/`, each with `_receipts.jsonl`.
+* *Staged* (gitignored): `data/dump/odds/tennisexplorer_lower/{listed,matches,odds,moves}/<month>.parquet`, every column a string; `data/dump/odds/pinnacle_capture/pulls/`.
+* *Tests:* `test/gap_downloads/test_odds_probe.py`, `test_tennisexplorer_lower.py`, `test_pinnacle_capture.py` (synthetic pages, made-up prices).
+
+### Limits
+
+* **The samples are small:** 5 main-draw and 2 qualifying match pages per level and year in the probe. The trials' 622 pages are the better guide to Pinnacle's share.
+* **"Closing" is the site's last recorded price.** How close it is to Pinnacle's true close below the tour level is the forward-capture test's question, still open. At tour level it matched Pinnacle's own price to the cent on 93% of readings ([Pinnacle-gap research](../../research/pinnacle-gap/README.md)).
+* **Not linked to the map or Stage 0.** The staged tables keep the site's match ids and names. Linking them to the project's matches is separate work, as is anything the model would read: new lower-level data enters the model only as a tested candidate (CLAUDE.md). Odds are not counted on the data map's match table.
+* **The same site as the daily `pinnacle_closes` job.** A block of the bulk would also block that job, which the model's odds input reads from November 2025. Hence the tour adapter's pace, the wait whenever it runs, and the stop at the first refusal.
+* **Rights.** TennisExplorer's, BetExplorer's and OddsPortal's terms restrict automated extraction; collected under the owner's decision of 8 October 2026 ([decision](../../decisions/2026-10-08-scraping-approved.md)). Never republish: this repository is public.

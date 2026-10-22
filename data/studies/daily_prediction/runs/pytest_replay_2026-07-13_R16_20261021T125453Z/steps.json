@@ -1,0 +1,142 @@
+{
+ "worktree": {
+  "seconds": 31.2,
+  "result": {
+   "work_tree": "C:\\Users\\zerom\\tnr_daily_pytest",
+   "replay": true,
+   "dump_view": "C:\\Users\\zerom\\tnr_dump_freeze_1016",
+   "seconds": 31.1,
+   "constants_from": "C:\\Users\\zerom\\Documents\\Tennis-predictions\\data\\studies\\daily_prediction\\state\\template_2026-10-16\\2026-06-22",
+   "constants_replaced": {
+    "data/studies/predictability_diagnostic/stage1_baselines_summary.json": {
+     "before": "3c55a8bb29ed233d74826db6c6fc438a7317af3ce28c7c903257f7493896bbaf",
+     "after": "da8a1e22b29b73fb728d090d31e4e42fbcf3d4b626ddd8d2aae1fd669ad793fd"
+    },
+    "data/studies/predictability_diagnostic/stage3_ratings_summary.json": {
+     "before": "05209c18235f96b732b545c5d5c50bd4303d0d802ba11afa4039d18fc0544b7b",
+     "after": "f228cbe0bff9b7628a4838b5e0a05783d99485f4945d86959d94d9072ace777f"
+    },
+    "data/studies/predictability_diagnostic/stage4_constants.csv": {
+     "before": "775d71e473574078f10bb97f303baf60a9f6ae9448b529c9a40672b98806224e",
+     "after": "35f30cab978dbb2bef406b605cdd38f58d02365dcb69a92720754f320909a822"
+    },
+    "data/studies/surface_elo_pieces/pieces_meta.json": {
+     "before": "766589ccfff670729915ce2f86db543ae46fba930b75332a4cb84c3c4858d714",
+     "after": "f7d666c522d9b9333892bb6a9e855dd6743d3e75c735c50e9fd2bad628bdd1d5"
+    }
+   }
+  }
+ },
+ "matchups": {
+  "seconds": 3.4,
+  "result": {
+   "kind": "replay",
+   "week": "2026-07-13",
+   "round": "R16",
+   "placeholder_winner": "A",
+   "dating": "training",
+   "targets": 23,
+   "left_out_later": 52,
+   "placeholder_reverses_result": 10,
+   "by_event": [
+    {
+     "tour": "atp",
+     "tournament_name": "Bastad",
+     "matches": 4
+    },
+    {
+     "tour": "atp",
+     "tournament_name": "Gstaad",
+     "matches": 3
+    },
+    {
+     "tour": "atp",
+     "tournament_name": "Umag",
+     "matches": 8
+    },
+    {
+     "tour": "wta",
+     "tournament_name": "Athens",
+     "matches": 4
+    },
+    {
+     "tour": "wta",
+     "tournament_name": "Iasi",
+     "matches": 4
+    }
+   ],
+   "base_tree": "C:\\Users\\zerom\\tnr_tpl1016",
+   "frame": "C:\\Users\\zerom\\Documents\\Tennis-predictions\\data\\studies\\current_best_model\\template_2026-10-16\\model_frame.parquet"
+  }
+ },
+ "prices": {
+  "seconds": 0.1,
+  "result": {
+   "priced": 23,
+   "sources": {
+    "instance frame p_mkt (betonline)": 19,
+    "instance frame p_mkt (average)": 4
+   },
+   "quoted_at_given": 0
+  }
+ },
+ "tables": {
+  "seconds": 375.2,
+  "result": {
+   "steps": {
+    "stage0": 108.0,
+    "additions": 227.9,
+    "check": 0.7,
+    "lle_layer": 18.2,
+    "odds": 6.1,
+    "live_odds": 0.8
+   },
+   "history": "run beside the states step (history.json)",
+   "timeline_held": {
+    "rows": 926932,
+    "of_instance_rows": 926984,
+    "sha256": "c82f0f446f8f89debfc23e20519dbe7db02d1d4ac50d3712bd2df2ba0f38349c",
+    "source": "C:\\Users\\zerom\\tnr_tpl1016\\data\\studies\\match_timing\\timing.parquet"
+   }
+  }
+ },
+ "history": {
+  "seconds": 0.0,
+  "result": {
+   "history": "history vs the reference of 2026-10-08: future 250 and updated 6 (allowed); accepted 56,713 (allowed: lower-level additions 53,303, completions 418, decided repairs 2,992); main-tour changes 84 (allowed, listed: new past 1, dropped 53, revised 30); Tennis My Life's own lower-level changes 104 (allowed, decided 13 Oct: new past 39, dropped 45, revised 20); lower-level new past 0, dropped 0, revised 0 -> the template may be built",
+   "ran_seconds": 57.3
+  }
+ },
+ "states": {
+  "seconds": 166.0,
+  "result": {
+   "checkpoint": "C:\\Users\\zerom\\Documents\\Tennis-predictions\\data\\studies\\daily_prediction\\state\\template_2026-10-16\\2026-06-22",
+   "parts_summary": {
+    "resumed": 20,
+    "slice changed: recomputed in full": 1
+   },
+   "seconds": {
+    "offset": 7.0,
+    "stage3": 7.4,
+    "stage4_rows": 51.2,
+    "weighted": 6.7,
+    "stage4_inputs": 3.9,
+    "pieces": 3.9,
+    "context": 5.1,
+    "waited_for_forms_and_ios": 73.9,
+    "forms_rows": 16.4,
+    "forms_context": 40.2,
+    "forms": 87.4,
+    "forms_family": 144.0,
+    "ios_cache": 39.4,
+    "ios_runs": 14.5,
+    "ios_family": 53.9,
+    "total": 159.6
+   },
+   "gate": {
+    "live_matches": 23,
+    "complete": 23
+   }
+  }
+ }
+}
