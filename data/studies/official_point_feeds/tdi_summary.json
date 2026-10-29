@@ -1,6 +1,6 @@
 {
  "source": "tdi",
- "started_at": "2026-10-21T12:40:32+00:00",
+ "started_at": "2026-10-26T15:07:49+00:00",
  "args": {
   "max_requests": 1000,
   "pages": false,
@@ -22,81 +22,81 @@
  },
  "decision": "docs/decisions/2026-09-25-tdi-tennis-results.md",
  "sweep": {
-  "sweep": "20261021T124032Z",
+  "sweep": "20261026T150749Z",
   "event": "started",
-  "at": "2026-10-21T12:40:32+00:00",
+  "at": "2026-10-26T15:07:49+00:00",
   "kind": "recent",
-  "first_day": "2026-10-11",
-  "last_day": "2026-10-21",
+  "first_day": "2026-10-16",
+  "last_day": "2026-10-26",
   "settle_days": 3,
   "tournaments_from": null
  },
  "listings": {
-  "sweep": "20261021T124032Z",
+  "sweep": "20261026T150749Z",
   "planned": 12,
   "missing": 0,
   "finished": true,
   "missing_examples": []
  },
- "matches_selected": 6898,
+ "matches_selected": 7207,
  "pages": {
   "source": "index",
-  "ids": 6898,
-  "done_before": 6752,
-  "fetched": 146,
+  "ids": 7207,
+  "done_before": 6898,
+  "fetched": 309,
   "remaining": 0,
   "asked_again": 0
  },
  "fetch_outcomes": {
-  "date:200": 6,
-  "date:200:cached": 5,
+  "date:200": 9,
+  "date:200:cached": 2,
   "home:200": 1,
-  "match:200": 146
+  "match:200": 309
  },
  "client": {
   "impersonate": "chrome",
-  "requests": 153,
+  "requests": 319,
   "retried": 0,
-  "slept_seconds": 172.7,
+  "slept_seconds": 358.4,
   "min_interval": 2.0,
   "jitter": 1.0,
   "not_found_answers": 0
  },
  "staged": {
   "listing_pages": {
-   "rows": 250,
+   "rows": 260,
    "dest": "data/dump/points/tdi/listing_pages.parquet",
-   "bytes": 38764
+   "bytes": 39802
   },
   "listing_cards": {
-   "rows": 15333,
+   "rows": 16038,
    "dest": "data/dump/points/tdi/listing_cards.parquet",
-   "bytes": 587457
+   "bytes": 611311
   },
   "match_ids": {
-   "rows": 6898,
+   "rows": 7207,
    "dest": "data/dump/points/tdi/match_ids.parquet",
-   "bytes": 442993
+   "bytes": 460216
   },
   "filter_tournaments": {
-   "rows": 114,
+   "rows": 121,
    "dest": "data/dump/points/tdi/filter_tournaments.parquet",
-   "bytes": 10678
+   "bytes": 11087
   },
   "filter_players": {
-   "rows": 2752,
+   "rows": 2761,
    "dest": "data/dump/points/tdi/filter_players.parquet",
-   "bytes": 133565
+   "bytes": 134163
   },
   "reports": {
    "date_listings": {
-    "in_window": 151,
+    "in_window": 160,
     "outside_window": 3
    },
    "in_window_days": {
-    "count": 121,
+    "count": 126,
     "first": "2026-06-23",
-    "last": "2026-10-21"
+    "last": "2026-10-26"
    },
    "cards_off_their_listing_day": 0,
    "most_cards_on_a_date_listing": 93,
@@ -107,30 +107,32 @@
     "list/date/2026-10-08@20261008T193400Z": 8,
     "list/date/2026-10-08@20261008T193546Z": 8,
     "list/date/2026-10-12@20261012T151132Z": 22,
-    "list/date/2026-10-19@20261019T152954Z": 34
+    "list/date/2026-10-19@20261019T152954Z": 34,
+    "list/date/2026-10-20@20261021T124032Z": 1,
+    "list/date/2026-10-21@20261021T124032Z": 40
    },
-   "match_ids": 6898,
+   "match_ids": 7207,
    "match_ids_by_draw_type": {
-    "doubles": 1578,
-    "singles": 5320
+    "doubles": 1662,
+    "singles": 5545
    },
-   "match_ids_in_date_listings": 6898,
+   "match_ids_in_date_listings": 7207,
    "match_ids_in_tournament_listings": 5141,
    "only_in_date_listings": {
-    "inside_days_read": 1757
+    "inside_days_read": 2066
    },
    "only_in_tournament_listings": {},
    "only_in_date_listings_examples": [
+    "002264de-9383-4b55-b870-c6d09f825682",
     "0075f435-fd77-47b0-8289-19a1438e973a",
+    "00cec86a-413a-4c86-a0b4-e97310e9c3e2",
     "01593e9e-fda7-4990-8f80-6702199ecd83",
     "015cebd9-ebf2-4fb2-b5a8-e1badc0bc316",
     "01788eed-c242-4a4f-a653-faa4dd1bde6c",
     "017d8d23-8dd0-4a33-b6e9-7fa90589ec5f",
     "01c28da0-c1f3-4949-8c08-2f062af4014f",
-    "0207d9fd-cea1-4e12-ba09-6821adad9512",
-    "0239b403-59d0-4370-a337-97f8cdde034d",
-    "0260f3fc-155f-4e8f-a3df-12a94be847f3",
-    "028c713b-8370-43cd-9fe8-296dc4e36c5e"
+    "0205c510-945f-4aaa-ae5d-72c5d3e26e12",
+    "0207d9fd-cea1-4e12-ba09-6821adad9512"
    ],
    "only_in_tournament_listings_examples": [],
    "ids_with_conflicts": 20,
@@ -144,49 +146,49 @@
    ]
   },
   "points": {
-   "rows": 1024951,
+   "rows": 1066676,
    "dest": "data/dump/points/tdi/points.parquet",
-   "bytes": 24120582
+   "bytes": 25262916
   },
   "matches": {
-   "rows": 7532,
+   "rows": 7841,
    "dest": "data/dump/points/tdi/matches.parquet",
-   "bytes": 1925632
+   "bytes": 1998496
   },
   "statistics": {
-   "rows": 628025,
+   "rows": 653550,
    "dest": "data/dump/points/tdi/statistics.parquet",
-   "bytes": 3480313
+   "bytes": 3629588
   },
   "players": {
-   "rows": 1573,
+   "rows": 1595,
    "dest": "data/dump/points/tdi/players.parquet",
-   "bytes": 132765
+   "bytes": 134928
   },
   "pages": {
    "records": {
-    "points": 7522,
-    "no points": 10
+    "points": 7826,
+    "no points": 15
    },
    "records_by_id_list": {
-    "index|points": 6888,
+    "index|points": 7192,
     "wayback|points": 634,
-    "index|no points": 10
+    "index|no points": 15
    },
    "documents_by_http_status": {
-    "200": 6853,
+    "200": 7162,
     "404": 679
    },
    "documents_by_level_draw": {
-    "challenger|doubles|main": 1201,
-    "challenger|singles|main": 2619,
-    "challenger|singles|qualifying": 1493,
-    "tour|doubles|main": 337,
-    "tour|doubles|qualifying": 9,
-    "tour|singles|main": 756,
-    "tour|singles|qualifying": 270,
-    "unknown|doubles|main": 183,
-    "unknown|singles|main": 416,
+    "challenger|doubles|main": 1243,
+    "challenger|singles|main": 2683,
+    "challenger|singles|qualifying": 1569,
+    "tour|doubles|main": 362,
+    "tour|doubles|qualifying": 12,
+    "tour|singles|main": 801,
+    "tour|singles|qualifying": 294,
+    "unknown|doubles|main": 197,
+    "unknown|singles|main": 432,
     "unknown|singles|qualifying": 248
    },
    "documents_by_month": {
@@ -200,14 +202,15 @@
     "2026-07": 1889,
     "2026-08": 1622,
     "2026-09": 1755,
-    "2026-10": 1330
+    "2026-10": 1639
    },
    "level_sources": {
-    "name": 677,
-    "sackmann_2025": 5484,
-    "None": 847,
+    "name": 704,
+    "sackmann_2025": 5715,
+    "None": 877,
     "sackmann_2026": 462,
-    "sackmann_2022": 62
+    "sackmann_2022": 62,
+    "sackmann_2019": 21
    },
    "unknown_level_tournaments": {
     "Samsun Open": 64,
@@ -215,6 +218,7 @@
     "TENNIS WAREHOUSE OPEN": 64,
     "ETHIAS PROVINCE OPEN": 64,
     "Indiana Hardcourt Championships": 63,
+    "Banca Mediolanum Florence Open": 63,
     "WUNING OPEN 3": 63,
     "53^ CAMPIONATI INTERNAZIONALI DI SICILIA": 63,
     "Levante Open": 62,
@@ -222,10 +226,9 @@
     "AXA OPEN DE SION": 62,
     "Kingston Open 2": 61,
     "Kingston Open 1": 61,
-    "Bolivia Open Santa Cruz de la Sierra 2": 61,
-    "Banca Mediolanum Florence Open": 33
+    "Bolivia Open Santa Cruz de la Sierra 2": 61
    },
-   "points": 1024951,
+   "points": 1066676,
    "outcome_fill_by_level_month": {
     "challenger|2025-05": 0.377,
     "challenger|2025-11": 0.946,
@@ -236,7 +239,7 @@
     "challenger|2026-07": 0.779,
     "challenger|2026-08": 0.811,
     "challenger|2026-09": 0.794,
-    "challenger|2026-10": 0.811,
+    "challenger|2026-10": 0.81,
     "tour|2025-05": 0.566,
     "tour|2025-10": 1.0,
     "tour|2025-11": 0.772,
@@ -247,32 +250,32 @@
     "tour|2026-07": 0.773,
     "tour|2026-08": 0.816,
     "tour|2026-09": 0.773,
-    "tour|2026-10": 0.798,
+    "tour|2026-10": 0.787,
     "unknown|2026-07": 0.789,
     "unknown|2026-08": 0.805,
     "unknown|2026-09": 0.826,
-    "unknown|2026-10": 0.826
+    "unknown|2026-10": 0.805
    },
    "point_id_mismatches": 0,
    "points_extra_keys": {},
    "without_atp_code": 0,
    "players_in_header": {
-    "4": 1730,
-    "2": 5802
+    "4": 1814,
+    "2": 6027
    }
   }
  },
  "receipts": {
-  "list/date:200": 154,
-  "list/home:200": 9,
+  "list/date:200": 163,
+  "list/home:200": 10,
   "list/player:200": 1,
   "list/tournament:200": 86,
-  "match:200": 6853,
+  "match:200": 7162,
   "match:404_with_points": 679
  },
  "receipts_with_errors": 0,
  "receipts_unreadable_lines": 0,
  "error_examples": [],
- "finished_at": "2026-10-21T12:57:42+00:00",
- "seconds": 1030.3
+ "finished_at": "2026-10-26T15:25:44+00:00",
+ "seconds": 1075.3
 }

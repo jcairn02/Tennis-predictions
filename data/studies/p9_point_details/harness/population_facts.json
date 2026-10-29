@@ -1,0 +1,408 @@
+{
+ "generated_at": "2026-10-28T09:10:05",
+ "instance": "template_2026-10-21b",
+ "window": [
+  "2025-01-01",
+  "2026-10-18"
+ ],
+ "window_day": "the match clock's obs, floored (timing.parquet)",
+ "inputs": {
+  "stage0": "data\\studies\\predictability_diagnostic\\stage0_matches.parquet",
+  "stage0_sha256": "2f79cfdd0568870e3adeb30251bfa7c686cac999c98812d7d063837accec9f0b",
+  "timing_sha256": "f58588e5df80d4b72e4558c82a8773dcc5826d018504470bb9127669158d1a7e",
+  "instance_frame_sha256": "e99212c92215d5a82d6f364ff2c478c8018fd08aa1a6999332799478ee407834"
+ },
+ "matches": {
+  "window_rows": 25981,
+  "status": {
+   "challenger|main|completed": 12506,
+   "challenger|main|other": 16,
+   "challenger|main|retired": 520,
+   "challenger|main|walkover": 60,
+   "challenger|qualifying|completed": 5174,
+   "challenger|qualifying|retired": 194,
+   "challenger|qualifying|walkover": 38,
+   "tour|main|completed": 4789,
+   "tour|main|other": 1,
+   "tour|main|retired": 165,
+   "tour|main|walkover": 37,
+   "tour|qualifying|completed": 2402,
+   "tour|qualifying|retired": 72,
+   "tour|qualifying|walkover": 7
+  },
+  "nonstandard_format": {
+   "Next Gen Finals": 15
+  },
+  "left_out": {
+   "walkover": 142,
+   "other_status": 17,
+   "nonstandard_format_played": 15
+  }
+ },
+ "tour_main_prices": {
+  "te_link": {
+   "linked": 4989,
+   "linked_pass2_names": 71,
+   "linked_pass2_close": 107,
+   "none": 20,
+   "several": 0,
+   "frame_rows": 5009,
+   "with_pinnacle": 4862
+  },
+  "rule": "2026-10-21",
+  "rule_before_reproduces_instance": {
+   "matches": 67531,
+   "max_abs_diff": 0.0,
+   "same_source": 67531
+  },
+  "te_link_winner_check": {
+   "linked": 4989,
+   "checked": 4989,
+   "agree": 4989,
+   "disagree": 0
+  }
+ },
+ "challenger_link": {
+  "stage0_matches": 18394,
+  "te_pages_men_challenger": 20951,
+  "te_files": {
+   "2024-12": {
+    "rows": 2051,
+    "mtime": "2026-10-26T11:52:58.078982"
+   },
+   "2025-01": {
+    "rows": 3472,
+    "mtime": "2026-10-26T11:53:46.337228"
+   },
+   "2025-02": {
+    "rows": 3591,
+    "mtime": "2026-10-26T11:54:40.328001"
+   },
+   "2025-03": {
+    "rows": 5368,
+    "mtime": "2026-10-26T03:19:47.437942"
+   },
+   "2025-04": {
+    "rows": 4442,
+    "mtime": "2026-10-26T03:20:49.635517"
+   },
+   "2025-05": {
+    "rows": 5253,
+    "mtime": "2026-10-25T18:51:36.291336"
+   },
+   "2025-06": {
+    "rows": 5710,
+    "mtime": "2026-10-25T18:53:16.594510"
+   },
+   "2025-07": {
+    "rows": 6518,
+    "mtime": "2026-10-25T10:24:31.751437"
+   },
+   "2025-08": {
+    "rows": 5739,
+    "mtime": "2026-10-25T01:49:28.249835"
+   },
+   "2025-09": {
+    "rows": 6224,
+    "mtime": "2026-10-25T01:51:28.062299"
+   },
+   "2025-10": {
+    "rows": 6079,
+    "mtime": "2026-10-24T17:21:25.050559"
+   },
+   "2025-11": {
+    "rows": 5489,
+    "mtime": "2026-10-24T17:22:54.156536"
+   },
+   "2025-12": {
+    "rows": 1550,
+    "mtime": "2026-10-24T08:48:45.282434"
+   },
+   "2026-01": {
+    "rows": 3516,
+    "mtime": "2026-10-24T08:49:46.567211"
+   },
+   "2026-02": {
+    "rows": 4069,
+    "mtime": "2026-10-24T08:50:58.258642"
+   },
+   "2026-03": {
+    "rows": 5178,
+    "mtime": "2026-10-24T00:15:23.659547"
+   },
+   "2026-04": {
+    "rows": 5248,
+    "mtime": "2026-10-24T00:16:39.105149"
+   },
+   "2026-05": {
+    "rows": 6091,
+    "mtime": "2026-10-23T15:51:31.847177"
+   },
+   "2026-06": {
+    "rows": 6623,
+    "mtime": "2026-10-23T07:16:54.392520"
+   },
+   "2026-07": {
+    "rows": 7033,
+    "mtime": "2026-10-23T07:18:33.441760"
+   },
+   "2026-08": {
+    "rows": 5219,
+    "mtime": "2026-10-22T22:54:56.512771"
+   },
+   "2026-09": {
+    "rows": 5939,
+    "mtime": "2026-10-22T14:28:48.175735"
+   },
+   "2026-10": {
+    "rows": 5570,
+    "mtime": "2026-10-28T06:45:46.158035"
+   }
+  },
+  "pass1_day_names": 18172,
+  "pass2_window_names": 4,
+  "pass3_event_close_names": 125,
+  "several": 8,
+  "none": 85,
+  "page_claimed_twice": 8,
+  "winner_check": {
+   "agree": 18292,
+   "disagree": 1
+  },
+  "draw_check": {
+   "agree": 18293
+  },
+  "refused_winner_disagrees": 1,
+  "linked_after_checks": 18292
+ },
+ "model_main": {
+  "fits": "template_2026-10-21b/fits, seasons 2019-2026, seeds 0-15 (checked: training shape = the expanding window 2013..Y-1, td ids = the season's frame ids in order)",
+  "params_both_stages": {
+   "2025": [
+    0.9108188621428502,
+    0.9342483023489672,
+    0.026500841025460492,
+    0.03208942707801728,
+    0.0229610184309432
+   ],
+   "2026": [
+    0.900547673630654,
+    0.9239949975442991,
+    0.036552531207671074,
+    0.04258998088554484,
+    0.02032067069670911
+   ]
+  },
+  "params_stage1": {
+   "2025": [
+    0.9118205056935502,
+    0.9342483023489672,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "2026": [
+    0.9015941046130267,
+    0.9239949975442991,
+    0.0,
+    0.0,
+    0.0
+   ]
+  },
+  "params_reproduce_qualifying_study_main_draw": {
+   "max_abs_diff": 0.0
+  },
+  "speed_column": "data\\studies\\current_best_model\\template_2026-10-21b\\stage2_speed_columns.parquet",
+  "speed_filled_with_0_men_test": 0,
+  "results_read": "the instance frame's a_won of 2019-2026 (2019..Y-1 for the fits; 2025-2026 scored)"
+ },
+ "model_qual": {
+  "fits": "data/studies/qualifying_targets/local/M0__<Y>__seed<k>.npz, block qual, seasons 2025-2026, seeds 0-3 (checked: the instance frame's SHA-256 and the training shape 2013..Y-1 of main draws only)",
+  "calibration": "the instance's main-draw slope and stage 2 (the same parameters as the main draw)",
+  "speed_column": "data/studies/qualifying_targets/speed.parquet (spd_L_B)",
+  "matches": 4752,
+  "speed_filled_with_0_men": 0
+ },
+ "result_check_frame_vs_stage0": {
+  "matches": 7266,
+  "equal": 7266
+ },
+ "model_inputs": {
+  "names": [
+   "ratings_iid",
+   "elo_games",
+   "adjperf_tpw_2w",
+   "points_52w",
+   "sets_14d",
+   "age",
+   "age_sq",
+   "form_ace",
+   "form_df",
+   "form_first_in",
+   "form_first_won",
+   "form_second_won",
+   "form_hold",
+   "form_bp_saved",
+   "form_bp_faced_pg",
+   "form_brk",
+   "form_bp_conv",
+   "form_rpw_first",
+   "form_rpw_second",
+   "formdef_ace",
+   "formdef_df",
+   "formdef_first_in",
+   "formdef_bp_faced_pg",
+   "iosO_ace",
+   "iosD_ace",
+   "iosO_df",
+   "iosD_df",
+   "iosO_first_in",
+   "iosD_first_in",
+   "iosO_first_won",
+   "iosD_first_won",
+   "iosO_second_won",
+   "iosD_second_won",
+   "iosO_hold",
+   "iosD_hold",
+   "iosO_bp_saved",
+   "iosD_bp_saved",
+   "prod_ace",
+   "prod_df",
+   "prod_first_in",
+   "prod_first_won",
+   "prod_second_won",
+   "prod_hold",
+   "prod_bp_saved",
+   "elo_overall",
+   "elo_surf_offset",
+   "surf_season",
+   "surf_layoff"
+  ],
+  "count": 48,
+  "rows": 7266,
+  "rule": "unpriced_leads/screen.py's 48 non-price, non-context inputs, pairs as A - B"
+ },
+ "counts": {
+  "by_group_draw_half": {
+   "challenger|main|2025-H1": {
+    "matches": 3149,
+    "finished": 3045,
+    "retired": 104,
+    "priced": 3140,
+    "priced_and_model": 0
+   },
+   "challenger|main|2025-H2": {
+    "matches": 3453,
+    "finished": 3310,
+    "retired": 143,
+    "priced": 3435,
+    "priced_and_model": 0
+   },
+   "challenger|main|2026-H1": {
+    "matches": 3917,
+    "finished": 3750,
+    "retired": 167,
+    "priced": 3897,
+    "priced_and_model": 0
+   },
+   "challenger|main|2026-H2": {
+    "matches": 2507,
+    "finished": 2401,
+    "retired": 106,
+    "priced": 2495,
+    "priced_and_model": 0
+   },
+   "challenger|qualifying|2025-H1": {
+    "matches": 1741,
+    "finished": 1666,
+    "retired": 75,
+    "priced": 1730,
+    "priced_and_model": 0
+   },
+   "challenger|qualifying|2025-H2": {
+    "matches": 1825,
+    "finished": 1764,
+    "retired": 61,
+    "priced": 1801,
+    "priced_and_model": 0
+   },
+   "challenger|qualifying|2026-H1": {
+    "matches": 1802,
+    "finished": 1744,
+    "retired": 58,
+    "priced": 1778,
+    "priced_and_model": 0
+   },
+   "tour|main|2025-H1": {
+    "matches": 1478,
+    "finished": 1418,
+    "retired": 60,
+    "priced": 1477,
+    "priced_and_model": 1477
+   },
+   "tour|main|2025-H2": {
+    "matches": 1116,
+    "finished": 1070,
+    "retired": 46,
+    "priced": 1115,
+    "priced_and_model": 1115
+   },
+   "tour|main|2026-H1": {
+    "matches": 1516,
+    "finished": 1479,
+    "retired": 37,
+    "priced": 1516,
+    "priced_and_model": 1516
+   },
+   "tour|main|2026-H2": {
+    "matches": 829,
+    "finished": 807,
+    "retired": 22,
+    "priced": 829,
+    "priced_and_model": 829
+   },
+   "tour|qualifying|2025-H1": {
+    "matches": 818,
+    "finished": 790,
+    "retired": 28,
+    "priced": 771,
+    "priced_and_model": 771
+   },
+   "tour|qualifying|2025-H2": {
+    "matches": 442,
+    "finished": 425,
+    "retired": 17,
+    "priced": 426,
+    "priced_and_model": 426
+   },
+   "tour|qualifying|2026-H1": {
+    "matches": 834,
+    "finished": 820,
+    "retired": 14,
+    "priced": 774,
+    "priced_and_model": 774
+   },
+   "tour|qualifying|2026-H2": {
+    "matches": 380,
+    "finished": 367,
+    "retired": 13,
+    "priced": 358,
+    "priced_and_model": 358
+   }
+  },
+  "price_source": {
+   "challenger|main|te_consensus": 2702,
+   "challenger|main|te_pinnacle": 10265,
+   "challenger|qualifying|te_consensus": 1875,
+   "challenger|qualifying|te_pinnacle": 3434,
+   "tour|main|average": 43,
+   "tour|main|betonline": 460,
+   "tour|main|pinnacle (oddstrader)": 318,
+   "tour|main|pinnacle (tennis-data)": 1774,
+   "tour|main|pinnacle (tennisexplorer)": 2342,
+   "tour|qualifying|betonline (oddstrader)": 1322,
+   "tour|qualifying|pinnacle (oddstrader)": 1007
+  }
+ },
+ "population_sha256": "8bbd6152dcf6afb1e74e1212a9e9971e3356eec01f28fbd71b8981dca54a02e7"
+}

@@ -1,0 +1,45 @@
+{
+ "built_at": "2026-10-29T13:59:59+00:00",
+ "sheets": 24,
+ "rows": 361,
+ "matches": 198,
+ "first_sheet_at": "2026-10-11T18:25:03+00:00",
+ "last_sheet_at": "2026-10-29T13:59:53+00:00",
+ "pulls": {
+  "data/dump/odds/pinnacle/pulls": 34,
+  "data/dump/odds/pinnacle_capture/pulls": 216
+ },
+ "pull_rows": 28390,
+ "tennisexplorer": {
+  "matches.parquet": "2026-10-28T15:15:15+00:00",
+  "odds.parquet": "2026-10-28T15:15:15+00:00",
+  "moves.parquet": "2026-10-28T15:15:15+00:00"
+ },
+ "tennisexplorer_matches": 10034,
+ "stage0": "data/studies/daily_prediction/runs/live_2026-10-29_064027/stage0/stage0_matches.parquet",
+ "stage0_written": "2026-10-29T13:41:45+00:00",
+ "checks": {
+  "curve_vs_sheet_q": {
+   "rows": 361,
+   "max_abs": 0.0010104084877996522
+  },
+  "site_vs_sheet_price": {
+   "rows": 204,
+   "same": 175,
+   "sides_swapped": 0
+  }
+ },
+ "rules": "The closing-line ledger (A8): every bet sheet's predictions against Pinnacle's close, the line's drift since the\nsheet, and the closing-line value (CLV) of each pick.\n\nThe owner's request (25 Oct 2026): \"comparing the \"best model predictionsat the time of the run\" to the closing line (as\nwell as see how much the line drifted since then to calculate CLV)\". How it is done, and every rule below, is an agent's\nchoice of 25 Oct 2026, not the owner's words (docs/studies/master_pipeline/process_log.md, Part 18).\n\n    predictions/clv/ledger.csv               one row per bet sheet and predicted match: every prediction is kept\n    predictions/clv/ledger.provenance.json   the sources read, their times, the checks, the counts, these rules\n    predictions/clv/summary.json             what A8 shows\n\nRebuilt in full at each call from files that are never replaced (the sheets' records, the run folders, the odds pulls,\nthe site's pages), so it is never hand-kept: run it again after the 07:30 download for the newest closes.\n\nThe rows: each predictions/<day>/records/bet_sheet_*.csv row with status \"predicted\" (the agents' check_* files and the\nengine's live_* archives are not sheets). Sides A and B are the record's, Stage 0's. Each match keeps every sheet that\npredicted it, and two views mark one row each: first_sheet (its earliest sheet) and last_before_start (its latest sheet\nmade before the start: the one a bet most likely rested on). Pinnacle's matchup id is read from the run's matchups, as\nthe bet sheet reads them.\n\nThe close, per match (an agent's choice):\n    pinnacle pull     Pinnacle's own listing, by matchup id: the bet-day pulls (data/dump/odds/pinnacle/pulls/) and P11's\n                      10-minute capture (data/dump/odds/pinnacle_capture/pulls/). Its last pre-match pull (priced, not in\n                      play, the market's cutoff ahead; pinnacle_capture.closes) is the last price seen, and a true close\n                      when the next pull, at most CLOSE_GAP_MIN minutes later, shows the match in play, its pre-match\n                      market shut, or no longer lists it\n    tennisexplorer    the site's last Pinnacle price (src/ingest/tennisexplorer.py: the daily pinnacle_closes job, the\n                      tour's main draws only, no qualifying), its last record (a change, else the opening) a median 47\n                      minutes before the listed start in 2026: the price the model's training data takes as Pinnacle's\n                      close from 1 Nov 2025 (src/eda/current_best_model/odds_input.py). Left out when it carries no time,\n                      is incoherent, or sits far from the site's other books (the odds input's own tests)\nIn that order: a true close of our own; else the site's last record, unless a later pull of ours saw another price (the\nsite missed a late move), as the close when known to hold within CLOSE_LEAD_MAX_MIN of the start (its record, or a\nlater pull of ours with the same price), else as an earlier price; else our last pull. The start is the latest listed\n(Pinnacle's last pull, the site's page), never after our pulls saw the pre-match market shut. close_kind: \"close\";\n\"last seen\" (an earlier price only, observed at close_t, close_min_before_start before the start: its odds stay in\nown_odds_a/_b or te_odds_a/_b, and no drift or CLV is computed on it); \"pending\" (not started); \"awaiting\" (a main-draw\nmatch started under AWAIT_HOURS ago with no close yet: the site's page comes with the next daily download); \"none\".\n\nPer row (side A's chance unless named; the pick's side for the pick's columns):\n    drift          p_close_a - p_market_a, in points and in log-odds: the sheet's margin-free price to the close's\n    toward_model   the drift's log-odds in the direction of the model's lean at the sheet (logit q_a - logit p_market_a):\n                   above 0, the line moved toward the model. The summary's slope of the drift on the lean is the bet\n                   timing study's \"move toward the model\" (docs/studies/bet_timing/README.md)\n    clv            clv_price = d_taken / d_close - 1: the closing-line value, the odds taken against the closing odds,\n                   both with the margin (0: the line did not move); clv_ev = p_close(pick) x d_taken - 1: the pick's\n                   expected profit per unit staked if the close's margin-free chance is right (a bet at the closing\n                   price itself scores 1/overround - 1 by it: minus Pinnacle's margin); drift_pick_pts: the line's move\n                   toward the pick, in points\n    at the close   q_close_a: the model's chance re-read off the run's curve at the closing price (NaN off its 0.05-0.95);\n                   edge_close_pick and ev_close_pick: the pick against the close's posted price, its margin included (the\n                   sheet's market chance since 24 Oct 2026)\n    result         from the freshest Stage 0 (the repository's, the data check's or the newest live run's own): by match\n                   id, else by tour, the two players' ids and the event's date; log losses of q_a, of the sheet's price,\n                   of the close and of q_close_a on completed and retired matches (A7's rule)\nd_taken is the sheet's price (Pinnacle's; BetOnline's where the sheet's price came from BetOnline): these are the sheets'\npicks, not the bets placed, which nothing records yet. CLV is a check on prices, not on the model: the market does not\nmove toward this model before the close (the production-integrity plan, principle 8). The summary's intervals are\nnormal approximations, said \"unresolved\" with P(above 0) when they span 0.\nA tour switched off for the bet day (config.BET_TOURS; the owner, 28 Oct 2026: the women's) stays in the ledger file,\nand the reading (the summary and its table) leaves it out, saying how many predictions it leaves out.\n",
+ "code_sha256": {
+  "closing_line.py": "ff5a9cbe03fbf434b2b5d84b4f8dd318471b9c176030b1e8f56195ea88015824"
+ },
+ "parameters": {
+  "close_gap_min": 15,
+  "await_hours": 48,
+  "link_days": 2,
+  "result_days": [
+   14,
+   4
+  ]
+ }
+}

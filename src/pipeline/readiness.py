@@ -8,7 +8,9 @@ finish in the 14 days before the match, for a usable box score. A missing one ne
 nearly always hold (main tour, Challenger / WTA 125, qualifying above ITF level) it makes a bet need a 1-point edge; of a
 kind they mostly lack (team events, ITF) it is only noted. A player who came through qualifying with no qualifying
 match still blocks the match (the run also blocks an unknown indoor input, which only the run builds). Verdicts: "ready",
-"ready once filled" (the run fills every gap from an official feed), "needs a 1-point edge", "will be blocked". Here:
+"ready once filled" (the run fills every gap from an official feed), "needs a 1-point edge", "will be blocked", and,
+since 28 Oct 2026, "check failed": an error while checking that one match, said with "!!!", the others checked (one row
+never holds up the rest: docs/decisions/2026-10-28-one-bad-match-left-out.md). Here:
     Stage 0      built now on the downloads on disk by the run's own builder (stage0_build.py --out-dir, about 100 s),
                  into this layer's cache, never the shared tables; reused while its inputs and code are unchanged. A
                  box score the builder's checks reject is caught too. Then, as the run's tables step does, the accepted
@@ -52,8 +54,10 @@ BUILDER = Path("src/eda/predictability_diagnostic/stage0_build.py")
 CODE = (BUILDER, Path("src/eda/feature_alpha_audit/repair_data.py"))
 MATCH_COLUMNS = ["match_id", "tour", "year", "level", "qualifying", "round", "round_order", "tournament_id",
                  "tournament_name", "tournament_date", "status", "has_box", "box_status", "source"]
+FAILED = "check failed"                  # an error while checking one match (28 Oct 2026): the others are checked
 VERDICTS = {"ready": ("#E2EFDA", "#1E4620"), "ready once filled": ("#FFF2CC", "#5C4400"),
-            "needs a 1-point edge": ("#FCE4D6", "#843C0C"), "will be blocked": ("#F4CCCC", "#7A0E0E")}
+            "needs a 1-point edge": ("#FCE4D6", "#843C0C"), "will be blocked": ("#F4CCCC", "#7A0E0E"),
+            FAILED: ("#C00000", "#FFFFFF")}
 
 
 def _sha(path: Path) -> str:
@@ -141,7 +145,7 @@ def _fix(box_status: str, cls: str, tour: str, source: str) -> str:
     return "wait for Tennis My Life, then A1 and check again"
 
 
-def data_check(matchups: str | Path, *, stage0: str | Path | None = None, timing: str | Path | None = None,
+def data_check(matchups: str | Path | None, *, stage0: str | Path | None = None, timing: str | Path | None = None,
                held: set | None = None, packages: bool = True, now: dt.datetime | None = None,
                dry_run: bool = False, show: bool = True, write: bool = True) -> pd.DataFrame | None:
     """The gate's verdict on each match of a matchups CSV (A3), before the prediction run: "ready", "ready once filled"
@@ -149,7 +153,10 @@ def data_check(matchups: str | Path, *, stage0: str | Path | None = None, timing
     folder to read instead of building one (e.g. a run's own stage0/); timing: a timeline (default the shared one);
     held: the frozen reference's match ids (default read); packages: merge the accepted lower-level packages and
     feeds as the run does. Writes data/studies/master_pipeline/data_check/data_check_<time>.csv and its gaps; returns
-    the matches' table (None in a dry run)."""
+    the matches' table (None in a dry run, and with no matchups: A3 found nothing to predict)."""
+    if matchups is None:
+        print("Nothing to check (A3 wrote no matchups).")
+        return None
     from src.eda.merge_feasibility.scan import name_key
     from src.eda.predictability_diagnostic import common as C
     from src.eda.prediction_run import common as P
@@ -163,24 +170,42 @@ def data_check(matchups: str | Path, *, stage0: str | Path | None = None, timing
         return None
     m, p, lf_by_id, merged = tables(folder, Path(timing) if timing else CFG.TIMING, packages)
     m, p = m[MATCH_COLUMNS], p[["match_id", "player_id", "player_name", "entry"]]
-    ids, keys = {}, None
+    ids, keys, broken = {}, None, {}
     for side in ("a", "b"):                        # a player new since the shared Stage 0 carries no id: found by name
         for i, r in mu.iterrows():
-            pid = r.get(f"stage0_id_{side}")
-            if not (isinstance(pid, str) and pid.strip()):
-                if keys is None:
-                    keys = p.drop_duplicates("player_id").assign(tour=lambda d: d["player_id"].str.split(":").str[0])
-                    keys["key"] = keys["player_name"].map(name_key)
-                hit = keys.loc[keys["tour"].eq(r["tour"]) & keys["key"].eq(name_key(r[f"player_{side}"])), "player_id"]
-                pid = hit.iloc[0] if hit.nunique() == 1 else None
+            try:
+                pid = r.get(f"stage0_id_{side}")
+                if not (isinstance(pid, str) and pid.strip()):
+                    if keys is None:
+                        keys = p.drop_duplicates("player_id").assign(tour=lambda d: d["player_id"].str.split(":").str[0])
+                        keys["key"] = keys["player_name"].map(name_key)
+                    hit = keys.loc[keys["tour"].eq(r["tour"]) & keys["key"].eq(name_key(r[f"player_{side}"])),
+                                   "player_id"]
+                    pid = hit.iloc[0] if hit.nunique() == 1 else None
+            except Exception as exc:  # noqa: BLE001 - this row's check fails below, the others go on
+                pid, broken[i] = None, f"{type(exc).__name__}: {exc}"
             ids[(i, side)] = pid
     hist = p[p["player_id"].isin({v for v in ids.values() if v})].merge(m, on="match_id")
     hist["lf"] = latest_finish(hist, lf_by_id) if len(hist) else []
     del m, p, keys                                  # the merged tables are large; only these players' rows are kept
     today = pd.Timestamp(now.astimezone().date())
     classes = FL.gaps(folder, today, FL.reference_ids() if held is None else held).set_index("match_id")["class"]
-    rows, gaps = [], []
-    for i, r in mu.iterrows():
+    # the earlier qualifying rounds the run adds from TennisLive (the CSV's sidecar: prediction_run/earlier_rounds.py)
+    from src.eda.prediction_run import earlier_rounds as ER
+    side_csv = ER.sidecar(matchups)
+    earlier = (pd.read_csv(side_csv, dtype=str, keep_default_na=False) if side_csv.exists() else pd.DataFrame())
+    if len(earlier):
+        earlier["_wk"] = earlier["winner_name"].map(name_key)
+        earlier["_lk"] = earlier["loser_name"].map(name_key)
+        boxed = earlier["w_svpt"].astype(str).str.strip().ne("") if "w_svpt" in earlier.columns else False
+        earlier["_boxed"] = boxed
+    rows, gaps, errors = [], [], []
+
+    def check_one(i, r) -> tuple[dict, list]:
+        """One match's row of the table and its gaps (kept only when its check finishes)."""
+        if i in broken:
+            raise RuntimeError(broken[i])
+        found = []
         day = P.day_of(r["day"])
         order = C.ROUND_ORDER.get(str(r["round"]), 99)
         tid = str(r["tourney_id"])
@@ -211,17 +236,30 @@ def data_check(matchups: str | Path, *, stage0: str | Path | None = None, timing
                 if G.effect(kind) == "note":                   # a kind the training rows mostly lack: noted only
                     noted += 1
                     notes.append(f"{what} ({kind}): {cause}")
-                    gaps.append({**row, "Effect": "noted only", "Fix": ""})
+                    found.append({**row, "Effect": "noted only", "Fix": ""})
                     continue
                 cls = classes.get(g["match_id"], "unserved")
                 fix = _fix(g["box_status"], cls, r["tour"], str(g["source"]))
+                # a round the sidecar holds with TennisLive's box score: the run gives it to the row (run.tml_box_fills)
+                if len(earlier) and earlier[earlier["tour"].eq(str(r["tour"])) & earlier["round"].eq(str(g["round"]))
+                                            & (earlier["_wk"].eq(name_key(name)) | earlier["_lk"].eq(name_key(name)))
+                                            & earlier["_boxed"]].shape[0]:
+                    cls, fix = "fillable", "the run fills it from TennisLive's match page (live only)"
                 bar += 1
                 filled += cls == "fillable" and g["box_status"] != "failed_check"
                 why.append(f"{what}: {cause}")
                 fixes.append(fix)
-                gaps.append({**row, "Effect": "a bet needs a 1-point edge", "Fix": fix})
+                found.append({**row, "Effect": "a bet needs a 1-point edge", "Fix": fix})
             entry = h.loc[same, "entry"].dropna().astype(str).str.upper()
-            if entry.isin(G.QUALIFIED).any() and not h.loc[same | recent, "qualifying"].astype(bool).any():
+            # a main-draw match's qualifier: the qualifying rounds the run adds from TennisLive (since 25 Oct 2026)
+            mine = (earlier[earlier["tour"].eq(str(r["tour"])) & earlier["round"].str.fullmatch(r"Q\d")
+                            & (earlier["_wk"].eq(name_key(name)) | earlier["_lk"].eq(name_key(name)))]
+                    if len(earlier) and not qual else earlier.iloc[0:0])
+            if len(mine):
+                notes.append(f"{name}'s qualifying here comes from TennisLive: {len(mine)} round(s), "
+                             f"{int(mine['_boxed'].sum())} with a box score (live only)")
+            if entry.isin(G.QUALIFIED).any() and not h.loc[same | recent, "qualifying"].astype(bool).any() \
+                    and not len(mine):
                 why.append(f"{name} came through qualifying, but Stage 0 holds no qualifying match of theirs (Tennis "
                            "My Life has lacked the WTA's qualifying since June 2026)")
                 fixes.append("none on the day")
@@ -229,25 +267,60 @@ def data_check(matchups: str | Path, *, stage0: str | Path | None = None, timing
             # the gate's rule for a qualifying match after its first round: the round before must be in Stage 0
             here = h.assign(tournament_id=np.where(event.loc[h.index].to_numpy(), tid, h["tournament_id"].astype(str)))
             if qual and G.previous_round_missing(here, tid, order, day):
-                why.append(G.previous_round_reason(name, str(r["round"]).upper(), order, str(r["tour"])))
-                fixes.append("none on the day: the weekly lower-level feed brings it" if r["tour"] == "wta" else
-                             "wait for Tennis My Life's qualifying file, then A1 and check again")
-                blocks += 1
+                got = (earlier[earlier["tour"].eq(str(r["tour"])) & earlier["tourney_id"].astype(str).eq(tid)
+                               & earlier["round"].eq(f"Q{int(order) - 1}") & earlier["_wk"].eq(name_key(name))]
+                       if len(earlier) else earlier)
+                if len(got) and str(got["w_svpt"].iloc[0] if "w_svpt" in got.columns else "").strip():
+                    notes.append(f"{name}'s Q{int(order) - 1} comes from TennisLive with its box score (live only)")
+                elif len(got):                                 # a result without a box score: the gate's bar
+                    bar += 1
+                    why.append(f"{name}'s Q{int(order) - 1} comes from TennisLive without a box score "
+                               f"({got['box_note'].iloc[0] if 'box_note' in got.columns else 'none'})")
+                    fixes.append("none on the day")
+                else:
+                    why.append(G.previous_round_reason(name, str(r["round"]).upper(), order, str(r["tour"])))
+                    fixes.append("none on the day: the weekly lower-level feed brings it" if r["tour"] == "wta" else
+                                 "wait for Tennis My Life's qualifying file, then A1 and check again")
+                    blocks += 1
         verdict = ("will be blocked" if blocks else "ready" if not bar else
                    "ready once filled" if bar == filled else "needs a 1-point edge")
-        rows.append({f"Starts ({BS.zone_label()})": BS.when(r.get("start_utc")), "Match": f"{r['player_a']} v {r['player_b']}",
-                     "Event": f"{str(r['tour']).upper()} {r.get('tourney_name', tid)} {r['round']}", "Verdict": verdict,
-                     "Why": "; ".join(why), "What fixes it": "; ".join(dict.fromkeys(fixes)),
-                     "Noted only": "; ".join(notes), "Earlier matches checked": checked,
-                     "Missing: edge needed": bar, "Missing: noted only": noted,
-                     "_order": list(VERDICTS).index(verdict), "_start": BS._start_key(r)})
+        return ({f"Starts ({BS.zone_label()})": BS.when(r.get("start_utc")), "Match": f"{r['player_a']} v {r['player_b']}",
+                 "Event": f"{str(r['tour']).upper()} {r.get('tourney_name', tid)} {r['round']}", "Verdict": verdict,
+                 "Why": "; ".join(why), "What fixes it": "; ".join(dict.fromkeys(fixes)),
+                 "Noted only": "; ".join(notes), "Earlier matches checked": checked,
+                 "Missing: edge needed": bar, "Missing: noted only": noted,
+                 "_order": list(VERDICTS).index(verdict), "_start": BS._start_key(r)}, found)
+    for i, r in mu.iterrows():
+        try:
+            row, found = check_one(i, r)
+        except Exception as exc:  # noqa: BLE001 - an error checking one match is said; the others are checked
+            why = f"{type(exc).__name__}: {exc}"
+            errors.append(f"{r.get('player_a')} v {r.get('player_b')} -- {why}")
+            try:
+                start, key = BS.when(r.get("start_utc")), BS._start_key(r)
+            except Exception:  # noqa: BLE001 - a start that cannot be read: the row still shows
+                start, key = "", float("inf")
+            row, found = {f"Starts ({BS.zone_label()})": start, "Match": f"{r.get('player_a')} v {r.get('player_b')}",
+                          "Event": f"{str(r.get('tour')).upper()} {r.get('tourney_name', r.get('tourney_id'))} "
+                                   f"{r.get('round')}", "Verdict": FAILED,
+                          "Why": f"ERROR while checking this match ({why}); the run decides with its own data",
+                          "What fixes it": "look at its row in the matchups CSV", "Noted only": "",
+                          "Earlier matches checked": 0, "Missing: edge needed": 0, "Missing: noted only": 0,
+                          "_order": list(VERDICTS).index(FAILED), "_start": key}, []
+        rows.append(row)
+        gaps += found
+    if errors:                                     # said loudly (28 Oct 2026); the table shows them first
+        print(f"!!! ERROR while checking {len(errors)} match{'es' * (len(errors) != 1)} (verdict \"{FAILED}\"); the "
+              "others are checked as usual:")
+        for e in errors:
+            print(f"!!!   {e}")
     out = pd.DataFrame(rows)
     if len(out):                                   # the blocked matches first, then the edge needed, each by start time
         out = out.sort_values(["_order", "_start"], ascending=[False, True], kind="stable")
     out = out.drop(columns=["_order", "_start"], errors="ignore").reset_index(drop=True)
     gaps = pd.DataFrame(gaps)
     meta = {"stage0": CFG.rel(folder), "built": _built(folder), "tml": None if stage0 else _tml_age(),
-            "packages": merged}
+            "packages": merged, "tml_status": _tml_status()}
     if write:
         CHECKS.mkdir(parents=True, exist_ok=True)
         stamp = f"{now.astimezone():%Y-%m-%d_%H%M%S}"
@@ -277,12 +350,22 @@ def _tml_age() -> str:
     return f"fetched {BS.when(last)} {BS.zone_label()} ({hours:.0f} h ago)"
 
 
+def _tml_status() -> list[str]:
+    """Tennis My Life's held files (lagging after a day), carried events and corrections (src/ingest/health.py)."""
+    try:
+        from src.ingest import health as H
+        return H.tml_status()["lines"]
+    except Exception as exc:  # noqa: BLE001 - a status line never stops the check
+        return [f"Tennis My Life status unknown ({type(exc).__name__}: {exc})"]
+
+
 def _show(out: pd.DataFrame, meta: dict) -> None:
     n = out["Verdict"].value_counts().to_dict() if len(out) else {}
     head = (f"Data check before the prediction run: {len(out)} matches; " +
             ", ".join(f"{n[v]} {v}" for v in VERDICTS if n.get(v)) + ".")
     lines = [f"Tennis My Life's results and box scores: {meta['tml']}. Stage 0 built on them {meta['built']}." if
              meta["tml"] else f"Stage 0 read from {meta['stage0']} (built {meta['built']}).",
+             *meta.get("tml_status", []),
              f"Lower-level packages and feeds merged in, as the run merges them: {', '.join(meta['packages']) or 'none'}.",
              "The run downloads again and decides with its own gate; this check errs toward a gap. A missing box "
              "score never blocks (rule of 14 Oct 2026): it makes a bet need a 1-point edge, or is only noted."]

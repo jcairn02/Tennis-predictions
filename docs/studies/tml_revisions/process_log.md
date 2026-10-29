@@ -303,3 +303,14 @@ No subagents were used. The messages sent, verbatim:
 window, the test edit in `test_additions.py`, and the decision's path. The second lists the `src/pipeline` edits
 function by function (§ 4, 18:59–19:00). It also says the note for decided corrections was dropped rather than
 reworded (§ 6 item 4).
+
+---
+
+## Note, 22 Oct 2026: two build trees named above deleted
+
+Added by the cleanup session `4437577b-803e-4161-baf5-c6fade971478`, at the owner's word
+([cleanup inventory, process log § 9d](../cleanup_inventory/process_log.md)).
+* **Deleted on 22 Oct 2026:** `C:/Users/zerom/tnr_gaps` and `C:/Users/zerom/tnr_tpl1014`, the build trees of
+  `template_2026-10-13` and `template_2026-10-14`.
+* **In this log** they appear only in other sessions' messages (the rows "about 21:15" and "after 21:48"), as the
+  instance then in use and the next build. The live model is now `template_2026-10-21b`.

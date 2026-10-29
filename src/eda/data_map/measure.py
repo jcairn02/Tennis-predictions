@@ -718,6 +718,8 @@ def load_tml() -> pd.DataFrame:
         path = DUMP / "matches" / "tennis_my_life" / "ongoing" / f"{name}.parquet"
         if path.exists():
             frame = pd.read_parquet(path, columns=MATCH_COLS)
+            if frame.empty:          # a week without ongoing events (men's, 26 Oct 2026): str.partition finds no columns
+                continue
             frame["season"] = pd.to_numeric(frame["tourney_date"].str[:4], errors="coerce")
             parts.append(_match_rows(frame, tour, fn))
     rows = pd.concat(parts, ignore_index=True)

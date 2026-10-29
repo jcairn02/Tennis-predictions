@@ -1,0 +1,141 @@
+{
+ "refresh": {
+  "seconds": 85.1,
+  "result": {
+   "started_at": "2026-10-28T2158Z",
+   "steps": [
+    {
+     "step": "tml",
+     "args": [
+      "-m",
+      "src.ingest.public_dump.tennis_my_life",
+      "--start-year",
+      "2000"
+     ],
+     "exit": 1,
+     "seconds": 3.6,
+     "tail": "[tennis_my_life] catalog lists 171 files; 105 planned, 66 skipped\n[tennis_my_life] HELD 2025_wta.csv: 40 rows of the current copy are gone (more than 5); kept as data/raw/public_dump/tennis_my_life/held/2025_wta.0a0fea0ec5b9.csv, the current copy stays\n[tennis_my_life] staged data/dump/players/tennis_my_life/ATP_Database.parquet rows=12939 short=0 long=0\n[tennis_my_life] staged data/dump/matches/tennis_my_life/ongoing/challenger_ongoing_tourneys.parquet rows=93 short=0 long=0\n[tennis_my_life] staged data/dump/matches/tennis_my_life/ongoing/ongoing_tourneys.parquet rows=35 short=0 long=0\n[tennis_my_life] staged data/dump/matches/tennis_my_life/ongoing/wta_ongoing_tourneys.parquet rows=35 short=0 long=0\n[tennis_my_life] done: 4 staged files, 13,102 rows, 0 download errors, 1 held, 0 events carried\n[tennis_my_life] held 2025_wta.csv: 40 rows of the current copy are gone (more than 5). To accept it after review: --accept-held 2025_wta.csv@0a0fea0ec5b9\n"
+    },
+    {
+     "step": "stage0",
+     "args": [
+      "src/eda/predictability_diagnostic/stage0_build.py",
+      "--out-dir",
+      "C:\\Users\\zerom\\Documents\\Tennis-predictions\\data\\studies\\daily_prediction\\runs\\live_2026-10-28_145820\\stage0"
+     ],
+     "exit": 0,
+     "seconds": 76.6,
+     "tail": "re too; 1441 of them Sackmann rows)\n[   5.6s] box overrides: 6 found with a player's name re-spelled by the source since the table was built: ['Xin Yu Wang d. Emiliana Arango', 'Eva Lys d. Gabriela Andrea Knutson', 'Anna Kalinskaya d. Xin Yu Wang']\nrow corrections: 11 rows found by their match, their source having moved them (first: ['data/raw/public_dump/tennis_my_life/2026_wta.csv#1270', 'data/raw/public_dump/tennis_my_life/2026_wta.csv#1273', 'data/raw/public_dump/tennis_my_life/2026_wta.csv#1279'])\n[   9.4s] row corrections: 3,152 source rows corrected\n[  10.4s] date corrections: 31 of 31 matches re-dated\n[  18.5s] after repeats: Sackmann 867,297, TML 197,928\n[  23.1s] TML linked: exact_name_pair 183,979, unlinked 7,029, one_player_anchor 6,265, resolved_ids 543, same_event_other_round 112\n[  24.7s] event corrections (set_level): 15 events corrected\n[  25.2s] event corrections (set_surface): 5 events corrected\n[  28.2s] TML-only rows appended: 7,029 (421 in events Sackmann also holds)\n[  69.3s] id aliases: 3 second ids mapped (0 already merged by the repairs, 9 written as the established id by the source itself: ['wta:315232', 'wta:320319', 'wta:321837', 'wta:322082', 'wta:324261', 'wta:328884', 'wta:328897', 'wta:330332', 'wta:332718'])\n[  71.3s] wrote 874,288 matches and 1,748,576 player rows to C:\\Users\\zerom\\Documents\\Tennis-predictions\\data\\studies\\daily_prediction\\runs\\live_2026-10-28_145820\\stage0\n[  72.0s] cleaning log: 2,423 rows, 32 cells over 1%\n[  74.9s] done\n"
+    }
+   ],
+   "gaps": [
+    {
+     "class": "held",
+     "tour": "atp",
+     "level": "T1000",
+     "matches": 1
+    },
+    {
+     "class": "held",
+     "tour": "atp",
+     "level": "T500",
+     "matches": 1
+    }
+   ],
+   "fills": {
+    "filled": 0,
+    "notes": []
+   },
+   "finished_at": "2026-10-28T2159Z"
+  }
+ },
+ "matchups": {
+  "seconds": 26.2,
+  "result": {
+   "stage0": "C:\\Users\\zerom\\Documents\\Tennis-predictions\\data\\studies\\daily_prediction\\runs\\live_2026-10-28_145820\\stage0",
+   "live_matches": 21,
+   "match_ids": [
+    "wta|2026-1056|R16|wta:214040|wta:219917",
+    "wta|2026-1056|R16|wta:210722|wta:220367",
+    "wta|2026-1023|R16|wta:213525|wta:220309",
+    "wta|2026-1023|R16|wta:211701|wta:214906",
+    "wta|2026-1056|R16|wta:211768|wta:266376",
+    "wta|2026-1023|R16|wta:221237|wta:270082",
+    "wta|2026-1056|R16|wta:201709|wta:214981",
+    "wta|2026-1023|R16|wta:214388|wta:259733",
+    "atp|2026-328|R16|atp:200473|atp:212588",
+    "wta|2026-1023|R16|wta:202663|wta:260172",
+    "atp|2026-337|R16|atp:126205|atp:209260",
+    "atp|2026-337|R16|atp:106421|atp:111815",
+    "atp|2026-328|R16|atp:209950|atp:210506",
+    "atp|2026-337|R16|atp:207518|atp:209259",
+    "atp|2026-337|R16|atp:100644|atp:134868",
+    "atp|2026-328|R16|atp:104925|atp:105526",
+    "atp|2026-328|R16|atp:208843|atp:210097",
+    "atp|2026-337|R16|atp:126610|atp:207925",
+    "wta|2026-1023|QF|wta:211279|wta:211651",
+    "wta|2026-1056|QF|wta:223253|wta:223670",
+    "wta|2026-1056|QF|wta:215872|wta:233741"
+   ],
+   "earlier_rounds": {
+    "filled": 12,
+    "with_box": 12,
+    "left_out": [],
+    "source_holds": [],
+    "box_scores_given_to_source_rows": 0
+   },
+   "wta_calendar": {
+    "years": [
+     2026
+    ],
+    "pages": [
+     {
+      "year": 2026,
+      "pages": 2,
+      "entries": 124,
+      "errors": []
+     }
+    ]
+   }
+  }
+ },
+ "prices": {
+  "seconds": 0.0,
+  "result": {
+   "priced": 21,
+   "sources": {
+    "matchups csv (margin-free, side A)": 21
+   },
+   "quoted_at_given": 21
+  }
+ },
+ "worktree": {
+  "seconds": 17.5,
+  "result": {
+   "work_tree": "C:\\Users\\zerom\\tnr_daily_nb",
+   "replay": false,
+   "dump_view": null,
+   "fixes": null,
+   "seconds": 17.4,
+   "constants_from": "C:\\Users\\zerom\\Documents\\Tennis-predictions\\data\\studies\\daily_prediction\\state\\template_2026-10-21b\\2026-10-05",
+   "constants_replaced": {
+    "data/studies/predictability_diagnostic/stage1_baselines_summary.json": {
+     "before": "3c55a8bb29ed233d74826db6c6fc438a7317af3ce28c7c903257f7493896bbaf",
+     "after": "5eb0abeeaecc6c8a89a12002c31e3756cfe3054889e447ac45f51243720da5ca"
+    },
+    "data/studies/predictability_diagnostic/stage3_ratings_summary.json": {
+     "before": "05209c18235f96b732b545c5d5c50bd4303d0d802ba11afa4039d18fc0544b7b",
+     "after": "8bb7ee686fb1c63b8ea6f8251299f818be4bd759b8216ae6186274b4aca3b1f5"
+    },
+    "data/studies/predictability_diagnostic/stage4_constants.csv": {
+     "before": "775d71e473574078f10bb97f303baf60a9f6ae9448b529c9a40672b98806224e",
+     "after": "35f30cab978dbb2bef406b605cdd38f58d02365dcb69a92720754f320909a822"
+    },
+    "data/studies/surface_elo_pieces/pieces_meta.json": {
+     "before": "766589ccfff670729915ce2f86db543ae46fba930b75332a4cb84c3c4858d714",
+     "after": "ba27375b60b6996d3ceba7e362ca265bee9eed583e46a223efcae7144c22d1a0"
+    }
+   }
+  }
+ }
+}

@@ -1,5 +1,7 @@
 # The current best model, 10 October 2026: the level layer and the accepted men's 2026 Challenger data
 
+> **Not the live model** (it was until 13 Oct 2026). Which instance is live is decided only by the master notebook's selection (`data/studies/master_pipeline/selected_instance.json`; the notebook's STATUS cell shows it). "The current instance" below describes this folder as of when it was written. Kept as evidence and for rollback ([which instance went live when](../README.md)).
+
 **What it is.** The current instance of the template ([decision](../../../../docs/decisions/2026-10-08-current-best-model.md)) as decided on 10 Oct 2026, on the tables of 8 Oct (today's live tables equal the frozen reference's):
 * the Pinnacle-first odds input, 57 inputs, the indoor input for every match (decisions of 9 Oct);
 * **the level layer for men** ([decision](../../../../docs/decisions/2026-10-10-level-evidence-layer.md)): config `../level_layer/official.json`, resolved for this build in `level_layer/build_config.json` (the opponent strength on this build's Stage 0: `level_layer/strength_check.json`);

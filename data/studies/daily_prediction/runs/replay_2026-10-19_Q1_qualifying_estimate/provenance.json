@@ -1,0 +1,248 @@
+{
+ "made_at": "2026-10-22T191807Z",
+ "instance": "C:\\Users\\zerom\\Documents\\Tennis-predictions\\data\\studies\\current_best_model\\template_2026-10-21b",
+ "instance_frame_sha256": "e99212c92215d5a82d6f364ff2c478c8018fd08aa1a6999332799478ee407834",
+ "instance_inputs_sha256": "a3dcbf35275017f0999dd23068b0183fb157fe9ccc9e2d2b14fdcb7780a70b3a",
+ "live_frame_sha256": "6d2f3809935e3e95d7e660c9787065f8a2fbd34e0573c6cc289c664ee691e8a7",
+ "inputs": [
+  "odds_logit",
+  "ratings_iid",
+  "elo_games",
+  "adjperf_tpw_2w",
+  "points_52w",
+  "sets_14d",
+  "age",
+  "age_sq",
+  "form_ace",
+  "form_df",
+  "form_first_in",
+  "form_first_won",
+  "form_second_won",
+  "form_hold",
+  "form_bp_saved",
+  "form_bp_faced_pg",
+  "form_brk",
+  "form_bp_conv",
+  "form_rpw_first",
+  "form_rpw_second",
+  "formdef_ace",
+  "formdef_df",
+  "formdef_first_in",
+  "formdef_bp_faced_pg",
+  "iosO_ace",
+  "iosD_ace",
+  "iosO_df",
+  "iosD_df",
+  "iosO_first_in",
+  "iosD_first_in",
+  "iosO_first_won",
+  "iosD_first_won",
+  "iosO_second_won",
+  "iosD_second_won",
+  "iosO_hold",
+  "iosD_hold",
+  "iosO_bp_saved",
+  "iosD_bp_saved",
+  "prod_ace",
+  "prod_df",
+  "prod_first_in",
+  "prod_first_won",
+  "prod_second_won",
+  "prod_hold",
+  "prod_bp_saved",
+  "tour",
+  "surface",
+  "level",
+  "indoor",
+  "best_of",
+  "round",
+  "elo_overall",
+  "elo_surf_offset",
+  "surf_season_a",
+  "surf_season_b",
+  "surf_layoff_a",
+  "surf_layoff_b"
+ ],
+ "seeds": [
+  0,
+  1,
+  2,
+  3,
+  4,
+  5,
+  6,
+  7,
+  8,
+  9,
+  10,
+  11,
+  12,
+  13,
+  14,
+  15
+ ],
+ "tabpfn": {
+  "tabpfn": "9.1.0",
+  "torch": "2.11.0+cu128"
+ },
+ "tabpfn_checkpoints": [
+  "C:\\Users\\zerom\\AppData\\Roaming\\tabpfn\\tabpfn-v3.5-20260909.safetensors"
+ ],
+ "grid": {
+  "prices": 91,
+  "from_logit": -2.9444389791664403,
+  "to_logit": 2.9444389791664403
+ },
+ "stage2": {
+  "coefficients": {
+   "2026_daily": {
+    "keys": {
+     "instance": "C:\\Users\\zerom\\Documents\\Tennis-predictions\\data\\studies\\current_best_model\\template_2026-10-21b",
+     "frame_sha256": "e99212c92215d5a82d6f364ff2c478c8018fd08aa1a6999332799478ee407834",
+     "inputs_sha256": "a3dcbf35275017f0999dd23068b0183fb157fe9ccc9e2d2b14fdcb7780a70b3a",
+     "fit_files": 32,
+     "fits_sha256": "54258d55b02adc3b05fc237afe0ef7bd69a49d3484e52c640723b761bdd6694e",
+     "fits_model": {
+      "tabpfn": "9.1.0",
+      "checkpoint": "tabpfn-v3.5-20260909.safetensors",
+      "config": {
+       "n_estimators": 8,
+       "softmax_temperature": 0.9,
+       "ignore_pretraining_limits": true
+      },
+      "inputs_sha256": "b69ab8ad74df341c893917108acbde33028b29aa2b9890f3f5682a860035b199",
+      "torch": [
+       "2.11.0+cu128"
+      ],
+      "devices": [
+       "NVIDIA GeForce RTX 5090"
+      ]
+     },
+     "feed": "daily",
+     "speed_column": "C:\\Users\\zerom\\Documents\\Tennis-predictions\\data\\studies\\current_best_model\\template_2026-10-21b\\stage2_speed_columns.parquet",
+     "speed_history": "spd_L_D",
+     "speed_column_sha256": "06e625db375372abf86cf90544a1bf6d5470418b92379e599beb7b38b0cf5e64",
+     "season": 2026,
+     "set": "grown",
+     "admitted": 4662,
+     "admitted_sha256": "98808e812be335a322d219203ae44a4c54ac1bbb6989ca009ac23d148716c2d5"
+    },
+    "feed": "daily",
+    "set": "grown",
+    "s_atp": 0.9054819693815801,
+    "s_wta": 0.9326056885099997,
+    "b_shrunk": 0.03838844449332248,
+    "b_mle": 0.04252595264666201,
+    "se_b": 0.01641493541196389,
+    "fit": "current_best_model/compare.walk_forward_on: 2019 .. Y - 1 plus 4662 season-Y matches the retrain admits, seeds 0-3 mean, debut seasons out, b shrunk with tau 0.05, on spd_L_D",
+    "matches": 37070,
+    "computed_at": "2026-10-22T025017Z"
+   }
+  },
+  "speed": {
+   "panel": "C:\\Users\\zerom\\Documents\\Tennis-predictions\\data\\studies\\serve_speed_tabpfn\\live\\speed_panel_live.parquet",
+   "panel_sha256": "0cd2a910f5e22313fc7c4705b3a33f900e17fd3d6f09cdc23d1f4c46e0a3e101",
+   "standardiser_km_h": 1.9496051535048338,
+   "clip": 4.0
+  },
+  "mode": "L",
+  "feed": "daily",
+  "feed_rule": "daily from 2026-10-08 (the daily collector's first day in the live panel), weekly before (the owner, 14 Oct 2026)",
+  "set": "grown",
+  "coefficients_annual": {
+   "2026_daily": {
+    "keys": {
+     "instance": "C:\\Users\\zerom\\Documents\\Tennis-predictions\\data\\studies\\current_best_model\\template_2026-10-21b",
+     "frame_sha256": "e99212c92215d5a82d6f364ff2c478c8018fd08aa1a6999332799478ee407834",
+     "inputs_sha256": "a3dcbf35275017f0999dd23068b0183fb157fe9ccc9e2d2b14fdcb7780a70b3a",
+     "fit_files": 28,
+     "fits_sha256": "05a4870622bb6c41c3479c27ea3115388f7067cf2ce0c8c4bbf0ec2feb521d15",
+     "fits_model": {
+      "tabpfn": "9.1.0",
+      "checkpoint": "tabpfn-v3.5-20260909.safetensors",
+      "config": {
+       "n_estimators": 8,
+       "softmax_temperature": 0.9,
+       "ignore_pretraining_limits": true
+      },
+      "inputs_sha256": "b69ab8ad74df341c893917108acbde33028b29aa2b9890f3f5682a860035b199",
+      "torch": [
+       "2.11.0+cu128"
+      ],
+      "devices": [
+       "NVIDIA GeForce RTX 5090"
+      ]
+     },
+     "feed": "daily",
+     "speed_column": "C:\\Users\\zerom\\Documents\\Tennis-predictions\\data\\studies\\current_best_model\\template_2026-10-21b\\stage2_speed_columns.parquet",
+     "speed_history": "spd_L_D",
+     "speed_column_sha256": "06e625db375372abf86cf90544a1bf6d5470418b92379e599beb7b38b0cf5e64",
+     "season": 2026
+    },
+    "feed": "daily",
+    "set": "annual",
+    "s_atp": 0.900964007273846,
+    "s_wta": 0.9239949975442991,
+    "b_shrunk": 0.03336948806441901,
+    "b_mle": 0.037958786045017276,
+    "se_b": 0.018542503125499394,
+    "fit": "current_best_model/compare.walk_forward_on: 2019 .. Y - 1, seeds 0-3 mean, debut seasons out, b shrunk with tau 0.05, on spd_L_D",
+    "matches": 32414,
+    "computed_at": "2026-10-22T025017Z"
+   }
+  },
+  "patterns": {
+   "status": "on",
+   "size_per_unit_z": 0.06164709422441551,
+   "params": "data/studies/unpriced_leads/check_now/now/params.json",
+   "params_sha256": "cb5db37b32f65f3eee8ad523d3272a811b5903cc718bc31c532e96381f0b1ac2",
+   "live_file_sha256": "b43bdafaa8cab85b9140d26775c223032459d942ca69e08d97d171a8b8e0d513",
+   "set_at": "2026-10-13 21:09 PDT",
+   "matches_with_z": 16,
+   "rules": "docs/studies/unpriced_leads/check_now_rules.md"
+  }
+ },
+ "checkpoint": "2026-09-23",
+ "state_parts": {
+  "elo:atp": "resumed",
+  "elo:wta": "resumed",
+  "stage3:atp": "resumed",
+  "stage3:wta": "resumed",
+  "weighted:atp": "resumed",
+  "weighted:wta": "resumed",
+  "forms:": "resumed",
+  "ios:atp_ace": "resumed",
+  "ios:atp_df": "resumed",
+  "ios:atp_first_in": "resumed",
+  "ios:atp_first_won": "resumed",
+  "ios:atp_second_won": "resumed",
+  "ios:atp_hold": "resumed",
+  "ios:atp_bp_saved": "resumed"
+ },
+ "layer_config_sha256": "839f1fc044a1d22e4ddf7238db9348bf9c3ed85a949b3a8edc9dde5b3606df9b",
+ "code": {
+  "dp.py": "e3077f54f0178b706428ec58466e664fdcef05fe86d5206c0d732aeb570e5500",
+  "dp_cachediag.py": "ebcc173d40f621bb7c0ff5c5c2d4e6b44a7cbb8e1cb2d783108be140c1b48b75",
+  "dp_common.py": "7afeb25015fd306781a748b4d56c38fd6f6a74155b0866009b4bc5bbd98ff5d7",
+  "dp_context.py": "b421175bf9e620473d005ab33397af3b45efb1600de913dc92d151471761638c",
+  "dp_elo.py": "e75d5147a81eb592c43f968f1e5b03ead3837686542b5807543a5b5752bf1a70",
+  "dp_fit.py": "d3cbea2936eeb1523d5fc1486b10fec48399d424a2b70626ac178900a91a972a",
+  "dp_forms.py": "76bca998c1bee03450b8405aa99ec5468235e1eb0cfea4f902fc2bc31e1a662a",
+  "dp_hash.py": "6acb3fc8daf2a0c4777532d7bfa60be76eb023e9c454eb18f2370cf419abf60c",
+  "dp_ios.py": "a45f3c1d63c614a6b08f8949111313abbbaf4a58435f197c9f6bde1b717b9e1a",
+  "dp_matchups.py": "0f639afd39899a7e9ea7c49d96311c39e6a3ef7ae14ff485202342fa12efe86d",
+  "dp_pieces.py": "dfcaac0b54048110a9d13069982567ec3c8be8ab94eeddf20be3132b4f4ad919",
+  "dp_predict.py": "2c2981a5c578ad6f4c21f63e94162d4714d842db4a2b0abc32ad3e54446dcdcb",
+  "dp_selftest.py": "1fa611d9971f7263dd22cf3d7650d9a0b7286cc6ec721547698f66fa93ad4e65",
+  "dp_stage0_equiv.py": "cd501608ae2b9c7fa7bf8ab06695613f7606760431ae15b27fd7115d4413b4bc",
+  "dp_stage2_proof.py": "dfac2ccdd57b739b312edc0246117cd3f9cb8d6fef6f3db3850d17dc8b7b1b97",
+  "dp_stage4.py": "67cc925d9a185cbcde1472059150fb3addc639f002d8165f3be8b4095b33e5ca",
+  "dp_state.py": "084fe8eee423d5b4ecceefaa86ec112d30844ed29847fba6b53e9eadf8867d11",
+  "dp_steps.py": "9e54baa4b0d155ae14e7f7802d7b8e6af50367e4f5fa9518f8d2adda42a30304",
+  "dp_store.py": "32c229aa4db42a031edfddc784714fb3de9e5c514beccccea49a9c43bac4d062",
+  "dp_tabcache.py": "325b4f7393d2c0427bfc4b79ad407081ae2e237dce1315722dc879944c6ed0a3",
+  "dp_tables.py": "ef7fe1dbaf069ab357b10083d1e819787debd5010a56e88cbe02960738779413",
+  "dp_thinking.py": "e3c7d9c11d583069f124c62302dc4c81547aeda5c6dc21966bd705e86ac31b0f",
+  "dp_worktree.py": "e2b05ac32f463a127149db5c408ba3ef40e752b9e2929a1a2ea45eba3de8289c"
+ }
+}

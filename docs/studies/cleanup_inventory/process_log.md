@@ -462,3 +462,361 @@ changes of 14 Oct rest on it. Subagent briefs verbatim: [subagent_briefs.md](sub
   * [ ] `git check-ignore -v` ignores a new `.npz`, and does not ignore
         `data/studies/data_gaps_2026/feed/candidates/F20261013c/identity_verdicts.csv`.
   * [ ] The three RG folders of § 8b do not exist.
+
+## 9. The commit check of 22 Oct 2026, and its three "delete now" groups
+
+Session `4437577b-803e-4161-baf5-c6fade971478` (Claude Opus 5.5, `claude-opus-5-5`, VS Code). Times PDT, from the tool
+outputs; the messages' own times were not recorded. The check was answered in chat; it is recorded here because the
+deletions rest on it. No subagents.
+
+* **The owner's words, verbatim.**
+  * 22 Oct, about 11:28: "Get the tennis predictions pipeline in a state where I can easily git add and push it. No
+    files > 50MB, no unused temporary files that take up too much disk space recently done. With some combination of
+    .git ignoring and deleting files / Propose how to get it in this state (if it isnt)"
+  * 22 Oct, before 13:00 (the first clock reading after it), pasting the proposal's three "Delete now" rows (the
+    solver caches of 14 Oct, the caches of the 21 Oct morning model, the five one-off repository copies of 13-16 Oct):
+    "Delete these 3 suggested delete now repository/files"
+* **How the first was read.** Read-only: a proposal. Two parts: what a commit would add (files over 50 MB; tracked
+  files an ignore rule now matches), and the disk that temporary or superseded files hold, in the repository and in the
+  `tnr_*` trees the pipeline makes outside it. "Recently done": made since the last cleanup and push (14 Oct).
+
+### 9a. 22 Oct, 11:28-11:50: the check
+
+* **What a commit would add** (git, read-only). `main` equals `origin/main` (`1d8f53e`, 14 Oct 07:45); nothing staged.
+  * Untracked, not ignored: 2,182 files, 49.2 MB, none over 5 MB.
+  * Tracked and changed: 243 files, 64.2 MB (the largest 9.1 MB, `match_timing/links/sofascore.csv`). One tracked
+    file deleted: `master_pipeline/running/32032.json`, a runner's marker (`src/pipeline/runner.py:29`) committed on
+    14 Oct.
+  * The guide's checks (`data/LARGE_FILES.md`, "Keeping this list current"): untracked over 50 MB, none; tracked over
+    50 MB, none; tracked files an ignore rule matches, none (the 1,646 `.npz` of § 8 are no longer tracked).
+  * Files over 50 MB in the folder, outside `.git`: 241, all ignored. 231 match the named list (`.gitignore` lines
+    55-123); 10 only a type or folder rule: the three solver caches below (line 40), five Parquet files (line 27:
+    `current_best_model/2026-10-09_rg_box_scores/candidate_tables/` and `2026-10-14_tenerife_dates/candidate_tables/`
+    `predictability_diagnostic/stage0_match_players.parquet`, `serve_return_leads/elasticity/values.parquet`,
+    `source_reconciliation/_snapshot/stage0_match_players.parquet`, `source_reconciliation/box/engine_long.parquet`)
+    and two in `data/dump` (line 6: `points/infosys_atp_recent/court_vision.parquet`, `court_vision_shots.parquet`).
+  * A pattern scan of the 2,394 text files a commit would add or change (API-key prefixes, JWTs, `key/token/password =
+    "..."`): no match.
+  * The object store: 1.36 GB in 3 packs; 12,802 objects reachable (1.30 GB); 1,216 blobs and 351 trees unreachable
+    (about 60 MB).
+* **Disk** (a scratchpad walk with `os.scandir` that never enters a reparse point, 11:36; decimal units).
+  * The repository folder: 247.55 GB in 737,754 files, 201.6 GB of it written since 14 Oct.
+  * `daily_prediction/state/` 183.45 GB:
+    * `template_2026-10-21b` 62.59, the selected instance (`master_pipeline/selected_instance.json`, 21 Oct 15:55);
+    * `template_2026-10-21` 62.40, of which `tabpfn/` 62.01;
+    * `template_2026-10-16` 58.46, of which `tabpfn/` 57.88.
+  * `daily_prediction/runs/` 7.80 GB, of which 6.24 GB is three `_ios_cache_<stamp>.npz` in `live_2026-10-14_123349`,
+    `_125827` and `_135305` (2,494,003,914; 1,873,705,026; 1,873,710,330 bytes).
+  * 19 `tnr_*` trees, 189.8 GB. `tnr_daily_qual` was absent at the scan; another session re-created it at 11:42 for
+    a replay (`replay_2026-10-19_Q1_qualifying_maindate`, instance `template_2026-10-21b`) and removed it at 11:53.
+  * Session scratchpads 1.02 GB.
+  * C: free 278 GB at 11:33, 259 GB at 11:46 (during that replay), 276 GB at 13:00.
+* **Readers** (searches of `src`, `docs`, `test` and `scripts` for each name).
+  * The five daily work trees (`tnr_daily_patterns`, `_patterns_live`, `_fastcourt`, `_fastcourt_live`,
+    `_replayfix`): named only in process logs, as "kept" or "kept for review (cleanup to be discussed)":
+    `unpriced_leads/process_log.md` lines 312, 364 and 389; `daily_prediction/process_log.md` line 794. Each carries
+    a `dp_worktree.py` marker, created 14 Oct 01:03Z to 16 Oct 22:06Z.
+  * `template_2026-10-21`: the first retrain's morning instance, replaced at 16:39 the same day by
+    `template_2026-10-21b` after the odds flaw (`in_season_retrain/README.md` lines 32-48, which also give its
+    rollback). `dp_tabcache.py:200` treats a seed whose three files are missing as having no cache, and builds it.
+  * The solver caches: `dp_state.py:243` gives each a new stamp; nothing reads one after its step.
+* **Classes proposed.**
+  * Delete now, 127.4 GB: the three groups above.
+  * The owner's call, 86.0 GB: `template_2026-10-16`'s caches (the rollback); `tnr_tpl1014` and `tnr_gaps`, the 14
+    and 13 Oct build trees (re-run commands in process logs and `form_evidence.py:82`'s default name them).
+  * Kept:
+    * the selected instance and its tree `tnr_tpl1021`;
+    * `tnr_tpl1016`, the rollback's tree;
+    * `tnr_lyr_new`, the fallback tree of `dp_common.py:31`, `pp_common.py:28`, `rebuild_pool.py:117` and
+      `level_layer_adoption`;
+    * `tnr_lle` and `tnr_sys4`, which wait for P7 (collecting);
+    * `tnr_feed`, `tnr_mlf`, `tnr_tl_box` and the four `tnr_dump_freeze*`;
+    * `tnr_daily_qual`, in use.
+  * Proposed and not yet answered:
+    * four ignore rules: the runner's markers, `*.npz.bak`, and the 10 locked `pytest_*` folders under
+      `data/studies`, which make every `git status` warn;
+    * the guide's update;
+    * moving the root folder `patterns_replay_2026-07-13_R16/` beside the other replays.
+
+### 9b. 22 Oct, from 13:00: the deletions
+
+* **How the go-ahead was read.** The three "Delete now" rows as pasted, and nothing else.
+  * The solver caches: the three files only; their runs' records stay.
+  * The 21 Oct morning model's caches: `state/template_2026-10-21/tabpfn/`, as the row says. Its checkpoints
+    (`2026-06-22/`, `2026-09-23/`) stay, so the documented rollback still works.
+  * The five work trees.
+  * Not covered: the ignore rules, the guide, the "your call" rows, the locked folders, the root folder.
+* **Set aside:** deleting all of `state/template_2026-10-21/`, as was done for the 10, 13 and 14 Oct instances on 21
+  Oct (`in_season_retrain/process_log.md` line 200). The row promised the checkpoints stay.
+* **The method:** `src/eda/cleanup_inventory/delete_2026_10_22.py`, on `delete_now.py`'s walk, link removal and
+  fingerprints (11 and 14 Oct).
+  * **Each item is re-checked just before it goes:**
+    * a solver cache: its size as found;
+    * the caches: their instance is not the selected one, and no run folder made since the switch names it;
+    * a work tree: its `dp_worktree.py` marker, and no process command line names it.
+  * **Folder links** are found by a walk that never enters one, and removed as links (`cmd /c rmdir`, never the
+    target). A second walk must find none before `rmdir /s /q`.
+  * **The kept trees** are listed file by file before the run, after each item, and at the end. Files that other
+    jobs may remove while the run goes on (the engine's own temporary caches; partial downloads) are reported
+    without stopping the run. Any other lost file stops it. The kept trees are:
+    * every link's target: `data/raw`, `data/dump`, `tnr_dump_freeze`, `tnr_dump_freeze_1014`;
+    * the instances' daily state;
+    * `current_best_model`;
+    * the three runs;
+    * `tnr_tpl1021` and `tnr_tpl1016`.
+  * **The record:** `data/studies/cleanup_inventory/deletions_2026-10-22.json`.
+* **Chronology.**
+
+  | When | Step | Result |
+  |---|---|---|
+  | 13:00 | Readers re-checked before writing the script: the replay running since 11:42 is on `template_2026-10-21b` (its `run.json`), not the morning instance; `dp_tabcache.py:200` rebuilds a seed whose files are missing; `dp_state.py:243` stamps each solver cache; the five trees carry `dp_worktree.py` markers; the browser download's profile is outside the repository (`browser.py`, a user-started Chrome); partial files of the running downloads end `.tmp`, `.part` or `.partial` (searches of `src/ingest`) | The method above |
+  | 13:04 | `--dry-run` | Every check passes on all 9 items: 127.44 GB (3 solver caches 6.24; `tabpfn/` 64 files, 62.01, newest 21 Oct 10:43, no run names the instance since the switch; the trees 10.61, 10.52, 12.33, 12.54 and 13.19, newest 13-16 Oct, 10, 10, 10, 2 and 10 links, every target inside a kept tree). C: free 284.0 GB |
+  | 13:05 | The run started (background) | running |
+  | 13:05-13:12 | The run, 412 s | **9 of 9 deleted, 127.44 GB.** 42 links removed as links before their trees went (10, 10, 10, 2, 10). The kept trees were listed 11 times: 758,594 files before, 758,977 at the end (`data/raw` +419 and `data/dump` +1 from the running downloads; `tnr_tpl1021` +30; `state/` −64 and each run −1, all of them the items' own files). Lost: none; temporary files gone meanwhile: none. C: free 284.0 → 443.8 GB, about 32 GB more than the run deleted: freed elsewhere at the same time (no other `tnr_*` tree disappeared). Git: no tracked file missing; no untracked file over 50 MB |
+  | 13:13 | Observed afterwards: the owner had committed and pushed at 12:09 (`9228b26`, "latest rebuild and extra data", 2,496 files; `origin/main` equals it), between the check and the go-ahead. The largest blob it added or changed is 9.1 MB; the tree's largest file is 36.9 MB (`shot_level/stage2_results.json`, older). The runner marker's deletion went with it | § 9a describes the tree before that commit |
+
+### 9c. Claims, weak points, checks
+
+| Claim | Evidence |
+|---|---|
+| The three groups are gone: 9 items, 127.44 GB | The record's `runs[0]`: `deleted` true for all 9, and `expected_gone_still_present` 0 after each; the paths are absent (13:13) |
+| No kept file was lost | The 11 listings of the kept trees: no path present before is missing after any item, other than each item's own files; no temporary file vanished either |
+| Every link was removed as a link, never followed | `delete_now.remove_tree`: 42 links (`links_removed`), each by `rmdir` without `/s`, a second walk empty before `rmdir /s /q`; the targets' counts unchanged or growing (`tnr_dump_freeze` and `tnr_dump_freeze_1014` 209 and 209) |
+| The morning model's rollback still works | Its checkpoints `2026-06-22/` and `2026-09-23/` remain; `dp_tabcache.py:200` builds a seed whose files are missing (not run) |
+| Nothing a commit would add changed | `git_after`: no tracked file missing, no untracked file over 50 MB |
+
+* **Weak points.**
+  * A rollback to `template_2026-10-21` without its caches was not run. It rests on the code and on the guide's account of the rebuild (the same forecasts, bit for bit, tested by the daily-prediction study).
+  * Readers were found by name in `src`, `docs`, `test` and `scripts`; a path built at run time could be missed. No process named the trees, and none had been written since 16 Oct.
+  * The trees had been kept "for review", and a reviewer can no longer open them. Re-creating one needs a `dp_worktree` setup on the base tree of its day (`tnr_gaps` for 13 Oct, `tnr_tpl1014` for 14-16 Oct; both still on disk, both in the "your call" group) and the frozen dumps (kept).
+  * The extra 32 GB of free space was not traced. The kept trees lost nothing, and no other `tnr_*` tree went.
+  * **Correction (22 Oct, after the run; the owner had asked what the 13 and 14 Oct build trees are):** the third
+    point above names the wrong base tree for 13 Oct. The runs' own `run.json` files give it:
+    * the two 13 Oct trees (`tnr_daily_patterns`, `_patterns_live`) were set up on `tnr_lyr_new` (`template_2026-10-10`), not `tnr_gaps`;
+    * the three 16 Oct trees (`tnr_daily_fastcourt`, `_fastcourt_live`, `_replayfix`) on `tnr_tpl1014`.
+    Re-creating the 13 Oct ones needs `tnr_lyr_new`, still on disk and not in the "your call" group.
+
+### 9d. 22 Oct, from 13:40: the 13 and 14 Oct build trees
+
+* **The owner's words, verbatim** (quoting my recommendation, then the instruction): "My recommendation: delete both.
+  The cost is that those few past checks can't be re-run exactly as written; their results and records stay in the
+  repo. I'd also point that one script's default at the live model's copy, so it doesn't name a missing folder. / Do
+  this, update studies that refernce them that we've deleted it , so models who review the study know it was built with
+  an older version and may have to be updated"
+  * The question before it: "The 13 and 14 Oct build copies (28 GB): What are these ?why were they built and why did
+    they become obsolete?" It was answered in chat from the two instances' READMEs, `data_gaps_2026/process_log.md`
+    (lines 146-184) and the live-history table of `current_best_model/README.md`.
+* **How it was read.**
+  * **Delete** `C:/Users/zerom/tnr_gaps` (`template_2026-10-13`'s build tree, 13.65 GB) and `C:/Users/zerom/tnr_tpl1014`
+    (`template_2026-10-14`'s, 14.44 GB), as in § 9b: links first, the kept trees listed, each tree re-checked just
+    before.
+  * **"That one script":** `feature_universe/form_evidence.py`, whose default is `tnr_gaps` / `template_2026-10-13`.
+    It gets the master notebook's selection as its default (the tree and the instance together, since the tree's
+    tables are that instance's build). `--tree` and `--instance` still name any other.
+  * **"Update studies that reference them":** each study document that names either tree gets a dated note. The note
+    says the tree is deleted, which of the study's results ran on it (and on which instance), that those results stand
+    as recorded but come from an older model, and that a re-check needs the current instance.
+    * Run folders, chain logs, JSON records and the build scripts in `data/studies` are evidence, and are not edited.
+    * Extended, and told to the owner: the same note where a study log says the five work trees of § 9b were "kept".
+  * **Not covered:** `tnr_lyr_new` (on 14 Oct the owner withdrew a request to delete it and `tnr_gaps`:
+    `data_gaps_2026/process_log.md` line 196, "dont delete them"; today's request names only the 13 and 14 Oct
+    trees). Nor the other open items of § 9a.
+* **What the 14 Oct stop said, re-checked.** `tnr_gaps`'s only reader in code was `form_evidence.py`'s default; no
+  test names either tree (repository search, 13:40). `tnr_tpl1014` is named in code only in `form_evidence.py`'s
+  docstring.
+* **Time note.** The "13:40" in this section's heading and in the search above was written without reading the clock.
+  The question was answered at about 13:35-13:40. The go-ahead came later; the first clock reading after it is the run's
+  start, 16:15:43. The rows below carry clock times.
+* **Chronology.**
+
+  | When | Step | Result |
+  |---|---|---|
+  | before 16:15 | Every mention found (repository search, `data/raw` excluded): 159 files. Records (run folders, chain logs, JSON, the build scripts in `data/studies`) are left as evidence. To annotate: 7 study documents, the two instances' READMEs, the guide; `form_evidence.py` | The list |
+  | before 16:15 | `run_chain.py` read: a chain sandbox has no marker (its `setup` copies `src`, `docs` and `data/studies`, and links `data/raw` and `data/dump`). So part 2 checks its shape instead (the script's docstring). `delete_2026_10_22.py --part 2` added; part 1's dry run re-checked: 9 "already gone", the record byte for byte unchanged | — |
+  | before 16:15 | `--part 2 --dry-run` | Both pass every check: `tnr_gaps` 13,773 files, 13.65 GB, newest 13 Oct 20:12; `tnr_tpl1014` 14,106 files, 14.44 GB, newest 14 Oct 07:09; two links each (`data/dump`, `data/raw` into the repository); no run on either since its instance was replaced, none in 3 days; the rollback trees `tnr_tpl1016`, `tnr_tpl1021`. C: free 490.0 GB |
+  | 16:15:43-16:17:37 | The run, 114 s | **Both deleted, 28.08 GB;** 4 links removed as links. The kept trees: 771,279 files before, 771,377 after (`data/raw` +98, the running downloads); lost: none; temporary files gone meanwhile: none. C: free 490.0 → 518.2 GB. Git: no tracked file missing, no untracked file over 50 MB |
+  | after 16:17 | A peer (`tennis-predictions-f8`) had announced edits to many `src/pipeline` and `src/eda/daily_prediction` files: none is touched here. `form_evidence.py`: `DEFAULT_TREE` and `DEFAULT_INSTANCE` replaced by `selected_instance()` (the notebook's selection, as `dp_common` reads since 22 Oct); `--tree` and `--instance` only together; the docstring says what the outputs of 14 Oct were built on | Checked: the default resolves to `template_2026-10-21b` on `C:/Users/zerom/tnr_tpl1021` (both exist, with the instance's `model_frame_chain.parquet`); either flag alone is refused; `--help` runs. The full script was not run: it would write new outputs |
+  | after 16:17 | The notes: `data_gaps_2026`, `box_score_gate_review`, `men_lower_level_fill`, `daily_prediction`, `unpriced_leads`, `tml_revisions` (process logs: a dated section at the end); `feature_universe/README.md` (the Rebuild block's comment and a U-126 note); the two instances' READMEs (a note under the banner: no longer a ready rollback); the guide's checkpoint row. Extended, beyond the two trees: the morning instance's rollback lines (`in_season_retrain/README.md`, `current_best_model/README.md`: its caches are gone, the first run rebuilds them) | A search afterwards: every document naming either tree has a deletion note, except this study's own files (this section) and `study_data_versions/process_log.md` |
+  | after 16:19 | `docs/studies/study_data_versions/process_log.md` appeared: a new study by session `c0f7c8d9…`, started 16:18, still being written (16:19). It lists `tnr_tpl1014` as existing and asks whether deleting it is safe | Not edited (another session is writing it). Messaged: `tennis-predictions-f6` and `tennis-predictions-14`, the two busy tennis sessions other than f8 (the listing gives no session ids), each told to ignore it if the log is not theirs; and f8, of the one line edited in its `current_best_model/README.md` |
+  | after 16:26 | `tennis-predictions-f6` replied: the log is its own. It added the dated note to that log's facts section and chronology, kept its audit brief of 16:18 verbatim (the note says the brief still names the tree), and told its reviewer agent the folder is gone | Every study naming either tree now carries a note; `tennis-predictions-14`'s message was not about its work |
+
+### 9e. Claims, weak points, checks (§ 9d)
+
+| Claim | Evidence |
+|---|---|
+| Both trees are gone, 28.08 GB | The record's `part2.runs[0]`: `deleted` true for both; the paths absent afterwards |
+| No kept file was lost | 3 listings of the kept trees: no path present before is missing after either item |
+| Neither was in use, nor a rollback | The dry run's checks: not selected; not in a rollback command (`current_best_model/README.md`, `in_season_retrain/README.md`); no run naming either as its base tree since its instance was replaced; no process naming either |
+| The one code reader is repointed | `form_evidence.py`: the default resolves to the selection; either flag alone refused |
+| Every study naming them says so | The search after the notes (above), with one exception, `study_data_versions`, whose session was messaged |
+
+* **Weak points.**
+  * Readers were found by name; a path built at run time could be missed. The build scripts in `data/studies`
+    (`harm/build_feed_arm.sh` sets `SB=C:/Users/zerom/tnr_gaps`; `build_final.sh` defaults to `tnr_tpl1014`) would
+    re-create a tree if run. They are records, so they were not edited.
+  * The notes say "older versions of the model" without measuring how far each study's readings would move on the
+    current instance. That is for whoever re-checks a study.
+  * `study_data_versions` may still state that `tnr_tpl1014` exists, until its session reads the message.
+  * The messages went to two sessions, because the listing gives no session ids. One of them received a message that
+    is not about its work.
+* **Reviewer checks.**
+  * [ ] `C:/Users/zerom/tnr_gaps` and `C:/Users/zerom/tnr_tpl1014` do not exist.
+  * [ ] `./python.sh src/eda/feature_universe/form_evidence.py --tree X` exits with "give --tree and --instance together".
+  * [ ] Every study document naming either tree (search outside `data/raw`, records aside) has a note of 22 Oct 2026.
+* **Reproduction.** `./python.sh src/eda/cleanup_inventory/delete_2026_10_22.py --part 2 --dry-run` now finds both
+  gone; the record keeps the plan (`part2.dry_run`) and the run (`part2.runs`).
+* **Reviewer checks.**
+  * [ ] None of the 9 paths in the record's `runs[0].items` exists.
+  * [ ] `state/template_2026-10-21/` holds only `2026-06-22/` and `2026-09-23/`.
+  * [ ] `tnr_dump_freeze` and `tnr_dump_freeze_1014` hold 209 files each.
+  * [ ] The guide's Check command prints nothing.
+* **Reproduction.** `./python.sh src/eda/cleanup_inventory/delete_2026_10_22.py --dry-run` now finds every item gone. The
+  record keeps the plan (`dry_run`) and the run (`runs`).
+
+## 10. The commit check of 29 Oct 2026, and its three items deleted
+
+Session `f3ef49b6-3465-4894-9ba4-f454eb3a9b2a` (Claude Opus 5.5, `claude-opus-5-5`, VS Code; `tennis-predictions-66` to
+its peers). Times PDT. The check's commands were not clock-stamped; the first clock reading, 07:14:29, came after it.
+The check was answered in chat; it is recorded here because the deletions rest on it. No subagents.
+
+* **The owner's words, verbatim.**
+  * 29 Oct, before 07:14 (the whole message was pasted text): "We've made some changes recently, various studies that
+    I havent pushed yet. / Find the set of files that can be deleted that can be easily reproduced (only related to
+    studies, nothing production related) / As well as if there are any files >50MB that should be gitignored or removed
+    for the next push"
+  * 29 Oct, after 07:14: "Delete this", followed by the check's section "Study files you can delete (rebuildable,
+    nothing in production reads them)", pasted whole: the seven replay working copies (96.3 GB), the bytecode cache
+    inside the frozen reference's code copy (15 MB), the P9 study's working tables (26 MB).
+* **How the first was read.** Read-only: a proposal. "Recently": since the last push, `9228b26` of 22 Oct 12:09, which
+  `origin/main` equals. Two parts: what a commit would add, and the disk that recent study leftovers hold, in the
+  repository and in the `tnr_*` trees outside it. "Nothing production related": the live and rollback models' caches and
+  build trees, the live runs, the shared tables and the feeds were left out, whatever their size.
+
+### 10a. 29 Oct, before 07:14: the check
+
+* **What a commit would add** (git, read-only). `main` equals `origin/main`; nothing staged.
+  * Untracked, not ignored: 1,024 files, 26.6 MB (1,076 files, 26.9 MB once the morning's bet-day run had finished).
+    Tracked and changed: 156 files, 18.6 MB. The largest: `gap_downloads/sofascore_itf_detail_matches.csv.gz`, 8.5 MB.
+  * The guide's checks: untracked over 50 MB, none; tracked over 50 MB, none; tracked files an ignore rule matches,
+    none.
+  * Files over 50 MB outside `data/raw` and `data/dump`: 130, all ignored. Five match only `*.parquet`, the same five
+    as in § 9a (`current_best_model`'s Roland Garros and Tenerife candidates' Stage 0,
+    `serve_return_leads/elasticity/values.parquet`, `source_reconciliation/_snapshot/stage0_match_players.parquet` and
+    `box/engine_long.parquet`).
+  * While the run went on, `master_pipeline/predict.lock` and `master_pipeline/running/42084.json` were present and
+    untracked. A runner marker was committed once (14 Oct; removed 22 Oct, § 9a).
+* **Disk** (PowerShell and `find`, never following a link; decimal units).
+  * `data/studies`: 143.75 GB; 3.48 GB written since 22 Oct 12:09, of which `daily_prediction` 3.21 GB (2.28 GB of it
+    the morning run's temporary solver cache, which the run deleted at its end).
+  * 20 `tnr_*` trees (robocopy `/L /XJ`). Seven were made on 24-25 Oct for replays and a check: `tnr_daily_earlier`
+    13.78, `tnr_daily_earlier2` 13.78, `tnr_daily_main` 13.73, `tnr_daily_main_w` 13.72, `tnr_daily_main2` 13.78,
+    `tnr_daily_datefix_off` 13.77, `tnr_daily_datefix_on` 13.77 GB: 96.33 GB.
+    * Each holds `src` (20 MB), `docs` (14 MB), `run` (89-111 MB) and `data/studies` (13.6 GB). Each `dp_worktree.py`
+      marker names its run.
+    * The five replays have 10 links each: `data/raw`, `data/dump/{odds,players,points,rankings}` and
+      `data/dump/matches/{live_tennis_api_zenodo,mantennisdata,open_tennis_data,sackmann_archive}` into the
+      repository; `data/dump/matches/tennis_my_life` into `tnr_dump_freeze_10211347`. The two checks have 2
+      (`data/raw`, `data/dump`).
+  * The frozen reference's code copy: 97 `__pycache__` folders, 379 `.pyc` files, 15,420,827 bytes, all written 28 Oct
+    09:03. Pytest's assertion-rewrite files of the copy's own tests are among them. `frozen/files.csv.gz` lists 1,581
+    files, none a `.pyc`, and `reference.verify` checks only those (missing or differing).
+  * The P9 study (`p9_point_details`, 28 Oct): nine git-ignored `.parquet` tables in `build/` and `harness/`,
+    26,080,455 bytes, written 28 Oct 09:11-09:22.
+  * C: free 347.9 GB, then 361.6 GB once the morning run had removed its work tree.
+* **Readers** (searches of `src`, `test`, `scripts` and `docs`).
+  * The seven trees: `master_pipeline/process_log.md` Parts 14 and 17 (lines 2091-2184 and 2651-2837: "Kept for
+    review, not deleted (cleanup is the owner's call)"); their run folders' JSON records; the notebook's saved output
+    (run folder names only). No code, no test. `dp.py cleanup` would delete one, but its default `--work-tree` is the
+    engine's own tree (`DP_WORK_TREE`, else `tnr_daily`).
+  * The bytecode: nothing; Python and pytest rewrite it.
+  * The P9 tables: P9's own scripts only. `test_harness.py:219` names a `build/` path in a path-guard test that reads no
+    file.
+* **A bet-day run was in flight during the check** (`dp.py run_day`, pid 42084, from 06:40:27; its states step from
+  06:50). It had ended by 07:14, removing its work tree `tnr_daily_nb` and the 2.28 GB cache. Nothing was touched while it ran.
+* **Proposed.**
+  * Delete the three items.
+  * Add ignore rules for the runner's markers and `predict.lock`, and for
+    `daily_prediction/checks/weights_sha256_cache.json`. It is keyed to this machine's paths and rebuilt by
+    `dp_predict.weights_sha256`.
+  * Name the five files in `.gitignore` and the guide.
+  * Left out:
+    * the production caches and trees;
+    * `tnr_lle`, `tnr_sys4` and `tnr_lyr_new` (67.16 GB, made before the last push). `study_data_versions` asks for
+      their code to be captured before any deletion, a rule awaiting the owner.
+
+### 10b. 29 Oct, from 07:14: the deletions
+
+* **How the go-ahead was read.** The three items as pasted, whole.
+  * The seven trees entirely, their code copies included. The pasted text offered to keep those ("costs 140 MB"), and
+    the go-ahead did not take it up.
+  * The bytecode: the 97 `__pycache__` folders under `frozen/code/` only.
+  * The P9 tables: the nine `.parquet` files only. The study's JSON and CSV outputs stay.
+  * **Not covered:** the ignore rules, the five names, the run folders, everything left out above.
+* **The method:** `src/eda/cleanup_inventory/delete_2026_10_29.py`, on `delete_now.py`'s walk, link removal and
+  listings, as `delete_2026_10_22.py`.
+  * **Before the run:** no bet-day run in flight (no `predict.lock`, no runner marker, no process running the daily
+    engine).
+  * **Each item is re-checked just before it goes:**
+    * a tree: its `dp_worktree.py` marker names its own run, and that run's folder stays; each link points where
+      `dp_worktree.setup` points it; it is neither the selected build tree nor a live work tree; no process command line
+      names it;
+    * the bytecode: only `.pyc` files, directly inside the code copy's `__pycache__` folders, none of them listed in
+      `files.csv.gz`, and no link anywhere in the copy;
+    * the P9 tables: each one's size as found, each ignored by git;
+    * every item: readable, and nothing in it written in the last 2 hours.
+  * **Links** are removed as links (`cmd /c rmdir`), never followed. A second walk must find none before `rmdir /s /q`.
+  * **The kept trees** are listed file by file before the run and after each item. Files other jobs remove meanwhile
+    (temporary and partial files, by name) are reported; any other lost file stops the run. The kept trees:
+    * `data/raw`, `data/dump`, `tnr_dump_freeze_10211347` and the other Tennis My Life freezes;
+    * the engine's state and runs;
+    * `current_best_model` and `p9_point_details`;
+    * `tnr_tpl1021` (selected) and `tnr_tpl1016` (rollback).
+  * **The frozen reference** is verified before the run and again right after the bytecode goes, with
+    `reference.verify(write=False)` so its tracked `verify.json` is left as it is. The same files must be present and
+    equal, or the run stops.
+  * **Git** before and after: tracked files missing from disk; untracked files over 50 MB.
+  * **The record:** `data/studies/cleanup_inventory/deletions_2026-10-29.json`.
+* **Chronology.**
+
+  | When | Step | Result |
+  |---|---|---|
+  | 07:14-07:30 | Re-checked before writing the script: the trees' markers (each names its run) and links; `files.csv.gz` (1,581 rows, no `.pyc`); the bytecode (97 folders, all inside `frozen/code`, `.pyc` only); the P9 sizes, all nine ignored by git; the kernel guard (`src/pipeline/__init__.py`) checks only modules the notebook imported, so a new script under `src/` does not stop it; claims on shared files are not built yet (production-integrity plan, step 6); peers: two tennis sessions busy, none naming a tree | The method above |
+  | 07:20:16-07:20:31 | `--dry-run` | Every check passed except `ignored_by_git` on the P9 tables. **A bug in the check, not a finding:** git, asked by hand before, ignores all nine. The script sent the paths on stdin in text mode, which on Windows ends each line with `\r`, so git read names with a trailing `\r`. Fixed by passing them as arguments. This dry run's record was replaced by the next one's, so its failure is recorded only here |
+  | 07:20:50-07:21:03 | `--dry-run` again | **Every check passes on all 9 items.** The trees: 13.72-13.78 GB each, 96.33 GB, newest 24 Oct 20:48 to 25 Oct 10:11; each marker names its run; 10, 10, 10, 10, 10, 2 and 2 links, each where `dp_worktree.setup` puts it. The bytecode: 97 folders, 379 files. The P9 tables: 9, sizes as found. No bet-day step in flight; the selection `template_2026-10-21b` on `tnr_tpl1021`; the reference verifies (1,581 files). C: free 362.3 GB |
+  | 07:21:11 | The run started (background) | running |
+  | 07:21:26-07:32:29 | The run, 660.7 s | **9 of 9 deleted, 96.38 GB** (96,378,182,615 bytes). 54 links removed as links before their trees went; each tree then went in about 2.5 s. The kept trees were listed 11 times: 1,144,229 files before, 1,144,087 at the end (`data/raw` +246 from the running downloads; `current_best_model` −379 and `p9_point_details` −9, the items' own files). Lost: none; temporary files gone meanwhile: none. The reference right after the bytecode went: 1,581 files, none missing or differing, the inventory intact. C: free 362.3 → 459.0 GB. Git: no tracked file missing, before or after; no untracked file over 50 MB |
+  | during the run | Messages with `tennis-predictions-34` (summarised). Its claim (CLAUDE.md, `docs/decisions/README.md`, `edge_anatomy/README.md`, new `holdouts` folders) did not overlap with this work. It then edited the two P9 documents (a line in README § 4, a note in § 6, an addendum at the end of the log) and handed them back before the notes below | — |
+  | 07:32-07:34 | The notes, each a dated addition: `master_pipeline/process_log.md` (a section at the end); `p9_point_details/process_log.md` (after the peer's addendum) and `README.md` (the end of § 8) | — |
+  | 07:34:11-07:34:17 | The reviewer checks below, run once | All pass: no `tnr_daily*` tree left; `tnr_dump_freeze_10211347` 209 files; `p9_point_details` no `.parquet`, 24 other files; no `__pycache__` under `frozen/`; `reference.verify(write=False)` ok (1,581, none missing or differing), `verify.json` unchanged; the guide's Check prints nothing |
+
+### 10c. Claims, weak points, checks
+
+| Claim | Evidence |
+|---|---|
+| The three items are gone: 9 items, 96.38 GB | The record's `runs[0]`: `deleted` true for all 9, and `expected_gone_still_present` 0 after each; every path absent afterwards (07:33, 07:34) |
+| No kept file was lost | The 11 listings of the kept trees: no path present before is missing after any item, other than the items' own files; no temporary file vanished either |
+| Every link was removed as a link, never followed | `delete_now.remove_tree`: 54 links (`links_removed`), each removed by `rmdir` without `/s`, and a second walk found none before `rmdir /s /q`. The targets lost nothing: `tnr_dump_freeze_10211347` still holds 209 files |
+| The frozen reference is as it was frozen | `reference.verify(write=False)` before the run, right after the bytecode went, and at 07:34: ok, 1,581 files, none missing or differing, the inventory intact; `verify.json` untouched |
+| Nothing a commit would add changed | `git_before` and `git_after`: no tracked file missing; no untracked file over 50 MB |
+
+* **Weak points.**
+  * Readers were found by name in `src`, `test`, `scripts` and `docs`, so a path built at run time could be missed.
+    Against it:
+    * no process named a tree;
+    * none had been written since 25 Oct 10:11;
+    * the engine builds each run's tree afresh and refuses an existing one.
+  * The trees held the only copies of the code as it stood on 24-25 Oct; the run folders keep only fingerprints.
+    Re-running a proof exactly would need that code. The go-ahead did not take up the offer to keep it (140 MB).
+  * The step logs that the run folders' `tables.json` name are gone. Their outcomes are in the run folders' records.
+  * The bytecode's cause is still there: a test run from the repository root can walk into the frozen code copy again.
+    A pytest setting that limits collection to `test/` would stop it (suggested in the check; not asked for).
+* **Reviewer checks.**
+  * [ ] No `C:/Users/zerom/tnr_daily*` tree exists. (Live runs create `tnr_daily_nb` while they run and remove it at
+    the end.)
+  * [ ] `./python.sh -c "from src.eda.current_best_model import reference as R; print(R.verify(write=False)['ok'])"`
+    prints `True`.
+  * [ ] `tnr_dump_freeze_10211347` holds 209 files.
+  * [ ] `data/studies/p9_point_details` holds no `.parquet`, and its other 24 files remain.
+  * [ ] The guide's Check command prints nothing.
+* **Reproduction.** `./python.sh src/eda/cleanup_inventory/delete_2026_10_29.py --dry-run` now finds every item gone. The
+  record (`data/studies/cleanup_inventory/deletions_2026-10-29.json`) keeps the plan (`dry_run`) and the run (`runs`).

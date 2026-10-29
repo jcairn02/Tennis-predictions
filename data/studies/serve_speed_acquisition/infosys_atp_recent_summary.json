@@ -1,6 +1,6 @@
 {
  "source": "infosys_atp_recent",
- "started_at": "2026-10-16T22:08:31+00:00",
+ "started_at": "2026-10-28T03:50:46+00:00",
  "args": {
   "years": "2025,2026",
   "since": "20250101",
@@ -10,10 +10,11 @@
   "limit": 0,
   "routes": null,
   "api": "fallback",
-  "max_requests": 30000,
+  "max_requests": 15000,
   "min_interval": 2.0,
   "jitter": 1.0,
   "timeout": 60,
+  "reset_wait": 120.0,
   "skip_after": 8,
   "cold_skip_after": 8,
   "cv_cold_skip_after": 3,
@@ -21,9 +22,10 @@
   "quiet_window": "07:20-08:00",
   "no_share": false,
   "refresh": false,
+  "newer_format": false,
   "plan_only": false,
-  "stage_only": false,
-  "no_stage": true
+  "stage_only": true,
+  "no_stage": false
  },
  "decision": "docs/decisions/2026-10-08-scraping-approved.md",
  "plan_doc": "docs/studies/gap_downloads/collection-plan.md (P9)",
@@ -44,451 +46,69 @@
   "court-vision"
  ],
  "api": "fallback",
- "events_selected": 534,
- "matches_selected": 24961,
- "rows_without_a_code": 1048,
+ "events_selected": 547,
+ "matches_selected": 25609,
+ "rows_without_a_code": 1078,
  "codes_by_tier": {
-  "2026|tour": 2532,
+  "2026|tour": 2683,
   "2025|tour": 2891,
-  "2026|ch": 9480,
+  "2026|ch": 9977,
   "2025|ch": 10058
  },
  "held_elsewhere": {
   "infosys_atp": 10116,
-  "infosys_atp_daily": 164
+  "infosys_atp_daily": 398
  },
- "stopped": "Blocked: connection reset for https://itp-atp-sls.infosys-platforms.com/static/prod/court-vision/2025/1536/MS089/data.json: ConnectionError: Failed to perform, curl: (56) Recv failure: Connection was reset. See https://curl.se/libcurl/c/libcurl-errors.html first for more details.",
- "client": {
-  "impersonate": "chrome",
-  "requests": 16243,
-  "retried": 44,
-  "slept_seconds": 28951.9,
-  "min_interval": 2.0,
-  "jitter": 1.0,
-  "not_found_answers": 865
- },
- "host_share": {
-  "waited_seconds": 0.0,
-  "polls": {}
- },
- "fetch_outcomes": {
-  "2025:tour:court-vision:200": 1189,
-  "2025:tour:court-vision:200:cached": 22,
-  "2025:tour:court-vision:absent": 105,
-  "2025:tour:court-vision:absent:cached": 12,
-  "2025:tour:keystats-api:200": 13,
-  "2025:tour:keystats-api:404": 16,
-  "2025:tour:keystats-api:error": 9,
-  "2025:tour:keystats:200": 1708,
-  "2025:tour:keystats:200:cached": 33,
-  "2025:tour:keystats:absent": 41,
-  "2025:tour:keystats:held:infosys_atp": 2,
-  "2025:tour:match-beats-api:200": 98,
-  "2025:tour:match-beats-api:404": 16,
-  "2025:tour:match-beats:200": 1625,
-  "2025:tour:match-beats:200:cached": 35,
-  "2025:tour:match-beats:absent": 123,
-  "2025:tour:rally-analysis:200": 1715,
-  "2025:tour:rally-analysis:200:cached": 35,
-  "2025:tour:rally-analysis:absent": 33,
-  "2026:tour:court-vision:200": 1699,
-  "2026:tour:court-vision:200:cached": 42,
-  "2026:tour:court-vision:absent": 174,
-  "2026:tour:court-vision:absent:cached": 13,
-  "2026:tour:court-vision:error": 1,
-  "2026:tour:keystats-api:200": 41,
-  "2026:tour:keystats-api:404": 8,
-  "2026:tour:keystats-api:error": 1,
-  "2026:tour:keystats:200": 2349,
-  "2026:tour:keystats:200:cached": 88,
-  "2026:tour:keystats:absent": 52,
-  "2026:tour:keystats:absent:cached": 2,
-  "2026:tour:keystats:held:infosys_atp_daily": 61,
-  "2026:tour:match-beats-api:200": 264,
-  "2026:tour:match-beats-api:404": 8,
-  "2026:tour:match-beats-api:error": 1,
-  "2026:tour:match-beats:200": 2187,
-  "2026:tour:match-beats:200:cached": 80,
-  "2026:tour:match-beats:absent": 273,
-  "2026:tour:match-beats:absent:cached": 9,
-  "2026:tour:rally-analysis:200": 2396,
-  "2026:tour:rally-analysis:200:cached": 88,
-  "2026:tour:rally-analysis:absent": 64,
-  "2026:tour:rally-analysis:absent:cached": 1
- },
- "families_given_up": 60,
- "families_given_up_examples": [
-  {
-   "event": "2026/329",
-   "name": "Kinoshita Group Japan Open Tennis Championships",
-   "route": "court-vision",
-   "family": "MS",
-   "reason": "the first 3 codes asked have no data",
-   "last_code": "MS003"
-  },
-  {
-   "event": "2026/329",
-   "name": "Kinoshita Group Japan Open Tennis Championships",
-   "route": "court-vision",
-   "family": "QS",
-   "reason": "the first 3 codes asked have no data",
-   "last_code": "QS006"
-  },
-  {
-   "event": "2026/7290",
-   "name": "Millennium Estoril Open",
-   "route": "court-vision",
-   "family": "MS",
-   "reason": "the first 3 codes asked have no data",
-   "last_code": "MS003"
-  },
-  {
-   "event": "2026/7290",
-   "name": "Millennium Estoril Open",
-   "route": "court-vision",
-   "family": "QS",
-   "reason": "the first 3 codes asked have no data",
-   "last_code": "QS006"
-  },
-  {
-   "event": "2026/319",
-   "name": "Generali Open",
-   "route": "court-vision",
-   "family": "MS",
-   "reason": "the first 3 codes asked have no data",
-   "last_code": "MS003"
-  },
-  {
-   "event": "2026/319",
-   "name": "Generali Open",
-   "route": "court-vision",
-   "family": "QS",
-   "reason": "the first 3 codes asked have no data",
-   "last_code": "QS006"
-  },
-  {
-   "event": "2026/316",
-   "name": "Nordea Open",
-   "route": "court-vision",
-   "family": "MS",
-   "reason": "the first 3 codes asked have no data",
-   "last_code": "MS003"
-  },
-  {
-   "event": "2026/316",
-   "name": "Nordea Open",
-   "route": "court-vision",
-   "family": "QS",
-   "reason": "the first 3 codes asked have no data",
-   "last_code": "QS006"
-  },
-  {
-   "event": "2026/314",
-   "name": "EFG Swiss Open Gstaad",
-   "route": "court-vision",
-   "family": "MS",
-   "reason": "the first 3 codes asked have no data",
-   "last_code": "MS003"
-  },
-  {
-   "event": "2026/314",
-   "name": "EFG Swiss Open Gstaad",
-   "route": "court-vision",
-   "family": "QS",
-   "reason": "the first 3 codes asked have no data",
-   "last_code": "QS006"
-  },
-  {
-   "event": "2026/8994",
-   "name": "Vanda Pharmaceuticals Mallorca Championships",
-   "route": "court-vision",
-   "family": "MS",
-   "reason": "the first 3 codes asked have no data",
-   "last_code": "MS003"
-  },
-  {
-   "event": "2026/8994",
-   "name": "Vanda Pharmaceuticals Mallorca Championships",
-   "route": "court-vision",
-   "family": "QS",
-   "reason": "the first 3 codes asked have no data",
-   "last_code": "QS006"
-  },
-  {
-   "event": "2026/500",
-   "name": "Terra Wortmann Open",
-   "route": "court-vision",
-   "family": "MS",
-   "reason": "the first 3 codes asked have no data",
-   "last_code": "MS003"
-  },
-  {
-   "event": "2026/500",
-   "name": "Terra Wortmann Open",
-   "route": "court-vision",
-   "family": "QS",
-   "reason": "the first 3 codes asked have no data",
-   "last_code": "QS006"
-  },
-  {
-   "event": "2026/440",
-   "name": "Libema Open",
-   "route": "court-vision",
-   "family": "MS",
-   "reason": "the first 3 codes asked have no data",
-   "last_code": "MS003"
-  },
-  {
-   "event": "2026/440",
-   "name": "Libema Open",
-   "route": "court-vision",
-   "family": "QS",
-   "reason": "the first 3 codes asked have no data",
-   "last_code": "QS006"
-  },
-  {
-   "event": "2026/321",
-   "name": "BOSS OPEN",
-   "route": "court-vision",
-   "family": "MS",
-   "reason": "the first 3 codes asked have no data",
-   "last_code": "MS003"
-  },
-  {
-   "event": "2026/321",
-   "name": "BOSS OPEN",
-   "route": "court-vision",
-   "family": "QS",
-   "reason": "the first 3 codes asked have no data",
-   "last_code": "QS006"
-  },
-  {
-   "event": "2026/414",
-   "name": "Bitpanda Hamburg Open",
-   "route": "court-vision",
-   "family": "MS",
-   "reason": "the first 3 codes asked have no data",
-   "last_code": "MS003"
-  },
-  {
-   "event": "2026/414",
-   "name": "Bitpanda Hamburg Open",
-   "route": "court-vision",
-   "family": "QS",
-   "reason": "the first 3 codes asked have no data",
-   "last_code": "QS006"
-  },
-  {
-   "event": "2026/425",
-   "name": "Barcelona Open Banc Sabadell",
-   "route": "court-vision",
-   "family": "MS",
-   "reason": "the first 3 codes asked have no data",
-   "last_code": "MS003"
-  },
-  {
-   "event": "2026/425",
-   "name": "Barcelona Open Banc Sabadell",
-   "route": "court-vision",
-   "family": "QS",
-   "reason": "the first 3 codes asked have no data",
-   "last_code": "QS010"
-  },
-  {
-   "event": "2026/308",
-   "name": "BMW Open by Bitpanda",
-   "route": "court-vision",
-   "family": "MS",
-   "reason": "the first 3 codes asked have no data",
-   "last_code": "MS003"
-  },
-  {
-   "event": "2026/308",
-   "name": "BMW Open by Bitpanda",
-   "route": "court-vision",
-   "family": "QS",
-   "reason": "the first 3 codes asked have no data",
-   "last_code": "QS006"
-  },
-  {
-   "event": "2026/717",
-   "name": "Fayez Sarofim & Co. U.S. Men's Clay Court Championship",
-   "route": "court-vision",
-   "family": "MS",
-   "reason": "the first 3 codes asked have no data",
-   "last_code": "MS003"
-  },
-  {
-   "event": "2026/717",
-   "name": "Fayez Sarofim & Co. U.S. Men's Clay Court Championship",
-   "route": "court-vision",
-   "family": "QS",
-   "reason": "the first 3 codes asked have no data",
-   "last_code": "QS006"
-  },
-  {
-   "event": "2026/499",
-   "name": "Delray Beach Open",
-   "route": "court-vision",
-   "family": "MS",
-   "reason": "the first 3 codes asked have no data",
-   "last_code": "MS003"
-  },
-  {
-   "event": "2026/499",
-   "name": "Delray Beach Open",
-   "route": "court-vision",
-   "family": "QS",
-   "reason": "the first 3 codes asked have no data",
-   "last_code": "QS006"
-  },
-  {
-   "event": "2026/424",
-   "name": "Nexo Dallas Open",
-   "route": "court-vision",
-   "family": "MS",
-   "reason": "the first 3 codes asked have no data",
-   "last_code": "MS003"
-  },
-  {
-   "event": "2026/424",
-   "name": "Nexo Dallas Open",
-   "route": "court-vision",
-   "family": "QS",
-   "reason": "the first 3 codes asked have no data",
-   "last_code": "QS006"
-  },
-  {
-   "event": "2026/8998",
-   "name": "Adelaide International",
-   "route": "court-vision",
-   "family": "MS",
-   "reason": "the first 3 codes asked have no data",
-   "last_code": "MS003"
-  },
-  {
-   "event": "2026/8998",
-   "name": "Adelaide International",
-   "route": "court-vision",
-   "family": "QS",
-   "reason": "the first 3 codes asked have no data",
-   "last_code": "QS006"
-  },
-  {
-   "event": "2026/301",
-   "name": "ASB Classic",
-   "route": "court-vision",
-   "family": "MS",
-   "reason": "the first 3 codes asked have no data",
-   "last_code": "MS003"
-  },
-  {
-   "event": "2026/301",
-   "name": "ASB Classic",
-   "route": "court-vision",
-   "family": "QS",
-   "reason": "the first 3 codes asked have no data",
-   "last_code": "QS006"
-  },
-  {
-   "event": "2026/339",
-   "name": "Brisbane International presented by ANZ",
-   "route": "court-vision",
-   "family": "MS",
-   "reason": "the first 3 codes asked have no data",
-   "last_code": "MS003"
-  },
-  {
-   "event": "2026/339",
-   "name": "Brisbane International presented by ANZ",
-   "route": "court-vision",
-   "family": "QS",
-   "reason": "the first 3 codes asked have no data",
-   "last_code": "QS012"
-  },
-  {
-   "event": "2025/7696",
-   "name": "Next Gen ATP Finals presented by PIF",
-   "route": "court-vision",
-   "family": "MS",
-   "reason": "the first 3 codes asked have no data",
-   "last_code": "MS003"
-  },
-  {
-   "event": "2025/5100",
-   "name": "Vanda Pharmaceuticals Hellenic Championship",
-   "route": "court-vision",
-   "family": "MS",
-   "reason": "the first 3 codes asked have no data",
-   "last_code": "MS003"
-  },
-  {
-   "event": "2025/5100",
-   "name": "Vanda Pharmaceuticals Hellenic Championship",
-   "route": "court-vision",
-   "family": "QS",
-   "reason": "the first 3 codes asked have no data",
-   "last_code": "QS006"
-  },
-  {
-   "event": "2025/341",
-   "name": "Moselle Open",
-   "route": "court-vision",
-   "family": "MS",
-   "reason": "the first 3 codes asked have no data",
-   "last_code": "MS003"
-  }
- ],
  "events_by_state": {
   "2025|ch": {
-   "files": 1,
-   "not asked": 217
+   "files": 217,
+   "empty": 1
   },
   "2025|tour": {
-   "files": 35,
-   "empty": 1,
-   "not asked": 23
+   "files": 57,
+   "empty": 2
   },
   "2026|ch": {
-   "files": 2,
-   "not asked": 206
+   "files": 212,
+   "not asked": 4
   },
   "2026|tour": {
-   "files": 47,
-   "empty": 2
+   "files": 51,
+   "empty": 2,
+   "not asked": 1
   }
  },
  "by_year_series_route": {
   "2025|1000|court-vision": {
-   "files": 568,
-   "bytes": 411386020,
-   "absent": 23
+   "files": 837,
+   "bytes": 574147768,
+   "absent": 135
   },
   "2025|1000|keystats": {
-   "files": 651,
-   "bytes": 22626808,
-   "absent": 17
+   "files": 920,
+   "bytes": 32326516,
+   "absent": 77
   },
   "2025|1000|keystats-api": {
    "absent": 4,
-   "bytes": 221648,
-   "files": 7,
+   "bytes": 2426340,
+   "files": 69,
    "errors": 4
   },
   "2025|1000|match-beats": {
-   "files": 620,
-   "bytes": 52109484,
-   "absent": 48
+   "files": 903,
+   "bytes": 76445384,
+   "absent": 94
   },
   "2025|1000|match-beats-api": {
-   "files": 35,
-   "bytes": 3607564,
+   "files": 994,
+   "bytes": 111630600,
    "absent": 4
   },
   "2025|1000|rally-analysis": {
-   "files": 655,
-   "bytes": 38457404,
-   "absent": 14
+   "files": 941,
+   "bytes": 55990572,
+   "absent": 57
   },
   "2025|?|match-beats": {
    "files": 1,
@@ -499,70 +119,78 @@
    "bytes": 85996
   },
   "2025|atp|court-vision": {
-   "absent": 98,
-   "bytes": 424005652,
-   "files": 621
+   "absent": 198,
+   "bytes": 507056056,
+   "files": 732
   },
   "2025|atp|keystats": {
-   "files": 1091,
-   "bytes": 34388696,
-   "absent": 24
+   "files": 1838,
+   "bytes": 55095480,
+   "absent": 26
   },
   "2025|atp|keystats-api": {
    "files": 7,
    "bytes": 200488,
    "errors": 5,
-   "absent": 12
+   "absent": 13
   },
   "2025|atp|match-beats": {
-   "files": 1039,
-   "bytes": 87896532,
-   "absent": 75
+   "files": 1743,
+   "bytes": 147493256,
+   "absent": 119
   },
   "2025|atp|match-beats-api": {
-   "files": 64,
-   "bytes": 7256484,
-   "absent": 12
+   "files": 1848,
+   "bytes": 207989176,
+   "absent": 13,
+   "errors": 1
   },
   "2025|atp|rally-analysis": {
-   "files": 1094,
-   "bytes": 64445156,
-   "absent": 19
+   "files": 1841,
+   "bytes": 109297936,
+   "absent": 20
   },
   "2025|ch|court-vision": {
-   "absent": 16,
-   "bytes": 0
+   "absent": 1322,
+   "bytes": 17553312,
+   "files": 30
   },
   "2025|ch|keystats": {
-   "files": 49,
-   "bytes": 1274876
+   "files": 9880,
+   "bytes": 256655012,
+   "absent": 134
   },
   "2025|ch|keystats-api": {
-   "files": 1,
-   "bytes": 30968
+   "files": 60,
+   "bytes": 1522736,
+   "absent": 68,
+   "errors": 1
   },
   "2025|ch|match-beats": {
-   "files": 46,
-   "bytes": 3985756,
-   "absent": 3
+   "files": 9328,
+   "bytes": 759910136,
+   "absent": 685
   },
   "2025|ch|match-beats-api": {
-   "files": 4,
-   "bytes": 391572
+   "files": 9935,
+   "bytes": 1076567912,
+   "absent": 68,
+   "errors": 6
   },
   "2025|ch|rally-analysis": {
-   "files": 49,
-   "bytes": 2951916
+   "files": 9885,
+   "bytes": 571677068,
+   "absent": 128
   },
   "2026|1000|court-vision": {
-   "files": 881,
-   "bytes": 711665624,
+   "files": 905,
+   "bytes": 726112644,
    "absent": 37
   },
   "2026|1000|keystats": {
    "absent": 18,
-   "bytes": 29883788,
-   "files": 840
+   "bytes": 29999696,
+   "files": 843
   },
   "2026|1000|keystats-api": {
    "files": 14,
@@ -570,19 +198,19 @@
    "absent": 4
   },
   "2026|1000|match-beats": {
-   "files": 834,
-   "bytes": 79399952,
+   "files": 858,
+   "bytes": 82418132,
    "absent": 85
   },
   "2026|1000|match-beats-api": {
-   "files": 80,
-   "bytes": 8685508,
+   "files": 621,
+   "bytes": 69327908,
    "absent": 4,
    "errors": 1
   },
   "2026|1000|rally-analysis": {
-   "files": 891,
-   "bytes": 52923324,
+   "files": 915,
+   "bytes": 54511976,
    "absent": 28
   },
   "2026|?|court-vision": {
@@ -595,14 +223,14 @@
   },
   "2026|atp|court-vision": {
    "empty": 76,
-   "bytes": 607658856,
+   "bytes": 617506724,
    "absent": 137,
-   "files": 784,
+   "files": 803,
    "errors": 1
   },
   "2026|atp|keystats": {
-   "files": 1551,
-   "bytes": 48284908,
+   "files": 1554,
+   "bytes": 48400752,
    "absent": 34
   },
   "2026|atp|keystats-api": {
@@ -612,53 +240,58 @@
    "errors": 1
   },
   "2026|atp|match-beats": {
-   "files": 1395,
-   "bytes": 134301396,
+   "files": 1414,
+   "bytes": 136406868,
    "absent": 188
   },
   "2026|atp|match-beats-api": {
-   "files": 185,
-   "bytes": 20270612,
+   "files": 981,
+   "bytes": 108113188,
    "absent": 4
   },
   "2026|atp|rally-analysis": {
-   "files": 1547,
-   "bytes": 91172824,
+   "files": 1566,
+   "bytes": 92288152,
    "absent": 36
   },
   "2026|ch|court-vision": {
-   "empty": 92,
-   "bytes": 8096,
-   "absent": 2
+   "empty": 566,
+   "bytes": 438828808,
+   "absent": 719,
+   "files": 764
   },
   "2026|ch|keystats": {
-   "files": 92,
-   "bytes": 2394944,
-   "absent": 2
+   "files": 9598,
+   "bytes": 257107076,
+   "absent": 156
   },
   "2026|ch|keystats-api": {
-   "files": 4,
-   "bytes": 108792
+   "files": 92,
+   "bytes": 2498160,
+   "absent": 65,
+   "errors": 1
   },
   "2026|ch|match-beats": {
-   "files": 92,
-   "bytes": 9968864,
-   "absent": 2
+   "files": 8710,
+   "bytes": 821953952,
+   "absent": 1044
   },
   "2026|ch|match-beats-api": {
-   "files": 4,
-   "bytes": 455140
+   "files": 5574,
+   "bytes": 603474144,
+   "absent": 63,
+   "errors": 3
   },
   "2026|ch|rally-analysis": {
-   "files": 93,
-   "bytes": 5378732,
-   "absent": 1
+   "files": 9584,
+   "bytes": 553154404,
+   "absent": 170
   }
  },
- "matches_in_plan_with_a_file": 4424,
- "files_held_elsewhere_in_plan": 122,
- "receipts": 17055,
- "receipts_with_errors": 12,
+ "matches_in_plan_with_a_file": 25115,
+ "files_held_elsewhere_in_plan": 366,
+ "receipts": 103246,
+ "receipts_with_errors": 24,
  "error_examples": [
   {
    "name": "2026/422/match-beats-api/MS036",
@@ -707,8 +340,148 @@
   {
    "name": "2025/4713/keystats-api/QS006",
    "error": "RuntimeError: HTTP 500 for https://itp-atp-sls.infosys-platforms.com/prod/api/stats-plus/v1/keystats/year/2025/eventId/4713/matchId/QS006 after 4 attempts"
+  },
+  {
+   "name": "2026/8266/keystats-api/QS012",
+   "error": "RuntimeError: HTTP 500 for https://itp-atp-sls.infosys-platforms.com/prod/api/stats-plus/v1/keystats/year/2026/eventId/8266/matchId/QS012 after 4 attempts"
+  },
+  {
+   "name": "2026/3131/match-beats-api/MS009",
+   "error": "RuntimeError: HTTP 500 for https://itp-atp-sls.infosys-platforms.com/prod/api/match-beats/data/year/2026/eventId/3131/matchId/MS009 after 4 attempts"
+  },
+  {
+   "name": "2026/2941/match-beats-api/QS019",
+   "error": "RuntimeError: HTTP 500 for https://itp-atp-sls.infosys-platforms.com/prod/api/match-beats/data/year/2026/eventId/2941/matchId/QS019 after 4 attempts"
+  },
+  {
+   "name": "2026/2927/match-beats-api/MS014",
+   "error": "RuntimeError: HTTP 500 for https://itp-atp-sls.infosys-platforms.com/prod/api/match-beats/data/year/2026/eventId/2927/matchId/MS014 after 4 attempts"
+  },
+  {
+   "name": "2025/3035/keystats-api/MS030",
+   "error": "RuntimeError: HTTP 500 for https://itp-atp-sls.infosys-platforms.com/prod/api/stats-plus/v1/keystats/year/2025/eventId/3035/matchId/MS030 after 4 attempts"
+  },
+  {
+   "name": "2025/586/match-beats-api/MS016",
+   "error": "RuntimeError: HTTP 500 for https://itp-atp-sls.infosys-platforms.com/prod/api/match-beats/data/year/2025/eventId/586/matchId/MS016 after 4 attempts"
+  },
+  {
+   "name": "2025/2797/match-beats-api/MS018",
+   "error": "RuntimeError: HTTP 500 for https://itp-atp-sls.infosys-platforms.com/prod/api/match-beats/data/year/2025/eventId/2797/matchId/MS018 after 4 attempts"
+  },
+  {
+   "name": "2025/418/match-beats-api/MS018",
+   "error": "RuntimeError: HTTP 500 for https://itp-atp-sls.infosys-platforms.com/prod/api/match-beats/data/year/2025/eventId/418/matchId/MS018 after 4 attempts"
   }
  ],
- "finished_at": "2026-10-17T09:32:07+00:00",
- "seconds": 41021.5
+ "staged": {
+  "source": "infosys_atp_recent",
+  "started_at": "2026-10-28T03:56:39+00:00",
+  "decision": "docs/decisions/2026-10-08-scraping-approved.md",
+  "matches": 25115,
+  "files": 97455,
+  "files_by_folder": {
+   "infosys_atp_recent": 97256,
+   "infosys_atp_daily": 199
+  },
+  "files_by_route": {
+   "keystats": 24634,
+   "court-vision": 4714,
+   "match-beats": 22957,
+   "rally-analysis": 24733,
+   "match-beats-api": 19953,
+   "keystats-api": 464
+  },
+  "staged": {
+   "points.parquet": {
+    "rows": 3590495,
+    "bytes": 58039437
+   },
+   "keystats.parquet": {
+    "rows": 1433573,
+    "bytes": 15418420
+   },
+   "rally.parquet": {
+    "rows": 3545656,
+    "bytes": 22732754
+   },
+   "court_vision.parquet": {
+    "rows": 789936,
+    "bytes": 98765890
+   },
+   "court_vision_shots.parquet": {
+    "rows": 2790645,
+    "bytes": 103172253
+   },
+   "court_vision_matches.parquet": {
+    "rows": 4072,
+    "bytes": 11296028
+   },
+   "matches.parquet": {
+    "rows": 25115,
+    "bytes": 4931013
+   }
+  },
+  "by_year": {
+   "2025": {
+    "matches_with_a_document": 12785,
+    "with_points": 12782,
+    "with_timed_points": 1743,
+    "with_keystats": 12772,
+    "with_keystats_speed": 1732,
+    "with_rally": 12668,
+    "with_court_vision": 1599
+   },
+   "2026": {
+    "matches_with_a_document": 12330,
+    "with_points": 12222,
+    "with_timed_points": 2582,
+    "with_keystats": 12326,
+    "with_keystats_speed": 2684,
+    "with_rally": 12065,
+    "with_court_vision": 2473
+   }
+  },
+  "matchbeats_copies": {
+   "core identical": 9225,
+   "static core, newer details from match-beats-api": 17902,
+   "static only": 5055,
+   "api only": 2051
+  },
+  "matchbeats_both_copies": {
+   "matches": 17902,
+   "core_identical": 9225,
+   "points_matched": 2565527,
+   "endings_differing": 98593,
+   "ending_pairs_static_to_newer": {
+    "UE->N": 34336,
+    "W->N": 16926,
+    "FE->N": 14113,
+    "UE->W": 10854,
+    "FE->W": 5373,
+    "UE->FE": 4740,
+    "FE->UE": 3520,
+    "W->FE": 2443,
+    "W->UE": 2181,
+    "N->UE": 1448,
+    "N->W": 1148,
+    "N->FE": 1021
+   },
+   "timed_points_static": 362811,
+   "timed_points_api": 362811
+  },
+  "decryption": {
+   "decrypted:match-beats": 22957,
+   "decrypted:match-beats-api": 19953,
+   "decrypted:keystats": 25098,
+   "decrypted:rally-analysis": 24733,
+   "decrypted:court-vision": 9428
+  },
+  "failures": [],
+  "failures_total": 0,
+  "finished_at": "2026-10-28T04:21:08+00:00",
+  "seconds": 1818.8
+ },
+ "finished_at": "2026-10-28T04:21:08+00:00",
+ "seconds": 1823.9
 }

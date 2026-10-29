@@ -488,3 +488,18 @@ The lead session is editing these right now, so do not edit them: src/eda/predic
 - a short chronological record of your steps (with clock times from `date`, failures and dead ends), which the lead will copy into the study's process log.
 ```
 
+---
+
+## Note, 22 Oct 2026: the instance's build tree deleted
+
+Added by the cleanup session `4437577b-803e-4161-baf5-c6fade971478`, at the owner's word
+([cleanup inventory, process log § 9d](../cleanup_inventory/process_log.md)).
+* **Deleted on 22 Oct 2026:** `C:/Users/zerom/tnr_gaps`, the build tree of `template_2026-10-13`. Every forecast of
+  this study was made on that instance (13 Oct, 23:23-23:32; the row "At 07:05 on 14 Oct" above). This study's own
+  work tree, `C:/Users/zerom/tnr_gate_review`, had been removed before.
+* **What stays:** the run folders under `data/studies/box_score_gate_review/replay/` and every reading recorded here.
+* **For a reviewer:** the readings come from the 13 Oct instance (the tables of 8 Oct plus the lower-level feed), an
+  older version of the model; the live one is `template_2026-10-21b`. The scenarios' commands no longer run as written:
+  a re-check replays on the current instance (the master notebook's selection), and its numbers may differ. Subagent
+  D's form-evidence build (U-126, the 08:22 row) read the same tree; the feature-universe README has its note.
+

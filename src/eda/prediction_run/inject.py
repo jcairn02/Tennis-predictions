@@ -3,7 +3,10 @@
 The run's meta table (one row per live match: match_id, day, p_a, venue) says what Stage 0 cannot hold. Each step puts
 it where the frame's played matches have it, so the unchanged builders treat a live match as they treat those:
     check   after stage0_build.py: every live match is in Stage 0 under the id expected, completed, an evaluation match,
-            with no box score; nothing else of the sandbox's history was dropped but the replay's own rounds
+            with no box score; nothing else of the sandbox's history was dropped but the replay's own rounds. With
+            --leave-out (the daily engine's live runs, since 28 Oct 2026: docs/decisions/2026-10-28-one-bad-match-left-
+            out.md) a match that fails, or would fail the odds step or the states step's sides, is listed with its
+            reason and the step exits 3: the engine builds Stage 0 again without it (dp_tables.prep)
     odds    after stage1_odds.py: the price. Stage 1 keeps a row for every main-draw match at the levels tennis-data
             covers; a live match's row takes the margin-free price as tennis-data's average (p_avg_a, the frame's
             odds input, with the decimal odds it implies). Its tennis-data fields stay empty, the date too: the day
@@ -26,6 +29,10 @@ it where the frame's played matches have it, so the unchanged builders treat a l
             September), a day wide before (the median of 2025)
 A meta row whose ``dating`` is "training" keeps its played links and its window (replay.py's check of the code path
 alone); every other row is dated as live.
+The earlier qualifying rounds filled from TennisLive (earlier_rounds.py, since 24 Oct 2026; run/played_meta.parquet
+beside the meta) are played matches no source has dated yet: check reports them, and pin gives each its tour's current
+window around its day, as a live match's, so its result counts for a later round as a played one would (a timeline
+dated by its sources). Nothing else here reads them: they are not priced, and their links are not touched.
 Run (inside the sandbox): python src/eda/prediction_run/inject.py --meta <live_meta.parquet>
                           --step check|odds|remap|links|pin
 """
@@ -48,6 +55,16 @@ from src.eda.predictability_diagnostic import common as C  # noqa: E402
 
 ODDS = C.OUT / "stage1_odds.parquet"
 BEFORE = ROOT / "run" / "stage0_before"            # the sandbox's Stage 0 as copied, kept by run.py before the build
+PLAYED = ROOT / "run" / "played_meta.parquet"      # the earlier rounds filled from TennisLive (earlier_rounds.py)
+
+
+def played_meta() -> pd.DataFrame:
+    """The earlier rounds' meta (match_id, day, venue, tour, ...), empty when the run filled none."""
+    if not PLAYED.exists():
+        return pd.DataFrame(columns=["match_id", "day", "venue", "tour"])
+    pm = pd.read_parquet(PLAYED)
+    pm["match_id"] = pm["match_id"].astype(str)
+    return pm
 TD_TEXT = ["td_file", "td_tournament", "td_round", "td_comment", "td_winner", "td_loser"]
 TD_NUM = ["ps_a", "ps_b", "max_a", "max_b", "b365_a", "b365_b", "overround_ps", "p_ps_a"]
 
@@ -57,8 +74,13 @@ def in_sandbox() -> None:
         raise SystemExit(f"{ROOT} is not a prediction run's sandbox: inject.py runs only there")
 
 
-def check(meta: pd.DataFrame) -> dict:
-    m = pd.read_parquet(C.MATCHES, columns=["match_id", "status", "evaluation", "has_box", "level", "qualifying"])
+def check(meta: pd.DataFrame, leave_out: bool = False) -> dict:
+    """leave_out (a live run of the daily engine, since 28 Oct 2026: docs/decisions/2026-10-28-one-bad-match-left-
+    out.md): instead of stopping, the live matches that cannot be placed are listed with their reasons (out["left_out"];
+    main() then exits LEFT_OUT_EXIT, and dp_tables.prep builds Stage 0 again without them), with two refusals of the
+    later steps tested here as well, so that neither stops the run: unplaced()."""
+    cols = ["match_id", "status", "evaluation", "has_box", "level", "qualifying", "source_file"]
+    m = pd.read_parquet(C.MATCHES, columns=cols + (["source_row", "player_a_id", "player_b_id"] if leave_out else []))
     m["match_id"] = m["match_id"].astype(str)
     got = m[m["match_id"].isin(set(meta["match_id"]))]
     missing = sorted(set(meta["match_id"]) - set(got["match_id"]))
@@ -68,8 +90,77 @@ def check(meta: pd.DataFrame) -> dict:
     s = json.loads((C.OUT / "stage0_summary.json").read_text(encoding="utf-8")).get("live_rows", {})
     out["stage0_live_rows"] = s
     if missing or len(bad):
-        raise SystemExit(f"check: live matches missing from Stage 0 or not built as expected: {out}")
+        # the live rows' own matches under ids the meta does not name: an id predicted otherwise than Stage 0 built it
+        # (live_rows.id_handles; the run of 28 Oct 2026 stopped on two players' second ids)
+        own = m.loc[m["source_file"].astype(str).eq("live_rows"), "match_id"]
+        out["stage0_live_ids_not_expected"] = sorted(set(own) - set(meta["match_id"]))[:20]
+        if not leave_out:
+            raise SystemExit(f"check: live matches missing from Stage 0 or not built as expected: {out}")
+    if leave_out:
+        why = unplaced(meta, m, set(missing), bad)
+        if why:
+            out["left_out"] = [{"match_id": k, "reason": v} for k, v in why.items()]
+            if len(why) >= len(meta):
+                raise SystemExit(f"check: no live match can be placed: {out}")
+    pm = played_meta()
+    if len(pm):                                      # reported, never refused: a missing one leaves its gate block
+        held = m[m["match_id"].isin(set(pm["match_id"]))]
+        out["earlier_rounds"] = {"filled": int(len(pm)), "in_stage0": int(len(held)),
+                                 "completed": int(held["status"].eq("completed").sum()),
+                                 "with_box": int(held["has_box"].astype(bool).sum()),
+                                 "not_in_stage0": sorted(set(pm["match_id"]) - set(held["match_id"]))[:20]}
     return out
+
+
+LEFT_OUT_EXIT = 3                                    # check --leave-out: some live matches cannot be placed
+
+
+def unplaced(meta: pd.DataFrame, m: pd.DataFrame, missing: set, bad: pd.DataFrame) -> dict:
+    """{match id: why} for the live matches the run cannot place in the sandbox's Stage 0 (m: its match rows with
+    source_row and the sides' ids):
+        * not in it under the id expected: its live row found by its position (source_file "live_rows", source_row = the
+          meta's csv_row) names the id Stage 0 built instead, or Stage 0 kept none (tennis-predictions-24's point of
+          28 Oct 2026: the two causes said apart);
+        * in it, but not built as a live match (completed, an evaluation match, no box score);
+        * a main-draw match at a level Stage 1 does not price (stage1_odds.LINK_LEVELS): the odds step would stop;
+        * Stage 0's player rows not giving one side A and one side B with the match row's ids (dp_steps.side_names'
+          condition): the states step would stop."""
+    from src.eda.predictability_diagnostic import stage1_odds as S1
+
+    why = {}
+    own = m[m["source_file"].astype(str).eq("live_rows")]
+    built = {int(r): mid for mid, r in zip(own["match_id"], pd.to_numeric(own["source_row"], errors="coerce"))
+             if pd.notna(r)}
+    for _, r in meta.iterrows():
+        mid = str(r["match_id"])
+        if mid not in missing:
+            continue
+        row = pd.to_numeric(pd.Series([r.get("csv_row")]), errors="coerce").iloc[0]
+        other = built.get(int(row)) if pd.notna(row) else None
+        why[mid] = (f"not in the run's Stage 0 under the id expected ({mid}): Stage 0 built its live row as {other}, a "
+                    "match id predicted otherwise than Stage 0 names it (often a player's second id)" if other else
+                    f"not in the run's Stage 0 ({mid}): Stage 0's build kept no row of it")
+    for _, b in bad.iterrows():
+        why[str(b["match_id"])] = (f"in the run's Stage 0, but not built as a live match (status {b['status']}, "
+                                   f"evaluation {bool(b['evaluation'])}, box score {bool(b['has_box'])})")
+    rest = m[m["match_id"].isin(set(meta["match_id"].astype(str)) - set(why))]
+    for _, b in rest[~rest["qualifying"].astype(bool) & ~rest["level"].isin(S1.LINK_LEVELS)].iterrows():
+        why[str(b["match_id"])] = (f"a main-draw match at level {b['level']}, which Stage 1 does not price: the odds "
+                                   "step would stop")
+    rest = rest[~rest["match_id"].isin(set(why))]
+    if len(rest):
+        p = pd.read_parquet(C.MATCH_PLAYERS, columns=["match_id", "player_id", "side"],
+                            filters=[("match_id", "in", sorted(rest["match_id"]))])
+        p["match_id"] = p["match_id"].astype(str)
+        for _, b in rest.iterrows():
+            g = p[p["match_id"].eq(b["match_id"])]
+            a, s = g[g["side"].eq("A")], g[g["side"].eq("B")]
+            if not (len(a) == 1 and len(s) == 1 and str(a["player_id"].iloc[0]) == str(b["player_a_id"])
+                    and str(s["player_id"].iloc[0]) == str(b["player_b_id"])):
+                why[str(b["match_id"])] = ("Stage 0's player rows do not give the match row's two sides (side A "
+                                           f"{a['player_id'].tolist()}, side B {s['player_id'].tolist()}): the states "
+                                           "step would stop")
+    return why
 
 
 def odds(meta: pd.DataFrame) -> dict:
@@ -195,10 +286,19 @@ PIN_DAYS, PIN_MIN, PIN_FALLBACK = 60, 100, 365
 
 
 def pin(meta: pd.DataFrame) -> dict:
-    """Each live match's window: its day, widened as its tour's dated frame-level matches of late were."""
+    """Each live match's window: its day, widened as its tour's dated frame-level matches of late were; and likewise
+    each earlier round filled from TennisLive that Stage 0 holds under the id predicted (one its source published since
+    is dated by the source)."""
     from src.eda.match_timing import common as MTC
 
     live = live_dated(meta)
+    # the windows are measured before the live matches' first day, with or without earlier rounds
+    first = pd.to_datetime(live["day"]).min() if len(live) else None
+    pm, earlier = played_meta(), 0
+    if len(pm):
+        held = set(pd.read_parquet(MTC.OUT / "timing.parquet", columns=["match_id"])["match_id"].astype(str))
+        pm = pm[pm["match_id"].isin(held) & ~pm["match_id"].isin(set(meta["match_id"]))]
+        live, earlier = pd.concat([live, pm[["match_id", "day", "tour"]]], ignore_index=True), len(pm)
     if live.empty:
         return {"pinned": 0}
     path = MTC.OUT / "timing.parquet"
@@ -206,7 +306,7 @@ def pin(meta: pd.DataFrame) -> dict:
     t["match_id"] = t["match_id"].astype(str)
     m = pd.read_parquet(C.MATCHES, columns=["match_id", "level", "qualifying", "tournament_date"])
     m["match_id"] = m["match_id"].astype(str)
-    first = pd.to_datetime(live["day"]).min()
+    first = first if first is not None else pd.to_datetime(live["day"]).max() + pd.Timedelta(days=1)
     dated = t.loc[t["exact"].astype(bool), ["match_id", "tour", "es", "lf", "obs"]].merge(
         m[m["level"].isin(FRAME_LEVELS) & ~m["qualifying"].astype(bool) & ~m["match_id"].isin(set(meta["match_id"]))],
         on="match_id")
@@ -238,7 +338,8 @@ def pin(meta: pd.DataFrame) -> dict:
     part = path.with_name(path.name + ".part")
     t.to_parquet(part, index=False)
     os.replace(part, path)
-    return {"pinned": int(len(idx)), "days_before": {k: float(v) for k, v in before.items()},
+    return {"pinned": int(len(idx)), **({"earlier_rounds_pinned": earlier} if earlier else {}),
+            "days_before": {k: float(v) for k, v in before.items()},
             "days_after": {k: float(v) for k, v in after.items()}, "measured_on": used}
 
 
@@ -246,18 +347,21 @@ def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--meta", required=True)
     ap.add_argument("--step", required=True, choices=["check", "odds", "remap", "links", "pin"])
+    ap.add_argument("--leave-out", action="store_true",
+                    help="check, a live run of the daily engine: list the live matches that cannot be placed and exit "
+                         f"{LEFT_OUT_EXIT} (the engine builds Stage 0 again without them) instead of stopping")
     a = ap.parse_args()
     in_sandbox()
     meta = pd.read_parquet(a.meta)
     meta["match_id"] = meta["match_id"].astype(str)
-    out = {"check": lambda: check(meta), "odds": lambda: odds(meta), "remap": remap, "links": lambda: links(meta),
-           "pin": lambda: pin(meta)}[a.step]()
+    out = {"check": lambda: check(meta, a.leave_out), "odds": lambda: odds(meta), "remap": remap,
+           "links": lambda: links(meta), "pin": lambda: pin(meta)}[a.step]()
     record = ROOT / "run" / "inject.json"
     done = json.loads(record.read_text(encoding="utf-8")) if record.exists() else {}
     done[a.step] = out
     P.write_json(record, done)
     print(json.dumps(out, default=str))
-    return 0
+    return LEFT_OUT_EXIT if a.step == "check" and out.get("left_out") else 0
 
 
 if __name__ == "__main__":

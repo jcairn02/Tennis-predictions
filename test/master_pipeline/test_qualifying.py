@@ -10,6 +10,8 @@ bets.md; master pipeline process log, Part 8). Offline: no request (TennisLive i
 from __future__ import annotations
 
 import datetime as dt
+import gzip
+import json
 import sys
 from pathlib import Path
 
@@ -70,6 +72,46 @@ def test_round_from_tennislive_results():
     # the last round of a three-round draw has no round after it
     q3 = results(("Q3", "Adam Walton", "Xx Yy", 1, True), ("Q3", "Nikoloz Basilashvili", "Zz Ww", 1, True))
     assert Q.round_from_results(q3, a, b, names)[0] is None
+
+
+# TennisLive's answer for Tokyo's qualifying on 23 Oct 2026 at 18:39 UTC, the day before its first match: 12 singles
+# matches listed, none finished, so no match in the results
+TOKYO_BEFORE_ITS_FIRST_MATCH = {
+    "status": "ok", "section": "results",
+    "data": {"disciplines": {"singles": True, "doubles": False}, "totalCounts": {"singles": 12, "doubles": 0},
+             "liveCounts": {"singles": 0, "doubles": 0}, "groups": []}}
+TOKYO = {"key": "wta:tokyo", "url": "/wta-women/toray-pan-pacific-open-tokyo-2026/"}
+
+
+def reader(monkeypatch, tmp_path, payload) -> Q.TennisLive:
+    """The real TennisLive reader, on an answer saved as its fetch saves one: no request, no receipts file."""
+    from src.ingest.point_sources import common as PS
+    from src.ingest.point_sources import tennislive_events as TLE
+    monkeypatch.setattr(PS, "Client", lambda *a, **k: None)
+    monkeypatch.setattr(PS, "receipts_for", lambda source: {})
+    saved = tmp_path / "event__results.json.gz"
+    saved.write_bytes(gzip.compress(json.dumps(payload).encode("utf-8")))
+    monkeypatch.setattr(TLE, "section_target", lambda url: ("tournaments/x/event/results", saved))
+    monkeypatch.setattr(TLE, "fetch_section", lambda *a, **k: {"status": 200, "retrieved_at": "2026-10-23T18:39:41+00:00"})
+    return Q.TennisLive()
+
+
+def test_an_event_with_no_result_yet_reads_as_round_1(monkeypatch, tmp_path):
+    """23 Oct 2026: A2 stopped with KeyError: 'draw' on Tokyo's qualifying, the day before its first match. The reader
+    made an answer with no match into a table with no columns, and round_from_results could not filter it."""
+    rows = reader(monkeypatch, tmp_path, TOKYO_BEFORE_ITS_FIRST_MATCH).results(TOKYO)
+    assert rows is not None and rows.empty
+    names = ("Ann Li", "Ashlyn Krueger")
+    assert Q.round_from_results(rows, keys(names[0]), keys(names[1]), names)[0] == "Q1"
+
+
+def test_an_answer_without_its_list_of_matches_is_not_read_as_round_1(monkeypatch, tmp_path):
+    """An "ok" answer in another form (no list of matches, as after a change of the site) says nothing: TennisLive
+    stops for the linking, which falls back to Tennis My Life's rows (never a round 1 from silence) and says why."""
+    data = {k: v for k, v in TOKYO_BEFORE_ITS_FIRST_MATCH["data"].items() if k != "groups"}
+    tl = reader(monkeypatch, tmp_path, {**TOKYO_BEFORE_ITS_FIRST_MATCH, "data": data})
+    assert tl.results(TOKYO) is None
+    assert "list of matches" in tl.stopped
 
 
 def test_round_from_tennis_my_life_never_reads_a_round_1():
@@ -203,7 +245,7 @@ class StandIn:
         return {"key": f"{tour}:{name}", "name": name, "url": "/x/"}, ""
 
     def results(self, ev):
-        return results()
+        return pd.DataFrame()       # what the real reader gives an answer with no match: no rows, no columns (23 Oct)
 
 
 @pytest.mark.skipif(not PULL_1016.exists(), reason="no Pinnacle pull of 16 Oct 2026")
@@ -214,8 +256,10 @@ def test_the_linker_on_the_16_oct_qualifying(monkeypatch, tmp_path):
     real = L._tml
     monkeypatch.setattr(L, "_tml", lambda years: (lambda t: t[t["_date"] <= pd.Timestamp("2026-10-16")])(real(years)))
     pull = pd.read_parquet(PULL_1016)
+    # both tours asked for by name: Ningbo's and Osaka's are women's (switched off for the bet day since 28 Oct 2026,
+    # config.BET_TOURS), and the linker's women's qualifying code must still work when they are switched back on
     m = L.todays_matches(pull=pull, hours_ahead=30, now=dt.datetime(2026, 10, 16, 23, 0, tzinfo=dt.timezone.utc),
-                         tennislive=StandIn())
+                         tennislive=StandIn(), tours=("atp", "wta"))
     q = m[m["league"].astype(str).str.contains(r"^(?:ATP|WTA) (?:Almaty|Brussels|Ningbo|Osaka) - Qualifiers$")]
     ok = q[q["status"].eq("ok")]
     assert len(q) >= 20 and len(ok) >= 0.8 * len(q)

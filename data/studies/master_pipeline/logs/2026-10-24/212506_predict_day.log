@@ -1,0 +1,91 @@
+# DP_INSTANCE=template_2026-10-21b DP_BASE_TREE=C:\Users\zerom\tnr_tpl1021 DP_WORK_TREE=C:\Users\zerom\tnr_daily_nb ./python.sh 'C:\Users\zerom\Documents\Tennis-predictions\src\eda\daily_prediction\dp.py' run_day --run 'C:\Users\zerom\Documents\Tennis-predictions\data\studies\daily_prediction\runs\live_2026-10-24_212506' --matchups 'C:\Users\zerom\Documents\Tennis-predictions\data\studies\master_pipeline\matchups\matchups_2026-10-24_212449.csv' --refresh --seeds 0-15 --checkpoint auto --leave-checkpoint auto
+# started 2026-10-24T21:25:06-07:00
+instance template_2026-10-21b on C:\Users\zerom\tnr_tpl1021: from DP_INSTANCE and DP_BASE_TREE
+{
+ "created_at": "2026-10-25T042506Z",
+ "mode": "live",
+ "replay": null,
+ "matchups_csv": "C:\\Users\\zerom\\Documents\\Tennis-predictions\\data\\studies\\master_pipeline\\matchups\\matchups_2026-10-24_212449.csv",
+ "checkpoint": "auto",
+ "seeds": "0-15",
+ "work_tree": "C:\\Users\\zerom\\tnr_daily_nb",
+ "instance": "C:\\Users\\zerom\\Documents\\Tennis-predictions\\data\\studies\\current_best_model\\template_2026-10-21b",
+ "base_tree": "C:\\Users\\zerom\\tnr_tpl1021",
+ "instance_source": "DP_INSTANCE and DP_BASE_TREE"
+}
+[    0.3s] == refresh
+[    0.0s] --> tml: -m src.ingest.public_dump.tennis_my_life --start-year 2000
+[    4.0s]     exit 1 in 4 s
+[    4.0s] --> stage0: src/eda/predictability_diagnostic/stage0_build.py --out-dir C:\Users\zerom\Documents\Tennis-predictions\data\studies\daily_prediction\runs\live_2026-10-24_212506\stage0
+[   79.4s]     exit 0 in 75 s
+[   84.5s]    refresh: 84.2 s
+[   84.5s] == matchups
+[  114.1s]    matchups: 29.5 s
+[  114.1s] == prices
+[  114.1s]    prices: 0.0 s
+[  114.1s] == worktree
+[  121.4s]    worktree: 7.3 s
+[  121.4s] == tables
+[  121.4s] --> stage0: src/eda/predictability_diagnostic/stage0_build.py --live-rows run/live_rows.parquet
+[  206.5s]     exit 0 in 85.1 s
+[  206.5s] --> additions: src/eda/current_best_model/additions.py --apply
+[  413.8s]     exit 0 in 207.3 s
+[  413.8s] --> check: src/eda/prediction_run/inject.py --meta run/live_meta.parquet --step check
+[  414.5s]     exit 0 in 0.7 s
+[  414.5s] --> lle_layer: src/eda/current_best_model/layer_config.py --resolve --official C:\Users\zerom\Documents\Tennis-predictions\data\studies\current_best_model\level_layer\official.json
+[  435.1s]     exit 0 in 20.6 s
+[  435.2s] --> odds: src/eda/predictability_diagnostic/stage1_odds.py 
+[  441.9s]     exit 0 in 6.7 s
+[  441.9s] --> live_odds: src/eda/prediction_run/inject.py --meta run/live_meta.parquet --step odds
+[  442.7s]     exit 0 in 0.8 s
+[  442.7s] --> remap: src/eda/prediction_run/inject.py --meta run/live_meta.parquet --step remap
+[  450.0s]     exit 0 in 7.3 s
+[  450.0s] --> links: src/eda/match_timing/link_sources_c.py --sources tennis_data,wta_api,sofascore,slam_feeds,tdi
+[  495.4s]     exit 0 in 45.4 s
+[  495.4s] --> live_links: src/eda/prediction_run/inject.py --meta run/live_meta.parquet --step links
+[  499.5s]     exit 0 in 4.1 s
+[  499.5s] --> timing: src/eda/match_timing/timing.py 
+[  540.3s]     exit 0 in 40.8 s
+[  540.3s] --> live_window: src/eda/prediction_run/inject.py --meta run/live_meta.parquet --step pin
+[  546.5s]     exit 0 in 6.3 s
+[  546.5s] --> additions_window: src/eda/current_best_model/additions.py --pin-timing
+[  565.2s]     exit 0 in 18.7 s
+[  565.2s]    tables: 443.9 s
+[  565.2s] == states
+[ 1107.5s]    states: 542.3 s
+[ 1107.5s] == history
+[ 1107.5s]    history: 0.0 s
+[ 1107.5s] == patterns
+[ 1170.6s]    patterns: 63.1 s
+[ 1170.6s] == checkpoint
+[ 1170.6s]    checkpoint: 0.0 s
+[ 1170.6s] == fit
+[ 1256.2s]    fit: 85.5 s
+[ 1256.2s] == predict
+[ 1257.0s]    predict: 0.9 s
+{
+ "run": "C:\\Users\\zerom\\Documents\\Tennis-predictions\\data\\studies\\daily_prediction\\runs\\live_2026-10-24_212506",
+ "mode": "live",
+ "started_at": "2026-10-25T042506Z",
+ "steps": {
+  "refresh": 84.2,
+  "matchups": 29.5,
+  "prices": 0.0,
+  "worktree": 7.3,
+  "tables": 443.9,
+  "states": 542.3,
+  "history": 0.0,
+  "patterns": 63.1,
+  "checkpoint": 0.0,
+  "fit": 85.5,
+  "predict": 0.9,
+  "cleanup": 2.4
+ },
+ "finished_at": "2026-10-25T044603Z",
+ "cleanup": {
+  "deleted": true,
+  "seconds": 2.4
+ }
+}
+
+# ok, exit 0, 1259.9 s

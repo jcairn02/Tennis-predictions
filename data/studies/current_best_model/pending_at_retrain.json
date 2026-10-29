@@ -21,6 +21,22 @@
    "check_instance": ["src/eda/source_reconciliation/verify_applied.py", "--stage0", "{stage0}", "--instance", "{instance}"],
    "applied_in": null,
    "applied_at": null
+  },
+  {
+   "id": "2026-10-28-mensik-id-alias",
+   "decision": "docs/decisions/2026-10-28-mensik-id-alias.md",
+   "decided": "2026-10-28",
+   "status": "pending",
+   "what": [
+    "Jakub Mensik's second id atp:210084 (his 11 Challenger and Challenger-qualifying matches of January to May 2023, from Sackmann's archive file atp_matches_qual_chall_2023.csv) mapped to his established id atp:210150 (id_aliases.csv)"
+   ],
+   "in_force_since": "2026-10-28: the decided tables (every Stage 0 build: prediction runs at once, and A2's name check at once through live._stage0_keys; the shared tables at their next rebuild, B6)",
+   "reaches_training": "the first retrain whose shared tables were rebuilt (B6) after 28 Oct 2026, 15:44 UTC",
+   "how_a_retrain_takes_it": "nothing to switch on: rebuild the shared tables (B6) before the retrain, as its plan asks; the build reads the decided id_aliases.csv by default",
+   "check_stage0": ["src/eda/input_data_audit/verify_aliases.py", "--stage0", "{stage0}"],
+   "check_instance": ["src/eda/input_data_audit/verify_aliases.py", "--stage0", "{stage0}", "--instance", "{instance}"],
+   "applied_in": null,
+   "applied_at": null
   }
  ]
 }

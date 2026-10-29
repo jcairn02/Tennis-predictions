@@ -112,8 +112,11 @@ Counts:
 ./python.sh src/eda/event_levels/universe_columns.py               # seconds (the el__ source; needs the event-levels
                                                                    # study's history.parquet and an existing store)
 ./python.sh src/eda/feature_universe/form_evidence.py --store      # about 4 minutes (the fe__ source; reads the
-                                                                   # template_2026-10-13 build tree C:/Users/zerom/tnr_gaps,
-                                                                   # read only; its checks need an existing store)
+                                                                   # master notebook's selected instance and its build
+                                                                   # tree, read only; its checks need an existing store).
+                                                                   # The stored fe__ columns read template_2026-10-13's
+                                                                   # tree C:/Users/zerom/tnr_gaps, deleted 22 Oct 2026:
+                                                                   # a rebuild gives the current instance's values
 ./python.sh src/eda/feature_universe/build_store.py                # about 8 minutes
 ./python.sh src/eda/feature_universe/catalogue/coverage.py         # a few minutes
 ./python.sh src/eda/feature_universe/catalogue/duplicates.py       # seconds
@@ -584,6 +587,7 @@ Medium-priority rows (41) include the decided-TTT and offset-TTT swaps, the B-MO
   * the store grew to 779 columns, the menu to 606 (`el__` 3), the catalogue to 330 rows. Two documents that describe the menu as it was (603) were left as written: [clean_holdout_rebuild](../clean_holdout_rebuild/README.md) and the feature-provenance study.
 * **U-126 refreshed, 14 Oct 2026** (the owner: "Add an input to the candidate-feature list saying how much data stands behind each player's recent form"):
   * **Built** by `form_evidence.py --store`, with the model's own code on template_2026-10-13's build tree (`C:/Users/zerom/tnr_gaps`), read only, as the daily engine reads a base tree. Appended with `build_store.py --append-fe`;
+  * **Note, 22 Oct 2026: both trees it read are deleted** (the owner; [cleanup inventory § 9d](../cleanup_inventory/process_log.md)): `tnr_gaps` (template_2026-10-13: the store's columns) and `tnr_tpl1014` (template_2026-10-14: its table beside them). The stored columns and tables stay, but they cannot be rebuilt as they were. `form_evidence.py` now defaults to the master notebook's selected instance (`template_2026-10-21b` today), so a rebuild gives that instance's values, which may differ. A selection round reads the 13 Oct instance's values, as stored;
   * **Re-filed in place, not a new row:** one row per conceptual feature (section 1), as U-125 holds two builds of its level. So no id moved, and the catalogue keeps 330 rows;
   * **Side A** is the store's (the pre-rebuild Stage 0's) wherever the tree has both players: 63,626 of 63,737 matches, each with the tree's own side A. The other 111 are WTA matches of June–July 2026, and they are missing:
     * 71 keep their match id but name other players in today's tables. 8 of their 86 old ids are the 8 Oct id fix's aliases (F7); the rest are presumably Tennis My Life's own id revisions (inferred, not traced);

@@ -808,3 +808,42 @@ What changed in this package:
 * **Two paths:** `PY_API` and `THINKING_FITS` in `dp_common.py`.
 
 A run without `--thinking` is unchanged. On a copy of `live_2026-10-19_173201` the predict step reproduced its `predictions.csv` bit for bit.
+
+---
+
+# Part 7 (22 Oct 2026): no default instance; the notebook's selection names the live model
+
+A pointer, not a second record. The request ("These needs to be rectified at a high priority", the owner, on the live
+model being named four ways), the reasoning, every check and the weak points are in the master pipeline's process log,
+Part 9 (`docs/studies/master_pipeline/process_log.md`; session `f471b5ba-df28-4941-8f4b-8f5bca704b45`, Claude Opus 5.5).
+
+What changed in this package:
+* **`dp_common.py`:** no default instance or tree (they were `template_2026-10-10` and `C:/Users/zerom/tnr_lyr_new`).
+  `resolve_instance()`: `DP_INSTANCE` with `DP_BASE_TREE`, else the notebook's selection
+  (`data/studies/master_pipeline/selected_instance.json`), else none; `require_instance()` refuses with none, and pins
+  both variables for the steps a run starts.
+* **`dp.py`:** every command but `cleanup` calls it and prints the instance and its source to stderr.
+* **`dp_steps.py`:** `run.json` records `instance_source`.
+* **Tests:** `test/daily_prediction/test_instance_selection.py` (8; they failed on the old code); the conftest has no
+  10 Oct fallback.
+
+On the notebook's path nothing changes: it hands the same instance and tree as before (checked).
+
+---
+
+## Note, 22 Oct 2026: the replay-fix tree and the 14 Oct build tree deleted
+
+Added by the cleanup session `4437577b-803e-4161-baf5-c6fade971478`, at the owner's word
+([cleanup inventory, process log §§ 9b and 9d](../cleanup_inventory/process_log.md)).
+* **Deleted on 22 Oct 2026:**
+  * the work tree `C:/Users/zerom/tnr_daily_replayfix` ("kept for review" in Part 5), and with it its backup
+    `run/stage0_matches_before_tenerife_revert.parquet` (the replay tree's Stage 0 before the 31 dates were set back);
+  * the 14 Oct instance's build tree `C:/Users/zerom/tnr_tpl1014`, which that tree, the 14 Oct live runs and the 14 Oct
+    replay checks read.
+* **What stays:** the run folders (`runs/replayfix_2026-07-13_R16`, `runs/replay_2026-07-13_R16_20261014T075546`, the
+  live runs of 14 Oct) and every reading recorded here.
+* **What no longer runs as written:** the reproduction commands of Part 5
+  (`DP_INSTANCE=template_2026-10-14 DP_BASE_TREE=C:/Users/zerom/tnr_tpl1014 ...`). A re-check replays on the current
+  instance (the notebook's selection, Part 7), and may give other numbers.
+* **For a reviewer:** the replay fix and the 14 Oct checks were measured on `template_2026-10-14`, an older version of
+  the model; the live one is `template_2026-10-21b`.

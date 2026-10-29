@@ -13,6 +13,7 @@ import pytest
 sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
 from src.eda.data_continuity import rebuild_stage0 as R  # noqa: E402
 from src.eda.predictability_diagnostic import stage0_build as B  # noqa: E402
+from src.ingest import health as H  # noqa: E402
 from src.ingest import scheduled as S  # noqa: E402
 
 
@@ -103,10 +104,20 @@ def test_decided_override_table_is_the_default():
     assert B.DECIDED_OVERRIDES.name == "slam_box_overrides.csv"
 
 
-def test_canary_flags_compare_first_word(tmp_path, monkeypatch):
-    latest = tmp_path / "canary_latest.json"
-    latest.write_text(json.dumps({"flags": {"tml": ["STALE (12 days)"], "repo": ["GONE"]}}), encoding="utf-8")
+def canary_files(monkeypatch, folder: Path) -> tuple[Path, Path]:
+    """The canary's latest run and its acknowledgments, as the test's own files. Since 22 Oct 2026 the latest run has
+    two names, scheduled.py's (the offline check) and health.py's (the flags), which must stay one file."""
+    assert S.CANARY_LATEST == H.CANARY_LATEST
+    latest, known = folder / "canary_latest.json", folder / "canary_acknowledged.json"
     monkeypatch.setattr(S, "CANARY_LATEST", latest)
+    monkeypatch.setattr(H, "CANARY_LATEST", latest)
+    monkeypatch.setattr(H, "CANARY_KNOWN", known)
+    return latest, known
+
+
+def test_canary_flags_compare_first_word(tmp_path, monkeypatch):
+    latest, _ = canary_files(monkeypatch, tmp_path)
+    latest.write_text(json.dumps({"flags": {"tml": ["STALE (12 days)"], "repo": ["GONE"]}}), encoding="utf-8")
     assert S.canary_flags() == {"tml:STALE", "repo:GONE"}
 
 
@@ -152,18 +163,21 @@ def test_tml_alerts_on_repeat_hold_and_errors(tmp_path, monkeypatch):
 
 
 def test_offline_canary_raises_nothing(tmp_path, monkeypatch):
-    latest = tmp_path / "canary_latest.json"
-    monkeypatch.setattr(S, "CANARY_LATEST", latest)
+    latest, known = canary_files(monkeypatch, tmp_path)
     monkeypatch.setattr(S, "child", lambda name, args, timeout: {"exit": 0, "seconds": 0.1, "log": "c.log"})
     latest.write_text(json.dumps({"flags": {"a": ["GONE"], "b": ["GONE"], "c": ["GONE"]},
                                   "items": [{"item": x, "status": None} for x in "abc"]}), encoding="utf-8")
     state = {"canary_flags": ["x:GONE"]}
     out, alerts = S.job_canary(state)
     assert out["offline"] and alerts == [] and state["canary_flags"] == ["x:GONE"]
-    latest.write_text(json.dumps({"flags": {"a": ["GONE"]}, "items": [{"item": "a", "status": 404},
-                                                                     {"item": "b", "status": 200}]}), encoding="utf-8")
-    out, alerts = S.job_canary(state)
-    assert out["new_flags"] == ["a:GONE"] and "new flag" in alerts[0]
+    latest.write_text(json.dumps({"flags": {"a": ["GONE"], "b": ["GONE"], "x": ["GONE"]},
+                                  "items": [{"item": "a", "status": 404}, {"item": "b", "status": 200}]}),
+                      encoding="utf-8")
+    known.write_text(json.dumps({"acknowledged": [{"flag": "b:GONE", "until": "2099-12-31"}]}), encoding="utf-8")
+    out, alerts = S.job_canary(state)              # a is new; b is acknowledged; x was there at the last run
+    assert out["new_flags"] == ["a:GONE"] and out["acknowledged"] == ["b:GONE"]
+    assert len(alerts) == 1 and "new flag a:GONE" in alerts[0]
+    assert state["canary_flags"] == ["a:GONE", "b:GONE", "x:GONE"]    # what the next run compares with
 
 
 # the weekly lower-level feed (13 Oct 2026, docs/studies/data_gaps_2026/) ------------------------------------------
@@ -173,7 +187,7 @@ def test_the_weekly_task_runs_its_own_jobs(monkeypatch, capsys):
     assert S.main() == 0
     day = dt.date.today().weekday()                                    # tennislive every day, the rest on their days
     expected = ["tennislive"] + {S.WTA_POINTS_WEEKDAY: ["wta_points"], S.WTA_SITE_WEEKDAY: ["wta_site"],
-                                 S.FEED_WEEKDAY: ["wta", "feed", "coverage", "tml_dates"]}.get(day, [])
+                                 S.FEED_WEEKDAY: ["wta", "feed", "coverage", "tml_dates", "event_country"]}.get(day, [])
     assert json.loads(capsys.readouterr().out)["due"] == expected
     monkeypatch.setattr(sys, "argv", ["scheduled", "--weekly", "--only", "feed,coverage", "--dry-run"])
     S.main()
@@ -247,12 +261,13 @@ def test_the_wta_jobs_run_on_their_days_and_catch_up_but_never_on_the_feeds_day(
     week = {monday + dt.timedelta(days=i): S.weekly_due(monday + dt.timedelta(days=i), None, {}) for i in range(7)}
     assert week[monday] == ["tennislive", "wta_points"]
     assert week[monday + dt.timedelta(days=1)] == ["tennislive", "wta_site"]
-    assert week[monday + dt.timedelta(days=2)] == ["tennislive", "wta", "feed", "coverage", "tml_dates"]
+    assert week[monday + dt.timedelta(days=2)] == ["tennislive", "wta", "feed", "coverage", "tml_dates",
+                                                   "event_country"]
     assert all(due == ["tennislive"] for d, due in week.items() if d.weekday() > 2)
     missed = {"wta_points_last": "2026-10-12", "wta_site_last": "2026-10-13"}     # last Monday and Tuesday's runs
     assert S.weekly_due(dt.date(2026, 10, 20), None, missed) == ["tennislive", "wta_points", "wta_site"]  # Monday off
     assert S.weekly_due(dt.date(2026, 10, 21), None, missed) == ["tennislive", "wta", "feed", "coverage",
-                                                              "tml_dates"]  # not Wed
+                                                              "tml_dates", "event_country"]  # not Wed
     assert S.weekly_due(dt.date(2026, 10, 22), None, missed) == ["tennislive", "wta_points", "wta_site"]
     ran = {"wta_points_last": "2026-10-19", "wta_site_last": "2026-10-20"}
     assert S.weekly_due(dt.date(2026, 10, 22), None, ran) == ["tennislive"]       # ran on their days: nothing to catch
@@ -382,6 +397,46 @@ def test_tml_dates_alerts_a_new_misdated_edition_then_every_four_weeks_and_forge
     monkeypatch.setattr(S, "child", lambda name, args, timeout: {"exit": 1, "seconds": 0.1, "log": "t.log"})
     assert S.job_tml_dates(state, left=3600)[1] == []                  # one failure: no alert
     assert len(S.job_tml_dates(state, left=3600)[1]) == 1              # the second in a row alerts
+
+
+def test_event_country_reads_todays_coverage_stage0_and_alerts_only_names_left_for_a_person(tmp_path, monkeypatch):
+    """The weekly event-country check (22 Oct 2026): it applies, reads the coverage job's Stage 0 only when that was
+    built today, records the names it added without alerting, alerts a name left for a person at once, not the next
+    week, again after four, forgets it once added; a failure alerts the second time in a row."""
+    summary = tmp_path / "summary.json"
+    monkeypatch.setattr(S, "EVENT_COUNTRY_SUMMARY", summary)
+    monkeypatch.setattr(S, "COVERAGE_STAGE0", tmp_path / "stage0")
+    calls = []
+
+    def child(exit_code):
+        def run(name, args, timeout):
+            calls.append(args)
+            return {"exit": exit_code, "seconds": 0.1, "log": "c.log"}
+        return run
+    monkeypatch.setattr(S, "child", child(0))
+    summary.write_text(json.dumps({"added_names": ["atp|maia open|POR"], "for_a_person": []}), encoding="utf-8")
+    state: dict = {}
+    out, alerts = S.job_event_country(state, left=3600)
+    assert alerts == [] and out["added"] == ["atp|maia open|POR"] and "--apply" in calls[-1]
+    assert "--stage0" not in calls[-1]                                  # no coverage Stage 0 today
+    (tmp_path / "stage0").mkdir()
+    (tmp_path / "stage0" / "stage0_matches.parquet").write_bytes(b"x")   # written today
+    S.job_event_country(state, left=3600)
+    assert calls[-1][calls[-1].index("--stage0") + 1] == str(tmp_path / "stage0")
+    monkeypatch.setattr(S, "child", child(3))
+    summary.write_text(json.dumps({"added_names": [], "for_a_person": ["atp|copa de algo"]}), encoding="utf-8")
+    out, alerts = S.job_event_country(state, left=3600)
+    assert len(alerts) == 1 and "copa de algo" in alerts[0] and out["new"] == ["atp|copa de algo"]
+    assert S.job_event_country(state, left=3600)[1] == []                # not again the next week
+    state["event_country_alerted"]["atp|copa de algo"] = (dt.date.today() - dt.timedelta(days=28)).isoformat()
+    out, alerts = S.job_event_country(state, left=3600)
+    assert len(alerts) == 1 and out["reminded"] == ["atp|copa de algo"]
+    monkeypatch.setattr(S, "child", child(0))
+    summary.write_text(json.dumps({"added_names": [], "for_a_person": []}), encoding="utf-8")
+    assert S.job_event_country(state, left=3600)[1] == [] and state["event_country_alerted"] == {}
+    monkeypatch.setattr(S, "child", child(1))
+    assert S.job_event_country(state, left=3600)[1] == []                # one failure: no alert
+    assert len(S.job_event_country(state, left=3600)[1]) == 1            # the second in a row alerts
 
 
 def test_the_feed_alerts_on_new_two_draw_flags_and_never_fails_for_them(tmp_path, monkeypatch):

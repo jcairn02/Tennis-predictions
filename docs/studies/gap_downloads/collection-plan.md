@@ -415,6 +415,8 @@ Do work package P9 of docs/studies/gap_downloads/collection-plan.md: collect the
   * *API routes "for current-season files":* the API also serves 2025 files whose static copy is missing (5 of the trial's matches), and builds its MatchBeats on request in a newer format (8 more point fields) where the static copy is older.
   * *Step 5:* the daily collector is on; its 82 completed 2026 key-statistics files are read from its folder, and the collector waits while the daily job or a prediction run's refresh uses the host.
 * **Interrupted and resumed:** one dropped connection stopped the bulk on 17 Oct (83 events done); not a block. Resumed on 22 Oct with a retry after a reset, on ManTennisData's copy of 19 Oct (541 events, 25,277 codes); expected to end around 24 Oct.
+* **Done (24 Oct 2026, 17:16 UTC; staged and checked by 17:56 UTC; the map rebuilt on 27 Oct).** 85,639 requests, no refusal. A file with data for 25,008 of the 25,277 planned matches: every point for 25,003, Court Vision tracking for 4,072, timed serves for 4,324. "Expected" (about 10,800) was the map's count on 8 Oct of matches these files would raise to point level; SofaScore (P6) filled most of those gaps first, so on the map rebuilt on 27 Oct these files mainly add ball tracking (4,292 of the 4,303 men's 2025-26 tour and Challenger matches at shot level have it from these files), point data no other file has for 625 matches (617 of them Challenger qualifying) and 258 matches the map lacked. The checks agree with ManTennisData and SirGenkii's copy throughout (report, section 9.4). Not in the leak-proof match clock (rule 10). **To complete 2026:** rerun the same command after the season, on ManTennisData's then copy (about 1,100 requests a week of play; everything held is skipped).
+* **The owner's decisions of 27 Oct 2026** (report, section 9.7): (1) the newer MatchBeats format for the 17,905 matches in the older one (`--newer-format`): **done 28 Oct 2026**, 17,904 requests in 12.5 hours, no refusal; the newer copy for 17,899 (6 "server error"), so 24,997 of the 25,003 matches with every point carry its eight extra point fields; restaged and checked, both copies' endings kept (they differ on 3.8% of points; report 9.7); (2) the 2026 top-up once after the season, with reminders in the daily task (job `p9_topup`, [cadence amendment](../../decisions/2026-10-06-download-cadence.md)): weekly from 1 Dec, then daily from the due date, Monday 28 Dec 2026 (the Challenger season ends on 20 Dec), until a full run after it is staged.
 
 ---
 
@@ -465,6 +467,9 @@ Do work package P11 of docs/studies/gap_downloads/collection-plan.md: measure wh
   * *BetExplorer "openings and moves per bookmaker, ... Pinnacle among them":* from this connection it shows no Pinnacle, and an opening costs one more request per book and side.
   * *OddsPortal "heavy on JavaScript":* also encrypted (the page's own decryption works) and, for a match's odds, behind an anti-bot layer that the probe did not pass.
 * **"Pinnacle's public guest API ... unverified":** verified on 9 Oct, and recorded on bet days since 11 Oct (`src/ingest/pinnacle.py`). The forward-capture test reads it every 10 minutes for 36 hours from 22 Oct and compares each lower-level close with TennisExplorer's record after play.
+* **The forward-capture test, done 24 Oct:** TennisExplorer's last Pinnacle price below the tour level equalled Pinnacle's own close on 148 of 197 matches (22-23 Oct). The site stops recording a median 3.6 hours before the start, so it misses late moves.
+  * A daily job (`lower_odds`) now collects the site's lower-level pages (the owner, 22 Oct).
+  * Recording Pinnacle's own site through the day, for true closes, is left to the owner.
 
 ---
 

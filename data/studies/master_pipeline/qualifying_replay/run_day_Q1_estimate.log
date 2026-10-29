@@ -26,3 +26,53 @@
 [   23.1s] --> stage0: src/eda/predictability_diagnostic/stage0_build.py --live-rows run/live_rows.parquet
 [  130.3s]     exit 0 in 107.3 s
 [  137.7s] --> additions: src/eda/current_best_model/additions.py --apply --accepted-json C:\Users\zerom\tnr_daily_qual\run\accepted_for_replay.json
+[  426.9s]     exit 0 in 289.2 s
+[  426.9s] --> check: src/eda/prediction_run/inject.py --meta run/live_meta.parquet --step check
+[  427.7s]     exit 0 in 0.8 s
+[  427.7s] --> lle_layer: src/eda/current_best_model/layer_config.py --resolve --official C:\Users\zerom\Documents\Tennis-predictions\data\studies\current_best_model\level_layer\official.json
+[  451.0s]     exit 0 in 23.3 s
+[  451.0s] --> odds: src/eda/predictability_diagnostic/stage1_odds.py 
+[  459.4s]     exit 0 in 8.4 s
+[  459.4s] --> live_odds: src/eda/prediction_run/inject.py --meta run/live_meta.parquet --step odds
+[  460.2s]     exit 0 in 0.8 s
+[  467.3s]    tables: 444.3 s
+[  467.3s] == states
+[  576.5s]    states: 109.2 s
+[  576.5s] == history
+[  576.5s]    history: 0.0 s
+[  576.7s] == patterns
+[  644.7s]    patterns: 68.0 s
+{
+ "run": "C:\\Users\\zerom\\Documents\\Tennis-predictions\\data\\studies\\daily_prediction\\runs\\replay_2026-10-19_Q1_qualifying_estimate",
+ "mode": "replay",
+ "started_at": "2026-10-22T190526Z",
+ "steps": {
+  "worktree": 13.0,
+  "matchups": 9.5,
+  "prices": 0.1,
+  "tables": 444.3,
+  "states": 109.2,
+  "history": 0.0,
+  "patterns": 68.0,
+  "cleanup": 3.4
+ },
+ "finished_at": "2026-10-22T191610Z",
+ "cleanup": {
+  "deleted": true,
+  "seconds": 3.4
+ }
+}
+exit 0
+{
+ "frame": "C:\\Users\\zerom\\Documents\\Tennis-predictions\\data\\studies\\master_pipeline\\qualifying_replay\\replay_frame.parquet",
+ "matches": 16,
+ "missing_from_frame": [],
+ "inputs": 57,
+ "inputs_bitwise": 38,
+ "non_ios_bitwise": 17,
+ "non_ios_inputs": 36,
+ "ios_max_abs_diff": 0.0,
+ "ios_nan_pattern_equal": true,
+ "max_abs_diff": 2.3877428472042084,
+ "matches_equal_on_every_input": 0
+}

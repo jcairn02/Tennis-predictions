@@ -1,79 +1,108 @@
 {
  "source": "infosys_atp_recent",
- "started_at": "2026-10-22T14:25:24+00:00",
+ "started_at": "2026-10-28T03:56:39+00:00",
  "decision": "docs/decisions/2026-10-08-scraping-approved.md",
- "matches": 4488,
- "files": 16224,
+ "matches": 25115,
+ "files": 97455,
  "files_by_folder": {
-  "infosys_atp_recent": 16078,
-  "infosys_atp_daily": 146
+  "infosys_atp_recent": 97256,
+  "infosys_atp_daily": 199
  },
  "files_by_route": {
-  "keystats": 4275,
-  "court-vision": 3023,
-  "match-beats": 4027,
-  "rally-analysis": 4330,
-  "keystats-api": 202,
-  "match-beats-api": 367
+  "keystats": 24634,
+  "court-vision": 4714,
+  "match-beats": 22957,
+  "rally-analysis": 24733,
+  "match-beats-api": 19953,
+  "keystats-api": 464
  },
  "staged": {
   "points.parquet": {
-   "rows": 643778,
-   "bytes": 9396821
+   "rows": 3590495,
+   "bytes": 58039437
   },
   "keystats.parquet": {
-   "rows": 303137,
-   "bytes": 3097676
+   "rows": 1433573,
+   "bytes": 15418420
   },
   "rally.parquet": {
-   "rows": 630372,
-   "bytes": 4521140
+   "rows": 3545656,
+   "bytes": 22732754
   },
   "court_vision.parquet": {
-   "rows": 552239,
-   "bytes": 69919857
+   "rows": 789936,
+   "bytes": 98765890
   },
   "court_vision_shots.parquet": {
-   "rows": 1893390,
-   "bytes": 71646076
+   "rows": 2790645,
+   "bytes": 103172253
   },
   "court_vision_matches.parquet": {
-   "rows": 2855,
-   "bytes": 7921587
+   "rows": 4072,
+   "bytes": 11296028
   },
   "matches.parquet": {
-   "rows": 4488,
-   "bytes": 878451
+   "rows": 25115,
+   "bytes": 4931013
   }
  },
  "by_year": {
   "2025": {
-   "matches_with_a_document": 1814,
-   "with_points": 1807,
-   "with_timed_points": 1246,
-   "with_keystats": 1804,
-   "with_keystats_speed": 1243,
-   "with_rally": 1799,
-   "with_court_vision": 1189
+   "matches_with_a_document": 12785,
+   "with_points": 12782,
+   "with_timed_points": 1743,
+   "with_keystats": 12772,
+   "with_keystats_speed": 1732,
+   "with_rally": 12668,
+   "with_court_vision": 1599
   },
   "2026": {
-   "matches_with_a_document": 2674,
-   "with_points": 2587,
-   "with_timed_points": 1749,
-   "with_keystats": 2673,
-   "with_keystats_speed": 1836,
-   "with_rally": 2531,
-   "with_court_vision": 1666
+   "matches_with_a_document": 12330,
+   "with_points": 12222,
+   "with_timed_points": 2582,
+   "with_keystats": 12326,
+   "with_keystats_speed": 2684,
+   "with_rally": 12065,
+   "with_court_vision": 2473
   }
  },
+ "matchbeats_copies": {
+  "core identical": 9225,
+  "static core, newer details from match-beats-api": 17902,
+  "static only": 5055,
+  "api only": 2051
+ },
+ "matchbeats_both_copies": {
+  "matches": 17902,
+  "core_identical": 9225,
+  "points_matched": 2565527,
+  "endings_differing": 98593,
+  "ending_pairs_static_to_newer": {
+   "UE->N": 34336,
+   "W->N": 16926,
+   "FE->N": 14113,
+   "UE->W": 10854,
+   "FE->W": 5373,
+   "UE->FE": 4740,
+   "FE->UE": 3520,
+   "W->FE": 2443,
+   "W->UE": 2181,
+   "N->UE": 1448,
+   "N->W": 1148,
+   "N->FE": 1021
+  },
+  "timed_points_static": 362811,
+  "timed_points_api": 362811
+ },
  "decryption": {
-  "decrypted:match-beats": 4394,
-  "decrypted:keystats": 4477,
-  "decrypted:rally-analysis": 4330,
-  "decrypted:court-vision": 6046
+  "decrypted:match-beats": 22957,
+  "decrypted:match-beats-api": 19953,
+  "decrypted:keystats": 25098,
+  "decrypted:rally-analysis": 24733,
+  "decrypted:court-vision": 9428
  },
  "failures": [],
  "failures_total": 0,
- "finished_at": "2026-10-22T14:36:03+00:00",
- "seconds": 712.9
+ "finished_at": "2026-10-28T04:21:08+00:00",
+ "seconds": 1818.8
 }

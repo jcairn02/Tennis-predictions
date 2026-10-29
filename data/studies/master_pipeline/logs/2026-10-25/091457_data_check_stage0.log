@@ -1,0 +1,18 @@
+# ./python.sh 'src\eda\predictability_diagnostic\stage0_build.py' --out-dir 'C:\Users\zerom\Documents\Tennis-predictions\data\studies\master_pipeline\data_check\stage0'
+# started 2026-10-25T09:14:57-07:00
+[   1.0s] loaded 1,066,553 rows from 10 file groups
+[   4.8s] box overrides: 2,272 rows take the official feed's box score (2 the score too; 1441 of them Sackmann rows)
+row corrections: 11 rows found by their match, their source having moved them (first: ['data/raw/public_dump/tennis_my_life/2026_wta.csv#1270', 'data/raw/public_dump/tennis_my_life/2026_wta.csv#1273', 'data/raw/public_dump/tennis_my_life/2026_wta.csv#1279'])
+[   8.9s] row corrections: 3,152 source rows corrected
+[   9.9s] date corrections: 31 of 31 matches re-dated
+[  18.1s] after repeats: Sackmann 867,297, TML 197,753
+[  23.0s] TML linked: exact_name_pair 183,962, unlinked 6,854, one_player_anchor 6,271, resolved_ids 553, same_event_other_round 113
+[  24.6s] event corrections (set_level): 15 events corrected
+[  25.1s] event corrections (set_surface): 5 events corrected
+[  28.3s] TML-only rows appended: 6,854 (421 in events Sackmann also holds)
+[  86.2s] id aliases: 2 second ids mapped (0 already merged by the repairs, 9 written as the established id by the source itself: ['wta:315232', 'wta:320319', 'wta:321837', 'wta:322082', 'wta:324261', 'wta:328884', 'wta:328897', 'wta:330332', 'wta:332718'])
+[  89.2s] wrote 874,113 matches and 1,748,226 player rows to C:\Users\zerom\Documents\Tennis-predictions\data\studies\master_pipeline\data_check\stage0
+[  90.2s] cleaning log: 2,426 rows, 32 cells over 1%
+[  95.0s] done
+
+# ok, exit 0, 97.0 s

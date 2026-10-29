@@ -7,7 +7,7 @@ The four checks the owner asked for (10 Oct 2026) run the script's real paths, s
 Both default to the instance the daily pipeline predicts with (the notebook's selection,
 data/studies/master_pipeline/selected_instance.json; 20 Oct 2026: before, the 10 Oct instance and its tree, which every
 repair decided since made unequal to a replay, so the tests guarded an instance nobody predicted with). With no
-selection: the 10 Oct defaults.
+selection and neither variable set, the tests that need an instance skip: there is no default (22 Oct 2026).
 and take minutes (the replay builds a work tree and today's tables; the families test builds a checkpoint and
 recomputes every family in full). They skip when the tree or the environment is missing.
 
@@ -33,13 +33,14 @@ if "DP_BASE_TREE" not in os.environ and _sel.get("tree"):
     os.environ["DP_BASE_TREE"] = _sel["tree"]                  # set before any dp module reads it (dp_common, at import)
 if "DP_INSTANCE" not in os.environ and _sel.get("instance"):
     os.environ["DP_INSTANCE"] = _sel["instance"]
-TREE = Path(os.environ.get("DP_BASE_TREE", "C:/Users/zerom/tnr_lyr_new"))
-INSTANCE_ID = os.environ.get("DP_INSTANCE", "template_2026-10-10")
+TREE = Path(os.environ["DP_BASE_TREE"]) if os.environ.get("DP_BASE_TREE") else None
+INSTANCE_ID = os.environ.get("DP_INSTANCE") or None
 PY = Path(os.environ.get("TENNIS_PYTHON", "C:/Users/zerom/miniforge3/envs/tennis/python.exe"))
 PY_TABPFN = Path(os.environ.get("TENNIS_TABPFN_PYTHON", "C:/Users/zerom/miniforge3/envs/tennis-tabpfn-local/python.exe"))
 REPLAY = {"week": "2026-07-13", "round": "R16", "checkpoint": "2026-06-22"}
 
-needs_tree = pytest.mark.skipif(not (TREE / "src" / "eda").is_dir(), reason=f"no build tree at {TREE}")
+needs_tree = pytest.mark.skipif(TREE is None or not (TREE / "src" / "eda").is_dir(),
+                                reason=f"no build tree at {TREE}" if TREE else "no instance selected (no default)")
 needs_gpu_env = pytest.mark.skipif(not PY_TABPFN.exists(), reason="no tennis-tabpfn-local environment")
 
 if str(PKG) not in sys.path:

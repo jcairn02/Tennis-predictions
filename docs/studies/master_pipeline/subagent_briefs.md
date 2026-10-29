@@ -67,3 +67,55 @@ Both received the same preamble as R1–R4 (the owner's request verbatim and the
 > 2. Which thinking runs exist on disk (folders, input counts 53/58/57, seasons, seeds), and how their predictions were calibrated or combined (stage 2 applied? a separate calibration?).
 > 3. The documented comparison of thinking against non-thinking (which was better, by how much, on what).
 > 4. A concrete proposal for the seam: given that the daily fit (src/eda/daily_prediction/dp_fit.py, dp_tabcache.py) and the season fits (src/eda/model_rebuild/fits.py) call local TabPFN, how a `model="thinking"` option should work: what is fitted per season and what per day; what is cached so nothing is paid twice; whether the price-grid approach is affordable with thinking; how stage 2's coefficients would be refitted for the thinking variant; and what must stay identical so that "everything else about the features is the same". Flag risks (cost, determinism, whether seeds mean anything for an API model, rate limits, data upload/privacy).
+
+## Part 20: the canary-test reviewer (sent about 14:00 PDT, 27 Oct 2026, to a read-only Plan agent)
+
+> **Goal.** Review my diagnosis and proposed fix for three failing tests in the Python repo at C:\Users\zerom\Documents\Tennis-predictions. I want an independent, adversarial read: verify the facts yourself from the code and data, then try to break the fix. Do NOT edit, create or delete any file inside the repository: other sessions are working in it, and the owner's notebook kernel refuses to run if a file under src/ that it imported changes. You may read anything and run pytest from the repo root through Bash: `./python.sh -m pytest <paths> -q -p no:cacheprovider` (`./python.sh` is the project's interpreter wrapper). To try code variants, copy files into C:\Users\zerom\AppData\Local\Temp\claude\c--Users-zerom-Documents-Tennis-predictions\1ef1b0d0-468f-4a15-bd88-58e5dc5f3a37\scratchpad\reviewer\ and work there. (A copy of the committed code, before the change described below, is already extracted at ...\scratchpad\head_before_move\.)
+>
+> **The report I'm acting on** (another session's, to the owner, verbatim): "These are three tests of the daily task's data health check. They have been broken since 22 October, when another session moved that check's rules into a new file without updating the tests. I left them alone." The owner asked me to identify the issue, review my thinking with a reviewer, and fix it.
+>
+> **The failing tests**
+> - test/data_continuity/test_rebuild_and_schedule.py::test_canary_flags_compare_first_word
+> - test/data_continuity/test_rebuild_and_schedule.py::test_offline_canary_raises_nothing
+> - test/master_pipeline/test_health_signals.py::test_the_acknowledged_flags_are_real_canary_flags
+>
+> **What to read.** Code: src/ingest/health.py (new on 22 Oct 16:19, untracked); src/ingest/scheduled.py (CANARY_LATEST at line 164; canary_flags, canary_offline and job_canary at lines 1011-1047); src/eda/data_continuity/canary.py (the weekly canary that writes the flags; see flags() and main()); src/pipeline/overview.py source_watch() (the notebook's STATUS); the two test files. Data: data/studies/data_continuity/canary_latest.json, canary.jsonl (append-only, one line per item per run), canary_acknowledged.json. `git show HEAD:src/ingest/scheduled.py` is the code before the move (commit of 22 Oct 12:09). Project rules: CLAUDE.md at the repo root (sections "Production integrity" and "Git and working files").
+>
+> **My diagnosis** (verify it; don't take it on trust)
+> 1. Tests 1 and 2 broke on 22 Oct with the move. Before it, scheduled.canary_flags() read scheduled.CANARY_LATEST, which both tests monkeypatch. Since then, scheduled.canary_flags() delegates to health.canary_flags(), which reads health.CANARY_LATEST, a second constant naming the same file, so the tests read the real canary_latest.json. scheduled.canary_offline() still reads scheduled.CANARY_LATEST, so test 2's first (offline) half still passes and its second half fails. Test 2 now also reads the real canary_acknowledged.json through health.canary_known() (health.CANARY_KNOWN). Evidence: both tests pass against the committed code in the scratch copy (I ran them); now they fail with the real flags (tml_manifest:REVISED, tml_manifest:SHRANK) in the assertion. Neither test writes a real file (child() is monkeypatched).
+> 2. Test 3 is a different fault, not the move. It was written with health.py on 22 Oct and passed then: canary_latest.json was the 19 Oct run, which held all 7 acknowledged flags. It compares the acknowledgments with the LATEST run's flags only. The acknowledgment `sackmann_tennis_atp:ARCHIVE` is the first word of "ARCHIVE UNKNOWN (Software Heritage did not answer: ConnectTimeout)", a flag that appears only when Software Heritage times out. Of the canary's runs (6, 12, 19 and 26 Oct), only 19 Oct's has it. The 26 Oct run (Monday, 08:02 PDT) lacked it, so the test has failed since then. Per the acknowledgment file's own "what" text and health.canary_split, an acknowledgment of a flag that is currently absent is valid and harmless (canary_split iterates only the present flags), and keeping it is what stops the intermittent flag from alerting as "new" each time it comes back. So the test's reference set is wrong, not the data. Another session (docs/studies/master_pipeline/process_log.md, Part 19, rows 08:39-08:42 today) already declined to "acknowledge it away". Separately, the 26 Oct canary's open flags (tml_manifest:SHRANK and REVISED) are a real data alarm being put to the owner; my fix must not hide them.
+>
+> **Proposed fix: tests only, no change to src/ or to data**
+> - Test 1: monkeypatch health.CANARY_LATEST (where the rule reads since 22 Oct) instead of scheduled.CANARY_LATEST; keep calling S.canary_flags(), so the job's delegation is exercised. Add `from src.ingest import health as H` to the file.
+> - Test 2: monkeypatch scheduled.CANARY_LATEST (the offline check) AND health.CANARY_LATEST (the flags) to the same tmp file, and health.CANARY_KNOWN to a tmp path that does not exist (no acknowledgments), so nothing real is read.
+> - Test 3: compare each acknowledgment with every flag the canary has given in any run (canary.jsonl via canary.LOG), with the same item:FIRSTWORD rule, instead of the latest run only. Drop the exemption for lapsed acknowledgments (with the history it isn't needed: a typo is a typo, lapsed or not). Skip when there is no canary history on the machine. Sketch:
+>
+> ```python
+> def test_the_acknowledged_flags_are_real_canary_flags():
+>     """Each acknowledgment names a flag the canary has given in one of its runs (a typo would acknowledge nothing).
+>     Any run, not only the latest: a flag that comes and goes stays acknowledged while it is away
+>     (sackmann_tennis_atp:ARCHIVE, Software Heritage not answering on 19 Oct 2026)."""
+>     given = set()
+>     for line in (canary.LOG.read_text(encoding="utf-8").splitlines() if canary.LOG.exists() else []):
+>         if line.strip():
+>             rec = json.loads(line)
+>             given |= {f"{rec['item']}:{str(f).split()[0]}" for f in rec.get("flags") or [] if str(f).strip()}
+>     if not given:
+>         pytest.skip("no canary run on disk")
+>     assert set(H.canary_known()) <= given, sorted(set(H.canary_known()) - given)
+> ```
+>
+> **Alternatives I considered, and why I lean against them**
+> - (a) Remove scheduled.CANARY_LATEST and make canary_offline read health.CANARY_LATEST (or move canary_offline into health.py), so one constant governs both and the tests patch one place. Cleaner, and without the duplicate the original break would have been loud (monkeypatch.setattr raises on a missing attribute). Against: it changes the live scheduled task (the project's rules require claims, a STATUS check and a to-do update for live-path changes; another session added a job to scheduled.py at 08:13-08:17 today), and touching health.py would trip the owner's kernel guard (src/pipeline/__init__.py; overview.py imports health.py). No behavioural bug today: both constants name the same file. I'd record it as a recommendation instead.
+> - (b) Test 3 against the canary's vocabulary (item in canary.WATCH, word in a set of flag words) instead of its history. Against: canary.py has no flag-word constant (its docstring list even omits ARCHIVE), so I'd hard-code one or add one to src/; and item × word would accept impossible pairs (tml_manifest:UNARCHIVED). The history is what the docstring asks for ("a flag the canary actually gives").
+> - (c) Reuse health's first-word rule in test 3 by pointing health.CANARY_LATEST at a tmp file built from the history, instead of repeating the one-line rule in the test. More indirect; I lean to repeating the rule.
+> - (d) Delete the ARCHIVE acknowledgment so the old test passes. Rejected: the flag is intermittent; the acknowledgment is doing its job.
+>
+> **Questions**
+> 1. Is the diagnosis right in every part? Anything misattributed (dates, causes), or another failure hiding behind these three?
+> 2. Does each changed test test what its name and docstring claim, and would it fail if the rule it guards broke? Does anything still read real files?
+> 3. Test 3: is the history the right reference set? Failure modes: a log rotated or trimmed, a corrupt line, an offline run that flags every item GONE, an acknowledgment made before its flag first appears.
+> 4. Should the fix include the production change (a), or anything else? Am I over- or under-scoping?
+> 5. Does my plan break any rule in the project's CLAUDE.md?
+>
+> **Report:** a verdict on each question; concrete issues with file:line and a suggested change; and what you checked that held up. Under about 600 words.

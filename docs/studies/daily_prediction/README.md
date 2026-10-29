@@ -97,7 +97,10 @@ Stage 0 is byte-identical to today's", and asked me to delete the leftover folde
   (checked on a scratch copy) and passes on the new.
 * **Added for your master notebook (agreed with that session):**
   * `DP_INSTANCE`: the name of an instance's folder, to run the daily path on a newly built instance. Set it together
-    with `DP_BASE_TREE` (that instance's build tree), and make a checkpoint on it first.
+    with `DP_BASE_TREE` (that instance's build tree), and make a checkpoint on it first. *Since 22 Oct 2026 the script
+    has no default instance: without the two variables it reads the master notebook's selection
+    (`data/studies/master_pipeline/selected_instance.json`), and with neither every command refuses
+    ([master pipeline process log, Part 9](../master_pipeline/process_log.md)).*
   * An optional `quoted_at` column in the matchups CSV: the quote's own time, written to `predictions.csv` as
     `price_quoted_at`.
 * **A limit that session found (not changed: it is prediction_run's linking, part of § 7 item 1's alias table):** a
@@ -217,8 +220,9 @@ four:
 ./python.sh -m pytest test/daily_prediction -q
 ```
 
-Settings by environment variable: `DP_INSTANCE` (the instance folder's name, default `template_2026-10-10`) with
-`DP_BASE_TREE` (its build tree); `DP_WORK_TREE` (one per run running at the same time); `DP_STATE` (where checkpoints
+Settings by environment variable: `DP_INSTANCE` (the instance folder's name) with `DP_BASE_TREE` (its build tree);
+without them the master notebook's selection names both, and with neither the script refuses (no default since 22 Oct
+2026: until then it was `template_2026-10-10`); `DP_WORK_TREE` (one per run running at the same time); `DP_STATE` (where checkpoints
 and TabPFN's caches live). The matchups CSV takes prediction_run's columns (`tour, tourney_id, round, player_a,
 player_b, day, p_a`; optional `tourney_name, best_of, start_utc`, and since 11 Oct `quoted_at`). In
 `predictions.csv`, `player_a` is Stage 0's side A, and every `_a` figure is that player's, whichever player the CSV
@@ -324,7 +328,9 @@ the season's coefficients (fitted once per season by the decided `walk_forward` 
 backfill-augmented speed history; for 2026: s_atp 0.9004, s_wta 0.9223, b̃ 0.0369). A later price is a lookup on the
 stored curve (`reprice`: at the run's own prices within 0.00045 of its q); a price outside the grid is refused, its
 own-price forecast stands. `grade` joins each prediction to its result once Stage 0 holds it (exercised on the replay;
-its numbers decide nothing).
+its numbers decide nothing). Since 27 Oct 2026 `grade --stage0 <file>` reads another Stage 0 file than the
+repository's, and `grade.json` names the file read: the master notebook's A7 passes the freshest on disk
+(docs/studies/master_pipeline/process_log.md, Part 19).
 
 ## Limits
 
@@ -361,11 +367,11 @@ its numbers decide nothing).
 | The state path and the store | `dp_state.py`, `dp_store.py`, `dp_hash.py` |
 | The families | `dp_elo.py`, `dp_ios.py`, `dp_forms.py`, `dp_stage4.py`, `dp_pieces.py`, `dp_context.py` (the plan's prototypes `src/eda/prediction_pipeline/{ios,forms,elo}_state.py`, imported unchanged) |
 | Fit, predict | `dp_fit.py`, `dp_predict.py`; TabPFN's training caches `dp_tabcache.py` (the gap's diagnosis: `dp_cachediag.py`) |
-| TabPFN's caches (gitignored, 54 GB) | `data/studies/daily_prediction/state/template_2026-10-10/tabpfn/season<Y>/seed<k>/` |
+| TabPFN's caches (gitignored, about 54 GB an instance) | `data/studies/daily_prediction/state/<instance>/tabpfn/season<Y>/seed<k>/` |
 | Stage 0's byte-identity proof (11 Oct) | `src/eda/daily_prediction/dp_stage0_equiv.py`; records `data/studies/daily_prediction/stage0_speed/` |
 | The checks behind the tests | `dp_selftest.py`; tests `test/daily_prediction/` |
 | Stage 2's sync and speed-feed proof (14 Oct) | `dp_stage2_proof.py`; tests `test/daily_prediction/test_stage2_sync.py`; records `data/studies/daily_prediction/checks/stage2_proof/` (the baseline of the code before, the new outputs, `diff_base_new.json`, `instances.json`) |
-| Checkpoints (gitignored) | `data/studies/daily_prediction/state/template_2026-10-10/<day>/` |
+| Checkpoints (gitignored) | `data/studies/daily_prediction/state/<instance>/<day>/` |
 | Runs, checks, logs | `data/studies/daily_prediction/{runs,checks,logs}/`; stage 2's coefficients `stage2/` |
 
 Nothing outside `src/eda/daily_prediction/`, `test/daily_prediction/`, `data/studies/daily_prediction/` and this folder was created or edited (checked), but one row at the top of the studies index (`docs/studies/README.md`), as the plan's session did: the builders, `prediction_run/` and the prototypes are imported as they are. The work trees live outside the repository (`C:/Users/zerom/tnr_daily*`) and are deleted at the end of each run.

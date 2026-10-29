@@ -24,8 +24,9 @@ SHA-256 (the staged file's own, and its source file's from the .meta.json) in th
 Box-score overrides (docs/decisions/2026-10-06-slam-box-scores.md): every build applies the decided table,
 data/studies/data_continuity/slam_box_overrides.csv (Wimbledon and the US Open 2026). It replaces the box scores,
 and where given the score and minutes, of named TML rows with the official Slam feed's, right after the rows are
-read and before any score is parsed or box score checked. Every override must find exactly one TML row, or the
-build stops. --no-box-overrides builds without it. --box-overrides <csv> applies another table instead, which
+read and before any score is parsed or box score checked. Every override must find exactly one TML row (by its
+names, or since 28 Oct 2026 as re-spellings of them), or the build stops. --no-box-overrides builds without it.
+--box-overrides <csv> applies another table instead, which
 the live folder takes only with --confirm-live-overrides; --out-dir writes everything elsewhere. Another table may
 also name Sackmann rows, through a "source" column (the Roland-Garros candidate of 9 Oct 2026,
 docs/studies/rg_first_serve_recount/).
@@ -180,6 +181,37 @@ def input_record() -> list[dict]:
 OVERRIDE_COUNTS = [f"{side}_{c}" for side in ("w", "l") for c in C.BOX_SOURCE_NAMES.values()]
 
 
+def respelled(old: str, new: str) -> bool:
+    """One player's name in two spellings, as Tennis My Life re-spells a name between downloads ("Xinyu Wang" as "Xin Yu
+    Wang", "Alexander" as "Aleksandr Shevchenko", 25-26 Oct 2026): the last word of either name is a word of the other,
+    so a family name written first ("Wang Xinyu") still agrees. Two players who share only a first name do not."""
+    a, b = S.norm(old).split(), S.norm(new).split()
+    return bool(a) and bool(b) and (a[-1] in b or b[-1] in a)
+
+
+def respelled_rows(tm: pd.DataFrame, ov: pd.DataFrame, src: pd.Series, todo: pd.Series) -> pd.Series:
+    """For each override in ``todo`` (its name keys find no row), the row of its source that re-spelled a player's name
+    since the table was built: the one row of the override's source, tour, event and round with the score the table
+    recorded (tml_score) in which each player's name is the recorded one or a re-spelling of it (respelled). NaN where
+    there is not exactly one such row, or the table records no score or names."""
+    out = pd.Series(np.nan, index=ov.index)
+    if not todo.any() or not {"tml_score", "winner_name", "loser_name"} <= set(ov.columns):
+        return out
+    slot = tm["source"] + "|" + tm["tour"] + "|" + tm["tid"] + "|" + tm["round"]
+    want = src + "|" + ov["tour"] + "|" + ov["tid"] + "|" + ov["round"]
+    near = tm[slot.isin(set(want[todo]))].assign(slot=slot)
+    for i in ov.index[todo]:
+        o = ov.loc[i]
+        if not o["tml_score"]:
+            continue
+        c = near[near["slot"].eq(want[i]) & near["score"].eq(o["tml_score"])]
+        hit = c[c["winner_name"].map(lambda n: respelled(o["winner_name"], n)).astype(bool)
+                & c["loser_name"].map(lambda n: respelled(o["loser_name"], n)).astype(bool)]
+        if len(hit) == 1:
+            out[i] = hit.index[0]
+    return out
+
+
 def apply_box_overrides(df: pd.DataFrame, ov: pd.DataFrame, path: str, summary: dict) -> pd.DataFrame:
     """Replace the box scores of the named rows with an official feed's, and the score and minutes where the
     override gives them (docs/decisions/2026-10-06-slam-box-scores.md).
@@ -187,9 +219,16 @@ def apply_box_overrides(df: pd.DataFrame, ov: pd.DataFrame, path: str, summary: 
     An override names its row by tour, normalised tournament id, round and the name keys of the row's winner and
     loser (as normalise() makes them), and gives the counts for that winner and loser in the source's own column
     names. The row is a TML row, or a Sackmann row where the table's optional ``source`` column says "sackmann"
-    (the decided table has no such column: TML rows only). Every override must find exactly one row of its source,
-    or the build stops: a refresh that renames a player or a round makes the table be rebuilt, never applied to the
-    wrong match."""
+    (the decided table's Roland-Garros rows since 9 Oct 2026; its other rows are TML's). Every override must find
+    exactly one row of its source, or the build stops: a refresh that renames a round, changes the score or drops the
+    row makes the table be re-keyed, never applied to the wrong match.
+
+    Since 28 Oct 2026 (an agent's choice; docs/studies/master_pipeline/process_log.md, Part 21), a source that
+    re-spelled a player's name no longer stops the build: an override whose names find no row takes the one row of its
+    event and round with the recorded score whose players' names are the recorded ones or re-spellings of them
+    (respelled_rows), and the summary lists it. Tennis My Life re-spelled 19 players' names on 25-26 Oct 2026, three of
+    them in the table's rows. The table keeps the spellings of the files the instances were built on, so their replays
+    find every row by name."""
     src = ov["source"].fillna("").replace("", "tml") if "source" in ov else pd.Series("tml", index=ov.index)
     if not set(src) <= {"tml", "sackmann"}:
         raise SystemExit(f"box overrides: unknown sources {sorted(set(src) - {'tml', 'sackmann'})} in {path}")
@@ -198,11 +237,21 @@ def apply_box_overrides(df: pd.DataFrame, ov: pd.DataFrame, path: str, summary: 
     counts = key.value_counts()
     want = (src + "|" + ov["tour"] + "|" + ov["tid"] + "|" + ov["round"] + "|" + ov["winner_key"] + "|"
             + ov["loser_key"])
-    bad = [k for k in want if counts.get(k, 0) != 1]
-    if bad or want.duplicated().any():
-        raise SystemExit(f"box overrides: {len(bad)} of {len(want)} rows do not name exactly one row of their source "
-                         f"(first: {bad[:3]}); rebuild {path} from the current staged files")
-    rows = pd.Series(tm.index, index=key.to_numpy()).loc[want.to_numpy()].to_numpy()
+    named = pd.Series(tm.index, index=key.to_numpy())
+    rows = want.map(named[~named.index.duplicated(keep=False)])      # NaN: no row by these names, or several
+    respelt = want.map(counts).isna()
+    rows = rows.fillna(respelled_rows(tm, ov, src, respelt))
+    respelt &= rows.notna()
+    bad = want[rows.isna()].tolist()
+    if bad or want.duplicated().any() or rows.duplicated().any():
+        raise SystemExit(f"box overrides: {len(bad)} of {len(want)} rows do not name exactly one row of their source, "
+                         f"by their names or as re-spellings of them (first: {bad[:3]}); if the source only renamed "
+                         f"them, re-key those rows of {path} to the current staged files "
+                         "(data_continuity/slam_overrides.py rebuilds the Wimbledon and US Open rows only)")
+    rows = rows.astype("int64").to_numpy()
+    respelled_list = [{"override": want.iloc[k], "table": f"{ov['winner_name'].iloc[k]} d. {ov['loser_name'].iloc[k]}",
+                       "source_now": f"{df.at[rows[k], 'winner_name']} d. {df.at[rows[k], 'loser_name']}"}
+                      for k in np.flatnonzero(respelt.to_numpy())]
     df.loc[rows, OVERRIDE_COUNTS] = ov[OVERRIDE_COUNTS].to_numpy()
     for col in ("score", "minutes"):
         if col not in ov:                       # a table without the column replaces none
@@ -215,9 +264,13 @@ def apply_box_overrides(df: pd.DataFrame, ov: pd.DataFrame, path: str, summary: 
     note("O2", "score and minutes taken from the official Slam feed, TML's being cut short (same decision)",
          "replace_score", df.loc[rows[scored]])
     summary["box_overrides"] = {"file": path, "rows": int(len(rows)), "scores_replaced": int(scored.sum()),
-                                "by_source": ov.get("box_source", pd.Series(dtype=str)).value_counts().to_dict()}
+                                "by_source": ov.get("box_source", pd.Series(dtype=str)).value_counts().to_dict(),
+                                "respelled": respelled_list}
     log(f"box overrides: {len(rows):,} rows take the official feed's box score ({int(scored.sum())} the score too; "
         f"{int(src.eq('sackmann').sum())} of them Sackmann rows)")
+    if respelled_list:
+        log(f"box overrides: {len(respelled_list)} found with a player's name re-spelled by the source since the table "
+            f"was built: {[r['source_now'] for r in respelled_list[:3]]}")
     return df
 
 
@@ -351,13 +404,16 @@ def add_live_rows(raw: pd.DataFrame, live: pd.DataFrame) -> pd.DataFrame:
     only names a played match to leave out (a replay's later rounds, which had not been played at its moment).
     A live qualifying row may carry ``event_main_date`` (YYYYMMDD): the start of its event's main draw, which is not
     played yet; the event's date (C05) is then that day, as a played event's qualifying is dated (bet since 22 Oct 2026,
-    docs/decisions/2026-10-22-qualifying-bets.md). Rows without it, and every build without live rows, are as before."""
+    docs/decisions/2026-10-22-qualifying-bets.md). Rows without it, and every build without live rows, are as before.
+    A row whose ``live_role`` is "played" is an earlier qualifying round its source has not published yet, with its
+    result and box score from TennisLive (prediction_run/earlier_rounds.py, since 24 Oct 2026); drop_replaced keeps the
+    source's row of the same match when there is one."""
     missing = {"tour", "tourney_id", "round", "winner_name", "loser_name", "score"} - set(live.columns)
     if missing:
         raise SystemExit(f"live rows: columns missing: {sorted(missing)}")
     role = live["live_role"].fillna("live") if "live_role" in live.columns else pd.Series("live", index=live.index)
-    if not role.isin(["live", "drop"]).all():
-        raise SystemExit("live rows: live_role must be 'live' or 'drop'")
+    if not role.isin(["live", "drop", "played"]).all():
+        raise SystemExit("live rows: live_role must be 'live', 'drop' or 'played'")
     rows = live.reindex(columns=KEEP + ["tour"]).copy()
     rows["source"], rows["group"], rows["file_season"] = "tml", "live", None
     rows["live_role"] = role.to_numpy()
@@ -373,19 +429,31 @@ def add_live_rows(raw: pd.DataFrame, live: pd.DataFrame) -> pd.DataFrame:
 def drop_replaced(df: pd.DataFrame, summary: dict) -> pd.DataFrame:
     """A played row of the same tour, event, round and players as a live row is dropped: the live row stands in for it
     (a replay of past matches, the prediction run's parity check). Upcoming matches replace nothing. Rows that only name
-    a played match to leave out ("drop") go too, with that match."""
+    a played match to leave out ("drop") go too, with that match. An earlier round filled from TennisLive ("played")
+    replaces nothing: it goes when a source row of the same match stands (its source has published it since)."""
     live = df["group"].eq("live")
+    played = live & df["live_role"].eq("played")
+    standing = live & ~played
     ident = df["tour"] + "|" + df["tid"] + "|" + df["round"] + "|" + df["pair"]
-    replaced = ~live & ident.isin(set(ident[live]))
-    named = live & df["live_role"].eq("drop")
+    replaced = ~live & ident.isin(set(ident[standing]))
+    named = standing & df["live_role"].eq("drop")
+    superseded = played & ident.isin(set(ident[~live & ~replaced]))
     note("LV1", "a played match given again as a live row (a replay): its played row dropped, the live row (placeholder "
-                "result, no box score) stands in for it", "drop_row", df[replaced & ident.isin(set(ident[live & ~named]))])
+                "result, no box score) stands in for it", "drop_row",
+         df[replaced & ident.isin(set(ident[standing & ~named]))])
     note("LV2", "a played match a replay leaves out (played after its moment): dropped", "drop_row",
-         df[replaced & ~ident.isin(set(ident[live & ~named]))])
-    summary["live_rows"] = {"rows": int((live & ~named).sum()), "played_rows_replaced": int(replaced.sum()),
+         df[replaced & ~ident.isin(set(ident[standing & ~named]))])
+    summary["live_rows"] = {"rows": int((standing & ~named).sum()), "played_rows_replaced": int(replaced.sum()),
                             "left_out_by_name": int(named.sum())}
-    log(f"live rows: {int((live & ~named).sum())} added, {int(replaced.sum())} played rows dropped")
-    return df[~replaced & ~named].drop(columns="live_role").copy()
+    if played.any():
+        note("LV3", "an earlier qualifying round filled from TennisLive (earlier_rounds.py) that its source holds: the "
+                    "fill dropped, the source's row stands", "drop_row", df[superseded])
+        summary["live_rows"].update(earlier_rounds_filled=int((played & ~superseded).sum()),
+                                    earlier_rounds_superseded=int(superseded.sum()))
+    log(f"live rows: {int((standing & ~named).sum())} added, {int(replaced.sum())} played rows dropped"
+        + (f", {int((played & ~superseded).sum())} earlier rounds filled ({int(superseded.sum())} superseded)"
+           if played.any() else ""))
+    return df[~replaced & ~named & ~superseded].drop(columns="live_role").copy()
 
 
 def text(s: pd.Series) -> pd.Series:

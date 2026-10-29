@@ -1,5 +1,9 @@
 # The current best model, 13 October 2026: the lower-level feed
 
+> **Not the live model** (it was on 13–14 Oct 2026). Which instance is live is decided only by the master notebook's selection (`data/studies/master_pipeline/selected_instance.json`; the notebook's STATUS cell shows it). "The current instance" below describes this folder as of when it was written. Kept as evidence and for rollback ([which instance went live when](../README.md)).
+>
+> **Its build tree is deleted** (22 Oct 2026, the owner; [cleanup inventory § 9d](../../../../docs/studies/cleanup_inventory/process_log.md)): `C:/Users/zerom/tnr_gaps`, after its daily caches on 21 Oct. The frame, the fits and the build's records here remain, but the daily engine can no longer run this instance: using it again needs the tree rebuilt (Rebuild, below, with today's code) and new checkpoints. So it is evidence now, not a ready rollback; the documented rollbacks are the 16 and 21 Oct instances.
+
 **What it is.** The current instance of the template ([decision](../../../../docs/decisions/2026-10-08-current-best-model.md)) as of 13 Oct 2026. It is the 10 Oct template, on the tables of 8 Oct, with **the lower-level feed's first snapshot** in place of the men's 2026 Challenger package ([decision](../../../../docs/decisions/2026-10-13-lower-level-feed.md), [report](../../../../docs/studies/data_gaps_2026/README.md)):
 * the Pinnacle-first odds input, 57 inputs, the indoor input for every match (decisions of 9 Oct);
 * **the level layer for men** ([decision](../../../../docs/decisions/2026-10-10-level-evidence-layer.md)). Its opponent strength is resolved on this build's Stage 0 and **re-centred** (the decided rule, "option c"): the women's additions moved the 2026 main-tour mean by 3.75 Elo (`chain_layer.json`);

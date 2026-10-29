@@ -73,6 +73,8 @@ The edge is many small, well-aimed nudges, not bold contrarian calls.
 
 Matches from 29 July 2026 are kept sealed for a future untouched test and were not looked at. "Its price" is the model's own input: Pinnacle's closing line until September 2025, BetOnline's after, because Pinnacle's later closes are missing.
 
+*Added 29 Oct 2026:* the owner moved the untouched test of the model's edge to the matches played from 19 Oct 2026, as a soft rule ([decision](../../decisions/2026-10-29-holdout-soft-rule.md)). The five-pattern check had read these matches to 23 Sep, and the P9 study to 18 Oct. Every protected period is now listed in one [register](../../holdouts/README.md).
+
 | | Accuracy over its closing price (mLL, + = model more accurate), Jan 2025 – Jul 2026 | The same, 2020 – Jul 2026 (the better forward estimate) | Money at BetOnline's close, Jan 2025 – Jul 2026 | The same, 2020–24 |
 |---|---|---|---|---|
 | **Both tours** | **+1.71** [+0.74, +2.68], better | +1.29 [+0.75, +1.84] | +2.0% [−0.9, +5.0] | +1.8% [+0.6, +3.1] |

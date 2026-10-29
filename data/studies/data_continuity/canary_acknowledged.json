@@ -1,0 +1,19 @@
+{
+ "what": "Canary flags known and accepted, each until a date (production-integrity plan, step 1, 22 Oct 2026; docs/decisions/2026-10-22-production-integrity-plan.md). An acknowledged flag does not alert while its date lasts; when the date passes and the flag is still there, the scheduled task alerts once and STATUS lists it as lapsed. Read by src/ingest/health.py.",
+ "acknowledged": [
+  {"flag": "sackmann_tennis_atp:GONE", "until": "2027-01-31", "by": "agent's choice (22 Oct 2026); the owner may change it",
+   "why": "Jeff Sackmann's ATP repository is gone (404) since June 2026. Its files to June 2026 are held (data/raw/sackmann, the frozen reference); the lower-level feed replaced it for 2026 (docs/decisions/2026-10-13-lower-level-feed.md). The archive mirror stays watched."},
+  {"flag": "sackmann_tennis_atp:ARCHIVE", "until": "2027-01-31", "by": "agent's choice (22 Oct 2026); the owner may change it",
+   "why": "Software Heritage did not answer for the gone ATP repository; nothing to collect from it either way."},
+  {"flag": "sackmann_tennis_wta:GONE", "until": "2027-01-31", "by": "agent's choice (22 Oct 2026); the owner may change it",
+   "why": "Jeff Sackmann's WTA repository is gone since June 2026; its files are held, the lower-level feed replaced it for 2026."},
+  {"flag": "sackmann_tennis_wta:UNARCHIVED", "until": "2027-01-31", "by": "agent's choice (22 Oct 2026); the owner may change it",
+   "why": "Its last Software Heritage snapshot is of 2025-01-03; the files held locally are newer."},
+  {"flag": "sackmann_slam_pointbypoint:GONE", "until": "2027-01-31", "by": "agent's choice (22 Oct 2026); the owner may change it",
+   "why": "Jeff Sackmann's Slam point-by-point repository is gone since June 2026; the Slams' own feeds replace it (docs/decisions/2026-10-06-slam-box-scores.md, 2026-10-09-ao-rg-box-scores-from-feeds.md)."},
+  {"flag": "sackmann_slam_pointbypoint:UNARCHIVED", "until": "2027-01-31", "by": "agent's choice (22 Oct 2026); the owner may change it",
+   "why": "Its last Software Heritage snapshot is of 2024-11-14; the files held locally are newer."},
+  {"flag": "tml_github:UNARCHIVED", "until": "2026-12-31", "by": "agent's choice (22 Oct 2026); the owner may change it",
+   "why": "Tennis My Life's GitHub copy was last archived by Software Heritage on 2026-02-21. The site's own files (stats.tennismylife.org) are what the project downloads and keeps every version of (docs/decisions/2026-10-06-tml-file-versions.md)."}
+ ]
+}

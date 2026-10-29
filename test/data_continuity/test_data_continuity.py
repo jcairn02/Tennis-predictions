@@ -118,6 +118,49 @@ def test_canary_flags_shrinking_revised_and_changed_terms():
     assert fewer[0] == "SHRANK (files 3 -> 2)"
 
 
+def test_canary_counts_matches_where_both_versions_are_held():
+    """28 Oct 2026 (the owner: "fix the alarm"): a re-save with Unix line endings and corrected cells had raised SHRANK
+    on 34 files that kept every match, the line endings counted in a copy the download had already replaced."""
+    old = {"status": 200, "count": 1, "files": {"2024.csv": ["m1", 656519]}}
+    cur = {"status": 200, "count": 1, "files": {"2024.csv": ["m2", 650000]}, "crlf": {"2024.csv": 0}}
+    assert not any(f.startswith("SHRANK") for f in Q.flags("tml", None, NOW, {**cur, "rows": {"2024.csv": [3076, 3076]}},
+                                                           old))
+    assert "SHRANK (1 files hold fewer matches: 2024.csv 3076 -> 3075)" in Q.flags(
+        "tml", None, NOW, {**cur, "rows": {"2024.csv": [3076, 3075]}}, old)
+    assert not any(f.startswith("SHRANK") for f in Q.flags("tml", None, NOW, {**cur, "crlf_then": {"2024.csv": 6600}},
+                                                           old))   # only the version listed then held: its endings
+    assert "SHRANK (1 files smaller: 2024.csv)" in Q.flags("tml", None, NOW, {**cur, "crlf_then": {"2024.csv": 3077}}, old)
+
+
+def _copy(path: Path, rows: int, crlf: bool, extra: str = "") -> int:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    end = "\r\n" if crlf else "\n"
+    path.write_bytes(end.join(["tourney_id,score"] + [f"2024-{i},6-4 6-4{extra}" for i in range(rows)]).encode() +
+                     end.encode())
+    return path.stat().st_size
+
+
+def test_canary_finds_both_versions_among_the_projects_copies(tmp_path, monkeypatch):
+    monkeypatch.setattr(Q, "TML_HELD", tmp_path)
+    then = _copy(tmp_path / "superseded" / "2024.20261020143004.0123456789ab.csv", 3, True)
+    now = _copy(tmp_path / "2024.csv", 3, False)                                  # re-saved, every match kept
+    old = {"files": {"2024.csv": ["m1", then], "ongoing_tourneys.csv": ["m1", 9]}}
+    cur = {"files": {"2024.csv": ["m2", now], "ongoing_tourneys.csv": ["m2", 1]}}
+    assert Q.shrink_evidence(cur, old) == {"rows": {"2024.csv": [3, 3]}, "crlf_then": {}}
+    lost = _copy(tmp_path / "2024.csv", 2, False)                                 # a match gone
+    assert Q.shrink_evidence({"files": {"2024.csv": ["m2", lost]}}, old)["rows"] == {"2024.csv": [3, 2]}
+    _copy(tmp_path / "2024.csv", 3, True)                                         # the download held the new version
+    held = _copy(tmp_path / "held" / "2024.ba9876543210.csv", 1, False)
+    assert Q.shrink_evidence({"files": {"2024.csv": ["m2", held]}}, old)["rows"] == {"2024.csv": [3, 1]}
+    _copy(tmp_path / "2024.csv", 3, False, extra=" RET")                          # listed now: a version never fetched
+    assert Q.shrink_evidence({"files": {"2024.csv": ["m2", then - 2]}}, old) == {"rows": {}, "crlf_then": {"2024.csv": 4}}
+    q_then = _copy(tmp_path / "superseded" / "atp_quali" / "2026_atp_quali.20261020143004.0123456789ab.csv", 2, True)
+    q_now = _copy(tmp_path / "atp_quali" / "2026_atp_quali.csv", 2, False)
+    assert Q.shrink_evidence({"files": {"atp_quali/2026_atp_quali.csv": ["m2", q_now]}},
+                             {"files": {"atp_quali/2026_atp_quali.csv": ["m1", q_then]}})["rows"] == {
+        "atp_quali/2026_atp_quali.csv": [2, 2]}
+
+
 def test_terms_statements_extract_declared_licences_only():
     html = ('<script>{"isAccessibleForFree":true,"license":"https://opensource.org/licenses/MIT"}</script>'
             '<p><strong>License:</strong> MIT License<br/></p><p>Updated 6 Oct</p>')

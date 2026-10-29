@@ -390,3 +390,22 @@ The prompts: round-1 agents received the shared context and their role file past
 * **SHA-256:** `f09_venue.py` `87a3647b…`, `test_f09_renamed.py` `8c51edf7…`.
 
 The replay fix of the same afternoon is logged in the daily prediction process log, Part 5. Its files: `dp_common.py` `39f6e5ea…`, `dp_tables.py` `ef7fe1db…`, `dp_worktree.py` `1f6db72d…`, `dp_steps.py` `b9da7127…`, `additions.py` `f3350141…`, `src/pipeline/train.py` `73cfe21e…`, `replay_views.json` `4d50c221…`, `test_replay_tables.py` `954a49c1…`.
+
+---
+
+## Note, 22 Oct 2026: the kept work trees and the 14 Oct build tree deleted
+
+Added by the cleanup session `4437577b-803e-4161-baf5-c6fade971478`, at the owner's word
+([cleanup inventory, process log §§ 9b and 9d](../cleanup_inventory/process_log.md)).
+* **Deleted on 22 Oct 2026,** each named "kept" or used above:
+  * `C:/Users/zerom/tnr_daily_patterns` and `tnr_daily_patterns_live`, the 13 Oct replays' work trees (training and
+    live dating). They were set up on the 10 Oct instance's tree, `tnr_lyr_new`, which is still on disk;
+  * `C:/Users/zerom/tnr_daily_fastcourt` (the failed replay) and `tnr_daily_fastcourt_live` (the live recompute, with
+    its replaced `f09_venue.py`), set up on the 14 Oct instance's tree;
+  * that tree, `C:/Users/zerom/tnr_tpl1014`, which option (b)'s venue table and the live re-run read.
+* **What stays:** the run folders (`patterns_replay_2026-07-13_R16/` at the repository root,
+  `runs/patterns_replay_livedating_2026-07-13_R16`, `runs/fastcourt_replay_2026-07-13_R16`,
+  `runs/fastcourt_live_2026-10-16_shanghai_qf`) and every reading recorded here.
+* **For a reviewer:** the proofs ran on `template_2026-10-10` (13 Oct), and the live recompute on `template_2026-10-14`
+  (16 Oct): older versions of the model. The adjustment now runs on `template_2026-10-21b`. The commands that name the
+  deleted trees no longer run as written: a re-check uses the current instance, and its numbers may differ.

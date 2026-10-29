@@ -12,6 +12,12 @@ answer, a body that is not JSON) ends the loop: back off and report (docs/decisi
 
     ./python.sh src/eda/gap_downloads/pinnacle_capture.py --every 600 --hours 36       the loop (run detached)
     ./python.sh src/eda/gap_downloads/pinnacle_capture.py --closes                    offline: each matchup's close
+    ./python.sh src/eda/gap_downloads/pinnacle_capture.py --ready     offline: can the comparison run on full data?
+                                                                      exit 0 yes, 1 not yet, 3 already done
+    ./python.sh src/eda/gap_downloads/pinnacle_capture.py --compare   offline: route (B), TennisExplorer's record of
+                                                                      the same matches; "complete" when --ready holds
+The daily task's job lower_odds (src/ingest/scheduled.py) runs --ready each day and reminds the owner, weekly, until a
+complete comparison is on disk (the owner's request of 22 Oct 2026).
 """
 from __future__ import annotations
 
@@ -191,7 +197,9 @@ def compare(caps: pd.DataFrame, te: pd.DataFrame) -> pd.DataFrame:
         hits = [(x, False) for x in w.itertuples() if T._same_tokens(x.t1, h) and T._same_tokens(x.t2, a)] + \
                [(x, True) for x in w.itertuples() if T._same_tokens(x.t1, a) and T._same_tokens(x.t2, h)]
         row = {"matchup_id": c.matchup_id, "level": c.level, "qualifying": c.qualifying,
-               "close_min_before_start": c.close_min_before_start, "linked": len(hits) == 1}
+               "start_utc": c.final_start.isoformat() if not pd.isna(c.final_start) else None,
+               "close_min_before_start": c.close_min_before_start, "linked": len(hits) == 1,
+               "candidates": len(hits)}
         if len(hits) == 1:
             x, flip = hits[0]
             hk, ak = ("k2", "k1") if flip else ("k1", "k2")
@@ -209,6 +217,67 @@ def compare(caps: pd.DataFrame, te: pd.DataFrame) -> pd.DataFrame:
     return pd.DataFrame(rows)
 
 
+COMPARE_JSON = STUDY / "pinnacle_capture_compare.json"
+CAPTURE_RUNS = STUDY / "pinnacle_capture_runs.jsonl"
+PAGES_SHARE = 0.95       # a day counts as fetched when this share of its in-scope priced matches have their page
+CAPTURE_IDLE = 2 * 3600  # seconds since the newest pull after which a capture that wrote no end line counts as over
+
+
+def started_days(df: pd.DataFrame) -> list[dt.date]:
+    """The UTC days of the captured lower-level matchups that started before the last pull."""
+    if df.empty:
+        return []
+    caps = closes(df)
+    last_pull = pd.to_datetime(df.retrieved_at, utc=True).max()
+    caps = caps[caps.level.isin(LOWER) & (caps.final_start < last_pull)]
+    return sorted({t.date() for t in caps.final_start.dropna()})
+
+
+def te_day_fetched(day: dt.date, today: dt.date | None = None) -> dict:
+    """Whether TennisExplorer's results pages of a day are on disk (both tours) and the page of nearly every in-scope
+    priced match they list (src/ingest/tennisexplorer_lower.py's folders; no request)."""
+    from src.ingest import tennisexplorer as T
+    from src.ingest import tennisexplorer_lower as L
+    today = today or dt.datetime.now(dt.timezone.utc).date()
+    types = L.calendar_types(None, {day.year, day.year - 1}, today)
+    have_days, listed, pages = True, 0, 0
+    for tour in L.TYPES:
+        dp = L.day_path(tour, day)
+        if not dp.exists():
+            have_days = False
+            continue
+        for r in L.day_rows(T.read_raw(dp), day, tour):
+            if r["priced"] and L.in_scope(r, types)[0]:
+                listed += 1
+                pages += int(L.match_path(r["te_id"]).exists())
+    ok = have_days and listed > 0 and pages >= PAGES_SHARE * listed
+    return {"day_pages": have_days, "in_scope_priced": listed, "match_pages": pages, "fetched": ok}
+
+
+def readiness(now: dt.datetime | None = None) -> dict:
+    """Can the comparison run on full data: the capture over (its end line written, or no pull for CAPTURE_IDLE), and
+    TennisExplorer's pages of every day on which captured matches started on disk. 'done' when a complete comparison
+    is already on disk."""
+    now = now or dt.datetime.now(dt.timezone.utc)
+    done = False
+    if COMPARE_JSON.exists():
+        try:
+            done = bool(json.loads(COMPARE_JSON.read_text(encoding="utf-8")).get("complete"))
+        except ValueError:
+            done = False
+    files = sorted(PULLS.glob("20*/*.parquet"))
+    newest = None
+    if files:
+        newest = dt.datetime.strptime(f"{files[-1].parent.name} {files[-1].stem}", "%Y-%m-%d %H%M%SZ").replace(
+            tzinfo=dt.timezone.utc)
+    ended = CAPTURE_RUNS.exists() and CAPTURE_RUNS.read_text(encoding="utf-8").strip() != ""
+    over = bool(files) and (ended or (now - newest).total_seconds() > CAPTURE_IDLE)
+    days = {d.isoformat(): te_day_fetched(d, now.date()) for d in (started_days(pulls()) if files else [])}
+    ready = over and bool(days) and all(v["fetched"] for v in days.values())
+    return {"done": done, "ready": ready and not done, "capture_over": over,
+            "newest_pull": newest.isoformat() if newest else None, "days": days}
+
+
 def main(argv=None) -> int:
     ap = argparse.ArgumentParser(description=__doc__.split("\n")[0])
     ap.add_argument("--every", type=int, default=600, help="seconds between pulls (default 600)")
@@ -216,8 +285,15 @@ def main(argv=None) -> int:
     ap.add_argument("--closes", action="store_true", help="offline: write each lower-level matchup's close (counts)")
     ap.add_argument("--compare", action="store_true",
                     help="offline: the captured closes against TennisExplorer's pages of the same matches (counts)")
+    ap.add_argument("--ready", action="store_true",
+                    help="offline: whether the comparison can run on full data (exit 0 yes, 1 not yet, 3 done)")
     a = ap.parse_args(argv)
+    if a.ready:
+        r = readiness()
+        print(json.dumps(r, indent=1))
+        return 3 if r["done"] else (0 if r["ready"] else 1)
     if a.compare:
+        r = readiness()
         df = pulls()
         caps = closes(df)
         last_pull = pd.to_datetime(df.retrieved_at, utc=True).max()
@@ -225,7 +301,9 @@ def main(argv=None) -> int:
         days = sorted({t.date() for t in caps.final_start.dropna()} |
                       {(t - pd.Timedelta(days=1)).date() for t in caps.final_start.dropna()})
         cmp = compare(caps, te_pages(days))
-        out = {"generated_at": C.utc_now_iso(), "captured_lower": int(len(cmp)), "by_level": []}
+        complete = r["capture_over"] and bool(r["days"]) and all(v["fetched"] for v in r["days"].values())
+        out = {"generated_at": C.utc_now_iso(), "complete": complete, "capture_over": r["capture_over"],
+               "days": r["days"], "captured_lower": int(len(cmp)), "by_level": []}
         for (lv, q), g in cmp.groupby(["level", "qualifying"]):
             linked = g[g.linked]
             pin = linked[linked.get("te_pinnacle", pd.Series(False, index=linked.index)).fillna(False).astype(bool)]

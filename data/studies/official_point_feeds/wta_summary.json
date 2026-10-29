@@ -2,7 +2,7 @@
  "source": "wta",
  "mode": "bulk",
  "batch": null,
- "started_at": "2026-10-21T19:11:32+00:00",
+ "started_at": "2026-10-28T19:02:30+00:00",
  "args": {
   "batch": null,
   "player_matches": false,
@@ -21,7 +21,7 @@
   "tiers": "1000,500,250,125,slam,finals",
   "draws": null,
   "endpoints": "stats",
-  "from_date": "2026-09-16",
+  "from_date": "2026-09-23",
   "limit": null,
   "max_requests": 600,
   "min_interval": 2.0,
@@ -58,19 +58,19 @@
   "2026|team": 1
  },
  "pauses": [],
- "editions_selected": 34,
- "matches_selected": 1026,
+ "editions_selected": 29,
+ "matches_selected": 945,
  "fetch_outcomes": {
   "listing:200": 20,
-  "listing:200:cached": 14,
-  "stats:200": 1,
-  "stats:200:cached": 1025
+  "listing:200:cached": 9,
+  "stats:200": 97,
+  "stats:200:cached": 848
  },
  "client": {
   "impersonate": "requests",
-  "requests": 23,
+  "requests": 119,
   "retried": 0,
-  "slept_seconds": 49.8,
+  "slept_seconds": 277.5,
   "min_interval": 2.0,
   "jitter": 1.0,
   "not_found_answers": 0
@@ -79,44 +79,44 @@
   "editions": {
    "rows": 1250,
    "dest": "data/dump/points/wta/editions.parquet",
-   "bytes": 47123
+   "bytes": 47151
   },
   "matches/2026": {
-   "rows": 7665,
+   "rows": 7883,
    "dest": "data/dump/points/wta/matches/2026.parquet",
-   "bytes": 556834
+   "bytes": 571590
   },
   "points/2026": {
-   "rows": 531069,
+   "rows": 548180,
    "dest": "data/dump/points/wta/points/2026.parquet",
-   "bytes": 4896820
+   "bytes": 5057164
   },
   "events/2026": {
-   "rows": 1315686,
+   "rows": 1337136,
    "dest": "data/dump/points/wta/events/2026.parquet",
-   "bytes": 58358230
+   "bytes": 59313558
   },
   "stats/2026": {
-   "rows": 22365,
+   "rows": 23024,
    "dest": "data/dump/points/wta/stats/2026.parquet",
-   "bytes": 514715
+   "bytes": 528555
   },
   "advanced/2026": {
-   "rows": 2179274,
+   "rows": 2226202,
    "dest": "data/dump/points/wta/advanced/2026.parquet",
-   "bytes": 8711973
+   "bytes": 8900320
   },
   "momentum/2026": {
-   "rows": 8376219,
+   "rows": 8582647,
    "dest": "data/dump/points/wta/momentum/2026.parquet",
-   "bytes": 40161105
+   "bytes": 41146805
   }
  },
  "receipts": {
   "calendar:200": 19,
-  "matches:200": 142823,
-  "matches:404": 7314,
-  "players:200": 4594,
+  "matches:200": 143510,
+  "matches:404": 7344,
+  "players:200": 4654,
   "players:error": 5,
   "probe:200": 9,
   "tournaments:200": 679,
@@ -145,6 +145,6 @@
    "error": "response is not JSON"
   }
  ],
- "finished_at": "2026-10-21T19:20:35+00:00",
- "seconds": 545.3
+ "finished_at": "2026-10-28T19:10:19+00:00",
+ "seconds": 470.2
 }

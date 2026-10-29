@@ -55,3 +55,11 @@ def day_of(value) -> int:
 
 def stamp() -> str:
     return dt.datetime.now(dt.timezone.utc).strftime("%Y-%m-%dT%H%MZ")
+
+
+def reason_of(exc: BaseException) -> str:
+    """Why one row failed, in one line: a refusal's own text (SystemExit), else the error's type and message (a match
+    left out for it: docs/decisions/2026-10-28-one-bad-match-left-out.md)."""
+    if isinstance(exc, SystemExit):
+        return str(exc) or "stopped without a reason"
+    return f"{type(exc).__name__}: {exc}"

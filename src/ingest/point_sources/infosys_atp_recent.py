@@ -615,7 +615,9 @@ def run(args) -> dict:
         P.log(f"[{SOURCE}] plan: {len(plan)} events, {summary['matches_selected']} codes; "
               f"{json.dumps(summary['codes_by_tier'])}")
         return summary
-    if not args.stage_only:
+    if args.newer_format and not args.stage_only:
+        run_newer(args, summary, receipts, holder)
+    elif not args.stage_only:
         cal = A.Calibration(receipts)
         share = HostShare(window=parse_window(args.quiet_window)) if not args.no_share else None
         client = make_client(args, cal, share)
@@ -640,11 +642,12 @@ def run(args) -> dict:
         summary["fetch_outcomes"] = dict(sorted(r.outcomes.items()))
         summary["families_given_up"] = len(r.notes)
         summary["families_given_up_examples"] = r.notes[:40]
-    summary.update(write_evidence(receipts, plan, routes + api_routes(routes, "always"), holder.get()))
-    errors = [x for x in receipts.all().values() if x.get("error")]
-    summary["receipts"] = len(receipts.all())
-    summary["receipts_with_errors"] = len(errors)
-    summary["error_examples"] = [{"name": x["name"], "error": x["error"]} for x in errors[:20]]
+    if not (args.newer_format and not args.stage_only):
+        summary.update(write_evidence(receipts, plan, routes + api_routes(routes, "always"), holder.get()))
+        errors = [x for x in receipts.all().values() if x.get("error")]
+        summary["receipts"] = len(receipts.all())
+        summary["receipts_with_errors"] = len(errors)
+        summary["error_examples"] = [{"name": x["name"], "error": x["error"]} for x in errors[:20]]
     if not args.no_stage and (args.stage_only or not summary.get("stopped", "").startswith(("Blocked", "Stopped"))):
         from src.ingest.point_sources import infosys_atp_recent_stage as S
         try:
@@ -656,6 +659,8 @@ def run(args) -> dict:
     summary["seconds"] = round(time.time() - started, 1)
     path = P.write_summary("infosys_atp_recent_summary.json", summary, root=STUDY_ROOT)
     P.log(f"[{SOURCE}] summary written to {P.rel(path)}")
+    if record_full_run(summary, args):
+        P.log(f"[{SOURCE}] a full run of the plan: recorded in {P.rel(FULL_RUNS)}")
     return summary
 
 
@@ -691,9 +696,117 @@ def add_arguments(parser: argparse.ArgumentParser) -> None:
                         help="local HH:MM-HH:MM without requests, around the daily task (default 07:20-08:00; off)")
     parser.add_argument("--no-share", action="store_true", help="do not wait for the host's other jobs (tests)")
     parser.add_argument("--refresh", action="store_true", help="fetch files already held (and absences) again")
+    parser.add_argument("--newer-format", action="store_true",
+                        help="ask the API's MatchBeats (the newer format) of every match whose static copy is in the "
+                             "older one, one request each, from a target list frozen at the first such run "
+                             "(owner, 27 Oct 2026); --limit takes the first N targets")
     parser.add_argument("--plan-only", action="store_true", help="print the plan's size and stop (no HTTP)")
     parser.add_argument("--stage-only", action="store_true", help="no HTTP: rewrite the evidence, decrypt and stage")
     parser.add_argument("--no-stage", action="store_true", help="fetch only")
+
+
+# --------------------------------------------------------------------------------------
+# the newer MatchBeats format (owner, 27 Oct 2026: "Fetch the newer point-file format: yes")
+# --------------------------------------------------------------------------------------
+NEWER_FIELDS = ("firstServer", "lastHitter", "serveClassId", "tm1Shot", "tm2Shot", "pointDuration", "tm1AtNet",
+                "tm2AtNet")
+NEWER_TARGETS = STUDY_ROOT / "infosys_atp_recent_newer_targets.csv.gz"
+FULL_RUNS = STUDY_ROOT / "infosys_atp_recent_full_runs.jsonl"
+
+
+def older_format_targets(dump: Path | None = None) -> list[tuple[int, int, str, str, str]]:
+    """(year, event, MID, series, tournament start) of every match whose MatchBeats came from the static copy and none
+    of whose points carries the newer fields (NEWER_FIELDS): the matches the API's copy brings in the newer format.
+    Read from the staged tables; newest tournament first."""
+    import pandas as pd
+    from src.ingest.point_sources import infosys_atp_recent_stage as S
+    dump = dump or S.P.dump_path(SOURCE)
+    pts = pd.read_parquet(dump / "points.parquet", columns=["year", "event_id", "match_id", "route", "other_fields"])
+    st = pts[pts["route"].eq("match-beats")]
+    newer = st["other_fields"].fillna("").str.contains("|".join(NEWER_FIELDS[:3]))
+    older = newer.groupby([st["year"], st["event_id"], st["match_id"]]).any()
+    older = older[~older].reset_index()[["year", "event_id", "match_id"]]
+    m = pd.read_parquet(dump / "matches.parquet", columns=["year", "event_id", "match_id", "series", "tournament_start"])
+    t = older.merge(m, on=["year", "event_id", "match_id"], how="left")
+    t = t.sort_values(["tournament_start", "event_id", "match_id"], ascending=[False, True, True])
+    return [(int(y), int(e), str(mid), str(s or ""), str(d or "")) for y, e, mid, s, d in
+            zip(t["year"], t["event_id"], t["match_id"], t["series"], t["tournament_start"])]
+
+
+def frozen_targets(path: Path | None = None, dump: Path | None = None) -> list[tuple[int, int, str, str, str]]:
+    """The newer-format targets, frozen at the first run (a later staging takes the newer copies, so a fresh reading
+    would shrink the list as the pass goes)."""
+    import csv
+    import gzip
+    path = path or NEWER_TARGETS
+    if path.exists():
+        with gzip.open(path, "rt", encoding="utf-8", newline="") as fh:
+            return [(int(r["year"]), int(r["event_id"]), r["match_id"], r["series"], r["tournament_start"])
+                    for r in csv.DictReader(fh)]
+    targets = older_format_targets(dump)
+    path.parent.mkdir(parents=True, exist_ok=True)
+    with gzip.open(path, "wt", encoding="utf-8", newline="") as fh:
+        w = csv.writer(fh)
+        w.writerow(["year", "event_id", "match_id", "series", "tournament_start"])
+        w.writerows(targets)
+    return targets
+
+
+def run_newer(args, summary: dict, receipts, holder: Held) -> dict:
+    """The API's MatchBeats of every frozen target, one request each; staging chooses the copy
+    (infosys_atp_recent_stage.choose_matchbeats)."""
+    targets = frozen_targets()
+    if args.limit:
+        targets = targets[:args.limit]
+    summary.update(mode="newer-format", targets=len(targets), targets_file=P.rel(NEWER_TARGETS),
+                   owner="27 Oct 2026: \"Fetch the newer point-file format: yes\"")
+    cal = A.Calibration(receipts)
+    share = HostShare(window=parse_window(args.quiet_window)) if not args.no_share else None
+    client = make_client(args, cal, share)
+    r = Run(client, receipts, cal, args, holder)
+    names = [receipt_name(y, e, "match-beats-api", mid) for y, e, mid, _, _ in targets]
+    try:
+        for i, (year, event, mid, series, start) in enumerate(targets, 1):
+            ev = A.Event(year, event, "", "", start, series=series)
+            r.fetch(ev, "match-beats-api", mid, purpose="newer format")
+            if i % 500 == 0 or i == len(targets):
+                P.log(f"[{SOURCE}] newer format {i}/{len(targets)} ({year}/{event}/{mid}); requests={client.requests}")
+    except (P.Blocked, P.BudgetExhausted, F.Stopped, KeyboardInterrupt) as stop:
+        summary["stopped"] = f"{type(stop).__name__}: {stop}"
+        P.log(f"[{SOURCE}] STOPPED: {stop}")
+    summary["client"] = client.stats()
+    summary["host_share"] = {"waited_seconds": round(share.waited, 1), "polls": dict(share.waits)} if share else None
+    summary["fetch_outcomes"] = dict(sorted(r.outcomes.items()))
+    recs = [receipts.get(n) for n in names]
+    summary["answers"] = dict(Counter("not asked" if x is None else "data" if has_data(x) else "empty" if is_empty(x)
+                                      else "absent" if A.is_absent(x) else "error" for x in recs))
+    errors = [x for x in recs if x is not None and x.get("error")]
+    summary["receipts"] = len(receipts.all())
+    summary["receipts_with_errors"] = len(errors)
+    summary["error_examples"] = [{"name": x["name"], "error": x["error"]} for x in errors[:20]]
+    return summary
+
+
+def record_full_run(summary: dict, args, path: Path | None = None) -> bool:
+    """Append a finished full-plan run (no --events or --limit, the plan done) to FULL_RUNS: the scheduled task's 2026
+    top-up reminder reads it (src/ingest/scheduled.py, job p9_topup). Returns whether it was recorded."""
+    path = path or FULL_RUNS
+    if summary.get("stopped") or args.events or args.limit or getattr(args, "newer_format", False) \
+            or args.stage_only or args.plan_only or summary.get("finished_at") is None:
+        return False
+    try:
+        import pyarrow.parquet as pq
+        commit = pq.read_table(A.MTD_ROOT / "atp_tournaments.parquet", columns=["commit"]).column(0)[0].as_py()
+    except Exception:  # noqa: BLE001 - the record is still useful without it
+        commit = None
+    line = {"started_at": summary["started_at"], "finished_at": summary["finished_at"],
+            "events_selected": summary.get("events_selected"), "matches_selected": summary.get("matches_selected"),
+            "until": args.until or dt.date.today().strftime("%Y%m%d"), "mantennisdata_commit": commit,
+            "requests": (summary.get("client") or {}).get("requests")}
+    path.parent.mkdir(parents=True, exist_ok=True)
+    with path.open("a", encoding="utf-8") as fh:
+        fh.write(json.dumps(line) + "\n")
+    return True
 
 
 EXIT = {"done": 0, "other": 1, "blocked": 2, "budget": 3, "refused": 4, "errors": 5}

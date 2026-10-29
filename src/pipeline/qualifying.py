@@ -22,6 +22,14 @@ The round:
     Tennis My Life's rows of the edition must agree. Without TennisLive (a refusal, the event not found there) only both
     players' Tennis My Life wins in one round give the next; a round 1 is never read from Tennis My Life's silence:
     its qualifying file lags the day by hours, so a round 2 whose round 1 it has not published yet would look like one.
+The earlier rounds (since 24 Oct 2026, an agent's choice on the owner's "we need to get this data": prediction_run/
+earlier_rounds.py): a match after round 1 is blocked while a player's round before is missing from Stage 0, which on the
+day it nearly always is (Tennis My Life's qualifying file lags by days; women's qualifying waits for the weekly feed).
+The players' finished wins at the event before the listed round (earlier_wins) go into the matchups CSV's sidecar with
+their score, and the box score of their TennisLive match page (TennisLive.page), unless Tennis My Life holds them.
+Since 25 Oct 2026 (the same choice, extended) a main-draw match's qualifiers and lucky losers too: every qualifying
+match they played at the event (earlier_matches with the losses), which Tennis My Life publishes days later (men) or
+never (women: the weekly feed brings them).
 Best of: 3; a men's Slam qualifying round takes its previous edition's (Wimbledon's last round was 5 in 2021, 2023, 2025
 and 2026).
 The main draw's start (main_draw_start), which every qualifying row carries (event_main_date): Stage 0 dates an event by
@@ -30,6 +38,10 @@ draw is not played yet. The estimate: the main draw's week (a Slam's: the week a
 next week for a weekend match, else the match's own), on the weekday the previous edition's Stage 0 date fell on (its
 Wednesday or Sunday start), never before the match's day. Checked against training's own dates in
 src/eda/master_pipeline/qualifying_dates.py.
+A main-draw match's event date (since 27 Oct 2026, the owner: "switch the date fix on"; master pipeline process log,
+Part 17): the linker also writes event_main_date for it, the main draw's first day on TennisLive (main_draw_first_day),
+because Tennis My Life's file of events under way can date that day late (Almaty's and Brussels' 19 Oct 2026 read 20
+Oct there until 23 Oct); prediction_run/live_rows.main_draw_date takes the earliest day it knows.
 """
 from __future__ import annotations
 
@@ -48,7 +60,9 @@ from src.eda.merge_feasibility.scan import name_key, norm  # noqa: E402
 EDITION_DAYS = (300, 430)             # a previous edition: about a year before, the calendar's moves allowed
 ROUNDS = ("Q1", "Q2", "Q3")
 TL_KINDS = ("tour", "slam")           # TennisLive's kinds of the 250s to the Slams
-MAX_REQUESTS = 20                     # TennisLive requests per linking: a session, date pages, one section per event
+MAX_REQUESTS = 150                    # TennisLive requests per linking: a session, date pages, one section per event, and
+                                      # a match page per earlier round (a page held already is not asked again); a Slam's
+                                      # first main-draw day asks about 110 (16 qualifiers of each tour, 3 rounds each)
 QUALIFYING_ROUND = re.compile(r"^Q\d$")
 
 
@@ -129,6 +143,42 @@ def main_draw_start(day: pd.Timestamp, slam: bool, previous: pd.Timestamp | None
     return max(week + pd.Timedelta(days=wd if wd < 5 else wd - 7), day)
 
 
+def venue_zone(ev: dict | None, city: str | None = None) -> str | None:
+    """The venue's IANA zone from TennisLive's event (its country, and the city after " - " in its name, e.g. "European
+    Open - Brussels") or ``city``, by the timing study's tables (src/eda/match_timing/srcc_tz.py); None when they do not
+    settle it (a country of several zones whose city they do not list)."""
+    from src.eda.match_timing import srcc_tz as TZ
+    ev = ev or {}
+    country = TZ.country_code(ev.get("country"))
+    name = str(ev.get("name") or "")
+    for c in ([name.split(" - ")[-1]] if " - " in name else []) + [city]:
+        zone = TZ.zone_for(country, c)
+        if zone:
+            return zone
+    return None
+
+
+def main_draw_first_day(rows: pd.DataFrame | None, ev: dict | None = None, city: str | None = None,
+                        listed=None) -> str | None:
+    """The main draw's first day as far as TennisLive and the listing tell (YYYYMMDD), for a main-draw match (since 27
+    Oct 2026: the date Stage 0 gives the event, C05; prediction_run/live_rows.main_draw_date): the day of the earliest
+    start among the event's main-draw singles matches in TennisLive's results (rows: an event under way lists its
+    finished matches) and the listed match's own start (``listed``, UTC). Tennis My Life dates a match by its local
+    day, so the start is read in the venue's zone (venue_zone); without one, by its UK day, as the live path dates
+    matches, which differs only for a morning start at UTC+11 or more (Auckland's 11:00 is 22:00 UTC the day before).
+    None without a start."""
+    starts = []
+    if rows is not None and not rows.empty and {"draw", "discipline", "start_utc"} <= set(rows.columns):
+        main = rows[rows["draw"].astype(str).eq("main") & rows["discipline"].astype(str).eq("singles")]
+        starts += list(pd.to_datetime(main["start_utc"], utc=True, errors="coerce").dropna())
+    own = pd.to_datetime(listed, utc=True, errors="coerce") if isinstance(listed, str) else pd.NaT
+    if pd.notna(own):
+        starts.append(own)
+    if not starts:
+        return None
+    return min(starts).tz_convert(venue_zone(ev, city) or "Europe/London").strftime("%Y%m%d")
+
+
 def best_of(tour: str, level: str, rnd: str, prev: dict | None) -> int | None:
     """A men's Slam qualifying round's best-of from its previous edition when it was 5; None otherwise (the event's
     rows or the default 3 stand)."""
@@ -162,6 +212,8 @@ def round_from_results(rows: pd.DataFrame, a: set[str], b: set[str], names: tupl
     """(the round, how it was read) of a listed qualifying match from TennisLive's results rows of its event
     (tennislive_events.section_rows); (None, the reason) when the match is to be left out. a, b: each player's keys
     (player_keys)."""
+    if rows.empty:            # no match finished at the event yet: no rows, hence no columns (23 Oct 2026, Tokyo)
+        return "Q1", "no qualifying result at the event yet on TennisLive: round 1"
     q = rows[rows["draw"].astype(str).eq("qualifying") & rows["discipline"].astype(str).eq("singles")].copy()
     if q.empty:
         return "Q1", "no qualifying result at the event yet on TennisLive: round 1"
@@ -199,6 +251,33 @@ def round_from_results(rows: pd.DataFrame, a: set[str], b: set[str], names: tupl
         return ROUNDS[nxt - 1], f"both players won {wa} on TennisLive"
     return None, (f"the players' qualifying results disagree on TennisLive ({names[0]}: {wa or 'none'}, {names[1]}: "
                   f"{wb or 'none'})")
+
+
+def earlier_matches(rows: pd.DataFrame, keys: set[str], rnd: str, losses: bool = False) -> pd.DataFrame:
+    """A player's finished qualifying matches at the event before round ``rnd`` (TennisLive's results rows; keys:
+    player_keys), each with the side the player is on (_side) and whether the player won it (_won). A main-draw round
+    comes after every qualifying round. losses: a lost round too (a lucky loser's, before a main-draw round); a player
+    still in the qualifying has none."""
+    if rows is None or rows.empty or "draw" not in rows.columns:
+        return pd.DataFrame()
+    order = {r: i for i, r in enumerate(ROUNDS, 1)}
+    limit = order.get(str(rnd).upper(), 0) if is_qualifying_round(rnd) else len(ROUNDS) + 1
+    q = rows[rows["draw"].astype(str).eq("qualifying") & rows["discipline"].astype(str).eq("singles")
+             & rows["round"].astype(str).map(lambda r: order.get(r, 99) < limit)].copy()
+    if q.empty:
+        return q
+    done = q["played"].astype(str).str.upper().isin(["TRUE", "1"]) | q["state"].astype(str).isin(["walkover", "awarded"])
+    side = pd.to_numeric(q["winner_side"], errors="coerce")
+    k1, k2 = _side_keys(q, 1).map(lambda k: bool(k & keys)), _side_keys(q, 2).map(lambda k: bool(k & keys))
+    q["_side"] = k1.map({True: 1}).fillna(k2.map({True: 2}))
+    q["_won"] = (k1 & side.eq(1)) | (k2 & side.eq(2))
+    lost = (k1 & side.eq(2)) | (k2 & side.eq(1))
+    return q[done & q["_side"].notna() & (q["_won"] | (lost & losses))].astype({"_side": int, "_won": bool})
+
+
+def earlier_wins(rows: pd.DataFrame, keys: set[str], rnd: str) -> pd.DataFrame:
+    """A player's finished qualifying wins at the event before round ``rnd`` (earlier_matches without the losses)."""
+    return earlier_matches(rows, keys, rnd)
 
 
 def round_from_tml(event_rows: pd.DataFrame, a: str, b: str) -> tuple[str | None, str]:
@@ -305,7 +384,26 @@ class TennisLive:
         if r.get("error"):
             self.stopped = self.stopped or f"results section: {r['error']}"
             return None
-        rows = pd.DataFrame(self.TLE.section_rows(self.PS.read_json(target[1]), ev,
-                                                  {"retrieved_at": r.get("retrieved_at")}))
+        payload = self.PS.read_json(target[1])
+        # an answer with no match is one whose list of matches is empty; an answer without that list (another form, as
+        # after a change of the site) says nothing, and is never read as "nothing played yet"
+        if not isinstance(((payload or {}).get("data") or {}).get("groups"), list):
+            self.stopped = self.stopped or "results section: an answer without its list of matches (a new form?)"
+            return None
+        rows = pd.DataFrame(self.TLE.section_rows(payload, ev, {"retrieved_at": r.get("retrieved_at")}))
         self.sections[ev["key"]] = rows
         return rows
+
+    def page(self, url: str) -> dict | None:
+        """A finished match's page, parsed (tennislive.parse_match_page); one held already is read, not asked again.
+        None when it did not come (a refusal stops TennisLive for this linking, as for the other reads)."""
+        from src.ingest.point_sources import tennislive as TL
+        dest = TL.match_dest(url)
+        if dest is None:
+            return None
+        if not dest.exists():
+            r = self._guard(lambda u: TL.fetch_match(self.client, self.receipts, u, refresh=False,
+                                                     extra={"asked_by": "earlier rounds (src/pipeline/live.py)"}), url)
+            if r is None or r.get("error") or not dest.exists():
+                return None
+        return TL.parse_match_page(self.PS.read_bytes(dest).decode("utf-8", errors="replace"))

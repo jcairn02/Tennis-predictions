@@ -422,3 +422,108 @@ is the owner's choice, not fitted here.
   * README "What I did" step 4 now states the difference.
   * The two versions are renamed "the live model (calibrated on main draws, as A1–A5)" and "calibrated on qualifying
     (test only)" in the summary and the follow-up.
+
+---
+
+# Part 3: the five-pattern adjustment on qualifying (22 Oct 2026, from 13:04 PDT)
+
+Same session (`40624dcb-dd11-4b33-9758-215a45a8677e`). Between Parts 2 and 3 the owner decided to bet qualifying with
+the live model (`docs/decisions/2026-10-22-qualifying-bets.md`) and it was built into A1–A5 (master pipeline process
+log, Part 8), with the five-pattern adjustment on for qualifying as for the main draw, untested there.
+
+## P3.1 The request (verbatim)
+
+> "I recommend I score it on past qualifying matches before Saturday, at no cost. "
+> Test this.
+>
+> Stakes should be the same as main.
+
+The quote is from my report of Part 8: "Five-pattern adjustment: it's on for qualifying because it's part of the live
+model, but the study didn't test it there, and one of its parts reads seeding, which in qualifying means the
+qualifying seed. I recommend I score it on past qualifying matches before Saturday, at no cost." The stakes sentence
+is a decision, recorded in the decision file; it changes no code (the sheet already staked qualifying as main).
+
+## P3.2 Interpretation, and what is fixed before any result
+
+* **The question:** does the adjustment, as the live engine applies it, help or harm the live model's qualifying
+  forecasts?
+* **z as the engine computes it,** for the study's scored qualifying matches (2020–2026, debut seasons out, priced: the
+  population of Part 1's primary and Part 2), on the instance's build tree (the tables the study's forecasts were built
+  on):
+  * the registered members (`unpriced_leads/live_members.py`, the tree's copy, identical to the repository's), its
+    not-built members missing as live;
+  * the live gate by each match's month (`patterns_live.live_gates`, on the tree);
+  * the frozen parameters (`check_now/now/params.json`, its SHA-256 checked), z capped at ±3.5;
+  * logit q += b z, b = 0.0616 (`adjustment.json`).
+* **The forecast it is added to:** the live model's (Part 2: today's fits with the instance's stage 2 fitted on main
+  draws), seeds 0–3.
+* **Kind (framework § 0):** an expansion, an adopted adjustment with frozen parameters applied to a new population. Its
+  effect where adopted: +0.41 mLL in the check's window (9,457 main-draw matches, 2025–Sep 2026). Plausible here: from
+  about −0.5 to +0.5.
+* **Primary:** paired log loss, patterns on against off (positive = on better, 1000 × mean difference), every scored
+  match, both tours, 4-week blocks with seed variance (`compare.paired`, matched seeds), as Part 1.
+* **Decision rule (the framework's default harm check), fixed now:**
+  * turn the patterns off for qualifying if on is worse by more than 0.10 mLL with the whole 95% interval below 0;
+  * otherwise keep them on, as the owner's live model.
+  * The reading is labelled better, worse or unresolved, with P(better).
+* **Secondary, descriptive only:**
+  * each version against the calibrated close;
+  * betting at BetOnline's and Pinnacle's closes (every +EV side; the top 40% of edges), both versions;
+  * slices: men and women, tour and Slam qualifying, 2020–24 and 2025–26.
+* **Seen before this:** z and the two forecasts of the 16 round-1 matches replayed for Part 8 (Almaty and Brussels, 17
+  Oct 2026), 16 of the scored matches. No aggregate of the patterns on qualifying.
+
+## P3.3 Plan, each with its check
+
+1. **Members** for the scored ids, the tree's `live_members.py` run in the tree, outputs outside it. Checks:
+   * its ace gap equals the study frame's `in_iosO_ace` (its own `--frame` check);
+   * nothing written into the tree (its extracts exist, their records match: checked 13:00).
+2. **Gates and z** in this repository's process, the tree's tables for the gate counts. Check: the 16 replayed matches'
+   z equal the replay's own live z (`live_patterns.parquet` of the Part 8 replay).
+3. **Scores:** the primary, the secondaries, the slices. Then the report and the owner's answer.
+
+
+## P3.4 Chronology (PDT)
+
+| Time | What |
+|---|---|
+| 13:04 | Part 3 opened (P3.1–P3.3), before any member or score was computed. The stakes decision recorded (`docs/decisions/2026-10-22-qualifying-bets.md`, the master pipeline README, CLAUDE.md) |
+| 13:05–13:12 | Read the engine's pattern path (`patterns_live.build_for_run`, `check_now.score_from_params`, `live_members`); the tree's copies of the seven pattern modules are byte-identical to the repository's; the tree holds the builder's two input extracts with matching records (no write needed); the projection reads the 48 non-price, non-context inputs, so the odds input does not enter z. `src/eda/qualifying_targets/patterns_check.py` written |
+| 13:13 | `--members` started: the tree's `live_members.py`, run in the tree, for the scored ids (outputs in `data/studies/qualifying_targets/patterns/`, the IOS table's copy in the session's scratch folder) |
+| 13:06 | (Correction to the two rows above: their times were written ahead of the clock. The reading ran about 12:55–13:04 and `--members` started at 13:05.) |
+| 13:06–13:13 | **Members** for the 15,834 scored matches (7,835 men's, 7,999 women's; 10,265 tour, 5,569 Slam qualifying): the builder's own frame check passed on all 15,834 (its ace gap equals the study frame's `in_iosO_ace`, largest difference 0.0); present: post-Slam, venue pace, seeded, fame and rhythm d7 15,834 each, rest under 20 h 14,956, past fatigue 11,489; the five not-built members 0, as live. Nothing written into the tree but Python's bytecode caches (`__pycache__`): no data file changed there since 13:05 |
+| 13:14–13:16 | **Scored** (`--score`). **Parity: the 16 replayed matches' z equal the engine's own live z exactly** (16 of 16, largest difference 0.0). z: sd 0.81, 12 matches at the cap; shift mean 0.038 log-odds, at most 0.216; the live gate switched members off in some months (G1's three in 20, G4's pair in 14, rhythm d7 in 5, past fatigue in 2) |
+| 13:16 | **Primary: on against off +0.28 mLL [−0.07, +0.63], P(better) 0.945, unresolved. The harm check does not fail: the patterns stay on for qualifying (the rule of P3.2).** Off against the calibrated close +1.22 [+0.36, +2.09] better; on +1.51 [+0.65, +2.37] better. Slices (flags, not verdicts): men +0.39 (P 0.93), women +0.18 (0.74), tour qualifying +0.50 [+0.02, +0.98] better, Slam qualifying −0.12 (0.31), 2020–24 +0.32, 2025–26 +0.19. **Betting at the close, patterns on against off:** BetOnline every +EV side +5.8% [+3.1, +8.4] (6,164 bets) against +4.5% [+1.1, +7.7] (5,572); its top 40% +10.4% [+5.1, +15.7] against +8.3%; Pinnacle every +EV side +5.3% [+1.6, +8.7] (3,444) against +4.7%; its top 40% +14.3% [+7.8, +21.0] against +9.8% |
+| 13:18–13:22 | Reported: this study's README (follow-up 2, and a line in "In short"), the decision file (the test, and "stays on"), the decisions index row, the master pipeline README's qualifying section, CLAUDE.md's qualifying block, the studies index row. Peer tennis-predictions-f8, editing some of the same files for the live-model naming fix, told which lines first |
+
+## P3.5 Judgment calls and deviations
+
+* None from P3.2's design. Seen before the scores: nothing beyond P3.2's note (16 replayed matches).
+* **Run inside the instance's tree, not a work tree:** its tables are the forecasts' own, and it holds the builder's two
+  extracts with matching records, so the builder reads and writes nothing there (checked after: only bytecode
+  caches). A work tree would have needed a replay's tables step.
+* **The month of each match:** its observed day in the tree's timeline (live: the run's day), for the gate.
+
+## P3.6 Claims and their evidence
+
+| Claim | Evidence |
+|---|---|
+| z here is the engine's z | `patterns/patterns.json` "parity": 16 of 16 equal to `replay_2026-10-19_Q1_qualifying_maindate/live_patterns.parquet` |
+| The members read the same surface IOS as the model's input | `patterns/members.json` frame check, 15,834 of 15,834 equal |
+| No harm on qualifying; +0.28 mLL, unresolved | `patterns/patterns.json` "accuracy", row 1; `harm_check_fails` false |
+| Returns at the close are higher with the patterns | `patterns/patterns.json` "betting"; `patterns/rows.csv` |
+
+## P3.7 Weak points
+
+* **Unresolved:** the gain could be zero (P(better) 0.945). The decision rests on the harm check, as fixed.
+* **The Slam slice leans the other way** (−0.12, P 0.31). A flag, not a verdict; one of the members reads seeding,
+  which in Slam qualifying is a qualifying seed.
+* **The betting gains reuse the same matches as the accuracy reading.** They are descriptive, at closing prices, and
+  the top-40% cut was set on the matches it is scored on (Part 2's caveat).
+* **Four seeds**, as every comparison; the live model averages sixteen.
+* **The not-built members** are missing here as live; if they are ever built, z changes.
+
+## P3.8 Reproduction
+
+`./python.sh src/eda/qualifying_targets/patterns_check.py --members` (about 7 minutes; set QT_SCRATCH for the IOS
+table's copy), then `--score` (about 2 minutes). Outputs: `data/studies/qualifying_targets/patterns/`.

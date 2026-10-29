@@ -268,20 +268,56 @@ def thinking_forecasts(run_dir: Path, ids) -> tuple[dict | None, dict]:
     return th, th["record"]
 
 
-def speed_columns(meta: pd.DataFrame, days: np.ndarray) -> tuple[np.ndarray, dict]:
-    """spd_L of each live match on its day (side A minus side B), 0 for women."""
+def speed_columns(meta: pd.DataFrame, days: np.ndarray, evidence: dict | None = None) -> tuple[np.ndarray, dict]:
+    """spd_L of each live match on its day (side A minus side B), 0 for women. evidence, when given, is filled with each
+    match's own speed evidence from the same form (22 Oct 2026, production-integrity plan step 2): each side's readings
+    in the last 28 days (k28) and latest reading, so the bet sheet judges the numbers the adjustment actually used."""
     from src.eda.serve_speed_tabpfn.live import form as SF
     from src.eda.serve_speed_tabpfn.live import live_panel as LP
     panel = LP.load()
     out = np.zeros(len(meta))
+    ev = {c: np.full(len(meta), np.nan, dtype=object) for c in ("speed_k28_a", "speed_k28_b", "speed_last_reading_a",
+                                                                 "speed_last_reading_b")}
     men = meta["tour"].eq("atp").to_numpy()
     for d in sorted(set(days[men].tolist())):
         sel = men & (days == d)
         players = sorted(set(meta.loc[sel, "player_a_id"]) | set(meta.loc[sel, "player_b_id"]))
         form = SF.form_as_of(int(d), panel, players=players)
         out[sel] = SF.spd_L_from_form(form, meta.loc[sel, "player_a_id"].to_numpy(), meta.loc[sel, "player_b_id"].to_numpy())
+        f = form.set_index("player_id")
+        for side in ("a", "b"):
+            ids = meta.loc[sel, f"player_{side}_id"].to_numpy()
+            ev[f"speed_k28_{side}"][sel] = [int(f.at[i, "k28"]) if i in f.index else 0 for i in ids]
+            ev[f"speed_last_reading_{side}"][sel] = [f.at[i, "last_reading"] if i in f.index else None for i in ids]
+    if evidence is not None:
+        evidence.update(ev)
+    use = panel[panel["use"].astype(bool)] if "use" in panel.columns else panel
+    obs = pd.to_numeric(use.get("obs"), errors="coerce") if "obs" in use.columns else pd.Series(dtype=float)
+    newest = DC.date_of(int(obs.max())) if len(obs) and np.isfinite(obs.max()) else None
     return out, {"panel": str(LP.LC.OUT / LP.LC.PANEL_LIVE.name), "panel_sha256": DC.sha256(LP.LC.OUT / LP.LC.PANEL_LIVE.name),
-                 "standardiser_km_h": float(SF.SD_L), "clip": float(SF.CLIP)}
+                 "standardiser_km_h": float(SF.SD_L), "clip": float(SF.CLIP), "newest_reading": newest}
+
+
+WEIGHTS_SHA_CACHE = DC.OUT / "checks" / "weights_sha256_cache.json"
+
+
+def weights_sha256(paths) -> dict:
+    """{file name: sha256} of the TabPFN weights files a fit used, by content (22 Oct 2026: until then only the file's
+    name was compared). Cached by path, size and time, so a large file is read once."""
+    cache = DC.read_json(WEIGHTS_SHA_CACHE) if WEIGHTS_SHA_CACHE.exists() else {}
+    out = {}
+    for p in sorted({str(x) for x in paths if x}):
+        f = Path(p)
+        if not f.exists():
+            out[f.name] = None
+            continue
+        st = f.stat()
+        key = f"{f.resolve()}|{st.st_size}|{int(st.st_mtime)}"
+        if key not in cache:
+            cache[key] = DC.sha256(f)
+        out[f.name] = cache[key]
+    DC.write_json(WEIGHTS_SHA_CACHE, cache)
+    return out
 
 
 def speed_only(coef: dict) -> dict:
@@ -338,8 +374,13 @@ def run(run_dir: Path, seeds: list[int], instance: Path = DC.INSTANCE, checkpoin
             a = coefficients(int(Y), instance, fd, grown=False)
             coef_annual[f"L_{fd}"][str(int(Y))] = {"s_atp": a["s_atp"], "s_wta": a["s_wta"], "b_shrunk": a["b_shrunk"]}
             rec_annual[str(int(Y)) if fd == "weekly" else f"{int(Y)}_{fd}"] = a
-    spd, spd_rec = speed_columns(meta.reset_index(), days)
+    evidence: dict = {}
+    spd, spd_rec = speed_columns(meta.reset_index(), days, evidence)
     tour = meta["tour"].to_numpy()
+    # the serve-speed term itself, in log-odds (adjust.apply: logit q = s_tour eta + b spd_L; women 0), each match with
+    # its own season's and feed's b: what the bet sheet removes to show what a bet rests on (22 Oct 2026)
+    b_match = np.array([coef[f"L_{fd}"][str(int(Y))]["b_shrunk"] for Y, fd in zip(seasons, feeds)], dtype=float)
+    speed_term = np.where(tour == "atp", b_match * spd, 0.0)
     n, k = pg.shape
     loc_o_off, loc_g_off = apply_stage2(eta_o, eta_g, tour, seasons, feeds, spd, coef)   # the local model's stage 2
     grown_run = bool(rec_annual)
@@ -388,6 +429,11 @@ def run(run_dir: Path, seeds: list[int], instance: Path = DC.INSTANCE, checkpoin
         "gate_edge_bar": (gate["edge_bar"] if "edge_bar" in gate.columns else pd.Series(0.0, index=gate.index))
         .fillna(0.0).to_numpy(dtype="float64"),
         "instance": instance.name, "seeds": f"{min(seeds)}-{max(seeds)}", "checkpoint": checkpoint})
+    # the speed adjustment's own evidence and size (22 Oct 2026): each side's readings in the 28 days and latest reading,
+    # and the term in log-odds (columns added, never removed or renamed: the bet sheet's contract)
+    for c, v in evidence.items():
+        pred[c] = v
+    pred["speed_term"] = speed_term
     if grown_run:           # a retrain's instance: stage 2 grown with the season (used), the annual set beside it
         pred["stage2_set"] = "grown"
         pred["q_a_stage2_annual"] = ann_o          # the local model's stage-2 chance with the annual set, no patterns
@@ -419,6 +465,10 @@ def run(run_dir: Path, seeds: list[int], instance: Path = DC.INSTANCE, checkpoin
             "checkpoint": checkpoint, "state_parts": states.get("record", {}).get("parts"),
             "layer_config_sha256": states.get("layer_config_sha256"), "code": {f.name: DC.sha256(f)
                                                                                for f in sorted(DC.HERE.glob("dp*.py"))}}
+    # every source file the run's processes imported, and any file seen with two contents (the code changed while the
+    # run was going); the weights by content (production-integrity plan, step 2, 22 Oct 2026)
+    prov["code_used"], prov["code_conflicts"] = DC.code_used(run_dir, extra=DC.code_fingerprints())
+    prov["tabpfn_weights_sha256"] = weights_sha256(v.get("checkpoint") for v in fit["seeds"].values())
     if grown_run:
         prov["stage2"]["set"] = "grown"
         prov["stage2"]["coefficients_annual"] = rec_annual

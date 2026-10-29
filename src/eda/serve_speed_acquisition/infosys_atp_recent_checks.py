@@ -21,6 +21,10 @@ infosys_atp_recent_stage.py) with a record they were not built from. A-E and G a
     M mantd      ManTennisData's first- and second-serve averages and maximum speed against the key statistics, and
                  its first-serve average against MatchBeats' mean of timed first serves in
     G outliers   speeds outside 50-300 km/h
+    N newer copy where MatchBeats' two copies end a point differently (the older's `result`, the newer's
+                 `result_newer`), which one the other records side with: the rally analysis as served now, SirGenkii's
+                 copy of it (captured in 2025, before the site's 2026 rewrites), and the key statistics' aces and double
+                 faults
     P coverage   the plan's match codes against what is staged, by season, level and draw, with the count of MatchBeats
                  files in the older format (no point carries the newer fields the API's copy adds)
 These are data checks: they read results (winners, box scores) on purpose. No feature is built here.
@@ -33,6 +37,7 @@ from __future__ import annotations
 
 import json
 import sys
+from collections import Counter
 from pathlib import Path
 
 import numpy as np
@@ -309,6 +314,85 @@ def check_endings(p: pd.DataFrame) -> dict:
             .round(3).to_dict()}
 
 
+# ------------------------------------------------------------------------------------------------ N: the two copies
+def judged_by(j: pd.DataFrame, end: pd.Series) -> dict:
+    """The older and newer endings of the points in ``j`` against another record's ``end`` where it classifies one:
+    on all those points, and on those where the two copies differ (by pair: points, older right, newer right)."""
+    end = end.fillna("").astype(str).str.upper()
+    cls = end.ne("") & end.ne("UNCLASSIFIED")
+    old, new = j["result"].map(BC.END_OF), j["result_newer"].map(BC.END_OF)
+    k = cls & j["result"].astype(str).ne(j["result_newer"].astype(str))
+    t = pd.DataFrame({"pair": j.loc[k, "result"].astype(str) + "->" + j.loc[k, "result_newer"].astype(str),
+                      "older": old[k] == end[k], "newer": new[k] == end[k]})
+    by = t.groupby("pair").agg(n=("older", "size"), older=("older", "sum"), newer=("newer", "sum"))
+    return {"points_joined": int(len(j)), "matches": int(j["key"].nunique()), "classified": int(cls.sum()),
+            "older_agrees": int((old[cls] == end[cls]).sum()), "newer_agrees": int((new[cls] == end[cls]).sum()),
+            "where_the_copies_differ": {"points": int(k.sum()), "older_agrees": int(t["older"].sum()),
+                                        "newer_agrees": int(t["newer"].sum()),
+                                        "by_pair": {p: [int(x) for x in r] for p, r in
+                                                    by.sort_values("n", ascending=False).iterrows()}}}
+
+
+def check_newer_copy(ks: pd.DataFrame) -> dict:
+    """MatchBeats' two copies on the matches staged with both (since 27 Oct 2026): their endings judged by the rally
+    analysis as served now, by SirGenkii's copy of it, and by the key statistics' aces and double faults; with what
+    the staging's per-match file says of every other core field and of points only one copy has."""
+    p = pd.read_parquet(DUMP / "points.parquet", columns=KEY + ["pointId", "server", "result", "result_newer"])
+    p["key"] = BC.key_of(p)
+    both = set(p.loc[p["result_newer"].notna(), "key"])
+    if not both:
+        raise ValueError("no point carries the newer copy's ending")
+    p = p[p["key"].isin(both)]
+    q = p[p["result_newer"].notna()].drop_duplicates(["key", "pointId"])
+    differ = q["result"].astype(str).ne(q["result_newer"].astype(str))
+    out = {"matches": len(both), "points_with_both_endings": int(len(q)), "endings_differing": int(differ.sum()),
+           "pairs": (q.loc[differ, "result"].astype(str) + "->" + q.loc[differ, "result_newer"].astype(str))
+           .value_counts().to_dict()}
+    r = pd.read_parquet(DUMP / "rally.parquet", columns=KEY + ["pointId", "pointEndType"])
+    r["key"] = BC.key_of(r)
+    j = q.merge(r[["key", "pointId", "pointEndType"]].drop_duplicates(["key", "pointId"]), on=["key", "pointId"])
+    out["rally_analysis_now"] = judged_by(j, j["pointEndType"])
+    sr = pd.read_parquet(SIRG / "atp_rally_analysis.parquet", columns=["year", "tournament_id", "match_id", "point_id",
+                                                                       "point_end_type"])
+    sr["key"] = sirg_key(sr)
+    j = q.merge(sr.drop_duplicates(["key", "point_id"]), left_on=["key", "pointId"], right_on=["key", "point_id"])
+    out["sirgenkii_rally_analysis_2025"] = judged_by(j, j["point_end_type"])
+    box = (p[p["server"].isin(["1", "2"])]
+           .assign(ace_older=lambda d: d["result"].eq("A"), ace_newer=lambda d: d["result_newer"].eq("A"),
+                   df_older=lambda d: d["result"].isin(BC.DOUBLE_FAULTS),
+                   df_newer=lambda d: d["result_newer"].isin(BC.DOUBLE_FAULTS))
+           .groupby(["key", "server"])[["ace_older", "ace_newer", "df_older", "df_newer"]].sum())
+    out["key_statistics"] = {}
+    for name, col in (("Aces", "ace"), ("Double Faults", "df")):
+        k = ks[ks["name"].eq(name)].set_index("key")
+        n = older = newer = 0
+        for no in ("1", "2"):
+            for key, v in k[f"player{no}"].items():
+                v = BC.ks_value(v) if (key, no) in box.index else None
+                if v is None:
+                    continue
+                theirs = float(v[0] if isinstance(v, tuple) else v)
+                n += 1
+                older += float(box.at[(key, no), f"{col}_older"]) == theirs
+                newer += float(box.at[(key, no), f"{col}_newer"]) == theirs
+        out["key_statistics"][name] = {"player_values": n, "older_equal": int(older), "newer_equal": int(newer)}
+    try:
+        d = pd.read_csv(OUT / "infosys_atp_recent_matchbeats_copies.csv.gz")
+        fields = Counter()
+        for s in d["fields_differing"].fillna("{}"):
+            fields.update(json.loads(s))
+        only_new, only_old = d["points_api"] - d["points_matched"], d["points_static"] - d["points_matched"]
+        out["copies_file"] = {"matches": int(len(d)), "core_fields_differing_points": dict(fields),
+                              "points_only_in_the_newer": {"matches": int((only_new > 0).sum()),
+                                                           "points": int(only_new.sum())},
+                              "points_only_in_the_older": {"matches": int((only_old > 0).sum()),
+                                                           "points": int(only_old.sum())},
+                              "timed_points_differing_matches": int((d["timed_static"] != d["timed_api"]).sum())}
+    except OSError as err:
+        out["copies_file"] = {"not_read": f"{type(err).__name__}: {err}"}
+    return out
+
+
 # ------------------------------------------------------------------------------------------------ M: ManTennisData
 def check_mantd_speeds(m: pd.DataFrame, ks: pd.DataFrame, p: pd.DataFrame, md: pd.DataFrame) -> dict:
     mk = oriented_keystats(m)
@@ -357,8 +441,9 @@ NEW_FORMAT_FIELDS = ("pointDuration", "serveClassId", "firstServer")
 def plan_coverage(m: pd.DataFrame) -> dict:
     """Planned match codes (the collector's plan on today's ManTennisData) against the staged matches, by season,
     level (tour, Challenger) and draw: with any document, every point (MatchBeats points), timed points, key
-    statistics (and their speeds), rally analysis, Court Vision; how many MatchBeats files came by the API; and how
-    many matches' MatchBeats are in the older format (no point carries the newer fields: the option of README 9.6)."""
+    statistics (and their speeds), rally analysis, Court Vision; how many matches' MatchBeats came only by the API
+    (mb_api), how many have the newer format's details (newer_details), and how many matches with points have them
+    nowhere (older_format)."""
     from src.ingest.point_sources import infosys_atp_recent as R
     plan = R.load_plan(A.parse_years("2025,2026"), "20250101", pd.Timestamp.now().strftime("%Y%m%d"))
     planned = pd.DataFrame([(str(e.year), str(e.event), c, R.tier(e), c[:2]) for e in plan for c in e.codes],
@@ -368,17 +453,21 @@ def plan_coverage(m: pd.DataFrame) -> dict:
     have = pd.DataFrame({"points": num("points") > 0, "timed": num("points_timed") > 0,
                          "keystats": num("keystats_sets") > 0, "ks_speed": m["keystats_speed"].eq("TRUE"),
                          "rally": num("rally_entries") > 0, "cv": num("cv_points") > 0,
-                         "mb_api": m["routes"].str.contains("match-beats-api", regex=False)}, index=m.index)
+                         "mb_api": m["routes"].str.contains("match-beats-api", regex=False)
+                         & ~m["routes"].str.contains('"match-beats"', regex=False)}, index=m.index)
     have["any"] = have[["points", "keystats", "rally", "cv"]].any(axis=1)
     pts = pd.read_parquet(DUMP / "points.parquet", columns=KEY + ["route", "other_fields"])
     pts["key"] = BC.key_of(pts)
-    newer = pts["other_fields"].fillna("").str.contains("|".join(NEW_FORMAT_FIELDS))
+    try:                               # the newer details' own column (staging since 27 Oct), else the raw fields
+        newer = pd.read_parquet(DUMP / "points.parquet", columns=["pointDuration"])["pointDuration"].notna()
+    except (KeyError, ValueError):
+        newer = pts["other_fields"].fillna("").str.contains("|".join(NEW_FORMAT_FIELDS))
     fmt = newer.groupby(pts["key"]).any()
-    static_mb = pts[pts["route"].eq("match-beats")].groupby("key").size().index
-    have["older_format"] = pd.Series(have.index.isin(static_mb), index=have.index) & ~fmt.reindex(have.index)\
-        .fillna(False).astype(bool)
+    have["newer_details"] = fmt.reindex(have.index).fillna(False).astype(bool)
+    with_points = pts.groupby("key").size().index
+    have["older_format"] = pd.Series(have.index.isin(with_points), index=have.index) & ~have["newer_details"]
     j = planned.join(have, on="key").fillna(False)
-    cols = ["any", "points", "timed", "keystats", "ks_speed", "rally", "cv", "mb_api", "older_format"]
+    cols = ["any", "points", "timed", "keystats", "ks_speed", "rally", "cv", "mb_api", "newer_details", "older_format"]
     g = j.groupby(["year", "tier", "family"]).agg(planned=("key", "size"), **{c: (c, "sum") for c in cols})
     out = {"|".join(k): {c: int(v) for c, v in r.items()} for k, r in g.iterrows()}
     tot = j[cols].sum()
@@ -423,6 +512,7 @@ def main() -> int:
              ("C_points_box", lambda: BC.check_points_box(m, box, ks, md)),
              ("D_matchbeats_vs_rally", lambda: BC.check_routes(p)),
              ("D2_endings", lambda: check_endings(p)),
+             ("N_newer_copy", lambda: check_newer_copy(ks)),
              ("E_speeds", lambda: BC.check_speeds(p, ks)),
              ("S_sirgenkii", lambda: check_sirgenkii(m, p)),
              ("M_mantennisdata_speeds", lambda: check_mantd_speeds(m, BC.keystats_set0(), p, md)),

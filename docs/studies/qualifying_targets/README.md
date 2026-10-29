@@ -39,6 +39,10 @@ unchanged.
     matches): +8.3% at BetOnline's close and +9.8% at Pinnacle's;
   * with the calibration re-learned from qualifying matches instead (a test-only variant, never used live): +5.4% and
     +2.3%.
+* **Follow-up 2 (22 Oct, 13:04): the five-pattern adjustment does no harm on qualifying** (details
+  [below](#follow-up-2-22-oct-1304-the-five-pattern-adjustment-on-qualifying)). With it the live model's forecasts were
+  +0.28 thousandths better (range −0.07 to +0.63, so not proven), and the returns at the close were higher at both books.
+  It stays on for qualifying, as A1–A5 already runs it.
 * **My recommendation:** put qualifying into the bet-day notebook using today's model, then run a small-stake live
   trial.
   * The notebook needs three changes first (below), about a day of work.
@@ -197,6 +201,45 @@ Return per unit staked, with its 95% range:
 * Plan on returns nearer the lower readings (about +5%) than +8%. The project's rule is to size stakes on an edge that
   has been shrunk.
 
+## Follow-up 2 (22 Oct, 13:04): the five-pattern adjustment on qualifying
+
+Your request: *"'I recommend I score it on past qualifying matches before Saturday, at no cost.' Test this."*
+
+**Why it mattered.** Since 22 Oct, A1–A5 bets qualifying with the live model, and the live model adds the five-pattern
+adjustment to every forecast. On main draws its own check found it worth +0.41 thousandths of log loss a match. The
+study above had tested the model without it.
+
+**What was tested.**
+* **The adjustment exactly as the daily run applies it:** the same five patterns, the same frozen settings and the same
+  monthly switches, on the tables the model was built on. Checked: on the 16 matches replayed from 17 Oct, its scores
+  equal the daily run's own, to the last digit.
+* **The forecasts:** the live model's, with and without it.
+* **The matches:** the same 15,834 qualifying matches of 2020–2026.
+* **The rule, fixed before any result:** turn the adjustment off for qualifying only if it is clearly worse (by more
+  than 0.10, with the whole range below zero); otherwise keep it on.
+
+**What it found.**
+* **Accuracy:** with the adjustment, **+0.28 thousandths better** a match (range −0.07 to +0.63; a 95% chance it
+  helps). Not proven, but nothing like harm. **So it stays on.**
+* **Against the market:** the model beats the calibrated closing price either way, by +1.22 without the adjustment and
+  +1.51 with it.
+* **Betting at the close** (return per unit, 95% range):
+
+| | BetOnline's close | Pinnacle's close |
+|---|---|---|
+| Every +EV side, without the patterns | +4.5% (+1.1% to +7.7%), 5,572 bets | +4.7% (+0.7% to +8.7%), 2,857 bets |
+| Every +EV side, **with** the patterns | **+5.8%** (+3.1% to +8.4%), 6,164 bets | **+5.3%** (+1.6% to +8.7%), 3,444 bets |
+| Top 40% of edges, without | +8.3% (+3.1% to +13.5%) | +9.8% (+3.7% to +16.1%) |
+| Top 40% of edges, **with** | **+10.4%** (+5.1% to +15.7%) | **+14.3%** (+7.8% to +21.0%) |
+
+* **Where it helps (flags, not verdicts):**
+  * **Tour qualifying:** +0.50, with its whole range above zero.
+  * **Slam qualifying:** −0.12, not proven either way. One of the patterns reads seeding, which there means the
+    qualifying seed; worth watching.
+
+**What it means:** A1–A5 already runs it this way, so nothing changes. The returns above are at closing prices, on the
+same seasons as everything above.
+
 ## What it means, and what I recommend
 
 * **Bet qualifying: yes, through a small-stake live trial first.**
@@ -247,4 +290,5 @@ Return per unit staked, with its 95% range:
 | Tests | `test/qualifying_targets/` (6 offline tests) |
 | Outputs | `data/studies/qualifying_targets/` (`scores.csv`, `betting.csv`, `market.json`, `harm.json`, `forecasts.parquet`; the fits in `local/`, not committed) |
 | The follow-up (top 40% of edges) | `src/eda/qualifying_targets/top_edges.py` → `top_edges.csv`, `top_edges.json`; the two speed-stage versions compared: `explore_stage2_variants.py` → `exploratory_stage2_variants.json` |
+| Follow-up 2 (the five-pattern adjustment) | `src/eda/qualifying_targets/patterns_check.py` → `data/studies/qualifying_targets/patterns/` (`members.parquet`, `z.parquet`, `patterns.json`, `rows.csv`) |
 | OddsTrader's raw responses and receipts | `data/raw/oddstrader/books/`, `data/raw/oddstrader/_receipts.jsonl` |

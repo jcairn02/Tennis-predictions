@@ -33,10 +33,20 @@ LEVELS = ("T1000", "T500", "T250")
 
 
 def live(run_dir: Path, csv: Path, stage0: Path | None = None) -> dict:
+    """The CSV's matches as live rows; its sidecar's earlier qualifying rounds (prediction_run/earlier_rounds.py, since
+    24 Oct 2026) as live rows with their results, when the linker wrote one. A match whose row cannot be placed is left
+    out with its reason and the others written (since 28 Oct 2026; dp_leftout), as is an earlier round."""
+    import dp_leftout as LO
+    from src.eda.prediction_run import earlier_rounds as ER
     from src.eda.prediction_run import run as RUN
     from src.eda.predictability_diagnostic import common as C
     s0 = stage0 or ((run_dir / "stage0") if (run_dir / "stage0" / "stage0_matches.parquet").exists() else C.OUT)
-    return {"stage0": str(s0), **RUN.live_from_matchups(pd.read_csv(csv), Path(s0), run_dir)}
+    side = ER.sidecar(csv)
+    earlier = pd.read_csv(side, dtype=str, keep_default_na=False) if side.exists() else None
+    LO.reset(run_dir)                                   # every live row is built anew: no earlier attempt's records
+    res = RUN.live_from_matchups(pd.read_csv(csv), Path(s0), run_dir, earlier, leave_out=True)
+    LO.add(run_dir, "matchups", matches=res.get("left_out") or [], earlier=res.get("earlier_left_out") or [])
+    return {"stage0": str(s0), **res}
 
 
 def replay_select(base_tree: Path, frame_path: Path, week: str, rnd: str) -> tuple[pd.DataFrame, pd.DataFrame]:
@@ -66,11 +76,122 @@ def replay_select(base_tree: Path, frame_path: Path, week: str, rnd: str) -> tup
     return targets.drop(columns="obs"), later.drop(columns="obs")
 
 
+def _tl_section(tour: str, name: str, year: int) -> pd.DataFrame:
+    """TennisLive's results rows of an event, from the repository's raw copy (the work tree holds none): the one
+    section file of the year whose slug holds every word of the event's name (Stage 0's "Shanghai Masters" is
+    TennisLive's shanghai-rolex-masters-shanghai)."""
+    from src.ingest.point_sources import common as PS
+    from src.ingest.point_sources import tennislive_events as TLE
+    folder = DC.REPO / "data" / "raw" / "point_sources" / "tennislive" / "tournaments" / TLE.SECTION_DIRS[tour]
+    words = str(name).lower().split()
+    hits = [f for f in folder.glob(f"*-{year}__results.json.gz") if "challenger" not in f.name
+            and all(w in f.name.split("__")[0].split("-") for w in words)
+            and not f.name.startswith(("m15", "m25", "w15", "w35", "w50", "w75", "w100"))]
+    if len(hits) != 1:
+        raise SystemExit(f"replay earlier rounds: {len(hits)} TennisLive sections for {tour} {name} {year}: "
+                         f"{[h.name for h in hits]}")
+    slug = hits[0].name.split("__")[0]
+    ev = {"key": slug, "tour": tour, "url": f"/{TLE.SECTION_DIRS[tour]}/{slug}/", "name": name}
+    return pd.DataFrame(TLE.section_rows(PS.read_json(hits[0]), ev, {"retrieved_at": None}))
+
+
+def replay_earlier(targets: pd.DataFrame, base_tree: Path, raw: pd.DataFrame) -> tuple[pd.DataFrame, pd.DataFrame,
+                                                                                         dict]:
+    """--replay-earlier tennislive (24 Oct 2026): each target's players' earlier qualifying rounds at the event, their
+    TML rows left out ("drop") and given again as a live run gives them (src/pipeline/live._earlier, then
+    prediction_run/earlier_rounds.played_rows): TennisLive's score and its match page's box score, from the
+    repository's raw copies. (drop rows, played rows, record).
+    Since 25 Oct 2026 also a main-draw round's targets (their qualifiers' and lucky losers' every qualifying round), and
+    a round a package or feed holds (women's qualifying): it needs no drop row, as the tables step's merge skips the
+    package's copy once Stage 0 holds the same meeting (current_best_model/additions.merge), as in a live run; its fill
+    takes the target's event id and name, as the live linker gives it. TennisLive's names are matched as the linker
+    matches them (earlier_rounds.same_player: "Chak Lam Coleman Wong" for "Coleman Wong")."""
+    from src.eda.prediction_run import earlier_rounds as ER
+    from src.eda.prediction_run import live_rows as LR
+    from src.eda.predictability_diagnostic import stage0_build as B
+    from src.ingest.point_sources import common as PS
+    from src.ingest.point_sources import tennislive as TL
+    m = pd.read_parquet(Path(base_tree) / DC.PD / "stage0_matches.parquet")
+    m["match_id"] = m["match_id"].astype(str)
+    p = pd.read_parquet(Path(base_tree) / DC.PD / "stage0_match_players.parquet",
+                        columns=["match_id", "player_id", "side", "player_name"]).astype({"match_id": str})
+    names = p.drop_duplicates("player_id").set_index("player_id")["player_name"]
+    base = m["tournament_id"].astype(str).str.split("-").str[:2].str.join("-")
+    picked = []
+    for _, t in targets.iterrows():
+        tb = "-".join(str(t["tournament_id"]).split("-")[:2])
+        prev = m[m["tour"].eq(t["tour"]) & m["qualifying"].astype(bool) & base.eq(tb)
+                 & (m["round_order"] < t["round_order"])
+                 & (m["player_a_id"].isin([t["player_a_id"], t["player_b_id"]])
+                    | m["player_b_id"].isin([t["player_a_id"], t["player_b_id"]]))]
+        picked.append(prev.assign(_target=t["match_id"]))
+    prev = pd.concat(picked).drop_duplicates("match_id").reset_index(drop=True)
+    tml = prev["source"].astype(str).eq("tml").to_numpy()
+    own = LR.raw_of(prev[tml], raw)
+    drops = own.assign(tour=prev.loc[tml, "tour"].to_numpy(), live_role="drop")
+    target_raw = LR.raw_of(targets, raw).set_axis(targets["match_id"].to_numpy())
+    sections, side_rows, missing = {}, [], []
+    for i, pm in prev.iterrows():
+        key = (pm["tour"], pm["tournament_name"], int(str(pm["tournament_date"])[:4]))
+        if key not in sections:
+            sections[key] = _tl_section(*key)
+        q = sections[key]
+        q = q[q["draw"].astype(str).eq("qualifying") & q["discipline"].astype(str).eq("singles")
+              & q["round"].astype(str).eq(pm["round"])]
+        wid = pm["player_a_id"] if bool(pm["a_won"]) else pm["player_b_id"]
+        lid = pm["player_b_id"] if bool(pm["a_won"]) else pm["player_a_id"]
+        wn, ln = str(names[wid]), str(names[lid])
+        s1w, s2l = q["player1_name"].map(lambda n: ER.same_player(n, wn)), q["player2_name"].map(lambda n: ER.same_player(n, ln))
+        s1l, s2w = q["player1_name"].map(lambda n: ER.same_player(n, ln)), q["player2_name"].map(lambda n: ER.same_player(n, wn))
+        hit = q[(s1w & s2l) | (s1l & s2w)]
+        if len(hit) != 1:
+            missing.append({"match_id": pm["match_id"], "reason": f"{len(hit)} TennisLive rows"})
+            continue
+        w = hit.iloc[0]
+        side = 1 if ER.same_player(w["player1_name"], wn) else 2
+        if int(w["winner_side"]) != side:
+            missing.append({"match_id": pm["match_id"], "reason": "TennisLive names the other winner"})
+            continue
+        box, note = None, "no match page on disk"
+        score = ER.tl_score(w["player1_sets"], w["player2_sets"], side, w.get("end_reason"))
+        parts = TL.match_path_parts(str(w["url"]))
+        page = (DC.REPO / "data" / "raw" / "point_sources" / "tennislive" / "matches" / parts[0] / parts[1]
+                / f"{parts[2]}.html.gz") if parts else None
+        if page is not None and page.exists():
+            parsed = TL.parse_match_page(PS.read_bytes(page).decode("utf-8", errors="replace"))
+            pmeta = parsed["meta"]
+            pw = 2 if str(pmeta.get("winner_id")) == str(pmeta.get("player2_id")) else 1
+            box, note = ER.tl_box(parsed["statistics"], pw, pmeta.get("first_server_index"), score)
+        fin = ER.finish_utc(w)
+        # the event's id and name: a TML row's own; a package's round, its target's (the live linker's choice)
+        r_own = own.iloc[int(tml[:i].sum())] if tml[i] else target_raw.loc[pm["_target"]]
+        side_rows.append({"tour": pm["tour"], "tourney_id": str(r_own["tourney_id"]), "tourney_name": r_own["tourney_name"],
+                          "round": pm["round"], "winner_name": wn, "loser_name": ln, "score": score,
+                          "day": ER.uk_day(pd.to_datetime(w.get("start_utc"), utc=True, errors="coerce")) or ER.uk_day(fin),
+                          "tl_url": w["url"], "box_note": note, "_tid": pm["tournament_id"], "_mid": pm["match_id"],
+                          "best_of": 3, "venue": None, **(box or {})})
+    side = pd.DataFrame(side_rows)
+    keyed = p.assign(key=B.S.keys_for(p["player_name"])).merge(m[["match_id", "tour"]], on="match_id")
+    played, pmeta, left = ER.played_rows(side, raw, LR.stage0_players(Path(base_tree) / DC.PD), keyed,
+                                         lambda e: e["_tid"], LR.id_handles(m, p, raw))   # ids as Stage 0 names them
+    mid_of = side.set_index("tl_url")["_mid"] if len(side) else pd.Series(dtype=str)
+    same_id = int((pmeta["match_id"] == pmeta["tl_url"].map(mid_of)).sum()) if len(pmeta) else 0
+    src_score = pd.Series(own["score"].astype(str).to_numpy(), index=prev.loc[tml, "match_id"].to_numpy())
+    rec = {"earlier_rounds": int(len(prev)), "dropped_tml_rows": int(len(drops)),
+           "package_rows_kept_for_the_merge": int((~tml).sum()), "filled": int(len(played)),
+           "with_box": int(pmeta["has_box"].sum()) if len(pmeta) else 0, "same_match_id_as_stage0": same_id,
+           "score_equal_tml": int((side["score"].astype(str) == side["_mid"].map(src_score)).sum()) if len(side) else 0,
+           "not_found": missing, "left_out": left}
+    return drops, played, rec
+
+
 def replay(run_dir: Path, week: str, rnd: str, winner: str = "A", base_tree: Path = DC.BASE_TREE,
            frame_path: Path = DC.INSTANCE / "model_frame.parquet", dating: str = "training",
-           main_date: str | None = None) -> dict:
+           main_date: str | None = None, earlier: str | None = None) -> dict:
     """Runs inside the work tree (its staged TML is the freeze's view). main_date (a qualifying round, YYYY-MM-DD): the
-    main-draw start every live row names instead of the instance's own (a live run's estimate, to measure its error)."""
+    main-draw start every live row names instead of the instance's own (a live run's estimate, to measure its error).
+    earlier ("tennislive", a qualifying round after round 1): the targets' earlier rounds as a live run fills them
+    (replay_earlier)."""
     from src.eda.match_timing import srcc_tennis_data as TD
     from src.eda.prediction_run import live_rows as LR
     targets, later = replay_select(base_tree, frame_path, week, rnd)
@@ -78,6 +199,12 @@ def replay(run_dir: Path, week: str, rnd: str, winner: str = "A", base_tree: Pat
                               columns=["match_id", "player_id", "player_name"]).astype({"match_id": str})
     raw = LR.staged_tml([int(week[:4])])
     rows = LR.replay_rows(targets, later, raw, players, placeholder_winner=winner)
+    earlier_rec = None
+    if earlier == "tennislive":
+        drops, played, earlier_rec = replay_earlier(targets, base_tree, raw)
+        rows = pd.concat([rows, drops, played], ignore_index=True)
+    elif earlier:
+        raise SystemExit(f"replay: earlier rounds {earlier!r} unknown (tennislive)")
     if str(rnd).startswith("Q") and str(rnd) != "QF":
         # the main draws are left out, so each live row names its event's main-draw start, as a live run's do
         # (live_rows' event_main_date, Stage 0's C05): here the instance's own date of the event, the exact test of
@@ -113,7 +240,7 @@ def replay(run_dir: Path, week: str, rnd: str, winner: str = "A", base_tree: Pat
     rows.to_parquet(run_dir / "live_rows.parquet", index=False)
     meta.to_parquet(run_dir / "live_meta.parquet", index=False)
     return {"kind": "replay", "week": week, "round": rnd, "placeholder_winner": winner, "dating": dating,
-            **({"main_date": main_date} if main_date else {}),
+            **({"main_date": main_date} if main_date else {}), **({"earlier": earlier_rec} if earlier_rec else {}),
             "targets": int(len(targets)), "left_out_later": int(len(later)),
             "placeholder_reverses_result": int((~meta["placeholder_is_real_result"]).sum()),
             "by_event": targets.groupby(["tour", "tournament_name"]).size().rename("matches").reset_index()
@@ -124,10 +251,16 @@ def quote_times(meta: pd.DataFrame, matchups: pd.DataFrame | None) -> np.ndarray
     """Each live match's quote time from the matchups CSV's optional quoted_at column (UTC, written
     YYYY-MM-DDTHH:MM:SSZ), None where absent. prediction_run's live_from_matchups writes one live match per CSV row in
     the CSV's order, so rows are matched by position, after checking that each row's tour and round agree (11 Oct 2026,
-    agreed with the master-notebook session)."""
+    agreed with the master-notebook session). Since 28 Oct 2026 a live meta names each match's CSV row (csv_row: a row
+    left out has no match) and the rows are taken by it; a meta without it is matched by position, as before."""
     out = np.full(len(meta), None, dtype=object)
     if matchups is None or "quoted_at" not in matchups.columns:
         return out
+    if "csv_row" in meta.columns:
+        pos = pd.to_numeric(meta["csv_row"], errors="coerce")
+        if pos.isna().any() or (pos < 0).any() or (pos >= len(matchups)).any():
+            raise SystemExit("prices: a live match names no row of the matchups CSV; quoted_at cannot be placed")
+        matchups = matchups.iloc[pos.astype(int).to_numpy()].reset_index(drop=True)
     same = (len(matchups) == len(meta)
             and (matchups["tour"].astype(str).to_numpy() == meta["tour"].astype(str).to_numpy()).all()
             and (matchups["round"].astype(str).str.upper().to_numpy() == meta["round"].astype(str).to_numpy()).all())
@@ -141,7 +274,8 @@ def quote_times(meta: pd.DataFrame, matchups: pd.DataFrame | None) -> np.ndarray
 def prices(run_dir: Path, replay_frame: Path | None = None, matchups_csv: Path | None = None) -> dict:
     """prices.parquet (match_id, p_a, source, recorded_at: when this step ran, quoted_at: the quote's own time when
     the matchups CSV gives it) and live_meta's p_a: live, the CSV's (already side A's in live_meta); a replay, the
-    instance frame's Pinnacle-first price (its p_mkt, side A's)."""
+    instance frame's Pinnacle-first price (its p_mkt, side A's). A live match whose price is not strictly between 0 and
+    1 is left out, its live row with it (since 28 Oct 2026; dp_leftout); a replay's stops the run."""
     meta = pd.read_parquet(run_dir / "live_meta.parquet")
     meta["match_id"] = meta["match_id"].astype(str)
     given = replay_frame is None and matchups_csv is not None and Path(matchups_csv).exists()
@@ -156,6 +290,17 @@ def prices(run_dir: Path, replay_frame: Path | None = None, matchups_csv: Path |
     else:
         source = np.full(len(meta), "matchups csv (margin-free, side A)", dtype=object)
     p = meta["p_a"].to_numpy(dtype="float64")
+    bad = ~((p > 0) & (p < 1))
+    if bad.any() and replay_frame is None and "csv_row" in meta.columns:     # a live run: those matches left out
+        import dp_leftout as LO
+        gone = meta[bad]
+        LO.drop(run_dir, gone["csv_row"])
+        LO.add(run_dir, "prices", matches=LO.from_meta(gone, "its price is not strictly between 0 and 1 (side A's "
+                                                             "chance: " + ", ".join(f"{x:g}" for x in p[bad]) + ")"))
+        keep = ~bad
+        meta, p, quoted, source = meta[keep].reset_index(drop=True), p[keep], quoted[keep], source[keep]
+        if meta.empty:
+            raise SystemExit("prices: every match was left out: no price strictly between 0 and 1")
     if not ((p > 0) & (p < 1)).all():
         raise SystemExit("prices: every match needs a price strictly between 0 and 1")
     meta.to_parquet(run_dir / "live_meta.parquet", index=False)

@@ -407,7 +407,7 @@ At the end: `./python.sh src/eda/match_timing/refresh.py --sources sofascore`. L
 | Order | Gap | Targets | Editions | What it is | Status |
 |---|---|---:|---:|---|---|
 | 1 | `itf_points_2025_2026` (new) | 63,334 | 2,338 | ITF main draws of 2025-26 without point data | Done but the deferred, 15 Oct 00:10 UTC: every point for 19,411 (18,944 complete); 35,309 deferred |
-| 2 | `itf_detail` | 207,045 | 7,550 | ITF main draws of 2018-24 with only a result | Running from 15 Oct 00:47 UTC (tenth run from 22 Oct 07:31 UTC); every point record asked by 22 Oct ~09:20 UTC (194,772 of 201,141 events with one); box scores since |
+| 2 | `itf_detail` | 207,045 | 7,550 | ITF main draws of 2018-24 with only a result | Running again from 27 Oct at the plan's pace (sixteenth run from 23:00 UTC on 28 Oct, after a PC restart), after a block (24 Oct ~22:55 UTC, SofaScore's captcha page, caused by a VPN switched on mid-run) and 2.5 days' rest. Ran from 15 Oct 00:47 UTC; every point record asked by 22 Oct ~09:20 UTC (194,772 of 201,141 events with one); box scores since |
 
 **How it is run, and where it departs from the plan [observed]:**
 * **It started after P6 had finished** (12 Oct, 14:18 UTC), and after P6's map rebuild (14:22 UTC) and timing refresh (14:23-14:30 UTC). P4's listings were already on the map, so the ITF matches TennisLive listed since June 2026 are targets.
@@ -592,15 +592,46 @@ The plan asks for a separate qualifying gap only if most of the trial editions' 
 
 **After the ninth run [observed]** (it used its budget and ended at 07:30 UTC on 22 Oct, with no block; a watcher started the tenth run at once, log `run_20261022T073108Z_itf_detail.log`): 192,131 targets have a record (185,663 complete), 6,125 are absent (about 8% of the 2018 matches asked), and 3,997 are not yet asked. The tenth run finishes the point records, then starts the box scores: about 201,000 requests, about 6 days.
 
+**After the tenth run [observed]** (it used its budget and ended at 04:48 UTC on 23 Oct, with no block; a watcher started the eleventh run at once, log `run_20261023T044917Z_itf_detail.log`):
+* *Point records, all asked:* 195,871 targets have one (189,340 complete), and 6,382 are absent.
+* *Box scores,* asked for 25,300 events so far: 26,215 targets have one, 26,177 of them the full set. About 99% of those asked have one.
+
+**After the eleventh run [observed]** (it used its budget and ended at 02:07 UTC on 24 Oct, with no block; a watcher started the twelfth run at once, log `run_20261024T020752Z_itf_detail.log`): box scores asked for about 55,300 events; 56,242 targets have one, 56,161 of them the full set.
+
+**A block (24 Oct) [observed].** At 20:40 UTC, after 25,414 requests of the twelfth run, SofaScore began answering with its challenge (HTTP 403, reason "challenge"). The adapter reloaded the tab and waited for a fresh token, clearing the site's cookies and storage every 5 minutes, for an hour; then once more. No token came, and no check was detected in the page. At about 22:55 UTC the run stopped, "HTTP 403 (challenge) ... after 3 attempts", the plan's stop on a block (exit 1 at 23:03). The tab was then on SofaScore's own captcha page (`www.sofascore.com/captcha.html`).
+* *By then:* box scores for 82,296 targets (82,150 the full set), every point record, nothing lost. Left: box scores for about 119,000 events, about 3.5 days at the plan's pace.
+* *The one earlier challenge* (P6, 8 Oct) cleared by itself 25 minutes after the reload. This one did not clear in 2 hours.
+* *Not rerun:* the plan's rule is to stop and report on a challenge, and a captcha is not the session's to pass.
+
+**Resumed after a rest (27 Oct) [observed].** The session reported three options and recommended resting, then testing; the owner answered "continue" on 27 Oct. By then no request had gone to SofaScore for 2.5 days, and the Chrome window had been closed.
+* *Reopened:* the window was reopened with the same profile, and it showed the normal page, not the captcha.
+* *Tested:* a test run of 20 requests at a slower pace, 3 s + up to 2 s, had every request answered (14:01-14:02 UTC, log `run_20261027T133109Z_itf_detail_test.log`).
+* *Restarted:* the thirteenth run started at 14:30 UTC at that pace (log `run_20261027T143015Z_itf_detail.log`).
+* *Left [inference from the pace]:* about 118,500 box scores at about 900 requests an hour, about 5.5 days, so about 2 November.
+
+**The block's cause, and back to the plan's pace (27 Oct) [owner's statement].** The owner: "It stopped and challenged because I started VPN while the process was running, not because of our pace". So the slower pace was not needed. The thirteenth run was stopped at 14:55 UTC, after 195 requests (all answered), and the fourteenth started at 14:55 UTC at the plan's 2 s + up to 1 s (log `run_20261027T145507Z_itf_detail.log`).
+* *Left [inference from the pace]:* about 118,300 box scores at about 1,400 an hour, about 3.5 days, so about 31 October.
+* *The challenge of 17 Oct* fits the same cause [inference]: it came in the same minute as a burst of Windows network-configuration events (above).
+
+**After the fourteenth run [observed]** (it used its budget and ended at 12:49 UTC on 28 Oct, with no block; a watcher started the fifteenth run at once, log `run_20261028T124937Z_itf_detail.log`): box scores asked for about 112,800 events; 112,571 targets have one, 112,130 of them the full set. About 0.8% of the run's requests were absent (SofaScore's 404), none refused.
+* *Left [inference from the pace]:* about 88,300 box scores at about 1,400 an hour, about 2.7 days, so about 31 October.
+
+**The PC restarted (28 Oct, 21:17 UTC) [observed].** The fifteenth run stopped then, after about 12,000 requests (box scores asked for about 124,800 events), with no block before it: its last answer, at 21:17:33 UTC, was a box score. Windows records the restart as started from the Start menu by the PC's user ("Other (Unplanned)"). It also closed the Chrome window and the priority watchdog.
+* *The network after it:* NordVPN's app starts with Windows (from 21:19 UTC), but its three network adapters stayed disconnected and the traffic went through the home Wi-Fi as before. So the download's network was unchanged.
+* *Resumed (22:59-23:00 UTC):* the session reopened the window minimised (the normal page, no check showing), restarted the watchdog for 14 days (`-Hours 336`), and started the sixteenth run (log `run_20261028T230036Z_itf_detail.log`). The restart cost about 1.7 hours.
+* *Left [inference from the pace]:* about 76,300 box scores, about 2.3 days, so still about 31 October.
+
 **Left [inference from the pace]:** about 188,600 point records after the first run, then about 201,000 box scores: about 390,000 requests, or about 11.5 days, so about 27 October if nothing stops it. The second run kept to that pace.
 
 ### Running and resuming P7
 
-A run stops at its budget of 30,000 requests (about a day), on a block, or when the Chrome window closes. Rerunning the same command resumes: every answer is on disk with its receipt, and nothing is asked twice. Run from the repository root in Git Bash. Now, gap 2:
+A run stops at its budget of 30,000 requests (about a day), on a block, or when the Chrome window closes. Rerunning the same command resumes: every answer is on disk with its receipt, and nothing is asked twice. Run from the repository root in Git Bash. Now, gap 2, at the plan's pace (2 s + up to 1 s; a slower 3 s + up to 2 s was used for 25 minutes on 27 Oct, until the owner gave the block's cause, below):
 
 ```
 ./python.sh -m src.ingest.point_sources.sofascore_editions --gap itf_detail --browser --max-requests 30000 --min-interval 2.0 --jitter 1.0 --no-stage --defer-uncovered > data/raw/point_sources/sofascore_editions/_logs/run_<UTC stamp>_itf_detail.log 2>&1
 ```
+
+**Do not change the PC's network during a run** (a VPN on or off, another connection). SofaScore's access check is tied to the address it was passed from; a change mid-run brings its challenge, as on 24 Oct (below). Stop the run first, change, then reopen the window and resume.
 
 Gap 1 ran the same command with `--gap itf_points_2025_2026`. `--defer-uncovered` leaves the flagged events for the end (above). The last run of P7, if the owner keeps it, is gap 1's command without it.
 
@@ -1265,13 +1296,13 @@ From the repository root, in Git Bash:
 
 ## Bookmaker odds below the 250s (work package P11)
 
-**Status: collecting, from 22 October 2026, 12:51 UTC.** [Work package P11](collection-plan.md#p11-bookmaker-odds-below-the-250s-probe-then-collect) asks which public site holds bookmakers' opening and closing odds for Challenger, WTA 125 and ITF matches of 2018-2026, to collect from the best one, and to test a forward capture of closing lines. Prices stay out of git: every table under `data/studies/` here holds counts and flags only. [Process log](process_log.md#work-package-p11-bookmaker-odds-below-the-250s-probe-collect-forward-capture).
+**Status: collecting (the backfill from 22 October 2026, 12:51 UTC; a daily job from 22 Oct). The forward-capture test is done (24 Oct); whether to record Pinnacle's own site through the day is the owner's decision ([below](#forward-capture-of-closing-lines-the-test-done-24-oct-2026)).** [Work package P11](collection-plan.md#p11-bookmaker-odds-below-the-250s-probe-then-collect) asks which public site holds bookmakers' opening and closing odds for Challenger, WTA 125 and ITF matches of 2018-2026, to collect from the best one, and to test a forward capture of closing lines. Prices stay out of git: every table under `data/studies/` here holds counts and flags only. [Process log](process_log.md#work-package-p11-bookmaker-odds-below-the-250s-probe-collect-forward-capture).
 
 **In short:**
 * **TennisExplorer is the best source at every level** [observed]. Where BetExplorer lists a level, TennisExplorer lists as much. It alone has Pinnacle, opening prices and every price change with its time, ITF matches of 2019, and ITF qualifying. OddsPortal could not be read past its anti-bot layer.
 * **Pinnacle below the tour level** (the probe's match pages): on 40 of 40 Challenger and WTA 125 main-draw matches, 25 of 40 ITF main-draw matches (2 of 10 in 2019, 7-8 of 10 in 2022-26), 6 of 13 Challenger and WTA 125 qualifying matches, and 0 of 16 ITF qualifying matches.
-* **The collection is running** in the background, newest day first, back to January 2018: about 250 priced matches a day of October 2026, about 105 of January 2026; roughly 400,000 requests, two weeks or so if nothing stops it (2025-26 in about four to five days).
-* **The forward-capture test is running:** Pinnacle's listing read every 10 minutes, each lower-level match's last price before its start compared with TennisExplorer's record after play. Its result comes when the site's pages of 22-23 Oct are in.
+* **The collection is running** in the background, newest day first, back to January 2018: about 250 priced matches a day of October 2026, about 105 of January 2026; roughly 600,000 requests, about three weeks if nothing stops it (2025-26 in about four to five days).
+* **The forward-capture test** (24 Oct): below the tour level TennisExplorer's last Pinnacle price is Pinnacle's close on 75% of the matches where it shows one, and it shows one on 76% of the matches Pinnacle lists. The site stops recording hours before the start and misses late moves. Only reading Pinnacle's own site through the day gives every true close ([below](#forward-capture-of-closing-lines-the-test-done-24-oct-2026)).
 
 ### The sample
 
@@ -1341,11 +1372,50 @@ The plan's rule was the best closing coverage at each level, then Pinnacle (the 
 
 **The bulk** started at 12:51 UTC on 22 Oct, detached: runs of 10,000 requests, each staged after it, newest day first from 21 Oct back to 1 Jan 2018.
 * *Expected [inference]:* roughly 400,000 requests at about 1,200 an hour, so about two weeks, if nothing stops it. 2025-26 should be done in about four to five days.
+  * *Revised 24 Oct:* the first 51,170 requests covered 266 days (about 190 a day), so the span to 2018 is roughly 600,000 requests: about three weeks in all, to mid-November if nothing stops it.
 * *Progress:* the data map's `in_progress` line, and `data/raw/tennisexplorer_lower/_logs/bulk.log`.
 
-### Forward capture of closing lines: running
+### Forward capture of closing lines: the test, done 24 Oct 2026
 
-Pinnacle's whole tennis listing is read every 10 minutes for 36 hours (from 04:50 UTC on 22 Oct), into its own folders, apart from the bet-day recorder's. Each lower-level matchup's last price before its start is its captured close. The test compares it with TennisExplorer's record of the same match after play: whether the site's Pinnacle price is the same, and how close to the start each was set. The first pull listed 164 lower-level moneylines (149 open pre-match). By 12:57 UTC on 22 Oct, 106 had started: their last captured price came a median 10 minutes before the listed start for ITF (96 matches) and 6 minutes for Challengers (10) [observed]. So Pinnacle keeps these markets open until close to the start, and a 10-minute poll captures a near-close price. The site's pages of 22-23 Oct come with the bulk's next runs, which start each time from the newest day.
+**What was compared.** For the lower-level matches of 22-23 Oct, two records of Pinnacle's closing price:
+* **(A) Pinnacle's own site**, read every 10 minutes for 36 hours (04:50 UTC on 22 Oct to 16:50 UTC on 23 Oct: 216 reads, 463 requests, no refusal), into its own folders, apart from the bet-day recorder's. A match's last price before its start is its captured close.
+* **(B) TennisExplorer's page of the same match**, fetched after play: the last Pinnacle price the site recorded, and when.
+
+**Result** [observed; `pinnacle_capture_compare.json`, complete]:
+
+| Lower-level matches Pinnacle listed that started, 22-23 Oct | Challengers | ITF main draws | All |
+|---|---:|---:|---:|
+| Captured from Pinnacle's own site (A) | 35 | 224 | 259 |
+| Found on TennisExplorer | 34 | 215 | 249 |
+| With a Pinnacle price there (B) | 32 | 165 | 197 |
+| (B)'s last price equal to (A)'s close, both sides to 0.005 | 20 | 128 | 148 |
+
+* **Pinnacle listed no qualifying match** at these levels in the 36 hours, so neither route gives a Pinnacle price for qualifying.
+* **(A) reached every match Pinnacle listed** with a price a median 10 minutes before the listed start (quartiles 7 and 20 minutes): Pinnacle keeps these markets open until close to the start.
+* **(B) gave Pinnacle's true close for 148 of the 259 (57%).** The site had a Pinnacle price for 197 (76%), equal to the close on 75% of those (80% on 22 Oct, 68% on 23 Oct).
+* **Why (B) misses:** the site stops recording Pinnacle's lower-level prices hours before the start. Its last recorded change came a median 3.6 hours before the listed start (quartiles 2.0 and 4.2 hours), never after it.
+  * Of the 49 matches where its price differed from the close, in 36 Pinnacle moved its line after the site's last recorded change; 8 had no times on the site; about 5 cannot be checked (the capture began later).
+  * In none of the 148 equal ones did Pinnacle move after the site's last change. So the site's record is right up to the point where it stops.
+* **Late moves are common:** of the 185 captured matches whose price moved at all, 82 had their last move in the final 3 hours and 44 in the final hour.
+* At tour level the site matched Pinnacle's own price on 93% of readings, with its last change about an hour before the start ([Pinnacle-gap research](../../research/pinnacle-gap/README.md)). Below the tour level it is staler.
+
+**What it means** [inference]:
+* **The backfill's lower-level Pinnacle prices are late pre-match prices, not closes:** equal to the close on about 3 matches in 4 where the site shows Pinnacle. The other books' prices on those pages carry the same caution, untested here.
+* **A true lower-level close can be had only by reading Pinnacle's own site through the day.** A close not captured on the day is lost for good: no free archive has it.
+
+**Recommendation (the owner's decision).** Keep the daily TennisExplorer job: it is the only history (2018 on) and the only record of the other books and of openings. **And start recording Pinnacle's own site every 10 minutes as a standing job, if lower-level markets may be bet in the coming months** (Polymarket's lower tier is about a fifth of its tennis money).
+* **For it:** the true close for every lower-level match Pinnacle prices; a model's odds input is Pinnacle's close ("Pinnacle first"), and the backfill's would carry an earlier price on a quarter of rows; closes not recorded now cannot be recovered later.
+* **Against:** the PC must stay on and online all day. About 300 requests a day to the site the bet-day recorder already reads (a read is skipped while a bet-day pull runs), and about 10 MB a day of raw copies and tables: the 36-hour test used 463 requests and 15 MB.
+  * **When the PC is off,** those hours' closes are lost from this record, and their matches keep only TennisExplorer's late price.
+  * **Most lower-level matches start overnight in California:** 62% of October 2026's 5,195 priced ones between midnight and 08:00 Pacific, 68% between 22:00 and 08:00. A PC switched off at night would miss about two-thirds of them.
+* **If yes:** the daily task can start the existing capture loop each morning for 24 hours (`pinnacle_capture.sh`, its own folders), with the same alerts as the other jobs. Not started: it is a new standing job on the owner's PC.
+
+### Daily from 22 Oct 2026
+
+**The daily job** (the owner, 22 Oct: "Implement gathering lower level odds daily"; [cadence amendment](../../decisions/2026-10-06-download-cadence.md)):
+* `lower_odds` in the daily task (07:30), right after the tour-level `pinnacle_closes`. It runs the collector over the last 21 days: each day not yet done, its listings, then every priced lower-level match page, at most 1,500 requests.
+* While the backfill runs, the job is skipped: the backfill starts each run from the newest day. The real 07:30 task of 23 Oct ran it so (skipped, and the comparison's check said "not ready").
+* **The comparison's reminder is spent:** the job checked each day whether the comparison could run (`pinnacle_capture.py --ready`), and the complete comparison of 24 Oct stops it. To run the comparison again: `./python.sh src/eda/gap_downloads/pinnacle_capture.py --compare` (writes `pinnacle_capture_compare.json` and `.csv.gz` here, counts only).
 
 ### Running and resuming P11
 
@@ -1371,12 +1441,13 @@ From the repository root, in Git Bash:
 * *Collection evidence:* `tennisexplorer_lower_summary.json` (the last run and counts by month) and `runs.jsonl`.
 * *Raw* (gitignored): `data/raw/odds_probe/<site>/`, `data/raw/tennisexplorer_lower/`, `data/raw/pinnacle_capture/`, each with `_receipts.jsonl`.
 * *Staged* (gitignored): `data/dump/odds/tennisexplorer_lower/{listed,matches,odds,moves}/<month>.parquet`, every column a string; `data/dump/odds/pinnacle_capture/pulls/`.
-* *Tests:* `test/gap_downloads/test_odds_probe.py`, `test_tennisexplorer_lower.py`, `test_pinnacle_capture.py` (synthetic pages, made-up prices).
+* *Comparison evidence* (when run): `pinnacle_capture_compare.json` and `.csv.gz` (counts and flags only).
+* *Tests:* `test/gap_downloads/test_odds_probe.py`, `test_tennisexplorer_lower.py`, `test_pinnacle_capture.py` (synthetic pages, made-up prices), `test_lower_odds_job.py` (the daily job and the reminder, child processes faked).
 
 ### Limits
 
 * **The samples are small:** 5 main-draw and 2 qualifying match pages per level and year in the probe. The trials' 622 pages are the better guide to Pinnacle's share.
-* **"Closing" is the site's last recorded price.** How close it is to Pinnacle's true close below the tour level is the forward-capture test's question, still open. At tour level it matched Pinnacle's own price to the cent on 93% of readings ([Pinnacle-gap research](../../research/pinnacle-gap/README.md)).
+* **"Closing" is the site's last recorded price.** Below the tour level the forward-capture test found it equal to Pinnacle's own close on 75% of matches (22-23 Oct). The site's record stops a median 3.6 hours before the start. At tour level it matched Pinnacle's own price to the cent on 93% of readings ([Pinnacle-gap research](../../research/pinnacle-gap/README.md)).
 * **Not linked to the map or Stage 0.** The staged tables keep the site's match ids and names. Linking them to the project's matches is separate work, as is anything the model would read: new lower-level data enters the model only as a tested candidate (CLAUDE.md). Odds are not counted on the data map's match table.
 * **The same site as the daily `pinnacle_closes` job.** A block of the bulk would also block that job, which the model's odds input reads from November 2025. Hence the tour adapter's pace, the wait whenever it runs, and the stop at the first refusal.
 * **Rights.** TennisExplorer's, BetExplorer's and OddsPortal's terms restrict automated extraction; collected under the owner's decision of 8 October 2026 ([decision](../../decisions/2026-10-08-scraping-approved.md)). Never republish: this repository is public.

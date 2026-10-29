@@ -3,7 +3,8 @@
 11 Oct 2026 · For the owner · **Deleted the same day, 17:54–17:59: 236.3 GB of the "delete now" groups, less what
 was held back ([What was deleted](#what-was-deleted-11-oct-2026)). 14 Oct: `tnr_lyr_off` and `tnr_lyr_on`, 47.1 GB,
 after their step ([below](#14-oct-2026-tnr_lyr_off-and-tnr_lyr_on)). 14 Oct: three Roland Garros leftovers, 8 files, 7.9 MB;
-`.gitignore` and `data\LARGE_FILES.md` brought up to date ([below](#14-oct-2026-three-roland-garros-leftovers-gitignore-and-the-large-files-guide)).** · Process log: [process_log.md](process_log.md) ·
+`.gitignore` and `data\LARGE_FILES.md` brought up to date ([below](#14-oct-2026-three-roland-garros-leftovers-gitignore-and-the-large-files-guide)). 22 Oct: the commit
+check's three "delete now" groups, 127.4 GB, then the 13 and 14 Oct build trees, 28.1 GB ([below](#22-oct-2026-the-commit-checks-three-delete-now-groups)). 29 Oct: the commit check's three items, 96.4 GB ([below](#29-oct-2026-the-commit-checks-three-items)).** · Process log: [process_log.md](process_log.md) ·
 Subagent briefs: [subagent_briefs.md](subagent_briefs.md)
 
 You asked: "For the past week, find all studies/data or models that are artifacts, no longer useful, scratch pads or
@@ -24,6 +25,100 @@ highly recommend cleans/deletion and optional."
   copies `data\studies`, so about 10 GB of it is copied on every run.
 * **One danger: the sandboxes contain junctions (folder links) into the real `data\raw` and `data\dump`.** A careless
   delete can follow a junction and erase the real data. Use the steps in [How to delete safely](#how-to-delete-safely).
+
+## 29 Oct 2026: the commit check's three items
+
+You asked: "We've made some changes recently, various studies that I havent pushed yet. Find the set of files that can
+be deleted that can be easily reproduced (only related to studies, nothing production related) As well as if there
+are any files >50MB that should be gitignored or removed for the next push". The check was answered in chat. Then,
+pasting its section of three items: "Delete this".
+
+* **96.4 GB deleted in 11 minutes; C: went from 362 GB to 459 GB free.**
+* **No file was lost from the kept folders.** They were listed file by file before the run and after each item:
+  * your real `data\raw` and `data\dump`, and the Tennis My Life freezes the copies linked to;
+  * the daily engine's state and runs, and `current_best_model` with the frozen reference;
+  * the P9 study's folder;
+  * the live and rollback build trees.
+* **The frozen reference still verifies:** all 1,581 of its files are present and equal, before and after.
+* **What went:**
+  * **The seven replay work trees of 24–25 Oct** (96.3 GB):
+    * `tnr_daily_earlier`, `tnr_daily_earlier2`, `tnr_daily_main`, `tnr_daily_main_w`, `tnr_daily_main2`,
+      `tnr_daily_datefix_off` and `tnr_daily_datefix_on`;
+    * these are the repository copies that the earlier-rounds proofs and the main-draw date check ran in;
+    * their 54 folder links were removed as links first;
+    * their run folders stay, and the master pipeline's process log has a dated note;
+    * gone with them: their step logs and their copy of the code as of 24–25 Oct.
+  * **Bytecode that a test run wrote into the frozen reference's code copy on 28 Oct** (379 files, 15 MB). None of it
+    was a frozen file.
+  * **The P9 study's nine working tables** (26 MB, ignored by git). Its JSON and CSV outputs stay. Its README and
+    process log each have a dated note.
+* **Git:** none of these files was tracked, so git sees no change. The push holds no file over 50 MB: 1,076 new files
+  (26.9 MB) and 156 changed files (18.6 MB), the largest 8.5 MB.
+* **Still your call, from the same check:**
+  * ignore rules for the notebook's run markers and lock, and for the engine's weights-fingerprint cache;
+  * naming, in `.gitignore` and the large-files guide, the five files over 50 MB that only the `.parquet` rule covers;
+  * a pytest setting so a test run can't walk into the frozen code copy again;
+  * `tnr_lle`, `tnr_sys4` and `tnr_lyr_new` (67 GB), which wait on the data-versions rule.
+* **Records:**
+  * the record: `data\studies\cleanup_inventory\deletions_2026-10-29.json`;
+  * the script: `src\eda\cleanup_inventory\delete_2026_10_29.py`;
+  * [process log § 10](process_log.md#10-the-commit-check-of-29-oct-2026-and-its-three-items-deleted).
+
+## 22 Oct 2026: the commit check's three "delete now" groups
+
+You asked: "Get the tennis predictions pipeline in a state where I can easily git add and push it. No files > 50MB, no
+unused temporary files that take up too much disk space recently done." The check found nothing over 50 MB that git
+would take. Then, pasting its three "Delete now" rows: "Delete these 3 suggested delete now repository/files".
+
+* **127.4 GB deleted in 7 minutes; C: went from 284 GB to 444 GB free.** About 32 GB of that rise was freed by something
+  else running at the same time.
+* **No file was lost from the kept folders.** They were listed file by file before the run and after each item:
+  * your real `data\raw` and `data\dump`;
+  * the Tennis My Life freezes the copies linked to;
+  * the daily engine's state and `current_best_model`;
+  * the live and rollback build trees;
+  * the three runs.
+* **What went:**
+  * **The temporary caches that three cut-short bet-day runs left on 14 Oct** (6.2 GB). The runs' records stay.
+  * **The TabPFN caches of the 21 Oct morning model,** `template_2026-10-21` (62.0 GB). Its two checkpoints stay, so its
+    rollback still works; the first run after one rebuilds the caches, in about 15 minutes.
+  * **The five one-off work trees of 13–16 Oct** (59.2 GB): `tnr_daily_patterns`, `tnr_daily_patterns_live`,
+    `tnr_daily_fastcourt`, `tnr_daily_fastcourt_live` and `tnr_daily_replayfix`. Their 42 folder links were removed as
+    links first.
+* **Git:** none of these was tracked, so git sees no change. Your commit of 12:09 (`9228b26`) is on GitHub; the
+  largest file it added or changed is 9.1 MB.
+* **Later the same afternoon: the 13 and 14 Oct build trees** (28.1 GB, deleted 16:16–16:17). You asked what they were,
+  then: "Do this, update studies that refernce them that we've deleted it, so models who review the study know it was
+  built with an older version and may have to be updated".
+  * **What went:** `tnr_gaps` and `tnr_tpl1014`, the copies of the repository that the 13 and 14 Oct models were built
+    in. Both models were replaced within days, neither is a rollback, and their caches went on 21 Oct. Their folders in
+    `current_best_model` (frames, fits, records) stay. Their four folder links were removed as links first, and no kept
+    file was lost.
+  * **The one script that defaulted to one of them,** the feature-evidence builder (`form_evidence.py`), now uses the
+    model the master notebook selected, as the daily engine does.
+  * **Every study that named either one now carries a dated note.** Each says the tree is gone, what in the study ran on
+    it, and that its results describe an older model, so a re-check needs the current one. The studies:
+    * the lower-level feed (`data_gaps_2026`) and the box-score gate review;
+    * the men's lower-level fill and the daily-prediction engine;
+    * the unpriced leads, the TML revisions and the feature universe;
+    * the two models' own READMEs and the large-files guide;
+    * a new study another session started at 16:18, whose session added its note itself.
+  * **The same note for the five work trees deleted earlier,** where study logs had them "kept for review". One loss to
+    know about: the replay-fix tree held the only backup of its Stage 0 from before the 31 dates were set back.
+  * **The 21 Oct morning model's two rollback lines** now say its caches are gone, and the first run rebuilds them.
+* **Still your call, from the same check:**
+  * the 16 Oct model's caches (57.9 GB), which are the rollback: keep them until the new model has had a few clean bet
+    days;
+  * four ignore rules: the notebook's "step running" markers, `*.npz.bak`, and the locked test folders, which make
+    every `git status` warn;
+  * the large-files guide's update;
+  * the locked folders themselves, which need an administrator prompt;
+  * the replay folder at the repository root.
+* **Records:**
+  * the record: `data\studies\cleanup_inventory\deletions_2026-10-22.json` (the build trees under `part2`);
+  * the script: `src\eda\cleanup_inventory\delete_2026_10_22.py` (`--part 2` for the build trees);
+  * [process log § 9](process_log.md#9-the-commit-check-of-22-oct-2026-and-its-three-delete-now-groups) (the build
+    trees: §§ 9d–9e).
 
 ## 14 Oct 2026: `tnr_lyr_off` and `tnr_lyr_on`
 

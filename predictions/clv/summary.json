@@ -1,0 +1,104 @@
+{
+ "lines": [
+  "Women's matches are switched off (the owner, 28 Oct 2026): this reading leaves out the 142 women's predictions of earlier sheets (85 matches). The ledger file keeps them; config.BET_TOURS switches them back on.",
+  "24 bet sheets (Sun 11 Oct 11:25 to Thu 29 Oct 06:59) made 219 predictions of 113 matches, 53 of them picks. Each match is read on its last sheet before the start, the one a bet most likely came from.",
+  "Closing price found for 61 matches: 13 true closes from Pinnacle's own listing (read within 15 minutes of its pre-match market shutting) and 48 from TennisExplorer's record of Pinnacle, the close the model's training data uses, where it is known to hold within 2 hours of the start (a median 40 minutes before it).",
+  "No close yet: 8 not started, 6 waiting for the next daily download, 31 with only an earlier price (ours, or TennisExplorer's record ending earlier), a median 6.8 hours before the start: left out below; 0 with no price at all; 7 void (a walkover, or the pairing changed before the match). 16 of the last two kinds are qualifying matches: TennisExplorer has no qualifying pages, so only Pinnacle's own listing read near the start gives their close.",
+  "Closing-line value of the 28 picks with a close (the odds taken against the closing odds, both with Pinnacle's margin; higher is better): +0.8% [-0.9%, +2.5%], n = 28: unresolved, P(above 0) 0.82. The line moved toward the pick by +0.56 points [-0.30, +1.41], n = 28: unresolved, P(above 0) 0.90.",
+  "Their expected profit if the closing price, margin removed, is the true chance: -1.9% [-3.6%, -0.3%], n = 28: below 0. A bet at the closing price itself scores -2.7% by this measure (Pinnacle's margin), so the picks are judged against that, not against 0.",
+  "Did the line move toward the model? Across the matches with a close, the market closed -0.07 [-0.25, +0.11] of the model's disagreement with the sheet's price (n = 61; 0 = not at all, 1 = all the way; the backtest found +0.01 [-0.02, +0.04]).",
+  "At the closing price the model, re-read off its curve there, still gave 27 of 28 picks a positive expected profit.",
+  "Graded matches: the model at the sheet's price against the closing price, log loss -8.0 mLL [-26.9, +10.8], n = 61: unresolved, P(above 0) 0.20 (above 0: the model was better); against the price it was fed, -4.7 mLL [-20.8, +11.4], n = 61: unresolved, P(above 0) 0.28. A few hundred matches resolve little.",
+  "This checks the prices we got, not the model: the market does not move toward this model before the close, so the model's alarm is the strength of its lean (production-integrity plan, principle 8). These are the sheets' picks at the sheet's price, not the bets placed: nothing records those yet.",
+  "Checks: TennisExplorer's record of Pinnacle at each sheet's quote time equals the sheet's own price on 175 of 204 readings (0 with the sides swapped); the run's curve re-read at the sheet's price is within 0.10 points of the sheet's chance."
+ ],
+ "counts": {
+  "close_kind": {
+   "close": 61,
+   "last seen": 31,
+   "pending": 8,
+   "awaiting": 6
+  },
+  "close_source": {
+   "tennisexplorer": 48,
+   "pinnacle pull": 13
+  },
+  "picks": 53
+ },
+ "clv_price": {
+  "n": 28,
+  "mean": 0.008097417249090336,
+  "share_above_0": 0.5714285714285714,
+  "lo": -0.008920554090471449,
+  "hi": 0.025115388588652122,
+  "p_above_0": 0.8244863954587233
+ },
+ "clv_ev": {
+  "n": 28,
+  "mean": -0.019325415662072885,
+  "share_above_0": 0.35714285714285715,
+  "lo": -0.035621596642900766,
+  "hi": -0.003029234681245007,
+  "p_above_0": 0.010053722434373358
+ },
+ "ev_of_a_bet_at_the_close": {
+  "n": 28,
+  "mean": -0.02716989015774262,
+  "share_above_0": 0.0,
+  "lo": -0.028076171498094268,
+  "hi": -0.02626360881739097,
+  "p_above_0": 0.0
+ },
+ "drift_toward_pick_pts": {
+  "n": 28,
+  "mean": 0.5565726458672223,
+  "share_above_0": 0.6071428571428571,
+  "lo": -0.30118060157200355,
+  "hi": 1.4143258933064482,
+  "p_above_0": 0.898276207946509
+ },
+ "move_toward_model": {
+  "n": 61,
+  "slope": -0.0679484370462043,
+  "lo": -0.24817537947667723,
+  "hi": 0.11227850538426863
+ },
+ "picks_still_ev_at_close": {
+  "n": 28,
+  "still": 27
+ },
+ "mll_model_vs_close": {
+  "n": 61,
+  "mean": -8.048741486054219,
+  "share_above_0": 0.5081967213114754,
+  "lo": -26.924118673893798,
+  "hi": 10.82663570178536,
+  "p_above_0": 0.20164126914627578
+ },
+ "mll_model_vs_quote": {
+  "n": 61,
+  "mean": -4.724837487447621,
+  "share_above_0": 0.639344262295082,
+  "lo": -20.80143861228803,
+  "hi": 11.351763637392791,
+  "p_above_0": 0.2822958349002418
+ },
+ "checks": {
+  "curve_vs_sheet_q": {
+   "rows": 361,
+   "max_abs": 0.0010104084877996522
+  },
+  "site_vs_sheet_price": {
+   "rows": 204,
+   "same": 175,
+   "sides_swapped": 0
+  }
+ },
+ "switched_off": {
+  "bet_tours": [
+   "atp"
+  ],
+  "predictions": 142,
+  "matches": 85
+ }
+}

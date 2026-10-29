@@ -5,7 +5,10 @@ Each run appends one line per watched item to data/studies/data_continuity/canar
 canary_latest.json. Flags, compared with the previous run where one exists:
     GONE       the address no longer answers 200 (Sackmann's results repositories have answered 404 since June 2026)
     STALE      nothing changed for longer than the item's allowed gap (in season)
-    SHRANK     a manifest lists fewer files, or a file is smaller than at the previous run
+    SHRANK     a manifest lists fewer files, or a file holds fewer matches than at the previous run: counted in the
+               project's own copies of both versions where it keeps them (28 Oct 2026, the owner: "fix the alarm";
+               a re-save with Unix line endings and corrected cells had raised it on 34 files with every match kept),
+               else by size, allowing for line endings
     REVISED    a file of an earlier season changed since the previous run (TML corrects old seasons)
     TERMS      the licence statement changed
     UNARCHIVED Software Heritage holds no full visit, or none in the last 180 days
@@ -16,7 +19,9 @@ Run: ./python.sh src/eda/data_continuity/canary.py      (one run is about 25 req
 """
 from __future__ import annotations
 
+import csv
 import hashlib
+import io
 import json
 import re
 import sys
@@ -126,6 +131,50 @@ def tml_manifest(url: str) -> dict:
     return out
 
 
+def tml_copies(name: str) -> dict[str, list[Path]]:
+    """Every copy of a Tennis My Life file the project keeps: the current one, the versions it replaced (superseded/,
+    <stem>.<retrieved>.<sha12>.csv, oldest first) and the versions the download held back (held/, <stem>.<sha12>.csv)."""
+    rel = Path(name)
+    own = re.compile(re.escape(rel.stem) + r"(\.\d{14})?\.[0-9a-f]{12}\.csv")
+    out = {"current": [TML_HELD / rel] if (TML_HELD / rel).is_file() else []}
+    for folder in ("superseded", "held"):
+        found = (TML_HELD / folder / rel.parent).glob(f"{rel.stem}.*.csv")
+        out[folder] = sorted(p for p in found if own.fullmatch(p.name))
+    return out
+
+
+def data_rows(path: Path) -> int:
+    """The matches of a CSV copy: its records after the header."""
+    text = path.read_bytes().decode("utf-8", errors="replace")
+    return max(0, sum(1 for rec in csv.reader(io.StringIO(text)) if rec) - 1)
+
+
+def shrink_evidence(cur: dict, old: dict | None) -> dict[str, dict]:
+    """For each file the manifest lists smaller than at the previous run, from the project's own copies of the version
+    listed then and the version listed now, found by their size (for now the current copy, then a held-back one; for
+    then the latest replaced one, then the current one, which the download had not replaced):
+        rows       {file: [matches then, matches now]} where both copies are held: their matches decide
+        crlf_then  {file: line endings of the copy listed then} where only that copy is held: a re-save with Unix line
+                   endings shrinks it by at most that many bytes (2015_wta.csv on 26 Oct 2026: the version listed was
+                   written after that day's download and replaced before the next)"""
+    out: dict[str, dict] = {"rows": {}, "crlf_then": {}}
+    if not old or not cur.get("files") or not old.get("files"):
+        return out
+    for n, (_, size) in cur["files"].items():
+        before = old["files"].get(n, [None, None])[1]
+        if size is None or before is None or "ongoing" in n or size >= before:
+            continue
+        c = tml_copies(n)
+        sized = lambda paths, want: next((p for p in paths if p.stat().st_size == want), None)  # noqa: E731
+        now = sized(c["current"] + c["held"] + c["superseded"][::-1], size)
+        then = sized(c["superseded"][::-1] + c["current"] + c["held"], before)
+        if now is not None and then is not None:
+            out["rows"][n] = [data_rows(then), data_rows(now)]
+        elif then is not None:
+            out["crlf_then"][n] = then.read_bytes().count(b"\r\n")
+    return out
+
+
 LICENCE_URL = re.compile(r'\\?"license\\?"\s*:\s*\\?"(https?://[^"\\]+)')
 LICENCE_TEXT = re.compile(r"License:\s*(?:<[^>]+>\s*)*([A-Za-z][A-Za-z0-9 .\-]{1,40}?)\s*(?:<|\"|\\|$)")
 
@@ -192,15 +241,21 @@ def flags(item: str, gap, now: pd.Timestamp, cur: dict, old: dict | None) -> lis
     if old and cur.get("files") and old.get("files"):
         if cur["count"] < old.get("count", 0):
             out.append(f"SHRANK (files {old['count']} -> {cur['count']})")
-        crlf = cur.get("crlf") or {}
-        smaller = []
+        crlf, rows = {**(cur.get("crlf") or {}), **(cur.get("crlf_then") or {})}, cur.get("rows") or {}
+        smaller, fewer = [], []
         for n, (_, s) in cur["files"].items():
             before = old["files"].get(n, [None, None])[1]
             if s is None or before is None or "ongoing" in n or s >= before:
                 continue
+            if n in rows:                                   # both versions' copies held: their matches decide
+                if rows[n][1] < rows[n][0]:
+                    fewer.append(f"{n} {rows[n][0]} -> {rows[n][1]}")
+                continue
             allowance = crlf[n] if n in crlf else SHRINK_SHARE * before    # line endings explain this much
             if before - s > allowance:
                 smaller.append(n)
+        if fewer:
+            out.append(f"SHRANK ({len(fewer)} files hold fewer matches: {', '.join(sorted(fewer)[:5])})")
         if smaller:
             out.append(f"SHRANK ({len(smaller)} files smaller: {', '.join(sorted(smaller)[:5])})")
         revised = [n for n, (m, _) in cur["files"].items() if n in old["files"] and m != old["files"][n][0]
@@ -228,6 +283,8 @@ def main() -> int:
     records = []
     for item, kind, address, gap in WATCH:
         cur = CHECK[kind](address)
+        if kind == "tml_manifest":
+            cur.update(shrink_evidence(cur, old.get(item)))
         rec = {"checked_at": now.isoformat(timespec="seconds"), "item": item, "kind": kind, **cur}
         rec["flags"] = flags(item, gap, now, cur, old.get(item))
         records.append(rec)

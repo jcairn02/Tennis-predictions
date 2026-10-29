@@ -285,6 +285,10 @@ def morning_refresh(*, max_age_hours: float = 6, dry_run: bool = False) -> dict:
     out["held_tml"] = held_tml_files()
     if out["held_tml"]:
         print("Held Tennis My Life files (kept out until reviewed):", ", ".join(out["held_tml"]))
+    from .overview import tml_lines              # lagging held files, carried events, corrections (28 Oct 2026)
+    out["tml_status"] = tml_lines()
+    for line in out["tml_status"]:
+        print(line)
     out["feed"] = feed_status()
     feeds = out["feed"].get("feeds") or {}
     print("Lower-level feed:", ", ".join(f"{k} {v}" for k, v in feeds.items()) or "none accepted yet")

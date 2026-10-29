@@ -408,3 +408,24 @@ Mine, 18:46:
 > If your scenarios must all run on one instance, pin it: DP_INSTANCE=template_2026-10-13 and DP_BASE_TREE=C:/Users/zerom/tnr_gaps in your steps' environment, or finish before then. Tell me if you need the switch held, and I'll wait.
 >
 > Also relevant to your replays: on this instance the level layer re-centres its strength (option c, triggered by the women's additions), with a season-wide shift. So any change to the tree's Stage 0 (your removals, or a replay's dropped later rounds) moves the men's layer-fed forms by about 1e-6 (my replay check: 19 of 23 matches identical, 4 men's within 4.4e-6). That is not your removal's effect.
+
+---
+
+## Note, 22 Oct 2026: both build trees deleted
+
+Added by the cleanup session `4437577b-803e-4161-baf5-c6fade971478`, at the owner's word
+([cleanup inventory, process log § 9d](../cleanup_inventory/process_log.md)).
+* **Deleted on 22 Oct 2026:**
+  * `C:/Users/zerom/tnr_gaps`, where arm FEED and `template_2026-10-13` were built (live 13 Oct 20:41 to 14 Oct 07:43);
+  * `C:/Users/zerom/tnr_tpl1014`, where `template_2026-10-14` was built (live 14 Oct 07:43 to 16 Oct 17:58).
+  * Their daily caches had gone on 21 Oct.
+* **What stays:** the instances' folders (`data/studies/current_best_model/template_2026-10-13/` and `-14/`) and
+  `harm/feed_instance/`: the frames, fits, chain records and harm-check outputs this log cites.
+* **What no longer runs as written:** every command above that names either tree (`harm/build_feed_arm.sh`,
+  `build_final.sh` and `resume_final.sh` on their default sandboxes, `use_instance(..., tree=...)`, the checkpoints, the
+  replay checks). Run again, they build a new tree on that day's tables and code, so the numbers may differ.
+* **For a reviewer:** the results here stand as recorded, but they describe the 13 and 14 Oct instances, older versions
+  of the model. The live one is `template_2026-10-21b` (since 21 Oct). The owner's request of 14 Oct to delete
+  `tnr_gaps` and `tnr_lyr_new` (the row "after the report") was withdrawn then. On 22 Oct the owner asked again for
+  `tnr_gaps`, with `tnr_tpl1014`; `feature_universe/form_evidence.py`, the reader that had stopped it, now defaults to
+  the master notebook's selection. `tnr_lyr_new` is kept.

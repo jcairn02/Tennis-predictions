@@ -21,7 +21,13 @@ file, the SHA-256 of the body as served and the retrieval time):
                            files carry no date)
     points.parquet         every MatchBeats point, its fields verbatim (server, serve number, serve speed, a first-
                            serve fault's speed, scorer, ending, stroke, hand, rally counts, break and crucial-point
-                           flags, the match clock), with set and game numbers
+                           flags, the match clock), with set and game numbers. Where a match has both copies, the
+                           points are the static copy's (its core: the record the rally analysis and box-score checks
+                           agree with) and the API's newer-format copy adds, joined by point id, its eight point fields,
+                           its own ending (result_newer) and its game's momentum scores (NEWER_COLUMNS); a match with
+                           one copy takes its own. The matches table's matchbeats_copy says which; how the two copies
+                           differ is counted per match in data/studies/serve_speed_acquisition/
+                           infosys_atp_recent_matchbeats_copies.csv.gz
     keystats.parquet       every key statistic of every set ("set0" is the match), the speeds among them
     rally.parquet          every rally-analysis entry (serve speed, direction, court side, ending, shot)
     court_vision.parquet   every Court Vision point record's scalar fields with the served a-number names (a81 the
@@ -65,9 +71,19 @@ BACKFILL_RAW = P.raw_path("infosys_atp")
 FIRST_YEAR = 2022
 STUDY_ROOT = P.PROJECT_ROOT / "data" / "studies" / "serve_speed_acquisition"
 SUMMARY = STUDY_ROOT / "infosys_atp_recent_stage_summary.json"
+# Both MatchBeats copies are kept apart (the API builds a newer format; choose_matchbeats picks one per match); a key
+# statistics file and its API twin are the same document, so the static one is kept
 KIND = {"keystats": "keystats", "keystats-api": "keystats", "match-beats": "match-beats",
-        "match-beats-api": "match-beats", "rally-analysis": "rally-analysis", "court-vision": "court-vision"}
+        "match-beats-api": "match-beats-api", "rally-analysis": "rally-analysis", "court-vision": "court-vision"}
 PREFER = ("keystats", "match-beats", "rally-analysis", "court-vision", "keystats-api", "match-beats-api")
+NEWER_FIELDS = ("firstServer", "lastHitter", "serveClassId", "tm1Shot", "tm2Shot", "pointDuration", "tm1AtNet",
+                "tm2AtNet")
+CORE_FIELDS = ("pointId", "server", "serve", "serveSpeed", "faultSrvSpd", "scorer", "result", "tm1GameScore",
+               "tm2GameScore")
+# the points table's columns from the newer copy: its eight point fields, its own ending (beside the static copy's,
+# where a match has both), and its game's momentum scores
+NEWER_COLUMNS = list(NEWER_FIELDS) + ["result_newer", "game_momentum_tm1", "game_momentum_tm2"]
+DIFFERENCES = STUDY_ROOT / "infosys_atp_recent_matchbeats_copies.csv.gz"
 KEYS = ["year", "event_id", "match_id"]
 PROV = ["source_file", "source_sha256", "retrieved_at"]
 CV_FIELDS = S.CV_FIELDS
@@ -76,7 +92,8 @@ SHOT_PARTS = ("hit", "peak_pre", "net", "bounce", "peak_post", "last")
 MATCH_COLUMNS = KEYS + [
     "family", "draw", "round_from_code", "series", "level", "tournament_name", "tournament_start", "routes",
     "files", "event_type", "court_id", "court_name", "is_match_complete", "match_status", "match_winner",
-    "sets_completed", "score_from_points", "winner_from_points", "p1_id", "p1_name", "p1_first_name", "p1_last_name", "p1_country", "p2_id",
+    "sets_completed", "score_from_points", "winner_from_points", "matchbeats_copy", "p1_id", "p1_name",
+    "p1_first_name", "p1_last_name", "p1_country", "p2_id",
     "p2_name", "p2_first_name", "p2_last_name", "p2_country", "keystats_p1_id", "keystats_p2_id", "points",
     "points_timed", "first_serve_points_timed", "points_classified", "keystats_sets", "keystats_speed",
     "rally_entries", "rally_timed", "cv_points", "cv_timed", "last_modified_utc", "route_last_modified",
@@ -113,8 +130,9 @@ def open_file(path: Path, year) -> object:
 # --------------------------------------------------------------------------------------
 def collect(receipts=None, daily_receipts=None, complete=None) -> dict[tuple, dict[str, dict]]:
     """{(year, event, MID): {kind: {route, path, sha256, retrieved_at, folder}}}: this collector's served files, plus
-    the daily collector's key statistics of completed matches. Where a kind has two files (a static file and its API
-    twin), the static one is kept."""
+    the daily collector's key statistics of completed matches. Key statistics with two files (a static file and its
+    API twin, the same document) keep the static one; both MatchBeats copies are kept (kinds "match-beats" and
+    "match-beats-api")."""
     from src.ingest.point_sources import infosys_atp_recent as R
     receipts = receipts if receipts is not None else P.receipts_for(SOURCE)
     out: dict[tuple, dict[str, dict]] = defaultdict(dict)
@@ -224,6 +242,52 @@ def winner_from_points(mb: dict) -> int:
     return 1 if won[1] >= 2 and won[1] > won[2] else 2 if won[2] >= 2 and won[2] > won[1] else 0
 
 
+def matchbeats_points(mb: dict) -> list[dict]:
+    return [p for st in mb.get("setData") or [] for g in st.get("gameData") or []
+            for p in g.get("pointData") or [] if isinstance(p, dict)]
+
+
+def is_newer_format(mb: dict) -> bool:
+    """A MatchBeats document in the newer format: its points carry the fields the API's copy adds."""
+    return any(k in p for p in matchbeats_points(mb)[:5] for k in NEWER_FIELDS[:3])
+
+
+def core(mb: dict) -> list[tuple]:
+    """Each point's core, in order: id, server, serve number, speeds, scorer, ending and score."""
+    return [tuple(str(p.get(k)) for k in CORE_FIELDS) for p in matchbeats_points(mb)]
+
+
+def compare_matchbeats(static: dict, api: dict) -> dict:
+    """How a match's two MatchBeats copies differ, point by point on the point id: points in each, matched, timed in
+    each, the core fields that differ (with counts) and the endings' pairs (static -> newer)."""
+    a = {str(p.get("pointId")): p for p in matchbeats_points(static)}
+    b = {str(p.get("pointId")): p for p in matchbeats_points(api)}
+    both = [k for k in a if k in b]
+    fields = Counter(f for k in both for f in CORE_FIELDS if str(a[k].get(f)) != str(b[k].get(f)))
+    endings = Counter(f"{a[k].get('result')}->{b[k].get('result')}" for k in both
+                      if str(a[k].get("result")) != str(b[k].get("result")))
+    timed = lambda d: sum(1 for p in d.values() if (I.num(p.get("serveSpeed")) or 0) > 0)  # noqa: E731
+    return {"points_static": len(a), "points_api": len(b), "points_matched": len(both),
+            "timed_static": timed(a), "timed_api": timed(b), "newer_format": is_newer_format(api),
+            "core_identical": not fields and len(both) == len(a) == len(b),
+            "fields_differing": json.dumps(dict(fields), sort_keys=True),
+            "endings_differing": json.dumps(dict(endings), sort_keys=True)}
+
+
+def newer_details(mb: dict | None) -> dict[str, list]:
+    """{point id: [the NEWER_FIELDS, the point's ending, the game's two momentum scores]} of a newer-format copy."""
+    out: dict[str, list] = {}
+    for st in (mb or {}).get("setData") or []:
+        for g in st.get("gameData") or []:
+            if not isinstance(g, dict):
+                continue
+            mom = [P.s(g.get("momentumScoreTeam1")), P.s(g.get("momentumScoreTeam2"))]
+            for p in g.get("pointData") or []:
+                if isinstance(p, dict):
+                    out[str(p.get("pointId"))] = [P.s(p.get(k)) for k in NEWER_FIELDS] + [P.s(p.get("result"))] + mom
+    return out
+
+
 def shots(trajectory) -> list[dict]:
     """A Court Vision trajectory (a12: positions labelled hit, peak, net, bounce, last) split into strokes at each
     "hit". A peak before the stroke's bounce is its peak_pre, after it its peak_post; positions that do not fit go to
@@ -287,22 +351,74 @@ class Stager:
                 continue
             yield key, f, doc
 
+    def open_one(self, key, f: dict, kind: str):
+        """One file's decrypted document, or None (a failure is counted)."""
+        try:
+            doc = open_file(f["path"], key[0])
+        except Refused:
+            raise
+        except Exception as err:  # noqa: BLE001 - a key that does not open the file, text that is not JSON
+            self.counts[f"failed:{kind}"] += 1
+            self.failures.append({"file": P.rel(f["path"]), "error": f"{type(err).__name__}: {err}"})
+            return None
+        self.counts[f"decrypted:{kind}"] += 1
+        if not isinstance(doc, dict):
+            self.counts[f"not_a_document:{kind}"] += 1
+            return None
+        return doc
+
     def points(self):
-        for key, f, mb in self.docs("match-beats"):
-            pts = [p for st in mb.get("setData") or [] for g in st.get("gameData") or []
-                   for p in g.get("pointData") or [] if isinstance(p, dict)]
+        """Every MatchBeats point. With both copies, the static copy's points (its core: the record the rally analysis
+        and the box-score checks agree with) and the newer copy's details joined by point id (NEWER_COLUMNS); with one
+        copy, its own points (an API-only copy gives its details itself). Owner, 27 Oct 2026: the newer format
+        wanted; how it joins is an agent's choice (process log, judgment call 10)."""
+        self.copy_differences: list[dict] = []
+        for key in sorted(self.files, key=lambda k: (k[0], int(k[1]), k[2])):
+            fl = self.files[key]
+            have = {name: (f, self.open_one(key, f, name)) for name in ("match-beats", "match-beats-api")
+                    if (f := fl.get(name))}
+            have = {name: v for name, v in have.items() if v[1] is not None}
+            if not have:
+                continue
+            static, api = have.get("match-beats"), have.get("match-beats-api")
+            if static and api:
+                name, why = "match-beats", "static core, newer details from match-beats-api" \
+                    if is_newer_format(api[1]) else "static; the api copy is not in the newer format"
+                diff = compare_matchbeats(static[1], api[1])
+                self.copy_differences.append({"year": key[0], "event_id": key[1], "match_id": key[2], **diff})
+                self.counts["matchbeats:core identical"] += diff["core_identical"]
+                details = newer_details(api[1]) if is_newer_format(api[1]) else {}
+                own = False
+            else:
+                name, why = ("match-beats", "static only") if static else ("match-beats-api", "api only")
+                details = newer_details(have[name][1]) if is_newer_format(have[name][1]) else {}
+                own = True
+            self.counts[f"matchbeats:{why}"] += 1
+            f, mb = have[name]
+            pts = matchbeats_points(mb)
             timed = [p for p in pts if (I.num(p.get("serveSpeed")) or 0) > 0]
             p1, p2 = S.players({"match-beats": mb})
             self.facts[key].update(
-                mb=True, event_type=mb.get("eventType"), court_id=mb.get("courtId"), court_name=mb.get("courtName"),
-                is_match_complete=mb.get("isMatchComplete"), match_status=mb.get("matchStatus"),
-                match_winner=mb.get("matchWinner"), sets_completed=mb.get("setsComplete"),
-                score=score_from_points(mb), winner_points=winner_from_points(mb), points=len(pts),
-                points_timed=len(timed),
+                mb=True, mb_copy=f"{name}: {why}", event_type=mb.get("eventType"), court_id=mb.get("courtId"),
+                court_name=mb.get("courtName"), is_match_complete=mb.get("isMatchComplete"),
+                match_status=mb.get("matchStatus"), match_winner=mb.get("matchWinner"),
+                sets_completed=mb.get("setsComplete"), score=score_from_points(mb),
+                winner_points=winner_from_points(mb), points=len(pts), points_timed=len(timed),
                 first_serve_points_timed=sum(1 for p in timed if str(p.get("serve")) == "1"),
                 points_classified=sum(1 for p in pts if str(p.get("result")) in S.ENDINGS), players_mb=(p1, p2))
-            for row in I.point_rows(list(key) + [f["route"]], mb):
-                yield row + prov(f)
+            ordered = [p for st in mb.get("setData") or [] for g in st.get("gameData") or []
+                       for p in g.get("pointData") or []]                      # point_rows' own order
+            rows = I.point_rows(list(key) + [f["route"]], mb)
+            empty = [None] * len(NEWER_COLUMNS)
+            for row, p in zip(rows, ordered):
+                d = details.get(str(p.get("pointId"))) if isinstance(p, dict) else None
+                if d is None:
+                    extra = empty
+                elif own:                  # one copy: its ending is already in `result`, so result_newer stays empty
+                    extra = d[:len(NEWER_FIELDS)] + [None] + d[len(NEWER_FIELDS) + 1:]
+                else:
+                    extra = d
+                yield row + extra + prov(f)
 
     def keystats(self):
         for key, f, ks in self.docs("keystats"):
@@ -386,7 +502,7 @@ class Stager:
                 P.s(first(fx.get("is_match_complete"), fx.get("ks_complete"), fx.get("ra_complete"))),
                 P.s(fx.get("match_status")), P.s(fx.get("match_winner")),
                 P.s(first(fx.get("sets_completed"), fx.get("ks_sets"), fx.get("ra_sets"))), fx.get("score"),
-                P.s(fx.get("winner_points")) if fx.get("mb") else None,
+                P.s(fx.get("winner_points")) if fx.get("mb") else None, fx.get("mb_copy"),
                 P.s(p1.get("id")), P.s(p1.get("name")), P.s(p1.get("first")), P.s(p1.get("last")),
                 P.s(p1.get("country")), P.s(p2.get("id")), P.s(p2.get("name")), P.s(p2.get("first")),
                 P.s(p2.get("last")), P.s(p2.get("country")), P.s(k1.get("id")), P.s(k2.get("id")),
@@ -432,7 +548,7 @@ def stage(plan_years=None, receipts=None, daily_receipts=None, complete=None, du
                  "files_by_route": dict(Counter(f["route"] for v in files.values() for f in v.values()))}
     tables = [
         ("points.parquet", KEYS + ["route", "set", "game", "seq"] + I.POINT_FIELDS
-         + ["other_fields", "game_fields", "set_fields"] + PROV, st.points),
+         + ["other_fields", "game_fields", "set_fields"] + NEWER_COLUMNS + PROV, st.points),
         ("keystats.parquet", KEYS + ["route", "set_key"] + I.STAT_FIELDS + ["other_fields"] + PROV, st.keystats),
         ("rally.parquet", KEYS + ["route", "category", "list"] + I.RALLY_FIELDS + ["other_fields"] + PROV, st.rally),
         ("court_vision.parquet", KEYS + ["route"] + CV_FIELDS + ["other_fields", "score_block", "positions"] + PROV,
@@ -463,8 +579,27 @@ def stage(plan_years=None, receipts=None, daily_receipts=None, complete=None, du
         c["with_keystats_speed"] += bool(fx.get("keystats_speed"))
         c["with_rally"] += bool(fx.get("rally_entries"))
         c["with_court_vision"] += bool(fx.get("cv_points"))
+    diffs = getattr(st, "copy_differences", [])
+    if summary_path is not None:                       # every match with both copies, how they differ (gzipped CSV)
+        import pandas as pd
+        pd.DataFrame(diffs, columns=["year", "event_id", "match_id", "points_static", "points_api", "points_matched",
+                                     "timed_static", "timed_api", "newer_format", "core_identical",
+                                     "fields_differing", "endings_differing"]).to_csv(
+            DIFFERENCES, index=False, compression="gzip")
+    ending_pairs: Counter = Counter()
+    for d in diffs:
+        ending_pairs.update(json.loads(d["endings_differing"]))
     out.update(staged=staged, by_year={y: dict(c) for y, c in sorted(by_year.items())},
-               decryption=dict(st.counts), failures=st.failures[:50], failures_total=len(st.failures),
+               matchbeats_copies={k.split(":", 1)[1]: v for k, v in st.counts.items() if k.startswith("matchbeats:")},
+               matchbeats_both_copies={"matches": len(diffs),
+                                       "core_identical": sum(1 for d in diffs if d["core_identical"]),
+                                       "points_matched": sum(d["points_matched"] for d in diffs),
+                                       "endings_differing": sum(ending_pairs.values()),
+                                       "ending_pairs_static_to_newer": dict(ending_pairs.most_common(12)),
+                                       "timed_points_static": sum(d["timed_static"] for d in diffs),
+                                       "timed_points_api": sum(d["timed_api"] for d in diffs)},
+               decryption={k: v for k, v in st.counts.items() if not k.startswith("matchbeats:")},
+               failures=st.failures[:50], failures_total=len(st.failures),
                finished_at=P.utc_now_iso(), seconds=round(time.time() - t0, 1))
     if summary_path is not None:
         summary_path.parent.mkdir(parents=True, exist_ok=True)

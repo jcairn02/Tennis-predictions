@@ -1,0 +1,626 @@
+{
+ "unit": "log loss in nats per match; gains in mLL per match, + = the second-named (arm) better; slopes per cell (level group x draw), cross-fitted over 4-week blocks",
+ "all": {
+  "matches": 25542,
+  "ll_price_raw": 0.5937164482825628,
+  "ll_price_slope_crossfit": 0.592960309306585,
+  "price_slope_by_cell": {
+   "challenger|main": 1.0778098301408938,
+   "challenger|qualifying": 1.191524752089603,
+   "tour|main": 0.9917582174024645,
+   "tour|qualifying": 1.1643820896582213
+  },
+  "model_matches": 7266,
+  "ll_price_raw_on_model_rows": 0.5963506985332772,
+  "ll_model_full": 0.5938137527836848,
+  "ll_model_s1": 0.5942059982779593,
+  "model (both stages) vs raw price": {
+   "gain": 2.536945749592326,
+   "lo": 1.425360889370356,
+   "hi": 3.72924241351135,
+   "p_better": 1.0,
+   "reading": "better",
+   "se_boot": 0.5917179158601339,
+   "blocks": 24,
+   "lo_t": 1.3305017877233087,
+   "hi_t": 3.7433897114613437,
+   "se_t": 0.5832013745496664,
+   "p_better_t": 0.9998823479919016
+  },
+  "model (both stages) vs price with a cross-fitted slope": {
+   "gain": 2.2517847944960403,
+   "lo": 1.0969773005179517,
+   "hi": 3.3907801263799637,
+   "p_better": 1.0,
+   "reading": "better",
+   "se_boot": 0.5902677546154346,
+   "blocks": 24,
+   "lo_t": 1.0392827441932733,
+   "hi_t": 3.4642868447988073,
+   "se_t": 0.5861298864518958,
+   "p_better_t": 0.9995836853059791
+  },
+  "model stage 1 vs raw price": {
+   "gain": 2.144700255317722,
+   "lo": 1.116317833068574,
+   "hi": 3.2841315778830094,
+   "p_better": 1.0,
+   "reading": "better",
+   "se_boot": 0.5577538529773206,
+   "blocks": 24,
+   "lo_t": 0.9953115528088734,
+   "hi_t": 3.2940889578265704,
+   "se_t": 0.5556205612373023,
+   "p_better_t": 0.9996020360360345
+  },
+  "model both stages vs stage 1": {
+   "gain": 0.3922454942746046,
+   "lo": 0.1636345582578388,
+   "hi": 0.6531191436665493,
+   "p_better": 1.0,
+   "reading": "better",
+   "se_boot": 0.12275473983822015,
+   "blocks": 24,
+   "lo_t": 0.1340575938699065,
+   "hi_t": 0.6504333946793026,
+   "se_t": 0.12480939286632207,
+   "p_better_t": 0.9977197995422779
+  }
+ },
+ "all (finished only)": {
+  "matches": 24603,
+  "ll_price_raw": 0.5879367021430582,
+  "ll_price_slope_crossfit": 0.586520745730433,
+  "price_slope_by_cell": {
+   "challenger|main": 1.1205019683057231,
+   "challenger|qualifying": 1.245671170146806,
+   "tour|main": 1.0284740633701406,
+   "tour|qualifying": 1.2210995462239338
+  },
+  "model_matches": 7035,
+  "ll_price_raw_on_model_rows": 0.5904136138447212,
+  "ll_model_full": 0.5876881732783821,
+  "ll_model_s1": 0.5880669666134694,
+  "model (both stages) vs raw price": {
+   "gain": 2.7254405663392283,
+   "lo": 1.5998061823682928,
+   "hi": 3.9477080641056395,
+   "p_better": 1.0,
+   "reading": "better",
+   "se_boot": 0.6071811171264436,
+   "blocks": 24,
+   "lo_t": 1.4767795369919174,
+   "hi_t": 3.9741015956865393,
+   "se_t": 0.6036093276423686,
+   "p_better_t": 0.9999220835253981
+  },
+  "model (both stages) vs price with a cross-fitted slope": {
+   "gain": 2.0424037199049208,
+   "lo": 0.8293951082402338,
+   "hi": 3.1949087758571886,
+   "p_better": 0.9995,
+   "reading": "better",
+   "se_boot": 0.6130356120268806,
+   "blocks": 24,
+   "lo_t": 0.7705186423533608,
+   "hi_t": 3.3142887974564808,
+   "se_t": 0.6148359550394199,
+   "p_better_t": 0.998515211277101
+  },
+  "model stage 1 vs raw price": {
+   "gain": 2.346647231251852,
+   "lo": 1.2793325819039045,
+   "hi": 3.529357240865848,
+   "p_better": 1.0,
+   "reading": "better",
+   "se_boot": 0.5824709004327551,
+   "blocks": 24,
+   "lo_t": 1.1387518667645908,
+   "hi_t": 3.554542595739113,
+   "se_t": 0.5839029902307407,
+   "p_better_t": 0.999731627163232
+  },
+  "model both stages vs stage 1": {
+   "gain": 0.37879333508737706,
+   "lo": 0.14153625278611917,
+   "hi": 0.6285140083151245,
+   "p_better": 0.9995,
+   "reading": "better",
+   "se_boot": 0.12470217583209156,
+   "blocks": 24,
+   "lo_t": 0.11730948419806131,
+   "hi_t": 0.6402771859766928,
+   "se_t": 0.12640267271505934,
+   "p_better_t": 0.996780134796214
+  }
+ },
+ "tour": {
+  "matches": 7266,
+  "ll_price_raw": 0.5963506985332772,
+  "ll_price_slope_crossfit": 0.5960655375781809,
+  "price_slope_by_cell": {
+   "tour|main": 0.9917582174024645,
+   "tour|qualifying": 1.1643820896582213
+  },
+  "model_matches": 7266,
+  "ll_price_raw_on_model_rows": 0.5963506985332772,
+  "ll_model_full": 0.5938137527836848,
+  "ll_model_s1": 0.5942059982779593,
+  "model (both stages) vs raw price": {
+   "gain": 2.536945749592326,
+   "lo": 1.425360889370356,
+   "hi": 3.72924241351135,
+   "p_better": 1.0,
+   "reading": "better",
+   "se_boot": 0.5917179158601339,
+   "blocks": 24,
+   "lo_t": 1.3305017877233087,
+   "hi_t": 3.7433897114613437,
+   "se_t": 0.5832013745496664,
+   "p_better_t": 0.9998823479919016
+  },
+  "model (both stages) vs price with a cross-fitted slope": {
+   "gain": 2.2517847944960403,
+   "lo": 1.0969773005179517,
+   "hi": 3.3907801263799637,
+   "p_better": 1.0,
+   "reading": "better",
+   "se_boot": 0.5902677546154346,
+   "blocks": 24,
+   "lo_t": 1.0392827441932733,
+   "hi_t": 3.4642868447988073,
+   "se_t": 0.5861298864518958,
+   "p_better_t": 0.9995836853059791
+  },
+  "model stage 1 vs raw price": {
+   "gain": 2.144700255317722,
+   "lo": 1.116317833068574,
+   "hi": 3.2841315778830094,
+   "p_better": 1.0,
+   "reading": "better",
+   "se_boot": 0.5577538529773206,
+   "blocks": 24,
+   "lo_t": 0.9953115528088734,
+   "hi_t": 3.2940889578265704,
+   "se_t": 0.5556205612373023,
+   "p_better_t": 0.9996020360360345
+  },
+  "model both stages vs stage 1": {
+   "gain": 0.3922454942746046,
+   "lo": 0.1636345582578388,
+   "hi": 0.6531191436665493,
+   "p_better": 1.0,
+   "reading": "better",
+   "se_boot": 0.12275473983822015,
+   "blocks": 24,
+   "lo_t": 0.1340575938699065,
+   "hi_t": 0.6504333946793026,
+   "se_t": 0.12480939286632207,
+   "p_better_t": 0.9977197995422779
+  }
+ },
+ "tour (finished only)": {
+  "matches": 7035,
+  "ll_price_raw": 0.5904136138447212,
+  "ll_price_slope_crossfit": 0.589730576998287,
+  "price_slope_by_cell": {
+   "tour|main": 1.0284740633701406,
+   "tour|qualifying": 1.2210995462239338
+  },
+  "model_matches": 7035,
+  "ll_price_raw_on_model_rows": 0.5904136138447212,
+  "ll_model_full": 0.5876881732783821,
+  "ll_model_s1": 0.5880669666134694,
+  "model (both stages) vs raw price": {
+   "gain": 2.7254405663392283,
+   "lo": 1.5998061823682928,
+   "hi": 3.9477080641056395,
+   "p_better": 1.0,
+   "reading": "better",
+   "se_boot": 0.6071811171264436,
+   "blocks": 24,
+   "lo_t": 1.4767795369919174,
+   "hi_t": 3.9741015956865393,
+   "se_t": 0.6036093276423686,
+   "p_better_t": 0.9999220835253981
+  },
+  "model (both stages) vs price with a cross-fitted slope": {
+   "gain": 2.0424037199049208,
+   "lo": 0.8293951082402338,
+   "hi": 3.1949087758571886,
+   "p_better": 0.9995,
+   "reading": "better",
+   "se_boot": 0.6130356120268806,
+   "blocks": 24,
+   "lo_t": 0.7705186423533608,
+   "hi_t": 3.3142887974564808,
+   "se_t": 0.6148359550394199,
+   "p_better_t": 0.998515211277101
+  },
+  "model stage 1 vs raw price": {
+   "gain": 2.346647231251852,
+   "lo": 1.2793325819039045,
+   "hi": 3.529357240865848,
+   "p_better": 1.0,
+   "reading": "better",
+   "se_boot": 0.5824709004327551,
+   "blocks": 24,
+   "lo_t": 1.1387518667645908,
+   "hi_t": 3.554542595739113,
+   "se_t": 0.5839029902307407,
+   "p_better_t": 0.999731627163232
+  },
+  "model both stages vs stage 1": {
+   "gain": 0.37879333508737706,
+   "lo": 0.14153625278611917,
+   "hi": 0.6285140083151245,
+   "p_better": 0.9995,
+   "reading": "better",
+   "se_boot": 0.12470217583209156,
+   "blocks": 24,
+   "lo_t": 0.11730948419806131,
+   "hi_t": 0.6402771859766928,
+   "se_t": 0.12640267271505934,
+   "p_better_t": 0.996780134796214
+  }
+ },
+ "tour_main": {
+  "matches": 4937,
+  "ll_price_raw": 0.5981500952511382,
+  "ll_price_slope_crossfit": 0.5983237342571032,
+  "price_slope_by_cell": {
+   "tour|main": 0.9917582174024645
+  },
+  "model_matches": 4937,
+  "ll_price_raw_on_model_rows": 0.5981500952511382,
+  "ll_model_full": 0.595498025800549,
+  "ll_model_s1": 0.595902054261209,
+  "model (both stages) vs raw price": {
+   "gain": 2.652069450589178,
+   "lo": 1.1917485611874232,
+   "hi": 4.313354128851915,
+   "p_better": 1.0,
+   "reading": "better",
+   "se_boot": 0.7967585385917844,
+   "blocks": 23,
+   "lo_t": 0.9600542574993218,
+   "hi_t": 4.344084643679034,
+   "se_t": 0.8158721087013794,
+   "p_better_t": 0.9981665088705725
+  },
+  "model (both stages) vs price with a cross-fitted slope": {
+   "gain": 2.825708456554176,
+   "lo": 1.313201194041986,
+   "hi": 4.550725872739021,
+   "p_better": 1.0,
+   "reading": "better",
+   "se_boot": 0.8219419132360771,
+   "blocks": 23,
+   "lo_t": 1.078086986227677,
+   "hi_t": 4.573329926880675,
+   "se_t": 0.8426848766075857,
+   "p_better_t": 0.9985627129396044
+  },
+  "model stage 1 vs raw price": {
+   "gain": 2.248040989929099,
+   "lo": 0.8746875649480825,
+   "hi": 3.8912928677924494,
+   "p_better": 1.0,
+   "reading": "better",
+   "se_boot": 0.7681473689162522,
+   "blocks": 23,
+   "lo_t": 0.6179903806973843,
+   "hi_t": 3.878091599160814,
+   "se_t": 0.7859934315455175,
+   "p_better_t": 0.9954501847103706
+  },
+  "model both stages vs stage 1": {
+   "gain": 0.40402846066007875,
+   "lo": 0.10715393779734605,
+   "hi": 0.683892229492618,
+   "p_better": 0.9975,
+   "reading": "better",
+   "se_boot": 0.14716257249959422,
+   "blocks": 23,
+   "lo_t": 0.084788810702139,
+   "hi_t": 0.7232681106180185,
+   "se_t": 0.1539340352592464,
+   "p_better_t": 0.9922628372847726
+  }
+ },
+ "tour_main (finished only)": {
+  "matches": 4773,
+  "ll_price_raw": 0.5925394400639423,
+  "ll_price_slope_crossfit": 0.592669996351342,
+  "price_slope_by_cell": {
+   "tour|main": 1.0284740633701406
+  },
+  "model_matches": 4773,
+  "ll_price_raw_on_model_rows": 0.5925394400639423,
+  "ll_model_full": 0.5897330845883952,
+  "ll_model_s1": 0.5901006755848488,
+  "model (both stages) vs raw price": {
+   "gain": 2.8063554755471745,
+   "lo": 1.2491073834170123,
+   "hi": 4.581347180120679,
+   "p_better": 1.0,
+   "reading": "better",
+   "se_boot": 0.8429235536636269,
+   "blocks": 23,
+   "lo_t": 1.010915110698327,
+   "hi_t": 4.601795840396022,
+   "se_t": 0.8657426496518527,
+   "p_better_t": 0.9981269285200771
+  },
+  "model (both stages) vs price with a cross-fitted slope": {
+   "gain": 2.9369117629468384,
+   "lo": 1.4393822054611753,
+   "hi": 4.684153791875086,
+   "p_better": 1.0,
+   "reading": "better",
+   "se_boot": 0.8181861721132024,
+   "blocks": 23,
+   "lo_t": 1.2061655899197314,
+   "hi_t": 4.667657935973946,
+   "se_t": 0.8345477839568542,
+   "p_better_t": 0.9990334503546082
+  },
+  "model stage 1 vs raw price": {
+   "gain": 2.4387644790935616,
+   "lo": 0.9768306451441765,
+   "hi": 4.128860888605568,
+   "p_better": 1.0,
+   "reading": "better",
+   "se_boot": 0.814384518103559,
+   "blocks": 23,
+   "lo_t": 0.7024562115112529,
+   "hi_t": 4.175072746675871,
+   "se_t": 0.8372297680383695,
+   "p_better_t": 0.9959685057231543
+  },
+  "model both stages vs stage 1": {
+   "gain": 0.36759099645361265,
+   "lo": 0.09384994567316009,
+   "hi": 0.6464299359497898,
+   "p_better": 0.9945,
+   "reading": "better",
+   "se_boot": 0.14020209350929957,
+   "blocks": 23,
+   "lo_t": 0.06710452842945913,
+   "hi_t": 0.6680774644777662,
+   "se_t": 0.14489144619050495,
+   "p_better_t": 0.9906091859463045
+  }
+ },
+ "tour_qual": {
+  "matches": 2329,
+  "ll_price_raw": 0.5925363483417443,
+  "ll_price_slope_crossfit": 0.5912786260265107,
+  "price_slope_by_cell": {
+   "tour|qualifying": 1.1643820896582213
+  },
+  "model_matches": 2329,
+  "ll_price_raw_on_model_rows": 0.5925363483417443,
+  "ll_model_full": 0.5902434411116114,
+  "ll_model_s1": 0.5906107091455834,
+  "model (both stages) vs raw price": {
+   "gain": 2.2929072301327063,
+   "lo": 0.6161755103692834,
+   "hi": 3.7443583374770415,
+   "p_better": 0.993,
+   "reading": "better",
+   "se_boot": 0.805678669149953,
+   "blocks": 24,
+   "lo_t": 0.6426200432568794,
+   "hi_t": 3.943194417008533,
+   "se_t": 0.7977575305666594,
+   "p_better_t": 0.9957150456237918
+  },
+  "model (both stages) vs price with a cross-fitted slope": {
+   "gain": 1.0351849148992116,
+   "lo": -1.1447670526934977,
+   "hi": 3.0991385766757533,
+   "p_better": 0.819,
+   "reading": "unresolved",
+   "se_boot": 1.0942892871481917,
+   "blocks": 24,
+   "lo_t": -1.2732845083881714,
+   "hi_t": 3.3436543381865946,
+   "se_t": 1.115926295226669,
+   "p_better_t": 0.8183878723504461
+  },
+  "model stage 1 vs raw price": {
+   "gain": 1.9256391961608437,
+   "lo": 0.3081596838276865,
+   "hi": 3.2916802861856547,
+   "p_better": 0.988,
+   "reading": "better",
+   "se_boot": 0.7667609547611647,
+   "blocks": 24,
+   "lo_t": 0.3492759610603442,
+   "hi_t": 3.502002431261343,
+   "se_t": 0.7620223023669804,
+   "p_better_t": 0.9905823198120977
+  },
+  "model both stages vs stage 1": {
+   "gain": 0.3672680339718627,
+   "lo": -0.0021208986211140295,
+   "hi": 0.7101827633503429,
+   "p_better": 0.9745,
+   "reading": "unresolved",
+   "se_boot": 0.183778897444723,
+   "blocks": 24,
+   "lo_t": -0.01643877904196328,
+   "hi_t": 0.7509748469856887,
+   "se_t": 0.18548589727040346,
+   "p_better_t": 0.970106596424908
+  }
+ },
+ "tour_qual (finished only)": {
+  "matches": 2262,
+  "ll_price_raw": 0.5859279513582746,
+  "ll_price_slope_crossfit": 0.5835281682572915,
+  "price_slope_by_cell": {
+   "tour|qualifying": 1.2210995462239338
+  },
+  "model_matches": 2262,
+  "ll_price_raw_on_model_rows": 0.5859279513582746,
+  "ll_model_full": 0.5833732476892163,
+  "ll_model_s1": 0.5837756788502537,
+  "model (both stages) vs raw price": {
+   "gain": 2.554703669058271,
+   "lo": 0.9117955316631664,
+   "hi": 4.05627994906028,
+   "p_better": 0.997,
+   "reading": "better",
+   "se_boot": 0.8264139618704119,
+   "blocks": 24,
+   "lo_t": 0.8428377479611289,
+   "hi_t": 4.266569590155413,
+   "se_t": 0.8275250154859455,
+   "p_better_t": 0.9973982967014696
+  },
+  "model (both stages) vs price with a cross-fitted slope": {
+   "gain": 0.15492056807509177,
+   "lo": -2.622380474167864,
+   "hi": 2.8736161847381383,
+   "p_better": 0.517,
+   "reading": "unresolved",
+   "se_boot": 1.4402866052299923,
+   "blocks": 24,
+   "lo_t": -2.8787737966988014,
+   "hi_t": 3.1886149328489846,
+   "se_t": 1.4665038571362985,
+   "p_better_t": 0.5416077968672346
+  },
+  "model stage 1 vs raw price": {
+   "gain": 2.152272508020869,
+   "lo": 0.5689512798857834,
+   "hi": 3.5559503769979326,
+   "p_better": 0.991,
+   "reading": "better",
+   "se_boot": 0.7877672394562478,
+   "blocks": 24,
+   "lo_t": 0.5111185264236808,
+   "hi_t": 3.793426489618057,
+   "se_t": 0.7933424909619233,
+   "p_better_t": 0.9937952400186784
+  },
+  "model both stages vs stage 1": {
+   "gain": 0.40243116103740245,
+   "lo": 0.00667107811343662,
+   "hi": 0.7704597563208792,
+   "p_better": 0.9775,
+   "reading": "better",
+   "se_boot": 0.19892345809953446,
+   "blocks": 24,
+   "lo_t": -0.012950465691101143,
+   "hi_t": 0.817812787765906,
+   "se_t": 0.2007976692887131,
+   "p_better_t": 0.9715166763123292
+  }
+ },
+ "challenger": {
+  "matches": 18276,
+  "ll_price_raw": 0.5926691478710018,
+  "ll_price_slope_crossfit": 0.5917257618880354,
+  "price_slope_by_cell": {
+   "challenger|main": 1.0778098301408938,
+   "challenger|qualifying": 1.191524752089603
+  }
+ },
+ "challenger (finished only)": {
+  "matches": 17568,
+  "ll_price_raw": 0.5869448377406675,
+  "ll_price_slope_crossfit": 0.5852353880932886,
+  "price_slope_by_cell": {
+   "challenger|main": 1.1205019683057231,
+   "challenger|qualifying": 1.245671170146806
+  }
+ },
+ "ch_main": {
+  "matches": 12967,
+  "ll_price_raw": 0.6127934807054954,
+  "ll_price_slope_crossfit": 0.6125234181574313,
+  "price_slope_by_cell": {
+   "challenger|main": 1.0778098301408938
+  }
+ },
+ "ch_main (finished only)": {
+  "matches": 12449,
+  "ll_price_raw": 0.6078539940482446,
+  "ll_price_slope_crossfit": 0.6071431397979735,
+  "price_slope_by_cell": {
+   "challenger|main": 1.1205019683057231
+  }
+ },
+ "ch_qual": {
+  "matches": 5309,
+  "ll_price_raw": 0.5435163462388902,
+  "ll_price_slope_crossfit": 0.5409283972534041,
+  "price_slope_by_cell": {
+   "challenger|qualifying": 1.191524752089603
+  }
+ },
+ "ch_qual (finished only)": {
+  "matches": 5119,
+  "ll_price_raw": 0.536095436124526,
+  "ll_price_slope_crossfit": 0.5319574820624972,
+  "price_slope_by_cell": {
+   "challenger|qualifying": 1.245671170146806
+  }
+ },
+ "edge_anatomy_check": {
+  "Jan 2025 - 28 Jul 2026 (edge anatomy's window)": {
+   "gain": 3.1840097592840997,
+   "lo": 1.7947775609829817,
+   "hi": 4.890211306739769,
+   "p_better": 1.0,
+   "reading": "better",
+   "se_boot": 0.7780650762472346,
+   "blocks": 21,
+   "lo_t": 1.558507431663194,
+   "hi_t": 4.809512086905006,
+   "se_t": 0.7792573401760713,
+   "p_better_t": 0.9997122906314243,
+   "matches": 4366
+  },
+  "the whole window, to 18 Oct 2026": {
+   "gain": 2.7847407225056786,
+   "lo": 1.4662949018641445,
+   "hi": 4.282044586503642,
+   "p_better": 1.0,
+   "reading": "better",
+   "se_boot": 0.7203910548429748,
+   "blocks": 23,
+   "lo_t": 1.2409652862497094,
+   "hi_t": 4.328516158761648,
+   "se_t": 0.7443924414410747,
+   "p_better_t": 0.9994339599536092,
+   "matches": 4937
+  }
+ },
+ "orientation": {
+  "all": {
+   "matches": 25807,
+   "a_won_mean": 0.50013562211803,
+   "a_won_se": 0.003112502019511268,
+   "a_favourite_share": 0.4997259415864067,
+   "a_id_lower_share": 0.49455574069051034
+  },
+  "tour": {
+   "matches": 7413,
+   "a_won_mean": 0.5022258195062728,
+   "a_won_se": 0.005807617373165439,
+   "a_favourite_share": 0.5083952656206991,
+   "a_id_lower_share": 0.4989882638607851
+  },
+  "challenger": {
+   "matches": 18394,
+   "a_won_mean": 0.49929324779819506,
+   "a_won_se": 0.0036867465715435758,
+   "a_favourite_share": 0.4962792733639746,
+   "a_id_lower_share": 0.49276938131999565
+  }
+ }
+}

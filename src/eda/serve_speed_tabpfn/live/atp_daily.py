@@ -41,6 +41,7 @@ SOURCE = "infosys_atp_daily"
 MAX_REQUESTS_FIRST_RUN = 60
 ROUND_CODES = {"F": (1, 1), "SF": (2, 3), "QF": (4, 7), "R16": (8, 15), "R32": (16, 31), "R64": (32, 63),
                "R128": (64, 127)}
+QUAL = "Q"                             # the plan's group of an event's qualifying codes (daily_plan)
 
 
 class RefusedDecryption(RuntimeError):
@@ -111,56 +112,116 @@ def enabled(cfg: Path = LC.COLLECTOR_CFG) -> bool:
     return bool(LC.read_json(cfg, {}).get("atp_daily_enabled", False))
 
 
-def daily_plan(year: int, events: pd.DataFrame, held: set | None = None) -> list[tuple[int, str, str, str]]:
-    """(year, event, match code, round) to ask: for each event with matches played since the last run (events:
-    columns event_id, round), the codes of those rounds (main draw by the bracket numbering); qualifying rounds take
-    every QS code up to the qualifying draw (their numbers overlap). Codes already held complete are skipped."""
-    held = held or set()
-    plan = []
+def group_of(rnd) -> str | None:
+    """The plan's group of a Tennis My Life round: the main-draw round itself, QUAL for every qualifying round (their
+    QS numbers overlap, so an event's qualifying is one group), None for a round without codes."""
+    if rnd in ROUND_CODES:
+        return rnd
+    return QUAL if str(rnd).startswith("Q") and rnd != "QF" else None
+
+
+def plan_order(entry: tuple) -> tuple:
+    """Every main-draw code before any qualifying code, then year, event and code: the run's budget reaches each event's
+    main draw (24 Oct 2026: no run had asked for Almaty's last 16 and quarter-finals since 22 Oct, the 200 requests
+    going first to Lyon's and Brussels's qualifying numbers, which sort before Almaty's event id)."""
+    year, event, code, _ = entry
+    return (str(code).startswith("QS"), year, event, code)
+
+
+def daily_plan(year: int, events: pd.DataFrame, held: set | None = None, staged: set | None = None,
+               listed: dict | None = None) -> list[tuple[int, str, str, str]]:
+    """(year, event, match code, round) to ask, each code once: for each event with matches played since the last run
+    (events: columns event_id, round), the codes of those rounds (main draw by the bracket numbering); an event's
+    qualifying rounds share every QS code up to the qualifying draw (their numbers overlap), asked once under the
+    latest of them. Codes already held complete are skipped (held: (year, event, code)). A group, a main-draw round or
+    an event's whole qualifying, whose staged codes (staged, complete or not) already number the matches Tennis My Life
+    lists for it (listed: {(year, event, group): matches}) asks only its staged codes not yet complete: the others are
+    byes or numbers no match carries (24 Oct 2026: 181 of a run's 200 requests answered "no such match", each
+    qualifying number asked once per qualifying round). Main draws first (plan_order)."""
+    held, staged, listed = held or set(), staged or set(), listed or {}
+    groups: dict = {}
     for (event, rnd), _ in events.groupby(["event_id", "round"]):
-        if rnd in ROUND_CODES:
-            lo, hi = ROUND_CODES[rnd]
-            codes = [f"MS{n:03d}" for n in range(lo, hi + 1)]
-        elif str(rnd).startswith("Q") and rnd != "QF":
+        grp = group_of(rnd)
+        if grp is None:
+            continue
+        if grp == QUAL:
             codes = [f"QS{n:03d}" for n in range(1, 64)]
         else:
-            continue
-        plan += [(int(year), str(event), c, rnd) for c in codes if (str(event), c) not in held]
-    return sorted(set(plan))
+            lo, hi = ROUND_CODES[rnd]
+            codes = [f"MS{n:03d}" for n in range(lo, hi + 1)]
+        g = groups.setdefault((str(event), grp), {"codes": codes, "round": rnd})
+        g["round"] = max(g["round"], rnd)            # Q1 < Q2 < Q3: the latest qualifying round names the codes
+    plan = []
+    for (event, grp), g in groups.items():
+        ask = [c for c in g["codes"] if (int(year), event, c) not in held]
+        mine = {c for c in g["codes"] if (int(year), event, c) in staged}
+        n = listed.get((int(year), event, grp))
+        if n is not None and len(mine) >= n:
+            ask = [c for c in ask if c in mine]
+        plan += [(int(year), event, c, g["round"]) for c in ask]
+    return sorted(plan, key=plan_order)
 
 
-def played_rounds(day_from: int, day_to: int) -> pd.DataFrame:
-    """(year, event_id, round, matches) of ATP tour-level and Challenger matches that Tennis My Life lists as played on
-    days day_from..day_to (identity columns only; its Slams and team events are not the ATP Stats Centre's)."""
+def tml_played(day_from: int, day_to: int) -> pd.DataFrame:
+    """Tennis My Life's ATP tour-level and Challenger matches of the seasons of day_from..day_to played by day_to, with
+    their day (d_day), year and event_id (identity columns only; its Slams and team events are not the ATP Stats
+    Centre's)."""
     from src.eda.serve_speed_tabpfn.live import link as LK
     years = sorted({int(LC.date_of(day_from)[:4]), int(LC.date_of(day_to)[:4])})
     t = LK.tml_table(years)
     if t.empty:
-        return pd.DataFrame(columns=["year", "event_id", "round", "matches"])
+        return pd.DataFrame(columns=["year", "event_id", "round", "d_day"])
     d = t["d"].map(lambda x: LC.day_of(x) if pd.notna(x) else -1)
-    t = t[(d >= day_from) & (d <= day_to) & t["per_match_dates"] & ~t["level"].isin(["GS", "TEAM"])
-          & t["tid"].str.fullmatch(r"\d{4}-\d+")]
-    t = t.assign(year=t["tid"].str[:4].astype(int), event_id=t["tid"].str.split("-").str[1])
+    t = t.assign(d_day=d)[(d >= 0) & (d <= day_to) & t["per_match_dates"] & ~t["level"].isin(["GS", "TEAM"])
+                          & t["tid"].str.fullmatch(r"\d{4}-\d+")]
+    return t.assign(year=t["tid"].str[:4].astype(int), event_id=t["tid"].str.split("-").str[1])
+
+
+def played_rounds(day_from: int, day_to: int, played: pd.DataFrame | None = None) -> pd.DataFrame:
+    """(year, event_id, round, matches) of ATP tour-level and Challenger matches that Tennis My Life lists as played on
+    days day_from..day_to (identity columns only; its Slams and team events are not the ATP Stats Centre's)."""
+    t = tml_played(day_from, day_to) if played is None else played
+    t = t[t["d_day"] >= day_from]
     return t.groupby(["year", "event_id", "round"]).size().rename("matches").reset_index()
 
 
-def held_complete() -> set:
-    """(event, match code) already staged as complete matches from this collector's own files."""
+def listed_matches(played: pd.DataFrame) -> dict:
+    """{(year, event, group): matches} Tennis My Life lists as played by the window's last day, from any earlier day
+    (tml_played's rows): what a group's staged codes are counted against (daily_plan)."""
+    grp = played["round"].map(group_of)
+    t = played.assign(grp=grp)[grp.notna()]
+    return {(int(y), str(e), g): int(n) for (y, e, g), n in t.groupby(["year", "event_id", "grp"]).size().items()}
+
+
+def held_codes() -> tuple[set, set]:
+    """(year, event, match code) of this collector's own staged matches: those staged complete, and all of them. The
+    year since 24 Oct 2026: an event's codes recur every season."""
     st = ST.read_all()
     if st.empty:
-        return set()
-    st = st[st["source"].eq(SOURCE) & st["match_completed"].astype("boolean").fillna(False)]
-    return set(zip(st["event_id"].astype(str), st["match_code"].astype(str)))
+        return set(), set()
+    st = st[st["source"].eq(SOURCE)]
+
+    def keys(d: pd.DataFrame) -> set:
+        return set(zip(d["year"].astype(int), d["event_id"].astype(str), d["match_code"].astype(str)))
+    return keys(st[st["match_completed"].astype("boolean").fillna(False)]), keys(st)
+
+
+def held_complete() -> set:
+    """(year, event, match code) already staged as complete matches from this collector's own files."""
+    return held_codes()[0]
 
 
 def plan_days(day_from: int, day_to: int) -> list[tuple[int, str, str, str]]:
-    """The requests a run would make for matches played day_from..day_to: each played round's codes, minus the matches
-    already held complete. The first live test: day_from = day_to = yesterday."""
-    pr = played_rounds(day_from, day_to)
+    """The requests a run would make for matches played day_from..day_to (daily_plan): each played round's codes once,
+    minus the matches already held complete; a group already staged in full asks only its codes not yet complete; main
+    draws first. The first live test: day_from = day_to = yesterday."""
+    played = tml_played(day_from, day_to)
+    pr, listed = played_rounds(day_from, day_to, played), listed_matches(played)
+    held, staged = held_codes()
     plan = []
     for year, g in pr.groupby("year"):
-        plan += daily_plan(int(year), g, held_complete())
-    return plan
+        plan += daily_plan(int(year), g, held, staged, listed)
+    return sorted(plan, key=plan_order)
 
 
 def _adapter():

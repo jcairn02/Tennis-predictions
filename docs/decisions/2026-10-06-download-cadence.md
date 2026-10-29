@@ -107,6 +107,33 @@ Decided by Claude the same day under those conditions. Recorded on 6 October 202
   * With under 8 minutes of the task left it waits a day; the 21-day window catches it up.
 * **Tested offline** (`test/pinnacle_gap/test_daily_job.py`). The adapter's first full pull (Jan 2025 – Oct 2026, about 10,000 pages) ran on 21–22 Oct 2026 with no block ([research](../research/pinnacle-gap/README.md)).
 
+## Amendment, 22 October 2026: bookmakers' odds below the tour level, daily
+
+**The owner** (after work package P11 chose TennisExplorer for Challenger, WTA 125 and ITF odds): "Implement gathering lower level odds daily and perform this comparison or remind me in the future about this comparison so I dont forget it once the state of the program is such I can run it". The comparison is P11's forward-capture test: Pinnacle's own last price before each lower-level match, recorded every 10 minutes for 36 hours from 22 Oct, against TennisExplorer's record of the same match after play ([report](../studies/gap_downloads/README.md#bookmaker-odds-below-the-250s-work-package-p11)).
+
+* **The job `lower_odds`** runs every day, in the daily task, right after `pinnacle_closes` and in the time the other jobs leave. It runs `src/ingest/tennisexplorer_lower.py --since <today − 21 days> --max-requests 1500`.
+  * Each day of the window not yet done: its two results pages, then the page of every Challenger, WTA 125 and ITF match (main draw and qualifying) they list with prices, then the changed months restaged.
+  * Usually 100–300 pages, about 3 seconds apart, a receipt for each. Not a model input.
+* **While P11's backfill runs** (it goes back to January 2018, about three weeks from 22 Oct), the job is skipped: the backfill asks the newest days itself.
+* **Alerts** as for `pinnacle_closes`:
+  * a refusal pauses the job and alerts at once, then weekly while paused; a run asked for by name (`--only lower_odds`) tries anyway and lifts the pause;
+  * any other failure alerts the second time in a row;
+  * with under 8 minutes of the task left it waits a day.
+* **The reminder:** each day the job checks, offline, whether the comparison can be run on full data (`src/eda/gap_downloads/pinnacle_capture.py --ready`: the capture over, and TennisExplorer's pages of its days fetched). When it can, a notification says so, weekly, until a complete comparison is on disk. The job does not run the comparison itself: that rewrites tracked evidence, and its reading is a session's.
+* **Tested offline** (`test/gap_downloads/test_lower_odds_job.py`). Run once by name on 22 Oct 2026 at 23:24 UTC: skipped, as the backfill held the site; the check said "not ready"; no alert.
+* **The comparison ran on 24 Oct 2026** (complete), so the reminder is spent: the next check marks it done and stops. The scheduled task of 23 Oct had run the job as expected (skipped; "not ready"). Result in the [report](../studies/gap_downloads/README.md#forward-capture-of-closing-lines-the-test-done-24-oct-2026).
+
+## Amendment, 27 October 2026: a reminder for the ATP Stats Centre files' 2026 top-up
+
+**The owner** (after work package P9's report, [serve-speed acquisition, section 9](../studies/serve_speed_acquisition/README.md)): "Top up 2026 once after the season ends: yes. One run in early December adds every match since 18 October, at under an hour per week of play. [...] give me clear reminders come early december to do this until its done (in this tennis-predictions project pipeline only)".
+
+* **The job `p9_topup`** runs every day in the daily task, before `slams`. It is a reminder only: no request, a few seconds (`src/ingest/scheduled.py`, `job_p9_topup`).
+* **The due date** is the season's last finish in ManTennisData's calendar plus 8 days, so that its Sunday copy, read by the speeds job on Mondays, holds the last week: **Monday 28 Dec 2026** on the calendar of 26 Oct (the 2026 Challenger season ends on 20 Dec, later than "early December" assumed).
+* **From 1 Dec 2026** (the owner's "early december") a notice gives that date, weekly. **From the due date** a reminder comes every day until the top-up is done: a full run of P9's plan that started on or after the due date (`data/studies/serve_speed_acquisition/infosys_atp_recent_full_runs.jsonl`, written by the collector) and was staged after it. Then the job marks it done and stops for good.
+* **Where it shows:** a Windows notification (the task's first alert, with a count of the others) and the notebook's STATUS, which repeats the task's alerts of the last three days.
+* **An agent's choice:** the due rule, the weekly notices before it and the daily reminders after it. The owner asked for "clear reminders ... until its done".
+* **Tested offline** (`test/serve_speed_acquisition/test_p9_topup_reminder.py`): nothing before 1 Dec, weekly notices, daily reminders once a day, a run before the season's end not counted, and the end once a full run after the due date is staged. On the real calendar on 27 Oct: due Monday 28 Dec, nothing to say until 1 Dec.
+
 ## How to pause or remove it
 
 ```powershell

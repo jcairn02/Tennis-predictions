@@ -95,12 +95,94 @@ def uk_day(day, start_utc) -> pd.Timestamp:
     return pd.Timestamp(day).normalize()
 
 
-def live_from_matchups(matchups: pd.DataFrame, stage0: Path, folder: Path) -> dict:
+def tml_box_fills(earlier: pd.DataFrame, raw: pd.DataFrame, stage0: Path, keyed: pd.DataFrame, event_tid,
+                  leave_out: bool = False) -> tuple[pd.DataFrame, pd.DataFrame, list[dict]]:
+    """The sidecar's rounds the run's fresh Stage 0 already holds (their source published them, possibly as results
+    only: Tennis My Life posted Vienna's and Basel's round 1 at about 21:00 PDT on 24 Oct 2026 without box scores).
+    Their rows stand; one without a box score takes TennisLive's as an override row (run/overrides.csv, as the WTA
+    API's and the ATP's fills: live only, rebuilt at every run), when the two agree on the winner and every set's games
+    and the row is the only one of its key in the staged files (apply_box_overrides stops a build otherwise).
+    (the override rows, the sidecar rows Stage 0 lacks, notes). leave_out (the daily engine's live runs, since 28 Oct
+    2026): a round that fails here is neither filled nor passed on, its note carrying the error (and its tl_url)."""
+    from src.eda.predictability_diagnostic import common as C
+    from src.eda.predictability_diagnostic import stage0_build as B
+    from src.eda.prediction_run import fills as FL
+    m = pd.read_parquet(stage0 / "stage0_matches.parquet",
+                        columns=["match_id", "tour", "tournament_id", "round", "source", "has_box", "player_a_id",
+                                 "player_b_id", "a_won", "source_file", "source_row"])
+    m["match_id"] = m["match_id"].astype(str)
+    m = m.set_index("match_id", drop=False)
+    # each match found by its event, round and players, never by an id rebuilt from the players' ids: a source's second
+    # id can name the match (live_rows.id_handles; 28 Oct 2026)
+    tid_of = {i: str(event_tid(e)) for i, e in earlier.iterrows()}
+    ev = m[m["tournament_id"].astype(str).isin(set(tid_of.values()))]
+    by_players = {(t, str(tid), str(r), frozenset((str(a), str(b)))): mid for mid, t, tid, r, a, b in
+                  zip(*(ev[c] for c in ("match_id", "tour", "tournament_id", "round", "player_a_id", "player_b_id")))}
+    rkey = (raw["tour"].astype(str) + "|" + raw["tourney_id"].astype(str).str.replace(r"-0+(\d)", r"-\1", regex=True)
+            + "|" + raw["round"].astype(str).str.upper() + "|" + B.S.keys_for(raw["winner_name"]) + "|"
+            + B.S.keys_for(raw["loser_name"])).value_counts()
+    cols = [f"{p}_{c}" for p in ("w", "l") for c in C.BOX_SOURCE_NAMES.values()]
+    over, rest, notes = [], [], []
+    for i, e in earlier.iterrows():
+        try:
+            ids = [keyed.loc[keyed["tour"].eq(e["tour"]) & keyed["key"].eq(B.S.name_key(str(e[w]))),
+                             "player_id"].unique() for w in ("winner_name", "loser_name")]
+            if any(len(x) != 1 for x in ids):
+                rest.append(i)                          # played_rows says why it cannot be placed
+                continue
+            mid = by_players.get((e["tour"], tid_of[i], str(e["round"]).upper(),
+                                  frozenset((str(ids[0][0]), str(ids[1][0])))))
+            if mid is None:
+                rest.append(i)                          # not published: a played row
+                continue
+            s = m.loc[[mid]]
+            r = s.iloc[0]
+            what = f"{e['winner_name']} v {e['loser_name']} ({e['round']})"
+            if bool(r["has_box"]):
+                notes.append({"match": what, "outcome": "its source holds it with a box score"})
+                continue
+            winner = r["player_a_id"] if bool(r["a_won"]) else r["player_b_id"]
+            if str(r["source"]) != "tml" or str(winner) != str(ids[0][0]):
+                notes.append({"match": what, "outcome": "held without a box score, not as TennisLive reads it (its "
+                                                        "source or winner): left without one"})
+                continue
+            k = FL.tml_keys(s, raw).iloc[0]
+            counts = {c: str(e.get(c, "") or "").strip() for c in cols}
+            key = f"{k['tour']}|{k['tid']}|{k['round']}|{k['winner_key']}|{k['loser_key']}"
+            if FL.games(k["tml_score"]) != FL.games(e["score"]) or rkey.get(key, 0) != 1 or not counts["w_svpt"]:
+                notes.append({"match": what, "outcome": "held without a box score; TennisLive's not used (the games, "
+                                                        "the row's key or the counts)"})
+                continue
+            over.append({"box_source": "tennislive_live", "feed_key": f"tennislive:{e.get('tl_url')}", **k.to_dict(),
+                         "score": "", "minutes": "", "source": "tml", **counts})
+            notes.append({"match": what, "outcome": "held without a box score: TennisLive's box score as a live fill"})
+        except (SystemExit, Exception) as exc:  # noqa: BLE001 - one earlier round's failure, kept with its reason
+            if not leave_out:
+                raise
+            notes.append({"match": f"{e.get('winner_name')} v {e.get('loser_name')} ({e.get('round')})",
+                          "outcome": "left out because of an error", "error": P.reason_of(exc),
+                          "tl_url": e.get("tl_url")})
+    return pd.DataFrame(over), earlier.loc[rest], notes
+
+
+def live_from_matchups(matchups: pd.DataFrame, stage0: Path, folder: Path, earlier: pd.DataFrame | None = None,
+                       leave_out: bool = False) -> dict:
     """Live rows and meta for upcoming matches (columns MATCHUP_COLUMNS, optional tourney_name, best_of, start_utc).
-    p_a is the margin-free price that player_a wins at bet time; the match id is predicted from Stage 0's ids and
-    checked in the sandbox. An event TML holds no row of yet (a qualifying round 1; women's qualifying) comes with its
+    p_a is the margin-free price that player_a wins at bet time; the match id is predicted as Stage 0 builds it (each
+    player's id as Stage 0's match ids give the one the live row carries, live_rows.id_handles: since 28 Oct 2026, when
+    TML's second ids for two players stopped the run) and checked in the sandbox. An event TML holds no row of yet (a
+    qualifying round 1; women's qualifying) comes with its
     columns in the CSV (live_rows.CSV_EVENT): its Stage 0 id is predicted as Stage 0 normalises TML's, and the check
-    after the build refuses the run if Stage 0 gave it another."""
+    after the build leaves the match out (the daily engine) or refuses the run (the 8 Oct path) if Stage 0 gave it
+    another. earlier (the CSV's sidecar, since 24 Oct 2026): the
+    qualifying rounds the matches' players won at the event that TML or the feed has not published yet, from
+    TennisLive, added as live rows with their results (earlier_rounds.played_rows) and dated by played_meta.parquet.
+    Each meta row names its row of the CSV (csv_row).
+    leave_out (the daily engine's live runs, since 28 Oct 2026: docs/decisions/2026-10-28-one-bad-match-left-out.md;
+    the owner: "a single row shouldnt hold up the whole pipeline"): a match whose row cannot be placed (its event, a
+    player, its live row, its day, its price's number) is left out, with the reason, in the result's "left_out", and the
+    others are written; an earlier round that cannot be added is listed in "earlier_left_out" and its match still
+    written. A CSV with every match left out still stops. Without it (the 8 Oct path) any of them stops the run."""
     import re
 
     from src.eda.prediction_run import live_rows as LR
@@ -110,42 +192,120 @@ def live_from_matchups(matchups: pd.DataFrame, stage0: Path, folder: Path) -> di
     missing = set(MATCHUP_COLUMNS) - set(matchups.columns)
     if missing:
         raise SystemExit(f"matchups: columns missing: {sorted(missing)}")
-    years = sorted({pd.Timestamp(d).year for d in matchups["day"]})
+    matchups = matchups.reset_index(drop=True)
+    if leave_out:                                    # a day that cannot be read leaves out its own row (below)
+        years = sorted({d.year for d in pd.to_datetime(matchups["day"], errors="coerce").dropna()})
+        if not years:
+            raise SystemExit("matchups: no row's day can be read")
+    else:
+        years = sorted({pd.Timestamp(d).year for d in matchups["day"]})
     raw = LR.staged_tml(sorted(set(years) | {y - 1 for y in years}))
-    rows = LR.upcoming_rows(matchups, raw, LR.stage0_players(stage0))
-    m = pd.read_parquet(stage0 / "stage0_matches.parquet", columns=["match_id", "tour", "tournament_id", "source_file",
-                                                                    "source_row"])
-    p = pd.read_parquet(stage0 / "stage0_match_players.parquet", columns=["match_id", "player_id", "player_name"])
+    failed: dict = {}                                # CSV row -> why it is left out (leave_out only)
+    rows = LR.upcoming_rows(matchups, raw, LR.stage0_players(stage0), failed=failed if leave_out else None)
+    at = {int(r): k for k, r in enumerate(rows["_row"])} if len(rows) else {}
+    m = pd.read_parquet(stage0 / "stage0_matches.parquet", columns=["match_id", "tour", "tournament_id", "source",
+                                                                    "source_file", "source_row"])
+    p = pd.read_parquet(stage0 / "stage0_match_players.parquet", columns=["match_id", "player_id", "side",
+                                                                          "player_name"])
     keyed = p.assign(key=B.S.keys_for(p["player_name"])).merge(m[["match_id", "tour"]], on="match_id")
+    handles = LR.id_handles(m, p, raw)
     meta = []
-    for i, mu in matchups.reset_index(drop=True).iterrows():
-        event = LR.event_rows(raw, mu["tour"], mu["tourney_id"], mu.get("tourney_name") or None)
-        own = m[m["source_file"].astype(str).isin(set(event["_source_file"].astype(str)))
-                & pd.to_numeric(m["source_row"]).isin(pd.to_numeric(event["_row"]))]
-        tids = own.loc[own["tour"].eq(mu["tour"]), "tournament_id"].value_counts()
-        if tids.empty and event.empty and LR.csv_event(mu) is not None:      # a new event: its id as Stage 0 makes it
-            tids = pd.Series([1], index=[re.sub(r"-0+(\d)", r"-\1", str(mu["tourney_id"]))])
-        if tids.empty:
-            raise SystemExit(f"matchups: the event {mu['tourney_id']} has no Stage 0 match")
-        event_name = str(event["tourney_name"].iloc[0]) if len(event) else str(mu["tourney_name"])
-        ids = []
-        for who in ("player_a", "player_b"):
-            hit = keyed[keyed["tour"].eq(mu["tour"]) & keyed["key"].eq(B.S.name_key(str(mu[who])))]["player_id"]
-            if hit.nunique() != 1:
-                raise SystemExit(f"matchups: {mu[who]!r} names {hit.nunique()} Stage 0 players")
-            ids.append(hit.iloc[0])
-        lo, hi = sorted(ids)
-        mid = f"{mu['tour']}|{tids.index[0]}|{str(mu['round']).upper()}|{lo}|{hi}"
-        a_is_a = (lo if C.side_is_low(mid) else hi) == ids[0]
-        p_a = float(mu["p_a"])
-        meta.append({"match_id": mid, "day": uk_day(mu["day"], mu.get("start_utc")),
-                     "p_a": p_a if a_is_a else 1 - p_a, "venue": venue_for(mu["tour"], tids.index[0], event_name),
-                     "tour": mu["tour"], "tournament_name": event_name,
-                     "round": str(mu["round"]).upper(), "player_a": mu["player_a"], "player_b": mu["player_b"]})
+    for i, mu in matchups.iterrows():
+        if i in failed:
+            continue
+        try:
+            event = LR.event_rows(raw, mu["tour"], mu["tourney_id"], mu.get("tourney_name") or None)
+            own = m[m["source_file"].astype(str).isin(set(event["_source_file"].astype(str)))
+                    & pd.to_numeric(m["source_row"]).isin(pd.to_numeric(event["_row"]))]
+            tids = own.loc[own["tour"].eq(mu["tour"]), "tournament_id"].value_counts()
+            if tids.empty and event.empty and LR.csv_event(mu) is not None:  # a new event: its id as Stage 0 makes it
+                tids = pd.Series([1], index=[re.sub(r"-0+(\d)", r"-\1", str(mu["tourney_id"]))])
+            if tids.empty:
+                raise SystemExit(f"matchups: the event {mu['tourney_id']} has no Stage 0 match")
+            event_name = str(event["tourney_name"].iloc[0]) if len(event) else str(mu["tourney_name"])
+            ids = []
+            for who, col in (("player_a", "winner_id"), ("player_b", "loser_id")):
+                hit = keyed[keyed["tour"].eq(mu["tour"]) & keyed["key"].eq(B.S.name_key(str(mu[who])))]["player_id"]
+                if hit.nunique() != 1:
+                    raise SystemExit(f"matchups: {mu[who]!r} names {hit.nunique()} Stage 0 players")
+                ids.append(LR.handle_of(handles, mu["tour"], rows.at[at[i], col], hit.iloc[0]))  # the live row's own id
+            lo, hi = sorted(ids)
+            mid = f"{mu['tour']}|{tids.index[0]}|{str(mu['round']).upper()}|{lo}|{hi}"
+            a_is_a = (lo if C.side_is_low(mid) else hi) == ids[0]
+            p_a = float(mu["p_a"])
+            meta.append({"match_id": mid, "day": uk_day(mu["day"], mu.get("start_utc")),
+                         "p_a": p_a if a_is_a else 1 - p_a, "venue": venue_for(mu["tour"], tids.index[0], event_name),
+                         "tour": mu["tour"], "tournament_name": event_name,
+                         "round": str(mu["round"]).upper(), "player_a": mu["player_a"], "player_b": mu["player_b"],
+                         "csv_row": int(i)})
+        except (SystemExit, Exception) as exc:  # noqa: BLE001 - one match's failure, kept with its reason
+            if not leave_out:
+                raise
+            failed[i] = P.reason_of(exc)
+    left_out = [{"csv_row": int(i), "tour": mu["tour"], "tourney_id": str(mu["tourney_id"]),
+                 "tourney_name": mu.get("tourney_name"), "round": str(mu["round"]).upper(), "player_a": mu["player_a"],
+                 "player_b": mu["player_b"], "day": mu["day"], "reason": failed[i]}
+                for i, mu in matchups.iterrows() if i in failed]
+    if failed and len(rows):                         # their live rows go with them, before anything reads them
+        rows = rows[~pd.to_numeric(rows["_row"]).isin(list(failed))].reset_index(drop=True)
     meta = pd.DataFrame(meta)
+    if left_out and meta.empty:
+        raise SystemExit(f"matchups: every match was left out ({len(left_out)}): "
+                         + "; ".join(f"{r['player_a']} v {r['player_b']}: {r['reason']}" for r in left_out))
+    filled, earlier_left = {}, []
+    played_path = folder / "played_meta.parquet"
+    if earlier is not None and len(earlier):
+        from src.eda.prediction_run import earlier_rounds as ER
+
+        def event_tid(e) -> str:
+            event = LR.event_rows(raw, e["tour"], e["tourney_id"], e.get("tourney_name") or None)
+            own = m[m["source_file"].astype(str).isin(set(event["_source_file"].astype(str)))
+                    & pd.to_numeric(m["source_row"]).isin(pd.to_numeric(event["_row"]))]
+            tids = own.loc[own["tour"].eq(e["tour"]), "tournament_id"].value_counts()
+            return str(tids.index[0]) if len(tids) else re.sub(r"-0+(\d)", r"-\1", str(e["tourney_id"]))
+        given = earlier.reset_index(drop=True)
+        try:
+            earlier = given.assign(venue=[venue_for(e["tour"], event_tid(e), e.get("tourney_name") or "")
+                                          for _, e in given.iterrows()])
+            boxed, earlier, held = tml_box_fills(earlier, raw, stage0, keyed, event_tid, leave_out=leave_out)
+            if len(boxed):                              # the run's overrides: the decided table, the refresh's fills
+                path = folder / "overrides.csv"
+                base = pd.read_csv(path if path.exists() else B.DECIDED_OVERRIDES, dtype=str, keep_default_na=False)
+                both = pd.concat([base, boxed.reindex(columns=base.columns).fillna("").astype(str)], ignore_index=True)
+                dup = both[["tour", "tid", "round", "winner_key", "loser_key"]].astype(str).agg("|".join,
+                                                                                                 axis=1).duplicated()
+                both[~dup].to_csv(path, index=False)    # an official fill of the same row, listed first, wins
+            played, pmeta, left = ER.played_rows(earlier, raw, LR.stage0_players(stage0), keyed, event_tid, handles,
+                                                 leave_out=leave_out)
+        except (SystemExit, Exception) as exc:  # noqa: BLE001 - the earlier rounds as a whole: the matches go on
+            if not leave_out:
+                raise
+            why = f"the earlier rounds could not be added: {P.reason_of(exc)}"
+            boxed, held, played = pd.DataFrame(), [], pd.DataFrame()
+            pmeta = pd.DataFrame(columns=["match_id", "day", "venue", "tour"])
+            left = [{"tl_url": e.get("tl_url"), "reason": why} for _, e in given.iterrows()]
+        if len(played):
+            rows = pd.concat([rows, played], ignore_index=True)
+        pmeta.to_parquet(played_path, index=False)
+        filled = {"earlier_rounds": {"filled": int(len(played)), "with_box": int(pmeta["has_box"].sum()) if len(pmeta)
+                                     else 0, "left_out": left, "source_holds": held,
+                                     "box_scores_given_to_source_rows": int(len(boxed))}}
+        if leave_out:                                # each round not added, named (its match is still predicted)
+            by_url = {str(e.get("tl_url")): e for _, e in given.iterrows()}
+
+            def named(x: dict) -> dict:
+                e = by_url.get(str(x.get("tl_url")))
+                return {**({} if e is None else {"tour": e.get("tour"), "tourney_id": e.get("tourney_id"),
+                                                 "tourney_name": e.get("tourney_name"), "round": e.get("round"),
+                                                 "winner": e.get("winner_name"), "loser": e.get("loser_name")}), **x}
+            earlier_left = [named(x) for x in left] + [named({"tl_url": n.get("tl_url"), "reason": n["error"]})
+                                                       for n in held if n.get("error")]
+    elif played_path.exists():                       # a folder reused: no stale earlier rounds
+        pd.DataFrame(columns=["match_id", "day", "venue", "tour"]).to_parquet(played_path, index=False)
     rows.to_parquet(folder / "live_rows.parquet", index=False)
     meta.to_parquet(folder / "live_meta.parquet", index=False)
-    return {"live_matches": int(len(meta)), "match_ids": meta["match_id"].tolist()}
+    return {"live_matches": int(len(meta)), "match_ids": meta["match_id"].tolist(), **filled,
+            **({"left_out": left_out, "earlier_left_out": earlier_left} if leave_out else {})}
 
 
 def wta_calendar(matchups: pd.DataFrame, max_requests: int) -> dict:

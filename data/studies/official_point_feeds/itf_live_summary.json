@@ -1,7 +1,7 @@
 {
  "source": "itf_live",
- "run": "20261022T143129Z",
- "started_at": "2026-10-22T14:31:29+00:00",
+ "run": "20261028T143332Z",
+ "started_at": "2026-10-28T14:33:32+00:00",
  "decision": "docs/decisions/2026-10-08-scraping-approved.md",
  "argv": [
   "--max-requests",
@@ -9,66 +9,23 @@
  ],
  "client": {
   "impersonate": "chrome",
-  "requests": 536,
+  "requests": 754,
   "retried": 0,
-  "slept_seconds": 1218.2,
+  "slept_seconds": 1724.9,
   "min_interval": 2.0
  },
  "outcomes": {
-  "day:200": 11,
-  "day:settled": 4,
-  "points:200": 262,
-  "points:200:cached": 1,
-  "stats:200": 263
+  "day:200": 12,
+  "day:settled": 3,
+  "points:200": 371,
+  "stats:200": 371
  },
  "days": [
-  {
-   "day": "2026-10-08",
-   "decision": "fetch",
-   "state": "200",
-   "bytes": 1758008,
-   "matches": 315,
-   "absent": null,
-   "error": null
-  },
-  {
-   "day": "2026-10-09",
-   "decision": "settled",
-   "latest_capture": "20261011T143026Z"
-  },
-  {
-   "day": "2026-10-10",
-   "decision": "settled",
-   "latest_capture": "20261012T143107Z"
-  },
-  {
-   "day": "2026-10-11",
-   "decision": "fetch",
-   "state": "200",
-   "bytes": 1693938,
-   "matches": 357,
-   "absent": null,
-   "error": null
-  },
-  {
-   "day": "2026-10-12",
-   "decision": "settled",
-   "latest_capture": "20261014T143044Z"
-  },
-  {
-   "day": "2026-10-13",
-   "decision": "fetch",
-   "state": "200",
-   "bytes": 2125549,
-   "matches": 388,
-   "absent": null,
-   "error": null
-  },
   {
    "day": "2026-10-14",
    "decision": "fetch",
    "state": "200",
-   "bytes": 1880134,
+   "bytes": 1880151,
    "matches": 355,
    "absent": null,
    "error": null
@@ -77,7 +34,7 @@
    "day": "2026-10-15",
    "decision": "fetch",
    "state": "200",
-   "bytes": 1630627,
+   "bytes": 1630604,
    "matches": 293,
    "absent": null,
    "error": null
@@ -86,7 +43,7 @@
    "day": "2026-10-16",
    "decision": "fetch",
    "state": "200",
-   "bytes": 1174346,
+   "bytes": 1174360,
    "matches": 204,
    "absent": null,
    "error": null
@@ -100,7 +57,7 @@
    "day": "2026-10-18",
    "decision": "fetch",
    "state": "200",
-   "bytes": 2481468,
+   "bytes": 2481431,
    "matches": 531,
    "absent": null,
    "error": null
@@ -109,7 +66,7 @@
    "day": "2026-10-19",
    "decision": "fetch",
    "state": "200",
-   "bytes": 1855824,
+   "bytes": 1855669,
    "matches": 389,
    "absent": null,
    "error": null
@@ -118,7 +75,7 @@
    "day": "2026-10-20",
    "decision": "fetch",
    "state": "200",
-   "bytes": 2454120,
+   "bytes": 2454089,
    "matches": 441,
    "absent": null,
    "error": null
@@ -127,50 +84,95 @@
    "day": "2026-10-21",
    "decision": "fetch",
    "state": "200",
-   "bytes": 2128840,
+   "bytes": 2128800,
    "matches": 403,
    "absent": null,
    "error": null
   },
   {
    "day": "2026-10-22",
+   "decision": "settled",
+   "latest_capture": "20261024T144449Z"
+  },
+  {
+   "day": "2026-10-23",
+   "decision": "settled",
+   "latest_capture": "20261025T143108Z"
+  },
+  {
+   "day": "2026-10-24",
    "decision": "fetch",
    "state": "200",
-   "bytes": 1826618,
-   "matches": 343,
+   "bytes": 618950,
+   "matches": 108,
+   "absent": null,
+   "error": null
+  },
+  {
+   "day": "2026-10-25",
+   "decision": "fetch",
+   "state": "200",
+   "bytes": 1900718,
+   "matches": 398,
+   "absent": null,
+   "error": null
+  },
+  {
+   "day": "2026-10-26",
+   "decision": "fetch",
+   "state": "200",
+   "bytes": 1804915,
+   "matches": 377,
+   "absent": null,
+   "error": null
+  },
+  {
+   "day": "2026-10-27",
+   "decision": "fetch",
+   "state": "200",
+   "bytes": 2700040,
+   "matches": 489,
+   "absent": null,
+   "error": null
+  },
+  {
+   "day": "2026-10-28",
+   "decision": "fetch",
+   "state": "200",
+   "bytes": 2112652,
+   "matches": 442,
    "absent": null,
    "error": null
   }
  ],
  "selection": {
-  "matches_listed": 10644,
-  "wanted": 8360,
+  "matches_listed": 12664,
+  "wanted": 9884,
   "wanted_by_reason": {
-   "over": 8326,
-   "stale": 34
+   "over": 9847,
+   "stale": 37
   },
-  "events_with_wanted_matches": 150,
-  "selected": 8360,
-  "to_ask": 263
+  "events_with_wanted_matches": 182,
+  "selected": 9884,
+  "to_ask": 371
  },
  "stopped": null,
  "fetch_outcomes": {
-  "day:200": 11,
-  "day:settled": 4,
-  "points:200": 262,
-  "points:200:cached": 1,
-  "stats:200": 263
+  "day:200": 12,
+  "day:settled": 3,
+  "points:200": 371,
+  "stats:200": 371
  },
  "staged": {
-  "matches": 49828,
-  "events": 152,
-  "documents": 16764,
-  "statistics": 1405161,
-  "points": 768484,
-  "documents_parsed": 525,
-  "day_captures": 167,
-  "list_days": 38
+  "matches": 74596,
+  "events": 184,
+  "documents": 19816,
+  "statistics": 1638333,
+  "points": 904647,
+  "documents_parsed": 742,
+  "day_captures": 237,
+  "list_days": 44
  },
- "finished_at": "2026-10-22T14:54:29+00:00",
- "seconds": 1379.7
+ "finished_at": "2026-10-28T15:08:32+00:00",
+ "seconds": 2100.1
 }

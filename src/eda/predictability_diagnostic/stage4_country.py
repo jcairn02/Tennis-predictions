@@ -14,6 +14,11 @@ The table is checked, never corrected, against three sources on disk:
                                    tournament number; its countries are written as names and codes (WTA_NAMES)
 Every disagreement is listed in stage4_event_country_check.csv; none is resolved silently.
 
+New event names (renamed or sponsor-named events reach Stage 0 every week) are added by the weekly task's
+event_country job since 22 Oct 2026 (stage4_country_weekly.py): a name the ATP's tournament list, the WTA's calendar and
+tennis-data place in one country is added with its basis; any other is left for a person and alerts. Existing rows
+are never changed.
+
 Players' countries are Stage 0's ``country`` (the nation the player represents). A handful of rows write an ISO code
 where the rest use the IOC's (PRT for POR, SVN for SLO ...); PLAYER_ALIASES reads them as the IOC code.
 

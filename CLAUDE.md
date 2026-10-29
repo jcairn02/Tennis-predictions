@@ -17,6 +17,10 @@ The [legacy archive](docs/research/legacy-one-shot/INDEX.md) preserves those sug
 * keep pacing, receipts and raw copies, and back off and report on blocks;
 * not covered: others' logins, paywalls, CAPTCHAs.
 
+**Bookmakers' odds below the tour level** (Challenger, WTA 125, ITF; Pinnacle's among them where listed) **download daily from TennisExplorer** (owner, 22 Oct 2026; job `lower_odds`, [cadence amendment](docs/decisions/2026-10-06-download-cadence.md); work package P11, [report](docs/studies/gap_downloads/README.md#bookmaker-odds-below-the-250s-work-package-p11)). Not a model input.
+* **Its Pinnacle prices are late pre-match prices, not closes** (P11's forward-capture test, done 24 Oct 2026). On 22-23 Oct the site's last Pinnacle price equalled Pinnacle's own close on 148 of the 197 lower-level matches where it showed one. Its record stops a median 3.6 hours before the start, so it misses late moves.
+* **Open, the owner's decision:** whether to record Pinnacle's own site every 10 minutes as a standing job, the only route to every true lower-level close. Claude recommends it if lower-level markets may be bet; a close not recorded on the day is lost.
+
 ## The current best model (owner's definition, 8 Oct 2026)
 
 When the owner says "the current best model", it means **a template, not stored files** ([decision](docs/decisions/2026-10-08-current-best-model.md)). It is the model rebuilt on the corrected tables on 8 Oct, as a recipe, built on the day's tables. If no instance built on today's tables is on disk, build one when the task needs it; the decision lists the commands.
@@ -129,9 +133,54 @@ Reason with the [adoption framework](docs/studies/adoption_framework/README.md) 
 * **Reporting, not deciding.** Say better or worse when the 95% interval clears 0; otherwise say "unresolved" and give P(better). Never "tie". Verdicts on the declared primary only. The label describes a reading; the bullets above decide.
 * **Keep parts apart from stakes.** The edge that sizes bets comes only from matches no choice has seen, at the venue's price, after costs, shrunk. Adoptions made on a kind's direction earn no edge credit.
 
+## Held-out matches and the look ledger (owner, 29 Oct 2026)
+
+**The untouched test of the live model's edge counts the matches played from 19 Oct 2026** ([decision](docs/decisions/2026-10-29-holdout-soft-rule.md)).
+* It and the other protected periods are in [the register](docs/holdouts/README.md). Each one protects a single question.
+* **They are soft rules, the owner's to override** ("Not a hard lock"). The design is Claude's.
+
+What agents do:
+* **Before measuring what a period protects on its matches, offer the owner the choice, with your recommendation.**
+  * The choice: stop the window the day before the period, or use the recent matches and spend part of it.
+  * Skip the question when the instruction already names the matches.
+  * For a new model (women's, props, ITF), also ask whether it should get a clean period of its own, and from when.
+  * `./python.sh src/eda/holdouts/ledger.py check --from <day> --to <day> --tours <atp|wta|both> --levels <tour|lower|all>` lists the periods a window touches.
+* **Log every read of recent results in the ledger, without being asked**, whether or not anything changes (`ledger.py add`).
+  * A decision that rests on logged reads is logged too (`ledger.py decide`).
+  * A read is anything computed from the results (who won, the score, the box score) of matches since the earliest open period's start, today 29 Jul 2026.
+  * It counts when set against a model, a feature, a rule, a price or an idea, whichever model the work is for.
+* **Not a read:**
+  * training and prediction runs under the decided recipe;
+  * data checks between sources, and counts;
+  * prices without results;
+  * watching bet-day results.
+* **Logged anyway:**
+  * a change made because of bet-day results, as a decision;
+  * a retrain's harm check, by whoever runs or reports the retrain.
+* **Side models (Claude's recommendation, for the owner to confirm):**
+  * The women's model counts under H1, since it predicts the same winners. Its reads of H1 are asked first.
+  * Props and ITF work reads recent matches without asking, logged, on two conditions: it never grades the live model's forecasts on H1, and nothing it chooses enters the live model untested.
+* `ledger.py status` shows how much each period has been used.
+
 ## Daily predictions: the master notebook (since 11 Oct 2026)
 
 **Run predictions only from `scripts/master_pipeline.ipynb`** ([how it works](docs/studies/master_pipeline/README.md)). Each cell is one call into `src/pipeline/`; the bet-day cells run the daily engine `src/eda/daily_prediction/` ([report](docs/studies/daily_prediction/README.md)): today's tables in a sandbox, the 57 inputs resumed from a saved checkpoint, 16 seeds at 91 prices, stage 2. About 10 minutes a bet day; a new price is read off the stored curve in seconds. Do not build a second prediction path.
+
+**The live model is named in one place: the notebook's selection** (`data/studies/master_pipeline/selected_instance.json`, written by `use_instance()` or a retrain's switch; STATUS shows it as "LIVE MODEL"). The daily engine and the notebook read it and have no default (owner's request, 22 Oct 2026): with no selection they refuse to predict, and a bet sheet blocks every match of a live run made with another model. Documents may record when a model went live, never which one is live now.
+
+**Women's matches are switched off for the bet day** (owner, 28 Oct 2026, [decision](docs/decisions/2026-10-28-women-switched-off.md): "temporarily disable womens matches ... im not betting on them, and their matches constantly cause errors"; the design is Claude's). The switch is `BET_TOURS = ("atp",)` in `src/pipeline/config.py`; `("atp", "wta")` brings them back. STATUS shows it as "BET DAY (A1-A8)".
+* A2 leaves a women's listing out before any linking.
+* A3 to A5b see men's matches only. A sheet of a live run made before the switch leaves out its women's predictions and says so.
+* A7 and A8 show the men's figures, and their files keep every prediction.
+* Downloads, builds, the replay proof and training keep both tours: the model trains on both.
+
+**One bad match never holds up the others** (owner, 28 Oct 2026, [decision](docs/decisions/2026-10-28-one-bad-match-left-out.md): "while you fix a single row it shouldnt hold up the whole pipeline" and "Be sure to mention the match that was left out and that there was an error in one row clearly and loudly, however still give all the other predictions"; the design is Claude's).
+* A match whose own row a step cannot handle is left out with its reason, and the step goes on with the others: A2 (one listing), A3's check (it no longer raises; A4 leaves the flagged rows out), A3b, the daily engine's matchups, prices and tables steps, A5b. A7 (one run) and A8 (one sheet's record) do the same.
+* At A4's tables step the run builds its data again without the match, so the others are predicted as if the CSV had not listed it. The run's check runs right after Stage 0 and again after the additions step. If the first check finds the match, the rebuild is one Stage 0 build (about 2 minutes). If only the second does, the additions' merge is redone too (5–11 minutes). Its players' earlier rounds stay.
+* Loud: `!!!` lines where it happens and at the end of A4; on the bet sheet, red lines above everything and a NOT PREDICTED row whose reason starts "ERROR in its row". The run's record is `left_out.json` in its folder.
+* Still stopping: a run with every match left out, a failure that names no match, and replays and the 8 Oct path, which keep every refusal.
+
+**The bet sheet's market chance is the posted price's, its margin included** (owner, 24 Oct 2026, [decision](docs/decisions/2026-10-24-market-chance-with-vig.md): "Market chance should be market chance INCLUDING VIG ON THE SIDE WE ARE TRYING TO BET"): 1 ÷ the decimal odds of the player shown. Its edge is the model's chance minus it, so a positive edge is a positive expected profit. The model's input stays margin-free.
 
 **TabPFN-3.5-Thinking beside the local model** (owner, 20 Oct 2026, [decision](docs/decisions/2026-10-20-thinking-beside-local.md)).
 * **The switch:** `MODEL = "tabpfn35_thinking"` with `SPEND_TOKENS = True`. It adds one paid Thinking call per run (`run_day --thinking --spend-tokens`, `dp_thinking.py`). A new instance's first such run also makes its paid season fit.
@@ -145,16 +194,33 @@ Reason with the [adoption framework](docs/studies/adoption_framework/README.md) 
   * the round from TennisLive's results, checked against Tennis My Life's, never read from Tennis My Life's silence;
   * the main draw's start (`event_main_date`). Stage 0 dates an event by its main draw's first date (rule C05); before the main draw is played, it would otherwise take the first qualifying day and move 19 inputs.
 * **The proof:** a qualifying replay (`dp.py run_day --replay-round Q1 --replay-frame …`) reproduces the training inputs bit for bit, given that date.
-* **Not tested on qualifying:** the five-pattern adjustment and Thinking. Both apply as on the main draw.
+* **The five-pattern adjustment on qualifying:** tested on 22 Oct 2026 at the owner's request ([report](docs/studies/qualifying_targets/README.md), follow-up 2): +0.28 mLL [−0.07, +0.63], unresolved; the harm check passes, so it stays on. **Thinking is untested on qualifying**; it applies as on the main draw.
+* **Stakes are the main draw's** (owner, later on 22 Oct 2026: "Stakes should be the same as main").
+* **A qualifier's earlier rounds come from TennisLive until their source publishes them** (owner, 24 Oct 2026: "we need to get this data" and "patch it so this doesnt happen again"; [decision](docs/decisions/2026-10-24-earlier-rounds-from-tennislive.md); the design is Claude's).
+  * **Why:** on the day, a round 2 or 3's round 1 was never in the data, so the gate blocked it. Tennis My Life's qualifying file lags by days; women's qualifying waits for the weekly feed.
+  * **How:** A2 writes each player's earlier wins at the event to `<matchups>_earlier.csv`. Each row has its score and its match page's box score, with service games derived from the score and the first server (36 of 36 equal to Tennis My Life's). The run adds them as live rows with their results (`src/eda/prediction_run/earlier_rounds.py`), dated like a live match.
+  * **Live only:** Tennis My Life's or the feed's row replaces a fill once published. A round that cannot be filled stays blocked, with its reason; one without a box score needs the 1-point edge.
+  * **The proof:** `dp.py run_day --replay-earlier tennislive` (master pipeline process log, Part 14): 5 of 8 matches bit for bit outside the surface IOS; the rest is three single points where the sources differ; the forecast within 0.24 points.
+  * **Since 25 Oct 2026, the main draw too:** a main-draw match's qualifiers and lucky losers get every qualifying match of theirs at the event the same way (`live._qualifiers`; process log, Part 17). Without it, a round 1 silently lacked them and a round 2 was blocked. TennisLive's spellings of a name ("Chak Lam Coleman Wong") are read as the one Stage 0 player they fit (`earlier_rounds.same_player`).
+  * **A women's main-draw round 1 on its first day stays unpredicted** (Tennis My Life holds no row of the event yet; owner, 27 Oct 2026: "dont built predictions for womens rounds 1, we arent betting women yet").
 
 | Path | What it is |
 |---|---|
 | `scripts/master_pipeline.ipynb` | The front door: bet day, data update, rebuild and retrain |
 | `src/pipeline/` | The notebook's layer: runs the project's commands and reads their outputs |
+| `predictions/clv/` | The closing-line ledger (A8, `tp.clv_ledger`; an agent's design, 25 Oct 2026): every bet sheet's predictions against Pinnacle's close, rebuilt from the records; a check on prices, not the model |
 | `src/eda/daily_prediction/` | The daily engine (`dp.py`; the notebook calls its `run_day`) |
 | `src/eda/prediction_pipeline/` | The engine's plan and the prototypes it imports; not run directly |
 | `src/eda/prediction_run/` | The 8 Oct live path: its refresh, live rows and gate are the engine's parts; its full sandbox rebuild (`run.py --build`, about 2 hours) is the reference for proofs, not a way to predict |
 | `docs/studies/daily_update_speed/` | A closed study (the speed scoping, the bet-time pricing measurements, the 2027 fix); no code to run |
+
+## Production integrity (owner, 22 Oct 2026)
+
+**The plan of record for keeping production in sync** ([decision](docs/decisions/2026-10-22-production-integrity-plan.md); how it is carried out: the master pipeline's process log, Part 10; each step's status is in the decision).
+* **What is live is read from disk, never from a document.** A document may record when something went live, not which one is live now; a study describes its own time, never production.
+* **Before changing the live path** (the notebook layer, the daily engine, the scheduled downloads, the decided tables): read STATUS's verdict and the to-do list, and claim the shared files you will write. **After:** run the check the change needs (a change to the engine's inputs: the replay proof, whose receipt is what "verified" means) and update the to-do list.
+* **Mark every new rule as the owner's words or an agent's choice.** An agent's reading that changes picks is shown to the owner, with and without it, before it goes live.
+* **The notebook's kernel refuses to run code older than the files on disk** (an agent's choice, 23 Oct 2026; `src/pipeline/__init__.py`, the process log's Part 11). An edit to any file of `src/` the owner's kernel has imported stops the owner's next cell until the kernel is restarted.
 
 ## Prediction runs (decided 8 Oct 2026)
 
@@ -166,11 +232,12 @@ Live inputs must be the inputs the model was trained on ([decision](docs/decisio
 * **Built in the run's sandbox, never in `data/studies/`:** `run.py --setup`, then `run.py --build <folder>`.
   * Upcoming matches enter Stage 0 as rows with a placeholder result (`stage0_build.py --live-rows`, refused outside a sandbox).
   * They go through the unchanged chain.
+  * **A main-draw live row is dated by its main draw's first day**, as Stage 0 dates a played event (owner, 27 Oct 2026: "switch the date fix on"; [decision](docs/decisions/2026-10-27-main-draw-live-date.md); the design is Claude's). It takes the earliest day known: Tennis My Life's main-draw rows, and each listed match by A2's day (TennisLive's main-draw starts and the listing's, in the venue's time zone), else its own UK day (`live_rows.main_draw_date`). The event's earliest Tennis My Life row, a qualifying one, had dated 129 of 148 men's matches early; Tennis My Life's main-draw rows alone would have dated 62 late. `LIVE_MAIN_DRAW_DATE=0` reproduces the runs before.
 * **The gate** (`gate.csv`; replaced by the owner on 14 Oct 2026, [decision](docs/decisions/2026-10-14-box-score-gate.md)): every earlier match of either player, at the event or in the last 14 days, is checked for a box score, and a missing one never blocks.
   * A gap of a kind the training rows nearly always hold (main tour, Challenger / WTA 125, qualifying above ITF level) makes a bet need a 1-point edge: the forecast moved 1 point against the side must still be +EV at the odds (`gate.EDGE_BAR`, applied in `src/pipeline/diagnostics.py`).
   * A gap of a kind they mostly lack (team events, ITF) is only noted.
   * Still marked not to bet: a qualifier with no qualifying match in the data, or an unknown indoor input (`--refresh --matchups` refetches the WTA's calendar the women's input reads).
-  * Since 22 Oct 2026, also a qualifying round 2 or 3 whose player has no match of the round before in the data: the result is missing, not only the box score. A woman's waits for the weekly lower-level feed.
+  * Since 22 Oct 2026, also a qualifying round 2 or 3 whose player has no match of the round before in the data: the result is missing, not only the box score. A woman's waits for the weekly lower-level feed. Since 24 Oct 2026, A2 fills such rounds from TennisLive (above); the block stays only for a round it could not fill.
 * **The proof:** `src/eda/prediction_run/replay.py` replays one past day's matches as live rows; their inputs must equal the template frame's (9 Oct 2026: 23 of 23, to machine precision; 10 Oct 2026, with the level layer and the accepted package: 23 of 23, bit for bit, compared with `--template <instance> --frame model_frame_chain.parquet`).
 * **The history check** lets a match possibly played from 5 Oct on, from the reference's feeds, be completed, corrected or dropped.
 
@@ -193,6 +260,7 @@ No state-mutating Git command unless explicitly requested in the current convers
 | External-source research | `docs/research/` |
 | Historical inherited suggestions | `docs/research/legacy-one-shot/` |
 | Explicit project decisions | `docs/decisions/` |
+| Protected periods and the look ledger | `docs/holdouts/` (`register.csv`, `looks.csv`) |
 | Notebooks only | `scripts/` |
 | Predictions / actual bets | `predictions/` / `data/betting_history/` |
 

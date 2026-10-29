@@ -82,3 +82,38 @@ def test_zip_names_and_exclusions():
     assert B.excluded_by(profile)[0] == "data/studies/predictive_frontier_tabpfn/report_qa/edge_desktop_profile/"
     assert B.excluded_by("data/backups/2026-10-08/tennis_data_raw_2026-10-08.zip")[0] == "data/backups/"
     assert B.excluded_by("data/studies/predictive_frontier_tabpfn/report_qa/report.html") is None
+
+
+def test_scan_keeps_to_the_groups(tmp_path, monkeypatch):
+    monkeypatch.setattr(B.K, "ROOT", tmp_path)
+    monkeypatch.setattr(B, "DATA", tmp_path / "data")
+    for rel in ("data/raw/s/a.json", "data/dump/odds/b.parquet", "data/studies/x/c.csv", "data/README.md",
+                "data/betting_history/d.csv"):
+        (tmp_path / rel).parent.mkdir(parents=True, exist_ok=True)
+        (tmp_path / rel).write_bytes(b"x")
+
+    def paths(groups):
+        return sorted(f["path"] for f in B.scan(groups)[0])
+
+    assert paths(("raw", "dump")) == ["data/dump/odds/b.parquet", "data/raw/s/a.json"]
+    assert paths(("studies",)) == ["data/README.md", "data/betting_history/d.csv", "data/studies/x/c.csv"]
+    assert len(paths(B.GROUPS)) == 5
+
+
+def test_readme_names_the_scope_and_the_earlier_zips_oldest_first():
+    s = {"made": "2026-10-29", "snapshot": "2026-10-29T16:00:00+00:00", "origin": "https://github.com/o/r.git",
+         "head": "9228b26fce26594429d048884456053481062717", "groups": ["raw", "dump"],
+         "bucket": f"{B.BUCKET}/data/2026-10-29/", "by_status": {"zipped": {"files": 2, "bytes": 3}},
+         "zips": [{"zip": "tennis_data_raw_2026-10-29.zip", "files": 2, "data_bytes": 3, "bytes": 4, "sha256": "ab"}],
+         "earlier_zips": {f"{B.BUCKET}/data/2026-10-08/tennis_data_raw_2026-10-08.zip": {"files": 1, "bytes": 1},
+                          f"{B.BUCKET}/public_dump/tennis_public_dump_raw_2026-09-22.zip": {"files": 1, "bytes": 1}},
+         "unreadable": [], "removed": [], "excluded": {}, "changed_while_read": []}
+    text = B.readme(s)
+    assert "copy of the files in data\\raw\\ and data\\dump\\ that GitHub" in text
+    assert "Restore data\\raw\\ and data\\dump\\:" in text and "Scope:    data\\raw\\ and data\\dump\\ only" in text
+    order = [text.index(t) for t in ("tar -x -f tennis_public_dump_raw_2026-09-22.zip -C <repo>\\data\\raw\n",
+                                     "tar -x -f tennis_data_raw_2026-10-08.zip -C <repo>\n",
+                                     "tar -x -f tennis_data_raw_2026-10-29.zip -C <repo>\n")]
+    assert order == sorted(order)
+    old = B.readme({k: v for k, v in s.items() if k != "groups"})    # a summary from before --groups: all of data/
+    assert "Restore data\\ completely:" in old and "Scope:" not in old

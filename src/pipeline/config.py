@@ -83,6 +83,48 @@ def check_model(model: str) -> str:
     return model
 
 
+# --- the tours of the bet day (the notebook's A1-A8) ------------------------------------------------------------------
+TOUR_NAMES = {"atp": "men's", "wta": "women's"}
+# Women's matches are switched off for the bet day (the owner, 28 Oct 2026: "For the master_pipeline.ipynb steps A1-A8
+# temporarily disable womens matches. We havent demonstrated they are profitable yet, im not betting on them, and their
+# matches constantly cause errors because the pipeline isnt robust enough yet"; docs/decisions/
+# 2026-10-28-women-switched-off.md). ("atp", "wta") switches them back on. Only the bet day reads it: the downloads,
+# the shared tables, the builds, the replay proof and the training rows keep both tours (the model trains on both).
+BET_TOURS = ("atp",)
+
+
+def tour_off(tour) -> str | None:
+    """Why a tour's matches are left out of the bet day; None while it is on, or for a tour the model does not know."""
+    if tour in TOUR_NAMES and tour not in BET_TOURS:
+        return f"{TOUR_NAMES[tour]} matches are switched off (the owner, 28 Oct 2026; config.BET_TOURS)"
+    return None
+
+
+def off_mask(frame):
+    """True on each row of a frame whose tour is switched off (its tour column, else its match id's first part, as in
+    "wta|2026-1023|R16|..."); a frame with neither: all False."""
+    import pandas as pd
+    if "tour" in frame.columns:
+        tours = frame["tour"]
+    elif "match_id" in frame.columns:
+        tours = frame["match_id"].astype(str).str.split("|").str[0]
+    else:
+        return pd.Series(False, index=frame.index)
+    return tours.map(lambda t: tour_off(t) is not None).astype(bool)
+
+
+def off_names() -> str:
+    """The switched-off tours in words ("women's"), for messages; "" while every tour is on."""
+    return " and ".join(TOUR_NAMES[t] for t in TOUR_NAMES if t not in BET_TOURS)
+
+
+def bet_tours_line() -> str:
+    """The bet day's tours in one line (STATUS)."""
+    on = " and ".join(TOUR_NAMES[t] for t in TOUR_NAMES if t in BET_TOURS)
+    return (f"{on or 'no'} matches"
+            + (f"; {off_names()} switched off since 28 Oct 2026 (the owner; config.BET_TOURS)" if off_names() else ""))
+
+
 def rel(path: Path | str) -> str:
     """A path relative to the repository when it is inside it (for printing and receipts)."""
     p = Path(path)

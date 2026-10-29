@@ -1,0 +1,273 @@
+{
+ "inputs": {
+  "points": "data\\dump\\points\\infosys_atp_recent\\points.parquet",
+  "points_rows": 3590495,
+  "rally": "data\\dump\\points\\infosys_atp_recent\\rally.parquet",
+  "matches": "data\\dump\\points\\infosys_atp_recent\\matches.parquet"
+ },
+ "points_with_newer_copy": 3589532,
+ "matches_with_newer_copy": 24998,
+ "firstServer": {
+  "equals_server_of_first_point_share": 1.0,
+  "matches": 24998
+ },
+ "lastHitter": {
+  "non_empty_points": 0
+ },
+ "serveClassId": {
+  "crosstab_with_result": {
+   "1": {
+    "A": 220577,
+    "FE": 138,
+    "UE": 132
+   },
+   "2": {
+    "FE": 660494,
+    "N": 1087770,
+    "UE": 903314,
+    "W": 573834
+   },
+   "4": {
+    "DF": 143200,
+    "FE": 23,
+    "W": 50
+   }
+  },
+  "agreement_share_1A_4DF_2rest": 0.999904444367678
+ },
+ "shot_counts": {
+  "tm1Shot_equals_tm1Rally_share": 0.9562898450271512,
+  "tm2Shot_equals_tm2Rally_share": 0.9559633400677303,
+  "points_differing": 312356,
+  "differing_with_rally_length_present_share": 0.9263084429305024,
+  "fills_old_zero_new_positive": 23382,
+  "rally_length_known_share": 0.3870159118236026
+ },
+ "pointDuration": {
+  "quantiles": {
+   "0.01": -17.791,
+   "0.1": -0.291,
+   "0.5": 0.014,
+   "0.9": 0.236,
+   "0.99": 1.279
+  },
+  "min": -86356.441,
+  "max": 86397.621,
+  "events": 535,
+  "events_duration_like": 17,
+  "events_ratio_over_2": 7,
+  "events_rho_rally_ge_0.8": 11,
+  "median_event_ratio_rally_to_serve": 0.991869918699187,
+  "median_event_rho_rally": 0.09737616678493981,
+  "median_event_rho_clock_step": -0.003890127350747131,
+  "matches_at_duration_like_events": 768
+ },
+ "net": {
+  "tm1AtNet_true": 17974,
+  "tm2AtNet_true": 18113,
+  "events_with_net_new": 24,
+  "events_with_net_rally_files": 24,
+  "same_events": true,
+  "matches_at_net_events": 1133,
+  "rally_files_t1NetPoint_true": 17238,
+  "rally_files_t2NetPoint_true": 17353,
+  "events": [
+   "2025/3035",
+   "2025/328",
+   "2025/336",
+   "2025/337",
+   "2025/352",
+   "2025/422",
+   "2025/429",
+   "2025/4713",
+   "2025/5014",
+   "2025/605",
+   "2025/6242",
+   "2025/747",
+   "2025/7485",
+   "2025/7581",
+   "2025/9410",
+   "2026/336",
+   "2026/375",
+   "2026/407",
+   "2026/451",
+   "2026/495",
+   "2026/506",
+   "2026/6932",
+   "2026/807",
+   "2026/8996"
+  ]
+ },
+ "momentum": {
+  "games": 564923,
+  "constant_within_game_share": 0.9975306369186597,
+  "sum_tm1_tm2_value_counts": {
+   "10.0": 564923
+  },
+  "modal_step_by_server_winner": {
+   "1_1": 1.0,
+   "1_2": -2.0,
+   "2_1": 2.0,
+   "2_2": -1.0
+  },
+  "share_following_modal_step": 0.8385720238922072,
+  "share_following_modal_step_given_points_and_set_start": 0.8603176367088021,
+  "note": "cls = server_winner (1_1: player 1 holds; 1_2: player 1 broken; 2_2: player 2 holds; 2_1: player 1 breaks). The value attached to a game is the score after it."
+ },
+ "rally_coverage_by_level": [
+  {
+   "year": "2025",
+   "level": "1000",
+   "draw": "main",
+   "matches": 729,
+   "with_rally_lengths": 728
+  },
+  {
+   "year": "2025",
+   "level": "1000",
+   "draw": "qual",
+   "matches": 265,
+   "with_rally_lengths": 260
+  },
+  {
+   "year": "2025",
+   "level": "atp250",
+   "draw": "main",
+   "matches": 800,
+   "with_rally_lengths": 373
+  },
+  {
+   "year": "2025",
+   "level": "atp250",
+   "draw": "qual",
+   "matches": 341,
+   "with_rally_lengths": 154
+  },
+  {
+   "year": "2025",
+   "level": "atp500",
+   "draw": "main",
+   "matches": 479,
+   "with_rally_lengths": 192
+  },
+  {
+   "year": "2025",
+   "level": "atp500",
+   "draw": "qual",
+   "matches": 199,
+   "with_rally_lengths": 82
+  },
+  {
+   "year": "2025",
+   "level": "atpFinal",
+   "draw": "main",
+   "matches": 15,
+   "with_rally_lengths": 15
+  },
+  {
+   "year": "2025",
+   "level": "ch100",
+   "draw": "main",
+   "matches": 5080,
+   "with_rally_lengths": 437
+  },
+  {
+   "year": "2025",
+   "level": "ch100",
+   "draw": "qual",
+   "matches": 2889,
+   "with_rally_lengths": 313
+  },
+  {
+   "year": "2025",
+   "level": "ch50",
+   "draw": "main",
+   "matches": 1284,
+   "with_rally_lengths": 157
+  },
+  {
+   "year": "2025",
+   "level": "ch50",
+   "draw": "qual",
+   "matches": 686,
+   "with_rally_lengths": 123
+  },
+  {
+   "year": "2025",
+   "level": "nextGen",
+   "draw": "main",
+   "matches": 15,
+   "with_rally_lengths": 0
+  },
+  {
+   "year": "2026",
+   "level": "1000",
+   "draw": "main",
+   "matches": 693,
+   "with_rally_lengths": 683
+  },
+  {
+   "year": "2026",
+   "level": "1000",
+   "draw": "qual",
+   "matches": 245,
+   "with_rally_lengths": 243
+  },
+  {
+   "year": "2026",
+   "level": "atp250",
+   "draw": "main",
+   "matches": 679,
+   "with_rally_lengths": 364
+  },
+  {
+   "year": "2026",
+   "level": "atp250",
+   "draw": "qual",
+   "matches": 319,
+   "with_rally_lengths": 184
+  },
+  {
+   "year": "2026",
+   "level": "atp500",
+   "draw": "main",
+   "matches": 427,
+   "with_rally_lengths": 253
+  },
+  {
+   "year": "2026",
+   "level": "atp500",
+   "draw": "qual",
+   "matches": 173,
+   "with_rally_lengths": 98
+  },
+  {
+   "year": "2026",
+   "level": "ch100",
+   "draw": "main",
+   "matches": 4402,
+   "with_rally_lengths": 918
+  },
+  {
+   "year": "2026",
+   "level": "ch100",
+   "draw": "qual",
+   "matches": 2550,
+   "with_rally_lengths": 547
+  },
+  {
+   "year": "2026",
+   "level": "ch50",
+   "draw": "main",
+   "matches": 1722,
+   "with_rally_lengths": 238
+  },
+  {
+   "year": "2026",
+   "level": "ch50",
+   "draw": "qual",
+   "matches": 1012,
+   "with_rally_lengths": 145
+  }
+ ]
+}

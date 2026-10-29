@@ -299,3 +299,69 @@ bash data/studies/men_lower_level_fill/resume_build.sh        # lane 1 from stag
 
 The downloads move: a rebuild of the candidate on a later day reads newer files and gives slightly different counts.
 The record of this one is the candidates' `manifest.json` (every input's sha256) and the package's `manifest.json`.
+
+## 11. Follow-up of 22 Oct 2026: the country list
+
+Same session (`c0f7c8d9-cc78-498f-9409-72258b59a7dd`), resumed on 22 Oct 2026. The session's clock was read at 11:24:32
+and 13:05:31 only; the rows between carry no finer times.
+
+* **The owner's words, verbatim.** Quoting this study's report of 16 Oct: "Should we fix or deal with these?" Then,
+  after the recommendation (fix the country list; leave the surface offset; update the 6 Oct record): **"Fix the
+  country list"**.
+* **How it was read:** add the missing event names to the Stage 4 country table, and nothing else. The weekly check
+  for new names and the 6 Oct record's update were proposed in the same message and not asked for, so they were not
+  done.
+
+| When | Step | Results seen by then | Output |
+|---|---|---|---|
+| 11:24 | The failing test's missing keys listed [observed]: 22 ATP event names of 28 Sep – 19 Oct 2026 (21 Challengers under their 2026 names; "Shanghai", which Tennis My Life renamed from "Shanghai Masters"). None of the 57 inputs reads the table (`template_2026-10-21b`'s `model_inputs.json`). The timing code reads it for time zones: Shanghai 2026's 95 timeline rows have 3-day windows, against 2 days for Shanghai 2025; the Challengers' windows are exact (1 day) from sources with their own time zones | – | – |
+| 11:24–13:05 | Each missing event's tournament id looked up in the ATP's tournament list (`data/raw/public_dump/mantennisdata/atp/tournaments.csv`: location, country code) [observed]. All 21 Challengers placed. One correction to the name-based guess: "Ferrero Challenger" is in **Villena, Spain** (2026-7909, "Ferrero & Forty Challenger"), not Italy. "Copa Internacional de Tenis" is the name of the 2025–26 Curitiba (2895), Campinas (6307) and Piracicaba (2835) Challengers, all Brazil. Shanghai's id is a constructed one (`2026-5014-20261007`); code 5014 is the Shanghai Masters in 2024 and 2025 | – | – |
+| 11:24–13:05 | Heads-up sent to peer 0a (it had asked about file overlaps; the table is not on its list). **22 rows added** to `data/studies/predictability_diagnostic/stage4_event_country.csv` in its sorted order; the countries are the ATP list's IOC codes; each row's basis names it. **Failure 3, mine:** Python's `write_text` wrote Windows line endings, so every line differed; restored to the file's own (LF). The diff is then exactly 22 lines added and none removed [observed]. The file before is kept in the session scratchpad (`stage4_event_country.before_2026-10-22.csv`) | – | the table |
+| 11:24–13:05 | The same slip found in two files rewritten by Python on 16 Oct: this log (all lines CRLF) and `class_record.csv` (its two rows of 16 Oct CRLF among LF lines). Both normalised to LF; content checked unchanged. Git on this machine converts line endings at commit, so nothing would have reached a commit wrongly | – | the two files |
+| 11:24–13:05 | **The check** (`stage4_country.check()`, written to the scratchpad, not over the 1 Oct check and summary that the Stage 4 report quotes) [observed]: the 22 keys are in the table with their countries. **Shanghai 2026: tennis-data's Location gives Shanghai, China for all 94 linked matches: agrees.** The Challengers have no second source (tennis-data does not cover them); their countries rest on the ATP list. The only events without a country are Kingston 2026, blank by design (the name cannot place it; a test expects it). No new disagreement with the WTA's calendar | – | scratchpad `country_check_2026-10-22.csv`, `country_summary_2026-10-22.json` |
+| 11:24–13:05 | `test/predictability_diagnostic/test_stage4.py`: **20 pass**, the country-table test included [observed] | – | – |
+| 13:05 | **When it takes effect:** live runs build their own timeline from the repository's table, so at once (for Shanghai it no longer matters: its results are over a week old). The shared timeline that template builds copy was last written 21 Oct 06:51; the fix enters it at the next shared-table rebuild (the notebook's `rebuild_shared_tables`), and training at the retrain after that. New event names will keep appearing weekly, so the test will fail again until each is added | – | – |
+
+## 12. Follow-up of 22 Oct 2026: the weekly check
+
+* **The owner's words, verbatim**, quoting the report of section 11 ("The weekly check wasn't part of what you asked,
+  so I didn't add it. New event names appear every week, so this test will fail again until each new one is added. I
+  can add that weekly check whenever you want."): **"add the weekly check"**.
+* **How it was read.** The offer of the morning was "a small step to the weekly data update that lists any new event
+  without a country, so it gets added the same week". Acted on as: each week, a name the official lists place in one
+  country is added by the check itself, with its basis. A name they cannot place, or place in two countries, is
+  listed and raises the weekly task's notification. Set aside: listing only, which would need a person every week for
+  names an official list already places. The report to the owner states this choice.
+* **Where it runs:** the weekly task (`src/ingest/scheduled.py --weekly`, the "lower-level feed" Windows task), on
+  Wednesdays after the coverage job. That job builds a Stage 0 from today's files, so new names reach the table before
+  the next shared-table rebuild. The check also reads the repository's Stage 0, the failing test's view.
+
+| When | Step | Output |
+|---|---|---|
+| 13:05–13:17 | Read the notebook's weekly update and the weekly task's jobs (`job_tml_dates`, `job_coverage` as templates; `weekly_due`; the dispatch, whose final `else` runs the Slam reminder for any unknown job name). `scheduled.py` last edited 21 Oct 20:49 (not in use by another session); not on peer 0a's list. Checked: the ATP's tournament list uses the table's IOC-style codes, except New Caledonia "CAL" and Guadeloupe "GLP", which the table reads as France (Le Gosier, Nouméa, Réunion rows) | – |
+| 13:17–13:20 | **`src/eda/predictability_diagnostic/stage4_country_weekly.py`** written: the evaluation names missing from the table; readings from the ATP's tournament list (by the id's first two parts; territories as France), the WTA's calendar (as `stage4_country.check()` links it) and tennis-data's Location (Stage 1's link); one country → added with its basis and date (`--apply`), else left for a person; the table rewritten through a temporary file with LF endings, existing rows untouched, the table re-read just before writing; `summary.json`, `proposals.csv`, `added.csv` (history) in `data/studies/predictability_diagnostic/country_weekly/`. Exit 0, 3 (names left for a person), 1 | the script |
+| 13:20 | **Byte check on a copy of the real table** [observed]: one added row (with a comma and quotes) gives a one-line diff in its sorted place; a duplicate key is skipped; no row asked gives no write | scratchpad |
+| 13:20 | Tests `test/predictability_diagnostic/test_country_weekly.py`: the id parsing and the territories; one country added, two or none left for a person; the rewrite keeps every existing row and the order. 3 pass | the tests |
+| 13:20 | **Failure 4, mine:** with no missing name, a filter on the empty table selected no columns (`d[[]]`): the run stopped. Fixed with explicit row masks; rerun: 856 evaluation names, 0 missing, exit 0 | the script |
+| 13:21 | **The replay of this morning** [observed]: the check run in report mode on the table as it was before the hand fix (the scratchpad copy). It proposes all 22 names for adding, each with the country set by hand, Villena (Spain) included; Shanghai placed by the ATP list and tennis-data together. None left for a person | scratchpad `country_weekly_replay/` |
+| 13:21–13:22 | **`src/ingest/scheduled.py`:** the job `event_country` (Wednesdays, after coverage; `--stage0` the coverage Stage 0 when it was built today; alerts only for names left for a person, at once and every 4 weeks; a failure alerts the second time in a row), its constants, its explicit dispatch branch, the docstring and the help texts. `test/data_continuity/test_rebuild_and_schedule.py`: two expectations of Wednesday's job list updated (one would have failed only on Wednesdays), and a test of the job (applies; today's coverage Stage 0 only; added names recorded, not alerted; alert, quiet week, reminder, forgotten once added; failures). **27 pass** | the runner, the tests |
+| 13:22 | **End to end** [observed]: `./python.sh -m src.ingest.scheduled --weekly --only event_country --no-notify`: exit 0 in 1.3 s, no alert, 0 names missing, recorded in `data/raw/_scheduled/runs.jsonl`. `stage4_country.py`'s description points to the weekly job | – |
+| 13:22 | **Two unrelated test failures seen** in `test/predictability_diagnostic` (not run in section 11): `test_built_baselines_table` (Stage 1) and `test_built_ratings_table` (Stage 3). Each built table has 872,704 rows against the repository's Stage 0 of 873,964: they were built before Stage 0's last rebuild. Not touched here; reported to the owner | – |
+
+---
+
+## Note, 22 Oct 2026: the 14 Oct instance's build tree deleted
+
+Added by the cleanup session `4437577b-803e-4161-baf5-c6fade971478`, at the owner's word
+([cleanup inventory, process log § 9d](../cleanup_inventory/process_log.md)).
+* **Deleted on 22 Oct 2026:** `C:/Users/zerom/tnr_tpl1014`, the build tree of `template_2026-10-14`. That is the
+  instance this study started from (selected 14 Oct 07:42), which its rebuild `template_2026-10-16` replaced at 17:58
+  on 16 Oct. This study's own trees, `tnr_tpl1016` and `tnr_mlf`, stay.
+* **What no longer repeats as written:**
+  * The count of the feed's matches missing from `tnr_tpl1014`'s timeline (2,110; § 4 and the claims table) read that
+    tree's own timeline, and no other copy holds it.
+  * The `offset_constants` comparison can still be redone, from the instances' own copies:
+    `current_best_model/template_2026-10-14/chain_outputs/surface_elo_pieces_pieces_meta.json` and the 16 Oct
+    instance's.
+* **For a reviewer:** the results stand as recorded. This study's "before" side is the 14 Oct instance, an older
+  version of the model; the live one is `template_2026-10-21b`.

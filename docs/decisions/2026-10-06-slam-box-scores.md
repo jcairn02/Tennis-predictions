@@ -80,6 +80,10 @@ The US Open part went beyond the question's wording, so it was put to the owner.
   * The file is written only when every match resolves exactly once, no surname disagrees, and every feed box score passes Stage 0's checks under the feed's score.
 * **`src/eda/predictability_diagnostic/stage0_build.py`**:
   * `apply_box_overrides` runs right after the rows are read, before any score is parsed or box score checked, and logs rules O1 and O2 in the cleaning log.
+  * **Since 28 Oct 2026, an override survives a re-spelled name** (an agent's choice, not yet confirmed by the owner; [master pipeline process log](../studies/master_pipeline/process_log.md), Part 21). Tennis My Life re-spelled 19 players' names on 25–26 Oct, three of them in this table's rows ("Xinyu Wang" as "Xin Yu Wang", "Gabriela Knutson" as "Gabriela Andrea Knutson", "Alexander Shevchenko" as "Aleksandr Shevchenko"), and every Stage 0 build stopped.
+    * An override whose names find no row now takes the one row of its event and round with the score the table recorded, whose players' names are the recorded ones or re-spellings of them (a family name in common). The build's summary lists each.
+    * A changed score or round, a dropped row, a different player, or two candidate rows still stop the build.
+    * The table keeps its spellings, so builds on older files, and replays of the instances built on them, find every row by name as before.
   * `--out-dir` builds elsewhere.
   * Into the live folder it applies overrides only with `--confirm-live-overrides`.
   * With no new arguments the build is unchanged.

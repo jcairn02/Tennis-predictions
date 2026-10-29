@@ -190,6 +190,16 @@ def write(df: pd.DataFrame, name: str, out: Path = LC.STAGING) -> Path:
     return path
 
 
+def add(df: pd.DataFrame, name: str, keys: list[str], out: Path = LC.STAGING) -> Path:
+    """write(), keeping the rows an earlier write of the same name holds: a second run on one day adds to the first's
+    rows instead of replacing them (24 Oct 2026: the 07:30 task's run, ten minutes after the notebook's, erased six
+    quarter-finals the first had staged); for a key both hold, the newer row stands."""
+    path = Path(out) / f"{name}.parquet"
+    if path.exists():
+        df = pd.concat([pd.read_parquet(path), df], ignore_index=True)
+    return write(df.drop_duplicates(keys, keep="last").reset_index(drop=True), name, Path(out))
+
+
 def read_all(out: Path = LC.STAGING) -> pd.DataFrame:
     files = sorted(Path(out).glob("*.parquet")) if Path(out).exists() else []
     if not files:

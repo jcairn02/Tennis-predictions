@@ -65,5 +65,115 @@
    },
    "quoted_at_given": 0
   }
+ },
+ "tables": {
+  "seconds": 444.3,
+  "result": {
+   "steps": {
+    "stage0": 107.3,
+    "additions": 289.2,
+    "check": 0.8,
+    "lle_layer": 23.3,
+    "odds": 8.4,
+    "live_odds": 0.8
+   },
+   "history": "run beside the states step (history.json)",
+   "timeline_held": {
+    "rows": 928290,
+    "of_instance_rows": 928337,
+    "sha256": "d2138aa780c44c181a31214a2ea1f46fd535afb572c798cfb0c5eb8100102736",
+    "source": "C:\\Users\\zerom\\tnr_tpl1021\\data\\studies\\match_timing\\timing.parquet"
+   }
+  }
+ },
+ "history": {
+  "seconds": 0.0,
+  "result": {
+   "history": "history vs the reference of 2026-10-08: future 497 and updated 23 (allowed); accepted 57,788 (allowed: lower-level additions 54,373, completions 418, decided repairs 2,997); main-tour changes 259 (allowed, listed: new past 16, dropped 16, revised 227); Tennis My Life's own lower-level changes 217 (allowed, decided 13 Oct: new past 73, dropped 76, revised 68); lower-level new past 0, dropped 0, revised 0 -> the template may be built",
+   "ran_seconds": 68.9
+  }
+ },
+ "states": {
+  "seconds": 109.2,
+  "result": {
+   "checkpoint": "C:\\Users\\zerom\\Documents\\Tennis-predictions\\data\\studies\\daily_prediction\\state\\template_2026-10-21b\\2026-09-23",
+   "parts_summary": {
+    "resumed": 14
+   },
+   "seconds": {
+    "offset": 8.8,
+    "stage3": 9.9,
+    "stage4_rows": 58.9,
+    "weighted": 9.0,
+    "stage4_inputs": 3.8,
+    "pieces": 5.2,
+    "context": 6.4,
+    "waited_for_forms_and_ios": 0.4,
+    "forms_rows": 18.7,
+    "forms_context": 46.4,
+    "forms": 12.0,
+    "forms_family": 77.2,
+    "ios_cache": 49.1,
+    "ios_runs": 11.6,
+    "ios_family": 60.7,
+    "total": 103.3
+   },
+   "gate": {
+    "live_matches": 16,
+    "complete": 16
+   }
+  }
+ },
+ "patterns": {
+  "seconds": 68.0,
+  "result": {
+   "matches": 16,
+   "z_present": 16,
+   "not_built_but_on_counted_as_missing": {
+    "rb__el__low_share_diff": 16,
+    "rb__fp__f12_salience__hasL_a-b": 16
+   },
+   "gate_off": {
+    "PS03_net": {
+     "atp 2026-10": 0.573
+    },
+    "PS06_close": {
+     "atp 2026-10": 0.573
+    },
+    "PS04_flat": {
+     "atp 2026-10": 0.573
+    }
+   },
+   "params_sha256": "cb5db37b32f65f3eee8ad523d3272a811b5903cc718bc31c532e96381f0b1ac2",
+   "venue_pace": {
+    "venue_rows": 1856,
+    "venue_rows_without_rating": 0,
+    "ratings_from_run": 2490,
+    "ace_gap_equal_to_input": 16
+   }
+  }
+ },
+ "fit": {
+  "seconds": 83.6,
+  "result": {
+   "matches": 16,
+   "seeds": 16,
+   "inside_grid": 16,
+   "interpolated_vs_own_max_abs": 0.0007730565649254895,
+   "interpolated_vs_own_mean_abs": 0.00021180956371133486,
+   "falling_steps": 62,
+   "steps": 1440
+  }
+ },
+ "predict": {
+  "seconds": 1.0,
+  "result": {
+   "matches": 16,
+   "q_range": [
+    0.05521342955375572,
+    0.8121018854241524
+   ],
+   "grid_read_back_vs_own_max_abs": 0.0007730565649254895
+  }
  }
 }

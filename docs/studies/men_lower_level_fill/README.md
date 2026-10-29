@@ -132,6 +132,19 @@ these matches and everything accepted since 14 October.
 * **One project test fails, and it is unrelated.** It checks that every event name in the tables has a country in the
   model builder's country list. A recently added event name is missing from that list, so the list needs that name
   added.
+  * *Fixed on 22 Oct, at your word ("Fix the country list"):* 22 names were missing, the new names of the last four
+    weeks: 21 Challengers, and Shanghai, which Tennis My Life renamed from "Shanghai Masters".
+  * Each country is taken from the ATP's tournament list. That list corrected one guess: the "Ferrero Challenger" is in
+    Villena, Spain.
+  * Shanghai's country also agrees with tennis-data's.
+  * No model input reads the list. The timing code does: Shanghai's results had 3-day time windows instead of 2.
+  * The fix reaches bet-day runs at once, and training after the next shared-table rebuild and retrain.
+  * New names appear every week. *Since 22 Oct, at your word ("add the weekly check"), a check runs every Wednesday
+    in the weekly task.*
+    * A new name that the ATP's or WTA's official lists place in one country is added by itself, with its source noted.
+    * Anything they can't place sends you a notification.
+    * Replayed on this week's table before the fix, it would have added all 22 names, each with the same country as the
+      hand fix.
 
 ## Files
 

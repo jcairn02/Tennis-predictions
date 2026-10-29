@@ -57,7 +57,8 @@ def init(run_dir: Path, mode: str, replay: dict | None, csv: str | None, checkpo
                          "data/studies/current_best_model/)")
     run_dir.mkdir(parents=True, exist_ok=True)
     cfg = {"created_at": DC.stamp(), "mode": mode, "replay": replay, "matchups_csv": csv, "checkpoint": checkpoint,
-           "seeds": seeds, "work_tree": str(work_tree), "instance": str(DC.INSTANCE), "base_tree": str(DC.BASE_TREE)}
+           "seeds": seeds, "work_tree": str(work_tree), "instance": str(DC.INSTANCE), "base_tree": str(DC.BASE_TREE),
+           "instance_source": DC.INSTANCE_SOURCE}
     if thinking:
         cfg["thinking"] = True
     DC.write_json(run_dir / "run.json", cfg)
@@ -153,6 +154,9 @@ def step_matchups(run_dir: Path, inside: bool = False) -> dict:
         repo_imports()
         import shutil
         shutil.copy2(cfg["matchups_csv"], run_dir / "matchups.csv")   # the CSV as read (the prices step reads it too)
+        from src.eda.prediction_run import earlier_rounds as ER
+        if ER.sidecar(cfg["matchups_csv"]).exists():                    # its earlier qualifying rounds (24 Oct 2026)
+            shutil.copy2(ER.sidecar(cfg["matchups_csv"]), ER.sidecar(run_dir / "matchups.csv"))
         rec = MU.live(run_dir, run_dir / "matchups.csv")
         from src.eda.prediction_run import run as RUN
         rec["wta_calendar"] = RUN.wta_calendar(pd.read_csv(run_dir / "matchups.csv"), 300)
@@ -167,7 +171,8 @@ def step_matchups(run_dir: Path, inside: bool = False) -> dict:
     r = cfg["replay"]
     rec = MU.replay(run_dir, r["week"], r["round"], r.get("winner", "A"), Path(cfg["base_tree"]),
                     replay_frame(cfg), r.get("dating", "training"), **({"main_date": r["main_date"]}
-                                                                       if r.get("main_date") else {}))
+                                                                       if r.get("main_date") else {}),
+                    **({"earlier": r["earlier"]} if r.get("earlier") else {}))
     DC.write_json(run_dir / "replay.json", rec)
     return rec
 
@@ -198,12 +203,17 @@ def step_tables(run_dir: Path, history: bool = True) -> dict:
     if rec.get("failed"):
         raise SystemExit(f"tables: step {rec['failed']} failed (its log: {Path(cfg['work_tree']) / 'logs'})")
     return {"steps": {s["step"]: s["seconds"] for s in rec["steps"]}, "history": rec.get("history_line"),
-            "timeline_held": rec.get("timeline_held")}
+            "timeline_held": rec.get("timeline_held"),
+            **({"left_out": len(rec["left_out"]), "stage0_rebuilt": rec.get("stage0_rebuilt", 0)}
+               if rec.get("left_out") else {})}
 
 
 def step_history(run_dir: Path) -> dict:
     """The history check on the work tree's tables (after the tables step): history.json, and its fields into
-    tables.json where the tables step records them when it runs the check itself."""
+    tables.json where the tables step records them when it runs the check itself. A live run also gets the continuity
+    check beside it (since 28 Oct 2026; dp_continuity: finished matches earlier live runs had and these tables lack,
+    and Tennis My Life's held and carried files): continuity.json, read by A4 and the bet sheet. A report: it never
+    blocks, and its own failure is written there, not raised."""
     repo_imports()
     import dp_tables as TB
     cfg = run_config(run_dir)
@@ -212,7 +222,11 @@ def step_history(run_dir: Path) -> dict:
     tab = DC.read_json(run_dir / "tables.json")
     tab.update(res)
     DC.write_json(run_dir / "tables.json", tab)
-    return {"history": res["history_line"], "seconds": res["history_seconds"]}
+    out = {"history": res["history_line"], "seconds": res["history_seconds"]}
+    if cfg["mode"] == "live":
+        import dp_continuity as CT
+        out["continuity"] = CT.run_check(run_dir, Path(cfg["work_tree"]))["line"]
+    return out
 
 
 def start_history(run_dir: Path) -> subprocess.Popen:
@@ -227,7 +241,11 @@ def join_history(proc: subprocess.Popen, run_dir: Path) -> dict:
     if proc.wait() != 0:
         raise SystemExit(f"history check failed: {run_dir / 'history.log'}")
     res = DC.read_json(run_dir / "history.json")
-    return {"history": res["history_line"], "ran_seconds": res["history_seconds"]}
+    out = {"history": res["history_line"], "ran_seconds": res["history_seconds"]}
+    if (run_dir / "continuity.json").exists():                # a live run's continuity check (28 Oct 2026)
+        out["continuity"] = DC.read_json(run_dir / "continuity.json").get("line")
+        DC.log(f"   {out['continuity']}")
+    return out
 
 
 def side_names(matches: pd.DataFrame, players: pd.DataFrame) -> pd.DataFrame:
@@ -394,14 +412,16 @@ def step_predict(run_dir: Path, seeds: str) -> dict:
     return out
 
 
-def step_grade(run_dir: Path) -> dict:
-    """Each prediction against its result where the repository's Stage 0 holds one (a played match keeps the id the
-    live row was given): log loss of q and of the market's price."""
+def step_grade(run_dir: Path, stage0: Path | None = None) -> dict:
+    """Each prediction against its result where a Stage 0 holds one (a played match keeps the id the live row was
+    given): log loss of q and of the market's price. stage0: the Stage 0 file read, by default the repository's (the
+    notebook's A7 passes the freshest on disk: an agent's choice of 27 Oct 2026); grade.json names it and its time."""
     repo_imports()
     from src.eda.predictability_diagnostic import common as C
+    path = Path(stage0) if stage0 else Path(C.MATCHES)
     pred = pd.read_csv(run_dir / "predictions.csv").astype({"match_id": str})
-    m = pd.read_parquet(C.MATCHES, columns=["match_id", "status", "a_won"]).astype({"match_id": str})
-    g = pred.merge(m, on="match_id", how="left")
+    m = pd.read_parquet(path, columns=["match_id", "status", "a_won"]).astype({"match_id": str})
+    g = pred.merge(m.drop_duplicates("match_id"), on="match_id", how="left")
     done = g["status"].isin(["completed", "retired"])
     y = g.loc[done, "a_won"].astype(bool).to_numpy()
 
@@ -418,7 +438,8 @@ def step_grade(run_dir: Path) -> dict:
     for k, c in both.items():
         g.loc[done, k] = ll(g.loc[done, c])
     g.to_csv(run_dir / "graded.csv", index=False)
-    out = {"predictions": int(len(g)), "graded": int(done.sum())}
+    out = {"predictions": int(len(g)), "graded": int(done.sum()), "stage0": str(path),
+           "stage0_written": time.strftime("%Y-%m-%dT%H%M%SZ", time.gmtime(path.stat().st_mtime))}
     if done.any():
         out.update({"mean_ll_model": float(g.loc[done, "ll_model"].mean()),
                     "mean_ll_market": float(g.loc[done, "ll_market"].mean()),
@@ -597,6 +618,14 @@ def run_day(run_dir: Path, do_refresh: bool, do_fit: bool, keep_tree: bool, work
                     DC.log(f"   THINKING FAILED ({reason}): the local model's predictions follow, without the ensemble")
             timed("predict", step_predict, run_dir, cfg["seeds"])
         out["finished_at"] = DC.stamp()
+        import dp_leftout as LO                          # the matches left out on the way (28 Oct 2026), said once more
+        left = LO.read(run_dir)
+        if left["matches"] or left["earlier_rounds"]:
+            out["left_out"] = {"matches": len(left["matches"]), "earlier_rounds": len(left["earlier_rounds"]),
+                               "file": str(run_dir / LO.FILE)}
+            for r in left["matches"]:
+                DC.log(f"!!! NOT PREDICTED, an error in its row ({r.get('step')} step): {LO.describe(r)} -- "
+                       f"{r.get('reason')}")
         return out
     finally:
         if hist is not None and hist.poll() is None:     # never delete the work tree under it

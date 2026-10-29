@@ -2,17 +2,23 @@
 docs/studies/master_pipeline/process_log.md, Part 2).
 
 bet_diagnostics() (diagnostics.py) computes the record: one row per match, every figure on Stage 0's sides A and B. This
-module only reads the record and says it the way a bettor reads it. It computes no probability, EV or block.
+module only reads the record and says it the way a bettor reads it. It computes no probability, EV or block; its market
+chance is the record's odds said as a chance (1 / decimal odds), as its US odds are.
 
     the sheet       one row per predicted match: BET (the player the model backs at Pinnacle's odds, with the stake),
                     then PASS (no side is +EV at Pinnacle's odds: the odds that would make the model's side a bet), then
-                    BLOCKED (a safety rule fired); each with the model's and the market's chance, the edge, the expected
-                    profit, the start in local time and a plain note
+                    BLOCKED (a safety rule fired); each with the model's chance, the market's (the chance Pinnacle's
+                    posted price implies, its margin included: the owner, 24 Oct 2026), the edge between them, the
+                    expected profit, the start in local time and a plain note
     the header      the totals, the price's time, the model, the stake rule, and what applies to the whole run, once
 
 It is shown in the notebook (show) and written as a workbook (write_workbook): "Bet sheet", then "Matches" (every figure
 of both players, in Pinnacle's order), "Not predicted" (the listed matches left out, and why), "Run" (provenance) and
 "How to read" (every column).
+    the alerts      since 28 Oct 2026, above everything, in red: each match the run left out because of an error in its
+                    own row, with the error (the owner: "Be sure to mention the match that was left out and that there
+                    was an error in one row clearly and loudly"), and each earlier round it could not add; their rows
+                    open the "Not predicted" sheet
 """
 from __future__ import annotations
 
@@ -46,6 +52,9 @@ CHANCES = {False: ["Model chance without patterns"],          # the chance colum
 COLOURS = {"BET": ("#E2EFDA", "#1E4620"), "PASS": ("#F2F2F2", "#3A3A3A"), "BLOCKED": ("#FBE5D6", "#7A2E0E")}
 HEAD = ("#1F3864", "#FFFFFF")
 GROUP = ("#D9E1F2", "#1F3864")
+ALERT = ("#C00000", "#FFFFFF")       # the sheet's alerts: a match left out because of an error in its row (28 Oct 2026)
+ERROR_ROW = ("#F8CBAD", "#7A0000")   # its row on "Not predicted"
+ERROR = "ERROR in its row"           # the start of its "Why not predicted" (diagnostics.LEFT_OUT_ERROR's plain words)
 
 # How each kind of column is written: Excel's number format, and the notebook's
 FORMATS = {"pct": ("0.0%", "{:.1%}"), "pts": ("+0.0;-0.0;0.0", "{:+.1f}"), "ev": ("+0.0%;-0.0%;0.0%", "{:+.1%}"),
@@ -152,7 +161,8 @@ def decision(r) -> str:
 
 
 def lean(r) -> str | None:
-    """The side the model rates above the market: the only side that can be +EV at a bookmaker's odds."""
+    """The model's side: the one it rates above the margin-free price (the record's edge_a). With the margin removed
+    proportionally, it is also the side with the higher EV at the posted odds: the only side that can be +EV."""
     e = _f(r.get("edge_a"))
     if not np.isfinite(e) or e == 0:
         return None
@@ -160,16 +170,19 @@ def lean(r) -> str | None:
 
 
 def side(r, s: str) -> dict:
-    """One side's figures, from the record's side-A/B columns."""
+    """One side's figures, from the record's side-A/B columns. market: the chance the side's posted price implies, its
+    margin included, 1 / decimal odds (the owner, 24 Oct 2026: "Market chance should be market chance INCLUDING VIG ON
+    THE SIDE WE ARE TRYING TO BET"); not the margin-free price the model is fed (the record's p_market_a)."""
     a = s == "A"
-    pm, base = _f(r.get("p_market_a")), _f(r.get("p_base_a"))
+    base = _f(r.get("p_base_a"))
+    odds = _f(r.get("pinnacle_odds_a" if a else "pinnacle_odds_b"))
     off = _f(r.get("q_a_patterns_off"))
     # an ensemble run: model and model_off are the ensemble's; each model's own chance (NaN in a local run)
     loc, loc_off, th = (_f(r.get(c)) for c in ("q_a_local", "q_a_local_patterns_off", "q_a_thinking"))
     return {"name": _text(r.get("player_a" if a else "player_b")),
             "id": _text(r.get("player_a_id" if a else "player_b_id")),
-            "odds": _f(r.get("pinnacle_odds_a" if a else "pinnacle_odds_b")),
-            "market": pm if a else 1 - pm,
+            "odds": odds,
+            "market": 1 / odds if odds > 1 else float("nan"),
             "model": _f(r.get("q_a" if a else "q_b")),
             "model_off": off if a else 1 - off,
             "local": loc if a else 1 - loc,
@@ -178,7 +191,9 @@ def side(r, s: str) -> dict:
             "base": base if a else 1 - base,
             "ev": _f(r.get("ev_a_pinnacle" if a else "ev_b_pinnacle")),
             "fair": _f(r.get("fair_odds_a" if a else "fair_odds_b")),
-            "readings": _f(r.get("speed_readings_28d_a" if a else "speed_readings_28d_b"))}
+            "readings": _f(r.get("speed_readings_28d_a" if a else "speed_readings_28d_b")),
+            "speed_reading": _text(r.get("speed_last_reading_a" if a else "speed_last_reading_b")),
+            "newest": _text(r.get("newest_result_a" if a else "newest_result_b"))}
 
 
 def listed(r) -> tuple[str, str]:
@@ -215,8 +230,8 @@ def event(r) -> str:
 
 _BLOCKS = [
     (r"^gate: do not bet: inputs incomplete", None),
-    (r"^quote (\d+) min old \(over (\d+)\)", "The price is {0} min old (limit {1}): reprice with cell A6 before betting."),
-    (r"^the match has started", "The match has started."),
+    (r"^quote (\d+) min old \(over (\d+)\)", "The price is {0} min old (limit {1}): reprice with cell A5b before betting."),
+    (r"^the match has started", "The match has started."),           # a record made before 24 Oct 2026
     (r"^not a main-tour", "Neither a main-tour match nor tour-level qualifying: outside what the model predicts."),
     (r"^unsupported match format", "A match format the model does not cover."),
     (r"^price read-back mismatch", "Safety check failed: the price the model used is not the listed price. Do not bet; "
@@ -228,6 +243,10 @@ _BLOCKS = [
 ]
 
 _LEFT_OUT = [
+    # a match the run left out because of an error in its own row (diagnostics.LEFT_OUT_ERROR, 28 Oct 2026)
+    (r"^ERROR in its row, left out of the run \((.+?)\): (.+)$", ERROR + ", so no prediction (found at {0}): {1}"),
+    (r"^ERROR while linking this listing \((.+)\)$", ERROR + " while linking it ({0}): left out, the other listings "
+                                                     "linked."),
     (r"^no main-tour Tennis My Life event named like", "First round of a new event: the model needs one played match "
                                                        "at the event first."),
     (r"matches several events", "The event's name matches several events: left out to be safe."),
@@ -352,20 +371,21 @@ def match_warnings(r) -> list[str]:
 
 
 def no_edge_at(r) -> str:
-    """Where the model's edge on its side would vanish: the market chance (and fair odds) nearest the current price at
-    which the model's curve crosses the price."""
+    """Where the model's side would have no edge, its expected profit zero, if Pinnacle's line moved there: the posted
+    price's chance (margin included) and US odds, the crossing nearest the current price, with the model's chance
+    re-read at each price and Pinnacle's margin kept (the record's zero-EV prices, 24 Oct 2026)."""
     s = lean(r)
-    if s is None:
+    if s is None or f"zero_ev_implied_{s.lower()}" not in r:      # a record made before 24 Oct 2026 has none
         return ""
-    near = _f(r.get("nearest_break_even_p_a"))
+    v = side(r, s)
+    near = _f(r.get(f"nearest_zero_ev_implied_{s.lower()}"))
     if np.isfinite(near):
-        p = near if s == "A" else 1 - near
-        n = len(_text(r.get("break_even_p_a")).split(";"))
-        return f"{p:.1%} (US odds {us(1 / p)})" + (f"; {n - 1} more crossing{'s' * (n > 2)}" if n > 1 else "")
-    note = _text(r.get("break_even_note"))
-    if note.startswith("no crossing"):
-        return f"never between 5% and 95%: the model prefers {side(r, s)['name']} at every price"
-    return note
+        n = len(_text(r.get(f"zero_ev_implied_{s.lower()}")).split(";"))
+        return f"{near:.1%} (US odds {us(1 / near)})" + (f"; {n - 1} more crossing{'s' * (n > 2)}" if n > 1 else "")
+    if not np.isfinite(v["ev"]):
+        return ""
+    return (f"none in the prices this run covered: {v['name']} is worth a bet at every one" if v["ev"] > 0 else
+            f"none in the prices this run covered: {v['name']} is not worth a bet at any")
 
 
 # ---------------------------------------------------------------------------------------------------------------------
@@ -387,6 +407,7 @@ class Sheet:
     left_out_summary: str
     run: list[tuple[str, str]]
     files: dict = field(default_factory=dict)
+    alerts: list[str] = field(default_factory=list)      # shown above everything, in red (28 Oct 2026)
 
 
 def _start_key(r) -> float:
@@ -406,10 +427,57 @@ def _venue_columns(record: pd.DataFrame, venue: str) -> tuple[str, str] | None:
         if f"ev_a_{key}" in record.columns or f"ev_b_{key}" in record.columns else None
 
 
+AMBER = ("#FFE699", "#5C4400")      # a match's note that starts with MISSING: a finished match of a player is not in the data
+MISSING = "Missing result:"
+
+
+def _age(day: str, ref) -> str:
+    """ "9 days old" (a reading's day against the match's day); "" when either is unknown."""
+    try:
+        n = (pd.Timestamp(str(ref)[:10]) - pd.Timestamp(day[:10])).days
+    except (TypeError, ValueError):
+        return ""
+    return f"{n} day{'s' * (n != 1)} old" if n >= 0 else ""
+
+
+def rests_on(r) -> list[str]:
+    """What a bet rests on (28 Oct 2026; the owner: "this bet exists only because of the serve-speed nudge, and the speed
+    data is 9 days old"): the serve-speed term and the patterns it would be a bet without, the speed readings' age when
+    the bet needs the term, and each player's newest result in the run's data."""
+    s = r.get("pick")
+    if decision(r) != "BET" or s not in ("A", "B"):
+        return []
+    v, o = side(r, s), side(r, "B" if s == "A" else "A")
+    pts = _f(r.get("speed_term_pts_a")) * (1 if s == "A" else -1)
+    out = []
+    if _text(r.get("speed_effect")) == "bet only with the speed term":
+        ages = "; ".join(f"{x['name']}'s newest reading {x['speed_reading']} ({_age(x['speed_reading'], r.get('day'))})"
+                         for x in (v, o) if x["speed_reading"])
+        out.append(f"Only the serve-speed term makes this a bet: it moves {v['name']}'s chance {pts:+.1f} pts"
+                   + (f" ({ages})" if ages else "") + ". Keep the stake small.")
+    elif np.isfinite(pts) and abs(pts) >= 0.05:
+        out.append(f"Without the serve-speed term ({pts:+.1f} pts) it is still a bet.")
+    newest = [f"{x['name']} {x['newest']}" for x in (v, o) if x["newest"]]
+    if newest:
+        out.append("Newest results in the data: " + "; ".join(newest) + ".")
+    return out
+
+
 def notes_for(r, venue: str = "") -> str:
-    """One plain note per match: why it is a PASS or BLOCKED, what weakens a bet, the match's own warnings."""
+    """One plain note per match: a finished match of a player missing from the data first (amber), then why it is a
+    PASS or BLOCKED, what weakens a bet and what it rests on, the match's own warnings."""
     d = decision(r)
     out = []
+    gone = _text(r.get("missing_results"))
+    if gone and d != "NOT PREDICTED":
+        many = "," in gone or ";" in gone
+        out.append(f"{MISSING} {gone}: earlier runs had {'them' if many else 'it'}, today's data does not, so the model "
+                   f"does not know {'them' if many else 'it'}. Not a block.")
+    sp = _text(r.get("speed_effect"))
+    if sp == "the speed term removes this bet":
+        out.append("Without the serve-speed term this would be a bet; with it, the model passes.")
+    elif sp == "the speed term switches the side":
+        out.append("The serve-speed term switches the player the model backs.")
     eff = _text(r.get("patterns_effect"))
     if eff == "bet only with the patterns":
         out.append("Only the pattern adjustment makes this a bet: without it the model would pass. Keep the stake small.")
@@ -433,12 +501,12 @@ def notes_for(r, venue: str = "") -> str:
         v = side(r, by_bar)
         out.append(f"Passed for a data gap: {gap_text}. The model's edge on {v['name']} "
                    f"({100 * (v['model'] - v['market']):+.1f} pts, expected profit {v['ev']:+.1%}) does not clear the "
-                   f"{100 * bar:.0f}-point margin a missing box score asks for.")
+                   f"{100 * bar:.0f}-point edge a missing box score asks for.")
     elif d == "PASS" and s in ("A", "B"):
         v = side(r, s)
-        out.append(f"No value at {us(v['odds'])}: the model's edge on {v['name']} "
-                   f"({100 * (v['model'] - v['market']):+.1f} pts) is smaller than the bookmaker's margin, so the "
-                   f"expected profit is {v['ev']:+.1%}. Worth a bet at {us(v['fair'])} or better.")
+        out.append(f"No value at {us(v['odds'])}: the model gives {v['name']} {v['model']:.1%}, and that price needs "
+                   f"{v['market']:.1%} to break even, so the expected profit is {v['ev']:+.1%}. Worth a bet at "
+                   f"{us(v['fair'])} or better.")
         vev = _f(r.get(f"ev_{s.lower()}_{venue or 'venue'}"))
         if np.isfinite(vev) and vev > 0:
             out.append(f"At {venue or 'the other venue'} it is +EV ({vev:+.1%}).")
@@ -451,7 +519,7 @@ def notes_for(r, venue: str = "") -> str:
     noted = _text(r.get("gate_notes"))
     if noted and d != "BLOCKED":
         out.append(f"No box score for {noted}: the model was trained with gaps like these, so nothing changes.")
-    return " ".join(out + match_warnings(r))
+    return " ".join(out + rests_on(r) + match_warnings(r))
 
 
 def _sheet_table(rec: pd.DataFrame, zone: str, stake_rule: str | None, venue: str) -> tuple[pd.DataFrame, dict]:
@@ -521,7 +589,10 @@ def _matches_table(rec: pd.DataFrame, zone: str, stake_rule: str | None, speed_k
                        ("Serve-speed gap 1-2 (km/h)", "kmh"), ("Speed readings 1 (28 d)", "int"),
                        ("Speed readings 2 (28 d)", "int"), ("Seed spread (± pts)", "spread")]),
         ("The value", [("Model's side", "text"), ("Edge (pts)", "pts"), ("Expected profit 1", "ev"),
-                       ("Expected profit 2", "ev"), ("Edge gone if the market reaches", "text")]),
+                       ("Expected profit 2", "ev"), ("Zero edge if Pinnacle moves to", "text")]),
+        ("What it rests on", [("Speed shift 1 (pts)", "pts"), ("Bet without the speed term", "text"),
+                              ("Newest speed reading 1", "text"), ("Newest speed reading 2", "text"),
+                              ("Newest result 1", "text"), ("Newest result 2", "text"), ("Missing results", "text")]),
         ("Identifiers", [("Match id", "text"), ("Player 1 id", "text"), ("Player 2 id", "text"), ("Run", "text")]),
     ]
     rows = []
@@ -563,7 +634,14 @@ def _matches_table(rec: pd.DataFrame, zone: str, stake_rule: str | None, speed_k
             "Model's side": side(r, s)["name"] if s else "",
             "Edge (pts)": 100 * (side(r, s)["model"] - side(r, s)["market"]) if s else 0.0,
             "Expected profit 1": p1["ev"], "Expected profit 2": p2["ev"],
-            "Edge gone if the market reaches": no_edge_at(r),
+            "Zero edge if Pinnacle moves to": no_edge_at(r),
+            "Speed shift 1 (pts)": _f(r.get("speed_term_pts_a")) * (1 if one == "A" else -1),
+            "Bet without the speed term": ("" if d == "BLOCKED" or "pick_no_speed" not in r else
+                                           side(r, r["pick_no_speed"])["name"] if r.get("pick_no_speed") in ("A", "B")
+                                           else "pass"),
+            "Newest speed reading 1": p1["speed_reading"], "Newest speed reading 2": p2["speed_reading"],
+            "Newest result 1": p1["newest"], "Newest result 2": p2["newest"],
+            "Missing results": _text(r.get("missing_results")),
             "Match id": _text(r.get("match_id")), "Player 1 id": p1["id"], "Player 2 id": p2["id"],
             "Run": _text(r.get("run")), "_order": ORDER[d], "_start": _start_key(r)})
     cols = [c for _, cs in groups for c, _ in cs]
@@ -590,8 +668,9 @@ def _left_out_table(rec: pd.DataFrame, zone: str) -> tuple[pd.DataFrame, str]:
                      "Detail": _text(r.get("block_reasons")), "_start": _start_key(r)})
     t = pd.DataFrame(rows, columns=[f"Starts ({zone})", "Tour", "Event", "Match", "US odds 1", "US odds 2",
                                     "Why not predicted", "Detail", "_start"])
-    if len(t):
-        t = t.sort_values(["_start", "Event"], kind="stable")
+    if len(t):                                  # the matches an error in their row left out first (28 Oct 2026)
+        t = t.assign(_error=~t["Why not predicted"].astype(str).str.startswith(ERROR))
+        t = t.sort_values(["_error", "_start", "Event"], kind="stable").drop(columns="_error")
     names = [_event_name(r) for _, r in out.iterrows()]
     t = t.drop(columns="_start").reset_index(drop=True)
     if t.empty:
@@ -603,10 +682,11 @@ def _left_out_table(rec: pd.DataFrame, zone: str) -> tuple[pd.DataFrame, str]:
 
 
 def build(record: pd.DataFrame, *, made_at: dt.datetime, stake_rule: str | None = None, venue: str = "",
-          notes: list[dict] | None = None, meta: dict | None = None) -> Sheet:
+          notes: list[dict] | None = None, meta: dict | None = None, alerts: list[str] | None = None) -> Sheet:
     """The sheet of a record (bet_diagnostics' rows). notes: the run's notes ({"plain": ..., "detail": ...}), said
-    once. meta: run, model, instance, checkpoint, seeds, stale_minutes, reprice_file, history_line, speed_km_h."""
-    meta, notes = meta or {}, notes or []
+    once. meta: run, model, instance, checkpoint, seeds, stale_minutes, reprice_file, history_line, speed_km_h.
+    alerts: lines said above everything, in red (a match the run left out because of an error in its row)."""
+    meta, notes, alerts = meta or {}, notes or [], list(alerts or [])
     made = made_at.astimezone() if made_at.tzinfo else made_at.replace(tzinfo=dt.timezone.utc).astimezone()
     zone = zone_label(made)
     table, kinds = _sheet_table(record, zone, stake_rule, venue)
@@ -643,7 +723,7 @@ def build(record: pd.DataFrame, *, made_at: dt.datetime, stake_rule: str | None 
         age = (made - q).total_seconds() / 60
         header.append(f"Prices: {', '.join(s.capitalize() for s in sources) or 'the matchups CSV'}, quoted "
                       f"{when(q)} {zone} ({age:.0f} min before this sheet). Bet within "
-                      f"{_f(meta.get('stale_minutes')):.0f} minutes of the quote, or reprice first (cell A6).")
+                      f"{_f(meta.get('stale_minutes')):.0f} minutes of the quote, or reprice first (cell A5b).")
     ens = is_ensemble(record)
     seeds = f"seeds {meta.get('seeds') or '?'}" + ("; Thinking: seed 0, one paid call" if ens else "")
     header.append(f"Model: {MODELS.get(meta.get('model'), meta.get('model') or '?')}; instance "
@@ -652,6 +732,14 @@ def build(record: pd.DataFrame, *, made_at: dt.datetime, stake_rule: str | None 
         header.append("'Model chance', the edge, the expected profit and the decision use the ensemble: the non-thinking "
                       "and the thinking chances averaged 50/50 in log-odds, that is on the odds scale (60% and 70% give "
                       "65.2%), with the pattern adjustment added when it is on.")
+    only_speed = int((pred.get("speed_effect", pd.Series(dtype=object)) == "bet only with the speed term").sum())
+    if only_speed:
+        header.append(f"Serve-speed term: {only_speed} bet{'s' * (only_speed != 1)} exist{'s' * (only_speed == 1)} "
+                      "only because of it (Notes say which, with the speed readings' age: keep those stakes small).")
+    gone = int(pred.get("missing_results", pd.Series(dtype=object)).fillna("").astype(str).str.len().gt(0).sum())
+    if gone:
+        header.append(f"MISSING RESULTS: {gone} match{'es' * (gone != 1)} ha{'ve' if gone != 1 else 's'} a player "
+                      "with a finished match earlier runs had and this run's data lacks (amber notes). Not a block.")
     status = _text(pred["patterns"].iloc[0]) if "patterns" in pred and len(pred) else ""
     if status == "on":
         sh = (pd.to_numeric(pred["q_a"], errors="coerce") -
@@ -670,8 +758,9 @@ def build(record: pd.DataFrame, *, made_at: dt.datetime, stake_rule: str | None 
         header.append(f"Model age: {age}")
     header.append("Stakes: " + (STAKE_RULES[stake_rule] + "." if stake_rule in STAKE_RULES else
                                 "none shown (set STAKE_RULE in the notebook's setup cell)."))
-    header.append("Expected profit is the model's own estimate at Pinnacle's odds, margin included. It is not a measured "
-                  "return.")
+    header.append("Market chance is the chance Pinnacle's posted price implies, its margin included (1 / the decimal "
+                  "odds), and the edge is the model's chance minus it, so a positive edge is a positive expected profit. "
+                  "Expected profit is the model's own estimate at Pinnacle's odds. It is not a measured return.")
     written = dt.datetime.now().astimezone()
     if (written - made).total_seconds() > 600:          # a sheet remade from a run's saved files, as of an earlier time
         header.append(f"Rebuilt {when(written, year=True)} {zone_label(written)} from the run's saved files, as of "
@@ -692,6 +781,8 @@ def build(record: pd.DataFrame, *, made_at: dt.datetime, stake_rule: str | None 
            ("Pattern adjustment", {"on": "on (switched on 13 Oct 2026; docs/studies/unpriced_leads/)",
                                    "off": "off"}.get(status, "not recorded in this run")),
            ("Other venue", f"{venue} (fee {_f(meta.get('venue_fee')):.1%} of net winnings)" if venue else "none")]
+    for i, a in enumerate(alerts, 1):
+        run.append((f"ALERT {i}", a))
     for i, nt in enumerate(notes, 1):
         run.append((f"Run note {i}", nt["plain"]))
         if nt.get("detail"):
@@ -700,7 +791,7 @@ def build(record: pd.DataFrame, *, made_at: dt.datetime, stake_rule: str | None 
         run.append(("History check", str(meta["history_line"])))
     return Sheet(made_at=made, zone=zone, title=title, header=header, notes=[nt["plain"] for nt in notes], table=table,
                  kinds=kinds, matches=matches, matches_kinds=mkinds, groups=groups, left_out=left,
-                 left_out_summary=left_summary, run=run)
+                 left_out_summary=left_summary, run=run, alerts=alerts)
 
 
 # ---------------------------------------------------------------------------------------------------------------------
@@ -709,14 +800,18 @@ def build(record: pd.DataFrame, *, made_at: dt.datetime, stake_rule: str | None 
 def glossary(zone: str) -> list[tuple[str, str, str]]:
     S, M, N = "Bet sheet", "Matches", "Not predicted"
     return [
+        (S, "(red lines at the top)", "A match the run left out because of an error in its own row, so it has no "
+                                      "prediction, with the error; every other match was predicted as usual. Also an "
+                                      "earlier qualifying round the run could not add to its data: its player's match "
+                                      "is predicted without it. 'Not predicted' lists the matches first, in red."),
         (S, "(order)", "BET rows first, then PASS, then BLOCKED; each group by start time."),
         (S, f"Starts ({zone})", "The listed start in your time zone. Later matches on a court often start after it."),
         (S, "Match", "The two players as Pinnacle lists them (home first)."),
         (S, "Decision", "BET: the model sees positive expected profit at Pinnacle's own odds. PASS: no side does (the "
-                        "model's edge is smaller than the bookmaker's margin). BLOCKED: a safety rule stops any bet; "
-                        "Notes say which."),
-        (S, "Player", "BET rows: the player to bet. PASS rows: the player the model rates above the market, not worth a "
-                      "bet at Pinnacle's price."),
+                        "model's chance is not above the market chance). BLOCKED: a safety rule stops any bet; Notes "
+                        "say which."),
+        (S, "Player", "BET rows: the player to bet. PASS rows: the model's side (the better expected profit of the "
+                      "two), not worth a bet at Pinnacle's price."),
         (S, "Stake (units)", "The stake rule's size, in your units (see the header). Shown on BET rows only."),
         (S, "US odds", "Pinnacle's current price for that player as American odds, its margin included: the price you "
                        "would get. Every price on this sheet is in US odds."),
@@ -724,7 +819,7 @@ def glossary(zone: str) -> list[tuple[str, str, str]]:
                                    "worth taking. Any price above it is better (-140 beats -150, +120 beats +110); "
                                    "below it the bet loses money on the model's numbers. Use it at any book or exchange "
                                    "(before its fees). It holds while Pinnacle's own price stays where it was: if "
-                                   "Pinnacle moves, reprice (cell A6)."),
+                                   "Pinnacle moves, reprice (cell A5b)."),
         (S, "Model chance", "The model's chance that this player wins. While the pattern adjustment is on (the "
                             "header says), this includes it, and the decision, edge and expected profit use it. In a "
                             "run with TabPFN-3.5-Thinking (MODEL 'tabpfn35_thinking') it is the ensemble's: the two "
@@ -744,20 +839,30 @@ def glossary(zone: str) -> list[tuple[str, str, str]]:
                                                 "log-odds, that is on the odds scale: 60% and 70% give 65.2%, 10% and "
                                                 "20% give 14.3% (a plain average would give 65% and 15%). The pattern "
                                                 "adjustment, when on, is added to this to give 'Model chance'."),
-        (S, "Market chance", "Pinnacle's price for this player with its margin removed (what the model is given)."),
-        (S, "Edge (pts)", "Model chance minus market chance, in percentage points. Positive: the model rates the "
-                          "player higher than the market does."),
+        (S, "Market chance", "The chance Pinnacle's posted price implies for this player, its margin included: 1 / the "
+                             "decimal odds (-121 gives 54.8%). The player must win this often for a bet at this price "
+                             "to break even. (The model itself is fed the price with the margin removed, as in "
+                             "training.)"),
+        (S, "Edge (pts)", "Model chance minus market chance, in percentage points. Positive means positive expected "
+                          "profit at Pinnacle's price: the expected profit is the edge times the payout per unit staked "
+                          "(the stake back included). A match with a data gap needs an edge above 1 point."),
         (S, "Expected profit", "Per unit staked at Pinnacle's price: model chance x the payout per unit staked (the "
-                               "stake back included) - 1. The model's own estimate, not a measured return. It must clear "
-                               "the margin, so a small edge can still be a PASS."),
+                               "stake back included) - 1, which is the edge times that payout. The model's own "
+                               "estimate, not a measured return."),
         (S, "Event", "Tour, event, round; surface and indoor or outdoor; best of 3 or 5."),
         (S, "Notes", "Why a match is a PASS or BLOCKED, and anything that weakens a bet (a thin edge, missing serve-"
                      f"speed readings, model runs that disagree). 'Thin' means expected profit under {THIN_EV:.0%}. "
                      "'Data gap': an earlier main-tour, Challenger or qualifying match of a player has no box score yet, "
                      "so the bet had to clear a 1-point edge ('Passed for a data gap' when it did not). 'No box score "
-                     "for ...' names a team-event or ITF match without one: noted only, nothing changes."),
+                     "for ...' names a team-event or ITF match without one: noted only, nothing changes. "
+                     "'Missing result' (amber, since 28 Oct 2026): a finished match of a player that earlier runs had is "
+                     "not in this run's data, so the model does not know it; not a block. For a bet, what it rests on: "
+                     "'Only the serve-speed term makes this a bet' (with the speed readings' age: keep the stake small) "
+                     "or that it is still a bet without that term, and each player's newest result in the data."),
         (M, "Player 1, Player 2", "Pinnacle's order (home first). Every '1' or '2' column is that player's."),
         (M, "Margin", "Pinnacle's overround: how much the two prices add up to over 100%. The bookmaker's cut."),
+        (M, "Market chance 1, 2", "Each player's posted price as a chance, its margin included (1 / the decimal odds). "
+                                  "The two add up to 100% plus the margin."),
         (M, "Quoted, Price age (min)", "When Pinnacle's price was read, and how old it was when the sheet was made. A "
                                        "price older than the limit blocks the match until it is repriced."),
         (M, "Limit (max stake)", "The most Pinnacle accepts on this match (its maxRiskStake)."),
@@ -781,11 +886,16 @@ def glossary(zone: str) -> list[tuple[str, str, str]]:
         (M, "Speed readings (28 d)", "How many serve-speed readings each man has in the last 28 days."),
         (M, "Seed spread (± pts)", "How much the model's 16 runs disagree on this match (standard deviation). Above 3 "
                                    "pts is flagged."),
-        (M, "Model's side", "The player the model rates above the market."),
+        (M, "Model's side", "The player with the better expected profit at Pinnacle's prices: the only one that can be "
+                            "worth a bet."),
         (M, "Expected profit 1, 2", "Each player's expected profit per unit at Pinnacle's odds."),
-        (M, "Edge gone if the market reaches", "If Pinnacle's price for the model's side moved to this chance (these "
-                                               "fair US odds), the model would see no edge. 'Never' means the model "
-                                               "prefers that player at every price from 5% to 95%."),
+        (M, "Zero edge if Pinnacle moves to", "The price Pinnacle would have to post for the model's side (as a chance, "
+                                              "its margin included, and in US odds) for the expected profit to be zero. "
+                                              "The model's chance moves with Pinnacle's line, so it is re-read at that "
+                                              "price; Pinnacle's margin is assumed to stay as it is. A bet stops being "
+                                              "worth it past this price; a pass would become a bet past it. 'None' "
+                                              "means the answer never changes over the prices this run covered (5% to "
+                                              "95% before the margin)."),
         (M, "Data check", "The model reads the box scores of each player's earlier matches at the event and in the last "
                           "14 days. 'complete': none missing, or only of kinds the model was trained without (team "
                           "events, ITF; Notes name them). 'gap: 1-point edge needed': a main-tour, Challenger or "
@@ -793,6 +903,16 @@ def glossary(zone: str) -> list[tuple[str, str, str]]:
                           "must clear an edge of 1 point. 'incomplete': blocked (an unknown indoor/outdoor setting, a "
                           "qualifier with no qualifying match in the data, or, since 22 Oct 2026, a qualifying match "
                           "whose player's previous qualifying round is not in the data yet). Rule of 14 Oct 2026."),
+        (M, "Speed shift 1 (pts)", "How far stage 2's serve-speed term moved player 1's chance (in a Thinking run it is "
+                                   "added to both models, so to their average too). 0 for women."),
+        (M, "Bet without the speed term", "The decision with everything else as it is but the serve-speed term: the "
+                                          "player it would back, or 'pass'."),
+        (M, "Newest speed reading 1, 2", "The day of each man's newest serve-speed reading the run used."),
+        (M, "Newest result 1, 2", "Each player's newest finished match in the run's data: event, round and day (the "
+                                  "latest it could have finished). A result played since and not listed here is unknown "
+                                  "to the model."),
+        (M, "Missing results", "Amber: finished matches of either player that earlier runs had and this run's data "
+                               "lacks (the run's continuity check). Not a block."),
         (M, "Notes", "The same notes as the bet sheet's."),
         (M, "Match id, Player ids, Run", "Identifiers in the project's data, for tracing a row."),
         (N, "US odds 1, 2", "Pinnacle's prices of the two players, as American odds."),
@@ -848,6 +968,9 @@ def write_workbook(sh: Sheet, path: Path) -> Path:
                     cell.fill = fill(bg)
                     cell.font = Font(color=fg.lstrip("#"), bold=(c in ("Decision", "Player", "Bet on")
                                                                  and row.get(colour_by) == "BET"))
+                if c in ("Notes", "Missing results") and str(row[c] or "").strip() and (
+                        c == "Missing results" or str(row[c]).startswith(MISSING)):   # amber: a result is missing
+                    cell.fill, cell.font = fill(AMBER[0]), Font(color=AMBER[1].lstrip("#"), bold=True)
             if lines > 1:
                 ws.row_dimensions[i].height = 15 * lines
         return top + len(df)
@@ -866,8 +989,14 @@ def write_workbook(sh: Sheet, path: Path) -> Path:
     ws.title = "Bet sheet"
     ws.cell(row=1, column=1, value=sh.title).font = Font(bold=True, size=14, color=HEAD[0].lstrip("#"))
     r = 2
+    for line in sh.alerts:                        # above everything, in red (28 Oct 2026)
+        for c in range(1, max(len(sh.table.columns), 8) + 1):
+            ws.cell(row=r, column=c).fill = fill(ALERT[0])
+        ws.cell(row=r, column=1, value=line).font = Font(bold=True, size=12, color=ALERT[1].lstrip("#"))
+        r += 1
+    first = r
     for line in sh.header:
-        ws.cell(row=r, column=1, value=line).font = Font(size=11, bold=(r == 2))
+        ws.cell(row=r, column=1, value=line).font = Font(size=11, bold=(r == first))
         r += 1
     if sh.notes:
         ws.cell(row=r, column=1, value="Run notes (they apply to every match):").font = Font(bold=True)
@@ -901,7 +1030,7 @@ def write_workbook(sh: Sheet, path: Path) -> Path:
         cell.alignment = Alignment(horizontal="center")
         col += n
     end = table(wm, sh.matches, sh.matches_kinds, 3, colour_by="Decision")
-    widths(wm, sh.matches, sh.matches_kinds, cap={"Match id": 50, "Edge gone if the market reaches": 44})
+    widths(wm, sh.matches, sh.matches_kinds, cap={"Match id": 50, "Zero edge if Pinnacle moves to": 44})
     wm.row_dimensions[3].height = 30
     wm.freeze_panes = wm.cell(row=4, column=4)              # the start and both players stay in view
     if len(sh.matches):
@@ -914,6 +1043,11 @@ def write_workbook(sh: Sheet, path: Path) -> Path:
     nk = {"US odds 1": "us", "US odds 2": "us"}
     if len(sh.left_out):
         end = table(wn, sh.left_out, nk, 3)
+        for i, why in enumerate(sh.left_out["Why not predicted"].astype(str), 4):   # an error in its row: in red
+            if why.startswith(ERROR):
+                for c in range(1, len(sh.left_out.columns) + 1):
+                    wn.cell(row=i, column=c).fill = fill(ERROR_ROW[0])
+                    wn.cell(row=i, column=c).font = Font(bold=True, color=ERROR_ROW[1].lstrip("#"))
         widths(wn, sh.left_out, nk, cap={"Detail": 90, "Why not predicted": 70})
         wn.freeze_panes = wn.cell(row=4, column=1)
         wn.auto_filter.ref = f"A3:{get_column_letter(len(sh.left_out.columns))}{end}"
@@ -965,6 +1099,10 @@ def _fmt(kind: str):
 def to_html(sh: Sheet) -> str:
     e = html.escape
     parts = [f"<div style='font-family:Segoe UI,Calibri,sans-serif'><h3 style='margin:4px 0'>{e(sh.title)}</h3>"]
+    if sh.alerts:                                 # above everything, in red (28 Oct 2026)
+        parts.append(f"<div style='background-color:{ALERT[0]};color:{ALERT[1]};font-weight:700;padding:6px 10px;"
+                     "margin:4px 0 8px 0;font-size:14px'>" + "".join(f"<div style='margin:2px 0'>{e(a)}</div>"
+                                                                     for a in sh.alerts) + "</div>")
     parts += [f"<div style='margin:2px 0;{'font-weight:600' if i == 0 else ''}'>{e(line)}</div>"
               for i, line in enumerate(sh.header)]
     if sh.notes:
@@ -984,10 +1122,14 @@ def to_html(sh: Sheet) -> str:
         parts.append(sty.to_html())
         noted = sh.table[sh.table["Notes"].astype(str).str.len() > 0]
         if len(noted):
+            def note_html(text: str) -> str:            # the missing-result sentence in amber (28 Oct 2026)
+                head, dot, rest = text.partition(" Not a block.")
+                return (f"<span style='background-color:{AMBER[0]};color:{AMBER[1]};font-weight:600'>{e(head + dot)}"
+                        f"</span>{e(rest)}" if text.startswith(MISSING) and dot else e(text))
             items = "".join(
                 f"<li><span style='background-color:{COLOURS[r['Decision']][0]};color:{COLOURS[r['Decision']][1]};"
-                f"padding:0 4px;font-weight:600'>{e(r['Decision'])}</span> <b>{e(r['Match'])}</b>: {e(r['Notes'])}</li>"
-                for _, r in noted.iterrows())
+                f"padding:0 4px;font-weight:600'>{e(r['Decision'])}</span> <b>{e(r['Match'])}</b>: "
+                f"{note_html(str(r['Notes']))}</li>" for _, r in noted.iterrows())
             parts.append(f"<ul style='margin:6px 0 2px 18px;padding:0'>{items}</ul>")
     else:
         parts.append("<div>No predicted match.</div>")
@@ -1000,7 +1142,7 @@ def to_html(sh: Sheet) -> str:
 
 
 def to_text(sh: Sheet) -> str:
-    out = [sh.title, *sh.header]
+    out = [sh.title, *[f"!!! {a}" for a in sh.alerts], *sh.header]
     if sh.notes:
         out += ["Run notes (they apply to every match):", *[f"  - {n}" for n in sh.notes]]
     if len(sh.table):

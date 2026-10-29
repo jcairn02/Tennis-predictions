@@ -45,7 +45,9 @@ an unreasonble cost time wise").
   grown: men's slope 0.9056 → 0.9051, women's 0.9326 unchanged. Its evaluation-only fits (seeds 4-15, 2019-2025) were
   paused after the switch, since a bet day started during them would wait on them for the card, and resume at 03:00 on
   22 Oct ([process log](process_log.md), § 4c). The rollback to the morning's instance:
-  `tp.use_instance("template_2026-10-21", tree="C:/Users/zerom/tnr_tpl1021")`.
+  `tp.use_instance("template_2026-10-21", tree="C:/Users/zerom/tnr_tpl1021")`. Its daily caches were deleted on 22 Oct
+  ([cleanup inventory § 9b](../cleanup_inventory/process_log.md)): the first run after this rollback rebuilds them,
+  about 15 minutes.
 
 ## The rule (recorded as an amendment to the 9 Oct decision)
 

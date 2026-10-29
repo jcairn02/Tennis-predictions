@@ -1,9 +1,9 @@
 {
  "source": "tennislive",
  "mode": "events",
- "started_at": "2026-10-22T19:00:06+00:00",
+ "started_at": "2026-10-28T19:00:03+00:00",
  "args": {
-  "weeks": "2026-W42:2026-W43",
+  "weeks": "2026-W43:2026-W44",
   "kinds": "itf,challenger,wta125,tour,slam,finals",
   "limit": null,
   "only": null,
@@ -21,49 +21,50 @@
   "no_stage": false,
   "no_pages": true
  },
- "weeks": "2026-10-12 .. 2026-10-19",
+ "weeks": "2026-10-19 .. 2026-10-26",
  "fetch_outcomes": {
   "calendar:200": 1,
-  "calendar:200:cached": 3,
-  "results:200:cached": 80
+  "calendar:200:cached": 2,
+  "results:200": 1,
+  "results:200:cached": 86
  },
- "staged_range": "2018-01-01 .. 2026-10-19 (every week on disk)",
+ "staged_range": "2018-01-01 .. 2026-10-26 (every week on disk)",
  "staged": {
   "listed": {
-   "rows": 878293,
+   "rows": 879766,
    "dest": "data/dump/points/tennislive/listed.parquet",
-   "bytes": 71925577
+   "bytes": 72073278
   },
   "events": {
-   "rows": 12510,
+   "rows": 12556,
    "dest": "data/dump/points/tennislive/events.parquet",
-   "bytes": 1282019
+   "bytes": 1288247
   }
  },
  "client": {
   "impersonate": "safari",
-  "requests": 1,
+  "requests": 2,
   "retried": 0,
   "slept_seconds": 0.0,
   "min_interval": 1.5
  },
  "session_pages_opened": 0,
  "calendar": {
-  "weeks": 460,
-  "pages_read": 460,
+  "weeks": 461,
+  "pages_read": 461,
   "weeks_without_page": [],
   "dates_not_as_asked": []
  },
  "events": {
   "by_kind_tour_page": {
    "challenger|atp|no page": 4,
-   "challenger|atp|page": 1539,
+   "challenger|atp|page": 1544,
    "finals|atp|page": 15,
    "finals|wta|page": 10,
    "itf|atp|no page": 34,
-   "itf|atp|page": 4475,
+   "itf|atp|page": 4492,
    "itf|wta|no page": 221,
-   "itf|wta|page": 4237,
+   "itf|wta|page": 4254,
    "junior|atp|page": 35,
    "junior|wta|page": 35,
    "other|atp|page": 11,
@@ -72,9 +73,9 @@
    "slam|wta|page": 36,
    "team|atp|page": 500,
    "team|wta|page": 164,
-   "tour|atp|page": 496,
-   "tour|wta|page": 422,
-   "wta125|wta|page": 234
+   "tour|atp|page": 498,
+   "tour|wta|page": 424,
+   "wta125|wta|page": 237
   },
   "examples_by_kind_tour_rank": {
    "challenger|atp|1": [
@@ -873,18 +874,18 @@
     "singles_qualifying_played": 414
    },
    "2026|atp|challenger": {
-    "events": 216,
-    "with_page": 216,
-    "listed": 216,
-    "singles_main_played": 6449,
-    "singles_qualifying_played": 3765
+    "events": 221,
+    "with_page": 221,
+    "listed": 221,
+    "singles_main_played": 6500,
+    "singles_qualifying_played": 3854
    },
    "2026|atp|itf": {
-    "events": 525,
-    "with_page": 525,
-    "listed": 525,
-    "singles_main_played": 15525,
-    "singles_qualifying_played": 18744
+    "events": 542,
+    "with_page": 542,
+    "listed": 542,
+    "singles_main_played": 15582,
+    "singles_qualifying_played": 19179
    },
    "2026|atp|slam": {
     "events": 4,
@@ -894,18 +895,18 @@
     "singles_qualifying_played": 446
    },
    "2026|atp|tour": {
-    "events": 50,
-    "with_page": 50,
-    "listed": 50,
-    "singles_main_played": 1856,
-    "singles_qualifying_played": 773
+    "events": 52,
+    "with_page": 52,
+    "listed": 52,
+    "singles_main_played": 1893,
+    "singles_qualifying_played": 796
    },
    "2026|wta|itf": {
-    "events": 509,
-    "with_page": 509,
-    "listed": 509,
-    "singles_main_played": 14993,
-    "singles_qualifying_played": 13464
+    "events": 526,
+    "with_page": 526,
+    "listed": 526,
+    "singles_main_played": 15070,
+    "singles_qualifying_played": 13838
    },
    "2026|wta|slam": {
     "events": 4,
@@ -915,27 +916,27 @@
     "singles_qualifying_played": 448
    },
    "2026|wta|tour": {
-    "events": 45,
-    "with_page": 45,
-    "listed": 45,
-    "singles_main_played": 1820,
-    "singles_qualifying_played": 834
+    "events": 47,
+    "with_page": 47,
+    "listed": 47,
+    "singles_main_played": 1863,
+    "singles_qualifying_played": 871
    },
    "2026|wta|wta125": {
-    "events": 56,
-    "with_page": 56,
-    "listed": 56,
-    "singles_main_played": 1694,
-    "singles_qualifying_played": 543
+    "events": 59,
+    "with_page": 59,
+    "listed": 59,
+    "singles_main_played": 1724,
+    "singles_qualifying_played": 566
    }
   },
   "section_status": {
-   "200": 11500,
+   "200": 11546,
    "no tournament page": 259
   },
   "dates_inside_weeks": {
-   "events_with_dated_matches": 11750,
-   "inside": 11664,
+   "events_with_dated_matches": 11795,
+   "inside": 11709,
    "outside_examples": [
     {
      "key": "wta:11752",
@@ -1185,16 +1186,16 @@
     "matches_linked": 9702
    },
    "challenger|M|2025": {
-    "editions": 426,
-    "linked": 425,
-    "map_matches": 10227,
-    "matches_linked": 10084
+    "editions": 469,
+    "linked": 447,
+    "map_matches": 10355,
+    "matches_linked": 10115
    },
    "challenger|M|2026": {
-    "editions": 321,
-    "linked": 320,
-    "map_matches": 8175,
-    "matches_linked": 7981
+    "editions": 364,
+    "linked": 335,
+    "map_matches": 8481,
+    "matches_linked": 8069
    },
    "challenger|W|2018": {
     "editions": 15,
@@ -1245,10 +1246,10 @@
     "matches_linked": 1962
    },
    "challenger|W|2026": {
-    "editions": 53,
-    "linked": 51,
-    "map_matches": 2221,
-    "matches_linked": 1343
+    "editions": 55,
+    "linked": 53,
+    "map_matches": 2403,
+    "matches_linked": 1385
    },
    "itf|M|2018": {
     "editions": 548,
@@ -1299,10 +1300,10 @@
     "matches_linked": 17225
    },
    "itf|M|2026": {
-    "editions": 248,
-    "linked": 227,
-    "map_matches": 6901,
-    "matches_linked": 6689
+    "editions": 297,
+    "linked": 250,
+    "map_matches": 7805,
+    "matches_linked": 6997
    },
    "itf|W|2018": {
     "editions": 1030,
@@ -1353,10 +1354,10 @@
     "matches_linked": 33396
    },
    "itf|W|2026": {
-    "editions": 718,
-    "linked": 709,
-    "map_matches": 26532,
-    "matches_linked": 25708
+    "editions": 780,
+    "linked": 746,
+    "map_matches": 28115,
+    "matches_linked": 26647
    },
    "tour|M|2018": {
     "editions": 81,
@@ -1391,8 +1392,8 @@
    "tour|M|2023": {
     "editions": 87,
     "linked": 78,
-    "map_matches": 4073,
-    "matches_linked": 3966
+    "map_matches": 4074,
+    "matches_linked": 3967
    },
    "tour|M|2024": {
     "editions": 77,
@@ -1402,15 +1403,15 @@
    },
    "tour|M|2025": {
     "editions": 74,
-    "linked": 73,
-    "map_matches": 3926,
-    "matches_linked": 3776
+    "linked": 74,
+    "map_matches": 3930,
+    "matches_linked": 3777
    },
    "tour|M|2026": {
-    "editions": 84,
-    "linked": 83,
-    "map_matches": 3528,
-    "matches_linked": 3395
+    "editions": 95,
+    "linked": 93,
+    "map_matches": 3771,
+    "matches_linked": 3515
    },
    "tour|W|2018": {
     "editions": 81,
@@ -1461,17 +1462,17 @@
     "matches_linked": 3753
    },
    "tour|W|2026": {
-    "editions": 61,
-    "linked": 61,
-    "map_matches": 3515,
-    "matches_linked": 3199
+    "editions": 65,
+    "linked": 65,
+    "map_matches": 3584,
+    "matches_linked": 3244
    }
   },
   "all": {
-   "editions": 16133,
-   "linked": 15535,
-   "map_matches": 524789,
-   "matches_linked": 502401
+   "editions": 16347,
+   "linked": 15649,
+   "map_matches": 528209,
+   "matches_linked": 503976
   }
  },
  "samples": {
@@ -1606,7 +1607,7 @@
  },
  "receipts_with_errors": 0,
  "error_examples": [],
- "events_selected": 11500,
- "finished_at": "2026-10-22T19:03:32+00:00",
- "seconds": 209.6
+ "events_selected": 11546,
+ "finished_at": "2026-10-28T19:02:28+00:00",
+ "seconds": 145.6
 }

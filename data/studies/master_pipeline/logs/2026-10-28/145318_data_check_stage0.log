@@ -1,0 +1,19 @@
+# ./python.sh 'src\eda\predictability_diagnostic\stage0_build.py' --out-dir 'C:\Users\zerom\Documents\Tennis-predictions\data\studies\master_pipeline\data_check\stage0'
+# started 2026-10-28T14:53:18-07:00
+[   1.1s] loaded 1,066,726 rows from 10 file groups
+[   6.2s] box overrides: 2,272 rows take the official feed's box score (2 the score too; 1441 of them Sackmann rows)
+[   6.2s] box overrides: 6 found with a player's name re-spelled by the source since the table was built: ['Xin Yu Wang d. Emiliana Arango', 'Eva Lys d. Gabriela Andrea Knutson', 'Anna Kalinskaya d. Xin Yu Wang']
+row corrections: 11 rows found by their match, their source having moved them (first: ['data/raw/public_dump/tennis_my_life/2026_wta.csv#1270', 'data/raw/public_dump/tennis_my_life/2026_wta.csv#1273', 'data/raw/public_dump/tennis_my_life/2026_wta.csv#1279'])
+[  10.7s] row corrections: 3,152 source rows corrected
+[  11.8s] date corrections: 31 of 31 matches re-dated
+[  21.1s] after repeats: Sackmann 867,297, TML 197,928
+[  27.0s] TML linked: exact_name_pair 183,979, unlinked 7,029, one_player_anchor 6,265, resolved_ids 543, same_event_other_round 112
+[  29.1s] event corrections (set_level): 15 events corrected
+[  29.7s] event corrections (set_surface): 5 events corrected
+[  33.3s] TML-only rows appended: 7,029 (421 in events Sackmann also holds)
+[  84.9s] id aliases: 3 second ids mapped (0 already merged by the repairs, 9 written as the established id by the source itself: ['wta:315232', 'wta:320319', 'wta:321837', 'wta:322082', 'wta:324261', 'wta:328884', 'wta:328897', 'wta:330332', 'wta:332718'])
+[  87.0s] wrote 874,288 matches and 1,748,576 player rows to C:\Users\zerom\Documents\Tennis-predictions\data\studies\master_pipeline\data_check\stage0
+[  87.7s] cleaning log: 2,423 rows, 32 cells over 1%
+[  90.7s] done
+
+# ok, exit 0, 92.4 s

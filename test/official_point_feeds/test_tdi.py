@@ -560,7 +560,8 @@ def test_scheduled_tdi_job_is_due_on_its_weekday_or_by_name(monkeypatch, capsys)
     monkeypatch.setattr(sys, "argv", ["scheduled", "--dry-run"])
     S.main()
     due = json.loads(capsys.readouterr().out)["due"]
-    assert ("tdi" in due) == (S.dt.date.today().weekday() == S.TDI_WEEKDAY) and due[-1] in ("slams", "tdi")
+    core = [j for j in due if j not in ("pinnacle_closes", "lower_odds")]   # the TennisExplorer jobs, appended since 21 Oct
+    assert ("tdi" in due) == (S.dt.date.today().weekday() == S.TDI_WEEKDAY) and core[-1] in ("slams", "tdi")
     monkeypatch.setattr(sys, "argv", ["scheduled", "--dry-run", "--only", "tdi"])
     S.main()
     assert json.loads(capsys.readouterr().out)["due"] == ["tdi"]

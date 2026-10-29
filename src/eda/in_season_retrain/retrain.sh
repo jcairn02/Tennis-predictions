@@ -46,6 +46,8 @@ S="data/studies/in_season_retrain/retrains/$INST"
 SEL=data/studies/master_pipeline/selected_instance.json
 ACC=data/studies/current_best_model/accepted_additions/accepted.json
 PREV=$(./python.sh -c "import sys; sys.path.insert(0, '.'); from src.pipeline.train import active_instance; print(active_instance().name)")
+# no selection, no instance in use to check the retrain against (there is no default since 22 Oct 2026)
+[ -n "$PREV" ] || { echo "no live model is selected ($SEL): choose one with use_instance() before a retrain"; exit 1; }
 LIVE_CKPT=$(date -d "-28 days" +%Y-%m-%d)
 mkdir -p "$OUT" "$S"
 stamp() { date -u +%Y-%m-%dT%H:%M:%SZ; }

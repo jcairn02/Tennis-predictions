@@ -7,6 +7,8 @@ A file in data/ already has a copy when
 The rest goes into dated zips in data/backups/<date>/, one per folder of data/ (raw, dump and studies; data/'s loose
 files and any other folder go with studies). Already-compressed files (.gz, .parquet, ...) are stored, the rest
 deflated. manifest.csv.gz lists every file of data/ and where its copy is, with the SHA-256 of each file zipped here.
+--groups raw,dump makes a set of the downloads alone (data/raw/ and data/dump/); its plan and manifest list only those
+folders.
 
 Checks before upload: every entry's CRC (zipfile), the entries against the manifest, and Windows tar, the restore
 tool, extracting the whole zip to a pipe, whose bytes must hash to the stream of file bytes recorded while packing.
@@ -22,7 +24,7 @@ Steps, each reading the one before from data/backups/<date>/:
     verify  check every zip, take its SHA-256 and MD5, and write zips.json, summary.json and README.txt
     upload  upload the zips, the manifest, summary.json and README.txt, check each object, and append the result
             to data/studies/data_continuity/backups.jsonl
-Run: ./python.sh src/eda/data_continuity/backup.py {plan,pack,verify,upload} [--date YYYY-MM-DD]
+Run: ./python.sh src/eda/data_continuity/backup.py {plan,pack,verify,upload} [--date YYYY-MM-DD] [--groups raw,dump]
 """
 from __future__ import annotations
 
@@ -146,22 +148,28 @@ def bucket_zips() -> dict[str, list[tuple[int, int, str]]]:
     return held
 
 
-def scan() -> tuple[list[dict], list[str]]:
-    """Every file under data/ (path, bytes, mtime) and the folders that could not be read."""
+def scan(groups: tuple[str, ...] = GROUPS) -> tuple[list[dict], list[str]]:
+    """Every file under data/ that goes into one of ``groups``' zips (path, bytes, mtime), and the folders that could
+    not be read."""
     files, unreadable = [], []
 
     def failed(e: OSError) -> None:
         unreadable.append(Path(e.filename).relative_to(K.ROOT).as_posix() + "/")
 
-    for dirpath, _, names in os.walk(DATA, onerror=failed):
-        for name in names:
-            p = Path(dirpath) / name
-            try:
-                st = p.stat()
-            except FileNotFoundError:        # removed since the folder was listed
-                continue
-            files.append({"path": p.relative_to(K.ROOT).as_posix(), "bytes": st.st_size, "mtime_ns": st.st_mtime_ns})
-    return files, sorted(unreadable)
+    # studies takes whatever raw and dump do not, so it needs the whole of data/; raw and dump need only their folders
+    for root in [DATA] if "studies" in groups else [DATA / g for g in groups]:
+        for dirpath, _, names in os.walk(root, onerror=failed):
+            for name in names:
+                p = Path(dirpath) / name
+                path = p.relative_to(K.ROOT).as_posix()
+                if group(path) not in groups:
+                    continue
+                try:
+                    st = p.stat()
+                except FileNotFoundError:        # removed since the folder was listed
+                    continue
+                files.append({"path": path, "bytes": st.st_size, "mtime_ns": st.st_mtime_ns})
+    return files, sorted(u for u in unreadable if group(u) in groups)
 
 
 def excluded_by(path: str) -> tuple[str, str] | None:
@@ -184,9 +192,14 @@ def utc(ns: int) -> str:
     return datetime.fromtimestamp(ns / 1e9, timezone.utc).isoformat(timespec="seconds")
 
 
-def zip_name(path: str, day: str) -> str:
+def group(path: str) -> str:
+    """The zip a path under data/ goes into: raw or dump for those folders, studies for everything else."""
     top = path.split("/")[1] if path.count("/") > 1 else ""
-    return f"tennis_data_{top if top in GROUPS else 'studies'}_{day}.zip"
+    return top if top in GROUPS else "studies"
+
+
+def zip_name(path: str, day: str) -> str:
+    return f"tennis_data_{group(path)}_{day}.zip"
 
 
 def target(path: str, day: str) -> str:
@@ -218,11 +231,11 @@ def now() -> str:
     return datetime.now(timezone.utc).isoformat(timespec="seconds")
 
 
-def plan(out: Path, day: str) -> None:
+def plan(out: Path, day: str, groups: tuple[str, ...] = GROUPS) -> None:
     origin, head, on_github = github()
     held = bucket_zips()
     started = now()
-    files, unreadable = scan()
+    files, unreadable = scan(groups)
     excluded: dict[str, str] = {}
     check = []
     for f in files:
@@ -249,7 +262,7 @@ def plan(out: Path, day: str) -> None:
     write_rows(out / "plan.csv.gz", rows)
     by_status = tally(rows, "status")
     K.write_json(out / "plan.json", {
-        "planned_at": started, "origin": origin, "head": head, "by_status": by_status,
+        "planned_at": started, "origin": origin, "head": head, "groups": list(groups), "by_status": by_status,
         "copy_by_zip": tally([{**r, "zip": r["where"].rsplit("/", 1)[1]} for r in rows if r["status"] == "copy"],
                              "zip"),
         "unreadable": unreadable, "excluded": excluded})
@@ -357,6 +370,7 @@ def verify(out: Path, day: str) -> None:
         zips = list(pool.map(check_one, [(str(out / z), e, streams[z]) for z, e in sorted(expected.items())]))
     planned = json.loads((out / "plan.json").read_text(encoding="utf-8"))
     summary = {"made": day, "snapshot": planned["planned_at"], "origin": planned["origin"], "head": planned["head"],
+               "groups": planned.get("groups", list(GROUPS)),
                "bucket": f"{BUCKET}/{PREFIX}/{day}/", "storage_class": "COLDLINE",
                "by_status": tally(rows, "status"), "zips": zips,
                "earlier_zips": tally([r for r in rows if r["status"] == "bucket"], "where"),
@@ -372,50 +386,73 @@ def verify(out: Path, day: str) -> None:
 
 
 ZIP_TEXT = {
-    "raw": "data\\raw\\: downloads as served, with receipts, except the files unchanged since the September zips",
+    "raw": "data\\raw\\: downloads as served, with receipts, except the files the bucket's earlier zips hold unchanged",
     "dump": "data\\dump\\: the staged Parquet tables (the adapters rebuild them from raw)",
     "studies": "data\\studies\\: study outputs that git does not hold (Parquet tables, files over 50 MB, untracked\n"
                "      and changed files), and data\\'s own files that GitHub does not hold as they are now",
 }
 
 
+SCOPE = {"raw": "data\\raw\\", "dump": "data\\dump\\", "studies": "data\\'s other folders and files"}
+
+
+def set_day(url: str) -> str:
+    """The date a bucket zip's name ends with (..._YYYY-MM-DD.zip), which orders the sets for a restore."""
+    m = re.search(r"(\d{4}-\d{2}-\d{2})\.zip$", url)
+    return m.group(1) if m else ""
+
+
 def readme(s: dict) -> str:
     day, head = s["made"], s["head"]
+    whole = s.get("groups", list(GROUPS)) == list(GROUPS)
+    scope = "data\\" if whole else " and ".join(SCOPE[g] for g in s["groups"])
     zipped = s["by_status"].get("zipped", {"files": 0, "bytes": 0})
     lines = [
-        "Tennis-predictions: cold-storage copy of the files in data\\ that GitHub and the earlier zips do not hold", "",
+        f"Tennis-predictions: cold-storage copy of the files in {scope} that GitHub and the earlier zips do not hold",
+        "",
         f"Made:     {day}, from the working tree at commit {head[:7]} (GitHub's main); snapshot {s['snapshot']}",
-        f"What:     every file under Tennis-predictions\\data\\ with no copy outside the PC: {zipped['files']:,} files,",
+        f"What:     every file under Tennis-predictions\\{scope} with no copy outside the PC: {zipped['files']:,} files,",
         f"          {zipped['bytes'] / 1e9:.2f} GB. A file counted as copied if GitHub holds it as it is now (tracked at",
         "          that commit and unchanged), or if a zip in this bucket holds it with the same size and CRC-32.",
-        "",
     ]
+    if not whole:
+        lines += [f"Scope:    {scope} only; this set neither holds nor lists the rest of data\\."]
+    lines += [""]
     for z in s["zips"]:
         lines += [f"  {z['zip']}: {z['files']:,} files, {z['data_bytes'] / 1e9:.2f} GB unzipped, "
                   f"{z['bytes']:,} bytes", f"      SHA-256 {z['sha256']}", f"      {ZIP_TEXT[z['zip'].split('_')[2]]}",
                   ""]
     lines += [
-        "  manifest.csv.gz: every file of data\\ at the snapshot: bytes, modified time, and where its copy is (status",
-        "      github, bucket or zipped, and the commit or zip); SHA-256 and CRC-32 for the zipped files. The files",
-        "      not copied are listed too, with the reason.",
+        f"  manifest.csv.gz: every file of {scope} at the snapshot: bytes, modified time, and where its copy is",
+        "      (status github, bucket or zipped, and the commit or zip); SHA-256 and CRC-32 for the zipped files. The",
+        "      files not copied are listed too, with the reason.",
         "  summary.json: the counts, and anything that changed while being read.",
         "",
-        "Restore data\\ completely:",
+        "Restore data\\ completely:" if whole else f"Restore {scope}:",
         f"  1. git clone {s['origin']} <repo>, then git -C <repo> checkout {head}",
-        "  2. the September zips into <repo>\\data\\raw, as public_dump/README.txt says",
-        "  3. these zips into <repo>, after the September ones, so that newer versions replace older ones:",
     ]
+    earlier = sorted(s["earlier_zips"], key=lambda u: (set_day(u), u))
+    if earlier:
+        lines += ["  2. the earlier zips that hold files of this snapshot unchanged, oldest first:"]
+        for url in earlier:
+            root = ZIP_ROOTS.get(url[len(BUCKET) + 1:], "")
+            into = "<repo>" + ("\\" + root.strip("/").replace("/", "\\") if root else "")
+            lines += [f"       gcloud storage cp {url} .", f"       tar -x -f {url.rsplit('/', 1)[1]} -C {into}"]
+    lines += [f"  {3 if earlier else 2}. these zips into <repo>"
+              + (", after the earlier ones, so that newer versions replace older ones:" if earlier else ":")]
     for z in s["zips"]:
         lines += [f"       gcloud storage cp {s['bucket']}{z['zip']} .", f"       tar -x -f {z['zip']} -C <repo>"]
     lines += [
         "  Their paths start with data\\. Before upload, Windows tar extracted each zip to a pipe and gave exactly",
-        "  the bytes it was made from. Files that the September zips hold but the manifest does not list had been",
+        "  the bytes it was made from. Files that the earlier zips hold but the manifest does not list had been",
         "  removed or moved by the snapshot.",
         "",
         "Not copied:",
     ]
     lines += [f"  {u}  (this account could not read the folder)" for u in s["unreadable"]]
     lines += [f"  {root}  ({why})" for root, why in s["excluded"].items()]
+    if not whole:
+        lines += [f"  the rest of data\\  (outside this set's scope, {scope})"]
     if s["changed_while_read"] or s["removed"]:
         lines += ["", "Changed while being read (the zip holds the bytes read) or removed before it:"]
         lines += [f"  {p}" for p in s["changed_while_read"] + s["removed"]]
@@ -454,7 +491,7 @@ def upload(out: Path, day: str) -> None:
         print("  checked: size, MD5 and storage class agree", flush=True)
     sha = {z["zip"]: z["sha256"] for z in summary["zips"]}
     record = {"made": day, "snapshot": summary["snapshot"], "head": summary["head"], "bucket": dest,
-              "by_status": summary["by_status"],
+              "groups": summary.get("groups", list(GROUPS)), "by_status": summary["by_status"],
               "objects": [{**o, "sha256": sha.get(o["object"].rsplit("/", 1)[1])} for o in objects]}
     with open(K.OUT / "backups.jsonl", "a", encoding="utf-8") as f:
         f.write(json.dumps(record, ensure_ascii=False) + "\n")
@@ -464,9 +501,14 @@ def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("step", choices=["plan", "pack", "verify", "upload"])
     ap.add_argument("--date", default=Date.today().isoformat())
+    ap.add_argument("--groups", default=",".join(GROUPS),
+                    help="plan only: the zips to make (default all three); raw,dump copies the downloads alone")
     a = ap.parse_args()
+    if not set(a.groups.split(",")) <= set(GROUPS):
+        ap.error(f"--groups takes some of {','.join(GROUPS)}")
+    groups = tuple(g for g in GROUPS if g in a.groups.split(","))
     out = BACKUPS / a.date
-    {"plan": lambda: plan(out, a.date), "pack": lambda: pack(out), "verify": lambda: verify(out, a.date),
+    {"plan": lambda: plan(out, a.date, groups), "pack": lambda: pack(out), "verify": lambda: verify(out, a.date),
      "upload": lambda: upload(out, a.date)}[a.step]()
     return 0
 

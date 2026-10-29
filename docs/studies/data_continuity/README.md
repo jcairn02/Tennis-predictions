@@ -352,7 +352,10 @@ Decided on 6 Oct 2026 under the owner's delegation, after review with an indepen
 * **What.** A weekly run of about 25 requests, to open endpoints only: GitHub, Hugging Face, TML and Software Heritage. No data is downloaded. Each run appends to `canary.jsonl` and raises these flags:
   * GONE: the address no longer answers;
   * STALE: nothing new for longer than the item's allowed gap;
-  * SHRANK: a manifest or file got smaller;
+  * SHRANK: a manifest lists fewer files, or a file holds fewer matches. Since 28 Oct 2026 the matches are counted in
+    the project's own copies of both versions, and only a file it does not keep is judged by size
+    ([decision](../../decisions/2026-10-28-alarm-counts-matches.md)). A re-save with Unix line endings had raised it
+    on 34 files that kept every match;
   * REVISED: a file of an earlier season changed;
   * TERMS: the licence statement changed;
   * UNARCHIVED: no recent Software Heritage snapshot.
@@ -451,6 +454,16 @@ Decided on 6 Oct 2026 under the owner's delegation, after review with an indepen
   * On its site: "License: MIT License", with an opensource.org link.
   * In its GitHub README: "All data usage is **non-commercial** unless explicitly permitted", and redistribution or commercial use "without permission from TennisMyLife and/or the ATP may violate copyright or terms of use".
   * It describes its database as inspired by Sackmann's, which is CC BY-NC-SA 4.0.
+* **Changed, 28 Oct 2026** (the canary's TERMS flag on both statements, its first run after the SHRANK fix). *Observed.*
+  * The site's "MIT License" is gone. The site's record of the page shows it modified at 15:40 UTC that day.
+  * The site's text now reads: "Personal, educational and non-commercial research use only. No commercial use of the
+    TennisMyLife ATP/WTA datasets is authorized by these public terms. Prior express written permission from
+    TennisMyLife is required for commercial use, including training or validating prediction models for commercial
+    services, publishing probabilities on advertising-supported websites, or offering paid features. Redistribution or
+    resale of the raw CSV files is not authorized."
+  * The README now reads in the same sense, naming "commercial model training" and "the monetization of derived
+    predictions".
+  * Copies of both pages, with their times and hashes: `data/studies/data_continuity/terms_receipts/`.
 * **What to do.** Before any commercial use, ask TML for written permission, and keep the answer under `docs/decisions/`. Meanwhile keep per-row source attribution, so that TML-derived counts can be replaced by the official feeds' if needed.
 
 ### Order

@@ -1,0 +1,2198 @@
+{
+ "work_tree": "C:\\Users\\zerom\\tnr_daily_nb",
+ "replay": false,
+ "timeline_held": false,
+ "steps": [
+  {
+   "step": "stage0",
+   "script": "src/eda/predictability_diagnostic/stage0_build.py",
+   "args": [
+    "--live-rows",
+    "run/live_rows.parquet"
+   ],
+   "exit": 0,
+   "seconds": 95.2,
+   "log": "C:\\Users\\zerom\\tnr_daily_nb\\logs\\stage0.log"
+  },
+  {
+   "step": "additions",
+   "script": "src/eda/current_best_model/additions.py",
+   "args": [
+    "--apply"
+   ],
+   "exit": 0,
+   "seconds": 230.1,
+   "log": "C:\\Users\\zerom\\tnr_daily_nb\\logs\\additions.log"
+  },
+  {
+   "step": "check",
+   "script": "src/eda/prediction_run/inject.py",
+   "args": [
+    "--meta",
+    "run/live_meta.parquet",
+    "--step",
+    "check"
+   ],
+   "exit": 0,
+   "seconds": 0.6,
+   "log": "C:\\Users\\zerom\\tnr_daily_nb\\logs\\check.log"
+  },
+  {
+   "step": "lle_layer",
+   "script": "src/eda/current_best_model/layer_config.py",
+   "args": [
+    "--resolve",
+    "--official",
+    "C:\\Users\\zerom\\Documents\\Tennis-predictions\\data\\studies\\current_best_model\\level_layer\\official.json"
+   ],
+   "exit": 0,
+   "seconds": 19.2,
+   "log": "C:\\Users\\zerom\\tnr_daily_nb\\logs\\lle_layer.log"
+  },
+  {
+   "step": "odds",
+   "script": "src/eda/predictability_diagnostic/stage1_odds.py",
+   "args": [],
+   "exit": 0,
+   "seconds": 6.9,
+   "log": "C:\\Users\\zerom\\tnr_daily_nb\\logs\\odds.log"
+  },
+  {
+   "step": "live_odds",
+   "script": "src/eda/prediction_run/inject.py",
+   "args": [
+    "--meta",
+    "run/live_meta.parquet",
+    "--step",
+    "odds"
+   ],
+   "exit": 0,
+   "seconds": 0.8,
+   "log": "C:\\Users\\zerom\\tnr_daily_nb\\logs\\live_odds.log"
+  },
+  {
+   "step": "remap",
+   "script": "src/eda/prediction_run/inject.py",
+   "args": [
+    "--meta",
+    "run/live_meta.parquet",
+    "--step",
+    "remap"
+   ],
+   "exit": 0,
+   "seconds": 7.3,
+   "log": "C:\\Users\\zerom\\tnr_daily_nb\\logs\\remap.log"
+  },
+  {
+   "step": "links",
+   "script": "src/eda/match_timing/link_sources_c.py",
+   "args": [
+    "--sources",
+    "tennis_data,wta_api,sofascore,slam_feeds,tdi"
+   ],
+   "exit": 0,
+   "seconds": 50.6,
+   "log": "C:\\Users\\zerom\\tnr_daily_nb\\logs\\links.log"
+  },
+  {
+   "step": "live_links",
+   "script": "src/eda/prediction_run/inject.py",
+   "args": [
+    "--meta",
+    "run/live_meta.parquet",
+    "--step",
+    "links"
+   ],
+   "exit": 0,
+   "seconds": 4.2,
+   "log": "C:\\Users\\zerom\\tnr_daily_nb\\logs\\live_links.log"
+  },
+  {
+   "step": "timing",
+   "script": "src/eda/match_timing/timing.py",
+   "args": [],
+   "exit": 0,
+   "seconds": 43.2,
+   "log": "C:\\Users\\zerom\\tnr_daily_nb\\logs\\timing.log"
+  },
+  {
+   "step": "live_window",
+   "script": "src/eda/prediction_run/inject.py",
+   "args": [
+    "--meta",
+    "run/live_meta.parquet",
+    "--step",
+    "pin"
+   ],
+   "exit": 0,
+   "seconds": 2.2,
+   "log": "C:\\Users\\zerom\\tnr_daily_nb\\logs\\live_window.log"
+  },
+  {
+   "step": "additions_window",
+   "script": "src/eda/current_best_model/additions.py",
+   "args": [
+    "--pin-timing"
+   ],
+   "exit": 0,
+   "seconds": 20.2,
+   "log": "C:\\Users\\zerom\\tnr_daily_nb\\logs\\additions_window.log"
+  }
+ ],
+ "lle_layer": "C:\\Users\\zerom\\tnr_daily_nb\\data\\studies\\current_best_model\\level_layer\\this_build\\build_config.json",
+ "history_line": "history vs the reference of 2026-10-08: future 685 and updated 23 (allowed); accepted 58,952 (allowed: lower-level additions 54,373, completions 418, decided repairs 4,161); main-tour changes 453 (allowed, listed: new past 149, dropped 149, revised 155); Tennis My Life's own lower-level changes 217 (allowed, decided 13 Oct: new past 73, dropped 76, revised 68); lower-level new past 9, dropped 0, revised 0 -> the lower-level history changed: a template build is refused",
+ "history": {
+  "checked": "C:\\Users\\zerom\\tnr_daily_nb\\data\\studies\\predictability_diagnostic",
+  "reference": "2026-10-08",
+  "freeze": "2026-10-08",
+  "since": "2026-10-05",
+  "matches": 928486,
+  "reference_matches": 873437,
+  "future": {
+   "matches": 685,
+   "by": [
+    {
+     "source": "tml",
+     "tour": "atp",
+     "map_level": "CH",
+     "year": 2026,
+     "matches": 377
+    },
+    {
+     "source": "tml",
+     "tour": "atp",
+     "map_level": "T1000",
+     "year": 2026,
+     "matches": 64
+    },
+    {
+     "source": "tml",
+     "tour": "atp",
+     "map_level": "T250",
+     "year": 2026,
+     "matches": 81
+    },
+    {
+     "source": "tml",
+     "tour": "atp",
+     "map_level": "TQ",
+     "year": 2026,
+     "matches": 44
+    },
+    {
+     "source": "tml",
+     "tour": "wta",
+     "map_level": "T1000",
+     "year": 2026,
+     "matches": 61
+    },
+    {
+     "source": "tml",
+     "tour": "wta",
+     "map_level": "T250",
+     "year": 2026,
+     "matches": 31
+    },
+    {
+     "source": "tml",
+     "tour": "wta",
+     "map_level": "T500",
+     "year": 2026,
+     "matches": 27
+    }
+   ]
+  },
+  "updated": {
+   "matches": 23,
+   "revised": 8,
+   "dropped": 15,
+   "by": [
+    {
+     "source": "tml",
+     "tour": "atp",
+     "map_level": "CH",
+     "year": 2026,
+     "matches": 2
+    },
+    {
+     "source": "tml",
+     "tour": "wta",
+     "map_level": "T1000",
+     "year": 2026,
+     "matches": 7
+    },
+    {
+     "source": "tml",
+     "tour": "wta",
+     "map_level": "TEAM",
+     "year": 2026,
+     "matches": 14
+    }
+   ],
+   "examples": [
+    "wta|2026-1020|R16|wta:216347|wta:260300",
+    "wta|2026-1020|R16|wta:210722|wta:221103",
+    "wta|2026-1020|R16|wta:221012|wta:221406",
+    "wta|2026-1020|R16|wta:202494|wta:215983",
+    "wta|2026-1020|QF|wta:214096|wta:223360",
+    "wta|2026-1020|QF|wta:206420|wta:259799",
+    "atp|2026-7909|R32|atp:209957|atp:212309",
+    "atp|2026-2889|R32|atp:101495|atp:208532",
+    "wta|2026-W-FC-2026-FLS|QF|wta:213631|wta:222661",
+    "wta|2026-W-FC-2026-FLS|QF|wta:211107|wta:222328"
+   ]
+  },
+  "new_past": {
+   "matches": 231,
+   "by": [
+    {
+     "source": "tml",
+     "tour": "atp",
+     "map_level": "CH",
+     "year": 2017,
+     "matches": 1
+    },
+    {
+     "source": "tml",
+     "tour": "atp",
+     "map_level": "CH",
+     "year": 2023,
+     "matches": 1
+    },
+    {
+     "source": "tml",
+     "tour": "atp",
+     "map_level": "CH",
+     "year": 2026,
+     "matches": 42
+    },
+    {
+     "source": "tml",
+     "tour": "atp",
+     "map_level": "TEAM",
+     "year": 2026,
+     "matches": 1
+    },
+    {
+     "source": "tml",
+     "tour": "atp",
+     "map_level": "TQ",
+     "year": 2011,
+     "matches": 24
+    },
+    {
+     "source": "tml",
+     "tour": "atp",
+     "map_level": "TQ",
+     "year": 2015,
+     "matches": 1
+    },
+    {
+     "source": "tml",
+     "tour": "atp",
+     "map_level": "TQ",
+     "year": 2026,
+     "matches": 4
+    },
+    {
+     "source": "tml",
+     "tour": "wta",
+     "map_level": "GS",
+     "year": 2026,
+     "matches": 3
+    },
+    {
+     "source": "tml",
+     "tour": "wta",
+     "map_level": "T1000",
+     "year": 2026,
+     "matches": 6
+    },
+    {
+     "source": "tml",
+     "tour": "wta",
+     "map_level": "T250",
+     "year": 2026,
+     "matches": 80
+    },
+    {
+     "source": "tml",
+     "tour": "wta",
+     "map_level": "T500",
+     "year": 2026,
+     "matches": 43
+    },
+    {
+     "source": "tml",
+     "tour": "wta",
+     "map_level": "TEAM",
+     "year": 2025,
+     "matches": 2
+    },
+    {
+     "source": "tml",
+     "tour": "wta",
+     "map_level": "TEAM",
+     "year": 2026,
+     "matches": 14
+    },
+    {
+     "source": "tml",
+     "tour": "wta",
+     "map_level": "TQ",
+     "year": 2026,
+     "matches": 9
+    }
+   ],
+   "examples": [
+    "atp|2011-416|Q1|atp:104216|atp:105453",
+    "atp|2011-416|Q1|atp:103893|atp:104665",
+    "atp|2011-416|Q1|atp:104719|atp:105077",
+    "atp|2011-416|Q1|atp:103687|atp:104655",
+    "atp|2011-416|Q1|atp:103813|atp:105318",
+    "atp|2011-416|Q1|atp:104970|atp:105173",
+    "atp|2011-416|Q1|atp:103997|atp:104523",
+    "atp|2011-416|Q1|atp:104214|atp:104976",
+    "atp|2011-416|Q1|atp:103812|atp:104714",
+    "atp|2011-416|Q1|atp:104122|atp:104890"
+   ]
+  },
+  "dropped": {
+   "matches": 225,
+   "by": [
+    {
+     "source": "tml",
+     "tour": "atp",
+     "map_level": "CH",
+     "year": 2017,
+     "matches": 1
+    },
+    {
+     "source": "tml",
+     "tour": "atp",
+     "map_level": "CH",
+     "year": 2022,
+     "matches": 3
+    },
+    {
+     "source": "tml",
+     "tour": "atp",
+     "map_level": "CH",
+     "year": 2025,
+     "matches": 4
+    },
+    {
+     "source": "tml",
+     "tour": "atp",
+     "map_level": "CH",
+     "year": 2026,
+     "matches": 39
+    },
+    {
+     "source": "tml",
+     "tour": "atp",
+     "map_level": "TEAM",
+     "year": 2026,
+     "matches": 1
+    },
+    {
+     "source": "tml",
+     "tour": "atp",
+     "map_level": "TQ",
+     "year": 2011,
+     "matches": 24
+    },
+    {
+     "source": "tml",
+     "tour": "atp",
+     "map_level": "TQ",
+     "year": 2015,
+     "matches": 1
+    },
+    {
+     "source": "tml",
+     "tour": "atp",
+     "map_level": "TQ",
+     "year": 2026,
+     "matches": 4
+    },
+    {
+     "source": "tml",
+     "tour": "wta",
+     "map_level": "GS",
+     "year": 2026,
+     "matches": 3
+    },
+    {
+     "source": "tml",
+     "tour": "wta",
+     "map_level": "T1000",
+     "year": 2026,
+     "matches": 6
+    },
+    {
+     "source": "tml",
+     "tour": "wta",
+     "map_level": "T250",
+     "year": 2026,
+     "matches": 80
+    },
+    {
+     "source": "tml",
+     "tour": "wta",
+     "map_level": "T500",
+     "year": 2026,
+     "matches": 43
+    },
+    {
+     "source": "tml",
+     "tour": "wta",
+     "map_level": "TEAM",
+     "year": 2025,
+     "matches": 16
+    }
+   ],
+   "examples": [
+    "atp|2011-416|Q1|atp:104214|atpcode:105453",
+    "atp|2011-416|Q1|atp:103898|atpcode:104660",
+    "atp|2011-416|Q1|atp:105077|atpcode:104713",
+    "atp|2011-416|Q1|atp:103656|atp:104655",
+    "atp|2011-416|Q1|atp:103868|atpcode:105292",
+    "atp|2011-416|Q1|atp:104898|atpcode:105173",
+    "atp|2011-416|Q1|atpcode:104022|atpcode:104471",
+    "atp|2011-416|Q1|atp:104268|atpcode:104993",
+    "atp|2011-416|Q1|atp:104714|atpcode:103819",
+    "atp|2011-416|Q1|atp:104882|atpcode:104098"
+   ]
+  },
+  "revised": {
+   "matches": 223,
+   "by": [
+    {
+     "source": "tml",
+     "tour": "atp",
+     "map_level": "CH",
+     "year": 2026,
+     "matches": 66
+    },
+    {
+     "source": "tml",
+     "tour": "atp",
+     "map_level": "T1000",
+     "year": 2026,
+     "matches": 1
+    },
+    {
+     "source": "tml",
+     "tour": "atp",
+     "map_level": "T250",
+     "year": 2026,
+     "matches": 2
+    },
+    {
+     "source": "tml",
+     "tour": "atp",
+     "map_level": "TEAM",
+     "year": 2015,
+     "matches": 1
+    },
+    {
+     "source": "tml",
+     "tour": "atp",
+     "map_level": "TEAM",
+     "year": 2016,
+     "matches": 3
+    },
+    {
+     "source": "tml",
+     "tour": "atp",
+     "map_level": "TEAM",
+     "year": 2022,
+     "matches": 1
+    },
+    {
+     "source": "tml",
+     "tour": "atp",
+     "map_level": "TEAM",
+     "year": 2025,
+     "matches": 3
+    },
+    {
+     "source": "tml",
+     "tour": "atp",
+     "map_level": "TEAM",
+     "year": 2026,
+     "matches": 5
+    },
+    {
+     "source": "tml",
+     "tour": "atp",
+     "map_level": "TQ",
+     "year": 2026,
+     "matches": 2
+    },
+    {
+     "source": "tml",
+     "tour": "wta",
+     "map_level": "T1000",
+     "year": 2026,
+     "matches": 15
+    },
+    {
+     "source": "tml",
+     "tour": "wta",
+     "map_level": "T250",
+     "year": 2026,
+     "matches": 48
+    },
+    {
+     "source": "tml",
+     "tour": "wta",
+     "map_level": "T500",
+     "year": 2026,
+     "matches": 40
+    },
+    {
+     "source": "tml",
+     "tour": "wta",
+     "map_level": "TEAM",
+     "year": 2025,
+     "matches": 36
+    }
+   ],
+   "examples": [
+    "atp|2015-D072-20151026|RR|atp:104813|atp:105575",
+    "atp|2016-M-DC-2016-G2-EPA-M-TUN-BUL-6|RR|atp:104291|atp:200247",
+    "atp|2016-M-DC-2016-G2-EPA-M-TUN-BUL-7|RR|atp:121411|atp:144678",
+    "atp|2016-M-DC-2016-G2-EPA-M-TUN-BUL-8|RR|atp:144826|atp:200247",
+    "atp|2022-M-DC-2022-WG1-M-BIH-MEX-1|RR|atp:210119|atp:210545",
+    "atp|2025-M-DC-2025-WG2-PO-EST-VEN-1|RR|atp:210312|atpcode:P0I5",
+    "atp|2025-M-DC-2025-WG2-PO-EST-VEN-3|RR|atpcode:M0W0|atpcode:P0I5",
+    "atp|2025-M-DC-2025-WG1-PO-IND-TOG-1|RR|atp:124154|atpcode:A0GB",
+    "wta|2025-W-FC-2025-POS-20251114|RR|wta:213887|wta:260672",
+    "wta|2025-W-FC-2025-POS-20251114|RR|wta:211874|wta:241714"
+   ]
+  },
+  "accepted": {
+   "matches": 58952,
+   "added": 54373,
+   "completed": 418,
+   "decided_repairs": 4161,
+   "by": [
+    {
+     "source": "itf_live",
+     "tour": "atp",
+     "map_level": "ITF",
+     "year": 2026,
+     "matches": 137
+    },
+    {
+     "source": "itf_live",
+     "tour": "wta",
+     "map_level": "ITF",
+     "year": 2026,
+     "matches": 115
+    },
+    {
+     "source": "itf_live",
+     "tour": "wta",
+     "map_level": "ITFQ",
+     "year": 2026,
+     "matches": 10
+    },
+    {
+     "source": "sackmann",
+     "tour": "atp",
+     "map_level": "CH",
+     "year": 2018,
+     "matches": 1
+    },
+    {
+     "source": "sackmann",
+     "tour": "atp",
+     "map_level": "CH",
+     "year": 2019,
+     "matches": 33
+    },
+    {
+     "source": "sackmann",
+     "tour": "atp",
+     "map_level": "CH",
+     "year": 2022,
+     "matches": 12
+    },
+    {
+     "source": "sackmann",
+     "tour": "atp",
+     "map_level": "CH",
+     "year": 2023,
+     "matches": 1
+    },
+    {
+     "source": "sackmann",
+     "tour": "atp",
+     "map_level": "CH",
+     "year": 2024,
+     "matches": 6
+    },
+    {
+     "source": "sackmann",
+     "tour": "atp",
+     "map_level": "CHQ",
+     "year": 2018,
+     "matches": 2
+    },
+    {
+     "source": "sackmann",
+     "tour": "atp",
+     "map_level": "CHQ",
+     "year": 2019,
+     "matches": 2
+    },
+    {
+     "source": "sackmann",
+     "tour": "atp",
+     "map_level": "CHQ",
+     "year": 2020,
+     "matches": 11
+    },
+    {
+     "source": "sackmann",
+     "tour": "atp",
+     "map_level": "CHQ",
+     "year": 2021,
+     "matches": 2
+    },
+    {
+     "source": "sackmann",
+     "tour": "atp",
+     "map_level": "CHQ",
+     "year": 2022,
+     "matches": 4
+    },
+    {
+     "source": "sackmann",
+     "tour": "atp",
+     "map_level": "CHQ",
+     "year": 2024,
+     "matches": 1
+    },
+    {
+     "source": "sackmann",
+     "tour": "atp",
+     "map_level": "FIN",
+     "year": 2015,
+     "matches": 1
+    },
+    {
+     "source": "sackmann",
+     "tour": "atp",
+     "map_level": "FIN",
+     "year": 2016,
+     "matches": 1
+    },
+    {
+     "source": "sackmann",
+     "tour": "atp",
+     "map_level": "GS",
+     "year": 2016,
+     "matches": 62
+    },
+    {
+     "source": "sackmann",
+     "tour": "atp",
+     "map_level": "GS",
+     "year": 2017,
+     "matches": 57
+    },
+    {
+     "source": "sackmann",
+     "tour": "atp",
+     "map_level": "GS",
+     "year": 2018,
+     "matches": 27
+    },
+    {
+     "source": "sackmann",
+     "tour": "atp",
+     "map_level": "GS",
+     "year": 2019,
+     "matches": 50
+    },
+    {
+     "source": "sackmann",
+     "tour": "atp",
+     "map_level": "GS",
+     "year": 2020,
+     "matches": 48
+    },
+    {
+     "source": "sackmann",
+     "tour": "atp",
+     "map_level": "GS",
+     "year": 2021,
+     "matches": 57
+    },
+    {
+     "source": "sackmann",
+     "tour": "atp",
+     "map_level": "GS",
+     "year": 2022,
+     "matches": 117
+    },
+    {
+     "source": "sackmann",
+     "tour": "atp",
+     "map_level": "GS",
+     "year": 2023,
+     "matches": 88
+    },
+    {
+     "source": "sackmann",
+     "tour": "atp",
+     "map_level": "GS",
+     "year": 2024,
+     "matches": 72
+    },
+    {
+     "source": "sackmann",
+     "tour": "atp",
+     "map_level": "GS",
+     "year": 2025,
+     "matches": 78
+    },
+    {
+     "source": "sackmann",
+     "tour": "atp",
+     "map_level": "GS",
+     "year": 2026,
+     "matches": 149
+    },
+    {
+     "source": "sackmann",
+     "tour": "atp",
+     "map_level": "GSQ",
+     "year": 2018,
+     "matches": 183
+    },
+    {
+     "source": "sackmann",
+     "tour": "atp",
+     "map_level": "GSQ",
+     "year": 2019,
+     "matches": 17
+    },
+    {
+     "source": "sackmann",
+     "tour": "atp",
+     "map_level": "GSQ",
+     "year": 2020,
+     "matches": 19
+    },
+    {
+     "source": "sackmann",
+     "tour": "atp",
+     "map_level": "GSQ",
+     "year": 2021,
+     "matches": 16
+    },
+    {
+     "source": "sackmann",
+     "tour": "atp",
+     "map_level": "GSQ",
+     "year": 2022,
+     "matches": 89
+    },
+    {
+     "source": "sackmann",
+     "tour": "atp",
+     "map_level": "GSQ",
+     "year": 2023,
+     "matches": 102
+    },
+    {
+     "source": "sackmann",
+     "tour": "atp",
+     "map_level": "GSQ",
+     "year": 2024,
+     "matches": 104
+    },
+    {
+     "source": "sackmann",
+     "tour": "atp",
+     "map_level": "GSQ",
+     "year": 2025,
+     "matches": 110
+    },
+    {
+     "source": "sackmann",
+     "tour": "atp",
+     "map_level": "GSQ",
+     "year": 2026,
+     "matches": 10
+    },
+    {
+     "source": "sackmann",
+     "tour": "atp",
+     "map_level": "T1000",
+     "year": 2015,
+     "matches": 1
+    },
+    {
+     "source": "sackmann",
+     "tour": "atp",
+     "map_level": "T250",
+     "year": 2014,
+     "matches": 27
+    },
+    {
+     "source": "sackmann",
+     "tour": "atp",
+     "map_level": "T250",
+     "year": 2021,
+     "matches": 1
+    },
+    {
+     "source": "sackmann",
+     "tour": "atp",
+     "map_level": "T250",
+     "year": 2023,
+     "matches": 1
+    },
+    {
+     "source": "sackmann",
+     "tour": "atp",
+     "map_level": "T500",
+     "year": 2014,
+     "matches": 31
+    },
+    {
+     "source": "sackmann",
+     "tour": "atp",
+     "map_level": "TEAM",
+     "year": 2024,
+     "matches": 25
+    },
+    {
+     "source": "sackmann",
+     "tour": "atp",
+     "map_level": "TQ",
+     "year": 2014,
+     "matches": 40
+    },
+    {
+     "source": "sackmann",
+     "tour": "atp",
+     "map_level": "TQ",
+     "year": 2015,
+     "matches": 2
+    },
+    {
+     "source": "sackmann",
+     "tour": "wta",
+     "map_level": "CH",
+     "year": 2016,
+     "matches": 31
+    },
+    {
+     "source": "sackmann",
+     "tour": "wta",
+     "map_level": "CH",
+     "year": 2017,
+     "matches": 62
+    },
+    {
+     "source": "sackmann",
+     "tour": "wta",
+     "map_level": "CH",
+     "year": 2018,
+     "matches": 2
+    },
+    {
+     "source": "sackmann",
+     "tour": "wta",
+     "map_level": "CH",
+     "year": 2019,
+     "matches": 31
+    },
+    {
+     "source": "sackmann",
+     "tour": "wta",
+     "map_level": "CH",
+     "year": 2024,
+     "matches": 1
+    },
+    {
+     "source": "sackmann",
+     "tour": "wta",
+     "map_level": "CH",
+     "year": 2025,
+     "matches": 9
+    },
+    {
+     "source": "sackmann",
+     "tour": "wta",
+     "map_level": "CH",
+     "year": 2026,
+     "matches": 4
+    },
+    {
+     "source": "sackmann",
+     "tour": "wta",
+     "map_level": "CHQ",
+     "year": 2016,
+     "matches": 2
+    },
+    {
+     "source": "sackmann",
+     "tour": "wta",
+     "map_level": "CHQ",
+     "year": 2017,
+     "matches": 16
+    },
+    {
+     "source": "sackmann",
+     "tour": "wta",
+     "map_level": "CHQ",
+     "year": 2018,
+     "matches": 1
+    },
+    {
+     "source": "sackmann",
+     "tour": "wta",
+     "map_level": "CHQ",
+     "year": 2019,
+     "matches": 4
+    },
+    {
+     "source": "sackmann",
+     "tour": "wta",
+     "map_level": "CHQ",
+     "year": 2025,
+     "matches": 3
+    },
+    {
+     "source": "sackmann",
+     "tour": "wta",
+     "map_level": "CHQ",
+     "year": 2026,
+     "matches": 1
+    },
+    {
+     "source": "sackmann",
+     "tour": "wta",
+     "map_level": "FIN",
+     "year": 2015,
+     "matches": 15
+    },
+    {
+     "source": "sackmann",
+     "tour": "wta",
+     "map_level": "FIN",
+     "year": 2023,
+     "matches": 2
+    },
+    {
+     "source": "sackmann",
+     "tour": "wta",
+     "map_level": "FIN",
+     "year": 2025,
+     "matches": 1
+    },
+    {
+     "source": "sackmann",
+     "tour": "wta",
+     "map_level": "GS",
+     "year": 2013,
+     "matches": 100
+    },
+    {
+     "source": "sackmann",
+     "tour": "wta",
+     "map_level": "GS",
+     "year": 2014,
+     "matches": 105
+    },
+    {
+     "source": "sackmann",
+     "tour": "wta",
+     "map_level": "GS",
+     "year": 2015,
+     "matches": 9
+    },
+    {
+     "source": "sackmann",
+     "tour": "wta",
+     "map_level": "GS",
+     "year": 2016,
+     "matches": 48
+    },
+    {
+     "source": "sackmann",
+     "tour": "wta",
+     "map_level": "GS",
+     "year": 2017,
+     "matches": 138
+    },
+    {
+     "source": "sackmann",
+     "tour": "wta",
+     "map_level": "GS",
+     "year": 2018,
+     "matches": 31
+    },
+    {
+     "source": "sackmann",
+     "tour": "wta",
+     "map_level": "GS",
+     "year": 2019,
+     "matches": 43
+    },
+    {
+     "source": "sackmann",
+     "tour": "wta",
+     "map_level": "GS",
+     "year": 2020,
+     "matches": 42
+    },
+    {
+     "source": "sackmann",
+     "tour": "wta",
+     "map_level": "GS",
+     "year": 2021,
+     "matches": 54
+    },
+    {
+     "source": "sackmann",
+     "tour": "wta",
+     "map_level": "GS",
+     "year": 2022,
+     "matches": 107
+    },
+    {
+     "source": "sackmann",
+     "tour": "wta",
+     "map_level": "GS",
+     "year": 2023,
+     "matches": 75
+    },
+    {
+     "source": "sackmann",
+     "tour": "wta",
+     "map_level": "GS",
+     "year": 2024,
+     "matches": 74
+    },
+    {
+     "source": "sackmann",
+     "tour": "wta",
+     "map_level": "GS",
+     "year": 2025,
+     "matches": 86
+    },
+    {
+     "source": "sackmann",
+     "tour": "wta",
+     "map_level": "GS",
+     "year": 2026,
+     "matches": 146
+    },
+    {
+     "source": "sackmann",
+     "tour": "wta",
+     "map_level": "GSQ",
+     "year": 2013,
+     "matches": 64
+    },
+    {
+     "source": "sackmann",
+     "tour": "wta",
+     "map_level": "GSQ",
+     "year": 2014,
+     "matches": 59
+    },
+    {
+     "source": "sackmann",
+     "tour": "wta",
+     "map_level": "GSQ",
+     "year": 2018,
+     "matches": 139
+    },
+    {
+     "source": "sackmann",
+     "tour": "wta",
+     "map_level": "GSQ",
+     "year": 2019,
+     "matches": 11
+    },
+    {
+     "source": "sackmann",
+     "tour": "wta",
+     "map_level": "GSQ",
+     "year": 2020,
+     "matches": 12
+    },
+    {
+     "source": "sackmann",
+     "tour": "wta",
+     "map_level": "GSQ",
+     "year": 2021,
+     "matches": 27
+    },
+    {
+     "source": "sackmann",
+     "tour": "wta",
+     "map_level": "GSQ",
+     "year": 2022,
+     "matches": 93
+    },
+    {
+     "source": "sackmann",
+     "tour": "wta",
+     "map_level": "GSQ",
+     "year": 2023,
+     "matches": 103
+    },
+    {
+     "source": "sackmann",
+     "tour": "wta",
+     "map_level": "GSQ",
+     "year": 2024,
+     "matches": 113
+    },
+    {
+     "source": "sackmann",
+     "tour": "wta",
+     "map_level": "GSQ",
+     "year": 2025,
+     "matches": 109
+    },
+    {
+     "source": "sackmann",
+     "tour": "wta",
+     "map_level": "GSQ",
+     "year": 2026,
+     "matches": 20
+    },
+    {
+     "source": "sackmann",
+     "tour": "wta",
+     "map_level": "T1000",
+     "year": 2021,
+     "matches": 3
+    },
+    {
+     "source": "sackmann",
+     "tour": "wta",
+     "map_level": "T1000",
+     "year": 2022,
+     "matches": 1
+    },
+    {
+     "source": "sackmann",
+     "tour": "wta",
+     "map_level": "T1000",
+     "year": 2023,
+     "matches": 56
+    },
+    {
+     "source": "sackmann",
+     "tour": "wta",
+     "map_level": "T1000",
+     "year": 2025,
+     "matches": 1
+    },
+    {
+     "source": "sackmann",
+     "tour": "wta",
+     "map_level": "T1000",
+     "year": 2026,
+     "matches": 10
+    },
+    {
+     "source": "sackmann",
+     "tour": "wta",
+     "map_level": "T250",
+     "year": 2021,
+     "matches": 5
+    },
+    {
+     "source": "sackmann",
+     "tour": "wta",
+     "map_level": "T250",
+     "year": 2022,
+     "matches": 1
+    },
+    {
+     "source": "sackmann",
+     "tour": "wta",
+     "map_level": "T250",
+     "year": 2023,
+     "matches": 2
+    },
+    {
+     "source": "sackmann",
+     "tour": "wta",
+     "map_level": "T250",
+     "year": 2025,
+     "matches": 34
+    },
+    {
+     "source": "sackmann",
+     "tour": "wta",
+     "map_level": "T250",
+     "year": 2026,
+     "matches": 1
+    },
+    {
+     "source": "sackmann",
+     "tour": "wta",
+     "map_level": "T500",
+     "year": 2010,
+     "matches": 29
+    },
+    {
+     "source": "sackmann",
+     "tour": "wta",
+     "map_level": "T500",
+     "year": 2011,
+     "matches": 29
+    },
+    {
+     "source": "sackmann",
+     "tour": "wta",
+     "map_level": "T500",
+     "year": 2012,
+     "matches": 29
+    },
+    {
+     "source": "sackmann",
+     "tour": "wta",
+     "map_level": "T500",
+     "year": 2013,
+     "matches": 27
+    },
+    {
+     "source": "sackmann",
+     "tour": "wta",
+     "map_level": "T500",
+     "year": 2014,
+     "matches": 27
+    },
+    {
+     "source": "sackmann",
+     "tour": "wta",
+     "map_level": "T500",
+     "year": 2017,
+     "matches": 85
+    },
+    {
+     "source": "sackmann",
+     "tour": "wta",
+     "map_level": "T500",
+     "year": 2019,
+     "matches": 54
+    },
+    {
+     "source": "sackmann",
+     "tour": "wta",
+     "map_level": "T500",
+     "year": 2021,
+     "matches": 6
+    },
+    {
+     "source": "sackmann",
+     "tour": "wta",
+     "map_level": "T500",
+     "year": 2023,
+     "matches": 1
+    },
+    {
+     "source": "sackmann",
+     "tour": "wta",
+     "map_level": "T500",
+     "year": 2024,
+     "matches": 27
+    },
+    {
+     "source": "sackmann",
+     "tour": "wta",
+     "map_level": "T500",
+     "year": 2025,
+     "matches": 2
+    },
+    {
+     "source": "sackmann",
+     "tour": "wta",
+     "map_level": "TEAM",
+     "year": 2024,
+     "matches": 21
+    },
+    {
+     "source": "sackmann",
+     "tour": "wta",
+     "map_level": "TQ",
+     "year": 2010,
+     "matches": 28
+    },
+    {
+     "source": "sackmann",
+     "tour": "wta",
+     "map_level": "TQ",
+     "year": 2011,
+     "matches": 28
+    },
+    {
+     "source": "sackmann",
+     "tour": "wta",
+     "map_level": "TQ",
+     "year": 2012,
+     "matches": 28
+    },
+    {
+     "source": "sackmann",
+     "tour": "wta",
+     "map_level": "TQ",
+     "year": 2013,
+     "matches": 28
+    },
+    {
+     "source": "sackmann",
+     "tour": "wta",
+     "map_level": "TQ",
+     "year": 2014,
+     "matches": 24
+    },
+    {
+     "source": "sackmann",
+     "tour": "wta",
+     "map_level": "TQ",
+     "year": 2017,
+     "matches": 84
+    },
+    {
+     "source": "sackmann",
+     "tour": "wta",
+     "map_level": "TQ",
+     "year": 2018,
+     "matches": 4
+    },
+    {
+     "source": "sackmann",
+     "tour": "wta",
+     "map_level": "TQ",
+     "year": 2019,
+     "matches": 46
+    },
+    {
+     "source": "sackmann",
+     "tour": "wta",
+     "map_level": "TQ",
+     "year": 2021,
+     "matches": 1
+    },
+    {
+     "source": "sackmann",
+     "tour": "wta",
+     "map_level": "TQ",
+     "year": 2022,
+     "matches": 1
+    },
+    {
+     "source": "sackmann",
+     "tour": "wta",
+     "map_level": "TQ",
+     "year": 2023,
+     "matches": 24
+    },
+    {
+     "source": "sackmann",
+     "tour": "wta",
+     "map_level": "TQ",
+     "year": 2024,
+     "matches": 12
+    },
+    {
+     "source": "sackmann",
+     "tour": "wta",
+     "map_level": "TQ",
+     "year": 2025,
+     "matches": 15
+    },
+    {
+     "source": "sackmann",
+     "tour": "wta",
+     "map_level": "TQ",
+     "year": 2026,
+     "matches": 1
+    },
+    {
+     "source": "sofascore",
+     "tour": "atp",
+     "map_level": "CHQ",
+     "year": 2026,
+     "matches": 1
+    },
+    {
+     "source": "sofascore",
+     "tour": "atp",
+     "map_level": "ITF",
+     "year": 2017,
+     "matches": 3
+    },
+    {
+     "source": "sofascore",
+     "tour": "atp",
+     "map_level": "ITF",
+     "year": 2025,
+     "matches": 7
+    },
+    {
+     "source": "sofascore",
+     "tour": "atp",
+     "map_level": "ITF",
+     "year": 2026,
+     "matches": 5
+    },
+    {
+     "source": "sofascore",
+     "tour": "wta",
+     "map_level": "ITF",
+     "year": 2026,
+     "matches": 23
+    },
+    {
+     "source": "tennislive",
+     "tour": "atp",
+     "map_level": "CH",
+     "year": 2019,
+     "matches": 19
+    },
+    {
+     "source": "tennislive",
+     "tour": "atp",
+     "map_level": "CH",
+     "year": 2023,
+     "matches": 1
+    },
+    {
+     "source": "tennislive",
+     "tour": "atp",
+     "map_level": "CH",
+     "year": 2026,
+     "matches": 32
+    },
+    {
+     "source": "tennislive",
+     "tour": "atp",
+     "map_level": "CHQ",
+     "year": 2018,
+     "matches": 213
+    },
+    {
+     "source": "tennislive",
+     "tour": "atp",
+     "map_level": "CHQ",
+     "year": 2019,
+     "matches": 24
+    },
+    {
+     "source": "tennislive",
+     "tour": "atp",
+     "map_level": "CHQ",
+     "year": 2020,
+     "matches": 17
+    },
+    {
+     "source": "tennislive",
+     "tour": "atp",
+     "map_level": "CHQ",
+     "year": 2021,
+     "matches": 72
+    },
+    {
+     "source": "tennislive",
+     "tour": "atp",
+     "map_level": "CHQ",
+     "year": 2022,
+     "matches": 164
+    },
+    {
+     "source": "tennislive",
+     "tour": "atp",
+     "map_level": "CHQ",
+     "year": 2023,
+     "matches": 164
+    },
+    {
+     "source": "tennislive",
+     "tour": "atp",
+     "map_level": "CHQ",
+     "year": 2024,
+     "matches": 166
+    },
+    {
+     "source": "tennislive",
+     "tour": "atp",
+     "map_level": "CHQ",
+     "year": 2025,
+     "matches": 133
+    },
+    {
+     "source": "tennislive",
+     "tour": "atp",
+     "map_level": "CHQ",
+     "year": 2026,
+     "matches": 1956
+    },
+    {
+     "source": "tennislive",
+     "tour": "atp",
+     "map_level": "ITF",
+     "year": 2018,
+     "matches": 739
+    },
+    {
+     "source": "tennislive",
+     "tour": "atp",
+     "map_level": "ITF",
+     "year": 2019,
+     "matches": 189
+    },
+    {
+     "source": "tennislive",
+     "tour": "atp",
+     "map_level": "ITF",
+     "year": 2020,
+     "matches": 56
+    },
+    {
+     "source": "tennislive",
+     "tour": "atp",
+     "map_level": "ITF",
+     "year": 2021,
+     "matches": 115
+    },
+    {
+     "source": "tennislive",
+     "tour": "atp",
+     "map_level": "ITF",
+     "year": 2023,
+     "matches": 42
+    },
+    {
+     "source": "tennislive",
+     "tour": "atp",
+     "map_level": "ITF",
+     "year": 2024,
+     "matches": 97
+    },
+    {
+     "source": "tennislive",
+     "tour": "atp",
+     "map_level": "ITF",
+     "year": 2025,
+     "matches": 1735
+    },
+    {
+     "source": "tennislive",
+     "tour": "atp",
+     "map_level": "ITF",
+     "year": 2026,
+     "matches": 8611
+    },
+    {
+     "source": "tennislive",
+     "tour": "wta",
+     "map_level": "CH",
+     "year": 2026,
+     "matches": 1
+    },
+    {
+     "source": "tennislive",
+     "tour": "wta",
+     "map_level": "ITF",
+     "year": 2026,
+     "matches": 300
+    },
+    {
+     "source": "tennislive",
+     "tour": "wta",
+     "map_level": "ITFQ",
+     "year": 2024,
+     "matches": 20
+    },
+    {
+     "source": "tennislive",
+     "tour": "wta",
+     "map_level": "ITFQ",
+     "year": 2025,
+     "matches": 1725
+    },
+    {
+     "source": "tennislive",
+     "tour": "wta",
+     "map_level": "ITFQ",
+     "year": 2026,
+     "matches": 794
+    },
+    {
+     "source": "tml",
+     "tour": "atp",
+     "map_level": "CH",
+     "year": 2018,
+     "matches": 6
+    },
+    {
+     "source": "tml",
+     "tour": "atp",
+     "map_level": "CH",
+     "year": 2019,
+     "matches": 3
+    },
+    {
+     "source": "tml",
+     "tour": "atp",
+     "map_level": "CH",
+     "year": 2020,
+     "matches": 1
+    },
+    {
+     "source": "tml",
+     "tour": "atp",
+     "map_level": "CH",
+     "year": 2021,
+     "matches": 5
+    },
+    {
+     "source": "tml",
+     "tour": "atp",
+     "map_level": "CH",
+     "year": 2022,
+     "matches": 1
+    },
+    {
+     "source": "tml",
+     "tour": "atp",
+     "map_level": "CH",
+     "year": 2024,
+     "matches": 31
+    },
+    {
+     "source": "tml",
+     "tour": "atp",
+     "map_level": "CH",
+     "year": 2026,
+     "matches": 1
+    },
+    {
+     "source": "tml",
+     "tour": "atp",
+     "map_level": "GS",
+     "year": 2026,
+     "matches": 2
+    },
+    {
+     "source": "tml",
+     "tour": "atp",
+     "map_level": "GSQ",
+     "year": 2026,
+     "matches": 100
+    },
+    {
+     "source": "tml",
+     "tour": "wta",
+     "map_level": "GS",
+     "year": 2026,
+     "matches": 1
+    },
+    {
+     "source": "wta_api",
+     "tour": "wta",
+     "map_level": "CH",
+     "year": 2026,
+     "matches": 937
+    },
+    {
+     "source": "wta_api",
+     "tour": "wta",
+     "map_level": "CHQ",
+     "year": 2026,
+     "matches": 301
+    },
+    {
+     "source": "wta_api",
+     "tour": "wta",
+     "map_level": "GSQ",
+     "year": 2026,
+     "matches": 336
+    },
+    {
+     "source": "wta_api",
+     "tour": "wta",
+     "map_level": "TQ",
+     "year": 2026,
+     "matches": 395
+    },
+    {
+     "source": "wta_site",
+     "tour": "wta",
+     "map_level": "CH",
+     "year": 2026,
+     "matches": 14
+    },
+    {
+     "source": "wta_site",
+     "tour": "wta",
+     "map_level": "CHQ",
+     "year": 2026,
+     "matches": 2
+    },
+    {
+     "source": "wta_site",
+     "tour": "wta",
+     "map_level": "ITF",
+     "year": 2026,
+     "matches": 7219
+    },
+    {
+     "source": "wta_site",
+     "tour": "wta",
+     "map_level": "ITFQ",
+     "year": 2024,
+     "matches": 50
+    },
+    {
+     "source": "wta_site",
+     "tour": "wta",
+     "map_level": "ITFQ",
+     "year": 2025,
+     "matches": 14880
+    },
+    {
+     "source": "wta_site",
+     "tour": "wta",
+     "map_level": "ITFQ",
+     "year": 2026,
+     "matches": 12553
+    }
+   ]
+  },
+  "gated": {
+   "new_past": {
+    "matches": 9,
+    "by": [
+     {
+      "source": "tml",
+      "tour": "wta",
+      "map_level": "TQ",
+      "year": 2026,
+      "matches": 9
+     }
+    ],
+    "examples": [
+     "wta|2026-1023|Q2|wta:223325|wta:260581",
+     "wta|2026-1023|Q2|wta:221803|wta:239389",
+     "wta|2026-1056|Q2|wta:214040|wta:214082",
+     "wta|2026-1056|Q2|wta:201709|wta:259967",
+     "wta|2026-1023|Q2|wta:220466|wta:236955",
+     "wta|2026-1023|Q2|wta:215035|wta:263644",
+     "wta|2026-1056|Q2|wta:201533|wta:238184",
+     "wta|2026-1023|Q2|wta:211279|wta:215614",
+     "wta|2026-1023|Q2|wta:220435|wta:267439"
+    ]
+   },
+   "dropped": {
+    "matches": 0,
+    "by": [],
+    "examples": []
+   },
+   "revised": {
+    "matches": 0,
+    "by": [],
+    "examples": []
+   }
+  },
+  "allowed_main_tour": {
+   "new_past": {
+    "matches": 149,
+    "by": [
+     {
+      "source": "tml",
+      "tour": "atp",
+      "map_level": "TEAM",
+      "year": 2026,
+      "matches": 1
+     },
+     {
+      "source": "tml",
+      "tour": "wta",
+      "map_level": "GS",
+      "year": 2026,
+      "matches": 3
+     },
+     {
+      "source": "tml",
+      "tour": "wta",
+      "map_level": "T1000",
+      "year": 2026,
+      "matches": 6
+     },
+     {
+      "source": "tml",
+      "tour": "wta",
+      "map_level": "T250",
+      "year": 2026,
+      "matches": 80
+     },
+     {
+      "source": "tml",
+      "tour": "wta",
+      "map_level": "T500",
+      "year": 2026,
+      "matches": 43
+     },
+     {
+      "source": "tml",
+      "tour": "wta",
+      "map_level": "TEAM",
+      "year": 2025,
+      "matches": 2
+     },
+     {
+      "source": "tml",
+      "tour": "wta",
+      "map_level": "TEAM",
+      "year": 2026,
+      "matches": 14
+     }
+    ],
+    "examples": [
+     "wta|2025-W-FC-2025-POS-20251114|RR|wta:223159|wta:269266",
+     "wta|2025-W-FC-2025-POS-20251114|RR|wta:221626|wta:269266",
+     "wta|2026-1111|R32|wta:211713|wta:221012",
+     "wta|2026-822|R32|wta:206420|wta:215910",
+     "wta|2026-1111|R32|wta:211107|wta:220367",
+     "wta|2026-822|R32|wta:211651|wta:220750",
+     "wta|2026-1111|R32|wta:201662|wta:220520",
+     "wta|2026-822|R32|wta:214082|wta:221905",
+     "wta|2026-1111|R32|wta:213631|wta:221236",
+     "wta|2026-822|R32|wta:213889|wta:222145"
+    ]
+   },
+   "dropped": {
+    "matches": 149,
+    "by": [
+     {
+      "source": "tml",
+      "tour": "atp",
+      "map_level": "TEAM",
+      "year": 2026,
+      "matches": 1
+     },
+     {
+      "source": "tml",
+      "tour": "wta",
+      "map_level": "GS",
+      "year": 2026,
+      "matches": 3
+     },
+     {
+      "source": "tml",
+      "tour": "wta",
+      "map_level": "T1000",
+      "year": 2026,
+      "matches": 6
+     },
+     {
+      "source": "tml",
+      "tour": "wta",
+      "map_level": "T250",
+      "year": 2026,
+      "matches": 80
+     },
+     {
+      "source": "tml",
+      "tour": "wta",
+      "map_level": "T500",
+      "year": 2026,
+      "matches": 43
+     },
+     {
+      "source": "tml",
+      "tour": "wta",
+      "map_level": "TEAM",
+      "year": 2025,
+      "matches": 16
+     }
+    ],
+    "examples": [
+     "wta|2025-W-FC-2025-FLS|QF|wta:206294|wta:220714",
+     "wta|2025-W-FC-2025-FLS|QF|wta:211148|wta:216133",
+     "wta|2025-W-FC-2025-FLS|QF|wta:216146|wta:222601",
+     "wta|2025-W-FC-2025-FLS|QF|wta:202494|wta:211651",
+     "wta|2025-W-FC-2025-FLS|QF|wta:201709|wta:215613",
+     "wta|2025-W-FC-2025-FLS|QF|wta:202468|wta:214981",
+     "wta|2025-W-FC-2025-FLS|QF|wta:214262|wta:222661",
+     "wta|2025-W-FC-2025-FLS|QF|wta:211107|wta:220416",
+     "wta|2025-W-FC-2025-FLS|SF|wta:216146|wta:220714",
+     "wta|2025-W-FC-2025-FLS|SF|wta:202494|wta:211148"
+    ]
+   },
+   "revised": {
+    "matches": 155,
+    "by": [
+     {
+      "source": "tml",
+      "tour": "atp",
+      "map_level": "T1000",
+      "year": 2026,
+      "matches": 1
+     },
+     {
+      "source": "tml",
+      "tour": "atp",
+      "map_level": "T250",
+      "year": 2026,
+      "matches": 2
+     },
+     {
+      "source": "tml",
+      "tour": "atp",
+      "map_level": "TEAM",
+      "year": 2015,
+      "matches": 1
+     },
+     {
+      "source": "tml",
+      "tour": "atp",
+      "map_level": "TEAM",
+      "year": 2016,
+      "matches": 3
+     },
+     {
+      "source": "tml",
+      "tour": "atp",
+      "map_level": "TEAM",
+      "year": 2022,
+      "matches": 1
+     },
+     {
+      "source": "tml",
+      "tour": "atp",
+      "map_level": "TEAM",
+      "year": 2025,
+      "matches": 3
+     },
+     {
+      "source": "tml",
+      "tour": "atp",
+      "map_level": "TEAM",
+      "year": 2026,
+      "matches": 5
+     },
+     {
+      "source": "tml",
+      "tour": "wta",
+      "map_level": "T1000",
+      "year": 2026,
+      "matches": 15
+     },
+     {
+      "source": "tml",
+      "tour": "wta",
+      "map_level": "T250",
+      "year": 2026,
+      "matches": 48
+     },
+     {
+      "source": "tml",
+      "tour": "wta",
+      "map_level": "T500",
+      "year": 2026,
+      "matches": 40
+     },
+     {
+      "source": "tml",
+      "tour": "wta",
+      "map_level": "TEAM",
+      "year": 2025,
+      "matches": 36
+     }
+    ],
+    "examples": [
+     "atp|2015-D072-20151026|RR|atp:104813|atp:105575",
+     "atp|2016-M-DC-2016-G2-EPA-M-TUN-BUL-6|RR|atp:104291|atp:200247",
+     "atp|2016-M-DC-2016-G2-EPA-M-TUN-BUL-7|RR|atp:121411|atp:144678",
+     "atp|2016-M-DC-2016-G2-EPA-M-TUN-BUL-8|RR|atp:144826|atp:200247",
+     "atp|2022-M-DC-2022-WG1-M-BIH-MEX-1|RR|atp:210119|atp:210545",
+     "atp|2025-M-DC-2025-WG2-PO-EST-VEN-1|RR|atp:210312|atpcode:P0I5",
+     "atp|2025-M-DC-2025-WG2-PO-EST-VEN-3|RR|atpcode:M0W0|atpcode:P0I5",
+     "atp|2025-M-DC-2025-WG1-PO-IND-TOG-1|RR|atp:124154|atpcode:A0GB",
+     "wta|2025-W-FC-2025-POS-20251114|RR|wta:213887|wta:260672",
+     "wta|2025-W-FC-2025-POS-20251114|RR|wta:211874|wta:241714"
+    ]
+   }
+  },
+  "tml_lower": {
+   "new_past": {
+    "matches": 73,
+    "by": [
+     {
+      "source": "tml",
+      "tour": "atp",
+      "map_level": "CH",
+      "year": 2017,
+      "matches": 1
+     },
+     {
+      "source": "tml",
+      "tour": "atp",
+      "map_level": "CH",
+      "year": 2023,
+      "matches": 1
+     },
+     {
+      "source": "tml",
+      "tour": "atp",
+      "map_level": "CH",
+      "year": 2026,
+      "matches": 42
+     },
+     {
+      "source": "tml",
+      "tour": "atp",
+      "map_level": "TQ",
+      "year": 2011,
+      "matches": 24
+     },
+     {
+      "source": "tml",
+      "tour": "atp",
+      "map_level": "TQ",
+      "year": 2015,
+      "matches": 1
+     },
+     {
+      "source": "tml",
+      "tour": "atp",
+      "map_level": "TQ",
+      "year": 2026,
+      "matches": 4
+     }
+    ],
+    "examples": [
+     "atp|2011-416|Q1|atp:104216|atp:105453",
+     "atp|2011-416|Q1|atp:103893|atp:104665",
+     "atp|2011-416|Q1|atp:104719|atp:105077",
+     "atp|2011-416|Q1|atp:103687|atp:104655",
+     "atp|2011-416|Q1|atp:103813|atp:105318",
+     "atp|2011-416|Q1|atp:104970|atp:105173",
+     "atp|2011-416|Q1|atp:103997|atp:104523",
+     "atp|2011-416|Q1|atp:104214|atp:104976",
+     "atp|2011-416|Q1|atp:103812|atp:104714",
+     "atp|2011-416|Q1|atp:104122|atp:104890"
+    ]
+   },
+   "dropped": {
+    "matches": 76,
+    "by": [
+     {
+      "source": "tml",
+      "tour": "atp",
+      "map_level": "CH",
+      "year": 2017,
+      "matches": 1
+     },
+     {
+      "source": "tml",
+      "tour": "atp",
+      "map_level": "CH",
+      "year": 2022,
+      "matches": 3
+     },
+     {
+      "source": "tml",
+      "tour": "atp",
+      "map_level": "CH",
+      "year": 2025,
+      "matches": 4
+     },
+     {
+      "source": "tml",
+      "tour": "atp",
+      "map_level": "CH",
+      "year": 2026,
+      "matches": 39
+     },
+     {
+      "source": "tml",
+      "tour": "atp",
+      "map_level": "TQ",
+      "year": 2011,
+      "matches": 24
+     },
+     {
+      "source": "tml",
+      "tour": "atp",
+      "map_level": "TQ",
+      "year": 2015,
+      "matches": 1
+     },
+     {
+      "source": "tml",
+      "tour": "atp",
+      "map_level": "TQ",
+      "year": 2026,
+      "matches": 4
+     }
+    ],
+    "examples": [
+     "atp|2011-416|Q1|atp:104214|atpcode:105453",
+     "atp|2011-416|Q1|atp:103898|atpcode:104660",
+     "atp|2011-416|Q1|atp:105077|atpcode:104713",
+     "atp|2011-416|Q1|atp:103656|atp:104655",
+     "atp|2011-416|Q1|atp:103868|atpcode:105292",
+     "atp|2011-416|Q1|atp:104898|atpcode:105173",
+     "atp|2011-416|Q1|atpcode:104022|atpcode:104471",
+     "atp|2011-416|Q1|atp:104268|atpcode:104993",
+     "atp|2011-416|Q1|atp:104714|atpcode:103819",
+     "atp|2011-416|Q1|atp:104882|atpcode:104098"
+    ]
+   },
+   "revised": {
+    "matches": 68,
+    "by": [
+     {
+      "source": "tml",
+      "tour": "atp",
+      "map_level": "CH",
+      "year": 2026,
+      "matches": 66
+     },
+     {
+      "source": "tml",
+      "tour": "atp",
+      "map_level": "TQ",
+      "year": 2026,
+      "matches": 2
+     }
+    ],
+    "examples": [
+     "atp|2026-7494|R16|atp:209903|atp:210389",
+     "atp|2026-3085|R16|atp:207411|atp:210682",
+     "atp|2026-3117|R32|atp:205734|atp:213547",
+     "atp|2026-2835|R32|atp:200572|atpcode:O0CL",
+     "atp|2026-2835|R32|atp:105868|atpcode:B19W",
+     "atp|2026-2931|R32|atp:200748|atp:209874",
+     "atp|2026-7316|R32|atp:133297|atp:210318",
+     "atp|2026-7316|R32|atp:210536|atpcode:L0J2",
+     "atp|2026-315|R32|atp:200677|atp:210318",
+     "atp|2026-315|R16|atp:106281|atp:210318"
+    ]
+   }
+  },
+  "template_ok": false
+ },
+ "history_seconds": 71.2
+}

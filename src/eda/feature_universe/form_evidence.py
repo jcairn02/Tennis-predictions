@@ -48,9 +48,13 @@ Writes data/studies/feature_universe/form_evidence/:
     layer_copies/<tree>.json   the read-only copy of the tree's layer config
 No fit; no outcome.
 
-Run: ./python.sh src/eda/feature_universe/form_evidence.py --store                 (template_2026-10-13, tnr_gaps)
-     ./python.sh src/eda/feature_universe/form_evidence.py --tree C:/Users/zerom/tnr_tpl1014 \
-         --instance template_2026-10-14                                            (another instance, no store table)
+Run: ./python.sh src/eda/feature_universe/form_evidence.py [--store]      (the master notebook's selected instance and
+                                                                          its build tree, as the daily engine reads)
+     ./python.sh src/eda/feature_universe/form_evidence.py --tree <build tree> --instance <its instance>   (another one)
+The outputs of 14 Oct 2026 were built on template_2026-10-13 in C:/Users/zerom/tnr_gaps (the store's columns, with
+--store) and on template_2026-10-14 in C:/Users/zerom/tnr_tpl1014. Both trees were deleted on 22 Oct 2026 (the owner;
+docs/studies/cleanup_inventory/process_log.md § 9d), so those outputs cannot be rebuilt as they were; a re-run reads a
+current instance's tree, and its values may differ.
 """
 from __future__ import annotations
 
@@ -79,8 +83,7 @@ INSTANCES = REPO / "data" / "studies" / "current_best_model"
 LAYER_BUILD = Path("data") / "studies" / "current_best_model" / "level_layer" / "this_build" / "build_config.json"
 STAGE0 = Path("data") / "studies" / "predictability_diagnostic" / "stage0_matches.parquet"
 TIMING = Path("data") / "studies" / "match_timing" / "timing.parquet"
-DEFAULT_TREE = Path("C:/Users/zerom/tnr_gaps")
-DEFAULT_INSTANCE = "template_2026-10-13"
+SELECTED = REPO / "data" / "studies" / "master_pipeline" / "selected_instance.json"   # the master notebook's selection
 STAT, CHANNEL = "tpw", "adjperf"
 TOURS = ("atp", "wta")
 RESULT_NAMES = {"a_won", "won", "y", "winner", "result"}
@@ -542,14 +545,31 @@ def near_copies(new: dict, store: pd.DataFrame, store_names: list[str], frame: p
 
 # ------------------------------------------------------------------------------------------------
 
+def selected_instance() -> tuple[str | None, str | None]:
+    """The instance and build tree the master notebook selected (the daily engine reads the same file): the default
+    since 22 Oct 2026. Before, it was template_2026-10-13 and its tree C:/Users/zerom/tnr_gaps, deleted that day."""
+    try:
+        sel = json.loads(SELECTED.read_text(encoding="utf-8"))
+    except (OSError, ValueError):
+        return None, None
+    return sel.get("instance"), sel.get("tree")
+
+
 def main() -> int:
     ap = argparse.ArgumentParser()
-    ap.add_argument("--tree", default=str(DEFAULT_TREE))
-    ap.add_argument("--instance", default=DEFAULT_INSTANCE)
+    ap.add_argument("--tree", help="a template's build tree, with --instance (default: both from the master notebook's "
+                                   "selection)")
+    ap.add_argument("--instance", help="the instance built in that tree")
     ap.add_argument("--store", action="store_true", help="also write store_columns.parquet (the store's population)")
     ap.add_argument("--probe-cuts", type=int, default=8)
     ap.add_argument("--sample", type=int, default=400)
     a = ap.parse_args()
+    if (a.tree is None) != (a.instance is None):
+        ap.error("give --tree and --instance together: the tree's tables are that instance's build")
+    if a.tree is None:
+        a.instance, a.tree = selected_instance()
+        if not (a.instance and a.tree):
+            ap.error(f"no selection in {SELECTED}: give --tree and --instance")
     rng = np.random.default_rng(SEED)
     tree = Path(a.tree).resolve()
     sources = enter_tree(tree)

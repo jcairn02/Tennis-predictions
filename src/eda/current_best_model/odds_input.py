@@ -405,7 +405,7 @@ def main() -> int:
                     help=f"{RULE} (default): TennisExplorer's Pinnacle from {TE_FROM}, OddsTrader wins a mirror image; "
                          f"{RULE_BEFORE}: the rule as built to 21 Oct 2026")
     ap.add_argument("--allow-low-te-coverage", action="store_true",
-                    help=f"rewrite even where TennisExplorer prices under {TE_MIN_SHARE:.0%} of a month's matches")
+                    help=f"rewrite even where TennisExplorer prices under {TE_MIN_SHARE:.0%}% of a month's matches")
     a = ap.parse_args()
     folder = a.apply or a.from_reference
     folder = folder if folder.is_absolute() else ROOT / folder

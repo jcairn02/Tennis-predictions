@@ -1,5 +1,9 @@
 # The current best model, 14 October 2026: the day's tables, the lower-level feed and the Roland Garros repair
 
+> **Not the live model** (it was on 14–16 Oct 2026). Which instance is live is decided only by the master notebook's selection (`data/studies/master_pipeline/selected_instance.json`; the notebook's STATUS cell shows it). "The current instance" below describes this folder as of when it was written. Kept as evidence and for rollback ([which instance went live when](../README.md)).
+>
+> **Its build tree is deleted** (22 Oct 2026, the owner; [cleanup inventory § 9d](../../../../docs/studies/cleanup_inventory/process_log.md)): `C:/Users/zerom/tnr_tpl1014`, after its daily caches on 21 Oct. The frame, the fits and the build's records here remain, but the daily engine can no longer run this instance. A rebuild (below) now reads today's tables, not the tables of 13 Oct this was built on, so it would make a new instance, not this one. So it is evidence now, not a rollback; the documented rollbacks are the 16 and 21 Oct instances.
+
 **What it is.** The current instance of the template ([decision](../../../../docs/decisions/2026-10-08-current-best-model.md)), built on **the day's tables**: the live tables rebuilt on 13 Oct 2026 (21:12–21:48 PDT), with every decided change in:
 * **the Roland Garros repair** ([decision](../../../../docs/decisions/2026-10-09-roland-garros-box-scores.md), adopted 10 Oct, applied 13 Oct 21:12): RG's own box scores for 2022–2026, including the 254 main-draw matches of 2026 that had none, and the corrected service games of the Australian Open and Roland Garros;
 * **Tennis My Life's own lower-level corrections** ([decision](../../../../docs/decisions/2026-10-13-tml-lower-level-revisions.md), 13 Oct), including the four 2022–2025 Challenger files accepted that day;

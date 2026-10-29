@@ -49,6 +49,26 @@ def sandbox_out(tmp_path, monkeypatch):
     return tmp_path
 
 
+REPLAY_MODEL = (pd.read_csv(REPLAY / "predictions.csv", usecols=["instance"])["instance"].iloc[0]
+                if (REPLAY / "predictions.csv").exists() else None)
+
+
+@pytest.fixture(autouse=True)
+def replay_model_selected(monkeypatch):
+    """The bet sheet blocks a live run made with another model than the selected one (22 Oct 2026). The priced runs
+    below are the replay's run dressed as live runs: they count as made with the selected model unless a test says
+    otherwise (the real selection is never read by these tests' sheets)."""
+    monkeypatch.setattr(D, "_selected_instance", lambda: REPLAY_MODEL)
+
+
+@pytest.fixture(autouse=True)
+def both_tours(monkeypatch):
+    """These tests check the machinery on both tours, as it ran before women's matches were switched off for the bet
+    day (the owner, 28 Oct 2026; config.BET_TOURS): the priced runs hold the replay's 8 women's matches, and the probe
+    the WTA's. The switch has its own tests (test_women_switched_off.py)."""
+    monkeypatch.setattr(CFG, "BET_TOURS", ("atp", "wta"))
+
+
 # ------------------------------------------------------------------------------------------------------------------
 # interpreters and the runner
 
@@ -140,6 +160,7 @@ def _commands(monkeypatch) -> list[R.Step]:
     tp.make_checkpoint("2026-10-05", dry_run=True)
     tp.replay_check(dry_run=True)
     tp.grade(REPLAY, dry_run=True)
+    tp.grade(REPLAY, stage0=CFG.STAGE0 / "stage0_matches.parquet", dry_run=True)
     tp.record_pinnacle(dry_run=True)
     tp.thinking.fit_season(tp.active_instance(), 2026, dry_run=True)
     return seen
@@ -195,6 +216,29 @@ def test_curve_roots_and_reading():
     assert D.curve_roots(x, flat) == []
 
 
+def test_zero_ev_roots():
+    """Where each side's EV at the posted odds would be zero if the line moved there with its margin kept (24 Oct
+    2026): side A's at q(p) = over·p, side B's at 1 - q(p) = over·(1 - p)."""
+    x = np.linspace(np.log(0.05 / 0.95), np.log(0.95 / 0.05), 91)
+    q = 1 / (1 + np.exp(-x)) + 0.02                        # the model 2 points above the margin-free price everywhere
+    a, b = D.zero_ev_roots(x, q, 1.03)                     # A: p + 0.02 = 1.03 p at p = 2/3; B: 0.98 - p < 1.03 (1 - p)
+    assert len(a) == 1 and a[0] == pytest.approx(2 / 3, abs=1e-3) and b == []
+    assert D.zero_ev_roots(x, q, 1.0) == ([], [])          # no margin: A is +EV and B -EV at every price
+
+
+def test_zero_edge_is_said_at_the_posted_price():
+    """The Matches tab's "Zero edge if Pinnacle moves to": the model's side's posted price, margin included, at which
+    its EV would be zero; with none, which way it stays; a record made before the columns existed says nothing."""
+    r = {"edge_a": 0.019, "player_a": "Tallon Griekspoor", "pinnacle_odds_a": 1.8264, "ev_a_pinnacle": 0.0068,
+         "zero_ev_implied_a": "0.6248", "nearest_zero_ev_implied_a": 0.6248}
+    assert BS.no_edge_at(r) == "62.5% (US odds -167)"
+    assert BS.no_edge_at({**r, "zero_ev_implied_a": "0.2162;0.3;0.4"}).endswith("; 2 more crossings")
+    none = {**r, "zero_ev_implied_a": None, "nearest_zero_ev_implied_a": None}
+    assert BS.no_edge_at(none).endswith("Tallon Griekspoor is worth a bet at every one")
+    assert BS.no_edge_at({**none, "ev_a_pinnacle": -0.01}).endswith("is not worth a bet at any")
+    assert BS.no_edge_at({k: v for k, v in r.items() if "zero_ev" not in k}) == ""
+
+
 def test_round_mapping_from_the_draw():
     assert L._round("R1", 96) == "R128" and L._round("R2", 96) == "R64" and L._round("R3", 96) == "R32"
     assert L._round("R1", 32) == "R32" and L._round("R4", 32) == "SF" and L._round("R5", 32) == "F"
@@ -240,6 +284,20 @@ def test_staging_keeps_only_pre_match_moneylines():
     assert (pd.to_datetime(u["start_utc"], utc=True) > pd.Timestamp("2026-10-09T15:10:42Z")).all()
 
 
+class _NoTennisLive:
+    """TennisLive not asked: since 25 Oct 2026 the linker reads it for every main-draw match (its qualifiers' rounds)."""
+    stopped = None
+
+    def event(self, tour, name, day):
+        return None, "TennisLive is not asked in tests"
+
+    def results(self, ev):
+        return None
+
+    def page(self, url):
+        return None
+
+
 @needs_probe
 def test_linker_on_the_probe(monkeypatch):
     # Tennis My Life as it stood when this test was written (11-14 Oct 2026): it held the results of many matches the
@@ -247,14 +305,71 @@ def test_linker_on_the_probe(monkeypatch):
     # the same name" (found 22 Oct 2026; the qualifying test cuts the same way)
     real = L._tml
     monkeypatch.setattr(L, "_tml", lambda years: (lambda t: t[t["_date"] <= pd.Timestamp("2026-10-14")])(real(years)))
-    m = L.todays_matches(pull=_probe_pull(), hours_ahead=96, now=dt.datetime(2026, 10, 9, 15, 11, tzinfo=dt.timezone.utc))
+    m = L.todays_matches(pull=_probe_pull(), hours_ahead=96, now=dt.datetime(2026, 10, 9, 15, 11, tzinfo=dt.timezone.utc),
+                         tennislive=_NoTennisLive())
     ok = m[m["status"].eq("ok")]
     shanghai = m[m["tourney_id"].eq("2026-5014")]
     assert len(shanghai) > 10 and set(shanghai["round"].dropna()) <= {"R64", "R32"}
     assert m["reason"].astype(str).str.contains("already played").sum() >= 20          # TML holds those results now
-    assert m["reason"].astype(str).str.contains("names 2 Stage 0 players").any()       # Jakub Mensik
+    mensik = m[m["home"].eq("Jakub Mensik") | m["away"].eq("Jakub Mensik")]          # two Stage 0 ids until his second
+    assert len(mensik) == 1 and mensik["reason"].str.contains("already played").all()  # was merged (28 Oct 2026): one
+    assert not m["reason"].astype(str).str.contains("names 2 Stage 0 players").any()   # player, past the name check
     assert ok["stage0_id_a"].notna().all() and ok["stage0_id_b"].notna().all()
     assert ok["league"].str.match(r"^(ATP|WTA) (?!Challenger|125)").all()
+
+
+LATE_NOW = pd.Timestamp("2026-10-23T12:00:00Z")
+
+
+def _late_pull():
+    """A staged pull of four Challenger matches: one ahead of its listed start; one past its start and its market's
+    cutoff, not in play (Pinnacle often pushes the start back and reopens the market); one past its start with the
+    cutoff still ahead; one in play (its moneyline on the live child of matchup 40)."""
+    from src.ingest import pinnacle as P
+    t = lambda minutes: (LATE_NOW + pd.Timedelta(minutes=minutes)).strftime("%Y-%m-%dT%H:%M:%SZ")  # noqa: E731
+    games = [(1, None, False, "Ann Alpha", "Bea Beta", 120, 120), (2, None, False, "Cat Gamma", "Dee Delta", -20, -20),
+             (3, None, False, "Eve Eps", "Fay Zeta", -5, 30), (4, 40, True, "Gil Eta", "Hal Theta", -60, 300)]
+    matchups = [{"id": i, "parentId": parent, "isLive": live, "status": "pending", "startTime": t(s),
+                 "league": {"name": "ATP Challenger Testville - R16", "id": 9, "bestOfX": 3},
+                 "participants": [{"alignment": "home", "name": h}, {"alignment": "away", "name": a}]}
+                for i, parent, live, h, a, s, _ in games]
+    straight = [{"type": "moneyline", "period": 0, "matchupId": i, "status": "open", "isAlternate": False,
+                 "cutoffAt": t(c), "prices": [{"designation": "home", "price": -150}, {"designation": "away", "price": 130}],
+                 "limits": [{"type": "maxRiskStake", "amount": 500}], "version": 1}
+                for i, _, _, _, _, _, c in games]
+    return P.stage_pull({"retrieved_at": LATE_NOW.isoformat(), "matchups": matchups, "straight": straight})
+
+
+def test_a_match_still_listed_pre_match_after_its_listed_start_stays_a_candidate(monkeypatch):
+    """The owner, 24 Oct 2026: a start time never withholds a prediction. A match Pinnacle still lists with a pre-match
+    price after its listed start (or its market's cutoff) is linked like any other; an in-play market stays out."""
+    pull = _late_pull()
+    reasons = dict(zip(pull["matchup_id"], pull["reason"]))
+    assert pd.isna(reasons[1]) and reasons[4] == "in-play (live) market"
+    assert {reasons[2], reasons[3]} == L.PAST_LISTED_START            # the staging's own words, read by the linker
+    monkeypatch.setattr(L, "_tml", lambda years: pd.DataFrame())
+    monkeypatch.setattr(L, "_stage0_keys", lambda tour: pd.DataFrame())
+    m = L.todays_matches(pull=pull, hours_ahead=36, now=LATE_NOW.to_pydatetime())
+    assert sorted(m["matchup_id"]) == [1, 2, 3]                       # the in-play match is not listed
+    assert m["reason"].str.startswith("challenger level").all()      # each went on to the level check
+
+
+def test_reprice_keeps_a_match_still_listed_pre_match(tmp_path, monkeypatch):
+    """A reprice prices a match still listed pre-match after its listed start, and leaves out one in play."""
+    run = tmp_path / "live_test_run"
+    run.mkdir()
+    pd.DataFrame([{"match_id": "m2", "player_a": "Cat Gamma", "player_b": "Dee Delta", "player_a_id": "atp:2",
+                   "player_b_id": "atp:3"},
+                  {"match_id": "m4", "player_a": "Gil Eta", "player_b": "Hal Theta", "player_a_id": "atp:4",
+                   "player_b_id": "atp:5"}]).to_csv(run / "predictions.csv", index=False)
+    pd.DataFrame([{"player_a": "Cat Gamma", "player_b": "Dee Delta", "stage0_id_a": "atp:2", "pinnacle_matchup_id": 2},
+                  {"player_a": "Gil Eta", "player_b": "Hal Theta", "stage0_id_a": "atp:4", "pinnacle_matchup_id": 40}]
+                 ).to_csv(run / "matchups_input.csv", index=False)
+    pull = _late_pull()
+    monkeypatch.setattr(L, "latest_pull", lambda: pull)
+    out = pd.read_csv(L.live_prices(run, pull_now=False, path=tmp_path / "prices.csv"))
+    assert list(out["match_id"]) == ["m2"]
+    assert out.loc[0, "p_a"] == pytest.approx(float(pull.loc[pull["matchup_id"].eq(2), "p_home"].iloc[0]))
 
 
 # ------------------------------------------------------------------------------------------------------------------
@@ -359,6 +474,21 @@ def test_diagnostics_orient_the_matchups_by_id(tmp_path):
     assert late[late["status"].eq("predicted")]["block_reasons"].astype(str).str.contains("old").all()
 
 
+@needs_replay
+def test_a_passed_listed_start_never_blocks(tmp_path):
+    """The owner, 24 Oct 2026 ("If it started I cant bet it ... just give me the prediction"): a match whose listed
+    start has passed is decided like any other; until then the sheet blocked it as "the match has started"."""
+    run, mu, _ = _priced_run(tmp_path)
+    before = D.bet_diagnostics(run, write=False, show=False, now=PRICED_NOW)
+    mu.assign(start_utc="2026-07-15T05:00:00Z").to_csv(run / "matchups_input.csv", index=False)     # an hour ago
+    after = D.bet_diagnostics(run, write=False, show=False, now=PRICED_NOW)
+    assert (after["minutes_to_start"] == -60).all()
+    assert not after["block_reasons"].astype(str).str.contains("started").any()
+    cols = ["match_id", "decision", "pick", "ev_pinnacle_pick", "block_reasons"]
+    pd.testing.assert_frame_equal(before[cols], after[cols])
+    assert (after["decision"] == "BET").any()
+
+
 # ------------------------------------------------------------------------------------------------------------------
 # the bet sheet (the owner's request of 13 Oct 2026): it re-says the record, never computes
 
@@ -386,8 +516,12 @@ def test_bet_sheet_says_what_the_record_says(tmp_path):
         assert r["Lowest odds to take"] == BS.american(1 / p["p_pick"])
         assert r["Model chance"] == pytest.approx(p["p_pick"]) and r["US odds"] >= r["Lowest odds to take"]
         assert r["Stake (units)"] == pytest.approx(float(stake(p["pinnacle_odds_pick"])), abs=1e-3)
+        # the market chance is the posted price's, margin included (the owner, 24 Oct 2026), so the edge is the EV's
+        assert r["Market chance"] == pytest.approx(1 / p["pinnacle_odds_pick"])
+        assert r["Edge (pts)"] == pytest.approx(100 * (p["p_pick"] - 1 / p["pinnacle_odds_pick"])) and r["Edge (pts)"] > 0
+        assert r["Expected profit"] == pytest.approx(r["Edge (pts)"] / 100 * p["pinnacle_odds_pick"], abs=1e-4)
     for _, r in t[t["Decision"].eq("PASS") & t["Player"].notna()].iterrows():
-        assert r["Expected profit"] <= 0 and r["US odds"] <= r["Lowest odds to take"] and r["Edge (pts)"] > 0
+        assert r["Expected profit"] <= 0 and r["US odds"] <= r["Lowest odds to take"] and r["Edge (pts)"] <= 0
     blocked = t[t["Decision"].eq("BLOCKED")]
     assert blocked[["Player", "Stake (units)", "US odds"]].isna().all().all() and blocked["Notes"].str.len().gt(0).all()
     # US odds only (the owner, 20 Oct 2026): no decimal odds column, and no decimal price in any note or header line
@@ -395,11 +529,13 @@ def test_bet_sheet_says_what_the_record_says(tmp_path):
     assert not [c for c in every if re.fullmatch(r"(Odds|Fair odds) ?\d?", c)]
     assert {k for c, k in sh.kinds.items() if "odds" in c.lower()} == {"us"}
     assert {k for c, k in sh.matches_kinds.items() if "odds" in c.lower()} == {"us"}
-    texts = [*t["Notes"].astype(str), *sh.matches["Edge gone if the market reaches"].astype(str), *sh.header]
+    texts = [*t["Notes"].astype(str), *sh.matches["Zero edge if Pinnacle moves to"].astype(str), *sh.header]
     assert not [x for x in texts if re.search(r"\b\d+\.\d{3}\b", x)]          # decimal odds were said as 2.345
     m = sh.matches.set_index("Match id")
-    home_p = {pred.iloc[i]["match_id"]: r["p_a"] for i, r in enumerate(rows)}         # the CSV's home player is 1
-    assert np.allclose([m.loc[k, "Market chance 1"] for k in home_p], list(home_p.values()), atol=1e-6)
+    # each player's posted price as a chance, margin included: 1 / the CSV's home odds is player 1's
+    home = {pred.iloc[i]["match_id"]: 1 / L._decimal(r["odds_a"]) for i, r in enumerate(rows)}
+    assert np.allclose([m.loc[k, "Market chance 1"] for k in home], list(home.values()), atol=1e-4)
+    assert np.allclose(m["Market chance 1"] + m["Market chance 2"], 1 + m["Margin"], atol=1e-4)
     assert np.allclose(m["Model chance 1"] + m["Model chance 2"], 1)
 
 
@@ -419,7 +555,7 @@ def test_plain_reasons():
                                             "do not bet: inputs incomplete")] == \
         ["complete", "gap: 1-point edge needed", "incomplete"]
     stale = BS.why_blocked({"block_reasons": "quote 45 min old (over 30): reprice; the match has started"})
-    assert "45 min old (limit 30)" in stale and "A6" in stale and "has started" in stale
+    assert "45 min old (limit 30)" in stale and "A5b" in stale and "has started" in stale
     assert BS.why_blocked({"block_reasons": "something new"}) == "Something new."
     assert BS.why_left_out("no main-tour Tennis My Life event named like 'Wuhan' in the last 16 days (a first round "
                            "waits for the event's first played match)").startswith("First round of a new event")
@@ -575,6 +711,12 @@ def test_the_bet_sheet_applies_the_edge_bar(tmp_path):
     barred = p[p["passed_by_bar"].isin(["A", "B"])]
     assert len(barred) and (barred["decision"] == "PASS").all()
     assert all("Passed for a data gap" in BS.notes_for(r) for _, r in barred.iterrows())
+    # the sheet's edge is net of the margin (24 Oct 2026), so the bar reads off it: a bet's is above 1 point, a +EV
+    # side the bar took away is between 0 and 1 (the record's odds are rounded to 4 decimals: 0.01 points of slack)
+    t = BS.build(rec, made_at=PRICED_NOW, meta={"stale_minutes": 30}).table
+    assert (t.loc[t["Decision"].eq("BET"), "Edge (pts)"] > 1 - 0.01).all()
+    took = {r["player_a"] if r["passed_by_bar"] == "A" else r["player_b"] for _, r in barred.iterrows()}
+    assert t.loc[t["Player"].isin(took), "Edge (pts)"].between(0, 1 + 0.01).all()
 
 
 def _log_odds_mean(a, b):
@@ -798,3 +940,80 @@ def test_dp_env_hands_over_the_checked_tree(monkeypatch):
     env = tp.train.dp_env()
     assert env["DP_BASE_TREE"] == str(tp.train.base_tree())
     assert "somewhere" not in env["DP_BASE_TREE"]
+
+
+# ------------------------------------------------------------------------------------------------------------------
+# the live model: one place names it, the notebook's selection (22 Oct 2026; process log, Part 9)
+
+def _select(monkeypatch, tmp_path, value) -> Path:
+    path = tmp_path / "selected_instance.json"
+    if value is not None:
+        path.write_text(json.dumps(value), encoding="utf-8")
+    monkeypatch.setattr(CFG, "SELECTED_INSTANCE", path)
+    return path
+
+
+def test_no_selection_means_no_model(monkeypatch, tmp_path):
+    """Until 22 Oct 2026 the notebook fell back to the daily pipeline's default, the 10 Oct instance."""
+    from src.pipeline import overview as OV
+    _select(monkeypatch, tmp_path, None)
+    assert tp.train.selected_instance_name() is None
+    for f in (tp.train.active_instance, tp.train.base_tree, tp.train.dp_env):
+        with pytest.raises(RuntimeError, match="No live model is selected"):
+            f()
+    with pytest.raises(RuntimeError, match="no default model"):
+        tp.use_instance(None)
+    assert OV.live_model().startswith("NONE SELECTED")
+    assert tp.train.instance_status("template_2026-10-10")["active"] is False      # status still reads an instance
+
+
+def test_the_selection_is_the_model_every_step_gets(monkeypatch, tmp_path):
+    from src.pipeline import overview as OV
+    _select(monkeypatch, tmp_path, {"instance": "template_x", "tree": "C:/tnr_x", "selected_at": "2026-10-22T13:00:00"})
+    monkeypatch.setenv("DP_INSTANCE", "template_other")                # never read from the kernel
+    assert tp.train.active_instance() == CFG.INSTANCES / "template_x"
+    assert tp.train.dp_env() == {"DP_INSTANCE": "template_x", "DP_BASE_TREE": str(Path("C:/tnr_x"))}
+    assert OV.live_model() == "template_x on C:/tnr_x (the notebook's selection, set 2026-10-22T13:00:00)"
+
+
+def test_the_daily_pipeline_names_no_model_of_its_own():
+    """dp_common reads the notebook's selection and holds no instance or tree of its own."""
+    text = (CFG.DAILY / "dp_common.py").read_text(encoding="utf-8")
+    assert "selected_instance.json" in text
+    assert "template_2026" not in text and "tnr_lyr_new" not in text
+
+
+@needs_replay
+def test_the_bet_sheet_blocks_a_live_run_of_another_model(tmp_path, monkeypatch):
+    run = _priced_run(tmp_path)[0]
+    monkeypatch.setattr(D, "_selected_instance", lambda: "template_2026-10-21b")
+    rec = D.bet_diagnostics(run, write=False, show=False, now=PRICED_NOW)
+    predicted = rec[rec["status"].eq("predicted")]
+    assert len(predicted) and predicted["blocked"].all()
+    assert predicted["block_reasons"].str.contains(
+        f"made with {REPLAY_MODEL}, not the selected live model template_2026-10-21b").all()
+    assert set(predicted["decision"]) == {"BLOCKED"} and not predicted["pick"].astype(bool).any()
+
+
+@needs_replay
+def test_the_bet_sheet_blocks_a_live_run_with_no_model_selected(tmp_path, monkeypatch):
+    run = _priced_run(tmp_path)[0]
+    monkeypatch.setattr(D, "_selected_instance", lambda: None)
+    rec = D.bet_diagnostics(run, write=False, show=False, now=PRICED_NOW)
+    predicted = rec[rec["status"].eq("predicted")]
+    assert predicted["blocked"].all() and predicted["block_reasons"].str.contains("no live model is selected").all()
+
+
+@needs_replay
+def test_the_bet_sheet_of_the_selected_model_is_not_blocked_by_the_model_check(tmp_path):
+    run = _priced_run(tmp_path)[0]                                     # the fixture selects the replay's model
+    rec = D.bet_diagnostics(run, write=False, show=False, now=PRICED_NOW)
+    assert not rec["block_reasons"].fillna("").str.contains("selected live model|no live model").any()
+    assert (rec["decision"] == "BET").any()
+
+
+@needs_replay
+def test_replays_are_not_checked_against_the_selection(monkeypatch):
+    monkeypatch.setattr(D, "_selected_instance", lambda: "template_2026-10-21b")
+    d = D.bet_diagnostics(REPLAY, write=False, show=False, now=dt.datetime(2026, 7, 15, 6, 0, tzinfo=dt.timezone.utc))
+    assert not d["block_reasons"].fillna("").str.contains("selected live model").any()

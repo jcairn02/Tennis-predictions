@@ -1,0 +1,76 @@
+code,names_table_file,model_folder,tables,triage
+src/eda/bet_timing/frame.py,True,False,early_price_frame.parquet; frame.parquet,candidate: reads a snapshot table by file name
+src/eda/box_score_gate_review/coverage.py,False,False,pool.parquet,module or name only: probably not reading
+src/eda/box_score_gate_review/simulate_gate.py,False,False,pool.parquet,module or name only: probably not reading
+src/eda/close_drift/drift.py,True,False,stage1_baselines.parquet,candidate: reads a snapshot table by file name
+src/eda/data_gaps_2026/coverage.py,False,False,base.parquet,module or name only: probably not reading
+src/eda/data_gaps_2026/exposure.py,True,True,model_frame.parquet,model folder: probably consistent
+src/eda/event_levels/blend.py,False,False,frame.parquet; pieces.parquet; pool.parquet,module or name only: probably not reading
+src/eda/event_levels/frame.py,True,False,frame.parquet; pieces.parquet; surface_features.parquet; model_frame.p,candidate: reads a snapshot table by file name
+src/eda/feature_interactions/features/f25_switch.py,False,False,pieces.parquet; pool.parquet,module or name only: probably not reading
+src/eda/feature_interactions/redteam/binj_attack.py,False,False,pieces.parquet; base.parquet; model_frame.parquet,module or name only: probably not reading
+src/eda/feature_interactions/round0/body/schemas.py,True,False,model_frame.parquet,candidate: reads a snapshot table by file name
+src/eda/feature_interactions/round0/mathematics/markov_composition.py,True,False,stage3_ratings.parquet; surface_features.parquet; model_frame.parquet,candidate: reads a snapshot table by file name
+src/eda/feature_interactions/round0/mechanics/feature_spread.py,True,False,surface_features.parquet; model_frame.parquet,candidate: reads a snapshot table by file name
+src/eda/feature_interactions/round1/feasibility/assemble.py,False,False,base.parquet,module or name only: probably not reading
+src/eda/feature_interactions/round1/feasibility/rulings_c.py,False,False,stage3_ratings.parquet; pieces.parquet; base.parquet; surface_features,module or name only: probably not reading
+src/eda/feature_interactions/verify_final/gate_round2.py,False,False,frame.parquet; pieces.parquet; frame.parquet,module or name only: probably not reading
+src/eda/feature_provenance/counts/postframe.py,True,False,model_frame.parquet,candidate: reads a snapshot table by file name
+src/eda/feature_provenance/counts/stage0_tiers.py,True,False,model_frame.parquet,candidate: reads a snapshot table by file name
+src/eda/feature_universe/catalogue/build_universe.py,False,False,base.parquet; pool.parquet,module or name only: probably not reading
+src/eda/feature_universe/catalogue/spec_market.py,False,False,frame.parquet,module or name only: probably not reading
+src/eda/in_season_retrain/check.py,False,True,model_frame.parquet,model folder: probably consistent
+src/eda/indoor_fill/status.py,False,False,base.parquet; frame.parquet,module or name only: probably not reading
+src/eda/infosys_atp_backfill/compare.py,False,False,base.parquet; pool.parquet; model_frame.parquet,module or name only: probably not reading
+src/eda/input_data_audit/model_frame_checks.py,True,False,surface_features.parquet; model_frame.parquet,candidate: reads a snapshot table by file name
+src/eda/input_data_audit/review/A3-referee/rc.py,False,False,base.parquet,module or name only: probably not reading
+src/eda/input_data_audit/review/B1-rederive/r02_f7_people.py,True,False,base.parquet,candidate: reads a snapshot table by file name
+src/eda/input_data_audit/review/B1-rederive/r09_scopes.py,False,False,base.parquet,module or name only: probably not reading
+src/eda/input_data_audit/review/B1-rederive/r10_verdict.py,False,False,base.parquet,module or name only: probably not reading
+src/eda/input_data_audit/review/B2-skeptic/write_round2.py,True,False,stage1_baselines.parquet,candidate: reads a snapshot table by file name
+src/eda/input_data_audit/review/B3-referee/f11_f13_odds.py,True,False,model_frame.parquet,candidate: reads a snapshot table by file name
+src/eda/input_data_audit/review/B3-referee/f7_identity.py,True,False,base.parquet,candidate: reads a snapshot table by file name
+src/eda/input_data_audit/speed/a14_propagation.py,True,False,base.parquet,candidate: reads a snapshot table by file name
+src/eda/ios_product_centring/probe.py,False,False,stage1_baselines.parquet; base.parquet; pool.parquet,module or name only: probably not reading
+src/eda/merge_feasibility/scan.py,True,False,base.parquet,candidate: reads a snapshot table by file name
+src/eda/point_sequence/carry_data.py,True,False,stage3_ratings.parquet,candidate: reads a snapshot table by file name
+src/eda/point_sequence/diag_edge_location.py,True,False,predictions.parquet,candidate: reads a snapshot table by file name
+src/eda/point_sequence/med_residual_screen.py,False,False,base.parquet; frame.parquet,module or name only: probably not reading
+src/eda/point_sequence/pace_screen.py,False,False,base.parquet; frame.parquet,module or name only: probably not reading
+src/eda/point_sequence/trait_s4_explore.py,False,False,base.parquet,module or name only: probably not reading
+src/eda/predictive_frontier/score.py,False,False,base.parquet,module or name only: probably not reading
+src/eda/qualifying_targets/frame.py,True,True,frame.parquet; pieces.parquet; surface_features.parquet; frame.parquet,model folder: probably consistent
+src/eda/qualifying_targets/pull_check.py,False,False,model_frame.parquet,module or name only: probably not reading
+src/eda/rg_first_serve_recount/recount.py,False,False,pool.parquet,module or name only: probably not reading
+src/eda/rg_first_serve_recount/review_followup/R2-skeptic/rgx.py,False,False,base.parquet,module or name only: probably not reading
+src/eda/rg_first_serve_recount/review_followup/R2-skeptic/svx3.py,False,False,base.parquet,module or name only: probably not reading
+src/eda/rg_first_serve_recount/review_followup/R3-referee/rates.py,False,False,pool.parquet,module or name only: probably not reading
+src/eda/rg_first_serve_recount/review_followup/R3-referee/simulate.py,False,False,base.parquet,module or name only: probably not reading
+src/eda/rg_first_serve_recount/review_followup/R3-referee/svx_addendum.py,False,False,base.parquet,module or name only: probably not reading
+src/eda/rg_first_serve_recount/review_followup/R3-referee/svx_simulate.py,False,False,base.parquet,module or name only: probably not reading
+src/eda/rg_first_serve_recount/sources.py,False,False,base.parquet,module or name only: probably not reading
+src/eda/serve_return_leads/readings.py,False,False,base.parquet,module or name only: probably not reading
+src/eda/serve_return_leads/robustness.py,False,False,base.parquet,module or name only: probably not reading
+src/eda/serve_speed_tabpfn/design/auditor_gate2.py,False,False,base.parquet,module or name only: probably not reading
+src/eda/serve_speed_tabpfn/design/auditor_r4_rebuild.py,False,False,base.parquet,module or name only: probably not reading
+src/eda/serve_speed_tabpfn/design/engineer_clock.py,False,False,base.parquet; model_frame.parquet,module or name only: probably not reading
+src/eda/serve_speed_tabpfn/design/engineer_coverage.py,False,False,model_frame.parquet,module or name only: probably not reading
+src/eda/serve_speed_tabpfn/design/modeller_common.py,True,False,model_frame.parquet,candidate: reads a snapshot table by file name
+src/eda/serve_speed_tabpfn/latency/availability.py,False,False,base.parquet,module or name only: probably not reading
+src/eda/serve_speed_tabpfn/latency/features_latency.py,False,False,base.parquet,module or name only: probably not reading
+src/eda/shot_level/common.py,False,False,base.parquet; pool.parquet,module or name only: probably not reading
+src/eda/shot_level/stage0_coverage.py,False,False,pool.parquet,module or name only: probably not reading
+src/eda/shot_level/stage0_summary.py,True,False,stage4_features.parquet,candidate: reads a snapshot table by file name
+src/eda/shot_level/stage1_stats.py,False,False,pool.parquet,module or name only: probably not reading
+src/eda/shot_level/stage2_summary.py,False,False,base.parquet,module or name only: probably not reading
+src/eda/shot_level/stage3_profiles.py,False,False,base.parquet,module or name only: probably not reading
+src/eda/source_reconciliation/atp_analysis.py,False,False,base.parquet,module or name only: probably not reading
+src/eda/source_reconciliation/ctx_context.py,True,True,model_frame.parquet,model folder: probably consistent
+src/eda/source_reconciliation/ctx_dob.py,True,False,base.parquet,candidate: reads a snapshot table by file name
+src/eda/source_reconciliation/ctx_handcheck.py,True,False,base.parquet,candidate: reads a snapshot table by file name
+src/eda/source_reconciliation/ctx_results.py,False,False,model_frame.parquet,module or name only: probably not reading
+src/eda/source_reconciliation/ctx_summary.py,True,True,base.parquet; model_frame.parquet,model folder: probably consistent
+src/eda/source_reconciliation/odds_common.py,True,True,model_frame.parquet,model folder: probably consistent
+src/eda/unpriced_leads/build_extras.py,True,False,stage1_baselines.parquet,candidate: reads a snapshot table by file name
+src/eda/unpriced_leads/build_rhythm.py,True,False,surface_features.parquet,candidate: reads a snapshot table by file name
+src/ratings/elo.py,False,False,base.parquet,module or name only: probably not reading

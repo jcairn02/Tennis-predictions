@@ -111,6 +111,8 @@ def cmd_init(a) -> int:
             replay["frame"] = str(Path(a.replay_frame).resolve())
         if a.replay_main_date:                       # a qualifying replay's main-draw start, in place of the instance's
             replay["main_date"] = a.replay_main_date
+        if a.replay_earlier != "none":               # the targets' earlier qualifying rounds as a live run fills them
+            replay["earlier"] = a.replay_earlier
     elif not a.matchups:
         raise SystemExit("init: --matchups CSV (live) or --replay-week (replay)")
     if a.thinking and not a.spend_tokens:
@@ -147,10 +149,16 @@ def cmd_step(a) -> int:
     elif a.cmd == "predict":
         res = S.step_predict(run_dir, a.seeds or S.run_config(run_dir)["seeds"])
     elif a.cmd == "grade":
-        res = S.step_grade(run_dir)
+        stage0 = Path(a.stage0) if a.stage0 else None
+        res = S.step_grade(run_dir, stage0 if stage0 is None or stage0.is_absolute() else DC.REPO / stage0)
     elif a.cmd == "replay-compare":
         res = S.replay_compare(run_dir)
         res = {k: v for k, v in res.items() if k != "per_input"}
+        res["passed"] = DC.replay_passed(res)
+        if res["passed"]:                       # the receipt: what "verified" means for the bet sheet (22 Oct 2026)
+            DC.write_code_used(run_dir, "replay-compare")
+            receipt = DC.write_receipt(run_dir, res)
+            res["receipt"] = str(receipt) if receipt else "not written (the code changed during or since the replay)"
     elif a.cmd == "reprice":
         if not a.prices:
             raise SystemExit("reprice: --prices CSV (match_id, p_a)")
@@ -200,6 +208,10 @@ def main() -> int:
             p.add_argument("--replay-main-date", default=None,
                            help="a qualifying replay: the main-draw start (YYYY-MM-DD) every live row names, in place "
                                 "of the instance's own date of its event (to measure a live estimate's error)")
+            p.add_argument("--replay-earlier", default="none", choices=["none", "tennislive"],
+                           help="a qualifying replay after round 1: tennislive drops the targets' players' earlier "
+                                "rounds at the event from Tennis My Life and adds them as a live run does, from "
+                                "TennisLive (prediction_run/earlier_rounds.py: the proof of 24 Oct 2026)")
             p.add_argument("--checkpoint", default="auto", help="a checkpoint day, or auto (the latest before the matches)")
             p.add_argument("--seeds", default="0-15")
             p.add_argument("--thinking", action="store_true",
@@ -232,6 +244,8 @@ def main() -> int:
         p.add_argument("--no-download", action="store_true")
         p.add_argument("--max-requests", type=int, default=300)
         p.add_argument("--prices", default=None, help="reprice: CSV of match_id, p_a")
+        p.add_argument("--stage0", default=None,
+                       help="grade: the Stage 0 file to read the results from (default the repository's)")
         p.add_argument("--full", action="store_true", help="states: every part from scratch (tier 2), no checkpoint")
         p.add_argument("--fit-cache", default="use", choices=["use", "rebuild", "off"],
                        help="fit: each seed's TabPFN training cache on disk (use: built when missing or stale), or "
@@ -270,7 +284,17 @@ def main() -> int:
     t.add_argument("--tag", default="")
     t.set_defaults(func=cmd_tree_check)
     a = ap.parse_args()
-    return a.func(a)
+    if a.cmd != "cleanup":                 # every other command reads an instance: none chosen, none run (22 Oct 2026)
+        source = DC.require_instance()
+        print(f"instance {DC.INSTANCE_ID} on {DC.BASE_TREE}: from {source}", file=sys.stderr, flush=True)
+    try:
+        return a.func(a)
+    finally:                               # the code this process ran, for the run's provenance (22 Oct 2026)
+        if getattr(a, "run", None) and a.cmd not in ("cleanup", "replay-compare"):
+            try:
+                DC.write_code_used(_run(a), a.cmd + ("_inside" if getattr(a, "inside", False) else ""))
+            except Exception as e:  # noqa: BLE001 - a missing record is caught later, as a run without fingerprints
+                print(f"code fingerprints not written: {type(e).__name__}: {e}", file=sys.stderr, flush=True)
 
 
 if __name__ == "__main__":

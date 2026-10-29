@@ -233,7 +233,7 @@ class FakeHost:
 
 def doc_for(route, year, event, mid):
     """A small decryptable document of each kind."""
-    kind = S.KIND[route]
+    kind = {"match-beats-api": "match-beats"}.get(S.KIND[route], S.KIND[route])
     if kind == "match-beats":
         pts = [{"pointId": "1_1_1_1", "point": 1, "server": "1", "serve": 1, "serveSpeed": 201.4, "faultSrvSpd": 0.0,
                 "scorer": "1", "result": "A", "stroke": "N", "tm1GameScore": "15", "tm2GameScore": "0"},
@@ -290,6 +290,9 @@ def setup_run(tmp_path, monkeypatch, refuse=(), host_files=HOST_FILES):
     monkeypatch.setattr(R, "OTHER_FOLDERS", {"infosys_atp": tmp_path / "raw" / "infosys_atp",
                                              "infosys_atp_daily": tmp_path / "raw" / "infosys_atp_daily"})
     monkeypatch.setattr(R, "daily_complete", lambda: set())
+    monkeypatch.setattr(R, "FULL_RUNS", tmp_path / "study" / "full_runs.jsonl")           # never the real records
+    monkeypatch.setattr(R, "NEWER_TARGETS", tmp_path / "study" / "newer_targets.csv.gz")
+    monkeypatch.setattr(S, "DIFFERENCES", tmp_path / "study" / "matchbeats_copies.csv.gz")
     files = served_files(host_files)
     host = FakeHost(files, refuse)
     from src.ingest.point_sources import feeds as F
@@ -517,6 +520,87 @@ def test_staging_decrypts_every_kind_with_provenance(tmp_path, monkeypatch):
     assert set(ks["set_key"]) == {"set0", "set1"}
     # nothing under the backfill folder is ever read
     assert all("point_sources/infosys_atp/" not in f for f in pts["source_file"])
+
+
+# ----------------------------------------------------------------------------------- the newer MatchBeats format
+def newer(doc: dict, **change) -> dict:
+    """A MatchBeats document in the newer format: every point gains the API copy's fields (and ``change``)."""
+    out = json.loads(json.dumps(doc))
+    for st in out["setData"]:
+        for g in st["gameData"]:
+            for p in g["pointData"]:
+                p.update({"firstServer": "1A", "lastHitter": "", "serveClassId": 2, "tm1Shot": 0, "tm2Shot": 0,
+                          "pointDuration": 0.027, "tm1AtNet": False, "tm2AtNet": False}, **change)
+    return out
+
+
+def test_compare_matchbeats_and_the_newer_details():
+    old = doc_for("match-beats", 2025, 418, "MS001")
+    assert S.is_newer_format(newer(old)) and not S.is_newer_format(old)
+    same = S.compare_matchbeats(old, newer(old))
+    assert same["core_identical"] and same["points_matched"] == 2 and same["newer_format"]
+    lost = S.compare_matchbeats(old, newer(old, serveSpeed=0.0))                 # a rewrite that lost the speeds
+    assert not lost["core_identical"] and (lost["timed_static"], lost["timed_api"]) == (2, 0)
+    assert json.loads(lost["fields_differing"]) == {"serveSpeed": 2}
+    relabelled = S.compare_matchbeats(old, newer(old, result="N"))
+    assert json.loads(relabelled["endings_differing"]) == {"A->N": 1, "UE->N": 1}
+    d = S.newer_details(newer(old, result="N"))
+    assert d["1_1_1_1"] == ["1A", "", "2", "0", "0", "0.027", "FALSE", "FALSE", "N", None, None]
+    assert len(d["1_1_1_1"]) == len(S.NEWER_COLUMNS)
+
+
+def test_the_newer_format_pass_asks_once_per_older_match_and_staging_takes_the_newer_copy(tmp_path, monkeypatch):
+    host, _ = setup_run(tmp_path, monkeypatch)
+    monkeypatch.setattr(R, "STUDY_ROOT", tmp_path / "study")
+    monkeypatch.setattr(R, "NEWER_TARGETS", tmp_path / "study" / "newer_targets.csv.gz")
+    monkeypatch.setattr(R, "FULL_RUNS", tmp_path / "study" / "full_runs.jsonl")
+    R.run(args_for())
+    dump = tmp_path / "dump"
+    S.stage(receipts=P.receipts_for(R.SOURCE), daily_receipts=None, complete=lambda: set(), dump=dump,
+            summary_path=None)
+    monkeypatch.setattr(S.P, "dump_path", lambda source, *parts: dump.joinpath(*parts))
+    targets = R.frozen_targets(R.NEWER_TARGETS, dump)
+    static_mb = [k for k in HOST_FILES if k[2] == "match-beats"]
+    assert sorted((y, e, m) for y, e, m, _, _ in targets) == sorted((y, e, m) for y, e, _, m in static_mb)
+    assert targets[0][0] == 2025 and targets[0][4] >= targets[-1][4]                   # newest tournament first
+    for y, e, _, m in static_mb:            # the API serves each in the newer format; one relabels an ending
+        doc = newer(doc_for("match-beats", y, e, m), **({"result": "N"} if (e, m) == (418, "MS002") else {}))
+        host.files[R.url_of(y, e, "match-beats-api", m)] = json.dumps(encrypt(doc)).encode()
+    n = len(host.calls)
+    full_runs = R.FULL_RUNS.read_text().count("\n")                     # the first, ordinary run recorded one
+    summary = R.run(args_for("--newer-format"))
+    asked = [u for u, _ in host.calls[n:]]
+    assert len(asked) == len(static_mb) and all("/prod/api/match-beats/" in u for u in asked)
+    assert summary["answers"] == {"data": len(static_mb)} and R.exit_code(summary) == 0
+    assert R.FULL_RUNS.read_text().count("\n") == full_runs                      # not a full run of the plan
+    out = S.stage(receipts=P.receipts_for(R.SOURCE), daily_receipts=None, complete=lambda: set(), dump=dump,
+                  summary_path=None)
+    both = out["matchbeats_both_copies"]
+    assert both["matches"] == len(static_mb) and both["core_identical"] == len(static_mb) - 1
+    assert both["ending_pairs_static_to_newer"] == {"A->N": 1, "UE->N": 1}
+    m = pd.read_parquet(dump / "matches.parquet")
+    w1 = m[(m["event_id"] == "418") & (m["match_id"] == "MS001")].iloc[0]
+    assert w1["matchbeats_copy"] == "match-beats: static core, newer details from match-beats-api"
+    pts = pd.read_parquet(dump / "points.parquet")
+    p = pts[(pts["event_id"] == "418") & (pts["match_id"] == "MS002")]
+    assert set(p["route"]) == {"match-beats"} and list(p["pointDuration"]) == ["0.027", "0.027"]
+    assert list(p["result"]) == ["A", "UE"] and list(p["result_newer"]) == ["N", "N"]   # both endings kept
+    assert list(p["serveSpeed"]) == ["201.4", "160.2"]                               # the core is the static one
+    api_only = pts[(pts["event_id"] == "1763") & (pts["match_id"] == "MS001")]       # Genoa: the API copy only
+    assert set(api_only["route"]) == {"match-beats-api"} and api_only["result_newer"].isna().all()
+    assert R.frozen_targets(R.NEWER_TARGETS, dump) == targets                      # frozen at the first run
+
+
+def test_a_full_run_is_recorded_for_the_topup_reminder(tmp_path, monkeypatch):
+    setup_run(tmp_path, monkeypatch)
+    monkeypatch.setattr(R, "FULL_RUNS", tmp_path / "study" / "full_runs.jsonl")
+    R.run(args_for("--events", "2025:418"))
+    assert not R.FULL_RUNS.exists()                                              # a partial run is not one
+    R.run(args_for("--max-requests", "5"))
+    assert not R.FULL_RUNS.exists()                                              # nor one stopped by its budget
+    R.run(args_for())
+    line = json.loads(R.FULL_RUNS.read_text().splitlines()[-1])
+    assert line["events_selected"] == 5 and line["until"] == "20261016" and line["finished_at"]
 
 
 def test_staging_takes_completed_daily_key_statistics(tmp_path, monkeypatch):

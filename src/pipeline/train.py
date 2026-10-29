@@ -37,26 +37,23 @@ BUILD_STEPS = ("setup", "additions", "lane0", "prepare_layer", "lanes12", "lane3
 
 
 # --- which instance the daily pipeline uses ------------------------------------------------------------------------------
-# One place decides it, and every daily-pipeline step is handed it explicitly (dp_env), so the checks and the run can
-# never look at different instances or trees (review V1, item 3). The kernel's own DP_* variables are never read or
-# passed on (runner.SCRUBBED_PREFIXES).
+# One place names the live model: the notebook's selection (CFG.SELECTED_INSTANCE), written by use_instance() and by a
+# retrain's switch. The daily pipeline reads the same file (dp_common.resolve_instance), and every daily-pipeline step is
+# also handed it explicitly (dp_env), so the checks and the run can never look at different instances or trees (review
+# V1, item 3). Neither has a default (22 Oct 2026; docs/studies/master_pipeline/process_log.md, Part 9): until then both
+# fell back to the 10 Oct instance, two retrains old. The kernel's own DP_* variables are never read or passed on
+# (runner.SCRUBBED_PREFIXES).
+NO_SELECTION = ("No live model is selected: the notebook's selection ({path}) is missing or names no instance and tree. "
+                "Choose one with use_instance(<instance>, tree=<its build tree>); list_instances() lists the instances. "
+                "There is no default model (since 22 Oct 2026).")
+
+
 def _dp_common() -> str:
     return (CFG.DAILY / "dp_common.py").read_text(encoding="utf-8")
 
 
-def dp_defaults() -> tuple[str, Path]:
-    """The daily pipeline's own default instance and build tree (read from dp_common.py, not imported: its Python
-    functions are internal)."""
-    text = _dp_common()
-    inst = re.search(r'INSTANCE_ID\s*=\s*(?:os\.environ\.get\("DP_INSTANCE",\s*)?"([^"]+)"', text)
-    tree = re.search(r'DP_BASE_TREE",\s*"([^"]+)"', text)
-    if not inst or not tree:
-        raise RuntimeError("dp_common.py: cannot read its default INSTANCE_ID / DP_BASE_TREE")
-    return inst.group(1), Path(tree.group(1))
-
-
 def dp_reads_instance() -> bool:
-    """Whether the daily pipeline takes its instance from DP_INSTANCE (its session is adding it, 11 Oct)."""
+    """Whether the daily pipeline takes its instance from DP_INSTANCE (since 11 Oct 2026)."""
     return "DP_INSTANCE" in _dp_common()
 
 
@@ -64,28 +61,32 @@ def _selection() -> dict:
     return json.loads(CFG.SELECTED_INSTANCE.read_text(encoding="utf-8")) if CFG.SELECTED_INSTANCE.exists() else {}
 
 
+def selected_instance_name() -> str | None:
+    """The live model's name, as the notebook's selection gives it; None with no selection (never a default)."""
+    sel = _selection()
+    return sel.get("instance") if sel.get("instance") and sel.get("tree") else None
+
+
 def active_instance() -> Path:
-    """The instance the daily pipeline predicts with: the one chosen with use_instance(), else its own default."""
-    return CFG.INSTANCES / (_selection().get("instance") or dp_defaults()[0])
+    """The instance the daily pipeline predicts with: the one the notebook's selection names. Refuses with none."""
+    name = selected_instance_name()
+    if not name:
+        raise RuntimeError(NO_SELECTION.format(path=CFG.rel(CFG.SELECTED_INSTANCE)))
+    return CFG.INSTANCES / name
 
 
 def base_tree() -> Path:
-    """The active instance's build tree, which the daily pipeline reads its tables from."""
-    sel = _selection()
-    return Path(sel["tree"]) if sel.get("tree") else dp_defaults()[1]
+    """The selected instance's build tree, which the daily pipeline reads its tables from. Refuses with no selection."""
+    if not selected_instance_name():
+        raise RuntimeError(NO_SELECTION.format(path=CFG.rel(CFG.SELECTED_INSTANCE)))
+    return Path(_selection()["tree"])
 
 
 def dp_env() -> dict:
-    """The variables every daily-pipeline step is given: the build tree always; the instance once the daily pipeline
-    reads DP_INSTANCE. Refuses a chosen instance the daily pipeline cannot be pointed at."""
-    inst, default = active_instance().name, dp_defaults()[0]
-    env = {"DP_BASE_TREE": str(base_tree())}
-    if dp_reads_instance():
-        env["DP_INSTANCE"] = inst
-    elif inst != default:
-        raise RuntimeError(f"the chosen instance {inst} differs from the daily pipeline's {default}, and the daily "
-                           "pipeline does not read DP_INSTANCE yet: use_instance(None) to go back to its default")
-    return env
+    """The variables every daily-pipeline step is given: the selected instance and its build tree."""
+    if not dp_reads_instance():
+        raise RuntimeError("the daily pipeline does not read DP_INSTANCE (dp_common.py): it cannot be told the instance")
+    return {"DP_INSTANCE": active_instance().name, "DP_BASE_TREE": str(base_tree())}
 
 
 def _instance(instance) -> Path:
@@ -99,7 +100,7 @@ def instance_status(instance=None) -> dict:
     """What an instance holds: its inputs, the odds input, the fits per season (local seeds; Thinking fits), the
     stage-2 coefficients computed for it, and the daily pipeline's checkpoints and TabPFN caches for it."""
     inst = _instance(instance)
-    out: dict = {"instance": CFG.rel(inst), "exists": inst.exists(), "active": inst == active_instance()}
+    out: dict = {"instance": CFG.rel(inst), "exists": inst.exists(), "active": inst.name == selected_instance_name()}
     if not inst.exists():
         return out
     mi = inst / "model_inputs.json"
@@ -148,9 +149,10 @@ def sandboxes(*, sizes: bool = False) -> list[dict]:
     """The build and work trees under C:/Users/zerom (tnr_*): which one the daily pipeline reads (its base tree, the
     replays' frozen dump, its work tree), and optionally their sizes (slow: minutes for ~20 GB trees)."""
     import os
-    special = {base_tree().as_posix().lower(): "the active instance's build tree (the daily pipeline reads it)",
-               "c:/users/zerom/tnr_dump_freeze": "replays' frozen dump", "c:/users/zerom/tnr_daily": "daily work tree",
+    special = {"c:/users/zerom/tnr_dump_freeze": "replays' frozen dump", "c:/users/zerom/tnr_daily": "daily work tree",
                "c:/users/zerom/tnr_daily_nb": "notebook's daily work tree"}
+    if selected_instance_name():
+        special[base_tree().as_posix().lower()] = "the active instance's build tree (the daily pipeline reads it)"
     out = []
     for p in sorted(Path("C:/Users/zerom").glob("tnr_*")):
         if not p.is_dir():
@@ -288,7 +290,7 @@ def template_check(instance=None, *, season: int | None = None, tree=None, show:
     have = sorted(int(m.group(1)) for f in fits.glob(f"model__{season}__seed*.npz")
                   if (m := re.match(rf"model__{season}__seed(\d+)\.npz", f.name))) if fits.exists() else []
     checks[f"seeds 0-15 fitted for {season}"] = (have == list(range(16)), f"seeds {_span(have) or 'none'}")
-    if inst == active_instance():
+    if inst.name == selected_instance_name():
         t = Path(tree) if tree else base_tree()
         tl = t / "data" / "studies" / "current_best_model" / "level_layer" / "this_build" / "build_config.json"
         ok = tl.exists() and want is not None and _sha256(tl) == want
@@ -383,15 +385,17 @@ def replay_check(week: str = "2026-07-13", round_: str = "R16", checkpoint: str 
 
 
 def use_instance(instance, *, tree=None, season: int | None = None) -> dict:
-    """Point the daily pipeline at another instance and its build tree (the sandbox it was built in, kept), or back at
-    its own default with use_instance(None). The choice is saved (data/studies/master_pipeline/selected_instance.json)
-    and handed to every daily-pipeline step. It needs the daily pipeline to read DP_INSTANCE (its session is adding it)
-    and the instance to pass the template check with that tree. Afterwards: make_checkpoint(..., tree) and
-    replay_check() before the first live run."""
+    """Point the daily pipeline at another instance and its build tree (the sandbox it was built in, kept). The choice is
+    saved in the notebook's selection (data/studies/master_pipeline/selected_instance.json), the one place that names
+    the live model: the daily pipeline reads it, and every daily-pipeline step is handed it. The instance must pass the
+    template check with that tree. Afterwards: make_checkpoint(..., tree) and replay_check() before the first live run.
+    There is no default to go back to (22 Oct 2026): use_instance(None) refuses; a rollback names the previous instance
+    (data/studies/current_best_model/README.md lists each with its tree)."""
     if instance is None:
-        CFG.SELECTED_INSTANCE.unlink(missing_ok=True)
-        print(f"back to the daily pipeline's default: {dp_defaults()[0]} on {dp_defaults()[1]}")
-        return {"instance": dp_defaults()[0], "tree": str(dp_defaults()[1])}
+        raise RuntimeError("There is no default model to go back to (since 22 Oct 2026): name the instance and its build "
+                           "tree, e.g. use_instance('template_2026-10-16', tree='C:/Users/zerom/tnr_tpl1016'). "
+                           "list_instances() lists the instances; data/studies/current_best_model/README.md gives each "
+                           "one's tree.")
     inst = _instance(instance)
     if not dp_reads_instance():
         raise RuntimeError("the daily pipeline does not read DP_INSTANCE yet (dp_common.INSTANCE_ID is hard-coded); "

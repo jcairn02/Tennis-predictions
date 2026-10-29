@@ -46,6 +46,11 @@ From the study's report, on 2020–2026 qualifying matches the model never saw:
 
   "Using the live model" applies both to qualifying as to the main draw. The bet sheet shows the chance without the
   patterns beside the one used, as it does for every match.
+* **The five-pattern adjustment, tested later the same day** (the owner: "Test this"; the study's follow-up 2, process
+  log Part 3): computed exactly as the daily run computes it (equal to the run's own on 16 replayed matches), on the
+  same 15,834 matches. With it the live model was +0.28 thousandths better (range −0.07 to +0.63: unresolved). The harm
+  check fixed beforehand did not fail, so **it stays on for qualifying**. Returns at the close were higher with it:
+  BetOnline +5.8% on every +EV side (+4.5% without), Pinnacle +5.3% (+4.7%).
 
 ## How it is carried out (22 Oct 2026)
 
@@ -62,10 +67,16 @@ The bet-day cells A1–A5 run qualifying matches like main-draw ones ([how](../s
   * The start estimate is exact for 81% of 2025–26 qualifying matches, within a day for 97%, within 2 days for all.
   * A round 1's event built from its previous edition matches what Tennis My Life later published, on every field the model reads, for 99–100% of 778 matches.
 
+## Stakes: the same as the main draw's
+
+**Decided by the owner later on 22 October 2026**, to the recommendation of a smaller stake for a first stretch of
+qualifying bets: "Stakes should be the same as main." A qualifying bet is staked by whatever rule the bet sheet applies
+to a main-draw bet (today the owner's research rule of 8 Oct, `STAKE_RULE = "owner_8oct"`). That is what the sheet
+already did; nothing in the code changed.
+
 ## Not decided here
 
-* A staking rule. The sheet's research rule of 8 Oct applies to qualifying bets as to the others. A smaller stake for a
-  first stretch of qualifying bets was recommended on 22 Oct and is the owner's call.
+* A staking rule as such: the research rule of 8 Oct stays labelled as research, for qualifying and main-draw bets alike.
 * Betting only the top 40% of edges.
-* The five-pattern adjustment or Thinking on qualifying as a measured part: neither earns edge credit there until
-  tested.
+* Thinking on qualifying as a measured part: it earns no edge credit there until tested. The five-pattern adjustment
+  was tested (above): no harm, its gain unresolved, so it earns none either.

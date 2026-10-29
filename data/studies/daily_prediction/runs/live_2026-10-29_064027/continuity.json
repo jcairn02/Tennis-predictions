@@ -1,0 +1,145 @@
+{
+ "run": "live_2026-10-29_064027",
+ "checked_at": "2026-10-29T135119Z",
+ "first_check": false,
+ "window_days": 56,
+ "finished_now": 12211,
+ "in_ledger": 12191,
+ "found": 12191,
+ "missing": [],
+ "removed_by_tml": [],
+ "missing_by_player": {},
+ "missing_events": [],
+ "line": "Continuity check: all 12191 finished matches of the last 56 days seen by earlier runs are in today's data.",
+ "newest_result": {
+  "atp:100644": {
+   "day": "2026-10-28",
+   "event": "Vienna",
+   "round": "R32"
+  },
+  "atp:104925": {
+   "day": "2026-10-28",
+   "event": "Basel",
+   "round": "R32"
+  },
+  "atp:105526": {
+   "day": "2026-10-28",
+   "event": "Basel",
+   "round": "R32"
+  },
+  "atp:105932": {
+   "day": "2026-10-28",
+   "event": "Vienna",
+   "round": "R32"
+  },
+  "atp:126203": {
+   "day": "2026-10-28",
+   "event": "Basel",
+   "round": "R32"
+  },
+  "atp:126610": {
+   "day": "2026-10-26",
+   "event": "Vienna",
+   "round": "R32"
+  },
+  "atp:133430": {
+   "day": "2026-10-28",
+   "event": "Basel",
+   "round": "R32"
+  },
+  "atp:134868": {
+   "day": "2026-10-28",
+   "event": "Vienna",
+   "round": "R32"
+  },
+  "atp:207518": {
+   "day": "2026-10-28",
+   "event": "Vienna",
+   "round": "R32"
+  },
+  "atp:207925": {
+   "day": "2026-10-28",
+   "event": "Vienna",
+   "round": "R32"
+  },
+  "atp:207989": {
+   "day": "2026-10-28",
+   "event": "Vienna",
+   "round": "R32"
+  },
+  "atp:208843": {
+   "day": "2026-10-28",
+   "event": "Basel",
+   "round": "R32"
+  },
+  "atp:209259": {
+   "day": "2026-10-28",
+   "event": "Vienna",
+   "round": "R32"
+  },
+  "atp:209950": {
+   "day": "2026-10-28",
+   "event": "Basel",
+   "round": "R32"
+  },
+  "atp:210097": {
+   "day": "2026-10-28",
+   "event": "Basel",
+   "round": "R32"
+  },
+  "atp:210506": {
+   "day": "2026-10-28",
+   "event": "Basel",
+   "round": "R32"
+  }
+ },
+ "tml": {
+  "held": [
+   {
+    "file": "2025_wta.csv",
+    "since": "2026-10-22T14:30:14+00:00",
+    "hours": 167.4,
+    "lagging": true,
+    "runs": 21,
+    "reason": "40 rows of the current copy are gone (more than 5)",
+    "accept_with": "--accept-held 2025_wta.csv@0a0fea0ec5b9"
+   }
+  ],
+  "lagging": [
+   "2025_wta.csv"
+  ],
+  "carried": [],
+  "corrections": [
+   {
+    "file": "2022_wta.csv",
+    "at": "2026-10-28T21:49:17+00:00",
+    "rows": 62,
+    "kinds": {
+     "event renumbered": 62
+    }
+   },
+   {
+    "file": "2023_wta.csv",
+    "at": "2026-10-28T21:49:18+00:00",
+    "rows": 29,
+    "kinds": {
+     "event renumbered": 29
+    }
+   }
+  ],
+  "lines": [
+   "LAGGING: Tennis My Life 2025_wta.csv held since 22 Oct 07:30 (7.0 days, 21 downloads: 40 rows of the current copy are gone (more than 5)). The data keeps the copy before each; a finished event that moved into a held file is carried (CARRIED). Ask Claude to review the held copies.",
+   "Corrections Tennis My Life made and the download accepted by itself (last 7 days): 2022_wta.csv 62 (62 event renumbered); 2023_wta.csv 29 (29 event renumbered). Listed in data/raw/public_dump/tennis_my_life/_changes.jsonl."
+  ]
+ },
+ "speed": {
+  "newest_reading": "2026-10-28",
+  "age_days": 1,
+  "planned": 90,
+  "staged": 27,
+  "collected_at": "2026-10-29T13:31:15+00:00",
+  "collector": "ran",
+  "status": "ok",
+  "line": "newest reading 2026-10-28 (1 days old); last collection 2026-10-29 13:31 UTC: 27 of 90 planned matches staged"
+ }
+}

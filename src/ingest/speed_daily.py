@@ -11,8 +11,9 @@ Steps, each morning:
       staged (live/staging/mantd_<date>.parquet)
     2 the ATP daily collector (live/atp_daily.py): OFF until the lead enables it in live/collector.json. When on: the
       current season's keystats of the rounds Tennis My Life lists as played since the last run (--days-back, default 1:
-      yesterday), at most --max-requests requests, then decrypt-and-stage (live/staging/atp_daily_<date>.parquet).
-      --plan-only prints the plan and sends nothing
+      yesterday), each code once and every event's main draw before any qualifying code (atp_daily.daily_plan), at
+      most --max-requests requests, then decrypt-and-stage (live/staging/atp_daily_<date>.parquet; a second run on the
+      same day adds to it). --plan-only prints the plan and sends nothing
     3 link every staged match to the project's match and player ids (live/linked.parquet)
     4 the live panel: the frozen panel plus the new rows (live/speed_panel_live.parquet)
     5 each ATP player's 28-day speed form as of the date (live/speed_form_<date>.parquet)
@@ -82,7 +83,7 @@ def stage_mantd(day: int, staging: Path) -> int:
     df = ST.to_frame(ST.mantd_rows(m, collected_on=LC.date_of(day),
                                    retrieved_at=pd.Timestamp.now(tz="UTC").isoformat(timespec="seconds"),
                                    source_file=str(MANTD_RAW)))
-    ST.write(df, f"mantd_{LC.date_of(day)}", staging)
+    ST.add(df, f"mantd_{LC.date_of(day)}", ["mantd_id"], staging)
     return int(len(df))
 
 
@@ -99,8 +100,8 @@ def collector(day: int, staging: Path, days_back: int, max_requests: int, plan_o
     res = AD.fetch_daily(LC.date_of(day), plan, max_requests=max_requests)
     rounds = {(e, m): r for _, e, m, r in plan}
     df = AD.decrypt_and_stage([Path(f) for f in res["files"]], collected_on=LC.date_of(day), rounds=rounds)
-    if len(df):
-        ST.write(df, f"atp_daily_{LC.date_of(day)}", staging)
+    if len(df):                      # added to the day's earlier rows, never replacing them (staging.add)
+        ST.add(df, f"atp_daily_{LC.date_of(day)}", ["year", "event_id", "match_code"], staging)
     info.update({"status": "ran", "files": len(res["files"]), "staged": int(len(df))})
     return info
 

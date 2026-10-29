@@ -77,6 +77,41 @@ def test_upcoming_matches_replace_nothing():
     assert summary["live_rows"]["played_rows_replaced"] == 0 and len(out) == 3
 
 
+def test_a_main_draw_live_row_is_dated_by_its_main_draws_first_date(monkeypatch):
+    """25 Oct 2026: Tennis My Life dates each 2026 match by its day, the qualifying's before the main draw's. A live
+    main-draw row takes the main draw's first date (Stage 0's C05), not the event's earliest row's: on since 27 Oct 2026
+    (the owner), "0" reproduces the rule before. The earliest day known wins: Tennis My Life's file of events under way
+    dated Almaty's and Brussels' first main-draw day late from 19 to 22 Oct 2026."""
+    raw = pd.DataFrame([tml_row(rnd="Q1", tourney_date="20261017", w="Gil Qual", lo="Hal Quill", match_num="1"),
+                        tml_row(rnd="R32", tourney_date="20261019", w="Anna Alpha", lo="Cara Gamma", match_num="2"),
+                        tml_row(rnd="R32", tourney_date="20261020", w="Bea Beta", lo="Dana Delta", match_num="3")]
+                       ).assign(tour="atp")
+    mu = pd.DataFrame([dict(tour="atp", tourney_id="2026-321", tourney_name="Stuttgart", round="R16",
+                            player_a="Anna Alpha", player_b="Bea Beta", day="2026-10-21")])
+    monkeypatch.delenv(LR.MAIN_DATE_SWITCH, raising=False)
+    assert LR.upcoming_rows(mu, raw).iloc[0]["tourney_date"] == "20261019"       # on by default: the main draw's first
+    monkeypatch.setenv(LR.MAIN_DATE_SWITCH, "0")
+    assert LR.upcoming_rows(mu, raw).iloc[0]["tourney_date"] == "20261017"       # "0": the earliest row, a qualifying one
+    monkeypatch.delenv(LR.MAIN_DATE_SWITCH)
+    late = raw.assign(tourney_date=["20261017", "20261020", "20261020"])         # the first day read a day late
+    assert LR.upcoming_rows(mu, late).iloc[0]["tourney_date"] == "20261020"      # nothing earlier known
+    fixed = LR.upcoming_rows(mu.assign(event_main_date="20261019"), late).iloc[0]    # the linker's (TennisLive's) day
+    assert fixed["tourney_date"] == "20261019" and "event_main_date" not in fixed.index   # no hint to Stage 0
+    assert LR.upcoming_rows(mu.assign(event_main_date="20261020"), raw).iloc[0]["tourney_date"] == "20261019"
+    with_first_day = pd.concat([mu, mu.assign(player_a="Gil Qual", player_b="Hal Quill", round="R32", day="2026-10-19")])
+    assert list(LR.upcoming_rows(with_first_day, late)["tourney_date"]) == ["20261019", "20261019"]   # a listed day 1
+    # a round 1 whose event Tennis My Life holds only the qualifying of: the CSV's earliest main-draw day of the event
+    mu1 = pd.DataFrame([dict(tour="atp", tourney_id="2026-321", tourney_name="Stuttgart", round="R32",
+                             player_a="Gil Qual", player_b="Hal Quill", day=d) for d in ("2026-10-20", "2026-10-19")])
+    assert list(LR.upcoming_rows(mu1, raw.iloc[[0]])["tourney_date"]) == ["20261019", "20261019"]
+    # the linker's day, in the venue's zone, stands for a row's own UK day (Auckland's Monday 11:00 is Sunday 22:00 UTC)
+    far = mu1.assign(day="2026-01-11", event_main_date="20260112")
+    assert list(LR.upcoming_rows(far, raw.iloc[[0]])["tourney_date"]) == ["20260112", "20260112"]
+    # a qualifying row keeps the event's own date (its main draw's start comes as event_main_date)
+    mq = mu.assign(round="Q2", player_a="Gil Qual", player_b="Hal Quill")
+    assert LR.upcoming_rows(mq, raw).iloc[0]["tourney_date"] == "20261017"
+
+
 # ------------------------------------------------------------------------------------------------ 2. replay rows
 
 def test_a_replay_row_is_the_match_less_its_outcome():

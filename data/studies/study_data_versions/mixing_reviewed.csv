@@ -1,0 +1,4 @@
+code,verdict,note
+src/eda/unpriced_leads/build_extras.py,"mixes: confirmed","elo_at_matches() inner-joins the 30 Sep Stage 1 (the 7 Oct snapshot) with today's history (screen.STAGE0_M): matches that differ drop or get no Elo (the 22 Oct audit; read by the lead)"
+src/eda/unpriced_leads/build_rhythm.py,"mixes: confirmed","left-joins the 6 Oct surface IOS (built on the 7 Oct snapshot) onto a frame of today's history: matches not in the snapshot get blanks (read by the lead, 22 Oct)"
+src/eda/serve_return_leads/elasticity.py,"mixes: confirmed","long_table() reads the 6 Oct surface IOS with today's Stage 0 and timeline; before 29 Jul, 75 matches get no ratings and 95 since-dropped matches feed them (measured 22 Oct). The static triage guessed 'model folder' here: it can miss a mix"
